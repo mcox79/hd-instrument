@@ -25,16 +25,28 @@ neutral graded value-similarity metric; stratified novel-vs-seen):
                  k=24 TransE); bundle_c = mean_k(X[t_k] - D[r_k]) (the additive map's native inductive concept
                  code). Carries cross-relation correlation by construction.
 
-CRUX (pre-registered, decisive; keep bands STRICT -- expected effect is REAL-BUT-MODEST per the density de-risk):
-  (i)   NEIGHBOR (structured) beats the honest MARGINAL floor (POP): STRUCT_NEIGHBOR_mrr - POP_mrr.
-  (ii)  STRUCTURED adds over RANDOM under NEIGHBOR, concentrated on the NOVEL stratum under the GRADED metric:
-        (struct_neighbor_valsim - random_neighbor_valsim) on NOVEL queries (the coordinator's 2026-07-14 finding:
-        the advantage is LOWER value-distance-to-truth on unseen combinations, NOT higher exact hit@1).
-  (iii) SHUFFLE (destroy cross-relation correlation by permuting concept profiles) collapses the neighbor lift to
-        ~marginal (must-fail: if it does NOT collapse, the lift is an artifact / leak).
+CRUX (pre-registered, decisive; REFRAMED 2026-07-14 after the memsmoke_v2 INCONCLUSIVE, whose SHUFFLE "leaked"):
+  ROOT CAUSE of the leak (diagnosed from code + MEASURED@memsmoke_v2 metrics): the NEIGHBOR-VOTE MECHANISM beats
+  the marginal (POP) for NON-RELATIONAL reasons -- candidate-restriction to reachable r*-tails + similarity-weighted
+  frequency smoothing. MEASURED: RN(random codes)=0.152 ~= SN(structured)=0.153 ~= codeSHUF=0.139, all >> POP=0.091.
+  So "SN beats POP" is NECESSARY-NOT-SUFFICIENT, and the old gate "SHUFFLE collapses to within 0.01 of POP" was
+  UNPHYSICAL (the non-relational neighbor floor sits ~0.05 ABOVE POP). The decisive question is NOT "does the neighbor
+  mechanism beat POP" but "does STRUCTURE beat the NON-RELATIONAL FLOOR (frequency / homophily)".
+  (i)   NECESSARY sanity: STRUCT_NEIGHBOR beats the MARGINAL floor (POP): SN_mrr - POP_mrr >= INFER_MARGIN.
+  (ii)  THE CRUX: STRUCT beats the STRONGEST NON-RELATIONAL NEIGHBOR NULL {RANDOM / codeSHUFFLE / HOMOPHILY /
+        voteSHUFFLE}: (a) aggregate SN_mrr - max(null)_mrr >= STRUCT_OVER_NULL_MARGIN, AND (b) on the NOVEL stratum
+        SN beats the HOMOPHILY baseline under the GRADED value metric (rel_gain >= REL_STRUCT_GAIN), gated by a
+        RANK-INVERSION guard (SN novel-MRR must not be below the best null's novel-MRR -- catches a graded-only
+        "win" the rank metric contradicts, the exact memsmoke_v2 red flag).
+  (iii) voteSHUFFLE proper must-fail: FREQ-PRESERVING value permutation (real retrieval + head->value link destroyed)
+        collapses the neighbor lift toward POP (DIAGNOSTIC: residual = the non-relational floor; a high residual is
+        INFORMATION, not a broken run -- it does NOT block the verdict).
   (iv)  UNBIND(random) stays <= marginal (sanity; reproduces a6bbdfd0's chance = the READOUT, not a hard limit).
-REFUTATION: if STRUCTURED does NOT beat RANDOM on the NOVEL stratum under the graded metric (with seed-consistent
-sign), the "structured-codes-enable-inference" claim is REFUTED -- the most valuable outcome, reported plainly.
+EXPECTED OUTCOME (coordinator's controlled-world result 2026-07-14, and the honest hypothesis): on a SINGLE held-out-
+relation task, neighbor-retrieval IS a homophily predictor (sharing values ~= same kind ~= shares the held-out value),
+so STRUCT ~= HOMOPHILY -- structure adds NOTHING beyond graph homophily. This is the CORRECT, honest outcome, reported
+STRAIGHT (verdict NEIGHBOR_INFERS_BUT_STRUCTURE_TIES_HOMOPHILY_REFUTED), NOT rescued. Only a multi-constraint CONJUNCTION
+task (homophily-unsolvable; director-owned reframe) could plausibly show STRUCTURED_CODES_BEAT_HOMOPHILY.
 
 FAIRNESS FIRST-CLASS:
   - Honest floors: POP (rank tails by per-relation train frequency = "predict most-frequent value") + UNIFORM chance.
@@ -60,7 +72,7 @@ codes moved across the boundary once. Storage strategy: SHARDED (each concept it
 retrieval is per-concept, no global bundle) per the composition-depth storage law.
 
 CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
-# - arms_differ_verified at self-test (META_RULE_AF): the 4 2x2 cells + POP + ORACLE + SHUFFLE >= 5 distinct sigs.
+# - arms_differ_verified at self-test (META_RULE_AF): 10 arms (RU/SU/RN/SN/codeSHUF/voteSHUF/HOM/POP/UNIF/ORC) >= 8 sigs.
 # - final_metrics_atomicity: tmp_replace (via _seed_checkpoint.write_metrics + os.replace).
 # - except SystemExit: raise BEFORE except Exception (no BaseException / no bare except).
 # - crlb / info-ceiling: decisive band (ii) is RELATIVE (>= REL_STRUCT_GAIN of the random-neighbor graded metric)
@@ -72,11 +84,16 @@ CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
 #   self-test fires structured>random(novel,graded) + neighbor>unbind(random) + shuffle-collapse on a planted
 #   latent-KIND arena that has BOTH concept-clustering (neighbor works) AND cross-relation correlation (structure
 #   helps on novel). A MEMSMOKE (reduced core, 1 seed) confirms the discriminator on REAL data before FULL.
-# - HARD bands strictly separated: INFER_MARGIN=0.02 (i); REL_STRUCT_GAIN=0.10 vs REFUTE_REL=0.02 (ii, 8% dead-band
-#   + seed-sign); SHUFFLE_EPS=0.01 collapse vs 0.02 leak (iii); UNBIND_SANITY_EPS=0.005 (iv).
-# - HP_SCOPE: (i) applies to STRUCT_NEIGHBOR vs POP; (ii) to STRUCT_NEIGHBOR vs RANDOM_NEIGHBOR on NOVEL; (iii) to
-#   SHUFFLE_NEIGHBOR vs POP; (iv) to RANDOM_UNBIND vs POP. UNIFORM/ORACLE_NEIGHBOR = floor/ceiling references.
-# - cardinality: EXPECTED_N_UNITS = n_seeds; each seed asserted to produce all arms + >=5 sigs + finite fit +
+# - HARD bands strictly separated: INFER_MARGIN=0.02 (i); STRUCT_OVER_NULL_MARGIN=0.02 adds vs STRUCT_REFUTE_MARGIN=
+#   0.005 refute + REL_STRUCT_GAIN=0.10 vs REFUTE_REL=0.02 novel-graded + NOVEL_MRR_TOL=0.02 rank-inversion guard +
+#   seed-sign (ii); VOTE_COLLAPSE_FRAC=0.40 diagnostic (iii); UNBIND_SANITY_EPS=0.005 (iv).
+# - HP_SCOPE: (i) STRUCT_NEIGHBOR vs POP; (ii) STRUCT_NEIGHBOR vs max{RANDOM/codeSHUFFLE/HOMOPHILY/voteSHUFFLE} NULL
+#   (aggregate) + STRUCT_NEIGHBOR vs HOMOPHILY on NOVEL-graded (rank-inversion-guarded); (iii) voteSHUFFLE vs POP
+#   (diagnostic, non-blocking); (iv) RANDOM_UNBIND vs POP. UNIFORM/ORACLE_NEIGHBOR = floor/ceiling references.
+#   pos_controls_ok = INTEGRITY ONLY (fits finite + no leak + ceiling well-formed); NOT gated on structure-beats-null
+#   or shuffle-collapse (a STRUCT~=HOMOPHILY tie is an honest VERDICT, not a control failure -- the fix for the
+#   memsmoke_v2 spurious INCONCLUSIVE).
+# - cardinality: EXPECTED_N_UNITS = n_seeds; each seed asserted to produce all 10 arms + >=8 sigs + finite fit +
 #   non-empty novel & seen strata.
 # - per-unit failure-class instrumentation (no bare except; per-seed failure_class recorded).
 # - calibration_check: default_ok_for_this_regime -- all bands pre-registered, NOT tuned on real data; the additive
@@ -126,15 +143,27 @@ ANCHOR_NAME = "relational_inference_neighbor_vs_unbind_structured_cskg_v1"
 # ---- arm names (all scored PAIRED on the SAME held-out QUERY edges) ----
 RU = "RANDOM_UNBIND"           # random codes  x self-unbind  (a6bbdfd0 op; predicted <= marginal)
 SU = "STRUCT_UNBIND"           # structured codes x self-unbind (TransE self-inference; measured)
-RN = "RANDOM_NEIGHBOR"         # random codes  x neighbor-vote (CA3; exact-match regime)
+RN = "RANDOM_NEIGHBOR"         # random codes  x neighbor-vote (CA3; exact-match regime) -- NON-RELATIONAL NULL
 SN = "STRUCT_NEIGHBOR"         # structured codes x neighbor-vote (THE headline mechanism)
-SHUF = "SHUFFLE_NEIGHBOR"      # must-fail: structured neighbor on profile-shuffled concepts (correlation destroyed)
+SHUF = "SHUFFLE_NEIGHBOR"      # NON-RELATIONAL NULL: structured neighbor on code-shuffled concepts (retrieval destroyed)
+SHUFV = "SHUFFLE_VOTE_NEIGHBOR"  # proper must-fail: real retrieval + FREQ-PRESERVING value permutation (head->value link
+                               #   destroyed, per-relation tail freq preserved). Collapses toward POP on large-vocab
+                               #   data => the neighbor lift's residual over this arm is the RELATIONAL part.
+HOM = "HOMOPHILY_NEIGHBOR"     # NON-RELATIONAL NULL: neighbor-vote where concept similarity = value-set (graph) Jaccard,
+                               #   NO learned codes, NO relation structure => pure graph homophily / frequency baseline.
 POP = "BASELINE_POP"           # honest marginal floor (rank tails by per-relation train freq)
 UNIF = "UNIFORM_CHANCE"        # ~1/N reference
 ORC = "ORACLE_NEIGHBOR"        # info-ceiling: neighbor-vote with held-out edges folded into the store (headroom ref)
 
 INDUCTIVE = [RU, SU, RN, SN]
-ALL_ARMS = [RU, SU, RN, SN, SHUF, POP, UNIF, ORC]
+# NON-RELATIONAL NEIGHBOR NULLS: same neighbor-vote MECHANISM as SN but stripped of the LEARNED relational structure
+# (random codes / retrieval destroyed / homophily retrieval / value-freq permuted). The decisive crux is SN vs the
+# STRONGEST of these -- "does STRUCTURE beat FREQUENCY/HOMOPHILY", not "does the neighbor mechanism beat POP" (it does,
+# for non-relational reasons: candidate-restriction to reachable r*-tails + similarity-weighted frequency smoothing).
+NEIGHBOR_NULLS = [RN, SHUF, HOM, SHUFV]
+ALL_ARMS = [RU, SU, RN, SN, SHUF, SHUFV, HOM, POP, UNIF, ORC]
+GRADED_ARMS = [RU, SU, RN, SN, SHUF, SHUFV, HOM, ORC]
+METRIC_ARMS = [RU, SU, RN, SN, SHUF, SHUFV, HOM, ORC, UNIF]
 EVAL_KS = (1, 3, 10, 100)
 CEIL_METRIC = "mrr"
 
@@ -142,23 +171,45 @@ CEIL_METRIC = "mrr"
 CITED_A6_TASKB_MAX = 0.0005   # MEASURED@data/real_kg_constraint_curve_metrics.json:taskB_infer_heldout_relation (max over K)
 CITED_AA_ORACLE = 0.137       # MEASURED@data/exp_anchor_compose_inductive_entity_cskg_v1/metrics.json:gates.heldout_mrr.ORACLE_ADDITIVE (structured-code ceiling scale)
 
-# ---- PRE-REGISTERED bands (NOT tuned on real data) ----
-INFER_MARGIN = 0.02           # (i) STRUCT_NEIGHBOR_mrr - POP_mrr >= this => INFERS (HARD-PASS)
-INFER_FLOOR = 0.005           # (i) <= this => NO_INFERENCE
-REL_STRUCT_GAIN = 0.10        # (ii) (SN_valsim - RN_valsim)/max(RN_valsim,eps) on NOVEL >= this => STRUCTURE_ADDS (HARD-PASS)
-REFUTE_REL = 0.02             # (ii) <= this => REFUTED (structured adds nothing on the novel stratum)
-SEED_SIGN_FRAC = 0.66         # (ii) sign consistent in >= this frac of seeds
-SHUFFLE_EPS = 0.01            # (iii) |SHUF_mrr - POP_mrr| <= this => collapse (must-fail fires)
-SHUFFLE_LEAK = 0.02           # (iii) SHUF_mrr - POP_mrr > this => BROKEN (leak/artifact)
-UNBIND_SANITY_EPS = 0.005     # (iv) RU_mrr - POP_mrr <= this => degenerate (sanity)
+# ---- PRE-REGISTERED bands (NOT tuned on real data; reframed 2026-07-14 after the memsmoke INCONCLUSIVE) ----
+# ROOT-CAUSE FIX: the neighbor-vote MECHANISM beats POP for NON-RELATIONAL reasons (candidate-restriction to
+# reachable r*-tails + similarity-weighted frequency smoothing). MEASURED@memsmoke_v2: RN=0.152 ~= SN=0.153 ~=
+# SHUF=0.139 >> POP=0.091, i.e. random codes AND a code-shuffled control BOTH beat POP by ~0.05-0.06 with ZERO
+# relational content. So "SN beats POP" is necessary-not-sufficient, and the OLD gate (iii) "SHUF must collapse to
+# within 0.01 of POP" was UNPHYSICAL -- the neighbor null floor sits ~0.05 ABOVE POP. The DECISIVE crux is now
+# SN vs the STRONGEST NON-RELATIONAL NEIGHBOR NULL (RN / code-SHUF / HOMOPHILY / value-SHUFFLE), esp vs HOMOPHILY
+# on the NOVEL stratum. On a SINGLE held-out-relation task neighbor-retrieval IS a homophily predictor, so
+# STRUCT ~= HOMOPHILY is the EXPECTED honest outcome (reported straight, NOT rescued).
+INFER_MARGIN = 0.02           # (i) SN_mrr - POP_mrr >= this => neighbor INFERS above marginal (necessary sanity)
+INFER_FLOOR = 0.005           # (i) <= this => NO_INFERENCE (even neighbor fails)
+STRUCT_OVER_NULL_MARGIN = 0.02  # (ii) SN_mrr - max(non-relational null)_mrr >= this => structure beats freq/homophily
+STRUCT_REFUTE_MARGIN = 0.005  # (ii) SN_mrr - max(null)_mrr <= this => structure TIES/LOSES the non-relational floor
+REL_STRUCT_GAIN = 0.10        # (ii) (SN_valsim - HOM_valsim)/max(HOM_valsim,eps) on NOVEL >= this => structure adds (graded)
+REFUTE_REL = 0.02             # (ii) novel-graded relative gain <= this => structure adds nothing on novel (refuted)
+NOVEL_MRR_TOL = 0.02          # (ii) RANK-INVERSION guard: SN novel-MRR must be >= max(null novel-MRR) - this, else a
+                              #      graded-only "win" is NOT corroborated by the rank metric => demote (caught the
+                              #      memsmoke_v2 red flag: SN novel-graded led but SN novel-MRR=0.244 < SHUF=0.399)
+SEED_SIGN_FRAC = 0.66         # (ii) novel-graded sign (SN>HOM) consistent in >= this frac of seeds
+VOTE_COLLAPSE_FRAC = 0.40     # (iii) value-SHUFFLE must-fail: SHUFV_mrr - POP <= max(SHUFFLE_EPS, this*(SN-POP)) =>
+                              #       the vote-shuffle collapses toward POP (diagnostic; a high residual = high
+                              #       non-relational floor = INFORMATION, does NOT block the verdict)
+SHUFFLE_EPS = 0.01            # (iii) absolute collapse tolerance floor
+UNBIND_SANITY_EPS = 0.005     # (iv) RU_mrr - POP_mrr <= this => degenerate readout (sanity; reproduces a6bbdfd0)
 VALSIM_EPS = 1e-4             # denominator floor for the relative graded gain
 
 # ---- self-test planted thresholds (calibrated on synthetic, NOT real data) ----
-ST_SN_BEATS_POP = 0.02        # planted kind-arena: STRUCT_NEIGHBOR mrr - POP mrr >= this
-ST_NEIGHBOR_BEATS_UNBIND = 0.03  # random codes: RANDOM_NEIGHBOR mrr - RANDOM_UNBIND mrr >= this
-ST_SHUFFLE_COLLAPSE = 0.01    # SHUFFLE_NEIGHBOR - POP <= this on the planted arena (one-sided; below-marginal is OK)
-ST_STRUCT_NOVEL_GAIN = 0.02   # planted: SN_valsim - RN_valsim on NOVEL >= this (structure adds on novel, graded;
-                              #          on the planted arena RANDOM sits at value_sim=0.0 so 0.02 needs genuine structure)
+# The self-test uses the DEFAULT small-vocab (vals_per_rel=16) high-correlation KIND arena -- the ONE regime where
+# structure genuinely BEATS homophily (MEASURED@calibration probe 2026-07-14: SN novel-MRR=0.50 vs HOM novel-MRR=0.12).
+# This is the apparatus positive control: it proves the pipeline CAN DETECT structure-beats-homophily WHEN present.
+# As vocab grows realistic, HOM >= SN (single held-out-relation is homophily-solvable) -- so the REAL CSKG memsmoke is
+# EXPECTED to show STRUCT ~= HOMOPHILY (reported straight, NOT gated / NOT rescued).
+ST_SN_BEATS_POP = 0.02        # planted: STRUCT_NEIGHBOR mrr - POP mrr >= this (neighbor infers above marginal)
+ST_NEIGHBOR_BEATS_UNBIND = 0.03  # planted: RANDOM_NEIGHBOR mrr - RANDOM_UNBIND mrr >= this (readout is the confound)
+ST_HOM_BEATS_POP = 0.02       # planted: HOMOPHILY_NEIGHBOR mrr - POP mrr >= this (homophily baseline is NON-VACUOUS)
+ST_STRUCT_NOVEL_MRR_GAIN = 0.05   # planted: SN novel-MRR - HOM novel-MRR >= this (DISCRIMINATOR fires: structure
+                              #          beats homophily on the NOVEL stratum in the ideal small-vocab arena; probe=+0.38)
+ST_STRUCT_NOVEL_GRADED = 0.015  # planted: SN novel-graded - HOM novel-graded >= this (structure interpolates closer to
+                              #          the true value on novel combos under the neutral graded value metric; probe=+0.029)
 SPLIT_SIZING_MARGIN = 1.5     # self-test: the MEMSMOKE-scale held-out split must clear MEMSMOKE min_query by >= this
                               #            factor (guards the 2026-07-14 n_query<min_query fast-fail locally)
 
@@ -408,6 +459,75 @@ def ci_head_in_store(head, head_pos):
     return head in head_pos
 
 
+def homophily_neighbor_scores(query_int, nbr, store_heads, out_by_head, m_nn, N, allow_self=False):
+    """NON-RELATIONAL HOMOPHILY NULL. Concept similarity = value-set (graph neighbor-set) JACCARD -- NO learned codes,
+    NO relation structure. For each query c: retrieve top-m Jaccard-similar store concepts (via an inverted index over
+    shared values); each votes its (r*, t) train edges weighted by Jaccard. Tests whether pure GRAPH HOMOPHILY
+    (concepts that share values share the held-out value) already predicts the held-out value -- the frequency/homophily
+    baseline the learned relational codes must beat. On a single held-out-relation task this arm is expected to MATCH
+    STRUCT_NEIGHBOR (neighbor-retrieval IS a homophily predictor); a tie is the honest result, not a bug. Returns (nq, N)."""
+    store_set = [nbr[int(h)] for h in store_heads]
+    store_sz = np.array([len(s) for s in store_set], dtype=np.float64)
+    inv = defaultdict(list)                          # value -> store head positions containing it
+    for j, s in enumerate(store_set):
+        for v in s:
+            inv[v].append(j)
+    nq = query_int.shape[0]
+    scores = torch.zeros(nq, N, dtype=torch.float32)
+    for i in range(nq):
+        c = int(query_int[i, 0]); rstar = int(query_int[i, 1])
+        Sc = nbr[c]
+        if not Sc:
+            continue
+        inter = defaultdict(int)
+        for v in Sc:
+            for j in inv.get(v, ()):
+                inter[j] += 1
+        csz = float(len(Sc))
+        cand = []
+        for j, ic in inter.items():
+            if not allow_self and int(store_heads[j]) == c:
+                continue
+            denom = csz + store_sz[j] - ic
+            if denom <= 0.0:
+                continue
+            cand.append((ic / denom, j))
+        if not cand:
+            continue
+        cand.sort(reverse=True)
+        for jac, j in cand[:m_nn]:
+            if jac <= 0.0:
+                continue
+            nb_head = int(store_heads[j])
+            for (rr, tt) in out_by_head.get(nb_head, ()):
+                if rr == rstar:
+                    scores[i, tt] += jac
+    return scores
+
+
+def build_voteperm_out_by_head(out_by_head, store_heads, seed):
+    """PROPER MUST-FAIL support: FREQUENCY-PRESERVING value permutation. For each relation r, permute the tails among
+    ALL (head, r) edges in the store. Preserves the per-relation tail MULTISET (so POP is unchanged and the vote can
+    still express frequency) but destroys the head->value association => a neighbor that votes now contributes a
+    frequency-random tail. Used with the REAL (intact) retrieval codes: 'even with perfect neighbor retrieval, if the
+    neighbors' values carry no real head->value link, does the arm still beat the marginal?'. On large-vocab real data
+    this collapses the neighbor lift toward POP; the residual of SN over this arm is the RELATIONAL part."""
+    rng = np.random.default_rng(seed * 7717 + 3)
+    slots_by_rel = defaultdict(list)                 # r -> [(head, idx_in_out_by_head)]
+    tails_by_rel = defaultdict(list)                 # r -> [tails] (preserved multiset)
+    for h in store_heads:
+        for idx, (r, t) in enumerate(out_by_head[int(h)]):
+            slots_by_rel[r].append((int(h), idx))
+            tails_by_rel[r].append(int(t))
+    new_edges = {int(h): list(out_by_head[int(h)]) for h in store_heads}
+    for r, slots in slots_by_rel.items():
+        tails = tails_by_rel[r]
+        perm = rng.permutation(len(tails)).tolist()
+        for (h, idx), pj in zip(slots, perm):
+            new_edges[h][idx] = (r, int(tails[pj]))
+    return new_edges
+
+
 # ---------------------------------------------------------------------------
 # Neutral graded value-similarity: train-graph neighbor-set Jaccard between two tails.
 # ---------------------------------------------------------------------------
@@ -498,7 +618,8 @@ def score_all_arms(prep, cfg, device, seed, ckpt_dir=None):
     B_rand = build_random_bundles(train_int, N, X_val, RV)
     B_struct = build_struct_bundles(train_int, N, X, D)
 
-    # ---- SHUFFLE control: permute concept profiles (destroy which concept has which known bundle) ----
+    # ---- SHUFFLE (code) control: permute concept CODES/bundles (destroy which concept has which known bundle =>
+    #      retrieval structure destroyed; the vote graph stays intact = NON-RELATIONAL NULL, isolates retrieval) ----
     rngp = np.random.default_rng(seed * 4441 + 19)
     perm = rngp.permutation(len(store_heads))
     B_struct_shuf = B_struct.clone()
@@ -506,12 +627,18 @@ def score_all_arms(prep, cfg, device, seed, ckpt_dir=None):
     for j, h in enumerate(store_heads):
         B_struct_shuf[int(h)] = B_struct[src[j]]
 
+    # ---- SHUFFLE (vote) proper must-fail: real retrieval codes + FREQ-PRESERVING value permutation (head->value
+    #      link destroyed). Collapses toward POP on large-vocab data. ----
+    voteperm = build_voteperm_out_by_head(out_by_head, store_heads, seed)
+
     arm_scores = {}
     arm_scores[RU] = unbind_random_scores(query_int, B_rand, X_val, RV, device)
     arm_scores[SU] = unbind_struct_scores(query_int, B_struct, X, D, device)
     arm_scores[RN] = neighbor_scores(query_int, B_rand, store_heads, out_by_head, m_nn, N)
     arm_scores[SN] = neighbor_scores(query_int, B_struct, store_heads, out_by_head, m_nn, N)
     arm_scores[SHUF] = neighbor_scores(query_int, B_struct_shuf, store_heads, out_by_head, m_nn, N)
+    arm_scores[SHUFV] = neighbor_scores(query_int, B_struct, store_heads, voteperm, m_nn, N)
+    arm_scores[HOM] = homophily_neighbor_scores(query_int, nbr, store_heads, out_by_head, m_nn, N)
     # ---- ORACLE (info-ceiling = reachability ceiling): perfect ranking of gold WHEN the struct-neighbor voted set
     #      already contains it (SN can do no better than rank a reachable gold first). Headroom = ORACLE - SN = the
     #      pure ranking loss; ORACLE ~ POP => even a perfect ranker cannot reach gold in the retrieved neighborhood
@@ -529,7 +656,7 @@ def score_all_arms(prep, cfg, device, seed, ckpt_dir=None):
 
     # ---- graded metric + novel mask ----
     novel = compute_novel_mask(query_int, train_int, N, match_min=cfg.get("match_min", 2))
-    graded = {a: graded_metric(arm_scores[a], query_int, nbr) for a in [RU, SU, RN, SN, SHUF, ORC]}
+    graded = {a: graded_metric(arm_scores[a], query_int, nbr) for a in GRADED_ARMS}
 
     # ---- filtered rank metrics per arm (overall + per stratum) ----
     def _rank(sc):
@@ -540,7 +667,7 @@ def score_all_arms(prep, cfg, device, seed, ckpt_dir=None):
     arm_metric_seen = {}
     q_novel = query_int[novel] if novel.any() else query_int[:0]
     q_seen = query_int[~novel] if (~novel).any() else query_int[:0]
-    for a in [RU, SU, RN, SN, SHUF, ORC, UNIF]:
+    for a in METRIC_ARMS:
         sc = arm_scores[a]
         arm_metric[a] = _rank(sc)
         if novel.any():
@@ -552,7 +679,7 @@ def score_all_arms(prep, cfg, device, seed, ckpt_dir=None):
 
     # ---- signatures (arms-must-differ) ----
     arm_sig = {a: _sig(arm_scores[a].numpy()[:min(64, arm_scores[a].shape[0])].ravel())
-               for a in [RU, SU, RN, SN, SHUF, ORC, UNIF]}
+               for a in METRIC_ARMS}
     arm_sig[POP] = _sig(pop_rank.astype(np.float64))
 
     # ---- per-relation info-ceiling headroom (ORACLE vs SN) ----
@@ -575,7 +702,7 @@ def score_all_arms(prep, cfg, device, seed, ckpt_dir=None):
         return float(v.mean()) if v.shape[0] > 0 else float("nan")
 
     graded_summary = {}
-    for a in [RU, SU, RN, SN, SHUF, ORC]:
+    for a in GRADED_ARMS:
         graded_summary[a] = dict(all=_gmean(a, np.ones(len(novel), dtype=bool)),
                                  novel=_gmean(a, novel), seen=_gmean(a, ~novel))
 
@@ -635,9 +762,9 @@ def run_corpus(pool_lbl, cfg, device, seed, corpus_name, ckpt_dir=None):
         arm_mrr={a: round(fs["arm_metric"][a][CEIL_METRIC], 6) for a in ALL_ARMS},
         arm_hits={a: {kk: round(vv, 6) for kk, vv in fs["arm_metric"][a].items() if kk != "n"} for a in ALL_ARMS},
         arm_mrr_novel={a: round(fs["arm_metric_novel"].get(a, {}).get(CEIL_METRIC, float("nan")), 6)
-                       for a in [RU, SU, RN, SN, SHUF, ORC, UNIF]},
+                       for a in METRIC_ARMS},
         arm_mrr_seen={a: round(fs["arm_metric_seen"].get(a, {}).get(CEIL_METRIC, float("nan")), 6)
-                      for a in [RU, SU, RN, SN, SHUF, ORC, UNIF]},
+                      for a in METRIC_ARMS},
         graded=fs["graded_summary"], per_rel_ceiling=fs["per_rel"], arm_sigs=fs["arm_sig"], diag=fs["diag"],
     )
     return result, fs
@@ -656,68 +783,98 @@ def decisive_verdict(per_seed):
     def agg_mrr(arm):
         return _nm([ps["arm_mrr"].get(arm, float("nan")) for ps in per_seed])
 
+    def agg_novel_mrr(arm):
+        return _nm([ps.get("arm_mrr_novel", {}).get(arm, float("nan")) for ps in per_seed])
+
     def agg_graded(arm, stratum):
         return _nm([ps["graded"].get(arm, {}).get(stratum, float("nan")) for ps in per_seed])
 
     mrr = {a: agg_mrr(a) for a in ALL_ARMS}
-    sn = mrr[SN]; rn = mrr[RN]; ru = mrr[RU]; su = mrr[SU]; shuf = mrr[SHUF]; pop = mrr[POP]
-    unif = mrr[UNIF]; orc = mrr[ORC]
+    sn = mrr[SN]; rn = mrr[RN]; ru = mrr[RU]; su = mrr[SU]; shuf = mrr[SHUF]; shufv = mrr[SHUFV]
+    hom = mrr[HOM]; pop = mrr[POP]; unif = mrr[UNIF]; orc = mrr[ORC]
 
-    # (i) INFERS: STRUCT_NEIGHBOR beats marginal
+    # ---- NON-RELATIONAL NEIGHBOR NULL FLOOR: the strongest of the arms that share SN's mechanism but carry NO
+    #      learned relational structure (random codes / retrieval-destroyed / homophily / value-freq permuted). ----
+    null_vals = {a: mrr[a] for a in NEIGHBOR_NULLS if mrr[a] == mrr[a]}
+    null_max = max(null_vals.values()) if null_vals else float("nan")
+    null_argmax = (max(null_vals, key=null_vals.get) if null_vals else None)
+
+    # (i) INFERS: STRUCT_NEIGHBOR beats the marginal floor (NECESSARY, not sufficient -- non-relational).
     infer_gap = sn - pop
     infers = bool(infer_gap == infer_gap and infer_gap >= INFER_MARGIN)
     no_infer = bool(infer_gap == infer_gap and infer_gap <= INFER_FLOOR)
 
-    # (ii) STRUCTURE_ADDS on NOVEL under graded metric (relative gain + seed-sign consistency)
-    sn_nov = agg_graded(SN, "novel"); rn_nov = agg_graded(RN, "novel")
-    rel_gain = ((sn_nov - rn_nov) / max(rn_nov, VALSIM_EPS)) if (sn_nov == sn_nov and rn_nov == rn_nov) else float("nan")
+    # (ii) THE CRUX -- does STRUCTURE beat the NON-RELATIONAL FLOOR (frequency / homophily)?
+    struct_over_null = (sn - null_max) if (sn == sn and null_max == null_max) else float("nan")
+    # decisive NOVEL contrast: STRUCT vs HOMOPHILY under the graded value metric.
+    sn_nov = agg_graded(SN, "novel"); hom_nov = agg_graded(HOM, "novel")
+    rel_gain = ((sn_nov - hom_nov) / max(hom_nov, VALSIM_EPS)) if (sn_nov == sn_nov and hom_nov == hom_nov) else float("nan")
+    # RANK-INVERSION guard: a graded-only "win" that the rank metric contradicts is NOT a real win.
+    sn_nov_mrr = agg_novel_mrr(SN)
+    null_nov_mrr = [agg_novel_mrr(a) for a in NEIGHBOR_NULLS]
+    null_nov_mrr = [v for v in null_nov_mrr if v == v]
+    null_nov_mrr_max = max(null_nov_mrr) if null_nov_mrr else float("nan")
+    novel_rank_ok = bool(sn_nov_mrr == sn_nov_mrr and null_nov_mrr_max == null_nov_mrr_max
+                         and sn_nov_mrr >= null_nov_mrr_max - NOVEL_MRR_TOL)
     per_seed_signs = []
     for ps in per_seed:
         a = ps["graded"].get(SN, {}).get("novel", float("nan"))
-        b = ps["graded"].get(RN, {}).get("novel", float("nan"))
+        b = ps["graded"].get(HOM, {}).get("novel", float("nan"))
         if a == a and b == b:
             per_seed_signs.append(1 if (a - b) > 0 else 0)
     sign_frac = (sum(per_seed_signs) / len(per_seed_signs)) if per_seed_signs else 0.0
-    structure_adds = bool(rel_gain == rel_gain and rel_gain >= REL_STRUCT_GAIN and sign_frac >= SEED_SIGN_FRAC)
-    refuted_struct = bool(rel_gain == rel_gain and rel_gain <= REFUTE_REL)
+    structure_adds = bool(struct_over_null == struct_over_null and struct_over_null >= STRUCT_OVER_NULL_MARGIN
+                          and rel_gain == rel_gain and rel_gain >= REL_STRUCT_GAIN
+                          and novel_rank_ok and sign_frac >= SEED_SIGN_FRAC)
+    refuted_struct = bool((struct_over_null == struct_over_null and struct_over_null <= STRUCT_REFUTE_MARGIN)
+                          or (rel_gain == rel_gain and rel_gain <= REFUTE_REL)
+                          or (not novel_rank_ok))
 
-    # (iii) SHUFFLE collapse (must-fail)
-    shuf_gap = shuf - pop
-    shuffle_collapses = bool(shuf_gap == shuf_gap and shuf_gap <= SHUFFLE_EPS)
-    shuffle_leaks = bool(shuf_gap == shuf_gap and shuf_gap > SHUFFLE_LEAK)
+    # (iii) VALUE-SHUFFLE proper must-fail: collapses toward POP on large-vocab data (DIAGNOSTIC).
+    shufv_gap = shufv - pop
+    lift = sn - pop
+    collapse_tol = max(SHUFFLE_EPS, VOTE_COLLAPSE_FRAC * lift) if lift == lift else SHUFFLE_EPS
+    vote_collapses = bool(shufv_gap == shufv_gap and shufv_gap <= collapse_tol)
+    shuf_gap = shuf - pop     # code-shuffle diagnostic (retrieval destroyed; retains the non-relational floor)
 
-    # (iv) UNBIND(random) sanity
+    # (iv) UNBIND(random) sanity.
     unbind_gap = ru - pop
     unbind_sane = bool(unbind_gap == unbind_gap and unbind_gap <= UNBIND_SANITY_EPS)
 
-    # ceiling sanity
+    # ceiling sanity (info-ceiling >= mechanism by construction).
     ceiling_ok = bool(orc == orc and sn == sn and orc >= sn - 1e-6)
 
-    pos_controls_ok = bool(not shuffle_leaks and ceiling_ok
+    # pos_controls_ok = INTEGRITY ONLY (fits finite, no leak, ceiling well-formed). NOT gated on structure beating
+    # the null or on the shuffle collapsing -- those are the SCIENTIFIC RESULT (a STRUCT~=HOMOPHILY tie is an honest
+    # verdict, not a control failure; the old collapse-to-POP gate was the bug that spuriously marked INCONCLUSIVE).
+    pos_controls_ok = bool(ceiling_ok
                            and all(ps.get("diag", {}).get("fits_finite", False) for ps in per_seed)
                            and all(ps.get("leak", 1) == 0 for ps in per_seed))
 
     if not pos_controls_ok:
-        verdict = "INCONCLUSIVE_CONTROL_OR_LEAK_FAILED"
-    elif infers and structure_adds and shuffle_collapses:
-        verdict = "STRUCTURED_CODES_ENABLE_INFERENCE"
-    elif infers and shuffle_collapses and refuted_struct:
-        verdict = "NEIGHBOR_INFERS_BUT_STRUCTURE_ADDS_NOTHING_REFUTED"
-    elif infers and shuffle_collapses:
+        verdict = "INCONCLUSIVE_INTEGRITY_OR_LEAK_FAILED"
+    elif infers and structure_adds:
+        verdict = "STRUCTURED_CODES_BEAT_HOMOPHILY"
+    elif infers and refuted_struct:
+        verdict = "NEIGHBOR_INFERS_BUT_STRUCTURE_TIES_HOMOPHILY_REFUTED"
+    elif infers:
         verdict = "NEIGHBOR_INFERS_STRUCTURE_MIDDLE_BAND"
     elif no_infer:
         verdict = "NO_INFERENCE_EVEN_WITH_NEIGHBOR"
     else:
         verdict = "MIDDLE_BAND_INCONCLUSIVE"
 
-    msg = ("%s || MRR: SN(struct-nbr)=%s RN(rand-nbr)=%s SU(struct-unbind)=%s RU(rand-unbind)=%s POP=%s UNIF=%s "
-           "ORACLE=%s || (i)INFER SN-POP=%s(>=%.3f=%s) (ii)STRUCT novel-graded SN=%s RN=%s relgain=%s(>=%.2f & sign>=%.2f=%s; "
-           "refute<=%.2f=%s) (iii)SHUF-POP=%s(collapse|.|<=%.3f=%s; leak>%.3f=%s) (iv)RU-POP=%s(sane<=%.3f=%s) | "
-           "ceiling_ok=%s pos_controls=%s"
-           % (verdict, _fmt(sn), _fmt(rn), _fmt(su), _fmt(ru), _fmt(pop), _fmt(unif), _fmt(orc),
-              _fmt(infer_gap), INFER_MARGIN, infers, _fmt(sn_nov), _fmt(rn_nov), _fmt(rel_gain), REL_STRUCT_GAIN,
-              SEED_SIGN_FRAC, structure_adds, REFUTE_REL, refuted_struct, _fmt(shuf_gap), SHUFFLE_EPS,
-              shuffle_collapses, SHUFFLE_LEAK, shuffle_leaks, _fmt(unbind_gap), UNBIND_SANITY_EPS, unbind_sane,
+    msg = ("%s || MRR: SN(struct-nbr)=%s | NULLS RN=%s codeSHUF=%s HOM=%s voteSHUF=%s (max=%s@%s) | SU=%s RU=%s "
+           "POP=%s UNIF=%s ORACLE=%s || (i)INFER SN-POP=%s(>=%.3f=%s) (ii)CRUX SN-nullmax=%s(>=%.3f adds/<=%.3f refute) "
+           "novel-graded SN=%s HOM=%s relgain=%s(>=%.2f=%s) novelrank_ok=%s(SNnovMRR=%s vs nullmax=%s) sign>=%.2f=%s "
+           "=> adds=%s refuted=%s (iii)voteSHUF-POP=%s(collapse<=%s=%s) (iv)RU-POP=%s(sane=%s) | ceiling_ok=%s pos_controls=%s"
+           % (verdict, _fmt(sn), _fmt(rn), _fmt(shuf), _fmt(hom), _fmt(shufv), _fmt(null_max), str(null_argmax),
+              _fmt(su), _fmt(ru), _fmt(pop), _fmt(unif), _fmt(orc),
+              _fmt(infer_gap), INFER_MARGIN, infers, _fmt(struct_over_null), STRUCT_OVER_NULL_MARGIN,
+              STRUCT_REFUTE_MARGIN, _fmt(sn_nov), _fmt(hom_nov), _fmt(rel_gain), REL_STRUCT_GAIN,
+              bool(rel_gain == rel_gain and rel_gain >= REL_STRUCT_GAIN), novel_rank_ok, _fmt(sn_nov_mrr),
+              _fmt(null_nov_mrr_max), SEED_SIGN_FRAC, bool(sign_frac >= SEED_SIGN_FRAC), structure_adds,
+              refuted_struct, _fmt(shufv_gap), _fmt(collapse_tol), vote_collapses, _fmt(unbind_gap), unbind_sane,
               ceiling_ok, pos_controls_ok))
 
     def _r(x, nd=6):
@@ -725,16 +882,24 @@ def decisive_verdict(per_seed):
 
     gates = dict(
         verdict=verdict,
-        mrr=dict(SN=_r(sn), RN=_r(rn), SU=_r(su), RU=_r(ru), POP=_r(pop), UNIF=_r(unif), ORACLE=_r(orc)),
+        mrr=dict(SN=_r(sn), RN=_r(rn), SHUF=_r(shuf), HOM=_r(hom), SHUFV=_r(shufv), SU=_r(su), RU=_r(ru),
+                 POP=_r(pop), UNIF=_r(unif), ORACLE=_r(orc)),
         infer_gap_SN_POP=_r(infer_gap), infers=infers, no_infer=no_infer,
-        novel_graded=dict(SN=_r(sn_nov), RN=_r(rn_nov), rel_gain=_r(rel_gain), sign_frac=_r(sign_frac, 3)),
+        null_floor=dict(null_max=_r(null_max), null_argmax=null_argmax,
+                        struct_over_null=_r(struct_over_null)),
+        novel_graded=dict(SN=_r(sn_nov), HOM=_r(hom_nov), rel_gain=_r(rel_gain), sign_frac=_r(sign_frac, 3)),
+        novel_rank=dict(SN_novel_mrr=_r(sn_nov_mrr), null_novel_mrr_max=_r(null_nov_mrr_max),
+                        novel_rank_ok=novel_rank_ok),
         structure_adds=structure_adds, refuted_struct=refuted_struct,
-        shuffle_gap_SHUF_POP=_r(shuf_gap), shuffle_collapses=shuffle_collapses, shuffle_leaks=shuffle_leaks,
+        vote_shuffle_gap_SHUFV_POP=_r(shufv_gap), vote_collapses=vote_collapses, collapse_tol=_r(collapse_tol),
+        code_shuffle_gap_SHUF_POP=_r(shuf_gap),
         unbind_gap_RU_POP=_r(unbind_gap), unbind_sane=unbind_sane, ceiling_ok=ceiling_ok,
         pos_controls_ok=pos_controls_ok,
-        bands=dict(INFER_MARGIN=INFER_MARGIN, INFER_FLOOR=INFER_FLOOR, REL_STRUCT_GAIN=REL_STRUCT_GAIN,
-                   REFUTE_REL=REFUTE_REL, SEED_SIGN_FRAC=SEED_SIGN_FRAC, SHUFFLE_EPS=SHUFFLE_EPS,
-                   SHUFFLE_LEAK=SHUFFLE_LEAK, UNBIND_SANITY_EPS=UNBIND_SANITY_EPS),
+        bands=dict(INFER_MARGIN=INFER_MARGIN, INFER_FLOOR=INFER_FLOOR,
+                   STRUCT_OVER_NULL_MARGIN=STRUCT_OVER_NULL_MARGIN, STRUCT_REFUTE_MARGIN=STRUCT_REFUTE_MARGIN,
+                   REL_STRUCT_GAIN=REL_STRUCT_GAIN, REFUTE_REL=REFUTE_REL, NOVEL_MRR_TOL=NOVEL_MRR_TOL,
+                   SEED_SIGN_FRAC=SEED_SIGN_FRAC, VOTE_COLLAPSE_FRAC=VOTE_COLLAPSE_FRAC, SHUFFLE_EPS=SHUFFLE_EPS,
+                   UNBIND_SANITY_EPS=UNBIND_SANITY_EPS),
     )
     return verdict, msg, gates
 
@@ -843,14 +1008,17 @@ def _mechanism_selftest_body(device):
     if fs is None:
         return False, {"fail": "run_corpus invalid: %s" % res.get("invalid")}
 
-    m = res["arm_mrr"]; g = res["graded"]
+    m = res["arm_mrr"]; g = res["graded"]; mnov = res["arm_mrr_novel"]
     n_sigs = len(set(res["arm_sigs"].values()))
     sn_beats_pop = bool(m[SN] - m[POP] >= ST_SN_BEATS_POP)
     neighbor_beats_unbind = bool(m[RN] - m[RU] >= ST_NEIGHBOR_BEATS_UNBIND)
-    shuffle_collapses = bool((m[SHUF] - m[POP]) <= ST_SHUFFLE_COLLAPSE)
-    struct_novel_gain = bool((g[SN]["novel"] - g[RN]["novel"]) >= ST_STRUCT_NOVEL_GAIN)
+    hom_beats_pop = bool(m[HOM] - m[POP] >= ST_HOM_BEATS_POP)   # homophily baseline is non-vacuous
+    # DISCRIMINATOR-FIRES: on the ideal small-vocab high-correlation arena, structure BEATS homophily on the NOVEL
+    # stratum (structure interpolates where homophily can't). Proves the apparatus CAN detect structure-beats-homophily.
+    struct_beats_hom_novel = bool((mnov[SN] - mnov[HOM]) >= ST_STRUCT_NOVEL_MRR_GAIN)
+    struct_novel_graded = bool((g[SN]["novel"] - g[HOM]["novel"]) >= ST_STRUCT_NOVEL_GRADED)
     ceiling_ok = bool(m[ORC] >= m[SN] - 1e-6)
-    arms_differ = bool(n_sigs >= 5)
+    arms_differ = bool(n_sigs >= 8)
     fits_finite = bool(res["diag"]["fits_finite"])
     novel_pop = bool(res["diag"]["n_novel"] >= 3 and res["diag"]["n_seen"] >= 3)
 
@@ -879,42 +1047,46 @@ def _mechanism_selftest_body(device):
          "kwargs": {"train_edges": None, "N": 1, "n_rel": 1, "k": 8, "device": None, "seed": 7, "epochs": 1,
                     "reciprocal": True, "lr": A1_LR, "n_neg": 32, "batch_size": 2048, "neg_chunk": 16}},
         {"kind": "positive_control",
-         "positive_control_passed_headline_gate": bool(sn_beats_pop and neighbor_beats_unbind and struct_novel_gain),
-         "control_name": "PLANTED_KIND_MECHANISMS", "headline_name": "neighbor_infers_and_structure_adds_on_novel",
-         "extra": "planted KIND arena: STRUCT_NEIGHBOR beats POP, RANDOM_NEIGHBOR beats RANDOM_UNBIND (readout is the "
-                  "confound), and STRUCTURED adds over RANDOM on the NOVEL stratum under the graded value metric"},
+         "positive_control_passed_headline_gate": bool(sn_beats_pop and neighbor_beats_unbind
+                                                       and hom_beats_pop and struct_beats_hom_novel),
+         "control_name": "PLANTED_KIND_MECHANISMS", "headline_name": "neighbor_infers_and_structure_beats_homophily_novel",
+         "extra": "ideal small-vocab KIND arena: STRUCT_NEIGHBOR beats POP, RANDOM_NEIGHBOR beats RANDOM_UNBIND (readout "
+                  "is the confound), HOMOPHILY is a non-vacuous baseline, and STRUCT beats HOMOPHILY on the NOVEL "
+                  "stratum (structure interpolates where homophily can't in the small-vocab regime)"},
         {"kind": "metric_moves", "metric_name": "arm_mrr",
-         "values": [m[SN], m[RN], m[SU], m[RU], m[POP]],
-         "extra": "the arms MOVE on synthetic: SN=%.3f RN=%.3f SU=%.3f RU=%.3f POP=%.3f"
-                  % (m[SN], m[RN], m[SU], m[RU], m[POP])},
+         "values": [m[SN], m[RN], m[HOM], m[SHUFV], m[SU], m[RU], m[POP]],
+         "extra": "the arms MOVE on synthetic: SN=%.3f RN=%.3f HOM=%.3f SHUFV=%.3f SU=%.3f RU=%.3f POP=%.3f"
+                  % (m[SN], m[RN], m[HOM], m[SHUFV], m[SU], m[RU], m[POP])},
         {"kind": "negative_control_margin",
-         "control_scores": [m[POP], m[RU], m[SHUF]],
-         "headline_threshold": m[SN], "higher_is_pass": True, "margin": ST_SN_BEATS_POP, "n_repeats_min": 3,
-         "control_name": "POP_RU_SHUF_below_struct_neighbor", "extra":
-         "POP (marginal) + RANDOM_UNBIND (a6bbdfd0 op) + SHUFFLE (correlation destroyed) sit below STRUCT_NEIGHBOR "
-         "by the MRR margin -> the inference needs the neighbor readout + intact cross-relation correlation"},
+         "control_scores": [m[POP], m[RU]],
+         "headline_threshold": m[SN], "higher_is_pass": True, "margin": ST_SN_BEATS_POP, "n_repeats_min": 2,
+         "control_name": "POP_RU_below_struct_neighbor", "extra":
+         "POP (marginal floor) + RANDOM_UNBIND (a6bbdfd0 degenerate readout) sit below STRUCT_NEIGHBOR by the MRR "
+         "margin -> the neighbor readout is load-bearing. NOTE: the NON-RELATIONAL NEIGHBOR NULLS (RN/SHUF/HOM/SHUFV) "
+         "are NOT expected below SN -- whether structure beats them is the OPEN question the real run decides"},
         {"kind": "full_gates_exercised",
-         "full_fail_closed_gates": ["sn_beats_pop", "neighbor_beats_unbind", "shuffle_collapses",
-                                    "struct_novel_gain", "ceiling_ok", "arms_differ", "decisive_verdict"],
-         "exercised_gates": ["sn_beats_pop", "neighbor_beats_unbind", "shuffle_collapses", "struct_novel_gain",
-                             "ceiling_ok", "arms_differ", "decisive_verdict"],
+         "full_fail_closed_gates": ["sn_beats_pop", "neighbor_beats_unbind", "hom_beats_pop", "struct_beats_hom_novel",
+                                    "struct_novel_graded", "ceiling_ok", "arms_differ", "decisive_verdict"],
+         "exercised_gates": ["sn_beats_pop", "neighbor_beats_unbind", "hom_beats_pop", "struct_beats_hom_novel",
+                             "struct_novel_graded", "ceiling_ok", "arms_differ", "decisive_verdict"],
          "extra": "decisive_verdict=%s at self-test scale" % v_verdict},
     ], run_mode="self_test")
 
     out.update(
         planted_mrr={a: round(m[a], 5) for a in ALL_ARMS},
-        planted_graded_novel={a: round(g[a]["novel"], 5) for a in [RN, SN]},
+        planted_mrr_novel={a: round(mnov.get(a, float("nan")), 5) for a in [RN, SN, HOM, SHUFV, SHUF]},
+        planted_graded_novel={a: round(g[a]["novel"], 5) for a in [RN, SN, HOM]},
         n_distinct_sigs=n_sigs, n_novel=res["diag"]["n_novel"], n_seen=res["diag"]["n_seen"],
-        sn_beats_pop=sn_beats_pop, neighbor_beats_unbind=neighbor_beats_unbind,
-        shuffle_collapses=shuffle_collapses, struct_novel_gain=struct_novel_gain, ceiling_ok=ceiling_ok,
+        sn_beats_pop=sn_beats_pop, neighbor_beats_unbind=neighbor_beats_unbind, hom_beats_pop=hom_beats_pop,
+        struct_beats_hom_novel=struct_beats_hom_novel, struct_novel_graded=struct_novel_graded, ceiling_ok=ceiling_ok,
         arms_differ=arms_differ, fits_finite=fits_finite, novel_and_seen_present=novel_pop,
         decisive_selftest_verdict=v_verdict, validity_preflight_ok=bool(vp_ok),
         validity_preflight_declared=["real_code_path", "substrate_signature", "positive_control", "metric_moves",
                                      "negative_control_margin", "full_gates_exercised"],
         memsmoke_split_sizing_ok=bool(split_sizing_ok), memsmoke_split_sizing=split_sizing_info,
     )
-    ok = bool(sn_beats_pop and neighbor_beats_unbind and shuffle_collapses and struct_novel_gain
-              and ceiling_ok and arms_differ and fits_finite and novel_pop and split_sizing_ok)
+    ok = bool(sn_beats_pop and neighbor_beats_unbind and hom_beats_pop and struct_beats_hom_novel
+              and struct_novel_graded and ceiling_ok and arms_differ and fits_finite and novel_pop and split_sizing_ok)
     return ok, out
 
 
@@ -947,16 +1119,16 @@ def core_main(run_mode, device):
          % (device, run_mode, seeds, cfg["n_dim"], cfg["k"], cfg.get("epochs"), cfg["m_nn"]))
 
     st_ok, st_res = mechanism_selftest(device)
-    _log("mechanism_selftest ok=%s | planted_mrr=%s neighbor_beats_unbind=%s struct_novel_gain=%s shuffle_collapses=%s vp_ok=%s"
-         % (st_ok, st_res.get("planted_mrr"), st_res.get("neighbor_beats_unbind"), st_res.get("struct_novel_gain"),
-            st_res.get("shuffle_collapses"), st_res.get("validity_preflight_ok")))
+    _log("mechanism_selftest ok=%s | planted_mrr=%s neighbor_beats_unbind=%s struct_beats_hom_novel=%s hom_beats_pop=%s vp_ok=%s"
+         % (st_ok, st_res.get("planted_mrr"), st_res.get("neighbor_beats_unbind"), st_res.get("struct_beats_hom_novel"),
+            st_res.get("hom_beats_pop"), st_res.get("validity_preflight_ok")))
     _hb("selftest", 0)
     if not st_ok:
         write_metrics(out_dir, dict(
             verdict="HARD_FAIL", run_mode=run_mode,
             verdict_msg="MECHANISM_SELFTEST_FAILED: %s"
-                        % {kk: st_res.get(kk) for kk in ("sn_beats_pop", "neighbor_beats_unbind",
-                           "shuffle_collapses", "struct_novel_gain", "ceiling_ok", "arms_differ", "fits_finite",
+                        % {kk: st_res.get(kk) for kk in ("sn_beats_pop", "neighbor_beats_unbind", "hom_beats_pop",
+                           "struct_beats_hom_novel", "struct_novel_graded", "ceiling_ok", "arms_differ", "fits_finite",
                            "memsmoke_split_sizing_ok", "memsmoke_split_sizing")},
             summary="mechanism selftest failed", elapsed_s=time.perf_counter() - t_start, mechanism_selftest=st_res))
         raise SystemExit(1)
@@ -964,10 +1136,12 @@ def core_main(run_mode, device):
     if run_mode == "self_test":
         write_metrics(out_dir, dict(
             verdict="SELFTEST_PASS", run_mode="self_test",
-            verdict_msg="SELFTEST_PASS RELATIONAL_INFERENCE_NEIGHBOR_VS_UNBIND: on the planted KIND arena the NEIGHBOR "
-                        "readout beats self-UNBIND (random codes) -> a6bbdfd0's chance was the readout; STRUCT_NEIGHBOR "
-                        "beats the marginal floor; STRUCTURED adds over RANDOM on the NOVEL stratum under the graded "
-                        "value metric; the SHUFFLE control collapses to marginal; 6 validity-preflight checks declared",
+            verdict_msg="SELFTEST_PASS RELATIONAL_INFERENCE_NEIGHBOR_VS_UNBIND: on the ideal small-vocab KIND arena the "
+                        "NEIGHBOR readout beats self-UNBIND (random codes) -> a6bbdfd0's chance was the readout; "
+                        "STRUCT_NEIGHBOR beats the marginal floor; HOMOPHILY is a non-vacuous baseline; STRUCT beats "
+                        "HOMOPHILY on the NOVEL stratum (apparatus CAN detect structure when present); the value-SHUFFLE "
+                        "must-fail + code-SHUFFLE + HOMOPHILY nulls are computed; 6 validity-preflight checks declared. "
+                        "REAL single-relation CSKG is EXPECTED to show STRUCT ~= HOMOPHILY (homophily-solvable).",
             summary="SELFTEST_PASS", elapsed_s=time.perf_counter() - t_start, mechanism_selftest=st_res))
         _log("SELFTEST_PASS (%.1fs)" % (time.perf_counter() - t_start))
         return
@@ -996,8 +1170,9 @@ def core_main(run_mode, device):
                 raise RuntimeError("held-out query edges too few (%d)" % int(res["n_query"]))
             if res["leak"] > 0:
                 raise RuntimeError("LEAKAGE seed=%d leak=%d" % (seed, res["leak"]))
-            if len(set(res["arm_sigs"].values())) < 5:
-                raise RuntimeError("ARMS_MUST_DIFFER_META_RULE_AF seed=%d" % seed)
+            if len(set(res["arm_sigs"].values())) < 8:
+                raise RuntimeError("ARMS_MUST_DIFFER_META_RULE_AF seed=%d n_sigs=%d"
+                                   % (seed, len(set(res["arm_sigs"].values()))))
             if not res["diag"]["fits_finite"]:
                 raise RuntimeError("additive fit non-finite seed=%d" % seed)
             if res["diag"]["n_novel"] < 3 or res["diag"]["n_seen"] < 3:
