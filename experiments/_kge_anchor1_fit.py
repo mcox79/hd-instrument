@@ -44,7 +44,7 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                     lr=A1_LR, gamma=A1_GAMMA, n_neg=A1_N_NEG, adv_temp=A1_ADV_TEMP,
                     n3_lambda=A1_N3_LAMBDA, batch_size=A1_BATCH, neg_chunk=None,
                     ckpt=None, stop_after_epochs=None, hard_neg_frac=0.0,
-                    return_inverse=False):
+                    return_inverse=False, X_init=None, init_tag=None):
     """Fit X (N,k), D (n_rel,k) with CE self-adversarial loss + N3 + reciprocal augmentation, minibatch SGD.
 
     train_edges: (E,3) int64 [h, r, t]. transductive_extra: optional (E2,3) held-out edges folded into the fit
@@ -81,6 +81,18 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
 
     X = (torch.randn(N, k, generator=g) * 0.1).to(device).requires_grad_(True)
     D = (torch.randn(n_rel_eff, k, generator=g) * 0.1).to(device).requires_grad_(True)
+    # X_init (DEFAULT None == BIT-IDENTICAL to the confirmed gaussian fit for EVERY existing caller): a
+    # structural warm-start for the entity coordinate table (e.g. a Laplacian graph-eigenmap of the train
+    # graph). The gaussian X AND D draws above are ALWAYS consumed first (RNG order unchanged), so D's INIT is
+    # identical between the gaussian and warm-start arms -- ONLY X's starting values differ. (The TRAINED X and
+    # D legitimately diverge under SGD because X's start point changes the coupled gradients -- that IS the
+    # warm-start effect.) Overwrite under no_grad so X stays a leaf requiring grad.
+    if X_init is not None:
+        xi = X_init if isinstance(X_init, torch.Tensor) else torch.as_tensor(X_init)
+        if tuple(xi.shape) != (N, k):
+            raise ValueError("X_init shape %s != expected (%d,%d)" % (tuple(xi.shape), N, k))
+        with torch.no_grad():
+            X.copy_(xi.to(device=X.device, dtype=X.dtype))
     opt = torch.optim.Adam([X, D], lr=lr)
 
     h_all = torch.from_numpy(ed[:, 0]).long().to(device)
@@ -94,12 +106,18 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
     # DURABILITY: resume from a matching checkpoint (same config-fingerprint) instead of restarting.
     start_epoch = 0
     if ckpt is not None and ckpt.enabled():
-        ckpt.set_fingerprint(dict(
+        _fp = dict(
             fn="additive", N=int(N), n_rel=int(n_rel), k=int(k), epochs=int(epochs), n_neg=int(n_neg),
             lr=float(lr), gamma=float(gamma), adv_temp=float(adv_temp), n3_lambda=float(n3_lambda),
             batch_size=int(bs), reciprocal=bool(reciprocal), seed=int(seed),
             hard_neg_frac=float(hard_neg_frac),
-            split_hash=edges_hash(ed), device=str(device)))
+            split_hash=edges_hash(ed), device=str(device))
+        # Only perturb the fingerprint when a warm-start is actually used, so EXISTING gaussian callers keep a
+        # BIT-IDENTICAL fingerprint (their checkpoints still resume). Warm-start arms get a distinct tag so a
+        # gaussian and a spectral run never resume from each other's checkpoints.
+        if X_init is not None:
+            _fp["init_tag"] = str(init_tag or "custom")
+        ckpt.set_fingerprint(_fp)
         _ck = ckpt.try_load(device)
         if _ck is not None:
             start_epoch = restore_into(_ck, {"X": X, "D": D}, opt, {"gperm": gperm, "gneg": gneg}, device)
