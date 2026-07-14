@@ -830,9 +830,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-mode", choices=["self_test", "smoke", "full"], default=None)
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--smoke", action="store_true", help="alias for --run-mode smoke (queue_add.py gate convention)")
     ap.add_argument("--device", choices=["auto", "cpu", "cuda"], default="cpu")
     args, _unknown = ap.parse_known_args()
-    run_mode = "self_test" if args.self_test else args.run_mode
+    run_mode = "self_test" if args.self_test else ("smoke" if args.smoke else args.run_mode)
     if run_mode is None:
         env_mode = os.environ.get("HDLAB_RUN_MODE", "").strip().lower()
         if env_mode in ("self_test", "smoke", "full"):
