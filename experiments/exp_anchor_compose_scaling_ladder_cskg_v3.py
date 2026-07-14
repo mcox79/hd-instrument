@@ -503,7 +503,7 @@ def localize_weak_points(arm_scores, query_int, all_true, support_deg, node_degr
 # One corpus run.
 # ---------------------------------------------------------------------------
 
-def run_corpus(pool_lbl, cfg, device, seed, corpus_name, ckpt_dir=None, localize=True):
+def run_corpus(pool_lbl, cfg, device, seed, corpus_name, ckpt_dir=None, localize=True, query_selector=None):
     ent2i, rel2i = build_ids(pool_lbl, [], [])
     N = len(ent2i); n_rel = len(rel2i)
     rel_i2lbl = {v: k for k, v in rel2i.items()}
@@ -511,8 +511,15 @@ def run_corpus(pool_lbl, cfg, device, seed, corpus_name, ckpt_dir=None, localize
         pool_lbl, ent2i, cfg["heldout_entity_frac"], cfg["support_frac"], seed)
     n_query_total = len(query_lbl)
 
-    # optional bounded subsample of query edges (scoring cost = nq * N)
-    if cfg.get("n_heldout_eval") and n_query_total > cfg["n_heldout_eval"]:
+    # Query-edge SELECTION for scoring (cost = nq * N). The split above is unchanged (support/query disjoint,
+    # seed-deterministic) -- selection only picks WHICH held-out query edges get scored.
+    # - query_selector (optional callback): custom index selection over query_lbl (e.g. stratified tail-oversample);
+    #   given (query_lbl, support_lbl, seed) it returns the selected query-edge indices. Backward-compatible: when
+    #   None (every existing caller) the original uniform n_heldout_eval subsample runs verbatim.
+    if query_selector is not None:
+        sel = query_selector(query_lbl, support_lbl, seed)
+        query_lbl = [query_lbl[i] for i in sel]
+    elif cfg.get("n_heldout_eval") and n_query_total > cfg["n_heldout_eval"]:
         rng = np.random.default_rng(seed * 777 + 3)
         idx = sorted(rng.choice(n_query_total, size=cfg["n_heldout_eval"], replace=False).tolist())
         query_lbl = [query_lbl[i] for i in idx]
