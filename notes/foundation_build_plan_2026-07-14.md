@@ -65,6 +65,19 @@ Tested the core premise BEFORE scaling (USER: "have we shown we're at the ceilin
 - CAVEATS: fair proxy (not the VSA mechanism); measured on already-dense concepts (whether GENERATED density rescues as well as real density = the final de-risk, learned early by the incremental loop); single-hop only.
 => BUILD JUSTIFIED but with CALIBRATED expectations. Do NOT oversell. Proceed incrementally (measure-as-you-go = safety valve); if the incremental rescue doesn't show up on generated density, stop. Consider testing whether MULTI-HOP is where a larger prize hides.
 
+## 9d. THE REASONING THEORY (2026-07-14, load-bearing -- resolves "what caps reasoning + does density help")
+Chain of inline VSA prototypes + de-risk experiments converged on: **reasoning resolution scales with the NUMBER OF CONSTRAINTS BROUGHT TO BEAR.** VSA toy (additive bundle+cleanup): acc vs #constraints-queried = 0.05/0.15/0.40/0.75/0.93/0.97/0.99 for K=1..7; ambiguity 24->1.0.
+- DENSITY = capacity for constraints; QUERY-WIDTH = use of them; SAME lever. Accuracy governed by absolute #constraints-queried, ~independent of density per se (density just enables richer queries). Fully-queried dense concept -> 0.99; sparse concept caps ~0.20.
+- SINGLE-HOP is modest because it = 1 constraint = underdetermined (~96% of single-hop gap is one-to-many unwinnable). Not a density failure -- a using-one-constraint failure.
+- ESCAPE = ADDITIVE constraint-satisfaction (brain's attractor / CA3 pattern-completion), NOT joint tensor-binding: additive settling hits 0.99 where joint tensor-binding fails at 0.018 (50x below random). The reasoning-mechanism gap is closed by the RIGHT operation.
+- MULTI-HOP CHAINS are NOT the escape: CG on synthetic (L=18-35) but real-knowledge gain unproven + 6 prior HARD-FAILs -- chains bring FEW constraints; the prize is CONJUNCTIONS.
+- PHASE-DIAGRAM: operative dial = query-width (constraints); storage-mode + dimension swept + ruled out as second-order.
+- CAVEAT: toy/clean (real noisier, ceiling <0.99); demonstrated for concept-identification; confirm on real knowledge (the decisive next experiment).
+=> **COUPLES THE PROGRAM:** strong reasoning = DENSE FOUNDATION (constraints) + MULTI-CONSTRAINT additive constraint-satisfaction (bring them to bear) + additive settling (glass-box VSA, proven). Foundation build gets a precise purpose; the constraint-satisfaction reasoning mechanism is a first-class build target. [[project_reasoning_theory_constraints_brought_to_bear_dense_plus_constraint_satisfaction_2026-07-14]]. Storage protected by the sharded CG law.
+
+## 9e. DECISIVE NEXT EXPERIMENT
+Confirm the reasoning theory on REAL knowledge (not toy): additive multi-constraint constraint-satisfaction over a real dense concept subset (sharded store) -- does bringing many known relations to bear resolve underdetermined commonsense queries + beat single-hop, on the live substrate? This is the real-substrate version of the 0.99 toy result; the whole reasoning-mechanism bet rides on it reproducing (at a real, lower-but-meaningful level).
+
 ## 10. First concrete build step (fires on Part C verdict)
 - **If Part C HELPS:** Stage 0 re-ingest (free) + a **Stage-1 pilot** — LLM-generate + vet the missing semantic buckets on a ~500-concept sample across the target domains; measure the bucket-coverage lift AND a held-out reasoning lift. That pilot sizes the full generation build and validates the vetting bar before scaling.
 - **If Part C HURTS/NEUTRAL:** re-scope Stage 1 to the specific reasoning-relevant relations only; same pilot shape, different target.
