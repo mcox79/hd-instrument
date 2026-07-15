@@ -149,7 +149,7 @@ CACHE_DIR = os.path.join(_REPO, "data", "foundation_clusters", "dede2020_encas12
 # (the static-content.springer.com ESM URLs resolve publicly; MOESM3 = per-pair zdLFC scores-only; MOESM4 = raw guide-pair
 # read counts with GENE_CLONE|GENE|<cellline.T2rep.Ex>|plasmid.T0.Ex, GENE="geneA.pos:geneB.pos"). MOESM4 carries the raw
 # constituents (log2FC-vs-plasmid -> SMF/DMF) needed for the NON-VACUOUS DMF target; MOESM3 fetched only for cross-check.
-_ESM = ("https://static-content.springer.com/esm/art%3A10.1186%2Fs13059-020-02173-2/MediaObjects/"
+_ESM = ("https://static-content.springer.com/esm/art%%3A10.1186%%2Fs13059-020-02173-2/MediaObjects/"
         "13059_2020_2173_MOESM%d_ESM.txt")
 COUNTS_URLS = [("MOESM4_rawcounts_springer_https", _ESM % 4)]
 ZDLFC_URLS = [("MOESM3_zdlfc_springer_https", _ESM % 3)]
