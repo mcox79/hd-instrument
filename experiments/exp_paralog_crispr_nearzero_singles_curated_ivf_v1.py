@@ -204,6 +204,7 @@ MIN_PAIRS = 60               # PATH-A requires >= this many unique double-mutant
 TOP_ORF = 800                # subnetwork density cap (top-frequency genes): well-defined per-gene main effects
 MAX_PAIRS = 12000            # cap native pair count
 PSEUDO = 0.5                 # CPM pseudocount for log2FC
+MIN_CTRL_REF = 3             # >= this many control:control (SAFE:SAFE) constructs to anchor the neutral log2FC reference
 CTRL_DEGREE_FRAC = 0.30      # degree heuristic: a token paired with >= this fraction of distinct genes is a control guide
 # explicit control-guide token set (uppercased gene symbol); the single-KO-vs-control constructs define SMF
 CTRL_TOKENS = {"SAFE", "SAFEHARBOR", "NT", "NONTARGETING", "CONTROL", "CTRL", "NONE", "LUC", "LUCIFERASE",
@@ -506,16 +507,35 @@ def parse_dede_encas12a(counts_path):
     ctrl_by_degree = len(ctrl_deg - ctrl_token)
     top_degree_tokens = [(s, deg[s]) for s in sorted(all_syms, key=lambda z: (-deg[z], z))[:12]]
 
-    # ---- aggregate: SMF (single-KO-vs-control) + DMF (double, neither control) ----
+    # ---- NEUTRAL REFERENCE (control-anchored log2FC centering) ----
+    # CPM per-construct log2FC over a UNIFORM plasmid baseline carries a GLOBAL library-size offset delta=log2(N/sum(2^lfc)):
+    # when a net fraction of the library depletes, the surviving constructs read RELATIVELY enriched by delta, so every
+    # recovered log2FC (SMF and DMF alike) is shifted by the SAME constant. This offset is INVARIANT to any global re-scaling
+    # of the planted fitness (CPM measures only relative abundance), so it CANNOT be corrected downstream of the counts -- it
+    # must be removed by referencing to the non-targeting/control level. STANDARD CRISPR normalization = center log2FC on the
+    # control:control (SAFE:SAFE) constructs (true neutral, fitness 0 -> their recovered level == delta). We center ONLY when a
+    # clean control anchor exists (>= MIN_CTRL_REF control:control constructs); else neutral_ref=0.0 (no centering, prior
+    # behavior -- we deliberately do NOT fall back to the bulk median, which would MISPLACE the band whenever the near-neutral
+    # pocket is a minority, exactly the regime this cell targets). NaN-safe: median of finite lfc; empty -> 0.0.
+    cc_lfcs = [lfc for (a, b, lfc) in constructs if (a in ctrl) and (b in ctrl) and math.isfinite(lfc)]
+    if len(cc_lfcs) >= MIN_CTRL_REF:
+        neutral_ref = float(np.median(cc_lfcs)); neutral_ref_src = "control_control_median"
+    else:
+        neutral_ref = 0.0; neutral_ref_src = "none_no_control_anchor"
+    if not math.isfinite(neutral_ref):
+        neutral_ref = 0.0; neutral_ref_src = "none_nonfinite_guard"
+
+    # ---- aggregate: SMF (single-KO-vs-control) + DMF (double, neither control), on control-anchored log2FC ----
     smf_acc = defaultdict(lambda: [0.0, 0])   # real gene -> [sum lfc, count] over single-KO constructs
     dmf_acc = defaultdict(lambda: [0.0, 0])   # (geneA,geneB) canonical -> [sum lfc, count] over double constructs
     n_single = 0
     n_double = 0
     for (a, b, lfc) in constructs:
+        lfc = lfc - neutral_ref  # control-anchored: express fitness relative to the non-targeting neutral level
         a_c = a in ctrl
         b_c = b in ctrl
         if a_c and b_c:
-            continue  # control:control -> ignore
+            continue  # control:control -> reference only (already consumed by neutral_ref)
         if a_c ^ b_c:  # exactly one control -> single-KO of the real partner
             real = b if a_c else a
             rec = smf_acc[real]; rec[0] += lfc; rec[1] += 1
@@ -530,7 +550,8 @@ def parse_dede_encas12a(counts_path):
     diag = dict(n_constructs=len(constructs), n_syms=n_syms, n_ctrl=len(ctrl), ctrl_by_token=ctrl_by_token,
                 ctrl_by_degree=ctrl_by_degree, deg_cut=deg_cut, degree_disabled=degree_disabled,
                 top_degree_tokens=top_degree_tokens, n_single_constructs=n_single,
-                n_double_constructs=n_double, ctrl_examples=sorted(ctrl)[:20],
+                n_double_constructs=n_double, ctrl_examples=sorted(ctrl)[:20], n_ctrl_ctrl=len(cc_lfcs),
+                neutral_ref=round(neutral_ref, 5), neutral_ref_src=neutral_ref_src,
                 endpoint_cols=[str(header[c]) for c in eidx][:12], baseline_col=str(header[bi]),
                 gene_col=str(header[gi]))
 
@@ -1189,6 +1210,12 @@ def _make_synth_dede_moesm4(path, n_genes=14, n_guides=3, seed=101):
         cells.append("%.1f" % base_reads)
         return "\t".join(cells)
 
+    # control:control (SAFE:SAFE) NEUTRAL-ANCHOR constructs (fitness 0): the parser centers all log2FC on their level, which
+    # removes the CPM library-size offset delta=log2(N/sum(2^lfc)) that a net-depleted synthetic library imposes on EVERY
+    # recovered log2FC. Without this anchor the planted near-neutral (even-gene) SMF is shifted out of the +/-0.5 band and the
+    # curated pocket selects zero pairs. n_anchor > MIN_CTRL_REF so the control-anchored branch fires.
+    for gd in range(max(n_guides, MIN_CTRL_REF) + 3):
+        lines.append(_row("SAFE.%d:SAFE.%d" % (gd + 1, gd + 2), "SAFE_SAFE_%d" % gd, 0.0 + 0.03 * rng.normal()))
     # single-KO constructs: each real gene paired with SAFE (multiple guides) -> defines SMF
     for gi, g in enumerate(genes):
         for gd in range(n_guides):
