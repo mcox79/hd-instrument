@@ -5,3 +5,5 @@
 - 2026-07-15: Factual-core tier architecture spec + linchpin -> notes/research_factual_core_tier_architecture_2026-07-15.md (AdditiveKGMap already implements hub-and-spoke via canonical-ID string keys; CLS-grounded batch-fit-vs-fast-bridge update discipline; density-audit extends the not-yet-built reachability-audit tool)
 
 - reachability-audit negative drill (arena-selection-vs-fundamental-null, brain-grounded) -> notes/research_reachability_audit_arena_selection_vs_fundamental_null_2026-07-15.md ; RECOMMENDATION: KEEP-AND-FIX (v3 relation-diversity re-slice, same tool/pipeline); P_deflated(arena-artifact over fundamental-null)=0.50
+
+- 2026-07-15T22:16:09Z: 3 brain mechanisms (transition/successor matrix; heteroassociative Hebbian outer-product; theta phase-order) brain-grounded + head-to-head cell designed vs role-keying/bilinear-negative on the dominance/parity arena -> notes/research_brain_asymmetric_directed_relation_operators_2026-07-15.md (P_deflated=0.42, TRANSITION_OP favored)
