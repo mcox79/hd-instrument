@@ -1,0 +1,1330 @@
+{
+  "anchor": "generated_conjunction_nonadditive_chem_v1",
+  "generator": "claude-haiku-4-5",
+  "ts_iso": "2026-07-15T02:38:40.187336+00:00",
+  "classes": [
+    "inert_or_water",
+    "weak_acid",
+    "strong_acid",
+    "strong_base",
+    "ammonia_or_amine",
+    "hypochlorite_bleach",
+    "oxidizer",
+    "reactive_metal",
+    "sulfide_or_cyanide_salt",
+    "organic_solvent_or_fuel",
+    "reducing_agent"
+  ],
+  "target": "hazard",
+  "target_scale": [
+    "none",
+    "minor",
+    "moderate",
+    "high",
+    "severe"
+  ],
+  "L": 5,
+  "gen_cost_usd": 0.093,
+  "n_entities": 162,
+  "n_judged": 162,
+  "n_true": 135,
+  "truth_rate": 0.8333333333333334,
+  "rows": [
+    {
+      "substance_a": "table salt (sodium chloride)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sugar (sucrose)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sand (silicon dioxide)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "vinegar (acetic acid, dilute)",
+      "substance_b": "water",
+      "class_a": "weak_acid",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "lemon juice (citric acid)",
+      "substance_b": "water",
+      "class_a": "weak_acid",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "baking soda (sodium bicarbonate)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "vinegar (acetic acid, dilute)",
+      "substance_b": "baking soda (sodium bicarbonate)",
+      "class_a": "weak_acid",
+      "class_b": "inert_or_water",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "glycerin",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "rubbing alcohol (isopropanol)",
+      "substance_b": "water",
+      "class_a": "organic_solvent_or_fuel",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "mineral oil",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "chalk (calcium carbonate)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "talc powder",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "cornstarch",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "flour",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "food coloring (dye solution)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "soap (sodium lauryl sulfate)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "vegetable oil",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "olive oil",
+      "substance_b": "vinegar (acetic acid, dilute)",
+      "class_a": "inert_or_water",
+      "class_b": "weak_acid",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "lemon juice (citric acid)",
+      "substance_b": "olive oil",
+      "class_a": "weak_acid",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "salt water (saline solution)",
+      "substance_b": "sugar",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "rubbing alcohol (isopropanol)",
+      "substance_b": "glycerin",
+      "class_a": "organic_solvent_or_fuel",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "white vinegar (acetic acid, dilute)",
+      "substance_b": "salt",
+      "class_a": "weak_acid",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "distilled water",
+      "substance_b": "table salt",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sand",
+      "substance_b": "salt",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "baking soda (sodium bicarbonate)",
+      "substance_b": "salt",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "cream of tartar (potassium bitartrate)",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "baking powder",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "honey",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "gelatin",
+      "substance_b": "water",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "food-grade mineral oil",
+      "substance_b": "salt",
+      "class_a": "inert_or_water",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sulfuric acid (concentrated)",
+      "substance_b": "water",
+      "class_a": "strong_acid",
+      "class_b": "inert_or_water",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "hydrochloric acid (concentrated)",
+      "substance_b": "water",
+      "class_a": "strong_acid",
+      "class_b": "inert_or_water",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "nitric acid (concentrated)",
+      "substance_b": "water",
+      "class_a": "strong_acid",
+      "class_b": "inert_or_water",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "sodium hydroxide (solid or concentrated solution)",
+      "substance_b": "water",
+      "class_a": "strong_base",
+      "class_b": "inert_or_water",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "potassium hydroxide (solid or concentrated solution)",
+      "substance_b": "water",
+      "class_a": "strong_base",
+      "class_b": "inert_or_water",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "sulfuric acid (dilute)",
+      "substance_b": "sodium hydroxide (dilute)",
+      "class_a": "strong_acid",
+      "class_b": "strong_base",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrochloric acid (dilute)",
+      "substance_b": "sodium hydroxide (dilute)",
+      "class_a": "strong_acid",
+      "class_b": "strong_base",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "nitric acid (dilute)",
+      "substance_b": "potassium hydroxide (dilute)",
+      "class_a": "strong_acid",
+      "class_b": "strong_base",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "acetic acid (glacial)",
+      "substance_b": "sodium hydroxide (dilute)",
+      "class_a": "weak_acid",
+      "class_b": "strong_base",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "citric acid (solid or solution)",
+      "substance_b": "sodium bicarbonate",
+      "class_a": "weak_acid",
+      "class_b": "inert_or_water",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrochloric acid (dilute)",
+      "substance_b": "sodium bicarbonate",
+      "class_a": "strong_acid",
+      "class_b": "inert_or_water",
+      "hazard": "minor",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "sulfuric acid (dilute)",
+      "substance_b": "sodium carbonate",
+      "class_a": "strong_acid",
+      "class_b": "inert_or_water",
+      "hazard": "minor",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "ammonia solution (aqueous)",
+      "substance_b": "hydrochloric acid (dilute)",
+      "class_a": "ammonia_or_amine",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ammonia solution (aqueous)",
+      "substance_b": "sulfuric acid (dilute)",
+      "class_a": "ammonia_or_amine",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ammonia solution (aqueous)",
+      "substance_b": "acetic acid",
+      "class_a": "ammonia_or_amine",
+      "class_b": "weak_acid",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "aniline (liquid)",
+      "substance_b": "hydrochloric acid (dilute)",
+      "class_a": "ammonia_or_amine",
+      "class_b": "strong_acid",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (dilute bleach)",
+      "substance_b": "water",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (dilute, 3\u20136%)",
+      "substance_b": "water",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "potassium permanganate (solid)",
+      "substance_b": "water",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium nitrate (solid)",
+      "substance_b": "water",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium sulfite (solid or solution)",
+      "substance_b": "water",
+      "class_a": "reducing_agent",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium thiosulfate (solid or solution)",
+      "substance_b": "water",
+      "class_a": "reducing_agent",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ethanol (liquid)",
+      "substance_b": "water",
+      "class_a": "organic_solvent_or_fuel",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "acetone (liquid)",
+      "substance_b": "water",
+      "class_a": "organic_solvent_or_fuel",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium sulfide (solid or solution)",
+      "substance_b": "hydrochloric acid (dilute)",
+      "class_a": "sulfide_or_cyanide_salt",
+      "class_b": "strong_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium sulfide (solid or solution)",
+      "substance_b": "sulfuric acid (dilute)",
+      "class_a": "sulfide_or_cyanide_salt",
+      "class_b": "strong_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "magnesium (powder or turnings)",
+      "substance_b": "hydrochloric acid (dilute)",
+      "class_a": "reactive_metal",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "zinc (powder or granules)",
+      "substance_b": "sulfuric acid (dilute)",
+      "class_a": "reactive_metal",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "iron (powder or filings)",
+      "substance_b": "hydrochloric acid (dilute)",
+      "class_a": "reactive_metal",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "aluminum (powder or foil)",
+      "substance_b": "sodium hydroxide (dilute solution)",
+      "class_a": "reactive_metal",
+      "class_b": "strong_base",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "ammonia",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "hydrochloric acid",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_acid",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "acetic acid",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "weak_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (30%+)",
+      "substance_b": "acetone",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "potassium permanganate",
+      "substance_b": "glycerin",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium metal",
+      "substance_b": "water",
+      "class_a": "reactive_metal",
+      "class_b": "inert_or_water",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "potassium metal",
+      "substance_b": "water",
+      "class_a": "reactive_metal",
+      "class_b": "inert_or_water",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sulfuric acid",
+      "substance_b": "sodium cyanide",
+      "class_a": "strong_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrochloric acid",
+      "substance_b": "sodium sulfide",
+      "class_a": "strong_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "nitric acid",
+      "substance_b": "potassium cyanide",
+      "class_a": "strong_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "calcium hypochlorite",
+      "substance_b": "ammonia solution",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "potassium permanganate",
+      "substance_b": "ethanol",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "chromic acid",
+      "substance_b": "acetone",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "sodium hydroxide",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_base",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (35%+)",
+      "substance_b": "methanol",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "isopropanol",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "lithium metal",
+      "substance_b": "water",
+      "class_a": "reactive_metal",
+      "class_b": "inert_or_water",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "perchloric acid",
+      "substance_b": "sodium sulfide",
+      "class_a": "strong_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "chlorine gas",
+      "substance_b": "ammonia gas",
+      "class_a": "oxidizer",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "methanol",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "bromine",
+      "substance_b": "ammonia solution",
+      "class_a": "oxidizer",
+      "class_b": "ammonia_or_amine",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "potassium dichromate",
+      "substance_b": "ethanol",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sulfuric acid",
+      "substance_b": "potassium sulfide",
+      "class_a": "strong_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "calcium hypochlorite",
+      "substance_b": "acetic acid",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "weak_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "nitric acid",
+      "substance_b": "sodium sulfide",
+      "class_a": "strong_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ozone",
+      "substance_b": "turpentine",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "ethylamine",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (50%+)",
+      "substance_b": "aniline",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "severe",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "phosphorus pentoxide",
+      "substance_b": "water",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "hydrocyanic acid",
+      "substance_b": "sodium hydroxide",
+      "class_a": "weak_acid",
+      "class_b": "strong_base",
+      "hazard": "none",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "ammonia (window cleaner)",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "hydrochloric acid (toilet bowl cleaner)",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_acid",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "white vinegar",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "weak_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ammonia solution",
+      "substance_b": "hydrochloric acid",
+      "class_a": "ammonia_or_amine",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "hydrogen peroxide (3%)",
+      "substance_b": "hydrochloric acid",
+      "class_a": "oxidizer",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (3%)",
+      "substance_b": "water",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "white vinegar",
+      "substance_b": "baking soda",
+      "class_a": "weak_acid",
+      "class_b": "strong_base",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "rubbing alcohol",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (3%)",
+      "substance_b": "ammonia solution",
+      "class_a": "oxidizer",
+      "class_b": "ammonia_or_amine",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "sodium hydroxide (drain cleaner)",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_base",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "calcium hypochlorite (pool shock)",
+      "substance_b": "ammonia",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "calcium hypochlorite (pool shock)",
+      "substance_b": "hydrochloric acid (muriatic acid)",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_acid",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "white vinegar",
+      "substance_b": "hydrogen peroxide (3%)",
+      "class_a": "weak_acid",
+      "class_b": "oxidizer",
+      "hazard": "minor",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "ammonia solution",
+      "substance_b": "white vinegar",
+      "class_a": "ammonia_or_amine",
+      "class_b": "weak_acid",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "acetone",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (3%)",
+      "substance_b": "sodium hydroxide",
+      "class_a": "oxidizer",
+      "class_b": "strong_base",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "sodium thiosulfate",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "reducing_agent",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "calcium hypochlorite (pool shock)",
+      "substance_b": "white vinegar",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "weak_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (high concentration)",
+      "substance_b": "iron oxide",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "ammonia solution",
+      "substance_b": "sodium hypochlorite (bleach)",
+      "class_a": "ammonia_or_amine",
+      "class_b": "hypochlorite_bleach",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "white vinegar",
+      "substance_b": "sodium hydroxide",
+      "class_a": "weak_acid",
+      "class_b": "strong_base",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "hydrochloric acid",
+      "substance_b": "sodium hydroxide",
+      "class_a": "strong_acid",
+      "class_b": "strong_base",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide (3%)",
+      "substance_b": "rubbing alcohol",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "calcium hypochlorite (pool shock)",
+      "substance_b": "rubbing alcohol",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "baking soda",
+      "substance_b": "water",
+      "class_a": "strong_base",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "calcium hypochlorite (pool shock)",
+      "substance_b": "sodium hydroxide",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_base",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide",
+      "substance_b": "potassium permanganate",
+      "class_a": "oxidizer",
+      "class_b": "oxidizer",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite",
+      "substance_b": "ammonia",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sulfuric acid",
+      "substance_b": "sodium hydroxide",
+      "class_a": "strong_acid",
+      "class_b": "strong_base",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "nitric acid",
+      "substance_b": "copper",
+      "class_a": "strong_acid",
+      "class_b": "reactive_metal",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite",
+      "substance_b": "acetic acid",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "weak_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "calcium carbide",
+      "substance_b": "water",
+      "class_a": "reactive_metal",
+      "class_b": "inert_or_water",
+      "hazard": "high",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "sodium metal",
+      "substance_b": "ethanol",
+      "class_a": "reactive_metal",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen cyanide salt (sodium cyanide)",
+      "substance_b": "sulfuric acid",
+      "class_a": "sulfide_or_cyanide_salt",
+      "class_b": "strong_acid",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite",
+      "substance_b": "hydrogen peroxide",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "oxidizer",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "potassium permanganate",
+      "substance_b": "glycerol",
+      "class_a": "oxidizer",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite",
+      "substance_b": "methanol",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "chlorine gas",
+      "substance_b": "ammonia",
+      "class_a": "oxidizer",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "bromine",
+      "substance_b": "sodium hydroxide",
+      "class_a": "oxidizer",
+      "class_b": "strong_base",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "perchloric acid",
+      "substance_b": "acetic anhydride",
+      "class_a": "strong_acid",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium peroxide",
+      "substance_b": "water",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite",
+      "substance_b": "hydrochloric acid",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_acid",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "nitric acid",
+      "substance_b": "glycerol",
+      "class_a": "strong_acid",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "potassium dichromate",
+      "substance_b": "hydrochloric acid",
+      "class_a": "oxidizer",
+      "class_b": "strong_acid",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite",
+      "substance_b": "phenol",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "organic_solvent_or_fuel",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "fluorine gas",
+      "substance_b": "ammonia",
+      "class_a": "oxidizer",
+      "class_b": "ammonia_or_amine",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "potassium permanganate",
+      "substance_b": "oxalic acid",
+      "class_a": "oxidizer",
+      "class_b": "weak_acid",
+      "hazard": "moderate",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "sodium hypochlorite",
+      "substance_b": "sodium thiosulfate",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "reducing_agent",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "nitric acid",
+      "substance_b": "sodium thiosulfate",
+      "class_a": "strong_acid",
+      "class_b": "reducing_agent",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "vinegar (acetic acid)",
+      "substance_b": "baking soda (sodium bicarbonate)",
+      "class_a": "weak_acid",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "vinegar (acetic acid)",
+      "substance_b": "sodium hypochlorite (bleach)",
+      "class_a": "weak_acid",
+      "class_b": "hypochlorite_bleach",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "vinegar (acetic acid)",
+      "substance_b": "hydrogen peroxide",
+      "class_a": "weak_acid",
+      "class_b": "oxidizer",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ammonia solution",
+      "substance_b": "vinegar (acetic acid)",
+      "class_a": "ammonia_or_amine",
+      "class_b": "weak_acid",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ammonia solution",
+      "substance_b": "water",
+      "class_a": "ammonia_or_amine",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "rubbing alcohol (isopropanol)",
+      "substance_b": "sodium hypochlorite (bleach)",
+      "class_a": "organic_solvent_or_fuel",
+      "class_b": "hypochlorite_bleach",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide",
+      "substance_b": "sodium thiosulfate",
+      "class_a": "oxidizer",
+      "class_b": "reducing_agent",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide",
+      "substance_b": "water",
+      "class_a": "oxidizer",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "sulfuric acid",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "strong_acid",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "hydrogen peroxide",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "oxidizer",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "sodium hypochlorite (bleach)",
+      "substance_b": "water",
+      "class_a": "hypochlorite_bleach",
+      "class_b": "inert_or_water",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "baking soda (sodium bicarbonate)",
+      "substance_b": "hydrochloric acid",
+      "class_a": "inert_or_water",
+      "class_b": "strong_acid",
+      "hazard": "none",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "baking soda (sodium bicarbonate)",
+      "substance_b": "sulfuric acid",
+      "class_a": "inert_or_water",
+      "class_b": "strong_acid",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "baking soda (sodium bicarbonate)",
+      "substance_b": "sodium hypochlorite (bleach)",
+      "class_a": "inert_or_water",
+      "class_b": "hypochlorite_bleach",
+      "hazard": "none",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "water",
+      "substance_b": "potassium cyanide",
+      "class_a": "inert_or_water",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "none",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "vinegar (acetic acid)",
+      "substance_b": "potassium permanganate",
+      "class_a": "weak_acid",
+      "class_b": "oxidizer",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "vinegar (acetic acid)",
+      "substance_b": "sodium cyanide",
+      "class_a": "weak_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "severe",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "ammonia solution",
+      "substance_b": "hydrogen peroxide",
+      "class_a": "ammonia_or_amine",
+      "class_b": "oxidizer",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "rubbing alcohol (isopropanol)",
+      "substance_b": "potassium permanganate",
+      "class_a": "organic_solvent_or_fuel",
+      "class_b": "oxidizer",
+      "hazard": "high",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "rubbing alcohol (isopropanol)",
+      "substance_b": "sulfuric acid",
+      "class_a": "organic_solvent_or_fuel",
+      "class_b": "strong_acid",
+      "hazard": "moderate",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "hydrogen peroxide",
+      "substance_b": "iron(ii) sulfate",
+      "class_a": "oxidizer",
+      "class_b": "reducing_agent",
+      "hazard": "minor",
+      "vetted_true": true
+    },
+    {
+      "substance_a": "baking soda (sodium bicarbonate)",
+      "substance_b": "ammonia solution",
+      "class_a": "inert_or_water",
+      "class_b": "ammonia_or_amine",
+      "hazard": "none",
+      "vetted_true": false
+    },
+    {
+      "substance_a": "vinegar (acetic acid)",
+      "substance_b": "sodium sulfide",
+      "class_a": "weak_acid",
+      "class_b": "sulfide_or_cyanide_salt",
+      "hazard": "high",
+      "vetted_true": true
+    }
+  ]
+}
