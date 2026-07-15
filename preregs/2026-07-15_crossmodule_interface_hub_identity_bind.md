@@ -40,12 +40,35 @@ conjunction = rank z by `s_P(z)*s_G(z)`. The join is exact BY CONSTRUCTION becau
 - HUB (mechanism, WINNER hypothesis): shared hub codes + SEPARATE relation-typed stores (spokes) + identity-anchored product.
 - MERGED (STRONG baseline; isolates SPOKE-SEPARATION): SAME shared hub codes but ONE FLAT store (physical+genetic merged, no
   relation typing) -> relation smearing pollutes the conjunction. Still has shared identity -> a fair strong baseline.
-- NO_HUB (isolates SHARED-IDENTITY): separate relation-typed stores but module G built with an INDEPENDENT codebook -> no
-  canonical-ID correspondence -> best achievable is a RANDOM cross-space correspondence (learned alignment out-of-scope:
-  independent random codes carry no signal to align on, per the interface drill Rank-3 rejection) -> chance.
-- SCRAMBLE (MUST-FAIL): HUB but module G edges stored under a scrambled identity permutation (identity anchor broken).
-- RANDOM (chance floor): random candidate scores -> empirical MAP floor for the variable-size answer sets.
-HP_SCOPE: HARD_PASS margin gates apply to HUB vs max(MERGED, NO_HUB) ONLY; RANDOM/SCRAMBLE are floor/must-fail arms.
+- NO_HUB (isolates SHARED-IDENTITY; MUST-FAIL): separate relation-typed stores but module G built with an INDEPENDENT
+  codebook -> no canonical-ID correspondence -> the genetic readout cannot be re-identified against the physical readout
+  (learned alignment out-of-scope: independent random codes carry no signal to align on, per the interface drill Rank-3
+  rejection). It RETAINS the intact PHYSICAL module, so its honest null is the single-constraint ceiling (below), NOT chance.
+- SCRAMBLE (MUST-FAIL): HUB but module G edges stored under a scrambled identity permutation (identity anchor broken); like
+  NO_HUB it retains the intact physical module, so its null is the single-constraint ceiling, NOT chance.
+- PHYS_ONLY / GEN_ONLY (single-constraint reference ceilings): rank by ONE module's real readout alone. Because the gold
+  A(X,Y) = phys(X) INTERSECT gen(Y) is a SUBSET of BOTH phys(X) and gen(Y), a single intact module already scores ABOVE the
+  pure-random floor (a conjunction's answer set is a subset of each conjunct's neighbourhood). These MEASURE the irreducible
+  "one intact module retained" residual = the honest null for NO_HUB/SCRAMBLE, and (on real scale-free data) also absorb any
+  degree/frequency leakage into the null automatically.
+- RANDOM (pure-chance floor): random candidate scores -> empirical MAP floor for the variable-size answer sets (reporting
+  context only; it is NOT the must-fail null -- see the CORRECTION note below).
+HP_SCOPE: HARD_PASS margin gates apply to HUB vs max(MERGED, NO_HUB, single_ceiling) ONLY; RANDOM is a reporting floor.
+
+## CORRECTION (must-fail null re-specified after the first remote self-test 9/11)
+The first self-test FAILED 2/11: NO_HUB=0.183 and SCRAMBLE=0.181 did NOT collapse to the RANDOM floor (0.056); they sat ~3.2x
+above it. DIAGNOSIS (static, off the planted-arena numbers): this is NOT the hypothesized degree/frequency leakage -- the
+planted arena is degree-uniform (no hub genes), yet the residual persists, so degree-matched candidates (the literal option-a)
+would NOT remove it. The true mechanism is a CONJUNCTIVE-SUBSET property: gold is a SUBSET of BOTH phys(X) and gen(Y), so any
+arm retaining ONE intact module (NO_HUB/SCRAMBLE keep the PHYSICAL module; only the GENETIC identity bridge is broken) floats
+to the single-constraint ceiling by construction. The candidate-restriction form of option-a (rank only within phys(X)) WOULD
+remove it, but it (i) changes the HUB/MERGED scoring metric -- disallowed (HUB/MERGED machinery held fixed) -- and (ii) raises
+the chance floor to ~0.29 and compresses the HUB_MAP>=0.30 band below META_RULE_L. So option-a is not viable within scope.
+FIX = option-b done rigorously: the identity-broken arms' honest null is the MEASURED single-constraint ceiling
+max(PHYS_ONLY_MAP, GEN_ONLY_MAP), and the HONEST discriminator is HUB beating that ceiling (genuine conjunction gain from the
+shared-identity bridge, ABOVE the residual-leakage level). This directly separates "hub identity does the work" from "residual
+leakage floats every arm." Two new reference arms (PHYS_ONLY, GEN_ONLY) MEASURE the null; HUB/MERGED/join_precision/parsers
+are unchanged.
 
 ## Held-out slice
 The mechanism has ZERO learned parameters (no fitting): every cross-module query is HELD-OUT BY CONSTRUCTION (nothing is fit
@@ -63,8 +86,10 @@ zero-parameter retrieval mechanism cannot overfit a held-out query.
 ## PRE-REGISTERED BANDS (fixed BEFORE running)
 - HARD_PASS_INTERFACE: JOIN clean (join_precision >= 0.90 AND fuzzy_gain_frac <= 0.05 AND n_shared_orfs >= 60) AND relations
   DISTINCT (edge_jaccard(P,G) <= 0.50) AND HUB above chance (HUB_MAP >= 0.30) AND HUB beats the STRONG baseline
-  (HUB_MAP - max(MERGED_MAP,NO_HUB_MAP) >= 0.15 AND HUB_MAP >= 1.5*MERGED_MAP) AND must-fails FIRE (SCRAMBLE_MAP <=
-  RANDOM_MAP+0.03 AND NO_HUB_MAP <= RANDOM_MAP+0.05) AND n_queries >= 30 AND arms differ AND determinism.
+  (HUB_MAP - max(MERGED_MAP,NO_HUB_MAP) >= 0.15 AND HUB_MAP >= 1.5*MERGED_MAP) AND HUB is a GENUINE conjunction
+  (HUB_MAP - single_ceiling >= 0.15, single_ceiling = max(PHYS_ONLY_MAP,GEN_ONLY_MAP)) AND must-fails FIRE
+  (SCRAMBLE_MAP <= single_ceiling+0.05 AND NO_HUB_MAP <= single_ceiling+0.05, AND each >= 0.15 below HUB_MAP) AND
+  n_queries >= 30 AND arms differ AND determinism.
 - HARD_FAIL_JOIN_LOSSY: join_precision < 0.90 OR fuzzy_gain_frac > 0.05 OR n_shared_orfs < 60 (exact ORF join lossy / needs a
   fuzzy layer -> the "canonical-ID dissolves the ~51% link problem" claim fails for this pair).
 - HARD_FAIL_NO_COMPOSITION: join clean + relations distinct but HUB does NOT beat the baseline (identity-anchored composition
@@ -88,11 +113,15 @@ capacity sized (MAX_EDGES_PER_MODULE=4000, DEG_CAP=30, N=16384) so HUB cleanup c
 - final_metrics_atomicity: tmp_replace.
 - crlb_n/a: retrieval MAP has no closed-form CRLB; the chance floor is the MEASURED RANDOM-arm MAP on the SAME variable-size
   answer sets; the planted full-N preview certifies the HUB-vs-baseline gap survives scale.
-- discriminator_reachability: true (planted arena full-N preview asserts HUB - MERGED >= 0.15 and HUB - NO_HUB >= 0.15).
+- discriminator_reachability: true (planted arena full-N preview asserts HUB - MERGED >= 0.15, HUB - NO_HUB >= 0.15,
+  HUB - single_ceiling >= 0.15, and NO_HUB/SCRAMBLE <= single_ceiling + 0.05 AND >= 0.15 below HUB).
 - baseline_in_band: MERGED/NO_HUB measured (not saturated); planted arena built with DISTINCT relations so MERGED < HUB.
 - cardinality_ok: EXPECTED_N_UNITS = n_seeds (5 full / 2 smoke); verdict averages per-seed MAP; per_seed length == n_seeds.
-- calibration_check: adaptive_with_discriminator_gate (chance floor = measured RANDOM arm; edge_jaccard distinctness gate is
-  the discriminator-still-fires verification; self-test asserts floor + HUB-vs-MERGED gap on a planted arena first).
+- calibration_check: adaptive_with_discriminator_gate (must-fail null = MEASURED single-constraint ceiling
+  max(PHYS_ONLY,GEN_ONLY), NOT the pure-random floor -- gold is a subset of each conjunct so one intact module floats the
+  identity-broken arms above chance by construction; on real scale-free data the ceiling also absorbs degree/frequency
+  leakage into the null; edge_jaccard distinctness gate is the discriminator-still-fires verification; self-test asserts the
+  single-constraint ceiling + HUB-vs-MERGED gap + HUB-beats-ceiling on a planted arena first).
 - except SystemExit: raise BEFORE except Exception (no BaseException); no bare except.
 - real_code_path_exercised: [parse_biogrid_physical, parse_costanzo_genetic, hd_bind, hd_unbind, run_arms] (self-test builds
   synthetic BioGRID TAB3 + Costanzo zips through the REAL parsers + runs the REAL VSA arms at full N).

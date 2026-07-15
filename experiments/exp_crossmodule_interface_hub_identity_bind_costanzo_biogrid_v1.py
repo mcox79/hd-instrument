@@ -30,8 +30,18 @@ ARMS (retrieval, MAP higher=better on the true cross-module answer set):
              out-of-scope: independent random codes carry NO signal to align on) -> conjunction collapses to chance.
              (isolates the SHARED-IDENTITY variable.)
   SCRAMBLE = HUB but module G's edges stored under a SCRAMBLED identity permutation (identity anchor broken). MUST-FAIL.
-  RANDOM   = random candidate scores -> anchors the chance MAP floor for the variable-size answer sets.
-HUB needs BOTH hub-identity (beats NO_HUB) AND spoke-separation (beats MERGED) -> HUB > max(MERGED, NO_HUB) by the margin.
+  RANDOM   = random candidate scores -> anchors the pure-chance MAP floor for the variable-size answer sets.
+  PHYS_ONLY / GEN_ONLY = single-constraint reference ceilings (rank by ONE module's real readout alone). Because the gold
+             answer A(X,Y) = phys(X) INTERSECT gen(Y) is a SUBSET of BOTH phys(X) and gen(Y), a single intact module already
+             scores ABOVE the pure-random floor (a conjunction's answer set is a subset of each conjunct's neighbourhood).
+             This MEASURES the irreducible "one intact module retained" residual -- the honest null for NO_HUB/SCRAMBLE, which
+             each keep the intact PHYSICAL module and only break the GENETIC identity bridge.
+HUB needs BOTH hub-identity (beats NO_HUB) AND spoke-separation (beats MERGED) AND genuine CONJUNCTION (beats the
+single-constraint ceiling PHYS_ONLY/GEN_ONLY by the margin) -> HUB > max(MERGED, NO_HUB, single_ceiling) by the margin.
+MUST-FAIL (redefined): NO_HUB / SCRAMBLE break the shared-identity bridge, so they get NO conjunction gain over ONE module ->
+their MAP must NOT exceed single_ceiling + tol AND must sit >= HP_MARGIN_ABS below HUB. Their floor is the single-module
+residual, NOT the pure-random floor (the earlier "collapse to RANDOM" band was mis-specified: the physical module stays intact
+so the retained physical readout floats these arms to the single-constraint ceiling by construction, not to chance).
 
 PRIMARY REPORTED FIELD -- JOIN PRECISION (exact-ORF, NOT fuzzy):
   join_precision   = fraction of BioGRID physical-edge endpoints whose systematic-name token is a well-formed canonical
@@ -43,9 +53,10 @@ PRIMARY REPORTED FIELD -- JOIN PRECISION (exact-ORF, NOT fuzzy):
 PRE-REGISTERED BANDS (fixed BEFORE running; see preregs/2026-07-15_crossmodule_interface_hub_identity_bind.md):
   HARD_PASS_INTERFACE: JOIN clean (join_precision >= 0.90 AND fuzzy_gain_frac <= 0.05 AND n_shared_orfs >= MIN_SHARED)
     AND relations DISTINCT (edge_jaccard(P,G) <= 0.50) AND HUB MAP materially above chance (HUB_MAP >= 0.30) AND HUB beats
-    the STRONG baseline (HUB_MAP - max(MERGED_MAP,NO_HUB_MAP) >= 0.15 AND HUB_MAP >= 1.5*MERGED_MAP) AND must-fails FIRE
-    (SCRAMBLE_MAP <= RANDOM_MAP+0.03 AND NO_HUB_MAP <= RANDOM_MAP+0.05) AND enough held-out queries (n_queries >= MIN_QUERIES)
-    AND arms differ AND determinism.
+    the STRONG baseline (HUB_MAP - max(MERGED_MAP,NO_HUB_MAP) >= 0.15 AND HUB_MAP >= 1.5*MERGED_MAP) AND HUB is a GENUINE
+    conjunction (HUB_MAP - single_ceiling >= 0.15, single_ceiling = max(PHYS_ONLY_MAP,GEN_ONLY_MAP)) AND must-fails FIRE
+    (SCRAMBLE_MAP <= single_ceiling+0.05 AND NO_HUB_MAP <= single_ceiling+0.05, AND each >= 0.15 below HUB_MAP) AND enough
+    held-out queries (n_queries >= MIN_QUERIES) AND arms differ AND determinism.
   HARD_FAIL_JOIN_LOSSY: join_precision < 0.90 OR fuzzy_gain_frac > 0.05 OR n_shared_orfs < MIN_SHARED (exact ORF join is
     lossy / needs a fuzzy layer -> the "51% dissolves for canonical-ID data" claim fails for this pair).
   HARD_FAIL_NO_COMPOSITION: JOIN clean + relations distinct but HUB does NOT beat the baseline (identity-anchored
@@ -77,14 +88,18 @@ Compute architecture: (b) sequential-CPU with justification -- the VSA core (bin
 # - baseline_in_band: MERGED/NO_HUB are measured (not saturated); the RANDOM arm bounds the chance floor; the planted arena
 #     is built with DISTINCT relations so MERGED is meaningfully below HUB (discriminator fires, not saturation-vacuous).
 # - discriminator survives scale (option C): self-test runs the FULL VSA arms at N_DIM (full N) on a planted two-module arena
-#     and asserts HUB - MERGED >= PLANT_MARGIN and HUB - NO_HUB larger and SCRAMBLE ~ RANDOM, at full scale.
+#     and asserts HUB - MERGED >= PLANT_MARGIN, HUB - NO_HUB >= PLANT_MARGIN, HUB - single_ceiling >= PLANT_MARGIN, and the
+#     identity-broken arms (NO_HUB/SCRAMBLE) at-or-below the single-constraint ceiling AND >= PLANT_MARGIN below HUB, at full scale.
 # - HARD_PASS strictly above floor: HUB_MAP >= 0.30 AND margin >= 0.15 AND HUB >= 1.5x MERGED (not a >= floor touch).
 # - HP_SCOPE: HARD_PASS gates apply to HUB vs max(MERGED,NO_HUB) only; RANDOM/SCRAMBLE are contrast/must-fail arms.
 # - cardinality_ok: n_seeds fixed; verdict counts per-seed MAP lengths == n_seeds for every arm.
 # - per-unit failure-class instrumentation: acquire/parse failures -> explicit ACQUIRE_FAILED_* / ESCALATE verdicts (no bare except).
-# - calibration_check: adaptive_with_discriminator_gate (the chance floor is the MEASURED RANDOM-arm MAP on the real answer
-#     sets, not a fixed constant; the relations-distinct jaccard gate is the discriminator-still-fires verification; the
-#     self-test asserts the RANDOM/SCRAMBLE floor and the HUB-vs-MERGED gap on a planted arena BEFORE real data is trusted).
+# - calibration_check: adaptive_with_discriminator_gate (the must-fail null is the MEASURED single-constraint ceiling
+#     max(PHYS_ONLY,GEN_ONLY) on the real answer sets -- NOT the pure-random floor, because gold is a SUBSET of each conjunct
+#     so one intact module floats the identity-broken arms above chance by construction; the relations-distinct jaccard gate
+#     is the discriminator-still-fires verification; the self-test asserts the single-constraint ceiling, the HUB-vs-MERGED
+#     gap, AND HUB beating the ceiling on a planted arena BEFORE real data is trusted. PHYS_ONLY/GEN_ONLY also absorb any
+#     degree/frequency leakage present in the REAL scale-free data, so the null adapts to the data's marginal structure).
 # - all numbers in comments tagged CITED@ (scout/interface drills) / THEORETICAL@ / to-be-MEASURED@ (real-data pending remote).
 # - real_code_path: self-test parses a SYNTHETIC BioGRID TAB3 zip + a SYNTHETIC Costanzo pairwise zip through the REAL
 #     parsers, computes join precision, builds the REAL VSA arms via hd_bind/hd_unbind on complex64, at full N.
@@ -174,13 +189,23 @@ REL_JACCARD_MAX = 0.50       # edge_jaccard(physical,genetic) <= this else MIDDL
 HP_HUB_ABS = 0.30            # HUB MAP must be materially above chance
 HP_MARGIN_ABS = 0.15         # HUB_MAP - max(MERGED_MAP, NO_HUB_MAP) >= this
 HP_MARGIN_REL = 1.5          # HUB_MAP >= this * MERGED_MAP
-MUSTFAIL_SCRAMBLE_TOL = 0.03 # SCRAMBLE_MAP <= RANDOM_MAP + this (identity-scramble breaks composition to chance)
-MUSTFAIL_NOHUB_TOL = 0.05    # NO_HUB_MAP <= RANDOM_MAP + this (no shared identity => chance)
-PLANT_MARGIN = 0.15          # self-test planted-arena discriminator: HUB_MAP - MERGED_MAP >= this at full N
+MUSTFAIL_SCRAMBLE_TOL = 0.03 # (reporting) SCRAMBLE_MAP - RANDOM_MAP context; NOT the gate (see MUSTFAIL_CEIL_TOL)
+MUSTFAIL_NOHUB_TOL = 0.05    # (reporting) NO_HUB_MAP - RANDOM_MAP context; NOT the gate (see MUSTFAIL_CEIL_TOL)
+MUSTFAIL_CEIL_TOL = 0.05     # identity-broken arms must NOT exceed the single-constraint ceiling by more than this
+                             # (i.e. breaking the shared-identity bridge yields NO conjunction gain over one module alone)
+PLANT_MARGIN = 0.15          # self-test planted-arena discriminator: HUB_MAP - {MERGED,NO_HUB,SCRAMBLE,single-ceiling} >= this at full N
 
 # ---- arms ----
+# HUB/MERGED/NO_HUB/SCRAMBLE/RANDOM = mechanism + baselines + must-fail + floor.
+# PHYS_ONLY/GEN_ONLY = SINGLE-CONSTRAINT reference ceilings (rank by ONE module's readout alone). These MEASURE the
+# irreducible "one intact module retained" performance: because gold A(X,Y) = phys(X) INTERSECT gen(Y) is a SUBSET of BOTH
+# phys(X) and gen(Y), any arm that keeps one real module scores ABOVE the RANDOM floor by construction (a conjunction's answer
+# set is a subset of each conjunct's neighbourhood). The identity-broken must-fail arms (NO_HUB, SCRAMBLE) retain the intact
+# PHYSICAL module, so their honest null is this single-constraint ceiling, NOT the pure-random floor. HUB must beat the ceiling
+# (real conjunction gain from the shared-identity bridge); NO_HUB/SCRAMBLE must NOT (broken bridge => no gain over one module).
 HUB = "HUB"; MERGED = "MERGED"; NO_HUB = "NO_HUB"; SCRAMBLE = "SCRAMBLE"; RANDOM = "RANDOM"
-ARM_NAMES = [HUB, MERGED, NO_HUB, SCRAMBLE, RANDOM]
+PHYS_ONLY = "PHYS_ONLY"; GEN_ONLY = "GEN_ONLY"
+ARM_NAMES = [HUB, MERGED, NO_HUB, SCRAMBLE, RANDOM, PHYS_ONLY, GEN_ONLY]
 
 SEEDS_FULL = (7, 13, 17, 23, 29)
 SEEDS_SMOKE = (7, 13)
@@ -749,7 +774,12 @@ def run_arms(sub, queries, seed):
     # ---- RANDOM: chance floor for the variable-size answer sets ----
     rand_conj = rng.standard_normal(size=hub_conj.shape)
 
-    scores = {HUB: hub_conj, MERGED: merged_conj, NO_HUB: nohub_conj, SCRAMBLE: scram_conj, RANDOM: rand_conj}
+    # ---- PHYS_ONLY / GEN_ONLY: single-constraint reference ceilings (rank by ONE module's real readout alone) ----
+    # sP = physical partners of X (real hub codes); sG = genetic partners of Y (real hub codes). gold is a SUBSET of BOTH
+    # phys(X) and gen(Y), so each single-constraint readout scores ABOVE the RANDOM floor -- this MEASURES the irreducible
+    # single-module residual that any identity-broken arm inherits from its ONE intact module.
+    scores = {HUB: hub_conj, MERGED: merged_conj, NO_HUB: nohub_conj, SCRAMBLE: scram_conj, RANDOM: rand_conj,
+              PHYS_ONLY: sP, GEN_ONLY: sG}
     maps = {arm: _map_over_queries(scores[arm], queries) for arm in ARM_NAMES}
     sigs = {arm: _sig_f(scores[arm].ravel()) for arm in ARM_NAMES}
     return maps, sigs
@@ -807,7 +837,8 @@ def run_measurement(seeds, run_mode):
                 bands=dict(JOIN_PRECISION_MIN=JOIN_PRECISION_MIN, FUZZY_GAIN_MAX=FUZZY_GAIN_MAX,
                            REL_JACCARD_MAX=REL_JACCARD_MAX, HP_HUB_ABS=HP_HUB_ABS, HP_MARGIN_ABS=HP_MARGIN_ABS,
                            HP_MARGIN_REL=HP_MARGIN_REL, MUSTFAIL_SCRAMBLE_TOL=MUSTFAIL_SCRAMBLE_TOL,
-                           MUSTFAIL_NOHUB_TOL=MUSTFAIL_NOHUB_TOL, MIN_SHARED=MIN_SHARED, MIN_QUERIES=MIN_QUERIES,
+                           MUSTFAIL_NOHUB_TOL=MUSTFAIL_NOHUB_TOL, MUSTFAIL_CEIL_TOL=MUSTFAIL_CEIL_TOL,
+                           MIN_SHARED=MIN_SHARED, MIN_QUERIES=MIN_QUERIES,
                            N_DIM=N_DIM, TOP_V=TOP_V))
 
     if acq["biogrid_path"] is None or acq["costanzo_path"] is None:
@@ -903,7 +934,10 @@ def run_measurement(seeds, run_mode):
 
     map_hub = _mean(HUB); map_merged = _mean(MERGED); map_nohub = _mean(NO_HUB)
     map_scram = _mean(SCRAMBLE); map_random = _mean(RANDOM)
+    map_physonly = _mean(PHYS_ONLY); map_genonly = _mean(GEN_ONLY)
     strong_baseline = max([v for v in (map_merged, map_nohub) if v == v], default=float("nan"))
+    # single-constraint ceiling = best a ONE-module readout achieves; the honest null for the identity-broken arms.
+    single_ceiling = max([v for v in (map_physonly, map_genonly) if v == v], default=float("nan"))
 
     margin_abs = map_hub - strong_baseline if (map_hub == map_hub and strong_baseline == strong_baseline) else float("nan")
     rel_ok = bool(map_hub == map_hub and map_merged == map_merged and map_merged > 1e-9 and map_hub >= HP_MARGIN_REL * map_merged)
@@ -916,15 +950,25 @@ def run_measurement(seeds, run_mode):
 
     hub_above_chance = bool(map_hub == map_hub and map_hub >= HP_HUB_ABS)
     margin_ok = bool(margin_abs == margin_abs and margin_abs >= HP_MARGIN_ABS and rel_ok)
-    scram_mustfail = bool(map_scram == map_scram and map_random == map_random
-                          and map_scram <= map_random + MUSTFAIL_SCRAMBLE_TOL)
-    nohub_mustfail = bool(map_nohub == map_nohub and map_random == map_random
-                          and map_nohub <= map_random + MUSTFAIL_NOHUB_TOL)
+    # HONEST conjunction gate: HUB (both constraints via the shared-identity bridge) must beat the single-constraint ceiling
+    # (= the "residual leakage floats every arm" level). This DIRECTLY separates "hub identity does the work" from
+    # "one intact module carries a subset-of-the-answer residual".
+    hub_beats_single = bool(map_hub == map_hub and single_ceiling == single_ceiling
+                            and (map_hub - single_ceiling) >= HP_MARGIN_ABS)
+    # MUST-FAIL (redefined; option-b with rigorous single-constraint null): breaking the shared-identity bridge yields NO
+    # conjunction gain over one intact module -> the arm must NOT exceed the single-constraint ceiling AND must sit far below
+    # HUB. Its floor is the single-module residual (gold is a SUBSET of each conjunct), NOT the pure-random floor.
+    scram_mustfail = bool(map_scram == map_scram and single_ceiling == single_ceiling and map_hub == map_hub
+                          and map_scram <= single_ceiling + MUSTFAIL_CEIL_TOL
+                          and (map_hub - map_scram) >= HP_MARGIN_ABS)
+    nohub_mustfail = bool(map_nohub == map_nohub and single_ceiling == single_ceiling and map_hub == map_hub
+                          and map_nohub <= single_ceiling + MUSTFAIL_CEIL_TOL
+                          and (map_hub - map_nohub) >= HP_MARGIN_ABS)
     mustfails_ok = bool(scram_mustfail and nohub_mustfail)
     power_ok = bool(n_queries >= MIN_QUERIES)
 
-    hard_pass = bool(join_ok and distinct_ok and hub_above_chance and margin_ok and mustfails_ok and power_ok
-                     and arms_differ and determinism_ok)
+    hard_pass = bool(join_ok and distinct_ok and hub_above_chance and margin_ok and hub_beats_single and mustfails_ok
+                     and power_ok and arms_differ and determinism_ok)
 
     if not distinct_ok:
         verdict = "MIDDLE_BAND_RELATIONS_NOT_DISTINCT"
@@ -934,7 +978,7 @@ def run_measurement(seeds, run_mode):
         verdict = "INCONCLUSIVE_NONDETERMINISTIC"
     elif hard_pass:
         verdict = "HARD_PASS_INTERFACE_HUB_IDENTITY_BIND_COMPOSES_CROSS_MODULE"
-    elif hub_above_chance and not margin_ok and mustfails_ok:
+    elif hub_above_chance and mustfails_ok and (not margin_ok or not hub_beats_single):
         verdict = "HARD_FAIL_NO_COMPOSITION_HUB_DOES_NOT_BEAT_BASELINE"
     elif not mustfails_ok:
         verdict = "INCONCLUSIVE_MUSTFAIL_DID_NOT_FIRE"
@@ -942,13 +986,15 @@ def run_measurement(seeds, run_mode):
         verdict = "MIDDLE_BAND"
 
     msg = ("%s || JOIN precision=%.4f(>=%.2f ok=%s) n_shared=%d fuzzy_gain=%s(<=%.2f) | edge_jaccard=%.4f(<=%.2f "
-           "distinct=%s) | MAP HUB=%.4f(>=%.2f above_chance=%s) MERGED=%.4f NO_HUB=%.4f SCRAMBLE=%.4f RANDOM=%.4f | "
-           "margin_abs=%s(>=%.2f) rel(hub>=%.1fxmerged)=%s margin_ok=%s | mustfail scram=%s nohub=%s | n_queries=%d "
+           "distinct=%s) | MAP HUB=%.4f(>=%.2f above_chance=%s) MERGED=%.4f NO_HUB=%.4f SCRAMBLE=%.4f RANDOM=%.4f "
+           "PHYS_ONLY=%.4f GEN_ONLY=%.4f single_ceiling=%.4f | margin_abs=%s(>=%.2f) rel(hub>=%.1fxmerged)=%s margin_ok=%s "
+           "hub_beats_single(>=%.2f)=%s | mustfail(<=ceil+%.2f AND hub-arm>=%.2f) scram=%s nohub=%s | n_queries=%d "
            "arms_differ=%s determ=%s"
            % (verdict, join_precision, JOIN_PRECISION_MIN, join_ok, n_shared, _fmt(fuzzy_gain_frac), FUZZY_GAIN_MAX,
               edge_jaccard, REL_JACCARD_MAX, distinct_ok, map_hub, HP_HUB_ABS, hub_above_chance, map_merged, map_nohub,
-              map_scram, map_random, _fmt(margin_abs), HP_MARGIN_ABS, HP_MARGIN_REL, rel_ok, margin_ok, scram_mustfail,
-              nohub_mustfail, n_queries, arms_differ, determinism_ok))
+              map_scram, map_random, map_physonly, map_genonly, single_ceiling, _fmt(margin_abs), HP_MARGIN_ABS,
+              HP_MARGIN_REL, rel_ok, margin_ok, HP_MARGIN_ABS, hub_beats_single, MUSTFAIL_CEIL_TOL, HP_MARGIN_ABS,
+              scram_mustfail, nohub_mustfail, n_queries, arms_differ, determinism_ok))
 
     base.update(
         verdict=verdict, verdict_msg=msg, summary=msg[:200],
@@ -956,10 +1002,14 @@ def run_measurement(seeds, run_mode):
         n_phys_edges_in=int(len(sub["phys_edges"])), n_gen_edges_in=int(len(sub["gen_edges"])),
         maps=dict(HUB=round(map_hub, 5), MERGED=round(map_merged, 5), NO_HUB=round(map_nohub, 5),
                   SCRAMBLE=round(map_scram, 5), RANDOM=round(map_random, 5),
+                  PHYS_ONLY=round(map_physonly, 5) if map_physonly == map_physonly else None,
+                  GEN_ONLY=round(map_genonly, 5) if map_genonly == map_genonly else None,
+                  single_ceiling=round(single_ceiling, 5) if single_ceiling == single_ceiling else None,
                   strong_baseline=round(strong_baseline, 5) if strong_baseline == strong_baseline else None,
                   margin_abs=round(margin_abs, 5) if margin_abs == margin_abs else None),
         gates=dict(join_ok=join_ok, distinct_ok=distinct_ok, hub_above_chance=hub_above_chance, margin_ok=margin_ok,
-                   rel_ok=rel_ok, scram_mustfail=scram_mustfail, nohub_mustfail=nohub_mustfail, power_ok=power_ok,
+                   rel_ok=rel_ok, hub_beats_single=hub_beats_single, scram_mustfail=scram_mustfail,
+                   nohub_mustfail=nohub_mustfail, power_ok=power_ok,
                    arms_differ=arms_differ, determinism_ok=determinism_ok, hard_pass=hard_pass),
         per_seed=[dict(seed=ps["seed"], maps={k: round(v, 5) if v == v else None for k, v in ps["maps"].items()})
                   for ps in per_seed],
@@ -1079,10 +1129,19 @@ def self_test():
     details["planted_n_queries"] = len(queries)
     maps, sigs = run_arms(sub, queries, seed=7)
     details["planted_maps"] = {k: round(v, 4) if v == v else None for k, v in maps.items()}
+    single_ceiling = max(maps[PHYS_ONLY], maps[GEN_ONLY])
+    details["planted_single_ceiling"] = round(single_ceiling, 4)
     hub_beats_merged = bool(maps[HUB] - maps[MERGED] >= PLANT_MARGIN)
     hub_beats_nohub = bool(maps[HUB] - maps[NO_HUB] >= PLANT_MARGIN)
-    scram_at_floor = bool(maps[SCRAMBLE] <= maps[RANDOM] + MUSTFAIL_SCRAMBLE_TOL + 0.05)
-    nohub_at_floor = bool(maps[NO_HUB] <= maps[RANDOM] + MUSTFAIL_NOHUB_TOL + 0.05)
+    # HONEST conjunction gate: HUB (both constraints via shared identity) beats the single-constraint ceiling
+    # (= the residual-leakage level any one-intact-module arm inherits).
+    hub_beats_single = bool(maps[HUB] - single_ceiling >= PLANT_MARGIN)
+    # MUST-FAIL (redefined): identity-broken arms yield NO conjunction gain over one module -> at/below the single-constraint
+    # ceiling AND far below HUB. Their null is the single-module residual (gold is a SUBSET of each conjunct), NOT pure random.
+    scram_no_gain = bool(maps[SCRAMBLE] <= single_ceiling + MUSTFAIL_CEIL_TOL
+                         and maps[HUB] - maps[SCRAMBLE] >= PLANT_MARGIN)
+    nohub_no_gain = bool(maps[NO_HUB] <= single_ceiling + MUSTFAIL_CEIL_TOL
+                         and maps[HUB] - maps[NO_HUB] >= PLANT_MARGIN)
     hub_above_chance = bool(maps[HUB] >= HP_HUB_ABS)
 
     # (4) ARMS-MUST-DIFFER (META_RULE_AF) + determinism on the planted arena.
@@ -1098,9 +1157,10 @@ def self_test():
         "exact_join_not_lossy_on_clean_synth": join_shared_ok,
         "planted_hub_beats_merged_at_full_N": hub_beats_merged,
         "planted_hub_beats_nohub_at_full_N": hub_beats_nohub,
+        "planted_hub_beats_single_constraint_ceiling": hub_beats_single,
         "planted_hub_above_chance": hub_above_chance,
-        "planted_scramble_mustfail_at_floor": scram_at_floor,
-        "planted_nohub_mustfail_at_floor": nohub_at_floor,
+        "planted_scramble_no_conjunction_gain_over_single": scram_no_gain,
+        "planted_nohub_no_conjunction_gain_over_single": nohub_no_gain,
         "arms_differ": arms_differ,
         "determinism_ok": determinism_ok,
     }
