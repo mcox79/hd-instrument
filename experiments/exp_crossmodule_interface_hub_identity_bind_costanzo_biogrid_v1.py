@@ -147,11 +147,19 @@ CACHE_DIR = os.path.join(_REPO, "data", "foundation_clusters", "crossmodule_biog
 
 # ---- data sources -----------------------------------------------------------
 # BioGRID yeast (module P, PHYSICAL). CITED@ notes/drill_verified_foundation_pipeline_datasets_module1alt_module2_2026-07-15.md
-# (release 5.0.259 verified live; per-organism TAB3 member inside the all-organisms Latest-Release zip; columns 6/7 =
+# (release 5.0.259 verified live; per-organism TAB3 member inside the all-organisms zip; columns 6/7 =
 # "Systematic Name Interactor A/B", column "Experimental System Type" = physical/genetic).
+# PINNED Release-Archive URL (NOT the stale Latest-Release/...LATEST alias, which returned an 11.5KB HTML redirect and
+# hard-failed ACQUIRE 2026-07-15). Verified live 2026-07-15: HTTP 200 application/download + ZIP magic PK\x03\x04 (real zip,
+# not an HTML error page) for BOTH 5.0.259 (primary) and 5.0.258 (fallback). The all-organisms .tab3.zip carries a per-organism
+# Saccharomyces_cerevisiae member the parser extracts (there is no separate yeast-only download zip in the Release-Archive).
 BIOGRID_URLS = [
-    ("biogrid_latest_tab3_all_organisms",
-     "https://downloads.thebiogrid.org/BioGRID/Latest-Release/BIOGRID-ORGANISM-LATEST.tab3.zip"),
+    ("biogrid_5_0_259_tab3_all_organisms",
+     "https://downloads.thebiogrid.org/Download/BioGRID/Release-Archive/"
+     "BIOGRID-5.0.259/BIOGRID-ORGANISM-5.0.259.tab3.zip"),
+    ("biogrid_5_0_258_tab3_all_organisms_fallback",
+     "https://downloads.thebiogrid.org/Download/BioGRID/Release-Archive/"
+     "BIOGRID-5.0.258/BIOGRID-ORGANISM-5.0.258.tab3.zip"),
 ]
 # Costanzo 2016 (module G, GENETIC). CITED@ same drill + the module-#1 cell exp_costanzo_epistasis_nativepair_bind_readout_v1.py
 # (thecellmap.org/yeast/costanzo2016). PAIRWISE (521MB) then MATRIX (35MB) fallback.
