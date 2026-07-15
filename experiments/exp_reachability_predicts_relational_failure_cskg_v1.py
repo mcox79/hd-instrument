@@ -253,8 +253,8 @@ def diagnostic_for_seed(ea, seed):
 # One seed: split -> fit -> 3 arms -> per-entity RR -> reachability -> diagnostic.
 # ---------------------------------------------------------------------------
 
-def run_one_seed(triples, cfg, device, seed, ckpt_dir=None):
-    train_lbl, query_lbl, _src_train_degree, _src_train_buckets = build_holdout_split(triples, BUCKET_MAP, seed)
+def run_one_seed(triples, bucket_map, cfg, device, seed, ckpt_dir=None):
+    train_lbl, query_lbl, _src_train_degree, _src_train_buckets = build_holdout_split(triples, bucket_map, seed)
     all_lbl = train_lbl + query_lbl
     ent2i, rel2i = build_ids(all_lbl, [], [])
     N = len(ent2i); n_rel = len(rel2i)
@@ -424,7 +424,7 @@ def _self_test_body(device):
     triples = build_planted_bucket_arena(7, n_ent=150, n_rel=6, k_lat=6, deg_lo=5, deg_hi=10)
     exercised.add("build_planted_bucket_arena")
 
-    res = run_one_seed(triples, SELFTEST_CFG, device, 7, ckpt_dir=None)
+    res = run_one_seed(triples, SYNTH_BUCKET_MAP, SELFTEST_CFG, device, 7, ckpt_dir=None)
     exercised.update(["build_holdout_split", "fit_kge_anchor1", "additive_direct_scores", "filtered_rr_per_query",
                       "build_undirected_adj", "degree_vector", "k_hop_reachable_mass", "distance_to_hub",
                       "top_degree_hubs", "mean_neighbor_degree", "partial_spearman", "quantile_strata",
@@ -448,7 +448,7 @@ def _self_test_body(device):
 
     # mode (a) traversal correctness: inject a synthetic grounded set and assert reachable-grounded-mass fires.
     N = res["N"]
-    train_lbl, query_lbl, _d, _b = build_holdout_split(triples, BUCKET_MAP, 7)
+    train_lbl, query_lbl, _d, _b = build_holdout_split(triples, SYNTH_BUCKET_MAP, 7)
     ent2i, rel2i = build_ids(train_lbl + query_lbl, [], [])
     adj_st = build_undirected_adj(_to_int_edges(train_lbl, ent2i, rel2i), len(ent2i))
     deg_st = degree_vector(adj_st)
@@ -576,7 +576,7 @@ def core_main(run_mode, device):
     for si, seed in enumerate(seeds):
         try:
             ts = time.time()
-            res = run_one_seed(triples, cfg, device, seed, ckpt_dir=out_dir)
+            res = run_one_seed(triples, BUCKET_MAP, cfg, device, seed, ckpt_dir=out_dir)
             if res.get("empty") or res.get("n_query", 0) < 1:
                 raise RuntimeError("no query edges produced for seed=%d" % seed)
             sigset = set(res.get("arm_sigs", {}).values())
