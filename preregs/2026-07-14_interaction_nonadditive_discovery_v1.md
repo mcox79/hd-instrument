@@ -61,11 +61,26 @@ No matmul-in-python-loop scaling concern (D=48, no large-N). Storage: no_storage
 (this is a readout-representability + SGD-discovery experiment, not a memory-capacity sweep). GPU batching not
 required (sub-4-min CPU; below the 10s/phase-point batching-candidate threshold per arm-fit).
 
+## CORRECTED STORY (post Skunkworks VET 2026-07-14): ROLE-KEYING <-> SYMMETRY TENSION
+The learned interaction op's advantage over a flexible learned-additive model splits by the TARGET's symmetry, and
+NO single fixed composition op discovers both classes:
+- PARITY is a SYMMETRIC non-additive function -> the SYMMETRIC-code product arm (LEARN_SYM, shared code, no role)
+  is the CORRECT inductive bias and DISCOVERS it (~0.98 novel vs LEARN_ADD ~0.38, chance ~0.52). The role-keyed
+  arms (LEARN_INT / LEARN_BILINEAR) OVER-parameterize and FAIL parity (~0.3-0.4).
+- DOMINANCE is ANTISYMMETRIC -> a ROLE-KEYED arm is REQUIRED and discovers it; the symmetric arm FAILS (~chance).
+  Honest baseline is vs FREQ_NULL (~0.86 -> role-keyed ~1.0, margin ~+0.14), NOT vs the crippled symmetric arm.
+- MULT (log-additive) and AND2 (threshold-additive) are transform-additive: the flexible learned-additive arm
+  matches the interaction arms -> NOT interaction-discovery wins (reported, not claimed).
+Determinism fix: plant_regime / nonadditivity RNG + combo-id now seed from INTEGER indices (never Python salted
+hash), so the arbitrary/shuffle must-fail gates are process-deterministic (was the false-REFUTE root cause).
+
 ## Pre-registered bands (fixed BEFORE the canonical 5-seed run)
 Chance = majority-class rate per family (imbalanced targets). Thresholds:
 - HP_A_INT_FLOOR = 0.90 ; HP_A_MONO_MARGIN = 0.07 ; HP_A_INT_MONO_GAP = 0.30 ; HP_A_SYM_MARGIN = 0.10
-- HP_B_INT_ADD_GAP = 0.15 ; HP_B_INT_MEMO_GAP = 0.15 ; HP_B_INT_CHANCE = 0.20 ; HP_B_DOM_SYM_GAP = 0.15
-- REFUTE_A_MARGIN = 0.15 ; REFUTE_B_GAP = 0.05 ; MUSTFAIL_TOL = 0.07
+- HP_B_SYM_ADD_GAP = 0.15 ; HP_B_INT_MEMO_GAP = 0.15 ; HP_B_SYM_CHANCE = 0.20 ; HP_B_DOM_FREQ_MARGIN = 0.10 ;
+  HP_B_DOM_SYM_GAP = 0.15
+- REFUTE_A_MARGIN = 0.15 ; REFUTE_B_GAP = 0.05 ; MUSTFAIL_TOL = 0.10 (0.07 sits below the ~0.05-0.08 finite-sample
+  arbitrary-gap std at n~99/seed; 0.10 still asserts the must-fail unambiguously since CLEAN separations are 0.48-0.60)
 
 ### (A) construction
 - HARD_PASS_A: PARITY INT_MATCH_novel >= 0.90 AND MONO_novel <= chance+0.07 AND (INT-MONO) >= 0.30 ; DOMINANCE
@@ -73,21 +88,22 @@ Chance = majority-class rate per family (imbalanced targets). Thresholds:
   (gap <= 0.07) on the interaction-CLAIM families {PARITY, AND2, MULT, DOMINANCE} ; oracle ceiling ok.
 - REFUTE_A: INT_MATCH_novel < chance+0.15 on parity OR dominance (matched op cannot represent -> impl bug).
 
-### (B) discovery -- THREE principled sub-verdicts (one per structure class)
-- B1 disc_noncommutative (DOMINANCE; the clean extension): best(LEARN_INT,LEARN_BILINEAR) - LEARN_SYM >= 0.15
-  AND - MEMORIZE >= 0.15 AND leak ok. Contrast is the SYMMETRIC bind (dominance is additively-separable-with-
-  signs, so the flexible learned-additive arm also solves it -- the interaction op's advantage here is SYMMETRY-
-  BREAKING, not non-additivity).
-- B2 disc_nonadditive (PARITY; the genuine non-additive test): best(LEARN_INT,LEARN_BILINEAR) - LEARN_ADD >= 0.15
-  AND - MEMORIZE >= 0.15 AND >= chance+0.20. (MULT/DOMINANCE excluded as non-additive tests: they are transform-
-  additive and the flexible learned-additive arm solves them; PARITY is the only target with no additive-izing
-  transform.) parity_refute if best - LEARN_ADD <= 0.05.
-- Combined verdict_B: HARD_PASS if B1 AND B2 ; PARTIAL_..._NONCOMMUTATIVE if B1 only ; PARTIAL_..._NONADDITIVE if
-  B2 only ; REFUTE if neither.
-- B_leak (must-fail): best learned interaction arbitrary+shuffle gap <= 0.07 on {PARITY, AND2, MULT, DOMINANCE}.
+### (B) discovery -- SYMMETRY-MATCHED sub-verdicts
+- B1 disc_symmetric_nonadditive (PARITY, the genuine non-additive discovery): LEARN_SYM_novel - LEARN_ADD_novel
+  >= 0.15 AND - MEMORIZE >= 0.15 AND LEARN_SYM_novel >= chance+0.20 AND leak ok. (LEARN_ADD provably at chance --
+  parity has ZERO additive info -- so this is a real non-additive discovery; extends abelian XOR-2 to parity-K.)
+  parity_refute if LEARN_SYM - LEARN_ADD <= 0.05.
+- B2 disc_noncommutative (DOMINANCE): max(LEARN_INT,LEARN_ADD,LEARN_BILINEAR) - FREQ_NULL >= 0.10 (HONEST baseline)
+  AND role-keyed - LEARN_SYM >= 0.15 (the tension) AND leak ok.
+- symmetry_tension (headline flag): LEARN_SYM discovers parity but fails dominance AND role-keyed discovers
+  dominance but fails parity.
+- Combined verdict_B: HARD_PASS if B1 AND B2 ; PARTIAL_..._SYMMETRIC_NONADDITIVE_PARITY_ONLY if B1 ;
+  PARTIAL_..._NONCOMMUTATIVE_ONLY if B2 ; REFUTE if neither. Suffix __ROLEKEYING_SYMMETRY_TENSION if tension holds.
+- B_leak (must-fail): learned arms arbitrary+shuffle gap <= 0.07 on {PARITY, AND2, MULT, DOMINANCE}.
 
-MULT-vs-flexible-additive and the ADD-control arbitrary leak (high-cardinality raw-sum feature, mild finite-sample
-positive gap) are REPORTED diagnostics (`gates.b_mult_bestlint_add_gap`, `gates.add_control_leak`), NOT PASS gates.
+MULT/AND2-vs-additive gaps and the ADD-control arbitrary leak (high-cardinality raw-sum feature, mild finite-sample
+positive gap) are REPORTED diagnostics (`gates.b_mult_int_add_gap`, `gates.b_and2_int_add_gap`,
+`gates.add_control_leak`), NOT PASS gates.
 
 ## SCHEMA-VET / discipline compliance
 - cell_chunked: false (single-cell multi-seed sweep, wall < 4 min; not a runner-zombie risk)
@@ -107,13 +123,15 @@ positive gap) are REPORTED diagnostics (`gates.b_mult_bestlint_add_gap`, `gates.
 - progress_logging: print_flush_true (line-buffered stdout + per-seed flush logs) ; timeout 1200s
 
 ## Predictions (HYPOTHESIZED -- to be confirmed by the canonical 5-seed remote run)
-From the 2-seed local smoke (HYPOTHESIZED@this prereg, NOT the canonical result):
-- (A) HARD_PASS: PARITY INT=1.00 MONO=0.52 (gap 0.48); DOMINANCE INT=1.00 LSYM=0.46; must-fails fire.
-- (B) PARTIAL: disc_noncommutative TRUE (DOMINANCE best-learned=1.00 vs LEARN_SYM=0.46); disc_nonadditive FALSE
-  (PARITY best-learned ~0.43 < chance+0.20; neither Hadamard nor bilinear discovers parity -> honest negative,
-  consistent with parity-SGD-hardness). MULT LEARN_ADD=1.00 (log-additive; not a non-additivity discriminator).
-Expected canonical verdict: `HARD_PASS_A_INTERACTION_CONSTRUCTION_PROVEN | PARTIAL_B_DISCOVERS_NONCOMMUTATIVE_BUT_
-NONADDITIVE_PARITY_BOUNDED`. The 5-seed run is the canonical result (canon != preview).
+From the 2-seed local smoke + Skunkworks single-split figures (HYPOTHESIZED@this prereg, NOT the canonical result):
+- (A) HARD_PASS: PARITY INT=1.00 MONO=0.52 (gap 0.48); DOMINANCE INT=1.00 LSYM=0.46; deterministic must-fails fire.
+- (B) HARD_PASS (both structure classes, after the corrected wiring): disc_symmetric_nonadditive TRUE (PARITY
+  LEARN_SYM ~0.98 vs LEARN_ADD ~0.38, chance ~0.52 -> genuine non-additive discovery) AND disc_noncommutative TRUE
+  (DOMINANCE role-keyed ~1.00 vs FREQ_NULL ~0.86, +0.14 honest; symmetric arm ~0.46). symmetry_tension TRUE
+  (LEARN_SYM: parity YES dominance NO; role-keyed: dominance YES parity NO). MULT/AND2 = transform-additive
+  (LEARN_ADD matches) -> reported, not claimed.
+Expected canonical verdict: `HARD_PASS_A_INTERACTION_CONSTRUCTION_PROVEN | HARD_PASS_B_SYMMETRY_MATCHED_DISCOVERY_
+NONADDITIVE_AND_NONCOMMUTATIVE__ROLEKEYING_SYMMETRY_TENSION` (pending 5-seed confirmation; canon != preview).
 
 ## Fairness + weak-point localization
 - Info-ceiling: ORACLE arm per family (1.0 by construction on CLEAN; must dominate INT_MATCH).

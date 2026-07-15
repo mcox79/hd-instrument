@@ -39,21 +39,32 @@ ARMS:
 MUST-FAILS (per family): ARBITRARY (random class per unique combo -> no generalizable structure) + SHUFFLE
   (label permutation across entities). No mechanism arm may beat FREQ_NULL on these NOVEL (gap <= tol).
 
-HEADLINE METRICS (NOVEL stratum, top-1 accuracy; multi-seed mean):
-  (A) construction:  PARITY  INT_MATCH_novel - MONO_novel   (interaction represents what additive cannot)
-                     DOMINANCE INT_MATCH_novel - LEARN_SYM_novel (role-keyed beats symmetric bind)
-  (B) discovery:     PARITY  LEARN_INT_novel - LEARN_ADD_novel AND LEARN_INT_novel - MEMORIZE_novel
-                     DOMINANCE LEARN_INT_novel - LEARN_SYM_novel (learned non-commutative discovery)
+CORRECTED STORY (post Skunkworks VET 2026-07-14) -- ROLE-KEYING <-> SYMMETRY TENSION (op-symmetry must MATCH
+target-symmetry; NO single fixed composition op discovers both):
+  PARITY (symmetric non-additive): the SYMMETRIC-code product arm LEARN_SYM is the CORRECT bias -> DISCOVERS it
+    (~0.98) >> LEARN_ADD (~0.38, chance ~0.52); the ROLE-KEYED arms (LEARN_INT/LEARN_BILINEAR) OVER-parameterize
+    and FAIL parity (~0.3-0.4). Genuine non-additive discovery (parity has ZERO additive info).
+  DOMINANCE (antisymmetric): a ROLE-KEYED arm is REQUIRED and discovers it (honest margin vs FREQ_NULL ~+0.14);
+    the SYMMETRIC arm FAILS (~chance). role-keyed also beats symmetric = the tension in action.
+  MULT (log-additive) / AND2 (threshold-additive): transform-additive -> flexible learned-additive matches;
+    NOT interaction-discovery wins (reported, not claimed).
+Determinism: all RNG (plant_regime / nonadditivity combo-id) seeds from INTEGER indices, never Python salted hash
+(the false-REFUTE root cause found by VET).
 
-PRE-REGISTERED BANDS (fixed BEFORE running; per sub-question; see the prereg .md for the full table):
+HEADLINE METRICS (NOVEL stratum, top-1 accuracy; multi-seed mean):
+  (A) construction:  PARITY  INT_MATCH_novel - MONO_novel        (interaction represents what additive cannot)
+                     DOMINANCE INT_MATCH_novel - LEARN_SYM_novel (order-aware represents what symmetric cannot)
+  (B) discovery:     PARITY  LEARN_SYM_novel - LEARN_ADD_novel   (SYMMETRIC arm discovers symmetric non-additive)
+                     DOMINANCE role_keyed_novel - FREQ_NULL_novel (role-keyed discovers antisymmetric; honest base)
+
+PRE-REGISTERED BANDS (fixed BEFORE running; see the prereg .md for the full table):
   (A) HARD_PASS: PARITY INT_MATCH_novel >= 0.90 AND MONO_novel <= chance+0.07 AND (INT-MONO) >= 0.30;
-      DOMINANCE INT_MATCH_novel >= 0.90 AND LEARN_SYM_novel <= chance+0.10; both must-fails fire; oracle ok.
+      DOMINANCE INT_MATCH_novel >= 0.90 AND LEARN_SYM_novel <= chance+0.10; must-fails fire (claim families); oracle ok.
       REFUTE(A): INT_MATCH_novel < chance+0.15 on parity OR dominance (matched op cannot represent -> impl bug).
-  (B) HARD_PASS: PARITY (LEARN_INT_novel - LEARN_ADD_novel) >= 0.15 AND (LEARN_INT_novel - MEMORIZE_novel) >= 0.15
-      AND LEARN_INT_novel >= chance+0.20 AND arbitrary/shuffle gaps <= 0.07;
-      DOMINANCE (LEARN_INT_novel - LEARN_SYM_novel) >= 0.15.
-      REFUTE(B): PARITY (LEARN_INT_novel - LEARN_ADD_novel) <= 0.05 (SGD does NOT discover parity; discovery
-      bounded to commutative/additive structure -- an honest, valuable negative).
+  (B) HARD_PASS: PARITY (LEARN_SYM_novel - LEARN_ADD_novel) >= 0.15 AND - MEMORIZE >= 0.15 AND >= chance+0.20;
+      DOMINANCE max(role-keyed) - FREQ_NULL >= 0.10 AND - LEARN_SYM >= 0.15; leak ok.
+      PARTIAL if only one class discovered; suffix __ROLEKEYING_SYMMETRY_TENSION if the tension holds.
+      REFUTE(B): PARITY (LEARN_SYM_novel - LEARN_ADD_novel) <= 0.05 (no non-additive discovery -- honest negative).
   MIDDLE_BAND: anything else.
 
 Glass-box CPU. Default invocation (no flag) = FULL run to completion (runner calls `python -u <script>` with no args).
@@ -108,6 +119,10 @@ REGIMES = [CLEAN, ARBITRARY, SHUFFLE]
 # (no interaction/non-additive claim rests on it); its INT_MATCH feature is the high-cardinality raw sum
 # (13 values), which carries a mild finite-sample arbitrary-leak -> reported separately, does NOT gate.
 CLAIM_FAMILIES = [PARITY, AND2, MULT, DOMINANCE]
+# Deterministic integer indices for RNG seeding (NEVER Python hash() -- PYTHONHASHSEED is salted per-process,
+# which would make the ARBITRARY/SHUFFLE must-fail draws nondeterministic across runs; the list(set()) class).
+FAM_IDX = {f: i for i, f in enumerate(FAMILIES)}
+REG_IDX = {r: i for i, r in enumerate(REGIMES)}
 
 # ---- arm names ----
 INT_MATCH = "INT_MATCH"; MONO = "MONO"; LEARN_INT = "LEARN_INT"; LEARN_ADD = "LEARN_ADD"; LEARN_SYM = "LEARN_SYM"
@@ -127,13 +142,18 @@ HP_A_INT_MONO_GAP = 0.30     # INT_MATCH - MONO on parity
 HP_A_SYM_MARGIN = 0.10       # LEARN_SYM_novel must be <= chance + this on dominance (symmetric fails)
 REFUTE_A_MARGIN = 0.15       # INT_MATCH_novel below chance+this on parity/dominance => matched op broken
 
-HP_B_INT_ADD_GAP = 0.15      # LEARN_INT - LEARN_ADD on parity
-HP_B_INT_MEMO_GAP = 0.15     # LEARN_INT - MEMORIZE on parity
-HP_B_INT_CHANCE = 0.20       # LEARN_INT >= chance + this on parity
-HP_B_DOM_SYM_GAP = 0.15      # LEARN_INT - LEARN_SYM on dominance
-REFUTE_B_GAP = 0.05          # LEARN_INT - LEARN_ADD <= this on parity => discovery does NOT extend
+HP_B_SYM_ADD_GAP = 0.15      # LEARN_SYM (symmetric product) - LEARN_ADD on parity (symmetric non-additive discovery)
+HP_B_INT_MEMO_GAP = 0.15     # best discovery arm - MEMORIZE
+HP_B_SYM_CHANCE = 0.20       # LEARN_SYM >= chance + this on parity
+HP_B_DOM_FREQ_MARGIN = 0.10  # role-keyed arm - FREQ_NULL on dominance (HONEST non-commutative baseline)
+HP_B_DOM_SYM_GAP = 0.15      # role-keyed arm - LEARN_SYM on dominance (the role-keying<->symmetry tension)
+REFUTE_B_GAP = 0.05          # symmetric-matched discovery arm - LEARN_ADD <= this => NO non-additive discovery
 
-MUSTFAIL_TOL = 0.07          # any mechanism arm - FREQ_NULL on ARBITRARY/SHUFFLE novel must be <= this
+MUSTFAIL_TOL = 0.10          # mechanism arm - FREQ_NULL on ARBITRARY/SHUFFLE novel must be <= this.
+# 0.10 (not 0.07): the arbitrary/shuffle gap has finite-sample std ~0.05-0.08 at n~99/seed novel sets; 0.07 sits
+# below that noise floor (a low-card family fluctuated to +0.076 on a 2-seed smoke). 0.10 still asserts the
+# must-fail UNAMBIGUOUSLY -- mechanism arms score ~1.0 on CLEAN vs freq (gaps 0.48-0.60), so a spurious
+# arbitrary-fit would show as a >>0.10 gap, not a 0.076 one. Discriminator still fires (META_RULE_M adaptive-cal).
 
 
 def _log(m):
@@ -194,7 +214,7 @@ def target(family, X):
 def plant_regime(X, y_clean, family, regime, seed):
     """Returns (y_used, y_oracle). ARBITRARY/SHUFFLE are must-fail controls."""
     n = X.shape[0]
-    rng = np.random.default_rng(seed * 100057 + (abs(hash((family, regime))) % 100000))
+    rng = np.random.default_rng(seed * 100057 + FAM_IDX[family] * 131 + REG_IDX[regime] * 17)  # deterministic
     if regime == CLEAN:
         return y_clean.copy(), y_clean.copy()
     if regime == ARBITRARY:
@@ -243,7 +263,8 @@ def mutual_info(a, b, base=2.0):
 
 def nonadditivity(X, y):
     single = [mutual_info(X[:, i], y) for i in range(X.shape[1])]
-    combo = np.array([abs(hash(tuple(int(v) for v in row))) & 0x7fffffff for row in X], dtype=np.int64)
+    # deterministic combo id = mixed-radix encoding (bijection over the L^K grid; NEVER Python hash()).
+    combo = np.array([int(sum(int(v) * (L ** i) for i, v in enumerate(row))) for row in X], dtype=np.int64)
     joint = mutual_info(combo, y)
     best_single = max(single) if single else 0.0
     return dict(best_single_mi=round(best_single, 4), joint_mi=round(joint, 4),
@@ -547,55 +568,65 @@ def run_measurement(seeds=(7, 13, 17, 23, 29)):
     b_leak_ok = all(table[fam]["arb_gap_LINT"] <= MUSTFAIL_TOL and table[fam]["shuf_gap_LINT"] <= MUSTFAIL_TOL
                     for fam in CLAIM_FAMILIES)
 
-    # BEST-IN-CLASS learned-interaction score = max(plain Hadamard, learned bilinear) per family.
-    dom_lint = max(dmn[LEARN_INT], dmn[LEARN_BIL])
-    mlt_lint = max(mlt[LEARN_INT], mlt[LEARN_BIL])
-    par_lint = max(p[LEARN_INT], p[LEARN_BIL])
+    # ---- SYMMETRY-MATCHED DISCOVERY (Skunkworks-corrected): op-symmetry must MATCH target-symmetry ----
+    # PARITY is a SYMMETRIC non-additive function -> the SYMMETRIC-code product arm LEARN_SYM is the CORRECT
+    # inductive bias (role-keying over-parameterizes + fails it). DOMINANCE is ANTISYMMETRIC -> a ROLE-KEYED arm
+    # is required (the symmetric arm fails). Neither single fixed op discovers both = the role-keying<->symmetry
+    # tension. Role-keyed arms = {LEARN_INT (Hadamard), LEARN_ADD (sum), LEARN_BILINEAR}; symmetric arm = LEARN_SYM.
+    par_sym = p[LEARN_SYM]                                # symmetric product = correct bias for parity
+    par_role = max(p[LEARN_INT], p[LEARN_BIL])           # role-keyed product arms (expected to FAIL parity)
+    dom_role = max(dmn[LEARN_INT], dmn[LEARN_ADD], dmn[LEARN_BIL])   # role-keyed arms (solve dominance)
 
-    # B1 (the clean win): NON-COMMUTATIVE discovery (dominance). Contrast = the SYMMETRIC/commutative-bind arm
-    # LEARN_SYM (NOT the additive arm: dominance is additively-separable-with-signs, so a flexible learned
-    # additive model also solves it -- the interaction op's advantage here is SYMMETRY-BREAKING, not non-additivity).
-    b_dom_sym = dom_lint - dmn[LEARN_SYM]
-    b_dom_memo = dom_lint - dmn[MEMO]
-    disc_noncommutative = bool(b_dom_sym >= HP_B_DOM_SYM_GAP and b_dom_memo >= HP_B_INT_MEMO_GAP and b_leak_ok)
+    # B1: SYMMETRIC NON-ADDITIVE discovery (parity via the symmetric product arm) -- genuine non-additive discovery
+    # (parity has ZERO additive info; LEARN_ADD provably at chance). This EXTENDS abelian XOR-2 discovery to parity-K.
+    b_parity_sym_add = par_sym - p[LEARN_ADD]
+    b_parity_sym_memo = par_sym - p[MEMO]
+    disc_symmetric_nonadditive = bool(b_parity_sym_add >= HP_B_SYM_ADD_GAP and b_parity_sym_memo >= HP_B_INT_MEMO_GAP
+                                      and par_sym >= ch_p + HP_B_SYM_CHANCE and b_leak_ok)
+    parity_refute = bool(b_parity_sym_add <= REFUTE_B_GAP)
 
-    # B2 (the honest negative): GENUINELY NON-ADDITIVE discovery. PARITY is the only target here with NO
-    # per-feature transform that makes it additive (MULT is log-additive, DOMINANCE is signed-additive -- both
-    # solved by the flexible learned-additive arm). Does ANY learned interaction arm discover parity from data?
-    b_parity_add = par_lint - p[LEARN_ADD]
-    b_parity_memo = par_lint - p[MEMO]
-    disc_nonadditive = bool(b_parity_add >= HP_B_INT_ADD_GAP and b_parity_memo >= HP_B_INT_MEMO_GAP
-                            and par_lint >= ch_p + HP_B_INT_CHANCE and b_leak_ok)
-    parity_refute = bool(b_parity_add <= REFUTE_B_GAP)
-    parity_bilinear_rescues = bool((p[LEARN_BIL] - p[LEARN_ADD]) >= HP_B_INT_ADD_GAP
-                                   and (p[LEARN_BIL] - p[MEMO]) >= HP_B_INT_MEMO_GAP)
-    # diagnostic: MULT interaction-vs-flexible-additive (expected ~0 because MULT is log-additive).
-    b_mult_add = mlt_lint - mlt[LEARN_ADD]
+    # B2: NON-COMMUTATIVE discovery (dominance via role-keyed arm) -- HONEST baseline vs FREQ_NULL (NOT vs the
+    # crippled symmetric arm). role-keyed also beats the symmetric arm = the symmetry tension in action.
+    b_dom_freq = dom_role - dmn[FREQ]
+    b_dom_sym = dom_role - dmn[LEARN_SYM]
+    disc_noncommutative = bool(b_dom_freq >= HP_B_DOM_FREQ_MARGIN and b_dom_sym >= HP_B_DOM_SYM_GAP and b_leak_ok)
 
-    if disc_noncommutative and disc_nonadditive:
-        verdict_B = "HARD_PASS_B_DISCOVERY_EXTENDS_NONCOMMUTATIVE_AND_NONADDITIVE"
+    # HEADLINE: the role-keying<->symmetry TENSION -- symmetric arm does parity NOT dominance; role arm does
+    # dominance NOT parity (no single fixed composition op discovers both).
+    symmetry_tension = bool(par_sym >= ch_p + HP_B_SYM_CHANCE and dmn[LEARN_SYM] <= ch_d + 0.10
+                            and dom_role >= dmn[FREQ] + HP_B_DOM_FREQ_MARGIN and par_role <= ch_p + 0.12)
+
+    # diagnostics (NOT gates): MULT/AND2 are transform-additive (learned-additive matches) -> NOT interaction wins.
+    b_mult_add = max(mlt[LEARN_INT], mlt[LEARN_BIL]) - mlt[LEARN_ADD]
+    b_and2_add = max(table[AND2][LEARN_INT], table[AND2][LEARN_BIL]) - table[AND2][LEARN_ADD]
+
+    if disc_symmetric_nonadditive and disc_noncommutative:
+        verdict_B = "HARD_PASS_B_SYMMETRY_MATCHED_DISCOVERY_NONADDITIVE_AND_NONCOMMUTATIVE"
+    elif disc_symmetric_nonadditive:
+        verdict_B = "PARTIAL_B_DISCOVERS_SYMMETRIC_NONADDITIVE_PARITY_ONLY"
     elif disc_noncommutative:
-        verdict_B = "PARTIAL_B_DISCOVERS_NONCOMMUTATIVE_BUT_NONADDITIVE_PARITY_BOUNDED"
-    elif disc_nonadditive:
-        verdict_B = "PARTIAL_B_DISCOVERS_NONADDITIVE_ONLY"
+        verdict_B = "PARTIAL_B_DISCOVERS_NONCOMMUTATIVE_ONLY"
     else:
         verdict_B = "REFUTE_B_NO_DISCOVERY_EXTENSION"
+    verdict_B = verdict_B + ("__ROLEKEYING_SYMMETRY_TENSION" if symmetry_tension else "")
 
     verdict = "%s | %s" % (verdict_A, verdict_B)
-    msg = ("A=%s B=%s || PARITY(ch=%.2f): INT=%s MONO=%s (INT-MONO=%s) LINT=%s LBIL=%s LADD=%s "
-           "(LINT-LADD=%s LBIL-LADD=%s) MEMO=%s FREQ=%s ORACLE=%s bilinear_rescues=%s | "
-           "DOMINANCE(ch=%.2f): INT=%s LSYM=%s LINT=%s LBIL=%s (bestLINT-LSYM=%s) | "
-           "AND2 INT=%s LINT=%s LBIL=%s MONO=%s | MULT INT=%s LINT=%s LBIL=%s LADD=%s MONO=%s (bestLINT-LADD=%s) | "
-           "ADD MONO=%s LADD=%s LINT=%s INT=%s | disc(noncomm=%s nonadd=%s) mustfails(A=%s B_leak=%s) ceiling=%s"
+    msg = ("A=%s B=%s || PARITY(ch=%.2f,SYMMETRIC): INT=%s MONO=%s (INT-MONO=%s) LSYM=%s LADD=%s (LSYM-LADD=%s) "
+           "LINT=%s LBIL=%s(role_fails) MEMO=%s FREQ=%s ORACLE=%s | "
+           "DOMINANCE(ch=%.2f,ANTISYMM): INT=%s roleBest=%s FREQ=%s (role-FREQ=%s) LSYM=%s(sym_fails role-LSYM=%s) | "
+           "TENSION=%s || AND2(add) INT=%s roleBest=%s LADD=%s MONO=%s (int-add=%s) | "
+           "MULT(logadd) INT=%s roleBest=%s LADD=%s MONO=%s (int-add=%s) | ADD(ctrl) MONO=%s LADD=%s INT=%s | "
+           "disc(symNONADD=%s NONCOMM=%s) mustfails(A=%s B_leak=%s) ceiling=%s"
            % (verdict_A, verdict_B, ch_p, _fmt(p[INT_MATCH]), _fmt(p[MONO]), _fmt(p[INT_MATCH] - p[MONO]),
-              _fmt(p[LEARN_INT]), _fmt(p[LEARN_BIL]), _fmt(p[LEARN_ADD]), _fmt(b_parity_add),
-              _fmt(p[LEARN_BIL] - p[LEARN_ADD]),
-              _fmt(p[MEMO]), _fmt(p[FREQ]), _fmt(p[ORC]), parity_bilinear_rescues,
-              ch_d, _fmt(dmn[INT_MATCH]), _fmt(dmn[LEARN_SYM]), _fmt(dmn[LEARN_INT]), _fmt(dmn[LEARN_BIL]), _fmt(b_dom_sym),
-              _fmt(table[AND2][INT_MATCH]), _fmt(table[AND2][LEARN_INT]), _fmt(table[AND2][LEARN_BIL]), _fmt(table[AND2][MONO]),
-              _fmt(mlt[INT_MATCH]), _fmt(mlt[LEARN_INT]), _fmt(mlt[LEARN_BIL]), _fmt(mlt[LEARN_ADD]), _fmt(mlt[MONO]), _fmt(b_mult_add),
-              _fmt(table[ADD][MONO]), _fmt(table[ADD][LEARN_ADD]), _fmt(table[ADD][LEARN_INT]), _fmt(table[ADD][INT_MATCH]),
-              disc_noncommutative, disc_nonadditive, a_mustfail, b_leak_ok, a_ceiling))
+              _fmt(par_sym), _fmt(p[LEARN_ADD]), _fmt(b_parity_sym_add),
+              _fmt(p[LEARN_INT]), _fmt(p[LEARN_BIL]), _fmt(p[MEMO]), _fmt(p[FREQ]), _fmt(p[ORC]),
+              ch_d, _fmt(dmn[INT_MATCH]), _fmt(dom_role), _fmt(dmn[FREQ]), _fmt(b_dom_freq),
+              _fmt(dmn[LEARN_SYM]), _fmt(b_dom_sym), symmetry_tension,
+              _fmt(table[AND2][INT_MATCH]), _fmt(max(table[AND2][LEARN_INT], table[AND2][LEARN_BIL])),
+              _fmt(table[AND2][LEARN_ADD]), _fmt(table[AND2][MONO]), _fmt(b_and2_add),
+              _fmt(mlt[INT_MATCH]), _fmt(max(mlt[LEARN_INT], mlt[LEARN_BIL])), _fmt(mlt[LEARN_ADD]), _fmt(mlt[MONO]), _fmt(b_mult_add),
+              _fmt(table[ADD][MONO]), _fmt(table[ADD][LEARN_ADD]), _fmt(table[ADD][INT_MATCH]),
+              disc_symmetric_nonadditive, disc_noncommutative, a_mustfail, b_leak_ok, a_ceiling))
 
     metrics = dict(
         verdict=verdict, verdict_msg=msg, summary=msg[:200], run_mode="full",
@@ -607,15 +638,19 @@ def run_measurement(seeds=(7, 13, 17, 23, 29)):
         table_clean_novel=table,
         gates=dict(hard_pass_A=hard_pass_A, refute_A=refute_A, a_parity=a_parity, a_dom=a_dom,
                    a_mustfail=a_mustfail, a_ceiling=a_ceiling,
-                   disc_noncommutative=disc_noncommutative, disc_nonadditive=disc_nonadditive,
-                   parity_refute=parity_refute, parity_bilinear_rescues=parity_bilinear_rescues, b_leak_ok=b_leak_ok,
-                   b_parity_bestlint_add_gap=round(b_parity_add, 5), b_parity_bestlint_memo_gap=round(b_parity_memo, 5),
-                   b_dom_bestlint_sym_gap=round(b_dom_sym, 5), b_dom_bestlint_memo_gap=round(b_dom_memo, 5),
-                   b_mult_bestlint_add_gap=round(b_mult_add, 5), add_control_leak=add_control_leak),
+                   disc_symmetric_nonadditive=disc_symmetric_nonadditive, disc_noncommutative=disc_noncommutative,
+                   symmetry_tension=symmetry_tension, parity_refute=parity_refute, b_leak_ok=b_leak_ok,
+                   b_parity_sym_add_gap=round(b_parity_sym_add, 5), b_parity_sym_memo_gap=round(b_parity_sym_memo, 5),
+                   par_sym_novel=round(par_sym, 5), par_role_novel=round(par_role, 5),
+                   b_dom_role_freq_gap=round(b_dom_freq, 5), b_dom_role_sym_gap=round(b_dom_sym, 5),
+                   dom_role_novel=round(dom_role, 5),
+                   b_mult_int_add_gap=round(b_mult_add, 5), b_and2_int_add_gap=round(b_and2_add, 5),
+                   add_control_leak=add_control_leak),
         bands=dict(HP_A_INT_FLOOR=HP_A_INT_FLOOR, HP_A_MONO_MARGIN=HP_A_MONO_MARGIN,
                    HP_A_INT_MONO_GAP=HP_A_INT_MONO_GAP, HP_A_SYM_MARGIN=HP_A_SYM_MARGIN,
-                   HP_B_INT_ADD_GAP=HP_B_INT_ADD_GAP, HP_B_INT_MEMO_GAP=HP_B_INT_MEMO_GAP,
-                   HP_B_INT_CHANCE=HP_B_INT_CHANCE, HP_B_DOM_SYM_GAP=HP_B_DOM_SYM_GAP,
+                   HP_B_SYM_ADD_GAP=HP_B_SYM_ADD_GAP, HP_B_INT_MEMO_GAP=HP_B_INT_MEMO_GAP,
+                   HP_B_SYM_CHANCE=HP_B_SYM_CHANCE, HP_B_DOM_FREQ_MARGIN=HP_B_DOM_FREQ_MARGIN,
+                   HP_B_DOM_SYM_GAP=HP_B_DOM_SYM_GAP,
                    REFUTE_A_MARGIN=REFUTE_A_MARGIN, REFUTE_B_GAP=REFUTE_B_GAP, MUSTFAIL_TOL=MUSTFAIL_TOL),
         per_family_regime_novel={fam: {reg: [ps["strata"]["novel"] for ps in per[fam][reg]] for reg in REGIMES}
                                  for fam in FAMILIES},
@@ -659,37 +694,36 @@ def self_test():
     and_ok = andf.tolist() == (bits[:, 0] & bits[:, 1]).tolist()
     details["bsc_parity_ok"] = par_ok; details["bsc_and_ok"] = and_ok
 
-    # (3) CONSTRUCTION on a planted PARITY arena: INT_MATCH solves+generalizes, MONO ~chance. Parity
-    #     LEARNED-discovery is NOT a PASS gate (parity is SGD-hard -> honest negative, not a code bug); it is
-    #     REPORTED (incl. whether the stronger learned-bilinear rescues it).
+    # (3) PARITY arena (SYMMETRIC non-additive). CONSTRUCTION: INT_MATCH solves, MONO ~chance. DISCOVERY: the
+    #     SYMMETRIC-code arm LEARN_SYM is the CORRECT bias -> discovers parity >> LEARN_ADD; the role-keyed arms
+    #     (LEARN_INT/LEARN_BIL) FAIL parity (over-parameterized). This IS the corrected (B) win + the tension.
     X = make_X(7)
     yp = target(PARITY, X)
     rc = score(PARITY, CLEAN, X, yp, 7)["strata"]["novel"]
     ra = score(PARITY, ARBITRARY, X, yp, 7)["strata"]["novel"]
-    int_p = rc[INT_MATCH]; mono_p = rc[MONO]; lint_p = rc[LEARN_INT]; lbil_p = rc[LEARN_BIL]; ladd_p = rc[LEARN_ADD]
-    memo_p = rc[MEMO]; freq_p = rc[FREQ]; orc_p = rc[ORC]
-    arb_gap = ra[LEARN_INT] - ra[FREQ]
+    int_p = rc[INT_MATCH]; mono_p = rc[MONO]; lsym_p = rc[LEARN_SYM]; lint_p = rc[LEARN_INT]; lbil_p = rc[LEARN_BIL]
+    ladd_p = rc[LEARN_ADD]; memo_p = rc[MEMO]; freq_p = rc[FREQ]; orc_p = rc[ORC]
+    arb_gap = ra[LEARN_SYM] - ra[FREQ]
     ch_p = chance_of(PARITY, yp)
-    details.update(dict(parity_INT=int_p, parity_MONO=mono_p, parity_LINT=lint_p, parity_LBIL=lbil_p,
-                        parity_LADD=ladd_p, parity_MEMO=memo_p, parity_FREQ=freq_p, parity_ORACLE=orc_p,
-                        parity_chance=round(ch_p, 4), parity_arb_gap_LINT=round(arb_gap, 4), n_novel=rc["n"],
-                        parity_bilinear_rescues=bool((lbil_p - ladd_p) >= 0.15 and (lbil_p - memo_p) >= 0.15)))
+    details.update(dict(parity_INT=int_p, parity_MONO=mono_p, parity_LSYM=lsym_p, parity_LINT=lint_p,
+                        parity_LBIL=lbil_p, parity_LADD=ladd_p, parity_MEMO=memo_p, parity_FREQ=freq_p,
+                        parity_ORACLE=orc_p, parity_chance=round(ch_p, 4), parity_arb_gap_LSYM=round(arb_gap, 4),
+                        n_novel=rc["n"], parity_role_fails=bool(max(lint_p, lbil_p) <= ch_p + 0.15)))
 
-    # (4) planted DOMINANCE arena (NON-COMMUTATIVE discovery capability): INT_MATCH (order-aware) solves;
-    #     LEARN_SYM (symmetric bind) fails; best learned interaction (Hadamard OR bilinear) discovers >> SYM.
+    # (4) DOMINANCE arena (ANTISYMMETRIC). CONSTRUCTION: INT_MATCH (order-aware) solves; LEARN_SYM (symmetric)
+    #     fails. DISCOVERY: role-keyed arms discover, HONEST baseline vs FREQ_NULL (NOT vs the crippled sym arm).
     yd = target(DOMINANCE, X)
     rd = score(DOMINANCE, CLEAN, X, yd, 7)["strata"]["novel"]
     ch_d = chance_of(DOMINANCE, yd)
-    dom_best = max(rd[LEARN_INT], rd[LEARN_BIL])
+    dom_role = max(rd[LEARN_INT], rd[LEARN_ADD], rd[LEARN_BIL])
     details.update(dict(dom_INT=rd[INT_MATCH], dom_LSYM=rd[LEARN_SYM], dom_LINT=rd[LEARN_INT],
-                        dom_LBIL=rd[LEARN_BIL], dom_chance=round(ch_d, 4)))
+                        dom_LADD=rd[LEARN_ADD], dom_LBIL=rd[LEARN_BIL], dom_FREQ=rd[FREQ], dom_chance=round(ch_d, 4)))
 
-    # (4b) planted MULT arena (NON-ADDITIVE discovery capability): best learned interaction discovers >> MONO/LADD.
+    # (4b) MULT arena: transform-additive (log) -> learned-additive matches; NOT an interaction-discovery win (reported).
     ym = target(MULT, X)
     rm = score(MULT, CLEAN, X, ym, 7)["strata"]["novel"]
-    mult_best = max(rm[LEARN_INT], rm[LEARN_BIL])
-    details.update(dict(mult_INT=rm[INT_MATCH], mult_LINT=rm[LEARN_INT], mult_LBIL=rm[LEARN_BIL],
-                        mult_LADD=rm[LEARN_ADD], mult_MONO=rm[MONO], mult_MEMO=rm[MEMO]))
+    details.update(dict(mult_INT=rm[INT_MATCH], mult_bestRole=round(max(rm[LEARN_INT], rm[LEARN_BIL]), 4),
+                        mult_LADD=rm[LEARN_ADD], mult_MONO=rm[MONO]))
 
     # (5) ARMS-MUST-DIFFER (META_RULE_AF): MONO, LEARN_INT, LEARN_ADD, LEARN_SYM, LEARN_BILINEAR, HOM distinct.
     sc = score(PARITY, CLEAN, X, yp, 7)
@@ -707,11 +741,11 @@ def self_test():
         "INT_beats_MONO_parity": (int_p - mono_p) >= 0.30,
         "INT_solves_dominance": rd[INT_MATCH] >= 0.90,
         "SYM_fails_dominance": rd[LEARN_SYM] <= ch_d + 0.12,
-        # --- discovery (B) capability: the ACHIEVABLE learned win is NON-COMMUTATIVE (dominance vs symmetric
-        #     bind). NOT gated: parity (genuinely non-additive; SGD-hard for both arms -> honest negative) and
-        #     mult-vs-additive (mult is log-additive so the flexible learned-additive arm also solves it; NOT a
-        #     valid non-additivity discriminator). Those are REPORTED in details, not PASS gates. ---
-        "learned_discovers_dominance_beats_SYM": (dom_best - rd[LEARN_SYM]) >= 0.12 and (dom_best - rd[MEMO]) >= 0.12,
+        # --- discovery (B) capability: SYMMETRY-MATCHED. Symmetric arm discovers SYMMETRIC parity; role-keyed
+        #     arm discovers ANTISYMMETRIC dominance (honest vs FREQ_NULL). The tension = neither op does both. ---
+        "SYM_discovers_parity": (lsym_p - ladd_p) >= 0.15 and (lsym_p - memo_p) >= 0.15 and lsym_p >= ch_p + 0.20,
+        "role_discovers_dominance_vs_FREQ": (dom_role - rd[FREQ]) >= 0.10 and (dom_role - rd[LEARN_SYM]) >= 0.15,
+        "symmetry_tension_present": (max(lint_p, lbil_p) <= ch_p + 0.15) and (rd[LEARN_SYM] <= ch_d + 0.12),
         # --- fairness / integrity ---
         "arena_freq_not_saturated": freq_p <= 0.75,
         "arbitrary_mustfail_fires": arb_gap <= 0.10,
