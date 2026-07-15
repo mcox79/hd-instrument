@@ -827,8 +827,12 @@ def main():
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--memsmoke", action="store_true")
     ap.add_argument("--device", choices=["auto", "cpu", "cuda"], default="cpu")
-    args = ap.parse_args()
+    args, _unknown = ap.parse_known_args()   # tolerate runner-injected flags (runner may not pass our argv cleanly)
     run_mode = "self_test" if args.self_test else ("memsmoke" if args.memsmoke else args.run_mode)
+    if not args.self_test and not args.memsmoke and args.run_mode == "full":
+        _env_mode = os.environ.get("HDLAB_RUN_MODE", "").strip().lower()   # runner sets run_mode via env, not argv
+        if _env_mode in ("self_test", "memsmoke", "full"):
+            run_mode = _env_mode
     device = _resolve_device(args.device)
     out_dir = get_output_dir(ANCHOR_NAME)
     try:
