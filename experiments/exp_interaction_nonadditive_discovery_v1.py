@@ -23,7 +23,7 @@ This cell plants FIVE target families over shared ordinal constituents (glass-bo
 ARMS:
   Construction-proof (algebra-matched, no learning):
     INT_MATCH  family-matched interaction readout. Parity/AND route the product through the REAL substrate bind
-               (hdlab.binding.bsc_bind = elementwise multiply => parity=product-of-signs, AND=product-of-indicators);
+               (hdlab.binding.bind on complex64 = elementwise multiply => parity=product-of-signs, AND=of-indicators);
                dominance uses the ORDER-AWARE sign(x0-x1); mult uses the product magnitude; add uses the sum.
                Train-fit majority mapping over the (low-cardinality, combo-shared) structural feature -> generalizes
                to NOVEL combos because the feature recurs (parity 0/1 seen in train even for an unseen combo).
@@ -90,8 +90,10 @@ _REPO = os.path.dirname(os.path.dirname(_THIS))
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
-from hdlab.binding import bind as hd_bind      # noqa: E402  # REAL FHRR bind (complex64 elementwise mul)
-from hdlab.binding import bsc_bind             # noqa: E402  # REAL BSC bind (elementwise multiply; the interaction op)
+from hdlab.binding import bind as hd_bind      # noqa: E402  # REAL FHRR bind (complex64 elementwise mul).
+# NOTE: use ONLY the long-stable `bind` (present on both local + remote runner). The multiplicative interaction
+# fold routes through hd_bind on COMPLEX64 tensors -> hits bind's `a.is_complex() -> a*b` elementwise path (this
+# IS the substrate multiplicative bind). Do NOT import newer siblings (bsc_bind) -- remote hdlab/binding.py drift.
 
 if hasattr(sys.stdout, "reconfigure"):
     try:
@@ -275,36 +277,37 @@ def nonadditivity(X, y):
 # CONSTRUCTION-PROOF ARMS (algebra-matched; INT_MATCH exercises the REAL substrate bind)
 # ===========================================================================
 
-def _bsc_fold_signs(bits, d=16):
-    """Elementwise-product-fold bipolar sign vectors via the REAL substrate bsc_bind => parity sign.
-    bits: (n,k) in {0,1}. Returns (n,) product-of-signs in {-1,+1} (parity sign)."""
+def _mult_fold_signs(bits, d=16):
+    """Elementwise-product-fold bipolar sign vectors through the REAL substrate FHRR bind on COMPLEX64
+    (bind's a.is_complex() -> a*b elementwise path) => parity sign. bits: (n,k) in {0,1}. Returns (n,) in {-1,+1}."""
     n, k = bits.shape
     signs = (1 - 2 * bits).astype(np.float32)                    # bit1->-1, bit0->+1
-    acc = torch.ones((n, d), dtype=torch.float32) * torch.from_numpy(signs[:, 0:1])
+    acc = torch.ones((n, d), dtype=torch.complex64) * torch.from_numpy(signs[:, 0:1]).to(torch.complex64)
     for i in range(1, k):
-        vi = torch.ones((n, d), dtype=torch.float32) * torch.from_numpy(signs[:, i:i + 1])
-        acc = bsc_bind(acc, vi)                                   # REAL substrate bind (elementwise mul)
-    return acc[:, 0].numpy()
+        vi = torch.ones((n, d), dtype=torch.complex64) * torch.from_numpy(signs[:, i:i + 1]).to(torch.complex64)
+        acc = hd_bind(acc, vi)                                    # REAL substrate bind (complex elementwise mul)
+    return acc[:, 0].real.numpy()
 
 
-def _bsc_fold_indicators(bits, cols, d=16):
-    """Elementwise-product-fold indicator vectors via bsc_bind => AND over the selected columns.
+def _mult_fold_indicators(bits, cols, d=16):
+    """Elementwise-product-fold indicator vectors through the REAL FHRR bind (complex path) => AND over cols.
     Returns (n,) in {0,1}."""
     n = bits.shape[0]
-    acc = torch.ones((n, d), dtype=torch.float32) * torch.from_numpy(bits[:, cols[0]:cols[0] + 1].astype(np.float32))
+    acc = (torch.ones((n, d), dtype=torch.complex64)
+           * torch.from_numpy(bits[:, cols[0]:cols[0] + 1].astype(np.float32)).to(torch.complex64))
     for c in cols[1:]:
-        vi = torch.ones((n, d), dtype=torch.float32) * torch.from_numpy(bits[:, c:c + 1].astype(np.float32))
-        acc = bsc_bind(acc, vi)
-    return acc[:, 0].numpy()
+        vi = torch.ones((n, d), dtype=torch.complex64) * torch.from_numpy(bits[:, c:c + 1].astype(np.float32)).to(torch.complex64)
+        acc = hd_bind(acc, vi)
+    return acc[:, 0].real.numpy()
 
 
 def _feature(family, X):
     """Structural, combo-SHARED feature per family (low cardinality -> generalizes to novel combos)."""
     bits = (X >= (L // 2)).astype(np.int64)
     if family == PARITY:
-        return (_bsc_fold_signs(bits) < 0).astype(np.int64)          # odd parity via REAL bind
+        return (_mult_fold_signs(bits) < 0).astype(np.int64)         # odd parity via REAL bind
     if family == AND2:
-        return _bsc_fold_indicators(bits, [0, 1]).astype(np.int64)   # AND via REAL bind
+        return np.rint(_mult_fold_indicators(bits, [0, 1])).astype(np.int64)   # AND via REAL bind
     if family == MULT:
         return (X[:, 0] * X[:, 1]).astype(np.int64)
     if family == DOMINANCE:
@@ -686,11 +689,11 @@ def self_test():
     homo_ok = homo_pred == [3 % L, 5 % L]
     details["fhrr_homomorphism_ok"] = homo_ok
 
-    # (2) REAL bsc_bind parity/AND fold on a tiny arena, vs numpy ground truth.
+    # (2) REAL FHRR-bind (complex path) parity/AND fold on a tiny arena, vs numpy ground truth.
     bits = np.array([[0, 0, 0, 0], [1, 0, 0, 0], [1, 1, 0, 0], [1, 1, 1, 0], [1, 1, 1, 1]], dtype=np.int64)
-    par = (_bsc_fold_signs(bits) < 0).astype(np.int64)
+    par = (_mult_fold_signs(bits) < 0).astype(np.int64)
     par_ok = par.tolist() == (bits.sum(1) % 2).tolist()
-    andf = _bsc_fold_indicators(bits, [0, 1]).astype(np.int64)
+    andf = np.rint(_mult_fold_indicators(bits, [0, 1])).astype(np.int64)
     and_ok = andf.tolist() == (bits[:, 0] & bits[:, 1]).tolist()
     details["bsc_parity_ok"] = par_ok; details["bsc_and_ok"] = and_ok
 
