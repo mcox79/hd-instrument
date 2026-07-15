@@ -1,0 +1,500 @@
+{
+  "verdict": "GENERATED_NONADDITIVE_CONJUNCTION_PREMISE_REFUTED",
+  "verdict_msg": "GENERATED_NONADDITIVE_CONJUNCTION_PREMISE_REFUTED || n=162(seen~44) truth=0.8333(>=0.85=False) | CONJ joint=1.718 best_single=1.002 margin=0.716(>=0.30) ratio=0.5834(<=0.60) present=True | NONADD clean=0.2628(>=0.15=True) [add_seen=0.4485 int_seen=0.7112 pop_seen=0.3008] novel[int=0.2924 add=0.2924] | GATE addsynth_nonadd=0.0279(<=0.10) shuffle_nonadd=0.0907(clean>null+0.05) valid=True | single_driver=False transform_additive=False oracle=1.0000",
+  "summary": "GENERATED_NONADDITIVE_CONJUNCTION_PREMISE_REFUTED || n=162(seen~44) truth=0.8333(>=0.85=False) | CONJ joint=1.718 best_single=1.002 margin=0.716(>=0.30) ratio=0.5834(<=0.60) present=True | NONADD clea",
+  "run_mode": "local_measure",
+  "elapsed_s": 2.4134340999880806,
+  "anchor_name": "generated_conjunction_nonadditive_chem_v1",
+  "ts_iso": "2026-07-15T02:39:23.311812+00:00",
+  "n_entities": 162,
+  "truth_rate": 0.8333333333333334,
+  "n_judged": 162,
+  "n_true": 135,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "L": 5,
+  "conjunction": {
+    "single_mi": {
+      "member_lo": 1.0023,
+      "member_hi": 0.8645
+    },
+    "best_single_mi": 1.0023,
+    "joint_mi": 1.718,
+    "mi_margin": 0.7157,
+    "dominance_ratio": 0.5834
+  },
+  "shuffle_conjunction": {
+    "single_mi": {
+      "member_lo": 0.2357,
+      "member_hi": 0.2118
+    },
+    "best_single_mi": 0.2357,
+    "joint_mi": 0.7407,
+    "mi_margin": 0.505,
+    "dominance_ratio": 0.3182
+  },
+  "addsynth_conjunction": {
+    "single_mi": {
+      "member_lo": 1.0036,
+      "member_hi": 1.0254
+    },
+    "best_single_mi": 1.0254,
+    "joint_mi": 1.9257,
+    "mi_margin": 0.9003,
+    "dominance_ratio": 0.5325
+  },
+  "nonadditivity": {
+    "clean_seen": 0.26275,
+    "addsynth_seen": 0.02793,
+    "shuffle_seen": 0.09065
+  },
+  "clean": {
+    "add_seen": 0.44845,
+    "int_seen": 0.71121,
+    "pop_seen": 0.30079,
+    "int_novel": 0.29238,
+    "add_novel": 0.29238,
+    "oracle_all": 1.0,
+    "mean_n_seen": 44.2
+  },
+  "gates": {
+    "truth_ok": false,
+    "conj_present": true,
+    "nonadditive_ok": true,
+    "gate_valid": true,
+    "shuffle_destroyed": true,
+    "ceiling_ok": true,
+    "single_driver": false,
+    "transform_additive": false,
+    "hard_pass": false,
+    "refute": true
+  },
+  "bands": {
+    "HP_TRUTH": 0.85,
+    "CONJ_RATIO_CEIL": 0.6,
+    "CONJ_MI_MARGIN": 0.3,
+    "NONADD_HP": 0.15,
+    "NONADD_REFUTE": 0.05,
+    "ADDSYNTH_NONADD_CEIL": 0.1,
+    "DISCRIM_MARGIN": 0.05,
+    "DOMINANCE_REFUTE": 0.8
+  },
+  "per_seed": {
+    "CLEAN_REAL": [
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.5,
+            "INTERACTIVE": 0.775,
+            "POP": 0.275,
+            "ORACLE": 1.0,
+            "n": 40
+          },
+          "novel": {
+            "ADDITIVE": 0.5,
+            "INTERACTIVE": 0.5,
+            "POP": 0.14286,
+            "ORACLE": 1.0,
+            "n": 14
+          },
+          "all": {
+            "ADDITIVE": 0.5,
+            "INTERACTIVE": 0.7037,
+            "POP": 0.24074,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.275,
+        "n_seen": 40
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.39583,
+            "INTERACTIVE": 0.625,
+            "POP": 0.29167,
+            "ORACLE": 1.0,
+            "n": 48
+          },
+          "novel": {
+            "ADDITIVE": 0.33333,
+            "INTERACTIVE": 0.33333,
+            "POP": 0.5,
+            "ORACLE": 1.0,
+            "n": 6
+          },
+          "all": {
+            "ADDITIVE": 0.38889,
+            "INTERACTIVE": 0.59259,
+            "POP": 0.31481,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.22916999999999998,
+        "n_seen": 48
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.48936,
+            "INTERACTIVE": 0.74468,
+            "POP": 0.38298,
+            "ORACLE": 1.0,
+            "n": 47
+          },
+          "novel": {
+            "ADDITIVE": 0.14286,
+            "INTERACTIVE": 0.14286,
+            "POP": 0.14286,
+            "ORACLE": 1.0,
+            "n": 7
+          },
+          "all": {
+            "ADDITIVE": 0.44444,
+            "INTERACTIVE": 0.66667,
+            "POP": 0.35185,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.25532,
+        "n_seen": 47
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.41026,
+            "INTERACTIVE": 0.66667,
+            "POP": 0.25641,
+            "ORACLE": 1.0,
+            "n": 39
+          },
+          "novel": {
+            "ADDITIVE": 0.2,
+            "INTERACTIVE": 0.2,
+            "POP": 0.53333,
+            "ORACLE": 1.0,
+            "n": 15
+          },
+          "all": {
+            "ADDITIVE": 0.35185,
+            "INTERACTIVE": 0.53704,
+            "POP": 0.33333,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.25640999999999997,
+        "n_seen": 39
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.44681,
+            "INTERACTIVE": 0.74468,
+            "POP": 0.29787,
+            "ORACLE": 1.0,
+            "n": 47
+          },
+          "novel": {
+            "ADDITIVE": 0.28571,
+            "INTERACTIVE": 0.28571,
+            "POP": 0.0,
+            "ORACLE": 1.0,
+            "n": 7
+          },
+          "all": {
+            "ADDITIVE": 0.42593,
+            "INTERACTIVE": 0.68519,
+            "POP": 0.25926,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.29787,
+        "n_seen": 47
+      }
+    ],
+    "ADDITIVE_SYNTH": [
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.975,
+            "INTERACTIVE": 1.0,
+            "POP": 0.35,
+            "ORACLE": 1.0,
+            "n": 40
+          },
+          "novel": {
+            "ADDITIVE": 0.71429,
+            "INTERACTIVE": 0.71429,
+            "POP": 0.57143,
+            "ORACLE": 1.0,
+            "n": 14
+          },
+          "all": {
+            "ADDITIVE": 0.90741,
+            "INTERACTIVE": 0.92593,
+            "POP": 0.40741,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.025000000000000022,
+        "n_seen": 40
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.97917,
+            "INTERACTIVE": 1.0,
+            "POP": 0.39583,
+            "ORACLE": 1.0,
+            "n": 48
+          },
+          "novel": {
+            "ADDITIVE": 0.5,
+            "INTERACTIVE": 0.5,
+            "POP": 0.16667,
+            "ORACLE": 1.0,
+            "n": 6
+          },
+          "all": {
+            "ADDITIVE": 0.92593,
+            "INTERACTIVE": 0.94444,
+            "POP": 0.37037,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.020830000000000015,
+        "n_seen": 48
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.97872,
+            "INTERACTIVE": 1.0,
+            "POP": 0.23404,
+            "ORACLE": 1.0,
+            "n": 47
+          },
+          "novel": {
+            "ADDITIVE": 0.71429,
+            "INTERACTIVE": 0.71429,
+            "POP": 0.28571,
+            "ORACLE": 1.0,
+            "n": 7
+          },
+          "all": {
+            "ADDITIVE": 0.94444,
+            "INTERACTIVE": 0.96296,
+            "POP": 0.24074,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.021279999999999966,
+        "n_seen": 47
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.94872,
+            "INTERACTIVE": 1.0,
+            "POP": 0.41026,
+            "ORACLE": 1.0,
+            "n": 39
+          },
+          "novel": {
+            "ADDITIVE": 1.0,
+            "INTERACTIVE": 1.0,
+            "POP": 0.26667,
+            "ORACLE": 1.0,
+            "n": 15
+          },
+          "all": {
+            "ADDITIVE": 0.96296,
+            "INTERACTIVE": 1.0,
+            "POP": 0.37037,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.05127999999999999,
+        "n_seen": 39
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.97872,
+            "INTERACTIVE": 1.0,
+            "POP": 0.3617,
+            "ORACLE": 1.0,
+            "n": 47
+          },
+          "novel": {
+            "ADDITIVE": 0.85714,
+            "INTERACTIVE": 0.85714,
+            "POP": 0.57143,
+            "ORACLE": 1.0,
+            "n": 7
+          },
+          "all": {
+            "ADDITIVE": 0.96296,
+            "INTERACTIVE": 0.98148,
+            "POP": 0.38889,
+            "ORACLE": 1.0,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.021279999999999966,
+        "n_seen": 47
+      }
+    ],
+    "SHUFFLE": [
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.05,
+            "INTERACTIVE": 0.125,
+            "POP": 0.25,
+            "ORACLE": 0.25,
+            "n": 40
+          },
+          "novel": {
+            "ADDITIVE": 0.28571,
+            "INTERACTIVE": 0.28571,
+            "POP": 0.28571,
+            "ORACLE": 0.35714,
+            "n": 14
+          },
+          "all": {
+            "ADDITIVE": 0.11111,
+            "INTERACTIVE": 0.16667,
+            "POP": 0.25926,
+            "ORACLE": 0.27778,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.075,
+        "n_seen": 40
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.16667,
+            "INTERACTIVE": 0.20833,
+            "POP": 0.20833,
+            "ORACLE": 0.1875,
+            "n": 48
+          },
+          "novel": {
+            "ADDITIVE": 0.16667,
+            "INTERACTIVE": 0.16667,
+            "POP": 0.5,
+            "ORACLE": 0.5,
+            "n": 6
+          },
+          "all": {
+            "ADDITIVE": 0.16667,
+            "INTERACTIVE": 0.2037,
+            "POP": 0.24074,
+            "ORACLE": 0.22222,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.041659999999999975,
+        "n_seen": 48
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.06383,
+            "INTERACTIVE": 0.12766,
+            "POP": 0.2766,
+            "ORACLE": 0.19149,
+            "n": 47
+          },
+          "novel": {
+            "ADDITIVE": 0.0,
+            "INTERACTIVE": 0.0,
+            "POP": 0.42857,
+            "ORACLE": 0.14286,
+            "n": 7
+          },
+          "all": {
+            "ADDITIVE": 0.05556,
+            "INTERACTIVE": 0.11111,
+            "POP": 0.2963,
+            "ORACLE": 0.18519,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.06383,
+        "n_seen": 47
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.12821,
+            "INTERACTIVE": 0.23077,
+            "POP": 0.12821,
+            "ORACLE": 0.25641,
+            "n": 39
+          },
+          "novel": {
+            "ADDITIVE": 0.13333,
+            "INTERACTIVE": 0.13333,
+            "POP": 0.06667,
+            "ORACLE": 0.13333,
+            "n": 15
+          },
+          "all": {
+            "ADDITIVE": 0.12963,
+            "INTERACTIVE": 0.2037,
+            "POP": 0.11111,
+            "ORACLE": 0.22222,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.10256000000000001,
+        "n_seen": 39
+      },
+      {
+        "strata": {
+          "seen": {
+            "ADDITIVE": 0.14894,
+            "INTERACTIVE": 0.31915,
+            "POP": 0.25532,
+            "ORACLE": 0.25532,
+            "n": 47
+          },
+          "novel": {
+            "ADDITIVE": 0.28571,
+            "INTERACTIVE": 0.28571,
+            "POP": 0.57143,
+            "ORACLE": 0.0,
+            "n": 7
+          },
+          "all": {
+            "ADDITIVE": 0.16667,
+            "INTERACTIVE": 0.31481,
+            "POP": 0.2963,
+            "ORACLE": 0.22222,
+            "n": 54
+          }
+        },
+        "nonadd_seen": 0.17021,
+        "n_seen": 47
+      }
+    ]
+  }
+}
