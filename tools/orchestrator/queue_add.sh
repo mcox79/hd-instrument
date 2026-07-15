@@ -259,6 +259,7 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
   # Pattern 5): only true cross-cell shared hdlab modules, not a general dep resolver.
   HDLAB_SHARED_MODULES=(
     "cleanup_family"
+    "reachability_audit"
   )
   for HMODULE in "${HDLAB_SHARED_MODULES[@]}"; do
     if grep -qE "(from hdlab\.${HMODULE}[[:space:]]|import hdlab\.${HMODULE})" "${SCRIPT_LOCAL}"; then
