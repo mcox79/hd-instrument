@@ -388,8 +388,10 @@ def _open_combo_table(zip_path):
         zf.close()
 
 
-def _find_header_row(all_rows, max_scan=12):
-    """Scan the first rows for the header row exposing NSC1/NSC2/SCORE (tolerates title/pre-amble rows above the header)."""
+def _find_header_row(all_rows, max_scan=200):
+    """Scan for the header row exposing NSC1/NSC2/SCORE. The real NCI-ALMANAC xlsx carries a CellMiner banner/preamble
+    (e.g. row0 = ['CellMiner Address:', 'https://discover.nci.nih.gov/cellminer/']) ABOVE the true header, so row 0 is
+    NOT assumed to be the header -- scan down (case-insensitive column-name match) past banner/blank rows."""
     for idx in range(min(max_scan, len(all_rows))):
         kind, colmap = detect_almanac_columns(all_rows[idx])
         if kind == "almanac":
@@ -408,8 +410,9 @@ def parse_almanac(zip_path):
         return {"path": "B", "reason": "empty_table", "header": [], "n_rows": 0, "member": member}
     h_idx, colmap = _find_header_row(all_rows)
     if h_idx is None:
+        preview = [[str(x) for x in row[:12]] for row in all_rows[:15]]  # first 15 rows -> diagnose banner/header offset
         return {"path": "B", "reason": "columns_not_found", "header": [str(x) for x in all_rows[0][:30]],
-                "n_rows": len(all_rows), "member": member}
+                "row_preview_first15": preview, "n_rows": len(all_rows), "member": member}
     header = all_rows[h_idx]
     i_nsc1 = header.index(colmap["nsc1"]); i_nsc2 = header.index(colmap["nsc2"]); i_sc = header.index(colmap["score"])
     i_cell = header.index(colmap["cell"]) if colmap.get("cell") else None
@@ -847,8 +850,8 @@ def _col_letter(ci):
     return s
 
 
-def _xlsx_bytes(header, data_rows):
-    """Build minimal valid-enough xlsx bytes (sharedStrings + sheet1) from a header list + numeric/str data rows.
+def _xlsx_bytes(all_rows):
+    """Build minimal valid-enough xlsx bytes (sharedStrings + sheet1) from a list of rows (each a list of str/int/float).
     String cells -> shared strings; numeric cells -> literal. Exercises the REAL _read_xlsx_table on remote."""
     shared = []; sidx = {}
 
@@ -861,7 +864,7 @@ def _xlsx_bytes(header, data_rows):
         return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
     sheet_rows = []
-    for ri, row in enumerate([header] + data_rows, start=1):
+    for ri, row in enumerate(all_rows, start=1):
         cxml = []
         for ci, val in enumerate(row):
             ref = _col_letter(ci) + str(ri)
@@ -903,7 +906,11 @@ def _make_synth_almanac_zip(path, n_pairs=60, n_cells=3, n_drugs=12):
             seq += 1
             sc = float(tab[i, j] * 20.0 + rng.normal(0, 1))  # ComboScore-scale
             data_rows.append([seq, int(drugs[i]), int(drugs[j]), sc, "CELL_%d" % c])
-    inner_xlsx = _xlsx_bytes(header, data_rows)
+    # CellMiner-style banner/preamble ABOVE the true header -> exercises the header-scan (_find_header_row) fix.
+    banner = [["CellMiner Address:", "https://discover.nci.nih.gov/cellminer/"], [],
+              ["DTP NCI60 ALMANAC COMBO SCORE"], []]
+    all_rows = banner + [header] + data_rows
+    inner_xlsx = _xlsx_bytes(all_rows)
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zf:
         zf.writestr("output/DTP_NCI60_ALMANAC_COMBO_SCORE.xlsx", inner_xlsx)
 
