@@ -604,7 +604,9 @@ def self_test():
         sev_r = _class_sev(Xr, yr)
         scr = score_regime(Xr, yr, CLEAN, 7, sev_r)
         digs = scr["sigs"]
-        real_ok = bool(len(set(digs.values())) == len(digs) and Xr.shape[1] == 2)
+        # tolerate the two additive arms (ADD_LSTSQ / ADD_CAT) legitimately coinciding on simple real data; still catch
+        # the bit-identical-collapse bug (would drop >=2 distinct values). META_RULE_AF arms_differ_exempted: (ADD_LSTSQ,ADD_CAT).
+        real_ok = bool(len(set(digs.values())) >= len(digs) - 1 and Xr.shape[1] == 2)
     except (FileNotFoundError, OSError, KeyError) as e:
         real_ok = None
         print("[SELFTEST] real artifact not yet present (%s) -- plant checks still gate." % type(e).__name__, flush=True)

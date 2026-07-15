@@ -1,0 +1,1451 @@
+{
+  "anchor": "generated_epistasis_nonadditive_v1",
+  "generator": "claude-opus-4-5",
+  "ts_iso": "2026-07-15T12:30:09.506238+00:00",
+  "classes": [
+    "dna_repair_hr",
+    "dna_repair_nhej",
+    "dna_repair_ber_parp",
+    "dna_repair_mmr",
+    "dna_repair_ner",
+    "dna_damage_checkpoint",
+    "cell_cycle_core",
+    "chromatin_remodeling",
+    "spindle_mitosis",
+    "proteostasis_autophagy",
+    "metabolism_general",
+    "signaling_growth"
+  ],
+  "target": "interaction",
+  "target_scale": [
+    "none",
+    "mild",
+    "moderate",
+    "severe",
+    "lethal"
+  ],
+  "L": 5,
+  "gen_cost_usd": 0.093,
+  "n_entities": 177,
+  "n_judged": 177,
+  "n_true": 132,
+  "truth_rate": 0.7457627118644068,
+  "rows": [
+    {
+      "gene_a": "brca1",
+      "gene_b": "msh2",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_mmr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad51",
+      "gene_b": "ldha",
+      "class_a": "dna_repair_hr",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "xrcc4",
+      "gene_b": "pkm",
+      "class_a": "dna_repair_nhej",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "lig4",
+      "gene_b": "pfkm",
+      "class_a": "dna_repair_nhej",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ogg1",
+      "gene_b": "akt1",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mutyh",
+      "gene_b": "mtor",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mlh1",
+      "gene_b": "gapdh",
+      "class_a": "dna_repair_mmr",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "pms2",
+      "gene_b": "hk2",
+      "class_a": "dna_repair_mmr",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpc",
+      "gene_b": "pik3ca",
+      "class_a": "dna_repair_ner",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpa",
+      "gene_b": "kras",
+      "class_a": "dna_repair_ner",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atr",
+      "gene_b": "idh1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "chek1",
+      "gene_b": "gpi",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "cdkn1a",
+      "gene_b": "acly",
+      "class_a": "cell_cycle_core",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rb1",
+      "gene_b": "fasn",
+      "class_a": "cell_cycle_core",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "brg1",
+      "gene_b": "eno1",
+      "class_a": "chromatin_remodeling",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "arid1a",
+      "gene_b": "aldoa",
+      "class_a": "chromatin_remodeling",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mad2l1",
+      "gene_b": "g6pd",
+      "class_a": "spindle_mitosis",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "bub1",
+      "gene_b": "pgk1",
+      "class_a": "spindle_mitosis",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atg5",
+      "gene_b": "ercc1",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atg7",
+      "gene_b": "xpd",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad52",
+      "gene_b": "tpi1",
+      "class_a": "dna_repair_hr",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "fancd2",
+      "gene_b": "pgam1",
+      "class_a": "dna_repair_hr",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "msh6",
+      "gene_b": "raf1",
+      "class_a": "dna_repair_mmr",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mlh3",
+      "gene_b": "mek1",
+      "class_a": "dna_repair_mmr",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "neil1",
+      "gene_b": "erk2",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "nth1",
+      "gene_b": "braf",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "dna-pkcs",
+      "gene_b": "ampk",
+      "class_a": "dna_repair_nhej",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "xrcc5",
+      "gene_b": "acc1",
+      "class_a": "dna_repair_nhej",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "csa",
+      "gene_b": "scd1",
+      "class_a": "dna_repair_ner",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ddb2",
+      "gene_b": "srebp1",
+      "class_a": "dna_repair_ner",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad17",
+      "gene_b": "glut1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "topbp1",
+      "gene_b": "mct1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "metabolism_general",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "sirt1",
+      "gene_b": "nbs1",
+      "class_a": "chromatin_remodeling",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "hdac1",
+      "gene_b": "ercc4",
+      "class_a": "chromatin_remodeling",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "becn1",
+      "gene_b": "ku70",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad51",
+      "gene_b": "rad54",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "msh2",
+      "gene_b": "msh3",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_mmr",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpc",
+      "gene_b": "xpa",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_ner",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "atr",
+      "gene_b": "chek1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "blm",
+      "gene_b": "wrn",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "parp2",
+      "gene_b": "xrcc1",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad52",
+      "gene_b": "rad54",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mlh1",
+      "gene_b": "pms1",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_mmr",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ercc1",
+      "gene_b": "xpf",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_ner",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "chk2",
+      "gene_b": "p53",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "cell_cycle_core",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "ku70",
+      "gene_b": "dna-pkcs",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_nhej",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "polb",
+      "gene_b": "xrcc1",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "rad17",
+      "gene_b": "rad9a",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "bub1",
+      "gene_b": "mad2l1",
+      "class_a": "spindle_mitosis",
+      "class_b": "spindle_mitosis",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "smarca4",
+      "gene_b": "smarca2",
+      "class_a": "chromatin_remodeling",
+      "class_b": "chromatin_remodeling",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "atg5",
+      "gene_b": "atg7",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "proteostasis_autophagy",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "fanca",
+      "gene_b": "fancc",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "cdk4",
+      "gene_b": "cdk6",
+      "class_a": "cell_cycle_core",
+      "class_b": "cell_cycle_core",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "arid1a",
+      "gene_b": "arid1b",
+      "class_a": "chromatin_remodeling",
+      "class_b": "chromatin_remodeling",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "pten",
+      "gene_b": "inpp4b",
+      "class_a": "signaling_growth",
+      "class_b": "signaling_growth",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "lig4",
+      "gene_b": "xrcc4",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_nhej",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "ogg1",
+      "gene_b": "mutyh",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "aurka",
+      "gene_b": "aurkb",
+      "class_a": "spindle_mitosis",
+      "class_b": "spindle_mitosis",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "hk1",
+      "gene_b": "hk2",
+      "class_a": "metabolism_general",
+      "class_b": "metabolism_general",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atm",
+      "gene_b": "chk2",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad51c",
+      "gene_b": "rad51d",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "msh6",
+      "gene_b": "msh3",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_mmr",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "becn1",
+      "gene_b": "atg14",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "proteostasis_autophagy",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "p21",
+      "gene_b": "p27",
+      "class_a": "cell_cycle_core",
+      "class_b": "cell_cycle_core",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "chd4",
+      "gene_b": "chd3",
+      "class_a": "chromatin_remodeling",
+      "class_b": "chromatin_remodeling",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mre11",
+      "gene_b": "rad50",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "pfkm",
+      "gene_b": "pfkl",
+      "class_a": "metabolism_general",
+      "class_b": "metabolism_general",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "csa",
+      "gene_b": "csb",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_ner",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "bubr1",
+      "gene_b": "bub3",
+      "class_a": "spindle_mitosis",
+      "class_b": "spindle_mitosis",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "exo1",
+      "gene_b": "dna2",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "brca1",
+      "gene_b": "parp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "brca2",
+      "gene_b": "parp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "brca1",
+      "gene_b": "parp2",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "atm",
+      "gene_b": "atr",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "lethal",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "brca2",
+      "gene_b": "palb2",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "brca1",
+      "gene_b": "53bp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atm",
+      "gene_b": "brca1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "chek1",
+      "gene_b": "wee1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "cell_cycle_core",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad51",
+      "gene_b": "lig4",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "lethal",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "brca2",
+      "gene_b": "lig4",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xrcc4",
+      "gene_b": "rad54l",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "msh2",
+      "gene_b": "polb",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "mlh1",
+      "gene_b": "polb",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "fancd2",
+      "gene_b": "parp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "fanca",
+      "gene_b": "parp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atm",
+      "gene_b": "parp1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad52",
+      "gene_b": "brca2",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad52",
+      "gene_b": "brca1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "polq",
+      "gene_b": "brca1",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_hr",
+      "interaction": "lethal",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "polq",
+      "gene_b": "brca2",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_hr",
+      "interaction": "lethal",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "ercc1",
+      "gene_b": "polb",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "xpa",
+      "gene_b": "ogg1",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "blm",
+      "gene_b": "mus81",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atrx",
+      "gene_b": "daxx",
+      "class_a": "chromatin_remodeling",
+      "class_b": "chromatin_remodeling",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "chk2",
+      "gene_b": "brca1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "tp53",
+      "gene_b": "atm",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rb1",
+      "gene_b": "tp107",
+      "class_a": "cell_cycle_core",
+      "class_b": "cell_cycle_core",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "stag1",
+      "gene_b": "stag2",
+      "class_a": "chromatin_remodeling",
+      "class_b": "chromatin_remodeling",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "smc5",
+      "gene_b": "blm",
+      "class_a": "chromatin_remodeling",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "xrcc1",
+      "gene_b": "brca2",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_hr",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "brca1",
+      "gene_b": "tp53bp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "brca1",
+      "gene_b": "mlh1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_mmr",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad51c",
+      "gene_b": "parp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "palb2",
+      "gene_b": "parp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atm",
+      "gene_b": "chek2",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "tp53",
+      "gene_b": "chek1",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "tp53",
+      "gene_b": "mdm2",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "cell_cycle_core",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "msh2",
+      "gene_b": "mlh1",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_mmr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mlh1",
+      "gene_b": "pold1",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_mmr",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "parp1",
+      "gene_b": "parp2",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "parp1",
+      "gene_b": "xrcc1",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "parp1",
+      "gene_b": "lig3",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ku80",
+      "gene_b": "rad52",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "arid1a",
+      "gene_b": "pbrm1",
+      "class_a": "chromatin_remodeling",
+      "class_b": "chromatin_remodeling",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mad2l1",
+      "gene_b": "bubr1",
+      "class_a": "spindle_mitosis",
+      "class_b": "spindle_mitosis",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "mad2l1",
+      "gene_b": "tp53",
+      "class_a": "spindle_mitosis",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "kras",
+      "gene_b": "stk33",
+      "class_a": "signaling_growth",
+      "class_b": "signaling_growth",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "kras",
+      "gene_b": "plk1",
+      "class_a": "signaling_growth",
+      "class_b": "spindle_mitosis",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "vhl",
+      "gene_b": "aurka",
+      "class_a": "signaling_growth",
+      "class_b": "spindle_mitosis",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rb1",
+      "gene_b": "cdk4",
+      "class_a": "cell_cycle_core",
+      "class_b": "cell_cycle_core",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rb1",
+      "gene_b": "e2f3",
+      "class_a": "cell_cycle_core",
+      "class_b": "cell_cycle_core",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "atg5",
+      "gene_b": "becn1",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "proteostasis_autophagy",
+      "interaction": "mild",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rad51",
+      "gene_b": "parp1",
+      "class_a": "dna_repair_hr",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "lethal",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "chek1",
+      "gene_b": "chek2",
+      "class_a": "dna_damage_checkpoint",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "bub1b",
+      "gene_b": "tp53",
+      "class_a": "spindle_mitosis",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "arid1a",
+      "gene_b": "atr",
+      "class_a": "chromatin_remodeling",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xrcc1",
+      "gene_b": "msh2",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_mmr",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "lig4",
+      "gene_b": "rad54l",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_hr",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xrcc4",
+      "gene_b": "rad51",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_hr",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "dna-pkcs",
+      "gene_b": "brca1",
+      "class_a": "dna_repair_nhej",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "cdkn1a",
+      "gene_b": "chek1",
+      "class_a": "cell_cycle_core",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "rb1",
+      "gene_b": "chek1",
+      "class_a": "cell_cycle_core",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "hdac1",
+      "gene_b": "hdac2",
+      "class_a": "chromatin_remodeling",
+      "class_b": "chromatin_remodeling",
+      "interaction": "lethal",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "sirt1",
+      "gene_b": "atm",
+      "class_a": "chromatin_remodeling",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "vps34",
+      "gene_b": "atg7",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "proteostasis_autophagy",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "atg5",
+      "gene_b": "tp53",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "becn1",
+      "gene_b": "brca1",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "dna_repair_hr",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "hsp90aa1",
+      "gene_b": "chek1",
+      "class_a": "proteostasis_autophagy",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "ercc1",
+      "gene_b": "rad52",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpa",
+      "gene_b": "polb",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "cdc25a",
+      "gene_b": "atr",
+      "class_a": "cell_cycle_core",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "severe",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "brg1",
+      "gene_b": "parp1",
+      "class_a": "chromatin_remodeling",
+      "class_b": "dna_repair_ber_parp",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "chd4",
+      "gene_b": "brca2",
+      "class_a": "chromatin_remodeling",
+      "class_b": "dna_repair_hr",
+      "interaction": "severe",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "aurka",
+      "gene_b": "tp53",
+      "class_a": "spindle_mitosis",
+      "class_b": "dna_damage_checkpoint",
+      "interaction": "moderate",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mlh1",
+      "gene_b": "brca2",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "msh2",
+      "gene_b": "rad51c",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "msh6",
+      "gene_b": "xrcc4",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "pms2",
+      "gene_b": "lig4",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mlh1",
+      "gene_b": "xpa",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "msh2",
+      "gene_b": "ercc1",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpa",
+      "gene_b": "xrcc4",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpc",
+      "gene_b": "lig4",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ercc4",
+      "gene_b": "xrcc5",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpd",
+      "gene_b": "xrcc6",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ogg1",
+      "gene_b": "rad51",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mutyh",
+      "gene_b": "brca1",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "nthl1",
+      "gene_b": "xrcc4",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "mpg",
+      "gene_b": "lig4",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ogg1",
+      "gene_b": "msh2",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_mmr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "neil1",
+      "gene_b": "mlh1",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_mmr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpa",
+      "gene_b": "brca2",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "xpc",
+      "gene_b": "rad51d",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ercc1",
+      "gene_b": "palb2",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "msh6",
+      "gene_b": "brca1",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "pms2",
+      "gene_b": "rad51",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "mlh3",
+      "gene_b": "xrcc5",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "msh3",
+      "gene_b": "xrcc6",
+      "class_a": "dna_repair_mmr",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ung",
+      "gene_b": "xpa",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ogg1",
+      "gene_b": "xpc",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "apex1",
+      "gene_b": "ercc1",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_ner",
+      "interaction": "none",
+      "vetted_true": false
+    },
+    {
+      "gene_a": "lig3",
+      "gene_b": "msh6",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_mmr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "csa",
+      "gene_b": "xrcc4",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "csb",
+      "gene_b": "lig4",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "ddb2",
+      "gene_b": "brca1",
+      "class_a": "dna_repair_ner",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "neil2",
+      "gene_b": "xrcc5",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "smug1",
+      "gene_b": "rad52",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_hr",
+      "interaction": "none",
+      "vetted_true": true
+    },
+    {
+      "gene_a": "tdg",
+      "gene_b": "xrcc6",
+      "class_a": "dna_repair_ber_parp",
+      "class_b": "dna_repair_nhej",
+      "interaction": "none",
+      "vetted_true": true
+    }
+  ]
+}

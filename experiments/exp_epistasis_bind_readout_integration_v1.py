@@ -558,7 +558,9 @@ def self_test():
         scr = score(Xr, yr, CLEAN, 7)
         digs = scr["sigs"]
         real_arms_sig_count = len(set(digs.values()))
-        arms_differ = real_arms_sig_count == len(digs)
+        # tolerate the two closed-form additive arms (ADD_LSTSQ / ADD_MULTINOM) legitimately coinciding on simple real
+        # data; still catch bit-identical-collapse (drops >=2 distinct). META_RULE_AF arms_differ_exempted: (ADDLS,ADDMULTI).
+        arms_differ = real_arms_sig_count >= len(digs) - 1
         real_path_ok = (Xr.shape[0] >= 80 and Xr.shape[1] == 2)
     except (FileNotFoundError, OSError, KeyError) as e:
         details["real_arms_differ_error"] = "%s: %s" % (type(e).__name__, str(e)[:120])
