@@ -214,6 +214,16 @@ CTRL_PREFIXES = ("SAFE", "CHR2", "CTRL", "CONTROL", "NONTARGET", "NON_TARGET", "
 SEEDS_FULL = (7, 13, 17, 23, 29, 31, 37, 41)
 SEEDS_SMOKE = (7, 13, 17)
 
+# self-test synthetic-fixture sizing: the neutral (near-zero-singles) genes are a deliberate MINORITY of the network so the
+# curated pocket is a small fraction of all pairs. The e2e IVF discriminator (self-test 7c) scores curated-pocket IVF against
+# a matched-RANDOM draw from ALL pairs; if the pocket is a large fraction, the random draw is polluted by interaction pairs and
+# the ratio is capped at ~1/pocket_fraction (this is why a ~half-neutral fixture caps e2e_ratio near 2.6 while the BARE IVF
+# self-test -- which compares against the PURE additive subset, not a random draw -- clears >6). A minority pocket keeps the
+# matched-random baseline clean (as in real data, where near-zero-singles pairs are a curated minority) so the e2e ratio
+# reflects the true enrichment. C(7,2)=21 curated pairs preserves the near-zero-singles selector self-test count.
+SELFTEST_N_GENES = 45
+SELFTEST_N_NEUTRAL = 7
+
 
 def _log(m):
     print("[%s] %s" % (ANCHOR_NAME, m), flush=True)
@@ -1182,18 +1192,23 @@ def _write_metrics(metrics):
 # SELF-TEST (real bind path + REAL raw-count parser on a synthetic Dede MOESM4 TSV + planted controls + determinism)
 # ===========================================================================
 
-def _make_synth_dede_moesm4(path, n_genes=14, n_guides=3, seed=101):
+def _make_synth_dede_moesm4(path, n_genes=SELFTEST_N_GENES, n_neutral=SELFTEST_N_NEUTRAL, n_guides=3, seed=101):
     """Write a tiny synthetic Dede MOESM4-format raw-count TSV (GENE_CLONE|GENE|<endpoint cols>|plasmid.T0.Ex) exercising the
     REAL parse_dede_encas12a end-to-end (CPM -> log2FC -> control detection -> SMF/DMF -> subnetwork). Layout:
-      - a 'SAFE' control gene paired with every real gene -> single-KO constructs -> SMF (planted so EVEN-index genes are
-        near-neutral single-KO -> the near-zero-singles pocket = both-even pairs).
-      - real:real double constructs -> DMF planted with a symmetric 2-way interaction ON near-zero-singles (both-even) pairs
+      - a 'SAFE' control gene paired with every real gene -> single-KO constructs -> SMF (planted so the FIRST n_neutral genes
+        are near-neutral single-KO -> the near-zero-singles pocket = both-neutral pairs).
+      - real:real double constructs -> DMF planted with a symmetric 2-way interaction ON near-zero-singles (both-neutral) pairs
         (an AND-gate: low DMF only when both singles are near-neutral), so the curated pocket carries readable non-additivity.
+    The neutral genes are a deliberate MINORITY (n_neutral << n_genes): the curated pocket is then a small fraction of the
+    network, so the matched-random IVF baseline (self-test 7c) samples FEW interaction pairs and stays clean. A balanced
+    (~half-neutral) fixture would POLLUTE the matched-random baseline with interaction pairs and cap the e2e IVF ratio at
+    ~1/pocket_fraction (the BARE IVF self-test compares against the PURE additive subset so it is unaffected; only the e2e
+    path uses a random draw). This mirrors real Dede data where near-zero-singles pairs are a curated minority.
     Counts are back-computed from a target log2FC vs a fixed plasmid baseline so the pipeline recovers the planted fitness."""
     rng = np.random.default_rng(seed)
     genes = ["G%02d" % d for d in range(n_genes)]
-    # planted per-gene single-KO fitness (log2FC): even genes near-neutral (~0), odd genes depleted (~ -1.5)
-    smf_true = {g: (0.02 if (int(g[1:]) % 2 == 0) else -1.5) for g in genes}
+    # planted per-gene single-KO fitness (log2FC): the FIRST n_neutral genes near-neutral (~0), the rest depleted (~ -1.5)
+    smf_true = {g: (0.02 if (int(g[1:]) < n_neutral) else -1.5) for g in genes}
     tab = rng.normal(0.0, 1.0, size=(n_genes, n_genes)); tab = 0.5 * (tab + tab.T)  # symmetric interaction table
     base_reads = 500.0  # fixed plasmid baseline read count per construct
     end_cols = ["A549.T2A.Ex", "A549.T2B.Ex", "HT29.T2A.Ex", "HT29.T2B.Ex", "OVCAR8.T2A.Ex", "OVCAR8.T2B.Ex"]
@@ -1221,10 +1236,12 @@ def _make_synth_dede_moesm4(path, n_genes=14, n_guides=3, seed=101):
         for gd in range(n_guides):
             lines.append(_row("%s.%d:SAFE.%d" % (g, gd + 1, gd + 1), "%s_SAFE_%d" % (g, gd),
                               smf_true[g] + 0.03 * rng.normal()))
-    # double constructs: all real:real pairs; DMF = additive-of-singles + (interaction only on both-even near-zero pairs)
+    # double constructs: all real:real pairs; DMF = additive-of-singles + (interaction only on both-neutral near-zero pairs).
+    # The interaction magnitude (1.6*tab, std ~1.13) DWARFS the both-neutral additive background (0.04) -> the curated pocket
+    # already carries a NEAR-PURE symmetric interaction; the plant strength is NOT the limiter (the pocket FRACTION is).
     for i in range(n_genes):
         for j in range(i + 1, n_genes):
-            both_near_zero = (i % 2 == 0 and j % 2 == 0)
+            both_near_zero = (i < n_neutral and j < n_neutral)
             inter = (1.6 * float(tab[i, j])) if both_near_zero else 0.0  # AND-gate: interaction only in the curated pocket
             dmf = smf_true[genes[i]] + smf_true[genes[j]] + inter
             for gd in range(n_guides):
@@ -1257,7 +1274,7 @@ def self_test():
     #     CPM -> log2FC -> control detection -> SMF/DMF -> subnetwork -> reindex).
     tmp_txt = os.path.join(CACHE_DIR, "_selftest_synth_moesm4.txt")
     os.makedirs(CACHE_DIR, exist_ok=True)
-    _make_synth_dede_moesm4(tmp_txt, n_genes=14, n_guides=3)
+    _make_synth_dede_moesm4(tmp_txt, n_genes=SELFTEST_N_GENES, n_neutral=SELFTEST_N_NEUTRAL, n_guides=3)
     saved_min = MIN_PAIRS
     try:
         globals()["MIN_PAIRS"] = 40  # synthetic slice is tiny; relax the PATH-A floor for the self-test only
@@ -1268,9 +1285,10 @@ def self_test():
             os.remove(tmp_txt)
         except OSError:
             pass
-    # 14 real genes -> C(14,2)=91 double pairs; SAFE is the control -> excluded from tokens; SMF for all 14 real genes.
-    parser_ok = bool(sd.get("path") == "A" and sd.get("n_tok", 0) == 14 and sd.get("n_pairs", 0) == 91
-                     and sd.get("n_smf_tok", 0) == 14)
+    # SELFTEST_N_GENES real genes -> C(n,2) double pairs; SAFE is the control -> excluded from tokens; SMF for all real genes.
+    n_exp_pairs = SELFTEST_N_GENES * (SELFTEST_N_GENES - 1) // 2
+    parser_ok = bool(sd.get("path") == "A" and sd.get("n_tok", 0) == SELFTEST_N_GENES
+                     and sd.get("n_pairs", 0) == n_exp_pairs and sd.get("n_smf_tok", 0) == SELFTEST_N_GENES)
     diag = sd.get("diag", {})
     details["parser_path"] = sd.get("path"); details["parser_n_pairs"] = sd.get("n_pairs")
     details["parser_n_tok"] = sd.get("n_tok"); details["parser_n_smf_tok"] = sd.get("n_smf_tok")
@@ -1284,12 +1302,13 @@ def self_test():
     if smf_tok_st is not None and Xst is not None:
         lo_st, hi_st, units_st = detect_smf_band(smf_tok_st)
         curated_st = near_zero_singles_mask(Xst, smf_tok_st, lo_st, hi_st)
-        # token index == sorted gene order == G00,G01,... so even-index token <-> even gene id -> near-neutral single
-        both_even = np.array([(int(Xst[r, 0]) % 2 == 0) and (int(Xst[r, 1]) % 2 == 0) for r in range(Xst.shape[0])],
-                             dtype=bool)
-        nzs_ok = bool(units_st == "log2fc" and int(curated_st.sum()) > 0 and np.array_equal(curated_st, both_even))
+        # token index == sorted gene order == G00,G01,... so the FIRST SELFTEST_N_NEUTRAL tokens are the near-neutral genes;
+        # the curated pocket = pairs of two neutral genes (a realistic MINORITY of the network).
+        both_neutral = np.array([(int(Xst[r, 0]) < SELFTEST_N_NEUTRAL) and (int(Xst[r, 1]) < SELFTEST_N_NEUTRAL)
+                                 for r in range(Xst.shape[0])], dtype=bool)
+        nzs_ok = bool(units_st == "log2fc" and int(curated_st.sum()) > 0 and np.array_equal(curated_st, both_neutral))
         details.update(nzs_units=units_st, nzs_band=[round(lo_st, 3), round(hi_st, 3)],
-                       nzs_curated_n=int(curated_st.sum()), nzs_expected_n=int(both_even.sum()), nzs_ok=nzs_ok)
+                       nzs_curated_n=int(curated_st.sum()), nzs_expected_n=int(both_neutral.sum()), nzs_ok=nzs_ok)
     else:
         details.update(nzs_ok=False)
 
