@@ -93,6 +93,7 @@ import io
 import json
 import math
 import os
+import re
 import sys
 import time
 import traceback
@@ -125,20 +126,27 @@ OUT_DIR = os.path.join(_REPO, "data", "exp_%s" % ANCHOR_NAME)
 CACHE_DIR = os.path.join(_REPO, "data", "foundation_clusters", "costanzo2016_sga")
 
 # ---- data source (Costanzo et al. 2016, Science 353:aaf1420; thecellmap.org/yeast/costanzo2016) ----
-# CITED@ notes/drill_real_nonadditive_experimental_datasets_for_conjunction_modules_2026-07-15.md (direct bulk download, no
-# login; pairwise format = one row per (query,array) gene pair with epsilon + p-value + single-mutant fitnesses). URL is
-# uncertain from here (no local network under the no-compute lock), so ACQUIRE tries a candidate list until one downloads.
-COSTANZO_URLS = [
+# CITED@ notes/drill_real_nonadditive_experimental_datasets_for_conjunction_modules_2026-07-15.md + orchestrator web-verified
+# 2026-07-15 (the live thecellmap.org/yeast/costanzo2016 page: filenames have NO "Data File S1. " prefix). PAIRWISE (521MB) =
+# one row per (query,array) gene pair with epsilon + p-value + single-mutant fitnesses (drop-in for parse_costanzo). MATRIX
+# (35MB, lighter) = gene-x-gene symmetric epsilon matrix (parse_costanzo_matrix, |eps| filter only -- no p-value column).
+# ACQUIRE tries PAIRWISE first, then MATRIX fallback if the (large) pairwise download fails/stalls.
+PAIRWISE_URLS = [
     ("S1_pairwise_thecellmap_https",
      "https://thecellmap.org/costanzo2016/data_files/"
-     "Data%20File%20S1.%20Raw%20genetic%20interaction%20datasets:%20Pair-wise%20interaction%20format.zip"),
-    ("S1_pairwise_thecellmap_http",
-     "http://thecellmap.org/costanzo2016/data_files/"
-     "Data%20File%20S1.%20Raw%20genetic%20interaction%20datasets:%20Pair-wise%20interaction%20format.zip"),
-    ("S1_pairwise_boonelab",
-     "http://boonelab.ccbr.utoronto.ca/supplement/costanzo2016/data_files/"
-     "Data%20File%20S1.%20Raw%20genetic%20interaction%20datasets:%20Pair-wise%20interaction%20format.zip"),
+     "Raw%20genetic%20interaction%20datasets:%20Pair-wise%20interaction%20format.zip"),
 ]
+MATRIX_URLS = [
+    ("S2_matrix_thecellmap_https",
+     "https://thecellmap.org/costanzo2016/data_files/"
+     "Raw%20genetic%20interaction%20datasets:%20Matrix%20format.zip"),
+]
+# yeast systematic ORF id (e.g. YAL001C, YBR102W-A) for matrix label-row/col detection
+_ORF_RE = re.compile(r"^Y[A-P][LR][0-9]{3}[WC](-[A-Z])?$")
+
+
+def _is_orf(s):
+    return bool(_ORF_RE.match(_extract_orf(s)))
 EPSILON_DEF = ("epsilon = genetic-interaction score = double-mutant fitness minus the expected (multiplicative) product of "
                "the two single-mutant fitnesses (Costanzo et al. 2016). Negative=aggravating/synthetic-sick-lethal, "
                "positive=alleviating/suppressive.")
@@ -225,41 +233,55 @@ def _download_one(url, dest, timeout=300, retries=2):
     return 0, last
 
 
-def acquire():
-    """Download-if-absent the Costanzo 2016 pairwise dataset -> CACHE_DIR (tries the candidate URL list). Returns
-    (path or None, provenance)."""
-    os.makedirs(CACHE_DIR, exist_ok=True)
-    dest = os.path.join(CACHE_DIR, "costanzo2016_pairwise.zip")
-    errors = {}
-    nbytes = 0
-    used_url = None
+def _try_download(dest, urls, errors):
+    """Cache-hit or download-first-of urls to dest. Returns (nbytes, used_url) or (0, None)."""
     if os.path.exists(dest) and os.path.getsize(dest) > 100000:
-        nbytes = os.path.getsize(dest)
-        used_url = "cache"
-        _log("ACQUIRE cache-hit costanzo2016_pairwise.zip (%d bytes)" % nbytes)
+        nb = os.path.getsize(dest)
+        _log("ACQUIRE cache-hit %s (%d bytes)" % (os.path.basename(dest), nb))
+        return nb, "cache"
+    for tag, url in urls:
+        nb, err = _download_one(url, dest)
+        if err is None and nb > 100000:
+            _log("ACQUIRE downloaded via %s (%d bytes)" % (tag, nb))
+            return nb, url
+        errors[tag] = err or ("too_small:%d" % nb)
+        _log("ACQUIRE candidate FAILED %s : %s" % (tag, errors[tag]))
+    return 0, None
+
+
+def acquire():
+    """Download-if-absent the Costanzo 2016 dataset -> CACHE_DIR. Tries PAIRWISE first (drop-in), MATRIX fallback if the
+    large pairwise download fails/stalls. Returns (path or None, kind in {'pairwise','matrix','none'}, provenance)."""
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    errors = {}
+    kind = "none"; used_url = None; nbytes = 0; dest = None
+
+    destP = os.path.join(CACHE_DIR, "costanzo2016_pairwise.zip")
+    nb, uu = _try_download(destP, PAIRWISE_URLS, errors)
+    if uu is not None:
+        kind, used_url, nbytes, dest = "pairwise", uu, nb, destP
     else:
-        for tag, url in COSTANZO_URLS:
-            nb, err = _download_one(url, dest)
-            if err is None and nb > 100000:
-                nbytes = nb; used_url = url
-                _log("ACQUIRE downloaded via %s (%d bytes)" % (tag, nb))
-                break
-            errors[tag] = err or ("too_small:%d" % nb)
-            _log("ACQUIRE candidate FAILED %s : %s" % (tag, errors[tag]))
+        destM = os.path.join(CACHE_DIR, "costanzo2016_matrix.zip")
+        nb, uu = _try_download(destM, MATRIX_URLS, errors)
+        if uu is not None:
+            kind, used_url, nbytes, dest = "matrix", uu, nb, destM
+
     prov = dict(dataset="Costanzo2016_yeast_SGA", paper="Costanzo et al. 2016, Science 353:aaf1420",
-                source="thecellmap.org/yeast/costanzo2016", url_used=used_url, urls_tried=dict(COSTANZO_URLS),
+                source="thecellmap.org/yeast/costanzo2016", kind=kind, url_used=used_url,
+                urls_tried=dict(PAIRWISE_URLS + MATRIX_URLS),
                 retrieval_ts=datetime.now(timezone.utc).isoformat(), interaction_definition=EPSILON_DEF,
                 bytes=int(nbytes), acquire_errors=errors,
-                filter="|epsilon| > %.3f AND p < %.3f (standard Costanzo significance threshold)" % (EPS_FILTER, P_MAX),
+                filter=("|epsilon| > %.3f AND p < %.3f (pairwise); |epsilon| > %.3f only (matrix has no p-value)"
+                        % (EPS_FILTER, P_MAX, EPS_FILTER)),
                 slice_controls=dict(TOP_ORF=TOP_ORF, MAX_PAIRS=MAX_PAIRS))
     try:
         with open(os.path.join(CACHE_DIR, "provenance.json"), "w", encoding="utf-8") as f:
             json.dump(prov, f, indent=2)
     except OSError:
         pass
-    if used_url is not None and nbytes > 100000 and os.path.exists(dest):
-        return dest, prov
-    return None, prov
+    if dest is not None and nbytes > 100000 and os.path.exists(dest):
+        return dest, kind, prov
+    return None, "none", prov
 
 
 # ===========================================================================
@@ -396,9 +418,93 @@ def parse_costanzo(path):
         with io.open(path, "r", encoding="utf-8", errors="replace", newline="") as fh:
             _process(os.path.basename(path), fh)
 
+    return _finalize_pairs(per_pair, counters["n_rows"], counters["n_kept"], members_info)
+
+
+def parse_costanzo_matrix(path):
+    """FALLBACK parser for the Costanzo MATRIX format (35MB; used only if the 521MB pairwise download fails). Each member is
+    a gene-x-gene symmetric epsilon matrix. CONSERVATIVE: locate the array-label ROW and query-label COLUMN by counting
+    ORF-like cells (systematic yeast ORF ids); require substantial ORF labelling else ESCALATE (never fabricate pairs). No
+    p-value in matrix format -> filter on |epsilon|>EPS_FILTER only. Canonical upper-triangle dedupes the symmetric matrix."""
+    per_pair = defaultdict(lambda: [0.0, 0])
+    members_info = []
+    counters = {"n_rows": 0, "n_kept": 0}
+
+    def _process(name, all_rows):
+        if len(all_rows) < 3:
+            members_info.append({"member": name, "error": "too_few_rows"}); return
+        scan = min(len(all_rows), 50)
+        maxcols = max((len(all_rows[ri]) for ri in range(scan)), default=0)
+        best_hr, best_hr_cnt = -1, 0
+        for ri in range(scan):
+            cnt = sum(1 for c in all_rows[ri] if _is_orf(c))
+            if cnt > best_hr_cnt:
+                best_hr_cnt, best_hr = cnt, ri
+        best_lc, best_lc_cnt = -1, 0
+        for ci in range(min(maxcols, 50)):
+            cnt = sum(1 for r in all_rows if ci < len(r) and _is_orf(r[ci]))
+            if cnt > best_lc_cnt:
+                best_lc_cnt, best_lc = cnt, ci
+        if best_hr < 0 or best_lc < 0 or best_hr_cnt < 10 or best_lc_cnt < 10:
+            members_info.append({"member": name, "error": "no_orf_labels", "hr_cnt": best_hr_cnt,
+                                 "lc_cnt": best_lc_cnt, "header": [str(x) for x in all_rows[0][:14]]}); return
+        array_labels = all_rows[best_hr]
+        kept_here = 0
+        for ri in range(best_hr + 1, len(all_rows)):
+            row = all_rows[ri]
+            if best_lc >= len(row) or not _is_orf(row[best_lc]):
+                continue
+            qorf = _extract_orf(row[best_lc])
+            for ci in range(best_lc + 1, min(len(row), len(array_labels))):
+                if not _is_orf(array_labels[ci]):
+                    continue
+                counters["n_rows"] += 1
+                eps = _finite_float(row[ci])
+                if eps is None or abs(eps) <= EPS_FILTER:
+                    continue
+                aorf = _extract_orf(array_labels[ci])
+                if not qorf or not aorf or qorf == aorf:
+                    continue
+                key = (qorf, aorf) if qorf < aorf else (aorf, qorf)
+                acc = per_pair[key]; acc[0] += eps; acc[1] += 1
+                counters["n_kept"] += 1; kept_here += 1
+        members_info.append({"member": name, "kind": "matrix", "kept": kept_here, "hr": best_hr, "lc": best_lc})
+
+    try:
+        with open(path, "rb") as f:
+            is_zip = f.read(4)[:2] == b"PK"
+    except OSError as e:
+        return {"path": "B", "reason": "open_failed:%s" % (str(e)[:120])}
+    if is_zip:
+        try:
+            zf = zipfile.ZipFile(path, "r")
+        except zipfile.BadZipFile as e:
+            return {"path": "B", "reason": "bad_zip:%s" % (str(e)[:120])}
+        try:
+            names = [n for n in zf.namelist() if not n.endswith("/")]
+            txt = [n for n in names if n.lower().endswith((".txt", ".tsv", ".csv"))] or names
+            for n in sorted(txt):
+                with zf.open(n, "r") as fh:
+                    ts = io.TextIOWrapper(fh, encoding="utf-8", errors="replace", newline="")
+                    rows = [row for row in csv.reader(ts, delimiter="\t")]
+                    if rows and max((len(r) for r in rows[:5]), default=0) <= 1:
+                        ts2 = io.TextIOWrapper(zf.open(n, "r"), encoding="utf-8", errors="replace", newline="")
+                        rows = [row for row in csv.reader(ts2, delimiter=",")]
+                    _process(n, rows)
+        finally:
+            zf.close()
+    else:
+        with io.open(path, "r", encoding="utf-8", errors="replace", newline="") as fh:
+            _process(os.path.basename(path), [row for row in csv.reader(fh, delimiter="\t")])
+    return _finalize_pairs(per_pair, counters["n_rows"], counters["n_kept"], members_info)
+
+
+def _finalize_pairs(per_pair, n_rows, n_kept, members_info):
+    """Shared PATH-A finalizer: aggregate ORF-pair means -> dense subnetwork (top-frequency ORFs) -> cap MAX_PAIRS ->
+    reindex tokens contiguous. Returns PATH 'A' (X,y,n_tok,...) or PATH 'B' (escalate)."""
     pair_mean = {k: (s / c) for k, (s, c) in per_pair.items() if c > 0}
     if not pair_mean:
-        return {"path": "B", "reason": "no_pairs_after_filter", "n_rows": counters["n_rows"], "members": members_info}
+        return {"path": "B", "reason": "no_pairs_after_filter", "n_rows": n_rows, "members": members_info}
     orf_freq = defaultdict(int)
     for (a, b) in pair_mean:
         orf_freq[a] += 1; orf_freq[b] += 1
@@ -408,8 +514,8 @@ def parse_costanzo(path):
         stride = int(math.ceil(len(pairs) / float(MAX_PAIRS)))
         pairs = pairs[::stride][:MAX_PAIRS]  # deterministic evenly-spaced subsample
     if len(pairs) < MIN_PAIRS:
-        return {"path": "B", "reason": "insufficient_native_pairs", "n_pairs": len(pairs), "n_rows": counters["n_rows"],
-                "n_kept": counters["n_kept"], "members": members_info}
+        return {"path": "B", "reason": "insufficient_native_pairs", "n_pairs": len(pairs), "n_rows": n_rows,
+                "n_kept": n_kept, "members": members_info}
     toks = sorted(set([o for k in pairs for o in k]))
     tokid = {o: i for i, o in enumerate(toks)}
     Xl = []
@@ -418,8 +524,8 @@ def parse_costanzo(path):
         Xl.append([min(i0, i1), max(i0, i1)])
     X = np.array(Xl, dtype=np.int64)
     y = np.array([pair_mean[k] for k in pairs], dtype=np.float64)
-    return {"path": "A", "X": X, "y": y, "n_tok": len(toks), "n_pairs": len(pairs), "n_rows": counters["n_rows"],
-            "n_kept": counters["n_kept"], "members": members_info, "top_orf_kept": len(top),
+    return {"path": "A", "X": X, "y": y, "n_tok": len(toks), "n_pairs": len(pairs), "n_rows": n_rows,
+            "n_kept": n_kept, "members": members_info, "top_orf_kept": len(top),
             "cells_per_pair_mean": float(np.mean([per_pair[k][1] for k in pairs]))}
 
 
@@ -627,7 +733,7 @@ def _robust_center_scale(y):
 def run_measurement(seeds, run_mode):
     _write_start_marker(expected_n_units=len(seeds) * len(REGIMES), run_mode=run_mode)
     t0 = time.perf_counter()
-    path, prov = acquire()
+    path, kind, prov = acquire()
     base = dict(run_mode=run_mode, anchor_name=ANCHOR_NAME, ts_iso=datetime.now(timezone.utc).isoformat(),
                 elapsed_s=round(time.perf_counter() - t0, 2), provenance=prov, seeds=list(seeds),
                 bands=dict(HI_Z=HI_Z, MIN_HI_FRAC=MIN_HI_FRAC, HP_REL_HI=HP_REL_HI, HP_HI_MINUS_LO=HP_HI_MINUS_LO,
@@ -652,7 +758,7 @@ def run_measurement(seeds, run_mode):
         return base
 
     try:
-        data = parse_costanzo(path)
+        data = parse_costanzo_matrix(path) if kind == "matrix" else parse_costanzo(path)
     except (zipfile.BadZipFile, OSError, csv.Error, UnicodeDecodeError) as e:
         msg = ("ACQUIRE_FAILED || Costanzo file present but unreadable: %s: %s. pos_ctrl_rel=%s neg_ctrl_rel=%s."
                % (type(e).__name__, str(e)[:160], _fmt(pos_rel), _fmt(neg_rel)))
@@ -831,6 +937,26 @@ def _make_synth_costanzo_zip(path, n_pairs=60, n_strains=3, n_orfs=12):
         zf.writestr("SGA_NxN_synth.txt", tsv_text)
 
 
+def _make_synth_costanzo_matrix_zip(path, n_orfs=12):
+    """Write a tiny synthetic Costanzo MATRIX-format zip (gene-x-gene symmetric epsilon matrix with ORF label row + col) ->
+    exercises the REAL parse_costanzo_matrix fallback end-to-end."""
+    rng = np.random.default_rng(202)
+    orfs = ["YAL%03dC" % (d + 1) for d in range(n_orfs)]
+    tab = rng.normal(0, 1, size=(n_orfs, n_orfs)); tab = 0.5 * (tab + tab.T)
+    lines = ["\t".join([""] + orfs)]  # header row: blank corner + array-gene labels
+    for i in range(n_orfs):
+        cells = [orfs[i]]  # row label = query gene
+        for j in range(n_orfs):
+            if i == j:
+                cells.append("0.0000")
+            else:
+                sgn = 1.0 if tab[i, j] >= 0 else -1.0
+                cells.append("%.4f" % (sgn * (0.1 + 0.3 * abs(float(tab[i, j])))))  # |eps| >= 0.1 > EPS_FILTER
+        lines.append("\t".join(cells))
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("costanzo_matrix_synth.txt", "\n".join(lines) + "\n")
+
+
 def self_test():
     ok_all = True
     details = {}
@@ -873,6 +999,23 @@ def self_test():
     nonpair_routes_B = (unk_kind == "unknown")
     details["nonpair_header_routes_B"] = nonpair_routes_B
 
+    # (3b) REAL MATRIX-FALLBACK parser on a synthetic gene-x-gene epsilon matrix (exercises parse_costanzo_matrix PATH-A).
+    tmp_mzip = os.path.join(CACHE_DIR, "_selftest_synth_matrix.zip")
+    _make_synth_costanzo_matrix_zip(tmp_mzip, n_orfs=12)
+    saved_min2 = MIN_PAIRS
+    try:
+        globals()["MIN_PAIRS"] = 40
+        md = parse_costanzo_matrix(tmp_mzip)
+    finally:
+        globals()["MIN_PAIRS"] = saved_min2
+        try:
+            os.remove(tmp_mzip)
+        except OSError:
+            pass
+    matrix_ok = bool(md.get("path") == "A" and md.get("n_tok", 0) == 12 and md.get("n_pairs", 0) == 66)
+    details["matrix_path"] = md.get("path"); details["matrix_n_pairs"] = md.get("n_pairs")
+    details["matrix_n_tok"] = md.get("n_tok"); details["matrix_ok"] = matrix_ok
+
     # (4) POSITIVE control: planted symmetric-interaction arena -> SYM beats STRONG additive (discriminator FIRES at scale).
     pos_rel, pos_sym, pos_sadd = _control_rel("interaction")
     details.update(dict(pos_rel=round(pos_rel, 4), pos_sym_mae=round(pos_sym, 4), pos_sadd_mae=round(pos_sadd, 4)))
@@ -900,6 +1043,7 @@ def self_test():
         "fhrr_bind_homomorphism": homo_ok,
         "hadamard_equals_complex_bind": prod_is_bind,
         "real_parser_reconstructs_pairs": parser_ok,
+        "matrix_fallback_parser_reconstructs_pairs": matrix_ok,
         "nonpair_header_routes_to_escalate": nonpair_routes_B,
         "pos_ctrl_SYM_beats_strong_additive": (pos_rel == pos_rel and pos_rel >= POS_CTRL_REL),
         "neg_ctrl_SYM_not_beating_additive": (neg_rel == neg_rel and neg_rel <= NEG_CTRL_REL),

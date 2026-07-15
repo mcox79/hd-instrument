@@ -18,10 +18,12 @@ epistasis_nonadditive_v1` used NARRATED class-pair severity -- the failure mode 
 novel: first REAL-MEASURED continuous native-pair epistasis ingest (query_gene x array_gene + measured epsilon), no narration.
 
 ## Pocket / data (provenance/versioning per module-registry conventions)
-- Source: Costanzo et al. 2016, Science 353:aaf1420; thecellmap.org/yeast/costanzo2016 (pairwise "Data File S1"). Retrieval:
-  urllib candidate-URL list (URL uncertain from here under the no-compute lock; ACQUIRE tries each until one downloads; honest
-  ACQUIRE_FAILED with the tried list if all fail). Cell records `provenance.json` (url_used, urls_tried, retrieval_ts, bytes,
-  filter, slice controls, epsilon definition) in `data/foundation_clusters/costanzo2016_sga/`.
+- Source: Costanzo et al. 2016, Science 353:aaf1420; thecellmap.org/yeast/costanzo2016. Retrieval (URLs orchestrator
+  web-verified 2026-07-15 -- filenames carry NO "Data File S1." prefix): ACQUIRE tries the PAIRWISE zip (521MB, drop-in for
+  parse_costanzo) first, then the MATRIX zip (35MB, lighter; parse_costanzo_matrix reads the gene-x-gene symmetric epsilon
+  matrix, |eps|-only filter since matrix has no p-value) as an in-cell fallback if the large pairwise download fails/stalls;
+  honest ACQUIRE_FAILED with the tried-URL errors if both fail. Cell records `provenance.json` (kind, url_used, urls_tried,
+  retrieval_ts, bytes, filter, slice controls, epsilon definition) in `data/foundation_clusters/costanzo2016_sga/`.
 - Entity = native (query_gene, array_gene) pair (canonical unordered; tokens = systematic ORF ids extracted from strain-id
   prefix, e.g. 'YAL001C_tsq123' -> 'YAL001C').
 - Constituents = the two genes.
