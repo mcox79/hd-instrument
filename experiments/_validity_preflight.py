@@ -136,6 +136,7 @@ from __future__ import annotations
 import inspect
 import math
 import os
+import re
 import sys
 from typing import Any, Callable, Iterable, Mapping, Optional, Sequence
 
@@ -685,6 +686,173 @@ def assert_guard_baseline_valid(
 
 
 # --------------------------------------------------------------------------- #
+# Class 8: SOURCE-SCAN for PYTHONHASHSEED nondeterminism (salted hash() / set)  #
+# --------------------------------------------------------------------------- #
+#
+# Root failure it closes (2026-07-14): exp_interaction_nonadditive_discovery_v1
+# seeded its ARBITRARY/SHUFFLE must-fail-control RNG with `abs(hash((family,
+# regime)))`. Python's built-in hash() is SALTED per process (PYTHONHASHSEED),
+# so the must-fail/leak GATES became NONDETERMINISTIC across processes while the
+# CLEAN metrics stayed deterministic -- the verdict FLIPPED between runs and
+# caused a FALSE-REFUTE on a frontier cell. Same class as the CSKG split
+# list(set()) dedupe (reference_cskg_split_nondeterministic_list_set_dedupe_
+# pythonhashseed_cross_process_2026-07-11): iteration order of a `set` and the
+# value of built-in `hash()` both vary with PYTHONHASHSEED across processes.
+#
+# Unlike classes 1-7 (runtime value checks a cell OPTS INTO), this is a STATIC
+# source scan run automatically on the cell file at dispatch time -- an offending
+# cell would never declare a check against its own bug, so enforcement cannot
+# depend on opt-in. queue_add.py calls scan_source_for_nondeterminism() on every
+# ship. hashlib (deterministic) is NOT flagged: `hashlib.sha256(...)` has no bare
+# `hash(` call.
+
+# Built-in salted hash( call: NOT hashlib.* (no `(` right after "hash"), NOT a
+# method `.hash(` or a name ending in hash like `myhash(` (lookbehind blocks
+# word/dot chars before "hash").
+_HASH_CALL_RE = re.compile(r'(?<![\w.])hash\s*\(')
+# abs(hash(...)) -- the exact offending idiom; near-certainly making a positive
+# integer RNG seed. Strongest single signal.
+_ABS_HASH_RE = re.compile(r'\babs\s*\(\s*hash\s*\(')
+# A line that both derives from built-in hash() AND mentions seeding an RNG.
+_SEED_CONTEXT_RE = re.compile(
+    r'(manual_seed|default_rng|RandomState|PCG64|MT19937|SeedSequence|'
+    r'np\.random\.seed|numpy\.random\.seed|random\.seed|torch\.manual_seed|'
+    r'set_seed|\bseed\s*=|\bseeds\s*=|\brng\b|\bgenerator\b)',
+    re.IGNORECASE)
+# Assignment to a seed-named variable: `seed = ... hash(`, `my_seed=...`.
+_SEED_ASSIGN_RE = re.compile(r'\b\w*seed\w*\s*=')
+# list(set(...)) -- nondeterministic iteration order.
+_LIST_SET_RE = re.compile(r'\blist\s*\(\s*set\s*\(')
+
+
+def scan_source_for_nondeterminism(source: str) -> list[dict]:
+    """Static-scan Python source for PYTHONHASHSEED-nondeterminism idioms.
+
+    Returns a list of finding dicts: {severity, lineno, code, pattern, message}.
+      severity == "error": a hash()-derived RNG seed -- the exact FALSE-REFUTE
+        class. A ship should BLOCK on this (queue_add exits non-zero).
+      severity == "warn": list(set(...)) ordering, or a bare built-in hash()
+        outside a seed context -- surfaced loudly, non-blocking (many legit uses:
+        dict keys, order-insensitive dedup). Fix advice still points to the
+        deterministic form.
+
+    Pure-comment lines (stripped, leading '#') are skipped so a `# hash(` note
+    does not false-fire. hashlib.* is never matched (no bare `hash(`).
+    """
+    findings: list[dict] = []
+    for i, raw in enumerate(source.splitlines(), start=1):
+        line = raw.rstrip("\n")
+        stripped = line.lstrip()
+        if stripped.startswith("#"):
+            continue  # pure comment line
+
+        has_hash = bool(_HASH_CALL_RE.search(line))
+        if _ABS_HASH_RE.search(line):
+            findings.append({
+                "severity": "error", "lineno": i, "code": line.strip(),
+                "pattern": "abs(hash(...))",
+                "message": (
+                    "abs(hash(...)) derives a value from Python's SALTED built-in "
+                    "hash() (PYTHONHASHSEED varies per process). Used as an RNG "
+                    "seed this makes must-fail/leak GATES nondeterministic across "
+                    "processes while clean metrics stay deterministic -> the "
+                    "verdict FLIPS between runs (FALSE-REFUTE class, "
+                    "exp_interaction_nonadditive_discovery_v1 2026-07-14). Use a "
+                    "FIXED integer seed, or a DETERMINISTIC digest "
+                    "(int.from_bytes(hashlib.sha256(key.encode()).digest()[:8], "
+                    "'big')), or a stable enumerated index."),
+            })
+            continue
+        if has_hash and _SEED_CONTEXT_RE.search(line):
+            findings.append({
+                "severity": "error", "lineno": i, "code": line.strip(),
+                "pattern": "hash(...) in RNG-seed context",
+                "message": (
+                    "built-in hash() feeds an RNG seed on this line. hash() is "
+                    "SALTED per process (PYTHONHASHSEED) so the seed -- and any "
+                    "must-fail control depending on it -- is nondeterministic "
+                    "across processes. Use a fixed integer seed or a deterministic "
+                    "hashlib digest, not built-in hash()."),
+            })
+            continue
+        if has_hash and _SEED_ASSIGN_RE.search(line):
+            findings.append({
+                "severity": "error", "lineno": i, "code": line.strip(),
+                "pattern": "seed = ...hash(...)",
+                "message": (
+                    "a seed-named variable is assigned from built-in hash() "
+                    "(SALTED per process). Nondeterministic across processes -- "
+                    "use a fixed integer seed or a deterministic hashlib digest."),
+            })
+            continue
+        if _LIST_SET_RE.search(line):
+            findings.append({
+                "severity": "warn", "lineno": i, "code": line.strip(),
+                "pattern": "list(set(...))",
+                "message": (
+                    "list(set(...)) has NONDETERMINISTIC ordering (set iteration "
+                    "order varies with PYTHONHASHSEED across processes). If this "
+                    "order feeds a split / held-out selection / any seeded pick, "
+                    "it causes a cross-process SPLIT_IDENTITY_BREACH "
+                    "(reference_cskg_split_nondeterministic_list_set_dedupe 2026-"
+                    "07-11). Use sorted(set(...)) for a deterministic order."),
+            })
+            continue
+        if has_hash:
+            findings.append({
+                "severity": "warn", "lineno": i, "code": line.strip(),
+                "pattern": "hash(...)",
+                "message": (
+                    "built-in hash() is SALTED per process (PYTHONHASHSEED). Fine "
+                    "for in-process dict/set keys; NOT reproducible across "
+                    "processes. If this value ever seeds randomness or orders a "
+                    "split, use a deterministic hashlib digest instead."),
+            })
+    return findings
+
+
+def assert_no_nondeterministic_seeding(
+        source: str,
+        *,
+        source_name: str = "<source>",
+        run_mode: str = "selftest",
+        mode: Optional[str] = None,
+        block_warn_severity: bool = False,
+        extra: str = "") -> bool:
+    """Assert `source` contains no hash()-seeded / list(set()) nondeterminism.
+
+    Wraps scan_source_for_nondeterminism into the warn/enforce _emit contract so
+    a cell self-test (or any caller) can gate on it. "error"-severity findings
+    honor the mode (enforce -> raise ValidityPreflightError). "warn"-severity
+    findings always log and (unless block_warn_severity) do not fail the assert.
+
+    Defaults to ENFORCE (default='enforce'): this closed a FALSE-REFUTE on a
+    frontier cell, mirroring the F.1-F.4 enforce posture.
+    """
+    if not _is_selftest_mode(run_mode):
+        return True
+    resolved = _resolve_mode(mode, default="enforce")
+    findings = scan_source_for_nondeterminism(source)
+    if not findings:
+        return True
+    errors = [f for f in findings if f["severity"] == "error"]
+    warns = [f for f in findings if f["severity"] == "warn"]
+    ok = True
+    for f in warns:
+        print(f"{WARN_PREFIX} [nondeterminism] {source_name}:{f['lineno']} "
+              f"({f['pattern']}) {f['message']} -- code: {f['code']}",
+              file=sys.stderr, flush=True)
+    if block_warn_severity and warns:
+        ok = False
+    for f in errors:
+        ok &= _emit(
+            f"[nondeterminism] {source_name}:{f['lineno']} ({f['pattern']}) "
+            f"{f['message']} -- code: {f['code']}"
+            + (f" {extra}" if extra else ""), mode=resolved)
+    return ok
+
+
+# --------------------------------------------------------------------------- #
 # Orchestration entrypoint                                                     #
 # --------------------------------------------------------------------------- #
 
@@ -779,5 +947,10 @@ __all__ = [
     "assert_metric_moves",
     "assert_full_gates_exercised_at_selftest",
     "assert_negative_control_fails_with_margin",
+    "assert_signature_compatible",
+    "assert_real_code_path_exercised",
+    "assert_guard_baseline_valid",
+    "scan_source_for_nondeterminism",
+    "assert_no_nondeterministic_seeding",
     "run_validity_preflight",
 ]

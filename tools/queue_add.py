@@ -690,6 +690,80 @@ def check_n_suffix_binding(entry_name: str, script_path: Path) -> None:
     sys.exit(6)
 
 
+def check_nondeterministic_seeding(script_path: Path, allow_override: bool) -> None:
+    """PROT-023: block hash()-seeded / list(set()) PYTHONHASHSEED nondeterminism.
+
+    Root cause (2026-07-14): exp_interaction_nonadditive_discovery_v1 seeded its
+    ARBITRARY/SHUFFLE must-fail-control RNG with `abs(hash((family, regime)))`.
+    Python's built-in hash() is SALTED per process (PYTHONHASHSEED), so the
+    must-fail/leak GATES became nondeterministic across processes while the CLEAN
+    metrics stayed deterministic -- the verdict FLIPPED between runs and caused a
+    FALSE-REFUTE on a frontier cell. Same class as the CSKG split list(set())
+    dedupe (reference_cskg_split_nondeterministic_list_set_dedupe 2026-07-11).
+
+    Static source scan (experiments/_validity_preflight.scan_source_for_
+    nondeterminism). ERROR findings (hash()-derived RNG seed) block the ship with
+    exit 12; --allow-nondeterminism overrides. WARN findings (list(set(...)),
+    bare hash()) print loudly and never block. Import/read failures WARN and
+    never block a ship (fail-open on the gate's own plumbing, like PROT-018/021).
+    """
+    try:
+        source = script_path.read_text(encoding="utf-8", errors="replace")
+    except OSError as e:
+        print(f"[gate] PROT-023 WARN: could not read script for "
+              f"nondeterminism-check: {e}", file=sys.stderr)
+        return
+    try:
+        sys.path.insert(0, str(REPO))
+        from experiments._validity_preflight import (  # noqa: E402
+            scan_source_for_nondeterminism)
+    except Exception as e:  # import plumbing must never block a ship
+        print(f"[gate] PROT-023 WARN: could not import nondeterminism scanner: "
+              f"{e}", file=sys.stderr)
+        return
+    findings = scan_source_for_nondeterminism(source)
+    errors = [f for f in findings if f["severity"] == "error"]
+    warns = [f for f in findings if f["severity"] == "warn"]
+    for f in warns:
+        print(f"[gate] PROT-023 WARN: {script_path.name}:{f['lineno']} "
+              f"({f['pattern']}) {f['message']} -- code: {f['code']}",
+              file=sys.stderr)
+    if not errors:
+        if not warns:
+            print("[gate] PROT-023 OK: no hash()-seeded / list(set()) "
+                  "nondeterminism detected")
+        return
+    if allow_override:
+        for f in errors:
+            print(f"[gate] PROT-023 WARN (override): {script_path.name}:"
+                  f"{f['lineno']} ({f['pattern']}) {f['message']}",
+                  file=sys.stderr)
+        return
+    lines = [
+        f"\n[gate] PROT-023 REJECT: script '{script_path.name}' uses "
+        f"PYTHONHASHSEED-nondeterministic seeding:\n",
+    ]
+    for f in errors:
+        lines.append(
+            f"  line {f['lineno']} ({f['pattern']}): {f['code']}\n"
+            f"    {f['message']}\n")
+    lines.append(
+        "\n  Built-in hash() is SALTED per process; a hash()-derived RNG seed "
+        "makes\n"
+        "  must-fail/leak GATES nondeterministic across processes (clean metrics\n"
+        "  stay deterministic), FLIPPING the verdict between runs -- this caused a\n"
+        "  FALSE-REFUTE on exp_interaction_nonadditive_discovery_v1 (2026-07-14).\n"
+        "\n  Fix options:\n"
+        "    1. Use a FIXED integer seed, or a stable enumerated index.\n"
+        "    2. For a key-derived seed, use a DETERMINISTIC digest:\n"
+        "         int.from_bytes(hashlib.sha256(key.encode()).digest()[:8], 'big')\n"
+        "    3. For ordering, use sorted(set(...)) not list(set(...)).\n"
+        "    4. Pass --allow-nondeterminism only if the hash() result provably\n"
+        "       never seeds randomness nor orders a split (rare).\n")
+    print("".join(lines), file=sys.stderr)
+    sys.exit(12)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("queue_name", help="Queue dir under data/ (e.g. overnight_queue)")
@@ -758,6 +832,15 @@ def main() -> int:
             "arm BUILDS the referent before use (e.g. provisioning cells)."
         ),
     )
+    ap.add_argument(
+        "--allow-nondeterminism",
+        action="store_true",
+        help=(
+            "Override PROT-023: allow hash()-seeded / list(set()) "
+            "PYTHONHASHSEED-nondeterministic idioms. Rare; only when the hash() "
+            "result provably never seeds randomness nor orders a split."
+        ),
+    )
     args = ap.parse_args()
 
     # ── Host guard ──────────────────────────────────────────────────────────────
@@ -815,6 +898,11 @@ def main() -> int:
     check_declared_referents(
         script_path, args.queue_name, args.allow_missing_referent
     )
+
+    # 1g. PROT-023: block hash()-seeded / list(set()) PYTHONHASHSEED
+    # nondeterminism (root cause of the 2026-07-14 FALSE-REFUTE on a frontier
+    # cell). Exit 12 on an ERROR finding; --allow-nondeterminism overrides.
+    check_nondeterministic_seeding(script_path, args.allow_nondeterminism)
 
     # 2. Prereg exists
     prereg_path = REPO / args.prereg

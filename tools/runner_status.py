@@ -440,6 +440,24 @@ def assemble_report(include_remote: bool, verbose: bool) -> dict:
                     "started_at": ent.get("started_at"),
                 })
 
+    # Runner-level zombies: a runner classified ZOMBIE in the LIVENESS section
+    # (stale heartbeat > 5min, or a dead recorded PID) is a zombie REGARDLESS of
+    # whether it holds a `running` queue entry. Before 2026-07-14 the ZOMBIES
+    # DETECTED section only surfaced QUEUE-entry zombies (a `running` entry owned
+    # by a dead runner), so with an empty queue it printed "[none]" while the
+    # LIVENESS section showed ZOMBIE and compute_exit_code returned 1 -- a
+    # detector self-contradiction. Surface runner-zombies here so all three agree.
+    runner_zombies = [
+        {
+            "runner_id": r["runner_id"],
+            "age_s": r["hb"].get("_age_s"),
+            "pid": r["hb"].get("pid"),
+            "status": r["hb"].get("status") or r["hb"].get("state"),
+            "path": r["hb"].get("_path"),
+        }
+        for r in rows if r["verdict"] == "ZOMBIE"
+    ]
+
     landings = read_recent_landings()
 
     return {
@@ -449,6 +467,7 @@ def assemble_report(include_remote: bool, verbose: bool) -> dict:
         "local_queues": local_q,
         "remote_queues": remote_q,
         "zombies": zombies,
+        "runner_zombies": runner_zombies,
         "recent_landings": landings,
         "remote_cache_staleness": check_remote_cache_staleness(),
     }
@@ -568,10 +587,16 @@ def render_report(report: dict, verbose: bool) -> str:
 
     L.append("")
     L.append("=== ZOMBIES DETECTED ===")
-    if report["zombies"]:
-        for z in report["zombies"]:
-            L.append(f"  [{z['queue']}] {z['anchor']} (claimed_by={z['claimed_by']}; started_at={z['started_at']})")
-        L.append("  -> recommend: see orchestrator.md RUNNER-ZOMBIE DETECTION + RECOVERY section to clear")
+    queue_zombies = report.get("zombies") or []
+    runner_zombies = report.get("runner_zombies") or []
+    if queue_zombies or runner_zombies:
+        for z in queue_zombies:
+            L.append(f"  [queue-entry] [{z['queue']}] {z['anchor']} (claimed_by={z['claimed_by']}; started_at={z['started_at']})")
+        for rz in runner_zombies:
+            age = rz.get("age_s")
+            age_str = f"{age:.0f}s old" if age is not None else "heartbeat ts unparseable"
+            L.append(f"  [runner] {rz['runner_id']} (pid {rz.get('pid')}; heartbeat {age_str}; last-status={rz.get('status')})")
+        L.append("  -> recommend: see orchestrator.md RUNNER-ZOMBIE DETECTION + RECOVERY section to clear; stale runner-heartbeat files live under data/logs/<runner_id>_heartbeat.json")
     else:
         L.append("[none]")
 
