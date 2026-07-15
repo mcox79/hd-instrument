@@ -47,14 +47,25 @@ REGIMES: CLEAN(real) ; ARBITRARY (random target per unique gene-pair; must-fail 
   bar; pos_rel ~0.908 validated); negative control = planted ADDITIVE arena (SYM must NOT beat additive; neg_rel ~-0.018
   validated -> proves the gate is NOT saturation-vacuous).
 
+SIGNAL-READABILITY GATE (VET a57067090 revival criterion -- the FIRST interpretability gate): the v1 REFUTE was adjudicated a
+NARROW encoding/SNR null (per-pair epsilon noise-dominated at cells/pair~1.8; the strong additive beat a MEAN-predictor by only
+~2.9% -> NO readable non-additive target existed -> SYM was never given a readable target). FIX: BEFORE the SYM-vs-additive
+transfer test can be interpreted, a readable target must be CERTIFIED to exist -- readable_rel = max(strong_additive, SYM) vs
+MEAN on the hi-|epsilon| subset must be >= READABILITY_REL=0.15. Gate FAILS -> UNREADABLE_ESCALATE (a DATASET-SNR null, NOT a
+thesis result). SNR levers to give a Costanzo slice its best chance: |eps|>0.12 STRINGENT-confidence tier + >=2 replicate
+measurements/pair (drop noisiest singletons) + denser TOP_ORF=400 subnetwork (better-defined per-gene main effects). If NO
+Costanzo slice passes readability, ESCALATE to a higher-SNR pocket (Kramer QSAR Nonadd_pC per-CIRCLE / DrugComb synergy).
+
 PRE-REGISTERED BANDS (fixed BEFORE running; see preregs/2026-07-15_costanzo_epistasis_nativepair_bind_readout.md):
-  HARD_PASS_TRANSFER (native-pair real-data linchpin): novel_hi rel_MAE >= 0.30 AND (novel_hi rel - novel_lo rel) >= 0.15
-    AND positive-control passes (planted-interaction rel>=0.30) AND negative-control ok (planted-additive rel<=0.10)
-    AND must-fails fire (SHUFFLE all rel_sym_vs_mean<=0.08, ARBITRARY novel rel_sym_vs_mean<=0.08) AND oracle MAE~0
-    AND leak_ok AND enough high-interaction signal (>=15% of pairs clear the robust-sigma floor) AND novel_hi >=4 mean rows.
+  HARD_PASS_TRANSFER (native-pair real-data linchpin): READABILITY GATE PASSES (readable_rel_hi >= 0.15) AND novel_hi rel_MAE
+    >= 0.30 AND (novel_hi rel - novel_lo rel) >= 0.15 AND positive-control passes (planted-interaction rel>=0.30) AND
+    negative-control ok (planted-additive rel<=0.10) AND must-fails fire (SHUFFLE all rel_sym_vs_mean<=0.08, ARBITRARY novel
+    rel_sym_vs_mean<=0.08) AND oracle MAE~0 AND leak_ok AND >=15% of pairs clear the robust-sigma floor AND novel_hi >=4 rows.
+  UNREADABLE_ESCALATE: readability gate FAILS (readable_rel_hi < 0.15) -> no readable non-additive target -> ESCALATE to a
+    higher-SNR dataset (Kramer QSAR Nonadd_pC / DrugComb synergy). NOT a thesis result (SYM never given a readable target).
   HARD_FAIL_INSUFFICIENT_SIGNAL: <15% of pairs clear the floor -> ESCALATE (larger slice / different pocket; domain NOT closed).
-  REFUTE_NO_TRANSFER: novel_hi rel_MAE <= 0.05 (real measured epistasis ALSO additive-capturable = a deep foundation finding)
-    with valid must-fails+oracle+controls.
+  REFUTE_NO_TRANSFER: readability PASSES but novel_hi rel_MAE <= 0.05 (real measured epistasis IS readable yet ALSO
+    additive-capturable = a deep foundation finding) with valid must-fails+oracle+controls.
   MIDDLE_BAND: partial / low-power novel_hi / advantage not materially larger on hi than lo.
 
 Compute architecture: (b) sequential-CPU with justification -- arena is O(1e3-1e4) native gene-pairs x tiny (<=Nx32) Adam
@@ -80,7 +91,9 @@ Compute architecture: (b) sequential-CPU with justification -- arena is O(1e3-1e
 # - cardinality_ok: n_seeds x n_regimes fixed; verdict counts per_seed_regime lengths.
 # - per-unit failure-class instrumentation: acquire/parse failures -> explicit ACQUIRE_FAILED / ESCALATE verdicts.
 # - calibration_check: adaptive_with_discriminator_gate (HI_Z*robust_sigma magnitude split is data-scale-invariant; the
-#     hi-minus-lo>=0.15 gate is the discriminator-still-fires verification; frac_hi>=0.15 is the insufficient-signal gate).
+#     hi-minus-lo>=0.15 gate is the discriminator-still-fires verification; frac_hi>=0.15 is the insufficient-signal gate;
+#     the SIGNAL-READABILITY gate readable_rel_hi>=0.15 [best structured readout vs MEAN] certifies a READABLE target EXISTS
+#     BEFORE the SYM-vs-additive test is interpretable -- self-test fires it on readable arenas, rejects a pure-noise arena).
 # - all numbers in comments tagged CITED@ (scout drill) / THEORETICAL@ / to-be-MEASURED@ (real-data pending remote run).
 # - real_code_path: self-test parses a SYNTHETIC Costanzo TSV (zip-of-txt) through the REAL parser + runs planted arenas
 #     through the REAL score()/arm code; hd_bind exercised on complex64 phasors.
@@ -171,16 +184,26 @@ QUERY_FRAC = 0.40
 # ---- pre-registered bands + slice controls (fixed BEFORE running) ----
 HI_Z = 1.0                   # hi = |epsilon - median| > HI_Z * robust_sigma (robust_sigma = 1.4826*MAD): genuine 2-way
 MIN_HI_FRAC = 0.15           # >=15% of pairs must clear the robust-sigma floor else HARD_FAIL_INSUFFICIENT -> escalate
+# ---- SIGNAL-READABILITY GATE (VET a57067090 revival criterion; the FIRST interpretability gate) ----
+# The v1 REFUTE was adjudicated a NARROW encoding/SNR null: at cells_per_pair~1.8 the per-pair epsilon is noise-dominated, the
+# strong additive beat a MEAN-predictor by only ~2.9% (CITED@VET a57067090), so NO readable non-additive target existed and the
+# SYM-vs-additive comparison was uninterpretable. FIX: certify a READABLE target EXISTS on the hi-|epsilon| subset BEFORE the
+# transfer test can mean anything. readable_rel = max(strong_additive, SYM) vs MEAN (best structured readout clears mean =
+# readable-signal certificate; the "or oracle-ish readable-signal proxy" the VET permitted -- robust to a PURE-interaction
+# target that additive alone would miss). Gate FAILS -> UNREADABLE_ESCALATE (a DATASET-SNR null, NOT a thesis result).
+READABILITY_REL = 0.15       # readable_rel (best structured readout vs MEAN on all_hi) >= this else UNREADABLE_ESCALATE
 HP_REL_HI = 0.30             # novel_hi rel_MAE reduction (SYM vs strong additive) >= 0.30
 HP_HI_MINUS_LO = 0.15        # advantage materially larger on hi than lo: rel_hi - rel_lo >= 0.15
-REFUTE_REL = 0.05            # novel_hi rel_MAE <= 0.05 => collapses to noise => REFUTE
+REFUTE_REL = 0.05            # novel_hi rel_MAE <= 0.05 => collapses to additive-capturable => REFUTE (only if readable)
 MUSTFAIL_REL_TOL = 0.08      # SHUFFLE(all)+ARBITRARY(novel) rel_sym_vs_mean ceiling
 MIN_NOVEL_HI_N = 4.0         # mean novel-hi query rows for adequate power
 POS_CTRL_REL = 0.30          # planted-interaction SEEN rel_MAE (positive control must clear its own bar)
 NEG_CTRL_REL = 0.10          # planted-additive SEEN rel_MAE ceiling (gate not saturation-vacuous)
-EPS_FILTER = 0.08            # |epsilon| significance-magnitude filter (standard Costanzo threshold)
-P_MAX = 0.05                 # p-value significance filter
-TOP_ORF = 500                # dense-subnetwork cap: keep the top-frequency ORFs (well-defined per-token main effects)
+# ---- readable-slice SNR levers (raise per-pair SNR so a READABLE target can exist; VET revival strategy) ----
+EPS_FILTER = 0.12            # |epsilon| filter RAISED to Costanzo STRINGENT-confidence tier (was 0.08): stronger, cleaner eps
+P_MAX = 0.05                 # p-value significance filter (standard Costanzo)
+MIN_CELLS_PER_PAIR = 2       # require >=2 replicate measurements/ORF-pair: drop the noisiest singletons (mean-of->=2 = cleaner)
+TOP_ORF = 400                # DENSER subnetwork (was 500): fewer hub ORFs -> more pairs/gene -> better-defined main effects
 MAX_PAIRS = 8000             # cap native pair count (capacity/tractability of the dense per-token design)
 MIN_PAIRS = 200              # PATH-A requires >= this many unique native gene-pairs; else escalate
 
@@ -502,9 +525,11 @@ def parse_costanzo_matrix(path):
 def _finalize_pairs(per_pair, n_rows, n_kept, members_info):
     """Shared PATH-A finalizer: aggregate ORF-pair means -> dense subnetwork (top-frequency ORFs) -> cap MAX_PAIRS ->
     reindex tokens contiguous. Returns PATH 'A' (X,y,n_tok,...) or PATH 'B' (escalate)."""
-    pair_mean = {k: (s / c) for k, (s, c) in per_pair.items() if c > 0}
+    # SNR lever: require >= MIN_CELLS_PER_PAIR replicate measurements per ORF-pair (drop noisiest singletons) -> cleaner mean.
+    pair_mean = {k: (s / c) for k, (s, c) in per_pair.items() if c >= MIN_CELLS_PER_PAIR}
     if not pair_mean:
-        return {"path": "B", "reason": "no_pairs_after_filter", "n_rows": n_rows, "members": members_info}
+        return {"path": "B", "reason": "no_pairs_after_replicate_filter_min_%d" % MIN_CELLS_PER_PAIR,
+                "n_rows": n_rows, "n_kept": n_kept, "members": members_info}
     orf_freq = defaultdict(int)
     for (a, b) in pair_mean:
         orf_freq[a] += 1; orf_freq[b] += 1
@@ -702,6 +727,9 @@ def _plant_reg(n, seed, mode, n_tok=8):
     if mode == "interaction":
         tab = rng.normal(0.0, 1.0, size=(n_tok, n_tok)); tab = 0.5 * (tab + tab.T)  # symmetric 2-way interaction
         y = np.array([tab[int(X[i, 0]), int(X[i, 1])] for i in range(n)], dtype=np.float64)
+    elif mode == "noise":
+        # UNREADABLE arena: target is pure noise INDEPENDENT of X -> no structured readout can beat MEAN -> readability FAILS.
+        return X, rng.normal(0.0, 1.0, size=n).astype(np.float64)
     else:
         w = rng.normal(0.0, 1.0, size=n_tok)
         y = np.array([w[int(X[i, 0])] + w[int(X[i, 1])] for i in range(n)], dtype=np.float64)
@@ -715,6 +743,32 @@ def _control_rel(mode, seeds=(7, 13, 17), n_tok=8):
     sym = float(np.mean([r["strata"]["seen"]["full"][SYM] for r in rs]))
     sadd = float(np.mean([r["strata"]["seen"]["full"]["STRONG_ADD"] for r in rs]))
     return _rel(sadd, sym), sym, sadd
+
+
+def _readable_rel_of(m_mae_fn, stratum, sub):
+    """SIGNAL-READABILITY certificate: best structured readout (strong additive OR SYM) vs MEAN on (stratum, sub).
+    max() is the "or oracle-ish readable-signal proxy" the VET permitted -- robust to a pure-interaction target additive
+    alone would miss. >= READABILITY_REL certifies a READABLE target exists (target not noise-dominated)."""
+    mean_mae = m_mae_fn(MEAN)
+    add_rel = _rel(mean_mae, m_mae_fn("STRONG_ADD"))
+    sym_rel = _rel(mean_mae, m_mae_fn(SYM))
+    cands = [v for v in (add_rel, sym_rel) if v == v]
+    return (max(cands) if cands else float("nan")), add_rel, sym_rel
+
+
+def _readable_rel_arena(mode, seeds=(7, 13, 17), n_tok=8):
+    """Readability certificate on a planted arena (interaction/additive = readable ; noise = unreadable). Uses ('all','full')
+    averaged over seeds -- validates the gate FIRES on readable structure and REJECTS pure noise."""
+    X, y = _plant_reg(600, {"interaction": 7, "additive": 11, "noise": 23}[mode], mode, n_tok)
+    rs = [score(X, y, CLEAN, sd, n_tok) for sd in seeds]
+
+    def _mm(arm):
+        vals = [r["strata"]["all"]["full"][arm] for r in rs]
+        vals = [v for v in vals if v == v]
+        return float(np.mean(vals)) if vals else float("nan")
+
+    rel, add_rel, sym_rel = _readable_rel_of(_mm, "all", "full")
+    return rel, add_rel, sym_rel
 
 
 # ===========================================================================
@@ -808,6 +862,12 @@ def run_measurement(seeds, run_mode):
     role_hi_rel = _rel(m_mae(CLEAN, "seen", "hi", "STRONG_ADD"), m_mae(CLEAN, "seen", "hi", ROLE))
     novel_hi_n = m_n(CLEAN, "novel", "hi")
 
+    # SIGNAL-READABILITY GATE (VET revival criterion; FIRST interpretability gate). On real data every unique pair is NOVEL
+    # (one mean/pair -> seen stratum empty), so 'all' == novel; measure the readable certificate on the hi-|epsilon| subset.
+    readable_rel, read_add_rel, read_sym_rel = _readable_rel_of(
+        lambda arm: m_mae(CLEAN, "all", "hi", arm), "all", "hi")
+    readable_ok = bool(readable_rel == readable_rel and readable_rel >= READABILITY_REL)
+
     def rel_sym_vs_mean(reg, stratum, sub):
         return _rel(m_mae(reg, stratum, sub, MEAN), m_mae(reg, stratum, sub, SYM))
 
@@ -827,10 +887,10 @@ def run_measurement(seeds, run_mode):
                     and (novel_hi_rel - novel_lo_rel) >= HP_HI_MINUS_LO)
     rel_hi_pass = bool(novel_hi_rel == novel_hi_rel and novel_hi_rel >= HP_REL_HI)
 
-    hard_pass = bool(rel_hi_pass and hi_gt_lo and pos_ok and neg_ok and mustfails_ok and oracle_ok
+    hard_pass = bool(readable_ok and rel_hi_pass and hi_gt_lo and pos_ok and neg_ok and mustfails_ok and oracle_ok
                      and leak_ok and noise_floor_ok and power_ok)
-    refute = bool(novel_hi_rel == novel_hi_rel and novel_hi_rel <= REFUTE_REL and mustfails_ok and oracle_ok
-                  and pos_ok and neg_ok and noise_floor_ok and power_ok)
+    refute = bool(readable_ok and novel_hi_rel == novel_hi_rel and novel_hi_rel <= REFUTE_REL and mustfails_ok
+                  and oracle_ok and pos_ok and neg_ok and noise_floor_ok and power_ok)
 
     if not (pos_ok and neg_ok):
         verdict = "INCONCLUSIVE_CONTROL_GATE_INVALID"
@@ -840,6 +900,8 @@ def run_measurement(seeds, run_mode):
         verdict = "INCONCLUSIVE_MUSTFAIL_LEAK"
     elif not noise_floor_ok:
         verdict = "HARD_FAIL_INSUFFICIENT_SIGNAL_ESCALATE_LARGER_SLICE"
+    elif not readable_ok:
+        verdict = "UNREADABLE_ESCALATE_NO_READABLE_NONADDITIVE_TARGET"
     elif not power_ok:
         verdict = "MIDDLE_BAND_LOW_POWER_NOVEL_HI"
     elif hard_pass:
@@ -851,17 +913,29 @@ def run_measurement(seeds, run_mode):
         if rel_hi_pass and not hi_gt_lo:
             verdict += "_ADVANTAGE_NOT_HI_SPECIFIC"
 
-    msg = ("%s || PATH_A n_pairs=%d n_tok=%d frac_hi=%.3f | NOVEL_HI rel_MAE=%s(>=%.2f) NOVEL_LO rel=%s "
-           "(hi-lo=%s>=%.2f) SEEN_HI rel=%s | SYM/SADD novel_hi=%s/%s | POS_ctrl_rel=%s(>=%.2f ok=%s) "
-           "NEG_ctrl_rel=%s(<=%.2f ok=%s) | MUSTFAIL shuf=%s arb=%s(<=%.2f) oracle_mae=%s leak=%s | "
-           "novel_hi_n=%.1f power=%s noise_floor=%s"
-           % (verdict, X.shape[0], n_tok, frac_hi, _fmt(novel_hi_rel), HP_REL_HI, _fmt(novel_lo_rel),
+    escalate_tail = ""
+    if verdict.startswith("UNREADABLE_ESCALATE"):
+        escalate_tail = (" || HAND-OFF: per-pair epsilon noise-dominated at this slice (cells/pair=%.1f); the readable-signal "
+                         "gate FAILED (best structured readout beats MEAN by only readable_rel=%s < %.2f on hi) -- this is a "
+                         "DATASET-SNR null, NOT a thesis result. ESCALATE to a higher-SNR non-additive dataset: (1) Kramer "
+                         "QSAR Nonadd_pC per-CIRCLE (Nonadd_pC = closed-form from 4 MEASURED potencies = cleaner than "
+                         "genetic-interaction epsilon), or (2) DrugComb synergy (more replicates across cell-lines). Costanzo "
+                         "SNR levers already applied (|eps|>%.2f stringent tier, >=%d replicates/pair, TOP_ORF=%d denser)."
+                         % (float(data.get("cells_per_pair_mean", 0.0)), _fmt(readable_rel), READABILITY_REL,
+                            EPS_FILTER, MIN_CELLS_PER_PAIR, TOP_ORF))
+    msg = ("%s || PATH_A n_pairs=%d n_tok=%d cells/pair=%.1f frac_hi=%.3f | READABLE_rel(hi)=%s(>=%.2f ok=%s; "
+           "add=%s sym=%s) | NOVEL_HI rel_MAE=%s(>=%.2f) NOVEL_LO rel=%s (hi-lo=%s>=%.2f) SEEN_HI rel=%s | "
+           "SYM/SADD novel_hi=%s/%s | POS_ctrl_rel=%s(>=%.2f ok=%s) NEG_ctrl_rel=%s(<=%.2f ok=%s) | "
+           "MUSTFAIL shuf=%s arb=%s(<=%.2f) oracle_mae=%s leak=%s | novel_hi_n=%.1f power=%s noise_floor=%s%s"
+           % (verdict, X.shape[0], n_tok, float(data.get("cells_per_pair_mean", 0.0)), frac_hi,
+              _fmt(readable_rel), READABILITY_REL, readable_ok, _fmt(read_add_rel), _fmt(read_sym_rel),
+              _fmt(novel_hi_rel), HP_REL_HI, _fmt(novel_lo_rel),
               _fmt(novel_hi_rel - novel_lo_rel) if (novel_hi_rel == novel_hi_rel and novel_lo_rel == novel_lo_rel)
               else "nan", HP_HI_MINUS_LO, _fmt(seen_hi_rel),
               _fmt(m_mae(CLEAN, "novel", "hi", SYM)), _fmt(m_mae(CLEAN, "novel", "hi", "STRONG_ADD")),
               _fmt(pos_rel), POS_CTRL_REL, pos_ok, _fmt(neg_rel), NEG_CTRL_REL, neg_ok,
               _fmt(shuf_rel), _fmt(arb_rel), MUSTFAIL_REL_TOL, _fmt(orc_mae), leak_ok, novel_hi_n, power_ok,
-              noise_floor_ok))
+              noise_floor_ok, escalate_tail))
 
     base.update(
         verdict=verdict, verdict_msg=msg, summary=msg[:200], path="A", escalate=False,
@@ -869,6 +943,14 @@ def run_measurement(seeds, run_mode):
         hi_center=round(hi_center, 5), hi_scale=round(hi_scale, 5),
         n_rows_scanned=int(data.get("n_rows", 0)), n_kept=int(data.get("n_kept", 0)),
         cells_per_pair_mean=round(float(data.get("cells_per_pair_mean", 0.0)), 3), members=data.get("members"),
+        readability=dict(
+            readable_rel_hi=round(readable_rel, 5) if readable_rel == readable_rel else None,
+            read_add_vs_mean_hi=round(read_add_rel, 5) if read_add_rel == read_add_rel else None,
+            read_sym_vs_mean_hi=round(read_sym_rel, 5) if read_sym_rel == read_sym_rel else None,
+            readable_ok=readable_ok, READABILITY_REL=READABILITY_REL,
+            mean_hi_mae=round(m_mae(CLEAN, "all", "hi", MEAN), 5),
+            strong_add_hi_mae=round(m_mae(CLEAN, "all", "hi", "STRONG_ADD"), 5),
+            sym_hi_mae=round(m_mae(CLEAN, "all", "hi", SYM), 5)),
         clean=dict(
             novel_hi_rel=round(novel_hi_rel, 5) if novel_hi_rel == novel_hi_rel else None,
             novel_lo_rel=round(novel_lo_rel, 5) if novel_lo_rel == novel_lo_rel else None,
@@ -882,7 +964,7 @@ def run_measurement(seeds, run_mode):
             sym_seen_hi_mae=round(m_mae(CLEAN, "seen", "hi", SYM), 5),
             strong_add_seen_hi_mae=round(m_mae(CLEAN, "seen", "hi", "STRONG_ADD"), 5),
             novel_hi_n=round(novel_hi_n, 2), seen_hi_n=round(m_n(CLEAN, "seen", "hi"), 2)),
-        gates=dict(rel_hi_pass=rel_hi_pass, hi_gt_lo=hi_gt_lo, pos_ok=pos_ok, neg_ok=neg_ok,
+        gates=dict(readable_ok=readable_ok, rel_hi_pass=rel_hi_pass, hi_gt_lo=hi_gt_lo, pos_ok=pos_ok, neg_ok=neg_ok,
                    mustfails_ok=mustfails_ok, oracle_ok=oracle_ok, leak_ok=leak_ok, noise_floor_ok=noise_floor_ok,
                    power_ok=power_ok, algebra_ok=algebra_ok, hard_pass=hard_pass, refute=refute),
         mustfail=dict(shuf_rel_sym_vs_mean=round(shuf_rel, 5) if shuf_rel == shuf_rel else None,
@@ -927,7 +1009,7 @@ def _make_synth_costanzo_zip(path, n_pairs=60, n_strains=3, n_orfs=12):
     for (i, j) in sorted(made):
         for s in range(n_strains):
             sgn = 1.0 if tab[i, j] >= 0 else -1.0
-            eps = sgn * (0.1 + 0.3 * abs(float(tab[i, j])))  # |eps| >= 0.1 > EPS_FILTER
+            eps = sgn * (EPS_FILTER + 0.05 + 0.3 * abs(float(tab[i, j])))  # |eps| > EPS_FILTER regardless of the tuned filter
             lines.append("\t".join([
                 "%s_tsq%d" % (orfs[i], s), "%s-1" % orfs[i].lower(),
                 "%s_dma%d" % (orfs[j], s), "%s-2" % orfs[j].lower(), "chrI",
@@ -951,7 +1033,7 @@ def _make_synth_costanzo_matrix_zip(path, n_orfs=12):
                 cells.append("0.0000")
             else:
                 sgn = 1.0 if tab[i, j] >= 0 else -1.0
-                cells.append("%.4f" % (sgn * (0.1 + 0.3 * abs(float(tab[i, j])))))  # |eps| >= 0.1 > EPS_FILTER
+                cells.append("%.4f" % (sgn * (EPS_FILTER + 0.05 + 0.3 * abs(float(tab[i, j])))))  # |eps| > EPS_FILTER
         lines.append("\t".join(cells))
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zf:
         zf.writestr("costanzo_matrix_synth.txt", "\n".join(lines) + "\n")
@@ -1023,6 +1105,18 @@ def self_test():
     neg_rel, neg_sym, neg_sadd = _control_rel("additive")
     details.update(dict(neg_rel=round(neg_rel, 4), neg_sym_mae=round(neg_sym, 4), neg_sadd_mae=round(neg_sadd, 4)))
 
+    # (5b) SIGNAL-READABILITY GATE (VET a57067090 revival criterion) must DISCRIMINATE readable structure from pure noise:
+    #   FIRES on a readable (additive) arena AND on a readable (interaction) arena; REJECTS a pure-noise (unreadable) arena.
+    read_add, radd_a, rsym_a = _readable_rel_arena("additive")     # readable -> gate fires
+    read_int, radd_i, rsym_i = _readable_rel_arena("interaction")  # readable -> gate fires
+    read_noise, radd_n, rsym_n = _readable_rel_arena("noise")      # unreadable -> gate rejects
+    readability_fires_on_readable = bool(read_add == read_add and read_add >= READABILITY_REL
+                                         and read_int == read_int and read_int >= READABILITY_REL)
+    readability_rejects_noise = bool(not (read_noise == read_noise) or read_noise < READABILITY_REL)
+    details.update(dict(readable_rel_additive=round(read_add, 4), readable_rel_interaction=round(read_int, 4),
+                        readable_rel_noise=round(read_noise, 4), read_add_component_noise=round(radd_n, 4),
+                        read_sym_component_noise=round(rsym_n, 4)))
+
     # (6) MUST-FAIL: SHUFFLE on interaction arena -> SYM must NOT beat MEAN predictor.
     Xi, yi = _plant_reg(600, 7, "interaction")
     rsh = [score(Xi, yi, SHUFFLE, sd_, 8) for sd_ in (7, 13, 17)]
@@ -1047,6 +1141,8 @@ def self_test():
         "nonpair_header_routes_to_escalate": nonpair_routes_B,
         "pos_ctrl_SYM_beats_strong_additive": (pos_rel == pos_rel and pos_rel >= POS_CTRL_REL),
         "neg_ctrl_SYM_not_beating_additive": (neg_rel == neg_rel and neg_rel <= NEG_CTRL_REL),
+        "readability_gate_fires_on_readable_arena": readability_fires_on_readable,
+        "readability_gate_rejects_noise_arena": readability_rejects_noise,
         "shuffle_mustfail_fires": (shuf_rel <= MUSTFAIL_REL_TOL),
         "oracle_ceiling": (orc_mae <= 1e-6),
         "arms_differ": arms_differ,

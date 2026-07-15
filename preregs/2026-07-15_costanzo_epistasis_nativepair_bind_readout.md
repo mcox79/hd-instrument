@@ -1,8 +1,14 @@
 # Pre-registration: Costanzo yeast SGA native gene-pair epistasis -> symmetric-bind transfer proof (2026-07-15)
 
 Author: hdi_exp_dev. Fixed BEFORE running. Native-pair real-data linchpin (conjunction module). Cell:
-`experiments/exp_costanzo_epistasis_nativepair_bind_readout_v1.py` (committed a69d40182). All compute REMOTE; the
-network-independent remote `--self-test` (planted arenas) is the gate.
+`experiments/exp_costanzo_epistasis_nativepair_bind_readout_v1.py`. All compute REMOTE; the network-independent remote
+`--self-test` (planted arenas) is the gate.
+
+## REVISION 2026-07-15b -- SIGNAL-READABILITY GATE added (VET a57067090 revival criterion)
+The v1 run REFUTED, but VET a57067090 adjudicated it a NARROW encoding/SNR null, NOT a thesis refutation: at cells/pair~1.8 the
+per-pair epsilon is noise-dominated and the strong additive beat a MEAN-predictor by only ~2.9% -- so NO readable non-additive
+target existed and SYM was never given a readable target. This revision adds a SIGNAL-READABILITY GATE as the FIRST
+interpretability gate and readable-slice SNR levers so the SYM-vs-additive comparison is interpretable BEFORE it is scored.
 
 ## Why the switch from ALMANAC (FIRM CAP honored)
 NCI-ALMANAC's CellMiner file is a human-formatted PRESENTATION spreadsheet with three compounding format quirks (combo-score
@@ -30,9 +36,11 @@ novel: first REAL-MEASURED continuous native-pair epistasis ingest (query_gene x
 - Held-out TARGET = the MEASURED genetic-interaction score epsilon (double-mutant fitness minus the expected multiplicative
   product of the two single-mutant fitnesses), aggregated to one scalar per ORF-pair (mean epsilon over multi-strain rows).
   Continuous regression target (MAE); NOT a narrated label.
-- Tractability + capacity: filter to significant measured interactions |epsilon| > 0.08 AND p < 0.05 (standard Costanzo
-  threshold; avoids the 521MB dense bulk); restrict to a dense subnetwork (top-500-frequency ORFs) capped at 8000 pairs so
-  per-token main effects are well-defined and the dense per-token design stays capacity-tractable.
+- Tractability + capacity + READABLE-SLICE SNR levers (REVISION 2026-07-15b): filter to STRINGENT-confidence measured
+  interactions |epsilon| > 0.12 (RAISED from 0.08 -> Costanzo stringent tier, stronger cleaner eps) AND p < 0.05; require
+  >= 2 replicate measurements per ORF-pair (MIN_CELLS_PER_PAIR=2; drop the noisiest singletons -> mean-of->=2 = cleaner per-pair
+  target); restrict to a DENSER subnetwork (top-400-frequency ORFs, RAISED density from 500) capped at 8000 pairs so per-token
+  main effects are better-defined. These levers raise per-pair SNR to give a readable non-additive target its best chance.
 - Why genuinely non-additive vs a strong additive: epsilon IS the measured pairwise deviation from the multiplicative
   single-mutant expectation -- specific gene PAIRS interact beyond each gene's average interaction-proneness (per-gene main
   effect). A per-gene main-effects additive provably loses the irreducible pairwise epsilon; a bilinear (shared code +
@@ -59,19 +67,35 @@ strong_additive = min-MAE(LEARN_ADD, ADD_RIDGE, ADD_LSTSQ). rel(s,sub) = (STRONG
 - Ingested-real signal gate: frac_hi >= MIN_HI_FRAC=0.15 else HARD_FAIL_INSUFFICIENT -> escalate (larger slice; domain NOT
   closed).
 
+## SIGNAL-READABILITY GATE (VET a57067090 revival criterion; the FIRST interpretability gate)
+BEFORE the SYM-vs-additive transfer verdict can mean anything, a READABLE non-additive target must be certified to EXIST on the
+hi-|epsilon| subset. readable_rel = max(strong_additive_vs_MEAN, SYM_vs_MEAN) on the hi subset (all==novel on real data, since
+each unique pair appears once -> seen stratum empty). The max() is the "or oracle-ish readable-signal proxy" the VET permitted:
+it is robust to a PURE-interaction target that the additive alone would miss (if only SYM reads it, the gate still fires and the
+downstream SYM-beats-additive test is the correct HARD_PASS; if neither reads it, the target is noise-dominated). Threshold
+READABILITY_REL = 0.15 (root-cause observed additive-vs-mean ~0.029 -> require ~5x more readable signal). Self-test validates
+the gate FIRES on planted readable (additive AND interaction) arenas and REJECTS a planted pure-noise arena.
+
 ## Pre-registered bands (fixed BEFORE running)
-- HARD_PASS_TRANSFER: novel_hi rel_MAE >= 0.30 AND (novel_hi rel - novel_lo rel) >= 0.15 AND pos_ok (>=0.30) AND neg_ok
-  (<=0.10) AND must-fails fire (SHUFFLE all rel_sym_vs_mean <= 0.08 ; ARBITRARY novel rel_sym_vs_mean <= 0.08) AND oracle
-  MAE <= 1e-6 AND leak_ok AND frac_hi >= 0.15 AND novel_hi_n >= 4.
+- HARD_PASS_TRANSFER: READABILITY GATE PASSES (readable_rel_hi >= 0.15) AND novel_hi rel_MAE >= 0.30 AND (novel_hi rel -
+  novel_lo rel) >= 0.15 AND pos_ok (>=0.30) AND neg_ok (<=0.10) AND must-fails fire (SHUFFLE all rel_sym_vs_mean <= 0.08 ;
+  ARBITRARY novel rel_sym_vs_mean <= 0.08) AND oracle MAE <= 1e-6 AND leak_ok AND frac_hi >= 0.15 AND novel_hi_n >= 4.
+- UNREADABLE_ESCALATE: readability gate FAILS (readable_rel_hi < 0.15) -> no readable non-additive target on this Costanzo
+  slice -> ESCALATE to a higher-SNR dataset (Kramer QSAR Nonadd_pC per-CIRCLE [closed-form from 4 measured potencies = cleaner
+  than genetic-interaction epsilon]; or DrugComb synergy [more replicates across cell-lines]). This is a DATASET-SNR null, NOT
+  a thesis result -- SYM was never given a readable target. Distinguished from REFUTE (which requires readability to PASS).
 - HARD_FAIL_INSUFFICIENT_SIGNAL: frac_hi < 0.15 -> ESCALATE (larger slice / DrugComb fallback).
-- REFUTE_NO_TRANSFER: novel_hi rel_MAE <= 0.05 (real measured epistasis ALSO additive-capturable = a deep foundation finding)
-  with valid must-fails + oracle + controls.
+- REFUTE_NO_TRANSFER: readability PASSES but novel_hi rel_MAE <= 0.05 (real measured epistasis IS readable yet ALSO
+  additive-capturable = a deep foundation finding) with valid must-fails + oracle + controls.
 - MIDDLE_BAND: partial / low-power novel_hi (novel_hi_n < 4) / advantage not materially larger on hi than lo.
+
+Verdict gate ORDER (readability is a precondition for BOTH hard_pass and refute): control-gate -> oracle -> mustfail/leak ->
+frac_hi noise-floor -> READABILITY GATE (UNREADABLE_ESCALATE if fail) -> power -> hard_pass / refute / middle.
 
 HP_SCOPE: HARD_PASS gates apply to LEARN_SYM vs strong_additive ONLY; MEAN/MEMORIZE/ORACLE/LEARN_ROLE are contrast arms.
 
 ## Compute architecture
-Class: (b) sequential-CPU with justification. Arena = O(1e3-1e4) native gene-pairs (bounded by TOP_ORF=500 / MAX_PAIRS=8000) x
+Class: (b) sequential-CPU with justification. Arena = O(1e3-1e4) native gene-pairs (bounded by TOP_ORF=400 / MAX_PAIRS=8000) x
 tiny (<=Nx32) Adam fits (ms each) + numpy solves; total compute wall < 3min over 8 seeds; GPU yields no speedup on sub-ms
 matmuls. Dominant cost = the pairwise dataset download + streaming parse (cached after first run). torch thread-capped.
 Storage: no_storage / no_composition (single-hop readout). progress_logging: ACQUIRE candidate lines + streaming-parse row
@@ -87,7 +111,9 @@ counter (every 1M rows) + per-seed done lines, all flush=True (§17, timeout_s >
 - discriminator_reachability: true (planted positive control demonstrates rel>=0.30 attainable at the same arm scale).
 - baseline_in_band: STRONG additive MAE measured (not saturated); planted pos/neg controls bound the gate 0.10..0.30.
 - calibration_check: adaptive_with_discriminator_gate (HI_Z*robust_sigma magnitude split = data-scale-invariant; discriminator
-  -still-fires verification = hi-minus-lo >= 0.15; insufficient-signal guard = frac_hi >= 0.15).
+  -still-fires verification = hi-minus-lo >= 0.15; insufficient-signal guard = frac_hi >= 0.15; SIGNAL-READABILITY gate
+  readable_rel_hi >= 0.15 certifies a readable target EXISTS before the SYM-vs-additive test is interpretable -- self-test
+  fires it on readable arenas [additive + interaction] and rejects a pure-noise arena).
 - cell_chunked: false (single-cell multi-seed; total compute < 3min; per-seed logging provides observability).
 - start_marker_written: true. crash_diagnostic_present: true (Exception -> CELL_CRASHED metrics.json + traceback).
 - heartbeat_present: per-seed + parse-progress flush logs (short run + logs every seed).
