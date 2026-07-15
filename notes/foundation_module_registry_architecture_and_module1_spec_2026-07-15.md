@@ -1,0 +1,36 @@
+# Foundation: module-registry architecture + module-#1 spec (2026-07-15)
+
+USER-confirmed pivot: **conjunction modules = INGESTED real experimental data with MEASURED 2-way non-additivity; factual core = LLM-generated.** Two tiers differ by SOURCING METHOD. This note defines the registry conventions (dataset-agnostic) + the module-#1 ingest pipeline, so module #1 is built as a reusable template, not a one-off.
+
+## 0. Why (one line)
+The reasoning mechanism PROVENLY reads genuine 2-way interaction (ARBITRARY-control SYM=1.0), but LLM-gen produces additive-multi-feature data (2 clusters, both additive-capturable vs a strong baseline). Genuine non-additivity must be INGESTED where it is EMPIRICALLY MEASURED.
+
+## 1. Two-tier foundation
+- **Factual CORE (LLM-generated):** broad general knowledge; value = interference-free storage/retrieval (hedge, CHAIN_GRADE) + transparency; frequency-competitive not frequency-beating. Generation OK here.
+- **Conjunction MODULES (ingested-real):** each a distinct measured-interaction domain; value = conjunctive reasoning the mechanism reads and a strong additive cannot. THIS is what justifies the reasoning mechanism.
+
+## 2. Module registry conventions (every module honors these)
+- **Schema:** entities (e.g. gene-pair / molecule-pair / drug-pair), constituent features (the factors whose combination determines the target), and the **held-out target = the MEASURED interaction term** (epistasis ε / nonadditivity delta / synergy excess). The target is a measured quantity, NOT a narrated label.
+- **Provenance + versioning (per row):** source dataset + version + retrieval date + processing/vetting record. Re-vettable + replaceable as sources update. (This is what makes the foundation long-term-viable vs throwaway.)
+- **Held-out slice:** reserved BEFORE any fitting (novel entity-combinations held out), so generalization is never trivialized. Report seen vs NOVEL separately (the epistasis linchpin's seen-edge REVERSED on novel -- novel is the honest stratum).
+- **Genuineness gate (FIXED):** the module's target must be genuinely non-additive against a STRONG capacity-matched categorical-additive baseline (interactive - strong-additive >= margin). Gate MUST carry a GENUINE non-additive POSITIVE control that PASSES its own bar (the prior gate's addsynth control was SATURATION-VACUOUS = no proof it would detect non-additivity). Ingested real data should pass this by construction (the interaction is measured) -- if it doesn't, that's a finding about the dataset.
+- **Fact-crispness:** prefer domains where the measured quantity is reproducible (QSAR potency, quantitative epistasis ε) over debatable/narrated severities.
+- **INGEST-CRISPNESS (2026-07-15 lesson): prefer MACHINE-READABLE research data (research TSV/matrix, canonical IDs) over PRESENTATION-formatted distributions (spreadsheets with banners/title-rows/footnote-suffixed columns/wide-per-condition layouts).** NCI-ALMANAC's CellMiner .xlsx cost 3 failed parse iterations (nested-xlsx, preamble banner, then footnote-suffixed WIDE columns) -- a human-viewing file, poor ingest target. Kramer per-compound CSVs lacked the constituent structure. Costanzo SGA (research TSV/matrix, systematic ORF IDs, ε score) is the clean target. Screen candidate datasets for machine-readability BEFORE committing an ingest cell. (The transfer apparatus stayed validated throughout -- pos_ctrl 0.908/neg -0.018 -- so file-format friction never touched the science.)
+
+## 3. Module-#1 ingest pipeline (dataset-agnostic; fill dataset when scout returns)
+All compute REMOTE (no local compute). Steps:
+1. **ACQUIRE** the real dataset (scout returns #1 + access path). Candidates: Costanzo yeast GI map (ε score), ChEMBL/AZ QSAR nonadditivity (delta), DrugComb/NCI-ALMANAC (synergy excess).
+2. **PARSE -> cluster:** entities = interacting pairs; constituents = the per-member features; held-out target = the MEASURED interaction term (binned to ordinal if needed). Reserve the held-out novel-combination slice.
+3. **FIXED GATE:** confirm genuine non-additivity vs strong categorical additive + run the genuine-non-additive POSITIVE control (must pass its own bar). Report weak-vs-strong side by side.
+4. **TRANSFER PROOF:** SYM (learned symmetric bind) vs capacity-matched STRONG additive vs FREQ vs ROLE vs MEMORIZE vs ORACLE, on NOVEL pairs. HARD_PASS = cluster clears the STRONG gate AND SYM beats strong-additive + freq on NOVEL (not just seen) by a pre-reg margin; must-fails fire. = the chain-grade real-data linchpin.
+5. **REGISTER** as module #1 with full provenance/versioning/held-out record.
+
+## 4. The cross-module interface (LARGELY SOLVED for scientific modules -- drill 2026-07-15)
+Design = HUB-IDENTITY + SPOKE-RELATION HYBRID (brain-aligned: ATL semantic hub-and-spoke). A THIN canonical-ID registry (Babel/NodeNorm-style) is the HUB; each module keeps its OWN bind machinery (the spokes); cross-module reasoning = IDENTITY-ANCHORED bind/unbind traversal, NOT merged embeddings. **The ~51% naive-entity-linking problem LARGELY DISSOLVES for our modules because scientific datasets carry CANONICAL IDs** -- gene = HGNC/Entrez/UniProt, chemical = InChIKey/PubChem-CID, drug = DrugBank/NSC -- joined via MAINTAINED CROSSWALKS (UniChem, MyGene.info, Bioregistry), which is an EXACT join, not fuzzy string-matching. CONDITION: use the maintained crosswalks, not string names. => the interface is NOT the hard blocker it is for general-KB merge. Module #1 alone doesn't test it; STRESS-TEST with module #2 (register a 2nd module's entities against the hub + compose a cross-module conjunction via identity-anchored traversal). Full drill: notes/drill_cross_module_interface_entity_sharing_brain_and_bestinclass_2026-07-15.md.
+- **CONCRETE MODULE-#2 IDENTIFIED (scout a817f488, VERIFIED LIVE): BioGRID yeast TAB3 (release 5.0.259)** shares Costanzo's IDENTICAL SGD systematic-ORF-name ID column -> the interface stress-test needs ZERO crosswalk service (exact ID join). Cleanest possible hub test: the SAME yeast gene appears in a GENETIC-interaction module (Costanzo epsilon) AND a PHYSICAL-interaction module (BioGRID), joined by identity -> compose a cross-module conjunction. Dispatch module #2 once module #1 (Costanzo) is confirmed real. ALSO verified: Costanzo MATRIX form (35MB TSV) has an exact-live URL = the lighter module-#1 fallback if the 521MB pairwise stalls. (DrugComb unreachable this session -> TDC/PyTDC mirror; Kramer per-circle output is tool-run-only, not downloadable.) Full: notes/drill_verified_foundation_pipeline_datasets_module1alt_module2_2026-07-15.md.
+
+## 5. Long-term viability requirements (baked in from module #1)
+Provenance+versioning; standing re-vetting (sources + gate criteria are versioned -- the gate itself can be wrong, cf. the weak-ordinal-lstsq false positive); held-out reserved first; glass-box runtime invariant (external tools build it, no runtime dependency). Build module #1 to these conventions even though it's one pocket -- else we rebuild when adding module #2.
+
+## Status
+Pivot USER-confirmed 2026-07-15. Scout (a708fb86) returning #1 dataset + access. Ingest cell dispatches remote on scout return. Memory: [[project_foundation_conjunction_modules_ingest_real_measured_nonadditive_data_not_llm_gen_USER_2026-07-15]].
