@@ -672,7 +672,7 @@ def detect_run(Xc, labels, seeds, tag):
 # planted pockets (controls + self-test)
 # ===========================================================================
 
-def _plant_recurrent_pocket(seed=7, n_genes=40, n_draw=1200, sl_frac=0.25, rank=3):
+def _plant_recurrent_pocket(seed=7, n_genes=40, n_draw=1200, sl_frac=0.25, rank=2):
     """Planted RECURRENT pocket (genes recur -> constituent codes learnable). SL label = threshold of a LOW-RANK SYMMETRIC
     pairwise function u_a . u_b (rank << EMB_D so the SYM bilinear readout CAN reconstruct it -> SYM-detectable; additive
     main-effects ~0 so ADD/ADD_RIDGE stay near chance). Uniform endpoint sampling -> near-uniform degree (no popularity signal).
