@@ -279,80 +279,170 @@ def _finite_float(v):
     return f if math.isfinite(f) else None
 
 
-def _open_combo_csv(zip_path):
-    """Return (member_name, DictReader-header, row-iterator) for the largest .csv inside the ALMANAC ZIP.
-    Streams the member (does not extract to disk)."""
+def _norm_id(raw):
+    """Normalize an NSC id cell (xlsx numeric cells arrive as '1000' or occasionally '1000.0') to a stable token key."""
+    raw = str(raw).strip()
+    if not raw:
+        return ""
+    f = _finite_float(raw)
+    if f is not None and f == int(f):
+        return str(int(f))
+    return raw
+
+
+# --- dependency-free XLSX reader (xlsx is a zip of XML; avoids openpyxl/pandas remote-availability risk) ---
+_XL_NS = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+
+
+def _col_to_idx(cellref):
+    """'AB12' -> 0-based column index (27). Empty/omitted cells are handled by the caller."""
+    letters = ""
+    for ch in str(cellref):
+        if ch.isalpha():
+            letters += ch
+        else:
+            break
+    idx = 0
+    for ch in letters:
+        idx = idx * 26 + (ord(ch.upper()) - ord("A") + 1)
+    return idx - 1 if idx > 0 else 0
+
+
+def _read_xlsx_table(xlsx_bytes):
+    """Parse the first worksheet of an xlsx (given as bytes) into (all_rows) = list of list-of-str, resolving shared
+    strings. Cells absent in a row are filled with '' to keep column alignment with the header row."""
+    import xml.etree.ElementTree as ET  # stdlib
+    zf = zipfile.ZipFile(io.BytesIO(xlsx_bytes), "r")
+    try:
+        names = zf.namelist()
+        shared = []
+        if "xl/sharedStrings.xml" in names:
+            root = ET.fromstring(zf.read("xl/sharedStrings.xml"))
+            for si in root.findall(_XL_NS + "si"):
+                shared.append("".join(t.text or "" for t in si.iter(_XL_NS + "t")))
+        sheet_member = None
+        for n in sorted(names):
+            if n.startswith("xl/worksheets/sheet") and n.endswith(".xml"):
+                sheet_member = n
+                break
+        if sheet_member is None:
+            return []
+        root = ET.fromstring(zf.read(sheet_member))
+        sd = root.find(_XL_NS + "sheetData")
+        if sd is None:
+            return []
+        all_rows = []
+        for row in sd.findall(_XL_NS + "row"):
+            cells = {}
+            maxc = -1
+            auto = 0
+            for c in row.findall(_XL_NS + "c"):
+                ref = c.get("r", "")
+                ci = _col_to_idx(ref) if ref else auto
+                auto = ci + 1
+                t = c.get("t")
+                if t == "inlineStr":
+                    is_ = c.find(_XL_NS + "is")
+                    val = "".join(x.text or "" for x in is_.iter(_XL_NS + "t")) if is_ is not None else ""
+                else:
+                    v = c.find(_XL_NS + "v")
+                    if t == "s":
+                        try:
+                            val = shared[int(v.text)] if (v is not None and v.text is not None) else ""
+                        except (ValueError, IndexError):
+                            val = ""
+                    else:
+                        val = v.text if (v is not None and v.text is not None) else ""
+                cells[ci] = val
+                if ci > maxc:
+                    maxc = ci
+            all_rows.append([cells.get(i, "") for i in range(maxc + 1)])
+        return all_rows
+    finally:
+        zf.close()
+
+
+def _open_combo_table(zip_path):
+    """Open the ALMANAC outer ZIP; locate the combo-score payload (nested .xlsx PREFERRED -- the real NCI DTP release ships
+    output/DTP_NCI60_ALMANAC_COMBO_SCORE.xlsx; .csv fallback). Return (member_name, all_rows) where all_rows is a list of
+    list-of-str, or (None, None) if no tabular member found."""
     zf = zipfile.ZipFile(zip_path, "r")
-    csv_members = [n for n in zf.namelist() if n.lower().endswith(".csv")]
-    if not csv_members:
-        # some releases ship a .txt / no-extension delimited member; take the largest member
-        members = [(zf.getinfo(n).file_size, n) for n in zf.namelist() if not n.endswith("/")]
-        if not members:
-            zf.close()
-            return None, None, None, None
-        members.sort(reverse=True)
-        member = members[0][1]
-    else:
-        csv_members.sort(key=lambda n: zf.getinfo(n).file_size, reverse=True)
-        member = csv_members[0]
-    fh = zf.open(member, "r")
-    text = io.TextIOWrapper(fh, encoding="utf-8", errors="replace", newline="")
-    rdr = csv.DictReader(text)
-    return zf, member, rdr.fieldnames or [], rdr
+    try:
+        names = [n for n in zf.namelist() if not n.endswith("/")]
+        xlsx = [n for n in names if n.lower().endswith(".xlsx")]
+        if xlsx:
+            # prefer a member whose name mentions combo/almanac, then largest
+            xlsx.sort(key=lambda n: (("combo" not in n.lower() and "almanac" not in n.lower()),
+                                     -zf.getinfo(n).file_size))
+            member = xlsx[0]
+            data = zf.read(member)
+            return member, _read_xlsx_table(data)
+        csvs = [n for n in names if n.lower().endswith(".csv")]
+        if csvs:
+            csvs.sort(key=lambda n: -zf.getinfo(n).file_size)
+            member = csvs[0]
+            text = zf.read(member).decode("utf-8", errors="replace")
+            return member, [row for row in csv.reader(io.StringIO(text))]
+        return None, None
+    finally:
+        zf.close()
+
+
+def _find_header_row(all_rows, max_scan=12):
+    """Scan the first rows for the header row exposing NSC1/NSC2/SCORE (tolerates title/pre-amble rows above the header)."""
+    for idx in range(min(max_scan, len(all_rows))):
+        kind, colmap = detect_almanac_columns(all_rows[idx])
+        if kind == "almanac":
+            return idx, colmap
+    return None, None
 
 
 def parse_almanac(zip_path):
-    """Stream the ALMANAC combo CSV; aggregate ComboScore to one measured scalar per native (drug1,drug2) pair.
-    Two-level aggregation: per (canonical-pair, cell-line) mean, then per canonical-pair mean over its cell lines (each
-    cell line weighted equally). Returns dict with PATH 'A' (X,y,n_tok,...) or PATH 'B' (escalate diagnostics)."""
-    zf, member, header, rdr = _open_combo_csv(zip_path)
-    if rdr is None:
-        return {"path": "B", "reason": "no_csv_member_in_zip", "header": [], "n_rows": 0}
-    kind, colmap = detect_almanac_columns(header)
-    if kind != "almanac":
-        try:
-            zf.close()
-        except Exception:  # noqa: BLE001 (best-effort close; not control flow)
-            pass
-        return {"path": "B", "reason": "columns_not_found", "header": header[:30], "n_rows": 0,
-                "member": member}
+    """Load the ALMANAC combo-score table (nested xlsx or csv); aggregate ComboScore to one measured scalar per native
+    (drug1,drug2) pair. Two-level aggregation: per (canonical-pair, cell-line) mean, then per canonical-pair mean over its
+    cell lines (each cell line weighted equally). Returns dict with PATH 'A' (X,y,n_tok,...) or PATH 'B' (escalate)."""
+    member, all_rows = _open_combo_table(zip_path)
+    if all_rows is None:
+        return {"path": "B", "reason": "no_tabular_member_in_zip", "header": [], "n_rows": 0}
+    if not all_rows:
+        return {"path": "B", "reason": "empty_table", "header": [], "n_rows": 0, "member": member}
+    h_idx, colmap = _find_header_row(all_rows)
+    if h_idx is None:
+        return {"path": "B", "reason": "columns_not_found", "header": [str(x) for x in all_rows[0][:30]],
+                "n_rows": len(all_rows), "member": member}
+    header = all_rows[h_idx]
+    i_nsc1 = header.index(colmap["nsc1"]); i_nsc2 = header.index(colmap["nsc2"]); i_sc = header.index(colmap["score"])
+    i_cell = header.index(colmap["cell"]) if colmap.get("cell") else None
+    need = max(i_nsc1, i_nsc2, i_sc, (i_cell if i_cell is not None else 0))
 
     tok_map = {}
-    # (canonical-pair-token-tuple, cell) -> [sum, count]
-    cellagg = defaultdict(lambda: [0.0, 0])
+    cellagg = defaultdict(lambda: [0.0, 0])  # (canonical-pair, cell) -> [sum, count]
     n_rows = 0
     n_scored = 0
-    c_nsc1, c_nsc2, c_score, c_cell = colmap["nsc1"], colmap["nsc2"], colmap["score"], colmap.get("cell")
-    for r in rdr:
+    for row in all_rows[h_idx + 1:]:
         n_rows += 1
         if (n_rows % 1000000) == 0:
-            _log("PARSE streaming... %d rows scanned, %d scored, %d pair-cell cells so far"
-                 % (n_rows, n_scored, len(cellagg)))
-        s = _finite_float(r.get(c_score))
+            _log("PARSE... %d data rows scanned, %d scored, %d pair-cell buckets" % (n_rows, n_scored, len(cellagg)))
+        if len(row) <= need:
+            continue
+        s = _finite_float(row[i_sc])
         if s is None:
             continue
-        a_raw = str(r.get(c_nsc1, "")).strip()
-        b_raw = str(r.get(c_nsc2, "")).strip()
-        if not a_raw or not b_raw or a_raw in ("0", "0.0") or b_raw in ("0", "0.0") or a_raw == b_raw:
+        a_raw = _norm_id(row[i_nsc1]); b_raw = _norm_id(row[i_nsc2])
+        if not a_raw or not b_raw or a_raw == "0" or b_raw == "0" or a_raw == b_raw:
             continue
-        ta = "NSC::" + a_raw
-        tb = "NSC::" + b_raw
+        ta = "NSC::" + a_raw; tb = "NSC::" + b_raw
         for t in (ta, tb):
             if t not in tok_map:
                 tok_map[t] = len(tok_map)
         ia, ib = tok_map[ta], tok_map[tb]
         pairkey = (min(ia, ib), max(ia, ib))
-        cell = str(r.get(c_cell, "ALL")).strip() if c_cell else "ALL"
+        cell = str(row[i_cell]).strip() if (i_cell is not None and len(row) > i_cell) else "ALL"
         acc = cellagg[(pairkey, cell)]
         acc[0] += s
         acc[1] += 1
         n_scored += 1
-    try:
-        zf.close()
-    except Exception:  # noqa: BLE001
-        pass
 
-    # per-pair mean over its cell-line means
     pair_scores = defaultdict(list)
     for (pairkey, _cell), (ssum, scnt) in cellagg.items():
         if scnt > 0:
@@ -360,13 +450,13 @@ def parse_almanac(zip_path):
     pairs = sorted(pair_scores.keys())  # stable ordering (no list(set))
     if len(pairs) < MIN_PAIRS:
         return {"path": "B", "reason": "insufficient_native_pairs", "n_pairs": len(pairs), "n_rows": n_rows,
-                "n_scored": n_scored, "header": header[:30], "member": member}
+                "n_scored": n_scored, "header": [str(x) for x in header[:30]], "member": member}
     X = np.array([[pk[0], pk[1]] for pk in pairs], dtype=np.int64)
     y = np.array([float(np.mean(pair_scores[pk])) for pk in pairs], dtype=np.float64)
     return {"path": "A", "X": X, "y": y, "n_tok": len(tok_map), "n_pairs": len(pairs), "n_rows": n_rows,
             "n_scored": n_scored, "member": member,
             "cells_per_pair_mean": float(np.mean([len(pair_scores[pk]) for pk in pairs])),
-            "header": header[:30]}
+            "header": [str(x) for x in header[:30]]}
 
 
 # ===========================================================================
@@ -749,28 +839,73 @@ def _write_metrics(metrics):
 # SELF-TEST (real bind path + REAL parser on synthetic ALMANAC rows + planted controls + arms-differ + determinism)
 # ===========================================================================
 
+def _col_letter(ci):
+    s = ""; ci += 1
+    while ci > 0:
+        ci, r = divmod(ci - 1, 26)
+        s = chr(65 + r) + s
+    return s
+
+
+def _xlsx_bytes(header, data_rows):
+    """Build minimal valid-enough xlsx bytes (sharedStrings + sheet1) from a header list + numeric/str data rows.
+    String cells -> shared strings; numeric cells -> literal. Exercises the REAL _read_xlsx_table on remote."""
+    shared = []; sidx = {}
+
+    def si(s):
+        if s not in sidx:
+            sidx[s] = len(shared); shared.append(s)
+        return sidx[s]
+
+    def _esc(s):
+        return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+    sheet_rows = []
+    for ri, row in enumerate([header] + data_rows, start=1):
+        cxml = []
+        for ci, val in enumerate(row):
+            ref = _col_letter(ci) + str(ri)
+            if isinstance(val, str):
+                cxml.append('<c r="%s" t="s"><v>%d</v></c>' % (ref, si(val)))
+            elif isinstance(val, int):
+                cxml.append('<c r="%s"><v>%d</v></c>' % (ref, val))
+            else:
+                cxml.append('<c r="%s"><v>%.6f</v></c>' % (ref, float(val)))
+        sheet_rows.append('<row r="%d">%s</row>' % (ri, "".join(cxml)))
+    ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+    sheet_xml = ('<?xml version="1.0" encoding="UTF-8"?><worksheet xmlns="%s"><sheetData>%s</sheetData></worksheet>'
+                 % (ns, "".join(sheet_rows)))
+    sst_xml = ('<?xml version="1.0" encoding="UTF-8"?><sst xmlns="%s" count="%d" uniqueCount="%d">%s</sst>'
+               % (ns, len(shared), len(shared), "".join("<si><t>%s</t></si>" % _esc(s) for s in shared)))
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("xl/worksheets/sheet1.xml", sheet_xml)
+        z.writestr("xl/sharedStrings.xml", sst_xml)
+    return buf.getvalue()
+
+
 def _make_synth_almanac_zip(path, n_pairs=60, n_cells=3, n_drugs=12):
-    """Write a tiny synthetic ALMANAC-shaped combo CSV inside a ZIP -> exercises the REAL parser/detector PATH-A code."""
+    """Write a tiny synthetic ALMANAC-shaped combo XLSX NESTED inside the outer ZIP (mirrors the real NCI DTP release:
+    output/DTP_NCI60_ALMANAC_COMBO_SCORE.xlsx) -> exercises the REAL xlsx parser/detector PATH-A code end-to-end."""
     rng = np.random.default_rng(101)
-    header = ["COMBODRUGSEQ", "NSC1", "CONC1", "NSC2", "CONC2", "PERCENTGROWTH", "SCORE", "CELLNAME"]
-    rows = [",".join(header)]
+    header = ["COMBODRUGSEQ", "NSC1", "NSC2", "COMBOSCORE", "CELLNAME"]
     drugs = [1000 + d for d in range(n_drugs)]
     tab = rng.normal(0, 1, size=(n_drugs, n_drugs)); tab = 0.5 * (tab + tab.T)
-    seq = 0
     made = set()
     while len(made) < n_pairs:
         i, j = int(rng.integers(0, n_drugs)), int(rng.integers(0, n_drugs))
-        if i == j:
-            continue
-        made.add((min(i, j), max(i, j)))
+        if i != j:
+            made.add((min(i, j), max(i, j)))
+    data_rows = []
+    seq = 0
     for (i, j) in sorted(made):
         for c in range(n_cells):
             seq += 1
-            sc = tab[i, j] * 20.0 + rng.normal(0, 1)  # ComboScore-scale
-            rows.append("%d,%d,1e-5,%d,1e-5,50.0,%.4f,CELL_%d" % (seq, drugs[i], drugs[j], sc, c))
-    csv_text = "\n".join(rows) + "\n"
+            sc = float(tab[i, j] * 20.0 + rng.normal(0, 1))  # ComboScore-scale
+            data_rows.append([seq, int(drugs[i]), int(drugs[j]), sc, "CELL_%d" % c])
+    inner_xlsx = _xlsx_bytes(header, data_rows)
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zf:
-        zf.writestr("ComboDrugGrowth_synth.csv", csv_text)
+        zf.writestr("output/DTP_NCI60_ALMANAC_COMBO_SCORE.xlsx", inner_xlsx)
 
 
 def self_test():
