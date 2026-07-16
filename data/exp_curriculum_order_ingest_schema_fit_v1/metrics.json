@@ -1,0 +1,141 @@
+{
+  "anchor_name": "curriculum_order_ingest_schema_fit_v1",
+  "verdict": "HARD_PASS_ORDER_MATTERS_CURRICULUM_RESCUES_SCHEMA_FIT",
+  "verdict_msg": "HARD_PASS_ORDER_MATTERS_CURRICULUM_RESCUES_SCHEMA_FIT | gap(curr-rev)=1.000 rescue=0.909 hier_spread=1.000 flat_spread=0.0000",
+  "summary": "HARD_PASS_ORDER_MATTERS_CURRICULUM_RESCUES_SCHEMA_FIT",
+  "elapsed_s": 1.190244,
+  "ts_iso": "2026-07-16T18:52:18.965599+00:00",
+  "scale": "full",
+  "tau_fixed": 0.5,
+  "n_seeds": 8,
+  "config": {
+    "n_roots": 3,
+    "depth": 5,
+    "branching": 2,
+    "k": 32,
+    "sigma_delta": 1.0,
+    "sigma_d": 0.18,
+    "n_anchors": 4,
+    "anchor_scale": 6.0,
+    "ref_levels": 3,
+    "n_flat": 189
+  },
+  "verdict_detail": {
+    "verdict": "HARD_PASS_ORDER_MATTERS_CURRICULUM_RESCUES_SCHEMA_FIT",
+    "quality_gap_curriculum_minus_reverse": 1.0,
+    "rescue_arbitrary_premature_minus_curriculum_premature": 0.9092741935483871,
+    "hierarchical_quality_spread": 1.0,
+    "flat_quality_spread": 0.0,
+    "flat_premature_max": 0.0,
+    "discriminator_fired_reverse_premature_ge_0.30": true,
+    "null_holds": true
+  },
+  "hierarchical": {
+    "curriculum": {
+      "admit_rate_mean": 1.0,
+      "admit_rate_std": 0.0,
+      "premature_rejection_mean": 0.0,
+      "premature_rejection_std": 0.0,
+      "foundation_quality_mean": 1.0,
+      "foundation_quality_std": 0.0,
+      "mean_placement_error_mean": 1.0813471981216385
+    },
+    "arbitrary": {
+      "admit_rate_mean": 0.10515873015873015,
+      "admit_rate_std": 0.04492975614888569,
+      "premature_rejection_mean": 0.9092741935483871,
+      "premature_rejection_std": 0.04565442963515805,
+      "foundation_quality_mean": 0.038978494623655914,
+      "foundation_quality_std": 0.03522941511312139,
+      "mean_placement_error_mean": 0.9904039224489544
+    },
+    "reverse": {
+      "admit_rate_mean": 0.015873015873015872,
+      "admit_rate_std": 0.0,
+      "premature_rejection_mean": 1.0,
+      "premature_rejection_std": 0.0,
+      "foundation_quality_mean": 0.0,
+      "foundation_quality_std": 0.0,
+      "mean_placement_error_mean": 0.5017773910971102
+    }
+  },
+  "flat": {
+    "curriculum": {
+      "admit_rate_mean": 1.0,
+      "admit_rate_std": 0.0,
+      "premature_rejection_mean": 0.0,
+      "premature_rejection_std": 0.0,
+      "foundation_quality_mean": 1.0,
+      "foundation_quality_std": 0.0,
+      "mean_placement_error_mean": 0.5062935284145339
+    },
+    "arbitrary": {
+      "admit_rate_mean": 1.0,
+      "admit_rate_std": 0.0,
+      "premature_rejection_mean": 0.0,
+      "premature_rejection_std": 0.0,
+      "foundation_quality_mean": 1.0,
+      "foundation_quality_std": 0.0,
+      "mean_placement_error_mean": 0.5062935284145339
+    },
+    "reverse": {
+      "admit_rate_mean": 1.0,
+      "admit_rate_std": 0.0,
+      "premature_rejection_mean": 0.0,
+      "premature_rejection_std": 0.0,
+      "foundation_quality_mean": 1.0,
+      "foundation_quality_std": 0.0,
+      "mean_placement_error_mean": 0.5062935284145339
+    }
+  },
+  "tau_robustness": {
+    "tau_0.34": {
+      "quality_gap": 1.0,
+      "reverse_premature": 1.0,
+      "arbitrary_premature": 0.9092741935483871,
+      "flat_spread": 0.0
+    },
+    "tau_0.50": {
+      "quality_gap": 1.0,
+      "reverse_premature": 1.0,
+      "arbitrary_premature": 0.9092741935483871,
+      "flat_spread": 0.0
+    },
+    "tau_0.67": {
+      "quality_gap": 1.0,
+      "reverse_premature": 1.0,
+      "arbitrary_premature": 0.9845430107526882,
+      "flat_spread": 0.0
+    }
+  },
+  "depth_sweep": {
+    "depth_2": {
+      "curriculum_quality": 1.0,
+      "arbitrary_quality": 0.3194444444444444,
+      "reverse_quality": 0.0,
+      "arbitrary_premature": 0.5277777777777778,
+      "reverse_premature": 1.0
+    },
+    "depth_3": {
+      "curriculum_quality": 1.0,
+      "arbitrary_quality": 0.26785714285714285,
+      "reverse_quality": 0.0,
+      "arbitrary_premature": 0.6369047619047619,
+      "reverse_premature": 1.0
+    },
+    "depth_4": {
+      "curriculum_quality": 1.0,
+      "arbitrary_quality": 0.075,
+      "reverse_quality": 0.0,
+      "arbitrary_premature": 0.8583333333333334,
+      "reverse_premature": 1.0
+    },
+    "depth_5": {
+      "curriculum_quality": 1.0,
+      "arbitrary_quality": 0.038978494623655914,
+      "reverse_quality": 0.0,
+      "arbitrary_premature": 0.9092741935483871,
+      "reverse_premature": 1.0
+    }
+  }
+}
