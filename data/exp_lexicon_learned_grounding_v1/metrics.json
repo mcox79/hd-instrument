@@ -1,0 +1,234 @@
+{
+  "anchor_name": "lexicon_learned_grounding_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "GLASS-BOX LEARNED-LEXICON grounding (benign-geometry foundation, learning-rule isolated): LEXICON-LEARNED mapping_acc=1.000 (Tolerance bar=0.667, need>=; converges=True). Held-out grounded OBJECT retrieval: LEARNED=1.000 vs ORACLE=1.000 (gap=+0.000, need<=0.10) vs RANDOM=0.147 (delta=+0.853, need>=0.30) vs MEMORIZED-seen=1.000 (inflation=+0.000, need<=0.10 => not rote). Prediction 3 (role-gating speeds convergence): budget_to_bar gating_on=8 off=8 reduction=0.0 (p3_pass=False); early-regime map advantage of gating=+0.097. ATTRIBUTION: benign codes => any LEARNED<ORACLE gap is the LEARNING RULE, not geometry.",
+  "summary": "HARD_PASS: glass-box learned lexicon grounds held-out novel combos (smoke)",
+  "run_mode": "smoke",
+  "elapsed_s": 0.22,
+  "n_seeds": 3,
+  "foundation": {
+    "V": 12,
+    "n_concepts": 12,
+    "n_noun": 8,
+    "n_verb": 4,
+    "tolerance_bar": 0.6666666666666667,
+    "tolerance_errors_allowed": 4
+  },
+  "positive_regime": {
+    "N": 1024,
+    "mapping_acc": 1.0,
+    "learned_obj": 1.0,
+    "learned_subj": 1.0,
+    "oracle_obj": 1.0,
+    "oracle_subj": 1.0,
+    "random_obj": 0.14666666666666667,
+    "random_subj": 0.10666666666666669,
+    "mem_seen_obj": 1.0,
+    "mem_seen_subj": 1.0,
+    "oracle_minus_learned": 0.0,
+    "learned_minus_random": 0.8533333333333333,
+    "mem_minus_learned": 0.0
+  },
+  "hard_pass_conditions": {
+    "converges_to_tolerance_bar": true,
+    "within_oracle_0.10": true,
+    "above_random_0.30": true,
+    "no_overfit_inflation_0.10": true
+  },
+  "prediction_3_role_gating": {
+    "budget_to_bar_gating_on": 8,
+    "budget_to_bar_gating_off": 8,
+    "budget_reduction_frac": 0.0,
+    "p3_pass_reduction_ge_0.25": false,
+    "early_regime_map_advantage_gating": 0.09722222222222224
+  },
+  "convergence_curve": {
+    "budgets": [
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      120
+    ],
+    "gate_on_map": [
+      0.3333333333333333,
+      0.5833333333333334,
+      0.8333333333333334,
+      0.9444444444444443,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "gate_off_map": [
+      0.16666666666666666,
+      0.4444444444444445,
+      0.75,
+      0.9444444444444443,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "gate_on_heldout_obj": [
+      0.3133333333333333,
+      0.5666666666666667,
+      0.7600000000000001,
+      0.8866666666666667,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "gate_off_heldout_obj": [
+      0.32,
+      0.52,
+      0.7133333333333334,
+      0.8799999999999999,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "sweep": [
+    {
+      "mapping_acc_full": 1.0,
+      "learned_obj": 1.0,
+      "learned_subj": 1.0,
+      "oracle_obj": 1.0,
+      "oracle_subj": 1.0,
+      "random_obj": 0.16666666666666666,
+      "random_subj": 0.09333333333333334,
+      "mem_obj": 1.0,
+      "mem_subj": 1.0,
+      "mapping_acc_full_std": 0.0,
+      "learned_obj_std": 0.0,
+      "learned_subj_std": 0.0,
+      "oracle_obj_std": 0.0,
+      "oracle_subj_std": 0.0,
+      "random_obj_std": 0.009428090415820628,
+      "random_subj_std": 0.024944382578492942,
+      "mem_obj_std": 0.0,
+      "mem_subj_std": 0.0,
+      "N": 512,
+      "curve_budgets": [
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        120
+      ],
+      "curve_gate_on_map": [
+        0.3333333333333333,
+        0.5833333333333334,
+        0.8333333333333334,
+        0.9444444444444443,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "curve_gate_off_map": [
+        0.16666666666666666,
+        0.4444444444444445,
+        0.75,
+        0.9444444444444443,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "curve_gate_on_heldout_obj": [
+        0.26,
+        0.5533333333333333,
+        0.7400000000000001,
+        0.8799999999999999,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "curve_gate_off_heldout_obj": [
+        0.3333333333333333,
+        0.5,
+        0.6933333333333334,
+        0.8799999999999999,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "mapping_acc_full": 1.0,
+      "learned_obj": 1.0,
+      "learned_subj": 1.0,
+      "oracle_obj": 1.0,
+      "oracle_subj": 1.0,
+      "random_obj": 0.14666666666666667,
+      "random_subj": 0.10666666666666669,
+      "mem_obj": 1.0,
+      "mem_subj": 1.0,
+      "mapping_acc_full_std": 0.0,
+      "learned_obj_std": 0.0,
+      "learned_subj_std": 0.0,
+      "oracle_obj_std": 0.0,
+      "oracle_subj_std": 0.0,
+      "random_obj_std": 0.057348835113617505,
+      "random_subj_std": 0.04714045207910317,
+      "mem_obj_std": 0.0,
+      "mem_subj_std": 0.0,
+      "N": 1024,
+      "curve_budgets": [
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        120
+      ],
+      "curve_gate_on_map": [
+        0.3333333333333333,
+        0.5833333333333334,
+        0.8333333333333334,
+        0.9444444444444443,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "curve_gate_off_map": [
+        0.16666666666666666,
+        0.4444444444444445,
+        0.75,
+        0.9444444444444443,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "curve_gate_on_heldout_obj": [
+        0.3133333333333333,
+        0.5666666666666667,
+        0.7600000000000001,
+        0.8866666666666667,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "curve_gate_off_heldout_obj": [
+        0.32,
+        0.52,
+        0.7133333333333334,
+        0.8799999999999999,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "positive_regime",
+    "convergence_curve",
+    "sweep"
+  ]
+}
