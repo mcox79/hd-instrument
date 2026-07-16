@@ -12,12 +12,14 @@ whether surprise separates
   NOVEL      = edges requiring info ABSENT from the foundation (a withheld relation r*) -> should rank low  -> HIGH surprise
   INFERABLE  = HELD-OUT edges of TRAINED relations the strong foundation CAN predict   -> should rank high -> LOW  surprise
 BOTH are held-out (neither literally trained), so a positive AUC(surprise; NOVEL vs INFERABLE) is NOT the v1
-train-vs-heldout confound -- it is genuine semantic-novelty detection. The load-bearing contrast: compute the SAME
-AUC on a WEAK foundation (few epochs) fit on the SAME data. If the KEY AUC is high on STRONG and collapses to ~chance
-on WEAK, surprise = "can the CURRENT foundation predict this", which BECOMES semantic-novelty as the foundation
-strengthens (a strong foundation predicts everything inferable). If the KEY AUC COLLAPSES even on the strong
-foundation (VET-predicted possible), surprise is only encoding-status -> reported honestly as the scoped bound
-(+ brain-check: Lisman-Grace/Duszkiewicz novelty signal vs schema strength).
+train-vs-heldout confound -- it is genuine semantic-novelty detection. The load-bearing evidence is a DOSE-RESPONSE
+over a foundation-strength SWEEP (DEAD / WEAK / STRONG, same data, epochs-only dial): a DEAD non-generalizing
+foundation must COLLAPSE the KEY AUC to ~chance (it cannot predict inferable edges either, so surprise cannot tell
+inferable from novel), while a STRONG foundation lifts it high. KEY-AUC(strong) >> KEY-AUC(dead) proves surprise =
+"can the CURRENT foundation predict this", which BECOMES semantic-novelty (derivability) as the foundation
+strengthens. If the KEY AUC COLLAPSES even on the strong foundation (VET-predicted possible), surprise is only
+encoding-status -> reported honestly as the scoped bound (+ brain-check: Lisman-Grace/Duszkiewicz novelty signal
+vs schema strength).
 
 Why a SYNTHETIC compositional TransE arena (not raw CSKG): real CSKG additive-map MRR caps ~0.13 (VET'd held-out
 0.1282) == the WEAK regime v1 already measured. A STRONG generalizing foundation does not exist on raw CSKG, so the
@@ -30,7 +32,7 @@ gate tree / schema-fit-via-reachability / TransE-mean fold-in); only the DATA so
 the thin-provenance HOLD batch + held-out calibration + per-candidate array dump are new.
 
 Gaps closed:
-  gap1 KEY TEST      : AUC(surprise; NOVEL vs INFERABLE-heldout) on STRONG foundation + STRONG-vs-WEAK contrast.
+  gap1 KEY TEST      : AUC(surprise; NOVEL vs INFERABLE-heldout) on STRONG foundation + DEAD/WEAK/STRONG dose-response.
   gap2 held-out calib: SKIP threshold selected on a CALIB split, routing rates reported on a DISJOINT EVAL split.
   gap3 HOLD branch   : a THIN-PROVENANCE novel batch (high surprise, few distinct sources) makes HOLD actually fire.
   gap4 array dump    : raw per-candidate surprise/schema-fit/label arrays written to per_candidate_arrays.npz +
