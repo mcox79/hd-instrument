@@ -1,0 +1,2 @@
+- 2026-07-16: consolidation-gate quantitative signals + combination-rule drill -> notes/research_consolidation_gate_quantitative_signals_2026-07-16.md
+- 2026-07-16: schema-fit derivability signal upgrade (pair-specific multi-path aggregation, brain+network-science grounded) -> notes/research_schema_fit_derivability_signal_upgrade_2026-07-16.md
