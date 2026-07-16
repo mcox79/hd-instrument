@@ -1,0 +1,308 @@
+{
+  "anchor_name": "lexicon_learned_grounding_scaled_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SCALED glass-box learned-lexicon grounding (benign geometry, learning-rule isolated, referential-ambiguity de-saturation). Across V=[50, 100, 200]: map_acc=[0.936, 0.954, 0.96] vs tol_bar=[0.76, 0.79, 0.815] (all_converge=True). LARGEST V=200: LEARNED obj=0.940 vs ORACLE=1.000 (LIVE gap=+0.060, need<=0.15; scale-stable vs V=50 gap=+0.078 -> stable=True) vs RANDOM=0.010 (delta=+0.930, need>=0.30) vs MEM-seen=0.951 (inflation=+0.011, need<=0.10). Prediction 3 (role-gating speeds convergence): budget_to_bar@V200 on=4 off=4 reduction=0.00; ladder best=0.33@V=100(on=4,off=6) (p3_pass=True); early-regime map advantage=+0.026. ATTRIBUTION: benign codes (PR/mu asserted) => the LEARNED<ORACLE gap is the LEARNING RULE at scale, not geometry. ORACLE stays ~1.0 by design (bundle-cleanup SNR high; de-saturation is on the LEARNED side via ambiguity, NOT a contrived oracle drop).",
+  "summary": "HARD_PASS: does the glass-box lexicon learner scale (V=50/100/200 + ambiguity)? (full)",
+  "run_mode": "full",
+  "elapsed_s": 43.29,
+  "n_seeds": 5,
+  "N": 1024,
+  "ambiguity": {
+    "n_distractor_noun": 4,
+    "n_distractor_verb": 6,
+    "p_drop": 0.1,
+    "perword_budgets": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      12
+    ]
+  },
+  "largest_V_regime": {
+    "V": 200,
+    "V_noun": 160,
+    "V_verb": 40,
+    "tolerance_bar": 0.815,
+    "mapping_acc": 0.96,
+    "learned_obj": 0.9400000000000001,
+    "learned_subj": 0.937,
+    "oracle_obj": 1.0,
+    "oracle_subj": 1.0,
+    "random_obj": 0.009999999999999998,
+    "mem_seen_obj": 0.951,
+    "oracle_minus_learned": 0.05999999999999994,
+    "learned_minus_random": 0.93,
+    "mem_minus_learned": 0.010999999999999899
+  },
+  "scale_stability": {
+    "gap_smallest_V": 0.07799999999999996,
+    "gap_largest_V": 0.05999999999999994,
+    "gap_growth": -0.018000000000000016,
+    "scale_stable": true,
+    "all_V_converge": true
+  },
+  "hard_pass_conditions": {
+    "all_V_converge_to_tolerance": true,
+    "scale_stable_gap": true,
+    "within_oracle_0.15": true,
+    "above_random_0.30": true,
+    "no_overfit_inflation_0.10": true,
+    "live_gap_desaturated": true
+  },
+  "hard_fail_conditions": {
+    "map_collapses_with_scale": false,
+    "learned_indistinct_from_random": false,
+    "rote_not_compositional": false
+  },
+  "prediction_3_role_gating": {
+    "largest_V_budget_to_bar_on": 4,
+    "largest_V_budget_to_bar_off": 4,
+    "largest_V_reduction_frac": 0.0,
+    "best_reduction_across_ladder": 0.3333333333333333,
+    "best_reduction_at_V": 100,
+    "p3_pass_reduction_ge_0.25": true,
+    "early_regime_map_advantage_gating": 0.026428571428571437
+  },
+  "sweep": [
+    {
+      "mapping_acc_full": 0.9359999999999999,
+      "learned_obj": 0.922,
+      "learned_subj": 0.9040000000000001,
+      "oracle_obj": 1.0,
+      "oracle_subj": 1.0,
+      "random_obj": 0.022000000000000002,
+      "random_subj": 0.03,
+      "mem_obj": 0.932,
+      "mem_subj": 0.9339999999999999,
+      "mapping_acc_full_std": 0.026532998322843178,
+      "learned_obj_std": 0.03325657829663176,
+      "learned_subj_std": 0.05571355310873646,
+      "oracle_obj_std": 0.0,
+      "oracle_subj_std": 0.0,
+      "random_obj_std": 0.00678232998312527,
+      "random_subj_std": 0.004472135954999581,
+      "mem_obj_std": 0.027495454169735024,
+      "mem_subj_std": 0.038,
+      "V": 50,
+      "V_noun": 40,
+      "V_verb": 10,
+      "N": 1024,
+      "curve_perword": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        12
+      ],
+      "curve_gate_on_map": [
+        0.352,
+        0.536,
+        0.684,
+        0.724,
+        0.852,
+        0.908,
+        0.9480000000000001
+      ],
+      "curve_gate_off_map": [
+        0.276,
+        0.45200000000000007,
+        0.6000000000000001,
+        0.676,
+        0.776,
+        0.8400000000000001,
+        0.9199999999999999
+      ],
+      "curve_gate_on_heldout_obj": [
+        0.356,
+        0.518,
+        0.667,
+        0.6930000000000001,
+        0.8230000000000001,
+        0.89,
+        0.93
+      ],
+      "curve_gate_off_heldout_obj": [
+        0.32399999999999995,
+        0.40599999999999997,
+        0.5630000000000001,
+        0.6519999999999999,
+        0.748,
+        0.8109999999999999,
+        0.901
+      ],
+      "tolerance_bar": 0.76,
+      "geometry": {
+        "coherence_mu": 0.08323294299786194,
+        "participation_ratio": 48.89682435357234,
+        "M": 50,
+        "N": 1024
+      }
+    },
+    {
+      "mapping_acc_full": 0.954,
+      "learned_obj": 0.9349999999999999,
+      "learned_subj": 0.9480000000000001,
+      "oracle_obj": 1.0,
+      "oracle_subj": 1.0,
+      "random_obj": 0.02,
+      "random_subj": 0.011,
+      "mem_obj": 0.951,
+      "mem_subj": 0.9460000000000001,
+      "mapping_acc_full_std": 0.0162480768092719,
+      "learned_obj_std": 0.02701851217221257,
+      "learned_subj_std": 0.03295451410656815,
+      "oracle_obj_std": 0.0,
+      "oracle_subj_std": 0.0,
+      "random_obj_std": 0.01673320053068151,
+      "random_subj_std": 0.0058309518948453,
+      "mem_obj_std": 0.01984943324127918,
+      "mem_subj_std": 0.018814887722226753,
+      "V": 100,
+      "V_noun": 80,
+      "V_verb": 20,
+      "N": 1024,
+      "curve_perword": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        12
+      ],
+      "curve_gate_on_map": [
+        0.374,
+        0.616,
+        0.738,
+        0.8099999999999999,
+        0.8880000000000001,
+        0.93,
+        0.958
+      ],
+      "curve_gate_off_map": [
+        0.33599999999999997,
+        0.5359999999999999,
+        0.6380000000000001,
+        0.732,
+        0.858,
+        0.9200000000000002,
+        0.9620000000000001
+      ],
+      "curve_gate_on_heldout_obj": [
+        0.37,
+        0.569,
+        0.7060000000000001,
+        0.7619999999999999,
+        0.8539999999999999,
+        0.909,
+        0.9469999999999998
+      ],
+      "curve_gate_off_heldout_obj": [
+        0.35,
+        0.48699999999999993,
+        0.586,
+        0.682,
+        0.819,
+        0.899,
+        0.945
+      ],
+      "tolerance_bar": 0.79,
+      "geometry": {
+        "coherence_mu": 0.09530885052816014,
+        "participation_ratio": 95.3916859456969,
+        "M": 100,
+        "N": 1024
+      }
+    },
+    {
+      "mapping_acc_full": 0.96,
+      "learned_obj": 0.9400000000000001,
+      "learned_subj": 0.937,
+      "oracle_obj": 1.0,
+      "oracle_subj": 1.0,
+      "random_obj": 0.009999999999999998,
+      "random_subj": 0.012,
+      "mem_obj": 0.951,
+      "mem_subj": 0.9549999999999998,
+      "mapping_acc_full_std": 0.013038404810405309,
+      "learned_obj_std": 0.023452078799117117,
+      "learned_subj_std": 0.020396078054371117,
+      "oracle_obj_std": 0.0,
+      "oracle_subj_std": 0.0,
+      "random_obj_std": 0.004472135954999579,
+      "random_subj_std": 0.005099019513592785,
+      "mem_obj_std": 0.015620499351813292,
+      "mem_subj_std": 0.015165750888103085,
+      "V": 200,
+      "V_noun": 160,
+      "V_verb": 40,
+      "N": 1024,
+      "curve_perword": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        12
+      ],
+      "curve_gate_on_map": [
+        0.42299999999999993,
+        0.673,
+        0.7949999999999999,
+        0.85,
+        0.9,
+        0.9200000000000002,
+        0.9509999999999998
+      ],
+      "curve_gate_off_map": [
+        0.395,
+        0.606,
+        0.747,
+        0.8280000000000001,
+        0.8869999999999999,
+        0.9099999999999999,
+        0.954
+      ],
+      "curve_gate_on_heldout_obj": [
+        0.35700000000000004,
+        0.5900000000000001,
+        0.744,
+        0.806,
+        0.861,
+        0.882,
+        0.9339999999999999
+      ],
+      "curve_gate_off_heldout_obj": [
+        0.341,
+        0.505,
+        0.689,
+        0.7929999999999999,
+        0.85,
+        0.8880000000000001,
+        0.9400000000000001
+      ],
+      "tolerance_bar": 0.815,
+      "geometry": {
+        "coherence_mu": 0.09286980033956865,
+        "participation_ratio": 182.34988899850921,
+        "M": 200,
+        "N": 1024
+      }
+    }
+  ],
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "largest_V_regime",
+    "scale_stability",
+    "prediction_3_role_gating",
+    "sweep"
+  ]
+}
