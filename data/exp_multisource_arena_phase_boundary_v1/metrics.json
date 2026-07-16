@@ -1,0 +1,618 @@
+{
+  "verdict": "HARD_PASS",
+  "summary": "HARD_PASS",
+  "verdict_msg": "profile=full | HARD_PASS | PURE-N: robust_crosses_keep=False robust_crosses_eng=False jitters=False (margin_span=0.127) | ROBUST single-axis WIN vs keep=['p_noise', 'gate_snr'] ; TIE vs keep=['N', 'p_noise', 'gate_snr'] ; ROBUST WIN vs eng=[] | noise_floor: span=0.031 se=0.019 | posctrl gap=+0.127 fired=True | native_sameread@Nmax=0.717 (route=0.454 eng=0.477 dominates=True) | forget drop=+0.488 | clean_robust_single_axis_crossover_route_wins_vs_keep_todays_negatives_were_regime_artifacts",
+  "elapsed_s": 1.6841031000076327,
+  "ts_iso": "2026-07-16T17:53:06.983067+00:00",
+  "anchor_name": "multisource_arena_phase_boundary_v1",
+  "profile": "full",
+  "run_mode": "full",
+  "primary_metric": "route_gate_hold_minus_keep_everything_early_reliable_retention",
+  "bands": {
+    "TIE_EPS": 0.01,
+    "WIN_EPS": 0.01,
+    "FORGET_MIN_DROP": 0.08
+  },
+  "baseline_regime": {
+    "D": 256,
+    "N": 120,
+    "rho": 0.15,
+    "p_noise": 0.35,
+    "native_alpha": 0.5,
+    "mu_schema": 1.0,
+    "mu_recur": 0.8
+  },
+  "seed_noise_floor": {
+    "estimator": "route-vs-keep margin spread over the capC_over_N axis (native_alpha touches neither route nor keep_everything -> pure seed noise)",
+    "margin_span_vs_keep": 0.031209848877199353,
+    "mean_paired_se": 0.0189892890372483
+  },
+  "pure_N_scaling": {
+    "robust_crosses_vs_keep": false,
+    "robust_crosses_vs_eng": false,
+    "jitters_around_zero": false,
+    "sign_flips": 0,
+    "margin_span_vs_keep": 0.12716359608167438,
+    "margins_by_N": [
+      {
+        "N": 30.0,
+        "margin_vs_keep": -0.1235,
+        "se": 0.0248
+      },
+      {
+        "N": 60.0,
+        "margin_vs_keep": -0.1048,
+        "se": 0.0261
+      },
+      {
+        "N": 120.0,
+        "margin_vs_keep": -0.0345,
+        "se": 0.015
+      },
+      {
+        "N": 250.0,
+        "margin_vs_keep": -0.0115,
+        "se": 0.02
+      },
+      {
+        "N": 500.0,
+        "margin_vs_keep": -0.0135,
+        "se": 0.0131
+      },
+      {
+        "N": 1000.0,
+        "margin_vs_keep": 0.0037,
+        "se": 0.0155
+      }
+    ],
+    "verdict": "N_ALONE_MOVES_BUT_NEVER_ROBUSTLY_CROSSES"
+  },
+  "phase_map": [
+    {
+      "axis": "N",
+      "param": "N",
+      "values": [
+        30.0,
+        60.0,
+        120.0,
+        250.0,
+        500.0,
+        1000.0
+      ],
+      "pressure_increasing": true,
+      "crossover_vs_keep_tie": 1000.0,
+      "crossover_vs_keep_win": null,
+      "crossover_vs_keep_win_robust": null,
+      "crossover_vs_eng_tie": null,
+      "crossover_vs_eng_win": null,
+      "crossover_vs_eng_win_robust": null,
+      "best_margin_vs_keep": 0.003688976663540511,
+      "best_margin_vs_eng": -0.022621578155423205,
+      "mean_se_margin_vs_keep": 0.01908317141960745,
+      "points": [
+        {
+          "value": 30.0,
+          "route": 0.8241,
+          "keep_everything": 0.9476,
+          "decide_at_arrival": 0.7735,
+          "native_sameread": 0.75,
+          "margin_vs_keep": -0.1235,
+          "se_margin_vs_keep": 0.0248,
+          "margin_vs_eng": -0.1261,
+          "se_margin_vs_eng": 0.0244
+        },
+        {
+          "value": 60.0,
+          "route": 0.7965,
+          "keep_everything": 0.9013,
+          "decide_at_arrival": 0.7364,
+          "native_sameread": 0.7458,
+          "margin_vs_keep": -0.1048,
+          "se_margin_vs_keep": 0.0261,
+          "margin_vs_eng": -0.1083,
+          "se_margin_vs_eng": 0.0253
+        },
+        {
+          "value": 120.0,
+          "route": 0.7922,
+          "keep_everything": 0.8267,
+          "decide_at_arrival": 0.6899,
+          "native_sameread": 0.7333,
+          "margin_vs_keep": -0.0345,
+          "se_margin_vs_keep": 0.015,
+          "margin_vs_eng": -0.0438,
+          "se_margin_vs_eng": 0.0154
+        },
+        {
+          "value": 250.0,
+          "route": 0.7008,
+          "keep_everything": 0.7122,
+          "decide_at_arrival": 0.6637,
+          "native_sameread": 0.7667,
+          "margin_vs_keep": -0.0115,
+          "se_margin_vs_keep": 0.02,
+          "margin_vs_eng": -0.0273,
+          "se_margin_vs_eng": 0.0192
+        },
+        {
+          "value": 500.0,
+          "route": 0.5668,
+          "keep_everything": 0.5803,
+          "decide_at_arrival": 0.5169,
+          "native_sameread": 0.7,
+          "margin_vs_keep": -0.0135,
+          "se_margin_vs_keep": 0.0131,
+          "margin_vs_eng": -0.0268,
+          "se_margin_vs_eng": 0.0132
+        },
+        {
+          "value": 1000.0,
+          "route": 0.4541,
+          "keep_everything": 0.4504,
+          "decide_at_arrival": 0.4309,
+          "native_sameread": 0.7167,
+          "margin_vs_keep": 0.0037,
+          "se_margin_vs_keep": 0.0155,
+          "margin_vs_eng": -0.0226,
+          "se_margin_vs_eng": 0.0152
+        }
+      ]
+    },
+    {
+      "axis": "p_noise",
+      "param": "p_noise",
+      "values": [
+        0.1,
+        0.2,
+        0.35,
+        0.5,
+        0.65,
+        0.8
+      ],
+      "pressure_increasing": true,
+      "crossover_vs_keep_tie": 0.65,
+      "crossover_vs_keep_win": 0.65,
+      "crossover_vs_keep_win_robust": 0.8,
+      "crossover_vs_eng_tie": 0.65,
+      "crossover_vs_eng_win": 0.8,
+      "crossover_vs_eng_win_robust": null,
+      "best_margin_vs_keep": 0.06798234360842936,
+      "best_margin_vs_eng": 0.01675119183676521,
+      "mean_se_margin_vs_keep": 0.017157076860164308,
+      "points": [
+        {
+          "value": 0.1,
+          "route": 0.5317,
+          "keep_everything": 0.8301,
+          "decide_at_arrival": 0.5411,
+          "native_sameread": 0.5417,
+          "margin_vs_keep": -0.2984,
+          "se_margin_vs_keep": 0.0295,
+          "margin_vs_eng": -0.2984,
+          "se_margin_vs_eng": 0.0295
+        },
+        {
+          "value": 0.2,
+          "route": 0.6143,
+          "keep_everything": 0.8277,
+          "decide_at_arrival": 0.6138,
+          "native_sameread": 0.6417,
+          "margin_vs_keep": -0.2134,
+          "se_margin_vs_keep": 0.0219,
+          "margin_vs_eng": -0.2134,
+          "se_margin_vs_eng": 0.0219
+        },
+        {
+          "value": 0.35,
+          "route": 0.7826,
+          "keep_everything": 0.8264,
+          "decide_at_arrival": 0.7365,
+          "native_sameread": 0.775,
+          "margin_vs_keep": -0.0438,
+          "se_margin_vs_keep": 0.0149,
+          "margin_vs_eng": -0.055,
+          "se_margin_vs_eng": 0.0134
+        },
+        {
+          "value": 0.5,
+          "route": 0.7937,
+          "keep_everything": 0.825,
+          "decide_at_arrival": 0.7374,
+          "native_sameread": 0.8042,
+          "margin_vs_keep": -0.0314,
+          "se_margin_vs_keep": 0.0165,
+          "margin_vs_eng": -0.0406,
+          "se_margin_vs_eng": 0.0168
+        },
+        {
+          "value": 0.65,
+          "route": 0.8589,
+          "keep_everything": 0.8302,
+          "decide_at_arrival": 0.8157,
+          "native_sameread": 0.9,
+          "margin_vs_keep": 0.0288,
+          "se_margin_vs_keep": 0.012,
+          "margin_vs_eng": 0.0092,
+          "se_margin_vs_eng": 0.0139
+        },
+        {
+          "value": 0.8,
+          "route": 0.8925,
+          "keep_everything": 0.8245,
+          "decide_at_arrival": 0.8719,
+          "native_sameread": 0.9708,
+          "margin_vs_keep": 0.068,
+          "se_margin_vs_keep": 0.0081,
+          "margin_vs_eng": 0.0168,
+          "se_margin_vs_eng": 0.0084
+        }
+      ]
+    },
+    {
+      "axis": "D",
+      "param": "D",
+      "values": [
+        1024.0,
+        512.0,
+        256.0,
+        128.0,
+        64.0
+      ],
+      "pressure_increasing": false,
+      "crossover_vs_keep_tie": null,
+      "crossover_vs_keep_win": null,
+      "crossover_vs_keep_win_robust": null,
+      "crossover_vs_eng_tie": null,
+      "crossover_vs_eng_win": null,
+      "crossover_vs_eng_win_robust": null,
+      "best_margin_vs_keep": 0.008752794033450306,
+      "best_margin_vs_eng": -0.018615325830220186,
+      "mean_se_margin_vs_keep": 0.022738405263490722,
+      "points": [
+        {
+          "value": 1024.0,
+          "route": 0.7864,
+          "keep_everything": 0.9469,
+          "decide_at_arrival": 0.7273,
+          "native_sameread": 0.7167,
+          "margin_vs_keep": -0.1606,
+          "se_margin_vs_keep": 0.0244,
+          "margin_vs_eng": -0.1615,
+          "se_margin_vs_eng": 0.0241
+        },
+        {
+          "value": 512.0,
+          "route": 0.736,
+          "keep_everything": 0.9036,
+          "decide_at_arrival": 0.6685,
+          "native_sameread": 0.6583,
+          "margin_vs_keep": -0.1676,
+          "se_margin_vs_keep": 0.0263,
+          "margin_vs_eng": -0.1676,
+          "se_margin_vs_eng": 0.0263
+        },
+        {
+          "value": 256.0,
+          "route": 0.7437,
+          "keep_everything": 0.8289,
+          "decide_at_arrival": 0.6671,
+          "native_sameread": 0.7,
+          "margin_vs_keep": -0.0851,
+          "se_margin_vs_keep": 0.0239,
+          "margin_vs_eng": -0.0881,
+          "se_margin_vs_eng": 0.0232
+        },
+        {
+          "value": 128.0,
+          "route": 0.6752,
+          "keep_everything": 0.7223,
+          "decide_at_arrival": 0.6332,
+          "native_sameread": 0.7167,
+          "margin_vs_keep": -0.0471,
+          "se_margin_vs_keep": 0.0195,
+          "margin_vs_eng": -0.0576,
+          "se_margin_vs_eng": 0.0172
+        },
+        {
+          "value": 64.0,
+          "route": 0.6024,
+          "keep_everything": 0.5937,
+          "decide_at_arrival": 0.5513,
+          "native_sameread": 0.7375,
+          "margin_vs_keep": 0.0088,
+          "se_margin_vs_keep": 0.0196,
+          "margin_vs_eng": -0.0186,
+          "se_margin_vs_eng": 0.0158
+        }
+      ]
+    },
+    {
+      "axis": "rho",
+      "param": "rho",
+      "values": [
+        0.0,
+        0.15,
+        0.3,
+        0.5,
+        0.7
+      ],
+      "pressure_increasing": true,
+      "crossover_vs_keep_tie": null,
+      "crossover_vs_keep_win": null,
+      "crossover_vs_keep_win_robust": null,
+      "crossover_vs_eng_tie": null,
+      "crossover_vs_eng_win": null,
+      "crossover_vs_eng_win_robust": null,
+      "best_margin_vs_keep": -0.06693322239884036,
+      "best_margin_vs_eng": -0.07256289848400765,
+      "mean_se_margin_vs_keep": 0.023860273156925006,
+      "points": [
+        {
+          "value": 0.0,
+          "route": 0.7592,
+          "keep_everything": 0.8261,
+          "decide_at_arrival": 0.6948,
+          "native_sameread": 0.7167,
+          "margin_vs_keep": -0.0669,
+          "se_margin_vs_keep": 0.018,
+          "margin_vs_eng": -0.0726,
+          "se_margin_vs_eng": 0.0178
+        },
+        {
+          "value": 0.15,
+          "route": 0.6967,
+          "keep_everything": 0.8282,
+          "decide_at_arrival": 0.6766,
+          "native_sameread": 0.7375,
+          "margin_vs_keep": -0.1314,
+          "se_margin_vs_keep": 0.029,
+          "margin_vs_eng": -0.1396,
+          "se_margin_vs_eng": 0.0272
+        },
+        {
+          "value": 0.3,
+          "route": 0.7191,
+          "keep_everything": 0.8281,
+          "decide_at_arrival": 0.683,
+          "native_sameread": 0.7,
+          "margin_vs_keep": -0.109,
+          "se_margin_vs_keep": 0.024,
+          "margin_vs_eng": -0.1144,
+          "se_margin_vs_eng": 0.0225
+        },
+        {
+          "value": 0.5,
+          "route": 0.6879,
+          "keep_everything": 0.8243,
+          "decide_at_arrival": 0.6763,
+          "native_sameread": 0.7,
+          "margin_vs_keep": -0.1364,
+          "se_margin_vs_keep": 0.0265,
+          "margin_vs_eng": -0.1364,
+          "se_margin_vs_eng": 0.0265
+        },
+        {
+          "value": 0.7,
+          "route": 0.7384,
+          "keep_everything": 0.8259,
+          "decide_at_arrival": 0.6705,
+          "native_sameread": 0.7,
+          "margin_vs_keep": -0.0875,
+          "se_margin_vs_keep": 0.0218,
+          "margin_vs_eng": -0.0935,
+          "se_margin_vs_eng": 0.0208
+        }
+      ]
+    },
+    {
+      "axis": "gate_snr",
+      "param": "mu_schema",
+      "values": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.2,
+        3.0
+      ],
+      "pressure_increasing": true,
+      "crossover_vs_keep_tie": 1.5,
+      "crossover_vs_keep_win": 2.2,
+      "crossover_vs_keep_win_robust": 2.2,
+      "crossover_vs_eng_tie": 2.2,
+      "crossover_vs_eng_win": 3.0,
+      "crossover_vs_eng_win_robust": null,
+      "best_margin_vs_keep": 0.0509115909339839,
+      "best_margin_vs_eng": 0.012884407823717692,
+      "mean_se_margin_vs_keep": 0.01688447501036956,
+      "points": [
+        {
+          "value": 0.0,
+          "route": 0.5127,
+          "keep_everything": 0.8245,
+          "decide_at_arrival": 0.4747,
+          "native_sameread": 0.525,
+          "margin_vs_keep": -0.3118,
+          "se_margin_vs_keep": 0.0267,
+          "margin_vs_eng": -0.3118,
+          "se_margin_vs_eng": 0.0267
+        },
+        {
+          "value": 0.5,
+          "route": 0.6383,
+          "keep_everything": 0.8279,
+          "decide_at_arrival": 0.5886,
+          "native_sameread": 0.6417,
+          "margin_vs_keep": -0.1896,
+          "se_margin_vs_keep": 0.0272,
+          "margin_vs_eng": -0.1896,
+          "se_margin_vs_eng": 0.0272
+        },
+        {
+          "value": 1.0,
+          "route": 0.7131,
+          "keep_everything": 0.8259,
+          "decide_at_arrival": 0.6729,
+          "native_sameread": 0.7125,
+          "margin_vs_keep": -0.1127,
+          "se_margin_vs_keep": 0.025,
+          "margin_vs_eng": -0.1274,
+          "se_margin_vs_eng": 0.0238
+        },
+        {
+          "value": 1.5,
+          "route": 0.8214,
+          "keep_everything": 0.8278,
+          "decide_at_arrival": 0.7848,
+          "native_sameread": 0.8042,
+          "margin_vs_keep": -0.0064,
+          "se_margin_vs_keep": 0.0139,
+          "margin_vs_eng": -0.0228,
+          "se_margin_vs_eng": 0.0132
+        },
+        {
+          "value": 2.2,
+          "route": 0.8644,
+          "keep_everything": 0.8266,
+          "decide_at_arrival": 0.8469,
+          "native_sameread": 0.7667,
+          "margin_vs_keep": 0.0377,
+          "se_margin_vs_keep": 0.0072,
+          "margin_vs_eng": -0.001,
+          "se_margin_vs_eng": 0.0069
+        },
+        {
+          "value": 3.0,
+          "route": 0.8802,
+          "keep_everything": 0.8293,
+          "decide_at_arrival": 0.853,
+          "native_sameread": 0.7667,
+          "margin_vs_keep": 0.0509,
+          "se_margin_vs_keep": 0.0012,
+          "margin_vs_eng": 0.0129,
+          "se_margin_vs_eng": 0.0048
+        }
+      ]
+    },
+    {
+      "axis": "capC_over_N",
+      "param": "native_alpha",
+      "values": [
+        0.1,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "pressure_increasing": true,
+      "crossover_vs_keep_tie": null,
+      "crossover_vs_keep_win": null,
+      "crossover_vs_keep_win_robust": null,
+      "crossover_vs_eng_tie": null,
+      "crossover_vs_eng_win": null,
+      "crossover_vs_eng_win_robust": null,
+      "best_margin_vs_keep": -0.06847198768238316,
+      "best_margin_vs_eng": -0.07145721214188994,
+      "mean_se_margin_vs_keep": 0.0189892890372483,
+      "points": [
+        {
+          "value": 0.1,
+          "route": 0.728,
+          "keep_everything": 0.8259,
+          "decide_at_arrival": 0.672,
+          "native_sameread": 0.15,
+          "margin_vs_keep": -0.0979,
+          "se_margin_vs_keep": 0.0195,
+          "margin_vs_eng": -0.1007,
+          "se_margin_vs_eng": 0.0196
+        },
+        {
+          "value": 0.25,
+          "route": 0.7258,
+          "keep_everything": 0.8255,
+          "decide_at_arrival": 0.6399,
+          "native_sameread": 0.3417,
+          "margin_vs_keep": -0.0997,
+          "se_margin_vs_keep": 0.021,
+          "margin_vs_eng": -0.0997,
+          "se_margin_vs_eng": 0.021
+        },
+        {
+          "value": 0.5,
+          "route": 0.7567,
+          "keep_everything": 0.8252,
+          "decide_at_arrival": 0.7065,
+          "native_sameread": 0.7292,
+          "margin_vs_keep": -0.0685,
+          "se_margin_vs_keep": 0.0152,
+          "margin_vs_eng": -0.0715,
+          "se_margin_vs_eng": 0.015
+        },
+        {
+          "value": 0.75,
+          "route": 0.7314,
+          "keep_everything": 0.826,
+          "decide_at_arrival": 0.6689,
+          "native_sameread": 0.9375,
+          "margin_vs_keep": -0.0946,
+          "se_margin_vs_keep": 0.0185,
+          "margin_vs_eng": -0.0979,
+          "se_margin_vs_eng": 0.0189
+        },
+        {
+          "value": 1.0,
+          "route": 0.7361,
+          "keep_everything": 0.8268,
+          "decide_at_arrival": 0.6926,
+          "native_sameread": 1.0,
+          "margin_vs_keep": -0.0907,
+          "se_margin_vs_keep": 0.0208,
+          "margin_vs_eng": -0.1021,
+          "se_margin_vs_eng": 0.0191
+        }
+      ]
+    }
+  ],
+  "minimum_honest_eval_regime": [
+    {
+      "axis": "p_noise",
+      "robust_win_value": 0.8,
+      "tie_value": 0.65
+    },
+    {
+      "axis": "gate_snr",
+      "robust_win_value": 2.2,
+      "tie_value": 1.5
+    }
+  ],
+  "frontier2_native_sameread": {
+    "note": "native scored under the IDENTICAL clipped-cosine metric as distributed arms (VET-b resolved)",
+    "native_sameread_at_Nmax": 0.7166666666666638,
+    "route_at_Nmax": 0.45412486252298984,
+    "eng_best_at_Nmax": 0.47674644067841304,
+    "native_dominates_both": true
+  },
+  "controls": {
+    "positive_control_route_can_win": {
+      "route": 0.8913065909351482,
+      "everything": 0.764193351165045,
+      "gap": 0.12711323977010314,
+      "fired": true
+    },
+    "null_gate_guard": {
+      "route": 0.588103064957965,
+      "everything": 0.8629322606029504,
+      "delta": -0.2748291956449853,
+      "held": true
+    },
+    "confirmed_forgetting": {
+      "every_small": 0.9490672546324131,
+      "every_large": 0.46137531136416166,
+      "drop": 0.4876919432682515,
+      "fired": true
+    },
+    "controls_ok": true
+  },
+  "localization": "clean_robust_single_axis_crossover_route_wins_vs_keep_todays_negatives_were_regime_artifacts",
+  "crlb_n/a": "retention is a bounded recall-fidelity in [0,1]; feasibility anchored on heteroassoc crosstalk SNR = sqrt(D/M) (THEORETICAL); no Cramer-Rao floor applies"
+}
