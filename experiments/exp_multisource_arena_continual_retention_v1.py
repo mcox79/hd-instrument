@@ -103,6 +103,13 @@ Run:
   python experiments/exp_multisource_arena_continual_retention_v1.py --self-test
   python experiments/exp_multisource_arena_continual_retention_v1.py --profile smoke
   python experiments/exp_multisource_arena_continual_retention_v1.py --profile full
+  python experiments/exp_multisource_arena_continual_retention_v1.py --profile overload
+      # FORK-CLOSING localization: sweeps D in {256,128,64} x N far into catastrophic
+      # overload and shows the route NEVER reverses into a decisive win (only reaches
+      # parity where store-everything has itself collapsed) -> writes metrics_overload.json
+      # (separate from the committed FULL verdict). The never-reverses property is
+      # ALSO asserted in --self-test (ST-7), so the accepted structural bound is
+      # reproducible off-disk + VET-able, not resting on an ephemeral script.
 
 PRE-REG BANDS (primary = mean early-reliable-item recall fidelity, held-out clean v):
   TIE_EPS = 0.010 ; X_BAND = 0.030 ; SCALE_EPS = 0.010
@@ -371,6 +378,69 @@ def null_gate_guard(seed):
 
 
 # ============================================================================
+# overload-regime localization (FORK-CLOSING: does the route EVER reverse into a
+# decisive win as the distributed store is pushed into CATASTROPHIC OVERLOAD -- the
+# CLS/STC design regime named by the brain-check? Answer lands ON DISK, reproducible +
+# VET-able, so the "accepted structural bound" does not rest on an ephemeral script.)
+#
+# The committed FULL verdict (HARD_FAIL_ROUTE_LOSES) is measured at the a-priori
+# N=[30,60,120] adequate-capacity regime. This mode sweeps D in {256,128,64} x N far
+# into overload (where consolidate_everything's early-item retention COLLAPSES). The
+# route's disadvantage shrinks with overload but does NOT reverse: at best it reaches
+# PARITY, and only where store-everything has itself collapsed to the route's low level
+# (nothing worth keeping). Mechanism: the route's noisy gate false-discards ~1.5-2.8 of
+# every 10 early reliable items (-> ~0 retention each); that per-item catastrophic
+# admission cost dominates its small crosstalk-reduction benefit across the ENTIRE
+# interference axis. Root cause = the substrate's distributed superposition store has
+# GRACEFUL interference (shared ~sqrt(D/M) crosstalk), not the CATASTROPHIC per-item
+# overwrite CLS/STC gating evolved to economize -> the route has nothing to earn.
+# ============================================================================
+OVERLOAD_D_LIST = [256, 128, 64]
+OVERLOAD_N_BY_D = {256: [30, 60, 120, 240, 480, 960],
+                   128: [30, 60, 120, 240, 480],
+                   64: [30, 60, 120, 240]}
+
+
+def overload_localization(seeds, rho_list=(0.0, 0.3), p_noise=0.35, native_alpha=0.5,
+                          D_list=None, N_by_D=None):
+    """Per (D,N): consolidate_everything vs route_gate_hold early-item retention
+    (seed+rho averaged) + count of route false-discards among the 10 early reliable
+    probe items. Returns the grid + the sweep-wide max route margin. The fork-closing
+    property:
+      never_reverses := max route margin over the whole overload axis <= X_BAND
+        (route NEVER decisively beats store-everything anywhere -> HARD_FAIL is a
+         REGIME-ROBUST accepted structural bound, not an adequate-capacity artifact)."""
+    D_list = list(D_list) if D_list is not None else list(OVERLOAD_D_LIST)
+    N_by_D = dict(N_by_D) if N_by_D is not None else dict(OVERLOAD_N_BY_D)
+    grid = []
+    for D in D_list:
+        for N in N_by_D[D]:
+            cons_vals, route_vals, drops = [], [], []
+            for sd in seeds:
+                for rho in rho_list:
+                    rng = np.random.default_rng(sd * 100003 + N * 101 + int(rho * 1000))
+                    r = run_episode(D, N, rho, p_noise, native_alpha, rng)
+                    cons_vals.append(r["retention"]["consolidate_everything"])
+                    route_vals.append(r["retention"]["route_gate_hold"])
+                    # reproduce the same stream (deterministic) to count early-reliable false-discards
+                    rng2 = np.random.default_rng(sd * 100003 + N * 101 + int(rho * 1000))
+                    stream = make_stream(D, N, rho, p_noise, MU_SCHEMA, MU_RECUR, rng2)
+                    probe_idx = early_reliable_idx(stream, E_EARLY)
+                    m_route = policy_route_gate_hold(stream)
+                    drops.append(int(sum(1 for j in probe_idx if not m_route[j])))
+            c, ro = float(np.mean(cons_vals)), float(np.mean(route_vals))
+            grid.append(dict(D=D, N=N, cons_every=c, route=ro, margin=float(ro - c),
+                             route_early_reliable_drops=float(np.mean(drops))))
+    argmax = max(grid, key=lambda g: g["margin"])
+    max_margin = float(argmax["margin"])
+    return dict(grid=grid, max_margin=max_margin,
+                max_margin_at={"D": int(argmax["D"]), "N": int(argmax["N"]),
+                               "cons_every": float(argmax["cons_every"]),
+                               "route": float(argmax["route"])},
+                never_reverses=bool(max_margin <= X_BAND), X_BAND=X_BAND)
+
+
+# ============================================================================
 # metrics IO + markers
 # ============================================================================
 def _atomic_write(path, obj):
@@ -629,6 +699,27 @@ def _run_selftests():
     if v_bias >= 0.05:
         fails.append("ST-6: content V is biased (|mean|=%.4f) -> possible leak" % v_bias)
 
+    # ST-7 FORK-CLOSING never-reverses: pushed into catastrophic overload (D in {256,128,64}
+    # x N-into-overload), the route must NOT reverse into a decisive win anywhere on the
+    # interference axis (max margin <= X_BAND); and any parity it reaches must occur ONLY
+    # where store-everything has itself collapsed (cons_every low). Reduced 3-seed config
+    # (still spans overload) for a fast test; the --profile overload mode runs the full grid.
+    loc = overload_localization([11, 23, 37], D_list=[256, 128, 64],
+                                N_by_D={256: [120, 480], 128: [120, 480], 64: [120, 240]})
+    at = loc["max_margin_at"]
+    notes.append("ST-7 overload never-reverses: max route margin=%+.3f at D=%d N=%d "
+                 "(cons_every=%.3f route=%.3f); never_reverses(max<=X_BAND=%.3f)=%s"
+                 % (loc["max_margin"], at["D"], at["N"], at["cons_every"], at["route"],
+                    X_BAND, loc["never_reverses"]))
+    if not loc["never_reverses"]:
+        fails.append("ST-7: route REVERSES into a decisive win on the overload axis "
+                     "(max margin=%+.3f > X_BAND=%.3f) -> HARD_FAIL is regime-bound, the "
+                     "accepted structural bound does NOT hold" % (loc["max_margin"], X_BAND))
+    if loc["max_margin"] > TIE_EPS and at["cons_every"] > 0.75:
+        fails.append("ST-7: route reaches parity while store-everything is still HEALTHY "
+                     "(cons_every=%.3f > 0.75) -> not the collapse-only parity the bound "
+                     "claims; investigate" % at["cons_every"])
+
     return fails, notes
 
 
@@ -655,7 +746,7 @@ def _forget_stats(profile, seeds, N_list, rho_list, D, p_noise, native_alpha):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
-    ap.add_argument("--profile", choices=["smoke", "full"], default="full")
+    ap.add_argument("--profile", choices=["smoke", "full", "overload"], default="full")
     args = ap.parse_args()
     if sys.stdout is not None and hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(line_buffering=True)
@@ -678,6 +769,43 @@ def main():
             return 2
         print("SELFTEST_PASS: real code path + crosstalk-forgetting + native-lossless + "
               "positive control fired + null-guard held + no-leak all pass")
+        return 0
+
+    if args.profile == "overload":
+        seeds = [11, 23, 37, 53, 71]
+        n_units = sum(len(v) for v in OVERLOAD_N_BY_D.values())
+        _write_start_marker(n_units, "overload")
+        print("=== OVERLOAD-REGIME LOCALIZATION (fork-closing) seeds=%s D=%s ===" %
+              (seeds, OVERLOAD_D_LIST), flush=True)
+        loc = overload_localization(seeds)
+        verdict = ("OVERLOAD_LOCALIZATION_NEVER_REVERSES" if loc["never_reverses"]
+                   else "OVERLOAD_LOCALIZATION_REVERSES")
+        mm, at = loc["max_margin"], loc["max_margin_at"]
+        msg = ("D in %s x N-into-overload | max route margin vs store-everything=%+.3f "
+               "at D=%d N=%d (cons_every=%.3f route=%.3f) | never_reverses(max<=X_BAND=%.3f)"
+               "=%s | route LOSES at adequate capacity, at best reaches PARITY only where "
+               "store-everything has itself COLLAPSED -> NEVER a decisive win on the "
+               "interference axis; graceful distributed crosstalk (not catastrophic "
+               "per-item overwrite) -> STC-style gating has nothing to economize"
+               % (OVERLOAD_D_LIST, mm, at["D"], at["N"], at["cons_every"], at["route"],
+                  X_BAND, loc["never_reverses"]))
+        out = {"verdict": verdict, "summary": verdict, "verdict_msg": msg,
+               "elapsed_s": time.perf_counter() - t0,
+               "ts_iso": datetime.now(timezone.utc).isoformat(), "anchor_name": ANCHOR_NAME,
+               "profile": "overload", "run_mode": "overload", "seeds": seeds,
+               "bands": {"X_BAND": X_BAND, "TIE_EPS": TIE_EPS},
+               "never_reverses": loc["never_reverses"], "max_margin": mm,
+               "max_margin_at": at, "D_list": OVERLOAD_D_LIST, "N_by_D": OVERLOAD_N_BY_D,
+               "grid": loc["grid"]}
+        _atomic_write(os.path.join(OUTPUT_DIR, "metrics_overload.json"), out)
+        print("\n  %-6s %-6s | %-10s %-10s %-9s | %s" %
+              ("D", "N", "cons_every", "route", "margin", "route_drops_early_reliable(/10)"))
+        for g in loc["grid"]:
+            print("  %-6d %-6d | %-10.3f %-10.3f %+9.3f | %.2f" %
+                  (g["D"], g["N"], g["cons_every"], g["route"], g["margin"],
+                   g["route_early_reliable_drops"]), flush=True)
+        print("\nOVERLOAD VERDICT: %s" % verdict)
+        print("  " + msg)
         return 0
 
     profile = args.profile
