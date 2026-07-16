@@ -1,0 +1,134 @@
+{
+  "dataset": "CoDEx-S triple classification (Safavi & Koutra, EMNLP 2020) -- human-verified hard negatives",
+  "chosen_control": "relation_nn_degree_matched",
+  "n_test": 1216,
+  "test_prevalence": 0.5,
+  "config": {
+    "gammas": [
+      0.5,
+      0.6,
+      0.7
+    ],
+    "verdict_gamma": 0.6,
+    "seed": 12345,
+    "freq_chance_band": [
+      0.45,
+      0.55
+    ],
+    "widen_hard_pass": 0.03,
+    "deg_explained_max": 0.5
+  },
+  "fairness_certificate": {
+    "control_used": "relation_nn_degree_matched",
+    "frequency_baseline_certificate_auroc": 0.5125343555228532,
+    "freq_logistic_auroc": 0.5112034171572022,
+    "freq_single_best_auroc": 0.5125343555228532,
+    "certificate_fires_near_chance": true,
+    "band": [
+      0.45,
+      0.55
+    ]
+  },
+  "schema_fit_arms": {
+    "RA_pairwise_auroc": 0.5836719291031855,
+    "SR_PPR_pairwise_auroc_verdict_gamma": 0.6046112145083102,
+    "SR_PPR_pairwise_auroc_by_gamma": {
+      "g0.50": 0.6128890019044322,
+      "g0.60": 0.6046112145083102,
+      "g0.70": 0.5948699359418282
+    },
+    "frequency_baseline_auroc": 0.5112034171572022
+  },
+  "decisive": {
+    "margin_RA_vs_freq": 0.07246851194598336,
+    "margin_SR_pairwise_vs_freq": 0.09340779735110805,
+    "widening_SR_over_RA": 0.020939285405124686,
+    "widen_hard_pass_threshold": 0.03
+  },
+  "popularity_neutrality": {
+    "RA": {
+      "raw_auroc": 0.5836719291031855,
+      "residual_auroc": 0.570422058950831,
+      "degree_explained_fraction": 0.1583550217422933,
+      "residual_beats_freq": true
+    },
+    "SR_PPR_verdict_gamma": {
+      "raw_auroc": 0.6046112145083102,
+      "residual_auroc": 0.6300315962603878,
+      "degree_explained_fraction": 0.0,
+      "residual_beats_freq": true
+    },
+    "pairwise_popularity_neutral": true
+  },
+  "prereg_bands": {
+    "HARD_PASS": "cert fires AND widening>=0.03 AND pairwise popularity-neutral (deg_frac<0.50 AND resid>freq)",
+    "HARD_FAIL": "cert fires AND widening<=0.0 (no improvement over RA)",
+    "MIDDLE": "cert fires AND 0<widening<0.03, OR widens but not popularity-neutral",
+    "SPLIT_NOT_FREQUENCY_BLIND": "no control drove freq baseline into [0.45,0.55]"
+  },
+  "verdict": "MIDDLE",
+  "honesty_notes": [
+    "margin reported as MARGIN-OVER-FREQ (RA baseline currently ~+0.07 per the VET-confirmed v1 win), not absolute.",
+    "verdict gamma=0.6 is a pre-registered interior value; 0.5/0.7 are logged sensitivity diagnostics, NOT selected-for-pass.",
+    "SR/PPR resolvent M=(I-gamma*T)^-1 reimplements the landed SRSolver operator; self-test reproduces its 'SR recovers reachability' property.",
+    "popularity-neutrality: pairwise signal residualized on (log head_deg, log tail_deg); a win that dies under residualization is degree, not schema-fit.",
+    "same frequency-blind split + freq-at-chance certificate as exp_codex_claimvalidity_frequency_vs_structural_v1.py; all arms scored on identical test rows; parameter-free schema-fit arms eval directly (no fit, no leak)."
+  ],
+  "results": {
+    "certificates_by_control": {
+      "full": {
+        "n_test": 3656,
+        "test_prevalence": 0.5,
+        "certificate_fires": false,
+        "freq_logistic_auroc": 0.7743942693046172,
+        "freq_single_best_auroc": 0.7396399432125603,
+        "freq_singles": {
+          "head_deg": 0.6122653208777633,
+          "tail_deg": 0.6226080206273432,
+          "rel_freq": 0.7396399432125603
+        },
+        "certificate_auroc": 0.7743942693046172
+      },
+      "relation_balanced": {
+        "n_test": 1590,
+        "test_prevalence": 0.5,
+        "certificate_fires": false,
+        "freq_logistic_auroc": 0.639916142557652,
+        "freq_single_best_auroc": 0.6157564969740121,
+        "freq_singles": {
+          "head_deg": 0.5415458249278114,
+          "tail_deg": 0.6157564969740121,
+          "rel_freq": 0.5
+        },
+        "certificate_auroc": 0.639916142557652
+      },
+      "relation_degree_matched": {
+        "n_test": 1424,
+        "test_prevalence": 0.5,
+        "certificate_fires": false,
+        "freq_logistic_auroc": 0.6021809115010731,
+        "freq_single_best_auroc": 0.5929215061229642,
+        "freq_singles": {
+          "head_deg": 0.5110653247695998,
+          "tail_deg": 0.5929215061229642,
+          "rel_freq": 0.5
+        },
+        "certificate_auroc": 0.6021809115010731
+      },
+      "relation_nn_degree_matched": {
+        "n_test": 1216,
+        "test_prevalence": 0.5,
+        "certificate_fires": true,
+        "freq_logistic_auroc": 0.5112034171572022,
+        "freq_single_best_auroc": 0.5125343555228532,
+        "freq_singles": {
+          "head_deg": 0.5125343555228532,
+          "tail_deg": 0.5004220048476454,
+          "rel_freq": 0.5
+        },
+        "certificate_auroc": 0.5125343555228532
+      }
+    }
+  },
+  "elapsed_s": 4.2562925815582275
+}
