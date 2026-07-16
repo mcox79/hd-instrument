@@ -1,0 +1,89 @@
+{
+  "dataset": "CoDEx-S triple classification (Safavi & Koutra, EMNLP 2020) -- human-verified hard negatives",
+  "chosen_control": "relation_nn_degree_matched",
+  "n_test": 1216,
+  "test_prevalence": 0.5,
+  "config": {
+    "k_dim": 64,
+    "epochs": 20,
+    "tau": 3.0,
+    "seed": 12345,
+    "freq_chance_band": [
+      0.45,
+      0.55
+    ]
+  },
+  "fairness_certificate": {
+    "control_used": "relation_nn_degree_matched",
+    "frequency_baseline_certificate_auroc": 0.5125343555228532,
+    "freq_logistic_auroc": 0.5112034171572022,
+    "freq_single_best_auroc": 0.5125343555228532,
+    "certificate_fires_near_chance": true,
+    "band": [
+      0.45,
+      0.55
+    ]
+  },
+  "arms": {
+    "chance_naive": {
+      "auroc": 0.5,
+      "auprc": 0.5
+    },
+    "frequency_baseline_degree_freq": {
+      "auroc": 0.5112034171572022,
+      "auprc": 0.5082545832801459
+    },
+    "structural_singles": {
+      "plausibility": {
+        "auroc": 0.5912044451177285,
+        "auprc": 0.6326639422023338
+      },
+      "schema_fit": {
+        "auroc": 0.5836719291031855,
+        "auprc": 0.594144460840292
+      },
+      "recurrence": {
+        "auroc": 0.49882866603185594,
+        "auprc": 0.5021921324701649
+      }
+    },
+    "best_single_structural": {
+      "name": "plausibility",
+      "auroc": 0.5912044451177285,
+      "auprc": 0.6326639422023338
+    },
+    "brain_faithful_gate_parameterfree": {
+      "auroc": 0.5535973208102493,
+      "auprc": 0.573176693003042
+    },
+    "learned_logistic_structural": {
+      "auroc": 0.6041702735457064,
+      "auprc": 0.6444309777950294
+    },
+    "combo_structural_plus_frequency": {
+      "auroc": 0.6509316568559557,
+      "auprc": 0.661840140434722
+    }
+  },
+  "decisive": {
+    "structural_best_auroc": 0.6041702735457064,
+    "frequency_baseline_auroc": 0.5112034171572022,
+    "margin_structural_vs_frequency": 0.09296685638850422,
+    "margin_structural_vs_chance": 0.1041702735457064,
+    "combo_lift_vs_frequency": 0.13972823969875348
+  },
+  "prereg_bands": {
+    "HARD_PASS": "certificate fires AND struct_best AUROC>=0.60 AND (struct-freq)>=0.05 AND (struct-0.5)>=0.07",
+    "HARD_FAIL": "certificate fires AND struct_best AUROC<=0.55 (structure at/near chance even here)",
+    "MIDDLE": "certificate fires AND structure beats chance but not decisively over freq",
+    "SPLIT_NOT_FREQUENCY_BLIND": "no control drove freq baseline into [0.45,0.55] -> gate result untrustworthy"
+  },
+  "verdict": "HARD_PASS",
+  "honesty_notes": [
+    "CoDEx hard negatives are KGE-PLAUSIBLE by construction -> additive_map plausibility/surprise is at a genuine disadvantage; schema_fit + recurrence are different signal families.",
+    "P(structural wins) pre-registered ~0.30; a clean HARD_FAIL with the freq-at-chance certificate firing is a DECISIVE, valuable result (real knowledge-vetting is frequency-explained OR our structural signals do not carry claim-validity signal).",
+    "all test entities are seen in train (transductive) -> no cold-start disadvantage; novelty = held-out (h,r,t) + frequency-blind split, not unseen entities.",
+    "learned arms fit on CoDEx VALID split (same fairness control), evaluated on TEST split -> no test-label leakage."
+  ],
+  "elapsed_s": 32.00190544128418
+}
