@@ -1,0 +1,147 @@
+{
+  "run_mode": "full",
+  "anchor_name": "factual_core_hub_compose_v1",
+  "ts_iso": "2026-07-16T01:26:24.648085+00:00",
+  "elapsed_s": 4.74,
+  "verdict": "HARD_PASS_FACTUAL_CORE_COMPOSES_VIA_HUB",
+  "verdict_msg": "HARD_PASS_FACTUAL_CORE_COMPOSES_VIA_HUB || JOIN precision=1.0000 n_shared=30 fuzzy_gain=0.0000 | n_queries=443 (power>=30:True) | HUB=1.0000 CORE_ONLY=0.6011 MODULE_ONLY=0.3938 single_ceiling=0.6011 SCRAMBLE=0.3205 NO_HUB=0.3405 RANDOM=0.1558 | beats_ceiling(>=0.15)=True beats_broken=True identity_needed=True | interf_delta=0.00e+00 store_identical=True | arms_differ=True determ=True | density med_attr=13.0000 med_cat=4.0000 med_expo=2.0000 (floor 13/3/6)",
+  "summary": "HARD_PASS_FACTUAL_CORE_COMPOSES_VIA_HUB || JOIN precision=1.0000 n_shared=30 fuzzy_gain=0.0000 | n_queries=443 (power>=30:True) | HUB=1.0000 CORE_ONLY=0.6011 MODULE_ONLY=0.3938 single_ceiling=0.6011 SCRAMBLE=0.3205 NO_HUB=0.3405 RANDOM=0.15",
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "n_genes": 30,
+  "n_queries": 443,
+  "n_core_facts": 150,
+  "n_genetic_edges": 120,
+  "bands": {
+    "JOIN_PRECISION_MIN": 0.99,
+    "FUZZY_GAIN_MAX": 0.05,
+    "MIN_SHARED": 25,
+    "MIN_QUERIES": 30,
+    "HP_HUB_ABS": 0.3,
+    "HP_MARGIN_ABS": 0.15,
+    "MUSTFAIL_CEIL_TOL": 0.05,
+    "INTERF_TOL": 1e-09,
+    "N_DIM": 16384
+  },
+  "join": {
+    "join_precision": 1.0,
+    "n_shared_orfs": 30,
+    "fuzzy_extra": 0,
+    "fuzzy_gain_frac": 0.0,
+    "n_core_orfs": 30,
+    "n_module_orfs": 30,
+    "n_wellformed_core": 30
+  },
+  "maps": {
+    "HUB": 1.0,
+    "CORE_ONLY": 0.6010695922462287,
+    "MODULE_ONLY": 0.39384875846501133,
+    "SCRAMBLE": 0.32046037604766847,
+    "NO_HUB": 0.34047172928613456,
+    "RANDOM": 0.15580796788963105
+  },
+  "per_seed_maps": [
+    {
+      "HUB": 1.0,
+      "CORE_ONLY": 0.6043928481851731,
+      "MODULE_ONLY": 0.3872093231574044,
+      "SCRAMBLE": 0.29969806929687637,
+      "NO_HUB": 0.31076533442374266,
+      "RANDOM": 0.16203080094702718
+    },
+    {
+      "HUB": 1.0,
+      "CORE_ONLY": 0.6008590418861299,
+      "MODULE_ONLY": 0.3917208606542692,
+      "SCRAMBLE": 0.43104265099678307,
+      "NO_HUB": 0.4069357154991477,
+      "RANDOM": 0.15334196795142793
+    },
+    {
+      "HUB": 1.0,
+      "CORE_ONLY": 0.5975473861478375,
+      "MODULE_ONLY": 0.39452506359955575,
+      "SCRAMBLE": 0.285101283113735,
+      "NO_HUB": 0.3764745746583401,
+      "RANDOM": 0.1552649867395738
+    },
+    {
+      "HUB": 1.0,
+      "CORE_ONLY": 0.5985472876133147,
+      "MODULE_ONLY": 0.39972365545164645,
+      "SCRAMBLE": 0.30744646780941676,
+      "NO_HUB": 0.29592181668113793,
+      "RANDOM": 0.1539699434944834
+    },
+    {
+      "HUB": 1.0,
+      "CORE_ONLY": 0.6040013973986885,
+      "MODULE_ONLY": 0.39606488946218066,
+      "SCRAMBLE": 0.2790134090215312,
+      "NO_HUB": 0.31226120516830413,
+      "RANDOM": 0.15443214031564306
+    }
+  ],
+  "gates": {
+    "join_ok": true,
+    "power_ok": true,
+    "hub_above": true,
+    "beats_ceiling": true,
+    "beats_broken": true,
+    "identity_needed": true,
+    "interf_ok": true,
+    "arms_differ": true,
+    "determinism_ok": true,
+    "single_ceiling": 0.6010695922462287,
+    "broken_max": 0.34047172928613456
+  },
+  "interference": {
+    "delta": 0.0,
+    "store_identical": true,
+    "tol": 1e-09
+  },
+  "density": {
+    "median_attributes": 13.0,
+    "median_categories": 4.0,
+    "median_exposures": 2.0,
+    "frac_ge_attr_floor": 1.0,
+    "frac_ge_cat_floor": 1.0,
+    "frac_ge_expo_floor": 0.0,
+    "floor": {
+      "attributes": 13,
+      "categories": 3,
+      "exposures": 6
+    },
+    "n_genes": 30
+  },
+  "provenance": {
+    "gen_model": "claude-opus-4-8",
+    "gen_prompt_template_version": "factual_core_yeast_v1",
+    "gen_date": "2026-07-15",
+    "relation_category_map": {
+      "is_a": "taxonomic",
+      "encodes": "compositional",
+      "part_of_complex": "compositional",
+      "participates_in": "compositional",
+      "located_on": "quantitative_measured"
+    },
+    "conjunction_property_relations": [
+      "part_of_complex",
+      "participates_in",
+      "located_on"
+    ],
+    "crispness_allowlist_only": true,
+    "causal_or_severity_relations_used": false,
+    "cross_check_tiers": {
+      "derived_from_orf_id": "mechanically re-derivable from the ORF id (strongest)",
+      "knowledge_based": "LLM-training-knowledge confidence; not externally re-verified this session"
+    },
+    "module_edge_note": "structured genetic-interaction stand-in (documented cross-pathway SGA structure); EDGE STRUCTURE only, NOT Costanzo epsilon magnitude; shared SGD-systematic-ORF-id entity vocabulary (exact string-equality identity join, no crosswalk).",
+    "n_genes": 30
+  }
+}
