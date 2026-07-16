@@ -1,0 +1,148 @@
+{
+  "anchor_name": "provisional_hold_bootstrap_arbitrary_order_v1",
+  "verdict": "HARD_PASS_PROVISIONAL_HOLD_RECOVERS_ARBITRARY_ORDER",
+  "verdict_msg": "HARD_PASS_PROVISIONAL_HOLD_RECOVERS_ARBITRARY_ORDER | recovery=1.000 (cur=1.000 arb=0.039 hold=1.000) passes_max=3 prem_rec=1.000",
+  "summary": "HARD_PASS_PROVISIONAL_HOLD_RECOVERS_ARBITRARY_ORDER",
+  "elapsed_s": 11.926743,
+  "ts_iso": "2026-07-16T19:03:02.827204+00:00",
+  "scale": "full",
+  "tau_fixed": 0.5,
+  "max_passes": 15,
+  "n_seeds": 8,
+  "config": {
+    "n_roots": 3,
+    "depth": 5,
+    "branching": 2,
+    "k": 32,
+    "sigma_delta": 1.0,
+    "sigma_d": 0.18,
+    "n_anchors": 4,
+    "anchor_scale": 6.0,
+    "ref_levels": 3,
+    "n_flat": 189
+  },
+  "verdict_detail": {
+    "verdict": "HARD_PASS_PROVISIONAL_HOLD_RECOVERS_ARBITRARY_ORDER",
+    "recovery_fraction": 1.0,
+    "curriculum_quality": 1.0,
+    "arbitrary_strict_quality": 0.038978494623655914,
+    "arbitrary_hold_quality": 1.0,
+    "curriculum_advantage_denom": 0.9610215053763441,
+    "premature_recovered_fraction": 1.0,
+    "re_queue_passes_max": 3,
+    "re_queue_passes_mean": 3.0,
+    "retry_attempts_mean": 339.875,
+    "passes_bounded_le_depth_plus_2": true,
+    "depth": 5,
+    "flat_quality_spread": 0.0,
+    "flat_hold_buffer_empty": true,
+    "null_holds": true,
+    "graceful_ok": true,
+    "anti_rig_arbitrary_craters": true,
+    "arms_differ": true
+  },
+  "hierarchical": {
+    "cur_strict": {
+      "quality_mean": 1.0,
+      "quality_std": 0.0,
+      "admit_rate_mean": 1.0,
+      "placement_error_mean": 1.0813471981216385
+    },
+    "arb_strict": {
+      "quality_mean": 0.038978494623655914,
+      "quality_std": 0.03522941511312139,
+      "admit_rate_mean": 0.10515873015873015,
+      "placement_error_mean": 0.9904039224489544
+    },
+    "arb_hold": {
+      "quality_mean": 1.0,
+      "quality_std": 0.0,
+      "admit_rate_mean": 1.0,
+      "placement_error_mean": 1.0833899838272474,
+      "re_queue_passes_mean": 3.0,
+      "re_queue_passes_max": 3,
+      "retry_attempts_mean": 339.875,
+      "phase1_hold_mean": 169.125,
+      "final_hold_mean": 0.0,
+      "premature_recovered_fraction_mean": 1.0,
+      "max_buffer_mean": 169.125,
+      "buffer_monotone_nonincreasing_all": true
+    }
+  },
+  "flat": {
+    "cur_strict": {
+      "quality_mean": 1.0,
+      "quality_std": 0.0,
+      "admit_rate_mean": 1.0,
+      "placement_error_mean": 0.5062935284145339
+    },
+    "arb_strict": {
+      "quality_mean": 1.0,
+      "quality_std": 0.0,
+      "admit_rate_mean": 1.0,
+      "placement_error_mean": 0.5062935284145339
+    },
+    "arb_hold": {
+      "quality_mean": 1.0,
+      "quality_std": 0.0,
+      "admit_rate_mean": 1.0,
+      "placement_error_mean": 0.5062935284145339,
+      "re_queue_passes_mean": 0.0,
+      "re_queue_passes_max": 0,
+      "retry_attempts_mean": 0.0,
+      "phase1_hold_mean": 0.0,
+      "final_hold_mean": 0.0,
+      "premature_recovered_fraction_mean": 0.0,
+      "max_buffer_mean": 0.0,
+      "buffer_monotone_nonincreasing_all": true
+    }
+  },
+  "graceful_degradation": {
+    "n_orphans": 12,
+    "final_hold_mean": 12.0,
+    "final_hold_ge_n_orphans_all": true,
+    "orphans_admitted_total": 0,
+    "passes_mean": 4.0,
+    "passes_max": 4,
+    "max_buffer_mean": 180.875,
+    "buffer_bounded_monotone_all": true,
+    "drain_terminated_all": true
+  },
+  "cost_scale_sweep": {
+    "depth_2": {
+      "recovery": 1.0,
+      "passes_max": 1,
+      "retry_mean": 9.5
+    },
+    "depth_3": {
+      "recovery": 1.0,
+      "passes_max": 2,
+      "retry_mean": 36.0
+    },
+    "depth_4": {
+      "recovery": 1.0,
+      "passes_max": 2,
+      "retry_mean": 124.25
+    },
+    "depth_5": {
+      "recovery": 1.0,
+      "passes_max": 3,
+      "retry_mean": 339.875
+    },
+    "branch_2": {
+      "passes_max": 2,
+      "retry_mean": 124.25,
+      "phase1_hold": 77.25
+    },
+    "branch_3": {
+      "passes_max": 2,
+      "retry_mean": 446.5,
+      "phase1_hold": 292.375
+    },
+    "branch_4": {
+      "passes_max": 2,
+      "retry_mean": 1544.75,
+      "phase1_hold": 904.25
+    }
+  }
+}
