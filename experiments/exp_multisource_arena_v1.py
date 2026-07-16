@@ -119,6 +119,25 @@ class ArenaConfig:
         self.w_source = 1.5
         self.w_temporal = 0.9
         self.w_importance = 1.1
+        # -- truth generator MODE. "additive" (default) preserves the VET'd v1
+        #    behavior EXACTLY (same expression, same rng draw order); the
+        #    conjunction branch is entered ONLY when a caller sets truth_mode
+        #    == "conjunction", so v1 + combination_menu_v1 reproducibility is
+        #    untouched (no rng is drawn inside _truth_logit in either branch). --
+        self.truth_mode = "additive"          # {"additive", "conjunction"}
+        # conjunction-truth params (used ONLY when truth_mode == "conjunction"):
+        # truth = dominant 4-way soft-AND over the four latents (matches the
+        # multiplicative-gate functional form) + a weak linear main-effect so
+        # each signal keeps a marginal foothold (arena-validity conditional-MI).
+        # defaults tuned (in the companion conjunction_menu cell's sweep) for a
+        # genuinely-conjunctive-yet-valid arena: 4-way AND dominant, base-rate in
+        # band, signals still decorrelated + conditionally informative.
+        self.conj_gain = 5.0                  # per-latent favorability sigmoid gain
+        self.conj_shift = 0.0                 # per-latent gate shift (z-units); >0 =
+                                              #   gate mostly-off -> sharper corner AND
+        self.conj_w_and = 7.0                 # weight on the 4-way AND core (dominant)
+        self.conj_w_main = 0.10               # weight on the weak linear main-effect
+        self.conj_w_bias = 0.10               # shifts base-rate above the ST7 floor
         # -- copy detector --
         self.dep_excess_thresh = 0.30
         self.dep_min_overlap = 15
@@ -152,6 +171,32 @@ def pearson(x, y):
     if x.std() < 1e-12 or y.std() < 1e-12:
         return 0.0
     return float(np.corrcoef(x, y)[0, 1])
+
+
+def _truth_logit(cfg, L_schema, L_source, L_temporal, L_importance):
+    """Hidden-truth log-odds from the four INDEPENDENT latents. Draws NO rng
+    (deterministic given the latents) so the downstream source-reading /copy
+    stream is identical across truth modes.
+
+    additive    : VET'd v1 -- linear sum of the four latents (each independently
+                  contributes; a single linear boundary separates truth).
+    conjunction : dominant 4-way soft-AND g(Ls)*g(Lo)*g(Lt)*g(Li) with
+                  g(L)=sigmoid(gain*L) (matches the multiplicative-gate form; a
+                  single linear boundary CANNOT express 'need all four high') plus
+                  a weak linear main-effect so each latent keeps a marginal
+                  foothold (base-rate + conditional-MI health)."""
+    mode = getattr(cfg, "truth_mode", "additive")
+    if mode == "additive":
+        return (cfg.w_bias + cfg.w_schema * L_schema + cfg.w_source * L_source
+                + cfg.w_temporal * L_temporal + cfg.w_importance * L_importance)
+    if mode == "conjunction":
+        def g(L):
+            return sigmoid(cfg.conj_gain * (L - cfg.conj_shift))
+        and4 = g(L_schema) * g(L_source) * g(L_temporal) * g(L_importance)
+        core = zscore(and4)                    # 4-way conjunction (dominant)
+        main = zscore(L_schema + L_source + L_temporal + L_importance)
+        return cfg.conj_w_bias + cfg.conj_w_and * core + cfg.conj_w_main * main
+    raise ValueError("unknown truth_mode %r" % mode)
 
 
 # ============================================================================
@@ -296,9 +341,8 @@ def build_arena(cfg, rng):
         extra = (~reports[:, par]) & (rng.random(K) < 0.10)
         reports[:, s] = follow | extra
 
-    # --- hidden truth generator: FOUR independent latents ---
-    truth_logit = (cfg.w_bias + cfg.w_schema * L_schema + cfg.w_source * L_source
-                   + cfg.w_temporal * L_temporal + cfg.w_importance * L_importance)
+    # --- hidden truth generator (mode-dependent; draws no rng) ---
+    truth_logit = _truth_logit(cfg, L_schema, L_source, L_temporal, L_importance)
     p_true = sigmoid(truth_logit)
     truth = rng.random(K) < p_true
 
