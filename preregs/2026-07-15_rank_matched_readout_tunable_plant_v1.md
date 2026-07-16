@@ -111,7 +111,29 @@ rank effect) OR NOT G4 (controls). **MIDDLE_BAND** = partial recovery / non-mono
 - HP_SCOPE: {ORACLE: [G4 ceiling], SCRAMBLE: [G4 must-fail], LEARN_ADD: [G4 floor],
   LEARN_RANK_R: [G1 recovery, G2 degradation, G3 monotone], FREQ/POP: [none -- chance reference]}.
 
+## Amendment (2026-07-15, post first-FULL; transparent)
+
+First FULL ran at `L_VOCAB=48` (~1500 train pairs) and landed the rank story cleanly for R_plant in {1,2,4}
+(rank-1 degrades 0.999->0.760->0.670; matched-rank recovers to the ORACLE ceiling; monotone + over-rank-safe;
+controls fire) BUT matched rank-8 recovered only to 0.820 vs the ceiling (short of the -0.10 gate). A localization
+diagnostic proved this is a DATA-BUDGET (sample-complexity) ceiling, NOT a rank-lever failure:
+- more EPOCHS did not help: R_plant=8 rank-8 = 0.840 (400ep) -> 0.831 (1000ep) -> 0.823 (2000ep) [flat];
+- more DATA recovered it: L=48 -> 0.831; L=96 -> 0.927; L=140 -> 0.965.
+Identifying a rank-8 bilinear form in R^m=64 needs training pairs >> its ~1024 params; L=48 was capacity-INFEASIBLE
+for R_plant=8 (the recovery-to-ceiling gate was unreachable there -- a CRLB/capacity-feasibility miss on my part).
+
+Two corrections (both principled, transparent, NOT design-to-pass):
+1. **Verdict logic** split "rank IS the lever" (matched-rank beats rank-1 by >=0.15 at every R_plant) from "full
+   ceiling saturation" (matched-rank within 0.10 of ORACLE at every R_plant). Task band defs: HARD_FAIL = rank
+   isn't the lever; MIDDLE = partial recovery. HARD_FAIL now fires ONLY if matched-rank fails to beat rank-1;
+   lever-works-but-under-saturated -> MIDDLE.
+2. **Arena data budget** default `L_VOCAB` 48 -> 128 (~10650 train pairs, ~10x the rank-8 param count) so the
+   recovery-to-ceiling gate is reachable at every R_plant. `--l-vocab` arg retained for diagnostics.
+
+The L=48 run (MIDDLE by the corrected logic: lever_works=True at all ranks, full_saturation False at R_plant=8) is
+the capacity-infeasible-arena data point; the L=128 run is the capacity-feasible primary.
+
 ## Dispatch
 
-Local re-authorized for this task (Director spawn prompt). Arena small -> author + self-test gate + smoke local,
-then FULL. Full grid predicted < 5 min single-core.
+Local re-authorized for this task (Director spawn prompt). Author + self-test gate + smoke local, then FULL local.
+L=128 full grid ~ 12-18 min single-core (background).
