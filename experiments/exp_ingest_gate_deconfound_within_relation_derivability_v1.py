@@ -126,11 +126,12 @@ FULL_CFG = dict(
 )
 SMOKE_CFG = dict(
     seeds=[7, 13, 17],   # multi-seed smoke (MANDATORY for an AUC discriminator; single-seed inflates)
-    n_ent=400, edges_per_rel=280, n_rstar=280,
-    train_frac_rstar=0.5, frac_heldout_base=0.28, epochs=200,
-    reach_k=2, reach_cap=200, min_class_n=12,
-    real_k_core=8, real_max_nodes=1200, real_k=24, real_epochs=120,
-    real_train_frac_rstar=0.5, real_reach_k=2, real_reach_cap=150, real_min_rstar_edges=20,
+    n_ent=300, edges_per_rel=180, n_rstar=180,
+    train_frac_rstar=0.5, frac_heldout_base=0.28, epochs=140,
+    reach_k=2, reach_cap=150, min_class_n=10,
+    # real arm kept tiny in smoke (non-gating; keeps smoke under the queue_add smoke-timeout cap):
+    real_k_core=6, real_max_nodes=500, real_k=24, real_epochs=50,
+    real_train_frac_rstar=0.5, real_reach_k=2, real_reach_cap=120, real_min_rstar_edges=15,
 )
 
 # batch ids for the per-candidate array dump
