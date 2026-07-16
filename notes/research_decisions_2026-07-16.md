@@ -1,3 +1,4 @@
+- 2026-07-16: curriculum-order CoDEx null brain-check + corpus-mismatch diagnostic + AL-CPL re-test recommendation -> notes/research_curriculum_order_corpus_mismatch_brain_check_2026-07-16.md
 - 2026-07-16: consolidation-gate quantitative signals + combination-rule drill -> notes/research_consolidation_gate_quantitative_signals_2026-07-16.md
 - 2026-07-16: schema-fit derivability signal upgrade (pair-specific multi-path aggregation, brain+network-science grounded) -> notes/research_schema_fit_derivability_signal_upgrade_2026-07-16.md
 - notes/research_multisource_memory_assimilation_arena_2026-07-16.md -- brain multi-source information environment + circularity-free multi-source claim-stream arena design for surprise/schema-fit/recurrence gate signals
