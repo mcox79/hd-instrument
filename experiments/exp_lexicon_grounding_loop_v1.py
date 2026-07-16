@@ -282,7 +282,7 @@ def _auc(pos, neg):
     return float((r_pos - len(pos) * (len(pos) + 1) / 2.0) / (len(pos) * len(neg)))
 
 
-def run_cell(N, seed, found, n_mem_eval=800, ent_mode="random", degrees=None):
+def run_cell(N, seed, found, n_mem_eval=800, ent_mode="random", degrees=None, compute_geom=False):
     rng = np.random.default_rng(seed)
     ent_list, rel_list = found["ent_list"], found["rel_list"]
     ent_idx, rel_idx = found["ent_idx"], found["rel_idx"]
@@ -293,7 +293,9 @@ def run_cell(N, seed, found, n_mem_eval=800, ent_mode="random", degrees=None):
     # foundation's OWN entity concept-vectors (ent_mode='random' = ideal geometry / oracle-lexicon
     # baseline; ent_mode='stressed' = adverse-geometry isolation arm per DELTA 2 geometry de-risk).
     v_ent = build_entity_codebook(rng, n_ent, N, ent_mode, degrees)
-    geom = geometry_diagnostics(v_ent, degrees)
+    # geometry diagnostics use an O(M^2 N) Gram + eigh -- only needed by the geometry probe, NOT the
+    # per-N grounding sweep (compute-proportionality). Skipped unless requested.
+    geom = geometry_diagnostics(v_ent, degrees) if compute_geom else None
     v_rel = make_phasors(rng, n_rel, N)          # relation keys as ideal random phasors (per-role
     v_rel_random = make_phasors(rng, n_rel, N)   # subspace isolation: filler-geometry attribution clean)
 
@@ -434,7 +436,7 @@ def geometry_probe(N, seeds, found, degrees, ent_mode):
     acc = {k: [] for k in keys}
     geoms = []
     for s in seeds:
-        r = run_cell(N, s, found, ent_mode=ent_mode, degrees=degrees)
+        r = run_cell(N, s, found, ent_mode=ent_mode, degrees=degrees, compute_geom=True)
         acc["bound_any"].append(r["bound_real"]["any"])
         acc["auc"].append(r["auc_pos_vs_neg"])
         acc["neg_reject"].append(r["neg_reject_at_90recall"])
