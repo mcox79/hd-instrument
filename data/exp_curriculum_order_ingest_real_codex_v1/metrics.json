@@ -1,0 +1,203 @@
+{
+  "anchor_name": "curriculum_order_ingest_real_codex_v1",
+  "verdict": "MIDDLE_BAND_METRIC_NEAR_VACUOUS_INFO_CEILING_LOW",
+  "verdict_msg": "MIDDLE_BAND_METRIC_NEAR_VACUOUS_INFO_CEILING_LOW | margin_cur_rand(mean grid)=0.001 (max=0.045, frac>=hp=0.14) margin_cur_freq=-0.014 cur_margin_deg=-0.129 scramble=0.478 hold_recovery=1.000 rev_prem=0.419 rev_craters=True tau0_inv=True",
+  "summary": "MIDDLE_BAND_METRIC_NEAR_VACUOUS_INFO_CEILING_LOW",
+  "elapsed_s": 4.280778884887695,
+  "ts_iso": "2026-07-16T21:41:34.141760+00:00",
+  "scale": "full",
+  "dataset": "codex_claimvalidity",
+  "run_mode": "full",
+  "config": {
+    "tau": 0.5,
+    "k_ground": 1,
+    "n_seed_triples": 8,
+    "rand_seeds": [
+      11,
+      23,
+      37,
+      41,
+      53
+    ],
+    "scramble_seeds": [
+      101,
+      202,
+      303,
+      404,
+      505
+    ],
+    "bands": {
+      "margin_cur_rand_hp": 0.03,
+      "margin_cur_freq_hp": 0.01,
+      "margin_over_deg_hp": 0.02,
+      "scramble_hp": 0.55,
+      "scramble_hf": 0.6,
+      "premature_discrim": 0.1,
+      "hold_recovery_hp": 0.5,
+      "margin_cur_rand_hf": 0.005
+    }
+  },
+  "verdict_detail": {
+    "verdict": "MIDDLE_BAND_METRIC_NEAR_VACUOUS_INFO_CEILING_LOW",
+    "margin_cur_rand_mean_grid": 0.0014827399221447126,
+    "margin_cur_rand_max_grid": 0.04457131707597356,
+    "margin_cur_freq_mean_grid": -0.013529255244561509,
+    "frac_budgets_cur_rand_ge_hp": 0.14285714285714285,
+    "robust_cur_rand_majority": false,
+    "curriculum_margin_over_degree_mean_grid": -0.12905083765235717,
+    "scramble_auroc": 0.4777981939104329,
+    "info_ceiling_cur_full_minus_scramble": 0.010696783321921588,
+    "metric_near_vacuous": true,
+    "reverse_premature_rate": 0.4186633422524933,
+    "random_premature_rate": 0.05017635611773291,
+    "reverse_craters": true,
+    "hold_recovery_fraction": 1.0,
+    "q_cur_full": 0.48849497723235447,
+    "q_rand_full": 0.4876547768962265,
+    "q_hold_full": 0.48849497723235447,
+    "tau0_order_invariant": true,
+    "arms_differ": true
+  },
+  "results": {
+    "seed_entities_n": 16,
+    "budget_grid": [
+      1000,
+      2000,
+      4000,
+      8000,
+      16000,
+      24000,
+      31069
+    ],
+    "budget_sweep": {
+      "B_1000": {
+        "q_cur_orth": 0.42589532389429685,
+        "q_cur_margin_deg": -0.16407607888953257,
+        "q_freq_orth": 0.5238099655732131,
+        "q_rand_orth_mean": 0.43026827995345923,
+        "q_rand_orth_std": 0.009182550943030617,
+        "q_rev_orth": 0.5630088903944955,
+        "margin_cur_rand": -0.004372956059162381,
+        "margin_cur_freq": -0.09791464167891628
+      },
+      "B_2000": {
+        "q_cur_orth": 0.4370946533141169,
+        "q_cur_margin_deg": -0.15735561338574755,
+        "q_freq_orth": 0.5162936200316975,
+        "q_rand_orth_mean": 0.45658567912702475,
+        "q_rand_orth_std": 0.0071067282152725356,
+        "q_rev_orth": null,
+        "margin_cur_rand": -0.019491025812907847,
+        "margin_cur_freq": -0.07919896671758064
+      },
+      "B_4000": {
+        "q_cur_orth": 0.4784700908311747,
+        "q_cur_margin_deg": -0.09165159397459405,
+        "q_freq_orth": 0.503718894991118,
+        "q_rand_orth_mean": 0.4689446382314495,
+        "q_rand_orth_std": 0.008918333876493262,
+        "q_rev_orth": null,
+        "margin_cur_rand": 0.009525452599725204,
+        "margin_cur_freq": -0.025248804159943294
+      },
+      "B_8000": {
+        "q_cur_orth": 0.5269604175744198,
+        "q_cur_margin_deg": -0.0044166179871582,
+        "q_freq_orth": 0.47049303563818834,
+        "q_rand_orth_mean": 0.48238910049844624,
+        "q_rand_orth_std": 0.007609992415474603,
+        "q_rev_orth": null,
+        "margin_cur_rand": 0.04457131707597356,
+        "margin_cur_freq": 0.056467381936231464
+      },
+      "B_16000": {
+        "q_cur_orth": 0.46145959520993635,
+        "q_cur_margin_deg": -0.16750140053339974,
+        "q_freq_orth": 0.4685861555477881,
+        "q_rand_orth_mean": 0.4864202126895509,
+        "q_rand_orth_std": 0.006060850076752462,
+        "q_rev_orth": null,
+        "margin_cur_rand": -0.024960617479614533,
+        "margin_cur_freq": -0.007126560337851751
+      },
+      "B_24000": {
+        "q_cur_orth": 0.48627327638628864,
+        "q_cur_margin_deg": -0.15256477167714472,
+        "q_freq_orth": 0.4530396362922494,
+        "q_rand_orth_mean": 0.48931393016006774,
+        "q_rand_orth_std": 0.004660811360836347,
+        "q_rev_orth": null,
+        "margin_cur_rand": -0.0030406537737791006,
+        "margin_cur_freq": 0.03323364009403923
+      },
+      "B_31069": {
+        "q_cur_orth": 0.4960487301830509,
+        "q_cur_margin_deg": -0.16578978711892328,
+        "q_freq_orth": 0.4709655660309602,
+        "q_rand_orth_mean": 0.4879010672782728,
+        "q_rand_orth_std": 0.002929328761222396,
+        "q_rev_orth": null,
+        "margin_cur_rand": 0.008147662904778086,
+        "margin_cur_freq": 0.02508316415209072
+      }
+    },
+    "margin_cur_rand_mean_over_grid": 0.0014827399221447126,
+    "margin_cur_rand_min_over_grid": -0.024960617479614533,
+    "margin_cur_rand_max_over_grid": 0.04457131707597356,
+    "margin_cur_freq_mean_over_grid": -0.013529255244561509,
+    "cur_margin_over_degree_mean_over_grid": -0.12905083765235717,
+    "frac_budgets_cur_rand_ge_hp": 0.14285714285714285,
+    "frac_budgets_cur_freq_ge_hp": 0.42857142857142855,
+    "n_budgets": 7,
+    "arms": {
+      "curriculum": {
+        "admit": 32888,
+        "admit_rate": 1.0,
+        "premature_rate": 0.0,
+        "q_full_orth": 0.48849497723235447,
+        "q_full_raw": 0.6292708787209899,
+        "q_full_margin_deg": -0.17665738763412797,
+        "degree_auroc_full": 0.6651523648664824
+      },
+      "frequency": {
+        "admit": 31761,
+        "admit_rate": 0.9657321819508635,
+        "premature_rate": 0.034267818049136464,
+        "q_full_orth": 0.47920567012530585
+      },
+      "reverse": {
+        "admit": 1947,
+        "admit_rate": 0.05920092434930674,
+        "premature_rate": 0.4186633422524933
+      },
+      "random": {
+        "admit_mean": 31237.8,
+        "admit_rate_mean": 0.9498236438822669,
+        "premature_rate_mean": 0.05017635611773291,
+        "premature_rate_std": 0.0026605987415057332,
+        "q_full_orth_mean": 0.4876547768962265,
+        "q_full_orth_std": 0.0024396845381310585
+      },
+      "random_hold": {
+        "admit_mean": 32888.0,
+        "admit_rate_mean": 1.0,
+        "q_full_orth_mean": 0.48849497723235447,
+        "passes_mean": 1.0,
+        "passes_max": 1,
+        "phase1_hold_mean": 1650.2,
+        "final_hold_mean": 0.0,
+        "buffer_monotone_all": true
+      }
+    },
+    "scramble_auroc": 0.4777981939104329
+  },
+  "tau0_null": {
+    "identical_admit_sets": true,
+    "quality_spread": 0.0,
+    "q_by_order": {
+      "curriculum": 0.48849497723235447,
+      "frequency": 0.48849497723235447,
+      "random": 0.48849497723235447
+    }
+  }
+}
