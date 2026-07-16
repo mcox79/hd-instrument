@@ -322,8 +322,8 @@ def score_unit(r_plant, seed, m=M_DIM, epochs=None):
         d["n"] = int(mask.sum())
         out[sname] = d
     # ARMS-MUST-DIFFER (META_RULE_AF): learned readouts + controls mutually distinct (catches impl bugs).
-    # ORACLE excluded (a fully-recovered readout legitimately equals the oracle).
-    sig_arms = RANK_ARMS + [BIND_DIAG, LEARN_ADD, SCRAMBLE]
+    # ORACLE excluded (a fully-recovered readout legitimately equals the oracle). Grid read live (smoke mutates it).
+    sig_arms = [rank_arm(r) for r in READOUT_R_GRID] + [BIND_DIAG, LEARN_ADD, SCRAMBLE]
     sigs = {arm: _sig(preds[arm]) for arm in sig_arms}
     return dict(strata=out, sigs=sigs, chance=CHANCE, n_novel=int(novel.sum()), n_query=int(len(gold)))
 
@@ -333,9 +333,10 @@ def score_unit(r_plant, seed, m=M_DIM, epochs=None):
 # ===========================================================================
 
 def run_measurement(seeds=SEEDS_FULL, m=M_DIM, run_mode="full"):
-    _write_start_marker(EXPECTED_N_UNITS * len(seeds), run_mode)
-    _log("%s run: R_plant=%s x readout_R=%s x %d seeds, m=%d L=%d (EXPECTED_N_UNITS/seed=%d)"
-         % (run_mode, R_PLANT_GRID, READOUT_R_GRID, len(seeds), m, L_VOCAB, EXPECTED_N_UNITS))
+    expected_per_seed = len(R_PLANT_GRID)      # read live -- smoke mutates the grid
+    _write_start_marker(expected_per_seed * len(seeds), run_mode)
+    _log("%s run: R_plant=%s x readout_R=%s x %d seeds, m=%d L=%d (expected_units/seed=%d)"
+         % (run_mode, R_PLANT_GRID, READOUT_R_GRID, len(seeds), m, L_VOCAB, expected_per_seed))
     t0 = time.perf_counter()
     per = {rp: [] for rp in R_PLANT_GRID}
     n_units = 0
@@ -344,15 +345,16 @@ def run_measurement(seeds=SEEDS_FULL, m=M_DIM, run_mode="full"):
             per[rp].append(score_unit(rp, sd, m=m))
             n_units += 1
         _log("  seed %d/%d done (elapsed=%.1fs)" % (si + 1, len(seeds), time.perf_counter() - t0))
-    cardinality_ok = bool(n_units == EXPECTED_N_UNITS * len(seeds))
+    cardinality_ok = bool(n_units == expected_per_seed * len(seeds))
 
     def mean_novel(rp, arm):
         vals = [u["strata"]["novel"][arm] for u in per[rp]]
         vals = [v for v in vals if v == v]
         return float(np.mean(vals)) if vals else float("nan")
 
-    # acc table: table[rp][arm] = mean novel accuracy
-    table = {rp: {arm: round(mean_novel(rp, arm), 5) for arm in (ARM_NAMES + [FREQ])} for rp in R_PLANT_GRID}
+    # acc table: table[rp][arm] = mean novel accuracy (arm list read live -- smoke mutates READOUT_R_GRID)
+    arm_names_now = [rank_arm(r) for r in READOUT_R_GRID] + [BIND_DIAG, LEARN_ADD, ORACLE, SCRAMBLE, FREQ, POP]
+    table = {rp: {arm: round(mean_novel(rp, arm), 5) for arm in arm_names_now} for rp in R_PLANT_GRID}
     # rank curve: rankacc[rp][R]
     rankacc = {rp: {r: table[rp][rank_arm(r)] for r in READOUT_R_GRID} for rp in R_PLANT_GRID}
     oracle_ceil = float(np.mean([table[rp][ORACLE] for rp in R_PLANT_GRID]))
