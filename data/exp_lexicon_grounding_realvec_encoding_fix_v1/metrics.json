@@ -1,0 +1,370 @@
+{
+  "anchor_name": "lexicon_grounding_realvec_encoding_fix_v1",
+  "verdict": "MIDDLE",
+  "verdict_msg": "REAL-VECTOR ENCODING repair [RECOVERY_VS_GROUNDING_TRADEOFF_DC_REMOVABLE_GEOMETRY_FLOOR_INTRINSIC]: raw fitted k=24 X d_eff/D=0.805 (BENIGN). DIAGNOSIS: FPE_BROKEN is DC-dominated -- mean_off_coherence=0.153 == DC_energy_fraction=0.153 (all-positive RBF Gram) caps effrank=0.017 (~1/DC^2); NOT a raw-manifold collapse. LOOP+geometry-preservation -- RANDOM(ideal): negrej=1.000 auc=1.000 geomPres=-0.025; FPE_BROKEN: negrej=0.733 auc=0.907 geomPres=+0.961 eff=0.017; DC_DEFLATE(geom-preserving fix): negrej=0.789 auc=0.923 geomPres=+0.440 eff=0.068 (DC 0.153->0.027); FPE_MODERATE: negrej=0.868 geomPres=+0.505; FPE_WIDE(geometry-discarding): negrej=0.995 auc=0.998 geomPres=+0.018 eff=0.647. FRONTIER Spearman(geomPres,negrej)=-0.86 (tension=True); DC_removable=True. HONEST: full negrej recovery needs geomPres->0 (codebook -> random); the residual gap under grounded encodings is geometry-bound, not a lift artifact. Anchor: ideal geomPres~0/negrej~1.0, FPE_BROKEN geomPres~0.94/negrej~0.72.",
+  "summary": "MIDDLE [RECOVERY_VS_GROUNDING_TRADEOFF_DC_REMOVABLE_GEOMETRY_FLOOR_INTRINSIC]: raw->phasor encoding repair for real-CoDEx grounding loop (full)",
+  "run_mode": "full",
+  "elapsed_s": 638.15,
+  "N": 2048,
+  "k_dim": 24,
+  "fit_epochs": 200,
+  "n_seeds": 5,
+  "fit_cached": false,
+  "raw_geometry": {
+    "raw_X_d_eff": 19.310970626232326,
+    "raw_X_d_eff_over_D": 0.8046237760930136,
+    "k_dim": 24,
+    "median_pairwise_dist": 1.4111931734955248,
+    "sigma_median_heuristic": 0.7086202079074692,
+    "broken_selected_sigma": 1.4173507465953863,
+    "broken_achieved_median_coh": 0.14592982009941532
+  },
+  "bandwidth_frontier_sweep": [
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 1.0,
+      "sigma": 0.7086202079074692,
+      "negrej": 0.48764769065520946,
+      "auc": 0.8532529790439666,
+      "bound": 0.9610738255033557,
+      "effrank_ratio": 0.0012897695226402703,
+      "dc_energy_fraction": 0.6132006526540942,
+      "mean_off_coherence": 0.613203747315796,
+      "geom_pres": 0.9872151378833605
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 1.5,
+      "sigma": 1.062930311861204,
+      "negrej": 0.5778732545649838,
+      "auc": 0.8744184286218903,
+      "bound": 0.9798657718120806,
+      "effrank_ratio": 0.0039893920859441585,
+      "dc_energy_fraction": 0.338662194552052,
+      "mean_off_coherence": 0.33875243376916475,
+      "geom_pres": 0.9823152627756198
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 2.0,
+      "sigma": 1.4172404158149383,
+      "negrej": 0.7422126745435016,
+      "auc": 0.9088567535809803,
+      "bound": 0.9865771812080537,
+      "effrank_ratio": 0.01657232135575104,
+      "dc_energy_fraction": 0.1526409800531577,
+      "mean_off_coherence": 0.15323991368862824,
+      "geom_pres": 0.9610878880976815
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 2.5,
+      "sigma": 1.771550519768673,
+      "negrej": 0.8093447905477981,
+      "auc": 0.933359164930543,
+      "bound": 0.991275167785235,
+      "effrank_ratio": 0.0753535995051983,
+      "dc_energy_fraction": 0.05823348292895055,
+      "mean_off_coherence": 0.061510472847726004,
+      "geom_pres": 0.8573769673851988
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 3.0,
+      "sigma": 2.125860623722408,
+      "negrej": 0.8721804511278195,
+      "auc": 0.9593876830138626,
+      "bound": 0.9966442953020134,
+      "effrank_ratio": 0.26064309356288484,
+      "dc_energy_fraction": 0.019768064721028978,
+      "mean_off_coherence": 0.029858136839121176,
+      "geom_pres": 0.504672039351963
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 3.5,
+      "sigma": 2.480170727676142,
+      "negrej": 0.9570354457572503,
+      "auc": 0.9865000468573158,
+      "bound": 1.0,
+      "effrank_ratio": 0.4944544584402566,
+      "dc_energy_fraction": 0.006420037078786246,
+      "mean_off_coherence": 0.02201391067934603,
+      "geom_pres": 0.16986682613203105
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 4.0,
+      "sigma": 2.8344808316298766,
+      "negrej": 0.99140708915145,
+      "auc": 0.9958163625747014,
+      "bound": 1.0,
+      "effrank_ratio": 0.6098450096121933,
+      "dc_energy_fraction": 0.0022591423858506787,
+      "mean_off_coherence": 0.02022628855383412,
+      "geom_pres": 0.040125090828134945
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 4.5,
+      "sigma": 3.1887909355836115,
+      "negrej": 0.9951664876476907,
+      "auc": 0.9983596335037017,
+      "bound": 1.0,
+      "effrank_ratio": 0.6474401545183989,
+      "dc_energy_fraction": 0.0010331451891321631,
+      "mean_off_coherence": 0.019788653159872754,
+      "geom_pres": 0.018464058755030564
+    },
+    {
+      "encoding": "FPE",
+      "sigma_mult_of_median_heur": 6.0,
+      "sigma": 4.251721247444816,
+      "negrej": 1.0,
+      "auc": 1.0,
+      "bound": 1.0,
+      "effrank_ratio": 0.666243833578795,
+      "dc_energy_fraction": 0.0005141169051599192,
+      "mean_off_coherence": 0.019588372935720324,
+      "geom_pres": -0.00676963066868862
+    },
+    {
+      "encoding": "DC_DEFLATE_it1",
+      "sigma": 1.4173507465953863,
+      "negrej": 0.793233082706767,
+      "auc": 0.9243585954339348,
+      "bound": 0.9892617449664429,
+      "effrank_ratio": 0.06729554145321386,
+      "dc_energy_fraction": 0.026927587857970274,
+      "mean_off_coherence": 0.06065567654735041,
+      "geom_pres": 0.43996668960735374
+    },
+    {
+      "encoding": "DC_DEFLATE_it2",
+      "sigma": 1.4173507465953863,
+      "negrej": 0.8039742212674543,
+      "auc": 0.9291921077862442,
+      "bound": 0.9892617449664429,
+      "effrank_ratio": 0.08142176143880274,
+      "dc_energy_fraction": 0.0044573655899744135,
+      "mean_off_coherence": 0.05775888328514332,
+      "geom_pres": 0.05871368746672733
+    },
+    {
+      "encoding": "RAWSTD_FPE_3.0x",
+      "negrej": 0.8533834586466166,
+      "auc": 0.9527188056430625,
+      "bound": 0.9953020134228188,
+      "effrank_ratio": 0.26972770073369584,
+      "dc_energy_fraction": 0.019320225988909707,
+      "mean_off_coherence": 0.02944613444322874,
+      "geom_pres": 0.4863321971654204
+    }
+  ],
+  "frontier_spearman_geompres_negrej": -0.8601398601398601,
+  "arms": {
+    "RANDOM": {
+      "bound_real_any": 1.0,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 1.0,
+      "random_key_any": 0.09744966442953021,
+      "auc_pos_vs_neg": 1.0,
+      "neg_reject_at_90recall": 1.0,
+      "pos_score_mean": 1.0031617127694288,
+      "neg_score_mean": -0.002398605879680579,
+      "neg_reject_std": 0.0,
+      "per_seed_auc": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "geom_pres": -0.02458909004568005,
+      "dc_coherence": {
+        "mean_off_coherence": 0.019592654927856556,
+        "median_off_coherence": 0.01840469141054038,
+        "max_off_coherence": 0.08452547777446268,
+        "dc_energy_fraction": 0.0004981530073863659,
+        "pr_cap_from_dc": 4029716.438383038
+      }
+    },
+    "FPE_BROKEN": {
+      "bound_real_any": 0.9868456375838927,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 0.99,
+      "random_key_any": 0.07060402684563757,
+      "auc_pos_vs_neg": 0.9074645145942517,
+      "neg_reject_at_90recall": 0.7326530612244898,
+      "pos_score_mean": 3.748945319799879,
+      "neg_score_mean": 1.090948080566673,
+      "neg_reject_std": 0.011045108133693032,
+      "per_seed_auc": [
+        0.9088672063668279,
+        0.9063253772013927,
+        0.9064962261838682,
+        0.9063588982042835,
+        0.9092748650148862
+      ],
+      "geom_pres": 0.9610754502276357,
+      "dc_coherence": {
+        "mean_off_coherence": 0.1531980579967578,
+        "median_off_coherence": 0.1362649667204609,
+        "max_off_coherence": 0.9275248858087012,
+        "dc_energy_fraction": 0.15259880583488838,
+        "pr_cap_from_dc": 42.9435289023724
+      }
+    },
+    "DC_DEFLATE": {
+      "bound_real_any": 0.9885906040268455,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 0.9925,
+      "random_key_any": 0.07436241610738255,
+      "auc_pos_vs_neg": 0.9233213907251351,
+      "neg_reject_at_90recall": 0.7885069817400645,
+      "pos_score_mean": 3.1340948925483163,
+      "neg_score_mean": 0.8223472760696279,
+      "neg_reject_std": 0.0028296326256325686,
+      "per_seed_auc": [
+        0.9243585954339348,
+        0.9221202574989728,
+        0.9229380978813284,
+        0.9226248747467902,
+        0.9245651280646486
+      ],
+      "geom_pres": 0.43996668960735374,
+      "dc_coherence": {
+        "mean_off_coherence": 0.06065567654735041,
+        "median_off_coherence": 0.04369595130730471,
+        "max_off_coherence": 0.9099002608666752,
+        "dc_energy_fraction": 0.026927587857970274,
+        "pr_cap_from_dc": 1379.1296544014328
+      }
+    },
+    "FPE_MODERATE": {
+      "bound_real_any": 0.9963758389261745,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 0.9974999999999999,
+      "random_key_any": 0.0970469798657718,
+      "auc_pos_vs_neg": 0.9580366063769203,
+      "neg_reject_at_90recall": 0.8675617615467239,
+      "pos_score_mean": 2.1530201578749937,
+      "neg_score_mean": 0.39920968450693467,
+      "neg_reject_std": 0.002644153302919684,
+      "per_seed_auc": [
+        0.9593876830138626,
+        0.9580363901123855,
+        0.9560218859709196,
+        0.9581045134408408,
+        0.9586325593465927
+      ],
+      "geom_pres": 0.504672039351963,
+      "dc_coherence": {
+        "mean_off_coherence": 0.029858136839121176,
+        "median_off_coherence": 0.023767601447678855,
+        "max_off_coherence": 0.844507884283819,
+        "dc_energy_fraction": 0.019768064721028978,
+        "pr_cap_from_dc": 2559.008281915422
+      }
+    },
+    "FPE_WIDE": {
+      "bound_real_any": 1.0,
+      "modal_baseline": 0.5100671140939598,
+      "memorized_any": 1.0,
+      "random_key_any": 0.11140939597315436,
+      "auc_pos_vs_neg": 0.998049582249007,
+      "neg_reject_at_90recall": 0.9949516648764769,
+      "pos_score_mean": 1.2978622037006515,
+      "neg_score_mean": 0.06754619347008153,
+      "neg_reject_std": 0.00026310308730218484,
+      "per_seed_auc": [
+        0.9983596335037017,
+        0.9978860141725359,
+        0.9982958354659419,
+        0.9974711467066516,
+        0.9982352813962039
+      ],
+      "geom_pres": 0.018464058755030564,
+      "dc_coherence": {
+        "mean_off_coherence": 0.019788653159872754,
+        "median_off_coherence": 0.018488381997025894,
+        "max_off_coherence": 0.6846901468136162,
+        "dc_energy_fraction": 0.0010331451891321631,
+        "pr_cap_from_dc": 936865.5823000994
+      }
+    }
+  },
+  "arm_diagnostics": {
+    "RANDOM": {
+      "coherence_mu": 0.08704127597032582,
+      "welch_floor": 0.0,
+      "coherence_excess": 0.08704127597032582,
+      "participation_ratio": 1359.1001820913593,
+      "effrank_ratio": 0.6681908466525857,
+      "degree_centroid_spearman": 0.0033458788633799184
+    },
+    "FPE_BROKEN": {
+      "coherence_mu": 0.9236376993506303,
+      "welch_floor": 0.0,
+      "coherence_excess": 0.9236376993506303,
+      "participation_ratio": 33.80820614746499,
+      "effrank_ratio": 0.01662153694565634,
+      "degree_centroid_spearman": 0.25408251760257816
+    },
+    "DC_DEFLATE": {
+      "coherence_mu": 0.9033398503794542,
+      "welch_floor": 0.0,
+      "coherence_excess": 0.9033398503794542,
+      "participation_ratio": 137.37467702109973,
+      "effrank_ratio": 0.0675391725767452,
+      "degree_centroid_spearman": 0.21561912070102154
+    },
+    "FPE_MODERATE": {
+      "coherence_mu": 0.8363510561884618,
+      "welch_floor": 0.0,
+      "coherence_excess": 0.8363510561884618,
+      "participation_ratio": 528.0228351742173,
+      "effrank_ratio": 0.25959824738162113,
+      "degree_centroid_spearman": 0.22092847517743808
+    },
+    "FPE_WIDE": {
+      "coherence_mu": 0.6689910460630405,
+      "welch_floor": 0.0,
+      "coherence_excess": 0.6689910460630405,
+      "participation_ratio": 1316.7527679802843,
+      "effrank_ratio": 0.6473710757031881,
+      "degree_centroid_spearman": -0.017971607460614075
+    }
+  },
+  "geom_preservation": {
+    "RANDOM": -0.02458909004568005,
+    "FPE_BROKEN": 0.9610754502276357,
+    "DC_DEFLATE": 0.43996668960735374,
+    "FPE_MODERATE": 0.504672039351963,
+    "FPE_WIDE": 0.018464058755030564
+  },
+  "headline": "RECOVERY_VS_GROUNDING_TRADEOFF_DC_REMOVABLE_GEOMETRY_FLOOR_INTRINSIC",
+  "attribution": {
+    "dc_removable": true,
+    "frontier_tension": true,
+    "any_grounded_encoding_recovers_gate": false,
+    "hard_pass_arm": null,
+    "best_grounded_negrej": 0.8675617615467239,
+    "randomish_encoding_recovers_gate": true,
+    "any_encoding_recovers_gate": true,
+    "dc_deflate_negrej_delta_vs_broken": 0.055853920515574695,
+    "dc_deflate_effrank_ratio_vs_broken": 4.063353033931981,
+    "geompres_min": 0.2,
+    "geompres_randomish": 0.1
+  },
+  "honest_read": "The FPE concentration is the all-positive-RBF DC/common-mode (mean coherence == DC energy fraction, capping effrank ~1/DC^2), NOT a collapse of the benign raw manifold. DC_DEFLATE (glass-box kernel-centering) removes a REMOVABLE chunk (raises effrank, recovers part of the gate, geometry retained). But full negatives-gate recovery (negrej->1.0) is reachable ONLY by widening the FPE bandwidth until the codebook is statistically random (geomPres->0), which discards the real geometry -- a VACUOUS recovery. Every glass-box lift tried (FPE bandwidth, raw-standardized FPE, DC-deflate) lands on the same recovery-vs-geometry frontier. The ideal negrej=1.0 is the RANDOM ceiling precisely because random codes have no semantic neighbors; a grounded codebook is EXPECTED below 1.0. 'residual maps to semantically-harder negatives' is interpretation, not proven.",
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "arms",
+    "geom_preservation",
+    "bandwidth_frontier_sweep"
+  ],
+  "human_readable_labels": "DEFERRED: Q-ids/P-ids glass-box-legal; no label files on disk."
+}
