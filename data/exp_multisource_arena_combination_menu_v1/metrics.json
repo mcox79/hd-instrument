@@ -1,0 +1,308 @@
+{
+  "verdict": "HARD_PASS",
+  "summary": "HARD_PASS",
+  "verdict_msg": "profile=full seeds=5 | HARD_PASS | MARGINAL(primary): logistic=0.863 best_bf=race_2accumulator@0.868 (gap=+0.006) | fusion=0.861 route_np=0.861 route_ewma=0.859 route_stn=0.861 mult=0.851 race=0.868 route_uncal=0.784 best_single[recurrence]=0.813 | route-fix: calib_gain=+0.077 branch_cost=+0.000 cal_spread=0.001 race_time~correct_r=-0.27",
+  "elapsed_s": 4.662088899989612,
+  "ts_iso": "2026-07-16T15:48:30.813783+00:00",
+  "anchor_name": "multisource_arena_combination_menu_v1",
+  "profile": "full",
+  "seeds": [
+    11,
+    23,
+    37,
+    53,
+    71
+  ],
+  "primary_metric": "marginal_heldout_balanced_accuracy",
+  "bands": {
+    "TIE_EPS": 0.01,
+    "X_BAND": 0.03
+  },
+  "marginal_bal_acc": {
+    "route_np": 0.8607804750378436,
+    "route_ewma": 0.8594327710986407,
+    "route_stn": 0.8607804750378436,
+    "precision_fusion": 0.8607804750378436,
+    "additive_logistic": 0.8626423465933518,
+    "multiplicative_gate": 0.8510301002111046,
+    "race_2accumulator": 0.8682554165149273,
+    "route_uncal_grid": 0.7839161202606342,
+    "best_single": 0.8125002589867696
+  },
+  "within_cell_bal_acc_secondary": {
+    "route_np": 0.5933995274543353,
+    "route_ewma": 0.5920896319667549,
+    "route_stn": 0.5933995274543353,
+    "precision_fusion": 0.5933995274543353,
+    "additive_logistic": 0.612580894050225,
+    "multiplicative_gate": 0.6138810381553699,
+    "race_2accumulator": 0.6120208151042522,
+    "route_uncal_grid": 0.593593623518372,
+    "best_single": 0.5
+  },
+  "logistic_marginal": 0.8626423465933518,
+  "best_brain_faithful": {
+    "form": "race_2accumulator",
+    "marginal": 0.8682554165149273,
+    "gap_vs_logistic": 0.005613069921575509
+  },
+  "brain_faithful_vs_learned": "BRAIN_FAITHFUL_TIES_OR_BEATS",
+  "route_failure_diagnosis": {
+    "route_uncalibrated_grid": 0.7839161202606342,
+    "route_best_calibrated": 0.8607804750378436,
+    "calibration_gain": 0.07686435477720943,
+    "branch_cost_vs_pure_fusion": 0.0,
+    "calibration_method_spread": 0.0013477039392029155
+  },
+  "race_time_correct_corr_mean": -0.27226992951505236,
+  "baseline_in_band": true,
+  "arms_differ_verified": true,
+  "best_single_signal": "recurrence",
+  "per_seed": [
+    {
+      "gen_self_test_fails": [],
+      "best_single_signal": "recurrence",
+      "marginal": {
+        "route_np": 0.8446337926033358,
+        "route_ewma": 0.8445212672851392,
+        "route_stn": 0.8446337926033358,
+        "precision_fusion": 0.8446337926033358,
+        "additive_logistic": 0.8479532894901353,
+        "multiplicative_gate": 0.8329874221699882,
+        "race_2accumulator": 0.8442211997699482,
+        "route_uncal_grid": 0.7616588732464804,
+        "best_single": 0.7882461053737091
+      },
+      "within_cell": {
+        "route_np": 0.5852487426788897,
+        "route_ewma": 0.5844993474662593,
+        "route_stn": 0.5852487426788897,
+        "precision_fusion": 0.5852487426788897,
+        "additive_logistic": 0.6127239849842167,
+        "multiplicative_gate": 0.6069775078556294,
+        "race_2accumulator": 0.593807033040489,
+        "route_uncal_grid": 0.5848371802668436,
+        "best_single": 0.5
+      },
+      "arms_differ": true,
+      "race_time_correct_corr": -0.2592902142657063,
+      "n_test": 800,
+      "route_cfgs": {
+        "route_np": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_ewma": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_stn": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.1,
+          "raise_frac": 0.0
+        }
+      }
+    },
+    {
+      "gen_self_test_fails": [],
+      "best_single_signal": "recurrence",
+      "marginal": {
+        "route_np": 0.8671052631578948,
+        "route_ewma": 0.8602756892230576,
+        "route_stn": 0.8671052631578948,
+        "precision_fusion": 0.8671052631578948,
+        "additive_logistic": 0.8612155388471179,
+        "multiplicative_gate": 0.8515664160401002,
+        "race_2accumulator": 0.868421052631579,
+        "route_uncal_grid": 0.7738095238095237,
+        "best_single": 0.8075814536340853
+      },
+      "within_cell": {
+        "route_np": 0.6105527116903566,
+        "route_ewma": 0.6164698942583368,
+        "route_stn": 0.6105527116903566,
+        "precision_fusion": 0.6105527116903566,
+        "additive_logistic": 0.622109656072658,
+        "multiplicative_gate": 0.6477743560751861,
+        "race_2accumulator": 0.6117119858839051,
+        "route_uncal_grid": 0.5875232995042765,
+        "best_single": 0.5
+      },
+      "arms_differ": true,
+      "race_time_correct_corr": -0.2519748098447987,
+      "n_test": 800,
+      "route_cfgs": {
+        "route_np": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_ewma": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_stn": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.1,
+          "raise_frac": 0.0
+        }
+      }
+    },
+    {
+      "gen_self_test_fails": [],
+      "best_single_signal": "recurrence",
+      "marginal": {
+        "route_np": 0.8592131340222944,
+        "route_ewma": 0.8635113253433864,
+        "route_stn": 0.8592131340222944,
+        "precision_fusion": 0.8592131340222944,
+        "additive_logistic": 0.8658370375927629,
+        "multiplicative_gate": 0.8570624753830861,
+        "race_2accumulator": 0.8643428299916849,
+        "route_uncal_grid": 0.7848872467193078,
+        "best_single": 0.8103856806146883
+      },
+      "within_cell": {
+        "route_np": 0.5997742826617827,
+        "route_ewma": 0.6123837454212455,
+        "route_stn": 0.5997742826617827,
+        "precision_fusion": 0.5997742826617827,
+        "additive_logistic": 0.6203877922915659,
+        "multiplicative_gate": 0.6053743101631074,
+        "race_2accumulator": 0.6361534264346764,
+        "route_uncal_grid": 0.5985289965102466,
+        "best_single": 0.5
+      },
+      "arms_differ": true,
+      "race_time_correct_corr": -0.30227521282283715,
+      "n_test": 800,
+      "route_cfgs": {
+        "route_np": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_ewma": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_stn": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.1,
+          "raise_frac": 0.0
+        }
+      }
+    },
+    {
+      "gen_self_test_fails": [],
+      "best_single_signal": "recurrence",
+      "marginal": {
+        "route_np": 0.8781882806437886,
+        "route_ewma": 0.8708355235163074,
+        "route_stn": 0.8781882806437886,
+        "precision_fusion": 0.8781882806437886,
+        "additive_logistic": 0.8742334359590498,
+        "multiplicative_gate": 0.86246902455508,
+        "race_2accumulator": 0.8823371129633801,
+        "route_uncal_grid": 0.7975332282045506,
+        "best_single": 0.8354233936572301
+      },
+      "within_cell": {
+        "route_np": 0.5979083433739649,
+        "route_ewma": 0.574968388302092,
+        "route_stn": 0.5979083433739649,
+        "precision_fusion": 0.5979083433739649,
+        "additive_logistic": 0.6115616304937452,
+        "multiplicative_gate": 0.604336389582879,
+        "race_2accumulator": 0.6004471135405014,
+        "route_uncal_grid": 0.5909178258791374,
+        "best_single": 0.5
+      },
+      "arms_differ": true,
+      "race_time_correct_corr": -0.34260781122475037,
+      "n_test": 800,
+      "route_cfgs": {
+        "route_np": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_ewma": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_stn": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.1,
+          "raise_frac": 0.0
+        }
+      }
+    },
+    {
+      "gen_self_test_fails": [],
+      "best_single_signal": "recurrence",
+      "marginal": {
+        "route_np": 0.8547619047619047,
+        "route_ewma": 0.8580200501253132,
+        "route_stn": 0.8547619047619047,
+        "precision_fusion": 0.8547619047619047,
+        "additive_logistic": 0.8639724310776942,
+        "multiplicative_gate": 0.8510651629072681,
+        "race_2accumulator": 0.8819548872180452,
+        "route_uncal_grid": 0.8016917293233083,
+        "best_single": 0.8208646616541353
+      },
+      "within_cell": {
+        "route_np": 0.573513556866683,
+        "route_ewma": 0.5721267843858411,
+        "route_stn": 0.573513556866683,
+        "precision_fusion": 0.573513556866683,
+        "additive_logistic": 0.5961214064089388,
+        "multiplicative_gate": 0.6049426271000469,
+        "race_2accumulator": 0.6179845166216894,
+        "route_uncal_grid": 0.6061608154313555,
+        "best_single": 0.5
+      },
+      "arms_differ": true,
+      "race_time_correct_corr": -0.20520159941716928,
+      "n_test": 800,
+      "route_cfgs": {
+        "route_np": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_ewma": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.25,
+          "raise_frac": 0.0
+        },
+        "route_stn": {
+          "gate_q": 0.0,
+          "bypass": false,
+          "conf_q": 0.1,
+          "raise_frac": 0.0
+        }
+      }
+    }
+  ]
+}
