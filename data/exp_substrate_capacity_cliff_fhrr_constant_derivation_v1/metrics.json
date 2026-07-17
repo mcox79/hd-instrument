@@ -1,0 +1,403 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: C_FHRR derived from first principles (closed-form, complex-phasor Re(Hermitian inner product) crosstalk variance = N/2 vs real-bipolar crosstalk variance = N, ratio = 2.0 EXACTLY, zero free parameters) matches the CALIBRATED C_FHRR=1.9934 within 0.33% (tol=5%), reproduces the held-out 10-cell grid generalization at 2.75% mean error (calibrated: 2.87%, 31.3x reduction vs naive) WITH NO FITTING, and the sqrt(2)-crosstalk mechanism is confirmed numerically via multi-seed Monte Carlo at BOTH the raw-pairwise level (ratio=1.995 across N=[256, 512, 1024, 2048, 4096]) AND the actual bind-bundle-cleanup mechanism level (ratio=2.036 across K=[50, 100, 200, 375]). Can-fail self-test confirms the pipeline correctly rejects wrong constants (C=1.0, C=4.0) and the real-vs-real control ratio (0.996) is near 1.0, not vacuously near 2.0. PROMOTES exp_substrate_phase_diagram_subsystem_decoupling_v3's capacity-reconciliation claim(a) from MEASURED_MECHANISM to CHAIN_GRADE: the ~2x residual is no longer a calibrated fit but a derived, numerically-verified consequence of FHRR complex-phasor geometry vs real-bipolar codes.",
+  "summary": "C_FHRR derivation: HARD_PASS (derived=2.0000 calibrated=1.9934 anchor_rel_err=0.0033 grid_err_derived=0.0275 grid_err_calibrated=0.0287 pairwise_ratio=1.9952 bundled_ratio=2.0362)",
+  "elapsed_s": 42.77059040000313,
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_msg",
+    "summary",
+    "elapsed_s"
+  ],
+  "anchor_name": "substrate_capacity_cliff_fhrr_constant_derivation_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-17T20:26:39.896529+00:00",
+  "cardinality_ok": true,
+  "expected_n_units": 290,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "closed-form derivation + variance-ratio numeric check, not a top-k argmax capacity-feasibility discriminator",
+  "real_code_path": "n/a (pure numpy/math, no KGStore/live substrate object calls)",
+  "deterministic_seeding": true,
+  "gates": {
+    "A_anchor_match": {
+      "ok": true,
+      "rel_err": 0.003305343670401214,
+      "tol": 0.05,
+      "C_derived": 2.0,
+      "C_calibrated": 1.9934110912669731
+    },
+    "B_grid_generalization": {
+      "ok": true,
+      "err_derived": 0.027454946628554716,
+      "err_calibrated": 0.028682279306357285,
+      "error_reduction_derived": 31.345965197748296,
+      "mult_tol": 1.5,
+      "min_reduction": 15.0
+    },
+    "C_numeric_crosstalk": {
+      "ok": true,
+      "pairwise_ok": true,
+      "bundled_ok": true,
+      "tol": 0.05
+    },
+    "can_fail": {
+      "derived_result_summary": {
+        "C": 2.0,
+        "mean_abs_rel_err": 0.027454946628554716
+      },
+      "wrong_constant_results": [
+        {
+          "C": 1.0,
+          "mean_abs_rel_err": 0.5043472287814448
+        },
+        {
+          "C": 1.5,
+          "mean_abs_rel_err": 0.25652084317216717
+        },
+        {
+          "C": 2.5,
+          "mean_abs_rel_err": 0.2391319280463881
+        },
+        {
+          "C": 4.0,
+          "mean_abs_rel_err": 0.9826110848742211
+        }
+      ],
+      "can_fail_demonstrated": true,
+      "real_vs_real_control_ratio_mean": 0.9963882610742502,
+      "real_vs_real_control_sane": true
+    }
+  },
+  "facts": {
+    "derivation": {
+      "real_variance_per_component": 1.0,
+      "fhrr_variance_per_component": 0.5,
+      "C_FHRR_derived": 2.0
+    },
+    "grid_derived": {
+      "C_used": 2.0,
+      "per_cell": [
+        {
+          "N": 512,
+          "V": 16,
+          "V_eff": 16,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 343.619300927094,
+          "m50_measured": 350.1447562776957,
+          "abs_rel_err": 0.01863645030693089
+        },
+        {
+          "N": 512,
+          "V": 64,
+          "V_eff": 64,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 188.60017275409032,
+          "m50_measured": 193.10040729590932,
+          "abs_rel_err": 0.023305153028096857
+        },
+        {
+          "N": 512,
+          "V": 256,
+          "V_eff": 256,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 128.80670966966136,
+          "m50_measured": 119.74947807933195,
+          "abs_rel_err": 0.07563483144643979
+        },
+        {
+          "N": 1024,
+          "V": 16,
+          "V_eff": 16,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 687.238601854188,
+          "m50_measured": 716.234828181764,
+          "abs_rel_err": 0.040484245092054366
+        },
+        {
+          "N": 1024,
+          "V": 64,
+          "V_eff": 64,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": true,
+          "k_corrected_with_C": 377.20034550818065,
+          "m50_measured": 380.7303638218293,
+          "abs_rel_err": 0.009271701574347282
+        },
+        {
+          "N": 1024,
+          "V": 256,
+          "V_eff": 256,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 257.6134193393227,
+          "m50_measured": 264.17965496728135,
+          "abs_rel_err": 0.024855190414916174
+        },
+        {
+          "N": 2048,
+          "V": 16,
+          "V_eff": 16,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 1374.477203708376,
+          "m50_measured": 1366.7742492769376,
+          "abs_rel_err": 0.005635864471044533
+        },
+        {
+          "N": 2048,
+          "V": 64,
+          "V_eff": 64,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 754.4006910163613,
+          "m50_measured": 745.0637389448002,
+          "abs_rel_err": 0.012531749410841796
+        },
+        {
+          "N": 2048,
+          "V": 256,
+          "V_eff": 256,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 515.2268386786454,
+          "m50_measured": 527.7142857142857,
+          "abs_rel_err": 0.02366327267176005
+        },
+        {
+          "N": 1024,
+          "V": 256,
+          "V_eff": 16,
+          "condition": "RESTRICTED_SET",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 687.238601854188,
+          "m50_measured": 720.2280543801206,
+          "abs_rel_err": 0.04580417594858296
+        },
+        {
+          "N": 2048,
+          "V": 256,
+          "V_eff": 16,
+          "condition": "RESTRICTED_SET",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 1374.477203708376,
+          "m50_measured": 1379.99516058073,
+          "abs_rel_err": 0.0039985334948797685
+        }
+      ],
+      "n_at_risk_cells": 10,
+      "mean_abs_rel_err": 0.027454946628554716,
+      "mean_abs_rel_err_naive": 0.860601801524713,
+      "error_reduction_factor": 31.345965197748296
+    },
+    "grid_calibrated": {
+      "C_used": 1.9934110912669731,
+      "per_cell": [
+        {
+          "N": 512,
+          "V": 16,
+          "V_eff": 16,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 342.4872628207364,
+          "m50_measured": 350.1447562776957,
+          "abs_rel_err": 0.021869507738354416
+        },
+        {
+          "N": 512,
+          "V": 64,
+          "V_eff": 64,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 187.97883809143542,
+          "m50_measured": 193.10040729590932,
+          "abs_rel_err": 0.026522829631454622
+        },
+        {
+          "N": 512,
+          "V": 256,
+          "V_eff": 256,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 128.3823618425539,
+          "m50_measured": 119.74947807933195,
+          "abs_rel_err": 0.07209120157920704
+        },
+        {
+          "N": 1024,
+          "V": 16,
+          "V_eff": 16,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 684.9745256414728,
+          "m50_measured": 716.234828181764,
+          "abs_rel_err": 0.043645325960549354
+        },
+        {
+          "N": 1024,
+          "V": 64,
+          "V_eff": 64,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": true,
+          "k_corrected_with_C": 375.95767618287084,
+          "m50_measured": 380.7303638218293,
+          "abs_rel_err": 0.012535610743124107
+        },
+        {
+          "N": 1024,
+          "V": 256,
+          "V_eff": 256,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 256.7647236851078,
+          "m50_measured": 264.17965496728135,
+          "abs_rel_err": 0.028067760490836736
+        },
+        {
+          "N": 2048,
+          "V": 16,
+          "V_eff": 16,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 1369.9490512829457,
+          "m50_measured": 1366.7742492769376,
+          "abs_rel_err": 0.002322843006215315
+        },
+        {
+          "N": 2048,
+          "V": 64,
+          "V_eff": 64,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 751.9153523657417,
+          "m50_measured": 745.0637389448002,
+          "abs_rel_err": 0.009196009767761753
+        },
+        {
+          "N": 2048,
+          "V": 256,
+          "V_eff": 256,
+          "condition": "FULL_CODEBOOK",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 513.5294473702156,
+          "m50_measured": 527.7142857142857,
+          "abs_rel_err": 0.026879769466294078
+        },
+        {
+          "N": 1024,
+          "V": 256,
+          "V_eff": 16,
+          "condition": "RESTRICTED_SET",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 684.9745256414728,
+          "m50_measured": 720.2280543801206,
+          "abs_rel_err": 0.0489477305476381
+        },
+        {
+          "N": 2048,
+          "V": 256,
+          "V_eff": 16,
+          "condition": "RESTRICTED_SET",
+          "is_calibration_point": false,
+          "k_corrected_with_C": 1369.9490512829457,
+          "m50_measured": 1379.99516058073,
+          "abs_rel_err": 0.007279814875261419
+        }
+      ],
+      "n_at_risk_cells": 10,
+      "mean_abs_rel_err": 0.028682279306357285,
+      "mean_abs_rel_err_naive": 0.860601801524713,
+      "error_reduction_factor": 30.004651734005144
+    },
+    "pairwise_numeric_check": {
+      "per_n": [
+        {
+          "N": 256,
+          "mean_real_variance": 253.25713137777774,
+          "mean_fhrr_variance": 126.43244906464501,
+          "ratio": 2.00310231472529,
+          "predicted_real_variance": 256.0,
+          "predicted_fhrr_variance": 128.0
+        },
+        {
+          "N": 512,
+          "mean_real_variance": 512.5366906666666,
+          "mean_fhrr_variance": 257.68304705642635,
+          "ratio": 1.989019830840612,
+          "predicted_real_variance": 512.0,
+          "predicted_fhrr_variance": 256.0
+        },
+        {
+          "N": 1024,
+          "mean_real_variance": 1026.7983325333335,
+          "mean_fhrr_variance": 508.90288345567586,
+          "ratio": 2.017670494537029,
+          "predicted_real_variance": 1024.0,
+          "predicted_fhrr_variance": 512.0
+        },
+        {
+          "N": 2048,
+          "mean_real_variance": 2039.6055668444446,
+          "mean_fhrr_variance": 1033.150619517583,
+          "ratio": 1.974160909661762,
+          "predicted_real_variance": 2048.0,
+          "predicted_fhrr_variance": 1024.0
+        },
+        {
+          "N": 4096,
+          "mean_real_variance": 4048.944804711111,
+          "mean_fhrr_variance": 2032.7759012451527,
+          "ratio": 1.9918303843679857,
+          "predicted_real_variance": 4096.0,
+          "predicted_fhrr_variance": 2048.0
+        }
+      ],
+      "mean_ratio_across_N": 1.9951567868265356,
+      "std_ratio_across_N": 0.014557145932297875,
+      "n_digest_collisions": 0,
+      "n_arms_checked": 50
+    },
+    "bundled_mechanism_check": {
+      "per_k": [
+        {
+          "K": 50,
+          "mean_real_variance": 52396.98973712942,
+          "mean_fhrr_variance": 25072.336953048016,
+          "ratio": 2.0898327042768776
+        },
+        {
+          "K": 100,
+          "mean_real_variance": 104685.04939951289,
+          "mean_fhrr_variance": 49495.52904814889,
+          "ratio": 2.1150405180572176
+        },
+        {
+          "K": 200,
+          "mean_real_variance": 204363.58552112206,
+          "mean_fhrr_variance": 97794.85746003015,
+          "ratio": 2.0897170958569857
+        },
+        {
+          "K": 375,
+          "mean_real_variance": 339105.76474342815,
+          "mean_fhrr_variance": 183282.78350600335,
+          "ratio": 1.8501779504692042
+        }
+      ],
+      "mean_ratio_across_K": 2.0361920671650715,
+      "std_ratio_across_K": 0.10788949956374998
+    },
+    "calibration_anchor_source": {
+      "N": 1024,
+      "V": 64,
+      "m50_measured": 375.95767618287084,
+      "source": "data/exp_substrate_phase_diagram_subsystem_decoupling_v1/metrics.json"
+    },
+    "v3_mean_abs_rel_err_naive": 0.860601801524713,
+    "v3_mean_abs_rel_err_corrected": 0.028682279306357285
+  }
+}
