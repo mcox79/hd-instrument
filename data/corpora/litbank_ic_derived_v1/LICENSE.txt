@@ -1,0 +1,14 @@
+LitBank (https://github.com/dbamman/litbank) is licensed under a Creative Commons
+Attribution 4.0 International License (CC BY 4.0).
+
+https://creativecommons.org/licenses/by/4.0/
+
+Attribution: David Bamman, Olivia Lewke, Anya Mansoor, "An Annotated Dataset of
+Coreference in English Literature," LREC 2020. Coreference annotations and
+underlying public-domain (pre-1923) book texts from Project Gutenberg.
+
+This directory contains a DERIVED extract (a small set of sentences + their
+LitBank-annotated coreference cluster ids, mined by
+tools/derive_litbank_ic_disagreement_v1.py) from the LitBank coref/conll corpus,
+pinned to commit 3e50db0ffc033d7ccbb94f4d88f6b99210328ed8. Redistributed under the
+same CC BY 4.0 terms as the source.
