@@ -1,9 +1,12 @@
 name: ci
 
+# Triggers on PRs and manual dispatch only.
+# NOT on push to main: the orchestrator (hd_metrics_sync) auto-commits to main
+# many times a day, and running CI on every one of those produced a flood of
+# "Run failed" emails. Run CI when you're actually working (a PR or a manual run).
 on:
-  push:
-    branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -14,6 +17,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install -e ".[dev]"
-      - run: ruff check .
+      # Lint only the real packages, not the 100+ throwaway tmp_*/_*.py scripts in the repo root.
+      - run: ruff check hdlab reference verification
       - run: pytest verification/ -v
       - run: python verification/run_certification.py
