@@ -1,0 +1,250 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | Tier-1 IDENTITY: separated_full=1.00 separated_ablation=0.00 identity_control_fired=True (REQUIRED negative control: ablation must fail) | a_grown=True b_grown=True violation_rejected=True distractor_not_grown=True | Tier-2 (class-mapping) / Tier-3 (meaning-verification) OUT OF SCOPE, not attempted | weakest=['none (widened signature separates; required ablation genuinely fails; both relations grown + regression controls hold)']",
+  "summary": "HARD_PASS | Tier-1 IDENTITY: separated_full=1.00 separated_ablation=0.00 identity_control_fired=True (REQUIRED negative control: ablation must fail) | a_grown=True b_grown=True violation_rejected=True distractor_not_grown=True | Tier-2 (class-mapping) / Tier-3 (meaning-verification) OUT OF SCOPE, no",
+  "run_mode": "full",
+  "elapsed_s": 0.09877209999831393,
+  "anchor_name": "read_grow_relation_identity_v1",
+  "ts_iso": "2026-07-17T03:52:52.380952+00:00",
+  "seeds": [
+    11,
+    23,
+    37,
+    41,
+    53
+  ],
+  "n_read_sentences": 19,
+  "expected_n_units": 5,
+  "weakest_interface": [
+    "none (widened signature separates; required ablation genuinely fails; both relations grown + regression controls hold)"
+  ],
+  "metric_a_separated_frac_full": 1.0,
+  "metric_a_separated_frac_ablation": 0.0,
+  "metric_b_identity_control_fired": true,
+  "metric_c_a_grown_all": true,
+  "metric_c_b_grown_all": true,
+  "metric_c_relation_query_acc_mean": 1.0,
+  "metric_d_violation_rejected_all": true,
+  "metric_d_distractor_not_grown_all": true,
+  "metric_d_relation_false_fact_rate_mean": 0.0,
+  "arms": {
+    "FULL_STRUCTURAL": {
+      "separated_frac": 1.0,
+      "sig_a_examples": [
+        [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ]
+      ],
+      "sig_b_examples": [
+        [
+          true,
+          false,
+          []
+        ]
+      ]
+    },
+    "ARGTYPE_ONLY_ABLATION": {
+      "separated_frac": 0.0,
+      "sig_a_examples": [
+        [
+          true
+        ]
+      ],
+      "sig_b_examples": [
+        [
+          true
+        ]
+      ]
+    },
+    "arms_differ_exempted": [
+      [
+        "FULL_STRUCTURAL",
+        "ARGTYPE_ONLY_ABLATION",
+        "accepted_hash",
+        "growth is arm-invariant at CONFIRM_K=2 by design; widening affects the post-hoc identity signature only -- see module HONEST SCOPE NOTE"
+      ]
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "sig_a_full": [
+        true,
+        true,
+        [
+          "chases"
+        ]
+      ],
+      "sig_b_full": [
+        true,
+        false,
+        []
+      ],
+      "sig_a_ablation": [
+        true
+      ],
+      "sig_b_ablation": [
+        true
+      ],
+      "separated_full": true,
+      "separated_ablation": false,
+      "a_grown": true,
+      "b_grown": true,
+      "violation_rejected": true,
+      "distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "relation_query_acc": 1.0,
+      "n_grown_relations": 2,
+      "accepted_hash": "7a2dbb977ccd209f674df5ab0c8973362b8cfc12e75950ccbc2f5d2e98204229"
+    },
+    {
+      "seed": 23,
+      "sig_a_full": [
+        true,
+        true,
+        [
+          "chases"
+        ]
+      ],
+      "sig_b_full": [
+        true,
+        false,
+        []
+      ],
+      "sig_a_ablation": [
+        true
+      ],
+      "sig_b_ablation": [
+        true
+      ],
+      "separated_full": true,
+      "separated_ablation": false,
+      "a_grown": true,
+      "b_grown": true,
+      "violation_rejected": true,
+      "distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "relation_query_acc": 1.0,
+      "n_grown_relations": 2,
+      "accepted_hash": "7a2dbb977ccd209f674df5ab0c8973362b8cfc12e75950ccbc2f5d2e98204229"
+    },
+    {
+      "seed": 37,
+      "sig_a_full": [
+        true,
+        true,
+        [
+          "chases"
+        ]
+      ],
+      "sig_b_full": [
+        true,
+        false,
+        []
+      ],
+      "sig_a_ablation": [
+        true
+      ],
+      "sig_b_ablation": [
+        true
+      ],
+      "separated_full": true,
+      "separated_ablation": false,
+      "a_grown": true,
+      "b_grown": true,
+      "violation_rejected": true,
+      "distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "relation_query_acc": 1.0,
+      "n_grown_relations": 2,
+      "accepted_hash": "7a2dbb977ccd209f674df5ab0c8973362b8cfc12e75950ccbc2f5d2e98204229"
+    },
+    {
+      "seed": 41,
+      "sig_a_full": [
+        true,
+        true,
+        [
+          "chases"
+        ]
+      ],
+      "sig_b_full": [
+        true,
+        false,
+        []
+      ],
+      "sig_a_ablation": [
+        true
+      ],
+      "sig_b_ablation": [
+        true
+      ],
+      "separated_full": true,
+      "separated_ablation": false,
+      "a_grown": true,
+      "b_grown": true,
+      "violation_rejected": true,
+      "distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "relation_query_acc": 1.0,
+      "n_grown_relations": 2,
+      "accepted_hash": "7a2dbb977ccd209f674df5ab0c8973362b8cfc12e75950ccbc2f5d2e98204229"
+    },
+    {
+      "seed": 53,
+      "sig_a_full": [
+        true,
+        true,
+        [
+          "chases"
+        ]
+      ],
+      "sig_b_full": [
+        true,
+        false,
+        []
+      ],
+      "sig_a_ablation": [
+        true
+      ],
+      "sig_b_ablation": [
+        true
+      ],
+      "separated_full": true,
+      "separated_ablation": false,
+      "a_grown": true,
+      "b_grown": true,
+      "violation_rejected": true,
+      "distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "relation_query_acc": 1.0,
+      "n_grown_relations": 2,
+      "accepted_hash": "7a2dbb977ccd209f674df5ab0c8973362b8cfc12e75950ccbc2f5d2e98204229"
+    }
+  ],
+  "prereg": {
+    "tier1_identity_hard_pass": "separated_frac_full>=0.90 & separated_frac_ablation<=0.10 (identity_control_fired) & a_grown_all & b_grown_all & violation_rejected_all & distractor_not_grown_all",
+    "tier1_identity_hard_fail": "separated_frac_full<0.50 | separated_frac_full<=separated_frac_ablation+0.05 (VACUOUS -- required negative control did not fire) | NOT a_grown_all | NOT b_grown_all",
+    "confirm_k": 2,
+    "new_relation_a_fixed_order": "grims",
+    "new_relation_b_reciprocal": "florps",
+    "scope": "Tier-1 IDENTITY only. Tier-2 (class-mapping via structure-mapping/systematicity) and Tier-3 (fine-grained meaning-verification) are OUT OF SCOPE per notes/exp_dev_handoff_research_new_relation_grounding_2026-07-16.md -- not attempted.",
+    "honest_scope_note": "growth accept/reject is ARM-INVARIANT at CONFIRM_K=2 (2-exposure buffers cannot present an internal order-contradiction); the widening's measurable effect is on the post-hoc identity-signature SEPARABILITY, not the growth gate.",
+    "compute_architecture": "sequential-CPU (foundation grows fact-by-fact; gate state depends on prior admits); wall < 1s total (tiny corpus, discrete logic discriminator)",
+    "storage_strategy": "sharded (one VSA vector per accepted fact, via imported FoundationStore)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract_openvocab",
+      "run_identity_loop",
+      "_relation_args_coherent"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete structural-signature comparison (set/boolean logic over accepted facts), not phasor decode noise",
+    "prior_work_check": "substrate_query.sh top hits at cosine 0.31-0.33 concern Gentner SME structural-alignment in OTHER contexts (P9 cross-domain KGE gap; slipnet relation-TYPE routing interference) -- conceptually adjacent (same Gentner/SME lineage) but NOT the same cell/test; this cell (new-relation IDENTITY individuation via order/symmetry+co-occurrence widening in the read-grow pipeline) is genuinely novel, not a rediscovery."
+  }
+}
