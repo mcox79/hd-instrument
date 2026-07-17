@@ -1,0 +1,227 @@
+{
+  "anchor_name": "substrate_resonator_focus_lever_depth_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: a finer split beats 4+4 at F=8 (best_finer=1.000 >= floor=0.229, gap=+0.778 over 2stage_4_4=0.222) -- finer staging keeps each stage more in-band. depth ceiling reached at 3 stages for F=8 (4stage=1.000 not better than 3stage=1.000). over-splitting F=6 does not measurably cost accuracy (3stage=1.000 vs 2stage=1.000). REF(flat_F4)=0.572 flat={6:0.050,8:0.000} F8_stages={2:0.222,3:1.000,4:1.000} F6_stages={2:1.000,3:1.000} naive_prod_vs_measured={2s4:0.104/0.222,3s3:1.000/1.000,4s2:1.000/1.000,2s3f6:1.000/1.000,3s2f6:1.000/1.000}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "flat_acc": {
+        "4": 0.7,
+        "6": 0.05,
+        "8": 0.0
+      },
+      "stage_acc": {
+        "2stage_4_4": 0.21666666666666667,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "stage_marginal": {
+        "2stage_4_4": [
+          0.45,
+          0.21666666666666667
+        ],
+        "3stage_3_3_2": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "4stage_2_2_2_2": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "2stage_3_3": [
+          1.0,
+          1.0
+        ],
+        "3stage_2_2_2": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "stage_naive_product": {
+        "2stage_4_4": 0.0975,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "unit_count": 8
+    },
+    {
+      "seed": 17,
+      "flat_acc": {
+        "4": 0.5166666666666667,
+        "6": 0.06666666666666667,
+        "8": 0.0
+      },
+      "stage_acc": {
+        "2stage_4_4": 0.15,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "stage_marginal": {
+        "2stage_4_4": [
+          0.43333333333333335,
+          0.15
+        ],
+        "3stage_3_3_2": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "4stage_2_2_2_2": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "2stage_3_3": [
+          1.0,
+          1.0
+        ],
+        "3stage_2_2_2": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "stage_naive_product": {
+        "2stage_4_4": 0.065,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "unit_count": 8
+    },
+    {
+      "seed": 23,
+      "flat_acc": {
+        "4": 0.5,
+        "6": 0.03333333333333333,
+        "8": 0.0
+      },
+      "stage_acc": {
+        "2stage_4_4": 0.3,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "stage_marginal": {
+        "2stage_4_4": [
+          0.5,
+          0.3
+        ],
+        "3stage_3_3_2": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "4stage_2_2_2_2": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "2stage_3_3": [
+          1.0,
+          1.0
+        ],
+        "3stage_2_2_2": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "stage_naive_product": {
+        "2stage_4_4": 0.15,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "unit_count": 8
+    }
+  ],
+  "aggregate": {
+    "flat_acc_mean": {
+      "4": 0.5722222222222223,
+      "6": 0.049999999999999996,
+      "8": 0.0
+    },
+    "stage_acc_mean": {
+      "2stage_4_4": 0.22222222222222224,
+      "3stage_3_3_2": 1.0,
+      "4stage_2_2_2_2": 1.0,
+      "2stage_3_3": 1.0,
+      "3stage_2_2_2": 1.0
+    },
+    "stage_marginal_mean": {
+      "2stage_4_4": [
+        0.4611111111111111,
+        0.22222222222222224
+      ],
+      "3stage_3_3_2": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "4stage_2_2_2_2": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "2stage_3_3": [
+        1.0,
+        1.0
+      ],
+      "3stage_2_2_2": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "naive_product_mean": {
+      "2stage_4_4": 0.10416666666666667,
+      "3stage_3_3_2": 1.0,
+      "4stage_2_2_2_2": 1.0,
+      "2stage_3_3": 1.0,
+      "3stage_2_2_2": 1.0
+    },
+    "ref_flat_F4": 0.5722222222222223,
+    "repro_ok": true
+  },
+  "arms_differ_verified": true,
+  "arms_differ_exemption_rule": "saturated_extreme_ties_exempt_nonsaturated_ties_blocked",
+  "arm_digests": {
+    "flat_4": "ac135cbf3aeab58e66a620a87ef8451d0d5155aefd6d59cc9498f4d6a554ab66",
+    "flat_6": "c67e2795802bd30f37401546550ab7d850d6deafb6ccb2ec59df461971beaeae",
+    "flat_8": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+    "2stage_4_4": "8f503fc4a7af6741dac65d8ea15999db658790ba96a569365313812ab77aa6a9",
+    "3stage_3_3_2": "cc143326a2646c605ea66139d7b440df7cbde18c050f1f8cf4dd30f42cfe7123",
+    "4stage_2_2_2_2": "cc143326a2646c605ea66139d7b440df7cbde18c050f1f8cf4dd30f42cfe7123",
+    "2stage_3_3": "cc143326a2646c605ea66139d7b440df7cbde18c050f1f8cf4dd30f42cfe7123",
+    "3stage_2_2_2": "cc143326a2646c605ea66139d7b440df7cbde18c050f1f8cf4dd30f42cfe7123"
+  },
+  "expected_n_units_per_seed": 8,
+  "cardinality_ok": true,
+  "regime": {
+    "N": 16384,
+    "M": 8,
+    "MAX_IT": 200,
+    "trials": 60
+  },
+  "elapsed_s": 187.87358951568604,
+  "summary": "HARD_PASS: a finer split beats 4+4 at F=8 (best_finer=1.000 >= floor=0.229, gap=+0.778 over 2stage_4_4=0.222) -- finer staging keeps each stage more in-band. depth ceiling reached at 3 stages for F=8 (4stage=1.000 not better than 3stage=1.000). over-splitting F=6 does not measurably cost accuracy (3stage=1.000 vs 2stage=1.000). REF(flat_F4)=0.572 flat={6:0.050,8:0.000} F8_stages={2:0.222,3:1.000,4:1.000} F6_stages={2:1.000,3:1.000} naive_prod_vs_measured={2s4:0.104/0.222,3s3:1.000/1.000,4s2:1.000/1.000,2s3f6:1.000/1.000,3s2f6:1.000/1.000}"
+}

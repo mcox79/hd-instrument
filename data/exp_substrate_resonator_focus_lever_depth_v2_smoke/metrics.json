@@ -1,0 +1,129 @@
+{
+  "anchor_name": "substrate_resonator_focus_lever_depth_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "GATE_D_REPRO_MISMATCH: baselines did not reproduce v1's landed values within tolerance (flat6=0.100 flat8=0.000 2stage_3_3=1.000 2stage_4_4=0.000 vs v1's 0.0722/0.00556/1.000/0.1611) -- downstream finer-split arms are suspect; investigate before trusting a HARD_PASS/HARD_FAIL read. REF(flat_F4)=0.600 flat={6:0.100,8:0.000} F8_stages={2:0.000,3:1.000,4:1.000} F6_stages={2:1.000,3:1.000} naive_prod_vs_measured={2s4:0.000/0.000,3s3:1.000/1.000,4s2:1.000/1.000,2s3f6:1.000/1.000,3s2f6:1.000/1.000}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 7,
+      "flat_acc": {
+        "4": 0.6,
+        "6": 0.1,
+        "8": 0.0
+      },
+      "stage_acc": {
+        "2stage_4_4": 0.0,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "stage_marginal": {
+        "2stage_4_4": [
+          0.3,
+          0.0
+        ],
+        "3stage_3_3_2": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "4stage_2_2_2_2": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "2stage_3_3": [
+          1.0,
+          1.0
+        ],
+        "3stage_2_2_2": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "stage_naive_product": {
+        "2stage_4_4": 0.0,
+        "3stage_3_3_2": 1.0,
+        "4stage_2_2_2_2": 1.0,
+        "2stage_3_3": 1.0,
+        "3stage_2_2_2": 1.0
+      },
+      "unit_count": 8
+    }
+  ],
+  "aggregate": {
+    "flat_acc_mean": {
+      "4": 0.6,
+      "6": 0.1,
+      "8": 0.0
+    },
+    "stage_acc_mean": {
+      "2stage_4_4": 0.0,
+      "3stage_3_3_2": 1.0,
+      "4stage_2_2_2_2": 1.0,
+      "2stage_3_3": 1.0,
+      "3stage_2_2_2": 1.0
+    },
+    "stage_marginal_mean": {
+      "2stage_4_4": [
+        0.3,
+        0.0
+      ],
+      "3stage_3_3_2": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "4stage_2_2_2_2": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "2stage_3_3": [
+        1.0,
+        1.0
+      ],
+      "3stage_2_2_2": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "naive_product_mean": {
+      "2stage_4_4": 0.0,
+      "3stage_3_3_2": 1.0,
+      "4stage_2_2_2_2": 1.0,
+      "2stage_3_3": 1.0,
+      "3stage_2_2_2": 1.0
+    },
+    "ref_flat_F4": 0.6,
+    "repro_ok": false
+  },
+  "arms_differ_verified": true,
+  "arms_differ_exemption_rule": "saturated_extreme_ties_exempt_nonsaturated_ties_blocked",
+  "arm_digests": {
+    "flat_4": "b1da31546cd297bcd5da4fbd8be82b3165142193d2474d11c62ff86f9279ad46",
+    "flat_6": "45d2b662d9d490ae9b932759c910b26b9a874065de620f4ac0a3a23a65e40b8c",
+    "flat_8": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+    "2stage_4_4": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+    "3stage_3_3_2": "6c3c396ed6b5c36dcae172271f462051b1266b851e92df3deea8ac65478fd712",
+    "4stage_2_2_2_2": "6c3c396ed6b5c36dcae172271f462051b1266b851e92df3deea8ac65478fd712",
+    "2stage_3_3": "6c3c396ed6b5c36dcae172271f462051b1266b851e92df3deea8ac65478fd712",
+    "3stage_2_2_2": "6c3c396ed6b5c36dcae172271f462051b1266b851e92df3deea8ac65478fd712"
+  },
+  "expected_n_units_per_seed": 8,
+  "cardinality_ok": true,
+  "regime": {
+    "N": 16384,
+    "M": 8,
+    "MAX_IT": 200,
+    "trials": 10
+  },
+  "elapsed_s": 9.662909507751465,
+  "summary": "GATE_D_REPRO_MISMATCH: baselines did not reproduce v1's landed values within tolerance (flat6=0.100 flat8=0.000 2stage_3_3=1.000 2stage_4_4=0.000 vs v1's 0.0722/0.00556/1.000/0.1611) -- downstream finer-split arms are suspect; investigate before trusting a HARD_PASS/HARD_FAIL read. REF(flat_F4)=0.600 flat={6:0.100,8:0.000} F8_stages={2:0.000,3:1.000,4:1.000} F6_stages={2:1.000,3:1.000} naive_prod_vs_measured={2s4:0.000/0.000,3s3:1.000/1.000,4s2:1.000/1.000,2s3f6:1.000/1.000,3s2f6:1.000/1.000}"
+}
