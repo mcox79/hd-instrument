@@ -1,0 +1,125 @@
+{
+  "anchor_name": "importance_retrieval_relevance_query_centrality_real_codex_v1",
+  "verdict": "HARD_FAIL_IMPORTANCE_LOW_VALUE_NO_RETRIEVAL_RELEVANCE_BEYOND_POPULARITY",
+  "run_mode": "full",
+  "scale": "full",
+  "dataset": "codex_claimvalidity",
+  "elapsed_s": 29.360419750213623,
+  "n_ent": 2034,
+  "n_train": 32888,
+  "n_test_pos": 1828,
+  "n_valid_pos": 1827,
+  "info_ceiling": {
+    "test_appearance_rate": 0.6833824975417896,
+    "deg_predicts_tqc_spearman": 0.31696550480144614,
+    "tqc_std": 3.4290495589990813,
+    "thresholds": {
+      "CEIL_APPEAR_LO": 0.05,
+      "CEIL_APPEAR_HI": 0.98,
+      "CEIL_DEG_PREDICTS_MIN": 0.1
+    },
+    "info_ceiling_pass": true
+  },
+  "partA_retrieval_prediction": {
+    "primary_metric": "partial_rank_corr(imp_btwn_orth, tqc | [log_deg, log_inc])",
+    "pc_btwn": 0.1003746369983658,
+    "incr_rank_r2_btwn": 0.008935739878766946,
+    "pc_btwn_boot_p05": 0.06903001423429883,
+    "pc_reach_diag": -0.10156222976226251,
+    "incr_rank_r2_reach_diag": 0.009148439001541497,
+    "pc_btwn_test_plus_valid": 0.07469706331592404,
+    "bands": {
+      "PC_HF": 0.05,
+      "PC_HP": 0.15
+    }
+  },
+  "partB_popularity_neutrality": {
+    "tert_btwn": 0.0354505169867061,
+    "tert_btwn_boot_p05": -0.005908419497784323,
+    "n_degree_bins_fired": 4,
+    "n_degree_bins": 4,
+    "tert_per_bin": {
+      "0": {
+        "gap": 0.33472803347280344,
+        "n_top": 239,
+        "n_bottom": 239,
+        "top_rate": 0.8493723849372385,
+        "bottom_rate": 0.5146443514644351
+      },
+      "1": {
+        "gap": -0.024793388429752095,
+        "n_top": 121,
+        "n_bottom": 121,
+        "top_rate": 0.5289256198347108,
+        "bottom_rate": 0.5537190082644629
+      },
+      "2": {
+        "gap": -0.1483870967741936,
+        "n_top": 155,
+        "n_bottom": 155,
+        "top_rate": 0.5483870967741935,
+        "bottom_rate": 0.6967741935483871
+      },
+      "3": {
+        "gap": -0.18518518518518512,
+        "n_top": 162,
+        "n_bottom": 162,
+        "top_rate": 0.7839506172839507,
+        "bottom_rate": 0.9691358024691358
+      }
+    },
+    "tert_reach_diag": -0.0014771048744460884,
+    "tert_btwn_test_plus_valid": 0.05317577548005907,
+    "control_pc_scramble": 0.011569133059944203,
+    "control_tert_scramble": 0.015755785327424915,
+    "control_pc_random": 0.010380507684928443,
+    "control_tert_random": 0.022156573116691298,
+    "control_near_zero": true,
+    "bands": {
+      "TERT_HF": 0.05,
+      "TERT_HP": 0.15,
+      "NEUTRAL_CTRL_MAX": 0.05
+    }
+  },
+  "partC_separability_node_level": {
+    "corr_imp_orth_deg": -0.9214436535250891,
+    "corr_raw_btwn_deg": 0.45581114671920037,
+    "corr_raw_btwn_inc": 0.4433919878514419,
+    "max_pop_corr_raw_btwn": 0.45581114671920037,
+    "note": "prior cell edge-level: importance_btwn_unique_variance=0.867 SEPARABLE (real signal)"
+  },
+  "config": {
+    "n_btwn_sources": 192,
+    "kreach_hops": 3,
+    "n_deg_bins": 4,
+    "n_boot": 400,
+    "scramble_seeds": [
+      7,
+      17,
+      29
+    ],
+    "random_seeds": [
+      11,
+      23,
+      37
+    ],
+    "bands": {
+      "PC_HP": 0.15,
+      "PC_HF": 0.05,
+      "TERT_HP": 0.15,
+      "TERT_HF": 0.05,
+      "NEUTRAL_CTRL_MAX": 0.05,
+      "CEIL_DEG_PREDICTS_MIN": 0.1
+    }
+  },
+  "arm_digests": {
+    "imp_btwn_orth": "57e261557a23495547669f7cb6f46ea73c5b2e2f887c2edf8782770ed486c117",
+    "scramble0": "87a051824adef0ecad771c5bcbcab0a5f2d1143422d765bc89cb28f8953cc555",
+    "random0": "656ec346772f6562d9aba93c810d78b0aaf2c9c67f411a3e14f003f7419bb1b7",
+    "imp_reach_orth": "cd088ee8ab89639cde01eb049a223b40c1542b828270a2792f836e607a18ed78"
+  },
+  "arms_differ": true,
+  "verdict_msg": "HARD_FAIL_IMPORTANCE_LOW_VALUE_NO_RETRIEVAL_RELEVANCE_BEYOND_POPULARITY | A[retrieval] pc_btwn=0.1004 (p05=+0.0690 incrR2=0.0089) pc_reach_diag=-0.1016 | B[neutral] tert_btwn=0.0355 (p05=-0.0059, 4/4 bins) scramble(pc=0.0116 tert=0.0158) random(pc=0.0104 tert=0.0222) ctrl_near0=True | C[sep] raw_btwn~deg=0.456 orth~deg=-0.921 | info_ceiling(appear=0.683 deg_predicts=0.317 pass=True)",
+  "ts_iso": "2026-07-17T02:41:23.631111+00:00",
+  "summary": "HARD_FAIL_IMPORTANCE_LOW_VALUE_NO_RETRIEVAL_RELEVANCE_BEYOND_POPULARITY"
+}
