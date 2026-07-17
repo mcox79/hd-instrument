@@ -1,0 +1,190 @@
+{
+  "anchor_name": "redundant_soft_shard_router_e2e_stage12_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_ACC: R3_M4 end-to-end genuinely refuted. | e2e_acc@f0.7: hard=0.448 soft=0.616 R3_M4=0.408 R3_M2=0.490 degenerate=0.150 | e2e_cost: hard=224.0 soft=1568.0 R3_M4=994.4 (route=866.4+M*V=128) R3_M2=930.4 (route=866.4+M*V=64) | R3_M4 verdict=HARD_FAIL_ACC {'acc_pass': False, 'acc_fail': True, 'cost_pass': True, 'cost_fail': False} | R3_M2 verdict=MIDDLE_BAND {'acc_pass': False, 'acc_fail': False, 'cost_pass': True, 'cost_fail': False} | can_fail_confirmed=True | gate_d_within_tolerance: hard=True soft=True r3=True | baseline_in_band=True",
+  "summary": "HARD_FAIL: true end-to-end fuzzy retrieval (REDUNDANT_SOFT route -> M-shortlist -> attractor completion) (full)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_units": 18,
+  "expected_n_units": 18,
+  "cardinality_ok": true,
+  "elapsed_s": 1.1694676876068115,
+  "sweep": {
+    "curve": [
+      {
+        "f": 0.0,
+        "route_acc_hard_mean": 1.0,
+        "e2e_acc_hard_mean": 1.0,
+        "route_acc_soft_mean": 1.0,
+        "e2e_acc_soft_mean": 1.0,
+        "route_acc_R3_M4_mean": 1.0,
+        "e2e_acc_R3_M4_mean": 1.0,
+        "route_acc_R3_M2_mean": 1.0,
+        "e2e_acc_R3_M2_mean": 1.0,
+        "route_acc_degenerate_mean": 0.25,
+        "e2e_acc_degenerate_mean": 0.25,
+        "route_acc_R3_shortlist_hit_mean": 1.0,
+        "measured_candidates_r3_mean": 5.25
+      },
+      {
+        "f": 0.5,
+        "route_acc_hard_mean": 0.9583333333333334,
+        "e2e_acc_hard_mean": 0.9104166666666668,
+        "route_acc_soft_mean": 1.0,
+        "e2e_acc_soft_mean": 0.9541666666666666,
+        "route_acc_R3_M4_mean": 0.9229166666666666,
+        "e2e_acc_R3_M4_mean": 0.8958333333333334,
+        "route_acc_R3_M2_mean": 0.959375,
+        "e2e_acc_R3_M2_mean": 0.9260416666666668,
+        "route_acc_degenerate_mean": 0.25,
+        "e2e_acc_degenerate_mean": 0.23854166666666665,
+        "route_acc_R3_shortlist_hit_mean": 1.0,
+        "measured_candidates_r3_mean": 5.464583333333334
+      },
+      {
+        "f": 0.6,
+        "route_acc_hard_mean": 0.8802083333333334,
+        "e2e_acc_hard_mean": 0.7541666666666668,
+        "route_acc_soft_mean": 0.9989583333333334,
+        "e2e_acc_soft_mean": 0.8583333333333334,
+        "route_acc_R3_M4_mean": 0.7937499999999998,
+        "e2e_acc_R3_M4_mean": 0.728125,
+        "route_acc_R3_M2_mean": 0.9020833333333332,
+        "e2e_acc_R3_M2_mean": 0.7989583333333333,
+        "route_acc_degenerate_mean": 0.25,
+        "e2e_acc_degenerate_mean": 0.21458333333333335,
+        "route_acc_R3_shortlist_hit_mean": 0.99375,
+        "measured_candidates_r3_mean": 5.41875
+      },
+      {
+        "f": 0.7,
+        "route_acc_hard_mean": 0.725,
+        "e2e_acc_hard_mean": 0.4479166666666667,
+        "route_acc_soft_mean": 0.9770833333333333,
+        "e2e_acc_soft_mean": 0.615625,
+        "route_acc_R3_M4_mean": 0.5625,
+        "e2e_acc_R3_M4_mean": 0.4083333333333334,
+        "route_acc_R3_M2_mean": 0.7385416666666668,
+        "e2e_acc_R3_M2_mean": 0.4895833333333333,
+        "route_acc_degenerate_mean": 0.25,
+        "e2e_acc_degenerate_mean": 0.15,
+        "route_acc_R3_shortlist_hit_mean": 0.9656250000000001,
+        "measured_candidates_r3_mean": 5.405208333333333
+      },
+      {
+        "f": 0.8,
+        "route_acc_hard_mean": 0.46770833333333334,
+        "e2e_acc_hard_mean": 0.15625,
+        "route_acc_soft_mean": 0.803125,
+        "e2e_acc_soft_mean": 0.24583333333333335,
+        "route_acc_R3_M4_mean": 0.3364583333333333,
+        "e2e_acc_R3_M4_mean": 0.1625,
+        "route_acc_R3_M2_mean": 0.4927083333333333,
+        "e2e_acc_R3_M2_mean": 0.19895833333333335,
+        "route_acc_degenerate_mean": 0.22916666666666666,
+        "e2e_acc_degenerate_mean": 0.07187500000000001,
+        "route_acc_R3_shortlist_hit_mean": 0.859375,
+        "measured_candidates_r3_mean": 5.332291666666666
+      },
+      {
+        "f": 0.9,
+        "route_acc_hard_mean": 0.20625000000000002,
+        "e2e_acc_hard_mean": 0.030208333333333337,
+        "route_acc_soft_mean": 0.40625,
+        "e2e_acc_soft_mean": 0.044791666666666674,
+        "route_acc_R3_M4_mean": 0.18020833333333333,
+        "e2e_acc_R3_M4_mean": 0.03333333333333333,
+        "route_acc_R3_M2_mean": 0.24270833333333333,
+        "e2e_acc_R3_M2_mean": 0.030208333333333334,
+        "route_acc_degenerate_mean": 0.15729166666666664,
+        "e2e_acc_degenerate_mean": 0.02291666666666667,
+        "route_acc_R3_shortlist_hit_mean": 0.6177083333333334,
+        "measured_candidates_r3_mean": 5.2562500000000005
+      }
+    ],
+    "gate_row": {
+      "f": 0.7,
+      "route_acc_hard_mean": 0.725,
+      "e2e_acc_hard_mean": 0.4479166666666667,
+      "route_acc_soft_mean": 0.9770833333333333,
+      "e2e_acc_soft_mean": 0.615625,
+      "route_acc_R3_M4_mean": 0.5625,
+      "e2e_acc_R3_M4_mean": 0.4083333333333334,
+      "route_acc_R3_M2_mean": 0.7385416666666668,
+      "e2e_acc_R3_M2_mean": 0.4895833333333333,
+      "route_acc_degenerate_mean": 0.25,
+      "e2e_acc_degenerate_mean": 0.15,
+      "route_acc_R3_shortlist_hit_mean": 0.9656250000000001,
+      "measured_candidates_r3_mean": 5.405208333333333
+    },
+    "arms_differ_digests": {
+      "hard": "98cad31c5b6fd026",
+      "soft": "c82c841a118e5549",
+      "R3_M4": "3330a23253305665",
+      "R3_M2": "d7f7613d6fd83cd8",
+      "degenerate": "2e0ff9d657ade866"
+    },
+    "config": {
+      "n_shards": 16,
+      "total_addr_dim": 96,
+      "N_WM": 256,
+      "V_val": 32,
+      "V_key": 64,
+      "m_load": 8,
+      "f_grid": [
+        0.0,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9
+      ],
+      "seeds": [
+        7,
+        13,
+        19
+      ],
+      "Q": 320,
+      "k_top": 5,
+      "moduli_r3": [
+        5,
+        7,
+        11
+      ],
+      "moduli_degenerate": [
+        4
+      ]
+    }
+  },
+  "gate_d_positive_control": {
+    "hard_route_acc_measured": 0.725,
+    "hard_route_acc_prior": 0.7104166666666667,
+    "hard_within_tolerance": true,
+    "soft_route_acc_measured": 0.9770833333333333,
+    "soft_route_acc_prior": 0.9729166666666668,
+    "soft_within_tolerance": true,
+    "r3_m4_shortlist_hit_measured": 0.9656250000000001,
+    "r3_m4_shortlist_hit_prior": 0.96875,
+    "r3_within_tolerance": true
+  },
+  "baseline_in_band": true,
+  "cost_accounting": {
+    "hard_route_cost": 192,
+    "soft_route_cost": 1536,
+    "r3_route_cost_measured": 866.4052083333333,
+    "measured_candidates_r3": 5.405208333333333,
+    "e2e_cost_hard": 224,
+    "e2e_cost_soft": 1568,
+    "e2e_cost_R3_M2": 930.4052083333333,
+    "e2e_cost_R3_M4": 994.4052083333333,
+    "V_val": 32
+  },
+  "predictions": {
+    "R3_M4_PRIMARY": "HARD_FAIL_ACC",
+    "R3_M2_companion": "MIDDLE_BAND"
+  },
+  "can_fail_confirmed": true,
+  "ts_iso": "2026-07-17T16:59:07.597250+00:00",
+  "pid": 25820,
+  "host": "FrameworkMPC"
+}
