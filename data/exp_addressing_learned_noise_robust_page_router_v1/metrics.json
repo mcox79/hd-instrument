@@ -1,0 +1,215 @@
+{
+  "anchor_name": "addressing_learned_noise_robust_page_router_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "LEARNED NOISE-ROBUST PAGE ROUTER (DG-analog expand+read -> CA3-analog bounded attractor search) at N=512 V=512 n_pages=32 k=32 sigma_test=0.3. [1 GENERALIZATION] learned clean in-sample=1.000 vs clean NOVEL=1.000 (gap=0.000; exact-dict NOVEL=0.000=0-by-construction). [2 NOISE] learned noisy in-sample=0.969 noisy NOVEL=0.969; routing top-M hit=0.970; false-rate@sigma_test=0.031; oracle-completer ceiling(exact,noisy)=1.000; multi-page-probe lever (learned - dense_M1, noisy)=+0.312. [3 SEPARATION] pairwise collision=0.031 (grows_with_V=False). [ABLATION] EXPANSION lever (learned - dense_f1, NOISY)=-0.010 (clean saturates ~0); note's literal expansion (dg_literal - sparsify_only, clean)=+0.002; EXACT - learned (clean)=+0.000; learned - FLAT=+0.929. Note's LITERAL DG (hard-topk single-page) noisy in-sample=0.270 (hit=0.268) -> single-page hard-sparsify is the fragile rendering. Nulls: flat=0.071 random=0.029 (must crater). P1..P6=111101 F1..F5=00010 disc_fired=True. a HARD_FAIL gate tripped (see F-flags); frontier stays open on that axis",
+  "summary": "HARD_FAIL: learned two-stage page router (DG read -> CA3 attractor search) (full)",
+  "run_mode": "full",
+  "elapsed_s": 43.22,
+  "n_seeds": 3,
+  "config": {
+    "N": 512,
+    "V_train": 384,
+    "V_novel": 128,
+    "n_pages": 32,
+    "k": 32,
+    "sigma_test": 0.3,
+    "sigma_grid": [
+      0.0,
+      0.15,
+      0.3,
+      0.45,
+      0.6,
+      0.9
+    ],
+    "V_grid": [
+      128,
+      256,
+      512
+    ]
+  },
+  "conds": {
+    "clean_in": {
+      "learned_router": 1.0,
+      "learned_router_hit": 1.0,
+      "dg_literal": 1.0,
+      "dg_literal_hit": 1.0,
+      "sparsify_only": 0.998263888888889,
+      "sparsify_only_hit": 1.0,
+      "dense_m1": 1.0,
+      "dense_m1_hit": 1.0,
+      "dense_f1": 1.0,
+      "dense_f1_hit": 1.0,
+      "exact": 1.0,
+      "random": 0.02864583333333333,
+      "flat": 0.07118055555555554
+    },
+    "noisy_in": {
+      "learned_router": 0.96875,
+      "learned_router_hit": 0.9696180555555557,
+      "dg_literal": 0.26996527777777773,
+      "dg_literal_hit": 0.2682291666666667,
+      "sparsify_only": 0.3116319444444444,
+      "sparsify_only_hit": 0.30902777777777773,
+      "dense_m1": 0.6571180555555555,
+      "dense_m1_hit": 0.65625,
+      "dense_f1": 0.9782986111111112,
+      "dense_f1_hit": 0.9791666666666666,
+      "exact": 1.0,
+      "random": 0.0390625,
+      "flat": 0.06423611111111112
+    },
+    "clean_novel": {
+      "learned_router": 1.0,
+      "learned_router_hit": 1.0,
+      "dg_literal": 1.0,
+      "dg_literal_hit": 1.0,
+      "sparsify_only": 0.9921875,
+      "sparsify_only_hit": 1.0,
+      "dense_m1": 1.0,
+      "dense_m1_hit": 1.0,
+      "dense_f1": 0.9973958333333334,
+      "dense_f1_hit": 1.0,
+      "exact": 0.0,
+      "random": 0.013020833333333334,
+      "flat": 0.0625
+    },
+    "noisy_novel": {
+      "learned_router": 0.96875,
+      "learned_router_hit": 0.9713541666666666,
+      "dg_literal": 0.2916666666666667,
+      "dg_literal_hit": 0.2890625,
+      "sparsify_only": 0.2630208333333333,
+      "sparsify_only_hit": 0.265625,
+      "dense_m1": 0.6744791666666666,
+      "dense_m1_hit": 0.6770833333333334,
+      "dense_f1": 0.9635416666666666,
+      "dense_f1_hit": 0.9661458333333334,
+      "exact": 0.0,
+      "random": 0.020833333333333332,
+      "flat": 0.052083333333333336
+    }
+  },
+  "generalization": {
+    "clean_in": 1.0,
+    "clean_novel": 1.0,
+    "gap": 0.0,
+    "novel_worse": 0.0,
+    "exact_novel": 0.0
+  },
+  "noise_robustness": {
+    "noisy_in": 0.96875,
+    "noisy_novel": 0.96875,
+    "routing_topM_hit": 0.9696180555555557,
+    "false_rate_at_test": 0.03125,
+    "oracle_completer_ceiling_noisy": 1.0,
+    "multi_page_probe_lever": 0.31163194444444453,
+    "dg_literal_noisy_in": 0.26996527777777773,
+    "dg_literal_hit": 0.2682291666666667,
+    "sigma_curve": [
+      {
+        "sigma": 0.0,
+        "learned_router": 1.0,
+        "learned_hit": 1.0,
+        "dg_literal": 1.0,
+        "dg_literal_hit": 1.0,
+        "exact_ceiling": 1.0,
+        "false_rate": 0.0
+      },
+      {
+        "sigma": 0.15,
+        "learned_router": 0.9965277777777778,
+        "learned_hit": 0.9965277777777778,
+        "dg_literal": 0.42361111111111116,
+        "dg_literal_hit": 0.421875,
+        "exact_ceiling": 1.0,
+        "false_rate": 0.00347222222222221
+      },
+      {
+        "sigma": 0.3,
+        "learned_router": 0.96875,
+        "learned_hit": 0.9696180555555557,
+        "dg_literal": 0.26996527777777773,
+        "dg_literal_hit": 0.2682291666666667,
+        "exact_ceiling": 1.0,
+        "false_rate": 0.03125
+      },
+      {
+        "sigma": 0.45,
+        "learned_router": 0.9131944444444445,
+        "learned_hit": 0.9131944444444445,
+        "dg_literal": 0.17100694444444445,
+        "dg_literal_hit": 0.16927083333333334,
+        "exact_ceiling": 1.0,
+        "false_rate": 0.08680555555555554
+      },
+      {
+        "sigma": 0.6,
+        "learned_router": 0.8055555555555555,
+        "learned_hit": 0.8072916666666666,
+        "dg_literal": 0.12586805555555555,
+        "dg_literal_hit": 0.12586805555555555,
+        "exact_ceiling": 1.0,
+        "false_rate": 0.19444444444444445
+      },
+      {
+        "sigma": 0.9,
+        "learned_router": 0.5746527777777777,
+        "learned_hit": 0.6145833333333334,
+        "dg_literal": 0.0546875,
+        "dg_literal_hit": 0.05381944444444445,
+        "exact_ceiling": 0.9991319444444445,
+        "false_rate": 0.42534722222222227
+      }
+    ]
+  },
+  "separation": {
+    "pairwise_collision": 0.031448752446183954,
+    "collision_grows_with_V": false,
+    "collision_vs_V": [
+      {
+        "V": 128,
+        "collision_rate": 0.030265748031496065
+      },
+      {
+        "V": 256,
+        "collision_rate": 0.031464460784313725
+      },
+      {
+        "V": 512,
+        "collision_rate": 0.03131370270711024
+      }
+    ]
+  },
+  "ablation": {
+    "expansion_delta_noisy": -0.00954861111111116,
+    "expansion_delta_clean": 0.0,
+    "literal_expansion_delta": 0.0017361111111110494,
+    "exact_minus_learned_clean": 0.0,
+    "learned_minus_flat_clean": 0.9288194444444444,
+    "probe_lever_noisy": 0.31163194444444453
+  },
+  "gates": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": false,
+    "P6": true,
+    "F1": false,
+    "F2": false,
+    "F3": false,
+    "F4": true,
+    "F5": false,
+    "discriminator_fired": true
+  },
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "generalization",
+    "noise_robustness",
+    "separation",
+    "ablation",
+    "gates"
+  ]
+}
