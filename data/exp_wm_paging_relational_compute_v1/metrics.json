@@ -1,0 +1,194 @@
+{
+  "anchor_name": "wm_paging_relational_compute_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "WM paging for COMPUTE (relational reasoning over paged facts, k=5-hop): at M_max=512 (>> safe_cap N/16=32) paged_acc=1.000 vs flat_acc=0.000 vs overcap_acc=0.013. FLAT k-hop craters at M=64 (<0.90); PAGED holds (>=0.90) up to M=512. Effective-WM extension factor (relational) = 8.0x. Page-granularity load-bearing: paged - overcap = +0.988 (>=0.30 => small-page bounded crosstalk buys the win, not merely 'having a store'). Paging extends relational compute: paged - flat = +1.000. Coordination cost: page-ins/query in [5.0,5.0] == k hops, INDEPENDENT of M (bounded=True) => cost is O(hops) not O(#facts). Discriminator fired (flat in-band below cliff -> craters): True.",
+  "summary": "HARD_PASS: FHRR paged relational reasoning decouples k-hop accuracy from active-N (full)",
+  "run_mode": "full",
+  "elapsed_s": 19.45,
+  "n_seeds": 5,
+  "config": {
+    "N": 512,
+    "safe_cap_N_over_16": 32,
+    "page_P": 16,
+    "page_over_P": 128,
+    "k_hops": 5,
+    "Q": 32,
+    "m_grid": [
+      8,
+      16,
+      32,
+      48,
+      64,
+      96,
+      128,
+      256,
+      512
+    ],
+    "k_grid": [
+      1,
+      2,
+      3,
+      5
+    ]
+  },
+  "at_m_max": {
+    "m": 512,
+    "flat_acc": 0.0,
+    "paged_acc": 1.0,
+    "overcap_acc": 0.0125
+  },
+  "m_flat_crater": 64,
+  "paged_hold_up_to_m": 512,
+  "effective_wm_extension_factor": 8.0,
+  "paged_minus_flat_at_max": 1.0,
+  "paged_minus_overcap_at_max": 0.9875,
+  "coord_page_ins_per_query_min": 5.0,
+  "coord_page_ins_per_query_max": 5.0,
+  "coord_cost_bounded": true,
+  "discriminator_fired": true,
+  "sweep": [
+    {
+      "flat_acc": 1.0,
+      "paged_acc": 1.0,
+      "overcap_acc": 1.0,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 1.0,
+      "n_pages_big": 1.0,
+      "n_query": 8.0,
+      "k_hops": 5.0,
+      "m": 8
+    },
+    {
+      "flat_acc": 1.0,
+      "paged_acc": 1.0,
+      "overcap_acc": 1.0,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 1.0,
+      "n_pages_big": 1.0,
+      "n_query": 16.0,
+      "k_hops": 5.0,
+      "m": 16
+    },
+    {
+      "flat_acc": 1.0,
+      "paged_acc": 1.0,
+      "overcap_acc": 1.0,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 2.0,
+      "n_pages_big": 1.0,
+      "n_query": 32.0,
+      "k_hops": 5.0,
+      "m": 32
+    },
+    {
+      "flat_acc": 0.95,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.95,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 3.0,
+      "n_pages_big": 1.0,
+      "n_query": 32.0,
+      "k_hops": 5.0,
+      "m": 48
+    },
+    {
+      "flat_acc": 0.81875,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.81875,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 4.0,
+      "n_pages_big": 1.0,
+      "n_query": 32.0,
+      "k_hops": 5.0,
+      "m": 64
+    },
+    {
+      "flat_acc": 0.2625,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.2625,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 6.0,
+      "n_pages_big": 1.0,
+      "n_query": 32.0,
+      "k_hops": 5.0,
+      "m": 96
+    },
+    {
+      "flat_acc": 0.06875,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.06875,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 8.0,
+      "n_pages_big": 1.0,
+      "n_query": 32.0,
+      "k_hops": 5.0,
+      "m": 128
+    },
+    {
+      "flat_acc": 0.0,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.06875,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 16.0,
+      "n_pages_big": 2.0,
+      "n_query": 32.0,
+      "k_hops": 5.0,
+      "m": 256
+    },
+    {
+      "flat_acc": 0.0,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.0125,
+      "paged_page_ins_per_query": 5.0,
+      "overcap_page_ins_per_query": 5.0,
+      "n_pages_small": 32.0,
+      "n_pages_big": 4.0,
+      "n_query": 32.0,
+      "k_hops": 5.0,
+      "m": 512
+    }
+  ],
+  "k_sweep_at_m_max": [
+    {
+      "k": 1,
+      "flat_acc": 0.05625,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.4625
+    },
+    {
+      "k": 2,
+      "flat_acc": 0.01875,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.1875
+    },
+    {
+      "k": 3,
+      "flat_acc": 0.0125,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.05625
+    },
+    {
+      "k": 5,
+      "flat_acc": 0.0,
+      "paged_acc": 1.0,
+      "overcap_acc": 0.0125
+    }
+  ],
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "at_m_max",
+    "effective_wm_extension_factor",
+    "coord_cost_bounded",
+    "sweep"
+  ]
+}
