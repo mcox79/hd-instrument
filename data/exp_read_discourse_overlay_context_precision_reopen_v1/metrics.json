@@ -1,0 +1,225 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | REAL UD-EWT: BASE_OFF P=0.060 R=0.028 | OVERLAY_ATTRIBUTE P=0.058 R=0.028 (dP=-0.002 dR=+0.000) | OVERLAY_RECENCY P=0.051 R=0.028 | n_cross_sentence_gold=0 | overlay recovered=24 (match_gold=0 mismatch=24) | weakest=['ZERO_HEADROOM: n_cross_sentence_gold==0 (UD relation gold is intra-sentential by construction; discourse context cannot recover a cross-sentence gold relation)', \"SURFACE_PRONOUN_GOLD: overlay recovered 24 pronoun-subject triples, 0 match UD gold (gold keeps the surface pronoun lemma 'it'/'he'/'she' as the argument, so an entity-resolved triple mismatches by construction -> resolution only lowers precision)\", 'overlay did NOT raise precision or recall vs UD gold -> single-relation precision on sentence-level gold does not use discourse state'] | REDIRECT: the overlay's value is (i) coref-GROUNDING of pronoun args to entities -- needs a COREF-GOLD corpus UD-EWT lacks; and (ii) discourse COHERENCE = BET-3 entity-grid (zero-annotation, design-gate-ready). Test the overlay THERE, not on single-relation precision.",
+  "summary": "HARD_FAIL | REAL UD-EWT: BASE_OFF P=0.060 R=0.028 | OVERLAY_ATTRIBUTE P=0.058 R=0.028 (dP=-0.002 dR=+0.000) | OVERLAY_RECENCY P=0.051 R=0.028 | n_cross_sentence_gold=0 | overlay recovered=24 (match_gold=0 mismatch=24) | weakest=['ZERO_HEADROOM: n_cross_sentence_gold==0 (UD relation gold is intra-sen",
+  "run_mode": "full",
+  "elapsed_s": 3.4439056999981403,
+  "anchor_name": "read_discourse_overlay_context_precision_reopen_v1",
+  "ts_iso": "2026-07-17T23:07:55.837273+00:00",
+  "seeds": [
+    7,
+    23,
+    41
+  ],
+  "n_docs_per_seed": null,
+  "window": 3,
+  "expected_n_units": 9,
+  "weakest_interface": [
+    "ZERO_HEADROOM: n_cross_sentence_gold==0 (UD relation gold is intra-sentential by construction; discourse context cannot recover a cross-sentence gold relation)",
+    "SURFACE_PRONOUN_GOLD: overlay recovered 24 pronoun-subject triples, 0 match UD gold (gold keeps the surface pronoun lemma 'it'/'he'/'she' as the argument, so an entity-resolved triple mismatches by construction -> resolution only lowers precision)",
+    "overlay did NOT raise precision or recall vs UD gold -> single-relation precision on sentence-level gold does not use discourse state"
+  ],
+  "margin": 0.03,
+  "base_precision": 0.06,
+  "base_recall": 0.027777777777777776,
+  "overlay_attribute_precision": 0.05813953488372093,
+  "overlay_attribute_recall": 0.027777777777777776,
+  "overlay_recency_precision": 0.05084745762711865,
+  "overlay_recency_recall": 0.027777777777777776,
+  "delta_precision_attr_minus_base": -0.0018604651162790684,
+  "delta_recall_attr_minus_base": 0.0,
+  "total_cross_sentence_gold": 0,
+  "total_recovered": 24,
+  "total_recovered_correct": 0,
+  "total_recovered_wrong": 24,
+  "n_gold_total": 1620,
+  "n_gold_pron_arg_total": 243,
+  "n_pron_subject_sents_total": 675,
+  "resolvability_total": {
+    "0_cand": 156,
+    "1_attr_cand": 147,
+    "2plus_attr_cand": 450
+  },
+  "behavior_total": {
+    "recency_bound": 690,
+    "recency_no_cand": 63,
+    "attribute_bound": 147,
+    "attribute_abstain_tie": 450,
+    "attribute_abstain_noagree": 93,
+    "attribute_no_cand": 63
+  },
+  "arms_differ_verified": true,
+  "arms_differ_exempted": false,
+  "per_seed": [
+    {
+      "arms": {
+        "BASE_OFF": {
+          "precision": 0.06,
+          "recall": 0.027777777777777776,
+          "n_emitted": 250,
+          "n_correct": 15,
+          "emitted_hash": "d47ccf0c1cf7ba19"
+        },
+        "OVERLAY_RECENCY": {
+          "precision": 0.05084745762711865,
+          "recall": 0.027777777777777776,
+          "n_emitted": 295,
+          "n_correct": 15,
+          "emitted_hash": "e993a49cd4aebe40"
+        },
+        "OVERLAY_ATTRIBUTE": {
+          "precision": 0.05813953488372093,
+          "recall": 0.027777777777777776,
+          "n_emitted": 258,
+          "n_correct": 15,
+          "emitted_hash": "d098854f6e49a265"
+        }
+      },
+      "n_gold": 540,
+      "n_gold_pron_arg": 81,
+      "n_cross_sentence_gold": 0,
+      "n_pron_subject_sents": 225,
+      "resolvability": {
+        "0_cand": 52,
+        "1_attr_cand": 49,
+        "2plus_attr_cand": 150
+      },
+      "behavior": {
+        "recency_bound": 230,
+        "recency_no_cand": 21,
+        "attribute_bound": 49,
+        "attribute_abstain_tie": 150,
+        "attribute_abstain_noagree": 31,
+        "attribute_no_cand": 21
+      },
+      "n_recovered_attr": 8,
+      "n_recovered_attr_correct": 0,
+      "n_recovered_attr_wrong": 8,
+      "n_docs": 316,
+      "seed": 7
+    },
+    {
+      "arms": {
+        "BASE_OFF": {
+          "precision": 0.06,
+          "recall": 0.027777777777777776,
+          "n_emitted": 250,
+          "n_correct": 15,
+          "emitted_hash": "d47ccf0c1cf7ba19"
+        },
+        "OVERLAY_RECENCY": {
+          "precision": 0.05084745762711865,
+          "recall": 0.027777777777777776,
+          "n_emitted": 295,
+          "n_correct": 15,
+          "emitted_hash": "e993a49cd4aebe40"
+        },
+        "OVERLAY_ATTRIBUTE": {
+          "precision": 0.05813953488372093,
+          "recall": 0.027777777777777776,
+          "n_emitted": 258,
+          "n_correct": 15,
+          "emitted_hash": "d098854f6e49a265"
+        }
+      },
+      "n_gold": 540,
+      "n_gold_pron_arg": 81,
+      "n_cross_sentence_gold": 0,
+      "n_pron_subject_sents": 225,
+      "resolvability": {
+        "0_cand": 52,
+        "1_attr_cand": 49,
+        "2plus_attr_cand": 150
+      },
+      "behavior": {
+        "recency_bound": 230,
+        "recency_no_cand": 21,
+        "attribute_bound": 49,
+        "attribute_abstain_tie": 150,
+        "attribute_abstain_noagree": 31,
+        "attribute_no_cand": 21
+      },
+      "n_recovered_attr": 8,
+      "n_recovered_attr_correct": 0,
+      "n_recovered_attr_wrong": 8,
+      "n_docs": 316,
+      "seed": 23
+    },
+    {
+      "arms": {
+        "BASE_OFF": {
+          "precision": 0.06,
+          "recall": 0.027777777777777776,
+          "n_emitted": 250,
+          "n_correct": 15,
+          "emitted_hash": "d47ccf0c1cf7ba19"
+        },
+        "OVERLAY_RECENCY": {
+          "precision": 0.05084745762711865,
+          "recall": 0.027777777777777776,
+          "n_emitted": 295,
+          "n_correct": 15,
+          "emitted_hash": "e993a49cd4aebe40"
+        },
+        "OVERLAY_ATTRIBUTE": {
+          "precision": 0.05813953488372093,
+          "recall": 0.027777777777777776,
+          "n_emitted": 258,
+          "n_correct": 15,
+          "emitted_hash": "d098854f6e49a265"
+        }
+      },
+      "n_gold": 540,
+      "n_gold_pron_arg": 81,
+      "n_cross_sentence_gold": 0,
+      "n_pron_subject_sents": 225,
+      "resolvability": {
+        "0_cand": 52,
+        "1_attr_cand": 49,
+        "2plus_attr_cand": 150
+      },
+      "behavior": {
+        "recency_bound": 230,
+        "recency_no_cand": 21,
+        "attribute_bound": 49,
+        "attribute_abstain_tie": 150,
+        "attribute_abstain_noagree": 31,
+        "attribute_no_cand": 21
+      },
+      "n_recovered_attr": 8,
+      "n_recovered_attr_correct": 0,
+      "n_recovered_attr_wrong": 8,
+      "n_docs": 316,
+      "seed": 41
+    }
+  ],
+  "prereg": {
+    "hard_pass": "OVERLAY_ATTRIBUTE precision >= BASE_OFF precision + 0.03 (no per-seed precision loss) OR OVERLAY_ATTRIBUTE recall >= BASE_OFF recall + 0.03 -- discourse context measurably reopens the precision/coverage door on the base parser's REAL UD gold, across seeds",
+    "hard_fail": "delta_precision<=0 AND delta_recall<=0 (no improvement) -> honest null: single-relation precision on sentence-level gold does not use discourse state; redirect to coref-gold grounding + BET-3 entity-grid discourse coherence",
+    "middle": "otherwise (mixed: one metric holds, the other within noise)",
+    "reachability": "HARD_PASS is reachable-in-principle iff the corpus affords headroom (n_cross_sentence_gold>0 OR resolution can match gold); UD-EWT surface-pronoun sentence-level gold structurally affords ~0 -- MEASURED here, not assumed",
+    "design_gate": {
+      "real_baseline": "ie_extract_open per-sentence, overlay OFF (closed WITHOUT context)",
+      "can_fail": "HARD_PASS vs HARD_FAIL both reachable; genuine null is first-class",
+      "difficulty_on": "multi-sentence real UD-EWT prose; 12pct sentences pron-subject",
+      "one_variable": "overlay context OFF vs RECENCY vs ATTRIBUTE; same extractor/corpus/gold"
+    },
+    "compute_architecture": "sequential-CPU (per-document read loop; wall<10s)",
+    "storage_strategy": "no_storage (measurement cell)",
+    "parser_class": "glass-box rule extractor (NLTK PerceptronTagger) + symbolic discourse overlay; NO LLM",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "parse_conllu",
+      "analyze_sentence",
+      "ie_extract_open",
+      "load_docs",
+      "run_docs",
+      "_resolve_then_extract",
+      "_resolve_arg"
+    ],
+    "crlb_n/a": "symbolic extraction/resolution measurement; no phasor decode noise floor",
+    "mechanism_wiring_positive_control": "exp_read_coref_hobbs_centering_resolver_v1 (RESOLVER_ON!=OFF, coverage_lift, precision preserved on toy register)"
+  }
+}
