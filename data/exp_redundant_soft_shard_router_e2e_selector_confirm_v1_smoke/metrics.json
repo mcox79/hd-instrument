@@ -1,0 +1,218 @@
+{
+  "anchor_name": "redundant_soft_shard_router_e2e_selector_confirm_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELECTOR_FIX_CONFIRMED (CLAIM, VET-CONFIRMED): R3_TOP1 (free Stage-1-rank selector) HARD_PASS -- clears 0.9xSOFT with a >=5% strict margin AND cost materially below SOFT. | e2e_acc@f0.7: hard=0.479 soft=0.583 R3_ARGMAX=0.484 R3_TOP1=0.604 R3_COMBINED=0.599 R3_CUEFID=0.500 R3_ORACLE=0.635 | e2e_cost: soft=1568.0 hard=224.0 R3_ARGMAX=994.4 R3_TOP1=898.4 R3_COMBINED=994.4 R3_CUEFID=2018.4 | verdicts: ARGMAX=MIDDLE_BAND TOP1=HARD_PASS COMBINED=HARD_PASS CUEFID=HARD_FAIL_COST | argmax_reproduces_prior_fail=False can_fail_confirmed=True | gate_d_within_tolerance: hard=True soft=True r3_hit=True r3_argmax_repro=True | baseline_in_band=True | top1_detail={'acc_pass': True, 'acc_strict_pass': True, 'acc_fail': False, 'cost_pass': True, 'cost_fail': False, 'acc_pass_threshold': 0.525, 'acc_strict_threshold': 0.5302083333333334, 'band_width_acc': 0.10416666666666674}",
+  "summary": "HARD_PASS: selector-fix confirmation for end-to-end fuzzy retrieval (R3_TOP1 free-fix vs R3_ARGMAX baseline-fail vs R3_COMBINED/R3_CUEFID companions) (smoke)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "n_units": 6,
+  "expected_n_units": 6,
+  "cardinality_ok": true,
+  "elapsed_s": 0.2536356449127197,
+  "sweep": {
+    "curve": [
+      {
+        "f": 0.0,
+        "route_acc_hard_mean": 1.0,
+        "e2e_acc_hard_mean": 1.0,
+        "route_acc_soft_mean": 1.0,
+        "e2e_acc_soft_mean": 1.0,
+        "route_acc_degenerate_mean": 0.25,
+        "e2e_acc_degenerate_mean": 0.25,
+        "route_acc_R3_ARGMAX_mean": 1.0,
+        "e2e_acc_R3_ARGMAX_mean": 1.0,
+        "route_acc_R3_TOP1_mean": 1.0,
+        "e2e_acc_R3_TOP1_mean": 1.0,
+        "route_acc_R3_COMBINED_mean": 1.0,
+        "e2e_acc_R3_COMBINED_mean": 1.0,
+        "route_acc_R3_CUEFID_mean": 1.0,
+        "e2e_acc_R3_CUEFID_mean": 1.0,
+        "route_acc_R3_ORACLE_mean": 1.0,
+        "e2e_acc_R3_ORACLE_mean": 1.0,
+        "route_acc_R3_shortlist_hit_mean": 1.0,
+        "measured_candidates_r3_mean": 5.0
+      },
+      {
+        "f": 0.7,
+        "route_acc_hard_mean": 0.703125,
+        "e2e_acc_hard_mean": 0.47916666666666663,
+        "route_acc_soft_mean": 0.9427083333333333,
+        "e2e_acc_soft_mean": 0.5833333333333334,
+        "route_acc_degenerate_mean": 0.25,
+        "e2e_acc_degenerate_mean": 0.15625,
+        "route_acc_R3_ARGMAX_mean": 0.6302083333333333,
+        "e2e_acc_R3_ARGMAX_mean": 0.484375,
+        "route_acc_R3_TOP1_mean": 0.921875,
+        "e2e_acc_R3_TOP1_mean": 0.6041666666666666,
+        "route_acc_R3_COMBINED_mean": 0.859375,
+        "e2e_acc_R3_COMBINED_mean": 0.5989583333333333,
+        "route_acc_R3_CUEFID_mean": 0.6354166666666667,
+        "e2e_acc_R3_CUEFID_mean": 0.5,
+        "route_acc_R3_ORACLE_mean": 0.9635416666666667,
+        "e2e_acc_R3_ORACLE_mean": 0.6354166666666666,
+        "route_acc_R3_shortlist_hit_mean": 0.9635416666666667,
+        "measured_candidates_r3_mean": 5.401041666666667
+      },
+      {
+        "f": 0.8,
+        "route_acc_hard_mean": 0.4114583333333333,
+        "e2e_acc_hard_mean": 0.15104166666666666,
+        "route_acc_soft_mean": 0.7447916666666666,
+        "e2e_acc_soft_mean": 0.22916666666666666,
+        "route_acc_degenerate_mean": 0.22395833333333334,
+        "e2e_acc_degenerate_mean": 0.078125,
+        "route_acc_R3_ARGMAX_mean": 0.32291666666666663,
+        "e2e_acc_R3_ARGMAX_mean": 0.11458333333333334,
+        "route_acc_R3_TOP1_mean": 0.71875,
+        "e2e_acc_R3_TOP1_mean": 0.21354166666666666,
+        "route_acc_R3_COMBINED_mean": 0.5572916666666667,
+        "e2e_acc_R3_COMBINED_mean": 0.19270833333333334,
+        "route_acc_R3_CUEFID_mean": 0.3125,
+        "e2e_acc_R3_CUEFID_mean": 0.11979166666666666,
+        "route_acc_R3_ORACLE_mean": 0.8541666666666666,
+        "e2e_acc_R3_ORACLE_mean": 0.2604166666666667,
+        "route_acc_R3_shortlist_hit_mean": 0.8541666666666666,
+        "measured_candidates_r3_mean": 5.328125
+      }
+    ],
+    "gate_row": {
+      "f": 0.7,
+      "route_acc_hard_mean": 0.703125,
+      "e2e_acc_hard_mean": 0.47916666666666663,
+      "route_acc_soft_mean": 0.9427083333333333,
+      "e2e_acc_soft_mean": 0.5833333333333334,
+      "route_acc_degenerate_mean": 0.25,
+      "e2e_acc_degenerate_mean": 0.15625,
+      "route_acc_R3_ARGMAX_mean": 0.6302083333333333,
+      "e2e_acc_R3_ARGMAX_mean": 0.484375,
+      "route_acc_R3_TOP1_mean": 0.921875,
+      "e2e_acc_R3_TOP1_mean": 0.6041666666666666,
+      "route_acc_R3_COMBINED_mean": 0.859375,
+      "e2e_acc_R3_COMBINED_mean": 0.5989583333333333,
+      "route_acc_R3_CUEFID_mean": 0.6354166666666667,
+      "e2e_acc_R3_CUEFID_mean": 0.5,
+      "route_acc_R3_ORACLE_mean": 0.9635416666666667,
+      "e2e_acc_R3_ORACLE_mean": 0.6354166666666666,
+      "route_acc_R3_shortlist_hit_mean": 0.9635416666666667,
+      "measured_candidates_r3_mean": 5.401041666666667
+    },
+    "arms_differ_digests": {
+      "hard": "427a3d58c1453e1d",
+      "soft": "3cb932add4a99d8b",
+      "degenerate": "7561dbd40607b5b0",
+      "R3_ARGMAX": "476551b8385bce03",
+      "R3_TOP1": "854855b4fb517ab3",
+      "R3_COMBINED": "c61cc2dbabe3701d",
+      "R3_CUEFID": "97f2c1d4e60a3fa6",
+      "R3_ORACLE": "aadbf1f52ea8d24a"
+    },
+    "config": {
+      "n_shards": 16,
+      "total_addr_dim": 96,
+      "N_WM": 256,
+      "V_val": 32,
+      "V_key": 64,
+      "m_load": 8,
+      "f_grid": [
+        0.0,
+        0.7,
+        0.8
+      ],
+      "seeds": [
+        7,
+        13
+      ],
+      "Q": 96,
+      "k_top": 5,
+      "moduli_r3": [
+        5,
+        7,
+        11
+      ],
+      "moduli_degenerate": [
+        4
+      ]
+    }
+  },
+  "gate_d_positive_control": {
+    "hard_route_acc_measured": 0.703125,
+    "hard_route_acc_prior": 0.7104166666666667,
+    "hard_within_tolerance": true,
+    "soft_route_acc_measured": 0.9427083333333333,
+    "soft_route_acc_prior": 0.9729166666666668,
+    "soft_within_tolerance": true,
+    "r3_shortlist_hit_measured": 0.9635416666666667,
+    "r3_shortlist_hit_prior": 0.96875,
+    "r3_within_tolerance": true,
+    "r3_argmax_e2e_measured": 0.484375,
+    "r3_argmax_e2e_prior": 0.4083333333333334,
+    "r3_argmax_within_tolerance": true
+  },
+  "baseline_in_band": true,
+  "cost_accounting": {
+    "hard_route_cost": 192,
+    "soft_route_cost": 1536,
+    "r3_route_cost_measured": 866.4010416666666,
+    "measured_candidates_r3": 5.401041666666667,
+    "e2e_cost_hard": 224,
+    "e2e_cost_soft": 1568,
+    "e2e_cost_R3_ARGMAX": 994.4010416666666,
+    "e2e_cost_R3_TOP1": 898.4010416666666,
+    "e2e_cost_R3_COMBINED": 994.4010416666666,
+    "e2e_cost_R3_CUEFID": 2018.4010416666665,
+    "V_val": 32
+  },
+  "predictions": {
+    "R3_ARGMAX_baseline_fail": "MIDDLE_BAND",
+    "R3_TOP1_PRIMARY": "HARD_PASS",
+    "R3_COMBINED_companion": "HARD_PASS",
+    "R3_CUEFID_companion": "HARD_FAIL_COST"
+  },
+  "verdict_detail": {
+    "R3_ARGMAX": {
+      "acc_pass": false,
+      "acc_strict_pass": false,
+      "acc_fail": false,
+      "cost_pass": true,
+      "cost_fail": false,
+      "acc_pass_threshold": 0.525,
+      "acc_strict_threshold": 0.5302083333333334,
+      "band_width_acc": 0.10416666666666674
+    },
+    "R3_TOP1": {
+      "acc_pass": true,
+      "acc_strict_pass": true,
+      "acc_fail": false,
+      "cost_pass": true,
+      "cost_fail": false,
+      "acc_pass_threshold": 0.525,
+      "acc_strict_threshold": 0.5302083333333334,
+      "band_width_acc": 0.10416666666666674
+    },
+    "R3_COMBINED": {
+      "acc_pass": true,
+      "acc_strict_pass": true,
+      "acc_fail": false,
+      "cost_pass": true,
+      "cost_fail": false,
+      "acc_pass_threshold": 0.525,
+      "acc_strict_threshold": 0.5302083333333334,
+      "band_width_acc": 0.10416666666666674
+    },
+    "R3_CUEFID": {
+      "acc_pass": false,
+      "acc_strict_pass": false,
+      "acc_fail": false,
+      "cost_pass": false,
+      "cost_fail": true,
+      "acc_pass_threshold": 0.525,
+      "acc_strict_threshold": 0.5302083333333334,
+      "band_width_acc": 0.10416666666666674
+    }
+  },
+  "can_fail_confirmed": true,
+  "argmax_reproduces_prior_fail": false,
+  "ts_iso": "2026-07-17T17:20:14.631198+00:00",
+  "pid": 16204,
+  "host": "FrameworkMPC"
+}
