@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: running score is order-invariant on a real grid -- bug",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_wsm_running_vs_static_coherence_v1.py\", line 826, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_wsm_running_vs_static_coherence_v1.py\", line 728, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_wsm_running_vs_static_coherence_v1.py\", line 640, in self_test\n    assert c_fwd != c_swap, \"running score is order-invariant on a real grid -- bug\"\n           ^^^^^^^^^^^^^^^\nAssertionError: running score is order-invariant on a real grid -- bug\n",
+  "ts_iso": "2026-07-17T20:28:05.187659+00:00",
+  "pid": 26544,
+  "anchor_name": "read_discourse_wsm_running_vs_static_coherence_v1"
+}
