@@ -1,0 +1,201 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "coverage_gain_pp=87.5 (HARD-PASS needs >=15.0, HARD-FAIL if <5.0) | precision_newly_covered=1.000 (HARD-PASS needs >=0.60, HARD-FAIL if <0.50) | guard_regression_ok=True oos_control_fired=True current_coverage_floor_ok=True (current_coverage_pooled=0.000) | n_newly_covered_pooled=42/48 | verb_mistagged_uncorrected=6 verb_morph_rescued=3 any_wrong_triple_emitted=False",
+  "summary": "coverage_gain_pp=87.5 (HARD-PASS needs >=15.0, HARD-FAIL if <5.0) | precision_newly_covered=1.000 (HARD-PASS needs >=0.60, HARD-FAIL if <0.50) | guard_regression_ok=True oos_control_fired=True current_coverage_floor_ok=True (current_coverage_pooled=0.000) | n_newly_covered_pooled=42/48 | verb_mistag",
+  "run_mode": "smoke",
+  "elapsed_s": 0.10590549997868948,
+  "anchor_name": "read_grow_oov_verb_extension_v1",
+  "ts_iso": "2026-07-17T04:51:39.590703+00:00",
+  "seeds": [
+    7
+  ],
+  "n_per_template": 4,
+  "n_templates": 12,
+  "expected_n_units": 48,
+  "weakest_interface": "n/a",
+  "metric_coverage_current_pooled": 0.0,
+  "metric_coverage_extended_pooled": 0.875,
+  "metric_coverage_gain_pp_pooled": 87.5,
+  "metric_precision_newly_covered_pooled": 1.0,
+  "metric_n_newly_covered_pooled": 42,
+  "metric_n_emitted_newly_pooled": 42,
+  "metric_n_correct_newly_pooled": 42,
+  "metric_guard_regression_ok": true,
+  "metric_oos_control_fired": true,
+  "metric_current_coverage_floor_ok": true,
+  "metric_n_verb_tagger_pooled": 0,
+  "metric_n_verb_morph_rescue_pooled": 3,
+  "metric_n_verb_tagger_and_morph_pooled": 39,
+  "metric_n_verb_unresolved_pooled": 0,
+  "metric_n_verb_mistagged_uncorrected_pooled": 6,
+  "metric_any_wrong_triple_emitted_pooled": false,
+  "metric_rung2_coverage_on_this_corpus_pooled": 0.0,
+  "per_seed_summary": [
+    {
+      "seed": 7,
+      "coverage_current": 0.0,
+      "coverage_extended": 0.875,
+      "coverage_gain_pp": 87.5,
+      "precision_newly_covered": 1.0,
+      "n_newly_covered": 42,
+      "n_verb_mistagged_uncorrected": 6
+    }
+  ],
+  "mixed_oov_diagnostic": [
+    {
+      "sentence": "The rabbit munches the carrot.",
+      "cls": "mixed_3sg_det_eats",
+      "gold": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "current_covered": false,
+      "extended_covered": true,
+      "extended_triples": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "extended_correct": true
+    },
+    {
+      "sentence": "The duck resides in the meadow.",
+      "cls": "mixed_3sg_det_live",
+      "gold": [
+        [
+          "duck",
+          "lives_in",
+          "meadow"
+        ]
+      ],
+      "current_covered": false,
+      "extended_covered": true,
+      "extended_triples": [
+        [
+          "duck",
+          "lives_in",
+          "meadow"
+        ]
+      ],
+      "extended_correct": true
+    },
+    {
+      "sentence": "The otter pursues the rabbit.",
+      "cls": "mixed_3sg_det_chases",
+      "gold": [
+        [
+          "otter",
+          "chases",
+          "rabbit"
+        ]
+      ],
+      "current_covered": false,
+      "extended_covered": true,
+      "extended_triples": [
+        [
+          "otter",
+          "chases",
+          "rabbit"
+        ]
+      ],
+      "extended_correct": true
+    },
+    {
+      "sentence": "Rabbits munch carrots.",
+      "cls": "mixed_bare_plural_eats",
+      "gold": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "current_covered": false,
+      "extended_covered": true,
+      "extended_triples": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "extended_correct": true
+    },
+    {
+      "sentence": "The carrot is munched by the rabbit.",
+      "cls": "mixed_passive_eats",
+      "gold": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "current_covered": false,
+      "extended_covered": true,
+      "extended_triples": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "extended_correct": true
+    },
+    {
+      "sentence": "The rabbit is munching the carrot.",
+      "cls": "mixed_gerund_prog_eats",
+      "gold": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "current_covered": false,
+      "extended_covered": true,
+      "extended_triples": [
+        [
+          "rabbit",
+          "eats",
+          "carrot"
+        ]
+      ],
+      "extended_correct": true
+    }
+  ],
+  "arms": {
+    "CURRENT": {
+      "coverage": 0.0
+    },
+    "POS_EXTENDED": {
+      "coverage": 0.875,
+      "precision_newly_covered": 1.0
+    }
+  },
+  "prereg": {
+    "hard_pass": "coverage_gain_pp_pooled>=15.0 AND precision_newly_covered_pooled>=0.60 AND guard_regression_ok AND oos_control_fired AND current_coverage_floor_ok",
+    "hard_fail": "coverage_gain_pp_pooled<5.0 OR precision_newly_covered_pooled<0.50",
+    "corpus": "12 hand-authored template classes x N_PER_TEMPLATE random verb/noun draws per seed, OOV verb base forms confirmed disjoint from closed VERB_LEX",
+    "scope_note": "nouns held CLOSED (never OOV) in the PRIMARY corpus -- isolates the OOV-VERB axis, mirroring RUNG 2's own noun-axis isolation. A SECONDARY non-gating MIXED_OOV_DIAGNOSTIC combines OOV nouns (RUNG 2 pools) with OOV verbs.",
+    "compute_architecture": "sequential-CPU; pure syntactic parsing, no VSA store; wall time trivial (MEASURED below)",
+    "storage_strategy": "no_storage (pure parser-layer test, no FoundationStore/KGStore touched)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract (imported, unmodified)",
+      "_extract_core (imported from RUNG 2, itself parity-proven against v2)",
+      "nltk.pos_tag (real classical averaged-perceptron call)",
+      "ie_extract_verb_extended (this cell)"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete syntactic role-assignment + the classical tagger's own literature-benchmarked accuracy (96-97% PTB, CITED) on this corpus's specific verb tokens (MEASURED via standalone pre-design tagger probe)",
+    "glass_box_legal": "no torch/spacy/transformers/stanza imports in this file (source-scanned at self-test); nltk averaged_perceptron_tagger_eng is classical, non-neural",
+    "prior_work_check": "substrate_query.sh top hit cosine=0.3008 ('inflectional_morphology', a WordNet lexical-concept entry, NOT a prior arc EXPERIMENT CELL) -- no prior cell at cosine>0.30; genuinely novel cell design, not a rediscovery."
+  }
+}
