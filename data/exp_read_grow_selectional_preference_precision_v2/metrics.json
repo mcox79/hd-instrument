@@ -1,0 +1,880 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | BASE_main p=0.4161 | ARM_RANDOM_NULL p=0.4382 | ARM_SURFACE p=0.4041 | ARM_SELECTIONAL p=0.4097 | margin_required=0.0606 | delta_vs_base=-0.0064 delta_vs_surface=+0.0056 delta_vs_random_null=-0.0285 | z_class_vs_random=None | n_neartie_events=1224 n_flips(class/random/surface)=40/1198/30 | gate_fires=True arms_differ_verified=True repro_ok=True | weakest=selectional_does_not_beat_base+selectional_vs_surface_below_margin+selectional_vs_random_null_below_margin+decomposition_z_undefined",
+  "summary": "HARD_FAIL | BASE_main p=0.4161 | ARM_RANDOM_NULL p=0.4382 | ARM_SURFACE p=0.4041 | ARM_SELECTIONAL p=0.4097 | margin_required=0.0606 | delta_vs_base=-0.0064 delta_vs_surface=+0.0056 delta_vs_random_null=-0.0285 | z_class_vs_random=None | n_neartie_events=1224 n_flips(class/random/surface)=40/1198/30",
+  "run_mode": "full",
+  "elapsed_s": 218.49808459999986,
+  "anchor_name": "read_grow_selectional_preference_precision_v2",
+  "ts_iso": "2026-07-17T16:46:26.670008+00:00",
+  "eval_n": 500,
+  "calib_n": 40,
+  "expected_n_units": 500,
+  "weakest_interface": "selectional_does_not_beat_base+selectional_vs_surface_below_margin+selectional_vs_random_null_below_margin+decomposition_z_undefined",
+  "glass_box_legal": true,
+  "argument_class_source": "nltk.wsd.lesk (classical overlap WSD, sentence-context-based), WordNet lexnames (27 supersense buckets incl. UNK_CLASS fallback), local pre-fetched resource, no network access, no LLM -- FIXES v1's first-synset heuristic.",
+  "scoring_formula": "PPMI (add-1 Laplace smoothed, clipped at 0.0), IDENTICAL formula for BOTH the class table and the surface table (criterion 3 apples-to-apples) -- FIXES v1's confound (exact-match surface vs PPMI class).",
+  "integration_choice": "SOFT rerank at near-tie ROLE-ASSIGNMENT decision points inside the trained parser's own arc-eager decoding (SoftGatedTransitionParser.parse override) -- FIXES v1's hard post-hoc drop-or-keep gate on finished triples.",
+  "tau": 2.5407601433892673,
+  "lam": 1.2703800716946336,
+  "n_margin_samples": 106,
+  "margin_required": 0.060571360358668364,
+  "corpus": {
+    "train_path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-train.conllu",
+    "test_path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0 (UD_English-EWT)",
+    "qualifying_pool_size_test": 846
+  },
+  "train_wall_s": 127.53568200000154,
+  "table_wall_s": 2.898323600002186,
+  "calib_wall_s": 0.8211812999979884,
+  "eval_wall_s": 41.482231500001944,
+  "n_features": 56553,
+  "table_meta": {
+    "n_joint": 30984,
+    "n_sents_scanned": 12544,
+    "n_sents_contributing": 8936,
+    "n_distinct_verb_role_ctx": 3579,
+    "n_distinct_classes": 27,
+    "n_distinct_surface_keys": 4492
+  },
+  "eval_construction_distribution": {
+    "single_clause_svo": 142,
+    "vp_coordination": 28,
+    "compound_subject": 6,
+    "relative_clause": 1,
+    "passive": 21,
+    "other_unhandled": 302
+  },
+  "arms": {
+    "BASE_main": {
+      "n_total": 500,
+      "n_attempted": 142,
+      "n_emitted": 149,
+      "n_gold": 184,
+      "n_correct": 62,
+      "precision_on_attempted": 0.4161073825503356,
+      "recall": 0.33695652173913043,
+      "coverage_sentence_rate": 0.284,
+      "per_class": {
+        "passive": {
+          "n": 21,
+          "n_gold": 2,
+          "n_attempted": 5,
+          "n_emitted": 5,
+          "n_correct": 0
+        },
+        "single_clause_svo": {
+          "n": 142,
+          "n_gold": 150,
+          "n_attempted": 109,
+          "n_emitted": 112,
+          "n_correct": 57
+        },
+        "other_unhandled": {
+          "n": 302,
+          "n_gold": 0,
+          "n_attempted": 12,
+          "n_emitted": 12,
+          "n_correct": 0
+        },
+        "vp_coordination": {
+          "n": 28,
+          "n_gold": 28,
+          "n_attempted": 15,
+          "n_emitted": 19,
+          "n_correct": 5
+        },
+        "compound_subject": {
+          "n": 6,
+          "n_gold": 4,
+          "n_attempted": 1,
+          "n_emitted": 1,
+          "n_correct": 0
+        },
+        "relative_clause": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "ARM_RANDOM_NULL": {
+      "n_total": 500,
+      "n_attempted": 86,
+      "n_emitted": 89,
+      "n_gold": 184,
+      "n_correct": 39,
+      "precision_on_attempted": 0.43820224719101125,
+      "recall": 0.21195652173913043,
+      "coverage_sentence_rate": 0.172,
+      "per_class": {
+        "passive": {
+          "n": 21,
+          "n_gold": 2,
+          "n_attempted": 3,
+          "n_emitted": 3,
+          "n_correct": 0
+        },
+        "single_clause_svo": {
+          "n": 142,
+          "n_gold": 150,
+          "n_attempted": 66,
+          "n_emitted": 68,
+          "n_correct": 35
+        },
+        "other_unhandled": {
+          "n": 302,
+          "n_gold": 0,
+          "n_attempted": 7,
+          "n_emitted": 7,
+          "n_correct": 0
+        },
+        "vp_coordination": {
+          "n": 28,
+          "n_gold": 28,
+          "n_attempted": 9,
+          "n_emitted": 10,
+          "n_correct": 4
+        },
+        "compound_subject": {
+          "n": 6,
+          "n_gold": 4,
+          "n_attempted": 1,
+          "n_emitted": 1,
+          "n_correct": 0
+        },
+        "relative_clause": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "ARM_SURFACE": {
+      "n_total": 500,
+      "n_attempted": 139,
+      "n_emitted": 146,
+      "n_gold": 184,
+      "n_correct": 59,
+      "precision_on_attempted": 0.4041095890410959,
+      "recall": 0.32065217391304346,
+      "coverage_sentence_rate": 0.278,
+      "per_class": {
+        "passive": {
+          "n": 21,
+          "n_gold": 2,
+          "n_attempted": 5,
+          "n_emitted": 5,
+          "n_correct": 0
+        },
+        "single_clause_svo": {
+          "n": 142,
+          "n_gold": 150,
+          "n_attempted": 105,
+          "n_emitted": 108,
+          "n_correct": 54
+        },
+        "other_unhandled": {
+          "n": 302,
+          "n_gold": 0,
+          "n_attempted": 12,
+          "n_emitted": 12,
+          "n_correct": 0
+        },
+        "vp_coordination": {
+          "n": 28,
+          "n_gold": 28,
+          "n_attempted": 16,
+          "n_emitted": 20,
+          "n_correct": 5
+        },
+        "compound_subject": {
+          "n": 6,
+          "n_gold": 4,
+          "n_attempted": 1,
+          "n_emitted": 1,
+          "n_correct": 0
+        },
+        "relative_clause": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "ARM_SELECTIONAL": {
+      "n_total": 500,
+      "n_attempted": 138,
+      "n_emitted": 144,
+      "n_gold": 184,
+      "n_correct": 59,
+      "precision_on_attempted": 0.4097222222222222,
+      "recall": 0.32065217391304346,
+      "coverage_sentence_rate": 0.276,
+      "per_class": {
+        "passive": {
+          "n": 21,
+          "n_gold": 2,
+          "n_attempted": 5,
+          "n_emitted": 5,
+          "n_correct": 0
+        },
+        "single_clause_svo": {
+          "n": 142,
+          "n_gold": 150,
+          "n_attempted": 105,
+          "n_emitted": 107,
+          "n_correct": 54
+        },
+        "other_unhandled": {
+          "n": 302,
+          "n_gold": 0,
+          "n_attempted": 11,
+          "n_emitted": 11,
+          "n_correct": 0
+        },
+        "vp_coordination": {
+          "n": 28,
+          "n_gold": 28,
+          "n_attempted": 16,
+          "n_emitted": 20,
+          "n_correct": 5
+        },
+        "compound_subject": {
+          "n": 6,
+          "n_gold": 4,
+          "n_attempted": 1,
+          "n_emitted": 1,
+          "n_correct": 0
+        },
+        "relative_clause": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    }
+  },
+  "arms_differ_verified": true,
+  "digests": {
+    "base": "9246b5a1428188621a8b3de959db3c7da753f87b060f0097ca7729280188c5fd",
+    "random": "42d5771c9fede995888949494570f3ebf78e5f4b38667414b2ad7bfe6c21150c",
+    "surface": "b43ceb7c22734ed86ae016024721995b93742d74a072abb4125a600316fc5952",
+    "class": "a7456f8cf998a0f6967581822283efdc92592d3edac473722ab17885689ebe89"
+  },
+  "n_unique_triples": {
+    "base": 148,
+    "random": 85,
+    "surface": 145,
+    "class": 143
+  },
+  "n_neartie_events": 1224,
+  "flip_decomposition": {
+    "random": {
+      "n_flips": 1198,
+      "n_flip_correct": 0,
+      "rate": 0.0
+    },
+    "surface": {
+      "n_flips": 30,
+      "n_flip_correct": 0,
+      "rate": 0.0
+    },
+    "class": {
+      "n_flips": 40,
+      "n_flip_correct": 0,
+      "rate": 0.0
+    }
+  },
+  "z_class_vs_random": null,
+  "z_surface_vs_random": null,
+  "positive_control": {
+    "precision_on_attempted": 0.3472222222222222,
+    "coverage_sentence_rate": 0.30952380952380953,
+    "target_precision": 0.3472,
+    "target_coverage": 0.3095,
+    "repro_ok": true
+  },
+  "guard_checks_ok": true,
+  "oos_control_fired": true,
+  "sample_rows_base": [
+    {
+      "text": "Attached below is Davis Thames' presentation regarding the proposed Project Bruin.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "I am sending you a version with comments.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "send",
+          "version"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "send",
+          "version"
+        ]
+      ]
+    },
+    {
+      "text": "Unfortunately, I will be in Plano that weekend.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "I'll try to get back to you pronto.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Please return an executed copy of confirm to me.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "they are the best orthodontics in the world.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "This is the very best in the Gables.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "you must be thinking of someone else.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "think_of",
+          "someone"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "think_of",
+          "someone"
+        ]
+      ]
+    },
+    {
+      "text": "The best darlington has to offer in contemporary sandwicheering.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "i was too tired to give you any action.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Team, sorry for the delay on getting this around.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Hit or miss on the service.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "But there is no proof .",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "They treat there employees with respect and concern and expect that they will extend the same politeness to there customers.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "they",
+          "treat",
+          "employee"
+        ]
+      ],
+      "emitted": [
+        [
+          "they",
+          "treat",
+          "employe"
+        ]
+      ]
+    },
+    {
+      "text": "I have never been there.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "He mentions his wife's death having an effect on him.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Let me know if that doesn't seem possible.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Quality has fallen over the years, but still the best go-to burger place on the East Bay.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "quality",
+          "fall_over",
+          "year"
+        ]
+      ],
+      "emitted": [
+        [
+          "quality",
+          "fallen_over",
+          "year"
+        ]
+      ]
+    },
+    {
+      "text": "Nacho Libre is suppose to be inspired in Mexicans, not in Argentineans.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Wei Ligang, a rising star of modern art in China, just had an exhibition in mid-July, 2005 in Hong Kong.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "wei",
+          "have",
+          "exhibition"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "i tried to say i wasn't that drunk but z wasn't having any of that conversation.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "z",
+          "have",
+          "any"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "I'll pay up to 200-250 for it if I have to.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pay",
+          "200"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "pay_to",
+          "200"
+        ]
+      ]
+    },
+    {
+      "text": "If you enjoy amazing things, you must go to World's Finest Donair.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "go_to",
+          "donair"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "great, we look forward to seeing you.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Thought that you might be interested.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "we can go somewhere nice.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "If you check RecWarehouse.com, they don't list this as a location.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "list",
+          "this"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "Not worth the money.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Very fast and efficient service.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Finally a convenient place close to home.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    }
+  ],
+  "sample_rows_class": [
+    {
+      "text": "Attached below is Davis Thames' presentation regarding the proposed Project Bruin.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "I am sending you a version with comments.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "send",
+          "version"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "send",
+          "version"
+        ]
+      ]
+    },
+    {
+      "text": "Unfortunately, I will be in Plano that weekend.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "I'll try to get back to you pronto.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Please return an executed copy of confirm to me.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "they are the best orthodontics in the world.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "This is the very best in the Gables.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "you must be thinking of someone else.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "think_of",
+          "someone"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "think_of",
+          "someone"
+        ]
+      ]
+    },
+    {
+      "text": "The best darlington has to offer in contemporary sandwicheering.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "i was too tired to give you any action.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Team, sorry for the delay on getting this around.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Hit or miss on the service.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "But there is no proof .",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "They treat there employees with respect and concern and expect that they will extend the same politeness to there customers.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "they",
+          "treat",
+          "employee"
+        ]
+      ],
+      "emitted": [
+        [
+          "they",
+          "treat",
+          "employe"
+        ]
+      ]
+    },
+    {
+      "text": "I have never been there.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "He mentions his wife's death having an effect on him.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Let me know if that doesn't seem possible.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Quality has fallen over the years, but still the best go-to burger place on the East Bay.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "quality",
+          "fall_over",
+          "year"
+        ]
+      ],
+      "emitted": [
+        [
+          "quality",
+          "fallen_over",
+          "year"
+        ]
+      ]
+    },
+    {
+      "text": "Nacho Libre is suppose to be inspired in Mexicans, not in Argentineans.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Wei Ligang, a rising star of modern art in China, just had an exhibition in mid-July, 2005 in Hong Kong.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "wei",
+          "have",
+          "exhibition"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "i tried to say i wasn't that drunk but z wasn't having any of that conversation.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "z",
+          "have",
+          "any"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "I'll pay up to 200-250 for it if I have to.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pay",
+          "200"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "pay_to",
+          "200"
+        ]
+      ]
+    },
+    {
+      "text": "If you enjoy amazing things, you must go to World's Finest Donair.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "go_to",
+          "donair"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "great, we look forward to seeing you.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Thought that you might be interested.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "we can go somewhere nice.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "If you check RecWarehouse.com, they don't list this as a location.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "list",
+          "this"
+        ]
+      ],
+      "emitted": []
+    },
+    {
+      "text": "Not worth the money.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Very fast and efficient service.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    },
+    {
+      "text": "Finally a convenient place close to home.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": []
+    }
+  ],
+  "prereg": {
+    "hard_pass": "(sel_p-base_p)>=margin AND (sel_p-surf_p)>=margin AND (sel_p-random_p)>=margin AND z_class_vs_random>=1.645 AND gate_fires AND arms_differ_verified AND repro_ok",
+    "hard_fail": "sel_p<=base_p OR (sel_p-surf_p)<0.02 OR (sel_p-random_p)<0.02 OR z<0 OR NOT gate_fires OR NOT arms_differ_verified OR NOT repro_ok",
+    "margin_required_formula": "max(0.05, 1.5*sqrt(base_p*(1-base_p)/n_emitted_base)) -- noise-floor derived, declared before viewing FULL outcome",
+    "gate_fires_formula": "n_neartie_events>=100 AND n_flips_class>=30 AND n_flips_random>=30",
+    "hp_scope": "ARM_RANDOM_NULL/ARM_SURFACE/ARM_SELECTIONAL are the gated discriminators; BASE_main is the comparison floor + Gate-D positive-control target (not independently gated).",
+    "decomposition": "two-proportion z-test on per-FLIP-event gold-participant-pair-agreement rate, ARM_SELECTIONAL vs ARM_RANDOM_NULL (the must-fail null); SAME test computed vs ARM_SURFACE informationally.",
+    "power_reasoning": "two-proportion sample-size formula n=(z_a/2+z_b)^2*(p1(1-p1)+p2(1-p2))/(p1-p2)^2 ~=166 events/arm needed for 80% power at a 15pt gap around p~0.35-0.50, alpha=0.05 one-sided; calibration probe (this cycle, 3000-sent model, 40 test sentences) MEASURED ~2.07 near-tie events/sentence -> ~1000 projected at EVAL_N=500, ample headroom provided the flip rate clears a low bar (see n_neartie_events/n_flips in this file's own metrics for the ACTUAL count).",
+    "integration_choice_detail": "near-tie rerank scoped ONLY to role-assignment sub-decisions (scorable_idx[0]==0 required -- the model's un-perturbed top choice must already be a role-assigning arc); never overrides the SHIFT/REDUCE/attach-timing decision.",
+    "argument_class_taxonomy": "nltk.wsd.lesk WSD -> WordNet lexname (27 supersense buckets, UNK_CLASS fallback).",
+    "fairness_control": "ARM_SURFACE and ARM_SELECTIONAL share the IDENTICAL PPMI-with-floor scoring function, IDENTICAL MIN_CTX_EVIDENCE=2, IDENTICAL PLAUS_CLIP/LAMBDA/TAU; ONLY the conditioning key (class vs raw noun lemma) differs.",
+    "random_null_control": "ARM_RANDOM_NULL: identical near-tie detection + identical competing-set size, uniform-random choice among competitors (fixed seed 12345) instead of plausibility -- the must-fail baseline for the decomposition.",
+    "compute_architecture": "sequential-CPU (justified: transition-based parsing has a genuine per-token sequential stack/buffer dependency chain; table-build is a single linear pass + per-instance Lesk call, not a matmul candidate)",
+    "storage_strategy": "no_storage (pure parser+lexical-table layer, no FoundationStore/KGStore)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "cardinality_ok": "true (no sweep axis; 4 fixed arms evaluated once per run_mode; EXPECTED_N_UNITS = eval_n)",
+    "real_code_path_exercised": [
+      "FixedTransitionParser.train (REAL TRAIN corpus subset)",
+      "build_role_tables (REAL TRAIN corpus, REAL nltk.wsd.lesk calls)",
+      "calibrate_tau (REAL decode margins on REAL TEST slice)",
+      "SoftGatedTransitionParser.parse (all 3 gated variants)",
+      "analyze_sentence / score_rows (REAL TEST corpus tokens)"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete triple-level precision/recall + a two-proportion z-test over discrete flip/gold-agreement counts.",
+    "glass_box_legal": "static source-scan (this file, no torch/spacy/transformers/stanza) AND runtime sys.modules transitive-closure check, both asserted at self-test AND full run time.",
+    "positive_control_arms": {
+      "arm": "BASE_main (Gate-D check via 74f8de97a's own TEXT-based harness, reused unmodified)",
+      "primitive": "FixedTransitionParser (74f8de97a)",
+      "cited_prior_atom": "74f8de97a",
+      "cited_prior_metric_precision_full_pooled": 0.3472,
+      "cited_prior_metric_coverage_full_pooled": 0.3095,
+      "cited_prior_metric_precision_smoke_seed7": 0.28,
+      "cited_prior_metric_coverage_smoke_seed7": 0.3286,
+      "tolerance": 0.02,
+      "if_outside_tolerance": "HARD_FAIL_REGIME_OR_INVOCATION_MISMATCH"
+    },
+    "prior_work_check": "bash tools/substrate_query.sh run before authoring this cycle (see completion report); top hits at cosine<=0.3398 were generic/unrelated substrate-architecture and FrameNet entries, not prior selectional-preference arc cells -- confirms this is a genuine revival/redesign of v1 (bc1246773), not a rediscovery."
+  }
+}
