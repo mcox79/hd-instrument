@@ -1,0 +1,862 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | POPULATION: separated_full=0.73 separated_ablation=0.00 (15 pairs, 6 relations) | ORDER_PAIR(grims,florps) sep_full=True | COOCCUR_PAIR(krendles,shleps) sep_full=True | DEFEAT_PAIR(vorbs,dringles) collides_full=True (REQUIRED honest failure) | ablation_control_fired=True | growth_ok=True regressions_ok=True interleave_robust=True (genuine_variance=True) | growth_gate_arm_invariant_at_k3=False (EXPLORATORY, not gated; diff=['florps', 'zant']; FULL_STRUCTURAL_GATE correctly blocks the deliberately-contradictory zant but ALSO incorrectly blocks the legitimate reciprocal florps -- order-consistency cannot distinguish genuine-reciprocal from noise as a hard growth gate) | weakest=['none (population separates as designed; required defeat case genuinely collides; ablation collides population-wide; growth intact; robust to genuine interleave-order variance)']",
+  "summary": "HARD_PASS | POPULATION: separated_full=0.73 separated_ablation=0.00 (15 pairs, 6 relations) | ORDER_PAIR(grims,florps) sep_full=True | COOCCUR_PAIR(krendles,shleps) sep_full=True | DEFEAT_PAIR(vorbs,dringles) collides_full=True (REQUIRED honest failure) | ablation_control_fired=True | growth_ok=True",
+  "run_mode": "smoke",
+  "elapsed_s": 0.8495881000126246,
+  "anchor_name": "read_grow_relation_identity_v2",
+  "ts_iso": "2026-07-17T04:19:14.701008+00:00",
+  "seeds": [
+    11,
+    23
+  ],
+  "confirm_k": 3,
+  "n_bootstrap_sentences": 13,
+  "identity_population": [
+    "grims",
+    "florps",
+    "krendles",
+    "shleps",
+    "vorbs",
+    "dringles"
+  ],
+  "expected_n_units": 4,
+  "weakest_interface": [
+    "none (population separates as designed; required defeat case genuinely collides; ablation collides population-wide; growth intact; robust to genuine interleave-order variance)"
+  ],
+  "metric_a_population_separated_frac_full": 0.7333333333333333,
+  "metric_a_population_separated_frac_ablation": 0.0,
+  "metric_a_n_population_pairs": 15,
+  "metric_b_order_pair": {
+    "names": [
+      "grims",
+      "florps"
+    ],
+    "separated_full": true,
+    "separated_ablation": false
+  },
+  "metric_b_cooccur_pair": {
+    "names": [
+      "krendles",
+      "shleps"
+    ],
+    "separated_full": true,
+    "separated_ablation": false
+  },
+  "metric_b_defeat_pair": {
+    "names": [
+      "vorbs",
+      "dringles"
+    ],
+    "separated_full": false,
+    "separated_ablation": false,
+    "note": "separated_full MUST be False -- this is the required honest failure"
+  },
+  "metric_c_all_grown_all": true,
+  "metric_c_all_facts_in_store_all": true,
+  "metric_c_relation_query_acc_mean": 1.0,
+  "metric_d_violation_rejected_all": true,
+  "metric_d_trelps_k3_not_confirmed_all": true,
+  "metric_e_growth_gate_arm_invariant_at_k3": false,
+  "metric_e_growth_gate_diff": [
+    "florps",
+    "zant"
+  ],
+  "metric_f_interleave_robust_across_seeds": true,
+  "metric_f_interleave_orders_genuinely_differ": true,
+  "ablation_control_fired": true,
+  "arms": {
+    "FULL_vs_ABLATION_population": {
+      "sig_full_seed0": {
+        "grims": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "florps": [
+          true,
+          false,
+          []
+        ],
+        "krendles": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "shleps": [
+          true,
+          true,
+          []
+        ],
+        "vorbs": [
+          true,
+          true,
+          []
+        ],
+        "dringles": [
+          true,
+          true,
+          []
+        ],
+        "zant": [
+          true,
+          false,
+          []
+        ]
+      },
+      "sig_ablation_seed0": {
+        "grims": [
+          true
+        ],
+        "florps": [
+          true
+        ],
+        "krendles": [
+          true
+        ],
+        "shleps": [
+          true
+        ],
+        "vorbs": [
+          true
+        ],
+        "dringles": [
+          true
+        ],
+        "zant": [
+          true
+        ]
+      }
+    },
+    "ARGTYPE_GATE_vs_FULL_STRUCTURAL_GATE": {
+      "grown_argtype_gate": [
+        "dringles",
+        "florps",
+        "grims",
+        "krendles",
+        "shleps",
+        "vorbs",
+        "zant"
+      ],
+      "grown_full_structural_gate": [
+        "dringles",
+        "grims",
+        "krendles",
+        "shleps",
+        "vorbs"
+      ],
+      "diff": [
+        "florps",
+        "zant"
+      ]
+    }
+  },
+  "argtype_gate_per_seed": [
+    {
+      "seed": 11,
+      "gate_mode": "argtype_gate",
+      "grown": [
+        "dringles",
+        "florps",
+        "grims",
+        "krendles",
+        "shleps",
+        "vorbs",
+        "zant"
+      ],
+      "sig_full": {
+        "grims": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "florps": [
+          true,
+          false,
+          []
+        ],
+        "krendles": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "shleps": [
+          true,
+          true,
+          []
+        ],
+        "vorbs": [
+          true,
+          true,
+          []
+        ],
+        "dringles": [
+          true,
+          true,
+          []
+        ],
+        "zant": [
+          true,
+          false,
+          []
+        ]
+      },
+      "sig_ablation": {
+        "grims": [
+          true
+        ],
+        "florps": [
+          true
+        ],
+        "krendles": [
+          true
+        ],
+        "shleps": [
+          true
+        ],
+        "vorbs": [
+          true
+        ],
+        "dringles": [
+          true
+        ],
+        "zant": [
+          true
+        ]
+      },
+      "population_separated_frac_full": 0.7333333333333333,
+      "population_separated_frac_ablation": 0.0,
+      "pop_pairs": [
+        [
+          "grims",
+          "florps"
+        ],
+        [
+          "grims",
+          "krendles"
+        ],
+        [
+          "grims",
+          "shleps"
+        ],
+        [
+          "grims",
+          "vorbs"
+        ],
+        [
+          "grims",
+          "dringles"
+        ],
+        [
+          "florps",
+          "krendles"
+        ],
+        [
+          "florps",
+          "shleps"
+        ],
+        [
+          "florps",
+          "vorbs"
+        ],
+        [
+          "florps",
+          "dringles"
+        ],
+        [
+          "krendles",
+          "shleps"
+        ],
+        [
+          "krendles",
+          "vorbs"
+        ],
+        [
+          "krendles",
+          "dringles"
+        ],
+        [
+          "shleps",
+          "vorbs"
+        ],
+        [
+          "shleps",
+          "dringles"
+        ],
+        [
+          "vorbs",
+          "dringles"
+        ]
+      ],
+      "order_pair_separated_full": true,
+      "order_pair_separated_ablation": false,
+      "cooccur_pair_separated_full": true,
+      "cooccur_pair_separated_ablation": false,
+      "defeat_pair_separated_full": false,
+      "defeat_pair_separated_ablation": false,
+      "all_grown": true,
+      "all_facts_in_store": true,
+      "violation_rejected": true,
+      "trelps_not_confirmed": true,
+      "relation_query_acc": 1.0,
+      "accepted_hash": "44f451dc7b5842e508b9af902e8e661b252a393fc7b52cd3865f599effef28ea",
+      "corpus_order_head": [
+        "new_relation:krendles",
+        "new_relation:grims",
+        "new_relation:shleps",
+        "new_relation:dringles",
+        "new_relation:shleps",
+        "new_relation:krendles",
+        "relation_distractor_k_threshold",
+        "new_relation:zant",
+        "new_relation:grims",
+        "new_relation:krendles"
+      ]
+    },
+    {
+      "seed": 23,
+      "gate_mode": "argtype_gate",
+      "grown": [
+        "dringles",
+        "florps",
+        "grims",
+        "krendles",
+        "shleps",
+        "vorbs",
+        "zant"
+      ],
+      "sig_full": {
+        "grims": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "florps": [
+          true,
+          false,
+          []
+        ],
+        "krendles": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "shleps": [
+          true,
+          true,
+          []
+        ],
+        "vorbs": [
+          true,
+          true,
+          []
+        ],
+        "dringles": [
+          true,
+          true,
+          []
+        ],
+        "zant": [
+          true,
+          false,
+          []
+        ]
+      },
+      "sig_ablation": {
+        "grims": [
+          true
+        ],
+        "florps": [
+          true
+        ],
+        "krendles": [
+          true
+        ],
+        "shleps": [
+          true
+        ],
+        "vorbs": [
+          true
+        ],
+        "dringles": [
+          true
+        ],
+        "zant": [
+          true
+        ]
+      },
+      "population_separated_frac_full": 0.7333333333333333,
+      "population_separated_frac_ablation": 0.0,
+      "pop_pairs": [
+        [
+          "grims",
+          "florps"
+        ],
+        [
+          "grims",
+          "krendles"
+        ],
+        [
+          "grims",
+          "shleps"
+        ],
+        [
+          "grims",
+          "vorbs"
+        ],
+        [
+          "grims",
+          "dringles"
+        ],
+        [
+          "florps",
+          "krendles"
+        ],
+        [
+          "florps",
+          "shleps"
+        ],
+        [
+          "florps",
+          "vorbs"
+        ],
+        [
+          "florps",
+          "dringles"
+        ],
+        [
+          "krendles",
+          "shleps"
+        ],
+        [
+          "krendles",
+          "vorbs"
+        ],
+        [
+          "krendles",
+          "dringles"
+        ],
+        [
+          "shleps",
+          "vorbs"
+        ],
+        [
+          "shleps",
+          "dringles"
+        ],
+        [
+          "vorbs",
+          "dringles"
+        ]
+      ],
+      "order_pair_separated_full": true,
+      "order_pair_separated_ablation": false,
+      "cooccur_pair_separated_full": true,
+      "cooccur_pair_separated_ablation": false,
+      "defeat_pair_separated_full": false,
+      "defeat_pair_separated_ablation": false,
+      "all_grown": true,
+      "all_facts_in_store": true,
+      "violation_rejected": true,
+      "trelps_not_confirmed": true,
+      "relation_query_acc": 1.0,
+      "accepted_hash": "44f451dc7b5842e508b9af902e8e661b252a393fc7b52cd3865f599effef28ea",
+      "corpus_order_head": [
+        "new_relation:vorbs",
+        "new_relation:zant",
+        "new_relation:grims",
+        "new_relation:florps",
+        "new_relation:dringles",
+        "new_relation:dringles",
+        "new_relation:krendles",
+        "new_relation:florps",
+        "relation_distractor_k_threshold",
+        "new_relation:grims"
+      ]
+    }
+  ],
+  "full_structural_gate_per_seed": [
+    {
+      "seed": 11,
+      "gate_mode": "full_structural_gate",
+      "grown": [
+        "dringles",
+        "grims",
+        "krendles",
+        "shleps",
+        "vorbs"
+      ],
+      "sig_full": {
+        "grims": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "florps": [
+          true,
+          false,
+          []
+        ],
+        "krendles": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "shleps": [
+          true,
+          true,
+          []
+        ],
+        "vorbs": [
+          true,
+          true,
+          []
+        ],
+        "dringles": [
+          true,
+          true,
+          []
+        ],
+        "zant": [
+          true,
+          false,
+          []
+        ]
+      },
+      "sig_ablation": {
+        "grims": [
+          true
+        ],
+        "florps": [
+          true
+        ],
+        "krendles": [
+          true
+        ],
+        "shleps": [
+          true
+        ],
+        "vorbs": [
+          true
+        ],
+        "dringles": [
+          true
+        ],
+        "zant": [
+          true
+        ]
+      },
+      "population_separated_frac_full": 0.7333333333333333,
+      "population_separated_frac_ablation": 0.0,
+      "pop_pairs": [
+        [
+          "grims",
+          "florps"
+        ],
+        [
+          "grims",
+          "krendles"
+        ],
+        [
+          "grims",
+          "shleps"
+        ],
+        [
+          "grims",
+          "vorbs"
+        ],
+        [
+          "grims",
+          "dringles"
+        ],
+        [
+          "florps",
+          "krendles"
+        ],
+        [
+          "florps",
+          "shleps"
+        ],
+        [
+          "florps",
+          "vorbs"
+        ],
+        [
+          "florps",
+          "dringles"
+        ],
+        [
+          "krendles",
+          "shleps"
+        ],
+        [
+          "krendles",
+          "vorbs"
+        ],
+        [
+          "krendles",
+          "dringles"
+        ],
+        [
+          "shleps",
+          "vorbs"
+        ],
+        [
+          "shleps",
+          "dringles"
+        ],
+        [
+          "vorbs",
+          "dringles"
+        ]
+      ],
+      "order_pair_separated_full": true,
+      "order_pair_separated_ablation": false,
+      "cooccur_pair_separated_full": true,
+      "cooccur_pair_separated_ablation": false,
+      "defeat_pair_separated_full": false,
+      "defeat_pair_separated_ablation": false,
+      "all_grown": null,
+      "all_facts_in_store": null,
+      "violation_rejected": true,
+      "trelps_not_confirmed": true,
+      "relation_query_acc": 0.0,
+      "accepted_hash": "4f0ee9ff9c068e481b5bafa75a56c837cbc1f8ec71cc2198cd8a3660bece470d",
+      "corpus_order_head": [
+        "new_relation:krendles",
+        "new_relation:grims",
+        "new_relation:shleps",
+        "new_relation:dringles",
+        "new_relation:shleps",
+        "new_relation:krendles",
+        "relation_distractor_k_threshold",
+        "new_relation:zant",
+        "new_relation:grims",
+        "new_relation:krendles"
+      ]
+    },
+    {
+      "seed": 23,
+      "gate_mode": "full_structural_gate",
+      "grown": [
+        "dringles",
+        "grims",
+        "krendles",
+        "shleps",
+        "vorbs"
+      ],
+      "sig_full": {
+        "grims": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "florps": [
+          true,
+          false,
+          []
+        ],
+        "krendles": [
+          true,
+          true,
+          [
+            "chases"
+          ]
+        ],
+        "shleps": [
+          true,
+          true,
+          []
+        ],
+        "vorbs": [
+          true,
+          true,
+          []
+        ],
+        "dringles": [
+          true,
+          true,
+          []
+        ],
+        "zant": [
+          true,
+          false,
+          []
+        ]
+      },
+      "sig_ablation": {
+        "grims": [
+          true
+        ],
+        "florps": [
+          true
+        ],
+        "krendles": [
+          true
+        ],
+        "shleps": [
+          true
+        ],
+        "vorbs": [
+          true
+        ],
+        "dringles": [
+          true
+        ],
+        "zant": [
+          true
+        ]
+      },
+      "population_separated_frac_full": 0.7333333333333333,
+      "population_separated_frac_ablation": 0.0,
+      "pop_pairs": [
+        [
+          "grims",
+          "florps"
+        ],
+        [
+          "grims",
+          "krendles"
+        ],
+        [
+          "grims",
+          "shleps"
+        ],
+        [
+          "grims",
+          "vorbs"
+        ],
+        [
+          "grims",
+          "dringles"
+        ],
+        [
+          "florps",
+          "krendles"
+        ],
+        [
+          "florps",
+          "shleps"
+        ],
+        [
+          "florps",
+          "vorbs"
+        ],
+        [
+          "florps",
+          "dringles"
+        ],
+        [
+          "krendles",
+          "shleps"
+        ],
+        [
+          "krendles",
+          "vorbs"
+        ],
+        [
+          "krendles",
+          "dringles"
+        ],
+        [
+          "shleps",
+          "vorbs"
+        ],
+        [
+          "shleps",
+          "dringles"
+        ],
+        [
+          "vorbs",
+          "dringles"
+        ]
+      ],
+      "order_pair_separated_full": true,
+      "order_pair_separated_ablation": false,
+      "cooccur_pair_separated_full": true,
+      "cooccur_pair_separated_ablation": false,
+      "defeat_pair_separated_full": false,
+      "defeat_pair_separated_ablation": false,
+      "all_grown": null,
+      "all_facts_in_store": null,
+      "violation_rejected": true,
+      "trelps_not_confirmed": true,
+      "relation_query_acc": 0.0,
+      "accepted_hash": "4f0ee9ff9c068e481b5bafa75a56c837cbc1f8ec71cc2198cd8a3660bece470d",
+      "corpus_order_head": [
+        "new_relation:vorbs",
+        "new_relation:zant",
+        "new_relation:grims",
+        "new_relation:florps",
+        "new_relation:dringles",
+        "new_relation:dringles",
+        "new_relation:krendles",
+        "new_relation:florps",
+        "relation_distractor_k_threshold",
+        "new_relation:grims"
+      ]
+    }
+  ],
+  "prereg": {
+    "hard_pass": "ablation_population_separated_frac==0.0 & ORDER_PAIR sep_full & COOCCUR_PAIR sep_full & NOT DEFEAT_PAIR sep_full (required honest failure) & all_grown_all & violation_rejected_all & trelps_k3_not_confirmed_all & interleave_robust_across_seeds",
+    "hard_fail": "ablation_population_separated_frac>0.0 (VACUOUS) | ORDER_PAIR or COOCCUR_PAIR fails to separate | DEFEAT_PAIR DOES separate (defeat construction bug) | growth broken | regression control leaked",
+    "middle_band": "HARD-PASS gates hold except interleave_robust_across_seeds (order-dependence found)",
+    "population_fraction_reporting": "descriptive only, not gated to an exact pre-committed number (gating a population fraction discovered during corpus design would be circular; the pairwise separate/collide gates are the real claims)",
+    "growth_gate_arm_invariant_scope": "EXPLORATORY/descriptive only; no pre-registered correct direction",
+    "confirm_k": 3,
+    "identity_population": [
+      "grims",
+      "florps",
+      "krendles",
+      "shleps",
+      "vorbs",
+      "dringles"
+    ],
+    "order_pair": [
+      "grims",
+      "florps"
+    ],
+    "cooccur_pair": [
+      "krendles",
+      "shleps"
+    ],
+    "defeat_pair": [
+      "vorbs",
+      "dringles"
+    ],
+    "growth_gate_stress_relation": "zant",
+    "compute_architecture": "sequential-CPU (foundation grows fact-by-fact; gate state depends on prior admits)",
+    "storage_strategy": "sharded (one VSA vector per accepted fact, via imported FoundationStore)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract_openvocab",
+      "run_identity_loop",
+      "_relation_args_coherent",
+      "_order_consistency",
+      "_co_occurrence_with_known",
+      "build_interleaved_corpus"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete structural-signature comparison (set/boolean logic over accepted facts), not phasor decode noise",
+    "prior_work_check": "direct expansion of exp_read_grow_relation_identity_v1 (commit 980eb1576) per the Skunkworks VET's explicit expansion criterion; not a fresh substrate-KB query (v1's prior-work check already established novelty of the underlying mechanism; this cell is a population/failure-rate/growth-gate SCALE-UP of the same mechanism, not a new concept)."
+  }
+}
