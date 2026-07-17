@@ -1,0 +1,661 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | ARM_A(PRIMARY)=HARD_PASS(n/a) | kn_gain_over_flat=[0.0375, 0.0375, 0.0375] kn_scramble_margin=[0.3886, 0.3471, 0.3748] unseen_margin=[0.0, -0.0152, -0.0152] preemption_corr=[-0.5639, -0.5639, -0.5639] ceiling_idx=[5, 5, 5] | ARM_B(DIAGNOSTIC,non-gating)=OVERGENERATION_REGRESSION_KN_SMOOTHING_DOES_NOT_RESCUE_PRECISION kn_gated_prec=0.0642 vs reverb_baseline=0.0830 | cardinality_ok=True | HONEST GUARD: overall tier = ARM_A(breadth/PRIMARY) only; ARM_B(precision/overgeneration) always reported, never gates the tier (HP_SCOPE).",
+  "summary": "HARD_PASS | ARM_A(PRIMARY)=HARD_PASS(n/a) | kn_gain_over_flat=[0.0375, 0.0375, 0.0375] kn_scramble_margin=[0.3886, 0.3471, 0.3748] unseen_margin=[0.0, -0.0152, -0.0152] preemption_corr=[-0.5639, -0.5639, -0.5639] ceiling_idx=[5, 5, 5] | ARM_B(DIAGNOSTIC,non-gating)=OVERGENERATION_REGRESSION_KN_SMOOT",
+  "run_mode": "full",
+  "elapsed_s": 5.216936099997838,
+  "anchor_name": "read_grow_adaptor_pyp_kn_breadth_v1",
+  "ts_iso": "2026-07-17T19:09:07.916597+00:00",
+  "expected_n_units": 62,
+  "actual_n_units": 62,
+  "cardinality_ok": true,
+  "split_overlap": 0,
+  "arm_a": {
+    "tier": "HARD_PASS",
+    "weakest": "n/a",
+    "seed_salts": [
+      "seedA",
+      "seedB",
+      "seedC"
+    ],
+    "per_seed": [
+      {
+        "salt": "seedA",
+        "n_induction_pool": 6110,
+        "n_tail": 507,
+        "flat_curve": [
+          0.16568047337278108,
+          0.26627218934911245,
+          0.39447731755424065,
+          0.5167652859960552,
+          0.6015779092702169,
+          0.7396449704142012
+        ],
+        "kn_curve": [
+          0.16962524654832348,
+          0.2682445759368836,
+          0.41222879684418146,
+          0.5483234714003945,
+          0.6449704142011834,
+          0.777120315581854
+        ],
+        "growth_points": [
+          {
+            "nominal_induction_size": 50,
+            "actual_induction_size": 50,
+            "flat_tail_coverage": 0.16568047337278108,
+            "kn_schema_tail_coverage": 0.16962524654832348,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 150,
+            "actual_induction_size": 150,
+            "flat_tail_coverage": 0.26627218934911245,
+            "kn_schema_tail_coverage": 0.2682445759368836,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 400,
+            "actual_induction_size": 400,
+            "flat_tail_coverage": 0.39447731755424065,
+            "kn_schema_tail_coverage": 0.41222879684418146,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 1000,
+            "actual_induction_size": 1000,
+            "flat_tail_coverage": 0.5167652859960552,
+            "kn_schema_tail_coverage": 0.5483234714003945,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 2500,
+            "actual_induction_size": 2500,
+            "flat_tail_coverage": 0.6015779092702169,
+            "kn_schema_tail_coverage": 0.6449704142011834,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": "full",
+            "actual_induction_size": 6110,
+            "flat_tail_coverage": 0.7396449704142012,
+            "kn_schema_tail_coverage": 0.777120315581854,
+            "n_tail": 507
+          }
+        ],
+        "kn_scramble_at_full": 0.388560157790927,
+        "kn_scramble_margin_at_full": 0.388560157790927,
+        "kn_gain_over_flat_at_full": 0.03747534516765283,
+        "ceiling_reached_at_sweep_idx": 5,
+        "n_unseen_flat_subset": 132,
+        "unseen_kn_coverage": 0.14393939393939395,
+        "unseen_scramble_coverage": 0.14393939393939395,
+        "unseen_margin": 0.0,
+        "preemption_correlation": -0.5639021912016201,
+        "n_schematized_skeletons": 1350,
+        "arms_differ_verified": true,
+        "seed_passes_hard": true,
+        "seed_fails_hard": false,
+        "split_overlap": 0
+      },
+      {
+        "salt": "seedB",
+        "n_induction_pool": 6110,
+        "n_tail": 507,
+        "flat_curve": [
+          0.13806706114398423,
+          0.25443786982248523,
+          0.39644970414201186,
+          0.5305719921104537,
+          0.631163708086785,
+          0.7396449704142012
+        ],
+        "kn_curve": [
+          0.13806706114398423,
+          0.2879684418145957,
+          0.4161735700197239,
+          0.5601577909270217,
+          0.6706114398422091,
+          0.777120315581854
+        ],
+        "growth_points": [
+          {
+            "nominal_induction_size": 50,
+            "actual_induction_size": 50,
+            "flat_tail_coverage": 0.13806706114398423,
+            "kn_schema_tail_coverage": 0.13806706114398423,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 150,
+            "actual_induction_size": 150,
+            "flat_tail_coverage": 0.25443786982248523,
+            "kn_schema_tail_coverage": 0.2879684418145957,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 400,
+            "actual_induction_size": 400,
+            "flat_tail_coverage": 0.39644970414201186,
+            "kn_schema_tail_coverage": 0.4161735700197239,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 1000,
+            "actual_induction_size": 1000,
+            "flat_tail_coverage": 0.5305719921104537,
+            "kn_schema_tail_coverage": 0.5601577909270217,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 2500,
+            "actual_induction_size": 2500,
+            "flat_tail_coverage": 0.631163708086785,
+            "kn_schema_tail_coverage": 0.6706114398422091,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": "full",
+            "actual_induction_size": 6110,
+            "flat_tail_coverage": 0.7396449704142012,
+            "kn_schema_tail_coverage": 0.777120315581854,
+            "n_tail": 507
+          }
+        ],
+        "kn_scramble_at_full": 0.42998027613412226,
+        "kn_scramble_margin_at_full": 0.34714003944773175,
+        "kn_gain_over_flat_at_full": 0.03747534516765283,
+        "ceiling_reached_at_sweep_idx": 5,
+        "n_unseen_flat_subset": 132,
+        "unseen_kn_coverage": 0.14393939393939395,
+        "unseen_scramble_coverage": 0.1590909090909091,
+        "unseen_margin": -0.015151515151515138,
+        "preemption_correlation": -0.5639021912016201,
+        "n_schematized_skeletons": 1350,
+        "arms_differ_verified": true,
+        "seed_passes_hard": true,
+        "seed_fails_hard": false,
+        "split_overlap": 0
+      },
+      {
+        "salt": "seedC",
+        "n_induction_pool": 6110,
+        "n_tail": 507,
+        "flat_curve": [
+          0.1282051282051282,
+          0.2406311637080868,
+          0.3826429980276134,
+          0.4891518737672584,
+          0.6390532544378699,
+          0.7396449704142012
+        ],
+        "kn_curve": [
+          0.1341222879684418,
+          0.2504930966469428,
+          0.40631163708086787,
+          0.5285996055226825,
+          0.6863905325443787,
+          0.777120315581854
+        ],
+        "growth_points": [
+          {
+            "nominal_induction_size": 50,
+            "actual_induction_size": 50,
+            "flat_tail_coverage": 0.1282051282051282,
+            "kn_schema_tail_coverage": 0.1341222879684418,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 150,
+            "actual_induction_size": 150,
+            "flat_tail_coverage": 0.2406311637080868,
+            "kn_schema_tail_coverage": 0.2504930966469428,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 400,
+            "actual_induction_size": 400,
+            "flat_tail_coverage": 0.3826429980276134,
+            "kn_schema_tail_coverage": 0.40631163708086787,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 1000,
+            "actual_induction_size": 1000,
+            "flat_tail_coverage": 0.4891518737672584,
+            "kn_schema_tail_coverage": 0.5285996055226825,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": 2500,
+            "actual_induction_size": 2500,
+            "flat_tail_coverage": 0.6390532544378699,
+            "kn_schema_tail_coverage": 0.6863905325443787,
+            "n_tail": 507
+          },
+          {
+            "nominal_induction_size": "full",
+            "actual_induction_size": 6110,
+            "flat_tail_coverage": 0.7396449704142012,
+            "kn_schema_tail_coverage": 0.777120315581854,
+            "n_tail": 507
+          }
+        ],
+        "kn_scramble_at_full": 0.40236686390532544,
+        "kn_scramble_margin_at_full": 0.37475345167652857,
+        "kn_gain_over_flat_at_full": 0.03747534516765283,
+        "ceiling_reached_at_sweep_idx": 5,
+        "n_unseen_flat_subset": 132,
+        "unseen_kn_coverage": 0.14393939393939395,
+        "unseen_scramble_coverage": 0.1590909090909091,
+        "unseen_margin": -0.015151515151515138,
+        "preemption_correlation": -0.5639021912016201,
+        "n_schematized_skeletons": 1350,
+        "arms_differ_verified": true,
+        "seed_passes_hard": true,
+        "seed_fails_hard": false,
+        "split_overlap": 0
+      }
+    ],
+    "diagnostic_sweep": [
+      {
+        "k_schema": 2,
+        "theta": 0.005,
+        "tail_coverage": 0.777120315581854
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.01,
+        "tail_coverage": 0.777120315581854
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.02,
+        "tail_coverage": 0.7751479289940828
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.05,
+        "tail_coverage": 0.7672583826429981
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.1,
+        "tail_coverage": 0.7554240631163708
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.2,
+        "tail_coverage": 0.7514792899408284
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.3,
+        "tail_coverage": 0.7495069033530573
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.005,
+        "tail_coverage": 0.7593688362919132
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.01,
+        "tail_coverage": 0.7593688362919132
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.02,
+        "tail_coverage": 0.757396449704142
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.05,
+        "tail_coverage": 0.7514792899408284
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.1,
+        "tail_coverage": 0.7455621301775148
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.2,
+        "tail_coverage": 0.7416173570019724
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.3,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.005,
+        "tail_coverage": 0.7495069033530573
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.01,
+        "tail_coverage": 0.7495069033530573
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.02,
+        "tail_coverage": 0.747534516765286
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.05,
+        "tail_coverage": 0.7435897435897436
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.1,
+        "tail_coverage": 0.7416173570019724
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.2,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.3,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 8,
+        "theta": 0.005,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 8,
+        "theta": 0.01,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 8,
+        "theta": 0.02,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 8,
+        "theta": 0.05,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 8,
+        "theta": 0.1,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 8,
+        "theta": 0.2,
+        "tail_coverage": 0.7396449704142012
+      },
+      {
+        "k_schema": 8,
+        "theta": 0.3,
+        "tail_coverage": 0.7396449704142012
+      }
+    ]
+  },
+  "arm_b": {
+    "flag": "OVERGENERATION_REGRESSION_KN_SMOOTHING_DOES_NOT_RESCUE_PRECISION",
+    "test_seeds": [
+      7,
+      13,
+      19
+    ],
+    "n_train_induction": 6110,
+    "n_test_rows": 210,
+    "shape_table_build_errors": 0,
+    "n_distinct_item_shapes": 4475,
+    "baseline_reverb": {
+      "n_total": 210,
+      "n_attempted": 150,
+      "n_emitted": 265,
+      "n_gold": 74,
+      "n_correct": 22,
+      "precision_on_attempted": 0.0830188679245283,
+      "recall": 0.2972972972972973,
+      "coverage_sentence_rate": 0.7142857142857143,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 48,
+          "n_emitted": 66,
+          "n_correct": 15
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 19,
+          "n_emitted": 44,
+          "n_correct": 7
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 70,
+          "n_emitted": 126,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 13,
+          "n_emitted": 29,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "kn_gated": {
+      "n_total": 210,
+      "n_attempted": 82,
+      "n_emitted": 109,
+      "n_gold": 74,
+      "n_correct": 7,
+      "precision_on_attempted": 0.06422018348623854,
+      "recall": 0.0945945945945946,
+      "coverage_sentence_rate": 0.3904761904761905,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 18,
+          "n_emitted": 22,
+          "n_correct": 5
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 11,
+          "n_emitted": 17,
+          "n_correct": 2
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 48,
+          "n_emitted": 60,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 5,
+          "n_emitted": 10,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "diagnostic_sweep": [
+      {
+        "k_schema": 2,
+        "theta": 0.005,
+        "precision": 0.06422018348623854,
+        "coverage": 0.3904761904761905,
+        "n_attempted": 82
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.01,
+        "precision": 0.047619047619047616,
+        "coverage": 0.3142857142857143,
+        "n_attempted": 66
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.02,
+        "precision": 0.014705882352941176,
+        "coverage": 0.2714285714285714,
+        "n_attempted": 57
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.05,
+        "precision": 0.0,
+        "coverage": 0.15714285714285714,
+        "n_attempted": 33
+      },
+      {
+        "k_schema": 2,
+        "theta": 0.1,
+        "precision": 0.0,
+        "coverage": 0.14285714285714285,
+        "n_attempted": 30
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.005,
+        "precision": 0.06422018348623854,
+        "coverage": 0.3904761904761905,
+        "n_attempted": 82
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.01,
+        "precision": 0.047619047619047616,
+        "coverage": 0.3142857142857143,
+        "n_attempted": 66
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.02,
+        "precision": 0.014705882352941176,
+        "coverage": 0.2714285714285714,
+        "n_attempted": 57
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.05,
+        "precision": 0.0,
+        "coverage": 0.15714285714285714,
+        "n_attempted": 33
+      },
+      {
+        "k_schema": 3,
+        "theta": 0.1,
+        "precision": 0.0,
+        "coverage": 0.14285714285714285,
+        "n_attempted": 30
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.005,
+        "precision": 0.06422018348623854,
+        "coverage": 0.3904761904761905,
+        "n_attempted": 82
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.01,
+        "precision": 0.047619047619047616,
+        "coverage": 0.3142857142857143,
+        "n_attempted": 66
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.02,
+        "precision": 0.014705882352941176,
+        "coverage": 0.2714285714285714,
+        "n_attempted": 57
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.05,
+        "precision": 0.0,
+        "coverage": 0.15714285714285714,
+        "n_attempted": 33
+      },
+      {
+        "k_schema": 5,
+        "theta": 0.1,
+        "precision": 0.0,
+        "coverage": 0.14285714285714285,
+        "n_attempted": 30
+      }
+    ],
+    "operating_point": {
+      "k_schema": 3,
+      "theta": 0.005
+    },
+    "arms_differ_verified": true,
+    "kn_gated_precision": 0.06422018348623854,
+    "reverb_baseline_precision": 0.0830188679245283,
+    "materially_above_reverb": false,
+    "overgeneration_regression": true
+  },
+  "corpus": {
+    "train_path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-train.conllu",
+    "test_path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0",
+    "n_train_qualifying": 6110,
+    "n_test_qualifying": 846,
+    "n_tail": 507
+  },
+  "prereg": {
+    "arm_a_hard_pass": "all 3 seeds: kn_gain_over_flat>=0.02 AND kn_scramble_margin>=0.15 AND preemption_correlation<=-0.15 AND unseen_margin>=-0.05 AND split_overlap==0",
+    "arm_a_hard_fail": "split_overlap>0 OR >=2/3 seeds fail (gain<0.0 OR scramble_margin<0.05 OR preemption_corr>0.0 OR unseen_margin<-0.10)",
+    "arm_b_diagnostic_flags": "PRECISION_MATERIALLY_ABOVE_REVERB_NO_OVERGENERATION | OVERGENERATION_REGRESSION_KN_SMOOTHING_DOES_NOT_RESCUE_PRECISION | PARTIAL_LIFT_BELOW_MATERIAL_THRESHOLD (non-gating, HP_SCOPE=ARM_A only)",
+    "combination_rule": "overall = ARM_A tier only (PRIMARY/breadth axis); ARM_B always reported, never gates (HONEST GUARD, avoids a doubly-confirmed SECONDARY-axis negative masking an honest read of the PRIMARY axis this cell targets)",
+    "discount": 0.75,
+    "arm_a_k_schema": 2,
+    "arm_a_theta": 0.01,
+    "arm_a_sweep_sizes_nominal": [
+      50,
+      150,
+      400,
+      1000,
+      2500,
+      "full"
+    ],
+    "arm_b_operating_point": {
+      "k_schema": 3,
+      "theta": 0.005
+    },
+    "compute_architecture": "sequential-CPU; pure dict/Counter/tuple counting (ARM A) + nltk.pos_tag/RegexpParser via v2's REUSED chain (ARM B); no VSA store; MEASURED wall time seconds (see elapsed_s)",
+    "storage_strategy": "no_storage",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "glass_box_legal": "static source-scan (no torch/spacy/transformers/stanza) AND runtime sys.modules transitive-closure check, both asserted at self-test.",
+    "prior_work_check": "substrate_query.sh run before authoring (see completion report); top hits at cosine 0.32-0.33 are the OLDER, structurally-unrelated W_construction-vector proposal (never built); the real precedent is the already-landed v1 (48c0080ca)/v2 (f9dfd7f27) grow-from-reading arc, reused unmodified -- not a rediscovery."
+  }
+}
