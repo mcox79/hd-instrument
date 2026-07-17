@@ -1,0 +1,68 @@
+{
+  "anchor_name": "substrate_resonator_focus_lever_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial rescue pattern (not cleanly HARD-PASS or HARD-FAIL -- e.g. hierarchy helps at one of F=6/F=8 but not both, or decorrelation shows a small 0.05-0.30 partial rescue). REF(flat_F4)=0.400 flat={3:1.000,4:0.400,6:0.000,8:0.000} hier={6:1.000,8:0.000} decorr={6:0.000,8:0.000}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 7,
+      "flat_acc": {
+        "3": 1.0,
+        "4": 0.4,
+        "6": 0.0,
+        "8": 0.0
+      },
+      "decorr_acc": {
+        "3": 1.0,
+        "4": 0.5,
+        "6": 0.0,
+        "8": 0.0
+      },
+      "hier_acc": {
+        "6": 1.0,
+        "8": 0.0
+      },
+      "hier_stage1_acc": {
+        "6": 1.0,
+        "8": 0.2
+      },
+      "unit_count": 10
+    }
+  ],
+  "aggregate": {
+    "flat_acc_mean": {
+      "3": 1.0,
+      "4": 0.4,
+      "6": 0.0,
+      "8": 0.0
+    },
+    "decorr_acc_mean": {
+      "3": 1.0,
+      "4": 0.5,
+      "6": 0.0,
+      "8": 0.0
+    },
+    "hier_acc_mean": {
+      "6": 1.0,
+      "8": 0.0
+    },
+    "ref_flat_F4": 0.4
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "flat": "cf880bf35607f6dcebb12fb8cb4898ad0b2499931b1ee62c590826126b507455",
+    "decorr": "d168de7ab4074b91682238b2d47d0797d588d582c1dcadec632c3e5fa4d000f1",
+    "hier": "3239b05c38b825ebb79f103172438292a22a0951351a6b81be1df5d44776cc65"
+  },
+  "expected_n_units_per_seed": 10,
+  "cardinality_ok": true,
+  "regime": {
+    "N": 16384,
+    "M": 8,
+    "MAX_IT": 200,
+    "trials": 10
+  },
+  "elapsed_s": 46.066022634506226,
+  "summary": "MIDDLE_BAND: partial rescue pattern (not cleanly HARD-PASS or HARD-FAIL -- e.g. hierarchy helps at one of F=6/F=8 but not both, or decorrelation shows a small 0.05-0.30 partial rescue). REF(flat_F4)=0.400 flat={3:1.000,4:0.400,6:0.000,8:0.000} hier={6:1.000,8:0.000} decorr={6:0.000,8:0.000}"
+}

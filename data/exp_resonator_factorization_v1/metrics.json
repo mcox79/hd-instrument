@@ -1,19 +1,20 @@
 {
   "anchor_name": "resonator_factorization_v1",
-  "verdict": "MIDDLE_BAND",
-  "verdict_msg": "MIDDLE_BAND: factorization success 0.70-0.90 at K=3. success by K: {'K2': 1.0, 'K3': 0.733} (N=2048 M=30)",
-  "run_mode": "smoke",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: resonator <0.70 at K=3 (below capacity; raise N or lower M). success by K: {'K2': 1.0, 'K3': 0.613, 'K4': 0.047} (N=2048 M=30)",
+  "run_mode": "full",
   "n_seeds": 1,
   "per_seed": [
     {
       "by": {
         "K2": 1.0,
-        "K3": 0.7333333333333333
+        "K3": 0.6133333333333333,
+        "K4": 0.04666666666666667
       },
       "N": 2048,
       "M": 30
     }
   ],
-  "elapsed_s": 0.3116457462310791,
-  "summary": "MIDDLE_BAND: factorization success 0.70-0.90 at K=3. success by K: {'K2': 1.0, 'K3': 0.733} (N=2048 M=30)"
+  "elapsed_s": 20.706580638885498,
+  "summary": "HARD_FAIL: resonator <0.70 at K=3 (below capacity; raise N or lower M). success by K: {'K2': 1.0, 'K3': 0.613, 'K4': 0.047} (N=2048 M=30)"
 }
