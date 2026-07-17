@@ -1,0 +1,2171 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | RUNG8 1ST/2ND-PERSON COREF FIX on the SAME simple-register slice as RUNG 6/7 (n=100) | BASELINE(rung7-FIX_ALL) precision=0.643 coverage=0.130 -> FIXED precision=0.516 coverage=0.300 (delta_cov=+0.170) | n_newly_covered=17 (of which 15 have gold) | newly_covered_subject_role_correct_rate=1.0 (15/15) | newly_covered_whole_triple_precision=0.4117647058823529 | n_3rd_person_coref_unresolved_rows=8 n_3rd_person_guard_breaks=0 (MUST be 0) | coref_guardrail_battery_ok=True | guard_regression_ok=True oos_control_fired=True | weakest=fixed_precision_on_attempted_below_0.55_hard_fail_floor | COVERAGE_FIX_MATERIAL=True PRECISION_HELD_ABOVE_0.60=False ZERO_HALLUCINATION_PRESERVED=True",
+  "summary": "HARD_FAIL | RUNG8 1ST/2ND-PERSON COREF FIX on the SAME simple-register slice as RUNG 6/7 (n=100) | BASELINE(rung7-FIX_ALL) precision=0.643 coverage=0.130 -> FIXED precision=0.516 coverage=0.300 (delta_cov=+0.170) | n_newly_covered=17 (of which 15 have gold) | newly_covered_subject_role_correct_rate=",
+  "run_mode": "smoke",
+  "elapsed_s": 0.2212658999778796,
+  "anchor_name": "read_grow_realprose_simple_register_rung8_coref_1st2nd_person_v1",
+  "ts_iso": "2026-07-17T08:25:24.433362+00:00",
+  "seeds": [
+    7
+  ],
+  "n_per_seed": 100,
+  "expected_n_units": 100,
+  "weakest_interface": "fixed_precision_on_attempted_below_0.55_hard_fail_floor",
+  "corpus": {
+    "name": "UD_English-EWT test split -- SIMPLE-SYNTAX SUBSET (PATH A), SAME slice as Rung 6/7",
+    "path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0",
+    "same_slice_as": "read_grow_realprose_simple_register_rung7_fixes_imperatives_v1",
+    "length_matched_pool_size": 436,
+    "simple_pool_size": 157,
+    "simple_fraction_of_length_matched_pool": 0.36009174311926606,
+    "n_sampled_total": 100,
+    "register_note": "PATH A caveat carried forward UNCHANGED from Rung 6/7: a syntax-simple subset of general WEB vocabulary, NOT a vocabulary-controlled early-reader corpus."
+  },
+  "construction_distribution_counts": {
+    "single_clause_svo": 61,
+    "vp_coordination": 0,
+    "compound_subject": 3,
+    "relative_clause": 0,
+    "passive": 6,
+    "other_unhandled": 14,
+    "imperative": 16
+  },
+  "construction_distribution_fractions": {
+    "single_clause_svo": 0.61,
+    "vp_coordination": 0.0,
+    "compound_subject": 0.03,
+    "relative_clause": 0.0,
+    "passive": 0.06,
+    "other_unhandled": 0.14,
+    "imperative": 0.16
+  },
+  "arms": {
+    "BASELINE_rung7_fix_all": {
+      "n_total": 100,
+      "n_attempted": 13,
+      "n_emitted": 14,
+      "n_gold": 77,
+      "n_correct": 9,
+      "precision_on_attempted": 0.6428571428571429,
+      "recall": 0.11688311688311688,
+      "coverage_sentence_rate": 0.13,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 61,
+          "n_gold": 62,
+          "n_attempted": 5,
+          "n_emitted": 6,
+          "n_correct": 6
+        },
+        "imperative": {
+          "n": 16,
+          "n_gold": 14,
+          "n_attempted": 5,
+          "n_emitted": 5,
+          "n_correct": 3
+        },
+        "other_unhandled": {
+          "n": 14,
+          "n_gold": 0,
+          "n_attempted": 2,
+          "n_emitted": 2,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 3,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 6,
+          "n_gold": 1,
+          "n_attempted": 1,
+          "n_emitted": 1,
+          "n_correct": 0
+        }
+      }
+    },
+    "FIXED_coref_1st2nd_person": {
+      "n_total": 100,
+      "n_attempted": 30,
+      "n_emitted": 31,
+      "n_gold": 77,
+      "n_correct": 16,
+      "precision_on_attempted": 0.5161290322580645,
+      "recall": 0.2077922077922078,
+      "coverage_sentence_rate": 0.3,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 61,
+          "n_gold": 62,
+          "n_attempted": 20,
+          "n_emitted": 21,
+          "n_correct": 13
+        },
+        "imperative": {
+          "n": 16,
+          "n_gold": 14,
+          "n_attempted": 5,
+          "n_emitted": 5,
+          "n_correct": 3
+        },
+        "other_unhandled": {
+          "n": 14,
+          "n_gold": 0,
+          "n_attempted": 4,
+          "n_emitted": 4,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 3,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 6,
+          "n_gold": 1,
+          "n_attempted": 1,
+          "n_emitted": 1,
+          "n_correct": 0
+        }
+      }
+    }
+  },
+  "coverage_recovery": {
+    "baseline_coverage_sentence_rate": 0.13,
+    "fixed_coverage_sentence_rate": 0.3,
+    "coverage_delta": 0.16999999999999998,
+    "n_newly_covered_sentences": 17,
+    "n_newly_covered_with_gold": 15,
+    "newly_covered_subject_role_correct": 15,
+    "newly_covered_subject_role_correct_rate": 1.0,
+    "newly_covered_whole_triple_precision": 0.4117647058823529,
+    "newly_covered_whole_triple_n_correct": 7,
+    "newly_covered_whole_triple_n_emitted": 17
+  },
+  "zero_hallucination_guardrail": {
+    "n_3rd_person_coref_unresolved_rows": 8,
+    "n_3rd_person_guard_breaks": 0,
+    "coref_guardrail_battery_evidence": {
+      "third_person_guardrail_battery_held": true,
+      "third_person_guardrail_detail": [
+        {
+          "sent": "He walked to the store.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "guardrail_held": true
+        },
+        {
+          "sent": "She read the book.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "guardrail_held": true
+        },
+        {
+          "sent": "It broke the window.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "guardrail_held": true
+        },
+        {
+          "sent": "They visited the museum.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "guardrail_held": true
+        },
+        {
+          "sent": "Him ate the cake.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "guardrail_held": true
+        }
+      ],
+      "first_second_person_extraction_battery_ok": true,
+      "first_second_person_extraction_detail": [
+        {
+          "sent": "I own a red car.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [
+              [
+                "i",
+                "own",
+                "car"
+              ]
+            ],
+            "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3",
+            null
+          ],
+          "expected_subject": "i",
+          "expected_object": "car",
+          "fixed_correctly": true
+        },
+        {
+          "sent": "We finished the report.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [
+              [
+                "we",
+                "finish",
+                "report"
+              ]
+            ],
+            "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3",
+            null
+          ],
+          "expected_subject": "we",
+          "expected_object": "report",
+          "fixed_correctly": true
+        },
+        {
+          "sent": "You broke the rule.",
+          "baseline": [
+            [],
+            "COREF_UNRESOLVED",
+            "pronoun subject, no in-sentence antecedent (coreference gap)"
+          ],
+          "fixed": [
+            [
+              [
+                "you",
+                "break",
+                "rule"
+              ]
+            ],
+            "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3",
+            null
+          ],
+          "expected_subject": "you",
+          "expected_object": "rule",
+          "fixed_correctly": true
+        }
+      ],
+      "fix_disabled_reproduces_rung7_baseline": true,
+      "coref_guardrail_all_ok": true
+    }
+  },
+  "guard_regression_ok": {
+    "baseline": true,
+    "fixed": true
+  },
+  "oos_control_fired": {
+    "baseline": true,
+    "fixed": true
+  },
+  "sample_newly_covered_rows": [
+    {
+      "text": "Yes,you must pay customs duties.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "pay",
+          "duty"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "you",
+          "pay",
+          "duti"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "i had a blast that night.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I have the HTC Evo.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "evo"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "have",
+          "htc"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "i put $5 bucks down for it too.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "put",
+          "buck"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "put",
+          "buck"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "You also need Pakistani air space.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "need",
+          "space"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "you",
+          "ne",
+          "space"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "i flew here last night.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "flew",
+          "night"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "Ideally, we would like a fast turnaround.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "like",
+          "turnaround"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "we",
+          "like",
+          "turnaround"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I faxed comments to you on dash.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "fax",
+          "comment"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "fax",
+          "comment"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I still have noticeable scarring.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "scarring"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "have",
+          "scarring"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I highly recommend Garage Pros to my friends.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "recommend",
+          "pro"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "recommend",
+          "garage"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I won't return.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "won",
+          "return"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I better pass on the Comets game.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pass_on",
+          "game"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "better",
+          "pass"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I better pass on the Comets game.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pass_on",
+          "game"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "better",
+          "pass"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "now i will have really straight teeth.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "tooth"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "have",
+          "teeth"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I don't feel anything until noon.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "feel",
+          "anything"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "don",
+          "anything"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I prefer Royal Caribbean out of all these.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "prefer",
+          "caribbean"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "i",
+          "prefer",
+          "caribbean"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "We love everything about the fence.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "love",
+          "everything"
+        ]
+      ],
+      "baseline_rule": "COREF_UNRESOLVED",
+      "fixed_emitted": [
+        [
+          "we",
+          "love",
+          "everything"
+        ]
+      ],
+      "fixed_rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    }
+  ],
+  "sample_fixed_rows": [
+    {
+      "text": "u must read it.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "read",
+          "it"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "I shall send you a copy today.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "send",
+          "copy"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Sent scented flowers home instead of postcards.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "send",
+          "flower"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_TRAILING_FINITE_VERB"
+    },
+    {
+      "text": "I like my Monkey Brain on a stick for sure.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "like",
+          "brain"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Yes,you must pay customs duties.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "pay",
+          "duty"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "pay",
+          "duti"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "Expect either undercooked or mushy food and lackluster service.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "expect",
+          "food"
+        ],
+        [
+          "you",
+          "expect",
+          "service"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "Any information would help.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "He is now lecturing in USA.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "he",
+          "lecture_in",
+          "usa"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "They sell these kits in most hobby and craft stores.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "sell",
+          "kit"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Would do business with them again.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "do",
+          "business"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "i had a blast that night.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "Well theres Mc.Donalds,Taco Bell,Burger King.....",
+      "cls": "compound_subject",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "I have the HTC Evo.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "evo"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "have",
+          "htc"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "These guys do great work at VERY reasonable prices.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "emitted": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN_GATED_V3"
+    },
+    {
+      "text": "and did great job .",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "I have ordered Bose Headfones worth 300USD.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "order",
+          "headfone"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "By September of that year the Dow had tumbled to 744.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "dow",
+          "tumble_to",
+          "744"
+        ]
+      ],
+      "emitted": [],
+      "rule": "RELCLAUSE_NO_MATRIX_VERB"
+    },
+    {
+      "text": "i put $5 bucks down for it too.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "put",
+          "buck"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "put",
+          "buck"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "Just don't go there.",
+      "cls": "imperative",
+      "gold": [],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "kindly contact laxmi nagar zim in delhi..",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "contact",
+          "laxmi"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "Well, wouldn't you know it.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "know",
+          "it"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "i don't think so.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Bush did not have his eye on the ball.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "bush",
+          "have",
+          "eye"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "You also need Pakistani air space.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "need",
+          "space"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "ne",
+          "space"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "They were playing Captain Ahab to Saddam's great white whale.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "play",
+          "ahab"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "i flew here last night.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "flew",
+          "night"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "And there's nothing distinctly Irish about them.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "s",
+          "nothing"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "Ideally, we would like a fast turnaround.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "like",
+          "turnaround"
+        ]
+      ],
+      "emitted": [
+        [
+          "we",
+          "like",
+          "turnaround"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I faxed comments to you on dash.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "fax",
+          "comment"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "fax",
+          "comment"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "The United States doesn't believe the Iranian Government.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Neither did Cheney, Rumsfeld, or Wolfowitz.",
+      "cls": "compound_subject",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "I am bringing two of my girlfriends from LJ.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "bring",
+          "two"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I still have noticeable scarring.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "scarring"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "have",
+          "scarring"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "With Elizabeth's comments added to summary...",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I have spoken with Mark Lay and he is interested.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "speak_with",
+          "mark"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Please update the attached Legal Risk Report.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "update",
+          "report"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "update",
+          "legal"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "I will go there again.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I should have asked for a jury.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "ask_for",
+          "jury"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I highly recommend Garage Pros to my friends.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "recommend",
+          "pro"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "recommend",
+          "garage"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "Carve one in your chosen medium.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "carve",
+          "one"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "I won't return.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "won",
+          "return"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "\"Thank you so much for the superior job well done.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "ABSTAIN_NO_FINITE_VERB"
+    },
+    {
+      "text": "Please return an executed copy of confirm to me.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "return",
+          "copy"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "return",
+          "copy"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "The September 11 Panel will issue its findings on Thursday.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "panel",
+          "issue",
+          "finding"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "we can go somewhere nice.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Stayed here for 2 nights.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "stay_for",
+          "night"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "I better pass on the Comets game.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pass_on",
+          "game"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "better",
+          "pass"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "I started with 21 email addresses.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "start_with",
+          "address"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Yes, I have usually voted National.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "vote",
+          "national"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Send the revised report by e-mail.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "send",
+          "report"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "Any good suggestions would really be appreciated.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "PASSIVE_NO_AGENT"
+    },
+    {
+      "text": "Tracy, Do we have concerns here.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "have",
+          "concern"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I've never kept cichlids though.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "keep",
+          "cichlid"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "But by December of '73 the Dow had collapsed to 788.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "dow",
+          "collapse_to",
+          "788"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I have used Bright Futures for the last 7 years.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "use",
+          "future"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I better pass on the Comets game.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pass_on",
+          "game"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "better",
+          "pass"
+        ]
+      ],
+      "rule": "SVO_1ST2ND_PERSON_PRONOUN_SUBJECT_V3"
+    },
+    {
+      "text": "But we can't prove it.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "prove",
+          "it"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "They specialize in financial institutions, medical, and retail projects.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "specialize_in",
+          "institution"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Please, ask Stinson as well.",
+      "cls": "imperative",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "ask",
+          "stinson"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "Thank you for you patience.",
+      "cls": "imperative",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    }
+  ],
+  "sample_baseline_rows": [
+    {
+      "text": "u must read it.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "read",
+          "it"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "I shall send you a copy today.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "send",
+          "copy"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Sent scented flowers home instead of postcards.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "send",
+          "flower"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_TRAILING_FINITE_VERB"
+    },
+    {
+      "text": "I like my Monkey Brain on a stick for sure.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "like",
+          "brain"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Yes,you must pay customs duties.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "pay",
+          "duty"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Expect either undercooked or mushy food and lackluster service.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "expect",
+          "food"
+        ],
+        [
+          "you",
+          "expect",
+          "service"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "Any information would help.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "He is now lecturing in USA.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "he",
+          "lecture_in",
+          "usa"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "They sell these kits in most hobby and craft stores.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "sell",
+          "kit"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Would do business with them again.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "do",
+          "business"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "i had a blast that night.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Well theres Mc.Donalds,Taco Bell,Burger King.....",
+      "cls": "compound_subject",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "I have the HTC Evo.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "evo"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "These guys do great work at VERY reasonable prices.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "emitted": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN_GATED_V2"
+    },
+    {
+      "text": "and did great job .",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "I have ordered Bose Headfones worth 300USD.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "order",
+          "headfone"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "By September of that year the Dow had tumbled to 744.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "dow",
+          "tumble_to",
+          "744"
+        ]
+      ],
+      "emitted": [],
+      "rule": "RELCLAUSE_NO_MATRIX_VERB"
+    },
+    {
+      "text": "i put $5 bucks down for it too.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "put",
+          "buck"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Just don't go there.",
+      "cls": "imperative",
+      "gold": [],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "kindly contact laxmi nagar zim in delhi..",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "contact",
+          "laxmi"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "Well, wouldn't you know it.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "know",
+          "it"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "i don't think so.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Bush did not have his eye on the ball.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "bush",
+          "have",
+          "eye"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "You also need Pakistani air space.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "need",
+          "space"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "They were playing Captain Ahab to Saddam's great white whale.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "play",
+          "ahab"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "i flew here last night.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "And there's nothing distinctly Irish about them.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "s",
+          "nothing"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "Ideally, we would like a fast turnaround.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "like",
+          "turnaround"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I faxed comments to you on dash.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "fax",
+          "comment"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "The United States doesn't believe the Iranian Government.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Neither did Cheney, Rumsfeld, or Wolfowitz.",
+      "cls": "compound_subject",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "I am bringing two of my girlfriends from LJ.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "bring",
+          "two"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I still have noticeable scarring.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "scarring"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "With Elizabeth's comments added to summary...",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I have spoken with Mark Lay and he is interested.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "speak_with",
+          "mark"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Please update the attached Legal Risk Report.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "update",
+          "report"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "update",
+          "legal"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "I will go there again.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I should have asked for a jury.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "ask_for",
+          "jury"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I highly recommend Garage Pros to my friends.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "recommend",
+          "pro"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Carve one in your chosen medium.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "carve",
+          "one"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "I won't return.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "\"Thank you so much for the superior job well done.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "ABSTAIN_NO_FINITE_VERB"
+    },
+    {
+      "text": "Please return an executed copy of confirm to me.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "return",
+          "copy"
+        ]
+      ],
+      "emitted": [
+        [
+          "you",
+          "return",
+          "copy"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "The September 11 Panel will issue its findings on Thursday.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "panel",
+          "issue",
+          "finding"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "we can go somewhere nice.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Stayed here for 2 nights.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "stay_for",
+          "night"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "I better pass on the Comets game.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pass_on",
+          "game"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I started with 21 email addresses.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "start_with",
+          "address"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Yes, I have usually voted National.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "vote",
+          "national"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Send the revised report by e-mail.",
+      "cls": "imperative",
+      "gold": [
+        [
+          "you",
+          "send",
+          "report"
+        ]
+      ],
+      "emitted": [],
+      "rule": "ABSTAIN_IMPERATIVE_NO_OBJECT"
+    },
+    {
+      "text": "Any good suggestions would really be appreciated.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "PASSIVE_NO_AGENT"
+    },
+    {
+      "text": "Tracy, Do we have concerns here.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "have",
+          "concern"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I've never kept cichlids though.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "keep",
+          "cichlid"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "But by December of '73 the Dow had collapsed to 788.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "dow",
+          "collapse_to",
+          "788"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I have used Bright Futures for the last 7 years.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "use",
+          "future"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I better pass on the Comets game.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "pass_on",
+          "game"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "But we can't prove it.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "prove",
+          "it"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "They specialize in financial institutions, medical, and retail projects.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "specialize_in",
+          "institution"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Please, ask Stinson as well.",
+      "cls": "imperative",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "ask",
+          "stinson"
+        ]
+      ],
+      "rule": "IMPERATIVE_OPEN_GATED"
+    },
+    {
+      "text": "Thank you for you patience.",
+      "cls": "imperative",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    }
+  ],
+  "prereg": {
+    "hard_pass": "fixed_precision_on_attempted>=0.60 AND coverage_delta>=0.05 AND n_3rd_person_guard_breaks==0 AND guard_regression_ok_fixed AND oos_control_fired_fixed AND simple_fraction_of_length_matched_pool>=0.10 AND coref_guardrail_battery_ok",
+    "hard_fail": "fixed_precision_on_attempted<0.55 OR coverage_delta<0.02 (fix inert) OR n_3rd_person_guard_breaks>0 (guardrail broken) OR NOT guard_regression_ok_fixed OR simple_fraction_of_length_matched_pool<0.10",
+    "hp_scope": "FIXED (coref_1st2nd_person) is the PRIMARY discriminator vs BASELINE (Rung 7's FIX_ALL, imported unmodified, informational comparison arm).",
+    "scope": "adopts EXACTLY the Rung-7 VET's named next-item: resolve 1st/2nd-person subject pronouns (I/we/you) DIRECTLY (no antecedent search) instead of abstaining COREF_UNRESOLVED. Genuine 3rd-person antecedent-less pronouns (he/she/it/they/+object-case forms) UNCHANGED -- still abstain (zero-hallucination guardrail). Does NOT fix the 4 newly-exposed downstream bug classes (irregular-plural-noun lemma, brand/product compound-noun head-selection, OOV verb spelling-restoration, do-support negation parsing) -- flagged as Rung 9 candidates, not claimed fixed here.",
+    "honest_guard": "the fix is a single closed-set membership check (FIRST_SECOND_PERSON_SUBJECT_PRONOUNS = {i, we, you}) verified against a hand-built battery of 3rd-person nonce sentences (must still abstain) + 1st/2nd-person nonce sentences (must extract) + a fix-disabled positive control (must byte-for-byte reproduce Rung 7's FIX_ALL) -- not a sentence-specific patch.",
+    "compute_architecture": "sequential-CPU; pure syntactic parsing + dependency-tree traversal, no VSA store; wall time trivial (MEASURED below)",
+    "storage_strategy": "no_storage (pure parser-layer + dependency-classifier test)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "runner_python_u_only (timeout_s < 1800; cell wall time is seconds, matching Rung 5/5b/6/7's own precedent)",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "parse_conllu_v2 (Rung 7's feats-aware parser, real local corpus)",
+      "load_simple_sentences_v2 (Rung 7's loader, SAME-SLICE-PARITY vs Rung 6/7)",
+      "analyze_sentence_v2 (Rung 7's gold-deriver, UNCHANGED)",
+      "ie_extract_fix_all (Rung 7 BASELINE, imported unmodified)",
+      "ie_extract_coref_1st2nd_fixed (this cell, the ONE new branch)",
+      "nltk.pos_tag (real classical averaged-perceptron call)"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete syntactic role-assignment + the classical tagger's own literature-benchmarked accuracy (96-97% PTB, CITED), same as Rung 5/5b/6/7.",
+    "glass_box_legal": "static source-scan (no torch/spacy/transformers/stanza imports) AND a runtime sys.modules transitive-closure check after nltk use, both asserted at self-test",
+    "prior_work_check": "substrate_query.sh run before authoring (see completion report) -- top hits were generic wordnet 'person' concept-graph nodes (cosine<=0.343), not prior experiment cells; this is a genuinely novel measurement within the actively-developed RUNG 2-8 open-text-reading arc, not a rediscovery. The relevant prior work is the directly-pointed-to Rung 7 pipeline + the Rung-5b coref abstain-gate lineage, both cited and reused (not independently rediscovered)."
+  }
+}
