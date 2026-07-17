@@ -1,0 +1,116 @@
+{
+  "anchor_name": "substrate_resonator_focus_lever_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial rescue pattern (not cleanly HARD-PASS or HARD-FAIL -- e.g. hierarchy helps at one of F=6/F=8 but not both, or decorrelation shows a small 0.05-0.30 partial rescue). REF(flat_F4)=0.561 flat={3:1.000,4:0.561,6:0.072,8:0.006} hier={6:1.000,8:0.161} decorr={6:0.083,8:0.000}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "flat_acc": {
+        "3": 1.0,
+        "4": 0.45,
+        "6": 0.08333333333333333,
+        "8": 0.016666666666666666
+      },
+      "decorr_acc": {
+        "3": 1.0,
+        "4": 0.4166666666666667,
+        "6": 0.08333333333333333,
+        "8": 0.0
+      },
+      "hier_acc": {
+        "6": 1.0,
+        "8": 0.15
+      },
+      "hier_stage1_acc": {
+        "6": 1.0,
+        "8": 0.35
+      },
+      "unit_count": 10
+    },
+    {
+      "seed": 17,
+      "flat_acc": {
+        "3": 1.0,
+        "4": 0.5166666666666667,
+        "6": 0.08333333333333333,
+        "8": 0.0
+      },
+      "decorr_acc": {
+        "3": 1.0,
+        "4": 0.6,
+        "6": 0.06666666666666667,
+        "8": 0.0
+      },
+      "hier_acc": {
+        "6": 1.0,
+        "8": 0.18333333333333332
+      },
+      "hier_stage1_acc": {
+        "6": 1.0,
+        "8": 0.45
+      },
+      "unit_count": 10
+    },
+    {
+      "seed": 23,
+      "flat_acc": {
+        "3": 1.0,
+        "4": 0.7166666666666667,
+        "6": 0.05,
+        "8": 0.0
+      },
+      "decorr_acc": {
+        "3": 1.0,
+        "4": 0.5333333333333333,
+        "6": 0.1,
+        "8": 0.0
+      },
+      "hier_acc": {
+        "6": 1.0,
+        "8": 0.15
+      },
+      "hier_stage1_acc": {
+        "6": 1.0,
+        "8": 0.4
+      },
+      "unit_count": 10
+    }
+  ],
+  "aggregate": {
+    "flat_acc_mean": {
+      "3": 1.0,
+      "4": 0.5611111111111112,
+      "6": 0.07222222222222223,
+      "8": 0.005555555555555556
+    },
+    "decorr_acc_mean": {
+      "3": 1.0,
+      "4": 0.5166666666666666,
+      "6": 0.08333333333333333,
+      "8": 0.0
+    },
+    "hier_acc_mean": {
+      "6": 1.0,
+      "8": 0.1611111111111111
+    },
+    "ref_flat_F4": 0.5611111111111112
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "flat": "4b629a04230645320cb3256250189fda97f97052a46d0343c06ab81242ce5a90",
+    "decorr": "9febfc0a5d119169e10ca1e98aef999968cd0810850fe386bbd226583a3cc897",
+    "hier": "a40e8c503fa6d465fa1978a9a81b4df25be0e02eb5282a43f5a1eb409907cd4a"
+  },
+  "expected_n_units_per_seed": 10,
+  "cardinality_ok": true,
+  "regime": {
+    "N": 16384,
+    "M": 8,
+    "MAX_IT": 200,
+    "trials": 60
+  },
+  "elapsed_s": 1122.6764829158783,
+  "summary": "MIDDLE_BAND: partial rescue pattern (not cleanly HARD-PASS or HARD-FAIL -- e.g. hierarchy helps at one of F=6/F=8 but not both, or decorrelation shows a small 0.05-0.30 partial rescue). REF(flat_F4)=0.561 flat={3:1.000,4:0.561,6:0.072,8:0.006} hier={6:1.000,8:0.161} decorr={6:0.083,8:0.000}"
+}
