@@ -1,0 +1,5153 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | result_class=CORPUS_SCALE_TIER1_FIXABLE | failure_rate_curve(NONE->RICH)=[0.267, 0.2, 0.0, 0.0, 0.0] | DEFEAT_PAIR(vorbs,dringles): collides_at_NONE=True resolved_by_RICH(all_seeds)=True persists_at_RICH(no_seed_separates)=False | ablation_control_fired_all_levels=True growth_ok_all=True regressions_ok_all=True v2_reproduction_ok=True monotonic_non_increasing=True interleave_robust_all=True (genuine_variance=True) | weakest=['none (base controls hold; curve shape is a clean, decisive read)']",
+  "summary": "HARD_PASS | result_class=CORPUS_SCALE_TIER1_FIXABLE | failure_rate_curve(NONE->RICH)=[0.267, 0.2, 0.0, 0.0, 0.0] | DEFEAT_PAIR(vorbs,dringles): collides_at_NONE=True resolved_by_RICH(all_seeds)=True persists_at_RICH(no_seed_separates)=False | ablation_control_fired_all_levels=True growth_ok_all=True",
+  "run_mode": "full",
+  "elapsed_s": 0.594553899980383,
+  "anchor_name": "read_grow_relation_identity_v3_richness_sweep",
+  "ts_iso": "2026-07-17T04:48:28.465460+00:00",
+  "seeds": [
+    11,
+    23,
+    37,
+    41,
+    53
+  ],
+  "confirm_k": 3,
+  "n_bootstrap_sentences": 13,
+  "identity_population": [
+    "grims",
+    "florps",
+    "krendles",
+    "shleps",
+    "vorbs",
+    "dringles"
+  ],
+  "expected_n_units": 25,
+  "weakest_interface": [
+    "none (base controls hold; curve shape is a clean, decisive read)"
+  ],
+  "result_class": "CORPUS_SCALE_TIER1_FIXABLE",
+  "richness_levels": [
+    [
+      "NONE",
+      0
+    ],
+    [
+      "MINIMAL",
+      1
+    ],
+    [
+      "SPARSE",
+      3
+    ],
+    [
+      "MODERATE",
+      6
+    ],
+    [
+      "RICH",
+      10
+    ]
+  ],
+  "metric_failure_rate_curve": [
+    0.2666666666666667,
+    0.19999999999999996,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "metric_monotonic_non_increasing": true,
+  "metric_strict_decrease": true,
+  "metric_defeat_pair_resolved_by_rich": true,
+  "metric_defeat_pair_persists_at_rich": false,
+  "metric_v2_reproduction_ok": true,
+  "metric_ablation_control_fired_all_levels": true,
+  "per_richness_level": [
+    {
+      "richness_n": 0,
+      "population_separated_frac_full_mean": 0.7333333333333333,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": false,
+      "defeat_pair_separated_full_any": false,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "richness_name": "NONE"
+    },
+    {
+      "richness_n": 1,
+      "population_separated_frac_full_mean": 0.8,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": false,
+      "defeat_pair_separated_full_any": false,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "richness_name": "MINIMAL"
+    },
+    {
+      "richness_n": 3,
+      "population_separated_frac_full_mean": 1.0,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": true,
+      "defeat_pair_separated_full_any": true,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "richness_name": "SPARSE"
+    },
+    {
+      "richness_n": 6,
+      "population_separated_frac_full_mean": 1.0,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": true,
+      "defeat_pair_separated_full_any": true,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "richness_name": "MODERATE"
+    },
+    {
+      "richness_n": 10,
+      "population_separated_frac_full_mean": 1.0,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": true,
+      "defeat_pair_separated_full_any": true,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "richness_name": "RICH"
+    }
+  ],
+  "defeat_pair_names": [
+    "vorbs",
+    "dringles"
+  ],
+  "order_pair_names": [
+    "grims",
+    "florps"
+  ],
+  "cooccur_pair_names": [
+    "krendles",
+    "shleps"
+  ],
+  "canonical_pairs": [
+    [
+      "bird",
+      "cat"
+    ],
+    [
+      "bird",
+      "cow"
+    ],
+    [
+      "bird",
+      "dog"
+    ],
+    [
+      "bird",
+      "frog"
+    ],
+    [
+      "cat",
+      "cow"
+    ],
+    [
+      "cat",
+      "dog"
+    ],
+    [
+      "cat",
+      "frog"
+    ],
+    [
+      "cow",
+      "dog"
+    ],
+    [
+      "cow",
+      "frog"
+    ],
+    [
+      "dog",
+      "frog"
+    ]
+  ],
+  "per_richness_level_full": [
+    {
+      "richness_n": 0,
+      "population_separated_frac_full_mean": 0.7333333333333333,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": false,
+      "defeat_pair_separated_full_any": false,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "per_seed": [
+        {
+          "seed": 11,
+          "richness_n": 0,
+          "grown": [
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.7333333333333333,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "f484a4ecc7af4473e3232816602714b9b95bcf5b26cc62a740d3b37c1e62d775",
+          "corpus_order_head": [
+            "new_relation:krendles",
+            "new_relation:grims",
+            "new_relation:krendles",
+            "new_relation:dringles",
+            "new_relation:krendles",
+            "new_relation:grims",
+            "new_relation:shleps",
+            "new_relation:vorbs",
+            "new_relation:grims",
+            "new_relation:shleps"
+          ]
+        },
+        {
+          "seed": 23,
+          "richness_n": 0,
+          "grown": [
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.7333333333333333,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "f484a4ecc7af4473e3232816602714b9b95bcf5b26cc62a740d3b37c1e62d775",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:vorbs",
+            "new_relation:florps",
+            "new_relation:florps",
+            "new_relation:dringles",
+            "new_relation:dringles",
+            "new_relation:krendles",
+            "new_relation:florps",
+            "relation_distractor_k_threshold",
+            "new_relation:grims"
+          ]
+        },
+        {
+          "seed": 37,
+          "richness_n": 0,
+          "grown": [
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.7333333333333333,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "f484a4ecc7af4473e3232816602714b9b95bcf5b26cc62a740d3b37c1e62d775",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:shleps",
+            "new_relation:dringles",
+            "relation_distractor_k_threshold",
+            "new_relation:krendles",
+            "relation_distractor_k_threshold",
+            "new_relation:shleps",
+            "new_relation:dringles",
+            "new_relation:vorbs",
+            "new_relation:vorbs"
+          ]
+        },
+        {
+          "seed": 41,
+          "richness_n": 0,
+          "grown": [
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.7333333333333333,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "f484a4ecc7af4473e3232816602714b9b95bcf5b26cc62a740d3b37c1e62d775",
+          "corpus_order_head": [
+            "new_relation:dringles",
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs",
+            "new_relation:florps",
+            "new_relation:krendles",
+            "new_relation:grims",
+            "new_relation:dringles",
+            "new_relation:vorbs",
+            "relation_distractor_k_threshold",
+            "new_relation:florps"
+          ]
+        },
+        {
+          "seed": 53,
+          "richness_n": 0,
+          "grown": [
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.7333333333333333,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "f484a4ecc7af4473e3232816602714b9b95bcf5b26cc62a740d3b37c1e62d775",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:krendles",
+            "relation_distractor_k_threshold",
+            "new_relation:dringles",
+            "new_relation:shleps",
+            "new_relation:vorbs",
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs",
+            "new_relation:krendles",
+            "new_relation:dringles"
+          ]
+        }
+      ],
+      "richness_name": "NONE"
+    },
+    {
+      "richness_n": 1,
+      "population_separated_frac_full_mean": 0.8,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": false,
+      "defeat_pair_separated_full_any": false,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "per_seed": [
+        {
+          "seed": 11,
+          "richness_n": 1,
+          "grown": [
+            "bg_p1",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.8,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "96d353cb7f4036bef4e306badb5056553ed5ece183e774ca15b2aeb73415241a",
+          "corpus_order_head": [
+            "new_relation:grims",
+            "new_relation:florps",
+            "new_relation:krendles",
+            "richness_bg:bg_p1",
+            "new_relation:krendles",
+            "new_relation:grims",
+            "new_relation:shleps",
+            "new_relation:vorbs",
+            "new_relation:florps",
+            "new_relation:grims"
+          ]
+        },
+        {
+          "seed": 23,
+          "richness_n": 1,
+          "grown": [
+            "bg_p1",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.8,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "96d353cb7f4036bef4e306badb5056553ed5ece183e774ca15b2aeb73415241a",
+          "corpus_order_head": [
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs",
+            "new_relation:florps",
+            "new_relation:dringles",
+            "richness_bg:bg_p1",
+            "richness_bg:bg_p1",
+            "new_relation:grims",
+            "new_relation:dringles",
+            "new_relation:shleps",
+            "new_relation:florps"
+          ]
+        },
+        {
+          "seed": 37,
+          "richness_n": 1,
+          "grown": [
+            "bg_p1",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.8,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "96d353cb7f4036bef4e306badb5056553ed5ece183e774ca15b2aeb73415241a",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:krendles",
+            "richness_bg:bg_p1",
+            "new_relation:shleps",
+            "new_relation:grims",
+            "relation_distractor_k_threshold",
+            "relation_distractor_k_threshold",
+            "richness_bg:bg_p1",
+            "new_relation:vorbs",
+            "new_relation:vorbs"
+          ]
+        },
+        {
+          "seed": 41,
+          "richness_n": 1,
+          "grown": [
+            "bg_p1",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.8,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "96d353cb7f4036bef4e306badb5056553ed5ece183e774ca15b2aeb73415241a",
+          "corpus_order_head": [
+            "richness_bg:bg_p1",
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs",
+            "new_relation:dringles",
+            "new_relation:krendles",
+            "new_relation:grims",
+            "richness_bg:bg_p1",
+            "new_relation:vorbs",
+            "new_relation:shleps",
+            "new_relation:florps"
+          ]
+        },
+        {
+          "seed": 53,
+          "richness_n": 1,
+          "grown": [
+            "bg_p1",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              []
+            ],
+            "vorbs": [
+              true,
+              true,
+              []
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 0.8,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": false,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "96d353cb7f4036bef4e306badb5056553ed5ece183e774ca15b2aeb73415241a",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:grims",
+            "relation_distractor_k_threshold",
+            "richness_bg:bg_p1",
+            "new_relation:krendles",
+            "new_relation:vorbs",
+            "new_relation:shleps",
+            "new_relation:vorbs",
+            "new_relation:shleps",
+            "richness_bg:bg_p1"
+          ]
+        }
+      ],
+      "richness_name": "MINIMAL"
+    },
+    {
+      "richness_n": 3,
+      "population_separated_frac_full_mean": 1.0,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": true,
+      "defeat_pair_separated_full_any": true,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "per_seed": [
+        {
+          "seed": 11,
+          "richness_n": 3,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "a49fb7c7d01a30f8eb6e6ace281aa3bf463c3d0ea7194b87fd11630f56b7327a",
+          "corpus_order_head": [
+            "new_relation:florps",
+            "new_relation:dringles",
+            "new_relation:grims",
+            "richness_bg:bg_p2",
+            "new_relation:grims",
+            "new_relation:florps",
+            "new_relation:krendles",
+            "relation_distractor_k_threshold",
+            "new_relation:dringles",
+            "new_relation:florps"
+          ]
+        },
+        {
+          "seed": 23,
+          "richness_n": 3,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "a49fb7c7d01a30f8eb6e6ace281aa3bf463c3d0ea7194b87fd11630f56b7327a",
+          "corpus_order_head": [
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs",
+            "richness_bg:bg_p3",
+            "richness_bg:bg_p2",
+            "richness_bg:bg_p1",
+            "richness_bg:bg_p1",
+            "new_relation:florps",
+            "richness_bg:bg_p3",
+            "new_relation:shleps",
+            "richness_bg:bg_p3"
+          ]
+        },
+        {
+          "seed": 37,
+          "richness_n": 3,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "a49fb7c7d01a30f8eb6e6ace281aa3bf463c3d0ea7194b87fd11630f56b7327a",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:grims",
+            "richness_bg:bg_p1",
+            "new_relation:shleps",
+            "new_relation:florps",
+            "new_relation:shleps",
+            "relation_distractor_k_threshold",
+            "richness_bg:bg_p1",
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs"
+          ]
+        },
+        {
+          "seed": 41,
+          "richness_n": 3,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "a49fb7c7d01a30f8eb6e6ace281aa3bf463c3d0ea7194b87fd11630f56b7327a",
+          "corpus_order_head": [
+            "richness_bg:bg_p1",
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs",
+            "richness_bg:bg_p3",
+            "new_relation:grims",
+            "new_relation:florps",
+            "richness_bg:bg_p1",
+            "new_relation:vorbs",
+            "new_relation:shleps",
+            "richness_bg:bg_p3"
+          ]
+        },
+        {
+          "seed": 53,
+          "richness_n": 3,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              []
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "a49fb7c7d01a30f8eb6e6ace281aa3bf463c3d0ea7194b87fd11630f56b7327a",
+          "corpus_order_head": [
+            "relation_distractor_k_threshold",
+            "new_relation:florps",
+            "new_relation:shleps",
+            "richness_bg:bg_p1",
+            "new_relation:krendles",
+            "relation_distractor_k_threshold",
+            "new_relation:krendles",
+            "new_relation:vorbs",
+            "new_relation:shleps",
+            "richness_bg:bg_p1"
+          ]
+        }
+      ],
+      "richness_name": "SPARSE"
+    },
+    {
+      "richness_n": 6,
+      "population_separated_frac_full_mean": 1.0,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": true,
+      "defeat_pair_separated_full_any": true,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "per_seed": [
+        {
+          "seed": 11,
+          "richness_n": 6,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "97ea8647b7700ac52a8c19daedc18eee187c5851d36254629377973e621a18f3",
+          "corpus_order_head": [
+            "new_relation:dringles",
+            "richness_bg:bg_p5",
+            "new_relation:dringles",
+            "richness_bg:bg_p2",
+            "new_relation:dringles",
+            "richness_bg:bg_p6",
+            "new_relation:grims",
+            "relation_distractor_k_threshold",
+            "richness_bg:bg_p5",
+            "richness_bg:bg_p6"
+          ]
+        },
+        {
+          "seed": 23,
+          "richness_n": 6,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "97ea8647b7700ac52a8c19daedc18eee187c5851d36254629377973e621a18f3",
+          "corpus_order_head": [
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs",
+            "richness_bg:bg_p4",
+            "richness_bg:bg_p3",
+            "richness_bg:bg_p1",
+            "richness_bg:bg_p1",
+            "new_relation:dringles",
+            "richness_bg:bg_p4",
+            "new_relation:krendles",
+            "richness_bg:bg_p4"
+          ]
+        },
+        {
+          "seed": 37,
+          "richness_n": 6,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "97ea8647b7700ac52a8c19daedc18eee187c5851d36254629377973e621a18f3",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:florps",
+            "richness_bg:bg_p1",
+            "new_relation:krendles",
+            "richness_bg:bg_p6",
+            "new_relation:shleps",
+            "new_relation:shleps",
+            "richness_bg:bg_p1",
+            "relation_distractor_k_threshold",
+            "new_relation:vorbs"
+          ]
+        },
+        {
+          "seed": 41,
+          "richness_n": 6,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "97ea8647b7700ac52a8c19daedc18eee187c5851d36254629377973e621a18f3",
+          "corpus_order_head": [
+            "richness_bg:bg_p1",
+            "new_relation:shleps",
+            "new_relation:vorbs",
+            "richness_bg:bg_p3",
+            "new_relation:dringles",
+            "richness_bg:bg_p6",
+            "richness_bg:bg_p1",
+            "relation_distractor_k_threshold",
+            "new_relation:krendles",
+            "richness_bg:bg_p4"
+          ]
+        },
+        {
+          "seed": 53,
+          "richness_n": 6,
+          "grown": [
+            "bg_p1",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              []
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "97ea8647b7700ac52a8c19daedc18eee187c5851d36254629377973e621a18f3",
+          "corpus_order_head": [
+            "relation_distractor_k_threshold",
+            "new_relation:dringles",
+            "new_relation:shleps",
+            "richness_bg:bg_p2",
+            "new_relation:florps",
+            "relation_distractor_k_threshold",
+            "new_relation:grims",
+            "new_relation:shleps",
+            "new_relation:krendles",
+            "richness_bg:bg_p1"
+          ]
+        }
+      ],
+      "richness_name": "MODERATE"
+    },
+    {
+      "richness_n": 10,
+      "population_separated_frac_full_mean": 1.0,
+      "population_separated_frac_ablation_mean": 0.0,
+      "order_pair_separated_full_all": true,
+      "order_pair_separated_ablation_any": false,
+      "cooccur_pair_separated_full_all": true,
+      "cooccur_pair_separated_ablation_any": false,
+      "defeat_pair_separated_full_all": true,
+      "defeat_pair_separated_full_any": true,
+      "defeat_pair_separated_ablation_any": false,
+      "all_grown_pop_all": true,
+      "all_grown_bg_all": true,
+      "all_facts_in_store_all": true,
+      "violation_rejected_all": true,
+      "trelps_not_confirmed_all": true,
+      "relation_query_acc_mean": 1.0,
+      "interleave_robust_across_seeds": true,
+      "interleave_orders_genuinely_differ": true,
+      "grown_sets_per_seed": {
+        "11": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "23": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "37": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "41": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ],
+        "53": [
+          "bg_p1",
+          "bg_p10",
+          "bg_p2",
+          "bg_p3",
+          "bg_p4",
+          "bg_p5",
+          "bg_p6",
+          "bg_p7",
+          "bg_p8",
+          "bg_p9",
+          "dringles",
+          "florps",
+          "grims",
+          "krendles",
+          "shleps",
+          "vorbs"
+        ]
+      },
+      "per_seed": [
+        {
+          "seed": 11,
+          "richness_n": 10,
+          "grown": [
+            "bg_p1",
+            "bg_p10",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "bg_p7",
+            "bg_p8",
+            "bg_p9",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              [
+                "bg_p8"
+              ]
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3",
+                "bg_p7"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p10",
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "3a6b37f7808ff218231f40d5511a619bf58e2da661d98f25c8594ae492648fdd",
+          "corpus_order_head": [
+            "richness_bg:bg_p8",
+            "richness_bg:bg_p5",
+            "richness_bg:bg_p8",
+            "richness_bg:bg_p10",
+            "richness_bg:bg_p9",
+            "richness_bg:bg_p7",
+            "new_relation:florps",
+            "relation_distractor_k_threshold",
+            "richness_bg:bg_p6",
+            "richness_bg:bg_p7"
+          ]
+        },
+        {
+          "seed": 23,
+          "richness_n": 10,
+          "grown": [
+            "bg_p1",
+            "bg_p10",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "bg_p7",
+            "bg_p8",
+            "bg_p9",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              [
+                "bg_p8"
+              ]
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3",
+                "bg_p7"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p10",
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "3a6b37f7808ff218231f40d5511a619bf58e2da661d98f25c8594ae492648fdd",
+          "corpus_order_head": [
+            "new_relation:shleps",
+            "new_relation:vorbs",
+            "richness_bg:bg_p4",
+            "richness_bg:bg_p3",
+            "richness_bg:bg_p1",
+            "richness_bg:bg_p1",
+            "richness_bg:bg_p7",
+            "richness_bg:bg_p3",
+            "new_relation:florps",
+            "richness_bg:bg_p4"
+          ]
+        },
+        {
+          "seed": 37,
+          "richness_n": 10,
+          "grown": [
+            "bg_p1",
+            "bg_p10",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "bg_p7",
+            "bg_p8",
+            "bg_p9",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              [
+                "bg_p8"
+              ]
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3",
+                "bg_p7"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p10",
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "3a6b37f7808ff218231f40d5511a619bf58e2da661d98f25c8594ae492648fdd",
+          "corpus_order_head": [
+            "new_relation:vorbs",
+            "new_relation:dringles",
+            "richness_bg:bg_p1",
+            "new_relation:grims",
+            "richness_bg:bg_p7",
+            "new_relation:krendles",
+            "new_relation:krendles",
+            "richness_bg:bg_p1",
+            "new_relation:shleps",
+            "new_relation:vorbs"
+          ]
+        },
+        {
+          "seed": 41,
+          "richness_n": 10,
+          "grown": [
+            "bg_p1",
+            "bg_p10",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "bg_p7",
+            "bg_p8",
+            "bg_p9",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              [
+                "bg_p8"
+              ]
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3",
+                "bg_p7"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p10",
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "3a6b37f7808ff218231f40d5511a619bf58e2da661d98f25c8594ae492648fdd",
+          "corpus_order_head": [
+            "richness_bg:bg_p10",
+            "new_relation:krendles",
+            "new_relation:vorbs",
+            "richness_bg:bg_p3",
+            "richness_bg:bg_p8",
+            "richness_bg:bg_p7",
+            "richness_bg:bg_p1",
+            "relation_distractor_k_threshold",
+            "new_relation:grims",
+            "richness_bg:bg_p4"
+          ]
+        },
+        {
+          "seed": 53,
+          "richness_n": 10,
+          "grown": [
+            "bg_p1",
+            "bg_p10",
+            "bg_p2",
+            "bg_p3",
+            "bg_p4",
+            "bg_p5",
+            "bg_p6",
+            "bg_p7",
+            "bg_p8",
+            "bg_p9",
+            "dringles",
+            "florps",
+            "grims",
+            "krendles",
+            "shleps",
+            "vorbs"
+          ],
+          "sig_full": {
+            "grims": [
+              true,
+              true,
+              [
+                "bg_p4",
+                "bg_p6",
+                "chases"
+              ]
+            ],
+            "florps": [
+              true,
+              false,
+              [
+                "bg_p8"
+              ]
+            ],
+            "krendles": [
+              true,
+              true,
+              [
+                "bg_p1",
+                "chases"
+              ]
+            ],
+            "shleps": [
+              true,
+              true,
+              [
+                "bg_p2"
+              ]
+            ],
+            "vorbs": [
+              true,
+              true,
+              [
+                "bg_p3",
+                "bg_p7"
+              ]
+            ],
+            "dringles": [
+              true,
+              true,
+              [
+                "bg_p10",
+                "bg_p5"
+              ]
+            ]
+          },
+          "sig_ablation": {
+            "grims": [
+              true
+            ],
+            "florps": [
+              true
+            ],
+            "krendles": [
+              true
+            ],
+            "shleps": [
+              true
+            ],
+            "vorbs": [
+              true
+            ],
+            "dringles": [
+              true
+            ]
+          },
+          "population_separated_frac_full": 1.0,
+          "population_separated_frac_ablation": 0.0,
+          "pop_pairs": [
+            [
+              "grims",
+              "florps"
+            ],
+            [
+              "grims",
+              "krendles"
+            ],
+            [
+              "grims",
+              "shleps"
+            ],
+            [
+              "grims",
+              "vorbs"
+            ],
+            [
+              "grims",
+              "dringles"
+            ],
+            [
+              "florps",
+              "krendles"
+            ],
+            [
+              "florps",
+              "shleps"
+            ],
+            [
+              "florps",
+              "vorbs"
+            ],
+            [
+              "florps",
+              "dringles"
+            ],
+            [
+              "krendles",
+              "shleps"
+            ],
+            [
+              "krendles",
+              "vorbs"
+            ],
+            [
+              "krendles",
+              "dringles"
+            ],
+            [
+              "shleps",
+              "vorbs"
+            ],
+            [
+              "shleps",
+              "dringles"
+            ],
+            [
+              "vorbs",
+              "dringles"
+            ]
+          ],
+          "order_pair_separated_full": true,
+          "order_pair_separated_ablation": false,
+          "cooccur_pair_separated_full": true,
+          "cooccur_pair_separated_ablation": false,
+          "defeat_pair_separated_full": true,
+          "defeat_pair_separated_ablation": false,
+          "all_grown_pop": true,
+          "all_grown_bg": true,
+          "all_facts_in_store": true,
+          "violation_rejected": true,
+          "trelps_not_confirmed": true,
+          "relation_query_acc": 1.0,
+          "accepted_hash": "3a6b37f7808ff218231f40d5511a619bf58e2da661d98f25c8594ae492648fdd",
+          "corpus_order_head": [
+            "relation_distractor_k_threshold",
+            "richness_bg:bg_p7",
+            "new_relation:krendles",
+            "richness_bg:bg_p10",
+            "new_relation:dringles",
+            "new_relation:shleps",
+            "new_relation:grims",
+            "relation_distractor_k_threshold",
+            "new_relation:grims",
+            "richness_bg:bg_p1"
+          ]
+        }
+      ],
+      "richness_name": "RICH"
+    }
+  ],
+  "prereg": {
+    "hard_pass_corpus_scale": "base_controls_ok & strict_decrease & DEFEAT_PAIR separates under FULL by RICH on every seed -> corpus-scale Tier-1, fixable via richer context",
+    "hard_pass_tier3": "base_controls_ok & NOT strict_decrease (zero improvement NONE->RICH) & DEFEAT_PAIR does NOT separate under FULL at RICH on any seed -> genuine Tier-3 meaning-wall, structure categorically insufficient",
+    "hard_fail": "any base control fails (ablation leak, growth break, regression leak, v2-reproduction mismatch) OR failure rate is non-monotonic (increases at some richness step)",
+    "middle_band": "base controls hold but curve shape is neither clean corpus-scale nor clean Tier-3 (e.g. other pairs resolve but DEFEAT_PAIR persists, or seeds disagree)",
+    "richness_operationalization": "cumulative canonical-pair-space coverage (alphabetical over the fixed 5-animal vocabulary), N in {0,1,3,6,10} out of 10 total pairs; background relations grown via the SAME CONFIRM_K=3 pipeline as every population relation, no special-cased shortcut",
+    "honest_guard": "RICH level covers 100% of the pair space, including BOTH of vorbs's and BOTH of dringles's argument pairs -- neither defeat-pair relation is permanently excluded from a fair chance to accrue differentiating co-occurrence context",
+    "defeat_pair_held_fixed": "vorbs/dringles's own NEW_RELATION_PAIRS entries are byte-identical to v2 across all 5 richness levels; only the surrounding corpus changes",
+    "compute_architecture": "sequential-CPU (foundation grows fact-by-fact; gate state depends on prior admits)",
+    "storage_strategy": "sharded (one VSA vector per accepted fact, via imported FoundationStore)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract_openvocab",
+      "run_richness_loop",
+      "_relation_args_coherent",
+      "_order_consistency",
+      "_co_occurrence_with_known",
+      "build_interleaved_corpus"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete structural-signature comparison, not phasor decode noise",
+    "prior_work_check": "substrate_query.sh 'relation identity corpus richness co-occurrence context sweep failure rate' -> top hits cosine 0.30-0.32 concern LLM context-richness/contradiction-rate correlation (mycorrhizal drill, different domain) and a generic WordNet 'co-occurrence' term -- NOT the same mechanism. Genuinely novel application; this cell is also a direct, Skunkworks-VET-mandated expansion of exp_read_grow_relation_identity_v2 (commit d232a06ab), same mechanism class as v1/v2's already-established novelty."
+  }
+}
