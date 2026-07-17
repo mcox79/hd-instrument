@@ -1,0 +1,1970 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | ENTITY fast-map: acc=1.00 query=1.00 false_fact_rate=0.00 (NO_CONFIRM false=0.67, BASELINE learned=0.00) | RELATION: grow=1.00 query=1.00 violation_rejected=True distractor_not_grown=True false=0.00 | RELATION evidence is CONSTRUCTION-grade (mechanical grow + arg-type guard; MEANING unverifiable, no external referent) -- weaker than the grounded/type-verified ENTITY evidence. | weakest=['none (entities fast-mapped + grounded, precision preserved)']",
+  "summary": "HARD_PASS | ENTITY fast-map: acc=1.00 query=1.00 false_fact_rate=0.00 (NO_CONFIRM false=0.67, BASELINE learned=0.00) | RELATION: grow=1.00 query=1.00 violation_rejected=True distractor_not_grown=True false=0.00 | RELATION evidence is CONSTRUCTION-grade (mechanical grow + arg-type guard; MEANING unve",
+  "run_mode": "full",
+  "elapsed_s": 0.16655840000021271,
+  "anchor_name": "read_grow_openvocab_fastmap_v1",
+  "ts_iso": "2026-07-17T03:14:58.976418+00:00",
+  "seeds": [
+    11,
+    23,
+    37,
+    41,
+    53
+  ],
+  "n_read_sentences": 26,
+  "expected_n_units": 15,
+  "weakest_interface": [
+    "none (entities fast-mapped + grounded, precision preserved)"
+  ],
+  "metric_a_new_entity_fastmap_acc_full": 1.0,
+  "metric_a_new_entity_fastmap_acc_baseline": 0.0,
+  "metric_b_new_entity_query_acc_full": 1.0,
+  "metric_c_new_relation_grow_acc_full": 1.0,
+  "metric_c_new_relation_query_acc_full": 1.0,
+  "metric_c_relation_violation_rejected": true,
+  "metric_c_relation_distractor_not_grown": true,
+  "metric_d_entity_false_fact_rate_full": 0.0,
+  "metric_d_entity_false_fact_rate_no_confirm": 0.6666666666666666,
+  "metric_d_relation_false_fact_rate_full": 0.0,
+  "arms": {
+    "FULL_FASTMAP": {
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.0,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_false_fact_rate": 0.0,
+      "n_accepted": 20.0,
+      "n_entity_false": 0.0,
+      "n_confirmed_entities": 3.0,
+      "n_grown_relations": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": true
+    },
+    "NO_CONFIRM": {
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.6666666666666666,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_false_fact_rate": 0.5,
+      "n_accepted": 23.0,
+      "n_entity_false": 2.0,
+      "n_confirmed_entities": 0.0,
+      "n_grown_relations": 2.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": false
+    },
+    "ABSTAIN_BASELINE": {
+      "new_entity_fastmap_acc": 0.0,
+      "new_entity_query_acc": 0.0,
+      "entity_false_fact_rate": 0.0,
+      "new_relation_grow_acc": 0.0,
+      "new_relation_query_acc": 0.0,
+      "relation_false_fact_rate": 0.0,
+      "n_accepted": 12.0,
+      "n_entity_false": 0.0,
+      "n_confirmed_entities": 0.0,
+      "n_grown_relations": 0.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": true
+    }
+  },
+  "full_per_seed": [
+    {
+      "seed": 11,
+      "arm": "full",
+      "n_accepted": 20,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.0,
+      "n_entity_false": 0,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 3,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "n_grown_relations": 1,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "4ddd63fbdea2f60da18ece923c172f20d54405238daa1484a9c57a84b2c25079",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "buffer_unconfirmed": {
+        "quon": 1,
+        "zib": 2,
+        "wobbles": 1
+      }
+    },
+    {
+      "seed": 23,
+      "arm": "full",
+      "n_accepted": 20,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.0,
+      "n_entity_false": 0,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 3,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "n_grown_relations": 1,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "4ddd63fbdea2f60da18ece923c172f20d54405238daa1484a9c57a84b2c25079",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "buffer_unconfirmed": {
+        "quon": 1,
+        "zib": 2,
+        "wobbles": 1
+      }
+    },
+    {
+      "seed": 37,
+      "arm": "full",
+      "n_accepted": 20,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.0,
+      "n_entity_false": 0,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 3,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "n_grown_relations": 1,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "4ddd63fbdea2f60da18ece923c172f20d54405238daa1484a9c57a84b2c25079",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "buffer_unconfirmed": {
+        "quon": 1,
+        "zib": 2,
+        "wobbles": 1
+      }
+    },
+    {
+      "seed": 41,
+      "arm": "full",
+      "n_accepted": 20,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.0,
+      "n_entity_false": 0,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 3,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "n_grown_relations": 1,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "4ddd63fbdea2f60da18ece923c172f20d54405238daa1484a9c57a84b2c25079",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "buffer_unconfirmed": {
+        "quon": 1,
+        "zib": 2,
+        "wobbles": 1
+      }
+    },
+    {
+      "seed": 53,
+      "arm": "full",
+      "n_accepted": 20,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.0,
+      "n_entity_false": 0,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 3,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": true,
+      "relation_false_fact_rate": 0.0,
+      "n_grown_relations": 1,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "4ddd63fbdea2f60da18ece923c172f20d54405238daa1484a9c57a84b2c25079",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ]
+      ],
+      "buffer_unconfirmed": {
+        "quon": 1,
+        "zib": 2,
+        "wobbles": 1
+      }
+    }
+  ],
+  "no_confirm_per_seed": [
+    {
+      "seed": 11,
+      "arm": "no_confirm",
+      "n_accepted": 23,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.6666666666666666,
+      "n_entity_false": 2,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 0,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": false,
+      "relation_false_fact_rate": 0.5,
+      "n_grown_relations": 2,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "dc957e79b2fce3eba15249d9dd063a07e323a0fa7f18c2e37a3be50c9251e3cb",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "owl",
+          "wobbles",
+          "mouse"
+        ],
+        [
+          "quon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "zib",
+          "eats",
+          "seed"
+        ]
+      ],
+      "buffer_unconfirmed": {}
+    },
+    {
+      "seed": 23,
+      "arm": "no_confirm",
+      "n_accepted": 23,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.6666666666666666,
+      "n_entity_false": 2,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 0,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": false,
+      "relation_false_fact_rate": 0.5,
+      "n_grown_relations": 2,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "dc957e79b2fce3eba15249d9dd063a07e323a0fa7f18c2e37a3be50c9251e3cb",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "owl",
+          "wobbles",
+          "mouse"
+        ],
+        [
+          "quon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "zib",
+          "eats",
+          "seed"
+        ]
+      ],
+      "buffer_unconfirmed": {}
+    },
+    {
+      "seed": 37,
+      "arm": "no_confirm",
+      "n_accepted": 23,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.6666666666666666,
+      "n_entity_false": 2,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 0,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": false,
+      "relation_false_fact_rate": 0.5,
+      "n_grown_relations": 2,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "dc957e79b2fce3eba15249d9dd063a07e323a0fa7f18c2e37a3be50c9251e3cb",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "owl",
+          "wobbles",
+          "mouse"
+        ],
+        [
+          "quon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "zib",
+          "eats",
+          "seed"
+        ]
+      ],
+      "buffer_unconfirmed": {}
+    },
+    {
+      "seed": 41,
+      "arm": "no_confirm",
+      "n_accepted": 23,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.6666666666666666,
+      "n_entity_false": 2,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 0,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": false,
+      "relation_false_fact_rate": 0.5,
+      "n_grown_relations": 2,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "dc957e79b2fce3eba15249d9dd063a07e323a0fa7f18c2e37a3be50c9251e3cb",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "owl",
+          "wobbles",
+          "mouse"
+        ],
+        [
+          "quon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "zib",
+          "eats",
+          "seed"
+        ]
+      ],
+      "buffer_unconfirmed": {}
+    },
+    {
+      "seed": 53,
+      "arm": "no_confirm",
+      "n_accepted": 23,
+      "new_entity_fastmap_acc": 1.0,
+      "new_entity_query_acc": 1.0,
+      "entity_false_fact_rate": 0.6666666666666666,
+      "n_entity_false": 2,
+      "entity_learned": {
+        "glon": true,
+        "narn": true,
+        "wug": true
+      },
+      "n_confirmed_entities": 0,
+      "new_relation_grow_acc": 1.0,
+      "new_relation_query_acc": 1.0,
+      "relation_violation_rejected": true,
+      "relation_distractor_not_grown": false,
+      "relation_false_fact_rate": 0.5,
+      "n_grown_relations": 2,
+      "query_detail": [
+        {
+          "cue": [
+            "wug",
+            "eats"
+          ],
+          "expected": "seed",
+          "got": "seed",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "wug",
+            "lives_in"
+          ],
+          "expected": "nest",
+          "got": "nest",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "eats"
+          ],
+          "expected": "bread",
+          "got": "bread",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "glon",
+            "chases"
+          ],
+          "expected": "cat",
+          "got": "cat",
+          "in_store": true,
+          "ok": true
+        },
+        {
+          "cue": [
+            "cow",
+            "lives_in"
+          ],
+          "expected": "narn",
+          "got": "narn",
+          "in_store": true,
+          "ok": true
+        }
+      ],
+      "accepted_hash": "dc957e79b2fce3eba15249d9dd063a07e323a0fa7f18c2e37a3be50c9251e3cb",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "grims",
+          "frog"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "grims",
+          "dog"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "narn"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "glon",
+          "chases",
+          "cat"
+        ],
+        [
+          "glon",
+          "eats",
+          "bread"
+        ],
+        [
+          "owl",
+          "wobbles",
+          "mouse"
+        ],
+        [
+          "quon",
+          "eats",
+          "bread"
+        ],
+        [
+          "wug",
+          "eats",
+          "seed"
+        ],
+        [
+          "wug",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "zib",
+          "eats",
+          "seed"
+        ]
+      ],
+      "buffer_unconfirmed": {}
+    }
+  ],
+  "prereg": {
+    "entity_hard_pass": "new_entity_fastmap_acc>=0.80 & new_entity_query_acc>=0.80 & entity_false_fact_rate==0 & BASELINE fastmap_acc==0 & NO_CONFIRM false>FULL false",
+    "relation_pass": "new_relation_grow_acc>=0.80 & violation_rejected & distractor_not_grown & relation_false==0",
+    "overall_hard_pass": "entity HARD-PASS AND relation PASS",
+    "overall_middle": "entity HARD-PASS AND relation NOT PASS (entities work, relations weaker -- honest expected)",
+    "overall_hard_fail": "fastmap_acc<0.40 | entity_false_fact_rate==1.0 | query<0.40 | BASELINE learned>0",
+    "confirm_k": 2,
+    "new_entities": [
+      "glon",
+      "narn",
+      "wug"
+    ],
+    "new_relation": "grims",
+    "honesty_caveat": "relation growth is CONSTRUCTION-grade (meaning unverifiable, no external referent); entity fast-map is grounded + type-verified against the accumulated schema.",
+    "compute_architecture": "sequential-CPU (foundation grows fact-by-fact; gate state depends on prior admits)",
+    "storage_strategy": "sharded (one VSA vector per accepted fact)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract_openvocab",
+      "run_openvocab_loop",
+      "learn_lexicon"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is the fast-map CONFIRM decision + ingest gate"
+  }
+}
