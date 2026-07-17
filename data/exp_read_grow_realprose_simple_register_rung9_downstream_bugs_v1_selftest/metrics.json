@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: fix-disabled positive control did NOT reproduce Rung 8 byte-for-byte",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_simple_register_rung9_downstream_bugs_v1.py\", line 1233, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_simple_register_rung9_downstream_bugs_v1.py\", line 1111, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_simple_register_rung9_downstream_bugs_v1.py\", line 1038, in self_test\n    assert fixes_ev[\"fix_disabled_reproduces_rung8_baseline\"], \"fix-disabled positive control did NOT reproduce Rung 8 byte-for-byte\"\n           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: fix-disabled positive control did NOT reproduce Rung 8 byte-for-byte\n",
+  "ts_iso": "2026-07-17T08:49:48.636478+00:00",
+  "pid": 14376,
+  "anchor_name": "read_grow_realprose_simple_register_rung9_downstream_bugs_v1"
+}
