@@ -1,0 +1,128 @@
+{
+  "anchor_name": "substrate_phase_diagram_subsystem_decoupling_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "(a) transition-vs-theory: m50_measured=376.0 vs K_theory(N=1024,V=64)=61.55 -> ratio=6.11 -> PARTIAL (discriminating_fraction=0.40 of grid in [0.3,0.7], censored=False). (b) independence: recall_wm_alone=1.000 recall_wm_concurrent=1.000 cross_interference=+0.000 -> DECOUPLED. (c) mis-placement: c1(WM alone @top-of-grid m=862)=0.235 crater=True; c2(shared-buffer, store window=862)=0.333 crater=True; misplacement_effect=+0.667 -> fired=True. Subsystem-2 (durable store, m=2000~32.5x theory): paged_exact=1.000 (correct=True), flat_would_crater=True (Gate-D reproduction of prior CG mechanism). Subsystem-3 (compute, N'=16384 k=16): recall=1.000 (correct=True, active-cost fixed). OVERALL TIER: MEASURED_MECHANISM (mixed at-risk verdicts; CLAIM, VET-PENDING).",
+  "summary": "MIDDLE_BAND: phase-diagram subsystem decoupling (MEASURED_MECHANISM (mixed at-risk verdicts; CLAIM, VET-PENDING))",
+  "run_mode": "full",
+  "n_seeds_a": 5,
+  "n_seeds_bc": 5,
+  "n_seeds_store": 3,
+  "n_seeds_compute": 3,
+  "m_grid": [
+    18,
+    37,
+    62,
+    123,
+    215,
+    308,
+    400,
+    492,
+    616,
+    862
+  ],
+  "expected_n_units": 71,
+  "n_units": 71,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "wm_focus_bundle": "58ada44ef9a15ab54ed42fce100d92af930e587af88403724b578d980fd89c4f",
+    "store_active_window_code": "0d0653e21d29bcd37a2360c442cf560fc766c54bda72edea3ed62ebd37a048fe",
+    "compute_blocksparse_code": "217af6084d94906cb0577d7d358bde1f9815090855fa94aba21bf1cedc58ad0d"
+  },
+  "config": {
+    "N_WM": 1024,
+    "V_VAL_WM": 64,
+    "V_KEY_WM": 1024,
+    "K_THEORY_WM": 61.55498841126244,
+    "W_WM_SAFE": 12,
+    "B_STORE_SAFE": 12,
+    "B_STORE_BAD": 862,
+    "M_STORE_TOTAL": 2000,
+    "N_COMPUTE": 16384,
+    "M_COMPUTE": 8192,
+    "K_BLOCK_COMPUTE": 16,
+    "J_COMPUTE": 50
+  },
+  "wm_sweep_grid": [
+    [
+      18,
+      1.0
+    ],
+    [
+      37,
+      1.0
+    ],
+    [
+      62,
+      1.0
+    ],
+    [
+      123,
+      0.9447154471544715
+    ],
+    [
+      215,
+      0.7562790697674419
+    ],
+    [
+      308,
+      0.596103896103896
+    ],
+    [
+      400,
+      0.466
+    ],
+    [
+      492,
+      0.3926829268292683
+    ],
+    [
+      616,
+      0.3220779220779221
+    ],
+    [
+      862,
+      0.2354988399071926
+    ]
+  ],
+  "facts": {
+    "claim_a_transition_vs_theory": "PARTIAL",
+    "m50_measured": 375.95767618287084,
+    "k_theory": 61.55498841126244,
+    "ratio_measured_over_theory": 6.107671951313105,
+    "discriminating_fraction": 0.4,
+    "sweep_censored": false,
+    "claim_b_independence": "DECOUPLED",
+    "recall_wm_alone": 1.0,
+    "recall_wm_concurrent": 1.0,
+    "cross_interference": 0.0,
+    "claim_c_misplacement_fired": true,
+    "craters_c1_wm_alone_over_cliff": true,
+    "craters_c2_shared_buffer_bad_store_window": true,
+    "recall_wm_misplaced": 0.33333333333333337,
+    "misplacement_effect": 0.6666666666666666,
+    "subsystem2_store_paged_exact_recall": 1.0,
+    "subsystem2_store_flat_recall": 0.005208333333333333,
+    "subsystem2_correct": true,
+    "subsystem3_compute_recall": 1.0,
+    "subsystem3_correct": true,
+    "overall_tier": "MEASURED_MECHANISM (mixed at-risk verdicts; CLAIM, VET-PENDING)",
+    "construction_determined": [
+      "subsystem 1/2/3 each operate correctly at their OWN assigned safe phase-point (w_wm=12, b_store_safe=12/b_store_bad=862 chosen by the author) -- NOT at risk."
+    ],
+    "genuinely_at_risk": [
+      "(a) m50-vs-theory ratio",
+      "(b) cross_interference sign/magnitude",
+      "(c) whether mis-placement actually craters"
+    ],
+    "compute_subsystem_independence_caveat": "Compute (subsystem 3) never shares the physical buffer with WM/Store (separate N'=16384 address space) -- its independence from 1/2 is BY CONSTRUCTION (disjoint resource), not a tested claim."
+  },
+  "elapsed_s": 10.217510461807251,
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "facts",
+    "wm_sweep_grid"
+  ]
+}
