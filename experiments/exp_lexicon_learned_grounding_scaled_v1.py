@@ -290,7 +290,7 @@ def learn_lexicon(train, foundation, scene_rng, role_gating=True, soft_me=True, 
         sentence = triple                                  # (sw, vw, ow)
         scene_n, scene_v = build_scene(scene_rng, triple, foundation, n_dist_noun, n_dist_verb, p_drop, p_syst)
         scene_by_cat = {"noun": scene_n, "verb": scene_v}
-        all_scene = list(scene_n | scene_v)
+        all_scene = sorted(scene_n | scene_v)   # deterministic (was list(set); PYTHONHASHSEED-safe)
         # per-word candidate concepts.
         cand = {}
         for pos, w in enumerate(sentence):
