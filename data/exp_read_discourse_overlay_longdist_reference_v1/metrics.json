@@ -1,0 +1,319 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "maintained overlay beats recency at distance: delta_ld=0.0617 (overlay=0.0988 vs recency=0.0370), sign_stability=0.988, overlay_prec=0.0988>=recency_prec-eps=-0.0130, n_ld=81",
+  "summary": "read_discourse_overlay_longdist_reference_v1: HARD_PASS",
+  "elapsed_s": 1.104,
+  "anchor_name": "read_discourse_overlay_longdist_reference_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-17T23:30:54.178548+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "n_books_requested": 25,
+    "n_books_usable": 25,
+    "fetched_this_run": [
+      "2489_moby_dick_brat.conll",
+      "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll",
+      "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll",
+      "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll",
+      "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll"
+    ],
+    "failed": []
+  },
+  "config": {
+    "window_K_primary": 5,
+    "window_K_sweep": [
+      3,
+      5,
+      8
+    ],
+    "overlay_beta": 0.5,
+    "overlay_tiebreak_lambda": 0.1,
+    "target_pronouns": [
+      "he",
+      "her",
+      "hers",
+      "him",
+      "his",
+      "she"
+    ],
+    "n_bootstrap": 500,
+    "bootstrap_seed": 20260717
+  },
+  "primary_K5": {
+    "K": 5,
+    "n_targets": 1690,
+    "n_ld": 81,
+    "n_sd": 1609,
+    "per_arm": {
+      "recency_window": {
+        "ld_acc": 0.0,
+        "ld_prec": 0.0,
+        "ld_attempt_rate": 0.9506172839506173,
+        "sd_acc": 0.5711622125543816,
+        "all_acc": 0.5437869822485207
+      },
+      "recency_unbounded": {
+        "ld_acc": 0.037037037037037035,
+        "ld_prec": 0.037037037037037035,
+        "ld_attempt_rate": 1.0,
+        "sd_acc": 0.5711622125543816,
+        "all_acc": 0.5455621301775148
+      },
+      "maintained_overlay": {
+        "ld_acc": 0.09876543209876543,
+        "ld_prec": 0.09876543209876543,
+        "ld_attempt_rate": 1.0,
+        "sd_acc": 0.23119950279676818,
+        "all_acc": 0.22485207100591717
+      },
+      "freq_only": {
+        "ld_acc": 0.12345679012345678,
+        "ld_prec": 0.12345679012345678,
+        "ld_attempt_rate": 1.0,
+        "sd_acc": 0.21255438160348042,
+        "all_acc": 0.20828402366863905
+      }
+    },
+    "delta_ld": 0.06172839506172839,
+    "delta_ld_vs_window": 0.09876543209876543,
+    "delta_ld_vs_freq": -0.024691358024691357
+  },
+  "sweep_over_K": {
+    "3": {
+      "K": 3,
+      "n_targets": 1690,
+      "n_ld": 241,
+      "n_sd": 1449,
+      "per_arm": {
+        "recency_window": {
+          "ld_acc": 0.02074688796680498,
+          "ld_prec": 0.02109704641350211,
+          "ld_attempt_rate": 0.983402489626556,
+          "sd_acc": 0.6307798481711525,
+          "all_acc": 0.5437869822485207
+        },
+        "recency_unbounded": {
+          "ld_acc": 0.03319502074688797,
+          "ld_prec": 0.03319502074688797,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.6307798481711525,
+          "all_acc": 0.5455621301775148
+        },
+        "maintained_overlay": {
+          "ld_acc": 0.0954356846473029,
+          "ld_prec": 0.0954356846473029,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.2463768115942029,
+          "all_acc": 0.22485207100591717
+        },
+        "freq_only": {
+          "ld_acc": 0.12033195020746888,
+          "ld_prec": 0.12033195020746888,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.22291235334713597,
+          "all_acc": 0.20828402366863905
+        }
+      },
+      "delta_ld": 0.06224066390041493,
+      "delta_ld_vs_window": 0.07468879668049792,
+      "delta_ld_vs_freq": -0.024896265560165984
+    },
+    "5": {
+      "K": 5,
+      "n_targets": 1690,
+      "n_ld": 81,
+      "n_sd": 1609,
+      "per_arm": {
+        "recency_window": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 0.9506172839506173,
+          "sd_acc": 0.5711622125543816,
+          "all_acc": 0.5437869822485207
+        },
+        "recency_unbounded": {
+          "ld_acc": 0.037037037037037035,
+          "ld_prec": 0.037037037037037035,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.5711622125543816,
+          "all_acc": 0.5455621301775148
+        },
+        "maintained_overlay": {
+          "ld_acc": 0.09876543209876543,
+          "ld_prec": 0.09876543209876543,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.23119950279676818,
+          "all_acc": 0.22485207100591717
+        },
+        "freq_only": {
+          "ld_acc": 0.12345679012345678,
+          "ld_prec": 0.12345679012345678,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.21255438160348042,
+          "all_acc": 0.20828402366863905
+        }
+      },
+      "delta_ld": 0.06172839506172839,
+      "delta_ld_vs_window": 0.09876543209876543,
+      "delta_ld_vs_freq": -0.024691358024691357
+    },
+    "8": {
+      "K": 8,
+      "n_targets": 1690,
+      "n_ld": 28,
+      "n_sd": 1662,
+      "per_arm": {
+        "recency_window": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 0.9642857142857143,
+          "sd_acc": 0.5529482551143201,
+          "all_acc": 0.5437869822485207
+        },
+        "recency_unbounded": {
+          "ld_acc": 0.0,
+          "ld_prec": 0.0,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.5547533092659447,
+          "all_acc": 0.5455621301775148
+        },
+        "maintained_overlay": {
+          "ld_acc": 0.03571428571428571,
+          "ld_prec": 0.03571428571428571,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.22803850782190133,
+          "all_acc": 0.22485207100591717
+        },
+        "freq_only": {
+          "ld_acc": 0.03571428571428571,
+          "ld_prec": 0.03571428571428571,
+          "ld_attempt_rate": 1.0,
+          "sd_acc": 0.2111913357400722,
+          "all_acc": 0.20828402366863905
+        }
+      },
+      "delta_ld": 0.03571428571428571,
+      "delta_ld_vs_window": 0.03571428571428571,
+      "delta_ld_vs_freq": 0.0
+    }
+  },
+  "delta_ld": 0.06172839506172839,
+  "bootstrap_sign_stability": 0.988,
+  "per_book_delta_K5": [
+    {
+      "book": "345_dracula_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "105_persuasion_brat.conll",
+      "n_ld": 6,
+      "delta_ld": 0.33333333333333337
+    },
+    {
+      "book": "113_the_secret_garden_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.5
+    },
+    {
+      "book": "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "n_ld": 1,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "158_emma_brat.conll",
+      "n_ld": 5,
+      "delta_ld": 0.2
+    },
+    {
+      "book": "1342_pride_and_prejudice_brat.conll",
+      "n_ld": 8,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "1400_great_expectations_brat.conll",
+      "n_ld": 3,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "174_the_picture_of_dorian_gray_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "209_the_turn_of_the_screw_brat.conll",
+      "n_ld": 5,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "2814_dubliners_brat.conll",
+      "n_ld": 6,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "2852_the_hound_of_the_baskervilles_brat.conll",
+      "n_ld": 3,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "36_the_war_of_the_worlds_brat.conll",
+      "n_ld": 1,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "521_the_life_and_adventures_of_robinson_crusoe_brat.conll",
+      "n_ld": 10,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "76_adventures_of_huckleberry_finn_brat.conll",
+      "n_ld": 3,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "1260_jane_eyre_an_autobiography_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.5
+    },
+    {
+      "book": "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll",
+      "n_ld": 6,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll",
+      "n_ld": 10,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.0
+    },
+    {
+      "book": "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll",
+      "n_ld": 2,
+      "delta_ld": 0.0
+    }
+  ],
+  "n_books_delta_positive": 4,
+  "n_books_delta_evaluated": 20,
+  "ld_true_is_top_freq_rate": 0.12345679012345678,
+  "guard_precision_ok": true,
+  "arms_differ_digests": {
+    "recency_window": "64059322e684f48969a45e77ec077e4865f79e48eb504e72fa3e63a6ecf0391d",
+    "recency_unbounded": "fc36ff18e23faaff6da6117bdf4e600e078677d6031701499eafb0f7ccc58371",
+    "maintained_overlay": "45b7a5db19d9abebb8b46f3396aa97d38421df2849364c137a997fbcd14d4db1",
+    "freq_only": "cb13a76fbf1b6e52784ab4a4f9f6c105bae828d6dec365b499712f177de200e3"
+  },
+  "arms_differ_verified": true,
+  "book_failures": [],
+  "expected_n_units": 25,
+  "cardinality_ok": true
+}
