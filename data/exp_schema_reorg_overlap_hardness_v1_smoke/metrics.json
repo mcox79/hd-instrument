@@ -1,0 +1,573 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | separable-control(OVL=0.05) reproduces_prior=True | usable-overlap envelope: irreversible usable up to OVL=0.05, breaks at OVL=0.26 (crosses=True monotone=True) | robust_to_moderate_overlap[0.28,0.45]=False | cost-weighted rides same ROC=True | reversible end-state recovers (extends_usable=True) at thrash+stale cost | VSA: no_reorg_shifted=0.75 targeted_shifted=1.00 | gate NOT robust to moderate overlap: no usable point in OVL[0.28,0.45] -> trigger-detection fragile once distributions overlap (structural bound on the trigger half); reversible gate extends END-STATE usability beyond irreversible (un-reindex recovers false commits) -- a COST-SHIFT (thrash+stale), NOT a hard-K separability win; do not over-read; cost-weighted K* rides the SAME ROC (envelope_identical=True) -> operating-point selection, not separability extension",
+  "summary": "HARD_FAIL | separable-control(OVL=0.05) reproduces_prior=True | usable-overlap envelope: irreversible usable up to OVL=0.05, breaks at OVL=0.26 (crosses=True monotone=True) | robust_to_moderate_overlap[0.28,0.45]=False | cost-weighted rides same ROC=True | reversible end-state recovers (extends_usab",
+  "run_mode": "smoke",
+  "elapsed_s": 4.557959600002505,
+  "anchor_name": "schema_reorg_overlap_hardness_v1",
+  "ts_iso": "2026-07-17T03:06:56.600563+00:00",
+  "seeds": [
+    7,
+    13
+  ],
+  "mu_g_list": [
+    10.0,
+    6.25,
+    4.5
+  ],
+  "K_SWEEP": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "expected_n_units": 120,
+  "verdict_summary": {
+    "separable_control_overlap": 0.05,
+    "separable_reproduces_prior": true,
+    "max_usable_overlap_irreversible": 0.05,
+    "min_unusable_overlap_irreversible": 0.2625,
+    "sweep_crosses_boundary": true,
+    "envelope_monotone": true,
+    "robust_to_moderate_overlap": false,
+    "moderate_band": [
+      0.28,
+      0.45
+    ],
+    "cost_weighted_rides_same_roc": true,
+    "reversible_extends_endstate_usability": true,
+    "usable_precision_floor": 0.8,
+    "usable_recall_floor": 0.8,
+    "per_overlap": [
+      {
+        "mu_g": 10.0,
+        "overlap": 0.05,
+        "irr_usable": true,
+        "irr_best_K": 8,
+        "irr_precision": 1.0,
+        "irr_recall": 0.9375,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 422.0,
+        "rev_stale_at_bestK": 324.0,
+        "costw_sym_K": 8,
+        "costw_sym_precision": 1.0,
+        "costw_sym_recall": 0.9375,
+        "costw_asym_K": 6,
+        "costw_asym_precision": 0.9188311688311688,
+        "costw_asym_recall": 0.9875
+      },
+      {
+        "mu_g": 6.25,
+        "overlap": 0.2625,
+        "irr_usable": false,
+        "irr_best_K": 6,
+        "irr_precision": 0.8869047619047619,
+        "irr_recall": 0.7124999999999999,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 422.0,
+        "rev_stale_at_bestK": 324.0,
+        "costw_sym_K": 6,
+        "costw_sym_precision": 0.8869047619047619,
+        "costw_sym_recall": 0.7124999999999999,
+        "costw_asym_K": 4,
+        "costw_asym_precision": 0.6494739918176505,
+        "costw_asym_recall": 0.95
+      },
+      {
+        "mu_g": 4.5,
+        "overlap": 0.4375,
+        "irr_usable": false,
+        "irr_best_K": 4,
+        "irr_precision": 0.5960648148148149,
+        "irr_recall": 0.7625,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 422.0,
+        "rev_stale_at_bestK": 324.0,
+        "costw_sym_K": 4,
+        "costw_sym_precision": 0.5960648148148149,
+        "costw_sym_recall": 0.7625,
+        "costw_asym_K": 1,
+        "costw_asym_precision": 0.5,
+        "costw_asym_recall": 1.0
+      }
+    ],
+    "vsa_no_reorg_shifted": 0.7477412296181266,
+    "vsa_no_reorg_stable": 1.0,
+    "vsa_targeted_shifted": 1.0,
+    "vsa_targeted_stable": 1.0,
+    "notes": [
+      "gate NOT robust to moderate overlap: no usable point in OVL[0.28,0.45] -> trigger-detection fragile once distributions overlap (structural bound on the trigger half)",
+      "reversible gate extends END-STATE usability beyond irreversible (un-reindex recovers false commits) -- a COST-SHIFT (thrash+stale), NOT a hard-K separability win; do not over-read",
+      "cost-weighted K* rides the SAME ROC (envelope_identical=True) -> operating-point selection, not separability extension"
+    ]
+  },
+  "metric_a_overlap_sweep": [
+    {
+      "mu_g": 10.0,
+      "overlap": 0.05,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5128205128205128,
+          "recall": 1.0,
+          "writes": 312.0
+        },
+        {
+          "K": 3,
+          "precision": 0.5128205128205128,
+          "recall": 1.0,
+          "writes": 372.5
+        },
+        {
+          "K": 4,
+          "precision": 0.6612021857923497,
+          "recall": 1.0,
+          "writes": 346.0
+        },
+        {
+          "K": 5,
+          "precision": 0.6612021857923497,
+          "recall": 1.0,
+          "writes": 386.0
+        },
+        {
+          "K": 6,
+          "precision": 0.9188311688311688,
+          "recall": 0.9875,
+          "writes": 337.0
+        },
+        {
+          "K": 7,
+          "precision": 0.9177740863787376,
+          "recall": 0.975,
+          "writes": 372.0
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.9375,
+          "writes": 375.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.8625,
+          "writes": 379.5
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.6,
+          "writes": 288.0
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 422.0,
+          "stale_steps": 324.0
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 488.0,
+          "stale_steps": 362.0
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 548.5,
+          "stale_steps": 402.0
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 452.0,
+          "stale_steps": 389.5
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 492.0,
+          "stale_steps": 429.5
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.9875,
+          "writes": 358.0,
+          "stale_steps": 384.5
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.975,
+          "writes": 393.0,
+          "stale_steps": 424.0
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.9375,
+          "writes": 375.0,
+          "stale_steps": 438.5
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.8625,
+          "writes": 379.5,
+          "stale_steps": 476.0
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.6,
+          "writes": 288.0,
+          "stale_steps": 510.5
+        }
+      ]
+    },
+    {
+      "mu_g": 6.25,
+      "overlap": 0.2625,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5128205128205128,
+          "recall": 1.0,
+          "writes": 312.0
+        },
+        {
+          "K": 3,
+          "precision": 0.5064935064935064,
+          "recall": 0.975,
+          "writes": 367.5
+        },
+        {
+          "K": 4,
+          "precision": 0.6494739918176505,
+          "recall": 0.95,
+          "writes": 334.0
+        },
+        {
+          "K": 5,
+          "precision": 0.626984126984127,
+          "recall": 0.8625,
+          "writes": 347.5
+        },
+        {
+          "K": 6,
+          "precision": 0.8869047619047619,
+          "recall": 0.7124999999999999,
+          "writes": 249.0
+        },
+        {
+          "K": 7,
+          "precision": 0.7756410256410255,
+          "recall": 0.38749999999999996,
+          "writes": 160.5
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.2,
+          "writes": 80.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.0625,
+          "writes": 27.5
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 422.0,
+          "stale_steps": 324.0
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 488.0,
+          "stale_steps": 362.0
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.975,
+          "writes": 543.5,
+          "stale_steps": 402.0
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.95,
+          "writes": 440.0,
+          "stale_steps": 388.5
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.8625,
+          "writes": 453.5,
+          "stale_steps": 426.5
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.7124999999999999,
+          "writes": 270.0,
+          "stale_steps": 376.0
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.38749999999999996,
+          "writes": 181.5,
+          "stale_steps": 404.5
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.2,
+          "writes": 80.0,
+          "stale_steps": 395.5
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.0625,
+          "writes": 27.5,
+          "stale_steps": 403.5
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0,
+          "stale_steps": 406.0
+        }
+      ]
+    },
+    {
+      "mu_g": 4.5,
+      "overlap": 0.4375,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5064935064935064,
+          "recall": 0.975,
+          "writes": 308.0
+        },
+        {
+          "K": 3,
+          "precision": 0.48639269406392693,
+          "recall": 0.9,
+          "writes": 352.5
+        },
+        {
+          "K": 4,
+          "precision": 0.5960648148148149,
+          "recall": 0.7625,
+          "writes": 289.0
+        },
+        {
+          "K": 5,
+          "precision": 0.46895424836601307,
+          "recall": 0.475,
+          "writes": 239.0
+        },
+        {
+          "K": 6,
+          "precision": 0.6710526315789473,
+          "recall": 0.25,
+          "writes": 101.0
+        },
+        {
+          "K": 7,
+          "precision": 0.44999999999999996,
+          "recall": 0.09999999999999999,
+          "writes": 57.0
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 422.0,
+          "stale_steps": 324.0
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 0.975,
+          "writes": 484.0,
+          "stale_steps": 362.0
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.9,
+          "writes": 528.5,
+          "stale_steps": 401.0
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.7625,
+          "writes": 395.0,
+          "stale_steps": 384.5
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.475,
+          "writes": 345.0,
+          "stale_steps": 415.0
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.25,
+          "writes": 122.0,
+          "stale_steps": 349.0
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.09999999999999999,
+          "writes": 78.0,
+          "stale_steps": 359.0
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0,
+          "stale_steps": 338.5
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0,
+          "stale_steps": 338.5
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.0,
+          "writes": 0.0,
+          "stale_steps": 338.5
+        }
+      ]
+    }
+  ],
+  "metric_c_vsa_construction_proof": {
+    "no_reorg": {
+      "shifted_acc": 0.7477412296181266,
+      "stable_acc": 1.0,
+      "records_touched": 0.0,
+      "partition_hash": "53b1c9a3bbf9c7f94ce6b3fcf15793a4741a84c8a33ef37f1b5fb0c49a181d1d"
+    },
+    "targeted": {
+      "shifted_acc": 1.0,
+      "stable_acc": 1.0,
+      "records_touched": 346.0,
+      "partition_hash": "7e24c8b52c57d58e77da10a6e91e4250bc8578d3c6e08af3c3b981e7c6f6ff9a"
+    }
+  },
+  "prereg": {
+    "hard_pass": "separable(OVL<=0.10) reproduces prior (both>=0.90) & robust at moderate overlap (usable both>=0.80 for some K at OVL in [0.28,0.45]) & envelope crosses+monotone & cost-weighted rides same ROC",
+    "hard_fail": "gate breaks at low overlap: NO K gives both>=0.80 already at OVL<=0.15 AND not robust to moderate overlap -> trigger-detection fundamentally hard under overlap (structural bound)",
+    "middle": "gate holds only up to mild overlap (breaks in (0.15,0.28)); characterize envelope",
+    "compute_architecture": "sequential-CPU (store grows fact-by-fact; belief+confirmation state depend on the accumulated stream)",
+    "storage_strategy": "sharded (one exact VSA vector per fact) + type-partition index (cached derivative)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "overlap_knob": "genuine effective run g~N(mu_g,1.5); distractor peak margin m~N(2.5,0.75) -> distractor effective run 2m-1 (mean 4.0); sweep mu_g in [10.0, 8.0, 7.0, 6.5, 6.25, 6.0, 5.5, 5.0, 4.5]; measured OVL=sum_l min(p_g,p_d) on EFFECTIVE runs reported per point; revert_strength=12",
+    "gates": "IRREVERSIBLE hard-K (frozen on commit) | COST-WEIGHTED K* (op-point on same ROC) | REVERSIBLE symmetric-K (un-reindex; end-state recovers at thrash+stale cost)",
+    "honest_note": "sustain-run is the ONLY online signal at decision time; overlapping length distributions -> Neyman-Pearson bound, no gate separates what the signal doesn't. Reversibility (a substrate-native affordance the brain's committed cortical consolidation lacks) does NOT beat the bound; it converts irrecoverable-error into write-thrash + transient mis-filing whose cost grows with overlap. Brain answers ambiguous triggers with fast-reversible (hippocampal) + slow-confirmed (cortical, sleep-spaced) two-timescale consolidation.",
+    "real_code_path_exercised": [
+      "make_phasors",
+      "encode_meaning",
+      "unbind",
+      "cleanup",
+      "build_overlap_corpus",
+      "sweep_overlap",
+      "run_detector",
+      "cost_weighted_k",
+      "vsa_construction_proof"
+    ]
+  }
+}

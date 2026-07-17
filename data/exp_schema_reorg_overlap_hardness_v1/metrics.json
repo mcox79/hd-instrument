@@ -1,0 +1,1530 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | separable-control(OVL=0.04) reproduces_prior=True | usable-overlap envelope: irreversible usable up to OVL=0.23, breaks at OVL=0.30 (crosses=True monotone=True) | robust_to_moderate_overlap[0.28,0.45]=False | cost-weighted rides same ROC=True | reversible end-state recovers (extends_usable=True) at thrash+stale cost | VSA: no_reorg_shifted=0.75 targeted_shifted=1.00 | gate NOT robust to moderate overlap: no usable point in OVL[0.28,0.45] -> trigger-detection fragile once distributions overlap (structural bound on the trigger half); reversible gate extends END-STATE usability beyond irreversible (un-reindex recovers false commits) -- a COST-SHIFT (thrash+stale), NOT a hard-K separability win; do not over-read; cost-weighted K* rides the SAME ROC (envelope_identical=True) -> operating-point selection, not separability extension",
+  "summary": "MIDDLE_BAND | separable-control(OVL=0.04) reproduces_prior=True | usable-overlap envelope: irreversible usable up to OVL=0.23, breaks at OVL=0.30 (crosses=True monotone=True) | robust_to_moderate_overlap[0.28,0.45]=False | cost-weighted rides same ROC=True | reversible end-state recovers (extends_us",
+  "run_mode": "full",
+  "elapsed_s": 10.74265309999464,
+  "anchor_name": "schema_reorg_overlap_hardness_v1",
+  "ts_iso": "2026-07-17T03:07:35.970922+00:00",
+  "seeds": [
+    7,
+    13,
+    29,
+    41,
+    53
+  ],
+  "mu_g_list": [
+    10.0,
+    8.0,
+    7.0,
+    6.5,
+    6.25,
+    6.0,
+    5.5,
+    5.0,
+    4.5
+  ],
+  "K_SWEEP": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "expected_n_units": 900,
+  "verdict_summary": {
+    "separable_control_overlap": 0.04,
+    "separable_reproduces_prior": true,
+    "max_usable_overlap_irreversible": 0.225,
+    "min_unusable_overlap_irreversible": 0.3,
+    "sweep_crosses_boundary": true,
+    "envelope_monotone": true,
+    "robust_to_moderate_overlap": false,
+    "moderate_band": [
+      0.28,
+      0.45
+    ],
+    "cost_weighted_rides_same_roc": true,
+    "reversible_extends_endstate_usability": true,
+    "usable_precision_floor": 0.8,
+    "usable_recall_floor": 0.8,
+    "per_overlap": [
+      {
+        "mu_g": 10.0,
+        "overlap": 0.04,
+        "irr_usable": true,
+        "irr_best_K": 8,
+        "irr_precision": 1.0,
+        "irr_recall": 0.945,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 8,
+        "costw_sym_precision": 1.0,
+        "costw_sym_recall": 0.945,
+        "costw_asym_K": 6,
+        "costw_asym_precision": 0.901381597126278,
+        "costw_asym_recall": 0.9949999999999999
+      },
+      {
+        "mu_g": 8.0,
+        "overlap": 0.15499999999999997,
+        "irr_usable": true,
+        "irr_best_K": 6,
+        "irr_precision": 0.896724237233251,
+        "irr_recall": 0.945,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 6,
+        "costw_sym_precision": 0.896724237233251,
+        "costw_sym_recall": 0.945,
+        "costw_asym_K": 6,
+        "costw_asym_precision": 0.896724237233251,
+        "costw_asym_recall": 0.945
+      },
+      {
+        "mu_g": 7.0,
+        "overlap": 0.225,
+        "irr_usable": true,
+        "irr_best_K": 6,
+        "irr_precision": 0.8843612843612844,
+        "irr_recall": 0.8400000000000001,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 6,
+        "costw_sym_precision": 0.8843612843612844,
+        "costw_sym_recall": 0.8400000000000001,
+        "costw_asym_K": 6,
+        "costw_asym_precision": 0.8843612843612844,
+        "costw_asym_recall": 0.8400000000000001
+      },
+      {
+        "mu_g": 6.5,
+        "overlap": 0.3,
+        "irr_usable": false,
+        "irr_best_K": 6,
+        "irr_precision": 0.8704143069607966,
+        "irr_recall": 0.7449999999999999,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 6,
+        "costw_sym_precision": 0.8704143069607966,
+        "costw_sym_recall": 0.7449999999999999,
+        "costw_asym_K": 4,
+        "costw_asym_precision": 0.6364439812283579,
+        "costw_asym_recall": 0.97
+      },
+      {
+        "mu_g": 6.25,
+        "overlap": 0.305,
+        "irr_usable": false,
+        "irr_best_K": 6,
+        "irr_precision": 0.8606709956709956,
+        "irr_recall": 0.6849999999999999,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 6,
+        "costw_sym_precision": 0.8606709956709956,
+        "costw_sym_recall": 0.6849999999999999,
+        "costw_asym_K": 4,
+        "costw_asym_precision": 0.6340301881249097,
+        "costw_asym_recall": 0.96
+      },
+      {
+        "mu_g": 6.0,
+        "overlap": 0.39,
+        "irr_usable": false,
+        "irr_best_K": 4,
+        "irr_precision": 0.6302176028921023,
+        "irr_recall": 0.945,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 6,
+        "costw_sym_precision": 0.8459929021664283,
+        "costw_sym_recall": 0.605,
+        "costw_asym_K": 4,
+        "costw_asym_precision": 0.6302176028921023,
+        "costw_asym_recall": 0.945
+      },
+      {
+        "mu_g": 5.5,
+        "overlap": 0.425,
+        "irr_usable": false,
+        "irr_best_K": 4,
+        "irr_precision": 0.6228158038775098,
+        "irr_recall": 0.915,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 6,
+        "costw_sym_precision": 0.8133966630130314,
+        "costw_sym_recall": 0.48999999999999994,
+        "costw_asym_K": 4,
+        "costw_asym_precision": 0.6228158038775098,
+        "costw_asym_recall": 0.915
+      },
+      {
+        "mu_g": 5.0,
+        "overlap": 0.44000000000000006,
+        "irr_usable": false,
+        "irr_best_K": 4,
+        "irr_precision": 0.602282526238969,
+        "irr_recall": 0.8400000000000001,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 4,
+        "costw_sym_precision": 0.602282526238969,
+        "costw_sym_recall": 0.8400000000000001,
+        "costw_asym_K": 2,
+        "costw_asym_precision": 0.5157566643882434,
+        "costw_asym_recall": 0.985
+      },
+      {
+        "mu_g": 4.5,
+        "overlap": 0.5,
+        "irr_usable": false,
+        "irr_best_K": 4,
+        "irr_precision": 0.57247150997151,
+        "irr_recall": 0.7449999999999999,
+        "rev_usable": true,
+        "rev_best_K": 1,
+        "rev_precision": 1.0,
+        "rev_recall": 1.0,
+        "rev_writes_at_bestK": 423.6,
+        "rev_stale_at_bestK": 327.2,
+        "costw_sym_K": 4,
+        "costw_sym_precision": 0.57247150997151,
+        "costw_sym_recall": 0.7449999999999999,
+        "costw_asym_K": 1,
+        "costw_asym_precision": 0.5,
+        "costw_asym_recall": 1.0
+      }
+    ],
+    "vsa_no_reorg_shifted": 0.7488877235800274,
+    "vsa_no_reorg_stable": 1.0,
+    "vsa_targeted_shifted": 1.0,
+    "vsa_targeted_stable": 1.0,
+    "notes": [
+      "gate NOT robust to moderate overlap: no usable point in OVL[0.28,0.45] -> trigger-detection fragile once distributions overlap (structural bound on the trigger half)",
+      "reversible gate extends END-STATE usability beyond irreversible (un-reindex recovers false commits) -- a COST-SHIFT (thrash+stale), NOT a hard-K separability win; do not over-read",
+      "cost-weighted K* rides the SAME ROC (envelope_identical=True) -> operating-point selection, not separability extension"
+    ]
+  },
+  "metric_a_overlap_sweep": [
+    {
+      "mu_g": 10.0,
+      "overlap": 0.04,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5195506248137827,
+          "recall": 1.0,
+          "writes": 308.0
+        },
+        {
+          "K": 3,
+          "precision": 0.5195506248137827,
+          "recall": 1.0,
+          "writes": 370.2
+        },
+        {
+          "K": 4,
+          "precision": 0.6435741824425061,
+          "recall": 1.0,
+          "writes": 355.4
+        },
+        {
+          "K": 5,
+          "precision": 0.6435741824425061,
+          "recall": 1.0,
+          "writes": 395.4
+        },
+        {
+          "K": 6,
+          "precision": 0.901381597126278,
+          "recall": 0.9949999999999999,
+          "writes": 344.8
+        },
+        {
+          "K": 7,
+          "precision": 0.900311215579163,
+          "recall": 0.985,
+          "writes": 381.0
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.945,
+          "writes": 378.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.8400000000000001,
+          "writes": 369.6
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.605,
+          "writes": 290.4
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 482.6,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 544.8,
+          "stale_steps": 404.2
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 470.8,
+          "stale_steps": 399.8
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 510.8,
+          "stale_steps": 439.8
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.9949999999999999,
+          "writes": 371.2,
+          "stale_steps": 390.8
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.985,
+          "writes": 407.4,
+          "stale_steps": 430.6
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.945,
+          "writes": 378.0,
+          "stale_steps": 439.2
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.8400000000000001,
+          "writes": 369.6,
+          "stale_steps": 477.0
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.605,
+          "writes": 290.4,
+          "stale_steps": 510.6
+        }
+      ]
+    },
+    {
+      "mu_g": 8.0,
+      "overlap": 0.15499999999999997,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5195506248137827,
+          "recall": 1.0,
+          "writes": 308.0
+        },
+        {
+          "K": 3,
+          "precision": 0.5195506248137827,
+          "recall": 1.0,
+          "writes": 370.2
+        },
+        {
+          "K": 4,
+          "precision": 0.6424442389396812,
+          "recall": 0.9949999999999999,
+          "writes": 354.2
+        },
+        {
+          "K": 5,
+          "precision": 0.6400947748791516,
+          "recall": 0.985,
+          "writes": 391.2
+        },
+        {
+          "K": 6,
+          "precision": 0.896724237233251,
+          "recall": 0.945,
+          "writes": 328.8
+        },
+        {
+          "K": 7,
+          "precision": 0.8843612843612844,
+          "recall": 0.8400000000000001,
+          "writes": 328.8
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.605,
+          "writes": 242.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.35,
+          "writes": 154.0
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.15,
+          "writes": 72.0
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 482.6,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 544.8,
+          "stale_steps": 404.2
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.9949999999999999,
+          "writes": 469.6,
+          "stale_steps": 399.8
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.985,
+          "writes": 506.6,
+          "stale_steps": 439.6
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.945,
+          "writes": 355.2,
+          "stale_steps": 390.0
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.8400000000000001,
+          "writes": 355.2,
+          "stale_steps": 427.8
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.605,
+          "writes": 242.0,
+          "stale_steps": 430.6
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.35,
+          "writes": 154.0,
+          "stale_steps": 454.8
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.15,
+          "writes": 72.0,
+          "stale_steps": 468.8
+        }
+      ]
+    },
+    {
+      "mu_g": 7.0,
+      "overlap": 0.225,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5195506248137827,
+          "recall": 1.0,
+          "writes": 308.0
+        },
+        {
+          "K": 3,
+          "precision": 0.5182852235483815,
+          "recall": 0.9949999999999999,
+          "writes": 369.2
+        },
+        {
+          "K": 4,
+          "precision": 0.6400947748791516,
+          "recall": 0.985,
+          "writes": 351.8
+        },
+        {
+          "K": 5,
+          "precision": 0.6302176028921023,
+          "recall": 0.945,
+          "writes": 380.0
+        },
+        {
+          "K": 6,
+          "precision": 0.8843612843612844,
+          "recall": 0.8400000000000001,
+          "writes": 295.2
+        },
+        {
+          "K": 7,
+          "precision": 0.8459929021664283,
+          "recall": 0.605,
+          "writes": 244.2
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.35,
+          "writes": 140.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.15,
+          "writes": 66.0
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.065,
+          "writes": 31.2
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 482.6,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.9949999999999999,
+          "writes": 543.8,
+          "stale_steps": 404.2
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.985,
+          "writes": 467.2,
+          "stale_steps": 399.6
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.945,
+          "writes": 495.4,
+          "stale_steps": 439.0
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.8400000000000001,
+          "writes": 321.6,
+          "stale_steps": 387.8
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.605,
+          "writes": 270.6,
+          "stale_steps": 421.4
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.35,
+          "writes": 140.0,
+          "stale_steps": 414.8
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.15,
+          "writes": 66.0,
+          "stale_steps": 428.8
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.065,
+          "writes": 31.2,
+          "stale_steps": 434.8
+        }
+      ]
+    },
+    {
+      "mu_g": 6.5,
+      "overlap": 0.3,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5195506248137827,
+          "recall": 1.0,
+          "writes": 308.0
+        },
+        {
+          "K": 3,
+          "precision": 0.5170220656536446,
+          "recall": 0.99,
+          "writes": 368.2
+        },
+        {
+          "K": 4,
+          "precision": 0.6364439812283579,
+          "recall": 0.97,
+          "writes": 348.2
+        },
+        {
+          "K": 5,
+          "precision": 0.6228158038775098,
+          "recall": 0.915,
+          "writes": 371.6
+        },
+        {
+          "K": 6,
+          "precision": 0.8704143069607966,
+          "recall": 0.7449999999999999,
+          "writes": 264.8
+        },
+        {
+          "K": 7,
+          "precision": 0.8133966630130314,
+          "recall": 0.48999999999999994,
+          "writes": 202.8
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.24500000000000002,
+          "writes": 98.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.095,
+          "writes": 41.8
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 9.6
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 482.6,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.99,
+          "writes": 542.8,
+          "stale_steps": 404.2
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.97,
+          "writes": 463.6,
+          "stale_steps": 399.4
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.915,
+          "writes": 487.0,
+          "stale_steps": 438.2
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.7449999999999999,
+          "writes": 291.2,
+          "stale_steps": 385.8
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.48999999999999994,
+          "writes": 229.2,
+          "stale_steps": 415.6
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.24500000000000002,
+          "writes": 98.0,
+          "stale_steps": 404.4
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.095,
+          "writes": 41.8,
+          "stale_steps": 414.2
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 9.6,
+          "stale_steps": 418.0
+        }
+      ]
+    },
+    {
+      "mu_g": 6.25,
+      "overlap": 0.305,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5195506248137827,
+          "recall": 1.0,
+          "writes": 308.0
+        },
+        {
+          "K": 3,
+          "precision": 0.5157566643882434,
+          "recall": 0.985,
+          "writes": 367.2
+        },
+        {
+          "K": 4,
+          "precision": 0.6340301881249097,
+          "recall": 0.96,
+          "writes": 345.8
+        },
+        {
+          "K": 5,
+          "precision": 0.6067375432542003,
+          "recall": 0.8549999999999999,
+          "writes": 354.8
+        },
+        {
+          "K": 6,
+          "precision": 0.8606709956709956,
+          "recall": 0.6849999999999999,
+          "writes": 245.6
+        },
+        {
+          "K": 7,
+          "precision": 0.7698178137651822,
+          "recall": 0.39499999999999996,
+          "writes": 168.6
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.195,
+          "writes": 78.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.06999999999999999,
+          "writes": 30.8
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 9.6
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 482.6,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.985,
+          "writes": 541.8,
+          "stale_steps": 404.2
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.96,
+          "writes": 461.2,
+          "stale_steps": 399.2
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.8549999999999999,
+          "writes": 470.2,
+          "stale_steps": 437.6
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.6849999999999999,
+          "writes": 272.0,
+          "stale_steps": 382.8
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.39499999999999996,
+          "writes": 195.0,
+          "stale_steps": 410.2
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.195,
+          "writes": 78.0,
+          "stale_steps": 395.2
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.06999999999999999,
+          "writes": 30.8,
+          "stale_steps": 403.0
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 9.6,
+          "stale_steps": 405.8
+        }
+      ]
+    },
+    {
+      "mu_g": 6.0,
+      "overlap": 0.39,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5182852235483815,
+          "recall": 0.9949999999999999,
+          "writes": 307.2
+        },
+        {
+          "K": 3,
+          "precision": 0.5157566643882434,
+          "recall": 0.985,
+          "writes": 367.2
+        },
+        {
+          "K": 4,
+          "precision": 0.6302176028921023,
+          "recall": 0.945,
+          "writes": 342.2
+        },
+        {
+          "K": 5,
+          "precision": 0.602282526238969,
+          "recall": 0.8400000000000001,
+          "writes": 350.6
+        },
+        {
+          "K": 6,
+          "precision": 0.8459929021664283,
+          "recall": 0.605,
+          "writes": 220.0
+        },
+        {
+          "K": 7,
+          "precision": 0.7424747474747474,
+          "recall": 0.35,
+          "writes": 152.4
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.15,
+          "writes": 60.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.065,
+          "writes": 28.6
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 7.2
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 0.9949999999999999,
+          "writes": 481.8,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.985,
+          "writes": 541.8,
+          "stale_steps": 404.0
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.945,
+          "writes": 457.6,
+          "stale_steps": 399.0
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.8400000000000001,
+          "writes": 466.0,
+          "stale_steps": 436.8
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.605,
+          "writes": 246.4,
+          "stale_steps": 381.4
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.35,
+          "writes": 178.8,
+          "stale_steps": 405.6
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.15,
+          "writes": 60.0,
+          "stale_steps": 388.8
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.065,
+          "writes": 28.6,
+          "stale_steps": 394.8
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 7.2,
+          "stale_steps": 397.4
+        }
+      ]
+    },
+    {
+      "mu_g": 5.5,
+      "overlap": 0.425,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5170220656536446,
+          "recall": 0.99,
+          "writes": 306.4
+        },
+        {
+          "K": 3,
+          "precision": 0.5118633695072051,
+          "recall": 0.97,
+          "writes": 364.2
+        },
+        {
+          "K": 4,
+          "precision": 0.6228158038775098,
+          "recall": 0.915,
+          "writes": 335.0
+        },
+        {
+          "K": 5,
+          "precision": 0.57247150997151,
+          "recall": 0.7449999999999999,
+          "writes": 324.0
+        },
+        {
+          "K": 6,
+          "precision": 0.8133966630130314,
+          "recall": 0.48999999999999994,
+          "writes": 183.2
+        },
+        {
+          "K": 7,
+          "precision": 0.6668337510442773,
+          "recall": 0.24500000000000002,
+          "writes": 114.6
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.095,
+          "writes": 38.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 8.8
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 7.2
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 0.99,
+          "writes": 481.0,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.97,
+          "writes": 538.8,
+          "stale_steps": 403.8
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.915,
+          "writes": 450.4,
+          "stale_steps": 398.2
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.7449999999999999,
+          "writes": 439.4,
+          "stale_steps": 434.8
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.48999999999999994,
+          "writes": 209.6,
+          "stale_steps": 375.6
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.24500000000000002,
+          "writes": 141.0,
+          "stale_steps": 395.2
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.095,
+          "writes": 38.0,
+          "stale_steps": 374.2
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 8.8,
+          "stale_steps": 378.0
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 7.2,
+          "stale_steps": 378.8
+        }
+      ]
+    },
+    {
+      "mu_g": 5.0,
+      "overlap": 0.44000000000000006,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5157566643882434,
+          "recall": 0.985,
+          "writes": 305.6
+        },
+        {
+          "K": 3,
+          "precision": 0.5051543198585452,
+          "recall": 0.945,
+          "writes": 359.2
+        },
+        {
+          "K": 4,
+          "precision": 0.602282526238969,
+          "recall": 0.8400000000000001,
+          "writes": 317.0
+        },
+        {
+          "K": 5,
+          "precision": 0.5207013187035154,
+          "recall": 0.605,
+          "writes": 284.8
+        },
+        {
+          "K": 6,
+          "precision": 0.7424747474747474,
+          "recall": 0.35,
+          "writes": 138.4
+        },
+        {
+          "K": 7,
+          "precision": 0.5472283272283273,
+          "recall": 0.15,
+          "writes": 80.4
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.065,
+          "writes": 26.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 6.6
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.005,
+          "writes": 2.4
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 0.985,
+          "writes": 480.2,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.945,
+          "writes": 533.8,
+          "stale_steps": 403.6
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.8400000000000001,
+          "writes": 432.4,
+          "stale_steps": 397.0
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.605,
+          "writes": 400.2,
+          "stale_steps": 430.6
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.35,
+          "writes": 164.8,
+          "stale_steps": 365.8
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.15,
+          "writes": 106.8,
+          "stale_steps": 379.8
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.065,
+          "writes": 26.0,
+          "stale_steps": 355.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 6.6,
+          "stale_steps": 357.6
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.005,
+          "writes": 2.4,
+          "stale_steps": 358.2
+        }
+      ]
+    },
+    {
+      "mu_g": 4.5,
+      "overlap": 0.5,
+      "irreversible": [
+        {
+          "K": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "writes": 240.0
+        },
+        {
+          "K": 2,
+          "precision": 0.5118633695072051,
+          "recall": 0.97,
+          "writes": 303.2
+        },
+        {
+          "K": 3,
+          "precision": 0.49718466295738145,
+          "recall": 0.915,
+          "writes": 353.2
+        },
+        {
+          "K": 4,
+          "precision": 0.57247150997151,
+          "recall": 0.7449999999999999,
+          "writes": 294.2
+        },
+        {
+          "K": 5,
+          "precision": 0.46459222981571396,
+          "recall": 0.48999999999999994,
+          "writes": 252.6
+        },
+        {
+          "K": 6,
+          "precision": 0.6668337510442773,
+          "recall": 0.24500000000000002,
+          "writes": 104.8
+        },
+        {
+          "K": 7,
+          "precision": 0.4384415584415584,
+          "recall": 0.095,
+          "writes": 60.6
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 8.0
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 6.6
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.005,
+          "writes": 2.4
+        }
+      ],
+      "reversible": [
+        {
+          "K": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "writes": 423.6,
+          "stale_steps": 327.2
+        },
+        {
+          "K": 2,
+          "precision": 1.0,
+          "recall": 0.97,
+          "writes": 477.8,
+          "stale_steps": 364.2
+        },
+        {
+          "K": 3,
+          "precision": 1.0,
+          "recall": 0.915,
+          "writes": 527.8,
+          "stale_steps": 403.0
+        },
+        {
+          "K": 4,
+          "precision": 1.0,
+          "recall": 0.7449999999999999,
+          "writes": 409.6,
+          "stale_steps": 395.2
+        },
+        {
+          "K": 5,
+          "precision": 1.0,
+          "recall": 0.48999999999999994,
+          "writes": 368.0,
+          "stale_steps": 425.0
+        },
+        {
+          "K": 6,
+          "precision": 1.0,
+          "recall": 0.24500000000000002,
+          "writes": 131.2,
+          "stale_steps": 355.6
+        },
+        {
+          "K": 7,
+          "precision": 1.0,
+          "recall": 0.095,
+          "writes": 87.0,
+          "stale_steps": 365.4
+        },
+        {
+          "K": 8,
+          "precision": 1.0,
+          "recall": 0.02,
+          "writes": 8.0,
+          "stale_steps": 338.4
+        },
+        {
+          "K": 9,
+          "precision": 1.0,
+          "recall": 0.015000000000000003,
+          "writes": 6.6,
+          "stale_steps": 339.2
+        },
+        {
+          "K": 10,
+          "precision": 1.0,
+          "recall": 0.005,
+          "writes": 2.4,
+          "stale_steps": 339.8
+        }
+      ]
+    }
+  ],
+  "metric_c_vsa_construction_proof": {
+    "no_reorg": {
+      "shifted_acc": 0.7488877235800274,
+      "stable_acc": 1.0,
+      "records_touched": 0.0,
+      "partition_hash": "53b1c9a3bbf9c7f94ce6b3fcf15793a4741a84c8a33ef37f1b5fb0c49a181d1d"
+    },
+    "targeted": {
+      "shifted_acc": 1.0,
+      "stable_acc": 1.0,
+      "records_touched": 355.4,
+      "partition_hash": "7e24c8b52c57d58e77da10a6e91e4250bc8578d3c6e08af3c3b981e7c6f6ff9a"
+    }
+  },
+  "prereg": {
+    "hard_pass": "separable(OVL<=0.10) reproduces prior (both>=0.90) & robust at moderate overlap (usable both>=0.80 for some K at OVL in [0.28,0.45]) & envelope crosses+monotone & cost-weighted rides same ROC",
+    "hard_fail": "gate breaks at low overlap: NO K gives both>=0.80 already at OVL<=0.15 AND not robust to moderate overlap -> trigger-detection fundamentally hard under overlap (structural bound)",
+    "middle": "gate holds only up to mild overlap (breaks in (0.15,0.28)); characterize envelope",
+    "compute_architecture": "sequential-CPU (store grows fact-by-fact; belief+confirmation state depend on the accumulated stream)",
+    "storage_strategy": "sharded (one exact VSA vector per fact) + type-partition index (cached derivative)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "overlap_knob": "genuine effective run g~N(mu_g,1.5); distractor peak margin m~N(2.5,0.75) -> distractor effective run 2m-1 (mean 4.0); sweep mu_g in [10.0, 8.0, 7.0, 6.5, 6.25, 6.0, 5.5, 5.0, 4.5]; measured OVL=sum_l min(p_g,p_d) on EFFECTIVE runs reported per point; revert_strength=12",
+    "gates": "IRREVERSIBLE hard-K (frozen on commit) | COST-WEIGHTED K* (op-point on same ROC) | REVERSIBLE symmetric-K (un-reindex; end-state recovers at thrash+stale cost)",
+    "honest_note": "sustain-run is the ONLY online signal at decision time; overlapping length distributions -> Neyman-Pearson bound, no gate separates what the signal doesn't. Reversibility (a substrate-native affordance the brain's committed cortical consolidation lacks) does NOT beat the bound; it converts irrecoverable-error into write-thrash + transient mis-filing whose cost grows with overlap. Brain answers ambiguous triggers with fast-reversible (hippocampal) + slow-confirmed (cortical, sleep-spaced) two-timescale consolidation.",
+    "real_code_path_exercised": [
+      "make_phasors",
+      "encode_meaning",
+      "unbind",
+      "cleanup",
+      "build_overlap_corpus",
+      "sweep_overlap",
+      "run_detector",
+      "cost_weighted_k",
+      "vsa_construction_proof"
+    ]
+  }
+}
