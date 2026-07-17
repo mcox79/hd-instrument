@@ -1,0 +1,152 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | coverage_union_vn_pb_token=0.9893 (>=0.90 HP-floor, margin=+0.0893) | type_level_frac(n=120)=0.9833 (>=0.80 HP-floor, margin=+0.1833) | instance_level_n=2 | type_subclass={'trivial_compositional': 89, 'idiom_or_mwe_lexicon_entry': 10, 'frame_disambiguated_sense': 19} | PREDICTION_2_lexicon_distinct_from_foundation_size=SUPPORTED",
+  "summary": "HARD_PASS | coverage_union_vn_pb_token=0.9893 (>=0.90 HP-floor, margin=+0.0893) | type_level_frac(n=120)=0.9833 (>=0.80 HP-floor, margin=+0.1833) | instance_level_n=2 | type_subclass={'trivial_compositional': 89, 'idiom_or_mwe_lexicon_entry': 10, 'frame_disambiguated_sense': 19} | PREDICTION_2_lexic",
+  "run_mode": "full",
+  "elapsed_s": 32.14416810000057,
+  "anchor_name": "lexicon_coverage_audit_barrier2_v1",
+  "ts_iso": "2026-07-17T11:24:35.520716+00:00",
+  "n_sentences": 2077,
+  "coverage_stats": {
+    "n_verb_tokens": 2605,
+    "n_verb_types": 568,
+    "token": {
+      "verbnet": {
+        "count": 2127,
+        "frac": 0.8165067178502879
+      },
+      "propbank": {
+        "count": 2565,
+        "frac": 0.9846449136276392
+      },
+      "framenet": {
+        "count": 2475,
+        "frac": 0.9500959692898272
+      },
+      "union_vn_pb_PRIMARY": {
+        "count": 2577,
+        "frac": 0.9892514395393474
+      },
+      "union_vn_pb_fn": {
+        "count": 2579,
+        "frac": 0.9900191938579654
+      }
+    },
+    "type": {
+      "verbnet": {
+        "count": 456,
+        "frac": 0.8028169014084507
+      },
+      "propbank": {
+        "count": 537,
+        "frac": 0.9454225352112676
+      },
+      "framenet": {
+        "count": 473,
+        "frac": 0.8327464788732394
+      },
+      "union_vn_pb_PRIMARY": {
+        "count": 548,
+        "frac": 0.9647887323943662
+      },
+      "union_vn_pb_fn": {
+        "count": 550,
+        "frac": 0.9683098591549296
+      }
+    },
+    "uncovered_types_union_vn_pb": [
+      "blackline",
+      "browse",
+      "cc",
+      "email",
+      "followup",
+      "fuck",
+      "google",
+      "handcraft",
+      "idk",
+      "morph",
+      "parse",
+      "preorder",
+      "regress",
+      "summarise",
+      "sympathise",
+      "transition",
+      "undercook",
+      "upload",
+      "vanquish",
+      "yahoo!"
+    ],
+    "n_uncovered_types_union_vn_pb": 20
+  },
+  "sample_size": 120,
+  "integrity_ok": true,
+  "split_stats": {
+    "n_audited": 120,
+    "n_type_level": 118,
+    "n_instance_level": 2,
+    "type_level_frac": 0.9833333333333333,
+    "type_level_wald_se_approx": 0.01168649109331259,
+    "type_level_subclass_counts": {
+      "trivial_compositional": 89,
+      "idiom_or_mwe_lexicon_entry": 10,
+      "frame_disambiguated_sense": 19
+    },
+    "instance_level_examples": [
+      {
+        "sent_id": "newsgroup-groups.google.com_JokeEruption_df151b356f94881c_ENG_20050819_155700-0039",
+        "lemma": "shut",
+        "subclass": "nonliteral_pragmatic",
+        "rationale": "joke about mishearing a name as the phrase 'shut up'; correct reading requires understanding a SPECIFIC narrative/pragmatic context (a mishearing joke), not a general lexicon entry or type constraint"
+      },
+      {
+        "sent_id": "reviews-336305-0001",
+        "lemma": "forgive",
+        "subclass": "metonymic_pragmatic",
+        "rationale": "'forgive [the] margarita'=excuse the venue's quality via metonymy from drink to service; forgive's literal selectional restriction (person/offense) is violated and reinterpreted pragmatically, needing genre/discourse-specific (restaurant-review) inference beyond a fixed lexicon entry"
+      }
+    ]
+  },
+  "band_detail": {
+    "coverage_margin_above_hp_floor": 0.08925143953934733,
+    "type_frac_margin_above_hp_floor": 0.18333333333333324,
+    "coverage_floor_hugging": false,
+    "type_frac_floor_hugging": false
+  },
+  "prediction2_lexicon_distinct_from_foundation_size_supported": true,
+  "corpus": {
+    "name": "UD_English-EWT test split (fork-independent re-parse; SAME corpus file as Rung 5-9, NOT the same parser code)",
+    "path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0"
+  },
+  "resources": {
+    "verbnet": "3621 lemmas (nltk.corpus.verbnet, local cache)",
+    "propbank": "3319 lemmas / 4659 rolesets (nltk.corpus.propbank, local cache, fetched once this session via nltk.download -- one-time env setup, no runtime network access)",
+    "framenet": "3318 verb-LU lemmas (nltk.corpus.framenet, local cache)"
+  },
+  "prereg": {
+    "hard_pass": "coverage_union_vn_pb_token_frac>=0.9 AND type_level_frac_of_audited_sample>=0.8 (and not floor-hugging, META_RULE_L)",
+    "hard_fail": "coverage_union_vn_pb_token_frac<0.6 OR type_level_frac_of_audited_sample<0.5",
+    "bands_source": "verbatim from Research's own Prediction 2 in notes/research_lexicon_richness_subcategorization_barrier_real_prose_parsing_2026-07-17.md, pre-registered BEFORE this run",
+    "sample_seed": 7,
+    "sample_n": 120,
+    "scoping": "type-vs-instance judgment covers VERB-ARGUMENT selectional/sense resolution only, NOT pronoun/coreference resolution (a separate, already-identified barrier -- deliberately excluded to avoid conflating two distinct barriers)",
+    "honest_limitations": "single-rater hand-audit (no inter-rater reliability); UD-EWT is informal/transactional web register, likely under-representing metaphor/instance-dependent language vs literary prose; n=120 modest for a proportion this close to 1.0; ~25% of type_level rests on treating idiom/MWE and multi-sense-but-frame-disambiguated readings as lexicon-resolvable (subclass breakdown reported for reader re-derivation under a stricter reading)",
+    "final_metrics_atomicity": "tmp_replace",
+    "storage_strategy": "no_storage (pure external-lexicon coverage measurement, no HD substrate object touched)",
+    "compute_architecture": "sequential-CPU; pure CoNLL-U/dict processing + nltk lemma-set lookups; no torch, no GPU primitive; wall time trivial (MEASURED above)",
+    "cardinality_ok": "n/a_no_sweep_axis",
+    "baseline_in_band": "n/a_no_baseline_arm_single_measurement_audit",
+    "calibration_check": "n/a_bands_are_verbatim_prereg_thresholds_not_tuned",
+    "crlb_n/a": "no quantitative noise floor in the CRLB sense; informal binomial SE reported in split_stats.type_level_wald_se_approx, not gated",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "parse_conllu (real corpus file, self-test slice)",
+      "nltk.corpus.verbnet/propbank/framenet (real resource lookups, self-test)"
+    ],
+    "substrate_signature_checked": "n/a_no_substrate_object_calls_this_is_a_pure_external_lexicon_measurement",
+    "guard_baseline_validated": "n/a_no_control_beats_baseline_guard",
+    "glass_box_legal": "static source-scan (no torch/spacy/transformers/stanza imports) AND a runtime sys.modules transitive-closure check after nltk use, both asserted at self-test",
+    "prior_work_check": "substrate_query.sh run before authoring -- top hit cosine=0.2832 (unrelated T3-deeper-ingest note), all 5 hits below the cosine>0.30 rediscovery threshold; NOVEL, not a rediscovery.",
+    "fork_independence": "this cell's CoNLL-U parser + coverage/sampling/judgment logic is a fresh, independent implementation; it does NOT import from any exp_read_grow_* module in the Rung 5-9 real-prose reading arc (reuses only the corpus FILE, not that arc's parser code), per Director's explicit instruction"
+  }
+}

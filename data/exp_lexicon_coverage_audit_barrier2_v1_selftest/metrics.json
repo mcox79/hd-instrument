@@ -1,0 +1,9 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (all self-test assertions passed)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "anchor_name": "lexicon_coverage_audit_barrier2_v1",
+  "ts_iso": "2026-07-17T11:28:08.787790+00:00"
+}

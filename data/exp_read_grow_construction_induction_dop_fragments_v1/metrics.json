@@ -1,0 +1,292 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | FEASIBILITY PROBE (grow-from-reading construction induction, Prediction 2) | n_seeds_pass=3/3 n_seeds_fail=0/3 split_overlap_any=False | [seedA] n_ind=629 n_held=217 n_tail=124 hand_rule_full_heldout=0.429 growth=[0.048, 0.153, 0.202, 0.355] scramble_at_full=0.016 margin=0.339 pass=True fail=False || [seedB] n_ind=596 n_held=250 n_tail=156 hand_rule_full_heldout=0.376 growth=[0.032, 0.122, 0.16, 0.282] scramble_at_full=0.000 margin=0.282 pass=True fail=False || [seedC] n_ind=578 n_held=268 n_tail=171 hand_rule_full_heldout=0.362 growth=[0.047, 0.105, 0.152, 0.292] scramble_at_full=0.000 margin=0.292 pass=True fail=False | weakest=n/a | HONEST GUARD: HARD_PASS means grow-from-reading shows real, scramble-beating, growing signal on THIS minimal probe -- worth scaling, NOT 'the parser is solved'.",
+  "summary": "HARD_PASS | FEASIBILITY PROBE (grow-from-reading construction induction, Prediction 2) | n_seeds_pass=3/3 n_seeds_fail=0/3 split_overlap_any=False | [seedA] n_ind=629 n_held=217 n_tail=124 hand_rule_full_heldout=0.429 growth=[0.048, 0.153, 0.202, 0.355] scramble_at_full=0.016 margin=0.339 pass=True ",
+  "run_mode": "full",
+  "elapsed_s": 3.2231494999996357,
+  "anchor_name": "read_grow_construction_induction_dop_fragments_v1",
+  "ts_iso": "2026-07-17T11:27:43.871566+00:00",
+  "seed_salts": [
+    "seedA",
+    "seedB",
+    "seedC"
+  ],
+  "expected_n_units": 12,
+  "actual_n_units": 12,
+  "cardinality_ok": true,
+  "weakest_interface": "n/a",
+  "corpus": {
+    "name": "UD_English-EWT test split",
+    "path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0",
+    "qualifying_pool_size": 846
+  },
+  "per_seed": [
+    {
+      "salt": "seedA",
+      "n_induction_pool": 629,
+      "n_heldout": 217,
+      "n_heldout_tail": 124,
+      "split_overlap": 0,
+      "hand_rule_coverage_full_heldout": 0.42857142857142855,
+      "hand_rule_covered": 93,
+      "growth_curve": [
+        0.04838709677419355,
+        0.1532258064516129,
+        0.20161290322580644,
+        0.3548387096774194
+      ],
+      "growth_points": [
+        {
+          "nominal_induction_size": 50,
+          "actual_induction_size": 50,
+          "inventory_size": 51,
+          "tail_root_coverage": 0.04838709677419355,
+          "tail_covered": 6,
+          "tail_total": 124
+        },
+        {
+          "nominal_induction_size": 150,
+          "actual_induction_size": 150,
+          "inventory_size": 145,
+          "tail_root_coverage": 0.1532258064516129,
+          "tail_covered": 19,
+          "tail_total": 124
+        },
+        {
+          "nominal_induction_size": 300,
+          "actual_induction_size": 300,
+          "inventory_size": 257,
+          "tail_root_coverage": 0.20161290322580644,
+          "tail_covered": 25,
+          "tail_total": 124
+        },
+        {
+          "nominal_induction_size": "full",
+          "actual_induction_size": 629,
+          "inventory_size": 497,
+          "tail_root_coverage": 0.3548387096774194,
+          "tail_covered": 44,
+          "tail_total": 124
+        }
+      ],
+      "surprisal_cutoffs": [
+        {
+          "actual_induction_size": 50,
+          "surprisal_cutoff_bits": 5.962293169807702
+        },
+        {
+          "actual_induction_size": 150,
+          "surprisal_cutoff_bits": 7.118826249062078
+        },
+        {
+          "actual_induction_size": 300,
+          "surprisal_cutoff_bits": 7.759614150696903
+        },
+        {
+          "actual_induction_size": 629,
+          "surprisal_cutoff_bits": 8.495049826730547
+        }
+      ],
+      "scramble_tail_root_coverage_at_full": 0.016129032258064516,
+      "scramble_covered": 2,
+      "grown_coverage_full_heldout_root": 0.4009216589861751,
+      "grown_coverage_full_heldout_all_instances": 0.7133393556157783,
+      "grown_coverage_tail_all_instances": 0.6982281284606866,
+      "min_count_sensitivity": {
+        "1": 0.5080645161290323,
+        "2": 0.3548387096774194,
+        "3": 0.25
+      },
+      "arms_differ_verified": true,
+      "tail_root_coverage_at_full_induction": 0.3548387096774194,
+      "scramble_margin": 0.33870967741935487,
+      "growth_delta": 0.3064516129032258,
+      "growth_monotonic_ok": true,
+      "seed_passes_hard": true,
+      "seed_fails_hard": false
+    },
+    {
+      "salt": "seedB",
+      "n_induction_pool": 596,
+      "n_heldout": 250,
+      "n_heldout_tail": 156,
+      "split_overlap": 0,
+      "hand_rule_coverage_full_heldout": 0.376,
+      "hand_rule_covered": 94,
+      "growth_curve": [
+        0.03205128205128205,
+        0.12179487179487179,
+        0.16025641025641027,
+        0.28205128205128205
+      ],
+      "growth_points": [
+        {
+          "nominal_induction_size": 50,
+          "actual_induction_size": 50,
+          "inventory_size": 57,
+          "tail_root_coverage": 0.03205128205128205,
+          "tail_covered": 5,
+          "tail_total": 156
+        },
+        {
+          "nominal_induction_size": 150,
+          "actual_induction_size": 150,
+          "inventory_size": 145,
+          "tail_root_coverage": 0.12179487179487179,
+          "tail_covered": 19,
+          "tail_total": 156
+        },
+        {
+          "nominal_induction_size": 300,
+          "actual_induction_size": 300,
+          "inventory_size": 263,
+          "tail_root_coverage": 0.16025641025641027,
+          "tail_covered": 25,
+          "tail_total": 156
+        },
+        {
+          "nominal_induction_size": "full",
+          "actual_induction_size": 596,
+          "inventory_size": 479,
+          "tail_root_coverage": 0.28205128205128205,
+          "tail_covered": 44,
+          "tail_total": 156
+        }
+      ],
+      "surprisal_cutoffs": [
+        {
+          "actual_induction_size": 50,
+          "surprisal_cutoff_bits": 5.959715848793402
+        },
+        {
+          "actual_induction_size": 150,
+          "surprisal_cutoff_bits": 7.0904934156613075
+        },
+        {
+          "actual_induction_size": 300,
+          "surprisal_cutoff_bits": 7.740446986979978
+        },
+        {
+          "actual_induction_size": 596,
+          "surprisal_cutoff_bits": 8.423541635334782
+        }
+      ],
+      "scramble_tail_root_coverage_at_full": 0.0,
+      "scramble_covered": 0,
+      "grown_coverage_full_heldout_root": 0.372,
+      "grown_coverage_full_heldout_all_instances": 0.7124624624624625,
+      "grown_coverage_tail_all_instances": 0.7033432077867118,
+      "min_count_sensitivity": {
+        "1": 0.4807692307692308,
+        "2": 0.28205128205128205,
+        "3": 0.20512820512820512
+      },
+      "arms_differ_verified": true,
+      "tail_root_coverage_at_full_induction": 0.28205128205128205,
+      "scramble_margin": 0.28205128205128205,
+      "growth_delta": 0.25,
+      "growth_monotonic_ok": true,
+      "seed_passes_hard": true,
+      "seed_fails_hard": false
+    },
+    {
+      "salt": "seedC",
+      "n_induction_pool": 578,
+      "n_heldout": 268,
+      "n_heldout_tail": 171,
+      "split_overlap": 0,
+      "hand_rule_coverage_full_heldout": 0.3619402985074627,
+      "hand_rule_covered": 97,
+      "growth_curve": [
+        0.04678362573099415,
+        0.10526315789473684,
+        0.15204678362573099,
+        0.29239766081871343
+      ],
+      "growth_points": [
+        {
+          "nominal_induction_size": 50,
+          "actual_induction_size": 50,
+          "inventory_size": 53,
+          "tail_root_coverage": 0.04678362573099415,
+          "tail_covered": 8,
+          "tail_total": 171
+        },
+        {
+          "nominal_induction_size": 150,
+          "actual_induction_size": 150,
+          "inventory_size": 149,
+          "tail_root_coverage": 0.10526315789473684,
+          "tail_covered": 18,
+          "tail_total": 171
+        },
+        {
+          "nominal_induction_size": 300,
+          "actual_induction_size": 300,
+          "inventory_size": 265,
+          "tail_root_coverage": 0.15204678362573099,
+          "tail_covered": 26,
+          "tail_total": 171
+        },
+        {
+          "nominal_induction_size": "full",
+          "actual_induction_size": 578,
+          "inventory_size": 474,
+          "tail_root_coverage": 0.29239766081871343,
+          "tail_covered": 50,
+          "tail_total": 171
+        }
+      ],
+      "surprisal_cutoffs": [
+        {
+          "actual_induction_size": 50,
+          "surprisal_cutoff_bits": 5.903998521326706
+        },
+        {
+          "actual_induction_size": 150,
+          "surprisal_cutoff_bits": 7.07284589884773
+        },
+        {
+          "actual_induction_size": 300,
+          "surprisal_cutoff_bits": 7.7354333524996886
+        },
+        {
+          "actual_induction_size": 578,
+          "surprisal_cutoff_bits": 8.40290404501411
+        }
+      ],
+      "scramble_tail_root_coverage_at_full": 0.0,
+      "scramble_covered": 0,
+      "grown_coverage_full_heldout_root": 0.3694029850746269,
+      "grown_coverage_full_heldout_all_instances": 0.7118603538976567,
+      "grown_coverage_tail_all_instances": 0.7042536115569823,
+      "min_count_sensitivity": {
+        "1": 0.4502923976608187,
+        "2": 0.29239766081871343,
+        "3": 0.14619883040935672
+      },
+      "arms_differ_verified": true,
+      "tail_root_coverage_at_full_induction": 0.29239766081871343,
+      "scramble_margin": 0.29239766081871343,
+      "growth_delta": 0.24561403508771928,
+      "growth_monotonic_ok": true,
+      "seed_passes_hard": true,
+      "seed_fails_hard": false
+    }
+  ],
+  "arms_differ_verified": true,
+  "prereg": {
+    "hard_pass_scope": "GROWN arm only (tail_root_coverage_at_full_induction, growth-curve slope, scramble margin); HAND_RULE and SCRAMBLE are reference/control arms.",
+    "hard_pass": "split_overlap==0 for all seeds AND all seeds seed_passes_hard",
+    "hard_fail": "any split_overlap>0 OR arms_differ_verified False OR >=2/3 seeds seed_fails_hard",
+    "min_count_entrenchment_threshold": 2,
+    "sweep_sizes_nominal": [
+      50,
+      150,
+      300,
+      null
+    ],
+    "heldout_frac": 0.3
+  }
+}

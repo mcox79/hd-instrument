@@ -1,0 +1,122 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | FEASIBILITY PROBE (grow-from-reading construction induction, Prediction 2) | n_seeds_pass=1/1 n_seeds_fail=0/1 split_overlap_any=False | [seedA] n_ind=629 n_held=217 n_tail=124 hand_rule_full_heldout=0.429 growth=[0.048, 0.153, 0.202, 0.355] scramble_at_full=0.016 margin=0.339 pass=True fail=False | weakest=n/a | HONEST GUARD: HARD_PASS means grow-from-reading shows real, scramble-beating, growing signal on THIS minimal probe -- worth scaling, NOT 'the parser is solved'.",
+  "summary": "HARD_PASS | FEASIBILITY PROBE (grow-from-reading construction induction, Prediction 2) | n_seeds_pass=1/1 n_seeds_fail=0/1 split_overlap_any=False | [seedA] n_ind=629 n_held=217 n_tail=124 hand_rule_full_heldout=0.429 growth=[0.048, 0.153, 0.202, 0.355] scramble_at_full=0.016 margin=0.339 pass=True ",
+  "run_mode": "smoke",
+  "elapsed_s": 1.0610187000002043,
+  "anchor_name": "read_grow_construction_induction_dop_fragments_v1",
+  "ts_iso": "2026-07-17T11:25:43.026787+00:00",
+  "seed_salts": [
+    "seedA"
+  ],
+  "expected_n_units": 4,
+  "actual_n_units": 4,
+  "cardinality_ok": true,
+  "weakest_interface": "n/a",
+  "corpus": {
+    "name": "UD_English-EWT test split",
+    "path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0",
+    "qualifying_pool_size": 846
+  },
+  "per_seed": [
+    {
+      "salt": "seedA",
+      "n_induction_pool": 629,
+      "n_heldout": 217,
+      "n_heldout_tail": 124,
+      "split_overlap": 0,
+      "hand_rule_coverage_full_heldout": 0.42857142857142855,
+      "hand_rule_covered": 93,
+      "growth_curve": [
+        0.04838709677419355,
+        0.1532258064516129,
+        0.20161290322580644,
+        0.3548387096774194
+      ],
+      "growth_points": [
+        {
+          "nominal_induction_size": 50,
+          "actual_induction_size": 50,
+          "inventory_size": 51,
+          "tail_root_coverage": 0.04838709677419355,
+          "tail_covered": 6,
+          "tail_total": 124
+        },
+        {
+          "nominal_induction_size": 150,
+          "actual_induction_size": 150,
+          "inventory_size": 145,
+          "tail_root_coverage": 0.1532258064516129,
+          "tail_covered": 19,
+          "tail_total": 124
+        },
+        {
+          "nominal_induction_size": 300,
+          "actual_induction_size": 300,
+          "inventory_size": 257,
+          "tail_root_coverage": 0.20161290322580644,
+          "tail_covered": 25,
+          "tail_total": 124
+        },
+        {
+          "nominal_induction_size": "full",
+          "actual_induction_size": 629,
+          "inventory_size": 497,
+          "tail_root_coverage": 0.3548387096774194,
+          "tail_covered": 44,
+          "tail_total": 124
+        }
+      ],
+      "surprisal_cutoffs": [
+        {
+          "actual_induction_size": 50,
+          "surprisal_cutoff_bits": 5.962293169807702
+        },
+        {
+          "actual_induction_size": 150,
+          "surprisal_cutoff_bits": 7.118826249062078
+        },
+        {
+          "actual_induction_size": 300,
+          "surprisal_cutoff_bits": 7.759614150696903
+        },
+        {
+          "actual_induction_size": 629,
+          "surprisal_cutoff_bits": 8.495049826730547
+        }
+      ],
+      "scramble_tail_root_coverage_at_full": 0.016129032258064516,
+      "scramble_covered": 2,
+      "grown_coverage_full_heldout_root": 0.4009216589861751,
+      "grown_coverage_full_heldout_all_instances": 0.7133393556157783,
+      "grown_coverage_tail_all_instances": 0.6982281284606866,
+      "min_count_sensitivity": {
+        "1": 0.5080645161290323,
+        "2": 0.3548387096774194,
+        "3": 0.25
+      },
+      "arms_differ_verified": true,
+      "tail_root_coverage_at_full_induction": 0.3548387096774194,
+      "scramble_margin": 0.33870967741935487,
+      "growth_delta": 0.3064516129032258,
+      "growth_monotonic_ok": true,
+      "seed_passes_hard": true,
+      "seed_fails_hard": false
+    }
+  ],
+  "arms_differ_verified": true,
+  "prereg": {
+    "hard_pass_scope": "GROWN arm only (tail_root_coverage_at_full_induction, growth-curve slope, scramble margin); HAND_RULE and SCRAMBLE are reference/control arms.",
+    "hard_pass": "split_overlap==0 for all seeds AND all seeds seed_passes_hard",
+    "hard_fail": "any split_overlap>0 OR arms_differ_verified False OR >=2/3 seeds seed_fails_hard",
+    "min_count_entrenchment_threshold": 2,
+    "sweep_sizes_nominal": [
+      50,
+      150,
+      300,
+      null
+    ],
+    "heldout_frac": 0.3
+  }
+}
