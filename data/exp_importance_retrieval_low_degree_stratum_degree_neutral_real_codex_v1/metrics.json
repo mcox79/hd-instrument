@@ -1,0 +1,153 @@
+{
+  "anchor_name": "importance_retrieval_low_degree_stratum_degree_neutral_real_codex_v1",
+  "verdict": "HARD_FAIL_IMPORTANCE_LOW_VALUE_PLUS0335_IS_WITHIN_STRATUM_DEGREE_ARTIFACT",
+  "run_mode": "full",
+  "scale": "full",
+  "dataset": "codex_claimvalidity",
+  "elapsed_s": 5.23806357383728,
+  "n_ent": 2034,
+  "n_train": 32888,
+  "n_test_pos": 1828,
+  "stratum_def": "lowest-degree quartile (bin0 of log1p(deg) quantiles, n_bins=4)",
+  "n_stratum": 718,
+  "stratum_deg_range": [
+    10,
+    15
+  ],
+  "info_ceiling": {
+    "test_appearance_rate": 0.6838440111420613,
+    "tqc_std": 0.9429329371056123,
+    "deg_predicts_tqc_spearman": -0.3337782611673655,
+    "n_stratum": 718,
+    "info_ceiling_pass": true
+  },
+  "partA_within_stratum_partial_corr": {
+    "pc": 0.034241819419264165,
+    "pc_boot_p05": -0.025164526705335904,
+    "bands": {
+      "PC_HF": 0.05,
+      "PC_HP": 0.15
+    }
+  },
+  "partB_exact_degree_matched_tertile": {
+    "tert": 0.07172995780590717,
+    "tert_boot_p05": 0.008403361344537823,
+    "n_degree_groups_fired": 5,
+    "n_entities_used": 474,
+    "tert_per_group": {
+      "11": {
+        "gap": 0.0,
+        "n_group": 16,
+        "tert": 5,
+        "top_rate": 1.0,
+        "bottom_rate": 1.0
+      },
+      "12": {
+        "gap": -0.04761904761904756,
+        "n_group": 64,
+        "tert": 21,
+        "top_rate": 0.9047619047619048,
+        "bottom_rate": 0.9523809523809523
+      },
+      "13": {
+        "gap": 0.0,
+        "n_group": 137,
+        "tert": 45,
+        "top_rate": 0.8666666666666667,
+        "bottom_rate": 0.8666666666666667
+      },
+      "14": {
+        "gap": 0.13095238095238093,
+        "n_group": 252,
+        "tert": 84,
+        "top_rate": 0.7261904761904762,
+        "bottom_rate": 0.5952380952380952
+      },
+      "15": {
+        "gap": 0.0853658536585366,
+        "n_group": 248,
+        "tert": 82,
+        "top_rate": 0.5487804878048781,
+        "bottom_rate": 0.4634146341463415
+      }
+    },
+    "bands": {
+      "TERT_HF": 0.05,
+      "TERT_HP": 0.15
+    }
+  },
+  "partC_artifact_reproduction": {
+    "raw_global_orth_within_stratum_gap": 0.33472803347280344,
+    "reorth_within_stratum_naive_gap": 0.10460251046025104,
+    "degree_matched_gap_partB": 0.07172995780590717,
+    "note": "raw_global_orth_within_stratum_gap reproduces the reported +0.335; PART B is the same top-vs-bottom-importance comparison but EXACT-degree-matched WITHIN the stratum -> the delta is the residual-degree artifact removed"
+  },
+  "controls": {
+    "pc_scramble": 0.042987897140052043,
+    "tert_scramble": 0.0379746835443038,
+    "pc_random": 0.015368609623211071,
+    "tert_random": 0.005625879043600551,
+    "control_near_zero": true,
+    "NEUTRAL_CTRL_MAX": 0.05
+  },
+  "robustness_alt_cutoffs": {
+    "n_bins_3_bin0": {
+      "n_stratum": 718,
+      "deg_range": [
+        10,
+        15
+      ],
+      "pc": 0.034241819419264165,
+      "pc_p05": -0.02315443415846658,
+      "tert": 0.07172995780590717,
+      "tert_p05": 0.021008403361344526,
+      "info_ceiling_pass": true
+    },
+    "n_bins_5_bin0": {
+      "n_stratum": 470,
+      "deg_range": [
+        10,
+        14
+      ],
+      "pc": 0.02271004052385911,
+      "pc_p05": -0.05496644391901336,
+      "tert": 0.07741935483870976,
+      "tert_p05": -0.0064516129032258,
+      "info_ceiling_pass": true
+    }
+  },
+  "config": {
+    "n_btwn_sources": 192,
+    "n_deg_bins": 4,
+    "min_stratum_n": 100,
+    "min_deg_group": 12,
+    "n_boot": 600,
+    "scramble_seeds": [
+      7,
+      17,
+      29
+    ],
+    "random_seeds": [
+      11,
+      23,
+      37
+    ],
+    "bands": {
+      "PC_HP": 0.15,
+      "PC_HF": 0.05,
+      "TERT_HP": 0.15,
+      "TERT_HF": 0.05,
+      "NEUTRAL_CTRL_MAX": 0.05,
+      "CEIL_DEG_PREDICTS_MIN": 0.1
+    }
+  },
+  "arm_digests": {
+    "imp_s": "ee193208cd21861c29eaf11e173cbc183c9633e3605ae1637e37b309bee4f372",
+    "scramble0": "a96a576f7f84d25538a9eb3fe923b13d083079c4993f15fd5ea80a044775fd7b",
+    "random0": "841f670d4e71f299e84f9cf7b40fa2084cfee5a5e276abaed01804111d84fca1"
+  },
+  "arms_differ": true,
+  "verdict_msg": "HARD_FAIL_IMPORTANCE_LOW_VALUE_PLUS0335_IS_WITHIN_STRATUM_DEGREE_ARTIFACT | stratum=bin0(deg 10-15, n=718) | A[degree-neutral] pc=0.0342 (p05=-0.0252) | B[exact-deg-matched] tert=0.0717 (p05=+0.0084, 5 deg-groups) | C[artifact] raw_global_gap=0.3347 -> deg_matched=0.0717 | ctrl(scr pc=0.0430 tert=0.0380; rnd pc=0.0154 tert=0.0056 near0=True) | info_ceiling(appear=0.684 deg_predicts=-0.334 pass=True)",
+  "ts_iso": "2026-07-17T02:53:20.630352+00:00",
+  "summary": "HARD_FAIL_IMPORTANCE_LOW_VALUE_PLUS0335_IS_WITHIN_STRATUM_DEGREE_ARTIFACT"
+}
