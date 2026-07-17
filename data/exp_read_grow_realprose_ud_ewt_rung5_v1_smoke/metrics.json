@@ -1,0 +1,860 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | REAL-PROSE construction_distribution[single_clause_svo=0.300 vp_coordination=0.100 compound_subject=0.014 relative_clause=0.000 passive=0.071 other_unhandled=0.514] (n=70) | OPEN_RELATION precision_on_attempted=0.286 (HARD-PASS>=0.60, HARD-FAIL<0.50) coverage_sentence_rate=0.100 (HARD-PASS>=0.05, HARD-FAIL<0.03) recall=0.074 n_attempted=7/70 | CLOSED_CURRENT coverage=0.000 CLOSED_EXTENDED coverage=0.000 (informational, not gated -- SCOPE DECISION) | guard_regression_ok=True oos_control_fired=True | weakest=open_precision_on_attempted_below_0.60",
+  "summary": "HARD_FAIL | REAL-PROSE construction_distribution[single_clause_svo=0.300 vp_coordination=0.100 compound_subject=0.014 relative_clause=0.000 passive=0.071 other_unhandled=0.514] (n=70) | OPEN_RELATION precision_on_attempted=0.286 (HARD-PASS>=0.60, HARD-FAIL<0.50) coverage_sentence_rate=0.100 (HARD-PA",
+  "run_mode": "smoke",
+  "elapsed_s": 0.19849640000029467,
+  "anchor_name": "read_grow_realprose_ud_ewt_rung5_v1",
+  "ts_iso": "2026-07-17T06:11:47.971874+00:00",
+  "seeds": [
+    7
+  ],
+  "n_per_seed": 70,
+  "expected_n_units": 70,
+  "weakest_interface": "open_precision_on_attempted_below_0.60",
+  "corpus": {
+    "name": "UD_English-EWT test split",
+    "path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0",
+    "qualifying_pool_size": 846,
+    "n_sampled_total": 70,
+    "register_note": "general web register (weblogs/emails/reviews/newsgroups), NOT early-reader register -- see module docstring CORPUS CHOICE for the honest trade-off"
+  },
+  "construction_distribution_counts": {
+    "single_clause_svo": 21,
+    "vp_coordination": 7,
+    "compound_subject": 1,
+    "relative_clause": 0,
+    "passive": 5,
+    "other_unhandled": 36
+  },
+  "construction_distribution_fractions": {
+    "single_clause_svo": 0.3,
+    "vp_coordination": 0.1,
+    "compound_subject": 0.014285714285714285,
+    "relative_clause": 0.0,
+    "passive": 0.07142857142857142,
+    "other_unhandled": 0.5142857142857142
+  },
+  "per_seed_distribution": {
+    "7": {
+      "single_clause_svo": 21,
+      "vp_coordination": 7,
+      "compound_subject": 1,
+      "relative_clause": 0,
+      "passive": 5,
+      "other_unhandled": 36
+    }
+  },
+  "arms": {
+    "OPEN_RELATION_strict": {
+      "n_total": 70,
+      "n_attempted": 7,
+      "n_emitted": 7,
+      "n_gold": 27,
+      "n_correct": 2,
+      "precision_on_attempted": 0.2857142857142857,
+      "recall": 0.07407407407407407,
+      "coverage_sentence_rate": 0.1,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 21,
+          "n_gold": 20,
+          "n_attempted": 3,
+          "n_emitted": 3,
+          "n_correct": 2
+        },
+        "vp_coordination": {
+          "n": 7,
+          "n_gold": 7,
+          "n_attempted": 2,
+          "n_emitted": 2,
+          "n_correct": 0
+        },
+        "other_unhandled": {
+          "n": 36,
+          "n_gold": 0,
+          "n_attempted": 2,
+          "n_emitted": 2,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 5,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "OPEN_RELATION_relaxed_irregular_verb_diagnostic": {
+      "n_total": 70,
+      "n_attempted": 7,
+      "n_emitted": 7,
+      "n_gold": 27,
+      "n_correct": 2,
+      "precision_on_attempted": 0.2857142857142857,
+      "recall": 0.07407407407407407,
+      "coverage_sentence_rate": 0.1,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 21,
+          "n_gold": 20,
+          "n_attempted": 3,
+          "n_emitted": 3,
+          "n_correct": 2
+        },
+        "vp_coordination": {
+          "n": 7,
+          "n_gold": 7,
+          "n_attempted": 2,
+          "n_emitted": 2,
+          "n_correct": 0
+        },
+        "other_unhandled": {
+          "n": 36,
+          "n_gold": 0,
+          "n_attempted": 2,
+          "n_emitted": 2,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 5,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "CLOSED_CURRENT_informational": {
+      "n_total": 70,
+      "n_attempted": 0,
+      "n_emitted": 0,
+      "n_gold": 27,
+      "n_correct": 0,
+      "precision_on_attempted": null,
+      "recall": 0.0,
+      "coverage_sentence_rate": 0.0,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 21,
+          "n_gold": 20,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "vp_coordination": {
+          "n": 7,
+          "n_gold": 7,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "other_unhandled": {
+          "n": 36,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 5,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "CLOSED_EXTENDED_informational": {
+      "n_total": 70,
+      "n_attempted": 0,
+      "n_emitted": 0,
+      "n_gold": 27,
+      "n_correct": 0,
+      "precision_on_attempted": null,
+      "recall": 0.0,
+      "coverage_sentence_rate": 0.0,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 21,
+          "n_gold": 20,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "vp_coordination": {
+          "n": 7,
+          "n_gold": 7,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "other_unhandled": {
+          "n": 36,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 5,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    }
+  },
+  "guard_regression_ok": true,
+  "oos_control_fired": true,
+  "sample_open_rows": [
+    {
+      "text": "The correction to the working gas includes TWO corrections.",
+      "cls": "single_clause_svo",
+      "gold": [],
+      "emitted": [
+        [
+          "correction",
+          "work",
+          "gas"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN"
+    },
+    {
+      "text": "My dog has threw up yellow bile for two days but does not have dhirea.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "dog",
+          "have",
+          "diarrhea"
+        ],
+        [
+          "dog",
+          "throw",
+          "bile"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Hi I\u00b4m from Brazil and I want to know of book 06.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "quick in & out.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "Bike ride in the park, followed by coffee.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "park",
+          "follow_by",
+          "coffee"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN"
+    },
+    {
+      "text": "You need to check out the French Indochina War (1946-1954) not the Vietnam War (1957-1975).",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "These have been sighted among Iraqi crowds on Haifa Street in Baghdad and in Samarra.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "Best pedi mani Ive ever had.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I also find their food way better than many other airlines.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "find",
+          "food"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Hall has agreed to release Enron, Ecogas, Maffett and every affiliate, related party and subsidiary.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I went to this urgent care center and was blown away with their service.",
+      "cls": "vp_coordination",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "There is so much to do onboard.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "Mens and Boys Barbers, on the number 9 Bus route.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "I hope that this would mean that you would remain involved at some level.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Any of the tip-top places have great ice-cream, get them to mix it up.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "any",
+          "get",
+          "they"
+        ],
+        [
+          "any",
+          "have",
+          "cream"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Well,I'm about to graduate in less then a year,and I'm planning to study medical school.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "We now have over 5000 addresses.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "have",
+          "address"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "We look forward to your active participation to make this forum an exciting meeting place for like minded individuals.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "look_to",
+          "participation"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I like my Monkey Brain on a stick for sure.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "like",
+          "brain"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "You should use the same spreadsheet format used for the 1/29/02 DPR.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "use",
+          "format"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Atal Pharmacy, Karol Bag.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "Doctor Bogomilsky knows her stuff too.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "bogomilsky",
+          "know",
+          "stuff"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "No minimum order amount.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "The new NCL Epic does sound amazing, although I haven't sailed on her yet.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "We order take out from here all the time and we are never disappointed.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "order",
+          "out"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "If I went into the \"pre-university\" direction with business administration in mind.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "go_into",
+          "direction"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Hope you will be sorted.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PASSIVE_NO_AGENT"
+    },
+    {
+      "text": "They are especially rude to women.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "Thanks again, Directv.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "NCL is a notch below either, in terms of quality and service.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "They treat there employees with respect and concern and expect that they will extend the same politeness to there customers.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "they",
+          "treat",
+          "employee"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Will definitely go back when I need medical care.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "Delhi police chief KK Paul named the man as Tariq Ahmed Dar, and said police were hunting for four accomplices.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "k",
+          "name",
+          "man"
+        ]
+      ],
+      "emitted": [
+        [
+          "paul",
+          "nam",
+          "man"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN"
+    },
+    {
+      "text": "Well theres Mc.Donalds,Taco Bell,Burger King.....",
+      "cls": "compound_subject",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "Now they are part of your working group.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "part",
+          "work",
+          "group"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN"
+    },
+    {
+      "text": "Or more if you have drinks.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Will never use again.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "My friend goes to the Phils every 6 months or so and she has found that Korean Air has had the cheapest fares lately.",
+      "cls": "vp_coordination",
+      "gold": [],
+      "emitted": [
+        [
+          "friend",
+          "go_to",
+          "phil"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN"
+    },
+    {
+      "text": "i had a blast that night.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "has life like animal wholesale figurines made from rabbit and goat fur, feathers and sheeps wool.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "No, technically they do not need a UVB light; they are nocturnal.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "need",
+          "light"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Get great service, fantastic menu, and relax.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "When you press the button to stop recording the data is moved from the buffer to the memory card - no pause.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "It was all sorted with no hassle at all and I'm really grateful - they were fab.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "We will have to correct them after the churn.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "These guys do great work at VERY reasonable prices.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "emitted": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN"
+    },
+    {
+      "text": "This pledge is a new development.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "his clinic is very very dirty he is a real disaster to go totally not organized for every step he take .",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "These have been sold.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_SUBJECT"
+    },
+    {
+      "text": "As in the old days, varnish is often used as a protective film against years of dirt, grease, smoke, etc.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "PASSIVE_NO_AGENT"
+    },
+    {
+      "text": "I just called this number and it is a Ralph's Market.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "call",
+          "number"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "I know now where to get all of my wine and beer.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Can one of your research staff justify a suitable 20 year volalatility number for USD/Euro.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "one",
+          "justify",
+          "number"
+        ]
+      ],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "Michael L. Beatty & Associates, PC; #10461, #10469 & #10468 dated 5/28/00.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "I have ordered Bose Headfones worth 300USD.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "order",
+          "headfone"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "too many bugs some you even never seen before.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_OBJECT"
+    },
+    {
+      "text": "The investors put big bucks into the building but are clueless about what makes a good dining or bar experience.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "investor",
+          "put",
+          "buck"
+        ]
+      ],
+      "emitted": [
+        [
+          "investor",
+          "put",
+          "buck"
+        ]
+      ],
+      "rule": "SVO_ACTIVE_OPEN"
+    },
+    {
+      "text": "i love The Script and know there from iraland.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "i",
+          "love",
+          "script"
+        ]
+      ],
+      "emitted": [],
+      "rule": "COREF_UNRESOLVED"
+    },
+    {
+      "text": "Courteous, fast and friendly.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    },
+    {
+      "text": "None of the above.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "NO_VERB"
+    }
+  ],
+  "sample_closed_current_rows": [],
+  "prereg": {
+    "hard_pass": "open_precision_on_attempted>=0.60 AND open_coverage_sentence_rate>=0.05 AND guard_regression_ok AND oos_control_fired",
+    "hard_fail": "open_precision_on_attempted<0.50 OR open_coverage_sentence_rate<0.03 OR NOT guard_regression_ok",
+    "hp_scope": "OPEN_RELATION arm is the ONLY gated discriminator; CLOSED_CURRENT/CLOSED_EXTENDED are informational-only (SCOPE DECISION: closed 3-relation schema is expected near-zero coverage on unrestricted real prose, a pre-registered finding not a vacuous-test bug); guard_regression_ok covers all 3 arms as the baseline substitute.",
+    "corpus_choice": "UD_English-EWT test split (gold dependency parses -> semi-automated gold, least-hand-judgment path); general web register, NOT early-reader register (honest trade-off, does not directly settle the RUNG-4 register-advantage question -- see module docstring).",
+    "gold_method": "dependency-parse-derived (nsubj/nsubj:pass/aux:pass/obj/conj/acl:relcl/obl+case edges), NEW code validated at self-test against 5 hand-built dependency trees.",
+    "scope_note": "OPEN_RELATION is a declared, minimal generalization of the closed-schema grammar (relation resolution opened + tagging opened via classical POS-tag fallback); structural control-flow (subject/passive/coordination/relative-clause) copied unchanged from RUNG 2's _extract_core. See module docstring SCOPE DECISION.",
+    "compute_architecture": "sequential-CPU; pure syntactic parsing + dependency-tree traversal, no VSA store; wall time trivial (MEASURED below)",
+    "storage_strategy": "no_storage (pure parser-layer + dependency-classifier test)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "runner_python_u_only (timeout_s < 1800; not mandatory, cell wall time is seconds)",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "parse_conllu (real local corpus file)",
+      "analyze_sentence (dependency-parse-derived, NEW code)",
+      "ie_extract_open (NEW declared generalization)",
+      "ie_extract (v2, imported unmodified)",
+      "ie_extract_verb_extended (RUNG 3, imported unmodified)",
+      "nltk.pos_tag (real classical averaged-perceptron call)"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete syntactic role-assignment + the classical tagger's own literature-benchmarked accuracy (96-97% PTB, CITED) plus a lookup-free suffix-lemmatizer's own MEASURED accuracy on real tokens (reproduced live at self-test).",
+    "glass_box_legal": "static source-scan (no torch/spacy/transformers/stanza imports) AND a runtime sys.modules transitive-closure check after nltk use, both asserted at self-test",
+    "prior_work_check": "substrate_query.sh run before authoring (see completion report); this is the RUNG-5 real-prose extension of an existing, actively-developed arc (RUNG 2/3/4), not a rediscovery."
+  }
+}
