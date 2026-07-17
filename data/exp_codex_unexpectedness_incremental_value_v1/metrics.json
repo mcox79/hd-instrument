@@ -1,0 +1,151 @@
+{
+  "dataset": "CoDEx-S triple classification (Safavi & Koutra, EMNLP 2020) -- human-verified hard negatives",
+  "verdict": "HARD_PASS_UNEXPECTEDNESS_ADDS_NONREDUNDANT_VALUE",
+  "summary": "HARD_PASS_UNEXPECTEDNESS_ADDS_NONREDUNDANT_VALUE",
+  "verdict_msg": "UNEXPECTEDNESS incremental value vs {schema-fit + recurrence} on CoDEx-S claim-validity (base cal0.20 [relation_nn_degree_matched] n=1216): base=0.589 full=0.649 delta=0.0597 (p05=0.0367); partial(unique-variance) AUROC=0.605 (p05=0.580 p95=0.633); unexp_alone=0.623; redundancy R2(unexp~sf,rec)=0.033 corr(unexp,sf)=0.109; deg_explained=0.001; shuffled-null delta p95=0.0067 beats_null=True; robust-across-calipers HP(partial=True delta=True neutral=True)",
+  "signal_definitions": {
+    "schema_fit": "degree-orthogonal pairwise Resource-Allocation index (VET'd real-data win); symmetric structural overlap",
+    "recurrence": "degree-orthogonal count of DISTINCT relation types among common-neighbor paths (corroboration diversity)",
+    "unexpectedness": "degree-orthogonal -log P(c_t | c_h, r): schema-conditioned prediction error of the foundation's relation-typed community-transition forward model (LOCAL, relation-conditioned, directed)"
+  },
+  "community_model": {
+    "C": 17,
+    "c_max": 16,
+    "method": "spectral_kmeans",
+    "lp_alpha": 1.0,
+    "km_iters": 25,
+    "top_sizes": [
+      234,
+      227,
+      197,
+      188,
+      171,
+      142,
+      116,
+      113,
+      109,
+      103
+    ]
+  },
+  "config": {
+    "calipers": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "base_caliper": 0.2,
+    "seeds": [
+      12345,
+      67890
+    ],
+    "n_boot": 400,
+    "n_null": 300,
+    "partial_hard_pass": 0.53,
+    "partial_hard_fail": 0.51,
+    "delta_hard_pass": 0.015,
+    "delta_hard_fail": 0.005,
+    "deg_explained_max": 0.1,
+    "info_ceiling_sf_min": 0.53,
+    "info_ceiling_full_min": 0.55
+  },
+  "verdict_gates": {
+    "hp_partial_unique_variance_all_calipers": true,
+    "hp_delta_and_beats_null_all_calipers": true,
+    "hp_degree_neutral_all_calipers": true,
+    "hf_partial_redundant_base": false,
+    "hf_delta_adds_nothing_base": false,
+    "hf_delta_not_beat_null_base": false,
+    "arms_differ_verified": true,
+    "cert_fires_all": true,
+    "info_ceiling_all": true
+  },
+  "prereg_bands": {
+    "HARD_PASS": "cert+info-ceiling all AND all calipers: partial>=0.53 (p05>0.50) AND delta>=0.015 AND real-delta p05>shuffled-null p95 AND deg_explained<0.10 -> unexpectedness adds non-redundant value; 1st signal load-bearing on real data",
+    "HARD_FAIL": "cert+info-ceiling OK BUT base caliper: partial<=0.51 (p95<=0.52) OR delta<=0.005 OR real-delta not beating shuffled-null -> unexpectedness REDUNDANT; real gate is 2-signal (schema-fit + recurrence) -> FLAG FOR USER (4-signal design + all-signals LOCK)",
+    "MIDDLE": "otherwise (unique variance present but delta small/unrobust; partial in (0.51,0.53))",
+    "INFO_CEILING_FAIL": "schema-fit frontier not reproduced OR full model below chance",
+    "SPLIT_NOT_FREQUENCY_BLIND": "no control drove the freq baseline into [0.45,0.55]"
+  },
+  "honesty_notes": [
+    "unexpectedness is NOT a standalone validity predictor by design (novel-true and false-noise are both unexpected); this cell tests its NON-REDUNDANT INCREMENTAL value as a component of the gate.",
+    "all 3 signals degree-orthogonalized held-out label-free (fit VAL-matched, apply TEST-matched); same frequency-blind escalation + freq-at-chance certificate as the VET'd schema-fit chassis.",
+    "SHUFFLED-unexp null is the discriminator-fires guard: adding ANY 3rd feature can nudge AUROC by overfitting; the real delta must beat the permutation-null delta p95, else the 'improvement' is a feature-count artifact.",
+    "partial (unique-variance) AUROC = AUROC of unexp AFTER OLS-removing schema-fit + recurrence (label-free); this is the load-bearing redundancy discriminator. redundancy_r2 reports how much of unexp is already linearly captured by schema-fit + recurrence.",
+    "if HARD_FAIL: this + the importance HARD_FAIL => real-data ingest gate is really 2 signals (schema-fit + recurrence); a load-bearing conclusion re: the 4-signal design + all-signals LOCK. FLAG FOR USER; do NOT prune unilaterally."
+  ],
+  "per_caliper": {
+    "cal0.15": {
+      "certificate_fires": true,
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 1158,
+      "freq_logistic_auroc": 0.5073022094552874,
+      "certificate_auroc": 0.5073424789927247,
+      "info_ceiling_ok": true,
+      "sf_orth_auroc_pa": 0.5803436930447051,
+      "auc_base_sf_rec": 0.5954537183697698,
+      "auc_full_sf_rec_unexp": 0.6537252305058152,
+      "delta_auc": 0.05827151213604542,
+      "delta_auc_boot_p05": 0.030721236392454283,
+      "partial_unexp_auroc": 0.6079850018345012,
+      "partial_boot_p05": 0.5798506623617335,
+      "partial_boot_p95": 0.6344754489295586,
+      "unexp_alone_auroc_pa": 0.6271413699398343,
+      "redundancy_r2_unexp_on_sf_rec": 0.03346321204008773,
+      "corr_unexp_schemafit": 0.10719896970115976,
+      "corr_unexp_recurrence": 0.17843225888315903,
+      "unexp_unique_degree_explained_heldout": 0.008010828430154705,
+      "shuffled_null_delta_p95": 0.009511068156937807,
+      "shuffled_null_delta_mean": 0.0003318905901525715,
+      "real_delta_beats_null": true
+    },
+    "cal0.20": {
+      "certificate_fires": true,
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 1216,
+      "freq_logistic_auroc": 0.5112034171572022,
+      "certificate_auroc": 0.5125343555228532,
+      "info_ceiling_ok": true,
+      "sf_orth_auroc_pa": 0.5701001449965374,
+      "auc_base_sf_rec": 0.5888509565443213,
+      "auc_full_sf_rec_unexp": 0.6485538218490304,
+      "delta_auc": 0.05970286530470914,
+      "delta_auc_boot_p05": 0.03667617571311082,
+      "partial_unexp_auroc": 0.6049899368074791,
+      "partial_boot_p05": 0.5797159309207932,
+      "partial_boot_p95": 0.6325491605918278,
+      "unexp_alone_auroc_pa": 0.6228304622576177,
+      "redundancy_r2_unexp_on_sf_rec": 0.03333897484608228,
+      "corr_unexp_schemafit": 0.10932989522672483,
+      "corr_unexp_recurrence": 0.17745440967164183,
+      "unexp_unique_degree_explained_heldout": 0.0006956790600592968,
+      "shuffled_null_delta_p95": 0.006663213079986198,
+      "shuffled_null_delta_mean": 0.0004063780442059495,
+      "real_delta_beats_null": true
+    },
+    "cal0.25": {
+      "certificate_fires": true,
+      "chosen_control": "relation_nn_degree_matched",
+      "n_test": 1254,
+      "freq_logistic_auroc": 0.5098987864034452,
+      "certificate_auroc": 0.5123674417303227,
+      "info_ceiling_ok": true,
+      "sf_orth_auroc_pa": 0.5655904296045319,
+      "auc_base_sf_rec": 0.5849504869902754,
+      "auc_full_sf_rec_unexp": 0.6512467917655528,
+      "delta_auc": 0.06629630477527737,
+      "delta_auc_boot_p05": 0.038501205026923814,
+      "partial_unexp_auroc": 0.6137298444022191,
+      "partial_boot_p05": 0.5882812071182579,
+      "partial_boot_p95": 0.6404501503776086,
+      "unexp_alone_auroc_pa": 0.6313016846887409,
+      "redundancy_r2_unexp_on_sf_rec": 0.03545551057764229,
+      "corr_unexp_schemafit": 0.11726502774804937,
+      "corr_unexp_recurrence": 0.1822134436867208,
+      "unexp_unique_degree_explained_heldout": 0.0,
+      "shuffled_null_delta_p95": 0.006524830271997286,
+      "shuffled_null_delta_mean": 2.4483057724103972e-05,
+      "real_delta_beats_null": true
+    }
+  },
+  "elapsed_s": 19.243884801864624
+}
