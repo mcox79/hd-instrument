@@ -1,0 +1,1574 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | PARSER: coverage=0.941 precision=0.812 correct_rate=0.765 (vs positional-stub 1.000) | endtoend_correct FULL=0.765 (oracle-lex=0.765 random-lex=0.000) | foundation_prec FULL=1.000 vs NO_GATE=0.846 | true_recall=0.955 accept_false_rate=0.000 query_acc=1.000 | novel_owl=True hold_release=True | weakest=['none (all interfaces at/above target)']",
+  "summary": "HARD_PASS | PARSER: coverage=0.941 precision=0.812 correct_rate=0.765 (vs positional-stub 1.000) | endtoend_correct FULL=0.765 (oracle-lex=0.765 random-lex=0.000) | foundation_prec FULL=1.000 vs NO_GATE=0.846 | true_recall=0.955 accept_false_rate=0.000 query_acc=1.000 | novel_owl=True hold_release=T",
+  "run_mode": "full",
+  "elapsed_s": 0.5440567999903578,
+  "anchor_name": "read_grow_foundation_realprose_glassbox_ie_v1",
+  "ts_iso": "2026-07-17T02:26:30.041638+00:00",
+  "seeds": [
+    11,
+    23,
+    37,
+    41,
+    53
+  ],
+  "n_read_sentences": 34,
+  "expected_n_units": 20,
+  "weakest_interface": [
+    "none (all interfaces at/above target)"
+  ],
+  "metric_a_parser_coverage": 0.9411764705882353,
+  "metric_a_parser_precision": 0.8125,
+  "metric_a_parser_correct_rate": 0.7647058823529411,
+  "metric_a_positional_stub_correct_rate": 1.0,
+  "parser_per_class": {
+    "simple_svo": {
+      "n": 12,
+      "coverage": 1.0,
+      "correct_rate": 1.0
+    },
+    "svo_no_determiner": {
+      "n": 1,
+      "coverage": 1.0,
+      "correct_rate": 1.0
+    },
+    "svo_prep": {
+      "n": 8,
+      "coverage": 1.0,
+      "correct_rate": 1.0
+    },
+    "adjective_modifier": {
+      "n": 2,
+      "coverage": 1.0,
+      "correct_rate": 1.0
+    },
+    "present_continuous": {
+      "n": 1,
+      "coverage": 1.0,
+      "correct_rate": 1.0
+    },
+    "plural_no_determiner": {
+      "n": 1,
+      "coverage": 1.0,
+      "correct_rate": 1.0
+    },
+    "adverb_modifier": {
+      "n": 1,
+      "coverage": 1.0,
+      "correct_rate": 1.0
+    },
+    "passive": {
+      "n": 2,
+      "coverage": 1.0,
+      "correct_rate": 0.0
+    },
+    "coordination_subject": {
+      "n": 2,
+      "coverage": 1.0,
+      "correct_rate": 0.0
+    },
+    "relative_clause": {
+      "n": 2,
+      "coverage": 1.0,
+      "correct_rate": 0.0
+    },
+    "out_of_schema_relation": {
+      "n": 2,
+      "coverage": 0.0,
+      "correct_rate": 0.0
+    }
+  },
+  "parser_failure_modes": {
+    "misfire": [
+      {
+        "text": "The worm is eaten by the frog.",
+        "gt": [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        "got": [
+          "worm",
+          "eats",
+          "frog"
+        ],
+        "rule": "SVO_PASSIVE_MISFIRE",
+        "cls": "passive"
+      },
+      {
+        "text": "The seed is eaten by the bird.",
+        "gt": [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        "got": [
+          "seed",
+          "eats",
+          "bird"
+        ],
+        "rule": "SVO_PASSIVE_MISFIRE",
+        "cls": "passive"
+      },
+      {
+        "text": "The cat and the dog eat bread.",
+        "gt": [
+          "cat",
+          "eats",
+          "bread"
+        ],
+        "got": [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        "rule": "SVO_ACTIVE",
+        "cls": "coordination_subject"
+      },
+      {
+        "text": "The dog and the cat chase the bird.",
+        "gt": [
+          "dog",
+          "chases",
+          "bird"
+        ],
+        "got": [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        "rule": "SVO_ACTIVE",
+        "cls": "coordination_subject"
+      },
+      {
+        "text": "The cat that lives in the barn eats a fish.",
+        "gt": [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        "got": [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        "rule": "SVO_PREP",
+        "cls": "relative_clause"
+      },
+      {
+        "text": "The frog that eats worms lives in the pond.",
+        "gt": [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        "got": [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        "rule": "SVO_ACTIVE",
+        "cls": "relative_clause"
+      }
+    ],
+    "abstain": [
+      {
+        "text": "The owl sleeps in the tree.",
+        "gt": [
+          "owl",
+          "sleeps",
+          "tree"
+        ],
+        "fail_reason": "no known verb (out-of-schema relation)",
+        "cls": "out_of_schema_relation"
+      },
+      {
+        "text": "The mouse runs to the barn.",
+        "gt": [
+          "mouse",
+          "runs",
+          "barn"
+        ],
+        "fail_reason": "no known verb (out-of-schema relation)",
+        "cls": "out_of_schema_relation"
+      }
+    ]
+  },
+  "parser_rows": [
+    {
+      "text": "The cat eats the fish.",
+      "gt": [
+        "cat",
+        "eats",
+        "fish"
+      ],
+      "extracted": [
+        "cat",
+        "eats",
+        "fish"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The dog eats the bread.",
+      "gt": [
+        "dog",
+        "eats",
+        "bread"
+      ],
+      "extracted": [
+        "dog",
+        "eats",
+        "bread"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "A cow eats grass.",
+      "gt": [
+        "cow",
+        "eats",
+        "grass"
+      ],
+      "extracted": [
+        "cow",
+        "eats",
+        "grass"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "svo_no_determiner",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The bird eats a seed.",
+      "gt": [
+        "bird",
+        "eats",
+        "seed"
+      ],
+      "extracted": [
+        "bird",
+        "eats",
+        "seed"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The frog eats the worm.",
+      "gt": [
+        "frog",
+        "eats",
+        "worm"
+      ],
+      "extracted": [
+        "frog",
+        "eats",
+        "worm"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The cat lives in the barn.",
+      "gt": [
+        "cat",
+        "lives_in",
+        "barn"
+      ],
+      "extracted": [
+        "cat",
+        "lives_in",
+        "barn"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The dog lives in a barn.",
+      "gt": [
+        "dog",
+        "lives_in",
+        "barn"
+      ],
+      "extracted": [
+        "dog",
+        "lives_in",
+        "barn"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The bird lives in the nest.",
+      "gt": [
+        "bird",
+        "lives_in",
+        "nest"
+      ],
+      "extracted": [
+        "bird",
+        "lives_in",
+        "nest"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The fish lives in the pond.",
+      "gt": [
+        "fish",
+        "lives_in",
+        "pond"
+      ],
+      "extracted": [
+        "fish",
+        "lives_in",
+        "pond"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The frog lives in the pond.",
+      "gt": [
+        "frog",
+        "lives_in",
+        "pond"
+      ],
+      "extracted": [
+        "frog",
+        "lives_in",
+        "pond"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The cat chases the bird.",
+      "gt": [
+        "cat",
+        "chases",
+        "bird"
+      ],
+      "extracted": [
+        "cat",
+        "chases",
+        "bird"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The dog chases the cat.",
+      "gt": [
+        "dog",
+        "chases",
+        "cat"
+      ],
+      "extracted": [
+        "dog",
+        "chases",
+        "cat"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The bird chases the frog.",
+      "gt": [
+        "bird",
+        "chases",
+        "frog"
+      ],
+      "extracted": [
+        "bird",
+        "chases",
+        "frog"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The cow lives in a field.",
+      "gt": [
+        "cow",
+        "lives_in",
+        "field"
+      ],
+      "extracted": [
+        "cow",
+        "lives_in",
+        "field"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The hungry frog eats a seed.",
+      "gt": [
+        "frog",
+        "eats",
+        "seed"
+      ],
+      "extracted": [
+        "frog",
+        "eats",
+        "seed"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "adjective_modifier",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The cat is eating a worm.",
+      "gt": [
+        "cat",
+        "eats",
+        "worm"
+      ],
+      "extracted": [
+        "cat",
+        "eats",
+        "worm"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "present_continuous",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The small dog eats an apple.",
+      "gt": [
+        "dog",
+        "eats",
+        "apple"
+      ],
+      "extracted": [
+        "dog",
+        "eats",
+        "apple"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "adjective_modifier",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "Birds eat seeds.",
+      "gt": [
+        "bird",
+        "eats",
+        "seed"
+      ],
+      "extracted": [
+        "bird",
+        "eats",
+        "seed"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "plural_no_determiner",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The cat quickly eats the fish.",
+      "gt": [
+        "cat",
+        "eats",
+        "fish"
+      ],
+      "extracted": [
+        "cat",
+        "eats",
+        "fish"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "adverb_modifier",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The worm is eaten by the frog.",
+      "gt": [
+        "frog",
+        "eats",
+        "worm"
+      ],
+      "extracted": [
+        "worm",
+        "eats",
+        "frog"
+      ],
+      "rule": "SVO_PASSIVE_MISFIRE",
+      "fail_reason": null,
+      "cls": "passive",
+      "expect_parse": false,
+      "covered": true,
+      "correct": false
+    },
+    {
+      "text": "The seed is eaten by the bird.",
+      "gt": [
+        "bird",
+        "eats",
+        "seed"
+      ],
+      "extracted": [
+        "seed",
+        "eats",
+        "bird"
+      ],
+      "rule": "SVO_PASSIVE_MISFIRE",
+      "fail_reason": null,
+      "cls": "passive",
+      "expect_parse": false,
+      "covered": true,
+      "correct": false
+    },
+    {
+      "text": "The cat and the dog eat bread.",
+      "gt": [
+        "cat",
+        "eats",
+        "bread"
+      ],
+      "extracted": [
+        "dog",
+        "eats",
+        "bread"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "coordination_subject",
+      "expect_parse": false,
+      "covered": true,
+      "correct": false
+    },
+    {
+      "text": "The dog and the cat chase the bird.",
+      "gt": [
+        "dog",
+        "chases",
+        "bird"
+      ],
+      "extracted": [
+        "cat",
+        "chases",
+        "bird"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "coordination_subject",
+      "expect_parse": false,
+      "covered": true,
+      "correct": false
+    },
+    {
+      "text": "The cat that lives in the barn eats a fish.",
+      "gt": [
+        "cat",
+        "eats",
+        "fish"
+      ],
+      "extracted": [
+        "cat",
+        "lives_in",
+        "barn"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "relative_clause",
+      "expect_parse": false,
+      "covered": true,
+      "correct": false
+    },
+    {
+      "text": "The frog that eats worms lives in the pond.",
+      "gt": [
+        "frog",
+        "lives_in",
+        "pond"
+      ],
+      "extracted": [
+        "frog",
+        "eats",
+        "worm"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "relative_clause",
+      "expect_parse": false,
+      "covered": true,
+      "correct": false
+    },
+    {
+      "text": "The owl sleeps in the tree.",
+      "gt": [
+        "owl",
+        "sleeps",
+        "tree"
+      ],
+      "extracted": null,
+      "rule": "NO_VERB",
+      "fail_reason": "no known verb (out-of-schema relation)",
+      "cls": "out_of_schema_relation",
+      "expect_parse": false,
+      "covered": false,
+      "correct": false
+    },
+    {
+      "text": "The mouse runs to the barn.",
+      "gt": [
+        "mouse",
+        "runs",
+        "barn"
+      ],
+      "extracted": null,
+      "rule": "NO_VERB",
+      "fail_reason": "no known verb (out-of-schema relation)",
+      "cls": "out_of_schema_relation",
+      "expect_parse": false,
+      "covered": false,
+      "correct": false
+    },
+    {
+      "text": "The cat eats the barn.",
+      "gt": [
+        "cat",
+        "eats",
+        "barn"
+      ],
+      "extracted": [
+        "cat",
+        "eats",
+        "barn"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The bird lives in the worm.",
+      "gt": [
+        "bird",
+        "lives_in",
+        "worm"
+      ],
+      "extracted": [
+        "bird",
+        "lives_in",
+        "worm"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The kitten chases the mouse.",
+      "gt": [
+        "kitten",
+        "chases",
+        "mouse"
+      ],
+      "extracted": [
+        "kitten",
+        "chases",
+        "mouse"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The kitten eats a seed.",
+      "gt": [
+        "kitten",
+        "eats",
+        "seed"
+      ],
+      "extracted": [
+        "kitten",
+        "eats",
+        "seed"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The mouse eats the grass.",
+      "gt": [
+        "mouse",
+        "eats",
+        "grass"
+      ],
+      "extracted": [
+        "mouse",
+        "eats",
+        "grass"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The owl eats a worm.",
+      "gt": [
+        "owl",
+        "eats",
+        "worm"
+      ],
+      "extracted": [
+        "owl",
+        "eats",
+        "worm"
+      ],
+      "rule": "SVO_ACTIVE",
+      "fail_reason": null,
+      "cls": "simple_svo",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    },
+    {
+      "text": "The owl lives in the nest.",
+      "gt": [
+        "owl",
+        "lives_in",
+        "nest"
+      ],
+      "extracted": [
+        "owl",
+        "lives_in",
+        "nest"
+      ],
+      "rule": "SVO_PREP",
+      "fail_reason": null,
+      "cls": "svo_prep",
+      "expect_parse": true,
+      "covered": true,
+      "correct": true
+    }
+  ],
+  "metric_b_foundation_precision": 1.0,
+  "metric_b_true_recall": 0.9545454545454547,
+  "metric_c_query_acc": 1.0,
+  "metric_d_accept_true_rate": 0.9545454545454547,
+  "metric_d_accept_false_rate": 0.0,
+  "endtoend_correct_rate_learned": 0.7647058823529411,
+  "endtoend_correct_rate_oracle_lex": 0.7647058823529411,
+  "endtoend_correct_rate_random_lex": 0.0,
+  "gate_vs_accept_all_precision_gain": 0.15384615384615385,
+  "arms": {
+    "FULL_LOOP": {
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454547,
+      "accept_false_rate": 0.0,
+      "accept_true_rate": 0.9545454545454547,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "n_accepted": 21.0,
+      "n_false_in_store": 0.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true
+    },
+    "NO_GATE": {
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "foundation_precision": 0.8461538461538461,
+      "true_recall": 1.0,
+      "accept_false_rate": 1.0,
+      "accept_true_rate": 1.0,
+      "query_acc": 0.9578947368421051,
+      "store_roundtrip_acc": 0.9454545454545453,
+      "n_accepted": 26.0,
+      "n_false_in_store": 2.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true
+    },
+    "ORACLE_LEXICON": {
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454547,
+      "accept_false_rate": 0.0,
+      "accept_true_rate": 0.9545454545454547,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "n_accepted": 21.0,
+      "n_false_in_store": 0.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true
+    },
+    "RANDOM_LEXICON": {
+      "mapping_acc": 0.02727272727272727,
+      "endtoend_correct_rate": 0.0,
+      "foundation_precision": 0.0,
+      "true_recall": 0.0,
+      "accept_false_rate": 0.0,
+      "accept_true_rate": 0.0,
+      "query_acc": 0.0,
+      "store_roundtrip_acc": 0.0,
+      "n_accepted": 1.2,
+      "n_false_in_store": 0.0,
+      "novel_owl_ok": false,
+      "novel_owl_place_ok": false,
+      "hold_release_ok": false,
+      "kitten_query_ok": false
+    }
+  },
+  "full_loop_per_seed": [
+    {
+      "seed": 11,
+      "use_gate": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "n_sentences": 34,
+      "n_accepted": 21,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "accept_true_rate": 0.9545454545454546,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true,
+      "accepted_hash": "bc5383cc38577f7b27bbc2b63652925bbe7e27724920259203d71a28fe0c34e3",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "apple"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    },
+    {
+      "seed": 23,
+      "use_gate": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "n_sentences": 34,
+      "n_accepted": 21,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "accept_true_rate": 0.9545454545454546,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true,
+      "accepted_hash": "bc5383cc38577f7b27bbc2b63652925bbe7e27724920259203d71a28fe0c34e3",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "apple"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    },
+    {
+      "seed": 37,
+      "use_gate": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "n_sentences": 34,
+      "n_accepted": 21,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "accept_true_rate": 0.9545454545454546,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true,
+      "accepted_hash": "bc5383cc38577f7b27bbc2b63652925bbe7e27724920259203d71a28fe0c34e3",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "apple"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    },
+    {
+      "seed": 41,
+      "use_gate": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "n_sentences": 34,
+      "n_accepted": 21,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "accept_true_rate": 0.9545454545454546,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true,
+      "accepted_hash": "bc5383cc38577f7b27bbc2b63652925bbe7e27724920259203d71a28fe0c34e3",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "apple"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    },
+    {
+      "seed": 53,
+      "use_gate": true,
+      "lexicon_kind": "learned",
+      "mapping_acc": 1.0,
+      "endtoend_correct_rate": 0.7647058823529411,
+      "n_sentences": 34,
+      "n_accepted": 21,
+      "foundation_precision": 1.0,
+      "true_recall": 0.9545454545454546,
+      "accept_false_rate": 0.0,
+      "n_false_in_store": 0,
+      "accept_true_rate": 0.9545454545454546,
+      "query_acc": 1.0,
+      "store_roundtrip_acc": 1.0,
+      "novel_owl_ok": true,
+      "novel_owl_place_ok": true,
+      "hold_release_ok": true,
+      "kitten_query_ok": true,
+      "accepted_hash": "bc5383cc38577f7b27bbc2b63652925bbe7e27724920259203d71a28fe0c34e3",
+      "accepted_sorted": [
+        [
+          "bird",
+          "chases",
+          "frog"
+        ],
+        [
+          "bird",
+          "eats",
+          "seed"
+        ],
+        [
+          "bird",
+          "lives_in",
+          "nest"
+        ],
+        [
+          "cat",
+          "chases",
+          "bird"
+        ],
+        [
+          "cat",
+          "eats",
+          "fish"
+        ],
+        [
+          "cat",
+          "eats",
+          "worm"
+        ],
+        [
+          "cat",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "cow",
+          "eats",
+          "grass"
+        ],
+        [
+          "cow",
+          "lives_in",
+          "field"
+        ],
+        [
+          "dog",
+          "chases",
+          "cat"
+        ],
+        [
+          "dog",
+          "eats",
+          "apple"
+        ],
+        [
+          "dog",
+          "eats",
+          "bread"
+        ],
+        [
+          "dog",
+          "lives_in",
+          "barn"
+        ],
+        [
+          "frog",
+          "eats",
+          "seed"
+        ],
+        [
+          "frog",
+          "eats",
+          "worm"
+        ],
+        [
+          "frog",
+          "lives_in",
+          "pond"
+        ],
+        [
+          "kitten",
+          "chases",
+          "mouse"
+        ],
+        [
+          "kitten",
+          "eats",
+          "seed"
+        ],
+        [
+          "mouse",
+          "eats",
+          "grass"
+        ],
+        [
+          "owl",
+          "eats",
+          "worm"
+        ],
+        [
+          "owl",
+          "lives_in",
+          "nest"
+        ]
+      ]
+    }
+  ],
+  "prereg": {
+    "hard_pass": "parser_coverage>=0.60 & parser_precision>=0.80 & FULL endtoend_correct>=0.55 & FULL foundation_prec>=0.90 & accept_false_rate==0 & FULL recall>=0.70 & query>=0.80 & (FULL-NOGATE prec)>=0.05 & novel_owl & hold_release",
+    "hard_fail": "parser_coverage<0.25 | FULL endtoend_correct<0.20 | parser_precision<0.40 | FULL foundation_prec<0.60 | accept_false_rate==1.0 | query<0.40",
+    "middle": "otherwise (partial: works on a subset of structures; characterize the per-class envelope)",
+    "compute_architecture": "sequential-CPU (genuine sequential dependency: foundation grows fact-by-fact)",
+    "storage_strategy": "sharded (one VSA vector per accepted fact)",
+    "parser_class": "fully-symbolic glass-box rule-based IE (NO LLM, NO neural dependency parser)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract",
+      "learn_lexicon",
+      "encode_meaning",
+      "decode_meaning",
+      "run_loop"
+    ],
+    "crlb_n/a": "no quantitative noise floor; extraction gated by rule-misfire + lexicon-map error, not phasor noise"
+  }
+}
