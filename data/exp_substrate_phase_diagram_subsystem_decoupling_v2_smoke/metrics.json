@@ -1,0 +1,334 @@
+{
+  "anchor_name": "substrate_phase_diagram_subsystem_decoupling_v2",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "(a) capacity-reconciliation: n_at_risk=4 mean_err_naive=0.857 mean_err_corrected=0.050 error_reduction=17.27x -> HARD_PASS. (b-legacy) independence: alone=1.000 concurrent=1.000 cross_interf=+0.000 -> DECOUPLED. (c-legacy) mis-placement: c1(m=862)=0.254 crater=True c2=0.375 crater=False -> fired=False. (b-new) decoupling regime: mean|genuine-pred|=0.110 mean|genuine-misaligned|=0.031 flat_prefix(genuine/misaligned)=2/2 -> MIDDLE. subsystem2 paged_exact=1.000(correct=True) subsystem3 recall=1.000(correct=True). OVERALL TIER: construction-proof only / genuine negative (CLAIM, VET-PENDING).",
+  "summary": "HARD_FAIL: capacity reconciliation + decoupling regime (construction-proof only / genuine negative (CLAIM, VET-PENDING))",
+  "run_mode": "smoke",
+  "expected_n_units": 77,
+  "n_units": 77,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "grid_full_codebook_rep": "58ada44ef9a15ab54ed42fce100d92af930e587af88403724b578d980fd89c4f",
+    "grid_restricted_set_rep": "83710db5e2ad7c4f1e19734705d341f1594cebc685102d95c58a757a280f0f3b",
+    "partb_genuine_rep": "a319952e0fcc3dddf65965d21da181f0c02ecff073dbc07ce33bcb0cbedc9d68",
+    "partb_misaligned_rep": "3ff88f41580c9a4e2dbade6dc0c8bd216b5e8342a3c4a743ea428dc01db25083",
+    "store_active_window_code": "0d0653e21d29bcd37a2360c442cf560fc766c54bda72edea3ed62ebd37a048fe",
+    "compute_blocksparse_code": "217af6084d94906cb0577d7d358bde1f9815090855fa94aba21bf1cedc58ad0d"
+  },
+  "config": {
+    "grid_cells": [
+      [
+        512,
+        64
+      ],
+      [
+        512,
+        256
+      ],
+      [
+        1024,
+        64
+      ],
+      [
+        1024,
+        256
+      ]
+    ],
+    "restricted_cells": [
+      [
+        1024,
+        256
+      ]
+    ],
+    "d_restricted": 16,
+    "partb_b_grid": [
+      0,
+      100,
+      862,
+      1728
+    ],
+    "N_WM": 1024,
+    "V_VAL_WM": 64,
+    "V_KEY_WM": 1024,
+    "K_THEORY_WM": 61.55498841126244,
+    "W_WM_SAFE": 12,
+    "B_STORE_SAFE": 12,
+    "B_STORE_BAD": 862,
+    "M_STORE_TOTAL": 400,
+    "N_COMPUTE": 16384,
+    "M_COMPUTE": 8192,
+    "K_BLOCK_COMPUTE": 16,
+    "J_COMPUTE": 50
+  },
+  "facts": {
+    "claim_a_capacity_reconciliation": "HARD_PASS",
+    "grid_results": [
+      {
+        "N": 512,
+        "V": 64,
+        "V_eff": 64,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 30.77749420563122,
+        "k_corrected": 187.97883809143542,
+        "m50_measured": 202.15319148936172,
+        "ratio_naive": 6.568214752595897,
+        "ratio_corrected": 1.075403984522086,
+        "abs_rel_err_naive": 0.8477516284611767,
+        "abs_rel_err_corrected": 0.07011689151923292,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            15,
+            1.0
+          ],
+          [
+            31,
+            1.0
+          ],
+          [
+            154,
+            0.6071428571428572
+          ],
+          [
+            246,
+            0.4024390243902439
+          ],
+          [
+            431,
+            0.21925754060324826
+          ]
+        ]
+      },
+      {
+        "N": 512,
+        "V": 256,
+        "V_eff": 256,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 23.083120654223414,
+        "k_corrected": 128.3823618425539,
+        "m50_measured": 124.05066977285966,
+        "ratio_naive": 5.374085749976906,
+        "ratio_corrected": 0.9662594455536925,
+        "abs_rel_err_naive": 0.8139218377741186,
+        "abs_rel_err_corrected": 0.034918731818423025,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            12,
+            1.0
+          ],
+          [
+            23,
+            1.0
+          ],
+          [
+            115,
+            0.5260869565217392
+          ],
+          [
+            185,
+            0.32432432432432434
+          ],
+          [
+            323,
+            0.1609907120743034
+          ]
+        ]
+      },
+      {
+        "N": 1024,
+        "V": 64,
+        "V_eff": 64,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 61.55498841126244,
+        "k_corrected": 375.95767618287084,
+        "m50_measured": 392.7435680637758,
+        "ratio_naive": 6.380369458276387,
+        "ratio_corrected": 1.044648355238636,
+        "abs_rel_err_naive": 0.8432692641798609,
+        "abs_rel_err_corrected": 0.04274008092267261,
+        "is_calibration_point": true,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            31,
+            1.0
+          ],
+          [
+            62,
+            1.0
+          ],
+          [
+            308,
+            0.6006493506493507
+          ],
+          [
+            492,
+            0.3821138211382114
+          ],
+          [
+            862,
+            0.24187935034802782
+          ]
+        ]
+      },
+      {
+        "N": 1024,
+        "V": 256,
+        "V_eff": 256,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 46.16624130844683,
+        "k_corrected": 256.7647236851078,
+        "m50_measured": 272.72566371681415,
+        "ratio_naive": 5.907469527239047,
+        "ratio_corrected": 1.062161732354171,
+        "abs_rel_err_naive": 0.8307227831833833,
+        "abs_rel_err_corrected": 0.05852379205603273,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            23,
+            1.0
+          ],
+          [
+            46,
+            1.0
+          ],
+          [
+            231,
+            0.5757575757575757
+          ],
+          [
+            369,
+            0.3252032520325203
+          ],
+          [
+            646,
+            0.16176470588235292
+          ]
+        ]
+      },
+      {
+        "N": 1024,
+        "V": 256,
+        "V_eff": 16,
+        "condition": "RESTRICTED_SET",
+        "k_naive": 46.16624130844683,
+        "k_corrected": 684.9745256414728,
+        "m50_measured": 709.7323543705511,
+        "ratio_naive": 15.373405637003733,
+        "ratio_corrected": 1.0361441598224295,
+        "abs_rel_err_naive": 0.9349526042822285,
+        "abs_rel_err_corrected": 0.03488333112703525,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            46,
+            1.0
+          ],
+          [
+            92,
+            1.0
+          ],
+          [
+            462,
+            0.6374458874458875
+          ],
+          [
+            739,
+            0.4837618403247632
+          ],
+          [
+            1293,
+            0.34416086620262953
+          ]
+        ]
+      }
+    ],
+    "n_at_risk_grid_cells": 4,
+    "mean_abs_rel_err_naive": 0.8568372134252267,
+    "mean_abs_rel_err_corrected": 0.04961068663018098,
+    "error_reduction_factor": 17.27122262613403,
+    "C_FHRR_calibration_constant": 1.9934110912669731,
+    "C_FHRR_calibration_anchor": {
+      "N": 1024,
+      "V": 64,
+      "m50_measured": 375.95767618287084,
+      "source": "data/exp_substrate_phase_diagram_subsystem_decoupling_v1/metrics.json"
+    },
+    "v_eff_principled": true,
+    "v_eff_derivation": "FULL_CODEBOOK: V_eff = len(vals) argument passed to cleanup() argmax (no restriction; verified by code inspection). RESTRICTED_SET: V_eff = D_restricted = size of the explicitly constructed per-query candidate list (correct + D-1 distractors). Neither is fit.",
+    "claim_b_legacy_independence": "DECOUPLED",
+    "recall_wm_alone": 1.0,
+    "recall_wm_concurrent": 1.0,
+    "cross_interference": 0.0,
+    "claim_c_legacy_misplacement_fired": false,
+    "craters_c1": true,
+    "craters_c2": false,
+    "recall_wm_misplaced": 0.375,
+    "misplacement_effect": 0.625,
+    "decoupling_regime": "MIDDLE",
+    "decoupling_regime_note": "SOFT_GRACEFUL is brain-parity (theta-gamma-like), NOT a failure. HARD_ZERO would be a genuine Frontier-2 (beat-the-brain) result. Pre-committed prediction (stated in docstring before running): SOFT_GRACEFUL, because this construction has no orthogonal-subspace partition between subsystems (single additive shared buffer).",
+    "partb_curve": [
+      {
+        "B": 0,
+        "total_load": 12,
+        "predicted_graceful_recall": 0.9999999979599465,
+        "measured_genuine": 1.0,
+        "measured_misaligned": 1.0,
+        "genuine_vs_pred_abs_diff": 2.040053459495539e-09,
+        "genuine_vs_misaligned_abs_diff": 0.0
+      },
+      {
+        "B": 100,
+        "total_load": 112,
+        "predicted_graceful_recall": 0.7358203152517061,
+        "measured_genuine": 0.9583333333333333,
+        "measured_misaligned": 0.9583333333333333,
+        "genuine_vs_pred_abs_diff": 0.22251301808162716,
+        "genuine_vs_misaligned_abs_diff": 0.0
+      },
+      {
+        "B": 862,
+        "total_load": 874,
+        "predicted_graceful_recall": 0.12559176049740964,
+        "measured_genuine": 0.25,
+        "measured_misaligned": 0.20833333333333331,
+        "genuine_vs_pred_abs_diff": 0.12440823950259036,
+        "genuine_vs_misaligned_abs_diff": 0.041666666666666685
+      },
+      {
+        "B": 1728,
+        "total_load": 1740,
+        "predicted_graceful_recall": 0.07497827828467618,
+        "measured_genuine": 0.16666666666666666,
+        "measured_misaligned": 0.08333333333333333,
+        "genuine_vs_pred_abs_diff": 0.09168838838199048,
+        "genuine_vs_misaligned_abs_diff": 0.08333333333333333
+      }
+    ],
+    "partb_mean_pred_diff": 0.10965241200156536,
+    "partb_mean_genuine_vs_misaligned": 0.03125,
+    "partb_flat_prefix_genuine": 2,
+    "partb_flat_prefix_misaligned": 2,
+    "subsystem2_store_paged_exact_recall": 1.0,
+    "subsystem2_correct": true,
+    "subsystem2_flat_would_crater": true,
+    "subsystem3_compute_recall": 1.0,
+    "subsystem3_correct": true,
+    "overall_tier": "construction-proof only / genuine negative (CLAIM, VET-PENDING)",
+    "honest_disclosure": "C_FHRR is a calibrated constant (not a cited derivation) -- HYPOTHESIZED mechanism (FHRR complex-phasor Re() crosstalk variance = 1/2 of real-bipolar variance, i.e. a sqrt(2) SNR gain) is disclosed but NOT verified in this cell. The reconciliation claim rests on the GRID holding with this ONE fixed constant, not on the constant itself being independently derived from first principles."
+  },
+  "elapsed_s": 20.386388063430786,
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "facts"
+  ]
+}

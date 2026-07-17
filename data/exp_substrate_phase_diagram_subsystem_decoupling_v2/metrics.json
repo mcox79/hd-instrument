@@ -1,0 +1,816 @@
+{
+  "anchor_name": "substrate_phase_diagram_subsystem_decoupling_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "(a) capacity-reconciliation: n_at_risk=10 mean_err_naive=0.861 mean_err_corrected=0.029 error_reduction=30.00x -> HARD_PASS. (b-legacy) independence: alone=1.000 concurrent=1.000 cross_interf=+0.000 -> DECOUPLED. (c-legacy) mis-placement: c1(m=862)=0.254 crater=True c2=0.333 crater=True -> fired=True. (b-new) decoupling regime: mean|genuine-pred|=0.133 mean|genuine-misaligned|=0.050 flat_prefix(genuine/misaligned)=3/4 -> MIDDLE. subsystem2 paged_exact=1.000(correct=True) subsystem3 recall=1.000(correct=True). OVERALL TIER: MEASURED_MECHANISM (mixed; CLAIM, VET-PENDING).",
+  "summary": "MIDDLE_BAND: capacity reconciliation + decoupling regime (MEASURED_MECHANISM (mixed; CLAIM, VET-PENDING))",
+  "run_mode": "full",
+  "expected_n_units": 379,
+  "n_units": 379,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "grid_full_codebook_rep": "58ada44ef9a15ab54ed42fce100d92af930e587af88403724b578d980fd89c4f",
+    "grid_restricted_set_rep": "83710db5e2ad7c4f1e19734705d341f1594cebc685102d95c58a757a280f0f3b",
+    "partb_genuine_rep": "a319952e0fcc3dddf65965d21da181f0c02ecff073dbc07ce33bcb0cbedc9d68",
+    "partb_misaligned_rep": "3ff88f41580c9a4e2dbade6dc0c8bd216b5e8342a3c4a743ea428dc01db25083",
+    "store_active_window_code": "0d0653e21d29bcd37a2360c442cf560fc766c54bda72edea3ed62ebd37a048fe",
+    "compute_blocksparse_code": "217af6084d94906cb0577d7d358bde1f9815090855fa94aba21bf1cedc58ad0d"
+  },
+  "config": {
+    "grid_cells": [
+      [
+        512,
+        16
+      ],
+      [
+        512,
+        64
+      ],
+      [
+        512,
+        256
+      ],
+      [
+        1024,
+        16
+      ],
+      [
+        1024,
+        64
+      ],
+      [
+        1024,
+        256
+      ],
+      [
+        2048,
+        16
+      ],
+      [
+        2048,
+        64
+      ],
+      [
+        2048,
+        256
+      ]
+    ],
+    "restricted_cells": [
+      [
+        1024,
+        256
+      ],
+      [
+        2048,
+        256
+      ]
+    ],
+    "d_restricted": 16,
+    "partb_b_grid": [
+      0,
+      12,
+      50,
+      100,
+      200,
+      400,
+      620,
+      862,
+      1200,
+      1728
+    ],
+    "N_WM": 1024,
+    "V_VAL_WM": 64,
+    "V_KEY_WM": 1024,
+    "K_THEORY_WM": 61.55498841126244,
+    "W_WM_SAFE": 12,
+    "B_STORE_SAFE": 12,
+    "B_STORE_BAD": 862,
+    "M_STORE_TOTAL": 2000,
+    "N_COMPUTE": 16384,
+    "M_COMPUTE": 8192,
+    "K_BLOCK_COMPUTE": 16,
+    "J_COMPUTE": 50
+  },
+  "facts": {
+    "claim_a_capacity_reconciliation": "HARD_PASS",
+    "grid_results": [
+      {
+        "N": 512,
+        "V": 16,
+        "V_eff": 16,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 46.16624130844683,
+        "k_corrected": 342.4872628207364,
+        "m50_measured": 350.1447562776957,
+        "ratio_naive": 7.584432831304187,
+        "ratio_corrected": 1.0223584766157197,
+        "abs_rel_err_naive": 0.8681509847549083,
+        "abs_rel_err_corrected": 0.021869507738354416,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            23,
+            1.0
+          ],
+          [
+            46,
+            0.9927536231884058
+          ],
+          [
+            92,
+            0.9094202898550726
+          ],
+          [
+            162,
+            0.7860082304526749
+          ],
+          [
+            231,
+            0.6320346320346321
+          ],
+          [
+            300,
+            0.5444444444444444
+          ],
+          [
+            369,
+            0.4832881662149955
+          ],
+          [
+            462,
+            0.4329004329004329
+          ],
+          [
+            646,
+            0.35448916408668735
+          ]
+        ]
+      },
+      {
+        "N": 512,
+        "V": 64,
+        "V_eff": 64,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 30.77749420563122,
+        "k_corrected": 187.97883809143542,
+        "m50_measured": 193.10040729590932,
+        "ratio_naive": 6.274078260100154,
+        "ratio_corrected": 1.0272454562251454,
+        "abs_rel_err_naive": 0.8406140378644182,
+        "abs_rel_err_corrected": 0.026522829631454622,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            15,
+            1.0
+          ],
+          [
+            31,
+            1.0
+          ],
+          [
+            62,
+            0.956989247311828
+          ],
+          [
+            108,
+            0.75
+          ],
+          [
+            154,
+            0.6038961038961039
+          ],
+          [
+            200,
+            0.48166666666666663
+          ],
+          [
+            246,
+            0.41192411924119243
+          ],
+          [
+            308,
+            0.33982683982683987
+          ],
+          [
+            431,
+            0.23588553750966743
+          ]
+        ]
+      },
+      {
+        "N": 512,
+        "V": 256,
+        "V_eff": 256,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 23.083120654223414,
+        "k_corrected": 128.3823618425539,
+        "m50_measured": 119.74947807933195,
+        "ratio_naive": 5.187750819013369,
+        "ratio_corrected": 0.9327564656131722,
+        "abs_rel_err_naive": 0.8072382358198569,
+        "abs_rel_err_corrected": 0.07209120157920704,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            12,
+            1.0
+          ],
+          [
+            23,
+            1.0
+          ],
+          [
+            46,
+            0.9637681159420289
+          ],
+          [
+            81,
+            0.7283950617283951
+          ],
+          [
+            115,
+            0.518840579710145
+          ],
+          [
+            150,
+            0.38000000000000006
+          ],
+          [
+            185,
+            0.32792792792792796
+          ],
+          [
+            231,
+            0.2481962481962482
+          ],
+          [
+            323,
+            0.15170278637770898
+          ]
+        ]
+      },
+      {
+        "N": 1024,
+        "V": 16,
+        "V_eff": 16,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 92.33248261689366,
+        "k_corrected": 684.9745256414728,
+        "m50_measured": 716.234828181764,
+        "ratio_naive": 7.7571273714535405,
+        "ratio_corrected": 1.0456371753548297,
+        "abs_rel_err_naive": 0.8710862988172619,
+        "abs_rel_err_corrected": 0.043645325960549354,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            46,
+            1.0
+          ],
+          [
+            92,
+            0.9963768115942028
+          ],
+          [
+            185,
+            0.9225225225225225
+          ],
+          [
+            323,
+            0.7647058823529411
+          ],
+          [
+            462,
+            0.6435786435786436
+          ],
+          [
+            600,
+            0.5633333333333334
+          ],
+          [
+            739,
+            0.487595850248083
+          ],
+          [
+            923,
+            0.42253521126760557
+          ],
+          [
+            1293,
+            0.34235627739108015
+          ]
+        ]
+      },
+      {
+        "N": 1024,
+        "V": 64,
+        "V_eff": 64,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 61.55498841126244,
+        "k_corrected": 375.95767618287084,
+        "m50_measured": 380.7303638218293,
+        "ratio_naive": 6.1852073024217935,
+        "ratio_corrected": 1.0126947471519028,
+        "abs_rel_err_naive": 0.8383239314212712,
+        "abs_rel_err_corrected": 0.012535610743124107,
+        "is_calibration_point": true,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            31,
+            1.0
+          ],
+          [
+            62,
+            0.9946236559139785
+          ],
+          [
+            123,
+            0.940379403794038
+          ],
+          [
+            215,
+            0.765891472868217
+          ],
+          [
+            308,
+            0.6006493506493507
+          ],
+          [
+            400,
+            0.47333333333333333
+          ],
+          [
+            492,
+            0.3915989159891599
+          ],
+          [
+            616,
+            0.3268398268398268
+          ],
+          [
+            862,
+            0.24671307037896364
+          ]
+        ]
+      },
+      {
+        "N": 1024,
+        "V": 256,
+        "V_eff": 256,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 46.16624130844683,
+        "k_corrected": 256.7647236851078,
+        "m50_measured": 264.17965496728135,
+        "ratio_naive": 5.722355718808444,
+        "ratio_corrected": 1.028878309978699,
+        "abs_rel_err_naive": 0.825246795351578,
+        "abs_rel_err_corrected": 0.028067760490836736,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            23,
+            1.0
+          ],
+          [
+            46,
+            1.0
+          ],
+          [
+            92,
+            0.9384057971014493
+          ],
+          [
+            162,
+            0.7510288065843621
+          ],
+          [
+            231,
+            0.5699855699855699
+          ],
+          [
+            300,
+            0.42444444444444446
+          ],
+          [
+            369,
+            0.3378500451671183
+          ],
+          [
+            462,
+            0.2568542568542569
+          ],
+          [
+            646,
+            0.1723426212590299
+          ]
+        ]
+      },
+      {
+        "N": 2048,
+        "V": 16,
+        "V_eff": 16,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 184.6649652337873,
+        "k_corrected": 1369.9490512829457,
+        "m50_measured": 1366.7742492769376,
+        "ratio_naive": 7.4013727917831655,
+        "ratio_corrected": 0.9976825400893303,
+        "abs_rel_err_naive": 0.8648899294587381,
+        "abs_rel_err_corrected": 0.002322843006215315,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            92,
+            1.0
+          ],
+          [
+            185,
+            0.9945945945945946
+          ],
+          [
+            369,
+            0.931345980126468
+          ],
+          [
+            646,
+            0.7564499484004128
+          ],
+          [
+            923,
+            0.6363308053448898
+          ],
+          [
+            1200,
+            0.535
+          ],
+          [
+            1477,
+            0.47686752426088913
+          ],
+          [
+            1847,
+            0.4163508391987006
+          ],
+          [
+            2585,
+            0.3382333978078658
+          ]
+        ]
+      },
+      {
+        "N": 2048,
+        "V": 64,
+        "V_eff": 64,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 123.10997682252489,
+        "k_corrected": 751.9153523657417,
+        "m50_measured": 745.0637389448002,
+        "ratio_naive": 6.052017538910618,
+        "ratio_corrected": 0.9908877862389904,
+        "abs_rel_err_naive": 0.8347658456753244,
+        "abs_rel_err_corrected": 0.009196009767761753,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            62,
+            1.0
+          ],
+          [
+            123,
+            1.0
+          ],
+          [
+            246,
+            0.9430894308943089
+          ],
+          [
+            431,
+            0.7532869296210363
+          ],
+          [
+            616,
+            0.587121212121212
+          ],
+          [
+            800,
+            0.46291666666666664
+          ],
+          [
+            985,
+            0.37935702199661586
+          ],
+          [
+            1231,
+            0.3233143785540211
+          ],
+          [
+            1724,
+            0.23743232791956692
+          ]
+        ]
+      },
+      {
+        "N": 2048,
+        "V": 256,
+        "V_eff": 256,
+        "condition": "FULL_CODEBOOK",
+        "k_naive": 92.33248261689366,
+        "k_corrected": 513.5294473702156,
+        "m50_measured": 527.7142857142857,
+        "ratio_naive": 5.715369832563477,
+        "ratio_corrected": 1.027622249155741,
+        "abs_rel_err_naive": 0.8250331948245111,
+        "abs_rel_err_corrected": 0.026879769466294078,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            46,
+            1.0
+          ],
+          [
+            92,
+            1.0
+          ],
+          [
+            185,
+            0.9567567567567568
+          ],
+          [
+            323,
+            0.7523219814241485
+          ],
+          [
+            462,
+            0.5656565656565656
+          ],
+          [
+            600,
+            0.42777777777777776
+          ],
+          [
+            739,
+            0.3301759133964817
+          ],
+          [
+            923,
+            0.25532683279162155
+          ],
+          [
+            1293,
+            0.1554524361948956
+          ]
+        ]
+      },
+      {
+        "N": 1024,
+        "V": 256,
+        "V_eff": 16,
+        "condition": "RESTRICTED_SET",
+        "k_naive": 46.16624130844683,
+        "k_corrected": 684.9745256414728,
+        "m50_measured": 720.2280543801206,
+        "ratio_naive": 15.600751414179863,
+        "ratio_corrected": 1.0514669194531479,
+        "abs_rel_err_naive": 0.9359005234138223,
+        "abs_rel_err_corrected": 0.0489477305476381,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            46,
+            1.0
+          ],
+          [
+            92,
+            0.9963768115942028
+          ],
+          [
+            185,
+            0.9351351351351352
+          ],
+          [
+            323,
+            0.7750257997936018
+          ],
+          [
+            462,
+            0.6341991341991342
+          ],
+          [
+            600,
+            0.5505555555555556
+          ],
+          [
+            739,
+            0.49210645015787097
+          ],
+          [
+            923,
+            0.42470205850487536
+          ],
+          [
+            1293,
+            0.3408094869811807
+          ]
+        ]
+      },
+      {
+        "N": 2048,
+        "V": 256,
+        "V_eff": 16,
+        "condition": "RESTRICTED_SET",
+        "k_naive": 92.33248261689366,
+        "k_corrected": 1369.9490512829457,
+        "m50_measured": 1379.99516058073,
+        "ratio_naive": 14.945933667857844,
+        "ratio_corrected": 1.0073331992079386,
+        "abs_rel_err_naive": 0.9330921692667108,
+        "abs_rel_err_corrected": 0.007279814875261419,
+        "is_calibration_point": false,
+        "censored": false,
+        "m_grid_recall_curve": [
+          [
+            92,
+            1.0
+          ],
+          [
+            185,
+            0.9963963963963964
+          ],
+          [
+            369,
+            0.9250225835591689
+          ],
+          [
+            646,
+            0.7450980392156863
+          ],
+          [
+            923,
+            0.6287468400144457
+          ],
+          [
+            1200,
+            0.5416666666666666
+          ],
+          [
+            1477,
+            0.47754457233130215
+          ],
+          [
+            1847,
+            0.4112975997112434
+          ],
+          [
+            2585,
+            0.33745970341715026
+          ]
+        ]
+      }
+    ],
+    "n_at_risk_grid_cells": 10,
+    "mean_abs_rel_err_naive": 0.860601801524713,
+    "mean_abs_rel_err_corrected": 0.028682279306357285,
+    "error_reduction_factor": 30.004651734005144,
+    "C_FHRR_calibration_constant": 1.9934110912669731,
+    "C_FHRR_calibration_anchor": {
+      "N": 1024,
+      "V": 64,
+      "m50_measured": 375.95767618287084,
+      "source": "data/exp_substrate_phase_diagram_subsystem_decoupling_v1/metrics.json"
+    },
+    "v_eff_principled": true,
+    "v_eff_derivation": "FULL_CODEBOOK: V_eff = len(vals) argument passed to cleanup() argmax (no restriction; verified by code inspection). RESTRICTED_SET: V_eff = D_restricted = size of the explicitly constructed per-query candidate list (correct + D-1 distractors). Neither is fit.",
+    "claim_b_legacy_independence": "DECOUPLED",
+    "recall_wm_alone": 1.0,
+    "recall_wm_concurrent": 1.0,
+    "cross_interference": 0.0,
+    "claim_c_legacy_misplacement_fired": true,
+    "craters_c1": true,
+    "craters_c2": true,
+    "recall_wm_misplaced": 0.33333333333333337,
+    "misplacement_effect": 0.6666666666666666,
+    "decoupling_regime": "MIDDLE",
+    "decoupling_regime_note": "SOFT_GRACEFUL is brain-parity (theta-gamma-like), NOT a failure. HARD_ZERO would be a genuine Frontier-2 (beat-the-brain) result. Pre-committed prediction (stated in docstring before running): SOFT_GRACEFUL, because this construction has no orthogonal-subspace partition between subsystems (single additive shared buffer).",
+    "partb_curve": [
+      {
+        "B": 0,
+        "total_load": 12,
+        "predicted_graceful_recall": 0.9999999979599465,
+        "measured_genuine": 1.0,
+        "measured_misaligned": 1.0,
+        "genuine_vs_pred_abs_diff": 2.040053459495539e-09,
+        "genuine_vs_misaligned_abs_diff": 0.0
+      },
+      {
+        "B": 12,
+        "total_load": 24,
+        "predicted_graceful_recall": 0.9998910152714782,
+        "measured_genuine": 1.0,
+        "measured_misaligned": 1.0,
+        "genuine_vs_pred_abs_diff": 0.00010898472852183261,
+        "genuine_vs_misaligned_abs_diff": 0.0
+      },
+      {
+        "B": 50,
+        "total_load": 62,
+        "predicted_graceful_recall": 0.9410598740839048,
+        "measured_genuine": 1.0,
+        "measured_misaligned": 1.0,
+        "genuine_vs_pred_abs_diff": 0.05894012591609521,
+        "genuine_vs_misaligned_abs_diff": 0.0
+      },
+      {
+        "B": 100,
+        "total_load": 112,
+        "predicted_graceful_recall": 0.7358203152517061,
+        "measured_genuine": 0.9444444444444443,
+        "measured_misaligned": 0.9722222222222222,
+        "genuine_vs_pred_abs_diff": 0.2086241291927382,
+        "genuine_vs_misaligned_abs_diff": 0.0277777777777779
+      },
+      {
+        "B": 200,
+        "total_load": 212,
+        "predicted_graceful_recall": 0.45185828159749997,
+        "measured_genuine": 0.8611111111111112,
+        "measured_misaligned": 0.75,
+        "genuine_vs_pred_abs_diff": 0.4092528295136112,
+        "genuine_vs_misaligned_abs_diff": 0.11111111111111116
+      },
+      {
+        "B": 400,
+        "total_load": 412,
+        "predicted_graceful_recall": 0.24470493093023127,
+        "measured_genuine": 0.5555555555555556,
+        "measured_misaligned": 0.5833333333333334,
+        "genuine_vs_pred_abs_diff": 0.3108506246253243,
+        "genuine_vs_misaligned_abs_diff": 0.02777777777777779
+      },
+      {
+        "B": 620,
+        "total_load": 632,
+        "predicted_graceful_recall": 0.1656877557926544,
+        "measured_genuine": 0.25,
+        "measured_misaligned": 0.3888888888888889,
+        "genuine_vs_pred_abs_diff": 0.0843122442073456,
+        "genuine_vs_misaligned_abs_diff": 0.1388888888888889
+      },
+      {
+        "B": 862,
+        "total_load": 874,
+        "predicted_graceful_recall": 0.12559176049740964,
+        "measured_genuine": 0.25,
+        "measured_misaligned": 0.2222222222222222,
+        "genuine_vs_pred_abs_diff": 0.12440823950259036,
+        "genuine_vs_misaligned_abs_diff": 0.02777777777777779
+      },
+      {
+        "B": 1200,
+        "total_load": 1212,
+        "predicted_graceful_recall": 0.09702804199859162,
+        "measured_genuine": 0.16666666666666666,
+        "measured_misaligned": 0.027777777777777776,
+        "genuine_vs_pred_abs_diff": 0.06963862466807504,
+        "genuine_vs_misaligned_abs_diff": 0.1388888888888889
+      },
+      {
+        "B": 1728,
+        "total_load": 1740,
+        "predicted_graceful_recall": 0.07497827828467618,
+        "measured_genuine": 0.13888888888888887,
+        "measured_misaligned": 0.1111111111111111,
+        "genuine_vs_pred_abs_diff": 0.06391061060421269,
+        "genuine_vs_misaligned_abs_diff": 0.027777777777777762
+      }
+    ],
+    "partb_mean_pred_diff": 0.13300464149985677,
+    "partb_mean_genuine_vs_misaligned": 0.050000000000000024,
+    "partb_flat_prefix_genuine": 3,
+    "partb_flat_prefix_misaligned": 4,
+    "subsystem2_store_paged_exact_recall": 1.0,
+    "subsystem2_correct": true,
+    "subsystem2_flat_would_crater": true,
+    "subsystem3_compute_recall": 1.0,
+    "subsystem3_correct": true,
+    "overall_tier": "MEASURED_MECHANISM (mixed; CLAIM, VET-PENDING)",
+    "honest_disclosure": "C_FHRR is a calibrated constant (not a cited derivation) -- HYPOTHESIZED mechanism (FHRR complex-phasor Re() crosstalk variance = 1/2 of real-bipolar variance, i.e. a sqrt(2) SNR gain) is disclosed but NOT verified in this cell. The reconciliation claim rests on the GRID holding with this ONE fixed constant, not on the constant itself being independently derived from first principles."
+  },
+  "elapsed_s": 128.77030491828918,
+  "REQUIRED_FIELDS": [
+    "anchor_name",
+    "verdict",
+    "verdict_msg",
+    "facts"
+  ]
+}
