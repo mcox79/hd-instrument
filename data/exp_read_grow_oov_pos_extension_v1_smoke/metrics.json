@@ -1,0 +1,112 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "coverage_gain_pp=100.0 (HARD-PASS needs >=15.0, HARD-FAIL if <5.0) | precision_newly_covered=1.000 (HARD-PASS needs >=0.90, HARD-FAIL if <0.75) | guard_regression_ok=True oos_control_fired=True current_coverage_floor_ok=True (current_coverage_pooled=0.000) | n_newly_covered_pooled=40/40",
+  "summary": "coverage_gain_pp=100.0 (HARD-PASS needs >=15.0, HARD-FAIL if <5.0) | precision_newly_covered=1.000 (HARD-PASS needs >=0.90, HARD-FAIL if <0.75) | guard_regression_ok=True oos_control_fired=True current_coverage_floor_ok=True (current_coverage_pooled=0.000) | n_newly_covered_pooled=40/40",
+  "run_mode": "smoke",
+  "elapsed_s": 0.1121053000097163,
+  "anchor_name": "read_grow_oov_pos_extension_v1",
+  "ts_iso": "2026-07-17T04:21:28.203848+00:00",
+  "seeds": [
+    7
+  ],
+  "n_per_template": 4,
+  "n_templates": 10,
+  "expected_n_units": 40,
+  "weakest_interface": "n/a",
+  "metric_coverage_current_pooled": 0.0,
+  "metric_coverage_extended_pooled": 1.0,
+  "metric_coverage_gain_pp_pooled": 100.0,
+  "metric_precision_newly_covered_pooled": 1.0,
+  "metric_n_newly_covered_pooled": 40,
+  "metric_n_emitted_newly_pooled": 44,
+  "metric_n_correct_newly_pooled": 44,
+  "metric_guard_regression_ok": true,
+  "metric_oos_control_fired": true,
+  "metric_current_coverage_floor_ok": true,
+  "per_seed_summary": [
+    {
+      "seed": 7,
+      "coverage_current": 0.0,
+      "coverage_extended": 1.0,
+      "coverage_gain_pp": 100.0,
+      "precision_newly_covered": 1.0,
+      "n_newly_covered": 40
+    }
+  ],
+  "mixed_coord_diagnostic": [
+    {
+      "sentence": "The rabbit and the cat eat the seed.",
+      "current_triples": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ]
+      ],
+      "gold": [
+        [
+          "cat",
+          "eats",
+          "seed"
+        ],
+        [
+          "rabbit",
+          "eats",
+          "seed"
+        ]
+      ],
+      "silently_incomplete": true
+    },
+    {
+      "sentence": "The dog and the badger eat the grass.",
+      "current_triples": [
+        [
+          "dog",
+          "eats",
+          "grass"
+        ]
+      ],
+      "gold": [
+        [
+          "badger",
+          "eats",
+          "grass"
+        ],
+        [
+          "dog",
+          "eats",
+          "grass"
+        ]
+      ],
+      "silently_incomplete": true
+    }
+  ],
+  "arms": {
+    "CURRENT": {
+      "coverage": 0.0
+    },
+    "POS_EXTENDED": {
+      "coverage": 1.0,
+      "precision_newly_covered": 1.0
+    }
+  },
+  "prereg": {
+    "hard_pass": "coverage_gain_pp_pooled>=15.0 AND precision_newly_covered_pooled>=0.90 AND guard_regression_ok AND oos_control_fired AND current_coverage_floor_ok",
+    "hard_fail": "coverage_gain_pp_pooled<5.0 OR precision_newly_covered_pooled<0.75",
+    "corpus": "10 hand-authored template classes x N_PER_TEMPLATE random OOV-word draws per seed, OOV pools confirmed disjoint from closed ENTITIES lexicon",
+    "scope_note": "function words/verbs/adjectives held CLOSED (never OOV) -- isolates OOV-NOUN coverage specifically, per the cheap-decisive-test arm design. Not a general open-text benchmark (see module docstring HONEST SCOPE NOTE).",
+    "compute_architecture": "sequential-CPU; pure syntactic parsing, no VSA store; wall time trivial (MEASURED below)",
+    "storage_strategy": "no_storage (pure parser-layer test, no FoundationStore/KGStore touched)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "ie_extract (imported, unmodified)",
+      "nltk.pos_tag (real classical averaged-perceptron call)",
+      "ie_extract_pos_extended (this cell)"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete syntactic role-assignment + the classical tagger's own literature-benchmarked accuracy (96-97% PTB, CITED)",
+    "glass_box_legal": "no torch/spacy/transformers/stanza imports in this file (source-scanned at self-test); nltk averaged_perceptron_tagger_eng is classical, non-neural",
+    "prior_work_check": "substrate_query.sh top hits all below cosine 0.30 (top=0.2764, entity='syntactical') -- no prior arc cell at cosine>0.30; genuinely novel, not a rediscovery."
+  }
+}
