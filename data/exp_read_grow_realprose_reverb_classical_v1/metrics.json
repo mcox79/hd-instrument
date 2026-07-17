@@ -1,0 +1,1278 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | HEAD-TO-HEAD vs RUNG5 toy grammar (SAME n=210 slice): REVERB precision=0.083 (delta=-0.096) coverage=0.714 (delta=+0.595) recall=0.297 n_attempted=150/210 | RUNG5_BASELINE precision=0.179 coverage=0.119 (MEASURED, same slice) | construction_distribution[single_clause_svo=0.248 vp_coordination=0.090 compound_subject=0.005 relative_clause=0.000 passive=0.071 other_unhandled=0.586] | guard_checks_ok=True oos_control_fired=True | weakest=reverb_precision_below_0.40_classical_envelope_floor | classical_envelope_target=0.40-0.60 (HARD-PASS floor 0.40)",
+  "summary": "HARD_FAIL | HEAD-TO-HEAD vs RUNG5 toy grammar (SAME n=210 slice): REVERB precision=0.083 (delta=-0.096) coverage=0.714 (delta=+0.595) recall=0.297 n_attempted=150/210 | RUNG5_BASELINE precision=0.179 coverage=0.119 (MEASURED, same slice) | construction_distribution[single_clause_svo=0.248 vp_coordin",
+  "run_mode": "full",
+  "elapsed_s": 0.5801228999998784,
+  "anchor_name": "read_grow_realprose_reverb_classical_v1",
+  "ts_iso": "2026-07-17T11:11:44.781242+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "n_per_seed": 70,
+  "expected_n_units": 210,
+  "weakest_interface": "reverb_precision_below_0.40_classical_envelope_floor",
+  "corpus": {
+    "name": "UD_English-EWT test split (SAME slice as RUNG 5)",
+    "path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0",
+    "qualifying_pool_size": 846,
+    "n_sampled_total": 210
+  },
+  "construction_distribution_counts": {
+    "single_clause_svo": 52,
+    "vp_coordination": 19,
+    "compound_subject": 1,
+    "relative_clause": 0,
+    "passive": 15,
+    "other_unhandled": 123
+  },
+  "construction_distribution_fractions": {
+    "single_clause_svo": 0.24761904761904763,
+    "vp_coordination": 0.09047619047619047,
+    "compound_subject": 0.004761904761904762,
+    "relative_clause": 0.0,
+    "passive": 0.07142857142857142,
+    "other_unhandled": 0.5857142857142857
+  },
+  "per_seed_distribution": {
+    "7": {
+      "single_clause_svo": 21,
+      "vp_coordination": 7,
+      "compound_subject": 1,
+      "relative_clause": 0,
+      "passive": 5,
+      "other_unhandled": 36
+    },
+    "13": {
+      "single_clause_svo": 15,
+      "vp_coordination": 4,
+      "compound_subject": 0,
+      "relative_clause": 0,
+      "passive": 5,
+      "other_unhandled": 46
+    },
+    "19": {
+      "single_clause_svo": 16,
+      "vp_coordination": 8,
+      "compound_subject": 0,
+      "relative_clause": 0,
+      "passive": 5,
+      "other_unhandled": 41
+    }
+  },
+  "arms": {
+    "REVERB_strict": {
+      "n_total": 210,
+      "n_attempted": 150,
+      "n_emitted": 265,
+      "n_gold": 74,
+      "n_correct": 22,
+      "precision_on_attempted": 0.0830188679245283,
+      "recall": 0.2972972972972973,
+      "coverage_sentence_rate": 0.7142857142857143,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 48,
+          "n_emitted": 66,
+          "n_correct": 15
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 19,
+          "n_emitted": 44,
+          "n_correct": 7
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 70,
+          "n_emitted": 126,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 13,
+          "n_emitted": 29,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "REVERB_relaxed_irregular_verb_diagnostic": {
+      "n_total": 210,
+      "n_attempted": 150,
+      "n_emitted": 265,
+      "n_gold": 74,
+      "n_correct": 29,
+      "precision_on_attempted": 0.10943396226415095,
+      "recall": 0.3918918918918919,
+      "coverage_sentence_rate": 0.7142857142857143,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 48,
+          "n_emitted": 66,
+          "n_correct": 20
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 19,
+          "n_emitted": 44,
+          "n_correct": 8
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 70,
+          "n_emitted": 126,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 13,
+          "n_emitted": 29,
+          "n_correct": 1
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "RUNG5_OPEN_RELATION_same_sample_informational": {
+      "n_total": 210,
+      "n_attempted": 25,
+      "n_emitted": 28,
+      "n_gold": 74,
+      "n_correct": 5,
+      "precision_on_attempted": 0.17857142857142858,
+      "recall": 0.06756756756756757,
+      "coverage_sentence_rate": 0.11904761904761904,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 7,
+          "n_emitted": 8,
+          "n_correct": 5
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 2,
+          "n_emitted": 2,
+          "n_correct": 0
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 13,
+          "n_emitted": 15,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 3,
+          "n_emitted": 3,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "CLOSED_CURRENT_informational": {
+      "n_total": 210,
+      "n_attempted": 0,
+      "n_emitted": 0,
+      "n_gold": 74,
+      "n_correct": 0,
+      "precision_on_attempted": null,
+      "recall": 0.0,
+      "coverage_sentence_rate": 0.0,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    }
+  },
+  "rung5_baseline_measured": {
+    "precision_on_attempted": 0.1786,
+    "coverage_sentence_rate": 0.119,
+    "source": "d:/AI/hd-instrument/data/exp_read_grow_realprose_ud_ewt_rung5_v1/metrics.json:arms.OPEN_RELATION_strict"
+  },
+  "guard_checks_ok": true,
+  "oos_control_fired": true,
+  "sample_reverb_rows": [
+    {
+      "text": "The correction to the working gas includes TWO corrections.",
+      "cls": "single_clause_svo",
+      "gold": [],
+      "emitted": [
+        [
+          "correction",
+          "work",
+          "gas"
+        ],
+        [
+          "gas",
+          "include",
+          "correction"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V]"
+    },
+    {
+      "text": "My dog has threw up yellow bile for two days but does not have dhirea.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "dog",
+          "have",
+          "diarrhea"
+        ],
+        [
+          "dog",
+          "throw",
+          "bile"
+        ]
+      ],
+      "emitted": [
+        [
+          "day",
+          "have",
+          "dhirea"
+        ],
+        [
+          "dog",
+          "threw",
+          "bile"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V]"
+    },
+    {
+      "text": "Hi I\u00b4m from Brazil and I want to know of book 06.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "know_of",
+          "book"
+        ],
+        [
+          "i",
+          "want_to",
+          "book"
+        ]
+      ],
+      "rule": "REVERB[V_P,V_P]"
+    },
+    {
+      "text": "quick in & out.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "Bike ride in the park, followed by coffee.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "park",
+          "follow_by",
+          "coffee"
+        ]
+      ],
+      "rule": "REVERB[V_P]"
+    },
+    {
+      "text": "You need to check out the French Indochina War (1946-1954) not the Vietnam War (1957-1975).",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "check",
+          "(1946-1954)"
+        ],
+        [
+          "you",
+          "ne_to",
+          "(1946-1954)"
+        ]
+      ],
+      "rule": "REVERB[V_P,BARE_V]"
+    },
+    {
+      "text": "These have been sighted among Iraqi crowds on Haifa Street in Baghdad and in Samarra.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "Best pedi mani Ive ever had.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "I also find their food way better than many other airlines.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "find",
+          "food"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "find",
+          "way"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "Hall has agreed to release Enron, Ecogas, Maffett and every affiliate, related party and subsidiary.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "affiliate",
+          "relat",
+          "party"
+        ],
+        [
+          "hall",
+          "agre_to",
+          "enron"
+        ],
+        [
+          "hall",
+          "release",
+          "enron"
+        ]
+      ],
+      "rule": "REVERB[V_P,BARE_V,BARE_V]"
+    },
+    {
+      "text": "I went to this urgent care center and was blown away with their service.",
+      "cls": "vp_coordination",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "blown_with",
+          "service"
+        ],
+        [
+          "i",
+          "went_to",
+          "center"
+        ]
+      ],
+      "rule": "REVERB[V_P,V_P_PASSIVE]"
+    },
+    {
+      "text": "There is so much to do onboard.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "Mens and Boys Barbers, on the number 9 Bus route.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "I hope that this would mean that you would remain involved at some level.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "hope_that",
+          "you"
+        ],
+        [
+          "i",
+          "mean_that",
+          "you"
+        ],
+        [
+          "you",
+          "remain_at",
+          "level"
+        ]
+      ],
+      "rule": "REVERB[V_P,V_P,V_W_P]"
+    },
+    {
+      "text": "Any of the tip-top places have great ice-cream, get them to mix it up.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "any",
+          "get",
+          "they"
+        ],
+        [
+          "any",
+          "have",
+          "cream"
+        ]
+      ],
+      "emitted": [
+        [
+          "ice-cream",
+          "get",
+          "them"
+        ],
+        [
+          "plac",
+          "have",
+          "ice-cream"
+        ],
+        [
+          "them",
+          "mix",
+          "it"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V,BARE_V]"
+    },
+    {
+      "text": "Well,I'm about to graduate in less then a year,and I'm planning to study medical school.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "'m_about",
+          "year"
+        ],
+        [
+          "i",
+          "graduate_in",
+          "year"
+        ],
+        [
+          "i",
+          "plan_to",
+          "school"
+        ],
+        [
+          "i",
+          "study",
+          "school"
+        ]
+      ],
+      "rule": "REVERB[V_P,V_P,V_P,BARE_V]"
+    },
+    {
+      "text": "We now have over 5000 addresses.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "have",
+          "address"
+        ]
+      ],
+      "emitted": [
+        [
+          "we",
+          "have_over",
+          "address"
+        ]
+      ],
+      "rule": "REVERB[V_P]"
+    },
+    {
+      "text": "We look forward to your active participation to make this forum an exciting meeting place for like minded individuals.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "look_to",
+          "participation"
+        ]
+      ],
+      "emitted": [
+        [
+          "forum",
+          "excit",
+          "place"
+        ],
+        [
+          "participation",
+          "make",
+          "forum"
+        ],
+        [
+          "we",
+          "look_to",
+          "participation"
+        ]
+      ],
+      "rule": "REVERB[V_P,BARE_V,BARE_V]"
+    },
+    {
+      "text": "I like my Monkey Brain on a stick for sure.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "like",
+          "brain"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "like",
+          "brain"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "You should use the same spreadsheet format used for the 1/29/02 DPR.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "use",
+          "format"
+        ]
+      ],
+      "emitted": [
+        [
+          "format",
+          "us_for",
+          "dpr"
+        ],
+        [
+          "you",
+          "use",
+          "format"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,V_P]"
+    },
+    {
+      "text": "Atal Pharmacy, Karol Bag.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "Doctor Bogomilsky knows her stuff too.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "bogomilsky",
+          "know",
+          "stuff"
+        ]
+      ],
+      "emitted": [
+        [
+          "bogomilsky",
+          "know",
+          "stuff"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "No minimum order amount.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "The new NCL Epic does sound amazing, although I haven't sailed on her yet.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "epic",
+          "sound",
+          "i"
+        ]
+      ],
+      "rule": "REVERB[BARE_V_SEARCH]"
+    },
+    {
+      "text": "We order take out from here all the time and we are never disappointed.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "order",
+          "out"
+        ]
+      ],
+      "emitted": [
+        [
+          "order",
+          "take_from",
+          "time"
+        ]
+      ],
+      "rule": "REVERB[V_P]"
+    },
+    {
+      "text": "If I went into the \"pre-university\" direction with business administration in mind.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "go_into",
+          "direction"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "went_into",
+          "pre-university"
+        ]
+      ],
+      "rule": "REVERB[V_P]"
+    },
+    {
+      "text": "Hope you will be sorted.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "They are especially rude to women.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "they",
+          "be_to",
+          "women"
+        ]
+      ],
+      "rule": "REVERB[V_W_P]"
+    },
+    {
+      "text": "Thanks again, Directv.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "NCL is a notch below either, in terms of quality and service.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "ncl",
+          "be",
+          "notch"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "They treat there employees with respect and concern and expect that they will extend the same politeness to there customers.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "they",
+          "treat",
+          "employee"
+        ]
+      ],
+      "emitted": [
+        [
+          "they",
+          "extend",
+          "politeness"
+        ],
+        [
+          "they",
+          "treat",
+          "employe"
+        ]
+      ],
+      "rule": "REVERB[BARE_V_SEARCH,BARE_V]"
+    },
+    {
+      "text": "Will definitely go back when I need medical care.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "ne",
+          "care"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "Delhi police chief KK Paul named the man as Tariq Ahmed Dar, and said police were hunting for four accomplices.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "k",
+          "name",
+          "man"
+        ]
+      ],
+      "emitted": [
+        [
+          "paul",
+          "nam",
+          "man"
+        ],
+        [
+          "paul",
+          "said",
+          "police"
+        ],
+        [
+          "police",
+          "hunt_for",
+          "accomplic"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V,V_P]"
+    },
+    {
+      "text": "Well theres Mc.Donalds,Taco Bell,Burger King.....",
+      "cls": "compound_subject",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "Now they are part of your working group.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "part",
+          "work",
+          "group"
+        ],
+        [
+          "they",
+          "be",
+          "part"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V]"
+    },
+    {
+      "text": "Or more if you have drinks.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "have",
+          "drink"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "Will never use again.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "My friend goes to the Phils every 6 months or so and she has found that Korean Air has had the cheapest fares lately.",
+      "cls": "vp_coordination",
+      "gold": [],
+      "emitted": [
+        [
+          "air",
+          "had",
+          "far"
+        ],
+        [
+          "friend",
+          "go_to",
+          "phils"
+        ],
+        [
+          "she",
+          "found_that",
+          "air"
+        ]
+      ],
+      "rule": "REVERB[V_P,V_P,BARE_V]"
+    },
+    {
+      "text": "i had a blast that night.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "had",
+          "blast"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "has life like animal wholesale figurines made from rabbit and goat fur, feathers and sheeps wool.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "figurin",
+          "made_from",
+          "rabbit"
+        ]
+      ],
+      "rule": "REVERB[V_P]"
+    },
+    {
+      "text": "No, technically they do not need a UVB light; they are nocturnal.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "need",
+          "light"
+        ]
+      ],
+      "emitted": [
+        [
+          "they",
+          "ne",
+          "light"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "Get great service, fantastic menu, and relax.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "When you press the button to stop recording the data is moved from the buffer to the memory card - no pause.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [
+        [
+          "button",
+          "record",
+          "data"
+        ],
+        [
+          "data",
+          "mov_from",
+          "buffer"
+        ],
+        [
+          "you",
+          "press",
+          "button"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V,V_P_PASSIVE]"
+    },
+    {
+      "text": "It was all sorted with no hassle at all and I'm really grateful - they were fab.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "'m",
+          "they"
+        ],
+        [
+          "it",
+          "be",
+          "hassle"
+        ],
+        [
+          "it",
+          "sort_with",
+          "hassle"
+        ],
+        [
+          "they",
+          "be",
+          "fab"
+        ]
+      ],
+      "rule": "REVERB[BARE_V_SEARCH,V_P,BARE_V_SEARCH,BARE_V]"
+    },
+    {
+      "text": "We will have to correct them after the churn.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "we",
+          "correct",
+          "them"
+        ],
+        [
+          "we",
+          "have_to",
+          "them"
+        ]
+      ],
+      "rule": "REVERB[V_P,BARE_V]"
+    },
+    {
+      "text": "These guys do great work at VERY reasonable prices.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "emitted": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "This pledge is a new development.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "pledge",
+          "be",
+          "development"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "his clinic is very very dirty he is a real disaster to go totally not organized for every step he take .",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "clinic",
+          "be",
+          "dirty"
+        ],
+        [
+          "disaster",
+          "organiz_for",
+          "step"
+        ],
+        [
+          "he",
+          "be",
+          "disaster"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V,V_P]"
+    },
+    {
+      "text": "These have been sold.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "As in the old days, varnish is often used as a protective film against years of dirt, grease, smoke, etc.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [
+        [
+          "day",
+          "us_as",
+          "film"
+        ]
+      ],
+      "rule": "REVERB[V_P_PASSIVE]"
+    },
+    {
+      "text": "I just called this number and it is a Ralph's Market.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "call",
+          "number"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "cal",
+          "number"
+        ],
+        [
+          "it",
+          "be",
+          "ralph"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,BARE_V]"
+    },
+    {
+      "text": "I know now where to get all of my wine and beer.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [
+        [
+          "i",
+          "get_of",
+          "wine"
+        ],
+        [
+          "i",
+          "know",
+          "wine"
+        ]
+      ],
+      "rule": "REVERB[BARE_V_SEARCH,V_W_P]"
+    },
+    {
+      "text": "Can one of your research staff justify a suitable 20 year volalatility number for USD/Euro.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "one",
+          "justify",
+          "number"
+        ]
+      ],
+      "emitted": [
+        [
+          "staff",
+          "justify",
+          "number"
+        ]
+      ],
+      "rule": "REVERB[BARE_V_SEARCH]"
+    },
+    {
+      "text": "Michael L. Beatty & Associates, PC; #10461, #10469 & #10468 dated 5/28/00.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "I have ordered Bose Headfones worth 300USD.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "order",
+          "headfone"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "order",
+          "headfones"
+        ]
+      ],
+      "rule": "REVERB[BARE_V]"
+    },
+    {
+      "text": "too many bugs some you even never seen before.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "The investors put big bucks into the building but are clueless about what makes a good dining or bar experience.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "investor",
+          "put",
+          "buck"
+        ]
+      ],
+      "emitted": [
+        [
+          "building",
+          "be_about",
+          "dining"
+        ],
+        [
+          "building",
+          "make",
+          "dining"
+        ],
+        [
+          "investor",
+          "put",
+          "buck"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,V_W_P,BARE_V]"
+    },
+    {
+      "text": "i love The Script and know there from iraland.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "i",
+          "love",
+          "script"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "know_from",
+          "iraland"
+        ],
+        [
+          "i",
+          "love",
+          "script"
+        ]
+      ],
+      "rule": "REVERB[BARE_V,V_P]"
+    },
+    {
+      "text": "Courteous, fast and friendly.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    },
+    {
+      "text": "None of the above.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "REVERB[no_match]"
+    }
+  ],
+  "prereg": {
+    "hard_pass": "reverb_precision_on_attempted>=0.40 AND reverb_coverage_sentence_rate>0.1190 (RUNG5 baseline) AND guard_checks_ok AND oos_control_fired",
+    "hard_fail": "reverb_precision_on_attempted<0.25 OR reverb_coverage_sentence_rate<=0.1190 OR NOT guard_checks_ok",
+    "hp_scope": "REVERB_strict is the ONLY gated discriminator; RUNG5_OPEN_RELATION_same_sample and CLOSED_CURRENT are informational-only (re-scored on the SAME pooled sample for a clean head-to-head, but not separately gated -- their own gates were already resolved in RUNG 5's own landed cell).",
+    "toolchain_choice": "ReVerb-style (Fader/Soderland/Etzioni 2011) POS-tag-pattern extractor, pure Python, no dependency parse, no JVM (java command not found on this host -- ClausIE/OLLIE/MaltParser ruled out this cycle). nltk.pos_tag (averaged perceptron) + nltk.RegexpParser (hand-written regex NP grammar, zero learned parameters) only.",
+    "declared_addons": "(a) passive by-agent normalization (relation=verb lemma, args swapped, ONLY when the found prep is literally 'by' after a be+VBN verb-group); (b) subject inheritance across AND-conjoined verb-groups (reuses the prior verb-group's resolved subject instead of the nearest-preceding-NP, which for the second conjunct is usually the first clause's object) -- both are simple POS-tag-positional rules, NOT a return to dependency parsing.",
+    "known_left_as_is_limitations": "relative-clause embedded facts scored as false positives against a matrix-only gold; VP-coordination arg-sharing beyond simple AND; compound-SUBJECT coordination (multiple NPs before the verb) not captured (ReVerb takes one NP per side); copular+adjective (SVA) predicates unhandled (only copular+nominal works); classical tagger mistags on short/ambiguous template sentences.",
+    "compute_architecture": "sequential-CPU; pure syntactic pattern-matching + regex chunking, no VSA store; wall time trivial (MEASURED below)",
+    "storage_strategy": "no_storage (pure parser-layer + extractor test, no FoundationStore/KGStore)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "runner_python_u_only (timeout_s < 1800; cell wall time is seconds)",
+    "deterministic_seeding": true,
+    "real_code_path_exercised": [
+      "parse_conllu (RUNG 5, real local corpus file)",
+      "analyze_sentence (RUNG 5, dependency-parse-derived gold, imported unmodified)",
+      "ie_extract_reverb (NEW, this cell)",
+      "ie_extract_open (RUNG 5, imported, re-scored on same sample for head-to-head)",
+      "ie_extract (v2, imported unmodified, informational)",
+      "nltk.pos_tag (real classical averaged-perceptron call)",
+      "nltk.RegexpParser (real classical regex NP chunker)"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete syntactic pattern-match + the classical tagger's own literature-benchmarked accuracy (96-97% PTB, CITED).",
+    "glass_box_legal": "static source-scan (no torch/spacy/transformers/stanza imports) AND a runtime sys.modules transitive-closure check, both asserted at self-test; java -version confirmed unavailable on this host (MEASURED, this cycle) ruling out JVM tools.",
+    "prior_work_check": "substrate_query.sh run before authoring (see completion report); this is a NEW arm on the actively-developed RUNG 5/9 real-prose reading arc, reusing its corpus/gold/scorer unmodified -- not a rediscovery."
+  }
+}

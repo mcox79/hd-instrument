@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: REVERB guard regression on 'The dog eats the meat and chases the cats.': got {('dog', 'chas', 'cat'), ('dog', 'eat', 'meat')}, expected {('dog', 'chase', 'cat'), ('dog', 'eat', 'meat')}",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_reverb_classical_v1.py\", line 723, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_reverb_classical_v1.py\", line 605, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_grow_realprose_reverb_classical_v1.py\", line 544, in self_test\n    assert got == set(gold), f\"REVERB guard regression on {sent!r}: got {got}, expected {set(gold)}\"\n           ^^^^^^^^^^^^^^^^\nAssertionError: REVERB guard regression on 'The dog eats the meat and chases the cats.': got {('dog', 'chas', 'cat'), ('dog', 'eat', 'meat')}, expected {('dog', 'chase', 'cat'), ('dog', 'eat', 'meat')}\n",
+  "ts_iso": "2026-07-17T11:09:49.964454+00:00",
+  "pid": 20972,
+  "anchor_name": "read_grow_realprose_reverb_classical_v1"
+}
