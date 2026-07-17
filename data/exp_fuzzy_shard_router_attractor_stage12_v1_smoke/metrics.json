@@ -1,0 +1,219 @@
+{
+  "anchor_name": "fuzzy_shard_router_attractor_stage12_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "STAGE12_VALIDATED (CLAIM, VET-PENDING): all 3 predictions HARD_PASS. {'P1_capacity_transfer': 'HARD_PASS', 'P2_cost_decoupling': 'HARD_PASS', 'P3_soft_beats_hard': 'HARD_PASS'} | P1: m50_measured=395.7 vs k_corrected=376.0 (rel_err=0.050) | P2: growth_two_stage=1.571 growth_flat=10.000 route_acc_holds_up=True | P3: margin_at_f=0.7=+0.224 (soft(holistic)=0.995 hard(decomposed)=0.771)",
+  "summary": "HARD_PASS: fuzzy shard-router + attractor-completion Stages 1-2 (smoke)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "n_units": 28,
+  "expected_n_units": 28,
+  "cardinality_ok": true,
+  "elapsed_s": 9.263381242752075,
+  "part1_capacity_transfer": {
+    "per_point": [
+      {
+        "m": 31,
+        "acc_mean": 1.0,
+        "acc_per_seed": [
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "m": 215,
+        "acc_mean": 0.7116279069767442,
+        "acc_per_seed": [
+          0.6790697674418604,
+          0.7441860465116279
+        ]
+      },
+      {
+        "m": 492,
+        "acc_mean": 0.3871951219512195,
+        "acc_per_seed": [
+          0.3699186991869919,
+          0.40447154471544716
+        ]
+      },
+      {
+        "m": 862,
+        "acc_mean": 0.23665893271461716,
+        "acc_per_seed": [
+          0.23665893271461716,
+          0.23665893271461716
+        ]
+      }
+    ],
+    "m50_measured": 395.6874426329822,
+    "m50_censored": false,
+    "k_naive": 61.55498841126244,
+    "k_corrected": 375.95767618287084,
+    "rel_err_vs_corrected": 0.049861997941672356,
+    "verdict": "HARD_PASS",
+    "n_units": 8,
+    "config": {
+      "N": 1024,
+      "V_val": 64,
+      "V_key": 2048,
+      "n_shards": 5,
+      "n_bits": 3,
+      "dims_per_bit": 24,
+      "seeds": [
+        7,
+        13
+      ],
+      "m_grid": [
+        31,
+        215,
+        492,
+        862
+      ]
+    }
+  },
+  "part2_cost_decoupling": {
+    "per_config": {
+      "32": {
+        "route_acc_mean": 0.975,
+        "e2e_two_stage_mean": 0.5833333333333334,
+        "e2e_flat_mean": 0.0,
+        "cost_two_stage": 112,
+        "cost_flat": 1024,
+        "wall_two_stage_s_mean": 0.0016984499998216052,
+        "wall_flat_s_mean": 0.002872449998903903,
+        "n_bits": 5
+      },
+      "320": {
+        "route_acc_mean": 0.9666666666666666,
+        "e2e_two_stage_mean": 0.5333333333333333,
+        "e2e_flat_mean": 0.0,
+        "cost_two_stage": 176,
+        "cost_flat": 10240,
+        "wall_two_stage_s_mean": 0.004155999999056803,
+        "wall_flat_s_mean": 0.022428950001994963,
+        "n_bits": 9
+      }
+    },
+    "growth_ratio_two_stage": 1.5714285714285714,
+    "growth_ratio_flat": 10.0,
+    "route_acc_holds_up": true,
+    "route_acc_lo": 0.975,
+    "route_acc_hi": 0.9666666666666666,
+    "verdict": "HARD_PASS",
+    "n_units": 4,
+    "arms_differ_digests": {
+      "two_stage_32": "59bdb6d510389913",
+      "flat_32": "dc89d6438c3dec00",
+      "two_stage_320": "78b4a3c44ec6f9a5",
+      "flat_320": "9d57d1693a992007"
+    },
+    "config": {
+      "N": 256,
+      "V_val": 32,
+      "V_key": 1024,
+      "m_load": 65,
+      "corruption": 0.2,
+      "dims_per_bit": 8,
+      "n_shards_pair": [
+        32,
+        320
+      ],
+      "Q": 60,
+      "seeds": [
+        7,
+        13
+      ]
+    }
+  },
+  "part3_decomposed_vs_holistic": {
+    "curve": [
+      {
+        "f": 0.0,
+        "acc_hard_mean": 1.0,
+        "acc_soft_mean": 1.0,
+        "acc_hard_per_seed": [
+          1.0,
+          1.0
+        ],
+        "acc_soft_per_seed": [
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "f": 0.6,
+        "acc_hard_mean": 0.875,
+        "acc_soft_mean": 1.0,
+        "acc_hard_per_seed": [
+          0.875,
+          0.875
+        ],
+        "acc_soft_per_seed": [
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "f": 0.7,
+        "acc_hard_mean": 0.7708333333333333,
+        "acc_soft_mean": 0.9947916666666667,
+        "acc_hard_per_seed": [
+          0.7291666666666666,
+          0.8125
+        ],
+        "acc_soft_per_seed": [
+          1.0,
+          0.9895833333333334
+        ]
+      },
+      {
+        "f": 0.8,
+        "acc_hard_mean": 0.5,
+        "acc_soft_mean": 0.8125,
+        "acc_hard_per_seed": [
+          0.4791666666666667,
+          0.5208333333333334
+        ],
+        "acc_soft_per_seed": [
+          0.8020833333333334,
+          0.8229166666666666
+        ]
+      }
+    ],
+    "gate_f": 0.7,
+    "margin_at_gate": 0.22395833333333348,
+    "hard_acc_at_gate": 0.7708333333333333,
+    "soft_acc_at_gate": 0.9947916666666667,
+    "baseline_in_band": true,
+    "chance_floor": 0.0625,
+    "verdict": "HARD_PASS",
+    "n_units": 16,
+    "arms_differ_verified": true,
+    "config": {
+      "N": 512,
+      "V_val": 32,
+      "n_shards": 16,
+      "n_bits": 4,
+      "dims_per_bit": 24,
+      "total_dim": 96,
+      "f_grid": [
+        0.0,
+        0.6,
+        0.7,
+        0.8
+      ],
+      "seeds": [
+        7,
+        13
+      ],
+      "Q": 96
+    }
+  },
+  "predictions": {
+    "P1_capacity_transfer": "HARD_PASS",
+    "P2_cost_decoupling": "HARD_PASS",
+    "P3_soft_beats_hard": "HARD_PASS"
+  },
+  "ts_iso": "2026-07-17T14:32:47.057309+00:00",
+  "pid": 2036,
+  "host": "FrameworkMPC"
+}
