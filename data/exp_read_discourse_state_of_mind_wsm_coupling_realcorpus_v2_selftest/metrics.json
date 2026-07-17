@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "KeyError: 'n_control'",
+  "summary": "CELL_CRASHED: KeyError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_state_of_mind_wsm_coupling_realcorpus_v2.py\", line 728, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_state_of_mind_wsm_coupling_realcorpus_v2.py\", line 641, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_state_of_mind_wsm_coupling_realcorpus_v2.py\", line 605, in self_test\n    tier_synth, msg_synth, _w, artifact_flag, _hc = compute_verdict(synth_with, synth_without)\n                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_read_discourse_state_of_mind_wsm_coupling_realcorpus_v2.py\", line 504, in compute_verdict\n    f\"(n={with_s['n_control']}) | GUARDRAIL wrong_guess_rate={with_s['guardrail_wrong_rate']:.3f} \"\n          ~~~~~~^^^^^^^^^^^^^\nKeyError: 'n_control'\n",
+  "ts_iso": "2026-07-17T14:17:26.519638+00:00",
+  "pid": 8504,
+  "anchor_name": "read_discourse_state_of_mind_wsm_coupling_realcorpus_v2"
+}

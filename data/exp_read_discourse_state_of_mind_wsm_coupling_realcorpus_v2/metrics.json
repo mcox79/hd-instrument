@@ -1,0 +1,980 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | COUPLING delta=0.833 (WITH=0.833 vs WITHOUT=0.000, n=12) | CONSTRUCTION_ARTIFACT=False | CONTROL WITH=1.000 WITHOUT=1.000 (n=5) | GUARDRAIL wrong_guess_rate=0.000 (n=1) | tier0_fastpath_rate=1.000 | HARD_CASE_correct=False | weakest=[\"HARD CASE (fig-garden topic-reactivation) resolved WRONG: emitted=[('alligator', 'find', 'garden')] gold=[('jackal', 'find', 'garden')] -- an honest, EXPECTED limitation of pure subject-priority Cb resolution when the true antecedent was recently mentioned only as an object\"]",
+  "summary": "HARD_PASS | COUPLING delta=0.833 (WITH=0.833 vs WITHOUT=0.000, n=12) | CONSTRUCTION_ARTIFACT=False | CONTROL WITH=1.000 WITHOUT=1.000 (n=5) | GUARDRAIL wrong_guess_rate=0.000 (n=1) | tier0_fastpath_rate=1.000 | HARD_CASE_correct=False | weakest=[\"HARD CASE (fig-garden topic-reactivation) resolved WR",
+  "run_mode": "full",
+  "elapsed_s": 0.2726766999985557,
+  "anchor_name": "read_discourse_state_of_mind_wsm_coupling_realcorpus_v2",
+  "ts_iso": "2026-07-17T14:24:49.333168+00:00",
+  "expected_n_units": 40,
+  "n_scenes": 2,
+  "n_rows": 20,
+  "weakest_interface": [
+    "HARD CASE (fig-garden topic-reactivation) resolved WRONG: emitted=[('alligator', 'find', 'garden')] gold=[('jackal', 'find', 'garden')] -- an honest, EXPECTED limitation of pure subject-priority Cb resolution when the true antecedent was recently mentioned only as an object"
+  ],
+  "construction_artifact_detected": false,
+  "includes_hard_shift_back_case": true,
+  "metric_coupling_delta": 0.8333333333333334,
+  "metric_dependent_resolvable_acc_with": 0.8333333333333334,
+  "metric_dependent_resolvable_acc_without": 0.0,
+  "metric_dependent_resolvable_coverage_with": 1.0,
+  "metric_dependent_resolvable_precision_with": 0.8333333333333334,
+  "metric_control_acc_with": 1.0,
+  "metric_control_acc_without": 1.0,
+  "metric_guardrail_wrong_rate_with": 0.0,
+  "metric_tier0_fastpath_rate": 1.0,
+  "metric_tier0_bound": 12,
+  "metric_tier1_bound": 0,
+  "metric_n_shift_total": 2,
+  "metric_transition_histogram": {
+    "SHIFT_FOUNDATION": 2,
+    "NONE_NO_REALIZATION": 1,
+    "CONTINUE": 14,
+    "NOVEL_ENTITY_SHIFT": 2,
+    "SMOOTH_SHIFT": 1
+  },
+  "hard_case_correct": false,
+  "hard_case_emitted": [
+    [
+      "alligator",
+      "find",
+      "garden"
+    ]
+  ],
+  "hard_case_gold": [
+    [
+      "jackal",
+      "find",
+      "garden"
+    ]
+  ],
+  "arms": {
+    "WITH_STATE": {
+      "state_on": true,
+      "dependent_resolvable_acc": 0.8333333333333334,
+      "dependent_resolvable_coverage": 1.0,
+      "dependent_resolvable_precision": 0.8333333333333334,
+      "n_dependent_resolvable": 12,
+      "guardrail_wrong_rate": 0.0,
+      "n_guardrail_rows": 1,
+      "control_acc": 1.0,
+      "control_coverage": 1.0,
+      "n_control": 5,
+      "n_shift_total": 2,
+      "transition_histogram": {
+        "SHIFT_FOUNDATION": 2,
+        "NONE_NO_REALIZATION": 1,
+        "CONTINUE": 14,
+        "NOVEL_ENTITY_SHIFT": 2,
+        "SMOOTH_SHIFT": 1
+      },
+      "tier0_fastpath_rate": 1.0,
+      "tier0_bound": 12,
+      "tier1_bound": 0,
+      "arm_hash": "28b4c6947db6ec9e2b9c377bfb5094d1d3e3a50bd4ce21178f93e997380031c2",
+      "hard_case_correct": false,
+      "hard_case_emitted": [
+        [
+          "alligator",
+          "find",
+          "garden"
+        ]
+      ],
+      "hard_case_gold": [
+        [
+          "jackal",
+          "find",
+          "garden"
+        ]
+      ]
+    },
+    "WITHOUT_STATE": {
+      "state_on": false,
+      "dependent_resolvable_acc": 0.0,
+      "dependent_resolvable_coverage": 0.0,
+      "dependent_resolvable_precision": 0.0,
+      "n_dependent_resolvable": 12,
+      "guardrail_wrong_rate": 0.0,
+      "n_guardrail_rows": 1,
+      "control_acc": 1.0,
+      "control_coverage": 1.0,
+      "n_control": 5,
+      "n_shift_total": 0,
+      "transition_histogram": {},
+      "tier0_fastpath_rate": 0.0,
+      "tier0_bound": 0,
+      "tier1_bound": 0,
+      "arm_hash": "2cfbc3ffb30c4c6c8b275e5a9950d65da30d17e7b782d2d8abd1dd50865af37b",
+      "hard_case_correct": false,
+      "hard_case_emitted": [],
+      "hard_case_gold": [
+        [
+          "jackal",
+          "find",
+          "garden"
+        ]
+      ]
+    }
+  },
+  "records_with_state": [
+    {
+      "sidx": 0,
+      "text": "The Sun and the Wind had a quarrel.",
+      "kind": "control",
+      "note": "verbatim, trimmed at 'as to which was the stronger' (coordinating-subject clause boundary)",
+      "emitted": [
+        [
+          "sun",
+          "have",
+          "quarrel"
+        ],
+        [
+          "wind",
+          "have",
+          "quarrel"
+        ]
+      ],
+      "gold": [
+        [
+          "sun",
+          "have",
+          "quarrel"
+        ],
+        [
+          "wind",
+          "have",
+          "quarrel"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 1,
+      "text": "They saw a traveller.",
+      "kind": "unresolvable",
+      "note": "verbatim ('While they were arguing they saw a traveller...' clause); 'they' = the coordinated Sun+Wind pair, a combined referent this design never tracks (no plural mention is ever created) -- gold=ABSTAIN, a real, honest out-of-scope residual, not a genuine semantic tie",
+      "emitted": [],
+      "gold": [],
+      "resolution": "NO_AGREEMENT_CANDIDATE",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 2,
+      "text": "The Wind began to blow.",
+      "kind": "other",
+      "note": "verbatim; intransitive ('began to blow', no object) -- NOT scored (not control/dependent/guardrail), included ONLY because it re-establishes 'wind' as the sole grammatical subject via the bare-subject fallback (see _bare_subject_lemma), matching what a human reader's discourse state ALSO does here; omitting it would make the next row artificially harder than the real text actually is",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 3,
+      "text": "He raised a storm.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he puffed and tugged...and raised a storm of hail and rain...'; antecedent=wind (real-world gold, human-verified)",
+      "emitted": [
+        [
+          "wind",
+          "rais",
+          "storm"
+        ]
+      ],
+      "gold": [
+        [
+          "wind",
+          "rais",
+          "storm"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 4,
+      "text": "The Wind could not get the cloak off.",
+      "kind": "control",
+      "note": "verbatim",
+      "emitted": [
+        [
+          "wind",
+          "get",
+          "cloak"
+        ]
+      ],
+      "gold": [
+        [
+          "wind",
+          "get",
+          "cloak"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 5,
+      "text": "The man unfastened his cloak.",
+      "kind": "other",
+      "note": "verbatim ('...the man unfastened his cloak; then he threw it back...'); real text alternates 'traveller'/'the man' for the SAME referent (a synonym this glass-box lemma-matching design does not unify -- an honest, separate residual limitation) -- included, not scored, to re-establish the referent as 'man' via the bare-subject fallback before the two pronoun rows below",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 6,
+      "text": "He threw the cloak back.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...then he threw it back...'; 'it'->'the cloak' substituted for a clean SVO reading (the antecedent-noun swap for 'it' mirrors v1's own it-resolution convention); antecedent=man (human-verified; real text's own noun choice, not 'traveller', at this point)",
+      "emitted": [
+        [
+          "man",
+          "threw",
+          "cloak"
+        ]
+      ],
+      "gold": [
+        [
+          "man",
+          "threw",
+          "cloak"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 7,
+      "text": "He took the cloak off.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...at last he took it off!'; same it->'the cloak' noun-swap as above; antecedent=man (human-verified)",
+      "emitted": [
+        [
+          "man",
+          "take",
+          "cloak"
+        ]
+      ],
+      "gold": [
+        [
+          "man",
+          "take",
+          "cloak"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 0,
+      "text": "The little Jackal kept away from the river.",
+      "kind": "control",
+      "note": "verbatim, trimmed at ', out of danger' (trailing adjunct clause boundary)",
+      "emitted": [
+        [
+          "jackal",
+          "keep_from",
+          "river"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "keep_from",
+          "river"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 1,
+      "text": "He hunted for crabs.",
+      "kind": "dependent",
+      "note": "verbatim clause from 'He used to go down by the river and hunt along the edges for crabs...'; antecedent=jackal (human-verified)",
+      "emitted": [
+        [
+          "jackal",
+          "hunt_for",
+          "crab"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "hunt_for",
+          "crab"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 2,
+      "text": "He got a feeling inside him.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he got a feeling inside him that nothing but crabs could satisfy'; antecedent=jackal (human-verified)",
+      "emitted": [
+        [
+          "jackal",
+          "get",
+          "feeling"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "get",
+          "feeling"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 3,
+      "text": "The Alligator had the paw in his jaws.",
+      "kind": "control",
+      "note": "verbatim clause from '...the big Alligator...had it in his jaws'; 'it'->'the paw' noun-swap",
+      "emitted": [
+        [
+          "alligator",
+          "have",
+          "paw"
+        ]
+      ],
+      "gold": [
+        [
+          "alligator",
+          "have",
+          "paw"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 4,
+      "text": "He blew a mighty blast.",
+      "kind": "dependent",
+      "note": "verbatim clause from 'So he blew, and he blew, a mighty blast...'; antecedent=alligator (human-verified; EASY case -- alligator is the immediately preceding Cb)",
+      "emitted": [
+        [
+          "alligator",
+          "blew",
+          "blast"
+        ]
+      ],
+      "gold": [
+        [
+          "alligator",
+          "blew",
+          "blast"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 5,
+      "text": "He crawled up on the bank.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he crawled up on the bank and went after the little Jackal'; antecedent=alligator (human-verified)",
+      "emitted": [
+        [
+          "alligator",
+          "crawl_on",
+          "bank"
+        ]
+      ],
+      "gold": [
+        [
+          "alligator",
+          "crawl_on",
+          "bank"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 6,
+      "text": "He went after the little jackal.",
+      "kind": "dependent",
+      "note": "verbatim clause (same sentence as above, second conjunct); antecedent=alligator (human-verified)",
+      "emitted": [
+        [
+          "alligator",
+          "go_after",
+          "jackal"
+        ]
+      ],
+      "gold": [
+        [
+          "alligator",
+          "go_after",
+          "jackal"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 7,
+      "text": "He could not catch the jackal.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he couldn't catch the little Jackal; he ran far too fast'; antecedent=alligator (human-verified)",
+      "emitted": [
+        [
+          "alligator",
+          "catch",
+          "jackal"
+        ]
+      ],
+      "gold": [
+        [
+          "alligator",
+          "catch",
+          "jackal"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 8,
+      "text": "He found a garden of wild figs.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he found a garden of wild figs...'; antecedent=jackal (human-verified). DELIBERATE HARD CASE (see module docstring): jackal was mentioned only as OBJECT in the 2 immediately preceding rows; alligator has been the sole grammatical SUBJECT for 4 consecutive rows. A pure subject-priority Cb resolver is EXPECTED to prefer 'alligator' here and may bind WRONG -- kept in the fixture on purpose, not excluded, per the pre-registered structural-only selection rule.",
+      "emitted": [
+        [
+          "alligator",
+          "find",
+          "garden"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "find",
+          "garden"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 9,
+      "text": "He saw the huge pile of figs.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he saw an especially rich...piece of...cheese...' (Country-Mouse fable phrasing adapted structurally is NOT used here -- this is the Jackal fable's own '...he saw the huge pile of figs...' clause); antecedent=jackal (human-verified)",
+      "emitted": [
+        [
+          "alligator",
+          "see",
+          "pile"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "see",
+          "pile"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 10,
+      "text": "He sent the little figs flying.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he humped himself up and moved, and sent the little figs flying...'; antecedent=alligator (human-verified)",
+      "emitted": [
+        [
+          "alligator",
+          "send",
+          "fig"
+        ]
+      ],
+      "gold": [
+        [
+          "alligator",
+          "send",
+          "fig"
+        ]
+      ],
+      "resolution": "BOUND",
+      "tier": "TIER0",
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 11,
+      "text": "The jackal did not wait for a second look.",
+      "kind": "control",
+      "note": "verbatim",
+      "emitted": [
+        [
+          "jackal",
+          "wait_for",
+          "look"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "wait_for",
+          "look"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    }
+  ],
+  "records_without_state": [
+    {
+      "sidx": 0,
+      "text": "The Sun and the Wind had a quarrel.",
+      "kind": "control",
+      "note": "verbatim, trimmed at 'as to which was the stronger' (coordinating-subject clause boundary)",
+      "emitted": [
+        [
+          "sun",
+          "have",
+          "quarrel"
+        ],
+        [
+          "wind",
+          "have",
+          "quarrel"
+        ]
+      ],
+      "gold": [
+        [
+          "sun",
+          "have",
+          "quarrel"
+        ],
+        [
+          "wind",
+          "have",
+          "quarrel"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 1,
+      "text": "They saw a traveller.",
+      "kind": "unresolvable",
+      "note": "verbatim ('While they were arguing they saw a traveller...' clause); 'they' = the coordinated Sun+Wind pair, a combined referent this design never tracks (no plural mention is ever created) -- gold=ABSTAIN, a real, honest out-of-scope residual, not a genuine semantic tie",
+      "emitted": [],
+      "gold": [],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 2,
+      "text": "The Wind began to blow.",
+      "kind": "other",
+      "note": "verbatim; intransitive ('began to blow', no object) -- NOT scored (not control/dependent/guardrail), included ONLY because it re-establishes 'wind' as the sole grammatical subject via the bare-subject fallback (see _bare_subject_lemma), matching what a human reader's discourse state ALSO does here; omitting it would make the next row artificially harder than the real text actually is",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 3,
+      "text": "He raised a storm.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he puffed and tugged...and raised a storm of hail and rain...'; antecedent=wind (real-world gold, human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "wind",
+          "rais",
+          "storm"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 4,
+      "text": "The Wind could not get the cloak off.",
+      "kind": "control",
+      "note": "verbatim",
+      "emitted": [
+        [
+          "wind",
+          "get",
+          "cloak"
+        ]
+      ],
+      "gold": [
+        [
+          "wind",
+          "get",
+          "cloak"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 5,
+      "text": "The man unfastened his cloak.",
+      "kind": "other",
+      "note": "verbatim ('...the man unfastened his cloak; then he threw it back...'); real text alternates 'traveller'/'the man' for the SAME referent (a synonym this glass-box lemma-matching design does not unify -- an honest, separate residual limitation) -- included, not scored, to re-establish the referent as 'man' via the bare-subject fallback before the two pronoun rows below",
+      "emitted": [],
+      "gold": [],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 6,
+      "text": "He threw the cloak back.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...then he threw it back...'; 'it'->'the cloak' substituted for a clean SVO reading (the antecedent-noun swap for 'it' mirrors v1's own it-resolution convention); antecedent=man (human-verified; real text's own noun choice, not 'traveller', at this point)",
+      "emitted": [],
+      "gold": [
+        [
+          "man",
+          "threw",
+          "cloak"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 7,
+      "text": "He took the cloak off.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...at last he took it off!'; same it->'the cloak' noun-swap as above; antecedent=man (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "man",
+          "take",
+          "cloak"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "sun_and_the_wind"
+    },
+    {
+      "sidx": 0,
+      "text": "The little Jackal kept away from the river.",
+      "kind": "control",
+      "note": "verbatim, trimmed at ', out of danger' (trailing adjunct clause boundary)",
+      "emitted": [
+        [
+          "jackal",
+          "keep_from",
+          "river"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "keep_from",
+          "river"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 1,
+      "text": "He hunted for crabs.",
+      "kind": "dependent",
+      "note": "verbatim clause from 'He used to go down by the river and hunt along the edges for crabs...'; antecedent=jackal (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "jackal",
+          "hunt_for",
+          "crab"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 2,
+      "text": "He got a feeling inside him.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he got a feeling inside him that nothing but crabs could satisfy'; antecedent=jackal (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "jackal",
+          "get",
+          "feeling"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 3,
+      "text": "The Alligator had the paw in his jaws.",
+      "kind": "control",
+      "note": "verbatim clause from '...the big Alligator...had it in his jaws'; 'it'->'the paw' noun-swap",
+      "emitted": [
+        [
+          "alligator",
+          "have",
+          "paw"
+        ]
+      ],
+      "gold": [
+        [
+          "alligator",
+          "have",
+          "paw"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 4,
+      "text": "He blew a mighty blast.",
+      "kind": "dependent",
+      "note": "verbatim clause from 'So he blew, and he blew, a mighty blast...'; antecedent=alligator (human-verified; EASY case -- alligator is the immediately preceding Cb)",
+      "emitted": [],
+      "gold": [
+        [
+          "alligator",
+          "blew",
+          "blast"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 5,
+      "text": "He crawled up on the bank.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he crawled up on the bank and went after the little Jackal'; antecedent=alligator (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "alligator",
+          "crawl_on",
+          "bank"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 6,
+      "text": "He went after the little jackal.",
+      "kind": "dependent",
+      "note": "verbatim clause (same sentence as above, second conjunct); antecedent=alligator (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "alligator",
+          "go_after",
+          "jackal"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 7,
+      "text": "He could not catch the jackal.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he couldn't catch the little Jackal; he ran far too fast'; antecedent=alligator (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "alligator",
+          "catch",
+          "jackal"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 8,
+      "text": "He found a garden of wild figs.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he found a garden of wild figs...'; antecedent=jackal (human-verified). DELIBERATE HARD CASE (see module docstring): jackal was mentioned only as OBJECT in the 2 immediately preceding rows; alligator has been the sole grammatical SUBJECT for 4 consecutive rows. A pure subject-priority Cb resolver is EXPECTED to prefer 'alligator' here and may bind WRONG -- kept in the fixture on purpose, not excluded, per the pre-registered structural-only selection rule.",
+      "emitted": [],
+      "gold": [
+        [
+          "jackal",
+          "find",
+          "garden"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 9,
+      "text": "He saw the huge pile of figs.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he saw an especially rich...piece of...cheese...' (Country-Mouse fable phrasing adapted structurally is NOT used here -- this is the Jackal fable's own '...he saw the huge pile of figs...' clause); antecedent=jackal (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "jackal",
+          "see",
+          "pile"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 10,
+      "text": "He sent the little figs flying.",
+      "kind": "dependent",
+      "note": "verbatim clause from '...he humped himself up and moved, and sent the little figs flying...'; antecedent=alligator (human-verified)",
+      "emitted": [],
+      "gold": [
+        [
+          "alligator",
+          "send",
+          "fig"
+        ]
+      ],
+      "resolution": "STATE_OFF_ABSTAIN",
+      "tier": null,
+      "correct": false,
+      "scene": "little_jackal_and_the_alligator"
+    },
+    {
+      "sidx": 11,
+      "text": "The jackal did not wait for a second look.",
+      "kind": "control",
+      "note": "verbatim",
+      "emitted": [
+        [
+          "jackal",
+          "wait_for",
+          "look"
+        ]
+      ],
+      "gold": [
+        [
+          "jackal",
+          "wait_for",
+          "look"
+        ]
+      ],
+      "resolution": "PARSER_DIRECT",
+      "tier": null,
+      "correct": true,
+      "scene": "little_jackal_and_the_alligator"
+    }
+  ],
+  "prereg": {
+    "hard_pass": "coupling_delta>=0.50 & 0.55<=WITH.dep_acc<=0.97 & n_dep>=8 & WITH.control_acc>=0.90 & WITH.control_acc>=(WITHOUT.control_acc-0.02) & WITH.guardrail_wrong_rate<0.20 & NOT construction_artifact_detected & includes_hard_shift_back_case",
+    "hard_fail": "coupling_delta<0.30 | WITH.control_acc<(WITHOUT.control_acc-0.05) | WITH.guardrail_wrong_rate>=0.35 | construction_artifact_detected | n_dep<6",
+    "middle": "otherwise",
+    "novel_synthesis_P": 0.45,
+    "corpus": "nltk.corpus.gutenberg 'bryant-stories.txt' (Sara Cone Bryant, Stories to Tell to the Children, 1918, public domain, NLTK-bundled) -- 2 real fables (Sun and Wind; Little Jackal and the Alligator), verbatim/clause-trimmed sentences per docstring selection rule",
+    "scope": "role-ranked Cf resolver (subject>object per Grosz-Joshi-Weinstein), window=4 (Cowan span, cited); no VP-ellipsis (none occurred naturally in the selected real sentences); no gender axis (both scenes' candidate pairs share gender by construction of the source text)",
+    "compute_architecture": "sequential-CPU, fully symbolic, NO RNG/VSA/torch (parse-level diagnostic)",
+    "storage_strategy": "no_storage",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": "N/A_no_rng",
+    "real_code_path_exercised": [
+      "ie_extract_downstream_all_fixed",
+      "_find_subject_pronoun",
+      "resolve_pronoun_realcorpus",
+      "update_wsm",
+      "analyze_wsm"
+    ],
+    "crlb_n/a": "no quantitative noise floor; fully symbolic discrete role-assignment, no phasor noise"
+  }
+}
