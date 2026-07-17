@@ -1,0 +1,955 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | BASE(repro) precision=0.3472 coverage=0.3095 (target 0.3472/0.3095 @ run_mode-matched regime, repro_ok=True) | ARM_SURFACE precision=0.1739 coverage=0.1095 | ARM_SELECTIONAL precision=0.3091 coverage=0.2571 | margin_required=0.0842 delta_vs_base=-0.0381 delta_vs_surface=+0.1352 | gate_fires=True class_drop_rate=0.283 surf_drop_rate=0.817 n_eligible(class/surf)=120/120 n_no_evidence(class/surf)=24/24 | arms_differ_verified=True guard_checks_ok=True oos_control_fired=True | weakest=selectional_does_not_beat_base_by_margin",
+  "summary": "HARD_FAIL | BASE(repro) precision=0.3472 coverage=0.3095 (target 0.3472/0.3095 @ run_mode-matched regime, repro_ok=True) | ARM_SURFACE precision=0.1739 coverage=0.1095 | ARM_SELECTIONAL precision=0.3091 coverage=0.2571 | margin_required=0.0842 delta_vs_base=-0.0381 delta_vs_surface=+0.1352 | gate_fi",
+  "run_mode": "full",
+  "elapsed_s": 490.08785889999854,
+  "anchor_name": "read_grow_selectional_preference_precision_v1",
+  "ts_iso": "2026-07-17T14:20:41.012657+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "n_per_seed": 70,
+  "expected_n_units": 210,
+  "weakest_interface": "selectional_does_not_beat_base_by_margin",
+  "glass_box_legal": true,
+  "argument_class_source": "nltk.corpus.wordnet noun lexnames (first synset, SemCor-frequency-ordered), local pre-fetched resource, no network access, no LLM",
+  "scoring_formula": "PPMI (add-1 Laplace smoothed, clipped at 0.0); KL-divergence deliberately NOT used as primary per CITED@research_brain_precision_lever note's own Prediction-4 caution (KL sometimes underperforms simpler PPMI)",
+  "corpus": {
+    "train_path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-train.conllu",
+    "test_path": "D:\\AI\\hd-instrument\\data\\corpora\\ud_english_ewt\\en_ewt-ud-test.conllu",
+    "license": "CC BY-SA 4.0 (UD_English-EWT)",
+    "qualifying_pool_size_test": 846,
+    "n_sampled_total_test": 210,
+    "n_train_graphs_fed": 12544
+  },
+  "train_wall_s": 398.6706556000008,
+  "table_wall_s": 8.953102100000251,
+  "score_wall_s": 40.87025530000028,
+  "table_meta": {
+    "n_direct": 9866,
+    "n_obl": 7537
+  },
+  "n_distinct_verb_role_ctx": 2817,
+  "n_distinct_classes": 27,
+  "n_distinct_surface_keys": 4213,
+  "construction_distribution_counts": {
+    "single_clause_svo": 52,
+    "vp_coordination": 19,
+    "compound_subject": 1,
+    "relative_clause": 0,
+    "passive": 15,
+    "other_unhandled": 123
+  },
+  "per_seed_distribution": {
+    "7": {
+      "single_clause_svo": 21,
+      "vp_coordination": 7,
+      "compound_subject": 1,
+      "relative_clause": 0,
+      "passive": 5,
+      "other_unhandled": 36
+    },
+    "13": {
+      "single_clause_svo": 15,
+      "vp_coordination": 4,
+      "compound_subject": 0,
+      "relative_clause": 0,
+      "passive": 5,
+      "other_unhandled": 46
+    },
+    "19": {
+      "single_clause_svo": 16,
+      "vp_coordination": 8,
+      "compound_subject": 0,
+      "relative_clause": 0,
+      "passive": 5,
+      "other_unhandled": 41
+    }
+  },
+  "arms": {
+    "BASE_strict_positive_control": {
+      "n_total": 210,
+      "n_attempted": 65,
+      "n_emitted": 72,
+      "n_gold": 74,
+      "n_correct": 25,
+      "precision_on_attempted": 0.3472222222222222,
+      "recall": 0.33783783783783783,
+      "coverage_sentence_rate": 0.30952380952380953,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 39,
+          "n_emitted": 41,
+          "n_correct": 16
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 17,
+          "n_emitted": 22,
+          "n_correct": 9
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 3,
+          "n_emitted": 3,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 6,
+          "n_emitted": 6,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "ARM_SURFACE_strict": {
+      "n_total": 210,
+      "n_attempted": 23,
+      "n_emitted": 23,
+      "n_gold": 74,
+      "n_correct": 4,
+      "precision_on_attempted": 0.17391304347826086,
+      "recall": 0.05405405405405406,
+      "coverage_sentence_rate": 0.10952380952380952,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 14,
+          "n_emitted": 14,
+          "n_correct": 2
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 3,
+          "n_emitted": 3,
+          "n_correct": 2
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 6,
+          "n_emitted": 6,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    },
+    "ARM_SELECTIONAL_strict": {
+      "n_total": 210,
+      "n_attempted": 54,
+      "n_emitted": 55,
+      "n_gold": 74,
+      "n_correct": 17,
+      "precision_on_attempted": 0.3090909090909091,
+      "recall": 0.22972972972972974,
+      "coverage_sentence_rate": 0.2571428571428571,
+      "per_class": {
+        "single_clause_svo": {
+          "n": 52,
+          "n_gold": 52,
+          "n_attempted": 33,
+          "n_emitted": 33,
+          "n_correct": 12
+        },
+        "vp_coordination": {
+          "n": 19,
+          "n_gold": 20,
+          "n_attempted": 13,
+          "n_emitted": 14,
+          "n_correct": 5
+        },
+        "other_unhandled": {
+          "n": 123,
+          "n_gold": 0,
+          "n_attempted": 2,
+          "n_emitted": 2,
+          "n_correct": 0
+        },
+        "passive": {
+          "n": 15,
+          "n_gold": 2,
+          "n_attempted": 6,
+          "n_emitted": 6,
+          "n_correct": 0
+        },
+        "compound_subject": {
+          "n": 1,
+          "n_gold": 0,
+          "n_attempted": 0,
+          "n_emitted": 0,
+          "n_correct": 0
+        }
+      }
+    }
+  },
+  "gate_stats": {
+    "class": {
+      "n_examined": 144,
+      "n_no_evidence": 24,
+      "n_eligible": 120,
+      "n_kept_eligible": 86,
+      "n_dropped": 34
+    },
+    "surface": {
+      "n_examined": 144,
+      "n_no_evidence": 24,
+      "n_eligible": 120,
+      "n_kept_eligible": 22,
+      "n_dropped": 98
+    }
+  },
+  "baselines_measured": {
+    "trained_parser_base_prior_full_pooled": {
+      "precision_on_attempted": 0.3472,
+      "coverage_sentence_rate": 0.3095,
+      "source": "d:/AI/hd-instrument/data/exp_read_grow_realprose_trained_parser_svm_v1/metrics.json:arms.PARSER_strict"
+    },
+    "trained_parser_base_prior_smoke_seed7": {
+      "precision_on_attempted": 0.28,
+      "coverage_sentence_rate": 0.3286,
+      "source": "d:/AI/hd-instrument/data/exp_read_grow_realprose_trained_parser_svm_v1_smoke/metrics.json:arms.PARSER_strict"
+    }
+  },
+  "arms_differ_verified": true,
+  "digests": {
+    "base": "797aa5db8136dbda6388779a90b796ee3ede15fa64bb01e4c321fa870b3bdf88",
+    "class": "70be76f185422ecc4add6ffe2d540ab28c4769937866cafd0d0097d1ce95c571",
+    "surf": "deb78b2b14386c98ff2e955cc86339ffe6301d666f692f5742075a17ee6adb63"
+  },
+  "n_unique_triples": {
+    "base": 65,
+    "class": 48,
+    "surf": 19
+  },
+  "guard_checks_ok": true,
+  "oos_control_fired": true,
+  "sample_selectional_rows": [
+    {
+      "text": "The correction to the working gas includes TWO corrections.",
+      "cls": "single_clause_svo",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "My dog has threw up yellow bile for two days but does not have dhirea.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "dog",
+          "have",
+          "diarrhea"
+        ],
+        [
+          "dog",
+          "throw",
+          "bile"
+        ]
+      ],
+      "emitted": [
+        [
+          "dog",
+          "threw",
+          "bile"
+        ]
+      ],
+      "rule": "PARSER[vp_coordination]"
+    },
+    {
+      "text": "Hi I\u00b4m from Brazil and I want to know of book 06.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "quick in & out.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Bike ride in the park, followed by coffee.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "You need to check out the French Indochina War (1946-1954) not the Vietnam War (1957-1975).",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "These have been sighted among Iraqi crowds on Haifa Street in Baghdad and in Samarra.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [
+        [
+          "these",
+          "sight_among",
+          "crowd"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "Best pedi mani Ive ever had.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "I also find their food way better than many other airlines.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "find",
+          "food"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Hall has agreed to release Enron, Ecogas, Maffett and every affiliate, related party and subsidiary.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "I went to this urgent care center and was blown away with their service.",
+      "cls": "vp_coordination",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[vp_coordination]"
+    },
+    {
+      "text": "There is so much to do onboard.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Mens and Boys Barbers, on the number 9 Bus route.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "I hope that this would mean that you would remain involved at some level.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Any of the tip-top places have great ice-cream, get them to mix it up.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "any",
+          "get",
+          "they"
+        ],
+        [
+          "any",
+          "have",
+          "cream"
+        ]
+      ],
+      "emitted": [
+        [
+          "any",
+          "get",
+          "them"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "Well,I'm about to graduate in less then a year,and I'm planning to study medical school.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "We now have over 5000 addresses.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "have",
+          "address"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "We look forward to your active participation to make this forum an exciting meeting place for like minded individuals.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "look_to",
+          "participation"
+        ]
+      ],
+      "emitted": [
+        [
+          "we",
+          "look_to",
+          "participation"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "I like my Monkey Brain on a stick for sure.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "like",
+          "brain"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "like",
+          "monkey"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "You should use the same spreadsheet format used for the 1/29/02 DPR.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "you",
+          "use",
+          "format"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "Atal Pharmacy, Karol Bag.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Doctor Bogomilsky knows her stuff too.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "bogomilsky",
+          "know",
+          "stuff"
+        ]
+      ],
+      "emitted": [
+        [
+          "bogomilsky",
+          "know",
+          "stuff"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "No minimum order amount.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "The new NCL Epic does sound amazing, although I haven't sailed on her yet.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "We order take out from here all the time and we are never disappointed.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "we",
+          "order",
+          "out"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[vp_coordination]"
+    },
+    {
+      "text": "If I went into the \"pre-university\" direction with business administration in mind.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "go_into",
+          "direction"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Hope you will be sorted.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "They are especially rude to women.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Thanks again, Directv.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "NCL is a notch below either, in terms of quality and service.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "They treat there employees with respect and concern and expect that they will extend the same politeness to there customers.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "they",
+          "treat",
+          "employee"
+        ]
+      ],
+      "emitted": [
+        [
+          "they",
+          "treat",
+          "employe"
+        ]
+      ],
+      "rule": "PARSER[vp_coordination]"
+    },
+    {
+      "text": "Will definitely go back when I need medical care.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Delhi police chief KK Paul named the man as Tariq Ahmed Dar, and said police were hunting for four accomplices.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "k",
+          "name",
+          "man"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Well theres Mc.Donalds,Taco Bell,Burger King.....",
+      "cls": "compound_subject",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Now they are part of your working group.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Or more if you have drinks.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Will never use again.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "My friend goes to the Phils every 6 months or so and she has found that Korean Air has had the cheapest fares lately.",
+      "cls": "vp_coordination",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "i had a blast that night.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "have",
+          "blast"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "had",
+          "blast"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "has life like animal wholesale figurines made from rabbit and goat fur, feathers and sheeps wool.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "No, technically they do not need a UVB light; they are nocturnal.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "they",
+          "need",
+          "light"
+        ]
+      ],
+      "emitted": [
+        [
+          "they",
+          "ne",
+          "light"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "Get great service, fantastic menu, and relax.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "When you press the button to stop recording the data is moved from the buffer to the memory card - no pause.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [
+        [
+          "you",
+          "press",
+          "button"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "It was all sorted with no hassle at all and I'm really grateful - they were fab.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [
+        [
+          "it",
+          "sort_with",
+          "hassle"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "We will have to correct them after the churn.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "These guys do great work at VERY reasonable prices.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "guy",
+          "do",
+          "work"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "This pledge is a new development.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "his clinic is very very dirty he is a real disaster to go totally not organized for every step he take .",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "These have been sold.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "As in the old days, varnish is often used as a protective film against years of dirt, grease, smoke, etc.",
+      "cls": "passive",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "I just called this number and it is a Ralph's Market.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "call",
+          "number"
+        ]
+      ],
+      "emitted": [
+        [
+          "i",
+          "cal",
+          "number"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "I know now where to get all of my wine and beer.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "Can one of your research staff justify a suitable 20 year volalatility number for USD/Euro.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "one",
+          "justify",
+          "number"
+        ]
+      ],
+      "emitted": [
+        [
+          "one",
+          "justify",
+          "number"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "Michael L. Beatty & Associates, PC; #10461, #10469 & #10468 dated 5/28/00.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "I have ordered Bose Headfones worth 300USD.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "i",
+          "order",
+          "headfone"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "too many bugs some you even never seen before.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "The investors put big bucks into the building but are clueless about what makes a good dining or bar experience.",
+      "cls": "single_clause_svo",
+      "gold": [
+        [
+          "investor",
+          "put",
+          "buck"
+        ]
+      ],
+      "emitted": [
+        [
+          "investor",
+          "put",
+          "buck"
+        ]
+      ],
+      "rule": "PARSER[single_clause_svo]"
+    },
+    {
+      "text": "i love The Script and know there from iraland.",
+      "cls": "vp_coordination",
+      "gold": [
+        [
+          "i",
+          "love",
+          "script"
+        ]
+      ],
+      "emitted": [],
+      "rule": "PARSER[vp_coordination]"
+    },
+    {
+      "text": "Courteous, fast and friendly.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    },
+    {
+      "text": "None of the above.",
+      "cls": "other_unhandled",
+      "gold": [],
+      "emitted": [],
+      "rule": "PARSER[other_unhandled]"
+    }
+  ],
+  "prereg": {
+    "hard_pass": "(class_p-base_p)>=margin_required AND (class_p-surf_p)>=margin_required AND arms_differ_verified AND positive_control_reproduced AND gate_fires AND class_coverage_sentence_rate>=0.15",
+    "hard_fail": "class_p<=base_p OR (class_p-surf_p)<0.02 OR NOT arms_differ_verified OR NOT gate_fires OR class_coverage_sentence_rate<0.10",
+    "margin_required_formula": "max(0.08, 1.5*sqrt(base_p*(1-base_p)/n_emitted_base)) -- noise-floor derived, declared before viewing outcome",
+    "hp_scope": "ARM_SELECTIONAL and ARM_SURFACE are the gated discriminators; BASE is scored ONLY as the Gate-D positive-control reproduction of 74f8de97a's own landed PARSER_strict (tolerance 0.02 abs), not re-gated independently here.",
+    "integration_choice": "post-hoc plausibility GATE (rerank/tie-break at the triple-output level, not inside the SVM's per-step transition decoding) -- see module docstring INTEGRATION CHOICE for the declared rationale.",
+    "argument_class_taxonomy": "WordNet noun lexnames (26 lexicographer supersense files), first-synset (SemCor-frequency) heuristic, UNK_CLASS fallback for unresolvable stems.",
+    "fairness_control": "ARM_SURFACE uses the IDENTICAL gate architecture/threshold/formula as ARM_SELECTIONAL, differing ONLY in the conditioning key (surface noun-token vs WordNet class) -- isolates meaning-conditioning from any-frequency-helps.",
+    "compute_architecture": "sequential-CPU (justified: reuses 74f8de97a's own transition-parser sequential-dependency justification; the NEW table-build/gate code is a single linear pass per sentence, not a matmul candidate)",
+    "storage_strategy": "no_storage (pure parser+lexical-table layer, no FoundationStore/KGStore)",
+    "calibration_check": "adaptive_with_discriminator_gate -- MIN_CTX_EVIDENCE=3/MIN_KEY_EVIDENCE=3 minimum-evidence floor added THIS CYCLE (measured necessity: raw add-1 PPMI over sparse surface-token marginals produced a rare-item inflation artifact, CITED@Levy/Goldberg/Dagan 2015, making ARM_SURFACE vacuously never-fire; the floor is IDENTICAL for both tables, a principled data-sufficiency requirement not tuned per-arm) -- discriminator-still-fires re-verified at smoke after the fix (see completion report for the re-run numbers).",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "cardinality_ok": "true (no sweep axis; 3 fixed arms evaluated once per run_mode; EXPECTED_N_UNITS = len(seeds) * N_PER_SEED, matches RUNG5/trained-parser convention)",
+    "real_code_path_exercised": [
+      "FixedTransitionParser.train/parse (via imported make_parser_extractor)",
+      "build_selectional_tables (REAL TRAIN corpus gold edges)",
+      "wn.synsets (REAL local WordNet lookups)",
+      "make_gated_extractor (REAL gate wrapping)",
+      "score_arm (imported)"
+    ],
+    "crlb_n/a": "no quantitative noise floor; discriminator is discrete triple-level precision/recall.",
+    "glass_box_legal": "static source-scan (this file + imported base module, no torch/spacy/transformers/stanza) AND runtime sys.modules transitive-closure check, both asserted at self-test AND full run time.",
+    "positive_control_arms": {
+      "arm": "BASE_strict_positive_control",
+      "primitive": "FixedTransitionParser (74f8de97a)",
+      "cited_prior_atom": "74f8de97a",
+      "cited_prior_metric_precision_full_pooled": 0.3472,
+      "cited_prior_metric_coverage_full_pooled": 0.3095,
+      "cited_prior_metric_precision_smoke_seed7": 0.28,
+      "cited_prior_metric_coverage_smoke_seed7": 0.3286,
+      "cited_prior_regime": "SAME UD-EWT test corpus, SAME SEEDS_FULL=[7,13,19]/N_PER_SEED=70 (full) or seed=7-only (smoke), SAME FULL TRAIN corpus, SAME LinearSVC config",
+      "test_regime": "identical -- this cell re-trains from scratch on the SAME config; run_mode-matched target selected in compute_verdict",
+      "tolerance": 0.02,
+      "if_outside_tolerance": "HARD_FAIL_REGIME_OR_INVOCATION_MISMATCH"
+    },
+    "functional_requirements": [
+      {
+        "fr": "disambiguate verb-argument attachment plausibility",
+        "primitive": "selectional PPMI gate (NEW this cell)"
+      },
+      {
+        "fr": "keep structural parse precision",
+        "primitive": "trained transition parser (reused unmodified, 74f8de97a)"
+      },
+      {
+        "fr": "isolate meaning-conditioning from raw frequency",
+        "primitive": "ARM_SURFACE fairness control (NEW this cell, identical gate architecture, surface-token-keyed table)"
+      }
+    ],
+    "signal_shape_compatibility_audit": [
+      {
+        "from": "trained_parser_extractor",
+        "to": "selectional_gate",
+        "A_natural_output_shape": "(subject,relation,object) triple list",
+        "B_natural_input_shape": "same triple list, filters in place",
+        "verdict": "SHAPE_MATCH"
+      }
+    ],
+    "deferred_next": "error-driven surprisal-scaled update loop (Chang/Dell/Bock; McClosky self-training) -- explicitly gated behind THIS cell demonstrating independent signal, per the research note's own sequencing discipline; not built here.",
+    "prior_work_check": "substrate_query.sh run before authoring (see completion report); top hits at cosine<=0.3271 were generic WordNet/concept-atom entries, not prior arc cells -- confirms this is genuinely novel, not a rediscovery."
+  }
+}
