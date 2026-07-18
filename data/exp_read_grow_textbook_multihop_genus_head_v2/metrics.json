@@ -1,0 +1,488 @@
+{
+  "verdict": "MIDDLE_BAND_CEILING",
+  "verdict_msg": "syntactic-head genus materially helps (edge +0.012, composed_prec +0.142, spec_hard +0.262) and composed precision (fair)=0.656 clears the v2 fail floor, BUT spec_hard=0.477 / precision below trustworthy floor (compose>=0.70 AND spec_hard>=0.50): GLASS-BOX EXTRACTION CEILING -- even correct syntactic-head extraction is insufficient for fully-trustworthy closure.",
+  "summary": "MIDDLE_BAND_CEILING: edge_prec fair old=0.450->new=0.462 (lift=+0.012) raw old=0.330->new=0.355 | compose_prec fair old=0.515->new=0.656 | new_arm prec=0.656 spec_hard=0.477 | bucket net=+14 | n_pos=200 n_neg_hard=149",
+  "elapsed_s": 2.16,
+  "ts_iso": "2026-07-18T01:21:16.302018+00:00",
+  "anchor_name": "read_grow_textbook_multihop_genus_head_v2",
+  "run_mode": "full",
+  "bands": {
+    "material_lift_min": 0.03,
+    "material_spec_hard_lift": 0.05,
+    "hp_edge_prec_floor": 0.55,
+    "hp_compose_prec_floor": 0.7,
+    "hp_spec_hard_floor": 0.5,
+    "reach_floor": 0.55,
+    "min_pos": 20,
+    "min_neg_hard": 10,
+    "min_changed_edges": 10
+  },
+  "diag": {
+    "edge_prec_old_raw": 0.33007,
+    "edge_prec_old_fair": 0.45035,
+    "edge_prec_new_raw": 0.35462,
+    "edge_prec_new_fair": 0.46196,
+    "edge_prec_lift_raw": 0.02455,
+    "edge_prec_lift_fair": 0.01161,
+    "compose_prec_old_fair": 0.51452,
+    "compose_prec_new_raw": 0.40529,
+    "compose_prec_new_fair": 0.65639,
+    "compose_prec_lift_fair": 0.14187,
+    "new_arm_precision": 0.65639,
+    "new_arm_spec_hard": 0.47651,
+    "old_arm_precision": 0.5125,
+    "old_arm_spec_hard": 0.21477,
+    "spec_hard_lift": 0.26174,
+    "net_bucket_improvement": 14,
+    "n_pos": 200,
+    "n_neg_hard": 149,
+    "n_changed_edges": 132
+  },
+  "gate": {
+    "discriminator_fires": true,
+    "oracle_labeled_both_classes": true,
+    "arms_differ_edges_changed": 132,
+    "real_baselines": [
+      "OLD_GENUS_COMPOSE",
+      "DIRECT_LOOKUP",
+      "FREQUENCY",
+      "RANDOM"
+    ],
+    "difficulty_on": "fixed universe: WN-labeled multi-hop pairs (dist in [2,6]), NO direct edge in either graph; hard-negs = WN-false but book-composable",
+    "one_variable": "genus-extraction rule (OLD V1.genus_of_definition vs NEW syntactic-head)",
+    "headline_metric": "edge precision (raw+fair) + composed multi-hop precision + spec_hard (NOT recall)",
+    "fair_oracle": "raw-WN OR curated generic-superclass (aggregates EXCLUDED from curated fiat)"
+  },
+  "n_nodes": 1135,
+  "n_direct_edges_old": 798,
+  "n_direct_edges_new": 839,
+  "n_edge_list_old": 810,
+  "n_edge_list_new": 849,
+  "n_pos": 200,
+  "n_neg_hard": 149,
+  "n_neg_easy": 200,
+  "base_rate": 0.3643,
+  "edge_prec_old": {
+    "checkable": 715,
+    "raw_true": 236,
+    "fair_true": 322,
+    "prec_raw": 0.33007,
+    "prec_fair": 0.45035
+  },
+  "edge_prec_new": {
+    "checkable": 736,
+    "raw_true": 261,
+    "fair_true": 340,
+    "prec_raw": 0.35462,
+    "prec_fair": 0.46196
+  },
+  "compose_prec_old": {
+    "checkable": 241,
+    "raw_true": 90,
+    "fair_true": 124,
+    "prec_raw": 0.37344,
+    "prec_fair": 0.51452
+  },
+  "compose_prec_new": {
+    "checkable": 227,
+    "raw_true": 92,
+    "fair_true": 149,
+    "prec_raw": 0.40529,
+    "prec_fair": 0.65639
+  },
+  "compose_prec_new_noisectrl": {
+    "checkable": 106,
+    "raw_true": 37,
+    "fair_true": 41,
+    "prec_raw": 0.34906,
+    "prec_fair": 0.38679
+  },
+  "arms": {
+    "OLD_GENUS_COMPOSE": {
+      "precision": 0.5125,
+      "recall": 0.615,
+      "specificity": 0.66476,
+      "spec_hard": 0.21477,
+      "balanced_acc": 0.63988,
+      "tp": 123,
+      "fn": 77,
+      "fp": 117,
+      "tn": 232,
+      "fp_hard": 117,
+      "fp_easy": 0,
+      "yes_rate": 0.43716
+    },
+    "NEW_GENUS_COMPOSE": {
+      "precision": 0.65639,
+      "recall": 0.745,
+      "specificity": 0.7765,
+      "spec_hard": 0.47651,
+      "balanced_acc": 0.76075,
+      "tp": 149,
+      "fn": 51,
+      "fp": 78,
+      "tn": 271,
+      "fp_hard": 78,
+      "fp_easy": 0,
+      "yes_rate": 0.41348
+    },
+    "NEW_GENUS_NOISECTRL": {
+      "precision": 0.38679,
+      "recall": 0.205,
+      "specificity": 0.81375,
+      "spec_hard": 0.56376,
+      "balanced_acc": 0.50938,
+      "tp": 41,
+      "fn": 159,
+      "fp": 65,
+      "tn": 284,
+      "fp_hard": 65,
+      "fp_easy": 0,
+      "yes_rate": 0.19308
+    },
+    "DIRECT_LOOKUP": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "spec_hard": 1.0,
+      "balanced_acc": 0.5,
+      "tp": 0,
+      "fn": 200,
+      "fp": 0,
+      "tn": 349,
+      "fp_hard": 0,
+      "fp_easy": 0,
+      "yes_rate": 0.0
+    },
+    "FREQUENCY": {
+      "precision": 0.87097,
+      "recall": 0.405,
+      "specificity": 0.96562,
+      "spec_hard": 0.91946,
+      "balanced_acc": 0.68531,
+      "tp": 81,
+      "fn": 119,
+      "fp": 12,
+      "tn": 337,
+      "fp_hard": 12,
+      "fp_easy": 0,
+      "yes_rate": 0.1694
+    },
+    "RANDOM": {
+      "precision": 0.31795,
+      "recall": 0.31,
+      "specificity": 0.61891,
+      "spec_hard": 0.65101,
+      "balanced_acc": 0.46446,
+      "tp": 62,
+      "fn": 138,
+      "fp": 133,
+      "tn": 216,
+      "fp_hard": 52,
+      "fp_easy": 81,
+      "yes_rate": 0.35519
+    }
+  },
+  "bucket_shift": {
+    "n_shared_children": 789,
+    "n_changed_edges": 132,
+    "old_wrong_new_right": 37,
+    "new_wrong_old_right": 23,
+    "both_right": 10,
+    "both_wrong": 62,
+    "net_bucket_improvement": 14,
+    "examples": [
+      {
+        "child": "alternative rna splicing",
+        "old": [
+          "gene"
+        ],
+        "new": [
+          "mechanism"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "apoptosis",
+        "old": [
+          "cell"
+        ],
+        "new": [
+          "death"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "artery",
+        "old": [
+          "blood"
+        ],
+        "new": [
+          "vessel"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "basal angiosperm",
+        "old": [
+          "plant"
+        ],
+        "new": [
+          "group"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "caecilian",
+        "old": [
+          "legless"
+        ],
+        "new": [
+          "amphibian"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "capillary",
+        "old": [
+          "blood"
+        ],
+        "new": [
+          "vessel"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "capsid",
+        "old": [
+          "protein"
+        ],
+        "new": [
+          "coating"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "cardiac muscle tissue",
+        "old": [
+          "muscle"
+        ],
+        "new": [
+          "tissue"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "cerebellum",
+        "old": [
+          "brain"
+        ],
+        "new": [
+          "structure"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "chemical diversity",
+        "old": [
+          "compound"
+        ],
+        "new": [
+          "variety"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "choanocyte",
+        "old": [
+          "cell"
+        ],
+        "new": [
+          "unique"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "clade",
+        "old": [
+          "taxon"
+        ],
+        "new": [
+          "group"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "club moss",
+        "old": [
+          "plant"
+        ],
+        "new": [
+          "group"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "coral reef",
+        "old": [
+          "ocean"
+        ],
+        "new": [
+          "ridge"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "cytokine",
+        "old": [
+          "chemical"
+        ],
+        "new": [
+          "messenger"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "dicot",
+        "old": [
+          "angiosperm"
+        ],
+        "new": [
+          "group"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "disaccharide",
+        "old": [
+          "sugar"
+        ],
+        "new": [
+          "monomer"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "endomembrane system",
+        "old": [
+          "organelle"
+        ],
+        "new": [
+          "group"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "exponential growth",
+        "old": [
+          "growth"
+        ],
+        "new": [
+          "pattern"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "fern",
+        "old": [
+          "seedless"
+        ],
+        "new": [
+          "plant"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "gamete",
+        "old": [
+          "reproductive"
+        ],
+        "new": [
+          "cell"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "gametophyte",
+        "old": [
+          "haploid"
+        ],
+        "new": [
+          "plant",
+          "stage"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "glycogen",
+        "old": [
+          "storage"
+        ],
+        "new": [
+          "carbohydrate"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "gymnosperm",
+        "old": [
+          "seed"
+        ],
+        "new": [
+          "plant"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "gynoecium",
+        "old": [
+          "structure"
+        ],
+        "new": [
+          "group"
+        ],
+        "shift": "new_wrong->old_right"
+      }
+    ]
+  },
+  "top_hubs_new": [
+    "cell",
+    "gland",
+    "group",
+    "mechanism",
+    "molecule",
+    "number",
+    "organism",
+    "part",
+    "process",
+    "structure"
+  ],
+  "top_parents_old": [
+    "structure",
+    "process",
+    "organism",
+    "cell",
+    "part",
+    "number",
+    "plant",
+    "division",
+    "study",
+    "mechanism",
+    "protein",
+    "organ"
+  ],
+  "top_parents_new": [
+    "structure",
+    "process",
+    "group",
+    "cell",
+    "organism",
+    "part",
+    "molecule",
+    "number",
+    "gland",
+    "mechanism",
+    "stage",
+    "division"
+  ]
+}

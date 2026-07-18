@@ -1,0 +1,347 @@
+{
+  "verdict": "MIDDLE_BAND_CEILING",
+  "verdict_msg": "syntactic-head genus materially helps (edge +0.026, composed_prec +0.111, spec_hard +0.333) and composed precision (fair)=0.857 clears the v2 fail floor, BUT spec_hard=0.444 / precision below trustworthy floor (compose>=0.70 AND spec_hard>=0.50): GLASS-BOX EXTRACTION CEILING -- even correct syntactic-head extraction is insufficient for fully-trustworthy closure.",
+  "summary": "MIDDLE_BAND_CEILING: edge_prec fair old=0.489->new=0.515 (lift=+0.026) raw old=0.344->new=0.378 | compose_prec fair old=0.746->new=0.857 | new_arm prec=0.857 spec_hard=0.444 | bucket net=+5 | n_pos=80 n_neg_hard=18",
+  "elapsed_s": 1.88,
+  "ts_iso": "2026-07-18T01:21:05.738013+00:00",
+  "anchor_name": "read_grow_textbook_multihop_genus_head_v2",
+  "run_mode": "smoke",
+  "bands": {
+    "material_lift_min": 0.03,
+    "material_spec_hard_lift": 0.05,
+    "hp_edge_prec_floor": 0.55,
+    "hp_compose_prec_floor": 0.7,
+    "hp_spec_hard_floor": 0.5,
+    "reach_floor": 0.55,
+    "min_pos": 20,
+    "min_neg_hard": 10,
+    "min_changed_edges": 10
+  },
+  "diag": {
+    "edge_prec_old_raw": 0.34361,
+    "edge_prec_old_fair": 0.48899,
+    "edge_prec_new_raw": 0.37768,
+    "edge_prec_new_fair": 0.51502,
+    "edge_prec_lift_raw": 0.03407,
+    "edge_prec_lift_fair": 0.02603,
+    "compose_prec_old_fair": 0.74603,
+    "compose_prec_new_raw": 0.45714,
+    "compose_prec_new_fair": 0.85714,
+    "compose_prec_lift_fair": 0.11111,
+    "new_arm_precision": 0.85714,
+    "new_arm_spec_hard": 0.44444,
+    "old_arm_precision": 0.74603,
+    "old_arm_spec_hard": 0.11111,
+    "spec_hard_lift": 0.33333,
+    "net_bucket_improvement": 5,
+    "n_pos": 80,
+    "n_neg_hard": 18,
+    "n_changed_edges": 32
+  },
+  "gate": {
+    "discriminator_fires": true,
+    "oracle_labeled_both_classes": true,
+    "arms_differ_edges_changed": 32,
+    "real_baselines": [
+      "OLD_GENUS_COMPOSE",
+      "DIRECT_LOOKUP",
+      "FREQUENCY",
+      "RANDOM"
+    ],
+    "difficulty_on": "fixed universe: WN-labeled multi-hop pairs (dist in [2,6]), NO direct edge in either graph; hard-negs = WN-false but book-composable",
+    "one_variable": "genus-extraction rule (OLD V1.genus_of_definition vs NEW syntactic-head)",
+    "headline_metric": "edge precision (raw+fair) + composed multi-hop precision + spec_hard (NOT recall)",
+    "fair_oracle": "raw-WN OR curated generic-superclass (aggregates EXCLUDED from curated fiat)"
+  },
+  "n_nodes": 383,
+  "n_direct_edges_old": 248,
+  "n_direct_edges_new": 256,
+  "n_edge_list_old": 251,
+  "n_edge_list_new": 259,
+  "n_pos": 80,
+  "n_neg_hard": 18,
+  "n_neg_easy": 80,
+  "base_rate": 0.44944,
+  "edge_prec_old": {
+    "checkable": 227,
+    "raw_true": 78,
+    "fair_true": 111,
+    "prec_raw": 0.34361,
+    "prec_fair": 0.48899
+  },
+  "edge_prec_new": {
+    "checkable": 233,
+    "raw_true": 88,
+    "fair_true": 120,
+    "prec_raw": 0.37768,
+    "prec_fair": 0.51502
+  },
+  "compose_prec_old": {
+    "checkable": 63,
+    "raw_true": 31,
+    "fair_true": 47,
+    "prec_raw": 0.49206,
+    "prec_fair": 0.74603
+  },
+  "compose_prec_new": {
+    "checkable": 70,
+    "raw_true": 32,
+    "fair_true": 60,
+    "prec_raw": 0.45714,
+    "prec_fair": 0.85714
+  },
+  "compose_prec_new_noisectrl": {
+    "checkable": 37,
+    "raw_true": 23,
+    "fair_true": 27,
+    "prec_raw": 0.62162,
+    "prec_fair": 0.72973
+  },
+  "arms": {
+    "OLD_GENUS_COMPOSE": {
+      "precision": 0.74603,
+      "recall": 0.5875,
+      "specificity": 0.83673,
+      "spec_hard": 0.11111,
+      "balanced_acc": 0.71212,
+      "tp": 47,
+      "fn": 33,
+      "fp": 16,
+      "tn": 82,
+      "fp_hard": 16,
+      "fp_easy": 0,
+      "yes_rate": 0.35393
+    },
+    "NEW_GENUS_COMPOSE": {
+      "precision": 0.85714,
+      "recall": 0.75,
+      "specificity": 0.89796,
+      "spec_hard": 0.44444,
+      "balanced_acc": 0.82398,
+      "tp": 60,
+      "fn": 20,
+      "fp": 10,
+      "tn": 88,
+      "fp_hard": 10,
+      "fp_easy": 0,
+      "yes_rate": 0.39326
+    },
+    "NEW_GENUS_NOISECTRL": {
+      "precision": 0.72973,
+      "recall": 0.3375,
+      "specificity": 0.89796,
+      "spec_hard": 0.44444,
+      "balanced_acc": 0.61773,
+      "tp": 27,
+      "fn": 53,
+      "fp": 10,
+      "tn": 88,
+      "fp_hard": 10,
+      "fp_easy": 0,
+      "yes_rate": 0.20787
+    },
+    "DIRECT_LOOKUP": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "spec_hard": 1.0,
+      "balanced_acc": 0.5,
+      "tp": 0,
+      "fn": 80,
+      "fp": 0,
+      "tn": 98,
+      "fp_hard": 0,
+      "fp_easy": 0,
+      "yes_rate": 0.0
+    },
+    "FREQUENCY": {
+      "precision": 0.91892,
+      "recall": 0.425,
+      "specificity": 0.96939,
+      "spec_hard": 0.83333,
+      "balanced_acc": 0.69719,
+      "tp": 34,
+      "fn": 46,
+      "fp": 3,
+      "tn": 95,
+      "fp_hard": 3,
+      "fp_easy": 0,
+      "yes_rate": 0.20787
+    },
+    "RANDOM": {
+      "precision": 0.44118,
+      "recall": 0.375,
+      "specificity": 0.61224,
+      "spec_hard": 0.5,
+      "balanced_acc": 0.49362,
+      "tp": 30,
+      "fn": 50,
+      "fp": 38,
+      "tn": 60,
+      "fp_hard": 9,
+      "fp_easy": 29,
+      "yes_rate": 0.38202
+    }
+  },
+  "bucket_shift": {
+    "n_shared_children": 245,
+    "n_changed_edges": 32,
+    "old_wrong_new_right": 8,
+    "new_wrong_old_right": 3,
+    "both_right": 5,
+    "both_wrong": 16,
+    "net_bucket_improvement": 5,
+    "examples": [
+      {
+        "child": "disaccharide",
+        "old": [
+          "sugar"
+        ],
+        "new": [
+          "monomer"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "endomembrane system",
+        "old": [
+          "organelle"
+        ],
+        "new": [
+          "group"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "gamete",
+        "old": [
+          "reproductive"
+        ],
+        "new": [
+          "cell"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "glycogen",
+        "old": [
+          "storage"
+        ],
+        "new": [
+          "carbohydrate"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "kinetochore",
+        "old": [
+          "protein"
+        ],
+        "new": [
+          "structure"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "law of segregation",
+        "old": [
+          "unit"
+        ],
+        "new": [
+          "factor"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "meiosis",
+        "old": [
+          "division"
+        ],
+        "new": [
+          "process"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "metaphase plate",
+        "old": [
+          "plane"
+        ],
+        "new": [
+          "midway"
+        ],
+        "shift": "new_wrong->old_right"
+      },
+      {
+        "child": "nucleolus",
+        "old": [
+          "staining"
+        ],
+        "new": [
+          "body"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "organism",
+        "old": [
+          "living"
+        ],
+        "new": [
+          "entity"
+        ],
+        "shift": "old_wrong->new_right"
+      },
+      {
+        "child": "starch",
+        "old": [
+          "storage"
+        ],
+        "new": [
+          "carbohydrate"
+        ],
+        "shift": "old_wrong->new_right"
+      }
+    ]
+  },
+  "top_hubs_new": [
+    "bond",
+    "cell",
+    "individual",
+    "mechanism",
+    "molecule",
+    "organism",
+    "process",
+    "stage",
+    "structure",
+    "substance"
+  ],
+  "top_parents_old": [
+    "process",
+    "molecule",
+    "structure",
+    "organism",
+    "cell",
+    "stage",
+    "mechanism",
+    "unit",
+    "chemical",
+    "individual",
+    "science",
+    "substance"
+  ],
+  "top_parents_new": [
+    "process",
+    "molecule",
+    "structure",
+    "cell",
+    "stage",
+    "organism",
+    "bond",
+    "substance",
+    "mechanism",
+    "individual",
+    "group",
+    "science"
+  ]
+}
