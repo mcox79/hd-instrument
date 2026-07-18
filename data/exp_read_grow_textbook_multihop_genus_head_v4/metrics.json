@@ -1,0 +1,449 @@
+{
+  "verdict": "MIDDLE_BAND_CEILING",
+  "verdict_msg": "GLASS-BOX EXTRACTION BOUND PROVEN: with the v3-VET residual bugs closed (adjective-head + aggregate-descent) AND an HONEST relation-verifying oracle, composed multi-hop precision (honest)=0.409 does not clear the 0.55 reach floor but PLATEAUS below the 0.70 trustworthy floor (spec_hard=0.134); v3's 0.656 headline was oracle-INFLATED (+0.216 blanket credit; honest v3=0.441). v3->v4 edge +0.007 / composed -0.032 / spec_hard -0.187 (aggregate-descent lifts EDGE precision but expands coverage that dilutes composed) -- even correct extraction cannot reach trustworthy glass-box closure.",
+  "summary": "MIDDLE_BAND_CEILING: edge_prec HONEST OLD=0.351->v3=0.378->v4=0.385 | compose_prec HONEST OLD=0.415 v3=0.441 v4=0.409 (wn_path v4=0.361) | v3 INFLATED headline=0.656 (inflation +0.216) | v4_arm prec=0.409 spec_hard=0.134 | bucket_v3->v4 net=+5 | n_pos=116 n_neg_hard=187",
+  "elapsed_s": 0.91,
+  "ts_iso": "2026-07-18T01:46:11.257626+00:00",
+  "anchor_name": "read_grow_textbook_multihop_genus_head_v4",
+  "run_mode": "full",
+  "bands": {
+    "hp_compose_prec_floor": 0.7,
+    "hp_spec_hard_floor": 0.5,
+    "material_lift_min": 0.03,
+    "material_spec_hard_lift": 0.05,
+    "reach_floor": 0.55,
+    "min_pos": 20,
+    "min_neg_hard": 10,
+    "min_changed_edges": 10
+  },
+  "diag": {
+    "edge_prec_v3_honest": 0.37772,
+    "edge_prec_v4_honest": 0.38451,
+    "edge_prec_old_honest": 0.35105,
+    "edge_prec_v4_wn_path": 0.36141,
+    "edge_prec_v4_inflated": 0.47826,
+    "edge_prec_lift_honest_v3_v4": 0.00679,
+    "compose_prec_v3_honest": 0.44053,
+    "compose_prec_v4_honest": 0.40876,
+    "compose_prec_old_honest": 0.41494,
+    "compose_prec_v4_wn_path": 0.36131,
+    "compose_prec_v4_inflated": 0.60584,
+    "compose_prec_v3_inflated_v3sHeadline": 0.65639,
+    "compose_inflation_delta_v4": 0.19708,
+    "compose_inflation_delta_v3": 0.21586,
+    "compose_prec_lift_honest_v3_v4": -0.03177,
+    "v4_arm_precision": 0.40876,
+    "v4_arm_spec_hard": 0.13369,
+    "v3_arm_precision": 0.44053,
+    "v3_arm_spec_hard": 0.32086,
+    "spec_hard_lift_v3_v4": -0.18717,
+    "net_bucket_improvement_v3_v4": 5,
+    "n_pos": 116,
+    "n_neg_hard": 187,
+    "n_changed_edges": 51
+  },
+  "gate": {
+    "discriminator_fires": true,
+    "oracle_labeled_both_classes": true,
+    "arms_differ_v3_v4_edges_changed": 51,
+    "real_baselines": [
+      "V3_GENUS_COMPOSE",
+      "OLD_GENUS_COMPOSE",
+      "DIRECT_LOOKUP",
+      "FREQUENCY",
+      "RANDOM"
+    ],
+    "difficulty_on": "fixed universe: HONEST-labeled multi-hop pairs (dist in [2,6]), NO direct edge in v3 OR v4 graph; hard-negs = honest-false but book-composable",
+    "one_variable": "genus-extraction rule (v3 syntactic-head vs v4 head+adj-correction+aggregate-descent)",
+    "load_bearing_metric": "composed multi-hop precision (HONEST oracle) + spec_hard (NOT inflated, NOT recall)",
+    "honest_oracle": "wn_path + verified structure-license (WN path to anatomical anchor) + per-pair curated (logged)",
+    "inflation_surfaced": "L3 blanket fair reported ONLY as the delta L3-L2 (not gated)"
+  },
+  "n_nodes": 1139,
+  "n_direct_edges_old": 798,
+  "n_direct_edges_v3": 839,
+  "n_direct_edges_v4": 839,
+  "n_edge_list_old": 810,
+  "n_edge_list_v3": 849,
+  "n_edge_list_v4": 849,
+  "n_pos": 116,
+  "n_neg_hard": 187,
+  "n_neg_easy": 187,
+  "base_rate": 0.23673,
+  "edge_prec": {
+    "OLD": {
+      "checkable": 715,
+      "prec_wn_path": 0.33007,
+      "prec_honest": 0.35105,
+      "prec_inflated": 0.45035,
+      "inflation_delta": 0.0993
+    },
+    "v3": {
+      "checkable": 736,
+      "prec_wn_path": 0.35462,
+      "prec_honest": 0.37772,
+      "prec_inflated": 0.46196,
+      "inflation_delta": 0.08424
+    },
+    "v4": {
+      "checkable": 736,
+      "prec_wn_path": 0.36141,
+      "prec_honest": 0.38451,
+      "prec_inflated": 0.47826,
+      "inflation_delta": 0.09375
+    }
+  },
+  "compose_prec": {
+    "OLD": {
+      "checkable": 241,
+      "prec_wn_path": 0.37344,
+      "prec_honest": 0.41494,
+      "prec_inflated": 0.51452,
+      "inflation_delta": 0.09959,
+      "n_proposals": 241
+    },
+    "v3": {
+      "checkable": 227,
+      "prec_wn_path": 0.40529,
+      "prec_honest": 0.44053,
+      "prec_inflated": 0.65639,
+      "inflation_delta": 0.21586,
+      "n_proposals": 227
+    },
+    "v4": {
+      "checkable": 274,
+      "prec_wn_path": 0.36131,
+      "prec_honest": 0.40876,
+      "prec_inflated": 0.60584,
+      "inflation_delta": 0.19708,
+      "n_proposals": 274
+    }
+  },
+  "arms": {
+    "OLD_GENUS_COMPOSE": {
+      "precision": 0.41379,
+      "recall": 0.62069,
+      "specificity": 0.72727,
+      "spec_hard": 0.45455,
+      "balanced_acc": 0.67398,
+      "tp": 72,
+      "fn": 44,
+      "fp": 102,
+      "tn": 272,
+      "fp_hard": 102,
+      "fp_easy": 0,
+      "yes_rate": 0.3551
+    },
+    "V3_GENUS_COMPOSE": {
+      "precision": 0.44053,
+      "recall": 0.86207,
+      "specificity": 0.66043,
+      "spec_hard": 0.32086,
+      "balanced_acc": 0.76125,
+      "tp": 100,
+      "fn": 16,
+      "fp": 127,
+      "tn": 247,
+      "fp_hard": 127,
+      "fp_easy": 0,
+      "yes_rate": 0.46327
+    },
+    "V4_GENUS_COMPOSE": {
+      "precision": 0.40876,
+      "recall": 0.96552,
+      "specificity": 0.56684,
+      "spec_hard": 0.13369,
+      "balanced_acc": 0.76618,
+      "tp": 112,
+      "fn": 4,
+      "fp": 162,
+      "tn": 212,
+      "fp_hard": 162,
+      "fp_easy": 0,
+      "yes_rate": 0.55918
+    },
+    "DIRECT_LOOKUP": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "spec_hard": 1.0,
+      "balanced_acc": 0.5,
+      "tp": 0,
+      "fn": 116,
+      "fp": 0,
+      "tn": 374,
+      "fp_hard": 0,
+      "fp_easy": 0,
+      "yes_rate": 0.0
+    },
+    "FREQUENCY": {
+      "precision": 0.36047,
+      "recall": 0.26724,
+      "specificity": 0.85294,
+      "spec_hard": 0.71123,
+      "balanced_acc": 0.56009,
+      "tp": 31,
+      "fn": 85,
+      "fp": 55,
+      "tn": 319,
+      "fp_hard": 54,
+      "fp_easy": 1,
+      "yes_rate": 0.17551
+    },
+    "RANDOM": {
+      "precision": 0.31858,
+      "recall": 0.31034,
+      "specificity": 0.79412,
+      "spec_hard": 0.78075,
+      "balanced_acc": 0.55223,
+      "tp": 36,
+      "fn": 80,
+      "fp": 77,
+      "tn": 297,
+      "fp_hard": 41,
+      "fp_easy": 36,
+      "yes_rate": 0.23061
+    }
+  },
+  "bucket_shift_v3_v4": {
+    "n_shared_children": 828,
+    "n_changed_edges": 51,
+    "v3_wrong->v4_right": 9,
+    "v4_wrong->v3_right": 4,
+    "both_right": 0,
+    "both_wrong": 38,
+    "net_bucket_improvement": 5,
+    "examples": [
+      {
+        "child": "atomic number",
+        "v3": [
+          "number"
+        ],
+        "v4": [
+          "proton"
+        ],
+        "shift": "v4_wrong->v3_right"
+      },
+      {
+        "child": "basal angiosperm",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "plant"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "biodiversity",
+        "v3": [
+          "variety"
+        ],
+        "v4": [
+          "system"
+        ],
+        "shift": "v4_wrong->v3_right"
+      },
+      {
+        "child": "choanocyte",
+        "v3": [
+          "unique"
+        ],
+        "v4": [
+          "cell"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "clade",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "taxon"
+        ],
+        "shift": "v4_wrong->v3_right"
+      },
+      {
+        "child": "club moss",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "plant"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "dicot",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "angiosperm"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "endomembrane system",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "organelle"
+        ],
+        "shift": "v4_wrong->v3_right"
+      },
+      {
+        "child": "hornwort",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "plant"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "mammal",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "vertebrate"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "marsupial",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "mammal"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "monocot",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "angiosperm"
+        ],
+        "shift": "v3_wrong->v4_right"
+      },
+      {
+        "child": "prosimian",
+        "v3": [
+          "group"
+        ],
+        "v4": [
+          "primate"
+        ],
+        "shift": "v3_wrong->v4_right"
+      }
+    ]
+  },
+  "honest_credit_counts": {
+    "wn_structure_license": 13
+  },
+  "honest_credit_ledger": {
+    "wn_structure_license": [
+      [
+        "tissue",
+        "unit"
+      ],
+      [
+        "fat",
+        "structure"
+      ],
+      [
+        "central vacuole",
+        "unit"
+      ],
+      [
+        "nucleus",
+        "unit"
+      ],
+      [
+        "germ layer",
+        "unit"
+      ],
+      [
+        "lateral line",
+        "structure"
+      ],
+      [
+        "kidney",
+        "structure"
+      ],
+      [
+        "liver",
+        "structure"
+      ],
+      [
+        "pancreas",
+        "structure"
+      ],
+      [
+        "small intestine",
+        "structure"
+      ],
+      [
+        "cardiac muscle tissue",
+        "unit"
+      ],
+      [
+        "basal ganglion",
+        "unit"
+      ],
+      [
+        "corpus luteum",
+        "unit"
+      ]
+    ],
+    "curated_pair": []
+  },
+  "top_hubs_v4": [
+    "cell",
+    "gland",
+    "mechanism",
+    "molecule",
+    "organism",
+    "part",
+    "plant",
+    "process",
+    "stage",
+    "structure"
+  ],
+  "top_parents_v3": [
+    "structure",
+    "process",
+    "group",
+    "cell",
+    "organism",
+    "part",
+    "molecule",
+    "number",
+    "gland",
+    "mechanism",
+    "stage",
+    "division"
+  ],
+  "top_parents_v4": [
+    "structure",
+    "process",
+    "cell",
+    "organism",
+    "plant",
+    "part",
+    "molecule",
+    "gland",
+    "mechanism",
+    "stage",
+    "division",
+    "organ"
+  ]
+}
