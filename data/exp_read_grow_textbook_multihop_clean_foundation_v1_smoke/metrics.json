@@ -1,0 +1,208 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "EDGE PRECISION WAS THE CONSTRAINT: clean foundation UNLOCKS trustworthy glass-box multi-hop closure. Clean composed precision (HONEST)=1.000 >= 0.70 AND spec_hard=1.000 >= 0.50 AND decisive lift over noisy v4 (1.000 vs 0.432, +0.568). Pivot core validated: feeding clean facts to the SAME reasoning machinery composes trustworthily.",
+  "summary": "HARD_PASS: edge_prec HONEST noisy=0.333 -> clean=1.000 (1.0 by construction) | compose_prec HONEST noisy=0.432 clean=1.000 (lift +0.568) | clean_arm prec=1.000 spec_hard=1.000 | clean false-path 0/35 (0.0%), 0 via all-true-edge paths | n_pos=51 n_neg_hard=67 | pos_control_ok=None",
+  "elapsed_s": 0.3,
+  "ts_iso": "2026-07-18T11:10:40.594774+00:00",
+  "anchor_name": "read_grow_textbook_multihop_clean_foundation_v1",
+  "run_mode": "smoke",
+  "bands": {
+    "hp_compose_prec_floor": 0.7,
+    "hp_spec_hard_floor": 0.5,
+    "hp_material_lift": 0.15,
+    "min_pos": 20,
+    "min_neg_hard": 10,
+    "min_clean_props": 20,
+    "min_removed_edges": 20,
+    "pos_control_tol": 0.05
+  },
+  "diag": {
+    "edge_prec_noisy_honest": 0.33333,
+    "edge_prec_clean_honest": 1.0,
+    "compose_prec_noisy_honest": 0.4322,
+    "compose_prec_clean_honest": 1.0,
+    "compose_prec_clean_wn_path": 1.0,
+    "compose_prec_lift_clean_minus_noisy": 0.5678,
+    "clean_arm_precision": 1.0,
+    "clean_arm_spec_hard": 1.0,
+    "noisy_arm_precision": 0.4322,
+    "noisy_arm_spec_hard": 0.0,
+    "n_clean_proposals": 35,
+    "n_clean_composed_false": 0,
+    "clean_false_path_rate": 0.0,
+    "n_false_via_all_true_edges_confirmed": 0,
+    "clean_edges_kept": 112,
+    "clean_edges_removed": 268,
+    "n_pos": 51,
+    "n_neg_hard": 67,
+    "pos_control_target_v4_honest": 0.40876,
+    "pos_control_ok": null
+  },
+  "gate": {
+    "discriminator_fires": true,
+    "oracle_labeled_both_classes": true,
+    "clean_minus_noisy_edges_removed": 268,
+    "real_baselines": [
+      "NOISY_V4_COMPOSE",
+      "DIRECT_LOOKUP",
+      "FREQUENCY",
+      "RANDOM"
+    ],
+    "difficulty_on": "fixed universe: HONEST-labeled multi-hop pairs (dist in [2,6]), NO direct edge in clean OR noisy graph; hard-negs = honest-false but book-composable",
+    "one_variable": "edge SOURCE (raw v4 hand-rules extraction vs oracle-cleaned-to-honest-true)",
+    "load_bearing_metric": "clean composed multi-hop precision (HONEST oracle) + spec_hard + false-path rate",
+    "clean_edge_precision_honest": 1.0,
+    "non_circularity_false_via_all_true_edges": 0,
+    "pos_control_ok": null
+  },
+  "n_nodes": 526,
+  "n_direct_edges_noisy": 380,
+  "n_direct_edges_clean": 112,
+  "n_edge_list_noisy": 384,
+  "n_edge_list_clean": 112,
+  "clean_edges_kept": 112,
+  "clean_edges_removed": 268,
+  "n_pos": 51,
+  "n_neg_hard": 67,
+  "n_neg_easy": 67,
+  "base_rate": 0.27568,
+  "edge_prec": {
+    "noisy": {
+      "checkable": 339,
+      "prec_wn_path": 0.31563,
+      "prec_honest": 0.33333,
+      "prec_inflated": 0.44543,
+      "inflation_delta": 0.11209
+    },
+    "clean": {
+      "checkable": 112,
+      "prec_wn_path": 0.94643,
+      "prec_honest": 1.0,
+      "prec_inflated": 0.99107,
+      "inflation_delta": -0.00893
+    }
+  },
+  "compose_prec": {
+    "noisy": {
+      "checkable": 118,
+      "prec_wn_path": 0.39831,
+      "prec_honest": 0.4322,
+      "prec_inflated": 0.72034,
+      "inflation_delta": 0.28814,
+      "n_proposals": 118
+    },
+    "clean": {
+      "checkable": 35,
+      "prec_wn_path": 1.0,
+      "prec_honest": 1.0,
+      "prec_inflated": 1.0,
+      "inflation_delta": 0.0,
+      "n_proposals": 35
+    }
+  },
+  "arms": {
+    "NOISY_V4_COMPOSE": {
+      "precision": 0.4322,
+      "recall": 1.0,
+      "specificity": 0.5,
+      "spec_hard": 0.0,
+      "balanced_acc": 0.75,
+      "tp": 51,
+      "fn": 0,
+      "fp": 67,
+      "tn": 67,
+      "fp_hard": 67,
+      "fp_easy": 0,
+      "yes_rate": 0.63784
+    },
+    "CLEAN_COMPOSE": {
+      "precision": 1.0,
+      "recall": 0.68627,
+      "specificity": 1.0,
+      "spec_hard": 1.0,
+      "balanced_acc": 0.84314,
+      "tp": 35,
+      "fn": 16,
+      "fp": 0,
+      "tn": 134,
+      "fp_hard": 0,
+      "fp_easy": 0,
+      "yes_rate": 0.18919
+    },
+    "DIRECT_LOOKUP": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "spec_hard": 1.0,
+      "balanced_acc": 0.5,
+      "tp": 0,
+      "fn": 51,
+      "fp": 0,
+      "tn": 134,
+      "fp_hard": 0,
+      "fp_easy": 0,
+      "yes_rate": 0.0
+    },
+    "FREQUENCY": {
+      "precision": 0.34,
+      "recall": 0.33333,
+      "specificity": 0.75373,
+      "spec_hard": 0.52239,
+      "balanced_acc": 0.54353,
+      "tp": 17,
+      "fn": 34,
+      "fp": 33,
+      "tn": 101,
+      "fp_hard": 32,
+      "fp_easy": 1,
+      "yes_rate": 0.27027
+    },
+    "RANDOM": {
+      "precision": 0.35714,
+      "recall": 0.39216,
+      "specificity": 0.73134,
+      "spec_hard": 0.71642,
+      "balanced_acc": 0.56175,
+      "tp": 20,
+      "fn": 31,
+      "fp": 36,
+      "tn": 98,
+      "fp_hard": 19,
+      "fp_easy": 17,
+      "yes_rate": 0.3027
+    }
+  },
+  "clean_composed_ledger": {
+    "n_clean_proposals": 35,
+    "n_clean_composed_false": 0,
+    "false_path_rate": 0.0,
+    "n_false_via_all_true_edges_confirmed": 0,
+    "examples": []
+  },
+  "top_hubs_noisy": [
+    "cell",
+    "mechanism",
+    "method",
+    "molecule",
+    "organism",
+    "process",
+    "science",
+    "stage",
+    "structure",
+    "study"
+  ],
+  "top_parents_clean": [
+    "process",
+    "molecule",
+    "organism",
+    "study",
+    "structure",
+    "macromolecule",
+    "stage",
+    "enzyme",
+    "field",
+    "bond",
+    "particle",
+    "substance"
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "EDGE PRECISION WAS THE CONSTRAINT: clean foundation UNLOCKS trustworthy glass-box multi-hop closure. Clean composed precision (HONEST)=0.953 >= 0.70 AND spec_hard=0.975 >= 0.50 AND decisive lift over noisy v4 (0.953 vs 0.409, +0.544). Pivot core validated: feeding clean facts to the SAME reasoning machinery composes trustworthily.",
+  "summary": "HARD_PASS: edge_prec HONEST noisy=0.385 -> clean=1.000 (1.0 by construction) | compose_prec HONEST noisy=0.409 clean=0.953 (lift +0.544) | clean_arm prec=0.953 spec_hard=0.975 | clean false-path 4/85 (4.7%), 4 via all-true-edge paths | n_pos=112 n_neg_hard=162 | pos_control_ok=True",
+  "elapsed_s": 0.42,
+  "ts_iso": "2026-07-18T11:12:09.592632+00:00",
+  "anchor_name": "read_grow_textbook_multihop_clean_foundation_v1",
+  "run_mode": "full",
+  "bands": {
+    "hp_compose_prec_floor": 0.7,
+    "hp_spec_hard_floor": 0.5,
+    "hp_material_lift": 0.15,
+    "min_pos": 20,
+    "min_neg_hard": 10,
+    "min_clean_props": 20,
+    "min_removed_edges": 20,
+    "pos_control_tol": 0.05
+  },
+  "diag": {
+    "edge_prec_noisy_honest": 0.38451,
+    "edge_prec_clean_honest": 1.0,
+    "compose_prec_noisy_honest": 0.40876,
+    "compose_prec_clean_honest": 0.95294,
+    "compose_prec_clean_wn_path": 0.89412,
+    "compose_prec_lift_clean_minus_noisy": 0.54418,
+    "clean_arm_precision": 0.95294,
+    "clean_arm_spec_hard": 0.97531,
+    "noisy_arm_precision": 0.40876,
+    "noisy_arm_spec_hard": 0.0,
+    "n_clean_proposals": 85,
+    "n_clean_composed_false": 4,
+    "clean_false_path_rate": 0.04706,
+    "n_false_via_all_true_edges_confirmed": 4,
+    "clean_edges_kept": 278,
+    "clean_edges_removed": 561,
+    "n_pos": 112,
+    "n_neg_hard": 162,
+    "pos_control_target_v4_honest": 0.40876,
+    "pos_control_ok": true
+  },
+  "gate": {
+    "discriminator_fires": true,
+    "oracle_labeled_both_classes": true,
+    "clean_minus_noisy_edges_removed": 561,
+    "real_baselines": [
+      "NOISY_V4_COMPOSE",
+      "DIRECT_LOOKUP",
+      "FREQUENCY",
+      "RANDOM"
+    ],
+    "difficulty_on": "fixed universe: HONEST-labeled multi-hop pairs (dist in [2,6]), NO direct edge in clean OR noisy graph; hard-negs = honest-false but book-composable",
+    "one_variable": "edge SOURCE (raw v4 hand-rules extraction vs oracle-cleaned-to-honest-true)",
+    "load_bearing_metric": "clean composed multi-hop precision (HONEST oracle) + spec_hard + false-path rate",
+    "clean_edge_precision_honest": 1.0,
+    "non_circularity_false_via_all_true_edges": 4,
+    "pos_control_ok": true
+  },
+  "n_nodes": 1090,
+  "n_direct_edges_noisy": 839,
+  "n_direct_edges_clean": 278,
+  "n_edge_list_noisy": 849,
+  "n_edge_list_clean": 278,
+  "clean_edges_kept": 278,
+  "clean_edges_removed": 561,
+  "n_pos": 112,
+  "n_neg_hard": 162,
+  "n_neg_easy": 162,
+  "base_rate": 0.25688,
+  "edge_prec": {
+    "noisy": {
+      "checkable": 736,
+      "prec_wn_path": 0.36141,
+      "prec_honest": 0.38451,
+      "prec_inflated": 0.47826,
+      "inflation_delta": 0.09375
+    },
+    "clean": {
+      "checkable": 278,
+      "prec_wn_path": 0.93885,
+      "prec_honest": 1.0,
+      "prec_inflated": 0.9964,
+      "inflation_delta": -0.0036
+    }
+  },
+  "compose_prec": {
+    "noisy": {
+      "checkable": 274,
+      "prec_wn_path": 0.36131,
+      "prec_honest": 0.40876,
+      "prec_inflated": 0.60584,
+      "inflation_delta": 0.19708,
+      "n_proposals": 274
+    },
+    "clean": {
+      "checkable": 85,
+      "prec_wn_path": 0.89412,
+      "prec_honest": 0.95294,
+      "prec_inflated": 0.98824,
+      "inflation_delta": 0.03529,
+      "n_proposals": 85
+    }
+  },
+  "arms": {
+    "NOISY_V4_COMPOSE": {
+      "precision": 0.40876,
+      "recall": 1.0,
+      "specificity": 0.5,
+      "spec_hard": 0.0,
+      "balanced_acc": 0.75,
+      "tp": 112,
+      "fn": 0,
+      "fp": 162,
+      "tn": 162,
+      "fp_hard": 162,
+      "fp_easy": 0,
+      "yes_rate": 0.62844
+    },
+    "CLEAN_COMPOSE": {
+      "precision": 0.95294,
+      "recall": 0.72321,
+      "specificity": 0.98765,
+      "spec_hard": 0.97531,
+      "balanced_acc": 0.85543,
+      "tp": 81,
+      "fn": 31,
+      "fp": 4,
+      "tn": 320,
+      "fp_hard": 4,
+      "fp_easy": 0,
+      "yes_rate": 0.19495
+    },
+    "DIRECT_LOOKUP": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "spec_hard": 1.0,
+      "balanced_acc": 0.5,
+      "tp": 0,
+      "fn": 112,
+      "fp": 0,
+      "tn": 324,
+      "fp_hard": 0,
+      "fp_easy": 0,
+      "yes_rate": 0.0
+    },
+    "FREQUENCY": {
+      "precision": 0.35632,
+      "recall": 0.27679,
+      "specificity": 0.82716,
+      "spec_hard": 0.66667,
+      "balanced_acc": 0.55197,
+      "tp": 31,
+      "fn": 81,
+      "fp": 56,
+      "tn": 268,
+      "fp_hard": 54,
+      "fp_easy": 2,
+      "yes_rate": 0.19954
+    },
+    "RANDOM": {
+      "precision": 0.33333,
+      "recall": 0.33036,
+      "specificity": 0.7716,
+      "spec_hard": 0.72222,
+      "balanced_acc": 0.55098,
+      "tp": 37,
+      "fn": 75,
+      "fp": 74,
+      "tn": 250,
+      "fp_hard": 45,
+      "fp_easy": 29,
+      "yes_rate": 0.25459
+    }
+  },
+  "clean_composed_ledger": {
+    "n_clean_proposals": 85,
+    "n_clean_composed_false": 4,
+    "false_path_rate": 0.04706,
+    "n_false_via_all_true_edges_confirmed": 4,
+    "examples": [
+      {
+        "pair": [
+          "estrogen",
+          "molecule"
+        ],
+        "path": [
+          "estrogen",
+          "hormone",
+          "molecule"
+        ],
+        "all_edges_honest_true": true
+      },
+      {
+        "pair": [
+          "hypha",
+          "stalk"
+        ],
+        "path": [
+          "hypha",
+          "filament",
+          "stalk"
+        ],
+        "all_edges_honest_true": true
+      },
+      {
+        "pair": [
+          "progesterone",
+          "molecule"
+        ],
+        "path": [
+          "progesterone",
+          "hormone",
+          "molecule"
+        ],
+        "all_edges_honest_true": true
+      },
+      {
+        "pair": [
+          "testosterone",
+          "molecule"
+        ],
+        "path": [
+          "testosterone",
+          "hormone",
+          "molecule"
+        ],
+        "all_edges_honest_true": true
+      }
+    ]
+  },
+  "top_hubs_noisy": [
+    "cell",
+    "gland",
+    "mechanism",
+    "molecule",
+    "organism",
+    "part",
+    "plant",
+    "process",
+    "stage",
+    "structure"
+  ],
+  "top_parents_clean": [
+    "process",
+    "structure",
+    "gland",
+    "organism",
+    "cell",
+    "plant",
+    "phylum",
+    "organ",
+    "part",
+    "study",
+    "molecule",
+    "enzyme"
+  ]
+}
