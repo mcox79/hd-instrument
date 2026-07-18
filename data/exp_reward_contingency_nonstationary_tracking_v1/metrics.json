@@ -1,0 +1,158 @@
+{
+  "verdict": "MM_ONLINE_CORRELATION",
+  "verdict_msg": "MM (mechanism-implementation, NOT unique capability): three_factor=0.739 beats the batch counter=0.258 (margin=0.481, batch fails by construction under non-stationarity) , recency=0.170 and chance=0.167 @ SWITCH, BUT does NOT beat the recency-windowed counter=0.996 (margin=-0.257 < 0.05). So the mechanism REVIVES from the stationary correlation-trivial tie (it does track the moving target a batch counter cannot) but it is a mechanism-implementation of a trivial online-correlation task, not a capability a windowed counter lacks. STATIONARY posctrl: batch=1.000 tf=1.000. CLAIM-VET-pending.",
+  "summary": "MM_ONLINE_CORRELATION: tf=0.739 windowed=0.996 batch=0.258 recency=0.170 @ SWITCH (chance=0.167)",
+  "elapsed_s": 24.281429199996637,
+  "ts_iso": "2026-07-18T07:32:39.343867+00:00",
+  "anchor_name": "reward_contingency_nonstationary_tracking_v1",
+  "run_mode": "full",
+  "chance": 0.16666666666666666,
+  "discrim_cond": "SWITCH",
+  "n_seed_pass": 0,
+  "seed_pass": [
+    false,
+    false,
+    false
+  ],
+  "difficulty_on": true,
+  "difficulty_fail": false,
+  "posctrl_ok": true,
+  "beats_naive_baselines": true,
+  "ties_windowed_counter": true,
+  "windowed_detail_SWITCH": {
+    "per_window_acc": {
+      "10": 0.9969008264462811,
+      "20": 0.9021177685950412,
+      "30": 0.7066115702479339,
+      "50": 0.26807851239669417,
+      "80": 0.34116735537190085
+    },
+    "best_window": 10
+  },
+  "mean_acc_by_cond": {
+    "SWITCH": {
+      "three_factor": 0.7386363636363636,
+      "batch_counter": 0.25809228650137744,
+      "windowed_counter": 0.9960399449035813,
+      "recency": 0.17045454545454544
+    },
+    "STATIONARY": {
+      "three_factor": 0.9999408143939394,
+      "batch_counter": 1.0,
+      "windowed_counter": 0.9998816287878788,
+      "recency": 0.16648910984848486
+    }
+  },
+  "per_seed": {
+    "7": {
+      "SWITCH": {
+        "three_factor": 0.7337293388429752,
+        "batch_counter": 0.2440599173553719,
+        "windowed_counter": 0.9950929752066116,
+        "recency": 0.17381198347107438
+      },
+      "STATIONARY": {
+        "three_factor": 0.9998224431818181,
+        "batch_counter": 1.0,
+        "windowed_counter": 1.0,
+        "recency": 0.16228693181818182
+      }
+    },
+    "13": {
+      "SWITCH": {
+        "three_factor": 0.7471590909090908,
+        "batch_counter": 0.24457644628099173,
+        "windowed_counter": 0.9961260330578512,
+        "recency": 0.1670971074380165
+      },
+      "STATIONARY": {
+        "three_factor": 1.0,
+        "batch_counter": 1.0,
+        "windowed_counter": 0.9996448863636364,
+        "recency": 0.16459517045454544
+      }
+    },
+    "19": {
+      "SWITCH": {
+        "three_factor": 0.7350206611570248,
+        "batch_counter": 0.2856404958677686,
+        "windowed_counter": 0.9969008264462811,
+        "recency": 0.17045454545454547
+      },
+      "STATIONARY": {
+        "three_factor": 1.0,
+        "batch_counter": 1.0,
+        "windowed_counter": 1.0,
+        "recency": 0.1725852272727273
+      }
+    }
+  },
+  "config": {
+    "N_DIM": 256,
+    "M_CAND": 6,
+    "K_SWITCH": 30,
+    "DELAY_K": 4,
+    "T_TRIALS": 360,
+    "R_REPLICATES": 16,
+    "SEEDS": [
+      7,
+      13,
+      19
+    ],
+    "P_FIRE": 0.5,
+    "SETTLE": 8,
+    "GAMMA_E": 0.9,
+    "W_LEAK": 0.03333333333333333,
+    "WINDOW_SET": [
+      10,
+      20,
+      30,
+      50,
+      80
+    ],
+    "CONDITIONS": [
+      "SWITCH",
+      "STATIONARY"
+    ]
+  },
+  "bands": {
+    "HP_TF_MIN": 0.6,
+    "HP_MARGIN_VS_WINDOWED": 0.05,
+    "HP_MARGIN_VS_BATCH": 0.2,
+    "HP_MARGIN_VS_RECENCY": 0.2,
+    "DIFFICULTY_BATCH_MAX": 0.35,
+    "CANFAIL_TF_MIN": 0.4,
+    "CANFAIL_TF_VS_BATCH": 0.15,
+    "MM_WINDOWED_TIE": 0.05,
+    "POSCTRL_MIN": 0.9
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_class": "b_sequential_cpu_justified_eligibility_trace_and_online_counter_are_sequential",
+  "crlb_n_a": "discrete argmax over M candidates; analytic chance floor 1/M; no continuous noise CRLB",
+  "calibration_check": "default_ok_for_this_regime: gamma/W_LEAK a-priori from K (not tuned per run); windowed counter oracle-selected (generous to baseline)",
+  "hp_scope": {
+    "three_factor": [
+      "HP_TF_MIN",
+      "HP_MARGIN_VS_WINDOWED",
+      "HP_MARGIN_VS_BATCH",
+      "HP_MARGIN_VS_RECENCY"
+    ],
+    "batch_counter": [
+      "must_fail_control_difficulty_gate"
+    ],
+    "windowed_counter": [
+      "strong_baseline_no_hard_pass_floor"
+    ],
+    "recency": [
+      "must_fail_null_no_hard_pass_floor"
+    ]
+  },
+  "prior_work": "Non-stationary revival of exp_reward_contingency_credit_assignment_v1 (VET a33fada3 correlation-triviality + verbatim revival criterion). REUSES the eligibility x RPE machinery; CHANGE = moving c* (switch every K) + batch/windowed contingency-counter baselines. CLAIM-VET-pending.",
+  "arms_differ_verified": true,
+  "arm_belief_digests": {
+    "three_factor": "0f862e120d073de308206ee506b380fe0c9292a0e4eff0a6f30b8781c37ac7d6",
+    "batch_counter": "b87885a1986da89094510b5f664eee04da1b9c62409d13a743a191734e685bd4",
+    "windowed_counter": "6f3a34cee56a5efad1b19173d3e7554461380cd2ed004ddc04856cf754f9b2ec",
+    "recency": "0bc2b71414dae13b8a9ae5057694bdd9603a3b282959396affb19e7c8adeda23"
+  }
+}
