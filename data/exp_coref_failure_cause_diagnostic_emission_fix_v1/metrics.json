@@ -1,0 +1,1453 @@
+{
+  "verdict": "COREF_CAUSE_DIAGNOSTIC",
+  "verdict_msg": "EMISSION-FIX (self-ref drop; 13 triples over 8 passages): RELF1 F1 0.257->0.316 (d=+0.059; P 0.196->0.273, R 0.375->0.375); CC 0.000->0.000; CO 0.000->0.000; CMP 0.500->0.500; was-emission-bug Q flips=[]. PRONOUN-REFERENCE resolution acc=0.548 (17/31); mis-resolution CAUSE histogram (independent rule): AGREEMENT=7 SALIENCE_RANK=4 SELECTIONAL_PREF=0 AMBIGUOUS=3. PRIMARY CUE TO BUILD = AGREEMENT. CLAIM-VET-pending.",
+  "summary": "COREF_CAUSE_DIAGNOSTIC: primary_cue=AGREEMENT; ref_acc=0.548; AGR/SAL/SEL/AMB=7/4/0/3; emission_fix_moved=True; self_ref_dropped=13; RELF1_F1 0.257->0.316",
+  "diagnostic": true,
+  "elapsed_s": 3.9235,
+  "ts_iso": "2026-07-18T16:21:53.344155+00:00",
+  "anchor_name": "coref_failure_cause_diagnostic_emission_fix_v1",
+  "run_mode": "full",
+  "seed": 12345,
+  "heldout_source": "mcguffey_second_reader.clean.txt via imported oracle cell (passages VERBATIM, provenance-verified); pronoun gold coref hand-annotated (independent, anti-circular)",
+  "emission_fix": {
+    "one_variable": "self-ref emission filter (emission_bug vs emission_fix); gold mentions + maintained coref held FIXED",
+    "n_self_ref_dropped": 13,
+    "self_ref_triples_by_passage": {
+      "L5_dogs": [
+        [
+          "poss",
+          "sport",
+          "sport"
+        ],
+        [
+          "svo",
+          "hitches",
+          "sport",
+          "sport"
+        ]
+      ],
+      "L14_henry": [
+        [
+          "poss",
+          "father",
+          "father"
+        ],
+        [
+          "poss",
+          "mother",
+          "mother"
+        ]
+      ],
+      "L23_doll": [
+        [
+          "poss",
+          "dog",
+          "dog"
+        ],
+        [
+          "svo",
+          "scolded",
+          "dash",
+          "dash"
+        ]
+      ],
+      "L28_sam": [
+        [
+          "poss",
+          "mother",
+          "mother"
+        ],
+        [
+          "svo",
+          "gave",
+          "mother",
+          "mother"
+        ]
+      ],
+      "L8_puss": [
+        [
+          "poss",
+          "kittens",
+          "kittens"
+        ]
+      ],
+      "L57_laura": [
+        [
+          "poss",
+          "kitten",
+          "kitten"
+        ],
+        [
+          "svo",
+          "eats",
+          "kitten",
+          "kitten"
+        ]
+      ],
+      "L32_tiger": [
+        [
+          "poss",
+          "kitten",
+          "kitten"
+        ]
+      ],
+      "L35_willie": [
+        [
+          "poss",
+          "dog",
+          "dog"
+        ]
+      ]
+    },
+    "relf1_bug": {
+      "micro_precision": 0.196,
+      "micro_recall": 0.375,
+      "micro_f1": 0.257,
+      "tp": 9,
+      "n_extracted": 46,
+      "n_gold": 24,
+      "per_passage": {
+        "L5_dogs": {
+          "precision": 0.286,
+          "recall": 0.4,
+          "f1": 0.333,
+          "tp": 2,
+          "n_gold": 5,
+          "extracted": [
+            [
+              "attr",
+              "dogs",
+              "white",
+              "COLOR"
+            ],
+            [
+              "poss",
+              "james",
+              "dogs"
+            ],
+            [
+              "poss",
+              "sport",
+              "horse"
+            ],
+            [
+              "poss",
+              "sport",
+              "sport"
+            ],
+            [
+              "poss",
+              "sport",
+              "wagon"
+            ],
+            [
+              "recipient",
+              "uses",
+              "james",
+              "horse"
+            ],
+            [
+              "svo",
+              "hitches",
+              "sport",
+              "sport"
+            ],
+            [
+              "svo",
+              "hitches",
+              "sport",
+              "wagon"
+            ],
+            [
+              "svo",
+              "uses",
+              "james",
+              "sport"
+            ]
+          ]
+        },
+        "L5b_dodger": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.667,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "poss",
+              "dodger",
+              "eyes"
+            ],
+            [
+              "poss",
+              "james",
+              "terrier"
+            ]
+          ]
+        },
+        "L18_king": {
+          "precision": 0.25,
+          "recall": 0.5,
+          "f1": 0.333,
+          "tp": 1,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "loc",
+              "nest",
+              "tree"
+            ],
+            [
+              "poss",
+              "bugs",
+              "nest"
+            ],
+            [
+              "recipient",
+              "is",
+              "kingbird",
+              "robin"
+            ],
+            [
+              "svo",
+              "builds",
+              "bugs",
+              "nest"
+            ],
+            [
+              "svo",
+              "eats",
+              "robin",
+              "flies"
+            ]
+          ]
+        },
+        "L14_henry": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 3,
+          "extracted": [
+            [
+              "poss",
+              "father",
+              "father"
+            ],
+            [
+              "poss",
+              "mother",
+              "mother"
+            ],
+            [
+              "recipient",
+              "has",
+              "mother",
+              "sister"
+            ]
+          ]
+        },
+        "L23_doll": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "poss",
+              "dog",
+              "dog"
+            ],
+            [
+              "recipient",
+              "ran",
+              "mary",
+              "dash"
+            ],
+            [
+              "recipient",
+              "ran",
+              "mary",
+              "dog"
+            ],
+            [
+              "svo",
+              "scolded",
+              "dash",
+              "dash"
+            ]
+          ]
+        },
+        "L2_cat": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.667,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "cat",
+              "door"
+            ],
+            [
+              "loc",
+              "cat",
+              "mat"
+            ]
+          ]
+        },
+        "L21_bee": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "bees",
+              "house"
+            ]
+          ]
+        },
+        "L60_geo": {
+          "precision": 0.333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "poss",
+              "george",
+              "dollar"
+            ],
+            [
+              "recipient",
+              "sent",
+              "george",
+              "james"
+            ],
+            [
+              "svo",
+              "missed",
+              "ball",
+              "james"
+            ],
+            [
+              "svo",
+              "sent",
+              "george",
+              "ball"
+            ]
+          ]
+        },
+        "L28_sam": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "poss",
+              "man",
+              "hat"
+            ],
+            [
+              "poss",
+              "mother",
+              "mother"
+            ],
+            [
+              "svo",
+              "gave",
+              "mother",
+              "cents"
+            ],
+            [
+              "svo",
+              "gave",
+              "mother",
+              "mother"
+            ],
+            [
+              "svo",
+              "took",
+              "harry",
+              "them"
+            ]
+          ]
+        },
+        "L8_puss": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "poss",
+              "kittens",
+              "kittens"
+            ],
+            [
+              "recipient",
+              "took",
+              "cat",
+              "kittens"
+            ],
+            [
+              "svo",
+              "lived",
+              "puss",
+              "cellar"
+            ]
+          ]
+        },
+        "L26_patty": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "milk",
+              "trees"
+            ],
+            [
+              "poss",
+              "patty",
+              "bread"
+            ],
+            [
+              "svo",
+              "brought",
+              "patty",
+              "bread"
+            ],
+            [
+              "svo",
+              "brought",
+              "patty",
+              "milk"
+            ],
+            [
+              "svo",
+              "lives",
+              "patty",
+              "forest"
+            ],
+            [
+              "svo",
+              "lives",
+              "patty",
+              "house"
+            ]
+          ]
+        },
+        "L57_laura": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "poss",
+              "kitten",
+              "kitten"
+            ],
+            [
+              "svo",
+              "eats",
+              "kitten",
+              "kitten"
+            ]
+          ]
+        },
+        "L32_tiger": {
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "kitten",
+              "neck"
+            ],
+            [
+              "poss",
+              "kitten",
+              "kitten"
+            ],
+            [
+              "svo",
+              "bounded",
+              "tigress",
+              "tent"
+            ],
+            [
+              "svo",
+              "caught",
+              "tigress",
+              "kitten"
+            ]
+          ]
+        },
+        "L35_willie": {
+          "precision": 0.25,
+          "recall": 0.5,
+          "f1": 0.333,
+          "tp": 1,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "poss",
+              "bounce",
+              "dog"
+            ],
+            [
+              "poss",
+              "dog",
+              "dog"
+            ],
+            [
+              "svo",
+              "taught",
+              "willie",
+              "dog"
+            ],
+            [
+              "svo",
+              "taught",
+              "willie",
+              "tricks"
+            ]
+          ]
+        }
+      }
+    },
+    "relf1_fix": {
+      "micro_precision": 0.273,
+      "micro_recall": 0.375,
+      "micro_f1": 0.316,
+      "tp": 9,
+      "n_extracted": 33,
+      "n_gold": 24,
+      "per_passage": {
+        "L5_dogs": {
+          "precision": 0.4,
+          "recall": 0.4,
+          "f1": 0.4,
+          "tp": 2,
+          "n_gold": 5,
+          "extracted": [
+            [
+              "attr",
+              "dogs",
+              "white",
+              "COLOR"
+            ],
+            [
+              "poss",
+              "james",
+              "dogs"
+            ],
+            [
+              "poss",
+              "sport",
+              "horse"
+            ],
+            [
+              "poss",
+              "sport",
+              "wagon"
+            ],
+            [
+              "recipient",
+              "uses",
+              "james",
+              "horse"
+            ],
+            [
+              "svo",
+              "hitches",
+              "sport",
+              "wagon"
+            ],
+            [
+              "svo",
+              "uses",
+              "james",
+              "sport"
+            ]
+          ]
+        },
+        "L5b_dodger": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.667,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "poss",
+              "dodger",
+              "eyes"
+            ],
+            [
+              "poss",
+              "james",
+              "terrier"
+            ]
+          ]
+        },
+        "L18_king": {
+          "precision": 0.25,
+          "recall": 0.5,
+          "f1": 0.333,
+          "tp": 1,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "loc",
+              "nest",
+              "tree"
+            ],
+            [
+              "poss",
+              "bugs",
+              "nest"
+            ],
+            [
+              "recipient",
+              "is",
+              "kingbird",
+              "robin"
+            ],
+            [
+              "svo",
+              "builds",
+              "bugs",
+              "nest"
+            ],
+            [
+              "svo",
+              "eats",
+              "robin",
+              "flies"
+            ]
+          ]
+        },
+        "L14_henry": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 3,
+          "extracted": [
+            [
+              "recipient",
+              "has",
+              "mother",
+              "sister"
+            ]
+          ]
+        },
+        "L23_doll": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "recipient",
+              "ran",
+              "mary",
+              "dash"
+            ],
+            [
+              "recipient",
+              "ran",
+              "mary",
+              "dog"
+            ]
+          ]
+        },
+        "L2_cat": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.667,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "cat",
+              "door"
+            ],
+            [
+              "loc",
+              "cat",
+              "mat"
+            ]
+          ]
+        },
+        "L21_bee": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "bees",
+              "house"
+            ]
+          ]
+        },
+        "L60_geo": {
+          "precision": 0.333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "poss",
+              "george",
+              "dollar"
+            ],
+            [
+              "recipient",
+              "sent",
+              "george",
+              "james"
+            ],
+            [
+              "svo",
+              "missed",
+              "ball",
+              "james"
+            ],
+            [
+              "svo",
+              "sent",
+              "george",
+              "ball"
+            ]
+          ]
+        },
+        "L28_sam": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "poss",
+              "man",
+              "hat"
+            ],
+            [
+              "svo",
+              "gave",
+              "mother",
+              "cents"
+            ],
+            [
+              "svo",
+              "took",
+              "harry",
+              "them"
+            ]
+          ]
+        },
+        "L8_puss": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "recipient",
+              "took",
+              "cat",
+              "kittens"
+            ],
+            [
+              "svo",
+              "lived",
+              "puss",
+              "cellar"
+            ]
+          ]
+        },
+        "L26_patty": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "milk",
+              "trees"
+            ],
+            [
+              "poss",
+              "patty",
+              "bread"
+            ],
+            [
+              "svo",
+              "brought",
+              "patty",
+              "bread"
+            ],
+            [
+              "svo",
+              "brought",
+              "patty",
+              "milk"
+            ],
+            [
+              "svo",
+              "lives",
+              "patty",
+              "forest"
+            ],
+            [
+              "svo",
+              "lives",
+              "patty",
+              "house"
+            ]
+          ]
+        },
+        "L57_laura": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "n_gold": 1,
+          "extracted": []
+        },
+        "L32_tiger": {
+          "precision": 0.333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "tp": 1,
+          "n_gold": 1,
+          "extracted": [
+            [
+              "loc",
+              "kitten",
+              "neck"
+            ],
+            [
+              "svo",
+              "bounded",
+              "tigress",
+              "tent"
+            ],
+            [
+              "svo",
+              "caught",
+              "tigress",
+              "kitten"
+            ]
+          ]
+        },
+        "L35_willie": {
+          "precision": 0.333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "tp": 1,
+          "n_gold": 2,
+          "extracted": [
+            [
+              "poss",
+              "bounce",
+              "dog"
+            ],
+            [
+              "svo",
+              "taught",
+              "willie",
+              "dog"
+            ],
+            [
+              "svo",
+              "taught",
+              "willie",
+              "tricks"
+            ]
+          ]
+        }
+      }
+    },
+    "deltas": {
+      "relf1_f1": 0.059,
+      "relf1_precision": 0.077,
+      "relf1_recall": 0.0,
+      "CC": 0.0,
+      "CO": 0.0,
+      "CMP": 0.0
+    },
+    "slices_bug": {
+      "NC": 0.5714,
+      "n_NC": 7,
+      "CO": 0.0,
+      "n_CO": 3,
+      "CC": 0.0,
+      "n_CC": 5,
+      "CMP": 0.5,
+      "n_CMP": 16,
+      "all": 0.3871
+    },
+    "slices_fix": {
+      "NC": 0.5714,
+      "n_NC": 7,
+      "CO": 0.0,
+      "n_CO": 3,
+      "CC": 0.0,
+      "n_CC": 5,
+      "CMP": 0.5,
+      "n_CMP": 16,
+      "all": 0.3871
+    },
+    "was_emission_bug_qids": [],
+    "emission_fix_regressions": [],
+    "emission_fix_moved": true
+  },
+  "pronoun_reference": {
+    "n_scored": 31,
+    "n_correct": 17,
+    "n_mis": 14,
+    "ref_acc": 0.5484,
+    "cause_histogram": {
+      "AGREEMENT": 7,
+      "SALIENCE_RANK": 4,
+      "SELECTIONAL_PREF": 0,
+      "AMBIGUOUS": 3
+    },
+    "primary_cause": "AGREEMENT",
+    "primary_cue_build": "gender/number/ANIMACY enforcement + weighting (cheap): gender common person nouns (mother/father/sister), require animate for he/she, prefer known-gender match over gender-unknown competitor -- the overlay currently genders only proper names.",
+    "ambiguous_fraction": 0.2143,
+    "categorization_rule": "INDEPENDENT: AGREEMENT = pred violates number/animacy/known-gender OR gold is a strictly-better gender/animacy match (agreement_strength); SALIENCE_RANK = equal agreement strength + gold more frequent or established-earlier topical subject; SELECTIONAL_PREF = equal agreement, salience favors/ties pred (world-knowledge only); AMBIGUOUS = gold not tracked at pronoun time / annotation edge.",
+    "per_pronoun": [
+      {
+        "pid": "L5_dogs",
+        "pron": "his",
+        "pred": "sport",
+        "gold": "james",
+        "correct": false,
+        "cause": "AGREEMENT",
+        "reason": "gold_stronger_gender_animacy",
+        "snap": {
+          "james": [
+            2,
+            0
+          ],
+          "dogs": [
+            1,
+            1
+          ],
+          "sport": [
+            3,
+            3
+          ]
+        }
+      },
+      {
+        "pid": "L5_dogs",
+        "pron": "he",
+        "pred": "sport",
+        "gold": "james",
+        "correct": false,
+        "cause": "AGREEMENT",
+        "reason": "gold_stronger_gender_animacy",
+        "snap": {
+          "james": [
+            2,
+            0
+          ],
+          "dogs": [
+            1,
+            1
+          ],
+          "sport": [
+            3,
+            3
+          ],
+          "horse": [
+            1,
+            8
+          ]
+        }
+      },
+      {
+        "pid": "L5_dogs",
+        "pron": "he",
+        "pred": "sport",
+        "gold": "james",
+        "correct": false,
+        "cause": "AGREEMENT",
+        "reason": "gold_stronger_gender_animacy",
+        "snap": {
+          "james": [
+            2,
+            0
+          ],
+          "dogs": [
+            1,
+            1
+          ],
+          "sport": [
+            3,
+            3
+          ],
+          "horse": [
+            1,
+            8
+          ],
+          "wagon": [
+            1,
+            10
+          ]
+        }
+      },
+      {
+        "pid": "L5b_dodger",
+        "pron": "he",
+        "pred": "dodger",
+        "gold": "dodger",
+        "correct": true
+      },
+      {
+        "pid": "L18_king",
+        "pron": "he",
+        "pred": "robin",
+        "gold": "kingbird",
+        "correct": false,
+        "cause": "SALIENCE_RANK",
+        "reason": "gold_established_earlier_subject",
+        "snap": {
+          "kingbird": [
+            1,
+            0
+          ],
+          "robin": [
+            1,
+            1
+          ]
+        }
+      },
+      {
+        "pid": "L18_king",
+        "pron": "he",
+        "pred": "bugs",
+        "gold": "kingbird",
+        "correct": false,
+        "cause": "SALIENCE_RANK",
+        "reason": "gold_established_earlier_subject",
+        "snap": {
+          "kingbird": [
+            1,
+            0
+          ],
+          "robin": [
+            1,
+            1
+          ],
+          "flies": [
+            1,
+            3
+          ],
+          "worms": [
+            1,
+            4
+          ],
+          "bugs": [
+            1,
+            5
+          ],
+          "berries": [
+            1,
+            6
+          ]
+        }
+      },
+      {
+        "pid": "L18_king",
+        "pron": "his",
+        "pred": "bugs",
+        "gold": "kingbird",
+        "correct": false,
+        "cause": "SALIENCE_RANK",
+        "reason": "gold_established_earlier_subject",
+        "snap": {
+          "kingbird": [
+            1,
+            0
+          ],
+          "robin": [
+            1,
+            1
+          ],
+          "flies": [
+            1,
+            3
+          ],
+          "worms": [
+            1,
+            4
+          ],
+          "bugs": [
+            1,
+            5
+          ],
+          "berries": [
+            1,
+            6
+          ]
+        }
+      },
+      {
+        "pid": "L14_henry",
+        "pron": "his",
+        "pred": "henry",
+        "gold": "henry",
+        "correct": true
+      },
+      {
+        "pid": "L14_henry",
+        "pron": "his",
+        "pred": "father",
+        "gold": "henry",
+        "correct": false,
+        "cause": "SALIENCE_RANK",
+        "reason": "gold_established_earlier_subject",
+        "snap": {
+          "henry": [
+            1,
+            0
+          ],
+          "father": [
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "pid": "L14_henry",
+        "pron": "he",
+        "pred": "mother",
+        "gold": "henry",
+        "correct": false,
+        "cause": "AGREEMENT",
+        "reason": "pred_violates_agreement",
+        "snap": {
+          "henry": [
+            1,
+            0
+          ],
+          "father": [
+            1,
+            2
+          ],
+          "mother": [
+            1,
+            4
+          ]
+        }
+      },
+      {
+        "pid": "L23_doll",
+        "pron": "her",
+        "pred": "dash",
+        "gold": "mary",
+        "correct": false,
+        "cause": "AGREEMENT",
+        "reason": "gold_stronger_gender_animacy",
+        "snap": {
+          "mary": [
+            1,
+            0
+          ],
+          "dash": [
+            1,
+            1
+          ]
+        }
+      },
+      {
+        "pid": "L23_doll",
+        "pron": "she",
+        "pred": "dog",
+        "gold": "mary",
+        "correct": false,
+        "cause": "AGREEMENT",
+        "reason": "gold_stronger_gender_animacy",
+        "snap": {
+          "mary": [
+            1,
+            0
+          ],
+          "dash": [
+            1,
+            1
+          ],
+          "dog": [
+            1,
+            3
+          ]
+        }
+      },
+      {
+        "pid": "L23_doll",
+        "pron": "she",
+        "pred": "dash",
+        "gold": "mary",
+        "correct": false,
+        "cause": "AGREEMENT",
+        "reason": "gold_stronger_gender_animacy",
+        "snap": {
+          "mary": [
+            1,
+            0
+          ],
+          "dash": [
+            2,
+            1
+          ],
+          "dog": [
+            1,
+            3
+          ]
+        }
+      },
+      {
+        "pid": "L23_doll",
+        "pron": "him",
+        "pred": "dash",
+        "gold": "dash",
+        "correct": true
+      },
+      {
+        "pid": "L60_geo",
+        "pron": "he",
+        "pred": "george",
+        "gold": "george",
+        "correct": true
+      },
+      {
+        "pid": "L60_geo",
+        "pron": "it",
+        "pred": "ball",
+        "gold": "ball",
+        "correct": true
+      },
+      {
+        "pid": "L60_geo",
+        "pron": "him",
+        "pred": "james",
+        "gold": "james",
+        "correct": true
+      },
+      {
+        "pid": "L28_sam",
+        "pron": "his",
+        "pred": "man",
+        "gold": "man",
+        "correct": true
+      },
+      {
+        "pid": "L28_sam",
+        "pron": "them",
+        "pred": null,
+        "gold": "cents",
+        "correct": false,
+        "cause": "AMBIGUOUS",
+        "reason": "gold_itself_agreement_invalid(annotation_edge)",
+        "snap": {
+          "man": [
+            1,
+            0
+          ],
+          "hat": [
+            1,
+            2
+          ],
+          "mother": [
+            1,
+            4
+          ],
+          "cents": [
+            1,
+            6
+          ],
+          "harry": [
+            1,
+            7
+          ]
+        }
+      },
+      {
+        "pid": "L28_sam",
+        "pron": "them",
+        "pred": null,
+        "gold": "cents",
+        "correct": false,
+        "cause": "AMBIGUOUS",
+        "reason": "gold_itself_agreement_invalid(annotation_edge)",
+        "snap": {
+          "man": [
+            1,
+            0
+          ],
+          "hat": [
+            1,
+            2
+          ],
+          "mother": [
+            1,
+            4
+          ],
+          "cents": [
+            1,
+            6
+          ],
+          "harry": [
+            1,
+            7
+          ]
+        }
+      },
+      {
+        "pid": "L8_puss",
+        "pron": "her",
+        "pred": "puss",
+        "gold": "puss",
+        "correct": true
+      },
+      {
+        "pid": "L8_puss",
+        "pron": "them",
+        "pred": null,
+        "gold": "kittens",
+        "correct": false,
+        "cause": "AMBIGUOUS",
+        "reason": "gold_itself_agreement_invalid(annotation_edge)",
+        "snap": {
+          "puss": [
+            1,
+            0
+          ],
+          "kittens": [
+            2,
+            2
+          ],
+          "cellar": [
+            1,
+            3
+          ],
+          "cat": [
+            1,
+            4
+          ]
+        }
+      },
+      {
+        "pid": "L26_patty",
+        "pron": "she",
+        "pred": "patty",
+        "gold": "patty",
+        "correct": true
+      },
+      {
+        "pid": "L26_patty",
+        "pron": "her",
+        "pred": "patty",
+        "gold": "patty",
+        "correct": true
+      },
+      {
+        "pid": "L57_laura",
+        "pron": "her",
+        "pred": "laura",
+        "gold": "laura",
+        "correct": true
+      },
+      {
+        "pid": "L57_laura",
+        "pron": "it",
+        "pred": "kitten",
+        "gold": "kitten",
+        "correct": true
+      },
+      {
+        "pid": "L32_tiger",
+        "pron": "she",
+        "pred": "tigress",
+        "gold": "tigress",
+        "correct": true
+      },
+      {
+        "pid": "L32_tiger",
+        "pron": "her",
+        "pred": "tigress",
+        "gold": "tigress",
+        "correct": true
+      },
+      {
+        "pid": "L32_tiger",
+        "pron": "it",
+        "pred": "chain",
+        "gold": "chain",
+        "correct": true
+      },
+      {
+        "pid": "L35_willie",
+        "pron": "his",
+        "pred": "willie",
+        "gold": "willie",
+        "correct": true
+      },
+      {
+        "pid": "L35_willie",
+        "pron": "his",
+        "pred": "willie",
+        "gold": "willie",
+        "correct": true
+      }
+    ]
+  },
+  "gates": {
+    "discriminator_fires_self_ref_present": true,
+    "stores_differ": true,
+    "gold_coref_alignment_ok": true,
+    "can_fail_note": "emission-fix may move nothing; primary cause may be SALIENCE/SELECTIONAL not AGREEMENT; both branches pre-registered informative",
+    "n_self_ref": 13
+  },
+  "cited_context": {
+    "oracle_cc": 0.0,
+    "oracle_co": 0.0,
+    "oracle_relf1_recall": 0.375,
+    "source": "CITED@D:\\AI\\hd-instrument\\data\\exp_oracle_mention_upperbound_reader_v1\\metrics.json"
+  },
+  "provenance": "passages+downstream imported VERBATIM from exp_oracle_mention_upperbound_reader_v1 (gold mentions injected; learned role-assigner + maintained overlay coref byte-identical); FIX #1 = self-ref post-filter (one variable); pronoun-reference categorization uses an INDEPENDENT grounded gender/animacy + overlay count/order rule (anti-circular; gold coref annotated separately from the reader's output)."
+}
