@@ -1,0 +1,1327 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "SPLIT by axis. COMPOSITION harm IS the named clause-seg component: gold_clauses recovers CMP 0.333->0.667 (double-dissociation clean, heads move CMP +0.000). But the FP harm is only PARTLY the named NP-head component: gold_both recovers just 39% of the FP-rate (strict precision 0.472->0.679, fp_rate 0.528->0.321); the 9 residual FPs localize to a BIGGER parse problem NOT covered by the two named fixes -- argument structure (goal-as-patient sent/told->school), PP-attachment (loc boy road/work), clause-BOUNDARY + multi-patient (lifting george/mouth), role-assignment (sheep->RECIPIENT so N5 never recovers; came man man), cataphora (poss his mother). PRIZE precision +0.206 / CMP +0.333. HYPOTHESIS pending-VET: NP-head + shared-subject are REAL, attributable, worth building -- but they are NOT the whole wall; the majority residual FP-rate needs argument-structure/attachment/role work. Deflate the drill's 'recover a large fraction of both harms' -> composition yes, foundation-FPs only ~39%.",
+  "summary": "PARTIAL: strict_prec hand 0.472->both 0.679 (prize +0.206; fp_rate 0.528->0.321) | CMP 0.333->0.667 (+0.333) | heads:dprec +0.194 clauses:dCMP +0.333 | dissociation=True",
+  "elapsed_s": 8.28,
+  "ts_iso": "2026-07-18T18:52:58.143227+00:00",
+  "anchor_name": "reader_oracle_parser_upperbound_v1",
+  "run_mode": "full",
+  "seed": 12345,
+  "one_variable": "injected parser signal (gold NP-heads / gold shared-subject / both); downstream byte-identical",
+  "positive_control_ok": true,
+  "telemetry_ok": true,
+  "telemetry_move": 0.3334,
+  "arms_differ_digests": {
+    "hand_rule": "a7e7d2aff1c2405efa91768978ab61107659aad75544a05415dda9e59b97db01",
+    "gold_heads": "3d4575449b13c54d74d280cd84a777cea8fdbedcef48f260e77d83524fca33c9",
+    "gold_clauses": "fb0a1e755975343e8a690f7ccfcf294e0190c606008ce693ecaffe99441236d2",
+    "gold_both": "b0e51226b59fd66a1cbbefe37d84a132a2f2a1f53d5c10b7c2de3bdf064a8692"
+  },
+  "prize": {
+    "strict_precision": 0.2064,
+    "CMP": 0.3334,
+    "fp_rate_reduction": 0.2064,
+    "recovered_fp_frac": 0.3911
+  },
+  "attribution": {
+    "d_heads_strict_precision": 0.1945,
+    "d_clauses_strict_precision": 0.0015,
+    "d_heads_CMP": 0.0,
+    "d_clauses_CMP": 0.3334,
+    "heads_fixes_precision_not_composition": true,
+    "clauses_fixes_composition_not_precision": true,
+    "clauses_restores_orphan_subject": true,
+    "heads_alone_misses_orphan_subject": true,
+    "double_dissociation": true
+  },
+  "bands": {
+    "CONFIRM_FP_FRAC_MIN": 0.6,
+    "TAIL_FP_FRAC_MAX": 0.25,
+    "CONFIRM_BOTH_CMP_MIN": 0.667,
+    "ATTR_HEADS_PREC_MIN": 0.1,
+    "ATTR_CLAUSES_CMP_MIN": 0.2,
+    "ATTR_ORTHO_MAX": 0.05,
+    "FLOOR_STRICT_PREC_LO": 0.4,
+    "FLOOR_STRICT_PREC_HI": 0.55
+  },
+  "arms": {
+    "hand_rule": {
+      "slices": {
+        "NC": 0.8333,
+        "n_NC": 6,
+        "CO": 0.8333,
+        "n_CO": 6,
+        "CMP": 0.3333,
+        "n_CMP": 3,
+        "all": 0.7333
+      },
+      "ref_acc": 0.8333,
+      "ref_ok": 20,
+      "ref_n": 24,
+      "relf1_micro_f1": 0.522,
+      "relf1_micro_precision": 0.387,
+      "relf1_micro_recall": 0.8,
+      "foundation_n_relations": 36,
+      "foundation_n_entities": 32,
+      "foundation_quality_lb": 0.387,
+      "strict": {
+        "n_extracted": 36,
+        "tp": 17,
+        "fp": 19,
+        "strict_precision": 0.4722,
+        "fp_rate": 0.5278,
+        "tp_relations": [
+          [
+            "loc",
+            "boy",
+            "field"
+          ],
+          [
+            "loc",
+            "wolf",
+            "flock"
+          ],
+          [
+            "poss",
+            "friend",
+            "horse"
+          ],
+          [
+            "poss",
+            "george",
+            "dinner"
+          ],
+          [
+            "poss",
+            "george",
+            "mother"
+          ],
+          [
+            "poss",
+            "george",
+            "mouth"
+          ],
+          [
+            "poss",
+            "james",
+            "home"
+          ],
+          [
+            "poss",
+            "james",
+            "parents"
+          ],
+          [
+            "poss",
+            "susie",
+            "basket"
+          ],
+          [
+            "poss",
+            "susie",
+            "lunch"
+          ],
+          [
+            "poss",
+            "susie",
+            "mother"
+          ],
+          [
+            "svo",
+            "brought",
+            "susie",
+            "basket"
+          ],
+          [
+            "svo",
+            "heard",
+            "boy",
+            "horse"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "strawberry"
+          ],
+          [
+            "svo",
+            "put",
+            "mother",
+            "lunch"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "james"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "james"
+          ]
+        ],
+        "fp_relations": [
+          [
+            "loc",
+            "boy",
+            "road"
+          ],
+          [
+            "loc",
+            "boy",
+            "work"
+          ],
+          [
+            "loc",
+            "john",
+            "dismay"
+          ],
+          [
+            "loc",
+            "wolf",
+            "earnest"
+          ],
+          [
+            "loc",
+            "wolf",
+            "third"
+          ],
+          [
+            "poss",
+            "john",
+            "friend's"
+          ],
+          [
+            "poss",
+            "one",
+            "mother"
+          ],
+          [
+            "svo",
+            "admiring",
+            "john",
+            "friend's"
+          ],
+          [
+            "svo",
+            "came",
+            "man",
+            "man"
+          ],
+          [
+            "svo",
+            "cried",
+            "john",
+            "help"
+          ],
+          [
+            "svo",
+            "examining",
+            "john",
+            "was"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "first"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "george"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "mouth"
+          ],
+          [
+            "svo",
+            "put",
+            "mother",
+            "nice"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "school"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "haste"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "home"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "school"
+          ]
+        ]
+      },
+      "per_q": [
+        {
+          "qid": "N1",
+          "slice": "NC",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "N2",
+          "slice": "NC",
+          "gold": "friend",
+          "pred": "friend",
+          "ok": true
+        },
+        {
+          "qid": "N3",
+          "slice": "NC",
+          "gold": "basket",
+          "pred": "basket",
+          "ok": true
+        },
+        {
+          "qid": "N4",
+          "slice": "NC",
+          "gold": "horse",
+          "pred": "horse",
+          "ok": true
+        },
+        {
+          "qid": "N5",
+          "slice": "NC",
+          "gold": "sheep",
+          "pred": null,
+          "ok": false
+        },
+        {
+          "qid": "N6",
+          "slice": "NC",
+          "gold": "lunch",
+          "pred": "lunch",
+          "ok": true
+        },
+        {
+          "qid": "O1",
+          "slice": "CO",
+          "gold": "parents",
+          "pred": "parents",
+          "ok": true
+        },
+        {
+          "qid": "O2",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O3",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O4",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O5",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O6",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "one",
+          "ok": false
+        },
+        {
+          "qid": "M1",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "M2",
+          "slice": "CMP",
+          "gold": "strawberry",
+          "pred": "first",
+          "ok": false
+        },
+        {
+          "qid": "M3",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": null,
+          "ok": false
+        }
+      ]
+    },
+    "gold_heads": {
+      "slices": {
+        "NC": 0.8333,
+        "n_NC": 6,
+        "CO": 0.8333,
+        "n_CO": 6,
+        "CMP": 0.3333,
+        "n_CMP": 3,
+        "all": 0.7333
+      },
+      "ref_acc": 0.9167,
+      "ref_ok": 22,
+      "ref_n": 24,
+      "relf1_micro_f1": 0.585,
+      "relf1_micro_precision": 0.462,
+      "relf1_micro_recall": 0.8,
+      "foundation_n_relations": 27,
+      "foundation_n_entities": 23,
+      "foundation_quality_lb": 0.462,
+      "strict": {
+        "n_extracted": 27,
+        "tp": 18,
+        "fp": 9,
+        "strict_precision": 0.6667,
+        "fp_rate": 0.3333,
+        "tp_relations": [
+          [
+            "loc",
+            "boy",
+            "field"
+          ],
+          [
+            "loc",
+            "wolf",
+            "flock"
+          ],
+          [
+            "poss",
+            "friend",
+            "horse"
+          ],
+          [
+            "poss",
+            "george",
+            "dinner"
+          ],
+          [
+            "poss",
+            "george",
+            "mother"
+          ],
+          [
+            "poss",
+            "george",
+            "mouth"
+          ],
+          [
+            "poss",
+            "james",
+            "home"
+          ],
+          [
+            "poss",
+            "james",
+            "parents"
+          ],
+          [
+            "poss",
+            "susie",
+            "basket"
+          ],
+          [
+            "poss",
+            "susie",
+            "lunch"
+          ],
+          [
+            "poss",
+            "susie",
+            "mother"
+          ],
+          [
+            "svo",
+            "brought",
+            "susie",
+            "basket"
+          ],
+          [
+            "svo",
+            "examining",
+            "john",
+            "horse"
+          ],
+          [
+            "svo",
+            "heard",
+            "boy",
+            "horse"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "strawberry"
+          ],
+          [
+            "svo",
+            "put",
+            "mother",
+            "lunch"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "james"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "james"
+          ]
+        ],
+        "fp_relations": [
+          [
+            "loc",
+            "boy",
+            "road"
+          ],
+          [
+            "loc",
+            "boy",
+            "work"
+          ],
+          [
+            "poss",
+            "his",
+            "mother"
+          ],
+          [
+            "poss",
+            "john",
+            "horse"
+          ],
+          [
+            "svo",
+            "came",
+            "man",
+            "man"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "george"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "mouth"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "school"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "school"
+          ]
+        ]
+      },
+      "per_q": [
+        {
+          "qid": "N1",
+          "slice": "NC",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "N2",
+          "slice": "NC",
+          "gold": "friend",
+          "pred": "friend",
+          "ok": true
+        },
+        {
+          "qid": "N3",
+          "slice": "NC",
+          "gold": "basket",
+          "pred": "basket",
+          "ok": true
+        },
+        {
+          "qid": "N4",
+          "slice": "NC",
+          "gold": "horse",
+          "pred": "horse",
+          "ok": true
+        },
+        {
+          "qid": "N5",
+          "slice": "NC",
+          "gold": "sheep",
+          "pred": null,
+          "ok": false
+        },
+        {
+          "qid": "N6",
+          "slice": "NC",
+          "gold": "lunch",
+          "pred": "lunch",
+          "ok": true
+        },
+        {
+          "qid": "O1",
+          "slice": "CO",
+          "gold": "parents",
+          "pred": "parents",
+          "ok": true
+        },
+        {
+          "qid": "O2",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O3",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O4",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O5",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O6",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "his",
+          "ok": false
+        },
+        {
+          "qid": "M1",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "M2",
+          "slice": "CMP",
+          "gold": "strawberry",
+          "pred": "george",
+          "ok": false
+        },
+        {
+          "qid": "M3",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": null,
+          "ok": false
+        }
+      ]
+    },
+    "gold_clauses": {
+      "slices": {
+        "NC": 0.8333,
+        "n_NC": 6,
+        "CO": 0.8333,
+        "n_CO": 6,
+        "CMP": 0.6667,
+        "n_CMP": 3,
+        "all": 0.8
+      },
+      "ref_acc": 0.8333,
+      "ref_ok": 20,
+      "ref_n": 24,
+      "relf1_micro_f1": 0.542,
+      "relf1_micro_precision": 0.394,
+      "relf1_micro_recall": 0.867,
+      "foundation_n_relations": 38,
+      "foundation_n_entities": 33,
+      "foundation_quality_lb": 0.394,
+      "strict": {
+        "n_extracted": 38,
+        "tp": 18,
+        "fp": 20,
+        "strict_precision": 0.4737,
+        "fp_rate": 0.5263,
+        "tp_relations": [
+          [
+            "loc",
+            "boy",
+            "field"
+          ],
+          [
+            "loc",
+            "wolf",
+            "flock"
+          ],
+          [
+            "poss",
+            "friend",
+            "horse"
+          ],
+          [
+            "poss",
+            "george",
+            "dinner"
+          ],
+          [
+            "poss",
+            "george",
+            "mother"
+          ],
+          [
+            "poss",
+            "george",
+            "mouth"
+          ],
+          [
+            "poss",
+            "james",
+            "home"
+          ],
+          [
+            "poss",
+            "james",
+            "parents"
+          ],
+          [
+            "poss",
+            "susie",
+            "basket"
+          ],
+          [
+            "poss",
+            "susie",
+            "lunch"
+          ],
+          [
+            "poss",
+            "susie",
+            "mother"
+          ],
+          [
+            "svo",
+            "brought",
+            "susie",
+            "basket"
+          ],
+          [
+            "svo",
+            "heard",
+            "boy",
+            "horse"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "strawberry"
+          ],
+          [
+            "svo",
+            "put",
+            "george",
+            "strawberry"
+          ],
+          [
+            "svo",
+            "put",
+            "mother",
+            "lunch"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "james"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "james"
+          ]
+        ],
+        "fp_relations": [
+          [
+            "loc",
+            "boy",
+            "road"
+          ],
+          [
+            "loc",
+            "boy",
+            "work"
+          ],
+          [
+            "loc",
+            "john",
+            "dismay"
+          ],
+          [
+            "loc",
+            "wolf",
+            "earnest"
+          ],
+          [
+            "loc",
+            "wolf",
+            "third"
+          ],
+          [
+            "poss",
+            "john",
+            "friend's"
+          ],
+          [
+            "poss",
+            "one",
+            "mother"
+          ],
+          [
+            "svo",
+            "admiring",
+            "john",
+            "friend's"
+          ],
+          [
+            "svo",
+            "came",
+            "man",
+            "man"
+          ],
+          [
+            "svo",
+            "cried",
+            "john",
+            "help"
+          ],
+          [
+            "svo",
+            "examining",
+            "john",
+            "was"
+          ],
+          [
+            "svo",
+            "killed",
+            "wolf",
+            "great"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "first"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "george"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "mouth"
+          ],
+          [
+            "svo",
+            "put",
+            "mother",
+            "nice"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "school"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "haste"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "home"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "school"
+          ]
+        ]
+      },
+      "per_q": [
+        {
+          "qid": "N1",
+          "slice": "NC",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "N2",
+          "slice": "NC",
+          "gold": "friend",
+          "pred": "friend",
+          "ok": true
+        },
+        {
+          "qid": "N3",
+          "slice": "NC",
+          "gold": "basket",
+          "pred": "basket",
+          "ok": true
+        },
+        {
+          "qid": "N4",
+          "slice": "NC",
+          "gold": "horse",
+          "pred": "horse",
+          "ok": true
+        },
+        {
+          "qid": "N5",
+          "slice": "NC",
+          "gold": "sheep",
+          "pred": "great",
+          "ok": false
+        },
+        {
+          "qid": "N6",
+          "slice": "NC",
+          "gold": "lunch",
+          "pred": "lunch",
+          "ok": true
+        },
+        {
+          "qid": "O1",
+          "slice": "CO",
+          "gold": "parents",
+          "pred": "parents",
+          "ok": true
+        },
+        {
+          "qid": "O2",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O3",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O4",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O5",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O6",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "one",
+          "ok": false
+        },
+        {
+          "qid": "M1",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "M2",
+          "slice": "CMP",
+          "gold": "strawberry",
+          "pred": "first",
+          "ok": false
+        },
+        {
+          "qid": "M3",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        }
+      ]
+    },
+    "gold_both": {
+      "slices": {
+        "NC": 0.8333,
+        "n_NC": 6,
+        "CO": 0.8333,
+        "n_CO": 6,
+        "CMP": 0.6667,
+        "n_CMP": 3,
+        "all": 0.8
+      },
+      "ref_acc": 0.9167,
+      "ref_ok": 22,
+      "ref_n": 24,
+      "relf1_micro_f1": 0.619,
+      "relf1_micro_precision": 0.481,
+      "relf1_micro_recall": 0.867,
+      "foundation_n_relations": 28,
+      "foundation_n_entities": 23,
+      "foundation_quality_lb": 0.481,
+      "strict": {
+        "n_extracted": 28,
+        "tp": 19,
+        "fp": 9,
+        "strict_precision": 0.6786,
+        "fp_rate": 0.3214,
+        "tp_relations": [
+          [
+            "loc",
+            "boy",
+            "field"
+          ],
+          [
+            "loc",
+            "wolf",
+            "flock"
+          ],
+          [
+            "poss",
+            "friend",
+            "horse"
+          ],
+          [
+            "poss",
+            "george",
+            "dinner"
+          ],
+          [
+            "poss",
+            "george",
+            "mother"
+          ],
+          [
+            "poss",
+            "george",
+            "mouth"
+          ],
+          [
+            "poss",
+            "james",
+            "home"
+          ],
+          [
+            "poss",
+            "james",
+            "parents"
+          ],
+          [
+            "poss",
+            "susie",
+            "basket"
+          ],
+          [
+            "poss",
+            "susie",
+            "lunch"
+          ],
+          [
+            "poss",
+            "susie",
+            "mother"
+          ],
+          [
+            "svo",
+            "brought",
+            "susie",
+            "basket"
+          ],
+          [
+            "svo",
+            "examining",
+            "john",
+            "horse"
+          ],
+          [
+            "svo",
+            "heard",
+            "boy",
+            "horse"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "strawberry"
+          ],
+          [
+            "svo",
+            "put",
+            "george",
+            "strawberry"
+          ],
+          [
+            "svo",
+            "put",
+            "mother",
+            "lunch"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "james"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "james"
+          ]
+        ],
+        "fp_relations": [
+          [
+            "loc",
+            "boy",
+            "road"
+          ],
+          [
+            "loc",
+            "boy",
+            "work"
+          ],
+          [
+            "poss",
+            "his",
+            "mother"
+          ],
+          [
+            "poss",
+            "john",
+            "horse"
+          ],
+          [
+            "svo",
+            "came",
+            "man",
+            "man"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "george"
+          ],
+          [
+            "svo",
+            "lifting",
+            "george",
+            "mouth"
+          ],
+          [
+            "svo",
+            "sent",
+            "parents",
+            "school"
+          ],
+          [
+            "svo",
+            "told",
+            "mother",
+            "school"
+          ]
+        ]
+      },
+      "per_q": [
+        {
+          "qid": "N1",
+          "slice": "NC",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "N2",
+          "slice": "NC",
+          "gold": "friend",
+          "pred": "friend",
+          "ok": true
+        },
+        {
+          "qid": "N3",
+          "slice": "NC",
+          "gold": "basket",
+          "pred": "basket",
+          "ok": true
+        },
+        {
+          "qid": "N4",
+          "slice": "NC",
+          "gold": "horse",
+          "pred": "horse",
+          "ok": true
+        },
+        {
+          "qid": "N5",
+          "slice": "NC",
+          "gold": "sheep",
+          "pred": null,
+          "ok": false
+        },
+        {
+          "qid": "N6",
+          "slice": "NC",
+          "gold": "lunch",
+          "pred": "lunch",
+          "ok": true
+        },
+        {
+          "qid": "O1",
+          "slice": "CO",
+          "gold": "parents",
+          "pred": "parents",
+          "ok": true
+        },
+        {
+          "qid": "O2",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O3",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "qid": "O4",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O5",
+          "slice": "CO",
+          "gold": "susie",
+          "pred": "susie",
+          "ok": true
+        },
+        {
+          "qid": "O6",
+          "slice": "CO",
+          "gold": "james",
+          "pred": "his",
+          "ok": false
+        },
+        {
+          "qid": "M1",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "qid": "M2",
+          "slice": "CMP",
+          "gold": "strawberry",
+          "pred": "george",
+          "ok": false
+        },
+        {
+          "qid": "M3",
+          "slice": "CMP",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        }
+      ]
+    }
+  },
+  "cited_floor": {
+    "source": "data/exp_reader_grade3_envelope_readtogrow_v1/metrics.json:arms.third_reader",
+    "commit": "00c6688b6",
+    "vet": "a7ecb244",
+    "all": 0.7333,
+    "NC": 0.8333,
+    "CO": 0.8333,
+    "CMP": 0.3333,
+    "ref_acc": 0.8333,
+    "RELF1_recall": 0.8,
+    "RELF1_f1": 0.522,
+    "n_relations": 36,
+    "qLB": 0.387
+  },
+  "annotation_note": "GOLD_HEADS = oracle mention gate INPUT (correct referent heads); COMPLETE_TRUTH = SEPARATE precision EVAL (an all-gold-head relation can still be FALSE -> not circular). INJECT = minimal shared-subject restore on the 2 orphaned coordinated VP clauses (boundaries unchanged).",
+  "scope_caveat": "Same mostly-in-vocab 3rd-reader narrative slice as the envelope (SYNTAX isolated; out-of-vocab / poetry / long sentences UNTESTED). n_questions=15, n_relations~36 -> modestly powered; strict precision (per-relation, n~36) is the load-bearing FP signal. GOLD annotations are hand-authored by the cell author (single annotator). CLAIM-VET-pending; strategic read = hypothesis pending landed-VET.",
+  "n_passages": 11,
+  "n_questions": 15
+}
