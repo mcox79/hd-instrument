@@ -1,0 +1,506 @@
+{
+  "anchor_name": "cls_prioritized_replay_closed_loop_surprise_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_WEAK_LEVER: closed-loop surprise beats uniform at the structured end but below the >=0.08 delta_E bar on >=2 seeds (delta_E=0.055) -- weak/partial priority effect, not decisive. E-pool retention (chance=0.0069) [no/unif/clos/stat] + held-out-Q + fresh-net-Q confounds: SF=0.75[no=0.097 unif=0.521 clos=0.576 stat=0.472 |Q no=0.104 unif=0.139 clos=0.125 |fnQ u=0.000 s=0.000 dE=0.055 hp=1 hf=1/3 diff=Y] SF=0.55[no=0.257 unif=0.642 clos=0.767 stat=0.615 |Q no=0.250 unif=0.229 clos=0.250 |fnQ u=0.000 s=0.007 dE=0.125 hp=2 hf=0/3 diff=Y] | B=12 matched budget over E=96, never-replayed Q=48 | arms_differ=True units=6/6",
+  "run_mode": "full",
+  "n_units": 6,
+  "expected_n_units": 6,
+  "arms_differ": true,
+  "n_eligible": 96,
+  "n_never_replayed": 48,
+  "b_replay": 12,
+  "chance": 0.00694,
+  "points": [
+    {
+      "shared_frac": 0.75,
+      "agg": {
+        "no_replay": {
+          "E_retention": 0.097,
+          "Q_retention": 0.104,
+          "E_initial": 1.0
+        },
+        "uniform_replay": {
+          "E_retention": 0.521,
+          "Q_retention": 0.139,
+          "E_initial": 1.0,
+          "n_distinct_replayed": 66.333,
+          "total_replay_exposures": 96.0
+        },
+        "surprise_closed_loop": {
+          "E_retention": 0.576,
+          "Q_retention": 0.125,
+          "E_initial": 1.0,
+          "n_distinct_replayed": 74.667,
+          "total_replay_exposures": 96.0
+        },
+        "surprise_static_snapshot": {
+          "E_retention": 0.472,
+          "Q_retention": 0.097,
+          "E_initial": 1.0,
+          "n_distinct_replayed": 61.0,
+          "total_replay_exposures": 96.0
+        },
+        "fresh_net_uniform": {
+          "E_retention": 0.691,
+          "Q_retention": 0.0
+        },
+        "fresh_net_surprise": {
+          "E_retention": 0.778,
+          "Q_retention": 0.0
+        }
+      },
+      "hp_seeds": 1,
+      "hf_seeds": 1,
+      "n_seeds": 3,
+      "mean_delta_E": 0.055,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "shared_frac": 0.55,
+      "agg": {
+        "no_replay": {
+          "E_retention": 0.257,
+          "Q_retention": 0.25,
+          "E_initial": 1.0
+        },
+        "uniform_replay": {
+          "E_retention": 0.642,
+          "Q_retention": 0.229,
+          "E_initial": 1.0,
+          "n_distinct_replayed": 66.333,
+          "total_replay_exposures": 96.0
+        },
+        "surprise_closed_loop": {
+          "E_retention": 0.767,
+          "Q_retention": 0.25,
+          "E_initial": 1.0,
+          "n_distinct_replayed": 76.667,
+          "total_replay_exposures": 96.0
+        },
+        "surprise_static_snapshot": {
+          "E_retention": 0.615,
+          "Q_retention": 0.271,
+          "E_initial": 1.0,
+          "n_distinct_replayed": 61.0,
+          "total_replay_exposures": 96.0
+        },
+        "fresh_net_uniform": {
+          "E_retention": 0.691,
+          "Q_retention": 0.0
+        },
+        "fresh_net_surprise": {
+          "E_retention": 0.799,
+          "Q_retention": 0.007
+        }
+      },
+      "hp_seeds": 2,
+      "hf_seeds": 0,
+      "n_seeds": 3,
+      "mean_delta_E": 0.125,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    }
+  ],
+  "per_unit": [
+    {
+      "shared_frac": 0.75,
+      "seed": 7,
+      "no_replay": {
+        "E_retention": 0.062,
+        "Q_retention": 0.104,
+        "E_initial": 1.0
+      },
+      "uniform_replay": {
+        "E_retention": 0.552,
+        "Q_retention": 0.146,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 69,
+        "total_replay_exposures": 96
+      },
+      "surprise_closed_loop": {
+        "E_retention": 0.562,
+        "Q_retention": 0.021,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 75,
+        "total_replay_exposures": 96
+      },
+      "surprise_static_snapshot": {
+        "E_retention": 0.438,
+        "Q_retention": 0.062,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 58,
+        "total_replay_exposures": 96
+      },
+      "fresh_net_uniform": {
+        "E_retention": 0.719,
+        "Q_retention": 0.0
+      },
+      "fresh_net_surprise": {
+        "E_retention": 0.781,
+        "Q_retention": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "47213c322747659fa9a74c0aae93824acb4f234776ae00ba94774f7ae01bf424",
+        "uniform_replay": "f400b12238485ae243efa97a5d85283f822b487a97fbf040b524c5f408b959bc",
+        "surprise_closed_loop": "b543c51461e261b052fe710d9fe13285e21bb4febda2c4f42b9a3b854a3fd779",
+        "surprise_static_snapshot": "5f68582183f0db67f650190e891feba5394772894ef52b8f1542dbb468ad75f9",
+        "fresh_net_uniform": "7878bc5eb1e10d5ab7264319fd3093f0df2945613f83a2de94b22b8dc62868f8",
+        "fresh_net_surprise": "2d97ad97e0ee60e5317a7c805b1cf0d0ab780cdbfd3c0109fb9dd7def08e3fa7"
+      }
+    },
+    {
+      "shared_frac": 0.75,
+      "seed": 17,
+      "no_replay": {
+        "E_retention": 0.135,
+        "Q_retention": 0.021,
+        "E_initial": 1.0
+      },
+      "uniform_replay": {
+        "E_retention": 0.521,
+        "Q_retention": 0.188,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 65,
+        "total_replay_exposures": 96
+      },
+      "surprise_closed_loop": {
+        "E_retention": 0.583,
+        "Q_retention": 0.146,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 72,
+        "total_replay_exposures": 96
+      },
+      "surprise_static_snapshot": {
+        "E_retention": 0.5,
+        "Q_retention": 0.104,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 63,
+        "total_replay_exposures": 96
+      },
+      "fresh_net_uniform": {
+        "E_retention": 0.677,
+        "Q_retention": 0.0
+      },
+      "fresh_net_surprise": {
+        "E_retention": 0.75,
+        "Q_retention": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "f8668c5dfa16303ec07473c90afda6e48ac472cb758841133b53825a7fe6b587",
+        "uniform_replay": "b8c5bba9741fc25c70cae00fb3ba47076e8fd7aa35c6468a774a98789df4886d",
+        "surprise_closed_loop": "100b374e62f2eff67d15558745e8bbff6a13e52dd04374517d4df8831ce47a02",
+        "surprise_static_snapshot": "97193e4c0ab6ae0a54094ff8c8f0fe3c9eb3238fcdb21936cdd5d0e6cd9ecf01",
+        "fresh_net_uniform": "346d20826c86b432fb374e3c07bd4e73a2bc01b2e901ab1f68a19adeaa7988db",
+        "fresh_net_surprise": "72899721518a2a10e88237b1634414c66f3727360102022952bfa16476d86f3c"
+      }
+    },
+    {
+      "shared_frac": 0.75,
+      "seed": 23,
+      "no_replay": {
+        "E_retention": 0.094,
+        "Q_retention": 0.188,
+        "E_initial": 1.0
+      },
+      "uniform_replay": {
+        "E_retention": 0.49,
+        "Q_retention": 0.083,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 65,
+        "total_replay_exposures": 96
+      },
+      "surprise_closed_loop": {
+        "E_retention": 0.583,
+        "Q_retention": 0.208,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 77,
+        "total_replay_exposures": 96
+      },
+      "surprise_static_snapshot": {
+        "E_retention": 0.479,
+        "Q_retention": 0.125,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 62,
+        "total_replay_exposures": 96
+      },
+      "fresh_net_uniform": {
+        "E_retention": 0.677,
+        "Q_retention": 0.0
+      },
+      "fresh_net_surprise": {
+        "E_retention": 0.802,
+        "Q_retention": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "d5adef28b66a899ec6291acd10c8e18359dd96766ea5cf390860dec1ad62bb28",
+        "uniform_replay": "b414f17dd84de6af786fd528ee4971c26a67abfdad2775f35f2bb09e5ac69f71",
+        "surprise_closed_loop": "f49fd292c11a33cef1950582af6704f8804d4f346c72b6bc8a16b7febb313eb0",
+        "surprise_static_snapshot": "814f8faf08227f05f8f472bb276b158461d09fb95cc136e5bdd9a0062b6420fa",
+        "fresh_net_uniform": "6eb09f63e14b495e7dc28b8739ff0ef5b2497d6e589c07faf132d6bfac6b382e",
+        "fresh_net_surprise": "eaa6d230d5a16708afc457096c9c389b76d8abb141e8932ba1132afe6e464500"
+      }
+    },
+    {
+      "shared_frac": 0.55,
+      "seed": 7,
+      "no_replay": {
+        "E_retention": 0.198,
+        "Q_retention": 0.208,
+        "E_initial": 1.0
+      },
+      "uniform_replay": {
+        "E_retention": 0.667,
+        "Q_retention": 0.271,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 69,
+        "total_replay_exposures": 96
+      },
+      "surprise_closed_loop": {
+        "E_retention": 0.76,
+        "Q_retention": 0.333,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 77,
+        "total_replay_exposures": 96
+      },
+      "surprise_static_snapshot": {
+        "E_retention": 0.625,
+        "Q_retention": 0.188,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 58,
+        "total_replay_exposures": 96
+      },
+      "fresh_net_uniform": {
+        "E_retention": 0.719,
+        "Q_retention": 0.0
+      },
+      "fresh_net_surprise": {
+        "E_retention": 0.802,
+        "Q_retention": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "e319f088d93b6c5d726cebfc7e4e5cbcb0b7fe76273e0271f66676ca2ca25cd7",
+        "uniform_replay": "031b190588d5d5387850421b44c707d388aa7bef0ed5c0ee004df6e21146223a",
+        "surprise_closed_loop": "e397e73fbf6f20004c62c3d26d3d86e49b25413fa6134daa0a6c31ab14d9bed2",
+        "surprise_static_snapshot": "a5393f819633f89f3961d1d7d09785794e665274add8874924cfc24080ebf52e",
+        "fresh_net_uniform": "062bca2b496230babb6f9c060d640a3454e8306d58815007b85dec4a7ce399ee",
+        "fresh_net_surprise": "fe2c7f36f83eb9f3e6e784663b180675610a1de911678511092c10cc1657964d"
+      }
+    },
+    {
+      "shared_frac": 0.55,
+      "seed": 17,
+      "no_replay": {
+        "E_retention": 0.271,
+        "Q_retention": 0.25,
+        "E_initial": 1.0
+      },
+      "uniform_replay": {
+        "E_retention": 0.635,
+        "Q_retention": 0.167,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 65,
+        "total_replay_exposures": 96
+      },
+      "surprise_closed_loop": {
+        "E_retention": 0.812,
+        "Q_retention": 0.125,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 76,
+        "total_replay_exposures": 96
+      },
+      "surprise_static_snapshot": {
+        "E_retention": 0.646,
+        "Q_retention": 0.292,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 63,
+        "total_replay_exposures": 96
+      },
+      "fresh_net_uniform": {
+        "E_retention": 0.677,
+        "Q_retention": 0.0
+      },
+      "fresh_net_surprise": {
+        "E_retention": 0.792,
+        "Q_retention": 0.0
+      },
+      "arm_digests": {
+        "no_replay": "7231b2315a8b1f73d602ee26500fcefd3271df83c4387597d0d6ca322aace201",
+        "uniform_replay": "ceccb55a7cb2a84b3b943569a8bc0c3ef1a4c48d5fac815e29973544a6d57a32",
+        "surprise_closed_loop": "9ddc64c54b580edd9e5c1d2f951821e45db197fdde32c58750b8ec29a966c7ac",
+        "surprise_static_snapshot": "4886d22acebc42ab9a31fc08ab62e72c29567cb15f9a2cb14de5eb23dd25025c",
+        "fresh_net_uniform": "b115b5fd9d3f4c971c653fa768f0960aafc43167f3dd98a3e21a2429b4e6aa2a",
+        "fresh_net_surprise": "079cdfd0f31674e5744ef45bdd376a1564400bdf627f3ed120c63f936f7684f4"
+      }
+    },
+    {
+      "shared_frac": 0.55,
+      "seed": 23,
+      "no_replay": {
+        "E_retention": 0.302,
+        "Q_retention": 0.292,
+        "E_initial": 1.0
+      },
+      "uniform_replay": {
+        "E_retention": 0.625,
+        "Q_retention": 0.25,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 65,
+        "total_replay_exposures": 96
+      },
+      "surprise_closed_loop": {
+        "E_retention": 0.729,
+        "Q_retention": 0.292,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 77,
+        "total_replay_exposures": 96
+      },
+      "surprise_static_snapshot": {
+        "E_retention": 0.573,
+        "Q_retention": 0.333,
+        "E_initial": 1.0,
+        "n_distinct_replayed": 62,
+        "total_replay_exposures": 96
+      },
+      "fresh_net_uniform": {
+        "E_retention": 0.677,
+        "Q_retention": 0.0
+      },
+      "fresh_net_surprise": {
+        "E_retention": 0.802,
+        "Q_retention": 0.021
+      },
+      "arm_digests": {
+        "no_replay": "4e9d5d7ee4773108f22fdc3f93f9d037ef41dbf1635be1fe88f6de4ee76d2549",
+        "uniform_replay": "e7b7b21eeef8b1564b660b11f52fbdaa004e28e39da6ebd85e48f291e80b94b2",
+        "surprise_closed_loop": "bf8027f6001059e7c34eb9043572b5064e46d4fd22c31ffea9c71a9a712b0536",
+        "surprise_static_snapshot": "d5c7ae9f775867eec281b2d42532bd3bc80f03a8a2f4bf4af172b2691bc4baf6",
+        "fresh_net_uniform": "04bb55537d8b4eb64f0b6174eb0cfe080f03bfdb85bad7ef56f7455661a92a6d",
+        "fresh_net_surprise": "a01ce71a29abfb489d61b790815646f281b84ccd0929e7b79582e6429b0055b9"
+      }
+    }
+  ],
+  "config": {
+    "N": 256,
+    "D_T": 64,
+    "H": 160,
+    "OLD_CLASSES": 12,
+    "OLD_EXEMPLARS": 12,
+    "ELIG_PER_CLASS": 8,
+    "B_REPLAY": 12,
+    "ALPHA": 1.0,
+    "K_INTERFERE": 8,
+    "NEW_CPB": 3,
+    "NEW_EXEMPLARS": 12,
+    "E_OLD": 400,
+    "E_NEW": 200,
+    "LR": 0.04,
+    "SHARED_FRAC_GRID": [
+      0.75,
+      0.55
+    ],
+    "STRUCTURED_FRAC": 0.75,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "bands": {
+      "DELTA_E_HP": 0.08,
+      "DELTA_E_HF": 0.02,
+      "DELTA_Q_FLOOR": -0.03
+    }
+  },
+  "elapsed_s": 20.621612787246704,
+  "summary": "MIDDLE_BAND_WEAK_LEVER: closed-loop surprise beats uniform at the structured end but below the >=0.08 delta_E bar on >=2 seeds (delta_E=0.055) -- weak/partial priority effect, not decisive. E-pool retention (chance=0.0069) [no/unif/clos/stat] + held-out-Q + fresh-net-Q confounds: SF=0.75[no=0.097 unif=0.521 clos=0.576 stat=0.472 |Q no=0.104 unif=0.139 clos=0.125 |fnQ u=0.000 s=0.000 dE=0.055 hp=1 hf=1/3 diff=Y] SF=0.55[no=0.257 unif=0.642 clos=0.767 stat=0.615 |Q no=0.250 unif=0.229 clos=0.250 |fnQ u=0.000 s=0.007 dE=0.125 hp=2 hf=0/3 diff=Y] | B=12 matched budget over E=96, never-replayed Q=48 | arms_differ=True units=6/6",
+  "structured_gate_claims": [
+    {
+      "gate_name": "struct_delta_E_closed_vs_uniform",
+      "measured": 0.05499999999999994,
+      "threshold": 0.08,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "closed-loop surprise replay beats uniform on E-pool retention (LOAD-BEARING lever)"
+    },
+    {
+      "gate_name": "struct_hp_seeds",
+      "measured": 1,
+      "threshold": 2,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "seeds where delta_E >= HP and delta_Q >= floor (structured end)"
+    },
+    {
+      "gate_name": "struct_delta_E_static_vs_uniform",
+      "measured": -0.049000000000000044,
+      "threshold": 0.0,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "static-snapshot priority vs uniform (expected ~0: pre-interference surprise uninformative)"
+    },
+    {
+      "gate_name": "struct_diff_no_replay",
+      "measured": 0.097,
+      "threshold": 0.35,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "catastrophic forgetting of E-pool is real (difficulty ON)"
+    },
+    {
+      "gate_name": "struct_diff_uniform_over_floor",
+      "measured": 0.42400000000000004,
+      "threshold": 0.1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "uniform replay budget helps at all (matched-budget sanity)"
+    },
+    {
+      "gate_name": "struct_diff_uniform_lower_band",
+      "measured": 0.521,
+      "threshold": 0.3,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "uniform_E above floor band (not saturated-low) META_RULE_AG"
+    },
+    {
+      "gate_name": "struct_diff_uniform_upper_band",
+      "measured": 0.9,
+      "threshold": 0.521,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "uniform_E below ceiling band (headroom for a lever) META_RULE_AG"
+    },
+    {
+      "gate_name": "struct_diff_initial",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "net learned independent targets initially (forgetting not inability)"
+    },
+    {
+      "gate_name": "struct_diff_fresh_net_uniform_fails_Q",
+      "measured": 0.1,
+      "threshold": 0.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "fresh-net on uniform-replayed FAILS held-out Q -> content independent (difficulty ON)"
+    },
+    {
+      "gate_name": "struct_diff_fresh_net_surprise_fails_Q",
+      "measured": 0.1,
+      "threshold": 0.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "fresh-net on surprise-replayed FAILS held-out Q -> content independent (difficulty ON)"
+    },
+    {
+      "gate_name": "cardinality",
+      "measured": 6,
+      "threshold": 6,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "all sweep x seed units completed (META_RULE_H)"
+    }
+  ]
+}
