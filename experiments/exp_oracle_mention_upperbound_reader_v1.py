@@ -242,7 +242,7 @@ def ground_category(word):
         syns = _wn().synsets(w, pos="n")
         if not syns and w.endswith("s") and len(w) > 3:
             # depluralize (WordNet lemma is singular; e.g. 'eggs'->'egg', 'boys'->'boy')
-            sing = w[:-2] if w.endswith("es") and w[:-2] in NAME_GENDER | PERSON_NOUNS | ANIMALS | LOC_NOUNS else w[:-1]
+            sing = w[:-2] if w.endswith("es") and w[:-2] in set(NAME_GENDER) | PERSON_NOUNS | ANIMALS | LOC_NOUNS else w[:-1]
             if sing in NAME_GENDER or sing in PERSON_NOUNS:
                 cat = "PERSON"
             elif sing in ANIMALS:

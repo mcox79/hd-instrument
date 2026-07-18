@@ -1,0 +1,531 @@
+{
+  "verdict": "SCOPE_LIMITED_OR_DEGRADES",
+  "verdict_msg": "SCALE-UP LOCALIZES. Reader RUNS end-to-end on all 79 lessons (no crash) and read-to-grow grows a BIG foundation (3509 rel / 1308 ent, x97.5 the 14-subset) BUT: (1) CG gate is SCOPE-LIMITED -- factivity suppression precision 0.875 recall 1.000 on 256 sites, but the NON-FACTIVE+DO DIVERGENCE regime (the banked test) appears at only 2 sites and the verb-LIST is correct on 0/2 of them (over-suppresses ['feel', 'forget'] where the structural direct-object parse would ADMIT and is correct); the corpus under-powers verb-independence. (2) foundation grows NOISY at scale: sample precision 0.19 (range 0.13-0.25) vs the clean-subset quality_LB 0.39. (3) comprehension 0.88 (retention 1.19 vs baseline 0.73). DATA-DRIVEN NEXT PRIORITY = the dominant FP cause = COREF (hist {'ARG_STRUCT': 14, 'NP_HEAD': 12, 'COREF': 18, 'VERB_TAG': 1}); the clause-seg factivity filter is NOT the scale bottleneck (it correctly suppresses 14 sites). HONEST DEFLATE. HYPOTHESIS pending VET.",
+  "summary": "SCOPE_LIMITED_OR_DEGRADES: full 3rd reader (79 lessons) | foundation ON 3509rel/1308ent (OFF 3621rel; x97.5 vs 14-subset 36) sample_prec 0.19 [0.13-0.25] | CG suppr P 0.875 R 1.000 div 0/2 | comp 0.88 (ret 1.19) | dom_FP=COREF {'ARG_STRUCT': 14, 'NP_HEAD': 12, 'COREF': 18, 'VERB_TAG': 1} | passive 1.00 reversal 1.00 overlay=True det=True",
+  "elapsed_s": 100.27,
+  "ts_iso": "2026-07-18T21:31:48.001417+00:00",
+  "anchor_name": "read_grow_full_third_reader_clauseseg_generalization_v1",
+  "run_mode": "full",
+  "seed": 20260718,
+  "n_lessons": 79,
+  "one_variable": "per measurement: CG gate = factivity filter decision vs INDEPENDENT factivity gold at every injection site; foundation = filter ON (verbfilter) vs OFF (topical inject-always); corpus = FULL 79-lesson 3rd reader vs the 14 hand-selected in-vocab passages",
+  "bands": {
+    "cg_prec_min": 0.9,
+    "cg_rec_min": 0.9,
+    "div_correct_min_frac": 0.8,
+    "foundation_prec_min": 0.6,
+    "comp_retention_min": 0.7
+  },
+  "cg_gate": {
+    "n_sites": 256,
+    "tp": 14,
+    "fp": 2,
+    "fn": 0,
+    "tn": 240,
+    "factivity_suppression_precision": 0.875,
+    "factivity_suppression_recall": 1.0,
+    "n_flagged": 16,
+    "n_gold_nonfactive": 14,
+    "n_divergence_sites": 2,
+    "divergence_sites": [
+      {
+        "pid": "L39",
+        "verb": "feel",
+        "filter_suppress": true,
+        "structural_admit": true,
+        "gold_suppress": false,
+        "clause": "feel them"
+      },
+      {
+        "pid": "L62",
+        "verb": "forget",
+        "filter_suppress": true,
+        "structural_admit": true,
+        "gold_suppress": false,
+        "clause": "forget the injury"
+      }
+    ],
+    "divergence_filter_correct": 0,
+    "divergence_structural_correct": 2,
+    "filter_over_suppress": [
+      {
+        "pid": "L39",
+        "verb": "feel",
+        "has_do": true,
+        "clause": "feel them"
+      },
+      {
+        "pid": "L62",
+        "verb": "forget",
+        "has_do": true,
+        "clause": "forget the injury"
+      }
+    ],
+    "filter_miss": [],
+    "n_admit": 157,
+    "n_suppress": 99,
+    "suppress_reason_hist": {
+      "no_direct_object": 83,
+      "non_factive_verb": 16
+    }
+  },
+  "foundation": {
+    "n_relations_on": 3509,
+    "n_entities_on": 1308,
+    "n_relations_off": 3621,
+    "growth_factor_vs_14subset": 97.5,
+    "filter_removed_relations": 112,
+    "precision_sample": {
+      "n_sample": 60,
+      "n_correct": 8,
+      "n_borderline": 7,
+      "n_fp": 45,
+      "precision_point": 0.1917,
+      "precision_lower": 0.1333,
+      "precision_upper": 0.25,
+      "fp_cause_histogram": {
+        "ARG_STRUCT": 14,
+        "NP_HEAD": 12,
+        "COREF": 18,
+        "VERB_TAG": 1
+      },
+      "fp_cause_fraction": {
+        "ARG_STRUCT": 0.311,
+        "NP_HEAD": 0.267,
+        "COREF": 0.4,
+        "VERB_TAG": 0.022
+      }
+    },
+    "sample": [
+      [
+        "loc",
+        "girl",
+        "front"
+      ],
+      [
+        "loc",
+        "man",
+        "midst"
+      ],
+      [
+        "loc",
+        "mules",
+        "precipice"
+      ],
+      [
+        "loc",
+        "sheep",
+        "turnips"
+      ],
+      [
+        "poss",
+        "fisher",
+        "book"
+      ],
+      [
+        "poss",
+        "george",
+        "mother"
+      ],
+      [
+        "poss",
+        "little",
+        "homage"
+      ],
+      [
+        "poss",
+        "my",
+        "aunt"
+      ],
+      [
+        "poss",
+        "my",
+        "plan"
+      ],
+      [
+        "poss",
+        "our",
+        "way"
+      ],
+      [
+        "poss",
+        "sailor",
+        "plan"
+      ],
+      [
+        "poss",
+        "shepherd",
+        "feet"
+      ],
+      [
+        "poss",
+        "shepherd",
+        "pasture"
+      ],
+      [
+        "poss",
+        "traveler",
+        "sultry"
+      ],
+      [
+        "poss",
+        "your",
+        "case"
+      ],
+      [
+        "poss",
+        "your",
+        "snowballs"
+      ],
+      [
+        "svo",
+        "advance",
+        "you",
+        "bolder"
+      ],
+      [
+        "svo",
+        "bring",
+        "i",
+        "susie"
+      ],
+      [
+        "svo",
+        "came",
+        "harry",
+        "hands"
+      ],
+      [
+        "svo",
+        "care",
+        "i",
+        "things"
+      ],
+      [
+        "svo",
+        "caught",
+        "you",
+        "horse"
+      ],
+      [
+        "svo",
+        "coming",
+        "james",
+        "stones"
+      ],
+      [
+        "svo",
+        "find",
+        "sooner",
+        "stones"
+      ],
+      [
+        "svo",
+        "fly",
+        "down",
+        "snowy"
+      ],
+      [
+        "svo",
+        "flying",
+        "boy",
+        "i"
+      ],
+      [
+        "svo",
+        "fought",
+        "we",
+        "till"
+      ],
+      [
+        "svo",
+        "found",
+        "son",
+        "joe"
+      ],
+      [
+        "svo",
+        "gave",
+        "father",
+        "bridle"
+      ],
+      [
+        "svo",
+        "gave",
+        "widow",
+        "side"
+      ],
+      [
+        "svo",
+        "given",
+        "susie",
+        "meat"
+      ],
+      [
+        "svo",
+        "heard",
+        "sands",
+        "deep"
+      ],
+      [
+        "svo",
+        "helped",
+        "willie",
+        "out"
+      ],
+      [
+        "svo",
+        "kept",
+        "tom",
+        "a"
+      ],
+      [
+        "svo",
+        "laugh",
+        "as",
+        "heart"
+      ],
+      [
+        "svo",
+        "led",
+        "man",
+        "western"
+      ],
+      [
+        "svo",
+        "led",
+        "shepherd",
+        "sheep"
+      ],
+      [
+        "svo",
+        "lifted",
+        "george",
+        "mouth"
+      ],
+      [
+        "svo",
+        "looks",
+        "bird",
+        "living"
+      ],
+      [
+        "svo",
+        "make",
+        "dishes",
+        "fires"
+      ],
+      [
+        "svo",
+        "married",
+        "will",
+        "lovely"
+      ],
+      [
+        "svo",
+        "play",
+        "you",
+        "pencil"
+      ],
+      [
+        "svo",
+        "play",
+        "you",
+        "slate"
+      ],
+      [
+        "svo",
+        "played",
+        "we",
+        "i"
+      ],
+      [
+        "svo",
+        "put",
+        "son",
+        "head"
+      ],
+      [
+        "svo",
+        "ruined",
+        "boys",
+        "will"
+      ],
+      [
+        "svo",
+        "said",
+        "gracie",
+        "birdie"
+      ],
+      [
+        "svo",
+        "said",
+        "mary",
+        "matches"
+      ],
+      [
+        "svo",
+        "said",
+        "susan",
+        "word"
+      ],
+      [
+        "svo",
+        "sat",
+        "merchant",
+        "piece"
+      ],
+      [
+        "svo",
+        "saw",
+        "i",
+        "sign"
+      ],
+      [
+        "svo",
+        "saw",
+        "susie",
+        "spring"
+      ],
+      [
+        "svo",
+        "see",
+        "i",
+        "beggar"
+      ],
+      [
+        "svo",
+        "sing",
+        "i",
+        "folks"
+      ],
+      [
+        "svo",
+        "singing",
+        "snowbird",
+        "ere"
+      ],
+      [
+        "svo",
+        "sitting",
+        "herbert",
+        "face"
+      ],
+      [
+        "svo",
+        "takes",
+        "great",
+        "growth"
+      ],
+      [
+        "svo",
+        "tell",
+        "me",
+        "victory"
+      ],
+      [
+        "svo",
+        "took",
+        "man",
+        "crusts"
+      ],
+      [
+        "svo",
+        "went",
+        "son",
+        "river"
+      ],
+      [
+        "svo",
+        "wished",
+        "father",
+        "books"
+      ]
+    ]
+  },
+  "comprehension": {
+    "accuracy": 0.875,
+    "n": 8,
+    "per_q": [
+      {
+        "qid": "C1",
+        "slice": "NC",
+        "gold": "sheep",
+        "pred": "great",
+        "ok": false
+      },
+      {
+        "qid": "C2",
+        "slice": "NC",
+        "gold": "wolf",
+        "pred": "wolf",
+        "ok": true
+      },
+      {
+        "qid": "C3",
+        "slice": "CO",
+        "gold": "james",
+        "pred": "james",
+        "ok": true
+      },
+      {
+        "qid": "C4",
+        "slice": "CO",
+        "gold": "james",
+        "pred": "james",
+        "ok": true
+      },
+      {
+        "qid": "C5",
+        "slice": "NC",
+        "gold": "basket",
+        "pred": "basket",
+        "ok": true
+      },
+      {
+        "qid": "C6",
+        "slice": "CO",
+        "gold": "susie",
+        "pred": "susie",
+        "ok": true
+      },
+      {
+        "qid": "C7",
+        "slice": "NC",
+        "gold": "baker",
+        "pred": "baker",
+        "ok": true
+      },
+      {
+        "qid": "C8",
+        "slice": "NC",
+        "gold": "horse",
+        "pred": "horse",
+        "ok": true
+      }
+    ],
+    "n_correct": 7
+  },
+  "comprehension_retention": 1.1932,
+  "regression": {
+    "passive_rolefix": 1.0,
+    "reversal_rolefix": 1.0,
+    "passive_ok": true,
+    "reversal_ok": true,
+    "overlay_witness_ok": true,
+    "overlay_witness_tail": "ALL PASS: hdlab.state_of_mind.WorkingOverlay reproduces the validated recency/salience double-dissociation (longdist 49bb99c24; VET a7ca3db1) -- packaged overlay is the latest validated one.",
+    "deterministic": true,
+    "no_regression": true
+  },
+  "cited_baseline": {
+    "source": "data/exp_reader_grade3_envelope_readtogrow_v1/metrics.json",
+    "comp_all": 0.7333,
+    "ref_acc": 0.8333,
+    "RELF1_recall": 0.8,
+    "n_relations": 36,
+    "n_entities": 32,
+    "quality_lb": 0.387
+  },
+  "infra_note": "scale-surfaced latent bug in ORC.ground_category (Python-3.12 dict|set on the -es depluralize path) fixed BEHAVIOR-IDENTICALLY (set(NAME_GENDER)|... ) so the reader runs at scale; no extraction behavior on the 14-subset changes (that branch never fired there).",
+  "scope_caveat": "Single-annotator INDEPENDENT gold (factivity per site + 60-relation precision sample + 8 comprehension Qs), coverage-honest. Foundation precision is a random-sample point estimate with a borderline band. The non-factive+DO DIVERGENCE regime appears at only 2 natural sites in the whole corpus -> the corpus alone cannot fully separate a correct general factivity oracle from a verb-tuned list; the divergence sites show the verb-LIST over-suppresses factive-transitive uses (feel THEM / forget the injury) where the STRUCTURAL direct-object parse is correct -> the structural signal is the more generalizable one and should DOMINATE the verb-list in the divergence regime. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
