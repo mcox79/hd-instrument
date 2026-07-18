@@ -1,0 +1,233 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "GENUINE full-then-shrink abstraction lever: SHRINK beats FIXED on the logistic POS probe (delta_rep>=+0.03 on 3/3 seeds; acc_shrink_full=0.709 > acc_fixed_full=0.651) AND SHRINK beats the dimension-MATCHED PCA-geometry control (delta_geo>=+0.03 on 3/3 seeds; acc_shrink_pca8=0.700 > acc_fixed_pca8=0.645) -- the win is the SCHEDULE, not low-d geometry. (seed-7 origin +0.064; 3-seed mean delta_rep=+0.058, delta_geo=+0.054.)",
+  "summary": "HARD_PASS: GENUINE full-then-shrink abstraction lever: SHRINK beats FIXED on the logistic POS probe (delta_rep>=+0.03 on 3/3 seeds;",
+  "elapsed_s": 107.73,
+  "ts_iso": "2026-07-18T10:11:09.089564+00:00",
+  "anchor_name": "srn_shrink_probe_replication_v1",
+  "mode": "full",
+  "config": {
+    "n_sents": 8000,
+    "vocab_size": 900,
+    "min_count": 5,
+    "d": 128,
+    "d_min": 8,
+    "n_stages": 5,
+    "k": 5,
+    "epochs": 16,
+    "batch": 512,
+    "lr": 0.01,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "min_members": 8,
+    "probe_folds": 5,
+    "probe_seed": 0
+  },
+  "d_low": 8,
+  "capacity_schedules": {
+    "shrink": [
+      128,
+      128,
+      128,
+      128,
+      64,
+      64,
+      64,
+      32,
+      32,
+      32,
+      16,
+      16,
+      16,
+      8,
+      8,
+      8
+    ],
+    "fixed": [
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128
+    ]
+  },
+  "corpus": {
+    "n_sentences": 8000,
+    "n_sequences": 7512,
+    "n_tokens": 100178,
+    "vocab_size": 900,
+    "n_gold_words": 893,
+    "n_categories": 9,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT",
+      "NUM"
+    ],
+    "majority_baseline_acc": 0.4994,
+    "metric": "logistic_5fold_stratified_POS_probe_accuracy"
+  },
+  "arms": [
+    "SHRINK",
+    "FIXED",
+    "RANDOM_CODE"
+  ],
+  "probed_reps": [
+    "SHRINK_full",
+    "FIXED_full",
+    "SHRINK_pca_dlow",
+    "FIXED_pca_dlow",
+    "SHRINK_active_dlow",
+    "RANDOM_CODE_full"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "acc_shrink_full": 0.7077,
+      "acc_fixed_full": 0.644,
+      "std_shrink_full": 0.022,
+      "std_fixed_full": 0.0379,
+      "folds_shrink_full": [
+        0.6704,
+        0.7263,
+        0.7151,
+        0.7303,
+        0.6966
+      ],
+      "folds_fixed_full": [
+        0.6369,
+        0.6313,
+        0.5978,
+        0.7135,
+        0.6404
+      ],
+      "acc_shrink_pca8": 0.6943,
+      "acc_fixed_pca8": 0.6462,
+      "acc_shrink_active8": 0.5823,
+      "acc_randomcode_full": 0.4681,
+      "sh_ce": 5.0357,
+      "fx_ce": 3.2988,
+      "delta_rep": 0.0638,
+      "delta_geo": 0.0481,
+      "pca_recovers": -0.0616
+    },
+    {
+      "seed": 13,
+      "acc_shrink_full": 0.7156,
+      "acc_fixed_full": 0.6584,
+      "std_shrink_full": 0.0226,
+      "std_fixed_full": 0.0174,
+      "folds_shrink_full": [
+        0.6816,
+        0.7318,
+        0.7039,
+        0.7472,
+        0.7135
+      ],
+      "folds_fixed_full": [
+        0.6704,
+        0.648,
+        0.676,
+        0.6685,
+        0.6292
+      ],
+      "acc_shrink_pca8": 0.7111,
+      "acc_fixed_pca8": 0.6395,
+      "acc_shrink_active8": 0.6775,
+      "acc_randomcode_full": 0.4681,
+      "sh_ce": 5.0375,
+      "fx_ce": 3.3026,
+      "delta_rep": 0.0572,
+      "delta_geo": 0.0716,
+      "pca_recovers": -0.0761
+    },
+    {
+      "seed": 19,
+      "acc_shrink_full": 0.7044,
+      "acc_fixed_full": 0.6518,
+      "std_shrink_full": 0.0184,
+      "std_fixed_full": 0.0117,
+      "folds_shrink_full": [
+        0.6816,
+        0.7151,
+        0.7095,
+        0.7303,
+        0.6854
+      ],
+      "folds_fixed_full": [
+        0.648,
+        0.6536,
+        0.6313,
+        0.6629,
+        0.6629
+      ],
+      "acc_shrink_pca8": 0.6943,
+      "acc_fixed_pca8": 0.6506,
+      "acc_shrink_active8": 0.6103,
+      "acc_randomcode_full": 0.4681,
+      "sh_ce": 5.0387,
+      "fx_ce": 3.3018,
+      "delta_rep": 0.0526,
+      "delta_geo": 0.0437,
+      "pca_recovers": -0.0537
+    }
+  ],
+  "aggregate": {
+    "acc_shrink_full_mean": 0.7092,
+    "acc_fixed_full_mean": 0.6514,
+    "acc_shrink_pca8_mean": 0.6999,
+    "acc_fixed_pca8_mean": 0.6454,
+    "acc_randomcode_full_mean": 0.4681,
+    "delta_rep_mean": 0.0579,
+    "delta_geo_mean": 0.0545,
+    "rep_seeds": 3,
+    "geo_seeds": 3,
+    "n_seeds": 3,
+    "maj_needed": 2,
+    "M_rep": 0.03,
+    "M_geo": 0.03,
+    "seed7_origin_delta_rep": 0.064
+  },
+  "gates": {
+    "cardinality_ok": true,
+    "metric_fires": true,
+    "baseline_above_chance": true,
+    "baseline_in_band": true,
+    "rep_pass": true,
+    "geo_pass": true,
+    "rep_absent": false,
+    "geo_absent": false,
+    "arms_differ_verified": true,
+    "sanity_ok": true
+  },
+  "arm_digests": {
+    "SHRINK": "dd152ba39a5f90f58c0a53245b844230d62a23cdd0001c5c190b02a2f4a7ac50",
+    "FIXED": "3c8835ac14d5381ffa1d22cc4fd7654ab53a918194a4d8d1f1583ef4850f3bb4",
+    "RANDOM_CODE": "1e32d0dea8892a6333cbc707d0b89274574d9347ca8df431f0f7874f07475328"
+  },
+  "crlb_n_a": "no capacity noise floor; discriminator is a held-out logistic probe-accuracy gap",
+  "compute_architecture": "sequential_CPU_justified_wall_under_10min_verbatim_parent_learner",
+  "storage_strategy": "no_storage_no_composition_representation_probe_cell",
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "calibration_check": "default_ok_for_this_regime"
+}
