@@ -1,0 +1,126 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "three_factor eligibility-trace does GENUINE reward-contingency credit assignment: acc=1.000 vs recency=0.217 (margin=0.783) vs immediate=0.133 (margin=0.867) @ ON_k4 (chance=0.167); 3/3 seeds pass; both must-fail controls fired (<=0.35); CONTINGENCY-OFF sanity: three_factor=0.183 (all arms<=0.183); recency-kill: c* is most-recent candidate on 37.9% of its trials (chance=1/mean_fired).",
+  "summary": "HARD_PASS: three_factor=1.000 recency=0.217 immediate=0.133 @ ON_k4 (chance=0.167)",
+  "elapsed_s": 70.03167570001096,
+  "ts_iso": "2026-07-18T06:09:08.505463+00:00",
+  "anchor_name": "reward_contingency_credit_assignment_v1",
+  "run_mode": "full",
+  "chance": 0.16666666666666666,
+  "discrim_cond": "ON_k4",
+  "n_seed_pass": 3,
+  "seed_pass": [
+    true,
+    true,
+    true
+  ],
+  "controls_fire": true,
+  "design_fail": false,
+  "sanity_off_ok": true,
+  "posctrl_immediate_ON_k0": 1.0,
+  "posctrl_signal_discoverable": true,
+  "recency_kill": {
+    "frac_cstar_most_recent_candidate": 0.3791208791208791,
+    "frac_cstar_most_recent_event": 0.0,
+    "n_cstar_fired": 182,
+    "n_trials": 350
+  },
+  "mean_acc_by_cond": {
+    "ON_k4": {
+      "three_factor": 1.0,
+      "hebbian_immediate": 0.13333333333333333,
+      "recency": 0.21666666666666667
+    },
+    "ON_k0": {
+      "three_factor": 1.0,
+      "hebbian_immediate": 1.0,
+      "recency": 0.15
+    },
+    "OFF_k4": {
+      "three_factor": 0.18333333333333335,
+      "hebbian_immediate": 0.18333333333333335,
+      "recency": 0.18333333333333335
+    }
+  },
+  "per_seed": {
+    "7": {
+      "ON_k4": {
+        "three_factor": 1.0,
+        "hebbian_immediate": 0.2,
+        "recency": 0.25
+      },
+      "ON_k0": {
+        "three_factor": 1.0,
+        "hebbian_immediate": 1.0,
+        "recency": 0.15
+      },
+      "OFF_k4": {
+        "three_factor": 0.1,
+        "hebbian_immediate": 0.2,
+        "recency": 0.1
+      }
+    },
+    "13": {
+      "ON_k4": {
+        "three_factor": 1.0,
+        "hebbian_immediate": 0.15,
+        "recency": 0.25
+      },
+      "ON_k0": {
+        "three_factor": 1.0,
+        "hebbian_immediate": 1.0,
+        "recency": 0.15
+      },
+      "OFF_k4": {
+        "three_factor": 0.2,
+        "hebbian_immediate": 0.2,
+        "recency": 0.15
+      }
+    },
+    "19": {
+      "ON_k4": {
+        "three_factor": 1.0,
+        "hebbian_immediate": 0.05,
+        "recency": 0.15
+      },
+      "ON_k0": {
+        "three_factor": 1.0,
+        "hebbian_immediate": 1.0,
+        "recency": 0.15
+      },
+      "OFF_k4": {
+        "three_factor": 0.25,
+        "hebbian_immediate": 0.15,
+        "recency": 0.3
+      }
+    }
+  },
+  "gamma_three_factor": 0.9,
+  "config": {
+    "N_DIM": 256,
+    "M_CAND": 6,
+    "T_TRIALS": 350,
+    "R_REPLICATES": 20,
+    "SEEDS": [
+      7,
+      13,
+      19
+    ],
+    "P_FIRE": 0.5,
+    "CONDITIONS": [
+      "ON_k4",
+      "ON_k0",
+      "OFF_k4"
+    ]
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_class": "b_sequential_cpu_justified_eligibility_trace_is_substrate_primitive",
+  "crlb_n_a": "discrete argmax over M candidates; analytic chance floor 1/M; no continuous noise CRLB",
+  "prior_work": "KILLS the two artifacts of exp_three_factor_eligibility_distal_credit_v1 (4dc4ab4c6, VET acc6a02c): unconditional reward (now contingent on c*) + positional recency (now randomized position + reward-agnostic recency null).",
+  "arms_differ_verified": true,
+  "arm_W_digests": {
+    "three_factor": "8652c60a3fff49cef5df41eaf9d5809ff87f262f40f9bcb4fba10701873d42a9",
+    "hebbian_immediate": "d997472014cf3858bc81b8f8af360a2b36bc7a593b6face0cc47884c6481f24f",
+    "recency": "c3281f98154c7ad24717beb421c62438cd5643f9180682faf92f8ac73ead5e59"
+  }
+}
