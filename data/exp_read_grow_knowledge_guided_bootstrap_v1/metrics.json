@@ -1,0 +1,190 @@
+{
+  "verdict": "MIDDLE_BAND_BEATS_WALL_NO_COMPOUND",
+  "verdict_msg": "consistency-filter beats the wall (filter 0.390 vs fixed 0.325, +0.065 at 59% coverage) but re-reading (+-0.005) / interleave (+0.035) do NOT compound -> the concept-class vocabulary saturates in ~one pass; gain is one-shot filtering, not iterative bootstrapping",
+  "summary": "MIDDLE_BAND_BEATS_WALL_NO_COMPOUND: filter=0.390 fixed=0.325 (+0.065 @ 59% cov); reread-0.005 interleave+0.035 reselect_ablation=0.329",
+  "elapsed_s": 7.46,
+  "ts_iso": "2026-07-18T03:44:19.183768+00:00",
+  "anchor_name": "read_grow_knowledge_guided_bootstrap_v1",
+  "run_mode": "full",
+  "bands": {
+    "hp_precision_gain": 0.05,
+    "min_coverage_retain": 0.5,
+    "hp_reread_gain": 0.01,
+    "hp_interleave_gain": 0.01,
+    "fail_no_lift_eps": 0.0
+  },
+  "diag": {
+    "AXIS_A_beats_wall_filter": true,
+    "AXIS_B_reread_compounds": false,
+    "AXIS_C_interleave_compounds": true,
+    "fixed_edge_prec_strict": 0.32507,
+    "guided_filter_edge_prec_strict": 0.38967,
+    "guided_causal_edge_prec_strict": 0.39506,
+    "beats_fixed_margin": 0.0646,
+    "coverage_retain": 0.58678,
+    "reread_gain": -0.00539,
+    "interleave_gain": 0.03452,
+    "book1_only_strict": 0.36765,
+    "book1_after_book2_strict": 0.40217
+  },
+  "gate": {
+    "discriminator_fires": true,
+    "arms_differ_verified": true,
+    "baseline_in_band": true,
+    "fixed_edge_prec_strict": 0.32507,
+    "real_baseline": "FIXED v1 ie_isa_extract single-pass, knowledge-free, same gold+candidates",
+    "one_variable": "knowledge-consistency-filter ON vs OFF; identical candidates+gold+corpus",
+    "difficulty_on": "held-out sections' prose NEVER read; fixed edge-prec ~0.33 leaves ~0.67 headroom",
+    "no_leak": "concept-class set C + guidance from READ prose only; held-out glossary genus unseen",
+    "seed_curated_facts": 0,
+    "seed_note": "concept-class set entirely self-bootstrapped from reading (0 curated seed); only prior knowledge = NLTK POS tagger (innate parser); WordNet lenient-EVAL only",
+    "n_concept_classes_full": 117,
+    "min_support": 3,
+    "reselect_ablation_edge_prec_strict": 0.32946,
+    "reselect_delta_vs_fixed": 0.00439,
+    "reselect_delta_vs_filter": -0.06021
+  },
+  "primary_edge_precision_arms": {
+    "fixed": {
+      "strict": {
+        "precision": 0.32507,
+        "denom": 363,
+        "hits": 118
+      },
+      "lenient": {
+        "precision": 0.42975,
+        "denom": 363,
+        "hits": 156
+      }
+    },
+    "guided_filter_full": {
+      "strict": {
+        "precision": 0.38967,
+        "denom": 213,
+        "hits": 83
+      },
+      "lenient": {
+        "precision": 0.52113,
+        "denom": 213,
+        "hits": 111
+      }
+    },
+    "guided_filter_causal": {
+      "strict": {
+        "precision": 0.39506,
+        "denom": 162,
+        "hits": 64
+      },
+      "lenient": {
+        "precision": 0.52469,
+        "denom": 162,
+        "hits": 85
+      }
+    },
+    "ablation_reselect": {
+      "strict": {
+        "precision": 0.32946,
+        "denom": 258,
+        "hits": 85
+      },
+      "lenient": {
+        "precision": 0.44961,
+        "denom": 258,
+        "hits": 116
+      }
+    }
+  },
+  "precision_coverage_frontier": {
+    "2": {
+      "edge_prec_strict": 0.38824,
+      "edge_prec_lenient": 0.50196,
+      "denom": 255,
+      "coverage_retain": 0.70248
+    },
+    "3": {
+      "edge_prec_strict": 0.38967,
+      "edge_prec_lenient": 0.52113,
+      "denom": 213,
+      "coverage_retain": 0.58678
+    },
+    "5": {
+      "edge_prec_strict": 0.375,
+      "edge_prec_lenient": 0.52083,
+      "denom": 144,
+      "coverage_retain": 0.39669
+    },
+    "10": {
+      "edge_prec_strict": 0.52857,
+      "edge_prec_lenient": 0.67143,
+      "denom": 70,
+      "coverage_retain": 0.19284
+    },
+    "20": {
+      "edge_prec_strict": 0.44118,
+      "edge_prec_lenient": 0.64706,
+      "denom": 34,
+      "coverage_retain": 0.09366
+    }
+  },
+  "interleave": {
+    "book1_only_strict": 0.36765,
+    "book1_after_book2_strict": 0.40217,
+    "book1_only_denom": 68,
+    "book1_after_book2_denom": 92,
+    "n_classes_book1_only": 38,
+    "n_classes_book1_plus_book2": 117,
+    "classes_added_by_book2": 79
+  },
+  "heldout_generalization_secondary": {
+    "fixed": {
+      "strict": {
+        "precision_answered": 0.22222,
+        "coverage": 0.10588,
+        "correct_cov": 0.02353,
+        "n_answered": 18,
+        "n_correct": 4,
+        "n_total": 170
+      },
+      "lenient": {
+        "precision_answered": 0.61111,
+        "coverage": 0.10588,
+        "correct_cov": 0.06471,
+        "n_answered": 18,
+        "n_correct": 11,
+        "n_total": 170
+      }
+    },
+    "guided_filter": {
+      "strict": {
+        "precision_answered": 0.23077,
+        "coverage": 0.07647,
+        "correct_cov": 0.01765,
+        "n_answered": 13,
+        "n_correct": 3,
+        "n_total": 170
+      },
+      "lenient": {
+        "precision_answered": 0.61538,
+        "coverage": 0.07647,
+        "correct_cov": 0.04706,
+        "n_answered": 13,
+        "n_correct": 8,
+        "n_total": 170
+      }
+    },
+    "fixed_coverage": 0.10588,
+    "INFO_CEILING_underpowered": true,
+    "note": "held-out DEFINITION terms are rarely cross-mentioned in READ prose -> coverage near floor -> precision_answered measured over a tiny base (underpowered). Primary metric is all-gold EDGE precision, which has ~360-edge signal."
+  },
+  "compounding_curve_edge_prec_strict": {
+    "fixed": 0.32507,
+    "guided_causal_first_read": 0.39506,
+    "guided_full_reread": 0.38967
+  },
+  "n_sections": 107,
+  "n_read_pool_sections": 91,
+  "n_heldout_sections": 16,
+  "n_gold_all": 793,
+  "n_gold_heldout": 170,
+  "n_candidates": 1246
+}
