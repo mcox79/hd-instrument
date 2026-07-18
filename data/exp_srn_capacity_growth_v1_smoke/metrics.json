@@ -1,0 +1,200 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "CAPACITY-GROWTH does NOT beat FIXED-capacity at fixed budget (FIRST-CLASS negative): delta_growth<=0 on 1/1 seeds; ami_growth=0.134 <= ami_fixed=0.184 (shrink=0.103, lowcap=0.084) -- Elman starting-small does not transfer to this substrate/task",
+  "summary": "HARD_FAIL: CAPACITY-GROWTH does NOT beat FIXED-capacity at fixed budget (FIRST-CLASS negative): delta_growth<=0 on 1/1 seeds; ami_g",
+  "elapsed_s": 5.17,
+  "ts_iso": "2026-07-18T09:33:51.015213+00:00",
+  "anchor_name": "srn_capacity_growth_v1",
+  "mode": "smoke",
+  "config": {
+    "n_sents": 800,
+    "vocab_size": 200,
+    "min_count": 3,
+    "d": 64,
+    "d_min": 8,
+    "n_stages": 4,
+    "k": 4,
+    "epochs": 8,
+    "batch": 512,
+    "lr": 0.01,
+    "seeds": [
+      7
+    ],
+    "kmeans_seeds": [
+      0
+    ],
+    "min_members": 5
+  },
+  "capacity_schedules": {
+    "growth": [
+      8,
+      8,
+      16,
+      16,
+      32,
+      32,
+      64,
+      64
+    ],
+    "fixed": [
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64
+    ],
+    "shrink": [
+      64,
+      64,
+      32,
+      32,
+      16,
+      16,
+      8,
+      8
+    ],
+    "lowcap": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ]
+  },
+  "corpus": {
+    "n_sentences": 800,
+    "n_sequences": 716,
+    "n_tokens": 8991,
+    "vocab_size": 200,
+    "n_gold_words": 193,
+    "n_categories": 8,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT"
+    ],
+    "capacity_metric": "effective_dimension_d_eff_via_per_epoch_leading_dim_mask"
+  },
+  "arms": [
+    "GROWTH",
+    "FIXED",
+    "SHRINK",
+    "LOWCAP",
+    "RANDOM_CODE"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "kmeans_seed": 0,
+      "gr_ce": 3.802,
+      "fx_ce": 3.505,
+      "sh_ce": 4.2422,
+      "lc_ce": 4.2118,
+      "gr_ce_stage1": 5.2676,
+      "fx_ce_stage1": 4.103,
+      "ami_growth": 0.1339,
+      "ami_fixed": 0.1839,
+      "ami_shrink": 0.1034,
+      "ami_lowcap": 0.0838,
+      "ami_randomcode": -0.0072,
+      "purity_growth": 0.544,
+      "purity_fixed": 0.5855,
+      "delta_growth": -0.05,
+      "delta_shrink": -0.0805,
+      "growth_minus_shrink": 0.0304
+    }
+  ],
+  "aggregate": {
+    "ami_growth_mean": 0.1339,
+    "ami_fixed_mean": 0.1839,
+    "ami_shrink_mean": 0.1034,
+    "ami_lowcap_mean": 0.0838,
+    "ami_randomcode_mean": -0.0072,
+    "delta_growth_mean": -0.05,
+    "delta_shrink_mean": -0.0805,
+    "growth_minus_shrink_mean": 0.0305,
+    "hp_seeds": 0,
+    "hf_seeds": 1,
+    "hp_margin": 0.02
+  },
+  "gates": {
+    "metric_fires": true,
+    "baseline_in_band": true,
+    "knob_bites": true,
+    "direction_clean": true,
+    "arms_differ_verified": true
+  },
+  "example_clusters_growth": [
+    {
+      "cluster": 0,
+      "dominant_gold": "ADP",
+      "dominant_frac": 0.654,
+      "example_words": [
+        "of",
+        "in",
+        "that",
+        "on",
+        "by",
+        "with",
+        "at",
+        "from"
+      ]
+    },
+    {
+      "cluster": 1,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.538,
+      "example_words": [
+        "the",
+        "a",
+        "state",
+        "year",
+        "other",
+        "city",
+        "house",
+        "democratic"
+      ]
+    },
+    {
+      "cluster": 2,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.357,
+      "example_words": [
+        "for",
+        "said",
+        "as",
+        "his",
+        "an",
+        "which",
+        "new",
+        "had"
+      ]
+    },
+    {
+      "cluster": 3,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.583,
+      "example_words": [
+        "committee",
+        "some",
+        "its",
+        "out",
+        "program",
+        "time",
+        "most",
+        "session"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DIRECTION REVERSED/MUDDY: growth beats fixed but SHRINK helps AS MUCH OR MORE (effect is NOT growth-specific -- it is a low-effective-dimension effect): ami_growth=0.196 ami_shrink=0.271 ami_fixed=0.158 ami_lowcap=0.204 (growth-shrink=-0.075<+0.02) -- Elman starting-small NOT supported; if anything a shrink/compress schedule is better",
+  "summary": "HARD_FAIL: DIRECTION REVERSED/MUDDY: growth beats fixed but SHRINK helps AS MUCH OR MORE (effect is NOT growth-specific -- it is a ",
+  "elapsed_s": 219.84,
+  "ts_iso": "2026-07-18T09:42:59.922125+00:00",
+  "anchor_name": "srn_capacity_growth_v1",
+  "mode": "full",
+  "config": {
+    "n_sents": 8000,
+    "vocab_size": 900,
+    "min_count": 5,
+    "d": 128,
+    "d_min": 8,
+    "n_stages": 5,
+    "k": 5,
+    "epochs": 16,
+    "batch": 512,
+    "lr": 0.01,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "kmeans_seeds": [
+      0,
+      1,
+      2
+    ],
+    "min_members": 8
+  },
+  "capacity_schedules": {
+    "growth": [
+      8,
+      8,
+      8,
+      16,
+      16,
+      16,
+      32,
+      32,
+      32,
+      64,
+      64,
+      64,
+      128,
+      128,
+      128,
+      128
+    ],
+    "fixed": [
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128,
+      128
+    ],
+    "shrink": [
+      128,
+      128,
+      128,
+      128,
+      64,
+      64,
+      64,
+      32,
+      32,
+      32,
+      16,
+      16,
+      16,
+      8,
+      8,
+      8
+    ],
+    "lowcap": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ]
+  },
+  "corpus": {
+    "n_sentences": 8000,
+    "n_sequences": 7512,
+    "n_tokens": 100178,
+    "vocab_size": 900,
+    "n_gold_words": 893,
+    "n_categories": 9,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT",
+      "NUM"
+    ],
+    "capacity_metric": "effective_dimension_d_eff_via_per_epoch_leading_dim_mask"
+  },
+  "arms": [
+    "GROWTH",
+    "FIXED",
+    "SHRINK",
+    "LOWCAP",
+    "RANDOM_CODE"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "kmeans_seed": 0,
+      "gr_ce": 3.7352,
+      "fx_ce": 3.2988,
+      "sh_ce": 5.0357,
+      "lc_ce": 4.972,
+      "gr_ce_stage1": 5.4132,
+      "fx_ce_stage1": 3.8768,
+      "ami_growth": 0.1951,
+      "ami_fixed": 0.1587,
+      "ami_shrink": 0.2828,
+      "ami_lowcap": 0.2052,
+      "ami_randomcode": -0.0013,
+      "purity_growth": 0.5924,
+      "purity_fixed": 0.5711,
+      "delta_growth": 0.0364,
+      "delta_shrink": 0.1241,
+      "growth_minus_shrink": -0.0877
+    },
+    {
+      "seed": 13,
+      "kmeans_seed": 1,
+      "gr_ce": 3.7357,
+      "fx_ce": 3.3026,
+      "sh_ce": 5.0375,
+      "lc_ce": 4.9885,
+      "gr_ce_stage1": 5.4151,
+      "fx_ce_stage1": 3.8809,
+      "ami_growth": 0.1894,
+      "ami_fixed": 0.1624,
+      "ami_shrink": 0.2755,
+      "ami_lowcap": 0.1992,
+      "ami_randomcode": 0.0021,
+      "purity_growth": 0.5767,
+      "purity_fixed": 0.5745,
+      "delta_growth": 0.027,
+      "delta_shrink": 0.1132,
+      "growth_minus_shrink": -0.0862
+    },
+    {
+      "seed": 19,
+      "kmeans_seed": 2,
+      "gr_ce": 3.7421,
+      "fx_ce": 3.3018,
+      "sh_ce": 5.0387,
+      "lc_ce": 4.9865,
+      "gr_ce_stage1": 5.4306,
+      "fx_ce_stage1": 3.8804,
+      "ami_growth": 0.2029,
+      "ami_fixed": 0.1543,
+      "ami_shrink": 0.2546,
+      "ami_lowcap": 0.208,
+      "ami_randomcode": -0.0014,
+      "purity_growth": 0.589,
+      "purity_fixed": 0.5465,
+      "delta_growth": 0.0486,
+      "delta_shrink": 0.1003,
+      "growth_minus_shrink": -0.0517
+    }
+  ],
+  "aggregate": {
+    "ami_growth_mean": 0.1958,
+    "ami_fixed_mean": 0.1585,
+    "ami_shrink_mean": 0.271,
+    "ami_lowcap_mean": 0.2041,
+    "ami_randomcode_mean": -0.0002,
+    "delta_growth_mean": 0.0373,
+    "delta_shrink_mean": 0.1125,
+    "growth_minus_shrink_mean": -0.0752,
+    "hp_seeds": 3,
+    "hf_seeds": 0,
+    "hp_margin": 0.02
+  },
+  "gates": {
+    "metric_fires": true,
+    "baseline_in_band": true,
+    "knob_bites": true,
+    "direction_clean": false,
+    "lowcap_beats_fixed": true,
+    "arms_differ_verified": true
+  },
+  "example_clusters_growth": [
+    {
+      "cluster": 0,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.705,
+      "example_words": [
+        "more",
+        "out",
+        "two",
+        "them",
+        "many",
+        "american",
+        "people",
+        "those"
+      ]
+    },
+    {
+      "cluster": 1,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.788,
+      "example_words": [
+        "he",
+        "it",
+        "i",
+        "city",
+        "government",
+        "program",
+        "much",
+        "here"
+      ]
+    },
+    {
+      "cluster": 2,
+      "dominant_gold": "VERB",
+      "dominant_frac": 0.544,
+      "example_words": [
+        "is",
+        "was",
+        "be",
+        "are",
+        "has",
+        "have",
+        "had",
+        "been"
+      ]
+    },
+    {
+      "cluster": 3,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.67,
+      "example_words": [
+        "an",
+        "president",
+        "most",
+        "home",
+        "united",
+        "such",
+        "county",
+        "few"
+      ]
+    }
+  ]
+}
