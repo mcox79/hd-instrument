@@ -78,6 +78,25 @@ PRONOUN_SCOPE: Dict[str, Dict[str, str]] = {
 # Animate gendered singular pronouns carry a real agreement axis (the coref-heavy prose case).
 TARGET_PRONOUNS = {"he", "him", "his", "she", "her", "hers"}
 
+# DEIXIS / discourse-participant pronoun classes. A 1st-person pronoun indexes the SPEAKER of the current
+# quoted turn; a 2nd-person pronoun indexes the ADDRESSEE. These are NOT antecedent-resolution pronouns
+# (they do not point back to a prior surface mention) -- they index a discourse ROLE, resolved through the
+# quotative frame. Kept module-level + additive so the packaged antecedent resolvers are untouched.
+FIRST_PERSON_PRONOUNS = frozenset({"i", "me", "my", "mine", "myself",
+                                   "we", "us", "our", "ours", "ourselves"})
+SECOND_PERSON_PRONOUNS = frozenset({"you", "your", "yours", "yourself", "yourselves",
+                                    "ye", "thou", "thee", "thy", "thine", "thyself"})
+
+
+def deixis_person(pronoun_low: str) -> Optional[str]:
+    """Classify a surface token as a discourse-participant deixis: 'first' / 'second' / None (not deictic)."""
+    p = pronoun_low.lower().strip(".,'\"!?;:")
+    if p in FIRST_PERSON_PRONOUNS:
+        return "first"
+    if p in SECOND_PERSON_PRONOUNS:
+        return "second"
+    return None
+
 MASC_CUES = {"mr", "mister", "sir", "lord", "master", "gentleman", "man", "men",
              "boy", "boys", "father", "dad", "papa", "son", "brother", "uncle",
              "king", "prince", "husband", "widower", "nephew", "grandfather",
@@ -238,6 +257,14 @@ class WorkingOverlay:
         self.window_k = window_k
         self._entities: Dict[str, EntityState] = {}
         self._next_midx = 0
+        # DEIXIS / discourse-participant model (additive; default-off = None -> no-op). A DISTINCT mechanism
+        # from antecedent resolution: 1st/2nd-person pronouns index a discourse ROLE (speaker / addressee),
+        # not a prior surface mention. Nothing here touches _entities or any validated resolve path, so with
+        # the deixis axis unused the observe / resolve / active_set behavior is bit-identical to the packaged
+        # overlay (the 6/6 witness stays green). See note_turn / resolve_deixis below.
+        self._speaker: Optional[str] = None
+        self._addressee: Optional[str] = None
+        self._prev_speaker: Optional[str] = None
 
     # ---- observation ------------------------------------------------------
     def observe(self, head: str, *, is_pronoun: bool = False, gender: Optional[str] = None,
@@ -400,3 +427,48 @@ class WorkingOverlay:
     def n_observed(self) -> int:
         """Total tokens observed (the mention-stream length; the distance unit for recency/salience)."""
         return self._next_midx
+
+    # ---- deixis / discourse-participant model (additive; opt-in) ----------
+    def note_turn(self, speaker: Optional[str], addressee: Optional[str] = None) -> None:
+        """Register the current quoted turn's discourse participants (the deixis anchor). SPEAKER is the
+        subject of the quotative frame; ADDRESSEE is the entity spoken to (a vocative / a 'to X' in the
+        frame / the prior speaker in an exchange). Additive: touches NO entity state and NO validated
+        resolve path. A NEW speaker rotates the previous speaker into the prev-speaker slot, so a later
+        turn's 2nd-person can fall back to the prior speaker (dialogue turn-taking)."""
+        if speaker is not None and speaker != self._speaker:
+            self._prev_speaker = self._speaker
+        self._speaker = speaker
+        self._addressee = addressee
+
+    def resolve_deixis(self, pronoun_low: str) -> Optional[str]:
+        """Resolve a 1st/2nd-person (deictic) pronoun to a discourse PARTICIPANT head: 1st -> speaker,
+        2nd -> addressee (falling back to the prior speaker in an exchange when no explicit addressee is
+        set). Returns None if the pronoun is not deictic or the participant is unset. DISTINCT from
+        resolve()/resolve_pronoun() (antecedent resolution) -- this indexes a discourse ROLE."""
+        person = deixis_person(pronoun_low)
+        if person == "first":
+            return self._speaker
+        if person == "second":
+            return self._addressee if self._addressee is not None else self._prev_speaker
+        return None
+
+    def clear_turn(self) -> None:
+        """Reset the discourse-participant slots (e.g. at a passage boundary). Does not touch entities."""
+        self._speaker = None
+        self._addressee = None
+        self._prev_speaker = None
+
+    @property
+    def speaker(self) -> Optional[str]:
+        """Current quoted-turn speaker head (deixis anchor for 1st-person), or None if unset."""
+        return self._speaker
+
+    @property
+    def addressee(self) -> Optional[str]:
+        """Current quoted-turn addressee head (deixis anchor for 2nd-person), or None if unset."""
+        return self._addressee
+
+    @property
+    def prev_speaker(self) -> Optional[str]:
+        """Prior turn's speaker head (dialogue turn-taking addressee fallback), or None."""
+        return self._prev_speaker

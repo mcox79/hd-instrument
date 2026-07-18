@@ -1,0 +1,1272 @@
+{
+  "verdict": "SCOPE_LIMITED_OR_WEAK",
+  "verdict_msg": "DEIXIS LOCALIZES. The quotative-frame parser bound 291 speaker turns (291 with a speaker) BUT: (1) SPEAKER attribution precision 0.75 recall 0.75 (gold n=24; band prec>=0.8 rec>=0.6) -> below band. (2) phantom-head FP relations 1018->580 (reduction 0.4303; band >=0.5) -> below floor. (3) ADDRESSEE (2nd-person) precision 0.7143 recall 0.7143 -> signal (harder; separate faculty). (4) comprehension delta +5 -> ok. LOCALIZED SUB-MECHANISM = speaker-precision. HONEST DEFLATE. HYPOTHESIS pending VET.",
+  "summary": "SCOPE_LIMITED_OR_WEAK: 3rd reader (79 lessons) | phantom-head FP 1018->580 (reduction 0.4303) | SPEAKER P 0.75 R 0.75 (n=24) | ADDRESSEE P 0.7143 R 0.7143 (n=7) | frames 291 | comp 0->5/5 (d+5) | byteid_off=True passive 1.00 reversal 1.00 overlay=True det=True",
+  "elapsed_s": 181.52,
+  "ts_iso": "2026-07-18T22:31:55.382022+00:00",
+  "anchor_name": "read_deixis_participant_tracking_third_reader_v1",
+  "run_mode": "full",
+  "seed": 20260718,
+  "n_lessons": 79,
+  "one_variable": "the deixis axis (extract_passage_deixis deixis=True vs False); everything else identical",
+  "bands": {
+    "speaker_prec_min": 0.8,
+    "speaker_recall_min": 0.6,
+    "addressee_prec_min": 0.5,
+    "phantom_reduction_min": 0.5,
+    "comp_delta_min": 1
+  },
+  "phantom_fp": {
+    "n_off": 1018,
+    "n_on": 580,
+    "reduction": 0.4303,
+    "sample_off": [
+      [
+        "loc",
+        "a",
+        "you"
+      ],
+      [
+        "loc",
+        "bird",
+        "you"
+      ],
+      [
+        "loc",
+        "foot",
+        "me"
+      ],
+      [
+        "loc",
+        "girl",
+        "me"
+      ],
+      [
+        "loc",
+        "i",
+        "brothers"
+      ],
+      [
+        "loc",
+        "i",
+        "churchyard"
+      ],
+      [
+        "loc",
+        "i",
+        "cold"
+      ],
+      [
+        "loc",
+        "i",
+        "doors"
+      ],
+      [
+        "loc",
+        "i",
+        "ease"
+      ],
+      [
+        "loc",
+        "i",
+        "field"
+      ],
+      [
+        "loc",
+        "i",
+        "football"
+      ],
+      [
+        "loc",
+        "i",
+        "hole"
+      ],
+      [
+        "loc",
+        "i",
+        "open"
+      ],
+      [
+        "loc",
+        "i",
+        "outside"
+      ],
+      [
+        "loc",
+        "i",
+        "parlor"
+      ],
+      [
+        "loc",
+        "i",
+        "pasture"
+      ],
+      [
+        "loc",
+        "i",
+        "play"
+      ],
+      [
+        "loc",
+        "i",
+        "rock"
+      ],
+      [
+        "loc",
+        "i",
+        "side"
+      ],
+      [
+        "loc",
+        "i",
+        "tree"
+      ],
+      [
+        "loc",
+        "i",
+        "way"
+      ],
+      [
+        "loc",
+        "i",
+        "winter"
+      ],
+      [
+        "loc",
+        "i",
+        "woods"
+      ],
+      [
+        "loc",
+        "i",
+        "world"
+      ],
+      [
+        "loc",
+        "i",
+        "worst"
+      ],
+      [
+        "loc",
+        "me",
+        "garden"
+      ],
+      [
+        "loc",
+        "me",
+        "street"
+      ],
+      [
+        "loc",
+        "remember",
+        "you"
+      ],
+      [
+        "loc",
+        "us",
+        "churchyard"
+      ],
+      [
+        "loc",
+        "us",
+        "conway"
+      ],
+      [
+        "loc",
+        "us",
+        "night"
+      ],
+      [
+        "loc",
+        "us",
+        "schoolroom"
+      ],
+      [
+        "loc",
+        "we",
+        "morning's"
+      ],
+      [
+        "loc",
+        "we",
+        "pay"
+      ],
+      [
+        "loc",
+        "wondering",
+        "me"
+      ],
+      [
+        "loc",
+        "you",
+        "bough"
+      ],
+      [
+        "loc",
+        "you",
+        "conway"
+      ],
+      [
+        "loc",
+        "you",
+        "eggshell"
+      ],
+      [
+        "loc",
+        "you",
+        "field"
+      ],
+      [
+        "loc",
+        "you",
+        "garden"
+      ]
+    ],
+    "sample_on": [
+      [
+        "loc",
+        "a",
+        "you"
+      ],
+      [
+        "loc",
+        "bird",
+        "you"
+      ],
+      [
+        "loc",
+        "girl",
+        "me"
+      ],
+      [
+        "loc",
+        "i",
+        "brothers"
+      ],
+      [
+        "loc",
+        "i",
+        "churchyard"
+      ],
+      [
+        "loc",
+        "i",
+        "doors"
+      ],
+      [
+        "loc",
+        "i",
+        "ease"
+      ],
+      [
+        "loc",
+        "i",
+        "field"
+      ],
+      [
+        "loc",
+        "i",
+        "football"
+      ],
+      [
+        "loc",
+        "i",
+        "parlor"
+      ],
+      [
+        "loc",
+        "i",
+        "play"
+      ],
+      [
+        "loc",
+        "i",
+        "side"
+      ],
+      [
+        "loc",
+        "i",
+        "tree"
+      ],
+      [
+        "loc",
+        "i",
+        "winter"
+      ],
+      [
+        "loc",
+        "remember",
+        "you"
+      ],
+      [
+        "loc",
+        "us",
+        "churchyard"
+      ],
+      [
+        "loc",
+        "us",
+        "night"
+      ],
+      [
+        "loc",
+        "us",
+        "schoolroom"
+      ],
+      [
+        "loc",
+        "we",
+        "morning's"
+      ],
+      [
+        "loc",
+        "we",
+        "pay"
+      ],
+      [
+        "loc",
+        "wondering",
+        "me"
+      ],
+      [
+        "loc",
+        "you",
+        "bough"
+      ],
+      [
+        "loc",
+        "you",
+        "conway"
+      ],
+      [
+        "loc",
+        "you",
+        "field"
+      ],
+      [
+        "loc",
+        "you",
+        "house"
+      ],
+      [
+        "loc",
+        "you",
+        "low"
+      ],
+      [
+        "loc",
+        "you",
+        "morning"
+      ],
+      [
+        "loc",
+        "you",
+        "school"
+      ],
+      [
+        "loc",
+        "you",
+        "table"
+      ],
+      [
+        "loc",
+        "you",
+        "trouble"
+      ],
+      [
+        "loc",
+        "you",
+        "way"
+      ],
+      [
+        "loc",
+        "you",
+        "words"
+      ],
+      [
+        "poss",
+        "a",
+        "you"
+      ],
+      [
+        "poss",
+        "i",
+        "apples"
+      ],
+      [
+        "poss",
+        "i",
+        "better"
+      ],
+      [
+        "poss",
+        "i",
+        "hoop"
+      ],
+      [
+        "poss",
+        "i",
+        "jumping"
+      ],
+      [
+        "poss",
+        "i",
+        "pair"
+      ],
+      [
+        "poss",
+        "i",
+        "rope"
+      ],
+      [
+        "poss",
+        "i",
+        "sundays"
+      ]
+    ]
+  },
+  "deixis_resolution": {
+    "speaker": {
+      "n_gold": 24,
+      "attempted": 24,
+      "correct": 18,
+      "precision": 0.75,
+      "recall": 0.75,
+      "per": [
+        {
+          "pid": "L05",
+          "cue": "told him not to cry",
+          "expect": "joe",
+          "got": "joe",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L05",
+          "cue": "do n't see",
+          "expect": "papa",
+          "got": "papa",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L05",
+          "cue": "knock my castles down",
+          "expect": "herbert",
+          "got": "papa",
+          "matched": true,
+          "ok": false
+        },
+        {
+          "pid": "L12",
+          "cue": "if i take you to walk",
+          "expect": "mother",
+          "got": "mother",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L12",
+          "cue": "will not let you in",
+          "expect": "gardener",
+          "got": "gardener",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L31",
+          "cue": "that is my plan",
+          "expect": "teddy",
+          "got": "teddy",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L31",
+          "cue": "do n't see the use",
+          "expect": "lily",
+          "got": "mother",
+          "matched": true,
+          "ok": false
+        },
+        {
+          "pid": "L33",
+          "cue": "i will tell you",
+          "expect": "mother",
+          "got": "mother",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L33",
+          "cue": "if i were in the open air",
+          "expect": "mother",
+          "got": "mother",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L33",
+          "cue": "i catch it again",
+          "expect": "robert",
+          "got": "robert",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L34",
+          "cue": "i will keep them all for her",
+          "expect": "george",
+          "got": "george",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L34",
+          "cue": "i will only taste one",
+          "expect": "george",
+          "got": "george",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L36",
+          "cue": "it's mine",
+          "expect": "fred",
+          "got": "fred",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L36",
+          "cue": "i guess i know who owns it",
+          "expect": "tom",
+          "got": "tom",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L36",
+          "cue": "i found it",
+          "expect": "fred",
+          "got": "fred",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L54",
+          "cue": "i want to play",
+          "expect": "wave",
+          "got": "wave",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L54",
+          "cue": "where is my work",
+          "expect": "wave",
+          "got": "wave",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L54",
+          "cue": "i washed all of the pebbles",
+          "expect": "wave",
+          "got": "fishes",
+          "matched": true,
+          "ok": false
+        },
+        {
+          "pid": "L57",
+          "cue": "said little fan",
+          "expect": "fan",
+          "got": "fan",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L69",
+          "cue": "should like to go with you",
+          "expect": "susan",
+          "got": "susan",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L69",
+          "cue": "i have deceived my grandmother",
+          "expect": "susan",
+          "got": "grandmother",
+          "matched": true,
+          "ok": false
+        },
+        {
+          "pid": "L69",
+          "cue": "i knew it all the time",
+          "expect": "grandmother",
+          "got": "grandmother",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L77",
+          "cue": "whole thing puzzles me",
+          "expect": "rob",
+          "got": "genie",
+          "matched": true,
+          "ok": false
+        },
+        {
+          "pid": "L77",
+          "cue": "i sprained my ankle",
+          "expect": "rob",
+          "got": "genie",
+          "matched": true,
+          "ok": false
+        }
+      ]
+    },
+    "addressee": {
+      "n_gold": 7,
+      "attempted": 7,
+      "correct": 5,
+      "precision": 0.7143,
+      "recall": 0.7143,
+      "per": [
+        {
+          "pid": "L12",
+          "cue": "if i take you to walk",
+          "expect": "frank",
+          "got": "frank",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L31",
+          "cue": "have earned the orange",
+          "expect": "teddy",
+          "got": "teddy",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L33",
+          "cue": "did you never hear an echo",
+          "expect": "robert",
+          "got": "mother",
+          "matched": true,
+          "ok": false
+        },
+        {
+          "pid": "L34",
+          "cue": "god will bless you",
+          "expect": "george",
+          "got": "george",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L36",
+          "cue": "is this yours",
+          "expect": "fred",
+          "got": "fred",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L37",
+          "cue": "what do you take me for",
+          "expect": "owl",
+          "got": "owl",
+          "matched": true,
+          "ok": true
+        },
+        {
+          "pid": "L57",
+          "cue": "said little fan",
+          "expect": "mother",
+          "got": "nell",
+          "matched": true,
+          "ok": false
+        }
+      ]
+    }
+  },
+  "comprehension": {
+    "n": 5,
+    "off_correct": 0,
+    "on_correct": 5,
+    "delta": 5,
+    "off_per": [
+      {
+        "qid": "D1",
+        "gold": "george",
+        "pred": "i",
+        "ok": false
+      },
+      {
+        "qid": "D2",
+        "gold": "george",
+        "pred": "i",
+        "ok": false
+      },
+      {
+        "qid": "D3",
+        "gold": "george",
+        "pred": "i",
+        "ok": false
+      },
+      {
+        "qid": "D4",
+        "gold": "rob",
+        "pred": "i",
+        "ok": false
+      },
+      {
+        "qid": "D5",
+        "gold": "wave",
+        "pred": "my",
+        "ok": false
+      }
+    ],
+    "on_per": [
+      {
+        "qid": "D1",
+        "gold": "george",
+        "pred": "george",
+        "ok": true
+      },
+      {
+        "qid": "D2",
+        "gold": "george",
+        "pred": "george",
+        "ok": true
+      },
+      {
+        "qid": "D3",
+        "gold": "george",
+        "pred": "george",
+        "ok": true
+      },
+      {
+        "qid": "D4",
+        "gold": "rob",
+        "pred": "rob",
+        "ok": true
+      },
+      {
+        "qid": "D5",
+        "gold": "wave",
+        "pred": "wave",
+        "ok": true
+      }
+    ]
+  },
+  "n_frames": 291,
+  "n_frames_with_speaker": 291,
+  "frame_decisions_sample": [
+    {
+      "pid": "L01",
+      "sentence": "oh, he sang like a bird in the summer",
+      "speaker": "shepherd",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L02",
+      "sentence": "\" he cried, joyfully, \"do come quick",
+      "speaker": "boy",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L02",
+      "sentence": "\" \"they are not birds, johnny,\" said mamma, smiling",
+      "speaker": "mamma",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L02",
+      "sentence": "let me taste it,\" said johnny",
+      "speaker": "johnny",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L02",
+      "sentence": "\"that is only snow, johnny,\" said his mother",
+      "speaker": "mother",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L02",
+      "sentence": "\" as she said this, she brought out an old black hat from the closet",
+      "speaker": "mother",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L02",
+      "sentence": "\" he cried in delight",
+      "speaker": "will",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L02",
+      "sentence": "he carne in, he said, \"i love snow",
+      "speaker": "will",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\" cried herbert, in a voice of anger and dismay",
+      "speaker": "herbert",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\" said she, \"you sha'n't hurt pussy",
+      "speaker": "sister",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\" said joe, his elder brother",
+      "speaker": "joe",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\" \"no, i won't,\" said herbert",
+      "speaker": "herbert",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "he went on crying",
+      "speaker": "herbert",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\" exclaimed papa",
+      "speaker": "papa",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "it fell down,\" answered hetty",
+      "speaker": "hetty",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\" his papa called",
+      "speaker": "papa",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\"there is a better way than this, my boy,\" said papa",
+      "speaker": "papa",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "he began to sing over his work",
+      "speaker": "herbert",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\" said papa",
+      "speaker": "papa",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\" asked herbert, forgetting his grief of a few minutes before",
+      "speaker": "herbert",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\"i told him not to cry over spilled milk,\" said joe, looking down from his place on the sofa",
+      "speaker": "joe",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "your kite string broke,\" retorted herbert",
+      "speaker": "herbert",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\"losing a kite is quite another thing,\" answered joe, a little dashed",
+      "speaker": "joe",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\" \"i do n't see,\" said papa, \"that crying was of any more use in your case then in herbert's",
+      "speaker": "papa",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\"it is ever so much nicer than the one pussy knocked down,\" said hetty",
+      "speaker": "hetty",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\"if pussy knocks that down, i'll-\" \"build it up again,\" said papa, finishing the sentence for his little boy",
+      "speaker": "papa",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "joe says",
+      "speaker": "joe",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L07",
+      "sentence": "had said his lessons very well",
+      "speaker": "lessons",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L07",
+      "sentence": "one fine morning, his mother told james to make haste home from school",
+      "speaker": "james",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L07",
+      "sentence": "soon the wind began to blow",
+      "speaker": "wind",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L08",
+      "sentence": "she does not say so, she has been where white kittens ought never to go",
+      "speaker": "kitten",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L09",
+      "sentence": "the men who hunt these animals are called trappers",
+      "speaker": "trappers",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L10",
+      "sentence": "rose told his son that",
+      "speaker": "son",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L10",
+      "sentence": "charles called at the hut of this fisherman one day, to inquire about his dog",
+      "speaker": "charles",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L10",
+      "sentence": "charles asked him whether he was drawing pictures",
+      "speaker": "charles",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L10",
+      "sentence": "\"no, i am trying to write,\" said little joe, \"but i know only two words",
+      "speaker": "joe",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L10",
+      "sentence": "\" \"if i could only learn to read and write,\" said he, \"i should be the happiest boy in the world",
+      "speaker": "son",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L10",
+      "sentence": "\" \"then i will make you happy,\" said charles",
+      "speaker": "charles",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L12",
+      "sentence": "he called to his mother",
+      "speaker": "frank",
+      "subj_type": "pronoun",
+      "addressee": "mother",
+      "addr_src": "to_frame"
+    },
+    {
+      "pid": "L12",
+      "sentence": "\" the gardener, being near, heard what frank said",
+      "speaker": "frank",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L12",
+      "sentence": "turning to her son, she said, \"frank, if i take you to walk in this garden, you must take care not to meddle with anything in it",
+      "speaker": "mother",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L12",
+      "sentence": "then he said, \"let me in",
+      "speaker": "boy",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L12",
+      "sentence": "\" \"no, indeed,\" said the gardener, \"i will not let you in, i assure you",
+      "speaker": "gardener",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L12",
+      "sentence": "he and his mother then continued their walk in the garden",
+      "speaker": "walk",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L13",
+      "sentence": "he was told to call for help if there was any danger",
+      "speaker": "boy",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L13",
+      "sentence": "one day, in order to have some fun, he cried out, with all his might, \"the wolf is coming",
+      "speaker": "boy",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L13",
+      "sentence": "as he had had so much fun this time, john cried out again, the next day, \"the wolf",
+      "speaker": "john",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L13",
+      "sentence": "john cried in dismay, \"help",
+      "speaker": "john",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L14",
+      "sentence": "\"why, father,\" little gracie said \"where can the birdie be",
+      "speaker": "gracie",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L15",
+      "sentence": "\"do n't go across the pond to-day, children,\" she said",
+      "speaker": "mother",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L15",
+      "sentence": "\" \"all right, mother,\" said harry, not very good- naturedly",
+      "speaker": "harry",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L15",
+      "sentence": "\"there,\" said he to his sister, \"i knew it had n't thawed any",
+      "speaker": "harry",
+      "subj_type": "pronoun",
+      "addressee": "sister",
+      "addr_src": "to_frame"
+    },
+    {
+      "pid": "L15",
+      "sentence": "\" \"but you promised mother,\" said annie",
+      "speaker": "annie",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L15",
+      "sentence": "so i can do as i like,\" said annie",
+      "speaker": "annie",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L15",
+      "sentence": "a man who was at work near the shore, heard the screams of the children",
+      "speaker": "shore",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L15",
+      "sentence": "told his mother how disobedient he had been",
+      "speaker": "mother",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L16",
+      "sentence": "he spoke to them",
+      "speaker": "man",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L16",
+      "sentence": "if they said, \"he is a kind man",
+      "speaker": "eyes",
+      "subj_type": "pronoun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L16",
+      "sentence": "he said his prayers and sang his hymns in it, they sat in the trees",
+      "speaker": "prayers",
+      "subj_type": "noun",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L16",
+      "sentence": "sang their praises to the same good god who cares for them as he does for us",
+      "speaker": "praises",
+      "subj_type": "noun",
+      "addressee": "god",
+      "addr_src": "to_frame"
+    }
+  ],
+  "regression": {
+    "byte_identity_off": true,
+    "byte_identity_checked": 79,
+    "byte_identity_diff": null,
+    "passive_rolefix": 1.0,
+    "reversal_rolefix": 1.0,
+    "passive_ok": true,
+    "reversal_ok": true,
+    "overlay_witness_ok": true,
+    "overlay_witness_tail": "inproc witness PASS (7/7)",
+    "deterministic": true,
+    "no_regression": true
+  },
+  "cited_scale": {
+    "source": "data/exp_read_grow_full_third_reader_clauseseg_generalization_v1/metrics.json",
+    "dom_fp_cause": "COREF",
+    "coref_fp_fraction": 0.4,
+    "n_coref_fp": 18,
+    "n_relations_on": 3509
+  },
+  "brain_faithfulness": "deixis = speaker/addressee tracking via the quotative frame is a DISTINCT faculty from 3rd-person antecedent resolution (indexicals index a discourse ROLE, not a prior mention); kept as a separate additive overlay axis. DEVIATION FLAGGED: the addressee fallback (prior speaker / most-salient participant) is a heuristic stand-in for the brain's full common-ground model; measured + reported separately.",
+  "scope_caveat": "Single-annotator INDEPENDENT deixis gold (speaker/addressee per quote, matched by pid + content cue), coverage-honest. The addressee (2nd-person) arm is genuinely harder than the speaker (1st-person) arm and is banded + reported SEPARATELY. Phantom-head reduction is a corpus-wide COUNT (no annotation) -- its per-relation CORRECTNESS is judged via the attribution gold, not asserted from the count alone. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}

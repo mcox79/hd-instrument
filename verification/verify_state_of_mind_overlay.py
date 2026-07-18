@@ -133,6 +133,37 @@ def test_active_set_ordering():
     return "ACTIVE_SET: protagonist alice ranks top of the maintained state"
 
 
+def test_deixis_participant_resolution():
+    """Deixis (additive discourse-participant model): 1st-person -> speaker, 2nd-person -> addressee.
+    Walkthrough of 'Who will help me?' said the hen / 'Not I,' said the dog: me->hen, I->dog, and the
+    dog's 'you' falls back to the prior speaker (the hen). Also asserts the deixis axis does NOT perturb
+    the validated antecedent resolvers (the reason it is opt-in / default-off)."""
+    ov = WorkingOverlay()
+    ov.observe("hen")
+    ov.observe("dog")
+    # unset participants -> deixis is a no-op (returns None; caller keeps the literal token).
+    assert ov.resolve_deixis("me") is None and ov.resolve_deixis("you") is None
+    # 'Who will help me?' said the hen -> speaker = hen.
+    ov.note_turn(speaker="hen", addressee=None)
+    assert ov.resolve_deixis("me") == "hen"
+    assert ov.resolve_deixis("my") == "hen"
+    assert ov.resolve_deixis("we") == "hen"
+    # 'Not I,' said the dog -> new turn; the hen rotates into the prev-speaker slot.
+    ov.note_turn(speaker="dog", addressee="hen")
+    assert ov.resolve_deixis("i") == "dog"
+    assert ov.resolve_deixis("you") == "hen"          # explicit addressee
+    assert ov.prev_speaker == "hen"
+    # a later turn with NO explicit addressee -> 2nd-person falls back to the prior speaker.
+    ov.note_turn(speaker="hen", addressee=None)
+    assert ov.resolve_deixis("your") == "dog"         # prior speaker = dog
+    # a 3rd-person pronoun is not a participant deixis (returns None; goes to the antecedent path).
+    assert ov.resolve_deixis("he") is None and ov.resolve_deixis("she") is None
+    # ADDITIVE GUARD: the validated antecedent resolver is unperturbed by the deixis axis.
+    got = ov.resolve_pronoun("they", strategy="recency")
+    assert got is not None and got.head in ("hen", "dog")
+    return "DEIXIS: me/my/we->hen(speaker); i->dog; you->hen(addressee); your->dog(prev-speaker); 3rd-person path untouched"
+
+
 def main():
     tests = [
         test_long_distance_salience_wins,
@@ -141,6 +172,7 @@ def main():
         test_proper_name_instantiation,
         test_recognize_known_vs_surprise,
         test_active_set_ordering,
+        test_deixis_participant_resolution,
     ]
     for t in tests:
         line = t()
