@@ -1,0 +1,553 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CORRECTED reader WORKS: coref_lift=0.714 (p=0.000), relation_lift=0.320 (p=0.002), composition=0.800. Grounded words + overlay coref grow correct relations; coref measurably helps.",
+  "summary": "HARD_PASS: coref_lift=0.714",
+  "elapsed_s": 4.6999,
+  "ts_iso": "2026-07-18T13:28:30.352885+00:00",
+  "anchor_name": "base_reader_grounded_relations_coref_v1",
+  "run_mode": "full",
+  "seed": 12345,
+  "n_boot": 5000,
+  "n_questions": 25,
+  "n_passages": 7,
+  "arms": {
+    "full": {
+      "acc_all": 0.92,
+      "acc_CO": 0.8571428571428571,
+      "acc_NC": 1.0,
+      "acc_CMP": 0.8,
+      "per_q": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "answers": [
+        "ned",
+        "black",
+        "nest",
+        "nest",
+        "hen",
+        "kitty",
+        "sing",
+        null,
+        "cage",
+        null,
+        "man",
+        "pond",
+        "nest",
+        "hen",
+        "black",
+        "dog",
+        "tom",
+        "ned",
+        "ned",
+        "rat",
+        "hand",
+        "pond",
+        "cow",
+        "nell",
+        "eggs"
+      ]
+    },
+    "nocoref": {
+      "acc_all": 0.6,
+      "acc_CO": 0.14285714285714285,
+      "acc_NC": 1.0,
+      "acc_CMP": 0.2,
+      "per_q": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "answers": [
+        "ned",
+        "black",
+        "nest",
+        null,
+        null,
+        "kitty",
+        null,
+        null,
+        null,
+        "sing",
+        "man",
+        "pond",
+        "nest",
+        "her",
+        "black",
+        "dog",
+        "tom",
+        "ned",
+        "he",
+        "rat",
+        null,
+        "pond",
+        "she",
+        "nell",
+        null
+      ]
+    },
+    "floor": {
+      "acc_all": 0.6,
+      "acc_CO": 0.7142857142857143,
+      "acc_NC": 0.6153846153846154,
+      "acc_CMP": 0.4,
+      "per_q": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "answers": [
+        "ned",
+        "black",
+        "nest",
+        "has",
+        "hen",
+        "fed",
+        null,
+        "kitty",
+        "cage",
+        null,
+        "hen",
+        "nest",
+        "nest",
+        "duck",
+        "black",
+        "dog",
+        "dog",
+        "ned",
+        "ned",
+        "ned",
+        "box",
+        "pond",
+        "cow",
+        "nell",
+        "eggs"
+      ]
+    }
+  },
+  "discriminators": {
+    "coref_lift": 0.7142857142857142,
+    "coref_lift_p_le0": 0.0002,
+    "coref_lift_obs": 0.7142857142857143,
+    "relation_lift": 0.32000000000000006,
+    "relation_lift_p_le0": 0.0022,
+    "composition_full": 0.8,
+    "nc_control_delta": 0.0
+  },
+  "slice_counts": {
+    "CO": 7,
+    "NC": 13,
+    "CMP": 5
+  },
+  "bands": {
+    "HP_COREF_LIFT": 0.25,
+    "HP_ALPHA": 0.05,
+    "MB_COREF_LIFT": 0.05,
+    "HP_RELATION_LIFT": 0.1,
+    "HP_COMPOSITION": 0.5,
+    "NC_CONTROL_MAX_DELTA": 0.2,
+    "NC_EXTRACTION_MIN": 0.7
+  },
+  "gates": {
+    "baseline_in_band": true,
+    "floor_acc_all": 0.6,
+    "arms_differ_verified": true,
+    "arm_digests": {
+      "full": "133be703a40d833c0f853a86b657fe5b1288df7e5aff4957af049cfb3d69d6cb",
+      "nocoref": "342fc364573e50afbbaa6a44eb1463bfec535d2faa363e13f928d5aaecca9dae",
+      "floor": "a08780b1c3dfac567f138d633345054c516328a748507bcec433c15ead5162e4"
+    }
+  },
+  "coref_resolutions_sample": {
+    "P1_nest": [
+      [
+        "she",
+        "hen"
+      ],
+      [
+        "she",
+        "hen"
+      ]
+    ],
+    "P2_kitty": [
+      [
+        "it",
+        "pet"
+      ],
+      [
+        "she",
+        "pet"
+      ],
+      [
+        "it",
+        "pet"
+      ],
+      [
+        "she",
+        "pet"
+      ],
+      [
+        "it",
+        "pet"
+      ]
+    ],
+    "P3_duckhen": [
+      [
+        "her",
+        "hen"
+      ]
+    ],
+    "P4_tomdog": [
+      [
+        "his",
+        "dog"
+      ]
+    ],
+    "P5_nedbox": [
+      [
+        "he",
+        "ned"
+      ],
+      [
+        "his",
+        "ned"
+      ]
+    ],
+    "P6_cow": [
+      [
+        "she",
+        "cow"
+      ]
+    ],
+    "P7_nell": [
+      [
+        "she",
+        "nell"
+      ],
+      [
+        "it",
+        "pan"
+      ]
+    ]
+  },
+  "questions": [
+    {
+      "qid": "P1a",
+      "p": "P1_nest",
+      "slice": "NC",
+      "gold": "ned",
+      "text": "Who fed the hen?",
+      "full": "ned",
+      "noc": "ned",
+      "floor": "ned"
+    },
+    {
+      "qid": "P1b",
+      "p": "P1_nest",
+      "slice": "NC",
+      "gold": "black",
+      "text": "What color is the hen?",
+      "full": "black",
+      "noc": "black",
+      "floor": "black"
+    },
+    {
+      "qid": "P1c",
+      "p": "P1_nest",
+      "slice": "NC",
+      "gold": "nest",
+      "text": "Where are the eggs?",
+      "full": "nest",
+      "noc": "nest",
+      "floor": "nest"
+    },
+    {
+      "qid": "P1d",
+      "p": "P1_nest",
+      "slice": "CO",
+      "gold": "nest",
+      "text": "What did the hen leave?",
+      "full": "nest",
+      "noc": null,
+      "floor": "has"
+    },
+    {
+      "qid": "P1e",
+      "p": "P1_nest",
+      "slice": "CMP",
+      "gold": "hen",
+      "text": "Whose nest holds the eggs?",
+      "full": "hen",
+      "noc": null,
+      "floor": "hen"
+    },
+    {
+      "qid": "P2a",
+      "p": "P2_kitty",
+      "slice": "NC",
+      "gold": "kitty",
+      "text": "Who has a pet?",
+      "full": "kitty",
+      "noc": "kitty",
+      "floor": "fed"
+    },
+    {
+      "qid": "P2b",
+      "p": "P2_kitty",
+      "slice": "CO",
+      "gold": "sing",
+      "text": "What can the pet do?",
+      "full": "sing",
+      "noc": null,
+      "floor": null
+    },
+    {
+      "qid": "P2c",
+      "p": "P2_kitty",
+      "slice": "CO",
+      "gold": "kitty",
+      "text": "Who fed the pet?",
+      "full": null,
+      "noc": null,
+      "floor": "kitty"
+    },
+    {
+      "qid": "P2d",
+      "p": "P2_kitty",
+      "slice": "CO",
+      "gold": "cage",
+      "text": "Where will the pet be put?",
+      "full": "cage",
+      "noc": null,
+      "floor": "cage"
+    },
+    {
+      "qid": "P2e",
+      "p": "P2_kitty",
+      "slice": "CMP",
+      "gold": "sing",
+      "text": "What can the pet that Kitty fed do?",
+      "full": null,
+      "noc": "sing",
+      "floor": null
+    },
+    {
+      "qid": "P3a",
+      "p": "P3_duckhen",
+      "slice": "NC",
+      "gold": "man",
+      "text": "Who fed the duck?",
+      "full": "man",
+      "noc": "man",
+      "floor": "hen"
+    },
+    {
+      "qid": "P3b",
+      "p": "P3_duckhen",
+      "slice": "NC",
+      "gold": "pond",
+      "text": "Where will the duck swim?",
+      "full": "pond",
+      "noc": "pond",
+      "floor": "nest"
+    },
+    {
+      "qid": "P3c",
+      "p": "P3_duckhen",
+      "slice": "NC",
+      "gold": "nest",
+      "text": "Where did the hen run?",
+      "full": "nest",
+      "noc": "nest",
+      "floor": "nest"
+    },
+    {
+      "qid": "P3d",
+      "p": "P3_duckhen",
+      "slice": "CMP",
+      "gold": "hen",
+      "text": "Whose nest is it?",
+      "full": "hen",
+      "noc": "her",
+      "floor": "duck"
+    },
+    {
+      "qid": "P4a",
+      "p": "P4_tomdog",
+      "slice": "NC",
+      "gold": "black",
+      "text": "What color is the spot?",
+      "full": "black",
+      "noc": "black",
+      "floor": "black"
+    },
+    {
+      "qid": "P4b",
+      "p": "P4_tomdog",
+      "slice": "CO",
+      "gold": "dog",
+      "text": "On whose back is the spot?",
+      "full": "dog",
+      "noc": "dog",
+      "floor": "dog"
+    },
+    {
+      "qid": "P4c",
+      "p": "P4_tomdog",
+      "slice": "NC",
+      "gold": "tom",
+      "text": "Who has a top?",
+      "full": "tom",
+      "noc": "tom",
+      "floor": "dog"
+    },
+    {
+      "qid": "P5a",
+      "p": "P5_nedbox",
+      "slice": "NC",
+      "gold": "ned",
+      "text": "Who is on the box?",
+      "full": "ned",
+      "noc": "ned",
+      "floor": "ned"
+    },
+    {
+      "qid": "P5b",
+      "p": "P5_nedbox",
+      "slice": "CO",
+      "gold": "ned",
+      "text": "Who has a pen?",
+      "full": "ned",
+      "noc": "he",
+      "floor": "ned"
+    },
+    {
+      "qid": "P5c",
+      "p": "P5_nedbox",
+      "slice": "NC",
+      "gold": "rat",
+      "text": "What is in the box?",
+      "full": "rat",
+      "noc": "rat",
+      "floor": "ned"
+    },
+    {
+      "qid": "P5d",
+      "p": "P5_nedbox",
+      "slice": "CMP",
+      "gold": "hand",
+      "text": "Where is Ned's pen?",
+      "full": "hand",
+      "noc": null,
+      "floor": "box"
+    },
+    {
+      "qid": "P6a",
+      "p": "P6_cow",
+      "slice": "NC",
+      "gold": "pond",
+      "text": "Where is the cow?",
+      "full": "pond",
+      "noc": "pond",
+      "floor": "pond"
+    },
+    {
+      "qid": "P6b",
+      "p": "P6_cow",
+      "slice": "CO",
+      "gold": "cow",
+      "text": "Who likes to be in the pond?",
+      "full": "cow",
+      "noc": "she",
+      "floor": "cow"
+    },
+    {
+      "qid": "P7a",
+      "p": "P7_nell",
+      "slice": "NC",
+      "gold": "nell",
+      "text": "Who has a pan?",
+      "full": "nell",
+      "noc": "nell",
+      "floor": "nell"
+    },
+    {
+      "qid": "P7b",
+      "p": "P7_nell",
+      "slice": "CMP",
+      "gold": "eggs",
+      "text": "What is in the thing Nell has?",
+      "full": "eggs",
+      "noc": null,
+      "floor": "eggs"
+    }
+  ],
+  "provenance": "mcguffey_first_reader.clean.txt (grade1); overlay=hdlab.state_of_mind.WorkingOverlay"
+}
