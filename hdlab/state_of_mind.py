@@ -168,14 +168,19 @@ class AdditiveMapKnownBase:
 # Overlay state objects.
 # ---------------------------------------------------------------------------
 class EntityState:
-    """A tracked discourse entity (surface-head grouping): mention midxs + agreement attributes."""
+    """A tracked discourse entity (surface-head grouping): mention midxs + agreement attributes.
+
+    animacy is an OPTIONAL additive axis ('animate' / 'inanimate' / None-unknown), fed by the caller's
+    grounding. It is used ONLY by the opt-in prefer_agreement resolution path (default OFF); it never
+    changes the hard compatible() filter, so validated recency/salience behavior is bit-identical."""
 
     def __init__(self, head: str, gender: Optional[str], number: Optional[str],
-                 is_named: bool) -> None:
+                 is_named: bool, animacy: Optional[str] = None) -> None:
         self.head = head
         self.gender = gender
         self.number = number
         self.is_named = is_named
+        self.animacy = animacy
         self.mention_midxs: List[int] = []
 
     @property
@@ -231,10 +236,12 @@ class WorkingOverlay:
 
     # ---- observation ------------------------------------------------------
     def observe(self, head: str, *, is_pronoun: bool = False, gender: Optional[str] = None,
-                number: Optional[str] = None, is_proper_name: bool = False) -> ObserveResult:
+                number: Optional[str] = None, is_proper_name: bool = False,
+                animacy: Optional[str] = None) -> ObserveResult:
         """Observe one mention. Pronouns advance the stream but do not create entities (they are references);
         nominal / proper-name mentions are grouped by lowercased head into the active set. Returns the
-        surprise flag (recognize-KNOWN vs new) + the bound entity."""
+        surprise flag (recognize-KNOWN vs new) + the bound entity. animacy is an OPTIONAL agreement axis
+        (used only by the opt-in prefer_agreement resolution path; default None = unchanged behavior)."""
         head = head.lower()
         midx = self._next_midx
         self._next_midx += 1
@@ -244,13 +251,15 @@ class WorkingOverlay:
             return ObserveResult(head, midx, True, is_known, surprise, None, False)
         is_new = head not in self._entities
         if is_new:
-            self._entities[head] = EntityState(head, gender, number, is_proper_name)
+            self._entities[head] = EntityState(head, gender, number, is_proper_name, animacy=animacy)
         ent = self._entities[head]
         # keep a known attribute if a later mention supplies one the first lacked
         if ent.gender is None and gender is not None:
             ent.gender = gender
         if ent.number is None and number is not None:
             ent.number = number
+        if ent.animacy is None and animacy is not None:
+            ent.animacy = animacy
         if is_proper_name:
             ent.is_named = True
         ent.mention_midxs.append(midx)
@@ -274,15 +283,38 @@ class WorkingOverlay:
         return [e for e in self._entities.values()
                 if compatible(gender, number, e.gender, e.number)]
 
+    def _agreement_preferred(self, cands: List[EntityState], gender: Optional[str],
+                             expects_animate: bool) -> List[EntityState]:
+        """Opt-in agreement refinement (additive; used only when prefer_agreement=True). Among the already
+        hard-compatible candidates, prefer (1) a KNOWN-gender match to the target over a gender-UNKNOWN
+        competitor, then (2) an ANIMATE candidate when the target pronoun is a gendered (he/she) pronoun.
+        Each tier only NARROWS when a non-empty preferred subset exists; else the tier is a no-op (so a
+        gender-unknown-only or animacy-unknown-only active set falls back to the base strategy)."""
+        filtered = cands
+        if gender in ("masc", "fem"):
+            known_match = [e for e in filtered if e.gender == gender]
+            if known_match:
+                filtered = known_match
+        if expects_animate:
+            animate = [e for e in filtered if e.animacy == "animate"]
+            if animate:
+                filtered = animate
+        return filtered
+
     def resolve(self, *, gender: Optional[str] = None, number: Optional[str] = None,
-                strategy: str = "maintained", now: Optional[int] = None) -> Optional[EntityState]:
+                strategy: str = "maintained", now: Optional[int] = None,
+                prefer_agreement: bool = False, expects_animate: bool = False) -> Optional[EntityState]:
         """Resolve a pronoun reference against the active set under the chosen strategy. Returns the chosen
-        EntityState (its last_midx = the concrete antecedent mention) or None if no compatible entity."""
+        EntityState (its last_midx = the concrete antecedent mention) or None if no compatible entity.
+        prefer_agreement (default False = validated behavior) additionally prefers a known-gender / animate
+        antecedent BEFORE the recency/salience tie-break (glass-box agreement refinement)."""
         if now is None:
             now = self._next_midx
         cands = self._compatible_entities(gender, number)
         if not cands:
             return None
+        if prefer_agreement:
+            cands = self._agreement_preferred(cands, gender, expects_animate)
         if strategy == "recency":
             return max(cands, key=lambda e: e.last_midx)
         if strategy == "recency_window":
@@ -310,12 +342,17 @@ class WorkingOverlay:
         raise ValueError("unknown strategy: %r" % strategy)
 
     def resolve_pronoun(self, pronoun: str, *, strategy: str = "maintained",
-                        now: Optional[int] = None) -> Optional[EntityState]:
-        """Convenience: resolve by a surface pronoun string using its scoped gender/number agreement."""
+                        now: Optional[int] = None,
+                        prefer_agreement: bool = False) -> Optional[EntityState]:
+        """Convenience: resolve by a surface pronoun string using its scoped gender/number agreement.
+        prefer_agreement (default False = validated behavior) turns on the known-gender / animate
+        preference; a gendered (masc/fem) pronoun is treated as expecting an animate antecedent."""
         sc = PRONOUN_SCOPE.get(pronoun.lower())
         if sc is None:
             raise ValueError("not an in-scope pronoun: %r" % pronoun)
-        return self.resolve(gender=sc["gender"], number=sc["number"], strategy=strategy, now=now)
+        expects_animate = sc["gender"] in ("masc", "fem")
+        return self.resolve(gender=sc["gender"], number=sc["number"], strategy=strategy, now=now,
+                            prefer_agreement=prefer_agreement, expects_animate=expects_animate)
 
     # ---- introspection ----------------------------------------------------
     def active_set(self, *, top: Optional[int] = None,
