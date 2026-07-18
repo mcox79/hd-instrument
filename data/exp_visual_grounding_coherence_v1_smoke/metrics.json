@@ -1,0 +1,88 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "perceptual grounding recovers words (T1=0.767>chance 0.167, shuf 0.244), coheres with WordNet (T2a rho=0.540, null95=0.515, p=0.036), and ADDS confusable-discrimination dictionary-only lacks (T2b=0.778, delta=+0.278). Scene-rep T3=1.000. Vision-grounding genuinely helps the foundation (CLAIM-VET-pending).",
+  "summary": "HARD_PASS | T1=0.767 T2a_rho=0.540 T2b=0.778 T3=1.000",
+  "elapsed_s": 9.01,
+  "ts_iso": "2026-07-18T13:44:53.867507+00:00",
+  "anchor_name": "visual_grounding_coherence_v1",
+  "mode": "smoke",
+  "config": {
+    "words": [
+      "cat",
+      "dog",
+      "sun",
+      "moon",
+      "duck",
+      "bird"
+    ],
+    "K": 6,
+    "n_train": 40,
+    "n_test": 15,
+    "N_fhrr": 4096,
+    "chance": 0.16666666666666666,
+    "seed": 20260718,
+    "gamma": 0.6541288358410873,
+    "med_pairwise_d2": 2.3370790968649886,
+    "clip_model": "openai/clip-vit-base-patch32",
+    "text_prompt": "a black and white drawing of a {w}",
+    "confusable_pairs": [
+      [
+        "cat",
+        "dog"
+      ],
+      [
+        "sun",
+        "moon"
+      ],
+      [
+        "duck",
+        "bird"
+      ]
+    ],
+    "modality_gap_centering": true,
+    "img_mean_norm": 0.9622825929338156,
+    "txt_mean_norm": 0.9236721549300341
+  },
+  "arms": {
+    "T1_perceptual_crossmodal_top1": 0.7666666666666667,
+    "T1_image_to_image_anchor_top1": 0.7444444444444445,
+    "T1_shuffled_control_top1": 0.24444444444444444,
+    "T1_chance": 0.16666666666666666,
+    "T2a_coherence_rho_fhrr": 0.5402359882092135,
+    "T2a_coherence_rho_clip_ref": 0.5691449374110443,
+    "T2a_null_mean": 0.031232505993927972,
+    "T2a_null_std": 0.2674388859729974,
+    "T2a_null_p95": 0.5153923599888898,
+    "T2a_rho_zscore": 1.9032515797451197,
+    "T2a_rho_empirical_p": 0.036,
+    "T2a_fhrr_projection_preservation_rho": 0.9821428571428571,
+    "T2b_perceptual_2way": 0.7777777777777778,
+    "T2b_dictionary_only_2way": 0.5,
+    "T2b_add_delta": 0.2777777777777778,
+    "T2b_confusable_wordnet_sims": [
+      0.8571428571428571,
+      0.75,
+      0.8333333333333334
+    ],
+    "T3_scene_recovery": 1.0,
+    "T3_shuffled_control": 0.21666666666666667
+  },
+  "gates": {
+    "t1_pass": true,
+    "t2a_pass": true,
+    "t2b_pass": true,
+    "t3_pass": true,
+    "novel_pass": true,
+    "shuffled_collapsed": true,
+    "baseline_in_band": true,
+    "arms_differ_verified": true
+  },
+  "arm_digests": {
+    "perceptual_anchors": "a63f84fc86bfc66e4c7f033b802ccf87a0955d7fd0737d4842a4f80eb238b76c",
+    "text_anchors": "0bbf7625ca48d67e12374840d86ecc3d974d35cfac0773e5e16bc502bee23cdc",
+    "wordnet_relmat": "372b14c4e4974a448b0ac08479ae761ea6630f6f4998060821dbd4c10b5e6ae5"
+  },
+  "glass_box_note": "CLIP+WordNet+QuickDraw at INGEST only; all T1/T2/T3 recovery runs on FHRR phasors with numpy bind/unbind/cleanup (runtime glass-box, no torch/transformers).",
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_gate: gamma=1/sqrt(median_pairwise_d2) after modality-gap centering (robust across gamma post-centering), logged; shuffled+null controls verify discriminator fires"
+}
