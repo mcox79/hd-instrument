@@ -1,0 +1,642 @@
+{
+  "anchor_name": "cls_distributed_protection_heldout_replay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_DISTRIBUTED_PROTECTION: at the structured/related-memory end (P_FLIP=0.20) replaying a 80-item subsample (20% of old) protects the 320 NEVER-REPLAYED old memories above the no_replay floor (margin>=0.20 abs>=0.55, 3/3 seeds) -- distributed protection is REAL (the scalable thing). Structure-dependence confirms the mechanism: arbitrary-end collapse=True (subsample->floor when memories lack shared structure). CLAIM-VET-pending, NOT self-declared chain-grade. HELD-OUT never-replayed old-recall curve (no_replay floor / subsample / replay_all ceiling): P=0.20[no=0.318 sub=0.969 all=1.000 hp=3/3 diff=Y] P=0.26[no=0.096 sub=0.799 all=1.000 hp=3/3 diff=Y] P=0.30[no=0.038 sub=0.581 all=1.000 hp=3/3 diff=Y] P=0.34[no=0.024 sub=0.324 all=1.000 hp=0/3 diff=Y] P=0.38[no=0.004 sub=0.160 all=1.000 hp=0/3 diff=Y] | replayed-subset(structured)=1.000 n_never_replayed=320 n_replayed=80 | arms_differ=True units=15/15",
+  "run_mode": "full",
+  "n_units": 15,
+  "expected_n_units": 15,
+  "arms_differ": true,
+  "n_never_replayed": 320,
+  "n_replayed_subsample": 80,
+  "points": [
+    {
+      "p_flip": 0.2,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.318,
+          "replayed": 0.267,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.969,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 3,
+      "n_seeds": 3,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "p_flip": 0.26,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.096,
+          "replayed": 0.087,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.799,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 3,
+      "n_seeds": 3,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "p_flip": 0.3,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.038,
+          "replayed": 0.05,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.581,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 3,
+      "n_seeds": 3,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "p_flip": 0.34,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.024,
+          "replayed": 0.017,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.324,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 0.954,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 0,
+      "n_seeds": 3,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    },
+    {
+      "p_flip": 0.38,
+      "agg": {
+        "no_replay": {
+          "heldout": 0.004,
+          "replayed": 0.017,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "subsample_replay": {
+          "heldout": 0.16,
+          "replayed": 1.0,
+          "recent": 1.0,
+          "heldout_initial": 1.0
+        },
+        "replay_all": {
+          "heldout": 1.0,
+          "replayed": 1.0,
+          "recent": 0.862,
+          "heldout_initial": 1.0
+        }
+      },
+      "hp_seeds": 0,
+      "n_seeds": 3,
+      "difficulty_ok": true,
+      "difficulty_msg": "OK"
+    }
+  ],
+  "per_unit": [
+    {
+      "p_flip": 0.2,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.384,
+        "replayed": 0.362,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.959,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "8221ee18f9157ca36a72fa822ba19eb0a0a662c3dfbf398ad9ce188ad84afef1",
+        "subsample_replay": "bbcfdf9197b3975069ef6ffc47c3b551cd428dba9cf7e7c0bd144a1c14f146d7",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.2,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.312,
+        "replayed": 0.163,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.975,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "fee71fd4ca0dbe5abc25a25578d2ee0a8581a04161aaccf687b9f291e6361ec9",
+        "subsample_replay": "d976cc7b3d9700809f3579bcc7a35a8fba41e32a7caf4cb2914f9e90bb8e43f5",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.2,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.259,
+        "replayed": 0.275,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.972,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "c753a5392805c310e53aaed363371bf788b1d7164ac1ae7c46a373b864ac96c4",
+        "subsample_replay": "75167ea09aa56fe1eeb6be7173fb7f6f3c3b9b1e96c1f5c7431d1bb560af9828",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.26,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.087,
+        "replayed": 0.1,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.8,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "7b2d70cac1142b817039dc8fe1827f5bdc0c6b6c45bec3d0c14ddeb0d22c17f4",
+        "subsample_replay": "71927589666c1be1001244231152245f6b37b9087a2e3753f80027953329448d",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.26,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.097,
+        "replayed": 0.075,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.812,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "f3d5bd26c101be68f5e2ded5a89e40ce733a05d11d11268d7d497fcc05954770",
+        "subsample_replay": "e258e6d923af6c3bbf8d2300dca51d265e8b96ae071cf5cb75f6b1cb5c93c184",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.26,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.103,
+        "replayed": 0.087,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.784,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "5c075f852042ca2faf825b8096edd88c136490b14d34dfb02ffea8fd586e50e7",
+        "subsample_replay": "caffde58eb61b91dcb1e1ee941f2235eb2d27d13f46113b0a8102d95fbac4c00",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.3,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.041,
+        "replayed": 0.075,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.581,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "970822a9c6cc273e8080bd8e26ec9a468ebee37eca3f591d32ec6639b32c828a",
+        "subsample_replay": "e376bb045867af10300ac5cbb24a496c9312ac1805b213a618408b64d565a30d",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.3,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.041,
+        "replayed": 0.05,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.6,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "14f67d4d55f78edb264157002b5bb4e94b0f77a11a31da9448972313311aa91b",
+        "subsample_replay": "9438d1375637a93e759270ef0ad2623c721fcb609860826857da353695570016",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.3,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.031,
+        "replayed": 0.025,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.562,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "a64906b0ed62a390fc588eed5f4e9c50b22312d301f6358d26e24df7a1d608dd",
+        "subsample_replay": "5bd524a3478c07fe629501fd6229b3546c647c5e7c454c1b211686f7eb8c22fe",
+        "replay_all": "55bebc771f80b2fa665c723b4e136bb84d170b2a2d7455416ff1240d52bfc339"
+      }
+    },
+    {
+      "p_flip": 0.34,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.022,
+        "replayed": 0.025,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.322,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 0.963,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "ea407ee88a67236041ac6e7f676814130867f64a6ffd041a60dc24f38ebbaa0e",
+        "subsample_replay": "c7ba83e183a4c62e0a45b9be752225fef2af66567f3f79f3e87e68d8d3c44c09",
+        "replay_all": "7d4fc2f3dd60b645faa40857c01eb5db9c1e1f80903b8d9d01b4099915751aba"
+      }
+    },
+    {
+      "p_flip": 0.34,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.025,
+        "replayed": 0.013,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.309,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 0.912,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "838e1ded88eb3f04023d4781e2bff3b1acb30f2f63e50ac5cab8277548146777",
+        "subsample_replay": "beb4809b6de1d170b9a5efa07da99e296bc75fd28986616eaa550ab4e3643e0d",
+        "replay_all": "064f2e3898360bc28f9cd12daa5f068802e9c69171e9d8009aa5689f8b4422eb"
+      }
+    },
+    {
+      "p_flip": 0.34,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.025,
+        "replayed": 0.013,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.341,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 0.988,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "389fe677274deaaa1f75a4bfbaba0850723b14fc5ce9aea3310b740b0ced22d7",
+        "subsample_replay": "832263cc85bf1689951f4d0e7d9a733be4a135aa9e3c30ebf69538188128a439",
+        "replay_all": "4892d745e1f6c8576ee29b286587e611bf717793549e60fb98c886500e21c85d"
+      }
+    },
+    {
+      "p_flip": 0.38,
+      "seed": 7,
+      "no_replay": {
+        "heldout": 0.003,
+        "replayed": 0.025,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.15,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 0.887,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "7d267dfb3ce3a5e5e43f5dfec190d754c7ec578622a154cbbecce2b1fee75d94",
+        "subsample_replay": "c6b46ec884815ee00b02a99fdd589d3827995e93ca6c5e483a631ad540603994",
+        "replay_all": "064ae3c6d6c0e5d36c74039f8028d2627d39b1a3e9fc859d4712aa0a5143043b"
+      }
+    },
+    {
+      "p_flip": 0.38,
+      "seed": 17,
+      "no_replay": {
+        "heldout": 0.0,
+        "replayed": 0.025,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.153,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 0.875,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "9a4eb2959b55569e92a36023080e79a81259d9267f21a3c808aeb54cbc659e52",
+        "subsample_replay": "24c9cbcc1c3df7baf8e2bba8f1896a0213dc9dc488172f1ecafc65ef1ffb9f0c",
+        "replay_all": "f0fa446b9d5ab0f389edacf91e88dac80919a0edc250dc9da088aaa1204a5e0a"
+      }
+    },
+    {
+      "p_flip": 0.38,
+      "seed": 23,
+      "no_replay": {
+        "heldout": 0.009,
+        "replayed": 0.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "subsample_replay": {
+        "heldout": 0.178,
+        "replayed": 1.0,
+        "recent": 1.0,
+        "heldout_initial": 1.0
+      },
+      "replay_all": {
+        "heldout": 1.0,
+        "replayed": 1.0,
+        "recent": 0.825,
+        "heldout_initial": 1.0
+      },
+      "arm_digests": {
+        "no_replay": "a3192046e25e2aa588dcbce9a3a112d58daa14705f926fa652e4764dbd0c154f",
+        "subsample_replay": "a6523e55c4194a30b0f18b246cb5f603b8f9840f0e0e4642afd61d0468e4b8e8",
+        "replay_all": "2200655164097b9a425e99765cb2a8f3ca67e6a61d9f0276b0de159cf1243efd"
+      }
+    }
+  ],
+  "config": {
+    "N": 128,
+    "H": 24,
+    "V": 60,
+    "OLD_CLASSES": 20,
+    "OLD_EXEMPLARS": 20,
+    "ELIG_PER_CLASS": 4,
+    "K_INTERFERE": 10,
+    "NEW_CPB": 4,
+    "NEW_EXEMPLARS": 20,
+    "E_OLD": 150,
+    "E_NEW": 120,
+    "LR": 0.3,
+    "P_FLIP_GRID": [
+      0.2,
+      0.26,
+      0.3,
+      0.34,
+      0.38
+    ],
+    "STRUCTURED_PFLIP": 0.2,
+    "seeds": [
+      7,
+      17,
+      23
+    ]
+  },
+  "elapsed_s": 24.448436737060547,
+  "summary": "HARD_PASS_DISTRIBUTED_PROTECTION: at the structured/related-memory end (P_FLIP=0.20) replaying a 80-item subsample (20% of old) protects the 320 NEVER-REPLAYED old memories above the no_replay floor (margin>=0.20 abs>=0.55, 3/3 seeds) -- distributed protection is REAL (the scalable thing). Structure-dependence confirms the mechanism: arbitrary-end collapse=True (subsample->floor when memories lack shared structure). CLAIM-VET-pending, NOT self-declared chain-grade. HELD-OUT never-replayed old-recall curve (no_replay floor / subsample / replay_all ceiling): P=0.20[no=0.318 sub=0.969 all=1.000 hp=3/3 diff=Y] P=0.26[no=0.096 sub=0.799 all=1.000 hp=3/3 diff=Y] P=0.30[no=0.038 sub=0.581 all=1.000 hp=3/3 diff=Y] P=0.34[no=0.024 sub=0.324 all=1.000 hp=0/3 diff=Y] P=0.38[no=0.004 sub=0.160 all=1.000 hp=0/3 diff=Y] | replayed-subset(structured)=1.000 n_never_replayed=320 n_replayed=80 | arms_differ=True units=15/15",
+  "structured_gate_claims": [
+    {
+      "gate_name": "struct_subsample_heldout_recall",
+      "measured": 0.969,
+      "threshold": 0.55,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "distributed protection of never-replayed old at structured end (LOAD-BEARING)"
+    },
+    {
+      "gate_name": "struct_subsample_heldout_margin",
+      "measured": 0.651,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "subsample protects held-out above the no-replay floor (structured end)"
+    },
+    {
+      "gate_name": "struct_difficulty_no_replay",
+      "measured": 0.318,
+      "threshold": 0.45,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "catastrophic forgetting of held-out old is real (difficulty ON)"
+    },
+    {
+      "gate_name": "struct_difficulty_replay_all_ceiling",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "held-out IS protectable if rehearsed (ceiling / not saturated-low)"
+    },
+    {
+      "gate_name": "struct_difficulty_initial",
+      "measured": 1.0,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "net learned held-out old initially (forgetting not inability)"
+    },
+    {
+      "gate_name": "struct_hp_seeds",
+      "measured": 3,
+      "threshold": 2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "seeds where subsample protects held-out above bar (structured end)"
+    },
+    {
+      "gate_name": "cardinality",
+      "measured": 15,
+      "threshold": 15,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "all sweep x seed units completed (META_RULE_H)"
+    }
+  ]
+}
