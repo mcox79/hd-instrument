@@ -1,0 +1,251 @@
+{
+  "verdict": "HARD_FAIL_CLOSURE_AMPLIFICATION",
+  "verdict_msg": "closure-amplification sinks the generated edges even WITH the confidence control: generated-edge precision [0.09419, 0.10417, 0.09168] (< 0.45 floor) on >= 2/3 seeds -- majority-false, a real substrate-native bound (bounded like the multihop-compose cell's ~0.37 raw precision; here RAW precision_generated=[0.08248, 0.0928, 0.08047]). Coverage IS extended (gain [0.07375, 0.11401, 0.1268]) but the added edges cannot be trusted. Brain-check: same amplification the brain bounds with basic-level constraints; here textbook extraction noise exceeds the control's reach.",
+  "summary": "HARD_FAIL_CLOSURE_AMPLIFICATION: F1 fixed=[0.25235, 0.32484, 0.32812] gen_ctrl=[0.23453, 0.2907, 0.28164] gen_raw=[0.18099, 0.22741, 0.21301] | cov fixed=[0.25569, 0.42888, 0.47974] gen_ctrl=[0.32944, 0.54289, 0.60654] gain=[0.07375, 0.11401, 0.1268] | prec_generated ctrl=[0.09419, 0.10417, 0.09168] raw=[0.08248, 0.0928, 0.08047] | n_gen_ctrl=[1415, 1108, 1198] n_gold=[1627, 921, 765]",
+  "elapsed_s": 11.09,
+  "ts_iso": "2026-07-18T06:33:33.556801+00:00",
+  "anchor_name": "read_grow_structure_guided_isa_generation_v1",
+  "run_mode": "full",
+  "bands": {
+    "hp_f1_margin": 0.03,
+    "hp_gen_precision_floor": 0.5,
+    "hp_coverage_gain_min": 0.02,
+    "fail_gen_precision_max": 0.45,
+    "seed_majority": 2,
+    "min_gold": 30,
+    "min_generated": 20,
+    "min_fixed_cov": 0.05,
+    "max_fixed_cov": 0.95
+  },
+  "diag": {
+    "n_seeds": 3,
+    "seed_majority": 2,
+    "vacuous_seeds": 0,
+    "baseline_in_band_seeds": 3,
+    "arms_differ": true,
+    "hp_seeds": 0,
+    "amp_fail_seeds": 3,
+    "f1_fixed": [
+      0.25235,
+      0.32484,
+      0.32812
+    ],
+    "f1_gen_ctrl": [
+      0.23453,
+      0.2907,
+      0.28164
+    ],
+    "f1_gen_raw": [
+      0.18099,
+      0.22741,
+      0.21301
+    ],
+    "f1_margin_ctrl": [
+      -0.01782,
+      -0.03414,
+      -0.04648
+    ],
+    "coverage_fixed": [
+      0.25569,
+      0.42888,
+      0.47974
+    ],
+    "coverage_gen_ctrl": [
+      0.32944,
+      0.54289,
+      0.60654
+    ],
+    "coverage_gain_ctrl": [
+      0.07375,
+      0.11401,
+      0.1268
+    ],
+    "precision_fixed": [
+      0.2491,
+      0.26142,
+      0.24932
+    ],
+    "precision_gen_ctrl": [
+      0.18207,
+      0.19849,
+      0.1834
+    ],
+    "precision_generated_ctrl": [
+      0.09419,
+      0.10417,
+      0.09168
+    ],
+    "precision_generated_raw": [
+      0.08248,
+      0.0928,
+      0.08047
+    ],
+    "n_generated_ctrl": [
+      1415,
+      1108,
+      1198
+    ],
+    "n_generated_raw": [
+      16420,
+      6341,
+      5484
+    ],
+    "n_gold": [
+      1627,
+      921,
+      765
+    ]
+  },
+  "gate": {
+    "real_baseline": "FIXED = flat per-sentence extractor coverage x precision (high-precision, limited coverage; the actual extractor output -- NOT strawman/abstain/blank)",
+    "one_variable": "transitive-inference GENERATION on (GEN_CTRL) vs off (FIXED); identical extracted edges / gold universe / WN oracle",
+    "difficulty_on": "gold universe includes indirect WN-true pairs the flat extractor structurally misses (coverage-extension, not re-scoring seen edges)",
+    "can_fail": "HARD_FAIL_CLOSURE_AMPLIFICATION if generated edges majority-false even with control (precision_generated < 0.45); HARD_PASS needs F1 margin + usable-precision floor",
+    "no_leak": "graph + generation from read prose/glossary only; WordNet independent gold in EVAL only",
+    "discriminator_fires_min_generated": [
+      1415,
+      1108,
+      1198
+    ],
+    "arms_differ": true,
+    "baseline_in_band": true,
+    "confidence_control": "GEN_CTRL: 2-hop, recognized intermediate (indeg>=3), non-hub target (indeg<=8); GEN_RAW: uncontrolled full closure (depth<=15)",
+    "run_at_full_corpus": true
+  },
+  "seed_results": [
+    {
+      "offset": 0,
+      "n_read_sections": 85,
+      "n_nodes": 1843,
+      "n_direct_edges": 1797,
+      "n_gold": 1627,
+      "n_generated_ctrl": 1415,
+      "n_generated_raw": 16420,
+      "coverage_fixed": 0.25569,
+      "coverage_gen_ctrl": 0.32944,
+      "coverage_gen_raw": 1.0,
+      "coverage_gain_ctrl": 0.07375,
+      "coverage_gain_raw": 0.74431,
+      "gold_hits_fixed": 416,
+      "gold_hits_ctrl": 536,
+      "gold_hits_raw": 1627,
+      "precision_fixed": 0.2491,
+      "precision_gen_ctrl": 0.18207,
+      "precision_gen_raw": 0.0995,
+      "precision_generated_ctrl": 0.09419,
+      "precision_generated_raw": 0.08248,
+      "gen_ctrl_checkable": 1274,
+      "gen_ctrl_true": 120,
+      "gen_raw_checkable": 14682,
+      "gen_raw_true": 1211,
+      "f1_fixed": 0.25235,
+      "f1_gen_ctrl": 0.23453,
+      "f1_gen_raw": 0.18099,
+      "f1_margin_ctrl": -0.01782,
+      "asserted_checkable": {
+        "fixed": 1670,
+        "gen_ctrl": 2944,
+        "gen_raw": 16352
+      },
+      "digest": {
+        "fixed": "7d6c6223c96f265383ad11b54d1d0fb05d00170244abcea40bbf2c643cc34a52",
+        "gen_ctrl": "067b0f8797fdb290b7e7400522184a074c4a1f95fd28d33112d204be66b998e6",
+        "gen_raw": "17628ec9d121a7bb04441fcf5fe5a0145d2a4bc25b69fbef40bb7d52b3291b93"
+      }
+    },
+    {
+      "offset": 1,
+      "n_read_sections": 85,
+      "n_nodes": 1739,
+      "n_direct_edges": 1635,
+      "n_gold": 921,
+      "n_generated_ctrl": 1108,
+      "n_generated_raw": 6341,
+      "coverage_fixed": 0.42888,
+      "coverage_gen_ctrl": 0.54289,
+      "coverage_gen_raw": 1.0,
+      "coverage_gain_ctrl": 0.11401,
+      "coverage_gain_raw": 0.57112,
+      "gold_hits_fixed": 395,
+      "gold_hits_ctrl": 500,
+      "gold_hits_raw": 921,
+      "precision_fixed": 0.26142,
+      "precision_gen_ctrl": 0.19849,
+      "precision_gen_raw": 0.12829,
+      "precision_generated_ctrl": 0.10417,
+      "precision_generated_raw": 0.0928,
+      "gen_ctrl_checkable": 1008,
+      "gen_ctrl_true": 105,
+      "gen_raw_checkable": 5668,
+      "gen_raw_true": 526,
+      "f1_fixed": 0.32484,
+      "f1_gen_ctrl": 0.2907,
+      "f1_gen_raw": 0.22741,
+      "f1_margin_ctrl": -0.03414,
+      "asserted_checkable": {
+        "fixed": 1511,
+        "gen_ctrl": 2519,
+        "gen_raw": 7179
+      },
+      "digest": {
+        "fixed": "658ca59805d4a5ef723099130379babd47be4dfdca39b5ab204cdb861e2e58ad",
+        "gen_ctrl": "ea21de3d52351a775cd56ce5940ba8c62c84da73e71840490a2e09e962a6ae88",
+        "gen_raw": "b982879cfc284dd27314f361b4a24ce0cec3465851ecd7f981d7f5910b180c6a"
+      }
+    },
+    {
+      "offset": 2,
+      "n_read_sections": 86,
+      "n_nodes": 1718,
+      "n_direct_edges": 1592,
+      "n_gold": 765,
+      "n_generated_ctrl": 1198,
+      "n_generated_raw": 5484,
+      "coverage_fixed": 0.47974,
+      "coverage_gen_ctrl": 0.60654,
+      "coverage_gen_raw": 1.0,
+      "coverage_gain_ctrl": 0.1268,
+      "coverage_gain_raw": 0.52026,
+      "gold_hits_fixed": 367,
+      "gold_hits_ctrl": 464,
+      "gold_hits_raw": 765,
+      "precision_fixed": 0.24932,
+      "precision_gen_ctrl": 0.1834,
+      "precision_gen_raw": 0.1192,
+      "precision_generated_ctrl": 0.09168,
+      "precision_generated_raw": 0.08047,
+      "gen_ctrl_checkable": 1058,
+      "gen_ctrl_true": 97,
+      "gen_raw_checkable": 4946,
+      "gen_raw_true": 398,
+      "f1_fixed": 0.32812,
+      "f1_gen_ctrl": 0.28164,
+      "f1_gen_raw": 0.21301,
+      "f1_margin_ctrl": -0.04648,
+      "asserted_checkable": {
+        "fixed": 1472,
+        "gen_ctrl": 2530,
+        "gen_raw": 6418
+      },
+      "digest": {
+        "fixed": "271b54184cb11a2587d9c23fa86bde3fdeb8356d9b804e608a85e1299a397949",
+        "gen_ctrl": "f4d98c8541e9a0735bc6cf225a4aede5b313162c7f120fa551ff8b4787565316",
+        "gen_raw": "75d58dd8eed0bedc2c2dd578f197a6f77eaa2467fa10a411e3a73b8235d0ddc2"
+      }
+    }
+  ],
+  "n_sections": 107,
+  "seed_offsets": [
+    0,
+    1,
+    2
+  ],
+  "params": {
+    "MIN_SUPPORT": 3,
+    "HUB_MAX": 8,
+    "DGEN": 2,
+    "RAW_MAXD": 15,
+    "DMAX_WN": 6,
+    "SUBSAMPLE_MOD": 5
+  }
+}
