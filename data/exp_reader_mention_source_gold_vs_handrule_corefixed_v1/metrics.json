@@ -1,0 +1,988 @@
+{
+  "verdict": "END_TO_END_DECENT",
+  "verdict_msg": "handrule lands CLOSE to the gold ceiling: all 0.839->0.742 (retention 0.88), CMP 1.000->0.812, RELF1 0.580->0.488. Coref was the key; hand-rule mentions are OK enough -> a genuine (scoped) end-to-end reader capability on grade-2 narrative. mention P=0.43 R=1.00.",
+  "summary": "END_TO_END_DECENT: all 0.839->0.742 (ret 0.88) | CMP 1.000->0.812 | RELF1 0.580->0.488 | CC 0.600->0.600 | CO 0.667->0.667 | ref 0.912->0.853",
+  "elapsed_s": 6.76,
+  "ts_iso": "2026-07-18T17:28:51.764374+00:00",
+  "anchor_name": "reader_mention_source_gold_vs_handrule_corefixed_v1",
+  "run_mode": "full",
+  "seed": 12345,
+  "one_variable": "mention_mode (gold oracle vs handrule); coref FIXED (agreement+topical) both arms",
+  "bands": {
+    "DECENT_RETENTION_MIN": 0.8,
+    "DECENT_CMP_MIN": 0.7,
+    "DECENT_RELF1_MIN": 0.45,
+    "BOUND_RETENTION_MAX": 0.65,
+    "BOUND_CMP_MAX": 0.5,
+    "BOUND_RELF1_MAX": 0.35,
+    "TELEMETRY_MIN_MOVE": 0.05
+  },
+  "positive_control_ok": true,
+  "telemetry_ok": true,
+  "telemetry_move": 0.1875,
+  "arms_differ_digests": {
+    "gold_mentions": "af12e8dd2311eb0b12bd15b2b9f8796fce48535dd2ed2fd3aa5852a6f6b07492",
+    "handrule_mentions": "cdeb159e1ea521429c66c430bad185ef4bc44e86a30657d253ee09afce2fcfca"
+  },
+  "retention_all": 0.8846,
+  "delta": {
+    "all": 0.0968,
+    "CMP": 0.1875,
+    "RELF1": 0.092,
+    "CC": 0.0,
+    "CO": 0.0,
+    "NC": 0.0,
+    "ref_acc": 0.0589,
+    "RELF1_recall": 0.0
+  },
+  "arms": {
+    "gold_mentions": {
+      "slices": {
+        "NC": 0.7143,
+        "n_NC": 7,
+        "CO": 0.6667,
+        "n_CO": 3,
+        "CC": 0.6,
+        "n_CC": 5,
+        "CMP": 1.0,
+        "n_CMP": 16,
+        "all": 0.8387
+      },
+      "ref_acc": 0.9118,
+      "ref_ok": 31,
+      "ref_n": 34,
+      "relf1_micro_f1": 0.58,
+      "relf1_micro_precision": 0.444,
+      "relf1_micro_recall": 0.833
+    },
+    "handrule_mentions": {
+      "slices": {
+        "NC": 0.7143,
+        "n_NC": 7,
+        "CO": 0.6667,
+        "n_CO": 3,
+        "CC": 0.6,
+        "n_CC": 5,
+        "CMP": 0.8125,
+        "n_CMP": 16,
+        "all": 0.7419
+      },
+      "ref_acc": 0.8529,
+      "ref_ok": 29,
+      "ref_n": 34,
+      "relf1_micro_f1": 0.488,
+      "relf1_micro_precision": 0.345,
+      "relf1_micro_recall": 0.833
+    }
+  },
+  "mention_quality": {
+    "precision": 0.4257,
+    "recall": 1.0,
+    "f1": 0.5972,
+    "tp": 63,
+    "fp": 85,
+    "fn": 0,
+    "per_passage": {
+      "L5_dogs": {
+        "gold": [
+          "country",
+          "dogs",
+          "horse",
+          "james",
+          "sport",
+          "wagon"
+        ],
+        "hand": [
+          "a",
+          "country",
+          "daytime",
+          "dogs",
+          "drives",
+          "good",
+          "has",
+          "hitches",
+          "horse",
+          "in",
+          "james",
+          "little",
+          "name",
+          "over",
+          "sport",
+          "two",
+          "uses",
+          "wagon",
+          "watchdog"
+        ],
+        "extra": [
+          "a",
+          "daytime",
+          "drives",
+          "good",
+          "has",
+          "hitches",
+          "in",
+          "little",
+          "name",
+          "over",
+          "two",
+          "uses",
+          "watchdog"
+        ],
+        "missed": []
+      },
+      "L5b_dodger": {
+        "gold": [
+          "dodger",
+          "eyes",
+          "terrier"
+        ],
+        "hand": [
+          "dodger",
+          "does",
+          "eyes",
+          "funny",
+          "has",
+          "name",
+          "scotch",
+          "terrier",
+          "things"
+        ],
+        "extra": [
+          "does",
+          "funny",
+          "has",
+          "name",
+          "scotch",
+          "things"
+        ],
+        "missed": []
+      },
+      "L18_king": {
+        "gold": [
+          "berries",
+          "bugs",
+          "flies",
+          "house",
+          "kingbird",
+          "nest",
+          "robin",
+          "tree",
+          "worms"
+        ],
+        "hand": [
+          "a",
+          "berries",
+          "bugs",
+          "builds",
+          "eats",
+          "flies",
+          "house",
+          "in",
+          "kingbird",
+          "nest",
+          "robin",
+          "tree",
+          "worms"
+        ],
+        "extra": [
+          "a",
+          "builds",
+          "eats",
+          "in"
+        ],
+        "missed": []
+      },
+      "L14_henry": {
+        "gold": [
+          "father",
+          "henry",
+          "mother",
+          "sister"
+        ],
+        "hand": [
+          "a",
+          "boy",
+          "dead",
+          "father",
+          "good",
+          "henry",
+          "kind",
+          "little",
+          "mother",
+          "old",
+          "poor",
+          "sister",
+          "two",
+          "was",
+          "years"
+        ],
+        "extra": [
+          "a",
+          "boy",
+          "dead",
+          "good",
+          "kind",
+          "little",
+          "old",
+          "poor",
+          "two",
+          "was",
+          "years"
+        ],
+        "missed": []
+      },
+      "L23_doll": {
+        "gold": [
+          "dash",
+          "dog",
+          "mary"
+        ],
+        "hand": [
+          "a",
+          "at",
+          "dash",
+          "dog",
+          "mary",
+          "pet",
+          "time",
+          "was"
+        ],
+        "extra": [
+          "a",
+          "at",
+          "pet",
+          "time",
+          "was"
+        ],
+        "missed": []
+      },
+      "L2_cat": {
+        "gold": [
+          "cat",
+          "door",
+          "mat"
+        ],
+        "hand": [
+          "cat",
+          "door",
+          "mat",
+          "old"
+        ],
+        "extra": [
+          "old"
+        ],
+        "missed": []
+      },
+      "L21_bee": {
+        "gold": [
+          "bees",
+          "house"
+        ],
+        "hand": [
+          "a",
+          "bees",
+          "hive",
+          "house",
+          "in"
+        ],
+        "extra": [
+          "a",
+          "hive",
+          "in"
+        ],
+        "missed": []
+      },
+      "L60_geo": {
+        "gold": [
+          "ball",
+          "dollar",
+          "george",
+          "james",
+          "street",
+          "window"
+        ],
+        "hand": [
+          "a",
+          "at",
+          "ball",
+          "dollar",
+          "ellet",
+          "george",
+          "gift",
+          "james",
+          "mason",
+          "sent",
+          "side",
+          "silver",
+          "street",
+          "window",
+          "year"
+        ],
+        "extra": [
+          "a",
+          "at",
+          "ellet",
+          "gift",
+          "mason",
+          "sent",
+          "side",
+          "silver",
+          "year"
+        ],
+        "missed": []
+      },
+      "L28_sam": {
+        "gold": [
+          "cents",
+          "harry",
+          "hat",
+          "man",
+          "mother"
+        ],
+        "hand": [
+          "blind",
+          "cents",
+          "harry",
+          "hat",
+          "man",
+          "mother",
+          "out",
+          "put"
+        ],
+        "extra": [
+          "blind",
+          "out",
+          "put"
+        ],
+        "missed": []
+      },
+      "L8_puss": {
+        "gold": [
+          "attic",
+          "cat",
+          "cellar",
+          "kittens",
+          "puss"
+        ],
+        "hand": [
+          "attic",
+          "cat",
+          "cellar",
+          "coal",
+          "in",
+          "kittens",
+          "little",
+          "one",
+          "puss",
+          "then",
+          "three"
+        ],
+        "extra": [
+          "coal",
+          "in",
+          "little",
+          "one",
+          "then",
+          "three"
+        ],
+        "missed": []
+      },
+      "L26_patty": {
+        "gold": [
+          "bread",
+          "forest",
+          "house",
+          "milk",
+          "patty",
+          "trees"
+        ],
+        "hand": [
+          "a",
+          "bread",
+          "forest",
+          "great",
+          "house",
+          "in",
+          "little",
+          "lives",
+          "log",
+          "milk",
+          "patty",
+          "trees"
+        ],
+        "extra": [
+          "a",
+          "great",
+          "in",
+          "little",
+          "lives",
+          "log"
+        ],
+        "missed": []
+      },
+      "L57_laura": {
+        "gold": [
+          "kitten",
+          "laura"
+        ],
+        "hand": [
+          "a",
+          "eats",
+          "english",
+          "girl",
+          "kitten",
+          "laura",
+          "little",
+          "more",
+          "needs"
+        ],
+        "extra": [
+          "a",
+          "eats",
+          "english",
+          "girl",
+          "little",
+          "more",
+          "needs"
+        ],
+        "missed": []
+      },
+      "L32_tiger": {
+        "gold": [
+          "chain",
+          "kitten",
+          "neck",
+          "tent",
+          "tigress"
+        ],
+        "hand": [
+          "a",
+          "at",
+          "bound",
+          "chain",
+          "kitten",
+          "large",
+          "middle",
+          "neck",
+          "tent",
+          "tigress"
+        ],
+        "extra": [
+          "a",
+          "at",
+          "bound",
+          "large",
+          "middle"
+        ],
+        "missed": []
+      },
+      "L35_willie": {
+        "gold": [
+          "bounce",
+          "dog",
+          "tricks",
+          "willie"
+        ],
+        "hand": [
+          "bounce",
+          "brown",
+          "cunning",
+          "dog",
+          "fast",
+          "friends",
+          "little",
+          "tricks",
+          "two",
+          "willie"
+        ],
+        "extra": [
+          "brown",
+          "cunning",
+          "fast",
+          "friends",
+          "little",
+          "two"
+        ],
+        "missed": []
+      }
+    }
+  },
+  "cited_ceiling": {
+    "source": "data/exp_coref_salience_rank_topicality_v1/metrics.json:attribution.topical",
+    "salience_cell": "3529ef65a",
+    "CC": 0.6,
+    "CO": 0.6667,
+    "ref_acc": 0.9118,
+    "CMP": 1.0,
+    "RELF1": 0.58,
+    "all": 0.8387
+  },
+  "reference_detail": {
+    "gold_mentions": {
+      "L5_dogs": [
+        {
+          "surf": "his",
+          "gold": "dogs",
+          "pred": "james",
+          "ok": false
+        },
+        {
+          "surf": "his",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        }
+      ],
+      "L5b_dodger": [
+        {
+          "surf": "he",
+          "gold": "dodger",
+          "pred": "dodger",
+          "ok": true
+        }
+      ],
+      "L18_king": [
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true
+        }
+      ],
+      "L14_henry": [
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true
+        }
+      ],
+      "L23_doll": [
+        {
+          "surf": "her",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true
+        },
+        {
+          "surf": "him",
+          "gold": "dash",
+          "pred": "dash",
+          "ok": true
+        }
+      ],
+      "L2_cat": [],
+      "L21_bee": [],
+      "L60_geo": [
+        {
+          "surf": "he",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "surf": "it",
+          "gold": "ball",
+          "pred": "ball",
+          "ok": true
+        },
+        {
+          "surf": "him",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        }
+      ],
+      "L28_sam": [
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true
+        },
+        {
+          "surf": "him",
+          "gold": "man",
+          "pred": "man",
+          "ok": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true
+        }
+      ],
+      "L8_puss": [
+        {
+          "surf": "her",
+          "gold": "puss",
+          "pred": "puss",
+          "ok": true
+        },
+        {
+          "surf": "them",
+          "gold": "kittens",
+          "pred": "kittens",
+          "ok": true
+        }
+      ],
+      "L26_patty": [
+        {
+          "surf": "she",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true
+        },
+        {
+          "surf": "her",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true
+        }
+      ],
+      "L57_laura": [
+        {
+          "surf": "her",
+          "gold": "laura",
+          "pred": "laura",
+          "ok": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": null,
+          "ok": false
+        }
+      ],
+      "L32_tiger": [
+        {
+          "surf": "she",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true
+        },
+        {
+          "surf": "her",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": "chain",
+          "ok": false
+        }
+      ],
+      "L35_willie": [
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true
+        }
+      ]
+    },
+    "handrule_mentions": {
+      "L5_dogs": [
+        {
+          "surf": "his",
+          "gold": "dogs",
+          "pred": "james",
+          "ok": false
+        },
+        {
+          "surf": "his",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true
+        }
+      ],
+      "L5b_dodger": [
+        {
+          "surf": "he",
+          "gold": "dodger",
+          "pred": "dodger",
+          "ok": true
+        }
+      ],
+      "L18_king": [
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true
+        }
+      ],
+      "L14_henry": [
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true
+        },
+        {
+          "surf": "he",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true
+        }
+      ],
+      "L23_doll": [
+        {
+          "surf": "her",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true
+        },
+        {
+          "surf": "him",
+          "gold": "dash",
+          "pred": "dash",
+          "ok": true
+        }
+      ],
+      "L2_cat": [],
+      "L21_bee": [],
+      "L60_geo": [
+        {
+          "surf": "he",
+          "gold": "george",
+          "pred": "george",
+          "ok": true
+        },
+        {
+          "surf": "it",
+          "gold": "ball",
+          "pred": "a",
+          "ok": false
+        },
+        {
+          "surf": "him",
+          "gold": "james",
+          "pred": "mason",
+          "ok": false
+        }
+      ],
+      "L28_sam": [
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true
+        },
+        {
+          "surf": "him",
+          "gold": "man",
+          "pred": "man",
+          "ok": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true
+        }
+      ],
+      "L8_puss": [
+        {
+          "surf": "her",
+          "gold": "puss",
+          "pred": "puss",
+          "ok": true
+        },
+        {
+          "surf": "them",
+          "gold": "kittens",
+          "pred": "kittens",
+          "ok": true
+        }
+      ],
+      "L26_patty": [
+        {
+          "surf": "she",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true
+        },
+        {
+          "surf": "her",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true
+        }
+      ],
+      "L57_laura": [
+        {
+          "surf": "her",
+          "gold": "laura",
+          "pred": "laura",
+          "ok": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": "more",
+          "ok": false
+        }
+      ],
+      "L32_tiger": [
+        {
+          "surf": "she",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true
+        },
+        {
+          "surf": "her",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": "bound",
+          "ok": false
+        }
+      ],
+      "L35_willie": [
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true
+        },
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true
+        }
+      ]
+    }
+  },
+  "n_pronouns_scored": 34,
+  "n_questions": 31
+}
