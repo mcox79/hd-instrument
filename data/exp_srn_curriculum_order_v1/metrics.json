@@ -1,0 +1,187 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "marginal/split: delta_curric in (0,+0.02) or seed-split; ami_curriculum=0.173 vs ami_random=0.158 (anti=0.166); hp_seeds=1 hf_seeds=0",
+  "summary": "MIDDLE_BAND: marginal/split: delta_curric in (0,+0.02) or seed-split; ami_curriculum=0.173 vs ami_random=0.158 (anti=0.166); hp_seeds",
+  "elapsed_s": 153.9,
+  "ts_iso": "2026-07-18T09:23:50.929310+00:00",
+  "anchor_name": "srn_curriculum_order_v1",
+  "mode": "full",
+  "config": {
+    "n_sents": 8000,
+    "vocab_size": 900,
+    "min_count": 5,
+    "d": 128,
+    "k": 5,
+    "epochs": 16,
+    "batch": 512,
+    "lr": 0.01,
+    "jitter": 0.15,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "kmeans_seeds": [
+      0,
+      1,
+      2
+    ],
+    "min_members": 8
+  },
+  "corpus": {
+    "n_sentences": 8000,
+    "n_sequences": 7512,
+    "n_tokens": 100178,
+    "vocab_size": 900,
+    "n_gold_words": 893,
+    "n_categories": 9,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT",
+      "NUM"
+    ],
+    "complexity_metric": "z(sentence_length)+z(mean_word_freq_rank)"
+  },
+  "arms": [
+    "CURRICULUM",
+    "RANDOM",
+    "ANTI",
+    "STATIC_PPMI",
+    "RANDOM_CODE"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "kmeans_seed": 0,
+      "cur_ce": 3.3206,
+      "rnd_ce": 3.2988,
+      "ant_ce": 3.3265,
+      "ami_curriculum": 0.1625,
+      "ami_random": 0.1587,
+      "ami_anti": 0.1723,
+      "ami_static": 0.0984,
+      "ami_randomcode": -0.0013,
+      "purity_curriculum": 0.5935,
+      "purity_random": 0.5711,
+      "delta_curric": 0.0038,
+      "delta_anti": 0.0136
+    },
+    {
+      "seed": 13,
+      "kmeans_seed": 1,
+      "cur_ce": 3.3211,
+      "rnd_ce": 3.3026,
+      "ant_ce": 3.3244,
+      "ami_curriculum": 0.193,
+      "ami_random": 0.1624,
+      "ami_anti": 0.1599,
+      "ami_static": 0.0974,
+      "ami_randomcode": 0.0021,
+      "purity_curriculum": 0.6181,
+      "purity_random": 0.5745,
+      "delta_curric": 0.0307,
+      "delta_anti": -0.0025
+    },
+    {
+      "seed": 19,
+      "kmeans_seed": 2,
+      "cur_ce": 3.3232,
+      "rnd_ce": 3.3018,
+      "ant_ce": 3.3266,
+      "ami_curriculum": 0.1636,
+      "ami_random": 0.1543,
+      "ami_anti": 0.1647,
+      "ami_static": 0.0991,
+      "ami_randomcode": -0.0014,
+      "purity_curriculum": 0.5554,
+      "purity_random": 0.5465,
+      "delta_curric": 0.0093,
+      "delta_anti": 0.0104
+    }
+  ],
+  "aggregate": {
+    "ami_curriculum_mean": 0.173,
+    "ami_random_mean": 0.1585,
+    "ami_anti_mean": 0.1656,
+    "ami_static_mean": 0.0983,
+    "ami_randomcode_mean": -0.0002,
+    "delta_curric_mean": 0.0146,
+    "delta_anti_mean": 0.0072,
+    "hp_seeds": 1,
+    "hf_seeds": 0,
+    "hp_margin": 0.02
+  },
+  "gates": {
+    "metric_fires": true,
+    "baseline_in_band": true,
+    "arms_differ_verified": true
+  },
+  "example_clusters_curriculum": [
+    {
+      "cluster": 0,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.635,
+      "example_words": [
+        "it",
+        "his",
+        "who",
+        "i",
+        "there",
+        "him",
+        "do",
+        "now"
+      ]
+    },
+    {
+      "cluster": 1,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.535,
+      "example_words": [
+        "last",
+        "first",
+        "only",
+        "her",
+        "time",
+        "back",
+        "day",
+        "being"
+      ]
+    },
+    {
+      "cluster": 2,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.594,
+      "example_words": [
+        "they",
+        "their",
+        "we",
+        "over",
+        "week",
+        "here",
+        "members",
+        "way"
+      ]
+    },
+    {
+      "cluster": 3,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.405,
+      "example_words": [
+        "this",
+        "one",
+        "more",
+        "its",
+        "two",
+        "no",
+        "some",
+        "our"
+      ]
+    }
+  ]
+}

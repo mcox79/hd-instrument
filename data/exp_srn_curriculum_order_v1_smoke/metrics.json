@@ -1,0 +1,150 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "CURRICULUM does NOT beat RANDOM-order at fixed budget (FIRST-CLASS negative, Rohde-Plaut): delta_curric<=0 on 1/1 seeds; ami_curriculum=0.097 <= ami_random=0.097 (anti=0.085) -- flat-scaling not fixable by input-order curriculum either",
+  "summary": "HARD_FAIL: CURRICULUM does NOT beat RANDOM-order at fixed budget (FIRST-CLASS negative, Rohde-Plaut): delta_curric<=0 on 1/1 seeds;",
+  "elapsed_s": 4.58,
+  "ts_iso": "2026-07-18T09:20:46.487391+00:00",
+  "anchor_name": "srn_curriculum_order_v1",
+  "mode": "smoke",
+  "config": {
+    "n_sents": 500,
+    "vocab_size": 180,
+    "min_count": 3,
+    "d": 64,
+    "k": 4,
+    "epochs": 4,
+    "batch": 512,
+    "lr": 0.01,
+    "jitter": 0.15,
+    "seeds": [
+      7
+    ],
+    "kmeans_seeds": [
+      0
+    ],
+    "min_members": 5
+  },
+  "corpus": {
+    "n_sentences": 500,
+    "n_sequences": 455,
+    "n_tokens": 5772,
+    "vocab_size": 180,
+    "n_gold_words": 174,
+    "n_categories": 8,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT"
+    ],
+    "complexity_metric": "z(sentence_length)+z(mean_word_freq_rank)"
+  },
+  "arms": [
+    "CURRICULUM",
+    "RANDOM",
+    "ANTI",
+    "STATIC_PPMI",
+    "RANDOM_CODE"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "kmeans_seed": 0,
+      "cur_ce": 4.1283,
+      "rnd_ce": 4.1057,
+      "ant_ce": 4.1077,
+      "ami_curriculum": 0.0972,
+      "ami_random": 0.0973,
+      "ami_anti": 0.0853,
+      "ami_static": 0.0172,
+      "ami_randomcode": 0.0098,
+      "purity_curriculum": 0.5115,
+      "purity_random": 0.4885,
+      "delta_curric": -0.0001,
+      "delta_anti": -0.012
+    }
+  ],
+  "aggregate": {
+    "ami_curriculum_mean": 0.0972,
+    "ami_random_mean": 0.0973,
+    "ami_anti_mean": 0.0853,
+    "ami_static_mean": 0.0172,
+    "ami_randomcode_mean": 0.0098,
+    "delta_curric_mean": -0.0001,
+    "delta_anti_mean": -0.012,
+    "hp_seeds": 0,
+    "hf_seeds": 1,
+    "hp_margin": 0.02
+  },
+  "gates": {
+    "metric_fires": true,
+    "baseline_in_band": true,
+    "arms_differ_verified": true
+  },
+  "example_clusters_curriculum": [
+    {
+      "cluster": 0,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.75,
+      "example_words": [
+        "state",
+        "texas",
+        "first",
+        "kennedy",
+        "medical",
+        "united",
+        "dallas",
+        "tax"
+      ]
+    },
+    {
+      "cluster": 1,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.571,
+      "example_words": [
+        "his",
+        "jury",
+        "council",
+        "last",
+        "plan",
+        "general",
+        "home",
+        "local"
+      ]
+    },
+    {
+      "cluster": 2,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.467,
+      "example_words": [
+        "he",
+        "it",
+        "has",
+        "which",
+        "president",
+        "there",
+        "i",
+        "any"
+      ]
+    },
+    {
+      "cluster": 3,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.542,
+      "example_words": [
+        "this",
+        "an",
+        "more",
+        "who",
+        "city",
+        "year",
+        "county",
+        "house"
+      ]
+    }
+  ]
+}
