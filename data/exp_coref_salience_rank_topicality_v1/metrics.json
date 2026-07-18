@@ -1,0 +1,972 @@
+{
+  "verdict": "HARD_PASS_SALIENCE_RANK_CONFIRMED",
+  "verdict_msg": "topical recovered the topical cases WITHOUT regressing CC: CO 0.333->0.667, CC 0.600->0.600, ref-acc 0.765->0.912; henry/kingbird resolved; L60 him->james preserved; #2 cue (SALIENCE_RANK) CONFIRMED",
+  "summary": "HARD_PASS_SALIENCE_RANK_CONFIRMED: CO 0.333->0.667 | CC 0.600->0.600 | ref-acc 0.765->0.912 | RELF1 0.522->0.580",
+  "elapsed_s": 6.43,
+  "ts_iso": "2026-07-18T17:08:08.084985+00:00",
+  "anchor_name": "coref_salience_rank_topicality_v1",
+  "run_mode": "full",
+  "seed": 12345,
+  "bands": {
+    "CO_RISE_MIN": 0.3,
+    "REF_RISE_MIN": 0.05,
+    "NO_CC_REGRESS_EPS": 0.0,
+    "TELEMETRY_MIN_MOVE": 0.05
+  },
+  "telemetry_ok": true,
+  "arms_differ_digests": {
+    "baseline_raw": "18c2955bf5af9711f3fe2edf1cd63c69035da452bdcfaa3548ea1d312ab47c77",
+    "agreement_baseline": "5ea1393291d5a0a1b96571eac9b08d88f1e6a5c36afcbcccd379662fe6d5c5d2",
+    "topical": "af12e8dd2311eb0b12bd15b2b9f8796fce48535dd2ed2fd3aa5852a6f6b07492"
+  },
+  "targets_ok": true,
+  "targets_detail": {
+    "L18_king": {
+      "gold": "kingbird",
+      "rows": [
+        [
+          "he",
+          "kingbird",
+          true
+        ],
+        [
+          "he",
+          "kingbird",
+          true
+        ],
+        [
+          "his",
+          "kingbird",
+          true
+        ]
+      ],
+      "resolved": true
+    },
+    "L14_henry": {
+      "gold": "henry",
+      "rows": [
+        [
+          "his",
+          "henry",
+          true
+        ],
+        [
+          "his",
+          "henry",
+          true
+        ],
+        [
+          "he",
+          "henry",
+          true
+        ]
+      ],
+      "resolved": true
+    }
+  },
+  "no_regress_case": {
+    "passage": "L60_geo",
+    "surf": "him",
+    "gold": "james",
+    "pred": "james",
+    "ok": true
+  },
+  "arms": {
+    "baseline_raw": {
+      "slices": {
+        "NC": 0.5714,
+        "n_NC": 7,
+        "CO": 0.0,
+        "n_CO": 3,
+        "CC": 0.0,
+        "n_CC": 5,
+        "CMP": 0.5,
+        "n_CMP": 16,
+        "all": 0.3871
+      },
+      "ref_acc": 0.2941,
+      "ref_ok": 10,
+      "ref_n": 34,
+      "relf1_micro_f1": 0.257,
+      "relf1_micro_precision": 0.196,
+      "relf1_micro_recall": 0.375
+    },
+    "agreement_baseline": {
+      "slices": {
+        "NC": 0.7143,
+        "n_NC": 7,
+        "CO": 0.3333,
+        "n_CO": 3,
+        "CC": 0.6,
+        "n_CC": 5,
+        "CMP": 0.875,
+        "n_CMP": 16,
+        "all": 0.7419
+      },
+      "ref_acc": 0.7647,
+      "ref_ok": 26,
+      "ref_n": 34,
+      "relf1_micro_f1": 0.522,
+      "relf1_micro_precision": 0.4,
+      "relf1_micro_recall": 0.75
+    },
+    "topical": {
+      "slices": {
+        "NC": 0.7143,
+        "n_NC": 7,
+        "CO": 0.6667,
+        "n_CO": 3,
+        "CC": 0.6,
+        "n_CC": 5,
+        "CMP": 1.0,
+        "n_CMP": 16,
+        "all": 0.8387
+      },
+      "ref_acc": 0.9118,
+      "ref_ok": 31,
+      "ref_n": 34,
+      "relf1_micro_f1": 0.58,
+      "relf1_micro_precision": 0.444,
+      "relf1_micro_recall": 0.833
+    }
+  },
+  "attribution": {
+    "baseline_raw": {
+      "CC": 0.0,
+      "CO": 0.0,
+      "ref_acc": 0.2941,
+      "relf1": 0.257,
+      "CMP": 0.5,
+      "NC": 0.5714,
+      "all": 0.3871
+    },
+    "agreement_baseline": {
+      "CC": 0.6,
+      "CO": 0.3333,
+      "ref_acc": 0.7647,
+      "relf1": 0.522,
+      "CMP": 0.875,
+      "NC": 0.7143,
+      "all": 0.7419
+    },
+    "topical": {
+      "CC": 0.6,
+      "CO": 0.6667,
+      "ref_acc": 0.9118,
+      "relf1": 0.58,
+      "CMP": 1.0,
+      "NC": 0.7143,
+      "all": 0.8387
+    }
+  },
+  "cited_context": {
+    "prior_cell": "0775bc894",
+    "vet": "a63a1e9670",
+    "agreement_baseline_CC": 0.6,
+    "agreement_baseline_CO": 0.333,
+    "agreement_baseline_ref_acc": 0.765,
+    "note": "agreement floor CITED (context); this cell RE-MEASURES the floor"
+  },
+  "reference_detail": {
+    "baseline_raw": {
+      "L5_dogs": [
+        {
+          "surf": "his",
+          "gold": "dogs",
+          "pred": "sport",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "james",
+          "pred": "sport",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "sport",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "sport",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L5b_dodger": [
+        {
+          "surf": "he",
+          "gold": "dodger",
+          "pred": "dodger",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L18_king": [
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "robin",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "bugs",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "kingbird",
+          "pred": "bugs",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L14_henry": [
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "father",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "mother",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "henry",
+          "pred": "mother",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L23_doll": [
+        {
+          "surf": "her",
+          "gold": "mary",
+          "pred": "dog",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "dog",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "dash",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "dash",
+          "pred": "dash",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L2_cat": [],
+      "L21_bee": [],
+      "L60_geo": [
+        {
+          "surf": "he",
+          "gold": "george",
+          "pred": "george",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "ball",
+          "pred": "ball",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L28_sam": [
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "mother",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "man",
+          "pred": "mother",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": null,
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": null,
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L8_puss": [
+        {
+          "surf": "her",
+          "gold": "puss",
+          "pred": "kittens",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "kittens",
+          "pred": null,
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L26_patty": [
+        {
+          "surf": "she",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "her",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L57_laura": [
+        {
+          "surf": "her",
+          "gold": "laura",
+          "pred": "kitten",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": "kitten",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L32_tiger": [
+        {
+          "surf": "she",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "her",
+          "gold": "tigress",
+          "pred": "kitten",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": "chain",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L35_willie": [
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "bounce",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "dog",
+          "ok": false,
+          "surf_match": true
+        }
+      ]
+    },
+    "agreement_baseline": {
+      "L5_dogs": [
+        {
+          "surf": "his",
+          "gold": "dogs",
+          "pred": "james",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L5b_dodger": [
+        {
+          "surf": "he",
+          "gold": "dodger",
+          "pred": "dodger",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L18_king": [
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "robin",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "robin",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "kingbird",
+          "pred": "robin",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L14_henry": [
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "father",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "henry",
+          "pred": "father",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L23_doll": [
+        {
+          "surf": "her",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "dash",
+          "pred": "dash",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L2_cat": [],
+      "L21_bee": [],
+      "L60_geo": [
+        {
+          "surf": "he",
+          "gold": "george",
+          "pred": "george",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "ball",
+          "pred": "ball",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L28_sam": [
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "man",
+          "pred": "man",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L8_puss": [
+        {
+          "surf": "her",
+          "gold": "puss",
+          "pred": "puss",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "kittens",
+          "pred": "kittens",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L26_patty": [
+        {
+          "surf": "she",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "her",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L57_laura": [
+        {
+          "surf": "her",
+          "gold": "laura",
+          "pred": "laura",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": null,
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L32_tiger": [
+        {
+          "surf": "she",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "her",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": "chain",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L35_willie": [
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true,
+          "surf_match": true
+        }
+      ]
+    },
+    "topical": {
+      "L5_dogs": [
+        {
+          "surf": "his",
+          "gold": "dogs",
+          "pred": "james",
+          "ok": false,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L5b_dodger": [
+        {
+          "surf": "he",
+          "gold": "dodger",
+          "pred": "dodger",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L18_king": [
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "kingbird",
+          "pred": "kingbird",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L14_henry": [
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "he",
+          "gold": "henry",
+          "pred": "henry",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L23_doll": [
+        {
+          "surf": "her",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "she",
+          "gold": "mary",
+          "pred": "mary",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "dash",
+          "pred": "dash",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L2_cat": [],
+      "L21_bee": [],
+      "L60_geo": [
+        {
+          "surf": "he",
+          "gold": "george",
+          "pred": "george",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "ball",
+          "pred": "ball",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "james",
+          "pred": "james",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L28_sam": [
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "man",
+          "pred": "man",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "him",
+          "gold": "man",
+          "pred": "man",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "cents",
+          "pred": "cents",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L8_puss": [
+        {
+          "surf": "her",
+          "gold": "puss",
+          "pred": "puss",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "them",
+          "gold": "kittens",
+          "pred": "kittens",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L26_patty": [
+        {
+          "surf": "she",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "her",
+          "gold": "patty",
+          "pred": "patty",
+          "ok": true,
+          "surf_match": true
+        }
+      ],
+      "L57_laura": [
+        {
+          "surf": "her",
+          "gold": "laura",
+          "pred": "laura",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": null,
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L32_tiger": [
+        {
+          "surf": "she",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "her",
+          "gold": "tigress",
+          "pred": "tigress",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "it",
+          "gold": "kitten",
+          "pred": "chain",
+          "ok": false,
+          "surf_match": true
+        }
+      ],
+      "L35_willie": [
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true,
+          "surf_match": true
+        },
+        {
+          "surf": "his",
+          "gold": "willie",
+          "pred": "willie",
+          "ok": true,
+          "surf_match": true
+        }
+      ]
+    }
+  },
+  "n_pronouns_scored": 34,
+  "n_questions": 31
+}

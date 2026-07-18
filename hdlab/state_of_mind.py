@@ -193,6 +193,11 @@ class EntityState:
         """Mention-stream position of the most recent mention (recency term)."""
         return self.mention_midxs[-1]
 
+    @property
+    def first_midx(self) -> int:
+        """Mention-stream position of the FIRST mention (introduction primacy = topicality tie-break)."""
+        return self.mention_midxs[0]
+
     def salience(self, now: int, beta: float, lam: float) -> float:
         """Validated salience = count + beta * exp(-lam * (now - last_midx)) (freq-primary, recency tie-break)."""
         return self.count + beta * math.exp(-lam * (now - self.last_midx))
@@ -301,13 +306,28 @@ class WorkingOverlay:
                 filtered = animate
         return filtered
 
+    @staticmethod
+    def _topical_ranked(cands: List[EntityState]) -> Optional[EntityState]:
+        """Salience-RANK / topicality resolver (Centering Theory backward-looking-center preference; opt-in).
+        Among the (already agreement-narrowed) candidates prefer the TOPICAL protagonist over a merely-RECENT
+        competitor: rank by (frequency count, then FIRST-MENTION primacy = earliest introduced). NO recency
+        tie-break -- that is exactly the merely-recent lever this path is designed to override. Glass-box,
+        deterministic (first_midx is unique per entity)."""
+        if not cands:
+            return None
+        return max(cands, key=lambda e: (e.count, -e.first_midx))
+
     def resolve(self, *, gender: Optional[str] = None, number: Optional[str] = None,
                 strategy: str = "maintained", now: Optional[int] = None,
-                prefer_agreement: bool = False, expects_animate: bool = False) -> Optional[EntityState]:
+                prefer_agreement: bool = False, expects_animate: bool = False,
+                prefer_topical: bool = False) -> Optional[EntityState]:
         """Resolve a pronoun reference against the active set under the chosen strategy. Returns the chosen
         EntityState (its last_midx = the concrete antecedent mention) or None if no compatible entity.
         prefer_agreement (default False = validated behavior) additionally prefers a known-gender / animate
-        antecedent BEFORE the recency/salience tie-break (glass-box agreement refinement)."""
+        antecedent BEFORE the recency/salience tie-break (glass-box agreement refinement).
+        prefer_topical (default False = validated behavior) selects the TOPICAL protagonist (frequency +
+        first-mention primacy) among the agreement-valid candidates INSTEAD of the strategy's recency/salience
+        tie-break -- the Centering-Theory salience-rank cue (subject/possessor slot; caller routes by case)."""
         if now is None:
             now = self._next_midx
         cands = self._compatible_entities(gender, number)
@@ -315,6 +335,8 @@ class WorkingOverlay:
             return None
         if prefer_agreement:
             cands = self._agreement_preferred(cands, gender, expects_animate)
+        if prefer_topical:
+            return self._topical_ranked(cands)
         if strategy == "recency":
             return max(cands, key=lambda e: e.last_midx)
         if strategy == "recency_window":
@@ -343,16 +365,20 @@ class WorkingOverlay:
 
     def resolve_pronoun(self, pronoun: str, *, strategy: str = "maintained",
                         now: Optional[int] = None,
-                        prefer_agreement: bool = False) -> Optional[EntityState]:
+                        prefer_agreement: bool = False,
+                        prefer_topical: bool = False) -> Optional[EntityState]:
         """Convenience: resolve by a surface pronoun string using its scoped gender/number agreement.
         prefer_agreement (default False = validated behavior) turns on the known-gender / animate
-        preference; a gendered (masc/fem) pronoun is treated as expecting an animate antecedent."""
+        preference; a gendered (masc/fem) pronoun is treated as expecting an animate antecedent.
+        prefer_topical (default False = validated behavior) selects the topical protagonist over a merely
+        recent competitor among the agreement-valid candidates (Centering-Theory salience-rank cue)."""
         sc = PRONOUN_SCOPE.get(pronoun.lower())
         if sc is None:
             raise ValueError("not an in-scope pronoun: %r" % pronoun)
         expects_animate = sc["gender"] in ("masc", "fem")
         return self.resolve(gender=sc["gender"], number=sc["number"], strategy=strategy, now=now,
-                            prefer_agreement=prefer_agreement, expects_animate=expects_animate)
+                            prefer_agreement=prefer_agreement, expects_animate=expects_animate,
+                            prefer_topical=prefer_topical)
 
     # ---- introspection ----------------------------------------------------
     def active_set(self, *, top: Optional[int] = None,
