@@ -1,9 +1,9 @@
 {
   "verdict": "SCOPE_LIMITED_OR_WEAK",
-  "verdict_msg": "DEIXIS LOCALIZES. The quotative-frame parser bound 291 speaker turns (291 with a speaker) BUT: (1) SPEAKER attribution precision 0.75 recall 0.75 (gold n=24; band prec>=0.8 rec>=0.6) -> below band. (2) phantom-head FP relations 1018->580 (reduction 0.4303; band >=0.5) -> below floor. (3) ADDRESSEE (2nd-person) precision 0.7143 recall 0.7143 -> signal (harder; separate faculty). (4) comprehension delta +5 -> ok. LOCALIZED SUB-MECHANISM = speaker-precision. HONEST DEFLATE. HYPOTHESIS pending VET.",
-  "summary": "SCOPE_LIMITED_OR_WEAK: 3rd reader (79 lessons) | phantom-head FP 1018->580 (reduction 0.4303) | SPEAKER P 0.75 R 0.75 (n=24) | ADDRESSEE P 0.7143 R 0.7143 (n=7) | frames 291 | comp 0->5/5 (d+5) | byteid_off=True passive 1.00 reversal 1.00 overlay=True det=True",
-  "elapsed_s": 181.52,
-  "ts_iso": "2026-07-18T22:31:55.382022+00:00",
+  "verdict_msg": "DEIXIS LOCALIZES. The quotative-frame parser bound 308 speaker turns (308 with a speaker) BUT: (1) SPEAKER attribution precision 0.875 recall 0.875 (gold n=24; band prec>=0.8 rec>=0.6) -> CLEAN. (2) phantom-head FP relations 1018->579 (reduction 0.4312; band >=0.5) -> below floor. (3) ADDRESSEE (2nd-person) precision 0.7143 recall 0.7143 -> signal (harder; separate faculty). (4) comprehension delta +5 -> ok. LOCALIZED SUB-MECHANISM = speaker-precision. HONEST DEFLATE. HYPOTHESIS pending VET.",
+  "summary": "SCOPE_LIMITED_OR_WEAK: 3rd reader (79 lessons) | phantom-head FP 1018->579 (reduction 0.4312) | SPEAKER P 0.875 R 0.875 (n=24) | ADDRESSEE P 0.7143 R 0.7143 (n=7) | frames 308 | comp 0->5/5 (d+5) | byteid_off=True passive 1.00 reversal 1.00 overlay=True det=True",
+  "elapsed_s": 168.12,
+  "ts_iso": "2026-07-18T23:15:45.258946+00:00",
   "anchor_name": "read_deixis_participant_tracking_third_reader_v1",
   "run_mode": "full",
   "seed": 20260718,
@@ -18,8 +18,8 @@
   },
   "phantom_fp": {
     "n_off": 1018,
-    "n_on": 580,
-    "reduction": 0.4303,
+    "n_on": 579,
+    "reduction": 0.4312,
     "sample_off": [
       [
         "loc",
@@ -429,9 +429,9 @@
     "speaker": {
       "n_gold": 24,
       "attempted": 24,
-      "correct": 18,
-      "precision": 0.75,
-      "recall": 0.75,
+      "correct": 21,
+      "precision": 0.875,
+      "recall": 0.875,
       "per": [
         {
           "pid": "L05",
@@ -453,9 +453,9 @@
           "pid": "L05",
           "cue": "knock my castles down",
           "expect": "herbert",
-          "got": "papa",
+          "got": "herbert",
           "matched": true,
-          "ok": false
+          "ok": true
         },
         {
           "pid": "L12",
@@ -485,9 +485,9 @@
           "pid": "L31",
           "cue": "do n't see the use",
           "expect": "lily",
-          "got": "mother",
+          "got": "lily",
           "matched": true,
-          "ok": false
+          "ok": true
         },
         {
           "pid": "L33",
@@ -613,9 +613,9 @@
           "pid": "L77",
           "cue": "whole thing puzzles me",
           "expect": "rob",
-          "got": "genie",
+          "got": "rob",
           "matched": true,
-          "ok": false
+          "ok": true
         },
         {
           "pid": "L77",
@@ -763,8 +763,8 @@
       }
     ]
   },
-  "n_frames": 291,
-  "n_frames_with_speaker": 291,
+  "n_frames": 308,
+  "n_frames_with_speaker": 308,
   "frame_decisions_sample": [
     {
       "pid": "L01",
@@ -851,6 +851,14 @@
       "sentence": "\" said joe, his elder brother",
       "speaker": "joe",
       "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L04",
+      "sentence": "\"crying over spilled milk does no good",
+      "speaker": "milk",
+      "subj_type": "noun",
       "addressee": null,
       "addr_src": null
     },
@@ -976,6 +984,22 @@
     },
     {
       "pid": "L05",
+      "sentence": "i can't have it,\" spoke out herbert, knitting his forehead",
+      "speaker": "herbert",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
+      "sentence": "\" said hetty",
+      "speaker": "hetty",
+      "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L05",
       "sentence": "joe says",
       "speaker": "joe",
       "subj_type": "name",
@@ -1009,8 +1033,8 @@
     {
       "pid": "L08",
       "sentence": "she does not say so, she has been where white kittens ought never to go",
-      "speaker": "kitten",
-      "subj_type": "pronoun",
+      "speaker": "she",
+      "subj_type": "name",
       "addressee": null,
       "addr_src": null
     },
@@ -1067,6 +1091,14 @@
       "sentence": "\" \"then i will make you happy,\" said charles",
       "speaker": "charles",
       "subj_type": "name",
+      "addressee": null,
+      "addr_src": null
+    },
+    {
+      "pid": "L10",
+      "sentence": "\"i am afraid,\" said the gentleman, \"that he does not always amuse himself thus",
+      "speaker": "gentleman",
+      "subj_type": "noun",
       "addressee": null,
       "addr_src": null
     },
@@ -1137,8 +1169,8 @@
     {
       "pid": "L13",
       "sentence": "as he had had so much fun this time, john cried out again, the next day, \"the wolf",
-      "speaker": "john",
-      "subj_type": "name",
+      "speaker": "day",
+      "subj_type": "noun",
       "addressee": null,
       "addr_src": null
     },
@@ -1213,38 +1245,6 @@
       "subj_type": "noun",
       "addressee": null,
       "addr_src": null
-    },
-    {
-      "pid": "L16",
-      "sentence": "he spoke to them",
-      "speaker": "man",
-      "subj_type": "pronoun",
-      "addressee": null,
-      "addr_src": null
-    },
-    {
-      "pid": "L16",
-      "sentence": "if they said, \"he is a kind man",
-      "speaker": "eyes",
-      "subj_type": "pronoun",
-      "addressee": null,
-      "addr_src": null
-    },
-    {
-      "pid": "L16",
-      "sentence": "he said his prayers and sang his hymns in it, they sat in the trees",
-      "speaker": "prayers",
-      "subj_type": "noun",
-      "addressee": null,
-      "addr_src": null
-    },
-    {
-      "pid": "L16",
-      "sentence": "sang their praises to the same good god who cares for them as he does for us",
-      "speaker": "praises",
-      "subj_type": "noun",
-      "addressee": "god",
-      "addr_src": "to_frame"
     }
   ],
   "regression": {

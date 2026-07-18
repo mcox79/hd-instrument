@@ -259,14 +259,39 @@ def _resolve_subject_pronoun(low, ov):
     return low
 
 
+def _quote_gap_before(raw, starts, tagged, i):
+    """True if a double-quote occurs in the raw text between token i-1 and token i (a CLOSE-quote
+    immediately preceding token i -- the attribution-clause signal). This is phase-IMMUNE: it reads the
+    raw close-quote directly, so it detects '," said X' attributions even when the carried char-level
+    inquote mask has drifted out of phase across sentence-splits (unbalanced quotes)."""
+    if i >= len(starts) or starts[i] is None:
+        return False
+    if i == 0:
+        lo = 0
+    else:
+        lo = (starts[i - 1] + len(tagged[i - 1][0])) if starts[i - 1] is not None else 0
+    return '"' in raw[lo:starts[i]]
+
+
 def parse_quotative_frame(tagged, raw_sentence, ov, inquote=None):
     """Return dict(speaker, subj_type, addressee, addr_src, qvi) or None. Glass-box: frame = a quotative
     verb OUTSIDE the quotes (the attribution clause) with a subject NP either AFTER it ('said X') or BEFORE
     it ('X said'). inquote (per-token bool list) disambiguates the frame verb from a quotative verb that
-    appears INSIDE the quote (e.g. 'told' in '"I told him," said Joe'); when None, all tokens are eligible."""
+    appears INSIDE the quote (e.g. 'told' in '"I told him," said Joe'); when None, all tokens are eligible.
+
+    MASK PHASE-IMMUNITY (deixis carryover fix): a quotative verb IMMEDIATELY preceded by a close-quote
+    ('," said X') is an attribution frame verb REGARDLESS of the carried inquote mask -- the mask can drift
+    out of phase over a long passage with unbalanced / sentence-split quotes, wrongly masking 'said X' as
+    in-quote and dropping the frame (-> the deictic pronoun falls back to a STALE prior speaker). Pass 3
+    recovers those via the raw close-quote signal; when it fires, the subject scan is bounded to the
+    attribution clause (up to the next quote) rather than trusting the drifted mask."""
+    starts = _token_char_starts(tagged, raw_sentence)
+    attrib_adj = [_quote_gap_before(raw_sentence, starts, tagged, i) for i in range(len(tagged))]
+
     def _eligible(i):
         return inquote is None or not inquote[i]
     qvi = None
+    via_adj = False
     for i, (surf, low, pos) in enumerate(tagged):
         if low in QUOTATIVE_VERBS and (pos.startswith("VB") or pos == "MD") and _eligible(i):
             qvi = i
@@ -277,17 +302,46 @@ def parse_quotative_frame(tagged, raw_sentence, ov, inquote=None):
                 qvi = i
                 break
     if qvi is None:
+        # pass 3: attribution verb by close-quote adjacency (phase-immune; catches masked '," said X').
+        for i, (surf, low, pos) in enumerate(tagged):
+            if low in QUOTATIVE_VERBS and attrib_adj[i]:
+                qvi = i
+                via_adj = True
+                break
+    if qvi is None:
         return None
 
+    # When the frame was recovered via close-quote adjacency the carried mask is unreliable for THIS
+    # sentence, so bound the subject scan to the char span from the verb up to the NEXT quote (the reopen);
+    # the attribution subject ('said X') sits in that clause. Otherwise fall back to the mask.
+    clause_end = None
+    if via_adj and starts[qvi] is not None:
+        nq = raw_sentence.find('"', starts[qvi])
+        clause_end = nq if nq >= 0 else len(raw_sentence)
+
+    def _subj_after_elig(k):
+        if clause_end is not None:
+            return starts[k] is not None and starts[k] < clause_end
+        return _eligible(k)
+
     speaker, subj_type = None, None
-    # (1) subject-AFTER the verb: 'said Joe' / 'said the poor widow' / 'said he'. Subject must be OUTSIDE
-    # the quote (a post-verb IN-quote token means the quote follows the verb -> no post-verb subject).
+    # (1) subject-AFTER the verb: 'said Joe' / 'said the poor widow' / 'said he' / 'spoke out Herbert'.
+    # 'RP' (verb particle: spoke OUT, cried OUT, called OUT) is skipped like an adverb so the trailing
+    # subject after a phrasal quotative verb is still found.
     k = qvi + 1
     while k < len(tagged):
         surf, low, pos = tagged[k]
-        if not _eligible(k) or low in _NON_SUBJ_AFTER:
+        if not _subj_after_elig(k) or low in _NON_SUBJ_AFTER:
             break
-        if pos in ("DT", "JJ", "JJR", "JJS", "RB", "CD", "PRP$"):
+        # a CAPITALIZED, alphabetic mid-clause token in the attribution clause is a proper NAME even when
+        # the POS tagger mislabels it: sentence-final attribution names ('...," said Lily') are frequently
+        # mistagged RB/JJ, which the skip-list would drop -> the frame fails -> the deictic pronoun falls
+        # back to a STALE speaker. Take the capitalized token as the name subject (guarded: alphabetic,
+        # length>1, not a possessive pronoun). Correctly-tagged NNP names hit this with the same result.
+        if surf[:1].isupper() and surf.isalpha() and len(surf) > 1 and low not in ORC.PRONOUNS_POSS:
+            speaker, subj_type = low, "name"
+            break
+        if pos in ("DT", "JJ", "JJR", "JJS", "RB", "CD", "PRP$", "RP"):
             k += 1
             continue
         if pos in ("NNP", "NNPS"):
@@ -357,6 +411,45 @@ def _vocative_in_quote(quote_text):
     return None
 
 
+def _attribution_speaker(clause, ov):
+    """Parse a trailing attribution CLAUSE (the text right after a close-quote, e.g. ' said Rob' /
+    ' spoke out Herbert') -> the speaker head, else None. The clause is OUTSIDE quotes by construction
+    (inquote=None), so a quotative verb here is a genuine attribution.
+
+    RESTRICTED to a proper-NAME subject: a named trailing attribution ('said Rob' / 'spoke out Herbert')
+    is a high-confidence override of the stale running speaker. A common-NOUN attribution ('said a great
+    full-grown wave', 'said the eldest') is noisier (elision / hyphen-tokenization / one-anaphora) and the
+    running speaker is usually as good or better, so we do NOT override on nouns (avoids regressing the
+    noun-attribution turns). Returns None for a non-name clause or a clause with no quotative frame."""
+    clause = clause.strip().lstrip(",").strip()
+    if not clause:
+        return None
+    tg = ORC.pos_tag_sentence(clause)
+    fr = parse_quotative_frame(tg, clause, ov, inquote=None)
+    if fr is not None and fr["speaker"] is not None and fr["subj_type"] == "name":
+        return fr["speaker"]
+    return None
+
+
+def _lookahead_trailing_speaker(sents, ci, ov, max_ahead=4):
+    """DEIXIS carryover fix (trailing attribution across a split boundary). sents[ci] leaves a quote OPEN
+    (a deictic pronoun sits inside it) with NO attribution yet; the speaker is revealed by a TRAILING
+    attribution ('...," said X') in a LATER split-sentence -- but the pronoun was already (wrongly) bound
+    to the STALE prior speaker. Walk forward to the split where OUR open quote CLOSES (its first quote
+    char) and parse the clause AFTER that close, up to the next re-opening quote. Return the attribution
+    speaker for our just-closed turn, or None if the span closes with no attribution (a genuinely
+    unattributed / turn-alternation utterance -- do NOT force a guess; that is a DIFFERENT lever)."""
+    for cj in range(ci + 1, min(ci + 1 + max_ahead, len(sents))):
+        raw = sents[cj]
+        close_pos = raw.find('"')          # our open quote closes at the FIRST quote char in this split
+        if close_pos < 0:
+            continue                        # no quote here -> the utterance continues into the next split
+        next_open = raw.find('"', close_pos + 1)
+        clause = raw[close_pos + 1:] if next_open < 0 else raw[close_pos + 1:next_open]
+        return _attribution_speaker(clause, ov)   # speaker, or None if no attribution directly at the close
+    return None
+
+
 # =======================================================================================
 # extract_passage_deixis: byte-COPY of VF.extract_passage_vf with ONE added axis (deixis). With deixis=False
 # it is byte-identical to VF.extract_passage_vf (asserted). With deixis=True: a passage-forward dialogue
@@ -387,7 +480,8 @@ def extract_passage_deixis(passage_text, clf, pid, passages_dict, mention_mode, 
     active_subject = None
     offset = 0
     quote_open = False   # DEIXIS: carried quote open-state (a quote can span split-sentences after ; or .)
-    for ci, sent in enumerate(ORC.split_sentences(passage_text)):
+    sents = list(ORC.split_sentences(passage_text))   # materialized: the deixis trailing-attribution lookahead indexes ahead
+    for ci, sent in enumerate(sents):
         tagged = ORC.pos_tag_sentence(sent)
 
         # ---- DEIXIS axis (opt-in): parse this sentence's quotative frame + build the per-token resolution.
@@ -406,14 +500,30 @@ def extract_passage_deixis(passage_text, clf, pid, passages_dict, mention_mode, 
                                            speaker=frame["speaker"], subj_type=frame["subj_type"],
                                            addressee=addr, addr_src=frame["addr_src"]))
             sent_low = sent.strip().lower()
+            # DEIXIS carryover fix: when THIS split has 1st-person deixis inside a quote that is still OPEN
+            # (quote_open) and NO attribution fired here (frame is None), the speaker may be revealed by a
+            # TRAILING attribution ('...," said X') in a LATER split of the same turn. Bind those 1st-person
+            # tokens to that trailing speaker instead of the STALE running speaker. Only 1st-person is
+            # overridden (2nd-person addressee stays on the packaged path); only when the turn is genuinely
+            # unattributed-so-far AND still open (a real trailing-attribution turn, not a closed one).
+            la_first = None
+            if frame is None and quote_open:
+                has_inq_first = any(inquote[i] and deixis_person(tagged[i][1]) == "first"
+                                    for i in range(len(tagged)))
+                if has_inq_first:
+                    la_first = _lookahead_trailing_speaker(sents, ci, ov)
             for i, (surf, low, pos) in enumerate(tagged):
                 if inquote[i] and deixis_person(low) is not None:
-                    r = ov.resolve_deixis(low)
+                    person = deixis_person(low)
+                    if person == "first" and la_first is not None:
+                        r = la_first
+                    else:
+                        r = ov.resolve_deixis(low)
                     if r is not None:
                         deixis_res[i] = r
                         if resolutions_out is not None:
                             resolutions_out.append(dict(pid=pid, sentence=sent_low, pronoun=low,
-                                                        person=deixis_person(low), resolved=r))
+                                                        person=person, resolved=r))
 
         subj = None
         if clause_seg == "gold":
@@ -842,6 +952,34 @@ def self_test():
         fr = parse_quotative_frame(tg, raw, WorkingOverlay(), inquote=iq)
         assert fr is not None and fr["speaker"] == exp_spk, f"frame {raw!r} -> {fr}, expected speaker {exp_spk}"
     print("[self-test] quotative-frame parser: said Joe / he said / said papa resolved")
+
+    # phase-immune attribution + phrasal quotative verb: '," said Lily' when the carried mask is out of
+    # phase (masked in-quote), and 'spoke out Herbert' (RP particle) -- both must still bind the speaker.
+    for raw, iq, exp_spk in [
+            ('"But I do n\'t see the use," said Lily', None, "lily"),   # sentence-final name mistagged RB
+            ('I can\'t have it," spoke out Herbert', None, "herbert")]:  # phrasal quotative verb + RP
+        tg = ORC.pos_tag_sentence(raw)
+        fr = parse_quotative_frame(tg, raw, WorkingOverlay(), inquote=iq)
+        assert fr is not None and fr["speaker"] == exp_spk, f"attribution {raw!r} -> {fr}, expected {exp_spk}"
+    print("[self-test] attribution robustness: masked '\", said Lily' + phrasal 'spoke out Herbert' resolved")
+
+    # CARRYOVER WITNESS (the fix): a quote whose deictic pronoun sits in the LEADING split while the
+    # attribution is a TRAILING '...," said X' in the NEXT split. The 1st-person must bind to the trailing
+    # speaker (Herbert), NOT the STALE prior speaker (papa). Scaffold-free: runs the REAL extract on a
+    # constructed 2-turn passage and checks the resolution.
+    carry_pass = ('Papa was building a castle. "Build it up again," said papa. '
+                  '"But pussy must not knock my castles down. '
+                  'I can\'t have it," spoke out Herbert.')
+    res = []
+    extract_passage_deixis(carry_pass, clf, "WITNESS", {"WITNESS": carry_pass}, "handrule", _VF_MODE,
+                           role_fix=True, self_loop_guard=True, deixis=True, resolutions_out=res)
+    first_res = [r["resolved"] for r in res if r["person"] == "first"]
+    assert first_res, f"carryover witness: no 1st-person deixis resolved on {carry_pass!r} (res={res})"
+    assert all(r == "herbert" for r in first_res), (
+        f"CARRYOVER WITNESS FAIL: 1st-person in Herbert's quote resolved to {first_res} "
+        f"(expected all 'herbert'; a stale prior speaker 'papa' would be the un-fixed bug)")
+    assert not any(r == "papa" for r in first_res), "carryover witness: stale prior speaker leaked"
+    print(f"[self-test] carryover witness: leading-split deixis bound to trailing 'said Herbert' ({first_res})")
 
     # gold structural sanity (per-resolution schema: pid + cue + person + expect).
     for g in DEIXIS_GOLD:
