@@ -1,0 +1,1101 @@
+{
+  "anchor_name": "arg_adjunct_role_eligibility_categorial_break050_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_STRUCTURAL_NO_RECALL_COST",
+  "verdict_msg": "HARD_PASS_STRUCTURAL_NO_RECALL_COST [LOW_CEILING_CORPUS_SPARSE] [VERB_DIVERSITY_CORPUS_SPARSE] | slice=L04+L05+L07+L08+L09+L10+L12 | A P=0.500 R=0.340 FP=34(sub=24,wf=6,sp=4) | B1 P=0.515 R=0.340 FP=32 | B2 P=0.509 R=0.280 FP=27 | cat_target_residual=2 reduced_frac=1.000 | B1_recall_cost=+0.000 residual_share=0.059 | Pdelta_B1=+0.015 | vdiv gap=+0.157 (PT=1.60/other=1.44) B2extra=0 B2cost=6 | base_in_band=True discrim=True wn=True",
+  "summary": "HARD_PASS_STRUCTURAL_NO_RECALL_COST [LOW_CEILING_CORPUS_SPARSE] [VERB_DIVERSITY_CORPUS_SPARSE] | slice=L04+L05+L07+L08+L09+L10+L12 | A P=0.500 R=0.340 FP=34(sub=24,wf=6,sp=4) | B1 P=0.515 R=0.340 FP=32 | B2 P=0.509 R=0.280 FP=27 | cat_target_residual=2 reduced_frac=1.000 | B1_recall_cost=+0.000 residual_share=0.059 | Pdelta_B1=+0.015 | vdiv gap=+0.157 (PT=1.60/other=1.44) B2extra=0 B2cost=6 | base_in_band=True discrim=True wn=True",
+  "elapsed_s": 8.22157620001235,
+  "ts_iso": "2026-07-19T11:41:46.422898+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "div_thr": 3,
+    "seed": 7
+  },
+  "arm_metrics": {
+    "A_lccp_armC": {
+      "precision": 0.5,
+      "recall": 0.34,
+      "f1": 0.4048,
+      "n_pred": 68,
+      "tp": 34,
+      "n_gold": 100,
+      "n_gold_covered": 34,
+      "subcat_fp": 24,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 4,
+      "total_fp": 34,
+      "fp_rate": 0.5
+    },
+    "B1_categorial": {
+      "precision": 0.5152,
+      "recall": 0.34,
+      "f1": 0.4096,
+      "n_pred": 66,
+      "tp": 34,
+      "n_gold": 100,
+      "n_gold_covered": 34,
+      "subcat_fp": 23,
+      "within_frame_fp": 5,
+      "spurious_verb_fp": 4,
+      "total_fp": 32,
+      "fp_rate": 0.4848
+    },
+    "B2_verbdiversity": {
+      "precision": 0.5091,
+      "recall": 0.28,
+      "f1": 0.3613,
+      "n_pred": 55,
+      "tp": 28,
+      "n_gold": 100,
+      "n_gold_covered": 28,
+      "subcat_fp": 19,
+      "within_frame_fp": 4,
+      "spurious_verb_fp": 4,
+      "total_fp": 27,
+      "fp_rate": 0.4909
+    }
+  },
+  "verdict_detail": {
+    "verdict": "HARD_PASS_STRUCTURAL_NO_RECALL_COST",
+    "scope_tag": "LOW_CEILING_CORPUS_SPARSE",
+    "verb_diversity_tag": "VERB_DIVERSITY_CORPUS_SPARSE",
+    "categorial_reduction_frac": 1.0,
+    "B1_transitive_recall_cost_pts": 0.0,
+    "precision_A": 0.5,
+    "precision_B1": 0.5152,
+    "precision_delta_B1_minus_A": 0.0152,
+    "residual_share_of_total_FP": 0.0588,
+    "b2_extra_fp_suppressed": 0,
+    "b2_true_patients_lost": 6
+  },
+  "attribution": {
+    "categorial_target_residual": [
+      {
+        "sid": "L10_26",
+        "v": "see",
+        "patient": "see",
+        "grounded_type": "PLACE",
+        "fp_class": "WITHIN"
+      },
+      {
+        "sid": "L10_42",
+        "v": "come",
+        "patient": "home",
+        "grounded_type": "PLACE",
+        "fp_class": "SUBCAT"
+      }
+    ],
+    "n_categorial_target": 2,
+    "B1_suppressed_targets": [
+      {
+        "sid": "L10_26",
+        "v": "see",
+        "patient": "see",
+        "grounded_type": "PLACE",
+        "fp_class": "WITHIN"
+      },
+      {
+        "sid": "L10_42",
+        "v": "come",
+        "patient": "home",
+        "grounded_type": "PLACE",
+        "fp_class": "SUBCAT"
+      }
+    ],
+    "categorial_reduction_frac": 1.0,
+    "B1_transitive_recall_cost_pts": 0.0,
+    "B1_true_patients_lost": [],
+    "B2_extra_suppressed_targets_beyond_B1": [],
+    "B2_bare_fillers_suppressed": [
+      [
+        "L04_02",
+        "rub",
+        "castle",
+        3
+      ],
+      [
+        "L04_18",
+        "hear",
+        "you",
+        6
+      ],
+      [
+        "L04_19",
+        "sit",
+        "son",
+        4
+      ],
+      [
+        "L04_19",
+        "show",
+        "you",
+        6
+      ],
+      [
+        "L07_07",
+        "tell",
+        "james",
+        5
+      ],
+      [
+        "L07_21",
+        "reach",
+        "them",
+        4
+      ],
+      [
+        "L09_12",
+        "make",
+        "them",
+        4
+      ],
+      [
+        "L09_20",
+        "leave",
+        "them",
+        4
+      ],
+      [
+        "L10_14",
+        "make",
+        "you",
+        6
+      ],
+      [
+        "L10_19",
+        "come",
+        "charles",
+        3
+      ],
+      [
+        "L10_29",
+        "tell",
+        "charles",
+        3
+      ]
+    ],
+    "B2_true_patients_lost_over_B1": [
+      {
+        "sid": "L04_02",
+        "v": "rub",
+        "patient": "castle"
+      },
+      {
+        "sid": "L04_18",
+        "v": "hear",
+        "patient": "you"
+      },
+      {
+        "sid": "L07_21",
+        "v": "reach",
+        "patient": "them"
+      },
+      {
+        "sid": "L09_12",
+        "v": "make",
+        "patient": "them"
+      },
+      {
+        "sid": "L09_20",
+        "v": "leave",
+        "patient": "them"
+      },
+      {
+        "sid": "L10_14",
+        "v": "make",
+        "patient": "you"
+      }
+    ],
+    "residual_share_of_total_FP": 0.0588,
+    "verb_diversity_separation": {
+      "n_place_time_fillers": 10,
+      "mean_nverbs_place_time": 1.6,
+      "max_nverbs_place_time": 3,
+      "n_other_fillers": 140,
+      "mean_nverbs_other": 1.4429,
+      "max_nverbs_other": 6,
+      "separation_gap": 0.1571
+    }
+  },
+  "per_instance": [
+    {
+      "sid": "L04_02",
+      "v": "rub",
+      "patient": "castle",
+      "pre_token": "mimic",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_04",
+      "v": "pass",
+      "patient": "harm",
+      "pre_token": "no",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_10",
+      "v": "won't",
+      "patient": "herbert",
+      "pre_token": "said",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_11",
+      "v": "open",
+      "patient": "door",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_15",
+      "v": "come",
+      "patient": "eyes",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_16",
+      "v": "say",
+      "patient": "papa",
+      "pre_token": "said",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_18",
+      "v": "hear",
+      "patient": "you",
+      "pre_token": "heard",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 6,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_19",
+      "v": "nod",
+      "patient": "head",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_19",
+      "v": "sit",
+      "patient": "son",
+      "pre_token": "little",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 4,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L04_19",
+      "v": "show",
+      "patient": "you",
+      "pre_token": "show",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 6,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L05_06",
+      "v": "knock",
+      "patient": "castle",
+      "pre_token": "your",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L05_15",
+      "v": "build",
+      "patient": "sentence",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L05_22",
+      "v": "see",
+      "patient": "child",
+      "pre_token": "careless",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L05_24",
+      "v": "leave",
+      "patient": "room",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_04",
+      "v": "spend",
+      "patient": "time",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_06",
+      "v": "say",
+      "patient": "lessons",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_07",
+      "v": "tell",
+      "patient": "james",
+      "pre_token": "told",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 5,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_09",
+      "v": "meet",
+      "patient": "plenty",
+      "pre_token": "met",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_13",
+      "v": "struggle",
+      "patient": "tide",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_20",
+      "v": "see",
+      "patient": "boys",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_21",
+      "v": "reach",
+      "patient": "them",
+      "pre_token": "reached",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 4,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L07_25",
+      "v": "obey",
+      "patient": "parents",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L08_01",
+      "v": "stroke",
+      "patient": "fur",
+      "pre_token": "soft",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L08_02",
+      "v": "choose",
+      "patient": "places",
+      "pre_token": "your",
+      "form": "DET",
+      "grounded_type": "PLACE",
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L08_02",
+      "v": "hear",
+      "patient": "mew",
+      "pre_token": "loud",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L08_02",
+      "v": "open",
+      "patient": "door",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L08_02",
+      "v": "say",
+      "patient": "hour",
+      "pre_token": "an",
+      "form": "DET",
+      "grounded_type": "TIME",
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L08_08",
+      "v": "choose",
+      "patient": "places",
+      "pre_token": "their",
+      "form": "DET",
+      "grounded_type": "PLACE",
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_02",
+      "v": "include",
+      "patient": "flat",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_03",
+      "v": "lie",
+      "patient": "skin",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_04",
+      "v": "build",
+      "patient": "huts",
+      "pre_token": "curious",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_05",
+      "v": "build",
+      "patient": "huts",
+      "pre_token": "their",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_06",
+      "v": "build",
+      "patient": "stream",
+      "pre_token": "running",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_11",
+      "v": "commence",
+      "patient": "houses",
+      "pre_token": "their",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_12",
+      "v": "make",
+      "patient": "them",
+      "pre_token": "makes",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 4,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_13",
+      "v": "obtain",
+      "patient": "wood",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_16",
+      "v": "call",
+      "patient": "trappers",
+      "pre_token": "called",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_16",
+      "v": "hunt",
+      "patient": "animals",
+      "pre_token": "these",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_17",
+      "v": "see",
+      "patient": "beavers",
+      "pre_token": "young",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_18",
+      "v": "lay",
+      "patient": "dam",
+      "pre_token": "beaver",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L09_20",
+      "v": "leave",
+      "patient": "them",
+      "pre_token": "left",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 4,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_03",
+      "v": "tell",
+      "patient": "son",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 4,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_05",
+      "v": "stand",
+      "patient": "hut",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_06",
+      "v": "keep",
+      "patient": "wheel",
+      "pre_token": "her",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_10",
+      "v": "call",
+      "patient": "day",
+      "pre_token": "one",
+      "form": "DET",
+      "grounded_type": "TIME",
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_11",
+      "v": "make",
+      "patient": "marks",
+      "pre_token": "making",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_14",
+      "v": "make",
+      "patient": "you",
+      "pre_token": "make",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 6,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_18",
+      "v": "tell",
+      "patient": "him",
+      "pre_token": "told",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_19",
+      "v": "come",
+      "patient": "charles",
+      "pre_token": "came",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_26",
+      "v": "see",
+      "patient": "see",
+      "pre_token": "often",
+      "form": "BARE",
+      "grounded_type": "PLACE",
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": true,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": "ADJUNCT_PLACE"
+    },
+    {
+      "sid": "L10_29",
+      "v": "tell",
+      "patient": "charles",
+      "pre_token": "told",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": true,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_30",
+      "v": "leave",
+      "patient": "mr",
+      "pre_token": "left",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_36",
+      "v": "put",
+      "patient": "head",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_37",
+      "v": "meet",
+      "patient": "eyes",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_38",
+      "v": "rule",
+      "patient": "copybook",
+      "pre_token": "a",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_41",
+      "v": "give",
+      "patient": "books",
+      "pre_token": "him",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L10_42",
+      "v": "come",
+      "patient": "home",
+      "pre_token": "came",
+      "form": "BARE",
+      "grounded_type": "PLACE",
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": true,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": "DERIVED_ARG_GOAL"
+    },
+    {
+      "sid": "L12_03",
+      "v": "say",
+      "patient": "come",
+      "pre_token": "mother",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_04",
+      "v": "invite",
+      "patient": "mother",
+      "pre_token": "his",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_04",
+      "v": "wish",
+      "patient": "gate",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_05",
+      "v": "thank",
+      "patient": "man",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_06",
+      "v": "walk",
+      "patient": "gravel",
+      "pre_token": "neat",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_09",
+      "v": "show",
+      "patient": "him",
+      "pre_token": "showed",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_10",
+      "v": "admire",
+      "patient": "beauty",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_12",
+      "v": "say",
+      "patient": "he",
+      "pre_token": "then",
+      "form": "BARE",
+      "grounded_type": null,
+      "verb_diversity": 1,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_15",
+      "v": "continue",
+      "patient": "walk",
+      "pre_token": "their",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_15",
+      "v": "enjoy",
+      "patient": "day",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": "TIME",
+      "verb_diversity": 3,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    },
+    {
+      "sid": "L12_16",
+      "v": "leave",
+      "patient": "gardener",
+      "pre_token": "the",
+      "form": "DET",
+      "grounded_type": null,
+      "verb_diversity": 2,
+      "cat_adjunct_suppressed_B1": false,
+      "div_adjunct_suppressed_B2": false,
+      "derived_arg_tag": null
+    }
+  ],
+  "kept_hashes": {
+    "A_lccp_armC": "abbed72715740f6e",
+    "B1_categorial": "95aa6734aca1cb36",
+    "B2_verbdiversity": "427e54abbaa6803c"
+  },
+  "arms_differ_verified": true,
+  "b1_b2_differ": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "came_home_class_suppressed_by_B1_kept_by_A": [
+      "L10_26",
+      "see",
+      "see",
+      "PLACE",
+      "ADJUNCT_PLACE"
+    ],
+    "true_place_time_patient_kept_by_B1_form_guard": [
+      "L08_02",
+      "choose",
+      "places",
+      "PLACE"
+    ],
+    "derived_arg_goal_tags": [
+      [
+        "L10_42",
+        "come",
+        "home"
+      ]
+    ],
+    "witness": "PASS"
+  },
+  "wordnet_available": true,
+  "wordnet_err": null,
+  "final_metrics_atomicity": "tmp_replace",
+  "cited_lccp_armC_precision": 0.5,
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json (single-annotator; pos + nopat verb-instances).",
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "verdict_detail",
+    "attribution",
+    "per_instance",
+    "scaffold_free_witness"
+  ],
+  "notes": "REC arg/adjunct classifier over LCCP arm-C. A=LCCP arm-C, B1=+categorial prior (bare-form + grounded place/time/manner), B2=+verb-diversity entropy. HARD_PASS = B1 suppresses >=50% of the bare-NP-adjunct target residual at recall-cost <=0.05 (structural signal succeeds where semantic gate failed). HARD_FAIL = recall cost >0.10 (trade-off bites) OR <15% reduced. Scope tag LOW_CEILING if the target residual is <15% of the 0.50 wall (corpus-sparse; rest = orthogonal quotative/prep/inversion/wrong-constituent modes). CLAIM-VET-pending; single-annotator gold (caveated); derived-arg GOAL tags spot-check-only."
+}
