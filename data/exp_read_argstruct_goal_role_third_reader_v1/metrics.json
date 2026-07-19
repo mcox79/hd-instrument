@@ -1,0 +1,987 @@
+{
+  "verdict": "SCOPE_LIMITED_OR_WEAK",
+  "verdict_msg": "ARG-STRUCT (GOAL) LOCALIZES. The arg-role layer fired 39 reclassifications BUT: (1) GOAL precision 0.7857 recall 0.88 (gold n_goal=25; band prec>=0.8 rec>=0.6) -> below band. (2) RECIPIENT preservation 1.0 (band 1.0) -> ok. (3) goal-as-patient FP reduction 0.7436 (band >=0.5) -> ok. (4) comprehension delta +5 -> ok. LOCALIZED CUE = goal-precision. HONEST DEFLATE. HYPOTHESIS pending VET.",
+  "summary": "SCOPE_LIMITED_OR_WEAK: 3rd reader (79 lessons) | GOAL P 0.7857 R 0.88 (n_goal=25) | RECIP-preserve 1.0 (n=10) | fires 39 goal-FP 29 (reduction 0.7436) | svo_removed 28 goal_added 33 | comp 0->5/5 (d+5) | byteid_T=True byteid_F=True deixis_unch=True passive 1.00 reversal 1.00 overlay=True det=True",
+  "elapsed_s": 323.97,
+  "ts_iso": "2026-07-19T00:08:49.681378+00:00",
+  "anchor_name": "read_argstruct_goal_role_third_reader_v1",
+  "run_mode": "full",
+  "seed": 20260718,
+  "n_lessons": 79,
+  "one_variable": "the arg-role axis (extract_passage_argrole argrole=True vs False, deixis held True); everything else identical",
+  "bands": {
+    "goal_prec_min": 0.8,
+    "goal_recall_min": 0.6,
+    "recip_preserve_min": 1.0,
+    "fp_reduction_min": 0.5,
+    "comp_delta_min": 1
+  },
+  "role_gold_pr": {
+    "n_gold": 43,
+    "n_goal": 25,
+    "n_recipient": 10,
+    "n_pred_goal": 28,
+    "goal_correct": 22,
+    "goal_precision": 0.7857,
+    "goal_recall": 0.88,
+    "recip_preserve": 1.0,
+    "per": [
+      {
+        "pid": "L01",
+        "cue": "led all his sheep to the pasture",
+        "head": "pasture",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L07",
+        "cue": "his parents sent him to school",
+        "head": "school",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L10",
+        "cue": "he went to the river",
+        "head": "river",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L10",
+        "cue": "took him to town",
+        "head": "town",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L15",
+        "cue": "they came to the pond",
+        "head": "pond",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L34",
+        "cue": "sent george to the woods",
+        "head": "woods",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L41",
+        "cue": "went back to the village",
+        "head": "village",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L42",
+        "cue": "followed her to the grave",
+        "head": "grave",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L47",
+        "cue": "hurried to the pas",
+        "head": "pasture",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L49",
+        "cue": "going to market",
+        "head": "market",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L52",
+        "cue": "come to the door",
+        "head": "door",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L58",
+        "cue": "went to the turner's shop",
+        "head": "turner's",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L65",
+        "cue": "go to the yard",
+        "head": "yard",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L65",
+        "cue": "never got to the shore",
+        "head": "shore",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L67",
+        "cue": "got to the woods",
+        "head": "woods",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L69",
+        "cue": "we are going to the woods",
+        "head": "woods",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L71",
+        "cue": "came to the edge",
+        "head": "edge",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L71",
+        "cue": "came to the gate",
+        "head": "gate",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L72",
+        "cue": "come out to the meadow",
+        "head": "meadow",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L18",
+        "cue": "take it to the bank",
+        "head": "bank",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L30",
+        "cue": "afternoon went to school",
+        "head": "school",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L31",
+        "cue": "sink it to the mark",
+        "head": "mark",
+        "gold": "GOAL",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L07",
+        "cue": "he went off to the water",
+        "head": "water",
+        "gold": "GOAL",
+        "pred": "PATIENT",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L15",
+        "cue": "managed to get to the shore",
+        "head": "shore",
+        "gold": "GOAL",
+        "pred": "PATIENT",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L10",
+        "cue": "go to the house of the fisherman",
+        "head": "house",
+        "gold": "GOAL",
+        "pred": "PATIENT",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L19",
+        "cue": "came to five dollars",
+        "head": "dollars",
+        "gold": "ADJUNCT",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L39",
+        "cue": "led to the invention",
+        "head": "invention",
+        "gold": "ADJUNCT",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L70",
+        "cue": "put them all to flight",
+        "head": "flight",
+        "gold": "ADJUNCT",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L45",
+        "cue": "goes to sleep to dream",
+        "head": "dream",
+        "gold": "ADJUNCT",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L73",
+        "cue": "braided into mats",
+        "head": "mats",
+        "gold": "ADJUNCT",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L37",
+        "cue": "fly from place to",
+        "head": "place",
+        "gold": "ADJUNCT",
+        "pred": "GOAL",
+        "matched": true,
+        "ok": false
+      },
+      {
+        "pid": "L18",
+        "cue": "gave it to the widow",
+        "head": "widow",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L27",
+        "cue": "gave one to the man",
+        "head": "man",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L31",
+        "cue": "gave it to him with a smile",
+        "head": "him",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L35",
+        "cue": "give to us daily",
+        "head": "us",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L37",
+        "cue": "said to the owl",
+        "head": "owl",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L52",
+        "cue": "give it to him",
+        "head": "him",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L60",
+        "cue": "brother tom gave it to me",
+        "head": "me",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L63",
+        "cue": "sing a song to them",
+        "head": "them",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L19",
+        "cue": "said to the boy",
+        "head": "boy",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L07",
+        "cue": "went out to them in a boat",
+        "head": "them",
+        "gold": "RECIPIENT",
+        "pred": "RECIPIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L27",
+        "cue": "belong to this country",
+        "head": "country",
+        "gold": "PATIENT",
+        "pred": "PATIENT",
+        "matched": true,
+        "ok": true
+      },
+      {
+        "pid": "L20",
+        "cue": "your way to school",
+        "head": "school",
+        "gold": "PATIENT",
+        "pred": "PATIENT",
+        "matched": true,
+        "ok": true
+      }
+    ]
+  },
+  "goal_fp": {
+    "n_fires": 39,
+    "n_goal_fp_off": 29,
+    "reduction": 0.7436,
+    "sample_fp": [
+      [
+        "L01",
+        [
+          "svo",
+          "led",
+          "shepherd",
+          "pasture"
+        ]
+      ],
+      [
+        "L07",
+        [
+          "svo",
+          "sent",
+          "parents",
+          "school"
+        ]
+      ],
+      [
+        "L07",
+        [
+          "svo",
+          "went",
+          "james",
+          "school"
+        ]
+      ],
+      [
+        "L10",
+        [
+          "svo",
+          "send",
+          "lessons",
+          "school"
+        ]
+      ],
+      [
+        "L10",
+        [
+          "svo",
+          "took",
+          "father",
+          "town"
+        ]
+      ],
+      [
+        "L10",
+        [
+          "svo",
+          "went",
+          "son",
+          "river"
+        ]
+      ],
+      [
+        "L15",
+        [
+          "svo",
+          "came",
+          "children",
+          "pond"
+        ]
+      ],
+      [
+        "L15",
+        [
+          "svo",
+          "went",
+          "they",
+          "school"
+        ]
+      ],
+      [
+        "L18",
+        [
+          "svo",
+          "gave",
+          "widow",
+          "bank"
+        ]
+      ],
+      [
+        "L19",
+        [
+          "svo",
+          "came",
+          "cents",
+          "dollars"
+        ]
+      ],
+      [
+        "L31",
+        [
+          "svo",
+          "brought",
+          "i",
+          "shore"
+        ]
+      ],
+      [
+        "L31",
+        [
+          "svo",
+          "throw",
+          "elephant",
+          "mark"
+        ]
+      ],
+      [
+        "L34",
+        [
+          "svo",
+          "sent",
+          "mother",
+          "woods"
+        ]
+      ],
+      [
+        "L37",
+        [
+          "svo",
+          "rise",
+          "bats",
+          "place"
+        ]
+      ],
+      [
+        "L39",
+        [
+          "svo",
+          "led",
+          "a",
+          "invention"
+        ]
+      ],
+      [
+        "L42",
+        [
+          "svo",
+          "followed",
+          "wife",
+          "grave"
+        ]
+      ],
+      [
+        "L45",
+        [
+          "svo",
+          "go",
+          "nuts",
+          "chestnut"
+        ]
+      ],
+      [
+        "L45",
+        [
+          "svo",
+          "goes",
+          "sister",
+          "dream"
+        ]
+      ],
+      [
+        "L47",
+        [
+          "svo",
+          "took",
+          "girl",
+          "pasture"
+        ]
+      ],
+      [
+        "L52",
+        [
+          "svo",
+          "come",
+          "teacher",
+          "door"
+        ]
+      ],
+      [
+        "L58",
+        [
+          "svo",
+          "went",
+          "john",
+          "turner's"
+        ]
+      ],
+      [
+        "L61",
+        [
+          "svo",
+          "came",
+          "mother",
+          "open"
+        ]
+      ],
+      [
+        "L65",
+        [
+          "svo",
+          "go",
+          "i'd",
+          "yard"
+        ]
+      ],
+      [
+        "L67",
+        [
+          "svo",
+          "got",
+          "susie",
+          "woods"
+        ]
+      ],
+      [
+        "L69",
+        [
+          "svo",
+          "going",
+          "girls",
+          "woods"
+        ]
+      ],
+      [
+        "L70",
+        [
+          "svo",
+          "put",
+          "young",
+          "flight"
+        ]
+      ],
+      [
+        "L71",
+        [
+          "svo",
+          "came",
+          "mother",
+          "gate"
+        ]
+      ],
+      [
+        "L71",
+        [
+          "svo",
+          "went",
+          "willie",
+          "pasture"
+        ]
+      ],
+      [
+        "L72",
+        [
+          "svo",
+          "come",
+          "forward",
+          "meadow"
+        ]
+      ]
+    ]
+  },
+  "foundation_delta": {
+    "n_off": 3487,
+    "n_on": 3492,
+    "svo_removed": 28,
+    "svo_added": 0,
+    "goal_added": 33,
+    "sample_goal": [
+      [
+        "goal",
+        "brought",
+        "i",
+        "shore"
+      ],
+      [
+        "goal",
+        "came",
+        "cents",
+        "dollars"
+      ],
+      [
+        "goal",
+        "came",
+        "children",
+        "pond"
+      ],
+      [
+        "goal",
+        "came",
+        "mother",
+        "gate"
+      ],
+      [
+        "goal",
+        "came",
+        "mother",
+        "open"
+      ],
+      [
+        "goal",
+        "come",
+        "forward",
+        "meadow"
+      ],
+      [
+        "goal",
+        "come",
+        "teacher",
+        "door"
+      ],
+      [
+        "goal",
+        "followed",
+        "wife",
+        "grave"
+      ],
+      [
+        "goal",
+        "gave",
+        "widow",
+        "bank"
+      ],
+      [
+        "goal",
+        "go",
+        "darlings",
+        "yellow"
+      ],
+      [
+        "goal",
+        "go",
+        "fred",
+        "doctor's"
+      ],
+      [
+        "goal",
+        "go",
+        "i'd",
+        "yard"
+      ],
+      [
+        "goal",
+        "go",
+        "nuts",
+        "chestnut"
+      ],
+      [
+        "goal",
+        "goes",
+        "sister",
+        "dream"
+      ],
+      [
+        "goal",
+        "going",
+        "girls",
+        "woods"
+      ],
+      [
+        "goal",
+        "got",
+        "ship",
+        "shore"
+      ],
+      [
+        "goal",
+        "got",
+        "susie",
+        "woods"
+      ],
+      [
+        "goal",
+        "led",
+        "a",
+        "invention"
+      ],
+      [
+        "goal",
+        "led",
+        "shepherd",
+        "pasture"
+      ],
+      [
+        "goal",
+        "put",
+        "young",
+        "flight"
+      ],
+      [
+        "goal",
+        "rise",
+        "bats",
+        "place"
+      ],
+      [
+        "goal",
+        "send",
+        "lessons",
+        "school"
+      ],
+      [
+        "goal",
+        "sent",
+        "mother",
+        "woods"
+      ],
+      [
+        "goal",
+        "sent",
+        "parents",
+        "school"
+      ],
+      [
+        "goal",
+        "throw",
+        "elephant",
+        "mark"
+      ],
+      [
+        "goal",
+        "took",
+        "father",
+        "town"
+      ],
+      [
+        "goal",
+        "took",
+        "girl",
+        "pasture"
+      ],
+      [
+        "goal",
+        "went",
+        "afternoon",
+        "school"
+      ],
+      [
+        "goal",
+        "went",
+        "james",
+        "school"
+      ],
+      [
+        "goal",
+        "went",
+        "john",
+        "turner's"
+      ],
+      [
+        "goal",
+        "went",
+        "son",
+        "river"
+      ],
+      [
+        "goal",
+        "went",
+        "they",
+        "school"
+      ],
+      [
+        "goal",
+        "went",
+        "willie",
+        "pasture"
+      ]
+    ]
+  },
+  "comprehension": {
+    "n": 5,
+    "off_correct": 0,
+    "on_correct": 5,
+    "delta": 5,
+    "off_per": [
+      {
+        "qid": "G1",
+        "gold": "school",
+        "found": false
+      },
+      {
+        "qid": "G2",
+        "gold": "pasture",
+        "found": false
+      },
+      {
+        "qid": "G3",
+        "gold": "woods",
+        "found": false
+      },
+      {
+        "qid": "G4",
+        "gold": "town",
+        "found": false
+      },
+      {
+        "qid": "G5",
+        "gold": "pond",
+        "found": false
+      }
+    ],
+    "on_per": [
+      {
+        "qid": "G1",
+        "gold": "school",
+        "found": true
+      },
+      {
+        "qid": "G2",
+        "gold": "pasture",
+        "found": true
+      },
+      {
+        "qid": "G3",
+        "gold": "woods",
+        "found": true
+      },
+      {
+        "qid": "G4",
+        "gold": "town",
+        "found": true
+      },
+      {
+        "qid": "G5",
+        "gold": "pond",
+        "found": true
+      }
+    ]
+  },
+  "goal_verbs_n": 242,
+  "goal_preps": [
+    "into",
+    "onto",
+    "to",
+    "toward",
+    "towards",
+    "unto"
+  ],
+  "regression": {
+    "byte_identity_deixis_true": true,
+    "byte_identity_deixis_true_diff": null,
+    "byte_identity_deixis_false": true,
+    "byte_identity_deixis_false_diff": null,
+    "byte_identity_checked": 79,
+    "deixis_unchanged": true,
+    "n_deixis_res": 541,
+    "passive_rolefix": 1.0,
+    "reversal_rolefix": 1.0,
+    "passive_ok": true,
+    "reversal_ok": true,
+    "overlay_witness_ok": true,
+    "overlay_witness_tail": "inproc witness PASS (7/7)",
+    "deterministic": true,
+    "no_regression": true
+  },
+  "cited_scale": {
+    "source": "data/exp_read_grow_full_third_reader_clauseseg_generalization_v1/metrics.json",
+    "dom_fp_cause_after_coref": "ARG_STRUCT",
+    "arg_struct_fp_fraction": 0.31,
+    "n_relations_on": 3487
+  },
+  "brain_faithfulness": "verb frames PRE-ACTIVATE role slots (predictive lexical knowledge) + prepositions as closed-class role markers + animacy/word-order competition (MacWhinney-Bates Competition Model) + default agent-first with a syntactic override. DEVIATION FLAGGED: GOAL_VERBS is a CURATED scaffold standing in for the brain's learned verb-frame lexicon (foundation scaffold; runtime glass-box). PP-attachment (which noun a PP modifies) is the harder ambiguous tail -- SCOPED OUT (clean goal-as-patient first).",
+  "scope_caveat": "Single-annotator INDEPENDENT role gold (GOAL/RECIPIENT/PATIENT per to-site, matched by pid + content cue + head), coverage-honest, INCLUDES mechanism-wrong sites + RECIPIENT/PATIENT NEGATIVES (anti-circular). The FP-reduction is a corpus-wide COUNT (coverage) -- per-relation correctness is judged by the role gold, not the count. Curated verb-frame table (SCAFFOLD), not a learned mechanism. PP-attachment tail scoped-out. run_certification 208/0 verified out-of-cell (no certified module touched). CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
