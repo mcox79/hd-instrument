@@ -1,0 +1,185 @@
+{
+  "anchor_name": "role_filler_factorization_assembled_reading_axis_v1",
+  "run_mode": "full",
+  "verdict": "FEASIBILITY_BLOCKED_GOLD_TOO_SPARSE",
+  "verdict_msg": "FEASIBILITY_BLOCKED_GOLD_TOO_SPARSE | slice=L04+L05+L07+L08+L09+L10+L12 | LCCP A_P=0.196 C_P=0.500 n_keptC=68 | parser_ceiling(all mem)=0.489 (46/94) | FEAS fair=False fair_held=0 (floor=10) expl_held=11 | EXPL real_alg=0.906 e2e_gold=0.244 ceil_held=0.258 cond(alg|gold)=0.939 gap=+0.906 mustfail=True posctrl=True",
+  "summary": "FEASIBILITY_BLOCKED_GOLD_TOO_SPARSE | slice=L04+L05+L07+L08+L09+L10+L12 | LCCP A_P=0.196 C_P=0.500 n_keptC=68 | parser_ceiling(all mem)=0.489 (46/94) | FEAS fair=False fair_held=0 (floor=10) expl_held=11 | EXPL real_alg=0.906 e2e_gold=0.244 ceil_held=0.258 cond(alg|gold)=0.939 gap=+0.906 mustfail=True posctrl=True",
+  "elapsed_s": 20.272248199995374,
+  "ts_iso": "2026-07-19T09:15:30.950834+00:00",
+  "verdict_detail": {
+    "verdict": "FEASIBILITY_BLOCKED_GOLD_TOO_SPARSE",
+    "fair_split_feasible": false,
+    "parser_ceiling_all_memberships": 0.4894,
+    "exploratory_real_algebra_factored": 0.9056,
+    "exploratory_real_endtoend_gold": 0.2444,
+    "exploratory_parser_ceiling_heldout": 0.2583,
+    "exploratory_conditional_algebra_given_goldtrue": 0.9393,
+    "exploratory_must_fail_fired": true,
+    "exploratory_positive_control": true,
+    "exploratory_gap_factored_minus_flat": 0.9056,
+    "milestone_requirement": "a LARGER / DENSER independent gold (more annotated lessons) is required for a FAIR independent-gold-scored recombination compgen; the substrate factorization is validated dense (atoms 29334-36), the binding bound here is GOLD COVERAGE (a fair-test design bound).",
+    "can_fail_both_ways": true
+  },
+  "data_meta": {
+    "lccp_slice": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "lccp_summary": {
+      "A_precision": 0.1956,
+      "C_precision": 0.5,
+      "C_recall": 0.34,
+      "n_reader_svo": 225,
+      "n_gold_pos": 100,
+      "n_keptC": 68
+    },
+    "parser_ceiling_all_memberships": 0.48936170212765956,
+    "n_parser_content_memberships": 94,
+    "n_gold_true_memberships": 46,
+    "feasibility": {
+      "fair_split_feasible": false,
+      "fair_split_min_train_fillers": 2,
+      "fair_split_held_out": 0,
+      "fair_views_n_slots": 16,
+      "fair_views_n_eligible": 8,
+      "exploratory_split_held_out": 11,
+      "exploratory_views_n_slots": 69,
+      "exploratory_views_n_eligible": 17,
+      "fz_floor_held_out": 10,
+      "note": "gold-bound to the annotated lessons; a FAIR recombination split (donor slot trained with >=2 OTHER concepts) needs a denser gold than 280 items / 7 lessons"
+    },
+    "gold_membership_counts": {
+      "n_gold_obj_pairs": 90,
+      "n_gold_subj_pairs": 134
+    },
+    "vocab_sample": [
+      "animals",
+      "bank",
+      "beauty",
+      "beavers",
+      "books",
+      "boy",
+      "boys",
+      "castle",
+      "cat",
+      "charles",
+      "child",
+      "children",
+      "come",
+      "copybook",
+      "dam",
+      "day",
+      "door",
+      "eyes",
+      "father",
+      "fields",
+      "flat",
+      "frank",
+      "freezing",
+      "fur"
+    ]
+  },
+  "compgen_exploratory": {
+    "split_kind": "exploratory_underpowered",
+    "min_train_fillers": 1,
+    "chance": 0.0625,
+    "m": 6,
+    "knn": 10,
+    "headline_dim": 64,
+    "aggregate": {
+      "control_synthetic": {
+        "algebra_factored": 0.9833333333333334,
+        "algebra_flat": 0.016666666666666666,
+        "parser_ceiling_heldout": 0.25833333333333336,
+        "endtoend_factored_gold": 0.25833333333333336,
+        "endtoend_flat_gold": 0.0,
+        "conditional_algebra_given_goldtrue": 1.0,
+        "n_heldout_queries": 120.0,
+        "n_gold_true_queries": 31.0,
+        "capacity": [
+          {
+            "n_dim": 64,
+            "factored": 0.9833333333333334,
+            "flat": 0.016666666666666666,
+            "g_hat_cos": 0.835090180238088
+          },
+          {
+            "n_dim": 128,
+            "factored": 1.0,
+            "flat": 0.03888888888888889,
+            "g_hat_cos": 0.8338341116905212
+          },
+          {
+            "n_dim": 256,
+            "factored": 1.0,
+            "flat": 0.0,
+            "g_hat_cos": 0.8318535486857096
+          }
+        ]
+      },
+      "real_parser": {
+        "algebra_factored": 0.9055555555555556,
+        "algebra_flat": 0.0,
+        "parser_ceiling_heldout": 0.25833333333333336,
+        "endtoend_factored_gold": 0.24444444444444446,
+        "endtoend_flat_gold": 0.0,
+        "conditional_algebra_given_goldtrue": 0.9392857142857144,
+        "n_heldout_queries": 120.0,
+        "n_gold_true_queries": 31.0,
+        "capacity": [
+          {
+            "n_dim": 64,
+            "factored": 0.9055555555555556,
+            "flat": 0.0,
+            "g_hat_cos": 0.8398816585540771
+          },
+          {
+            "n_dim": 128,
+            "factored": 0.9972222222222222,
+            "flat": 0.0,
+            "g_hat_cos": 0.8336707949638367
+          },
+          {
+            "n_dim": 256,
+            "factored": 1.0,
+            "flat": 0.03333333333333333,
+            "g_hat_cos": 0.8305585583051046
+          }
+        ]
+      }
+    },
+    "n_slots": 69,
+    "n_eligible_concepts": 17,
+    "donor_retention_note": "min_train_fillers=1 -> donor slots may retain a SINGLE trainable filler = compromised recombination"
+  },
+  "arms_differ_hashes": {
+    "factored_pred_hash": "8d587e7e255f3f1a",
+    "flat_pred_hash": "6bc170ad32380a12"
+  },
+  "arms_differ_verified": true,
+  "scaffold_free_witness": {
+    "n_arm_c_tuples": 16,
+    "n_parser_memberships": 24,
+    "n_gold_true_memberships": 11,
+    "gold_discriminates": true,
+    "factored_pred": "cat",
+    "flat_pred": "boy",
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "content_source": "REAL GloVe-wiki-gigaword-300 (Pennington 2014) FHRR-encoded",
+  "relation_source": "LCCP arm-C parser output on McGuffey Third Reader (live recompute of exp_learned_argstruct_parser_lccp_independent_gold_v1)",
+  "gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json -- INDEPENDENT single-annotator gold (the CORRECT relations, NOT the parser's own output; fixes the reader-coupled self-consistency flaw)",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_detail",
+    "data_meta",
+    "scaffold_free_witness"
+  ],
+  "notes": "ASSEMBLED reading-axis compgen with INDEPENDENT gold. FEASIBILITY_BLOCKED_GOLD_TOO_SPARSE = the 280-item / 7-lesson gold lacks recombination density for a FAIR compgen split (a genuine min_train_fillers>=2 split gives <10 held-out; below the machinery floor). Well-powered result that DOES stand: the assembled pipeline's end-to-end correctness ceiling = parser precision ~0.50, and ~half the memberships feeding the reader-coupled factorization were gold-WRONG (quantifies the self-consistency flaw). Exploratory underpowered partial (min_train_fillers=1, ~dozen held-out) reported DIRECTIONAL only. Milestone requirement = a denser independent gold. CLAIM-VET-pending."
+}
