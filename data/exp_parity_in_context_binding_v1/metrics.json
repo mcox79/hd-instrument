@@ -1,0 +1,95 @@
+{
+  "verdict": "HARD_PASS_STRUCTURE_DISCRIMINATES",
+  "verdict_msg": "structure beats chance where correlation pinned at chance (best_struct=1.000, oracle_max=1.000, corr_max=0.501); predictive-loop localization={\"R_large\": \"predictive_error_element_required\", \"R_small\": \"binding_alone_suffices\"}",
+  "summary": "parity-in-context binding-vs-correlation | HARD_PASS_STRUCTURE_DISCRIMINATES",
+  "elapsed_s": 0.2509526000067126,
+  "anchor_name": "parity_in_context_binding_v1",
+  "mode": "full",
+  "ts_iso": "2026-07-19T00:55:00.645275+00:00",
+  "expected_n_units": 10,
+  "got_n_units": 10,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "exempted_pairs": [
+      [
+        "ARM_BIND_HEBB",
+        "ARM_PREDCODE"
+      ],
+      [
+        "ARM_BIND_ORACLE",
+        "ARM_BIND_HEBB"
+      ],
+      [
+        "ARM_BIND_ORACLE",
+        "ARM_PREDCODE"
+      ]
+    ],
+    "declared_code_level_exempt": [
+      [
+        "ARM_BIND_ORACLE",
+        "ARM_PREDCODE"
+      ]
+    ],
+    "unexpected_collision": [],
+    "missing_required_distinct": []
+  },
+  "recovery_floor": 0.95,
+  "void_corr_ceiling": 0.55,
+  "structure_hard_pass_floor": 0.65,
+  "per_regime": {
+    "R_large": {
+      "arm_mean": {
+        "ARM_CORR": 0.49939999999999996,
+        "ARM_BIND_ORACLE": 1.0,
+        "ARM_BIND_HEBB": 0.6422,
+        "ARM_PREDCODE": 1.0
+      },
+      "arm_std": {
+        "ARM_CORR": 0.01228576411950027,
+        "ARM_BIND_ORACLE": 0.0,
+        "ARM_BIND_HEBB": 0.010317945531936084,
+        "ARM_PREDCODE": 0.0
+      },
+      "n_seeds": 5,
+      "recovery_acc_mean": 1.0,
+      "n_pairs": 780,
+      "predcode_focus_mean": 1.0
+    },
+    "R_small": {
+      "arm_mean": {
+        "ARM_CORR": 0.5008,
+        "ARM_BIND_ORACLE": 1.0,
+        "ARM_BIND_HEBB": 1.0,
+        "ARM_PREDCODE": 1.0
+      },
+      "arm_std": {
+        "ARM_CORR": 0.004925444142409901,
+        "ARM_BIND_ORACLE": 0.0,
+        "ARM_BIND_HEBB": 0.0,
+        "ARM_PREDCODE": 0.0
+      },
+      "n_seeds": 5,
+      "recovery_acc_mean": 1.0,
+      "n_pairs": 28,
+      "predcode_focus_mean": 1.0
+    }
+  },
+  "unit_errors": [],
+  "verdict_extra": {
+    "best_struct": 1.0,
+    "oracle_max": 1.0,
+    "corr_max": 0.5008,
+    "localization": {
+      "R_large": "predictive_error_element_required",
+      "R_small": "binding_alone_suffices"
+    }
+  },
+  "seeds": [
+    7,
+    13,
+    19,
+    23,
+    29
+  ]
+}
