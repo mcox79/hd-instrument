@@ -1,0 +1,348 @@
+{
+  "anchor_name": "compress_and_carry_comprehension_loop_ccl_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_CCL",
+  "verdict_msg": "HARD_FAIL_CCL | slice=L04+L05+L10 sents=90 reader=119 | A P=0.385 R=0.273 wf_fp=5 | B P=0.359 R=0.255 | C P=0.359 R=0.255 wf_fp=6 | AXIS1(prec)=False dP(C-A)=-0.026 Rret=0.93 | AXIS2(compound)=False C_prec2-1=-0.094 C_marginslope=-0.134 boot_ci90=[-0.4831, 0.4505] | dissoc(C-B)long-short prec=+0.000 | GateD_A==LCCPc=True n_doc_flip(B/C)=5/6 n_defer=0/0 shifts_C=13 base_in_band=True discrim=True",
+  "summary": "HARD_FAIL_CCL | slice=L04+L05+L10 sents=90 reader=119 | A P=0.385 R=0.273 wf_fp=5 | B P=0.359 R=0.255 | C P=0.359 R=0.255 wf_fp=6 | AXIS1(prec)=False dP(C-A)=-0.026 Rret=0.93 | AXIS2(compound)=False C_prec2-1=-0.094 C_marginslope=-0.134 boot_ci90=[-0.4831, 0.4505] | dissoc(C-B)long-short prec=+0.000 | GateD_A==LCCPc=True n_doc_flip(B/C)=5/6 n_defer=0/0 shifts_C=13 base_in_band=True discrim=True",
+  "elapsed_s": 10.697447400016245,
+  "ts_iso": "2026-07-19T08:39:30.397719+00:00",
+  "config": {
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7,
+    "kappa": 1.5,
+    "doc_weight": 0.5,
+    "shift_thr": 0.55,
+    "defer_margin": 0.2,
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L10"
+    ],
+    "epochs": 40
+  },
+  "arm_metrics": {
+    "A_lccp_local": {
+      "all": {
+        "precision": 0.3846,
+        "recall": 0.2727,
+        "f1": 0.3191,
+        "n_pred": 39,
+        "tp": 15,
+        "n_gold": 55,
+        "n_gold_covered": 15,
+        "subcat_fp": 15,
+        "within_frame_fp": 5,
+        "spurious_verb_fp": 4,
+        "total_fp": 24,
+        "fp_rate": 0.6154
+      },
+      "seen": {
+        "precision": 0.375,
+        "recall": 0.3636,
+        "f1": 0.3692,
+        "n_pred": 32,
+        "tp": 12,
+        "n_gold": 33,
+        "n_gold_covered": 12,
+        "subcat_fp": 14,
+        "within_frame_fp": 4,
+        "spurious_verb_fp": 2,
+        "total_fp": 20,
+        "fp_rate": 0.625
+      },
+      "heldout": {
+        "precision": 0.4286,
+        "recall": 0.4286,
+        "f1": 0.4286,
+        "n_pred": 7,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 2,
+        "total_fp": 4,
+        "fp_rate": 0.5714
+      }
+    },
+    "B_doccoh_flat": {
+      "all": {
+        "precision": 0.359,
+        "recall": 0.2545,
+        "f1": 0.2979,
+        "n_pred": 39,
+        "tp": 14,
+        "n_gold": 55,
+        "n_gold_covered": 14,
+        "subcat_fp": 15,
+        "within_frame_fp": 6,
+        "spurious_verb_fp": 4,
+        "total_fp": 25,
+        "fp_rate": 0.641
+      },
+      "seen": {
+        "precision": 0.3438,
+        "recall": 0.3333,
+        "f1": 0.3385,
+        "n_pred": 32,
+        "tp": 11,
+        "n_gold": 33,
+        "n_gold_covered": 11,
+        "subcat_fp": 14,
+        "within_frame_fp": 5,
+        "spurious_verb_fp": 2,
+        "total_fp": 21,
+        "fp_rate": 0.6562
+      },
+      "heldout": {
+        "precision": 0.4286,
+        "recall": 0.4286,
+        "f1": 0.4286,
+        "n_pred": 7,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 2,
+        "total_fp": 4,
+        "fp_rate": 0.5714
+      }
+    },
+    "C_ccl_compressed": {
+      "all": {
+        "precision": 0.359,
+        "recall": 0.2545,
+        "f1": 0.2979,
+        "n_pred": 39,
+        "tp": 14,
+        "n_gold": 55,
+        "n_gold_covered": 14,
+        "subcat_fp": 15,
+        "within_frame_fp": 6,
+        "spurious_verb_fp": 4,
+        "total_fp": 25,
+        "fp_rate": 0.641
+      },
+      "seen": {
+        "precision": 0.3438,
+        "recall": 0.3333,
+        "f1": 0.3385,
+        "n_pred": 32,
+        "tp": 11,
+        "n_gold": 33,
+        "n_gold_covered": 11,
+        "subcat_fp": 14,
+        "within_frame_fp": 5,
+        "spurious_verb_fp": 2,
+        "total_fp": 21,
+        "fp_rate": 0.6562
+      },
+      "heldout": {
+        "precision": 0.4286,
+        "recall": 0.4286,
+        "f1": 0.4286,
+        "n_pred": 7,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 2,
+        "total_fp": 4,
+        "fp_rate": 0.5714
+      }
+    }
+  },
+  "within_frame": {
+    "A_lccp_local": {
+      "tp_within_frame": 15,
+      "within_frame_fp": 5,
+      "within_frame_precision": 0.75,
+      "n_within_frame_kept": 20
+    },
+    "B_doccoh_flat": {
+      "tp_within_frame": 14,
+      "within_frame_fp": 6,
+      "within_frame_precision": 0.7,
+      "n_within_frame_kept": 20
+    },
+    "C_ccl_compressed": {
+      "tp_within_frame": 14,
+      "within_frame_fp": 6,
+      "within_frame_precision": 0.7,
+      "n_within_frame_kept": 20
+    }
+  },
+  "compounding_curve": {
+    "A_lccp_local": {
+      "n": 39,
+      "n_with_doccoh": 0,
+      "precision_slope": 0.0287,
+      "precision_first_half": 0.4118,
+      "precision_second_half": 0.3636,
+      "precision_2nd_minus_1st": -0.0481,
+      "doccoh_margin_first_half": null,
+      "doccoh_margin_second_half": null,
+      "doccoh_margin_slope": null
+    },
+    "B_doccoh_flat": {
+      "n": 39,
+      "n_with_doccoh": 39,
+      "precision_slope": -0.0598,
+      "precision_first_half": 0.4118,
+      "precision_second_half": 0.3182,
+      "precision_2nd_minus_1st": -0.0936,
+      "doccoh_margin_first_half": -0.0247,
+      "doccoh_margin_second_half": 0.0465,
+      "doccoh_margin_slope": 0.0007
+    },
+    "C_ccl_compressed": {
+      "n": 39,
+      "n_with_doccoh": 39,
+      "precision_slope": -0.0598,
+      "precision_first_half": 0.4118,
+      "precision_second_half": 0.3182,
+      "precision_2nd_minus_1st": -0.0936,
+      "doccoh_margin_first_half": 0.0256,
+      "doccoh_margin_second_half": 0.033,
+      "doccoh_margin_slope": -0.134
+    }
+  },
+  "compounding_bootstrap_ci_C": {
+    "n": 39,
+    "n_boot_valid": 997,
+    "ci90": [
+      -0.4831,
+      0.4505
+    ],
+    "excludes_zero": false,
+    "median_slope": -0.025
+  },
+  "compression_dissociation": {
+    "median_sentences": 26.0,
+    "long_lessons": [
+      "L05",
+      "L10"
+    ],
+    "short_lessons": [
+      "L04"
+    ],
+    "long": {
+      "B_precision": 0.3571,
+      "C_precision": 0.3571,
+      "C_minus_B_precision": 0.0,
+      "B_margin": -0.0357,
+      "C_margin": -0.0413,
+      "C_minus_B_margin": -0.0056,
+      "n_kept_B": 28,
+      "n_kept_C": 28
+    },
+    "short": {
+      "B_precision": 0.3636,
+      "C_precision": 0.3636,
+      "C_minus_B_precision": 0.0,
+      "B_margin": 0.131,
+      "C_margin": 0.2043,
+      "C_minus_B_margin": 0.0733,
+      "n_kept_B": 11,
+      "n_kept_C": 11
+    },
+    "dissociation_precision_long_minus_short": 0.0,
+    "dissociation_margin_long_minus_short": -0.0789
+  },
+  "verdict_detail": {
+    "verdict": "HARD_FAIL_CCL",
+    "axis1_precision_raise_pass": false,
+    "axis1_fail": true,
+    "axis2_compounding_pass": false,
+    "axis2_fail": true,
+    "recall_retention_C_over_A": 0.9333,
+    "precision_A": 0.3846,
+    "precision_C": 0.359,
+    "which_axis_passed": "none"
+  },
+  "gate_d_positive_control": {
+    "arm_A_hash": "af32f3539c2c1b50",
+    "lccp_arm_C_hash": "af32f3539c2c1b50",
+    "match": true
+  },
+  "kept_hashes": {
+    "A_lccp_local": "af32f3539c2c1b50",
+    "B_doccoh_flat": "8760a424ae285a2a",
+    "C_ccl_compressed": "aac38fd8b1ec4825"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "loop_diagnostics": {
+    "A_lccp_local": {
+      "n_doc_flip": 0,
+      "n_defer": 0,
+      "n_shifts": 0,
+      "shift_positions": []
+    },
+    "B_doccoh_flat": {
+      "n_doc_flip": 5,
+      "n_defer": 0,
+      "n_shifts": 0,
+      "shift_positions": []
+    },
+    "C_ccl_compressed": {
+      "n_doc_flip": 6,
+      "n_defer": 0,
+      "n_shifts": 13,
+      "shift_positions": [
+        0.053,
+        0.316,
+        0.368,
+        0.632,
+        0.684,
+        0.52,
+        0.56,
+        0.6,
+        0.68,
+        0.72,
+        0.093,
+        0.767,
+        0.791
+      ]
+    }
+  },
+  "scaffold_free_witness": {
+    "within_frame_doc_incoherent_caught_by_C_kept_by_A": null,
+    "later_document_true_patient_with_carried_doccoh": [
+      "L04_11",
+      "open",
+      "door",
+      0.58,
+      0.5158
+    ],
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json (single-annotator, caveated)",
+  "composes_credited": {
+    "LCCP": "atom 29338 / commit 3c6ff0f3",
+    "coherence_gate": "atom 29337",
+    "WSM_situation_model": "hdlab/state_of_mind.py"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "within_frame",
+    "compounding_curve",
+    "compounding_bootstrap_ci_C",
+    "compression_dissociation",
+    "verdict_detail",
+    "gate_d_positive_control",
+    "scaffold_free_witness"
+  ],
+  "notes": "CCL: situation-model DOCUMENT-COHERENCE cue wired into LCCP scorer as one weighted parallel cue (A->B=cue flat carry+DEFERRED; B->C=MAP/SHIFT macrorule-compressed carry+LTWM gist cues). AXIS-1 precision-raise: C prec >=0.55 AND wf_fp(C)<=wf_fp(A) AND recall ret >=0.60. AXIS-2 compounding: C margin-slope>0 (bootstrap 90% CI excl 0) OR C prec 2nd-half>1st-half >=0.05 while arm-A flat. HARD_PASS=both. PARTIAL=one. HARD_FAIL=neither. CLAIM-VET-pending; single-annotator gold; NO scene-boundary gold (checkpoint firing reported, no agreement claim); probe showed doc-coh re-rank at chance + weak positive margin sharpened by compression."
+}

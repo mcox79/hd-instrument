@@ -1,0 +1,363 @@
+{
+  "anchor_name": "compress_and_carry_comprehension_loop_ccl_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_CCL",
+  "verdict_msg": "HARD_FAIL_CCL | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 reader=225 | A P=0.500 R=0.340 wf_fp=6 | B P=0.456 R=0.310 | C P=0.456 R=0.310 wf_fp=9 | AXIS1(prec)=False dP(C-A)=-0.044 Rret=0.91 | AXIS2(compound)=False C_prec2-1=+0.040 C_marginslope=0.0293 boot_ci90=[-0.2322, 0.4106] | dissoc(C-B)long-short prec=+0.000 | GateD_A==LCCPc=True n_doc_flip(B/C)=15/16 n_defer=0/0 shifts_C=20 base_in_band=True discrim=True",
+  "summary": "HARD_FAIL_CCL | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 reader=225 | A P=0.500 R=0.340 wf_fp=6 | B P=0.456 R=0.310 | C P=0.456 R=0.310 wf_fp=9 | AXIS1(prec)=False dP(C-A)=-0.044 Rret=0.91 | AXIS2(compound)=False C_prec2-1=+0.040 C_marginslope=0.0293 boot_ci90=[-0.2322, 0.4106] | dissoc(C-B)long-short prec=+0.000 | GateD_A==LCCPc=True n_doc_flip(B/C)=15/16 n_defer=0/0 shifts_C=20 base_in_band=True discrim=True",
+  "elapsed_s": 15.746100699994713,
+  "ts_iso": "2026-07-19T08:40:00.309483+00:00",
+  "config": {
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7,
+    "kappa": 1.5,
+    "doc_weight": 0.5,
+    "shift_thr": 0.55,
+    "defer_margin": 0.2,
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "epochs": 60
+  },
+  "arm_metrics": {
+    "A_lccp_local": {
+      "all": {
+        "precision": 0.5,
+        "recall": 0.34,
+        "f1": 0.4048,
+        "n_pred": 68,
+        "tp": 34,
+        "n_gold": 100,
+        "n_gold_covered": 34,
+        "subcat_fp": 24,
+        "within_frame_fp": 6,
+        "spurious_verb_fp": 4,
+        "total_fp": 34,
+        "fp_rate": 0.5
+      },
+      "seen": {
+        "precision": 0.449,
+        "recall": 0.4681,
+        "f1": 0.4583,
+        "n_pred": 49,
+        "tp": 22,
+        "n_gold": 47,
+        "n_gold_covered": 22,
+        "subcat_fp": 19,
+        "within_frame_fp": 4,
+        "spurious_verb_fp": 4,
+        "total_fp": 27,
+        "fp_rate": 0.551
+      },
+      "heldout": {
+        "precision": 0.6316,
+        "recall": 0.3871,
+        "f1": 0.48,
+        "n_pred": 19,
+        "tp": 12,
+        "n_gold": 31,
+        "n_gold_covered": 12,
+        "subcat_fp": 5,
+        "within_frame_fp": 2,
+        "spurious_verb_fp": 0,
+        "total_fp": 7,
+        "fp_rate": 0.3684
+      }
+    },
+    "B_doccoh_flat": {
+      "all": {
+        "precision": 0.4559,
+        "recall": 0.31,
+        "f1": 0.369,
+        "n_pred": 68,
+        "tp": 31,
+        "n_gold": 100,
+        "n_gold_covered": 31,
+        "subcat_fp": 24,
+        "within_frame_fp": 9,
+        "spurious_verb_fp": 4,
+        "total_fp": 37,
+        "fp_rate": 0.5441
+      },
+      "seen": {
+        "precision": 0.4082,
+        "recall": 0.4255,
+        "f1": 0.4167,
+        "n_pred": 49,
+        "tp": 20,
+        "n_gold": 47,
+        "n_gold_covered": 20,
+        "subcat_fp": 19,
+        "within_frame_fp": 6,
+        "spurious_verb_fp": 4,
+        "total_fp": 29,
+        "fp_rate": 0.5918
+      },
+      "heldout": {
+        "precision": 0.5789,
+        "recall": 0.3548,
+        "f1": 0.44,
+        "n_pred": 19,
+        "tp": 11,
+        "n_gold": 31,
+        "n_gold_covered": 11,
+        "subcat_fp": 5,
+        "within_frame_fp": 3,
+        "spurious_verb_fp": 0,
+        "total_fp": 8,
+        "fp_rate": 0.4211
+      }
+    },
+    "C_ccl_compressed": {
+      "all": {
+        "precision": 0.4559,
+        "recall": 0.31,
+        "f1": 0.369,
+        "n_pred": 68,
+        "tp": 31,
+        "n_gold": 100,
+        "n_gold_covered": 31,
+        "subcat_fp": 24,
+        "within_frame_fp": 9,
+        "spurious_verb_fp": 4,
+        "total_fp": 37,
+        "fp_rate": 0.5441
+      },
+      "seen": {
+        "precision": 0.4082,
+        "recall": 0.4255,
+        "f1": 0.4167,
+        "n_pred": 49,
+        "tp": 20,
+        "n_gold": 47,
+        "n_gold_covered": 20,
+        "subcat_fp": 19,
+        "within_frame_fp": 6,
+        "spurious_verb_fp": 4,
+        "total_fp": 29,
+        "fp_rate": 0.5918
+      },
+      "heldout": {
+        "precision": 0.5789,
+        "recall": 0.3548,
+        "f1": 0.44,
+        "n_pred": 19,
+        "tp": 11,
+        "n_gold": 31,
+        "n_gold_covered": 11,
+        "subcat_fp": 5,
+        "within_frame_fp": 3,
+        "spurious_verb_fp": 0,
+        "total_fp": 8,
+        "fp_rate": 0.4211
+      }
+    }
+  },
+  "within_frame": {
+    "A_lccp_local": {
+      "tp_within_frame": 34,
+      "within_frame_fp": 6,
+      "within_frame_precision": 0.85,
+      "n_within_frame_kept": 40
+    },
+    "B_doccoh_flat": {
+      "tp_within_frame": 31,
+      "within_frame_fp": 9,
+      "within_frame_precision": 0.775,
+      "n_within_frame_kept": 40
+    },
+    "C_ccl_compressed": {
+      "tp_within_frame": 31,
+      "within_frame_fp": 9,
+      "within_frame_precision": 0.775,
+      "n_within_frame_kept": 40
+    }
+  },
+  "compounding_curve": {
+    "A_lccp_local": {
+      "n": 68,
+      "n_with_doccoh": 0,
+      "precision_slope": 0.1891,
+      "precision_first_half": 0.4667,
+      "precision_second_half": 0.5263,
+      "precision_2nd_minus_1st": 0.0596,
+      "doccoh_margin_first_half": null,
+      "doccoh_margin_second_half": null,
+      "doccoh_margin_slope": null
+    },
+    "B_doccoh_flat": {
+      "n": 68,
+      "n_with_doccoh": 68,
+      "precision_slope": 0.1757,
+      "precision_first_half": 0.4333,
+      "precision_second_half": 0.4737,
+      "precision_2nd_minus_1st": 0.0404,
+      "doccoh_margin_first_half": -0.0802,
+      "doccoh_margin_second_half": 0.1137,
+      "doccoh_margin_slope": 0.1338
+    },
+    "C_ccl_compressed": {
+      "n": 68,
+      "n_with_doccoh": 68,
+      "precision_slope": 0.1757,
+      "precision_first_half": 0.4333,
+      "precision_second_half": 0.4737,
+      "precision_2nd_minus_1st": 0.0404,
+      "doccoh_margin_first_half": -0.0581,
+      "doccoh_margin_second_half": 0.1024,
+      "doccoh_margin_slope": 0.0293
+    }
+  },
+  "compounding_bootstrap_ci_C": {
+    "n": 68,
+    "n_boot_valid": 1000,
+    "ci90": [
+      -0.2322,
+      0.4106
+    ],
+    "excludes_zero": false,
+    "median_slope": 0.0776
+  },
+  "compression_dissociation": {
+    "median_sentences": 21.0,
+    "long_lessons": [
+      "L05",
+      "L07",
+      "L09",
+      "L10"
+    ],
+    "short_lessons": [
+      "L04",
+      "L08",
+      "L12"
+    ],
+    "long": {
+      "B_precision": 0.4634,
+      "C_precision": 0.4634,
+      "C_minus_B_precision": 0.0,
+      "B_margin": 0.0625,
+      "C_margin": 0.0529,
+      "C_minus_B_margin": -0.0097,
+      "n_kept_B": 41,
+      "n_kept_C": 41
+    },
+    "short": {
+      "B_precision": 0.4444,
+      "C_precision": 0.4444,
+      "C_minus_B_precision": 0.0,
+      "B_margin": -0.0154,
+      "C_margin": 0.0087,
+      "C_minus_B_margin": 0.0241,
+      "n_kept_B": 27,
+      "n_kept_C": 27
+    },
+    "dissociation_precision_long_minus_short": 0.0,
+    "dissociation_margin_long_minus_short": -0.0338
+  },
+  "verdict_detail": {
+    "verdict": "HARD_FAIL_CCL",
+    "axis1_precision_raise_pass": false,
+    "axis1_fail": true,
+    "axis2_compounding_pass": false,
+    "axis2_fail": true,
+    "recall_retention_C_over_A": 0.9118,
+    "precision_A": 0.5,
+    "precision_C": 0.4559,
+    "which_axis_passed": "none"
+  },
+  "gate_d_positive_control": {
+    "arm_A_hash": "abbed72715740f6e",
+    "lccp_arm_C_hash": "abbed72715740f6e",
+    "match": true
+  },
+  "kept_hashes": {
+    "A_lccp_local": "abbed72715740f6e",
+    "B_doccoh_flat": "b1d5525cfbaa8709",
+    "C_ccl_compressed": "63a85cd4eaa35ecc"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "loop_diagnostics": {
+    "A_lccp_local": {
+      "n_doc_flip": 0,
+      "n_defer": 0,
+      "n_shifts": 0,
+      "shift_positions": []
+    },
+    "B_doccoh_flat": {
+      "n_doc_flip": 15,
+      "n_defer": 0,
+      "n_shifts": 0,
+      "shift_positions": []
+    },
+    "C_ccl_compressed": {
+      "n_doc_flip": 16,
+      "n_defer": 0,
+      "n_shifts": 20,
+      "shift_positions": [
+        0.053,
+        0.316,
+        0.368,
+        0.632,
+        0.684,
+        0.52,
+        0.56,
+        0.6,
+        0.68,
+        0.72,
+        0.04,
+        0.05,
+        0.1,
+        0.6,
+        0.65,
+        0.75,
+        0.8,
+        0.093,
+        0.767,
+        0.791
+      ]
+    }
+  },
+  "scaffold_free_witness": {
+    "within_frame_doc_incoherent_caught_by_C_kept_by_A": null,
+    "later_document_true_patient_with_carried_doccoh": [
+      "L04_11",
+      "open",
+      "door",
+      0.58,
+      0.5158
+    ],
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json (single-annotator, caveated)",
+  "composes_credited": {
+    "LCCP": "atom 29338 / commit 3c6ff0f3",
+    "coherence_gate": "atom 29337",
+    "WSM_situation_model": "hdlab/state_of_mind.py"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "within_frame",
+    "compounding_curve",
+    "compounding_bootstrap_ci_C",
+    "compression_dissociation",
+    "verdict_detail",
+    "gate_d_positive_control",
+    "scaffold_free_witness"
+  ],
+  "notes": "CCL: situation-model DOCUMENT-COHERENCE cue wired into LCCP scorer as one weighted parallel cue (A->B=cue flat carry+DEFERRED; B->C=MAP/SHIFT macrorule-compressed carry+LTWM gist cues). AXIS-1 precision-raise: C prec >=0.55 AND wf_fp(C)<=wf_fp(A) AND recall ret >=0.60. AXIS-2 compounding: C margin-slope>0 (bootstrap 90% CI excl 0) OR C prec 2nd-half>1st-half >=0.05 while arm-A flat. HARD_PASS=both. PARTIAL=one. HARD_FAIL=neither. CLAIM-VET-pending; single-annotator gold; NO scene-boundary gold (checkpoint firing reported, no agreement claim); probe showed doc-coh re-rank at chance + weak positive margin sharpened by compression."
+}
