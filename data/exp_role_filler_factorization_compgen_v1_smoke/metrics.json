@@ -1,0 +1,208 @@
+{
+  "anchor_name": "role_filler_factorization_compgen_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | FACTORED heldout=1.000 FLAT heldout=0.000 gap=1.000 | gen_drop F=0.000 flat=0.433 | vocab_learn_delta=0.037 gcos 0.984 (d=0.372) | must_fail=True learn_sig=True chance=0.333",
+  "summary": "HARD_PASS | FACTORED heldout=1.000 FLAT heldout=0.000 gap=1.000 | gen_drop F=0.000 flat=0.433 | vocab_learn_delta=0.037 gcos 0.984 (d=0.372) | must_fail=True learn_sig=True chance=0.333",
+  "elapsed_s": 0.5159209999837913,
+  "ts_iso": "2026-07-19T03:26:00.676148+00:00",
+  "config": {
+    "n_dim": 2048,
+    "n_roles": 4,
+    "n_fillers": 10,
+    "m": 3,
+    "held_per_role": 2,
+    "diversity_levels": [
+      2,
+      8,
+      64
+    ],
+    "n_test": 120,
+    "seeds": [
+      7,
+      13
+    ]
+  },
+  "chance": 0.3333333333333333,
+  "aggregate": {
+    "verdict": "HARD_PASS",
+    "chance": 0.3333333333333333,
+    "curve_mean": [
+      {
+        "D": 2,
+        "factored_heldout": 0.9875,
+        "flat_heldout": 0.24583333333333335,
+        "factored_indist": 0.9958333333333333,
+        "flat_indist": 0.39583333333333337,
+        "factored_heldout_vocab": 0.9625,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 0.9666666666666667,
+        "flat_indist_vocab": 0.12916666666666665,
+        "g_hat_to_g_true_cos": 0.6123237013816833
+      },
+      {
+        "D": 8,
+        "factored_heldout": 1.0,
+        "flat_heldout": 0.09166666666666666,
+        "factored_indist": 1.0,
+        "flat_indist": 0.43333333333333335,
+        "factored_heldout_vocab": 1.0,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 1.0,
+        "flat_indist_vocab": 0.175,
+        "g_hat_to_g_true_cos": 0.8957245349884033
+      },
+      {
+        "D": 64,
+        "factored_heldout": 1.0,
+        "flat_heldout": 0.0,
+        "factored_indist": 1.0,
+        "flat_indist": 0.43333333333333335,
+        "factored_heldout_vocab": 1.0,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 1.0,
+        "flat_indist_vocab": 0.10416666666666666,
+        "g_hat_to_g_true_cos": 0.984208345413208
+      }
+    ],
+    "factored_heldout_hi": 1.0,
+    "flat_heldout_hi": 0.0,
+    "gap_heldout_hi": 1.0,
+    "factored_indist_hi": 1.0,
+    "flat_indist_hi": 0.43333333333333335,
+    "factored_gen_drop": 0.0,
+    "flat_gen_drop": 0.43333333333333335,
+    "factored_heldout_vocab_hi": 1.0,
+    "factored_heldout_vocab_lo": 0.9625,
+    "learning_curve_delta_vocab": 0.03749999999999998,
+    "g_hat_cos_delta": 0.37188464403152466,
+    "g_hat_cos_hi": 0.984208345413208,
+    "learning_signal_present": true,
+    "must_fail_control_fired": true,
+    "can_fail_both_ways": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "curve": [
+        {
+          "D": 2,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.275,
+          "factored_indist": 0.9916666666666667,
+          "flat_indist": 0.4166666666666667,
+          "factored_heldout_vocab": 0.9916666666666667,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9666666666666667,
+          "flat_indist_vocab": 0.175,
+          "g_hat_to_g_true_cos": 0.6102793216705322
+        },
+        {
+          "D": 8,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.09166666666666666,
+          "factored_indist": 1.0,
+          "flat_indist": 0.45,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.19166666666666668,
+          "g_hat_to_g_true_cos": 0.8957462310791016
+        },
+        {
+          "D": 64,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0,
+          "factored_indist": 1.0,
+          "flat_indist": 0.38333333333333336,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.075,
+          "g_hat_to_g_true_cos": 0.9842321872711182
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "curve": [
+        {
+          "D": 2,
+          "factored_heldout": 0.975,
+          "flat_heldout": 0.21666666666666667,
+          "factored_indist": 1.0,
+          "flat_indist": 0.375,
+          "factored_heldout_vocab": 0.9333333333333333,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9666666666666667,
+          "flat_indist_vocab": 0.08333333333333333,
+          "g_hat_to_g_true_cos": 0.6143680810928345
+        },
+        {
+          "D": 8,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.09166666666666666,
+          "factored_indist": 1.0,
+          "flat_indist": 0.4166666666666667,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.15833333333333333,
+          "g_hat_to_g_true_cos": 0.8957028388977051
+        },
+        {
+          "D": 64,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0,
+          "factored_indist": 1.0,
+          "flat_indist": 0.48333333333333334,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.13333333333333333,
+          "g_hat_to_g_true_cos": 0.9841845035552979
+        }
+      ]
+    }
+  ],
+  "arms_differ_hashes": {
+    "factored_pred_hash": "ba33cea8a8db72260c27e6b29720632f00bdd7e43c93e3786fada61608e5bdec",
+    "flat_pred_hash": "1f4e6f8b11726857955ae6230758721f35d967446e84bd0bf8951b598b35e6ae"
+  },
+  "arms_differ_verified": true,
+  "scaffold_free_witness": {
+    "factored_pred": "GLASS",
+    "flat_pred": "DOG",
+    "witness": "PASS"
+  },
+  "capacity_stress": [
+    {
+      "m": 3,
+      "n_dim": 256,
+      "factored_heldout_present": 1.0,
+      "factored_heldout_vocab": 1.0,
+      "chance": 0.3333333333333333
+    },
+    {
+      "m": 6,
+      "n_dim": 256,
+      "factored_heldout_present": 1.0,
+      "factored_heldout_vocab": 1.0,
+      "chance": 0.16666666666666666
+    },
+    {
+      "m": 10,
+      "n_dim": 256,
+      "factored_heldout_present": 1.0,
+      "factored_heldout_vocab": 1.0,
+      "chance": 0.1
+    }
+  ],
+  "capacity_cliff": {
+    "robust_through_m": 10,
+    "first_drop_m": null,
+    "note": "FHRR unbind readout robust through m=10 simultaneous bindings at N=256; crosstalk cliff begins at m=None. Brain-faithful m=2-6 is far inside capacity (same crosstalk phenomenon as SHRUTI ~10-binding ceiling; same-limit ACCEPT)."
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "notes": "SYNTHETIC MECHANISM-PROOF, not chain-grade capability. HARD_PASS proves native structure-content factorization + LEARNED content-blind g gives compositional generalization in principle; real-text build still required. CLAIM-VET-pending."
+}

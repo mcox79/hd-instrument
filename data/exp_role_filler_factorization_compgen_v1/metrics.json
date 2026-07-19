@@ -1,0 +1,574 @@
+{
+  "anchor_name": "role_filler_factorization_compgen_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | FACTORED heldout=1.000 FLAT heldout=0.003 gap=0.997 | gen_drop F=0.000 flat=0.382 | vocab_learn_delta=0.262 gcos 0.998 (d=0.566) | must_fail=True learn_sig=True chance=0.333",
+  "summary": "HARD_PASS | FACTORED heldout=1.000 FLAT heldout=0.003 gap=0.997 | gen_drop F=0.000 flat=0.382 | vocab_learn_delta=0.262 gcos 0.998 (d=0.566) | must_fail=True learn_sig=True chance=0.333",
+  "elapsed_s": 17.194183899991913,
+  "ts_iso": "2026-07-19T03:27:26.372717+00:00",
+  "config": {
+    "n_dim": 8192,
+    "n_roles": 6,
+    "n_fillers": 24,
+    "m": 3,
+    "held_per_role": 3,
+    "diversity_levels": [
+      2,
+      4,
+      8,
+      32,
+      128,
+      512
+    ],
+    "n_test": 300,
+    "seeds": [
+      7,
+      13,
+      19,
+      23,
+      29
+    ]
+  },
+  "chance": 0.3333333333333333,
+  "aggregate": {
+    "verdict": "HARD_PASS",
+    "chance": 0.3333333333333333,
+    "curve_mean": [
+      {
+        "D": 2,
+        "factored_heldout": 0.8406666666666667,
+        "flat_heldout": 0.31,
+        "factored_indist": 0.8373333333333334,
+        "flat_indist": 0.3473333333333333,
+        "factored_heldout_vocab": 0.738,
+        "flat_heldout_vocab": 0.011333333333333332,
+        "factored_indist_vocab": 0.7433333333333333,
+        "flat_indist_vocab": 0.046,
+        "g_hat_to_g_true_cos": 0.4315542161464691
+      },
+      {
+        "D": 4,
+        "factored_heldout": 0.9986666666666667,
+        "flat_heldout": 0.2833333333333333,
+        "factored_indist": 0.9993333333333333,
+        "flat_indist": 0.35,
+        "factored_heldout_vocab": 0.996,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 0.9953333333333333,
+        "flat_indist_vocab": 0.05066666666666667,
+        "g_hat_to_g_true_cos": 0.6724159359931946
+      },
+      {
+        "D": 8,
+        "factored_heldout": 1.0,
+        "flat_heldout": 0.23066666666666666,
+        "factored_indist": 1.0,
+        "flat_indist": 0.34199999999999997,
+        "factored_heldout_vocab": 1.0,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 0.9986666666666667,
+        "flat_indist_vocab": 0.04466666666666667,
+        "g_hat_to_g_true_cos": 0.825066351890564
+      },
+      {
+        "D": 32,
+        "factored_heldout": 1.0,
+        "flat_heldout": 0.088,
+        "factored_indist": 1.0,
+        "flat_indist": 0.3726666666666667,
+        "factored_heldout_vocab": 1.0,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 1.0,
+        "flat_indist_vocab": 0.04466666666666667,
+        "g_hat_to_g_true_cos": 0.9654381394386291
+      },
+      {
+        "D": 128,
+        "factored_heldout": 1.0,
+        "flat_heldout": 0.009333333333333334,
+        "factored_indist": 1.0,
+        "flat_indist": 0.394,
+        "factored_heldout_vocab": 1.0,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 1.0,
+        "flat_indist_vocab": 0.04733333333333334,
+        "g_hat_to_g_true_cos": 0.9916746377944946
+      },
+      {
+        "D": 512,
+        "factored_heldout": 1.0,
+        "flat_heldout": 0.002666666666666667,
+        "factored_indist": 1.0,
+        "flat_indist": 0.38466666666666666,
+        "factored_heldout_vocab": 1.0,
+        "flat_heldout_vocab": 0.0,
+        "factored_indist_vocab": 1.0,
+        "flat_indist_vocab": 0.050666666666666665,
+        "g_hat_to_g_true_cos": 0.9975677132606506
+      }
+    ],
+    "factored_heldout_hi": 1.0,
+    "flat_heldout_hi": 0.002666666666666667,
+    "gap_heldout_hi": 0.9973333333333333,
+    "factored_indist_hi": 1.0,
+    "flat_indist_hi": 0.38466666666666666,
+    "factored_gen_drop": 0.0,
+    "flat_gen_drop": 0.382,
+    "factored_heldout_vocab_hi": 1.0,
+    "factored_heldout_vocab_lo": 0.738,
+    "learning_curve_delta_vocab": 0.262,
+    "g_hat_cos_delta": 0.5660134971141815,
+    "g_hat_cos_hi": 0.9975677132606506,
+    "learning_signal_present": true,
+    "must_fail_control_fired": true,
+    "can_fail_both_ways": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "curve": [
+        {
+          "D": 2,
+          "factored_heldout": 0.9366666666666666,
+          "flat_heldout": 0.3566666666666667,
+          "factored_indist": 0.91,
+          "flat_indist": 0.37,
+          "factored_heldout_vocab": 0.82,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.8466666666666667,
+          "flat_indist_vocab": 0.06333333333333334,
+          "g_hat_to_g_true_cos": 0.46610116958618164
+        },
+        {
+          "D": 4,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.29,
+          "factored_indist": 1.0,
+          "flat_indist": 0.36666666666666664,
+          "factored_heldout_vocab": 0.9866666666666667,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9933333333333333,
+          "flat_indist_vocab": 0.04666666666666667,
+          "g_hat_to_g_true_cos": 0.6487663984298706
+        },
+        {
+          "D": 8,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.31333333333333335,
+          "factored_indist": 1.0,
+          "flat_indist": 0.32,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.04666666666666667,
+          "g_hat_to_g_true_cos": 0.8373956680297852
+        },
+        {
+          "D": 32,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.1,
+          "factored_indist": 1.0,
+          "flat_indist": 0.38333333333333336,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.04,
+          "g_hat_to_g_true_cos": 0.9658098816871643
+        },
+        {
+          "D": 128,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.006666666666666667,
+          "factored_indist": 1.0,
+          "flat_indist": 0.35,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.04666666666666667,
+          "g_hat_to_g_true_cos": 0.9917271137237549
+        },
+        {
+          "D": 512,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0033333333333333335,
+          "factored_indist": 1.0,
+          "flat_indist": 0.35333333333333333,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.04,
+          "g_hat_to_g_true_cos": 0.9976325631141663
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "curve": [
+        {
+          "D": 2,
+          "factored_heldout": 0.7266666666666667,
+          "flat_heldout": 0.24666666666666667,
+          "factored_indist": 0.8166666666666667,
+          "flat_indist": 0.35333333333333333,
+          "factored_heldout_vocab": 0.6566666666666666,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.71,
+          "flat_indist_vocab": 0.05,
+          "g_hat_to_g_true_cos": 0.40790483355522156
+        },
+        {
+          "D": 4,
+          "factored_heldout": 0.9966666666666667,
+          "flat_heldout": 0.2733333333333333,
+          "factored_indist": 0.9966666666666667,
+          "flat_indist": 0.35,
+          "factored_heldout_vocab": 0.9966666666666667,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9933333333333333,
+          "flat_indist_vocab": 0.05333333333333334,
+          "g_hat_to_g_true_cos": 0.6693356037139893
+        },
+        {
+          "D": 8,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.19666666666666666,
+          "factored_indist": 1.0,
+          "flat_indist": 0.35,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.07666666666666666,
+          "g_hat_to_g_true_cos": 0.824720561504364
+        },
+        {
+          "D": 32,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.07333333333333333,
+          "factored_indist": 1.0,
+          "flat_indist": 0.37333333333333335,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.02,
+          "g_hat_to_g_true_cos": 0.9663822650909424
+        },
+        {
+          "D": 128,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.006666666666666667,
+          "factored_indist": 1.0,
+          "flat_indist": 0.4,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.05,
+          "g_hat_to_g_true_cos": 0.9916415214538574
+        },
+        {
+          "D": 512,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0033333333333333335,
+          "factored_indist": 1.0,
+          "flat_indist": 0.39666666666666667,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.056666666666666664,
+          "g_hat_to_g_true_cos": 0.9975659251213074
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "curve": [
+        {
+          "D": 2,
+          "factored_heldout": 0.9066666666666666,
+          "flat_heldout": 0.38666666666666666,
+          "factored_indist": 0.7966666666666666,
+          "flat_indist": 0.42333333333333334,
+          "factored_heldout_vocab": 0.7366666666666667,
+          "flat_heldout_vocab": 0.056666666666666664,
+          "factored_indist_vocab": 0.6733333333333333,
+          "flat_indist_vocab": 0.05,
+          "g_hat_to_g_true_cos": 0.4127539098262787
+        },
+        {
+          "D": 4,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.39,
+          "factored_indist": 1.0,
+          "flat_indist": 0.31,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9966666666666667,
+          "flat_indist_vocab": 0.04666666666666667,
+          "g_hat_to_g_true_cos": 0.6733390688896179
+        },
+        {
+          "D": 8,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.3233333333333333,
+          "factored_indist": 1.0,
+          "flat_indist": 0.2833333333333333,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.03333333333333333,
+          "g_hat_to_g_true_cos": 0.8322252631187439
+        },
+        {
+          "D": 32,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.09666666666666666,
+          "factored_indist": 1.0,
+          "flat_indist": 0.3433333333333333,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.04,
+          "g_hat_to_g_true_cos": 0.9635259509086609
+        },
+        {
+          "D": 128,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.02,
+          "factored_indist": 1.0,
+          "flat_indist": 0.41,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.03666666666666667,
+          "g_hat_to_g_true_cos": 0.9917430281639099
+        },
+        {
+          "D": 512,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0033333333333333335,
+          "factored_indist": 1.0,
+          "flat_indist": 0.37666666666666665,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.05,
+          "g_hat_to_g_true_cos": 0.9975850582122803
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "curve": [
+        {
+          "D": 2,
+          "factored_heldout": 0.8566666666666667,
+          "flat_heldout": 0.22,
+          "factored_indist": 0.8833333333333333,
+          "flat_indist": 0.2966666666666667,
+          "factored_heldout_vocab": 0.8366666666666667,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.82,
+          "flat_indist_vocab": 0.04,
+          "g_hat_to_g_true_cos": 0.4633082449436188
+        },
+        {
+          "D": 4,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.21666666666666667,
+          "factored_indist": 1.0,
+          "flat_indist": 0.37,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9966666666666667,
+          "flat_indist_vocab": 0.043333333333333335,
+          "g_hat_to_g_true_cos": 0.686633825302124
+        },
+        {
+          "D": 8,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.18666666666666668,
+          "factored_indist": 1.0,
+          "flat_indist": 0.36,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.03333333333333333,
+          "g_hat_to_g_true_cos": 0.8255161643028259
+        },
+        {
+          "D": 32,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.07333333333333333,
+          "factored_indist": 1.0,
+          "flat_indist": 0.4,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.08333333333333333,
+          "g_hat_to_g_true_cos": 0.9650929570198059
+        },
+        {
+          "D": 128,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0,
+          "factored_indist": 1.0,
+          "flat_indist": 0.4166666666666667,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.06333333333333334,
+          "g_hat_to_g_true_cos": 0.9915792346000671
+        },
+        {
+          "D": 512,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0,
+          "factored_indist": 1.0,
+          "flat_indist": 0.45,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.07,
+          "g_hat_to_g_true_cos": 0.9975452423095703
+        }
+      ]
+    },
+    {
+      "seed": 29,
+      "curve": [
+        {
+          "D": 2,
+          "factored_heldout": 0.7766666666666666,
+          "flat_heldout": 0.34,
+          "factored_indist": 0.78,
+          "flat_indist": 0.29333333333333333,
+          "factored_heldout_vocab": 0.64,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.6666666666666666,
+          "flat_indist_vocab": 0.02666666666666667,
+          "g_hat_to_g_true_cos": 0.4077029228210449
+        },
+        {
+          "D": 4,
+          "factored_heldout": 0.9966666666666667,
+          "flat_heldout": 0.24666666666666667,
+          "factored_indist": 1.0,
+          "flat_indist": 0.35333333333333333,
+          "factored_heldout_vocab": 0.9966666666666667,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9966666666666667,
+          "flat_indist_vocab": 0.06333333333333334,
+          "g_hat_to_g_true_cos": 0.6840047836303711
+        },
+        {
+          "D": 8,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.13333333333333333,
+          "factored_indist": 1.0,
+          "flat_indist": 0.39666666666666667,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 0.9933333333333333,
+          "flat_indist_vocab": 0.03333333333333333,
+          "g_hat_to_g_true_cos": 0.8054741024971008
+        },
+        {
+          "D": 32,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.09666666666666666,
+          "factored_indist": 1.0,
+          "flat_indist": 0.36333333333333334,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.04,
+          "g_hat_to_g_true_cos": 0.9663796424865723
+        },
+        {
+          "D": 128,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.013333333333333334,
+          "factored_indist": 1.0,
+          "flat_indist": 0.3933333333333333,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.04,
+          "g_hat_to_g_true_cos": 0.9916822910308838
+        },
+        {
+          "D": 512,
+          "factored_heldout": 1.0,
+          "flat_heldout": 0.0033333333333333335,
+          "factored_indist": 1.0,
+          "flat_indist": 0.3466666666666667,
+          "factored_heldout_vocab": 1.0,
+          "flat_heldout_vocab": 0.0,
+          "factored_indist_vocab": 1.0,
+          "flat_indist_vocab": 0.03666666666666667,
+          "g_hat_to_g_true_cos": 0.997509777545929
+        }
+      ]
+    }
+  ],
+  "arms_differ_hashes": {
+    "factored_pred_hash": "aef50dde1fd06193aeaee28592d186082078d81ac210337391bcec6ab801c63d",
+    "flat_pred_hash": "6cb6d907163e167774cde052114327b475af9f3989c89efc7a305d268e8960c2"
+  },
+  "arms_differ_verified": true,
+  "scaffold_free_witness": {
+    "factored_pred": "GLASS",
+    "flat_pred": "DOG",
+    "witness": "PASS"
+  },
+  "capacity_stress": [
+    {
+      "m": 4,
+      "n_dim": 256,
+      "factored_heldout_present": 1.0,
+      "factored_heldout_vocab": 1.0,
+      "chance": 0.25
+    },
+    {
+      "m": 8,
+      "n_dim": 256,
+      "factored_heldout_present": 1.0,
+      "factored_heldout_vocab": 1.0,
+      "chance": 0.125
+    },
+    {
+      "m": 12,
+      "n_dim": 256,
+      "factored_heldout_present": 1.0,
+      "factored_heldout_vocab": 1.0,
+      "chance": 0.08333333333333333
+    },
+    {
+      "m": 16,
+      "n_dim": 256,
+      "factored_heldout_present": 1.0,
+      "factored_heldout_vocab": 1.0,
+      "chance": 0.0625
+    },
+    {
+      "m": 24,
+      "n_dim": 256,
+      "factored_heldout_present": 0.9866666666666667,
+      "factored_heldout_vocab": 0.9716666666666667,
+      "chance": 0.041666666666666664
+    },
+    {
+      "m": 32,
+      "n_dim": 256,
+      "factored_heldout_present": 0.955,
+      "factored_heldout_vocab": 0.9266666666666666,
+      "chance": 0.03125
+    }
+  ],
+  "capacity_cliff": {
+    "robust_through_m": 24,
+    "first_drop_m": 32,
+    "note": "FHRR unbind readout robust through m=24 simultaneous bindings at N=256; crosstalk cliff begins at m=32. Brain-faithful m=2-6 is far inside capacity (same crosstalk phenomenon as SHRUTI ~10-binding ceiling; same-limit ACCEPT)."
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "notes": "SYNTHETIC MECHANISM-PROOF, not chain-grade capability. HARD_PASS proves native structure-content factorization + LEARNED content-blind g gives compositional generalization in principle; real-text build still required. CLAIM-VET-pending."
+}
