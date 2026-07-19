@@ -1,0 +1,152 @@
+{
+  "anchor_name": "read_bridge_rolefiller_hd_reasoning_map_v1",
+  "verdict": "BRIDGE_REASONS_END_TO_END",
+  "verdict_msg": "HD single 1.000+/-0.000 (sym 1.000); HD multi 1.000+/-0.000 (sym 1.000); HD conj 1.000 (sym 1.000); additive_map recall@1=0.9667 (OK); capacity ceiling=128 facts@N=2048 (Plate~211.0); n_q single/multi/conj=82/82/5",
+  "summary": "BRIDGE_REASONS_END_TO_END: HD single 1.00 multi 1.00 conj 1.00; additive_map 0.9667; cap-ceiling 128",
+  "elapsed_s": 47.35,
+  "ts_iso": "2026-07-19T01:52:27.550031+00:00",
+  "pid": 29508,
+  "seed": 20260718,
+  "n_dim": 2048,
+  "n_seeds": 5,
+  "n_distractors": 200,
+  "symbolic": {
+    "single": 1.0,
+    "multi": 1.0,
+    "conj": 1.0
+  },
+  "fhrr": {
+    "single_mean": 1.0,
+    "single_std": 0.0,
+    "multi_mean": 1.0,
+    "multi_std": 0.0,
+    "conj_mean": 1.0,
+    "conj_std": 0.0
+  },
+  "negative_control": {
+    "wrong_role_single_mean": 0.0,
+    "real_minus_wrong": 1.0,
+    "mechanism_load_bearing": true
+  },
+  "bridge_fidelity_single": 0.0,
+  "capacity": {
+    "curve_mean": {
+      "4": 1.0,
+      "8": 1.0,
+      "16": 1.0,
+      "32": 1.0,
+      "64": 1.0,
+      "128": 0.9703,
+      "192": 0.7677,
+      "256": 0.5687
+    },
+    "ceiling_facts": 128,
+    "plate_bound_est": 211.0,
+    "discriminator_fired": true
+  },
+  "additive_map_probe": {
+    "status": "OK",
+    "n_triples": 30,
+    "n_entities": 39,
+    "n_relations": 20,
+    "k": 32,
+    "recall_at_1": 0.9667
+  },
+  "reader_fidelity": {
+    "n_gold_facts": 30,
+    "n_single": 82,
+    "n_multi": 82,
+    "n_conj": 5,
+    "note": "gold auto-derived from reader tuples; symbolic-answerable by construction"
+  },
+  "n_query": {
+    "single": 82,
+    "multi": 82,
+    "conj": 5
+  },
+  "per_seed": [
+    {
+      "n_single": 82,
+      "n_multi": 82,
+      "n_conj": 5,
+      "sym_single": 82,
+      "sym_multi": 82,
+      "sym_conj": 5,
+      "hd_single": 82,
+      "hd_multi": 82,
+      "hd_conj": 5,
+      "hd_single_wrong": 0
+    },
+    {
+      "n_single": 82,
+      "n_multi": 82,
+      "n_conj": 5,
+      "sym_single": 82,
+      "sym_multi": 82,
+      "sym_conj": 5,
+      "hd_single": 82,
+      "hd_multi": 82,
+      "hd_conj": 5,
+      "hd_single_wrong": 0
+    },
+    {
+      "n_single": 82,
+      "n_multi": 82,
+      "n_conj": 5,
+      "sym_single": 82,
+      "sym_multi": 82,
+      "sym_conj": 5,
+      "hd_single": 82,
+      "hd_multi": 82,
+      "hd_conj": 5,
+      "hd_single_wrong": 0
+    },
+    {
+      "n_single": 82,
+      "n_multi": 82,
+      "n_conj": 5,
+      "sym_single": 82,
+      "sym_multi": 82,
+      "sym_conj": 5,
+      "hd_single": 82,
+      "hd_multi": 82,
+      "hd_conj": 5,
+      "hd_single_wrong": 0
+    },
+    {
+      "n_single": 82,
+      "n_multi": 82,
+      "n_conj": 5,
+      "sym_single": 82,
+      "sym_multi": 82,
+      "sym_conj": 5,
+      "hd_single": 82,
+      "hd_multi": 82,
+      "hd_conj": 5,
+      "hd_single_wrong": 0
+    }
+  ],
+  "arms_differ_verified": true,
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "symbolic",
+    "fhrr",
+    "capacity",
+    "additive_map_probe",
+    "bridge_fidelity_single",
+    "n_query"
+  ],
+  "cited": {
+    "front_end": "exp_read_nested_clause_relative_third_reader_v1",
+    "reasoner_named": "hdlab.additive_map.AdditiveKGMap",
+    "plan": "notes/learned_in_substrate_reader_plan_forms_hd_reasoning_maps_2026-07-18.md"
+  },
+  "caveats": [
+    "CLEAN-SLICE front-end: hand-authored age-appropriate clean narrative; reader errors (the ~0.40 corpus-wide extraction wall) are OUT of scope -- we test the bridge+reasoner, not extraction. Gold auto-derived from the reader's OWN tuples (symbolic ~1.0 by construction).",
+    "SYMBOLIC is the CEILING on a clean toy KB (exact lookup/join). HD matching it single-hop = bridge preserves info; HD composing multi-hop = the reasoner earns its keep. HD does NOT 'beat' symbolic on accuracy here -- that is not the claim.",
+    "TWO binding families: FHRR (multiplicative, ZERO-training) is the reasoning-map the reader's structure maps onto directly; additive_map (TransE additive) is the NAMED reasoner and consumes the tuples-as-triples but REQUIRES a learning step to place coordinates. This learned-vs-zero-training distinction is the load-bearing Stage-2 localization.",
+    "additive_map probe is single-hop FORWARD recall on a small reader-derived KB (memorization regime); reverse/multi-hop in additive_map = its compose_entity path (prior MRR ~0.128), out of scope for this bridge diagnostic.",
+    "Capacity ceiling is the BUNDLED-map crosstalk bound (Plate O(N/log N)); the reasoning map is SHARDED (per META_STORAGE), so realistic-passage reasoning sits well inside the ceiling.",
+    "single-annotator/auto gold; CLAIM-VET-pending (skunkworks landed-VET before fact)."
+  ]
+}
