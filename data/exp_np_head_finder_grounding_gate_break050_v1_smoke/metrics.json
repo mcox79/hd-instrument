@@ -1,0 +1,829 @@
+{
+  "anchor_name": "np_head_finder_grounding_gate_break050_v1",
+  "run_mode": "smoke",
+  "verdict": "PARTIAL_HEADFINDER_RAISES_CANDGEN",
+  "verdict_msg": "PARTIAL_HEADFINDER_RAISES_CANDGEN | slice=L07+L10 n_keptC=29 | AGENT-lens P A=0.759 B1=0.966 B2=0.966 (dP_B2=+0.207) n_frame=29 recall_cost B1=0.000 B2=0.000 | CAND-GEN residual n=7 fixed_b1=6 fixed_b2=6 (fracB2=0.857, b2_only=0) | per-mode CONSTIT n=4 fixG1=3 | CATEG n=3 fixG2=3 | MEMBERSHIP P A=0.350 B1=0.400 B2=0.400 (cited0.489) | hardveto_break=0.000 | nrw_b1=7 nrw_b2=7 wn=True arms_differ=True base_in_band=True discrim=True",
+  "summary": "PARTIAL_HEADFINDER_RAISES_CANDGEN | slice=L07+L10 n_keptC=29 | AGENT-lens P A=0.759 B1=0.966 B2=0.966 (dP_B2=+0.207) n_frame=29 recall_cost B1=0.000 B2=0.000 | CAND-GEN residual n=7 fixed_b1=6 fixed_b2=6 (fracB2=0.857, b2_only=0) | per-mode CONSTIT n=4 fixG1=3 | CATEG n=3 fixG2=3 | MEMBERSHIP P A=0.350 B1=0.400 B2=0.400 (cited0.489) | hardveto_break=0.000 | nrw_b1=7 nrw_b2=7 wn=True arms_differ=True base_in_band=True discrim=True",
+  "elapsed_s": 3.8201180000032764,
+  "ts_iso": "2026-07-19T10:26:57.910923+00:00",
+  "config": {
+    "slice_lessons": [
+      "L07",
+      "L10"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 40,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7
+  },
+  "verdict_detail": {
+    "verdict": "PARTIAL_HEADFINDER_RAISES_CANDGEN",
+    "class_fixed_frac_b2": 0.8571,
+    "recall_cost_b2": 0.0,
+    "agent_precision_delta_b2_minus_a": 0.2069,
+    "membership_moves_past_0489": false,
+    "n_candidate_gen_residual": 7,
+    "n_fixed_b1": 6,
+    "n_fixed_b2": 6,
+    "n_fixed_b2_only": 0,
+    "class_fixed_frac_b1": 0.8571
+  },
+  "agent_lens": {
+    "n_frame": 29,
+    "precision_A": 0.7586,
+    "precision_B1": 0.9655,
+    "precision_B2": 0.9655,
+    "n_correct_A": 22,
+    "recall_break_B1": 0,
+    "recall_break_B2": 0,
+    "recall_cost_B1": 0.0,
+    "recall_cost_B2": 0.0,
+    "candidate_gen_residual": {
+      "n_residual": 7,
+      "n_fixed_b1": 6,
+      "n_fixed_b2": 6,
+      "n_fixed_b2_only": 0,
+      "class_fixed_frac_b1": 0.8571,
+      "class_fixed_frac_b2": 0.8571,
+      "per_mode": {
+        "WRONG_CONSTITUENT": {
+          "n": 4,
+          "fixed_b1": 3,
+          "fixed_b2": 3
+        },
+        "WRONG_CATEGORY": {
+          "n": 3,
+          "fixed_b1": 3,
+          "fixed_b2": 3
+        },
+        "OTHER": {
+          "n": 0,
+          "fixed_b1": 0,
+          "fixed_b2": 0
+        }
+      }
+    }
+  },
+  "membership_lens": {
+    "A": {
+      "A_n_true": 14,
+      "A_n_mem": 40,
+      "A_precision": 0.35,
+      "B_n_true": 14,
+      "B_n_mem": 40,
+      "B_precision": 0.35
+    },
+    "B1": {
+      "A_n_true": 14,
+      "A_n_mem": 40,
+      "A_precision": 0.35,
+      "B_n_true": 14,
+      "B_n_mem": 35,
+      "B_precision": 0.4
+    },
+    "B2": {
+      "A_n_true": 14,
+      "A_n_mem": 40,
+      "A_precision": 0.35,
+      "B_n_true": 14,
+      "B_n_mem": 35,
+      "B_precision": 0.4
+    },
+    "cited_ceiling": 0.489
+  },
+  "hardveto_simulation": {
+    "correct_agents_broken_by_hardveto": 0,
+    "n_correct_agents": 22,
+    "hardveto_recall_break_frac": 0.0,
+    "examples": []
+  },
+  "metonymy_probe": {
+    "available": true,
+    "sentence": "The White House announced the plan.",
+    "coerced_agent": "house",
+    "grounding_score_house": 1.0,
+    "graded_gate_head": "house",
+    "graded_method": "identity",
+    "graded_keeps_agent": true,
+    "note": "graded Gate-2 keeps 'house' (institutional/coerced entity) since it is a valid grounded structural subject; a HARD entity-vs-abstraction veto would wrongly prune it."
+  },
+  "lccp_summary": {
+    "A_precision_lccp": 0.1667,
+    "C_precision_lccp": 0.4483,
+    "n_keptC": 29,
+    "n_reader_svo": 90
+  },
+  "n_heads_rewritten_b1": 7,
+  "n_heads_rewritten_b2": 7,
+  "wordnet_available": true,
+  "wordnet_error": null,
+  "arms_differ_verified": true,
+  "arms_differ_hashes": {
+    "A": "136917a33f51cb29",
+    "B1": "299db17630e574e4",
+    "B2": "299db17630e574e4"
+  },
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "wrong_head_pruned_and_refixed": {
+      "sid": "L07_04",
+      "v": "spend",
+      "a_agent": "fields",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    "true_head_kept_unchanged": {
+      "sid": "L07_07",
+      "v": "tell",
+      "agent": "mother",
+      "a_ground": 1.0,
+      "kept_unchanged": true
+    },
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "candidate_gen_residual_dump": [
+    {
+      "sid": "L07_04",
+      "v": "spend",
+      "a_agent": "fields",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L07_06",
+      "v": "say",
+      "a_agent": "tell",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L07_09",
+      "v": "meet",
+      "a_agent": "there",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L07_25",
+      "v": "obey",
+      "a_agent": "regular",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L10_05",
+      "v": "stand",
+      "a_agent": "bank",
+      "b1_head": "who",
+      "b2_head": "who",
+      "gold": [
+        "hut"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": false,
+      "fixed_b2": false,
+      "method_b1": "gate1_inversion",
+      "method_b2": "gate2_inversion"
+    },
+    {
+      "sid": "L10_11",
+      "v": "make",
+      "a_agent": "table",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "joe"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L10_42",
+      "v": "come",
+      "a_agent": "boy",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    }
+  ],
+  "agent_lens_per_instance_dump": [
+    {
+      "sid": "L07_04",
+      "v": "spend",
+      "a_agent": "fields",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_06",
+      "v": "say",
+      "a_agent": "tell",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_07",
+      "v": "tell",
+      "a_agent": "mother",
+      "b1_head": "mother",
+      "b2_head": "mother",
+      "gold": [
+        "mother"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L07_09",
+      "v": "meet",
+      "a_agent": "there",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_13",
+      "v": "struggle",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L07_20",
+      "v": "see",
+      "a_agent": "men",
+      "b1_head": "men",
+      "b2_head": "men",
+      "gold": [
+        "men"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_21",
+      "v": "reach",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "men",
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_25",
+      "v": "obey",
+      "a_agent": "regular",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_03",
+      "v": "tell",
+      "a_agent": "rose",
+      "b1_head": "rose",
+      "b2_head": "rose",
+      "gold": [
+        "rose"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.7167,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_05",
+      "v": "stand",
+      "a_agent": "bank",
+      "b1_head": "who",
+      "b2_head": "who",
+      "gold": [
+        "hut"
+      ],
+      "okA": false,
+      "okB1": false,
+      "okB2": false,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_inversion",
+      "method_b2": "gate2_inversion",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_06",
+      "v": "keep",
+      "a_agent": "wife",
+      "b1_head": "wife",
+      "b2_head": "wife",
+      "gold": [
+        "wife"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_09",
+      "v": "teach",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_10",
+      "v": "call",
+      "a_agent": "charles",
+      "b1_head": "charles",
+      "b2_head": "charles",
+      "gold": [
+        "charles"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_11",
+      "v": "find",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "charles",
+        "he"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_11",
+      "v": "make",
+      "a_agent": "table",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "joe"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_14",
+      "v": "make",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "charles",
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_15",
+      "v": "teach",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "charles",
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_16",
+      "v": "give",
+      "a_agent": "father",
+      "b1_head": "father",
+      "b2_head": "father",
+      "gold": [
+        "father"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_18",
+      "v": "tell",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_19",
+      "v": "come",
+      "a_agent": "hour",
+      "b1_head": "hour",
+      "b2_head": "hour",
+      "gold": [
+        "hour"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_26",
+      "v": "see",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_29",
+      "v": "tell",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_30",
+      "v": "leave",
+      "a_agent": "gentleman",
+      "b1_head": "gentleman",
+      "b2_head": "gentleman",
+      "gold": [
+        "gentleman"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_34",
+      "v": "think",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_36",
+      "v": "put",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "rose"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_37",
+      "v": "meet",
+      "a_agent": "sight",
+      "b1_head": "sight",
+      "b2_head": "sight",
+      "gold": [
+        "sight"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_38",
+      "v": "rule",
+      "a_agent": "charles",
+      "b1_head": "charles",
+      "b2_head": "charles",
+      "gold": [
+        "charles"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_41",
+      "v": "give",
+      "a_agent": "father",
+      "b1_head": "father",
+      "b2_head": "father",
+      "gold": [
+        "father"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_42",
+      "v": "come",
+      "a_agent": "boy",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "nopat"
+    }
+  ],
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json -- single-annotator gold; AGENT lens = gold pos {agent}|refs UNION nopat {agent} per (sid, verb); MEMBERSHIP lens = assembled cell content-membership ceiling (0.489).",
+  "reused_components": {
+    "lccp_parser": "exp_learned_argstruct_parser_lccp_independent_gold_v1 (arm-C, byte-identical)",
+    "pos_tagger": "exp_oracle_mention_upperbound_reader_v1.pos_tag_sentence (byte-identical)",
+    "gold_agentsets": "exp_attachment_coref_lever_lccp_break050_v1.load_gold_agentsets",
+    "membership_scorer": "exp_role_filler_factorization_assembled_reading_axis_v1 via ACL (atom 29340)",
+    "grounding_lexicon": "WordNet (nltk) hypernym-root physical_entity/abstraction + lexname (graded)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_detail",
+    "agent_lens",
+    "membership_lens",
+    "candidate_gen_residual_dump",
+    "scaffold_free_witness",
+    "hardveto_simulation"
+  ],
+  "notes": "NP-HEAD-FINDER break-0.50 candidate-gen lever: replace the FUNC_JUNK blocklist with a 2-gate head-finder (Gate-1 structural head-position; Gate-2 GRADED WordNet grounding, NOT hard-veto) over LCCP arm-C agent candidate gen vs INDEPENDENT gold. HARD_PASS = B2 fixes >=0.40 of the residual (recall_cost<=0.05, dP>=0.05, membership>0.489); PARTIAL = 0.10-0.40 (real partial step); HARD_FAIL = <0.10 fixed OR recall_cost>0.10 (over-prune/not-separable). This attacks ONLY candidate generation; the SUBCAT-licensing lever is SEPARATE (not this cell). Gate-2 GRADED (hardveto_simulation measures the metonymy brittleness avoided). CLAIM-VET-pending; single-annotator gold + small-n caveated; per-instance dump provided."
+}

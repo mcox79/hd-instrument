@@ -1,0 +1,1556 @@
+{
+  "anchor_name": "np_head_finder_grounding_gate_break050_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_HEADFINDER_BREAKS_050",
+  "verdict_msg": "HARD_PASS_HEADFINDER_BREAKS_050 | slice=L04+L05+L07+L08+L09+L10+L12 n_keptC=68 | AGENT-lens P A=0.812 B1=0.938 B2=0.938 (dP_B2=+0.125) n_frame=64 recall_cost B1=0.038 B2=0.038 | CAND-GEN residual n=12 fixed_b1=10 fixed_b2=10 (fracB2=0.833, b2_only=0) | per-mode CONSTIT n=5 fixG1=5 | CATEG n=6 fixG2=5 | MEMBERSHIP P A=0.489 B1=0.506 B2=0.506 (cited0.489) | hardveto_break=0.000 | nrw_b1=14 nrw_b2=14 wn=True arms_differ=True base_in_band=True discrim=True",
+  "summary": "HARD_PASS_HEADFINDER_BREAKS_050 | slice=L04+L05+L07+L08+L09+L10+L12 n_keptC=68 | AGENT-lens P A=0.812 B1=0.938 B2=0.938 (dP_B2=+0.125) n_frame=64 recall_cost B1=0.038 B2=0.038 | CAND-GEN residual n=12 fixed_b1=10 fixed_b2=10 (fracB2=0.833, b2_only=0) | per-mode CONSTIT n=5 fixG1=5 | CATEG n=6 fixG2=5 | MEMBERSHIP P A=0.489 B1=0.506 B2=0.506 (cited0.489) | hardveto_break=0.000 | nrw_b1=14 nrw_b2=14 wn=True arms_differ=True base_in_band=True discrim=True",
+  "elapsed_s": 15.012597500026459,
+  "ts_iso": "2026-07-19T10:31:54.580653+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7
+  },
+  "verdict_detail": {
+    "verdict": "HARD_PASS_HEADFINDER_BREAKS_050",
+    "class_fixed_frac_b2": 0.8333,
+    "recall_cost_b2": 0.0385,
+    "agent_precision_delta_b2_minus_a": 0.125,
+    "membership_moves_past_0489": true,
+    "n_candidate_gen_residual": 12,
+    "n_fixed_b1": 10,
+    "n_fixed_b2": 10,
+    "n_fixed_b2_only": 0,
+    "class_fixed_frac_b1": 0.8333
+  },
+  "agent_lens": {
+    "n_frame": 64,
+    "precision_A": 0.8125,
+    "precision_B1": 0.9375,
+    "precision_B2": 0.9375,
+    "n_correct_A": 52,
+    "recall_break_B1": 2,
+    "recall_break_B2": 2,
+    "recall_cost_B1": 0.0385,
+    "recall_cost_B2": 0.0385,
+    "candidate_gen_residual": {
+      "n_residual": 12,
+      "n_fixed_b1": 10,
+      "n_fixed_b2": 10,
+      "n_fixed_b2_only": 0,
+      "class_fixed_frac_b1": 0.8333,
+      "class_fixed_frac_b2": 0.8333,
+      "per_mode": {
+        "WRONG_CONSTITUENT": {
+          "n": 5,
+          "fixed_b1": 5,
+          "fixed_b2": 5
+        },
+        "WRONG_CATEGORY": {
+          "n": 6,
+          "fixed_b1": 5,
+          "fixed_b2": 5
+        },
+        "OTHER": {
+          "n": 1,
+          "fixed_b1": 0,
+          "fixed_b2": 0
+        }
+      }
+    }
+  },
+  "membership_lens": {
+    "A": {
+      "A_n_true": 46,
+      "A_n_mem": 94,
+      "A_precision": 0.4894,
+      "B_n_true": 46,
+      "B_n_mem": 94,
+      "B_precision": 0.4894
+    },
+    "B1": {
+      "A_n_true": 46,
+      "A_n_mem": 94,
+      "A_precision": 0.4894,
+      "B_n_true": 44,
+      "B_n_mem": 87,
+      "B_precision": 0.5057
+    },
+    "B2": {
+      "A_n_true": 46,
+      "A_n_mem": 94,
+      "A_precision": 0.4894,
+      "B_n_true": 44,
+      "B_n_mem": 87,
+      "B_precision": 0.5057
+    },
+    "cited_ceiling": 0.489
+  },
+  "hardveto_simulation": {
+    "correct_agents_broken_by_hardveto": 0,
+    "n_correct_agents": 52,
+    "hardveto_recall_break_frac": 0.0,
+    "examples": []
+  },
+  "metonymy_probe": {
+    "available": true,
+    "sentence": "The White House announced the plan.",
+    "coerced_agent": "house",
+    "grounding_score_house": 1.0,
+    "graded_gate_head": "house",
+    "graded_method": "identity",
+    "graded_keeps_agent": true,
+    "note": "graded Gate-2 keeps 'house' (institutional/coerced entity) since it is a valid grounded structural subject; a HARD entity-vs-abstraction veto would wrongly prune it."
+  },
+  "lccp_summary": {
+    "A_precision_lccp": 0.1956,
+    "C_precision_lccp": 0.5,
+    "n_keptC": 68,
+    "n_reader_svo": 225
+  },
+  "n_heads_rewritten_b1": 14,
+  "n_heads_rewritten_b2": 14,
+  "wordnet_available": true,
+  "wordnet_error": null,
+  "arms_differ_verified": true,
+  "arms_differ_hashes": {
+    "A": "63a8ff5acc94db22",
+    "B1": "55e73cde8c8a5494",
+    "B2": "55e73cde8c8a5494"
+  },
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "wrong_head_pruned_and_refixed": {
+      "sid": "L07_04",
+      "v": "spend",
+      "a_agent": "fields",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    "true_head_kept_unchanged": {
+      "sid": "L04_02",
+      "v": "rub",
+      "agent": "cat",
+      "a_ground": 1.0,
+      "kept_unchanged": true
+    },
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "candidate_gen_residual_dump": [
+    {
+      "sid": "L04_16",
+      "v": "say",
+      "a_agent": "boy",
+      "b1_head": "papa",
+      "b2_head": "papa",
+      "gold": [
+        "papa"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_inversion",
+      "method_b2": "gate2_inversion"
+    },
+    {
+      "sid": "L05_15",
+      "v": "build",
+      "a_agent": "down",
+      "b1_head": "i'll",
+      "b2_head": "i'll",
+      "gold": [
+        "you"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.7167,
+      "fixed_b1": false,
+      "fixed_b2": false,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L07_04",
+      "v": "spend",
+      "a_agent": "fields",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L07_06",
+      "v": "say",
+      "a_agent": "tell",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L07_09",
+      "v": "meet",
+      "a_agent": "there",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L07_25",
+      "v": "obey",
+      "a_agent": "regular",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L09_20",
+      "v": "leave",
+      "a_agent": "so",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "gentleman",
+        "he"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L10_05",
+      "v": "stand",
+      "a_agent": "bank",
+      "b1_head": "hut",
+      "b2_head": "hut",
+      "gold": [
+        "hut"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_inversion",
+      "method_b2": "gate2_inversion"
+    },
+    {
+      "sid": "L10_11",
+      "v": "make",
+      "a_agent": "table",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "joe"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L10_42",
+      "v": "come",
+      "a_agent": "boy",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    },
+    {
+      "sid": "L12_03",
+      "v": "say",
+      "a_agent": "mother",
+      "b1_head": "mother",
+      "b2_head": "mother",
+      "gold": [
+        "he"
+      ],
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "fixed_b1": false,
+      "fixed_b2": false,
+      "method_b1": "identity",
+      "method_b2": "identity"
+    },
+    {
+      "sid": "L12_12",
+      "v": "say",
+      "a_agent": "then",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "fixed_b1": true,
+      "fixed_b2": true,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural"
+    }
+  ],
+  "agent_lens_per_instance_dump": [
+    {
+      "sid": "L04_02",
+      "v": "rub",
+      "a_agent": "cat",
+      "b1_head": "cat",
+      "b2_head": "cat",
+      "gold": [
+        "cat",
+        "pussy"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L04_04",
+      "v": "pass",
+      "a_agent": "it",
+      "b1_head": "it",
+      "b2_head": "it",
+      "gold": [
+        "it"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L04_11",
+      "v": "open",
+      "a_agent": "papa",
+      "b1_head": "papa",
+      "b2_head": "papa",
+      "gold": [
+        "he",
+        "papa"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L04_15",
+      "v": "come",
+      "a_agent": "boy",
+      "b1_head": "boy",
+      "b2_head": "boy",
+      "gold": [
+        "boy"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L04_16",
+      "v": "say",
+      "a_agent": "boy",
+      "b1_head": "papa",
+      "b2_head": "papa",
+      "gold": [
+        "papa"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_inversion",
+      "method_b2": "gate2_inversion",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L04_18",
+      "v": "hear",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i",
+        "papa"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L04_19",
+      "v": "nod",
+      "a_agent": "herbert",
+      "b1_head": "herbert",
+      "b2_head": "herbert",
+      "gold": [
+        "he",
+        "herbert"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L04_19",
+      "v": "sit",
+      "a_agent": "papa",
+      "b1_head": "papa",
+      "b2_head": "papa",
+      "gold": [
+        "papa"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L04_19",
+      "v": "show",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i",
+        "papa"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L05_06",
+      "v": "knock",
+      "a_agent": "pussy",
+      "b1_head": "pussy",
+      "b2_head": "pussy",
+      "gold": [
+        "cat",
+        "pussy"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L05_15",
+      "v": "build",
+      "a_agent": "down",
+      "b1_head": "i'll",
+      "b2_head": "i'll",
+      "gold": [
+        "you"
+      ],
+      "okA": false,
+      "okB1": false,
+      "okB2": false,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.7167,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L05_22",
+      "v": "see",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L05_24",
+      "v": "leave",
+      "a_agent": "papa",
+      "b1_head": "papa",
+      "b2_head": "papa",
+      "gold": [
+        "he",
+        "papa"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_04",
+      "v": "spend",
+      "a_agent": "fields",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_06",
+      "v": "say",
+      "a_agent": "tell",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_07",
+      "v": "tell",
+      "a_agent": "mother",
+      "b1_head": "mother",
+      "b2_head": "mother",
+      "gold": [
+        "mother"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L07_09",
+      "v": "meet",
+      "a_agent": "there",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_13",
+      "v": "struggle",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L07_20",
+      "v": "see",
+      "a_agent": "men",
+      "b1_head": "men",
+      "b2_head": "men",
+      "gold": [
+        "men"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_21",
+      "v": "reach",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "men",
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L07_25",
+      "v": "obey",
+      "a_agent": "regular",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "james"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L08_01",
+      "v": "stroke",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L08_02",
+      "v": "choose",
+      "a_agent": "kitten",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "kitten"
+      ],
+      "okA": true,
+      "okB1": false,
+      "okB2": false,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L08_02",
+      "v": "hear",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L08_02",
+      "v": "open",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L08_02",
+      "v": "say",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L08_08",
+      "v": "choose",
+      "a_agent": "children",
+      "b1_head": "children",
+      "b2_head": "children",
+      "gold": [
+        "children"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L09_03",
+      "v": "lie",
+      "a_agent": "fur",
+      "b1_head": "fur",
+      "b2_head": "fur",
+      "gold": [
+        "fur"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L09_04",
+      "v": "build",
+      "a_agent": "beavers",
+      "b1_head": "beavers",
+      "b2_head": "beavers",
+      "gold": [
+        "beavers",
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L09_05",
+      "v": "build",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "beavers",
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L09_06",
+      "v": "build",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L09_11",
+      "v": "commence",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L09_12",
+      "v": "make",
+      "a_agent": "freezing",
+      "b1_head": "freezing",
+      "b2_head": "freezing",
+      "gold": [
+        "freezing"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.7,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L09_13",
+      "v": "obtain",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "beavers",
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L09_16",
+      "v": "hunt",
+      "a_agent": "men",
+      "b1_head": "men",
+      "b2_head": "men",
+      "gold": [
+        "men"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L09_17",
+      "v": "see",
+      "a_agent": "gentleman",
+      "b1_head": "gentleman",
+      "b2_head": "gentleman",
+      "gold": [
+        "gentleman"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L09_20",
+      "v": "leave",
+      "a_agent": "so",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "gentleman",
+        "he"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_03",
+      "v": "tell",
+      "a_agent": "rose",
+      "b1_head": "rose",
+      "b2_head": "rose",
+      "gold": [
+        "rose"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.7167,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_05",
+      "v": "stand",
+      "a_agent": "bank",
+      "b1_head": "hut",
+      "b2_head": "hut",
+      "gold": [
+        "hut"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_inversion",
+      "method_b2": "gate2_inversion",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_06",
+      "v": "keep",
+      "a_agent": "wife",
+      "b1_head": "wife",
+      "b2_head": "wife",
+      "gold": [
+        "wife"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_10",
+      "v": "call",
+      "a_agent": "charles",
+      "b1_head": "charles",
+      "b2_head": "charles",
+      "gold": [
+        "charles"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_11",
+      "v": "make",
+      "a_agent": "table",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "joe"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_14",
+      "v": "make",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "charles",
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_18",
+      "v": "tell",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_19",
+      "v": "come",
+      "a_agent": "hour",
+      "b1_head": "hour",
+      "b2_head": "hour",
+      "gold": [
+        "hour"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_26",
+      "v": "see",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_29",
+      "v": "tell",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_30",
+      "v": "leave",
+      "a_agent": "gentleman",
+      "b1_head": "gentleman",
+      "b2_head": "gentleman",
+      "gold": [
+        "gentleman"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_36",
+      "v": "put",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he",
+        "rose"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_37",
+      "v": "meet",
+      "a_agent": "sight",
+      "b1_head": "sight",
+      "b2_head": "sight",
+      "gold": [
+        "sight"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L10_38",
+      "v": "rule",
+      "a_agent": "charles",
+      "b1_head": "charles",
+      "b2_head": "charles",
+      "gold": [
+        "charles"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_41",
+      "v": "give",
+      "a_agent": "father",
+      "b1_head": "father",
+      "b2_head": "father",
+      "gold": [
+        "father"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L10_42",
+      "v": "come",
+      "a_agent": "boy",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L12_03",
+      "v": "say",
+      "a_agent": "mother",
+      "b1_head": "mother",
+      "b2_head": "mother",
+      "gold": [
+        "he"
+      ],
+      "okA": false,
+      "okB1": false,
+      "okB2": false,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L12_04",
+      "v": "invite",
+      "a_agent": "gardener",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "gardener"
+      ],
+      "okA": true,
+      "okB1": false,
+      "okB2": false,
+      "mode": "WRONG_CONSTITUENT",
+      "a_ground": 1.0,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "pos"
+    },
+    {
+      "sid": "L12_04",
+      "v": "wish",
+      "a_agent": "i",
+      "b1_head": "i",
+      "b2_head": "i",
+      "gold": [
+        "i"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.4333,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L12_05",
+      "v": "thank",
+      "a_agent": "mother",
+      "b1_head": "mother",
+      "b2_head": "mother",
+      "gold": [
+        "mother"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L12_06",
+      "v": "walk",
+      "a_agent": "frank",
+      "b1_head": "frank",
+      "b2_head": "frank",
+      "gold": [
+        "frank"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L12_09",
+      "v": "show",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "gardener",
+        "he"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L12_10",
+      "v": "admire",
+      "a_agent": "frank",
+      "b1_head": "frank",
+      "b2_head": "frank",
+      "gold": [
+        "frank"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L12_12",
+      "v": "say",
+      "a_agent": "then",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": false,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.15,
+      "method_b1": "gate1_structural",
+      "method_b2": "gate2_structural",
+      "frame": "nopat"
+    },
+    {
+      "sid": "L12_15",
+      "v": "continue",
+      "a_agent": "he",
+      "b1_head": "he",
+      "b2_head": "he",
+      "gold": [
+        "he"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 0.575,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L12_15",
+      "v": "enjoy",
+      "a_agent": "mother",
+      "b1_head": "mother",
+      "b2_head": "mother",
+      "gold": [
+        "he",
+        "mother"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "OTHER",
+      "a_ground": 1.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "pos"
+    },
+    {
+      "sid": "L12_16",
+      "v": "leave",
+      "a_agent": "they",
+      "b1_head": "they",
+      "b2_head": "they",
+      "gold": [
+        "they"
+      ],
+      "okA": true,
+      "okB1": true,
+      "okB2": true,
+      "mode": "WRONG_CATEGORY",
+      "a_ground": 0.0,
+      "method_b1": "identity",
+      "method_b2": "identity",
+      "frame": "nopat"
+    }
+  ],
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json -- single-annotator gold; AGENT lens = gold pos {agent}|refs UNION nopat {agent} per (sid, verb); MEMBERSHIP lens = assembled cell content-membership ceiling (0.489).",
+  "reused_components": {
+    "lccp_parser": "exp_learned_argstruct_parser_lccp_independent_gold_v1 (arm-C, byte-identical)",
+    "pos_tagger": "exp_oracle_mention_upperbound_reader_v1.pos_tag_sentence (byte-identical)",
+    "gold_agentsets": "exp_attachment_coref_lever_lccp_break050_v1.load_gold_agentsets",
+    "membership_scorer": "exp_role_filler_factorization_assembled_reading_axis_v1 via ACL (atom 29340)",
+    "grounding_lexicon": "WordNet (nltk) hypernym-root physical_entity/abstraction + lexname (graded)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_detail",
+    "agent_lens",
+    "membership_lens",
+    "candidate_gen_residual_dump",
+    "scaffold_free_witness",
+    "hardveto_simulation"
+  ],
+  "notes": "NP-HEAD-FINDER break-0.50 candidate-gen lever: replace the FUNC_JUNK blocklist with a 2-gate head-finder (Gate-1 structural head-position; Gate-2 GRADED WordNet grounding, NOT hard-veto) over LCCP arm-C agent candidate gen vs INDEPENDENT gold. HARD_PASS = B2 fixes >=0.40 of the residual (recall_cost<=0.05, dP>=0.05, membership>0.489); PARTIAL = 0.10-0.40 (real partial step); HARD_FAIL = <0.10 fixed OR recall_cost>0.10 (over-prune/not-separable). This attacks ONLY candidate generation; the SUBCAT-licensing lever is SEPARATE (not this cell). Gate-2 GRADED (hardveto_simulation measures the metonymy brittleness avoided). CLAIM-VET-pending; single-annotator gold + small-n caveated; per-instance dump provided."
+}
