@@ -1,0 +1,20 @@
+[
+  {"pid": "L02", "head": "boy", "cue": "boy who never had seen a snowstorm", "embedded_verb": "seen", "embedded_obj": "snowstorm", "matrix_verb": null, "forbid_misattach": null, "note": "subject-RC: boy [had] seen a snowstorm"},
+  {"pid": "L09", "head": "men", "cue": "men who hunt these animals", "embedded_verb": "hunt", "embedded_obj": "animals", "matrix_verb": "called", "forbid_misattach": null, "note": "subject-RC: men hunt animals; matrix men are called trappers"},
+  {"pid": "L09", "head": "fur", "cue": "fur that lies next the skin", "embedded_verb": "lies", "embedded_obj": "skin", "matrix_verb": null, "forbid_misattach": null, "note": "subject-RC: fur lies next the skin; matrix copular"},
+  {"pid": "L18", "head": "merchant", "cue": "merchant who gave her the note", "embedded_verb": "gave", "embedded_obj": "note", "matrix_verb": null, "forbid_misattach": null, "note": "object-RC: merchant gave (her) the note"},
+  {"pid": "L30", "head": "boys", "cue": "boys who had called henry a coward", "embedded_verb": "called", "embedded_obj": "henry", "matrix_verb": "got", "forbid_misattach": null, "note": "subject-RC: boys called henry; matrix boys got out"},
+  {"pid": "L39", "head": "clock", "cue": "clock which kept good time", "embedded_verb": "kept", "embedded_obj": "time", "matrix_verb": null, "forbid_misattach": ["made", "time"], "note": "object-RC: clock kept time; flat must not attach time to made"},
+  {"pid": "L45", "head": "brook", "cue": "brook that springs from rock", "embedded_verb": "springs", "embedded_obj": null, "matrix_verb": null, "forbid_misattach": null, "note": "subject-RC intransitive: brook springs"},
+  {"pid": "L48", "head": "flower", "cue": "flower that blows", "embedded_verb": "blows", "embedded_obj": null, "matrix_verb": null, "forbid_misattach": null, "note": "object-RC intransitive: flower blows"},
+  {"pid": "L49", "head": "apples", "cue": "apples which grew on the only tree", "embedded_verb": "grew", "embedded_obj": "tree", "matrix_verb": null, "forbid_misattach": null, "note": "object-RC: apples grew on the tree"},
+  {"pid": "L14", "head": "bird", "cue": "bird that made th", "embedded_verb": "made", "embedded_obj": "melody", "matrix_verb": null, "forbid_misattach": ["see", "melody"], "note": "object-RC: bird made the melody; flat must not attach melody to see"},
+  {"pid": "L16", "head": "god", "cue": "god who cares for them", "embedded_verb": "cares", "embedded_obj": "them", "matrix_verb": null, "forbid_misattach": null, "note": "object-RC: god cares for them"},
+  {"pid": "L21", "head": "color", "cue": "color that adorn its breast", "embedded_verb": "adorn", "embedded_obj": "breast", "matrix_verb": null, "forbid_misattach": null, "note": "subject-RC: (shades of) color adorn its breast"},
+  {"pid": "L29", "head": "god", "cue": "god who watches", "embedded_verb": "watches", "embedded_obj": null, "matrix_verb": null, "forbid_misattach": null, "note": "object-RC: god watches over us"},
+  {"pid": "L38", "head": "boughs", "cue": "boughs that bend", "embedded_verb": "bend", "embedded_obj": null, "matrix_verb": null, "forbid_misattach": null, "note": "subject-RC intransitive: boughs bend"},
+  {"pid": "L44", "head": "one", "cue": "one who can break this b", "embedded_verb": "break", "embedded_obj": "bundle", "matrix_verb": null, "forbid_misattach": null, "note": "object-RC: the one who can break this bundle"},
+  {"pid": "L54", "head": "child", "cue": "child that was walking on the shore", "embedded_verb": "walking", "embedded_obj": null, "matrix_verb": null, "forbid_misattach": null, "note": "object-RC: heard a child that was walking"},
+  {"pid": "L34", "head": "village", "cue": "village in which she lived", "embedded_verb": "lived", "embedded_obj": null, "matrix_verb": null, "forbid_misattach": null, "note": "pied-piping RC: village in which she lived"},
+  {"pid": "L03", "head": "cows", "cue": "poor h", "embedded_verb": "give", "embedded_obj": "milk", "matrix_verb": null, "forbid_misattach": null, "note": "subject-RC: cows that give so much nice milk"}
+]

@@ -1,0 +1,502 @@
+{
+  "anchor_name": "read_nested_clause_relative_third_reader_v1",
+  "verdict": "NEST_RESOLVES_EMBEDDING",
+  "verdict_msg": "transitive-RC-attach flat 2/12 (0.1667) -> nest 12/12 (1.0); delta=83.33pt; intransitive_recovered=4/6 (flat-inexpressible); depth2_fid=1.0; nonRC_touched=0; deixis_ok=True",
+  "summary": "NEST_RESOLVES_EMBEDDING: transitive-RC delta 83.33pt, +4 intransitive, depth2 1.0",
+  "elapsed_s": 298.94,
+  "ts_iso": "2026-07-19T01:14:22.428149+00:00",
+  "pid": 24680,
+  "seed": 20260718,
+  "n_lessons": 79,
+  "n_rc_sites": 73,
+  "n_rc_pids": 47,
+  "attachment_flat": {
+    "n": 18,
+    "transitive_n": 12,
+    "transitive_correct": 2,
+    "transitive_frac": 0.1667,
+    "intransitive_n": 6,
+    "intransitive_correct": 0,
+    "intransitive_frac": 0.0,
+    "per": [
+      {
+        "pid": "L02",
+        "head": "boy",
+        "cue": "boy who never had seen a snowstorm",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L09",
+        "head": "men",
+        "cue": "men who hunt these animals",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L09",
+        "head": "fur",
+        "cue": "fur that lies next the skin",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L18",
+        "head": "merchant",
+        "cue": "merchant who gave her the note",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L30",
+        "head": "boys",
+        "cue": "boys who had called henry a coward",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L39",
+        "head": "clock",
+        "cue": "clock which kept good time",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": false,
+        "transitive": true
+      },
+      {
+        "pid": "L45",
+        "head": "brook",
+        "cue": "brook that springs from rock",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L48",
+        "head": "flower",
+        "cue": "flower that blows",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L49",
+        "head": "apples",
+        "cue": "apples which grew on the only tree",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L14",
+        "head": "bird",
+        "cue": "bird that made th",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L16",
+        "head": "god",
+        "cue": "god who cares for them",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L21",
+        "head": "color",
+        "cue": "color that adorn its breast",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L29",
+        "head": "god",
+        "cue": "god who watches",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L38",
+        "head": "boughs",
+        "cue": "boughs that bend",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L44",
+        "head": "one",
+        "cue": "one who can break this b",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L54",
+        "head": "child",
+        "cue": "child that was walking on the shore",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L34",
+        "head": "village",
+        "cue": "village in which she lived",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L03",
+        "head": "cows",
+        "cue": "poor h",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": true
+      }
+    ]
+  },
+  "attachment_nest": {
+    "n": 18,
+    "transitive_n": 12,
+    "transitive_correct": 12,
+    "transitive_frac": 1.0,
+    "intransitive_n": 6,
+    "intransitive_correct": 4,
+    "intransitive_frac": 0.6667,
+    "per": [
+      {
+        "pid": "L02",
+        "head": "boy",
+        "cue": "boy who never had seen a snowstorm",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L09",
+        "head": "men",
+        "cue": "men who hunt these animals",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L09",
+        "head": "fur",
+        "cue": "fur that lies next the skin",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L18",
+        "head": "merchant",
+        "cue": "merchant who gave her the note",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L30",
+        "head": "boys",
+        "cue": "boys who had called henry a coward",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L39",
+        "head": "clock",
+        "cue": "clock which kept good time",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L45",
+        "head": "brook",
+        "cue": "brook that springs from rock",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L48",
+        "head": "flower",
+        "cue": "flower that blows",
+        "ok": false,
+        "emb_ok": false,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L49",
+        "head": "apples",
+        "cue": "apples which grew on the only tree",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L14",
+        "head": "bird",
+        "cue": "bird that made th",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L16",
+        "head": "god",
+        "cue": "god who cares for them",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L21",
+        "head": "color",
+        "cue": "color that adorn its breast",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L29",
+        "head": "god",
+        "cue": "god who watches",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L38",
+        "head": "boughs",
+        "cue": "boughs that bend",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L44",
+        "head": "one",
+        "cue": "one who can break this b",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      },
+      {
+        "pid": "L54",
+        "head": "child",
+        "cue": "child that was walking on the shore",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L34",
+        "head": "village",
+        "cue": "village in which she lived",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": false
+      },
+      {
+        "pid": "L03",
+        "head": "cows",
+        "cue": "poor h",
+        "ok": true,
+        "emb_ok": true,
+        "mis_ok": true,
+        "transitive": true
+      }
+    ]
+  },
+  "attach_delta_transitive_correct": 10,
+  "attach_delta_points": 83.33,
+  "intransitive_recovered": 4,
+  "depth2_readout": {
+    "n_sites_tested": 51,
+    "n_trials": 102,
+    "depth2_cleanup_acc": 1.0,
+    "n_dim": 2048
+  },
+  "nonrc_regression": {
+    "n_nonrc_pids": 32,
+    "n_touched": 0
+  },
+  "deixis_unchanged": {
+    "ok": true,
+    "n_off": 541,
+    "n_on": 541
+  },
+  "byte_identity_off": {
+    "deixis_true": true,
+    "deixis_false": true,
+    "n_checked": 79
+  },
+  "role_controls": {
+    "passive_rolefix": 1.0,
+    "reversal_rolefix": 1.0,
+    "passive_per": [
+      {
+        "sent": "The hen was fed by Ned",
+        "pred_agent": "ned",
+        "pred_patient": "hen",
+        "gold_agent": "ned",
+        "gold_patient": "hen",
+        "ok": true
+      },
+      {
+        "sent": "The rat was seen by the cat",
+        "pred_agent": "cat",
+        "pred_patient": "rat",
+        "gold_agent": "cat",
+        "gold_patient": "rat",
+        "ok": true
+      },
+      {
+        "sent": "The doll was held by Ann",
+        "pred_agent": "ann",
+        "pred_patient": "doll",
+        "gold_agent": "ann",
+        "gold_patient": "doll",
+        "ok": true
+      },
+      {
+        "sent": "A boy was chased by the dog",
+        "pred_agent": "dog",
+        "pred_patient": "boy",
+        "gold_agent": "dog",
+        "gold_patient": "boy",
+        "ok": true
+      },
+      {
+        "sent": "The lamb was caught by a fox",
+        "pred_agent": "fox",
+        "pred_patient": "lamb",
+        "gold_agent": "fox",
+        "gold_patient": "lamb",
+        "ok": true
+      }
+    ],
+    "reversal_per": [
+      {
+        "sent": "The dog bit the man",
+        "pred_agent": "dog",
+        "pred_patient": "man",
+        "gold_agent": "dog",
+        "gold_patient": "man",
+        "ok": true
+      },
+      {
+        "sent": "The man bit the dog",
+        "pred_agent": "man",
+        "pred_patient": "dog",
+        "gold_agent": "man",
+        "gold_patient": "dog",
+        "ok": true
+      },
+      {
+        "sent": "The cat sees the rat",
+        "pred_agent": "cat",
+        "pred_patient": "rat",
+        "gold_agent": "cat",
+        "gold_patient": "rat",
+        "ok": true
+      },
+      {
+        "sent": "The rat sees the cat",
+        "pred_agent": "rat",
+        "pred_patient": "cat",
+        "gold_agent": "rat",
+        "gold_patient": "cat",
+        "ok": true
+      },
+      {
+        "sent": "A boy chased the girl",
+        "pred_agent": "boy",
+        "pred_patient": "girl",
+        "gold_agent": "boy",
+        "gold_patient": "girl",
+        "ok": true
+      },
+      {
+        "sent": "A girl chased the boy",
+        "pred_agent": "girl",
+        "pred_patient": "boy",
+        "gold_agent": "girl",
+        "gold_patient": "boy",
+        "ok": true
+      }
+    ]
+  },
+  "overlay_witness": {
+    "ok": true,
+    "tail": "inproc witness PASS (7/7)"
+  },
+  "n_nest_links": 73,
+  "cited": {
+    "builds_on": "read_argstruct_goal_role_third_reader_v1@b9136f131",
+    "drill": "notes/research_missing_structure_learned_comprehension_5x_drill_2026-07-18.md"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "attach_delta_points",
+    "depth2_readout",
+    "nonrc_regression",
+    "byte_identity_off",
+    "deixis_unchanged",
+    "overlay_witness"
+  ],
+  "caveats": [
+    "SYMBOLIC extractor: reader never calls HD bind(); nest axis is a symbolic RC parser. The HD depth-2 readout is an OFFLINE capacity check on the emitted structures, not the runtime path.",
+    "Explicit-relativizer RC only (that/who/which/whom). REDUCED RC + genuine 2-level embedding SCOPED OUT (Stage-B learned scorer).",
+    "Span-boundary heuristic (RC ends at next finite verb) is the fragile part; single-annotator gold; pronoun-headed RCs not fully handled.",
+    "Depth-2 HD ceiling is brain-faithful (human center-embedding ~2-3), not a crosstalk bug."
+  ]
+}
