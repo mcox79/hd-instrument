@@ -1,0 +1,792 @@
+{
+  "anchor_name": "subcat_licensing_graded_frame_break050_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_LOW_CEILING",
+  "verdict_msg": "HARD_FAIL_LOW_CEILING | slice=L04+L05 sents=46 reader=61 gold_pos=34 gold_nopat=70 | A P=0.438 R=0.206 subFP=5 wfFP=1 | B0 P=0.412 R=0.206 subFP=5 | B P=0.389 R=0.206 subFP=5 wfFP=2 | subcatRED abs=0 frac=0.000 | transRecall A=0.222 B=0.222 ret=1.000 | precRaise=-0.049 | subcatTN A=14 B=14 | semSep T=0.721 I=0.657 sep=True | base_in_band=True discrim=False residual=True",
+  "summary": "HARD_FAIL_LOW_CEILING | slice=L04+L05 sents=46 reader=61 gold_pos=34 gold_nopat=70 | A P=0.438 R=0.206 subFP=5 wfFP=1 | B0 P=0.412 R=0.206 subFP=5 | B P=0.389 R=0.206 subFP=5 wfFP=2 | subcatRED abs=0 frac=0.000 | transRecall A=0.222 B=0.222 ret=1.000 | precRaise=-0.049 | subcatTN A=14 B=14 | semSep T=0.721 I=0.657 sep=True | base_in_band=True discrim=False residual=True",
+  "elapsed_s": 4.702084799995646,
+  "ts_iso": "2026-07-19T11:03:50.532869+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 40,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7,
+    "alpha": 0.5,
+    "gamma": 1.2,
+    "sem_beta": 8.0,
+    "sem_mid": 0.2,
+    "kappa": 1.5
+  },
+  "arm_metrics": {
+    "A_current": {
+      "all": {
+        "precision": 0.4375,
+        "recall": 0.2059,
+        "f1": 0.28,
+        "n_pred": 16,
+        "tp": 7,
+        "n_gold": 34,
+        "n_gold_covered": 7,
+        "subcat_fp": 5,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 3,
+        "total_fp": 9,
+        "fp_rate": 0.5625
+      },
+      "seen": {
+        "precision": 0.3636,
+        "recall": 0.2857,
+        "f1": 0.32,
+        "n_pred": 11,
+        "tp": 4,
+        "n_gold": 14,
+        "n_gold_covered": 4,
+        "subcat_fp": 4,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 2,
+        "total_fp": 7,
+        "fp_rate": 0.6364
+      },
+      "heldout": {
+        "precision": 0.6,
+        "recall": 0.4286,
+        "f1": 0.5,
+        "n_pred": 5,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 0,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.4
+      },
+      "transitive": {
+        "precision": 0.75,
+        "recall": 0.2222,
+        "f1": 0.3429,
+        "n_pred": 8,
+        "tp": 6,
+        "n_gold": 27,
+        "n_gold_covered": 6,
+        "subcat_fp": 0,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.25
+      }
+    },
+    "B0_graded_struct": {
+      "all": {
+        "precision": 0.4118,
+        "recall": 0.2059,
+        "f1": 0.2745,
+        "n_pred": 17,
+        "tp": 7,
+        "n_gold": 34,
+        "n_gold_covered": 7,
+        "subcat_fp": 5,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 4,
+        "total_fp": 10,
+        "fp_rate": 0.5882
+      },
+      "seen": {
+        "precision": 0.3333,
+        "recall": 0.2857,
+        "f1": 0.3077,
+        "n_pred": 12,
+        "tp": 4,
+        "n_gold": 14,
+        "n_gold_covered": 4,
+        "subcat_fp": 4,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 3,
+        "total_fp": 8,
+        "fp_rate": 0.6667
+      },
+      "heldout": {
+        "precision": 0.6,
+        "recall": 0.4286,
+        "f1": 0.5,
+        "n_pred": 5,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 0,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.4
+      },
+      "transitive": {
+        "precision": 0.75,
+        "recall": 0.2222,
+        "f1": 0.3429,
+        "n_pred": 8,
+        "tp": 6,
+        "n_gold": 27,
+        "n_gold_covered": 6,
+        "subcat_fp": 0,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.25
+      }
+    },
+    "B_graded_sem": {
+      "all": {
+        "precision": 0.3889,
+        "recall": 0.2059,
+        "f1": 0.2692,
+        "n_pred": 18,
+        "tp": 7,
+        "n_gold": 34,
+        "n_gold_covered": 7,
+        "subcat_fp": 5,
+        "within_frame_fp": 2,
+        "spurious_verb_fp": 4,
+        "total_fp": 11,
+        "fp_rate": 0.6111
+      },
+      "seen": {
+        "precision": 0.3077,
+        "recall": 0.2857,
+        "f1": 0.2963,
+        "n_pred": 13,
+        "tp": 4,
+        "n_gold": 14,
+        "n_gold_covered": 4,
+        "subcat_fp": 4,
+        "within_frame_fp": 2,
+        "spurious_verb_fp": 3,
+        "total_fp": 9,
+        "fp_rate": 0.6923
+      },
+      "heldout": {
+        "precision": 0.6,
+        "recall": 0.4286,
+        "f1": 0.5,
+        "n_pred": 5,
+        "tp": 3,
+        "n_gold": 7,
+        "n_gold_covered": 3,
+        "subcat_fp": 1,
+        "within_frame_fp": 0,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.4
+      },
+      "transitive": {
+        "precision": 0.75,
+        "recall": 0.2222,
+        "f1": 0.3429,
+        "n_pred": 8,
+        "tp": 6,
+        "n_gold": 27,
+        "n_gold_covered": 6,
+        "subcat_fp": 0,
+        "within_frame_fp": 1,
+        "spurious_verb_fp": 1,
+        "total_fp": 2,
+        "fp_rate": 0.25
+      }
+    }
+  },
+  "verdict_detail": {
+    "verdict": "HARD_FAIL_LOW_CEILING",
+    "subcat_fp_A": 5,
+    "subcat_fp_B": 5,
+    "subcat_reduction_abs": 0,
+    "subcat_reduction_frac": 0.0,
+    "transitive_recall_A": 0.2222,
+    "transitive_recall_B": 0.2222,
+    "transitive_recall_retention": 1.0,
+    "precision_A": 0.4375,
+    "precision_B": 0.3889,
+    "precision_raise": -0.0486,
+    "subcat_tn_rate_A": 0.7368,
+    "subcat_tn_rate_B": 0.7368,
+    "subcat_tn_A": 14,
+    "subcat_tn_B": 14
+  },
+  "subcat_true_negatives": {
+    "A_current": {
+      "n_nopat_reader_attached": 19,
+      "n_suppressed_TN": 14,
+      "n_kept_FP": 5,
+      "tn_rate": 0.7368
+    },
+    "B0_graded_struct": {
+      "n_nopat_reader_attached": 19,
+      "n_suppressed_TN": 14,
+      "n_kept_FP": 5,
+      "tn_rate": 0.7368
+    },
+    "B_graded_sem": {
+      "n_nopat_reader_attached": 19,
+      "n_suppressed_TN": 14,
+      "n_kept_FP": 5,
+      "tn_rate": 0.7368
+    }
+  },
+  "learning_curve": {
+    "A_current": {
+      "first_exposure_subcat_fp_rate": 0.3333,
+      "later_exposure_subcat_fp_rate": 0.0,
+      "n_first": 15,
+      "n_later": 4,
+      "slope_first_minus_later": 0.3333
+    },
+    "B0_graded_struct": {
+      "first_exposure_subcat_fp_rate": 0.3333,
+      "later_exposure_subcat_fp_rate": 0.0,
+      "n_first": 15,
+      "n_later": 4,
+      "slope_first_minus_later": 0.3333
+    },
+    "B_graded_sem": {
+      "first_exposure_subcat_fp_rate": 0.3333,
+      "later_exposure_subcat_fp_rate": 0.0,
+      "n_first": 15,
+      "n_later": 4,
+      "slope_first_minus_later": 0.3333
+    }
+  },
+  "per_verb_subcat_fp": {
+    "A_current": {
+      "come": {
+        "subcat_fp": 1,
+        "kept": 1,
+        "tp": 0
+      },
+      "stand": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "walk": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "wish": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "think": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "lie": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      }
+    },
+    "B0_graded_struct": {
+      "come": {
+        "subcat_fp": 1,
+        "kept": 1,
+        "tp": 0
+      },
+      "stand": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "walk": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "wish": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "think": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "lie": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      }
+    },
+    "B_graded_sem": {
+      "come": {
+        "subcat_fp": 1,
+        "kept": 1,
+        "tp": 0
+      },
+      "stand": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "walk": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "wish": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "think": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      },
+      "lie": {
+        "subcat_fp": 0,
+        "kept": 0,
+        "tp": 0
+      }
+    }
+  },
+  "semantic_frame_mechanism": {
+    "sem01_transitive_mean": 0.721,
+    "sem01_intransitive_mean": 0.6571,
+    "sem01_separates": true,
+    "n_pure_transitive": 10,
+    "n_pure_intransitive": 16
+  },
+  "kept_hashes": {
+    "A_current": "c21de56e6612e3cf",
+    "B0_graded_struct": "cb6bb849e188f615",
+    "B_graded_sem": "1a64f3398716479c"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": false,
+  "subcat_residual_present": true,
+  "scaffold_free_witness": {
+    "subcat_overextraction_suppressed_by_B_kept_by_A": null,
+    "true_transitive_patient_kept_by_B": [
+      "L04_02",
+      "rub",
+      "castle"
+    ],
+    "witness": "PARTIAL"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json -- single-annotator gold, pos + nopat verb-instances, independent of reader output.",
+  "one_variable_note": "A/B0/B share candidates, cue-weights w, construction clustering and the structural running-prior; the ONLY difference is the licensing gate (A=hard struct threshold [=LCCP arm-C], B0=graded struct, B=graded struct+semantic frame). ARM-A-parity self-test asserts A == LCCP arm-C numerically.",
+  "data_meta": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ],
+    "n_sentences": 46,
+    "n_reader_svo": 61,
+    "n_gold_pos": 34,
+    "n_gold_nopat": 70,
+    "glove_coverage": 0.978,
+    "n_seen_verbs": 22,
+    "n_heldout_verbs": 8,
+    "learned_weights": {
+      "bias": 1.193,
+      "f_adj": 0.7838,
+      "f_postv": 0.5735,
+      "f_prep": -6.6959,
+      "f_func": -5.4437,
+      "f_clause": -5.2241
+    },
+    "reader_svo_dump": {
+      "L04_01": [
+        [
+          "building",
+          "herbert",
+          "ruin"
+        ]
+      ],
+      "L04_02": [
+        [
+          "rubbed",
+          "cat",
+          "castle"
+        ]
+      ],
+      "L04_03": [
+        [
+          "took",
+          "herbert",
+          "blocks"
+        ],
+        [
+          "took",
+          "herbert",
+          "one"
+        ]
+      ],
+      "L04_04": [
+        [
+          "passed",
+          "it",
+          "harm"
+        ]
+      ],
+      "L04_07": [
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_10": [
+        [
+          "won't",
+          "i",
+          "herbert"
+        ]
+      ],
+      "L04_11": [
+        [
+          "opened",
+          "papa",
+          "door"
+        ]
+      ],
+      "L04_12": [
+        [
+          "fell",
+          "castle",
+          "hetty"
+        ]
+      ],
+      "L04_13": [
+        [
+          "know",
+          "mean",
+          "know"
+        ],
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_14": [
+        [
+          "held",
+          "herbert",
+          "hands"
+        ],
+        [
+          "held",
+          "herbert",
+          "out"
+        ]
+      ],
+      "L04_15": [
+        [
+          "came",
+          "boy",
+          "eyes"
+        ],
+        [
+          "came",
+          "boy",
+          "tears"
+        ],
+        [
+          "got",
+          "boy",
+          "floor"
+        ]
+      ],
+      "L04_16": [
+        [
+          "said",
+          "boy",
+          "papa"
+        ]
+      ],
+      "L04_17": [
+        [
+          "taken",
+          "you",
+          "heart"
+        ],
+        [
+          "taken",
+          "you",
+          "way"
+        ]
+      ],
+      "L04_18": [
+        [
+          "heard",
+          "i",
+          "blocks"
+        ],
+        [
+          "heard",
+          "i",
+          "you"
+        ]
+      ],
+      "L04_19": [
+        [
+          "nodded",
+          "herbert",
+          "head"
+        ],
+        [
+          "sat",
+          "papa",
+          "blocks"
+        ],
+        [
+          "sat",
+          "papa",
+          "side"
+        ],
+        [
+          "sat",
+          "papa",
+          "son"
+        ],
+        [
+          "show",
+          "i",
+          "way"
+        ],
+        [
+          "show",
+          "i",
+          "you"
+        ]
+      ],
+      "L05_02": [
+        [
+          "began",
+          "he",
+          "work"
+        ]
+      ],
+      "L05_04": [
+        [
+          "crying",
+          "great",
+          "crying"
+        ]
+      ],
+      "L05_06": [
+        [
+          "flitted",
+          "shadow",
+          "face"
+        ],
+        [
+          "knocked",
+          "pussy",
+          "castle"
+        ]
+      ],
+      "L05_07": [
+        [
+          "told",
+          "joe",
+          "i"
+        ],
+        [
+          "told",
+          "joe",
+          "milk"
+        ],
+        [
+          "told",
+          "joe",
+          "place"
+        ]
+      ],
+      "L05_08": [
+        [
+          "wonder",
+          "herbert",
+          "you"
+        ]
+      ],
+      "L05_10": [
+        [
+          "crying",
+          "papa",
+          "use"
+        ]
+      ],
+      "L05_11": [
+        [
+          "go",
+          "you",
+          "kite"
+        ],
+        [
+          "looked",
+          "joe",
+          "book"
+        ],
+        [
+          "looked",
+          "joe",
+          "down"
+        ]
+      ],
+      "L05_12": [
+        [
+          "finished",
+          "time",
+          "castle"
+        ]
+      ],
+      "L05_13": [
+        [
+          "knocked",
+          "it",
+          "hetty"
+        ]
+      ],
+      "L05_14": [
+        [
+          "looked",
+          "herbert",
+          "sides"
+        ]
+      ],
+      "L05_15": [
+        [
+          "build",
+          "down",
+          "build"
+        ],
+        [
+          "build",
+          "down",
+          "sentence"
+        ]
+      ],
+      "L05_17": [
+        [
+          "can't",
+          "i",
+          "forehead"
+        ],
+        [
+          "can't",
+          "i",
+          "have"
+        ],
+        [
+          "can't",
+          "i",
+          "out"
+        ]
+      ],
+      "L05_20": [
+        [
+          "go",
+          "you",
+          "carriages"
+        ],
+        [
+          "go",
+          "you",
+          "out"
+        ],
+        [
+          "keep",
+          "you",
+          "way"
+        ]
+      ],
+      "L05_22": [
+        [
+          "seen",
+          "i",
+          "a"
+        ],
+        [
+          "seen",
+          "i",
+          "child"
+        ],
+        [
+          "seen",
+          "i",
+          "dash"
+        ],
+        [
+          "seen",
+          "i",
+          "dishes"
+        ],
+        [
+          "seen",
+          "i",
+          "hands"
+        ],
+        [
+          "seen",
+          "i",
+          "servant"
+        ],
+        [
+          "seen",
+          "i",
+          "tray"
+        ]
+      ],
+      "L05_24": [
+        [
+          "left",
+          "papa",
+          "crying"
+        ],
+        [
+          "left",
+          "papa",
+          "milk"
+        ],
+        [
+          "left",
+          "papa",
+          "room"
+        ]
+      ],
+      "L05_25": [
+        [
+          "get",
+          "castles",
+          "down"
+        ]
+      ]
+    }
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "verdict_detail",
+    "subcat_true_negatives",
+    "per_verb_subcat_fp",
+    "semantic_frame_mechanism",
+    "scaffold_free_witness",
+    "data_meta"
+  ],
+  "notes": "SUBCAT-LICENSING lever: graded semantic verb-frame licensing on top of LCCP arm-C. HARD_PASS = subcat_fp reduction >=0.30 of A AND transitive recall retention >=0.90 AND precision raise >0. MIDDLE_BAND = 0.10-0.30 reduction at >=0.85 recall retention. HARD_FAIL_LOW_CEILING = <0.10 reduction (residual frame-immovable / LCCP at verb-frame ceiling on this small corpus) OR transitive recall retention <0.75 (trade-off bites). LOW-CEILING is an HONEST finding localizing the subcat lever's limit. CLAIM-VET-pending; single-annotator gold caveated; NOT a hand blocklist (learned selectional signal). Within-frame + coref residuals are the OTHER levers, NOT built here."
+}
