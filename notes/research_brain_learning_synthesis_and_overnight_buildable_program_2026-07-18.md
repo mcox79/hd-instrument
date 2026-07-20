@@ -1,0 +1,31 @@
+# Brain LEARNING + LEARN-TO-LEARN synthesis -> overnight buildable program (Director, 2026-07-18)
+
+USER (07-18): the substrate CAN+SHOULD learn LLM-level language efficiently (brain = existence proof; glass-box≠hand-rules). Drilled 3 lanes on HOW the brain learns + learns-to-learn. Full detail: the 4 Lane-A task outputs (plasticity/credit-assignment/reward/gating) + notes/research_brain_bootstrap_and_learning_to_learn_2026-07-17.md (Lane B) + notes/research_brain_efficiency_language_acquisition_substrate_map_2026-07-17.md (Lane C, the load-bearing substrate map).
+
+## THE PICTURE (how the brain learns)
+- BASE: LOCAL plasticity rules (Hebbian correlation, STDP causal-order; triplet-STDP === BCM) kept STABLE by slower global stabilizers (homeostatic scaling, BCM sliding threshold, metaplasticity). One scalar (Ca2+) read through thresholds => bidirectional (LTP/LTD).
+- CREDIT ASSIGNMENT withOUT backprop = PLURAL "NGRAD" (Lillicrap 2020): feedback-alignment (drop weight-transport), predictive-coding (local equilibrium-settling, error=FF/FB difference), THREE-FACTOR rules (eligibility-trace x neuromodulator = temporal credit for delayed reward -- MOST experimentally grounded), dendritic/burst multiplexing (representation + teaching on one channel), equilibrium-prop (settle-twice-compare). No single winner; complementary.
+- ARCHITECTURAL SPECIALIZATION (Doya): CORTEX = self-supervised PREDICTION (builds representations, no labels/reward); BASAL GANGLIA = reward-RL (dopamine RPE, Go/NoGo actor-critic); CEREBELLUM = supervised error (climbing-fiber delta-rule, fast precise calibration). NOT one universal rule.
+- GATING = multi-signal VECTOR not scalar: ATTENTION (where to credit) + SURPRISE/NOVELTY (how much; hippocampal-VTA, KL posterior||prior) + UNCERTAINTY (expected=ACh down-weight-priors vs unexpected=NE reset) + CONSOLIDATION-permission (dopamine synaptic-tag-capture). Combined by ROUTING not simple multiply.
+- LEARN-TO-LEARN: metaplasticity (plasticity of plasticity), SCHEMA-accelerated consolidation (Tse 2007: schema-consistent fact consolidates in ~24-48h not weeks), CLS (hippocampus fast one-shot -> neocortex slow interleaved-replay = avoids catastrophic forgetting), VOLATILITY-adaptive learning-rate (Behrens/Yu-Dayan: surprise raises eta), CURRICULUM/starting-small (Elman + vs Rohde-Plaut - CONTESTED). Early learning reshapes CAPACITY for later (schemas make future learning faster/data-efficient = the compounding virtuous cycle).
+
+## LANGUAGE ACQUISITION = self-supervised NEXT-ITEM PREDICTION (the core engine)
+- Elman 1990: an SRN trained PURELY to predict the next word spontaneously organizes hidden units by lexical category + captures long-distance agreement. "GPT's core objective predates GPT by 30 yrs, invented to explain CHILDREN." => self-supervised prediction is the structure-INDUCING signal.
+- Surprisal (Hale/Levy): processing difficulty = -log P(word|context). WE HAVE THIS (additive_map.score_all = 1 - reciprocal_rank).
+- Saffran: distributional/transitional-probability learning (domain-general sequence-statistics). Tomasello usage-based: ENTRENCHMENT (freq) + ANALOGY + SCHEMA-abstraction (verb-islands -> slot-and-frame). WE HAVE entrenchment + the parser arc.
+
+## SUBSTRATE MAP (Lane C -- HAVE / PARTIAL / MISSING)
+- HAVE-strong (already VET-confirmed, converged w/ lit BEFORE the scan): predictive-error/surprisal (additive_map MRR 0.128, 284x); schema-fit gating (reachability_audit); entrenchment/recurrence; sparse coding (BSC/FHRR); hippocampal one-shot index-protected write (+0.466); CA3 attractor cleanup (0.70 vs 0.10 @depth5).
+- HAVE-partial: compositional reuse (bind/bundle/resonator + block-slot decoder HARD_PASS; TEM structure-content factorization MIDDLE 0.05-0.13).
+- PARTIAL (tried, failed-as-implemented, fix DESIGNED not piloted): CLS dual-store (naive HARD_FAIL = McCloskey single-store failure mode; proper interleaved-replay CLS untested); active-curious selection (HARD_FAIL at wrong LOCUS=acquisition-order; correct=retrieval-time, untested); prioritized REPLAY (static Hebbian tag FALSIFIED R7; closed-loop-surprise-tag UNTESTED).
+- MISSING (real gaps): retrieval-time value-weighting (specified, ~0 new compute); genuine schema/primitive ABSTRACTION (BPL-level: mine NEW reusable motifs, not just recombine relation types -- THE real hard gap); BG Go/NoGo trained by our own RPE; grounding (hard w/o embodiment); unified 4-signal combination rule (biology has none either -> our decision-tree is a genuine novel proposal).
+
+## OVERNIGHT BUILDABLE QUEUE (ranked cheapest/most-decisive first; drill negatives + brain-check each)
+1. **[FIRING] R7 prioritized-replay w/ CLOSED-LOOP SURPRISE** (replace static Hebbian-MIR tag with additive_map.score_all). Mirrors Schaul PER (beat uniform on 41/49 Atari). CHEAP (wiring change). HARD-PASS: surprise-replay beats random by >=0.10 bpc-equiv, 2/3 seeds. HARD-FAIL => substrate rank-1 Hebbian can't benefit from ANY priority replay = the brain-check FIX is THREE-FACTOR/eligibility-trace plasticity (Lane A) -- a structural upgrade, not a signal bug.
+2. CLS consolidation-loop pilot (fast-provisional -> offline interleaved-replay -> schema-fit foundationalize) vs single-store AND naive-dual-W.
+3. Retrieval-time value-weighting (reuse resolvent/importance vs held-out as retrieval-relevance gold) -- resolves whether "importance" 4th-axis is dead or mis-located.
+4. **SELF-SUPERVISED PREDICTIVE READER (Elman-style, glass-box VSA)** = the core LANGUAGE-LEARNING engine: learn to predict next word/construction from context, prediction-error drives representation learning, entrenchment grows the inventory. THE most direct "learn language in-substrate" build (bigger lift). Connects to the in-flight bootstrapping reader (a9787ced).
+5. Genuine schema/primitive ABSTRACTION (the BPL gap -- the real hard frontier).
+
+## KEY CROSS-LINK
+R7's HARD-FAIL branch -> three-factor eligibility-trace plasticity; the credit-assignment drill (Lane A) says the brain's prioritized learning WORKS because dopamine-gated STDP is NOT a simple Hebbian product. So the plasticity-RULE upgrade (eligibility traces / three-factor) is the foundational lever under BOTH replay AND all delayed-credit learning -- likely the highest-leverage single build if R7 fails.
