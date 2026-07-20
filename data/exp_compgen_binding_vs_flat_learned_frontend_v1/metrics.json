@@ -1,0 +1,500 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "[gate@ts=6400] hybrid: id=1.000 ood=1.000 gap=0.000 | flat: id=1.000 ood=0.007 gap=0.993 | majority_ood=0.000 | id_mismatch=0.000 | chance=0.083 | discriminator_fires=True | cardinality_ok=True (36/36) arms_differ=True",
+  "summary": "HARD_PASS: [gate@ts=6400] hybrid: id=1.000 ood=1.000 gap=0.000 | flat: id=1.000 ood=0.007 gap=0.993 | majority_ood=0.000 | id_mismatch=0.000 | chance=0.083 | discriminator_fires=True | cardinality_ok=True (36/36",
+  "elapsed_s": 127.8081846999994,
+  "anchor_name": "exp_compgen_binding_vs_flat_learned_frontend_v1",
+  "run_mode": "exp_compgen_binding_vs_flat_learned_frontend_v1",
+  "ts_iso": "2026-07-20T06:23:33.354592+00:00",
+  "config": {
+    "R": 6,
+    "F": 12,
+    "N": 1024,
+    "D_OBS": 24,
+    "OBS_SIGMA": 0.5,
+    "GROUP_A": [
+      0,
+      1,
+      2
+    ],
+    "GROUP_B": [
+      3,
+      4,
+      5
+    ],
+    "HALF1": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "HALF2": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "train_sizes": [
+      100,
+      400,
+      1600,
+      6400
+    ],
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "eval_scenes_id": 400,
+    "eval_scenes_ood": 400,
+    "epochs": 40,
+    "lr": 0.001,
+    "batch": 128
+  },
+  "gate_train_size": "6400",
+  "arm_by_size": {
+    "100": {
+      "hybrid": {
+        "id_acc_mean": 1.0,
+        "ood_acc_mean": 1.0,
+        "ood_gap_mean": 0.0,
+        "n_seeds": 3
+      },
+      "flat": {
+        "id_acc_mean": 0.4761111111111111,
+        "ood_acc_mean": 0.007777777777777777,
+        "ood_gap_mean": 0.46833333333333327,
+        "n_seeds": 3
+      },
+      "majority": {
+        "id_acc_mean": 0.17125,
+        "ood_acc_mean": 0.0,
+        "ood_gap_mean": 0.17125,
+        "n_seeds": 3
+      }
+    },
+    "400": {
+      "hybrid": {
+        "id_acc_mean": 1.0,
+        "ood_acc_mean": 1.0,
+        "ood_gap_mean": 0.0,
+        "n_seeds": 3
+      },
+      "flat": {
+        "id_acc_mean": 0.6809722222222222,
+        "ood_acc_mean": 0.0036111111111111114,
+        "ood_gap_mean": 0.6773611111111112,
+        "n_seeds": 3
+      },
+      "majority": {
+        "id_acc_mean": 0.1663888888888889,
+        "ood_acc_mean": 0.0,
+        "ood_gap_mean": 0.1663888888888889,
+        "n_seeds": 3
+      }
+    },
+    "1600": {
+      "hybrid": {
+        "id_acc_mean": 1.0,
+        "ood_acc_mean": 1.0,
+        "ood_gap_mean": 0.0,
+        "n_seeds": 3
+      },
+      "flat": {
+        "id_acc_mean": 0.9958333333333335,
+        "ood_acc_mean": 0.0044444444444444444,
+        "ood_gap_mean": 0.9913888888888889,
+        "n_seeds": 3
+      },
+      "majority": {
+        "id_acc_mean": 0.15666666666666665,
+        "ood_acc_mean": 0.0,
+        "ood_gap_mean": 0.15666666666666665,
+        "n_seeds": 3
+      }
+    },
+    "6400": {
+      "hybrid": {
+        "id_acc_mean": 1.0,
+        "ood_acc_mean": 1.0,
+        "ood_gap_mean": 0.0,
+        "n_seeds": 3
+      },
+      "flat": {
+        "id_acc_mean": 1.0,
+        "ood_acc_mean": 0.0075,
+        "ood_gap_mean": 0.9925,
+        "n_seeds": 3
+      },
+      "majority": {
+        "id_acc_mean": 0.1638888888888889,
+        "ood_acc_mean": 0.0,
+        "ood_gap_mean": 0.1638888888888889,
+        "n_seeds": 3
+      }
+    }
+  },
+  "per_unit": {
+    "hybrid__ts100__seed7": {
+      "arm": "hybrid",
+      "train_size": 100,
+      "seed": 7,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts100__seed7": {
+      "arm": "flat",
+      "train_size": 100,
+      "seed": 7,
+      "id_acc": 0.47333333333333333,
+      "ood_acc": 0.008333333333333333,
+      "ood_gap": 0.46499999999999997,
+      "failure_class": null
+    },
+    "majority__ts100__seed7": {
+      "arm": "majority",
+      "train_size": 100,
+      "seed": 7,
+      "id_acc": 0.16666666666666666,
+      "ood_acc": 0.0,
+      "ood_gap": 0.16666666666666666,
+      "failure_class": null
+    },
+    "hybrid__ts100__seed13": {
+      "arm": "hybrid",
+      "train_size": 100,
+      "seed": 13,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts100__seed13": {
+      "arm": "flat",
+      "train_size": 100,
+      "seed": 13,
+      "id_acc": 0.4795833333333333,
+      "ood_acc": 0.005416666666666667,
+      "ood_gap": 0.4741666666666666,
+      "failure_class": null
+    },
+    "majority__ts100__seed13": {
+      "arm": "majority",
+      "train_size": 100,
+      "seed": 13,
+      "id_acc": 0.16875,
+      "ood_acc": 0.0,
+      "ood_gap": 0.16875,
+      "failure_class": null
+    },
+    "hybrid__ts100__seed19": {
+      "arm": "hybrid",
+      "train_size": 100,
+      "seed": 19,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts100__seed19": {
+      "arm": "flat",
+      "train_size": 100,
+      "seed": 19,
+      "id_acc": 0.47541666666666665,
+      "ood_acc": 0.009583333333333333,
+      "ood_gap": 0.4658333333333333,
+      "failure_class": null
+    },
+    "majority__ts100__seed19": {
+      "arm": "majority",
+      "train_size": 100,
+      "seed": 19,
+      "id_acc": 0.17833333333333334,
+      "ood_acc": 0.0,
+      "ood_gap": 0.17833333333333334,
+      "failure_class": null
+    },
+    "hybrid__ts400__seed7": {
+      "arm": "hybrid",
+      "train_size": 400,
+      "seed": 7,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts400__seed7": {
+      "arm": "flat",
+      "train_size": 400,
+      "seed": 7,
+      "id_acc": 0.6308333333333334,
+      "ood_acc": 0.0016666666666666668,
+      "ood_gap": 0.6291666666666667,
+      "failure_class": null
+    },
+    "majority__ts400__seed7": {
+      "arm": "majority",
+      "train_size": 400,
+      "seed": 7,
+      "id_acc": 0.14791666666666667,
+      "ood_acc": 0.0,
+      "ood_gap": 0.14791666666666667,
+      "failure_class": null
+    },
+    "hybrid__ts400__seed13": {
+      "arm": "hybrid",
+      "train_size": 400,
+      "seed": 13,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts400__seed13": {
+      "arm": "flat",
+      "train_size": 400,
+      "seed": 13,
+      "id_acc": 0.6775,
+      "ood_acc": 0.004166666666666667,
+      "ood_gap": 0.6733333333333333,
+      "failure_class": null
+    },
+    "majority__ts400__seed13": {
+      "arm": "majority",
+      "train_size": 400,
+      "seed": 13,
+      "id_acc": 0.17291666666666666,
+      "ood_acc": 0.0,
+      "ood_gap": 0.17291666666666666,
+      "failure_class": null
+    },
+    "hybrid__ts400__seed19": {
+      "arm": "hybrid",
+      "train_size": 400,
+      "seed": 19,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts400__seed19": {
+      "arm": "flat",
+      "train_size": 400,
+      "seed": 19,
+      "id_acc": 0.7345833333333334,
+      "ood_acc": 0.005,
+      "ood_gap": 0.7295833333333334,
+      "failure_class": null
+    },
+    "majority__ts400__seed19": {
+      "arm": "majority",
+      "train_size": 400,
+      "seed": 19,
+      "id_acc": 0.17833333333333334,
+      "ood_acc": 0.0,
+      "ood_gap": 0.17833333333333334,
+      "failure_class": null
+    },
+    "hybrid__ts1600__seed7": {
+      "arm": "hybrid",
+      "train_size": 1600,
+      "seed": 7,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts1600__seed7": {
+      "arm": "flat",
+      "train_size": 1600,
+      "seed": 7,
+      "id_acc": 0.9966666666666667,
+      "ood_acc": 0.005,
+      "ood_gap": 0.9916666666666667,
+      "failure_class": null
+    },
+    "majority__ts1600__seed7": {
+      "arm": "majority",
+      "train_size": 1600,
+      "seed": 7,
+      "id_acc": 0.15333333333333332,
+      "ood_acc": 0.0,
+      "ood_gap": 0.15333333333333332,
+      "failure_class": null
+    },
+    "hybrid__ts1600__seed13": {
+      "arm": "hybrid",
+      "train_size": 1600,
+      "seed": 13,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts1600__seed13": {
+      "arm": "flat",
+      "train_size": 1600,
+      "seed": 13,
+      "id_acc": 0.9958333333333333,
+      "ood_acc": 0.00375,
+      "ood_gap": 0.9920833333333333,
+      "failure_class": null
+    },
+    "majority__ts1600__seed13": {
+      "arm": "majority",
+      "train_size": 1600,
+      "seed": 13,
+      "id_acc": 0.16041666666666668,
+      "ood_acc": 0.0,
+      "ood_gap": 0.16041666666666668,
+      "failure_class": null
+    },
+    "hybrid__ts1600__seed19": {
+      "arm": "hybrid",
+      "train_size": 1600,
+      "seed": 19,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts1600__seed19": {
+      "arm": "flat",
+      "train_size": 1600,
+      "seed": 19,
+      "id_acc": 0.995,
+      "ood_acc": 0.004583333333333333,
+      "ood_gap": 0.9904166666666666,
+      "failure_class": null
+    },
+    "majority__ts1600__seed19": {
+      "arm": "majority",
+      "train_size": 1600,
+      "seed": 19,
+      "id_acc": 0.15625,
+      "ood_acc": 0.0,
+      "ood_gap": 0.15625,
+      "failure_class": null
+    },
+    "hybrid__ts6400__seed7": {
+      "arm": "hybrid",
+      "train_size": 6400,
+      "seed": 7,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts6400__seed7": {
+      "arm": "flat",
+      "train_size": 6400,
+      "seed": 7,
+      "id_acc": 1.0,
+      "ood_acc": 0.004583333333333333,
+      "ood_gap": 0.9954166666666666,
+      "failure_class": null
+    },
+    "majority__ts6400__seed7": {
+      "arm": "majority",
+      "train_size": 6400,
+      "seed": 7,
+      "id_acc": 0.15291666666666667,
+      "ood_acc": 0.0,
+      "ood_gap": 0.15291666666666667,
+      "failure_class": null
+    },
+    "hybrid__ts6400__seed13": {
+      "arm": "hybrid",
+      "train_size": 6400,
+      "seed": 13,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts6400__seed13": {
+      "arm": "flat",
+      "train_size": 6400,
+      "seed": 13,
+      "id_acc": 1.0,
+      "ood_acc": 0.0033333333333333335,
+      "ood_gap": 0.9966666666666667,
+      "failure_class": null
+    },
+    "majority__ts6400__seed13": {
+      "arm": "majority",
+      "train_size": 6400,
+      "seed": 13,
+      "id_acc": 0.17708333333333334,
+      "ood_acc": 0.0,
+      "ood_gap": 0.17708333333333334,
+      "failure_class": null
+    },
+    "hybrid__ts6400__seed19": {
+      "arm": "hybrid",
+      "train_size": 6400,
+      "seed": 19,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts6400__seed19": {
+      "arm": "flat",
+      "train_size": 6400,
+      "seed": 19,
+      "id_acc": 1.0,
+      "ood_acc": 0.014583333333333334,
+      "ood_gap": 0.9854166666666667,
+      "failure_class": null
+    },
+    "majority__ts6400__seed19": {
+      "arm": "majority",
+      "train_size": 6400,
+      "seed": 19,
+      "id_acc": 0.16166666666666665,
+      "ood_acc": 0.0,
+      "ood_gap": 0.16166666666666665,
+      "failure_class": null
+    }
+  },
+  "bands": {
+    "HP_HYBRID_OOD_GAP_MAX": 0.1,
+    "HP_FLAT_OOD_GAP_MIN": 0.3,
+    "HP_ID_MATCH_MAX": 0.05,
+    "HP_MAJORITY_OOD_MAX": 0.05,
+    "HF_FLAT_OOD_GAP_MAX": 0.1,
+    "HF_MAJORITY_OOD_MAX": 0.15,
+    "HF_ID_MISMATCH_MIN": 0.15,
+    "CHANCE": 0.08333333333333333
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 36,
+  "n_units_done": 36,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "ts100_seed7": true,
+    "ts100_seed13": true,
+    "ts100_seed19": true,
+    "ts400_seed7": true,
+    "ts400_seed13": true,
+    "ts400_seed19": true,
+    "ts1600_seed7": true,
+    "ts1600_seed13": true,
+    "ts1600_seed19": true,
+    "ts6400_seed7": true,
+    "ts6400_seed13": true,
+    "ts6400_seed19": true
+  },
+  "discriminator_fires": true,
+  "baseline_in_band": false,
+  "guard1_role_filler_codes_random_task_agnostic": true,
+  "crlb_n/a": "classification-accuracy generalization; closed-form chance floor = 1/F = 0.0833",
+  "prior_art": "Smolensky1990 TPR; Plate1995 HRR; Hersche2023 NVSA; Mao2019 NS-CL; Johnson2017 CLEVR-CoGenT; Kymn2024; LakeBaroni2018/2023; KimLinzen2020 COGS; Keysers2020 CFQ/DBCA; GreffVanSteensteSchmidhuber2020"
+}

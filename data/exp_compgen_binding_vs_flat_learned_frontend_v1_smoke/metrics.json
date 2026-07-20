@@ -1,0 +1,127 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "[gate@ts=6400] hybrid: id=1.000 ood=1.000 gap=0.000 | flat: id=1.000 ood=0.005 gap=0.995 | majority_ood=0.000 | id_mismatch=0.000 | chance=0.083 | discriminator_fires=True | cardinality_ok=True (3/3) arms_differ=True",
+  "summary": "HARD_PASS: [gate@ts=6400] hybrid: id=1.000 ood=1.000 gap=0.000 | flat: id=1.000 ood=0.005 gap=0.995 | majority_ood=0.000 | id_mismatch=0.000 | chance=0.083 | discriminator_fires=True | cardinality_ok=True (3/3) ",
+  "elapsed_s": 32.27017090001027,
+  "anchor_name": "exp_compgen_binding_vs_flat_learned_frontend_v1",
+  "run_mode": "exp_compgen_binding_vs_flat_learned_frontend_v1_smoke",
+  "ts_iso": "2026-07-20T06:21:06.373506+00:00",
+  "config": {
+    "R": 6,
+    "F": 12,
+    "N": 1024,
+    "D_OBS": 24,
+    "OBS_SIGMA": 0.5,
+    "GROUP_A": [
+      0,
+      1,
+      2
+    ],
+    "GROUP_B": [
+      3,
+      4,
+      5
+    ],
+    "HALF1": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "HALF2": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "train_sizes": [
+      6400
+    ],
+    "seeds": [
+      7
+    ],
+    "eval_scenes_id": 400,
+    "eval_scenes_ood": 400,
+    "epochs": 40,
+    "lr": 0.001,
+    "batch": 128
+  },
+  "gate_train_size": "6400",
+  "arm_by_size": {
+    "6400": {
+      "hybrid": {
+        "id_acc_mean": 1.0,
+        "ood_acc_mean": 1.0,
+        "ood_gap_mean": 0.0,
+        "n_seeds": 1
+      },
+      "flat": {
+        "id_acc_mean": 1.0,
+        "ood_acc_mean": 0.004583333333333333,
+        "ood_gap_mean": 0.9954166666666666,
+        "n_seeds": 1
+      },
+      "majority": {
+        "id_acc_mean": 0.15291666666666667,
+        "ood_acc_mean": 0.0,
+        "ood_gap_mean": 0.15291666666666667,
+        "n_seeds": 1
+      }
+    }
+  },
+  "per_unit": {
+    "hybrid__ts6400__seed7": {
+      "arm": "hybrid",
+      "train_size": 6400,
+      "seed": 7,
+      "id_acc": 1.0,
+      "ood_acc": 1.0,
+      "ood_gap": 0.0,
+      "failure_class": null
+    },
+    "flat__ts6400__seed7": {
+      "arm": "flat",
+      "train_size": 6400,
+      "seed": 7,
+      "id_acc": 1.0,
+      "ood_acc": 0.004583333333333333,
+      "ood_gap": 0.9954166666666666,
+      "failure_class": null
+    },
+    "majority__ts6400__seed7": {
+      "arm": "majority",
+      "train_size": 6400,
+      "seed": 7,
+      "id_acc": 0.15291666666666667,
+      "ood_acc": 0.0,
+      "ood_gap": 0.15291666666666667,
+      "failure_class": null
+    }
+  },
+  "bands": {
+    "HP_HYBRID_OOD_GAP_MAX": 0.1,
+    "HP_FLAT_OOD_GAP_MIN": 0.3,
+    "HP_ID_MATCH_MAX": 0.05,
+    "HP_MAJORITY_OOD_MAX": 0.05,
+    "HF_FLAT_OOD_GAP_MAX": 0.1,
+    "HF_MAJORITY_OOD_MAX": 0.15,
+    "HF_ID_MISMATCH_MIN": 0.15,
+    "CHANCE": 0.08333333333333333
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units_done": 3,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "ts6400_seed7": true
+  },
+  "discriminator_fires": true,
+  "baseline_in_band": false,
+  "guard1_role_filler_codes_random_task_agnostic": true,
+  "crlb_n/a": "classification-accuracy generalization; closed-form chance floor = 1/F = 0.0833",
+  "prior_art": "Smolensky1990 TPR; Plate1995 HRR; Hersche2023 NVSA; Mao2019 NS-CL; Johnson2017 CLEVR-CoGenT; Kymn2024; LakeBaroni2018/2023; KimLinzen2020 COGS; Keysers2020 CFQ/DBCA; GreffVanSteensteSchmidhuber2020"
+}
