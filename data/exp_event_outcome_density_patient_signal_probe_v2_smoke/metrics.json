@@ -1,0 +1,186 @@
+{
+  "anchor_name": "event_outcome_density_patient_signal_probe_v2",
+  "cfg": {
+    "min_count": 2,
+    "animate_discount": 0.35,
+    "seed": 7,
+    "n_boot": 200,
+    "capacity_budgets": [
+      3000,
+      6000,
+      9000
+    ]
+  },
+  "heldout_third_reader": {
+    "n_lessons": 72,
+    "n_tokens": 21988,
+    "n_patient_trials": 110,
+    "n_agent_trials": 48,
+    "gold_lessons_excluded": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ]
+  },
+  "zero_density_lesson_count_bg_pool": 97,
+  "capacity_tier_results": {
+    "3000": {
+      "budget_tok": 3000,
+      "low_bg_tok": 3100,
+      "high_bg_tok": 3618,
+      "low_density_per_1000tok": 0.0,
+      "high_density_per_1000tok": 27.63957987838585,
+      "n_low_lessons": 35,
+      "n_high_lessons": 23,
+      "cj_patient_full_acc": {
+        "LOW": 0.4090909090909091,
+        "HIGH": 0.41818181818181815,
+        "HIGH_SCRAMBLED": 0.41818181818181815
+      },
+      "cj_patient_n_trials": 110,
+      "cj_patient_aff_only": {
+        "LOW": 0.5818181818181818,
+        "HIGH": 0.5636363636363636
+      },
+      "cj_agent_aff_only": {
+        "LOW": 0.5625,
+        "HIGH": 0.5625
+      },
+      "cj_agent_n_trials": 48,
+      "choice_hash": {
+        "LOW": "tcctccttTttcctccccCctctTctTccccctttcccctctctcttctctcTtcccccTCtcttccctccccCtctcccCtcttttccctcCtcttcccctcttccctc",
+        "HIGH": "TtcctTccTTttttCcctCTcccTcCTTcCtTctcCtccCTccTCCctttccTCcctctTCctCcCttctTctCTcCtccCcccTtcttccTCCTctcCCccctctccct",
+        "HIGH_SCRAMBLED": "TtcctTccTTttttCcctCTcccTcCTTcCtTctcCtccCTccTCCctttccTCcctctTCctCcCttctTctCTcCtccCcccTtcttccTCCTctcCCccctctccct"
+      },
+      "bigram_perplexity": {
+        "LOW": 519.4439664791225,
+        "HIGH": 862.2337301567587
+      },
+      "gap_high_minus_low": 0.009090909090909038,
+      "gap_high_minus_scrambled": 0.0,
+      "patient_specific_gap": -0.018181818181818188,
+      "baseline_in_band": true
+    },
+    "6000": {
+      "budget_tok": 6000,
+      "low_bg_tok": 6331,
+      "high_bg_tok": 6214,
+      "low_density_per_1000tok": 0.0,
+      "high_density_per_1000tok": 23.978113936272933,
+      "n_low_lessons": 46,
+      "n_high_lessons": 31,
+      "cj_patient_full_acc": {
+        "LOW": 0.4090909090909091,
+        "HIGH": 0.43636363636363634,
+        "HIGH_SCRAMBLED": 0.42727272727272725
+      },
+      "cj_patient_n_trials": 110,
+      "cj_patient_aff_only": {
+        "LOW": 0.5818181818181818,
+        "HIGH": 0.5909090909090909
+      },
+      "cj_agent_aff_only": {
+        "LOW": 0.5625,
+        "HIGH": 0.5833333333333334
+      },
+      "cj_agent_n_trials": 48,
+      "choice_hash": {
+        "LOW": "tcctccttTttcctccccCctctTctTccccctttcccctctctcttctctcTtcccccTCtcttccctccccCtctcccCtcttttccctcCtcttcccctcttccctc",
+        "HIGH": "TtcctTccTTTCttCttcCTCcTTCCTTtCcTcccCctctTcTTCCtcccCcTCctCTCTCCTCtCtcccTctCTcCtctCcttTctctctTCCTcccCCcctcttccct",
+        "HIGH_SCRAMBLED": "TtcctTccTTTCttCttcCTCcTTCCTTtCcTcccCctcCTtTTCCctccCcTCccCTCTCCTCtCttccTccCTtCctcCtctTtctctcTCCTtccCCccctcttccc"
+      },
+      "bigram_perplexity": {
+        "LOW": 989.8822846984026,
+        "HIGH": 1150.9724641983653
+      },
+      "gap_high_minus_low": 0.027272727272727226,
+      "gap_high_minus_scrambled": 0.009090909090909094,
+      "patient_specific_gap": -0.011742424242424221,
+      "baseline_in_band": true
+    },
+    "9000": {
+      "budget_tok": 9000,
+      "low_bg_tok": 9103,
+      "high_bg_tok": 9203,
+      "low_density_per_1000tok": 0.0,
+      "high_density_per_1000tok": 21.84070411822232,
+      "n_low_lessons": 83,
+      "n_high_lessons": 40,
+      "cj_patient_full_acc": {
+        "LOW": 0.4090909090909091,
+        "HIGH": 0.43636363636363634,
+        "HIGH_SCRAMBLED": 0.44545454545454544
+      },
+      "cj_patient_n_trials": 110,
+      "cj_patient_aff_only": {
+        "LOW": 0.5818181818181818,
+        "HIGH": 0.5909090909090909
+      },
+      "cj_agent_aff_only": {
+        "LOW": 0.5625,
+        "HIGH": 0.5833333333333334
+      },
+      "cj_agent_n_trials": 48,
+      "choice_hash": {
+        "LOW": "tcctccttTttcctccccCctctTctTccccctttcccctctctcttctctcTtcccccTCtcttccctccccCtctcccCtcttttccctcCtcttcccctcttccctc",
+        "HIGH": "TtcCcTtTTTTCccCtttCTCtTTCCTTcCctcccCcctcTTTTCCtctcCcTCccCTCTCCTCcCCtttTccCTcCctcCtctTcttctcTCCTtctCCcccccCtctt",
+        "HIGH_SCRAMBLED": "TtcCcTtTTTcCctCtttCTCcTTcCTTtCcccccTtctcTTTTCCtcccCcTCctCTCTCCTttCCcccTctCTcCtctCcttTctctctTCCTccccCctcttCccct"
+      },
+      "bigram_perplexity": {
+        "LOW": 1048.3508218229615,
+        "HIGH": 1410.589748544372
+      },
+      "gap_high_minus_low": 0.027272727272727226,
+      "gap_high_minus_scrambled": -0.009090909090909094,
+      "patient_specific_gap": -0.011742424242424221,
+      "baseline_in_band": true
+    }
+  },
+  "v1_replication_block": {
+    "tier_tok": {
+      "LOW": 8966,
+      "MED": 8984,
+      "HIGH": 9145
+    },
+    "results": {
+      "LOW": {
+        "rate_all": 0.5789473684210527,
+        "n_all": 57,
+        "rate_multi": 0.38095238095238093,
+        "n_multi": 21,
+        "n_bg_tok": 8966
+      },
+      "MED": {
+        "rate_all": 0.5789473684210527,
+        "n_all": 57,
+        "rate_multi": 0.38095238095238093,
+        "n_multi": 21,
+        "n_bg_tok": 8984
+      },
+      "HIGH": {
+        "rate_all": 0.5789473684210527,
+        "n_all": 57,
+        "rate_multi": 0.38095238095238093,
+        "n_multi": 21,
+        "n_bg_tok": 9145
+      }
+    },
+    "n_eval_instances_total": 57,
+    "n_eval_instances_multi_candidate": 21
+  },
+  "gap_ok_all_tiers": false,
+  "scr_ok_all_tiers": false,
+  "baseline_ok_all_tiers": true,
+  "specificity_ok_all_tiers": false,
+  "verdict": "HARD_FAIL_DENSITY_NOT_THE_LEVER_V2",
+  "verdict_msg": "CJ patient-slot gap(HIGH-LOW) per tier=[0.0091, 0.0273, 0.0273] scrambled-gap per tier=[0.0, 0.0091, -0.0091] patient_specific_gap per tier=[-0.0182, -0.0117, -0.0117] n_patient_trials=110 n_agent_trials=48",
+  "summary": "HARD_FAIL_DENSITY_NOT_THE_LEVER_V2: event_outcome_density_patient_signal_probe_v2",
+  "elapsed_s": 18.66648479999276,
+  "ts_iso": "2026-07-20T14:50:48.452230+00:00",
+  "pid": 15244,
+  "run_mode": "smoke"
+}
