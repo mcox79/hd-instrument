@@ -1,0 +1,90 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial signal, gates not all cleared. mean_delta_hard_unrel=0.0400 mean_delta_mult_unrel=0.0400 lift_ok=False majority_ok=False control_ok=True do_no_harm_ok=True (n_pos_hard=1 n_pos_mult=1).",
+  "summary": "MIDDLE_BAND: partial signal, gates not all cleared. mean_delta_hard_unrel=0.0400 mean_delta_mult_unrel=0.0400 lift_ok=False majority_ok=False control_ok=True do_no_harm_ok=True (n_pos_hard=1 n_pos_mult=1).",
+  "per_seed": [
+    {
+      "seed": 7,
+      "ungated_all": 0.83,
+      "ungated_unrel": 0.66,
+      "ungated_rel": 1.0,
+      "hard_gate_all": 0.85,
+      "hard_gate_unrel": 0.7,
+      "hard_gate_rel": 1.0,
+      "soft_multiplier_all": 0.85,
+      "soft_multiplier_unrel": 0.7,
+      "soft_multiplier_rel": 1.0,
+      "shuffled_hard_gate_all": 0.63,
+      "shuffled_hard_gate_unrel": 0.26,
+      "shuffled_hard_gate_rel": 1.0,
+      "shuffled_multiplier_all": 0.68,
+      "shuffled_multiplier_unrel": 0.36,
+      "shuffled_multiplier_rel": 1.0,
+      "oracle_all": 0.85,
+      "oracle_unrel": 0.7,
+      "oracle_rel": 1.0,
+      "_arm_digests_short": {
+        "ungated": "88bd8437f6e81121",
+        "hard_gate": "09fdb442e682b115",
+        "soft_multiplier": "938702207583e4d4",
+        "shuffled_hard_gate": "847a6d663efc436f",
+        "shuffled_multiplier": "94559f6a02caea9d",
+        "oracle": "c09150ed373703b0"
+      }
+    }
+  ],
+  "mean_delta_hard_unrel": 0.039999999999999925,
+  "mean_delta_mult_unrel": 0.039999999999999925,
+  "mean_delta_hard_rel": 0.0,
+  "mean_delta_mult_rel": 0.0,
+  "delta_hard_unrel_per_seed": [
+    0.039999999999999925
+  ],
+  "delta_mult_unrel_per_seed": [
+    0.039999999999999925
+  ],
+  "delta_shuffled_hard_unrel_per_seed": [
+    -0.4
+  ],
+  "delta_shuffled_mult_unrel_per_seed": [
+    -0.30000000000000004
+  ],
+  "delta_oracle_unrel_per_seed": [
+    0.039999999999999925
+  ],
+  "baseline_unrel_per_seed": [
+    0.66
+  ],
+  "baseline_in_band": true,
+  "n_pos_hard": 1,
+  "n_pos_mult": 1,
+  "hp_scope_note": "oracle + shuffled_hard_gate + shuffled_multiplier are diagnostic/control arms, explicitly OUT of HARD_PASS/HARD_FAIL decision scope (HP_SCOPE per pre-reg).",
+  "elapsed_s": 0.021882699977140874,
+  "run_mode": "smoke",
+  "anchor_name": "attention_salience_reliability_gate_v1",
+  "ts_iso": "2026-07-20T03:49:53.425883+00:00",
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "config": {
+    "V": 100,
+    "N": 128,
+    "N_RELIABLE": 50,
+    "N_UNRELIABLE": 50,
+    "R_RELIABLE": 0.92,
+    "R_UNRELIABLE": 0.15,
+    "N_OBS_MIN": 6,
+    "N_OBS_MAX": 10,
+    "TAU": 0.5,
+    "CONF_HI": [
+      8.0,
+      2.0
+    ],
+    "CONF_LO": [
+      2.0,
+      8.0
+    ],
+    "SEEDS": [
+      7
+    ]
+  }
+}
