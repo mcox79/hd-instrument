@@ -1,0 +1,201 @@
+{
+  "verdict": "HARD_FAIL_CORRELATED_ERROR_FOOLS_CHANNEL",
+  "verdict_msg": "HARD_FAIL: under CORRELATED/SYSTEMATIC source errors (shared per-item decoy for every erring source), the independent channel is FOOLED. auc_unrel(correlated)=0.3240 (<= 0.55 collapse-ceiling: True; band was (0.55, 0.9) under independent-random errors). mean_delta_hard_unrel(correlated)=-0.0975 (<= 0.02 ties/hurts: True). mean_score_correct_unrel=0.6715 vs mean_score_incorrect_unrel=0.7038 (atom 29376's independent-random arm here: 0.2929 vs 0.1591 -- reproduction confirms correct>incorrect gap present under independent errors). Gate D held (reimplementation verified: auc_unrel(ir)=0.6733, mean_delta_hard_unrel(ir)=0.0610), so this is a real scope limit, not an artifact: the CG (atom 29376) is honestly BOUNDED to independent-random source errors. Correlated/systematic errors (common-mode bias across raters/sources) break the same-item-consistency raw ingredient the channel is built on -- confidently-wrong sources that agree with each other on an item look identical to genuinely-correct sources to a peer-consistency estimator, exactly the failure mode the brain_check (Kalman/Ernst&Banks independent-noise assumption) predicts when that assumption is violated. Record as a real, informative scope bound; do NOT force-pass.",
+  "summary": "HARD_FAIL: under CORRELATED/SYSTEMATIC source errors (shared per-item decoy for every erring source), the independent channel is FOOLED. auc_unrel(correlated)=0.3240 (<= 0.55 collapse-ceiling: True; band was (0.55, 0.9) under independent-random errors). mean_delta_hard_unrel(correlated)=-0.0975 (<= 0.02 ties/hurts: True). mean_score_correct_unrel=0.6715 vs mean_score_incorrect_unrel=0.7038 (atom 29376's independent-random arm here: 0.2929 vs 0.1591 -- reproduction confirms correct>incorrect gap present under independent errors). Gate D held (reimplementation verified: auc_unrel(ir)=0.6733, mean_delta_hard_unrel(ir)=0.0610), so this is a real scope limit, not an artifact: the CG (atom 29376) is honestly BOUNDED to independent-random source errors. Correlated/systematic errors (common-mode bias across raters/sources) break the same-item-consistency raw ingredient the channel is built on -- confidently-wrong sources that agree with each other on an item look identical to genuinely-correct sources to a peer-consistency estimator, exactly the failure mode the brain_check (Kalman/Ernst&Banks independent-noise assumption) predicts when that assumption is violated. Record as a real, informative scope bound; do NOT force-pass.",
+  "gate_d_ok": true,
+  "gate_d_auc_delta": 0.003132633292396214,
+  "gate_d_lift_delta": 0.002399999999999944,
+  "independent_random": {
+    "per_seed": [
+      {
+        "seed": 7,
+        "error_mode": "independent_random",
+        "tau": 0.28584008841317354,
+        "ungated_all": 0.706875,
+        "ungated_unrel": 0.5495,
+        "ungated_rel": 0.86425,
+        "hard_gate_all": 0.74875,
+        "hard_gate_unrel": 0.6105,
+        "hard_gate_rel": 0.887,
+        "soft_multiplier_all": 0.76,
+        "soft_multiplier_unrel": 0.635,
+        "soft_multiplier_rel": 0.885,
+        "shuffled_hard_gate_all": 0.581,
+        "shuffled_hard_gate_unrel": 0.38025,
+        "shuffled_hard_gate_rel": 0.78175,
+        "shuffled_multiplier_all": 0.629375,
+        "shuffled_multiplier_unrel": 0.438,
+        "shuffled_multiplier_rel": 0.82075,
+        "oracle_all": 0.910375,
+        "oracle_unrel": 0.84025,
+        "oracle_rel": 0.9805,
+        "auc_pooled": 0.7115923717305128,
+        "auc_unrel": 0.6732673667076038,
+        "mean_score_correct_unrel": 0.2929158855100305,
+        "mean_score_incorrect_unrel": 0.15911075696339858,
+        "_arm_digests_short": {
+          "ungated": "9bc3c4227558dcc1",
+          "hard_gate": "d1ff8e65dc1a6f9e",
+          "soft_multiplier": "25e5bfebabe2a2f6",
+          "shuffled_hard_gate": "dc624dc955261651",
+          "shuffled_multiplier": "46cc29c1882998e9",
+          "oracle": "a783e0813f04999b"
+        }
+      }
+    ],
+    "mean_delta_hard_unrel": 0.061000000000000054,
+    "mean_delta_mult_unrel": 0.08550000000000002,
+    "mean_delta_hard_rel": 0.022750000000000048,
+    "mean_delta_mult_rel": 0.020750000000000046,
+    "delta_hard_unrel_per_seed": [
+      0.061000000000000054
+    ],
+    "delta_mult_unrel_per_seed": [
+      0.08550000000000002
+    ],
+    "delta_shuffled_hard_unrel_per_seed": [
+      -0.16925
+    ],
+    "delta_shuffled_mult_unrel_per_seed": [
+      -0.11149999999999999
+    ],
+    "delta_oracle_unrel_per_seed": [
+      0.29075000000000006
+    ],
+    "baseline_unrel_per_seed": [
+      0.5495
+    ],
+    "baseline_rel_per_seed": [
+      0.86425
+    ],
+    "baseline_in_band": true,
+    "baseline_rel_non_ceiling": true,
+    "auc_unrel_per_seed": [
+      0.6732673667076038
+    ],
+    "auc_pooled_per_seed": [
+      0.7115923717305128
+    ],
+    "auc_unrel_mean": 0.6732673667076038,
+    "auc_pooled_mean": 0.7115923717305128,
+    "n_pos_hard": 1,
+    "n_pos_mult": 1,
+    "control_ok_hard": true,
+    "control_ok_mult": true,
+    "do_no_harm_hard_ok": true,
+    "do_no_harm_mult_ok": true,
+    "mean_score_correct_unrel": 0.2929158855100305,
+    "mean_score_incorrect_unrel": 0.15911075696339858
+  },
+  "correlated_systematic": {
+    "per_seed": [
+      {
+        "seed": 7,
+        "error_mode": "correlated_systematic",
+        "tau": 0.6679306880708344,
+        "ungated_all": 0.403625,
+        "ungated_unrel": 0.2105,
+        "ungated_rel": 0.59675,
+        "hard_gate_all": 0.226,
+        "hard_gate_unrel": 0.113,
+        "hard_gate_rel": 0.339,
+        "soft_multiplier_all": 0.320125,
+        "soft_multiplier_unrel": 0.1405,
+        "soft_multiplier_rel": 0.49975,
+        "shuffled_hard_gate_all": 0.408875,
+        "shuffled_hard_gate_unrel": 0.23575,
+        "shuffled_hard_gate_rel": 0.582,
+        "shuffled_multiplier_all": 0.384375,
+        "shuffled_multiplier_unrel": 0.195,
+        "shuffled_multiplier_rel": 0.57375,
+        "oracle_all": 0.910375,
+        "oracle_unrel": 0.84025,
+        "oracle_rel": 0.9805,
+        "auc_pooled": 0.2730365324184676,
+        "auc_unrel": 0.32399122753892967,
+        "mean_score_correct_unrel": 0.6715013176579206,
+        "mean_score_incorrect_unrel": 0.7038354770416247,
+        "_arm_digests_short": {
+          "ungated": "895ebc2f1164facb",
+          "hard_gate": "40f888a55fd6b5ef",
+          "soft_multiplier": "03be6098ff89fe99",
+          "shuffled_hard_gate": "671c54b234da901c",
+          "shuffled_multiplier": "212997d2e4494984",
+          "oracle": "a47e0b6d52b6a0ea"
+        }
+      }
+    ],
+    "mean_delta_hard_unrel": -0.09749999999999999,
+    "mean_delta_mult_unrel": -0.06999999999999998,
+    "mean_delta_hard_rel": -0.25775,
+    "mean_delta_mult_rel": -0.09699999999999998,
+    "delta_hard_unrel_per_seed": [
+      -0.09749999999999999
+    ],
+    "delta_mult_unrel_per_seed": [
+      -0.06999999999999998
+    ],
+    "delta_shuffled_hard_unrel_per_seed": [
+      0.025249999999999995
+    ],
+    "delta_shuffled_mult_unrel_per_seed": [
+      -0.015499999999999986
+    ],
+    "delta_oracle_unrel_per_seed": [
+      0.62975
+    ],
+    "baseline_unrel_per_seed": [
+      0.2105
+    ],
+    "baseline_rel_per_seed": [
+      0.59675
+    ],
+    "baseline_in_band": true,
+    "baseline_rel_non_ceiling": true,
+    "auc_unrel_per_seed": [
+      0.32399122753892967
+    ],
+    "auc_pooled_per_seed": [
+      0.2730365324184676
+    ],
+    "auc_unrel_mean": 0.32399122753892967,
+    "auc_pooled_mean": 0.2730365324184676,
+    "n_pos_hard": 0,
+    "n_pos_mult": 0,
+    "control_ok_hard": false,
+    "control_ok_mult": true,
+    "do_no_harm_hard_ok": false,
+    "do_no_harm_mult_ok": false,
+    "mean_score_correct_unrel": 0.6715013176579206,
+    "mean_score_incorrect_unrel": 0.7038354770416247
+  },
+  "hp_scope_note": "Primary decision axis is correlated_systematic mode's hard_gate arm. independent_random mode is a GATE-D POSITIVE CONTROL (must reproduce atom 29376 within tolerance before the correlated-mode verdict is trusted), not itself re-adjudicated for HARD_PASS/HARD_FAIL. oracle + shuffled arms in BOTH modes are diagnostic/control, explicitly OUT of HARD_PASS/HARD_FAIL scope. soft_multiplier is reported for both modes but not required to clear the 0.05 floor (secondary, per atom 29376's disclosed HP_SCOPE convention).",
+  "revives_scope_bound_of": "data/substrate_index/math/atoms.jsonl atom 29376 (independent_channel_v1 HARD_PASS) -- scope_bounds named CORRELATED/SYSTEMATIC source errors as the untested next test; this cell is that test.",
+  "elapsed_s": 5.12069270000211,
+  "run_mode": "smoke",
+  "anchor_name": "attention_salience_reliability_gate_correlated_error_v1",
+  "ts_iso": "2026-07-20T05:10:20.637045+00:00",
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "config": {
+    "S_LO": 10,
+    "S_HI": 10,
+    "V_PER_TIER": 4000,
+    "V": 8000,
+    "N": 64,
+    "N_OBS_MIN": 4,
+    "N_OBS_MAX": 6,
+    "P_LO": 0.2,
+    "P_HI": 0.65,
+    "MIX_MAJ": 0.75,
+    "SEEDS": [
+      7
+    ],
+    "ERROR_MODES": [
+      "independent_random",
+      "correlated_systematic"
+    ],
+    "signal": "source_level_leave_one_item_out_cross_item_aggregate_of_same_item_loo_cosine_NO_INJECTION",
+    "correlated_construction": "shared_per_item_decoy_vector_for_every_erring_source_regardless_of_identity"
+  }
+}
