@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "RuntimeError: The size of tensor a (3) must match the size of tensor b (6) at non-singleton dimension 1",
+  "summary": "CELL_CRASHED: RuntimeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_generalization_v1.py\", line 725, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_generalization_v1.py\", line 705, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_generalization_v1.py\", line 687, in self_test\n    cc = ceiling_check(7, true_codes_t, seen_idx, distractor_idx, cand_pos, role_codes, cand_table,\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_generalization_v1.py\", line 397, in ceiling_check\n    preds = decode_scenes(focal_codes, other_codes, role_codes, cand_table)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_novel_atom_real_codebook_generalization_v1.py\", line 310, in decode_scenes\n    bound = bind(role_b, all_fillers)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\hdlab\\binding.py\", line 37, in bind\n    out = torch.fft.ifft(fa * fb).real.to(a.dtype)\n                         ~~~^~~~\nRuntimeError: The size of tensor a (3) must match the size of tensor b (6) at non-singleton dimension 1\n",
+  "ts_iso": "2026-07-20T07:40:46.700365+00:00",
+  "pid": 16468,
+  "anchor_name": "exp_novel_atom_real_codebook_generalization_v1"
+}

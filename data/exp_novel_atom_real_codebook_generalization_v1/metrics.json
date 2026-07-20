@@ -1,0 +1,518 @@
+{
+  "verdict": "HARD_FAIL_NOVEL_ATOM_REAL_CODEBOOK_DOES_NOT_SURVIVE_COMPOSITION",
+  "verdict_msg": "codebook_derived=0.314 handed_ceiling=1.000 random_code=0.006 memorize_prototype=0.340 (chance=0.00667) | vs_random_margin=0.308 vs_memorize_margin=-0.026 vs_ceiling_frac=0.314 | ceiling_check(mechanics)=1.000 | discriminator_fires=True | cardinality_ok=True (12/12) arms_differ=True | V=10000 F_NOVEL=30 candidates=150",
+  "summary": "HARD_FAIL_NOVEL_ATOM_REAL_CODEBOOK_DOES_NOT_SURVIVE_COMPOSITION: codebook_derived=0.314 handed_ceiling=1.000 random_code=0.006 memorize_prototype=0.340 (chance=0.00667) | vs_random_margin=0.308 vs_memorize_margin=-0.026 vs_ceiling_frac=0.314 | ceiling_check(mechanics)=1.000 | discrimi",
+  "elapsed_s": 153.7446032000007,
+  "anchor_name": "exp_novel_atom_real_codebook_generalization_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-20T07:44:42.213172+00:00",
+  "config": {
+    "n_tokens": 8000000,
+    "vocab_size": 10000,
+    "window": 5,
+    "min_count": 5,
+    "rank_lo": 800,
+    "rank_hi": 4800,
+    "f_novel": 30,
+    "n_distractor": 120,
+    "k_eval": 40,
+    "N": 1024,
+    "D_FEAT": 256,
+    "RI_SPARSITY": 10,
+    "RIDGE_ALPHA": 10.0,
+    "R_ROLES": 6,
+    "ALPHA_FRAC": 0.3,
+    "MIN_OCC_PER_DRAW": 20,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "V": 10000,
+    "held_ranks": [
+      800,
+      933,
+      1066,
+      1199,
+      1332,
+      1465,
+      1598,
+      1731,
+      1864,
+      1997,
+      2130,
+      2263,
+      2396,
+      2529,
+      2662,
+      2795,
+      2928,
+      3061,
+      3194,
+      3327,
+      3460,
+      3593,
+      3726,
+      3859,
+      3992,
+      4125,
+      4258,
+      4391,
+      4524,
+      4657
+    ],
+    "held_counts": [
+      1013.0,
+      898.0,
+      791.0,
+      701.0,
+      630.0,
+      582.0,
+      539.0,
+      500.0,
+      465.0,
+      434.0,
+      406.0,
+      382.0,
+      362.0,
+      342.0,
+      322.0,
+      306.0,
+      291.0,
+      278.0,
+      264.0,
+      253.0,
+      241.0,
+      229.0,
+      219.0,
+      209.0,
+      200.0,
+      193.0,
+      185.0,
+      179.0,
+      173.0,
+      166.0
+    ],
+    "n_seen": 9970,
+    "n_candidates": 150
+  },
+  "arm_summary": {
+    "codebook_derived": {
+      "acc_mean": 0.3141666666666667,
+      "acc_std": 0.0042491829279939905,
+      "n_seeds": 3
+    },
+    "handed_ceiling": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "n_seeds": 3
+    },
+    "random_code": {
+      "acc_mean": 0.006111111111111111,
+      "acc_std": 0.002078698548207745,
+      "n_seeds": 3
+    },
+    "memorize_prototype": {
+      "acc_mean": 0.34,
+      "acc_std": 0.007484551991837503,
+      "n_seeds": 3
+    }
+  },
+  "ceiling_check_mechanics_acc_mean": 1.0,
+  "per_unit": {
+    "codebook_derived__seed7": {
+      "arm": "codebook_derived",
+      "seed": 7,
+      "novel_query_acc": 0.32,
+      "failure_class": null
+    },
+    "handed_ceiling__seed7": {
+      "arm": "handed_ceiling",
+      "seed": 7,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "random_code__seed7": {
+      "arm": "random_code",
+      "seed": 7,
+      "novel_query_acc": 0.006666666666666667,
+      "failure_class": null
+    },
+    "memorize_prototype__seed7": {
+      "arm": "memorize_prototype",
+      "seed": 7,
+      "novel_query_acc": 0.3308333333333333,
+      "failure_class": null
+    },
+    "codebook_derived__seed13": {
+      "arm": "codebook_derived",
+      "seed": 13,
+      "novel_query_acc": 0.3125,
+      "failure_class": null
+    },
+    "handed_ceiling__seed13": {
+      "arm": "handed_ceiling",
+      "seed": 13,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "random_code__seed13": {
+      "arm": "random_code",
+      "seed": 13,
+      "novel_query_acc": 0.0033333333333333335,
+      "failure_class": null
+    },
+    "memorize_prototype__seed13": {
+      "arm": "memorize_prototype",
+      "seed": 13,
+      "novel_query_acc": 0.3491666666666667,
+      "failure_class": null
+    },
+    "codebook_derived__seed19": {
+      "arm": "codebook_derived",
+      "seed": 19,
+      "novel_query_acc": 0.31,
+      "failure_class": null
+    },
+    "handed_ceiling__seed19": {
+      "arm": "handed_ceiling",
+      "seed": 19,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "random_code__seed19": {
+      "arm": "random_code",
+      "seed": 19,
+      "novel_query_acc": 0.008333333333333333,
+      "failure_class": null
+    },
+    "memorize_prototype__seed19": {
+      "arm": "memorize_prototype",
+      "seed": 19,
+      "novel_query_acc": 0.34,
+      "failure_class": null
+    }
+  },
+  "novel_atom_diagnostics_by_seed": {
+    "7": {
+      "800": {
+        "mean_cos_derived_vs_true": 0.6123340696757145
+      },
+      "933": {
+        "mean_cos_derived_vs_true": 0.5669625349203862
+      },
+      "1066": {
+        "mean_cos_derived_vs_true": 0.6386300913907487
+      },
+      "1199": {
+        "mean_cos_derived_vs_true": 0.5539258794329113
+      },
+      "1332": {
+        "mean_cos_derived_vs_true": 0.5899282960931792
+      },
+      "1465": {
+        "mean_cos_derived_vs_true": 0.5302747025897396
+      },
+      "1598": {
+        "mean_cos_derived_vs_true": 0.5411050565858952
+      },
+      "1731": {
+        "mean_cos_derived_vs_true": 0.5358407096947674
+      },
+      "1864": {
+        "mean_cos_derived_vs_true": 0.4367186945870866
+      },
+      "1997": {
+        "mean_cos_derived_vs_true": 0.4897923634137502
+      },
+      "2130": {
+        "mean_cos_derived_vs_true": 0.5045837471985579
+      },
+      "2263": {
+        "mean_cos_derived_vs_true": 0.43363249087505745
+      },
+      "2396": {
+        "mean_cos_derived_vs_true": 0.5975430994636572
+      },
+      "2529": {
+        "mean_cos_derived_vs_true": 0.5835627818878545
+      },
+      "2662": {
+        "mean_cos_derived_vs_true": 0.5077236675281729
+      },
+      "2795": {
+        "mean_cos_derived_vs_true": 0.47739149747091886
+      },
+      "2928": {
+        "mean_cos_derived_vs_true": 0.4609292140762097
+      },
+      "3061": {
+        "mean_cos_derived_vs_true": 0.4409434595364551
+      },
+      "3194": {
+        "mean_cos_derived_vs_true": 0.4953411400410069
+      },
+      "3327": {
+        "mean_cos_derived_vs_true": 0.5084479310288719
+      },
+      "3460": {
+        "mean_cos_derived_vs_true": 0.4594489535893656
+      },
+      "3593": {
+        "mean_cos_derived_vs_true": 0.3929362033176246
+      },
+      "3726": {
+        "mean_cos_derived_vs_true": 0.5571156894607485
+      },
+      "3859": {
+        "mean_cos_derived_vs_true": 0.4322942382648153
+      },
+      "3992": {
+        "mean_cos_derived_vs_true": 0.4504224412377905
+      },
+      "4125": {
+        "mean_cos_derived_vs_true": 0.43722992394941984
+      },
+      "4258": {
+        "mean_cos_derived_vs_true": 0.4289456429360753
+      },
+      "4391": {
+        "mean_cos_derived_vs_true": 0.42246690362629086
+      },
+      "4524": {
+        "mean_cos_derived_vs_true": 0.43200165201914925
+      },
+      "4657": {
+        "mean_cos_derived_vs_true": 0.447951831209771
+      }
+    },
+    "13": {
+      "800": {
+        "mean_cos_derived_vs_true": 0.615463420828885
+      },
+      "933": {
+        "mean_cos_derived_vs_true": 0.5746333044073128
+      },
+      "1066": {
+        "mean_cos_derived_vs_true": 0.6418435795451394
+      },
+      "1199": {
+        "mean_cos_derived_vs_true": 0.5551388244242028
+      },
+      "1332": {
+        "mean_cos_derived_vs_true": 0.5944373903744115
+      },
+      "1465": {
+        "mean_cos_derived_vs_true": 0.536324418849964
+      },
+      "1598": {
+        "mean_cos_derived_vs_true": 0.541127829834313
+      },
+      "1731": {
+        "mean_cos_derived_vs_true": 0.5336584701656909
+      },
+      "1864": {
+        "mean_cos_derived_vs_true": 0.4378028272884194
+      },
+      "1997": {
+        "mean_cos_derived_vs_true": 0.4935387737595926
+      },
+      "2130": {
+        "mean_cos_derived_vs_true": 0.5092010948562653
+      },
+      "2263": {
+        "mean_cos_derived_vs_true": 0.44029589974299566
+      },
+      "2396": {
+        "mean_cos_derived_vs_true": 0.5935138979737172
+      },
+      "2529": {
+        "mean_cos_derived_vs_true": 0.5815819768469095
+      },
+      "2662": {
+        "mean_cos_derived_vs_true": 0.5038320361785888
+      },
+      "2795": {
+        "mean_cos_derived_vs_true": 0.47148977989916485
+      },
+      "2928": {
+        "mean_cos_derived_vs_true": 0.4598052171111232
+      },
+      "3061": {
+        "mean_cos_derived_vs_true": 0.4442002365364651
+      },
+      "3194": {
+        "mean_cos_derived_vs_true": 0.500622511316795
+      },
+      "3327": {
+        "mean_cos_derived_vs_true": 0.5011025539181233
+      },
+      "3460": {
+        "mean_cos_derived_vs_true": 0.4601360658945727
+      },
+      "3593": {
+        "mean_cos_derived_vs_true": 0.39449780328493206
+      },
+      "3726": {
+        "mean_cos_derived_vs_true": 0.5523118851004591
+      },
+      "3859": {
+        "mean_cos_derived_vs_true": 0.43283747363448094
+      },
+      "3992": {
+        "mean_cos_derived_vs_true": 0.45698636930924685
+      },
+      "4125": {
+        "mean_cos_derived_vs_true": 0.42945871726510043
+      },
+      "4258": {
+        "mean_cos_derived_vs_true": 0.43047723604756827
+      },
+      "4391": {
+        "mean_cos_derived_vs_true": 0.41316947571194645
+      },
+      "4524": {
+        "mean_cos_derived_vs_true": 0.4323327568584935
+      },
+      "4657": {
+        "mean_cos_derived_vs_true": 0.44799680971847505
+      }
+    },
+    "19": {
+      "800": {
+        "mean_cos_derived_vs_true": 0.6132488757814928
+      },
+      "933": {
+        "mean_cos_derived_vs_true": 0.5683851939521024
+      },
+      "1066": {
+        "mean_cos_derived_vs_true": 0.6430257203004947
+      },
+      "1199": {
+        "mean_cos_derived_vs_true": 0.5560665848118336
+      },
+      "1332": {
+        "mean_cos_derived_vs_true": 0.5955321395972755
+      },
+      "1465": {
+        "mean_cos_derived_vs_true": 0.5396720574192867
+      },
+      "1598": {
+        "mean_cos_derived_vs_true": 0.5378648126611953
+      },
+      "1731": {
+        "mean_cos_derived_vs_true": 0.5349305408778701
+      },
+      "1864": {
+        "mean_cos_derived_vs_true": 0.4443667413643359
+      },
+      "1997": {
+        "mean_cos_derived_vs_true": 0.490223892547061
+      },
+      "2130": {
+        "mean_cos_derived_vs_true": 0.5095298061815615
+      },
+      "2263": {
+        "mean_cos_derived_vs_true": 0.429567849141833
+      },
+      "2396": {
+        "mean_cos_derived_vs_true": 0.5949057769540811
+      },
+      "2529": {
+        "mean_cos_derived_vs_true": 0.5885292379814487
+      },
+      "2662": {
+        "mean_cos_derived_vs_true": 0.49750245274154403
+      },
+      "2795": {
+        "mean_cos_derived_vs_true": 0.47536512540895437
+      },
+      "2928": {
+        "mean_cos_derived_vs_true": 0.4612001622966993
+      },
+      "3061": {
+        "mean_cos_derived_vs_true": 0.43529684730372614
+      },
+      "3194": {
+        "mean_cos_derived_vs_true": 0.4935668748473532
+      },
+      "3327": {
+        "mean_cos_derived_vs_true": 0.4978629779038844
+      },
+      "3460": {
+        "mean_cos_derived_vs_true": 0.46069030609254813
+      },
+      "3593": {
+        "mean_cos_derived_vs_true": 0.39015564990812945
+      },
+      "3726": {
+        "mean_cos_derived_vs_true": 0.5424298210793508
+      },
+      "3859": {
+        "mean_cos_derived_vs_true": 0.44221457072055603
+      },
+      "3992": {
+        "mean_cos_derived_vs_true": 0.4501714515147034
+      },
+      "4125": {
+        "mean_cos_derived_vs_true": 0.43514396860250154
+      },
+      "4258": {
+        "mean_cos_derived_vs_true": 0.43149729923360425
+      },
+      "4391": {
+        "mean_cos_derived_vs_true": 0.4134511659994069
+      },
+      "4524": {
+        "mean_cos_derived_vs_true": 0.4271147091001037
+      },
+      "4657": {
+        "mean_cos_derived_vs_true": 0.44383232998087563
+      }
+    }
+  },
+  "bands": {
+    "HP_CODEBOOK_ACC_MIN": 0.2,
+    "HP_CODEBOOK_VS_RANDOM_MARGIN": 0.15,
+    "HP_CODEBOOK_VS_MEMORIZE_MARGIN": 0.05,
+    "HF_CODEBOOK_FLOOR": 0.05,
+    "HF_CODEBOOK_VS_RANDOM_MARGIN": 0.03,
+    "HF_CODEBOOK_VS_MEMORIZE_MARGIN": 0.0,
+    "CEIL_CHECK_MIN": 0.9,
+    "CHANCE_FLOOR": 0.006666666666666667
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "n_units_done": 12,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "seed7__codebook_derived_vs_handed_ceiling": true,
+    "seed7__codebook_derived_vs_random_code": true,
+    "seed7__codebook_derived_vs_memorize_prototype": true,
+    "seed7__handed_ceiling_vs_random_code": true,
+    "seed7__handed_ceiling_vs_memorize_prototype": true,
+    "seed7__memorize_prototype_vs_random_code": true,
+    "seed13__codebook_derived_vs_handed_ceiling": true,
+    "seed13__codebook_derived_vs_random_code": true,
+    "seed13__codebook_derived_vs_memorize_prototype": true,
+    "seed13__handed_ceiling_vs_random_code": true,
+    "seed13__handed_ceiling_vs_memorize_prototype": true,
+    "seed13__memorize_prototype_vs_random_code": true,
+    "seed19__codebook_derived_vs_handed_ceiling": true,
+    "seed19__codebook_derived_vs_random_code": true,
+    "seed19__codebook_derived_vs_memorize_prototype": true,
+    "seed19__handed_ceiling_vs_random_code": true,
+    "seed19__handed_ceiling_vs_memorize_prototype": true,
+    "seed19__memorize_prototype_vs_random_code": true
+  },
+  "arms_differ_exempted": [],
+  "discriminator_fires": true,
+  "baseline_in_band": true,
+  "crlb_n/a": "classification-accuracy generalization over C=150 discrete candidates; closed-form chance floor = 1/C = 0.00667 (THEORETICAL)",
+  "prior_art": "LevyGoldberg2015 PPMI-SVD; ChurchHanks1990 PMI; Kanerva1988/Sahlgren2005 RI; Khodak2018 a-la-carte; Snell2017 ProtoNet; Plate1995 HRR unitary vectors; McClelland1995 CLS; GreffVanSteenkisteSchmidhuber2020",
+  "integration_of": [
+    "exp_learned_codebook_generalization_gate_v1 (real codebook CG, atom 29368, AUC=0.927)",
+    "atom 29380 (synthetic linear-construction-forced revival target)"
+  ],
+  "honest_deviation_note": "memorize_prototype is NOT expected near-zero on real data (unlike the synthetic i.i.d.-atom cell) -- real vocabulary has genuine semantic-neighborhood structure; see docstring calibration note. random_code is the true chance/format-only floor."
+}

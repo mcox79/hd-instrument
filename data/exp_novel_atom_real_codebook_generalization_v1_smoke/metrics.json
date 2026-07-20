@@ -1,0 +1,408 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "codebook_derived=0.333 handed_ceiling=1.000 random_code=0.011 memorize_prototype=0.227 (chance=0.01000) | vs_random_margin=0.322 vs_memorize_margin=0.106 vs_ceiling_frac=0.333 | ceiling_check(mechanics)=1.000 | discriminator_fires=True | cardinality_ok=True (12/12) arms_differ=True | V=6000 F_NOVEL=20 candidates=100",
+  "summary": "HARD_PASS: codebook_derived=0.333 handed_ceiling=1.000 random_code=0.011 memorize_prototype=0.227 (chance=0.01000) | vs_random_margin=0.322 vs_memorize_margin=0.106 vs_ceiling_frac=0.333 | ceiling_check(mechanics)=1.000 | discrimin",
+  "elapsed_s": 39.4977777999884,
+  "anchor_name": "exp_novel_atom_real_codebook_generalization_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-20T07:42:00.107959+00:00",
+  "config": {
+    "n_tokens": 1500000,
+    "vocab_size": 6000,
+    "window": 5,
+    "min_count": 5,
+    "rank_lo": 400,
+    "rank_hi": 2400,
+    "f_novel": 20,
+    "n_distractor": 80,
+    "k_eval": 20,
+    "N": 1024,
+    "D_FEAT": 256,
+    "RI_SPARSITY": 10,
+    "RIDGE_ALPHA": 10.0,
+    "R_ROLES": 6,
+    "ALPHA_FRAC": 0.3,
+    "MIN_OCC_PER_DRAW": 20,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "V": 6000,
+    "held_ranks": [
+      400,
+      500,
+      600,
+      700,
+      800,
+      900,
+      1000,
+      1100,
+      1200,
+      1300,
+      1400,
+      1500,
+      1600,
+      1700,
+      1800,
+      1900,
+      2000,
+      2100,
+      2200,
+      2300
+    ],
+    "held_counts": [
+      341.0,
+      277.0,
+      240.0,
+      212.0,
+      191.0,
+      174.0,
+      157.0,
+      145.0,
+      134.0,
+      124.0,
+      117.0,
+      109.0,
+      102.0,
+      97.0,
+      92.0,
+      87.0,
+      83.0,
+      79.0,
+      75.0,
+      71.0
+    ],
+    "n_seen": 5980,
+    "n_candidates": 100
+  },
+  "arm_summary": {
+    "codebook_derived": {
+      "acc_mean": 0.3325,
+      "acc_std": 0.007359800721939879,
+      "n_seeds": 3
+    },
+    "handed_ceiling": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "n_seeds": 3
+    },
+    "random_code": {
+      "acc_mean": 0.010833333333333334,
+      "acc_std": 0.0023570226039551587,
+      "n_seeds": 3
+    },
+    "memorize_prototype": {
+      "acc_mean": 0.22666666666666666,
+      "acc_std": 0.015456030825826174,
+      "n_seeds": 3
+    }
+  },
+  "ceiling_check_mechanics_acc_mean": 1.0,
+  "per_unit": {
+    "codebook_derived__seed7": {
+      "arm": "codebook_derived",
+      "seed": 7,
+      "novel_query_acc": 0.335,
+      "failure_class": null
+    },
+    "handed_ceiling__seed7": {
+      "arm": "handed_ceiling",
+      "seed": 7,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "random_code__seed7": {
+      "arm": "random_code",
+      "seed": 7,
+      "novel_query_acc": 0.0125,
+      "failure_class": null
+    },
+    "memorize_prototype__seed7": {
+      "arm": "memorize_prototype",
+      "seed": 7,
+      "novel_query_acc": 0.24,
+      "failure_class": null
+    },
+    "codebook_derived__seed13": {
+      "arm": "codebook_derived",
+      "seed": 13,
+      "novel_query_acc": 0.34,
+      "failure_class": null
+    },
+    "handed_ceiling__seed13": {
+      "arm": "handed_ceiling",
+      "seed": 13,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "random_code__seed13": {
+      "arm": "random_code",
+      "seed": 13,
+      "novel_query_acc": 0.0075,
+      "failure_class": null
+    },
+    "memorize_prototype__seed13": {
+      "arm": "memorize_prototype",
+      "seed": 13,
+      "novel_query_acc": 0.205,
+      "failure_class": null
+    },
+    "codebook_derived__seed19": {
+      "arm": "codebook_derived",
+      "seed": 19,
+      "novel_query_acc": 0.3225,
+      "failure_class": null
+    },
+    "handed_ceiling__seed19": {
+      "arm": "handed_ceiling",
+      "seed": 19,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "random_code__seed19": {
+      "arm": "random_code",
+      "seed": 19,
+      "novel_query_acc": 0.0125,
+      "failure_class": null
+    },
+    "memorize_prototype__seed19": {
+      "arm": "memorize_prototype",
+      "seed": 19,
+      "novel_query_acc": 0.235,
+      "failure_class": null
+    }
+  },
+  "novel_atom_diagnostics_by_seed": {
+    "7": {
+      "400": {
+        "mean_cos_derived_vs_true": 0.4460192155453312
+      },
+      "500": {
+        "mean_cos_derived_vs_true": 0.4879238135534195
+      },
+      "600": {
+        "mean_cos_derived_vs_true": 0.44210577205722784
+      },
+      "700": {
+        "mean_cos_derived_vs_true": 0.450334295504834
+      },
+      "800": {
+        "mean_cos_derived_vs_true": 0.5127407124721387
+      },
+      "900": {
+        "mean_cos_derived_vs_true": 0.39580834676078247
+      },
+      "1000": {
+        "mean_cos_derived_vs_true": 0.4925444065730017
+      },
+      "1100": {
+        "mean_cos_derived_vs_true": 0.4142615548974038
+      },
+      "1200": {
+        "mean_cos_derived_vs_true": 0.3477734561316862
+      },
+      "1300": {
+        "mean_cos_derived_vs_true": 0.4247900325442445
+      },
+      "1400": {
+        "mean_cos_derived_vs_true": 0.38210587250253925
+      },
+      "1500": {
+        "mean_cos_derived_vs_true": 0.41619177467682206
+      },
+      "1600": {
+        "mean_cos_derived_vs_true": 0.44130420871880593
+      },
+      "1700": {
+        "mean_cos_derived_vs_true": 0.3894967972898311
+      },
+      "1800": {
+        "mean_cos_derived_vs_true": 0.4236663077334559
+      },
+      "1900": {
+        "mean_cos_derived_vs_true": 0.40188999730388747
+      },
+      "2000": {
+        "mean_cos_derived_vs_true": 0.3548018794228631
+      },
+      "2100": {
+        "mean_cos_derived_vs_true": 0.4539556938628773
+      },
+      "2200": {
+        "mean_cos_derived_vs_true": 0.39555728012162106
+      },
+      "2300": {
+        "mean_cos_derived_vs_true": 0.3883866130299804
+      }
+    },
+    "13": {
+      "400": {
+        "mean_cos_derived_vs_true": 0.4379689681811766
+      },
+      "500": {
+        "mean_cos_derived_vs_true": 0.49073974453397984
+      },
+      "600": {
+        "mean_cos_derived_vs_true": 0.4493035811176725
+      },
+      "700": {
+        "mean_cos_derived_vs_true": 0.44832971620182904
+      },
+      "800": {
+        "mean_cos_derived_vs_true": 0.511400112389044
+      },
+      "900": {
+        "mean_cos_derived_vs_true": 0.391184356161033
+      },
+      "1000": {
+        "mean_cos_derived_vs_true": 0.4980180706786732
+      },
+      "1100": {
+        "mean_cos_derived_vs_true": 0.4028667123651468
+      },
+      "1200": {
+        "mean_cos_derived_vs_true": 0.3570118305418726
+      },
+      "1300": {
+        "mean_cos_derived_vs_true": 0.4206017183785368
+      },
+      "1400": {
+        "mean_cos_derived_vs_true": 0.3834452727688183
+      },
+      "1500": {
+        "mean_cos_derived_vs_true": 0.41022239562462487
+      },
+      "1600": {
+        "mean_cos_derived_vs_true": 0.44822351181939696
+      },
+      "1700": {
+        "mean_cos_derived_vs_true": 0.3842373290429063
+      },
+      "1800": {
+        "mean_cos_derived_vs_true": 0.4226262835311725
+      },
+      "1900": {
+        "mean_cos_derived_vs_true": 0.40084903389381976
+      },
+      "2000": {
+        "mean_cos_derived_vs_true": 0.3457697501771045
+      },
+      "2100": {
+        "mean_cos_derived_vs_true": 0.45081426612438785
+      },
+      "2200": {
+        "mean_cos_derived_vs_true": 0.3970425574791223
+      },
+      "2300": {
+        "mean_cos_derived_vs_true": 0.3896881730021101
+      }
+    },
+    "19": {
+      "400": {
+        "mean_cos_derived_vs_true": 0.4349237195347193
+      },
+      "500": {
+        "mean_cos_derived_vs_true": 0.48917614094669293
+      },
+      "600": {
+        "mean_cos_derived_vs_true": 0.4424524004558087
+      },
+      "700": {
+        "mean_cos_derived_vs_true": 0.4477329817518549
+      },
+      "800": {
+        "mean_cos_derived_vs_true": 0.509005460976679
+      },
+      "900": {
+        "mean_cos_derived_vs_true": 0.39642532875773895
+      },
+      "1000": {
+        "mean_cos_derived_vs_true": 0.4877819551172945
+      },
+      "1100": {
+        "mean_cos_derived_vs_true": 0.4096168591603823
+      },
+      "1200": {
+        "mean_cos_derived_vs_true": 0.3514295391405387
+      },
+      "1300": {
+        "mean_cos_derived_vs_true": 0.4312217954412647
+      },
+      "1400": {
+        "mean_cos_derived_vs_true": 0.3819083090562731
+      },
+      "1500": {
+        "mean_cos_derived_vs_true": 0.40969283553319225
+      },
+      "1600": {
+        "mean_cos_derived_vs_true": 0.4426431389095443
+      },
+      "1700": {
+        "mean_cos_derived_vs_true": 0.39869824343290716
+      },
+      "1800": {
+        "mean_cos_derived_vs_true": 0.43030953579312153
+      },
+      "1900": {
+        "mean_cos_derived_vs_true": 0.4038843402053488
+      },
+      "2000": {
+        "mean_cos_derived_vs_true": 0.3512682373321065
+      },
+      "2100": {
+        "mean_cos_derived_vs_true": 0.4455879493878747
+      },
+      "2200": {
+        "mean_cos_derived_vs_true": 0.3906553222755596
+      },
+      "2300": {
+        "mean_cos_derived_vs_true": 0.38219359918023
+      }
+    }
+  },
+  "bands": {
+    "HP_CODEBOOK_ACC_MIN": 0.2,
+    "HP_CODEBOOK_VS_RANDOM_MARGIN": 0.15,
+    "HP_CODEBOOK_VS_MEMORIZE_MARGIN": 0.05,
+    "HF_CODEBOOK_FLOOR": 0.05,
+    "HF_CODEBOOK_VS_RANDOM_MARGIN": 0.03,
+    "HF_CODEBOOK_VS_MEMORIZE_MARGIN": 0.0,
+    "CEIL_CHECK_MIN": 0.9,
+    "CHANCE_FLOOR": 0.01
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "n_units_done": 12,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "seed7__codebook_derived_vs_handed_ceiling": true,
+    "seed7__codebook_derived_vs_random_code": true,
+    "seed7__codebook_derived_vs_memorize_prototype": true,
+    "seed7__handed_ceiling_vs_random_code": true,
+    "seed7__handed_ceiling_vs_memorize_prototype": true,
+    "seed7__memorize_prototype_vs_random_code": true,
+    "seed13__codebook_derived_vs_handed_ceiling": true,
+    "seed13__codebook_derived_vs_random_code": true,
+    "seed13__codebook_derived_vs_memorize_prototype": true,
+    "seed13__handed_ceiling_vs_random_code": true,
+    "seed13__handed_ceiling_vs_memorize_prototype": true,
+    "seed13__memorize_prototype_vs_random_code": true,
+    "seed19__codebook_derived_vs_handed_ceiling": true,
+    "seed19__codebook_derived_vs_random_code": true,
+    "seed19__codebook_derived_vs_memorize_prototype": true,
+    "seed19__handed_ceiling_vs_random_code": true,
+    "seed19__handed_ceiling_vs_memorize_prototype": true,
+    "seed19__memorize_prototype_vs_random_code": true
+  },
+  "arms_differ_exempted": [],
+  "discriminator_fires": true,
+  "baseline_in_band": true,
+  "crlb_n/a": "classification-accuracy generalization over C=100 discrete candidates; closed-form chance floor = 1/C = 0.01000 (THEORETICAL)",
+  "prior_art": "LevyGoldberg2015 PPMI-SVD; ChurchHanks1990 PMI; Kanerva1988/Sahlgren2005 RI; Khodak2018 a-la-carte; Snell2017 ProtoNet; Plate1995 HRR unitary vectors; McClelland1995 CLS; GreffVanSteenkisteSchmidhuber2020",
+  "integration_of": [
+    "exp_learned_codebook_generalization_gate_v1 (real codebook CG, atom 29368, AUC=0.927)",
+    "atom 29380 (synthetic linear-construction-forced revival target)"
+  ],
+  "honest_deviation_note": "memorize_prototype is NOT expected near-zero on real data (unlike the synthetic i.i.d.-atom cell) -- real vocabulary has genuine semantic-neighborhood structure; see docstring calibration note. random_code is the true chance/format-only floor."
+}
