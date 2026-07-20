@@ -1,0 +1,287 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "codebook_derived=0.776 handed_ceiling=1.000 memorize_prototype=0.000 flat_end_to_end=0.000 random_code=0.028 (chance=0.033) | codebook_vs_random_margin=0.749 codebook_vs_ceiling_frac=0.776 | ceiling_check(seen)=1.000 | discriminator_fires=True | cardinality_ok=True (15/15) arms_differ=True",
+  "summary": "HARD_PASS: codebook_derived=0.776 handed_ceiling=1.000 memorize_prototype=0.000 flat_end_to_end=0.000 random_code=0.028 (chance=0.033) | codebook_vs_random_margin=0.749 codebook_vs_ceiling_frac=0.776 | ceiling_check(seen)=1.000 | d",
+  "elapsed_s": 13.194303099997342,
+  "anchor_name": "exp_novel_atom_generalization_codebook_binding_v1",
+  "run_mode": "exp_novel_atom_generalization_codebook_binding_v1_smoke",
+  "ts_iso": "2026-07-20T07:02:34.590738+00:00",
+  "config": {
+    "N": 1024,
+    "D_LATENT": 16,
+    "D_FEAT": 24,
+    "R": 6,
+    "F_SEEN": 24,
+    "F_NOVEL": 6,
+    "F_TOTAL": 30,
+    "OBS_SIGMA": 1.2,
+    "K_SHOT": 5,
+    "K_TRAIN": 30,
+    "RIDGE_ALPHA": 1.0,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "eval_scenes_per_novel": 80,
+    "flat_train_scenes": 2000,
+    "flat_epochs": 30
+  },
+  "arm_summary": {
+    "codebook_derived": {
+      "acc_mean": 0.7763888888888889,
+      "acc_std": 0.01194767398200365,
+      "n_seeds": 3
+    },
+    "handed_ceiling": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "n_seeds": 3
+    },
+    "memorize_prototype": {
+      "acc_mean": 0.0,
+      "acc_std": 0.0,
+      "n_seeds": 3
+    },
+    "flat_end_to_end": {
+      "acc_mean": 0.0,
+      "acc_std": 0.0,
+      "n_seeds": 3
+    },
+    "random_code": {
+      "acc_mean": 0.027777777777777776,
+      "acc_std": 0.005973836991001825,
+      "n_seeds": 3
+    }
+  },
+  "ceiling_check_seen_query_acc_mean": 1.0,
+  "per_unit": {
+    "codebook_derived__seed7": {
+      "arm": "codebook_derived",
+      "seed": 7,
+      "novel_query_acc": 0.775,
+      "failure_class": null
+    },
+    "handed_ceiling__seed7": {
+      "arm": "handed_ceiling",
+      "seed": 7,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "memorize_prototype__seed7": {
+      "arm": "memorize_prototype",
+      "seed": 7,
+      "novel_query_acc": 0.0,
+      "failure_class": null
+    },
+    "flat_end_to_end__seed7": {
+      "arm": "flat_end_to_end",
+      "seed": 7,
+      "novel_query_acc": 0.0,
+      "failure_class": null
+    },
+    "random_code__seed7": {
+      "arm": "random_code",
+      "seed": 7,
+      "novel_query_acc": 0.020833333333333332,
+      "failure_class": null
+    },
+    "codebook_derived__seed13": {
+      "arm": "codebook_derived",
+      "seed": 13,
+      "novel_query_acc": 0.7916666666666666,
+      "failure_class": null
+    },
+    "handed_ceiling__seed13": {
+      "arm": "handed_ceiling",
+      "seed": 13,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "memorize_prototype__seed13": {
+      "arm": "memorize_prototype",
+      "seed": 13,
+      "novel_query_acc": 0.0,
+      "failure_class": null
+    },
+    "flat_end_to_end__seed13": {
+      "arm": "flat_end_to_end",
+      "seed": 13,
+      "novel_query_acc": 0.0,
+      "failure_class": null
+    },
+    "random_code__seed13": {
+      "arm": "random_code",
+      "seed": 13,
+      "novel_query_acc": 0.027083333333333334,
+      "failure_class": null
+    },
+    "codebook_derived__seed19": {
+      "arm": "codebook_derived",
+      "seed": 19,
+      "novel_query_acc": 0.7625,
+      "failure_class": null
+    },
+    "handed_ceiling__seed19": {
+      "arm": "handed_ceiling",
+      "seed": 19,
+      "novel_query_acc": 1.0,
+      "failure_class": null
+    },
+    "memorize_prototype__seed19": {
+      "arm": "memorize_prototype",
+      "seed": 19,
+      "novel_query_acc": 0.0,
+      "failure_class": null
+    },
+    "flat_end_to_end__seed19": {
+      "arm": "flat_end_to_end",
+      "seed": 19,
+      "novel_query_acc": 0.0,
+      "failure_class": null
+    },
+    "random_code__seed19": {
+      "arm": "random_code",
+      "seed": 19,
+      "novel_query_acc": 0.035416666666666666,
+      "failure_class": null
+    }
+  },
+  "novel_atom_diagnostics_by_seed": {
+    "7": {
+      "24": {
+        "mean_cos_derived_vs_true": 0.16384929418563843,
+        "mean_rank_of_true_in_similarity": 0.13750000298023224
+      },
+      "25": {
+        "mean_cos_derived_vs_true": 0.28548169136047363,
+        "mean_rank_of_true_in_similarity": 0.02500000037252903
+      },
+      "26": {
+        "mean_cos_derived_vs_true": 0.23345407843589783,
+        "mean_rank_of_true_in_similarity": 0.012500000186264515
+      },
+      "27": {
+        "mean_cos_derived_vs_true": 0.21189650893211365,
+        "mean_rank_of_true_in_similarity": 0.0
+      },
+      "28": {
+        "mean_cos_derived_vs_true": 0.2313825637102127,
+        "mean_rank_of_true_in_similarity": 0.2750000059604645
+      },
+      "29": {
+        "mean_cos_derived_vs_true": 0.3353975713253021,
+        "mean_rank_of_true_in_similarity": 0.0
+      }
+    },
+    "13": {
+      "24": {
+        "mean_cos_derived_vs_true": 0.15622872114181519,
+        "mean_rank_of_true_in_similarity": 0.5375000238418579
+      },
+      "25": {
+        "mean_cos_derived_vs_true": 0.23485663533210754,
+        "mean_rank_of_true_in_similarity": 0.08749999850988388
+      },
+      "26": {
+        "mean_cos_derived_vs_true": 0.21089676022529602,
+        "mean_rank_of_true_in_similarity": 0.08749999850988388
+      },
+      "27": {
+        "mean_cos_derived_vs_true": 0.29091405868530273,
+        "mean_rank_of_true_in_similarity": 0.0
+      },
+      "28": {
+        "mean_cos_derived_vs_true": 0.21991753578186035,
+        "mean_rank_of_true_in_similarity": 0.012500000186264515
+      },
+      "29": {
+        "mean_cos_derived_vs_true": 0.3589622676372528,
+        "mean_rank_of_true_in_similarity": 0.0
+      }
+    },
+    "19": {
+      "24": {
+        "mean_cos_derived_vs_true": 0.1499122828245163,
+        "mean_rank_of_true_in_similarity": 0.4749999940395355
+      },
+      "25": {
+        "mean_cos_derived_vs_true": 0.2034793198108673,
+        "mean_rank_of_true_in_similarity": 0.125
+      },
+      "26": {
+        "mean_cos_derived_vs_true": 0.23297104239463806,
+        "mean_rank_of_true_in_similarity": 0.012500000186264515
+      },
+      "27": {
+        "mean_cos_derived_vs_true": 0.1676178276538849,
+        "mean_rank_of_true_in_similarity": 0.05000000074505806
+      },
+      "28": {
+        "mean_cos_derived_vs_true": 0.26030105352401733,
+        "mean_rank_of_true_in_similarity": 0.0
+      },
+      "29": {
+        "mean_cos_derived_vs_true": 0.40034180879592896,
+        "mean_rank_of_true_in_similarity": 0.0
+      }
+    }
+  },
+  "bands": {
+    "HP_CODEBOOK_ACC_MIN": 0.6,
+    "HP_CODEBOOK_VS_RANDOM_MARGIN": 0.3,
+    "HP_CODEBOOK_VS_CEILING_FRAC": 0.7,
+    "HP_MEMORIZE_MAX": 0.02,
+    "HP_FLAT_MAX": 0.02,
+    "HF_CODEBOOK_FLOOR": 0.1,
+    "HF_CODEBOOK_VS_RANDOM_MARGIN": 0.05,
+    "CEIL_CHECK_MIN": 0.9,
+    "CHANCE_FLOOR": 0.03333333333333333
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 15,
+  "n_units_done": 15,
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "seed7__codebook_derived_vs_handed_ceiling": true,
+    "seed7__codebook_derived_vs_memorize_prototype": true,
+    "seed7__codebook_derived_vs_flat_end_to_end": true,
+    "seed7__codebook_derived_vs_random_code": true,
+    "seed7__handed_ceiling_vs_memorize_prototype": true,
+    "seed7__handed_ceiling_vs_random_code": true,
+    "seed7__memorize_prototype_vs_random_code": true,
+    "seed7__flat_end_to_end_vs_handed_ceiling": true,
+    "seed7__flat_end_to_end_vs_memorize_prototype": true,
+    "seed7__flat_end_to_end_vs_random_code": true,
+    "seed13__codebook_derived_vs_handed_ceiling": true,
+    "seed13__codebook_derived_vs_memorize_prototype": true,
+    "seed13__codebook_derived_vs_flat_end_to_end": true,
+    "seed13__codebook_derived_vs_random_code": true,
+    "seed13__handed_ceiling_vs_memorize_prototype": true,
+    "seed13__handed_ceiling_vs_random_code": true,
+    "seed13__memorize_prototype_vs_random_code": true,
+    "seed13__flat_end_to_end_vs_handed_ceiling": true,
+    "seed13__flat_end_to_end_vs_memorize_prototype": true,
+    "seed13__flat_end_to_end_vs_random_code": true,
+    "seed19__codebook_derived_vs_handed_ceiling": true,
+    "seed19__codebook_derived_vs_memorize_prototype": true,
+    "seed19__codebook_derived_vs_flat_end_to_end": true,
+    "seed19__codebook_derived_vs_random_code": true,
+    "seed19__handed_ceiling_vs_memorize_prototype": true,
+    "seed19__handed_ceiling_vs_random_code": true,
+    "seed19__memorize_prototype_vs_random_code": true,
+    "seed19__flat_end_to_end_vs_handed_ceiling": true,
+    "seed19__flat_end_to_end_vs_memorize_prototype": true,
+    "seed19__flat_end_to_end_vs_random_code": true
+  },
+  "arms_differ_exempted": [],
+  "discriminator_fires": true,
+  "baseline_in_band": true,
+  "guard1_role_codes_and_world_task_agnostic": true,
+  "crlb_n/a": "classification-accuracy generalization over F_TOTAL=30 discrete atoms; closed-form chance floor = 1/F_TOTAL = 0.0333 (THEORETICAL)",
+  "prior_art": "Snell2017 ProtoNet; Khodak2018 a-la-carte; Frome2013 DeViSE; Smolensky1990 TPR; Plate1995 HRR; Kanerva1988/Sahlgren2005 RI; LevyGoldberg2015 PPMI-SVD; McClelland1995 CLS; GreffVanSteensteSchmidhuber2020",
+  "integration_of": [
+    "exp_learned_codebook_generalization_gate_v1 (codebook CG)",
+    "exp_compgen_binding_vs_flat_learned_frontend_v1 / atom 29379 (free-algebra binding + 0.000 baseline)"
+  ]
+}
