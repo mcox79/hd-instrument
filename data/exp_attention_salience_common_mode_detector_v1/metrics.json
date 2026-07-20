@@ -1,0 +1,249 @@
+{
+  "verdict": "HARD_PASS_COMMON_MODE_DETECTOR_SEPARATES",
+  "verdict_msg": "HARD_PASS: the cross-source agreement-structure detector correctly separates common-mode from genuine agreement. mean_detector_score_real(correlated)=0.1014 (>= 0.05 fires); mean_detector_score_real(independent)=0.0185 (<= 0.03 quiet); gap=0.0829 (>= 0.05); per-seed ordering 5/5 >= 4; shuffle control quiet both modes (ir_shuf=0.0001, cs_shuf=0.0003); Gate D held. The detector correctly flags WHEN the independence assumption underlying 29376's reliability channel is violated, using a genuinely orthogonal cross-source agreement-structure mechanism (rank-1 vs affine agreement-matrix fit), never same-item peer-consistency.",
+  "summary": "HARD_PASS: the cross-source agreement-structure detector correctly separates common-mode from genuine agreement. mean_detector_score_real(correlated)=0.1014 (>= 0.05 fires); mean_detector_score_real(independent)=0.0185 (<= 0.03 quiet); gap=0.0829 (>= 0.05); per-seed ordering 5/5 >= 4; shuffle control quiet both modes (ir_shuf=0.0001, cs_shuf=0.0003); Gate D held. The detector correctly flags WHEN the independence assumption underlying 29376's reliability channel is violated, using a genuinely orthogonal cross-source agreement-structure mechanism (rank-1 vs affine agreement-matrix fit), never same-item peer-consistency.",
+  "gate_d_ok": true,
+  "gap": 0.08291004134792146,
+  "n_ordering_ok": 5,
+  "n_seeds": 5,
+  "independent_random": {
+    "per_seed": [
+      {
+        "seed": 7,
+        "error_mode": "independent_random",
+        "gate_d_ungated_unrel": 0.5495,
+        "gate_d_ungated_rel": 0.86425,
+        "detector_score_real": 0.019080602368743677,
+        "detector_score_shuffled": 0.00021814680788966262,
+        "gof_rank1_real": 0.9823563507774561,
+        "gof_rank1_shuffled": 0.5684114725190985,
+        "mean_offdiag_M_real": 0.17850415599667743,
+        "mean_offdiag_M_shuffled": 3.318689656016348e-05,
+        "min_co_count_offdiag_real": 226.0
+      },
+      {
+        "seed": 17,
+        "error_mode": "independent_random",
+        "gate_d_ungated_unrel": 0.5575,
+        "gate_d_ungated_rel": 0.86475,
+        "detector_score_real": 0.018666578880269256,
+        "detector_score_shuffled": 0.00012919046796577177,
+        "gof_rank1_real": 0.9829565074015638,
+        "gof_rank1_shuffled": 0.7744360902255638,
+        "mean_offdiag_M_real": 0.1783480127220377,
+        "mean_offdiag_M_shuffled": 1.9786307874950533e-05,
+        "min_co_count_offdiag_real": 221.0
+      },
+      {
+        "seed": 23,
+        "error_mode": "independent_random",
+        "gate_d_ungated_unrel": 0.5555,
+        "gate_d_ungated_rel": 0.86175,
+        "detector_score_real": 0.017846431013720628,
+        "detector_score_shuffled": 0.0001347633901133149,
+        "gof_rank1_real": 0.9839900236957774,
+        "gof_rank1_shuffled": 0.7744360902255638,
+        "mean_offdiag_M_real": 0.173364228774269,
+        "mean_offdiag_M_shuffled": 2.0639834881320948e-05,
+        "min_co_count_offdiag_real": 225.0
+      },
+      {
+        "seed": 31,
+        "error_mode": "independent_random",
+        "gate_d_ungated_unrel": 0.5515,
+        "gate_d_ungated_rel": 0.8515,
+        "detector_score_real": 0.018562475846707616,
+        "detector_score_shuffled": 9.287747156458188e-05,
+        "gof_rank1_real": 0.9827661517206252,
+        "gof_rank1_shuffled": 0.7744360902255638,
+        "mean_offdiag_M_real": 0.1763847468811559,
+        "mean_offdiag_M_shuffled": 1.4224751066856332e-05,
+        "min_co_count_offdiag_real": 227.0
+      },
+      {
+        "seed": 41,
+        "error_mode": "independent_random",
+        "gate_d_ungated_unrel": 0.5695,
+        "gate_d_ungated_rel": 0.8575,
+        "detector_score_real": 0.018354705029888573,
+        "detector_score_shuffled": 8.612697864384787e-05,
+        "gof_rank1_real": 0.9832449810386051,
+        "gof_rank1_shuffled": 0.7744360902255638,
+        "mean_offdiag_M_real": 0.18121681496868622,
+        "mean_offdiag_M_shuffled": 1.3190871916633689e-05,
+        "min_co_count_offdiag_real": 233.0
+      }
+    ],
+    "detector_score_real_per_seed": [
+      0.019080602368743677,
+      0.018666578880269256,
+      0.017846431013720628,
+      0.018562475846707616,
+      0.018354705029888573
+    ],
+    "detector_score_shuffled_per_seed": [
+      0.00021814680788966262,
+      0.00012919046796577177,
+      0.0001347633901133149,
+      9.287747156458188e-05,
+      8.612697864384787e-05
+    ],
+    "mean_detector_score_real": 0.01850215862786595,
+    "mean_detector_score_shuffled": 0.0001322210232354358,
+    "gate_d_ungated_unrel_per_seed": [
+      0.5495,
+      0.5575,
+      0.5555,
+      0.5515,
+      0.5695
+    ],
+    "gate_d_deltas_per_seed": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "gate_d_ok": true
+  },
+  "correlated_systematic": {
+    "per_seed": [
+      {
+        "seed": 7,
+        "error_mode": "correlated_systematic",
+        "gate_d_ungated_unrel": 0.2105,
+        "gate_d_ungated_rel": 0.59675,
+        "detector_score_real": 0.10339704726577552,
+        "detector_score_shuffled": 0.0003241289471138014,
+        "gof_rank1_real": 0.20811927571452749,
+        "gof_rank1_shuffled": 0.36518598125469015,
+        "mean_offdiag_M_real": 0.5033930311796502,
+        "mean_offdiag_M_shuffled": 5.778230072500441e-05,
+        "min_co_count_offdiag_real": 226.0
+      },
+      {
+        "seed": 17,
+        "error_mode": "correlated_systematic",
+        "gate_d_ungated_unrel": 0.22725,
+        "gate_d_ungated_rel": 0.5955,
+        "detector_score_real": 0.10345886806442987,
+        "detector_score_shuffled": 0.00042609909729825424,
+        "gof_rank1_real": 0.2107993083954227,
+        "gof_rank1_shuffled": 0.33512350512233247,
+        "mean_offdiag_M_real": 0.5047422123292744,
+        "mean_offdiag_M_shuffled": 8.38837838427738e-05,
+        "min_co_count_offdiag_real": 221.0
+      },
+      {
+        "seed": 23,
+        "error_mode": "correlated_systematic",
+        "gate_d_ungated_unrel": 0.2275,
+        "gate_d_ungated_rel": 0.585,
+        "detector_score_real": 0.10344001666401376,
+        "detector_score_shuffled": 0.0004855893671500144,
+        "gof_rank1_real": 0.21761455664560858,
+        "gof_rank1_shuffled": 0.18998349118731495,
+        "mean_offdiag_M_real": 0.5043595125153187,
+        "mean_offdiag_M_shuffled": 8.645736163838166e-05,
+        "min_co_count_offdiag_real": 225.0
+      },
+      {
+        "seed": 31,
+        "error_mode": "correlated_systematic",
+        "gate_d_ungated_unrel": 0.21725,
+        "gate_d_ungated_rel": 0.57975,
+        "detector_score_real": 0.09666454980595024,
+        "detector_score_shuffled": 0.00026185486231508723,
+        "gof_rank1_real": 0.22095667389326634,
+        "gof_rank1_shuffled": 0.5990895785956054,
+        "mean_offdiag_M_real": 0.5068360422261307,
+        "mean_offdiag_M_shuffled": 4.0806356595830286e-05,
+        "min_co_count_offdiag_real": 227.0
+      },
+      {
+        "seed": 41,
+        "error_mode": "correlated_systematic",
+        "gate_d_ungated_unrel": 0.22875,
+        "gate_d_ungated_rel": 0.59325,
+        "detector_score_real": 0.10010051807876773,
+        "detector_score_shuffled": 0.0002180863749711454,
+        "gof_rank1_real": 0.19318772713600496,
+        "gof_rank1_shuffled": 0.46736551351628464,
+        "mean_offdiag_M_real": 0.5042528036189763,
+        "mean_offdiag_M_shuffled": 3.7823571003581644e-05,
+        "min_co_count_offdiag_real": 233.0
+      }
+    ],
+    "detector_score_real_per_seed": [
+      0.10339704726577552,
+      0.10345886806442987,
+      0.10344001666401376,
+      0.09666454980595024,
+      0.10010051807876773
+    ],
+    "detector_score_shuffled_per_seed": [
+      0.0003241289471138014,
+      0.00042609909729825424,
+      0.0004855893671500144,
+      0.00026185486231508723,
+      0.0002180863749711454
+    ],
+    "mean_detector_score_real": 0.1014121999757874,
+    "mean_detector_score_shuffled": 0.00034315172976966054,
+    "gate_d_ungated_unrel_per_seed": [
+      0.2105,
+      0.22725,
+      0.2275,
+      0.21725,
+      0.22875
+    ],
+    "gate_d_deltas_per_seed": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "gate_d_ok": true
+  },
+  "hp_scope_note": "Primary decision axis: detector_score_real 2x2 separation (fires on correlated, quiet on independent) + shuffle control (must stay quiet both modes). Gate D (ungated_unrel reproduction) is a positive control only, not itself re-adjudicated HARD_PASS/HARD_FAIL. GOF_rank1/raw M matrices/eigenvalues are diagnostic, explicitly OUT of HARD_PASS/HARD_FAIL scope.",
+  "revives_scope_bound_of": "data/substrate_index/math/atoms.jsonl atom 29377 (scope-addendum, HARD_FAIL_CORRELATED_ERROR_FOOLS_CHANNEL) named the orthogonal common-mode/correlated-error detector as the substrate-native fix; this cell builds and tests it.",
+  "thresholds_used": {
+    "HP_FIRE_FLOOR": 0.05,
+    "HP_QUIET_CEIL": 0.03,
+    "HP_GAP_FLOOR": 0.05,
+    "HF_GAP_CEIL": 0.05
+  },
+  "elapsed_s": 9.896995000017341,
+  "run_mode": "full",
+  "anchor_name": "attention_salience_common_mode_detector_v1",
+  "ts_iso": "2026-07-20T05:42:23.493126+00:00",
+  "cardinality_ok": true,
+  "expected_n_units": 10,
+  "config": {
+    "S_LO": 10,
+    "S_HI": 10,
+    "V_PER_TIER": 4000,
+    "V": 8000,
+    "N": 64,
+    "N_OBS_MIN": 4,
+    "N_OBS_MAX": 6,
+    "P_LO": 0.2,
+    "P_HI": 0.65,
+    "MIX_MAJ": 0.75,
+    "SEEDS": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "ERROR_MODES": [
+      "independent_random",
+      "correlated_systematic"
+    ],
+    "MATCH_THRESH": 0.9,
+    "MIN_CO_ITEMS": 30,
+    "mechanism": "pairwise_cross_source_agreement_matrix_rank1_vs_affine_fit_NOT_same_item_LOO"
+  }
+}
