@@ -1,0 +1,106 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial signal, primary gates not all cleared. auc_unrel=0.6859 auc_pooled=0.7151 mean_delta_hard_unrel=0.0640 lift_ok=True majority_ok=False control_ok_hard=True do_no_harm_hard_ok=True (n_pos_hard=1).",
+  "summary": "MIDDLE_BAND: partial signal, primary gates not all cleared. auc_unrel=0.6859 auc_pooled=0.7151 mean_delta_hard_unrel=0.0640 lift_ok=True majority_ok=False control_ok_hard=True do_no_harm_hard_ok=True (n_pos_hard=1).",
+  "per_seed": [
+    {
+      "seed": 7,
+      "tau": 0.2826872230980062,
+      "ungated_all": 0.698125,
+      "ungated_unrel": 0.53575,
+      "ungated_rel": 0.8605,
+      "hard_gate_all": 0.738625,
+      "hard_gate_unrel": 0.59975,
+      "hard_gate_rel": 0.8775,
+      "soft_multiplier_all": 0.752375,
+      "soft_multiplier_unrel": 0.62225,
+      "soft_multiplier_rel": 0.8825,
+      "shuffled_hard_gate_all": 0.581125,
+      "shuffled_hard_gate_unrel": 0.38075,
+      "shuffled_hard_gate_rel": 0.7815,
+      "shuffled_multiplier_all": 0.623,
+      "shuffled_multiplier_unrel": 0.43275,
+      "shuffled_multiplier_rel": 0.81325,
+      "oracle_all": 0.90325,
+      "oracle_unrel": 0.8335,
+      "oracle_rel": 0.973,
+      "auc_pooled": 0.7151465423621205,
+      "auc_unrel": 0.6859199037424001,
+      "_arm_digests_short": {
+        "ungated": "81aed29db9e93059",
+        "hard_gate": "a0f0639cdd8bf52f",
+        "soft_multiplier": "0676e61f7e49a990",
+        "shuffled_hard_gate": "ff8223122e7f7d5e",
+        "shuffled_multiplier": "ada356bde9e6a225",
+        "oracle": "c24b6e137a85157c"
+      }
+    }
+  ],
+  "auc_unrel_mean": 0.6859199037424001,
+  "auc_pooled_mean": 0.7151465423621205,
+  "auc_unrel_per_seed": [
+    0.6859199037424001
+  ],
+  "auc_pooled_per_seed": [
+    0.7151465423621205
+  ],
+  "auc_in_band": true,
+  "mean_delta_hard_unrel": 0.06400000000000006,
+  "mean_delta_mult_unrel": 0.08650000000000002,
+  "mean_delta_hard_rel": 0.016999999999999904,
+  "mean_delta_mult_rel": 0.02199999999999991,
+  "delta_hard_unrel_per_seed": [
+    0.06400000000000006
+  ],
+  "delta_mult_unrel_per_seed": [
+    0.08650000000000002
+  ],
+  "delta_shuffled_hard_unrel_per_seed": [
+    -0.15499999999999997
+  ],
+  "delta_shuffled_mult_unrel_per_seed": [
+    -0.10299999999999992
+  ],
+  "delta_oracle_unrel_per_seed": [
+    0.29775000000000007
+  ],
+  "baseline_unrel_per_seed": [
+    0.53575
+  ],
+  "baseline_rel_per_seed": [
+    0.8605
+  ],
+  "baseline_in_band": true,
+  "baseline_rel_non_ceiling": true,
+  "n_pos_hard": 1,
+  "n_pos_mult": 1,
+  "secondary_mult_ok": true,
+  "control_ok_hard": true,
+  "control_ok_mult": true,
+  "do_no_harm_hard_ok": true,
+  "do_no_harm_mult_ok": true,
+  "hp_scope_note": "oracle + shuffled_hard_gate + shuffled_multiplier are diagnostic/control arms, explicitly OUT of HARD_PASS/HARD_FAIL decision scope. soft_multiplier is SECONDARY: disclosure-gated (not harmful) but NOT required to clear the 0.05 mean-lift floor for overall HARD_PASS (HP_SCOPE per pre-reg).",
+  "revival_of": "data/substrate_index/math/atoms.jsonl line 29374 (derived_v1 NARROW HARD_FAIL; revival_criteria required an INDEPENDENT reliability channel).",
+  "elapsed_s": 2.651737200008938,
+  "run_mode": "smoke",
+  "anchor_name": "attention_salience_reliability_gate_independent_channel_v1",
+  "ts_iso": "2026-07-20T04:48:17.109705+00:00",
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "config": {
+    "S_LO": 10,
+    "S_HI": 10,
+    "V_PER_TIER": 4000,
+    "V": 8000,
+    "N": 64,
+    "N_OBS_MIN": 4,
+    "N_OBS_MAX": 6,
+    "P_LO": 0.2,
+    "P_HI": 0.65,
+    "MIX_MAJ": 0.75,
+    "SEEDS": [
+      7
+    ],
+    "signal": "source_level_leave_one_item_out_cross_item_aggregate_of_same_item_loo_cosine_NO_INJECTION"
+  }
+}
