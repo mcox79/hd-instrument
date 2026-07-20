@@ -1,0 +1,405 @@
+{
+  "anchor_name": "coherence_filter_foundation_growth_safety_precheck_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | slice=L04+L05 seeds=[7, 13, 19] n_reader~61 | STEP0 corr(vs correct) pb: sigB_gate=0.1522+-0.0 sigA_extractor=0.2953 sigC_lex=0.1631 | usable=True unsafe=False | GROWTH UNFILT_RAW P=0.1803 R=0.3235 -> FILT_RAW P=0.2245 R=0.3235 (2view P=0.32) | LCCP UNFILT P=0.4051 FILT P=0.5278 | lift=+0.0442 Rret=1.0 beats0557=False | decorr(B,C)_on_wrong=-0.3791949231723813 both_miss=0.3182 | gate drop/def=4/8 base_in_band=True discrim=True wn=True",
+  "summary": "MIDDLE_BAND | slice=L04+L05 seeds=[7, 13, 19] n_reader~61 | STEP0 corr(vs correct) pb: sigB_gate=0.1522+-0.0 sigA_extractor=0.2953 sigC_lex=0.1631 | usable=True unsafe=False | GROWTH UNFILT_RAW P=0.1803 R=0.3235 -> FILT_RAW P=0.2245 R=0.3235 (2view P=0.32) | LCCP UNFILT P=0.4051 FILT P=0.5278 | lift=+0.0442 Rret=1.0 beats0557=False | decorr(B,C)_on_wrong=-0.3791949231723813 both_miss=0.3182 | gate drop/def=4/8 base_in_band=True discrim=True wn=True",
+  "elapsed_s": 5.15574360001483,
+  "ts_iso": "2026-07-19T12:51:43.509199+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ]
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "step0_correlations": {
+    "sigA_objecthood": {
+      "point_biserial_mean": 0.2953,
+      "point_biserial_std": 0.0001,
+      "spearman_mean": 0.3773,
+      "spearman_std": 0.0046,
+      "n_mean": 61.0
+    },
+    "sigB_coherence_gate": {
+      "point_biserial_mean": 0.1522,
+      "point_biserial_std": 0.0,
+      "spearman_mean": 0.1592,
+      "spearman_std": 0.0,
+      "n_mean": 59.0
+    },
+    "sigC_lexical": {
+      "point_biserial_mean": 0.1631,
+      "point_biserial_std": 0.0,
+      "spearman_mean": 0.1631,
+      "spearman_std": 0.0,
+      "n_mean": 55.0
+    },
+    "sigC_redundancy": {
+      "point_biserial_mean": -0.0864,
+      "point_biserial_std": 0.0,
+      "spearman_mean": -0.0864,
+      "spearman_std": 0.0,
+      "n_mean": 61.0
+    }
+  },
+  "growth_arms_mean": {
+    "UNFILTERED_RAW": {
+      "precision": 0.1803,
+      "recall": 0.3235,
+      "precision_std": 0.0,
+      "n_pred_mean": 61.0
+    },
+    "FILTERED_RAW": {
+      "precision": 0.2245,
+      "recall": 0.3235,
+      "precision_std": 0.0,
+      "n_pred_mean": 49.0
+    },
+    "FILTERED_RAW_2VIEW": {
+      "precision": 0.32,
+      "recall": 0.2353,
+      "precision_std": 0.0,
+      "n_pred_mean": 25.0
+    },
+    "UNFILTERED_LCCP": {
+      "precision": 0.4051,
+      "recall": 0.2059,
+      "precision_std": 0.0229,
+      "n_pred_mean": 17.3333
+    },
+    "FILTERED_LCCP": {
+      "precision": 0.5278,
+      "recall": 0.2059,
+      "precision_std": 0.0393,
+      "n_pred_mean": 13.3333
+    }
+  },
+  "verdict_detail": {
+    "verdict": "MIDDLE_BAND",
+    "step0_sigB_point_biserial": 0.1522,
+    "confidence_usable": true,
+    "confidence_unsafe": false,
+    "growth_lift_precision": 0.0442,
+    "filtered_raw_recall_retention": 1.0,
+    "filtered_raw_beats_stacked_0557": false,
+    "unfiltered_raw_precision": 0.1803,
+    "filtered_raw_precision": 0.2245
+  },
+  "error_decorrelation_seed0": {
+    "n_both_opinion": 53,
+    "n_both_opinion_wrong": 44,
+    "signal_corr_all": -0.3698144020929633,
+    "signal_corr_on_incorrect": -0.3791949231723813,
+    "gate_catches_wrong_frac": 0.2273,
+    "lex_catches_wrong_frac": 0.5,
+    "both_miss_wrong_frac": 0.3182
+  },
+  "decorr_seed_invariant": true,
+  "gate_stats_seed0": {
+    "n_dropped": 4,
+    "n_deferred": 8,
+    "filtered_raw_residual_fp": {
+      "within_frame_fp": 12,
+      "subcat_fp": 21,
+      "spurious_verb_fp": 5
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "corrs": {
+        "sigA_objecthood": {
+          "point_biserial": 0.2953781726027412,
+          "spearman": 0.38053423280552817,
+          "n": 61,
+          "base_rate_correct": 0.1803
+        },
+        "sigB_coherence_gate": {
+          "point_biserial": 0.15223289373413557,
+          "spearman": 0.1591674327231873,
+          "n": 59,
+          "base_rate_correct": 0.1695
+        },
+        "sigC_lexical": {
+          "point_biserial": 0.16309163083112482,
+          "spearman": 0.16309163083112485,
+          "n": 55,
+          "base_rate_correct": 0.1818
+        },
+        "sigC_redundancy": {
+          "point_biserial": -0.08635755391767451,
+          "spearman": -0.08635755391767455,
+          "n": 61,
+          "base_rate_correct": 0.1803
+        }
+      },
+      "arms": {
+        "UNFILTERED_RAW": {
+          "precision": 0.1803,
+          "recall": 0.3235,
+          "n_pred": 61,
+          "tp": 11,
+          "n_gold": 34,
+          "n_gold_covered": 11
+        },
+        "FILTERED_RAW": {
+          "precision": 0.2245,
+          "recall": 0.3235,
+          "n_pred": 49,
+          "tp": 11,
+          "n_gold": 34,
+          "n_gold_covered": 11
+        },
+        "FILTERED_RAW_2VIEW": {
+          "precision": 0.32,
+          "recall": 0.2353,
+          "n_pred": 25,
+          "tp": 8,
+          "n_gold": 34,
+          "n_gold_covered": 8
+        },
+        "UNFILTERED_LCCP": {
+          "precision": 0.4375,
+          "recall": 0.2059,
+          "n_pred": 16,
+          "tp": 7,
+          "n_gold": 34,
+          "n_gold_covered": 7
+        },
+        "FILTERED_LCCP": {
+          "precision": 0.5833,
+          "recall": 0.2059,
+          "n_pred": 12,
+          "tp": 7,
+          "n_gold": 34,
+          "n_gold_covered": 7
+        }
+      },
+      "decorr": {
+        "n_both_opinion": 53,
+        "n_both_opinion_wrong": 44,
+        "signal_corr_all": -0.3698144020929633,
+        "signal_corr_on_incorrect": -0.3791949231723813,
+        "gate_catches_wrong_frac": 0.2273,
+        "lex_catches_wrong_frac": 0.5,
+        "both_miss_wrong_frac": 0.3182
+      }
+    },
+    {
+      "seed": 13,
+      "corrs": {
+        "sigA_objecthood": {
+          "point_biserial": 0.2953353019668515,
+          "spearman": 0.38053423280552817,
+          "n": 61,
+          "base_rate_correct": 0.1803
+        },
+        "sigB_coherence_gate": {
+          "point_biserial": 0.15223289373413557,
+          "spearman": 0.1591674327231873,
+          "n": 59,
+          "base_rate_correct": 0.1695
+        },
+        "sigC_lexical": {
+          "point_biserial": 0.16309163083112482,
+          "spearman": 0.16309163083112485,
+          "n": 55,
+          "base_rate_correct": 0.1818
+        },
+        "sigC_redundancy": {
+          "point_biserial": -0.08635755391767451,
+          "spearman": -0.08635755391767455,
+          "n": 61,
+          "base_rate_correct": 0.1803
+        }
+      },
+      "arms": {
+        "UNFILTERED_RAW": {
+          "precision": 0.1803,
+          "recall": 0.3235,
+          "n_pred": 61,
+          "tp": 11,
+          "n_gold": 34,
+          "n_gold_covered": 11
+        },
+        "FILTERED_RAW": {
+          "precision": 0.2245,
+          "recall": 0.3235,
+          "n_pred": 49,
+          "tp": 11,
+          "n_gold": 34,
+          "n_gold_covered": 11
+        },
+        "FILTERED_RAW_2VIEW": {
+          "precision": 0.32,
+          "recall": 0.2353,
+          "n_pred": 25,
+          "tp": 8,
+          "n_gold": 34,
+          "n_gold_covered": 8
+        },
+        "UNFILTERED_LCCP": {
+          "precision": 0.3889,
+          "recall": 0.2059,
+          "n_pred": 18,
+          "tp": 7,
+          "n_gold": 34,
+          "n_gold_covered": 7
+        },
+        "FILTERED_LCCP": {
+          "precision": 0.5,
+          "recall": 0.2059,
+          "n_pred": 14,
+          "tp": 7,
+          "n_gold": 34,
+          "n_gold_covered": 7
+        }
+      },
+      "decorr": {
+        "n_both_opinion": 53,
+        "n_both_opinion_wrong": 44,
+        "signal_corr_all": -0.3698144020929633,
+        "signal_corr_on_incorrect": -0.3791949231723813,
+        "gate_catches_wrong_frac": 0.2273,
+        "lex_catches_wrong_frac": 0.5,
+        "both_miss_wrong_frac": 0.3182
+      }
+    },
+    {
+      "seed": 19,
+      "corrs": {
+        "sigA_objecthood": {
+          "point_biserial": 0.2950457728623884,
+          "spearman": 0.3708390931162153,
+          "n": 61,
+          "base_rate_correct": 0.1803
+        },
+        "sigB_coherence_gate": {
+          "point_biserial": 0.15223289373413557,
+          "spearman": 0.1591674327231873,
+          "n": 59,
+          "base_rate_correct": 0.1695
+        },
+        "sigC_lexical": {
+          "point_biserial": 0.16309163083112482,
+          "spearman": 0.16309163083112485,
+          "n": 55,
+          "base_rate_correct": 0.1818
+        },
+        "sigC_redundancy": {
+          "point_biserial": -0.08635755391767451,
+          "spearman": -0.08635755391767455,
+          "n": 61,
+          "base_rate_correct": 0.1803
+        }
+      },
+      "arms": {
+        "UNFILTERED_RAW": {
+          "precision": 0.1803,
+          "recall": 0.3235,
+          "n_pred": 61,
+          "tp": 11,
+          "n_gold": 34,
+          "n_gold_covered": 11
+        },
+        "FILTERED_RAW": {
+          "precision": 0.2245,
+          "recall": 0.3235,
+          "n_pred": 49,
+          "tp": 11,
+          "n_gold": 34,
+          "n_gold_covered": 11
+        },
+        "FILTERED_RAW_2VIEW": {
+          "precision": 0.32,
+          "recall": 0.2353,
+          "n_pred": 25,
+          "tp": 8,
+          "n_gold": 34,
+          "n_gold_covered": 8
+        },
+        "UNFILTERED_LCCP": {
+          "precision": 0.3889,
+          "recall": 0.2059,
+          "n_pred": 18,
+          "tp": 7,
+          "n_gold": 34,
+          "n_gold_covered": 7
+        },
+        "FILTERED_LCCP": {
+          "precision": 0.5,
+          "recall": 0.2059,
+          "n_pred": 14,
+          "tp": 7,
+          "n_gold": 34,
+          "n_gold_covered": 7
+        }
+      },
+      "decorr": {
+        "n_both_opinion": 53,
+        "n_both_opinion_wrong": 44,
+        "signal_corr_all": -0.3698144020929633,
+        "signal_corr_on_incorrect": -0.3791949231723813,
+        "gate_catches_wrong_frac": 0.2273,
+        "lex_catches_wrong_frac": 0.5,
+        "both_miss_wrong_frac": 0.3182
+      }
+    }
+  ],
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "coherent_but_wrong_gate_keeps": [
+      "L04_03",
+      "take",
+      "one",
+      0.281
+    ],
+    "concrete_true_patient_lex_accepts": [
+      "L04_02",
+      "rub",
+      "castle"
+    ],
+    "abstract_wrong_lex_rejects": [
+      "L04_01",
+      "build",
+      "ruin"
+    ],
+    "witness": "PASS"
+  },
+  "kept_hashes_seed0": {
+    "UNFILTERED_RAW": "3dae5455580551f5",
+    "FILTERED_RAW": "4fde3e32c24433a5"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "wordnet_available": true,
+  "wordnet_err": null,
+  "calibration_check": "default_ok_for_this_regime (gate thr_keep/thr_defer inherited from the existing coherence-gate cell; same McGuffey corpus family)",
+  "cited_stacked_reader_precision": 0.557,
+  "cited_unfiltered_growth_precision": 0.44,
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json (single-annotator; pos + nopat).",
+  "gold_meta": {
+    "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04,L05,L07,L08,L09,L10,L12 (clean narrative prose; L06 title-only + L11 blacksmith poem excluded).",
+    "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+    "independence": "Annotated by reading the raw McGuffey sentence text and writing the TRUE argument structure per sentence. The point of this gold is to mark, per verb-INSTANCE, whether it takes a direct affected/created/perceived PATIENT (pos) or takes NO direct patient (nopat: intransitive-motion / cognition-clausal / oblique-perception / report / copular / aspectual). The reader's extraction output was used ONLY to key which sentence-ids exist; the pos/nopat argument-structure judgments are the annotator's own reading of the text (ground truth), independent of what the reader extracted. Keyed to deterministic sentence ids (split_sents on the lessons).",
+    "standard": "pos relation = (v_lemma, agent_head, patient_head) where an AGENT acts on / creates / perceives a distinct PATIENT/THEME ENTITY. Heads are surface tokens (pronouns kept). nopat instance = (v_lemma, agent_head) for a verb occurrence that licenses NO direct patient: intransitive self-motion (come/go/sit/stand/fall/run/walk/spring/leap/creep/swim), cognition/clausal-complement (think/know/wonder/mean/wish/hope/believe/see-that/find-that/fear/suppose/choose/prefer/intend/learn), oblique/perception-AT (look-at/tread-on/struggle-against/meddle-with/fire-on/reach-for/inquire-about), report/speech (say/said/cry[exclaim]/ask/answer/retort/tell[recipient+clause]/call[summon]/exclaim/speak), aspectual (begin/commence/try/continue-of-motion), copular/light-idiom (do-no-harm/get-finished). A verb-instance is in EXACTLY one of pos or nopat (or absent if not annotated). EXCLUDED entirely (neither): passives with no expressed agent, bare copulas, embedded infinitive objects, gerund-internal objects, quantifier-only 'nothing/nobody' patients, ambiguous idioms.",
+    "usage": "PRIMARY precision/recall over pos (v_lemma, patient) patient-level. SUBCAT TRUE-NEGATIVE: over nopat verb-instances the reader mis-attached a patient to, does an arm SUPPRESS the wrong patient (correct) vs keep it (subcat FP). WITHIN-FRAME FP: reader keeps a wrong patient on a verb whose pos set is non-empty. refs = agent coref surfaces for the lenient-agent triple metric only.",
+    "caveat": "SINGLE-ANNOTATOR gold; the pos-vs-nopat boundary involves judgment calls (rub-against/knit-forehead/nod-head counted as pos contact/body-part per the sibling v1 gold convention; look-at/tread-on/struggle-against counted nopat oblique). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same sentences and recompute.",
+    "characters": "Herbert(he/his/him), Joe(he/him), papa/Mr.Rose(he), Hetty(she/her), pussy=cat(she/her/it), Charles(he/him), James(he/him), Frank(he/him), the gardener(he), mother/mamma(she/her), father(he), the castle/block/kite/hut(it)."
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "step0_correlations",
+    "growth_arms_mean",
+    "verdict_detail",
+    "error_decorrelation_seed0",
+    "scaffold_free_witness"
+  ],
+  "notes": "STEP-0 safety gate + FILTERED-vs-UNFILTERED foundation-growth. STEP-0: coherence-gate confidence (sigB) point-biserial corr with gold correctness -- usable if >=+0.15, UNSAFE (CCL pattern) if null/negative (decisive early kill). GROWTH: does the gate raise the consolidated-set precision >=+0.05 over UNFILTERED_RAW, beat 0.557, retain >=0.60 recall. sigA=extractor's own objecthood (maximally entangled); sigC=WordNet-lexical + redundancy second view (co-training decorrelation probe). HARD_FAIL_CONFIDENCE_UNSAFE and HARD_FAIL_GROWTH_NOISE_BOUND are both valuable documented negatives. CLAIM-VET-pending; single-annotator gold (caveated); corpus = McGuffey L04-L12 (real early-reading text outside the castle slice). NOT the full cross-document Arm1/2/3 compounding harness (Prediction C) -- this is the cheap decisive pre-check that gates whether that build is safe."
+}

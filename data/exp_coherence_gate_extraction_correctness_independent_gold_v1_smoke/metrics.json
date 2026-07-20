@@ -1,0 +1,669 @@
+{
+  "anchor_name": "coherence_gate_extraction_correctness_independent_gold_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | slice=L04 sents=20 reader_svo=27 gold=18 | UNGATED P=0.296 R=0.444 F1=0.356 | STRUCT P=0.348 R=0.444 | STATIC_CENT P=0.368 R=0.389 | FULL P=0.364 R=0.444 F1=0.400 def=1 | GOOD_ENOUGH P=0.296 | dP=+0.067 Rret=1.000 F2gap=+0.067 | coherent_but_wrong=14 struct_resid=0 | base_in_band=True discrim=True",
+  "summary": "MIDDLE_BAND | slice=L04 sents=20 reader_svo=27 gold=18 | UNGATED P=0.296 R=0.444 F1=0.356 | STRUCT P=0.348 R=0.444 | STATIC_CENT P=0.368 R=0.389 | FULL P=0.364 R=0.444 F1=0.400 def=1 | GOOD_ENOUGH P=0.296 | dP=+0.067 Rret=1.000 F2gap=+0.067 | coherent_but_wrong=14 struct_resid=0 | base_in_band=True discrim=True",
+  "elapsed_s": 7.387749000015901,
+  "ts_iso": "2026-07-19T07:09:02.230560+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04"
+    ],
+    "thr_keep": 0.15,
+    "thr_defer": 0.03,
+    "ctx_k": 2.0,
+    "w_min": 0.34,
+    "static_drop_frac": 0.3,
+    "ge_skip_frac": 0.5,
+    "seed": 7
+  },
+  "arm_metrics": {
+    "ungated": {
+      "primary": {
+        "precision": 0.2962962962962963,
+        "recall": 0.4444444444444444,
+        "f1": 0.3555555555555555,
+        "n_pred": 27,
+        "tp": 8,
+        "n_gold_covered": 8,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.25925925925925924,
+        "recall": 0.3888888888888889,
+        "f1": 0.3111111111111111,
+        "n_pred": 27,
+        "tp": 7,
+        "n_gold_covered": 7,
+        "n_gold": 18
+      },
+      "n_kept": 27,
+      "n_deferred": 0,
+      "n_dropped": 0
+    },
+    "gated_structural": {
+      "primary": {
+        "precision": 0.34782608695652173,
+        "recall": 0.4444444444444444,
+        "f1": 0.3902439024390244,
+        "n_pred": 23,
+        "tp": 8,
+        "n_gold_covered": 8,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.30434782608695654,
+        "recall": 0.3888888888888889,
+        "f1": 0.34146341463414637,
+        "n_pred": 23,
+        "tp": 7,
+        "n_gold_covered": 7,
+        "n_gold": 18
+      },
+      "n_kept": 23,
+      "n_deferred": 0,
+      "n_dropped": 4
+    },
+    "gated_static_cent": {
+      "primary": {
+        "precision": 0.3684210526315789,
+        "recall": 0.3888888888888889,
+        "f1": 0.37837837837837834,
+        "n_pred": 19,
+        "tp": 7,
+        "n_gold_covered": 7,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.3157894736842105,
+        "recall": 0.3333333333333333,
+        "f1": 0.3243243243243243,
+        "n_pred": 19,
+        "tp": 6,
+        "n_gold_covered": 6,
+        "n_gold": 18
+      },
+      "n_kept": 19,
+      "n_deferred": 0,
+      "n_dropped": 4
+    },
+    "gated_full": {
+      "primary": {
+        "precision": 0.36363636363636365,
+        "recall": 0.4444444444444444,
+        "f1": 0.39999999999999997,
+        "n_pred": 22,
+        "tp": 8,
+        "n_gold_covered": 8,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.3181818181818182,
+        "recall": 0.3888888888888889,
+        "f1": 0.35000000000000003,
+        "n_pred": 22,
+        "tp": 7,
+        "n_gold_covered": 7,
+        "n_gold": 18
+      },
+      "n_kept": 22,
+      "n_deferred": 1,
+      "n_dropped": 4
+    },
+    "good_enough": {
+      "primary": {
+        "precision": 0.2962962962962963,
+        "recall": 0.4444444444444444,
+        "f1": 0.3555555555555555,
+        "n_pred": 27,
+        "tp": 8,
+        "n_gold_covered": 8,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.25925925925925924,
+        "recall": 0.3888888888888889,
+        "f1": 0.3111111111111111,
+        "n_pred": 27,
+        "tp": 7,
+        "n_gold_covered": 7,
+        "n_gold": 18
+      },
+      "n_kept": 27,
+      "n_deferred": 0,
+      "n_dropped": 0
+    }
+  },
+  "verdict_detail": {
+    "verdict": "MIDDLE_BAND",
+    "precision_delta_full_vs_ungated": 0.0673,
+    "recall_retention_full_vs_ungated": 1.0,
+    "always_verify_beats_good_enough": true,
+    "frontier2_precision_gap_full_minus_goodenough": 0.0673
+  },
+  "error_classes": {
+    "n_coherent_but_wrong": 14,
+    "n_structural_residual": 0,
+    "coherent_but_wrong_examples": [
+      [
+        "L04_01",
+        [
+          "building",
+          "herbert",
+          "ruin"
+        ]
+      ],
+      [
+        "L04_03",
+        [
+          "took",
+          "herbert",
+          "one"
+        ]
+      ],
+      [
+        "L04_04",
+        [
+          "passed",
+          "it",
+          "harm"
+        ]
+      ],
+      [
+        "L04_07",
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      [
+        "L04_13",
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      [
+        "L04_15",
+        [
+          "came",
+          "boy",
+          "eyes"
+        ]
+      ],
+      [
+        "L04_15",
+        [
+          "came",
+          "boy",
+          "tears"
+        ]
+      ],
+      [
+        "L04_15",
+        [
+          "got",
+          "boy",
+          "floor"
+        ]
+      ],
+      [
+        "L04_17",
+        [
+          "taken",
+          "you",
+          "heart"
+        ]
+      ],
+      [
+        "L04_18",
+        [
+          "heard",
+          "i",
+          "blocks"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "sat",
+          "papa",
+          "blocks"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "sat",
+          "papa",
+          "side"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "sat",
+          "papa",
+          "son"
+        ]
+      ],
+      [
+        "L04_19",
+        [
+          "show",
+          "i",
+          "you"
+        ]
+      ]
+    ],
+    "structural_residual_examples": []
+  },
+  "kept_hashes": {
+    "ungated": "e07bebd869bb324a",
+    "gated_structural": "bea9bd71a2110ff1",
+    "gated_static_cent": "ab1f314b1f1fc05f",
+    "gated_full": "e99036affa2e96a7",
+    "good_enough": "e07bebd869bb324a"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "true_kept": [
+      "opened",
+      "papa",
+      "door"
+    ],
+    "wrong_dropped_inanimate": [
+      "finished",
+      "time",
+      "castle"
+    ],
+    "wrong_dropped_contraction": [
+      "can't",
+      "i",
+      "out"
+    ],
+    "wrong_dropped_selfloop": [
+      "build",
+      "down",
+      "build"
+    ],
+    "lemma_parity": {
+      "seen": "see",
+      "rubbed": "rub",
+      "took": "take",
+      "knocked": "knock"
+    },
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "independent_gold_source": "data/gold_mcguffey_castle_building_svo_v1.json -- single-annotator hand-annotated SVO relations for McGuffey L04+L05 'Castle-Building', annotated from sentence text WITHOUT consulting reader output (genuinely independent of the reader).",
+  "data_meta": {
+    "slice_lessons": [
+      "L04"
+    ],
+    "n_sentences": 20,
+    "n_reader_svo": 27,
+    "n_gold_relations": 18,
+    "gold_meta": {
+      "corpus": "McGuffey Third Reader (PG#14766, public domain), lessons L04+L05 'Castle-Building' (one self-contained narrative)",
+      "annotator": "exp_dev single-annotator (glass-box agent), 2026-07-19",
+      "independence": "Annotated by reading the raw McGuffey sentence text ONLY; the reader's extraction output for these sentences was NOT consulted while writing these gold relations. Gold keyed to deterministic sentence ids (split_sents on lessons L04,L05). Genuinely independent of the reader.",
+      "standard": "SEMANTIC action-agent-patient. A gold relation = (action_lemma, agent_surface_head, patient_surface_head) for an event where an AGENT acts on / creates / perceives a PATIENT/THEME ENTITY. Heads are surface tokens as they appear (pronouns kept: he/she/it/i/you). EXCLUDED: copular be/seem; pure self-motion (go/come/fall/stand/spring/sit) with no distinct patient; speech/report verbs whose complement is a quoted clause (say/said/cry[=exclaim]/ask/answer/retort/exclaim/tell/spoke/call[=summon]); clausal-complement cognition (know/think/wonder/believe/hope/see[=that]); auxiliary/modal-only; passives with no expressed agent; gerund-nominal predications with no explicit agent. Locative/temporal/manner obliques are NOT patients (lived-in-country, sat-on-floor, passed-over-her). Perception look-AT is oblique (not patient); perception see-NP and hear-NP ARE patients. Coordinated patients -> one relation each.",
+      "agent_refs": "per-relation list of surface tokens that co-refer to the annotated agent in this story (for the lenient-agent TRIPLE metric only; the PRIMARY metric ignores agent). Characters: Herbert(he/his/him), Joe(he), papa(he), Hetty(she), pussy=cat(she/her/it), the castle/block/kite(it).",
+      "caveat": "SINGLE-ANNOTATOR gold; the semantic-patient standard involves judgment calls (e.g. rub-against-castle counted as patient=castle; look-at-book NOT counted). Full gold + full reader output + all matches are reported in metrics so a VET can independently re-annotate the same 46 sentences and recompute."
+    },
+    "reader_svo_dump": {
+      "L04_01": [
+        [
+          "building",
+          "herbert",
+          "ruin"
+        ]
+      ],
+      "L04_02": [
+        [
+          "rubbed",
+          "cat",
+          "castle"
+        ]
+      ],
+      "L04_03": [
+        [
+          "took",
+          "herbert",
+          "blocks"
+        ],
+        [
+          "took",
+          "herbert",
+          "one"
+        ]
+      ],
+      "L04_04": [
+        [
+          "passed",
+          "it",
+          "harm"
+        ]
+      ],
+      "L04_07": [
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_10": [
+        [
+          "won't",
+          "i",
+          "herbert"
+        ]
+      ],
+      "L04_11": [
+        [
+          "opened",
+          "papa",
+          "door"
+        ]
+      ],
+      "L04_12": [
+        [
+          "fell",
+          "castle",
+          "hetty"
+        ]
+      ],
+      "L04_13": [
+        [
+          "know",
+          "mean",
+          "know"
+        ],
+        [
+          "mean",
+          "she",
+          "do"
+        ]
+      ],
+      "L04_14": [
+        [
+          "held",
+          "herbert",
+          "hands"
+        ],
+        [
+          "held",
+          "herbert",
+          "out"
+        ]
+      ],
+      "L04_15": [
+        [
+          "came",
+          "boy",
+          "eyes"
+        ],
+        [
+          "came",
+          "boy",
+          "tears"
+        ],
+        [
+          "got",
+          "boy",
+          "floor"
+        ]
+      ],
+      "L04_16": [
+        [
+          "said",
+          "boy",
+          "papa"
+        ]
+      ],
+      "L04_17": [
+        [
+          "taken",
+          "you",
+          "heart"
+        ],
+        [
+          "taken",
+          "you",
+          "way"
+        ]
+      ],
+      "L04_18": [
+        [
+          "heard",
+          "i",
+          "blocks"
+        ],
+        [
+          "heard",
+          "i",
+          "you"
+        ]
+      ],
+      "L04_19": [
+        [
+          "nodded",
+          "herbert",
+          "head"
+        ],
+        [
+          "sat",
+          "papa",
+          "blocks"
+        ],
+        [
+          "sat",
+          "papa",
+          "side"
+        ],
+        [
+          "sat",
+          "papa",
+          "son"
+        ],
+        [
+          "show",
+          "i",
+          "way"
+        ],
+        [
+          "show",
+          "i",
+          "you"
+        ]
+      ]
+    },
+    "gold_dump": {
+      "L04_01": [
+        [
+          "build",
+          "he",
+          "blockhouse"
+        ]
+      ],
+      "L04_02": [
+        [
+          "rub",
+          "cat",
+          "castle"
+        ]
+      ],
+      "L04_03": [
+        [
+          "take",
+          "herbert",
+          "blocks"
+        ],
+        [
+          "throw",
+          "herbert",
+          "it"
+        ]
+      ],
+      "L04_05": [
+        [
+          "catch",
+          "hetty",
+          "her"
+        ]
+      ],
+      "L04_06": [
+        [
+          "hurt",
+          "you",
+          "pussy"
+        ]
+      ],
+      "L04_07": [
+        [
+          "do",
+          "she",
+          "it"
+        ],
+        [
+          "cover",
+          "he",
+          "face"
+        ]
+      ],
+      "L04_10": [
+        [
+          "build",
+          "you",
+          "it"
+        ]
+      ],
+      "L04_11": [
+        [
+          "open",
+          "he",
+          "door"
+        ]
+      ],
+      "L04_12": [
+        [
+          "rub",
+          "pussy",
+          "castle"
+        ]
+      ],
+      "L04_13": [
+        [
+          "do",
+          "she",
+          "it"
+        ]
+      ],
+      "L04_14": [
+        [
+          "hold",
+          "papa",
+          "hands"
+        ]
+      ],
+      "L04_17": [
+        [
+          "take",
+          "you",
+          "way"
+        ]
+      ],
+      "L04_18": [
+        [
+          "hear",
+          "i",
+          "you"
+        ]
+      ],
+      "L04_19": [
+        [
+          "show",
+          "i",
+          "way"
+        ],
+        [
+          "nod",
+          "herbert",
+          "head"
+        ],
+        [
+          "lay",
+          "papa",
+          "foundation"
+        ]
+      ]
+    },
+    "gate_decisions_full": {
+      "dropped": [
+        [
+          "L04_10",
+          [
+            "won't",
+            "i",
+            "herbert"
+          ],
+          "contraction_nonverb"
+        ],
+        [
+          "L04_12",
+          [
+            "fell",
+            "castle",
+            "hetty"
+          ],
+          "agent_inanimate_taxonomic"
+        ],
+        [
+          "L04_13",
+          [
+            "know",
+            "mean",
+            "know"
+          ],
+          "degenerate_selfloop"
+        ],
+        [
+          "L04_14",
+          [
+            "held",
+            "herbert",
+            "out"
+          ],
+          "patient_funcword"
+        ]
+      ],
+      "deferred": [
+        [
+          "L04_16",
+          [
+            "said",
+            "boy",
+            "papa"
+          ],
+          0.04
+        ]
+      ]
+    },
+    "glove_coverage": 0.985
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "verdict_detail",
+    "error_classes",
+    "scaffold_free_witness",
+    "data_meta"
+  ],
+  "notes": "Coherence-gate extraction CORRECTNESS vs INDEPENDENT gold. HARD_PASS = gate raises primary precision >=+0.15 at >=0.70 recall retention AND beats good-enough (Frontier-2). HARD_FAIL = errors not coherence-detectable (coherent-but-wrong -> fix is the parse) OR gate over-drops true relations. MIDDLE_BAND = partial. CLAIM-VET-pending; single-annotator gold (caveated); compgen-against-independent-gold flagged as next step (slice too small)."
+}

@@ -1,0 +1,796 @@
+{
+  "anchor_name": "coref_animacy_prefilter_lccp_break050_v1",
+  "run_mode": "full",
+  "verdict": "P1:HARD_FAIL_1_ANIMACY_DOES_NOT_HELP | P2:HARD_PASS_2_DISTRIBUTIONAL_INANIMATE_PRECISE | P3:HARD_PASS_3_PARSER_RESIDUAL_NOT_ANIMACY_NEAR_EMPTY",
+  "verdict_msg": "P1:HARD_FAIL_1_ANIMACY_DOES_NOT_HELP | P2:HARD_PASS_2_DISTRIBUTIONAL_INANIMATE_PRECISE | P3:HARD_PASS_3_PARSER_RESIDUAL_NOT_ANIMACY_NEAR_EMPTY | mode=full slice=L04+L05+L07+L08+L09+L10+L12 n_keptC=68 | P1: inan_commit OFF=[2, 3, 3] ON=[0, 0, 0] broke OFF=[5, 6, 5] ON=[7, 7, 6] fixed_ON=[0, 0, 0] new_breaks=[4, 4, 4] P_OFF=0.854 P_ON=0.833 abstain OFF=0.75 ON=0.68 (vs prior broke=[5,6,5] fixed=[0,0,0] P_ON=0.854 HARD_FAIL_A_NET_BREAKAGE) | P2: nonseed inan_prec=1.0 acc=0.3529 cov=0.4201 (n_nonseed=169) | P3: fp=27 animacy_catchable=0 argstruct=27 frac=0.0 | gates: base_in_band=True arms_differ=True discrim=True harm_present_OFF=True maskoff_reproduces_OFF=True",
+  "summary": "P1:HARD_FAIL_1_ANIMACY_DOES_NOT_HELP | P2:HARD_PASS_2_DISTRIBUTIONAL_INANIMATE_PRECISE | P3:HARD_PASS_3_PARSER_RESIDUAL_NOT_ANIMACY_NEAR_EMPTY | mode=full slice=L04+L05+L07+L08+L09+L10+L12 n_keptC=68 | P1: inan_commit OFF=[2, 3, 3] ON=[0, 0, 0] broke OFF=[5, 6, 5] ON=[7, 7, 6] fixed_ON=[0, 0, 0] new_breaks=[4, 4, 4] P_OFF=0.854 P_ON=0.833 abstain OFF=0.75 ON=0.68 (vs prior broke=[5,6,5] fixed=[0,0,0] P_ON=0.854 HARD_FAIL_A_NET_BREAKAGE) | P2: nonseed inan_prec=1.0 acc=0.3529 cov=0.4201 (n_nonseed=169) | P3: fp=27 animacy_catchable=0 argstruct=27 frac=0.0 | gates: base_in_band=True arms_differ=True discrim=True harm_present_OFF=True maskoff_reproduces_OFF=True",
+  "elapsed_s": 24.99302289998741,
+  "ts_iso": "2026-07-19T20:26:33.141246+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7
+  },
+  "verdict_pred1": "HARD_FAIL_1_ANIMACY_DOES_NOT_HELP",
+  "verdict_pred2": "HARD_PASS_2_DISTRIBUTIONAL_INANIMATE_PRECISE",
+  "verdict_pred3": "HARD_PASS_3_PARSER_RESIDUAL_NOT_ANIMACY_NEAR_EMPTY",
+  "fhrr_seeds": [
+    7,
+    13,
+    19
+  ],
+  "aggregates_multiseed": {
+    "p_off": {
+      "mean": 0.8542,
+      "min": 0.8438,
+      "max": 0.8594,
+      "vals": [
+        0.8594,
+        0.8438,
+        0.8594
+      ]
+    },
+    "p_on": {
+      "mean": 0.8333,
+      "min": 0.8281,
+      "max": 0.8438,
+      "vals": [
+        0.8281,
+        0.8281,
+        0.8438
+      ]
+    },
+    "broke_off": {
+      "mean": 5.3333,
+      "min": 5.0,
+      "max": 6.0,
+      "vals": [
+        5,
+        6,
+        5
+      ]
+    },
+    "broke_on": {
+      "mean": 6.6667,
+      "min": 6.0,
+      "max": 7.0,
+      "vals": [
+        7,
+        7,
+        6
+      ]
+    },
+    "fixed_on": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "vals": [
+        0,
+        0,
+        0
+      ]
+    },
+    "inan_commit_off": {
+      "mean": 2.6667,
+      "min": 2.0,
+      "max": 3.0,
+      "vals": [
+        2,
+        3,
+        3
+      ]
+    },
+    "inan_commit_on": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "vals": [
+        0,
+        0,
+        0
+      ]
+    },
+    "abstain_off": {
+      "mean": 0.746,
+      "min": 0.7143,
+      "max": 0.7619,
+      "vals": [
+        0.7619,
+        0.7143,
+        0.7619
+      ]
+    },
+    "abstain_on": {
+      "mean": 0.6826,
+      "min": 0.6667,
+      "max": 0.7143,
+      "vals": [
+        0.6667,
+        0.6667,
+        0.7143
+      ]
+    },
+    "new_breaks": {
+      "mean": 4.0,
+      "min": 4.0,
+      "max": 4.0,
+      "vals": [
+        4,
+        4,
+        4
+      ]
+    }
+  },
+  "pred1_per_seed": [
+    {
+      "seed": 7,
+      "p_off": 0.8594,
+      "p_on": 0.8281,
+      "pron_p_off": 0.7619,
+      "pron_p_on": 0.6667,
+      "broke_off": 5,
+      "broke_on": 7,
+      "fixed_off": 0,
+      "fixed_on": 0,
+      "n_commit_off": 5,
+      "n_commit_on": 7,
+      "abstain_off": 0.7619,
+      "abstain_on": 0.6667,
+      "inan_commit_off": 2,
+      "inan_commit_on": 0,
+      "new_breaks": 4,
+      "new_break_log": [
+        {
+          "sid": "L07_09",
+          "v": "meet",
+          "pron": "he",
+          "off_arm": "he",
+          "on_arm": "plenty",
+          "gold": [
+            "he",
+            "james"
+          ]
+        },
+        {
+          "sid": "L09_05",
+          "v": "build",
+          "pron": "they",
+          "off_arm": "they",
+          "on_arm": "buildings",
+          "gold": [
+            "beavers",
+            "they"
+          ]
+        },
+        {
+          "sid": "L09_11",
+          "v": "commence",
+          "pron": "they",
+          "off_arm": "they",
+          "on_arm": "frosts",
+          "gold": [
+            "they"
+          ]
+        },
+        {
+          "sid": "L10_36",
+          "v": "put",
+          "pron": "he",
+          "off_arm": "he",
+          "on_arm": "something",
+          "gold": [
+            "he",
+            "rose"
+          ]
+        }
+      ],
+      "mask_stats": {
+        "n_masked_candidates": 41,
+        "n_pool_emptied_by_mask": 4,
+        "n_argmax_changed_by_mask": 7
+      },
+      "maskoff_reproduces_off": true
+    },
+    {
+      "seed": 13,
+      "p_off": 0.8438,
+      "p_on": 0.8281,
+      "pron_p_off": 0.7143,
+      "pron_p_on": 0.6667,
+      "broke_off": 6,
+      "broke_on": 7,
+      "fixed_off": 0,
+      "fixed_on": 0,
+      "n_commit_off": 6,
+      "n_commit_on": 7,
+      "abstain_off": 0.7143,
+      "abstain_on": 0.6667,
+      "inan_commit_off": 3,
+      "inan_commit_on": 0,
+      "new_breaks": 4,
+      "new_break_log": [
+        {
+          "sid": "L07_09",
+          "v": "meet",
+          "pron": "he",
+          "off_arm": "he",
+          "on_arm": "plenty",
+          "gold": [
+            "he",
+            "james"
+          ]
+        },
+        {
+          "sid": "L09_05",
+          "v": "build",
+          "pron": "they",
+          "off_arm": "they",
+          "on_arm": "buildings",
+          "gold": [
+            "beavers",
+            "they"
+          ]
+        },
+        {
+          "sid": "L09_11",
+          "v": "commence",
+          "pron": "they",
+          "off_arm": "they",
+          "on_arm": "frosts",
+          "gold": [
+            "they"
+          ]
+        },
+        {
+          "sid": "L10_36",
+          "v": "put",
+          "pron": "he",
+          "off_arm": "he",
+          "on_arm": "something",
+          "gold": [
+            "he",
+            "rose"
+          ]
+        }
+      ],
+      "mask_stats": {
+        "n_masked_candidates": 41,
+        "n_pool_emptied_by_mask": 4,
+        "n_argmax_changed_by_mask": 7
+      },
+      "maskoff_reproduces_off": true
+    },
+    {
+      "seed": 19,
+      "p_off": 0.8594,
+      "p_on": 0.8438,
+      "pron_p_off": 0.7619,
+      "pron_p_on": 0.7143,
+      "broke_off": 5,
+      "broke_on": 6,
+      "fixed_off": 0,
+      "fixed_on": 0,
+      "n_commit_off": 5,
+      "n_commit_on": 6,
+      "abstain_off": 0.7619,
+      "abstain_on": 0.7143,
+      "inan_commit_off": 3,
+      "inan_commit_on": 0,
+      "new_breaks": 4,
+      "new_break_log": [
+        {
+          "sid": "L07_09",
+          "v": "meet",
+          "pron": "he",
+          "off_arm": "he",
+          "on_arm": "plenty",
+          "gold": [
+            "he",
+            "james"
+          ]
+        },
+        {
+          "sid": "L09_05",
+          "v": "build",
+          "pron": "they",
+          "off_arm": "they",
+          "on_arm": "buildings",
+          "gold": [
+            "beavers",
+            "they"
+          ]
+        },
+        {
+          "sid": "L09_11",
+          "v": "commence",
+          "pron": "they",
+          "off_arm": "they",
+          "on_arm": "frosts",
+          "gold": [
+            "they"
+          ]
+        },
+        {
+          "sid": "L10_36",
+          "v": "put",
+          "pron": "he",
+          "off_arm": "he",
+          "on_arm": "something",
+          "gold": [
+            "he",
+            "rose"
+          ]
+        }
+      ],
+      "mask_stats": {
+        "n_masked_candidates": 41,
+        "n_pool_emptied_by_mask": 4,
+        "n_argmax_changed_by_mask": 7
+      },
+      "maskoff_reproduces_off": true
+    }
+  ],
+  "pred1_commit_log_on_seed0": [
+    {
+      "sid": "L07_09",
+      "v": "meet",
+      "pron": "he",
+      "resolved": "plenty",
+      "resolved_animacy": "unknown",
+      "margin": 0.6149,
+      "cos1": 0.6149,
+      "n_pool": 1,
+      "pool": [
+        "plenty"
+      ]
+    },
+    {
+      "sid": "L07_21",
+      "v": "reach",
+      "pron": "they",
+      "resolved": "boys",
+      "resolved_animacy": "animate",
+      "margin": 0.1089,
+      "cos1": 0.6288,
+      "n_pool": 2,
+      "pool": [
+        "men",
+        "boys"
+      ]
+    },
+    {
+      "sid": "L09_05",
+      "v": "build",
+      "pron": "they",
+      "resolved": "buildings",
+      "resolved_animacy": "unknown",
+      "margin": 0.1363,
+      "cos1": 0.9977,
+      "n_pool": 2,
+      "pool": [
+        "beavers",
+        "buildings"
+      ]
+    },
+    {
+      "sid": "L09_11",
+      "v": "commence",
+      "pron": "they",
+      "resolved": "frosts",
+      "resolved_animacy": "unknown",
+      "margin": 0.1041,
+      "cos1": 0.9977,
+      "n_pool": 2,
+      "pool": [
+        "frosts",
+        "leaves"
+      ]
+    },
+    {
+      "sid": "L09_18",
+      "v": "lay",
+      "pron": "they",
+      "resolved": "beavers",
+      "resolved_animacy": "unknown",
+      "margin": 0.9665,
+      "cos1": 0.9665,
+      "n_pool": 1,
+      "pool": [
+        "beavers"
+      ]
+    },
+    {
+      "sid": "L10_11",
+      "v": "make",
+      "pron": "he",
+      "resolved": "boy",
+      "resolved_animacy": "animate",
+      "margin": 0.1665,
+      "cos1": 0.9497,
+      "n_pool": 6,
+      "pool": [
+        "boy",
+        "joe",
+        "piece",
+        "chalk",
+        "charles",
+        "dog"
+      ]
+    },
+    {
+      "sid": "L10_36",
+      "v": "put",
+      "pron": "he",
+      "resolved": "something",
+      "resolved_animacy": "animate",
+      "margin": 0.6211,
+      "cos1": 0.6211,
+      "n_pool": 1,
+      "pool": [
+        "something"
+      ]
+    },
+    {
+      "sid": "L12_15",
+      "v": "continue",
+      "pron": "he",
+      "resolved": "boy",
+      "resolved_animacy": "animate",
+      "margin": 0.3467,
+      "cos1": 0.9467,
+      "n_pool": 3,
+      "pool": [
+        "walk",
+        "frank",
+        "boy"
+      ]
+    }
+  ],
+  "pred2_classifier": {
+    "all_candidate_heads": {
+      "n_heads": 269,
+      "n_with_gold": 173,
+      "coverage_confident": 0.6357,
+      "accuracy_on_confident_labeled": 0.8281,
+      "inanimate_precision": 1.0,
+      "inanimate_n_pred": 73,
+      "animate_precision": 0.6,
+      "animate_n_pred": 55,
+      "confusion": {
+        "animate->animate": 33,
+        "inanimate->animate": 22,
+        "inanimate->inanimate": 73
+      }
+    },
+    "nonseed_candidate_heads": {
+      "n_heads": 169,
+      "n_with_gold": 79,
+      "coverage_confident": 0.4201,
+      "accuracy_on_confident_labeled": 0.3529,
+      "inanimate_precision": 1.0,
+      "inanimate_n_pred": 1,
+      "animate_precision": 0.3333,
+      "animate_n_pred": 33,
+      "confusion": {
+        "animate->animate": 11,
+        "inanimate->animate": 22,
+        "inanimate->inanimate": 1
+      }
+    },
+    "label_source_breakdown": {
+      "none": 98,
+      "distributional": 71,
+      "seed": 87,
+      "gender_cue": 13
+    },
+    "n_candidate_heads": 269,
+    "n_nonseed_candidate_heads": 169
+  },
+  "pred3_parser_residual": {
+    "n_patient_assign": 62,
+    "n_fp": 27,
+    "n_animacy_catchable": 0,
+    "n_argument_structure": 27,
+    "frac_animacy_catchable": 0.0,
+    "fp_log": [
+      {
+        "sid": "L04_04",
+        "v": "pass",
+        "assigned_patient": "harm",
+        "patient_animacy": "unknown",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L04_15",
+        "v": "come",
+        "assigned_patient": "eyes",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L04_16",
+        "v": "say",
+        "assigned_patient": "papa",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L04_19",
+        "v": "sit",
+        "assigned_patient": "son",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L04_19",
+        "v": "show",
+        "assigned_patient": "you",
+        "patient_animacy": "unknown",
+        "gold_patient": [
+          "way"
+        ],
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L05_15",
+        "v": "build",
+        "assigned_patient": "sentence",
+        "patient_animacy": "animate",
+        "gold_patient": [
+          "it"
+        ],
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L07_07",
+        "v": "tell",
+        "assigned_patient": "james",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L07_09",
+        "v": "meet",
+        "assigned_patient": "plenty",
+        "patient_animacy": "unknown",
+        "gold_patient": [
+          "boys"
+        ],
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L07_13",
+        "v": "struggle",
+        "assigned_patient": "tide",
+        "patient_animacy": "unknown",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L08_02",
+        "v": "say",
+        "assigned_patient": "hour",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L09_03",
+        "v": "lie",
+        "assigned_patient": "skin",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L09_06",
+        "v": "build",
+        "assigned_patient": "stream",
+        "patient_animacy": "unknown",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L09_11",
+        "v": "commence",
+        "assigned_patient": "houses",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_03",
+        "v": "tell",
+        "assigned_patient": "son",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_05",
+        "v": "stand",
+        "assigned_patient": "hut",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_10",
+        "v": "call",
+        "assigned_patient": "day",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_19",
+        "v": "come",
+        "assigned_patient": "charles",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_26",
+        "v": "see",
+        "assigned_patient": "see",
+        "patient_animacy": "unknown",
+        "gold_patient": [
+          "him"
+        ],
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_29",
+        "v": "tell",
+        "assigned_patient": "charles",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_30",
+        "v": "leave",
+        "assigned_patient": "mr",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_37",
+        "v": "meet",
+        "assigned_patient": "eyes",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L10_42",
+        "v": "come",
+        "assigned_patient": "home",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L12_03",
+        "v": "say",
+        "assigned_patient": "come",
+        "patient_animacy": "unknown",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L12_04",
+        "v": "invite",
+        "assigned_patient": "mother",
+        "patient_animacy": "animate",
+        "gold_patient": [
+          "him"
+        ],
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L12_04",
+        "v": "wish",
+        "assigned_patient": "gate",
+        "patient_animacy": "inanimate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L12_06",
+        "v": "walk",
+        "assigned_patient": "gravel",
+        "patient_animacy": "unknown",
+        "gold_patient": null,
+        "class": "argument_structure"
+      },
+      {
+        "sid": "L12_16",
+        "v": "leave",
+        "assigned_patient": "gardener",
+        "patient_animacy": "animate",
+        "gold_patient": null,
+        "class": "argument_structure"
+      }
+    ]
+  },
+  "pre_registered": {
+    "TAU_MARGIN": 0.1,
+    "COS_FLOOR": 0.08,
+    "N_DIM": 1024,
+    "ANIMATE_REQUIRING_PRONOUNS": [
+      "he",
+      "her",
+      "hers",
+      "him",
+      "his",
+      "she",
+      "their",
+      "them",
+      "they"
+    ],
+    "distributional_rule": "inanimate iff inan_ev>=1 and inan_ev>anim_ev and anim_ev==0; animate iff anim_ev>=1 and anim_ev>=inan_ev",
+    "pred2_hard_pass": "nonseed inanimate_precision>=0.90",
+    "pred3_hard_pass": "n_animacy_catchable<=1 or frac<=0.15 (near-empty)"
+  },
+  "credits": {
+    "seed_lists": "general high-frequency English animate/inanimate common nouns, hand-listed, WordNet-hypernymy-consistent (person/animal vs artifact/substance/place/abstraction/body-part/time); borrowed not corpus-induced; trailing-'s' plural fallback at match time",
+    "animate_verbs": "agentive/animate-subject verb classes (Levin/VerbNet communication, motion, perception, cognition, bodily-process); CREDITED, not corpus-induced",
+    "gold_animacy": "single-annotator hand labels over this corpus's noun heads (Director)"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "harm_present_off": true,
+  "maskoff_reproduces_off": true,
+  "no_new_breaks": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n_a": "no additive-Gaussian estimator floor; discrete classifier + FHRR crosstalk inside small pools",
+  "cited": {
+    "headfinder_B2_agent_lens": 0.938,
+    "prior_coref": "broke=[5,6,5] fixed=[0,0,0] P_ON=0.854 HARD_FAIL_A_NET_BREAKAGE",
+    "reader_topline": "reader true-stacked precision 0.557 (separate aggregate)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_pred1",
+    "verdict_pred2",
+    "verdict_pred3",
+    "aggregates_multiseed",
+    "pred2_classifier",
+    "pred3_parser_residual",
+    "arms_differ_verified",
+    "baseline_in_band",
+    "discriminator_fires"
+  ],
+  "reused_components": {
+    "coref_baseline": "exp_coref_margin_gated_cleanup_local_window_break050_v1 (OFF arm called verbatim; atom 29355/56)",
+    "lccp": "exp_learned_argstruct_parser_lccp_independent_gold_v1 (arm-C keptC; atom 29338)",
+    "head_finder": "exp_np_head_finder_grounding_gate_break050_v1.resolve_heads(use_grounding=True) (atom 29342)"
+  },
+  "notes": "Seeded distributional animacy classifier as a HARD candidate pre-filter in the margin-gated coref resolver. ONE VARIABLE = animacy mask ON vs OFF (OFF calls COREF.resolve_coref_gated verbatim = the published net-negative baseline). Pred 1 = does the mask kill the named they->inanimate harm (n_inanimate_commit->0) and reduce the break budget without new breaks or precision loss. Pred 2 = distributional-classifier accuracy/coverage at 163-sentence scale (honest corpus-sparsity can-fail; inanimate-precision is the mask-critical number). Pred 3 = parser patient-FP triage confirms animacy does NOT fix the argument-structure residual (near-empty animacy-catchable bucket = honest scope boundary). Animacy = DISCRETE/CATEGORICAL (escapes the graded-cosine structural-beats-semantic wall) but NOT a full world-knowledge substitute. STRATEGIC READ = HYPOTHESIS pending skunkworks landed-VET. Single-annotator gold. LOCAL-ONLY; NO push/remote-persist/git-add-A; no atom banking.",
+  "needs_orchestrator_store_sync": true
+}

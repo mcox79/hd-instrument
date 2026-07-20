@@ -1,0 +1,892 @@
+{
+  "anchor_name": "lccp_fullnopat_densified_pdo_frame_teacher_stack_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_RECALL_ARTIFACT",
+  "needs_orchestrator_store_sync": true,
+  "primary_metric": "STACKED patient-lens precision Q_dense (DENSE full-corpus P_do frame teacher -> ARG -> quotative) vs 0.5574 AND per-seed paired Q_base; recall retention; DENSE-P_do-permute must-fail. ONE VARIABLE vs Q_slice = the P_do table (slice vs full corpus).",
+  "one_variable": "per-verb P_do table injected into the syntactic frame teacher: 163-sent gold slice (Q_slice = 29350) vs full ~99k-word 5-reader corpus (Q_dense). ARG+QUOT+base identical.",
+  "published_stack_precision_reference": 0.5574,
+  "cited_29350_slice_prior_failure": {
+    "precision_Q_treat_mean": 0.5803,
+    "recall_retention_mean": 0.6165,
+    "mustfail_pdo_permute_fires": false,
+    "verdict": "HARD_FAIL_RECALL_ARTIFACT",
+    "MEASURED": "data/exp_lccp_fullnopat_syntactic_frame_teacher_stack_v1/metrics.json"
+  },
+  "precision_Q_base_mean": 0.5369,
+  "precision_Q_base_std": 0.0175,
+  "precision_Q_slice_mean": 0.5803,
+  "precision_Q_slice_std": 0.0279,
+  "precision_Q_dense_mean": 0.6344,
+  "precision_Q_dense_std": 0.0127,
+  "precision_Q_dperm_mean": 0.5812,
+  "precision_Q_dperm_std": 0.0238,
+  "recall_Q_base_mean": 0.3467,
+  "recall_Q_slice_mean": 0.2133,
+  "recall_Q_dense_mean": 0.26,
+  "precision_delta_abs_vs_0557": 0.077,
+  "slice_precision_delta_abs_vs_0557": 0.0229,
+  "precision_delta_paired_mean": 0.0975,
+  "precision_delta_paired_std": 0.0256,
+  "recall_retention_mean": 0.7502,
+  "recall_retention_std": 0.0103,
+  "recall_retention_slice_mean": 0.6165,
+  "mustfail_dense_pdo_permute_fires": true,
+  "material_move": true,
+  "paired_positive": true,
+  "recall_ok": false,
+  "w_f_dirpp_dense_per_seed": [
+    -2.0598,
+    -1.9822,
+    -1.9776
+  ],
+  "w_f_dirpp_slice_per_seed": [
+    -2.4656,
+    -2.4777,
+    -2.4378
+  ],
+  "w_f_dirpp_dperm_per_seed": [
+    0.2908,
+    -3.4454,
+    -0.8632
+  ],
+  "w_f_dirpp_dense_all_negative": true,
+  "baseline_reproduces_0557_seed0": true,
+  "baseline_precision_seed0": 0.5574,
+  "slice_reproduces_29350_prior_failure": true,
+  "dense_corpus": {
+    "n_sent": 5752,
+    "n_svo": 8663,
+    "n_lessons": 354,
+    "n_verbs": 835,
+    "global_do_rate": 0.7446
+  },
+  "dense_coverage_of_slice_verbs": {
+    "n_slice_verbs": 77,
+    "n_covered_by_dense": 77,
+    "coverage_frac": 1.0,
+    "missing_verbs": []
+  },
+  "dense_P_do_ma_sample": {
+    "ascend": 0.4964,
+    "begin": 0.9361,
+    "climb": 0.6489,
+    "come": 0.3347,
+    "commence": 0.8297,
+    "continue": 0.8297,
+    "crawl": 0.4149,
+    "creep": 0.2127,
+    "dart": 0.1655,
+    "dash": 0.8297,
+    "enter": 0.8838,
+    "fall": 0.4674,
+    "finish": 0.8627,
+    "flit": 0.4985,
+    "go": 0.4166,
+    "hop": 0.4964,
+    "jump": 0.2766,
+    "keep": 0.7062,
+    "kneel": 0.7446,
+    "lean": 0.4489,
+    "leap": 0.2978,
+    "lie": 0.7659,
+    "march": 0.4985,
+    "meddle": 0.7446,
+    "reach": 0.9513,
+    "return": 0.5272,
+    "rise": 0.7717,
+    "roll": 0.7446,
+    "run": 0.2922,
+    "sit": 0.1951,
+    "spring": 0.2482,
+    "stand": 0.656,
+    "start": 0.5899,
+    "stop": 0.8207,
+    "struggle": 0.2766,
+    "swim": 0.8723,
+    "tread": 0.4964,
+    "try": 0.8489,
+    "walk": 0.1771
+  },
+  "build_P_do_slice": 0.3648,
+  "build_P_do_dense": 0.3885,
+  "build_dense_frame_counts": {
+    "n_DO": 9,
+    "n_DIR": 16,
+    "n_other": 4,
+    "P_do": 0.3885
+  },
+  "build_densified": true,
+  "dense_target_keep_abs": 0.8634,
+  "dense_target_drop_abs": 0.8165,
+  "slice_target_keep_abs": 0.8444,
+  "slice_target_drop_abs": 0.7926,
+  "step1_triage_Q_base_residual_dense_classing": {
+    "counts": {
+      "TP": 34,
+      "ADDRESSABLE_nopat_cognition_oblique_other": 3,
+      "spurious_verb_unannotated": 4,
+      "ADDRESSABLE_nopat_motion_aspectual": 7,
+      "OUTOFSCOPE_within_transitive": 5,
+      "nopat_highPdo_cognition_oblique_other": 7,
+      "nopat_highPdo_motion_aspectual": 1
+    },
+    "detail": {
+      "ADDRESSABLE_nopat_cognition_oblique_other": [
+        [
+          "L04_04",
+          "pass",
+          "harm",
+          0.48
+        ],
+        [
+          "L09_06",
+          "build",
+          "stream",
+          0.388
+        ],
+        [
+          "L10_37",
+          "meet",
+          "eyes",
+          0.683
+        ]
+      ],
+      "spurious_verb_unannotated": [
+        [
+          "L04_10",
+          "won't",
+          "herbert",
+          0.849
+        ],
+        [
+          "L09_02",
+          "include",
+          "flat",
+          0.872
+        ],
+        [
+          "L09_16",
+          "call",
+          "trappers",
+          0.89
+        ],
+        [
+          "L09_18",
+          "lay",
+          "dam",
+          0.531
+        ]
+      ],
+      "ADDRESSABLE_nopat_motion_aspectual": [
+        [
+          "L04_15",
+          "come",
+          "eyes",
+          0.335
+        ],
+        [
+          "L04_19",
+          "sit",
+          "son",
+          0.195
+        ],
+        [
+          "L07_13",
+          "struggle",
+          "tide",
+          0.277
+        ],
+        [
+          "L09_03",
+          "lie",
+          "skin",
+          0.766
+        ],
+        [
+          "L10_05",
+          "stand",
+          "hut",
+          0.656
+        ],
+        [
+          "L10_19",
+          "come",
+          "charles",
+          0.335
+        ],
+        [
+          "L12_06",
+          "walk",
+          "gravel",
+          0.177
+        ]
+      ],
+      "OUTOFSCOPE_within_transitive": [
+        [
+          "L04_19",
+          "show",
+          "you",
+          0.979
+        ],
+        [
+          "L05_15",
+          "build",
+          "sentence",
+          0.388
+        ],
+        [
+          "L07_09",
+          "meet",
+          "plenty",
+          0.683
+        ],
+        [
+          "L12_04",
+          "invite",
+          "mother",
+          0.872
+        ],
+        [
+          "L12_09",
+          "show",
+          "him",
+          0.979
+        ]
+      ],
+      "nopat_highPdo_cognition_oblique_other": [
+        [
+          "L08_02",
+          "say",
+          "hour",
+          0.925
+        ],
+        [
+          "L10_10",
+          "call",
+          "day",
+          0.89
+        ],
+        [
+          "L10_30",
+          "leave",
+          "mr",
+          0.935
+        ],
+        [
+          "L12_03",
+          "say",
+          "come",
+          0.925
+        ],
+        [
+          "L12_04",
+          "wish",
+          "gate",
+          0.878
+        ],
+        [
+          "L12_12",
+          "say",
+          "he",
+          0.925
+        ],
+        [
+          "L12_16",
+          "leave",
+          "gardener",
+          0.935
+        ]
+      ],
+      "nopat_highPdo_motion_aspectual": [
+        [
+          "L09_11",
+          "commence",
+          "houses",
+          0.83
+        ]
+      ]
+    },
+    "addressable_verbs": [
+      "build",
+      "come",
+      "lie",
+      "meet",
+      "pass",
+      "sit",
+      "stand",
+      "struggle",
+      "walk"
+    ]
+  },
+  "step1_triage_Q_dense_residual_counts": {
+    "TP": 26,
+    "spurious_verb_unannotated": 4,
+    "nopat_highPdo_cognition_oblique_other": 8,
+    "OUTOFSCOPE_within_transitive": 4
+  },
+  "fp_split_Q_base_seed0": {
+    "subcat_fp": 18,
+    "spurious_fp": 4,
+    "within_fp": 5
+  },
+  "fp_split_Q_slice_seed0": {
+    "spurious_fp": 4,
+    "within_fp": 4,
+    "subcat_fp": 8
+  },
+  "fp_split_Q_dense_seed0": {
+    "spurious_fp": 4,
+    "subcat_fp": 8,
+    "within_fp": 4
+  },
+  "fps_suppressed_by_dense_seed0": [
+    [
+      "L04_04",
+      "pass",
+      "harm",
+      0.48,
+      0.459
+    ],
+    [
+      "L04_15",
+      "come",
+      "eyes",
+      0.335,
+      0.625
+    ],
+    [
+      "L04_19",
+      "sit",
+      "son",
+      0.195,
+      0.276
+    ],
+    [
+      "L05_15",
+      "build",
+      "sentence",
+      0.388,
+      0.365
+    ],
+    [
+      "L07_09",
+      "meet",
+      "plenty",
+      0.683,
+      0.844
+    ],
+    [
+      "L07_13",
+      "struggle",
+      "tide",
+      0.277,
+      0.793
+    ],
+    [
+      "L09_03",
+      "lie",
+      "skin",
+      0.766,
+      0.793
+    ],
+    [
+      "L09_06",
+      "build",
+      "stream",
+      0.388,
+      0.365
+    ],
+    [
+      "L09_11",
+      "commence",
+      "houses",
+      0.83,
+      0.793
+    ],
+    [
+      "L09_18",
+      "lay",
+      "dam",
+      0.531,
+      0.459
+    ],
+    [
+      "L10_05",
+      "stand",
+      "hut",
+      0.656,
+      0.844
+    ],
+    [
+      "L10_19",
+      "come",
+      "charles",
+      0.335,
+      0.625
+    ],
+    [
+      "L10_37",
+      "meet",
+      "eyes",
+      0.683,
+      0.844
+    ],
+    [
+      "L12_06",
+      "walk",
+      "gravel",
+      0.177,
+      0.344
+    ]
+  ],
+  "cause_decomposition_seed0": {
+    "n_tp_lost_by_slice": 9,
+    "tp_lost_by_slice": [
+      [
+        "L05_06",
+        "knock",
+        "castle"
+      ],
+      [
+        "L07_21",
+        "reach",
+        "them"
+      ],
+      [
+        "L08_02",
+        "hear",
+        "mew"
+      ],
+      [
+        "L09_04",
+        "build",
+        "huts"
+      ],
+      [
+        "L09_05",
+        "build",
+        "huts"
+      ],
+      [
+        "L09_13",
+        "obtain",
+        "wood"
+      ],
+      [
+        "L10_06",
+        "keep",
+        "wheel"
+      ],
+      [
+        "L10_41",
+        "give",
+        "books"
+      ],
+      [
+        "L12_15",
+        "continue",
+        "walk"
+      ]
+    ],
+    "n_tp_recovered_by_dense_causeA": 1,
+    "tp_recovered_by_dense_causeA": [
+      [
+        "L08_02",
+        "hear",
+        "mew"
+      ]
+    ],
+    "n_tp_still_lost_by_dense": 9,
+    "tp_still_lost_by_dense": [
+      [
+        "L05_06",
+        "knock",
+        "castle"
+      ],
+      [
+        "L07_21",
+        "reach",
+        "them"
+      ],
+      [
+        "L09_04",
+        "build",
+        "huts"
+      ],
+      [
+        "L09_05",
+        "build",
+        "huts"
+      ],
+      [
+        "L09_13",
+        "obtain",
+        "wood"
+      ],
+      [
+        "L10_06",
+        "keep",
+        "wheel"
+      ],
+      [
+        "L10_36",
+        "put",
+        "head"
+      ],
+      [
+        "L10_41",
+        "give",
+        "books"
+      ],
+      [
+        "L12_15",
+        "continue",
+        "walk"
+      ]
+    ],
+    "n_structural_highPdo_residual_causeB": 16,
+    "structural_highPdo_residual_causeB": [
+      [
+        "L04_10",
+        "won't",
+        "herbert",
+        0.849
+      ],
+      [
+        "L04_13",
+        "know",
+        "know",
+        0.933
+      ],
+      [
+        "L04_19",
+        "show",
+        "you",
+        0.979
+      ],
+      [
+        "L05_17",
+        "can't",
+        "have",
+        0.824
+      ],
+      [
+        "L08_02",
+        "say",
+        "hour",
+        0.925
+      ],
+      [
+        "L09_02",
+        "include",
+        "flat",
+        0.872
+      ],
+      [
+        "L09_16",
+        "call",
+        "trappers",
+        0.89
+      ],
+      [
+        "L10_09",
+        "teach",
+        "teach",
+        0.961
+      ],
+      [
+        "L10_10",
+        "call",
+        "day",
+        0.89
+      ],
+      [
+        "L10_30",
+        "leave",
+        "mr",
+        0.935
+      ],
+      [
+        "L12_03",
+        "say",
+        "come",
+        0.925
+      ],
+      [
+        "L12_04",
+        "invite",
+        "mother",
+        0.872
+      ],
+      [
+        "L12_04",
+        "wish",
+        "gate",
+        0.878
+      ],
+      [
+        "L12_09",
+        "show",
+        "him",
+        0.979
+      ],
+      [
+        "L12_12",
+        "say",
+        "he",
+        0.925
+      ],
+      [
+        "L12_16",
+        "leave",
+        "gardener",
+        0.935
+      ]
+    ],
+    "n_frameaddressable_residual_dense": 0,
+    "frameaddressable_residual_dense": [],
+    "build_probe": {
+      "build_huts_kept_by_base": true,
+      "build_huts_kept_by_slice": false,
+      "build_huts_kept_by_dense": false,
+      "build_stream_kept_by_base": true,
+      "build_stream_kept_by_slice": false,
+      "build_stream_kept_by_dense": false,
+      "build_dense_P_do": 0.3885
+    }
+  },
+  "pdo_separates_ma_low": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "Q_base": {
+        "precision": 0.5574,
+        "recall": 0.34,
+        "f1": 0.4224,
+        "n_pred": 61,
+        "tp": 34,
+        "subcat_fp": 18,
+        "within_frame_fp": 5,
+        "spurious_verb_fp": 4,
+        "total_fp": 27
+      },
+      "Q_slice": {
+        "precision": 0.6098,
+        "recall": 0.25,
+        "f1": 0.3546,
+        "n_pred": 41,
+        "tp": 25,
+        "total_fp": 16
+      },
+      "Q_dense": {
+        "precision": 0.619,
+        "recall": 0.26,
+        "f1": 0.3662,
+        "n_pred": 42,
+        "tp": 26,
+        "subcat_fp": 8,
+        "within_frame_fp": 4,
+        "spurious_verb_fp": 4,
+        "total_fp": 16
+      },
+      "Q_dperm": {
+        "precision": 0.6129,
+        "recall": 0.19,
+        "n_pred": 31,
+        "total_fp": 12
+      },
+      "precision_delta_paired": 0.0616,
+      "precision_delta_vs_0557": 0.0616,
+      "recall_retention_dense_over_base": 0.7647,
+      "recall_retention_slice_over_base": 0.7353,
+      "slice_precision_delta_vs_0557": 0.0524,
+      "n_fps_suppressed_by_dense": 14,
+      "w_f_dirpp_dense": -2.0598,
+      "w_f_dirpp_slice": -2.4656,
+      "w_f_dirpp_dperm": 0.2908
+    },
+    {
+      "seed": 13,
+      "Q_base": {
+        "precision": 0.5147,
+        "recall": 0.35,
+        "f1": 0.4167,
+        "n_pred": 68,
+        "tp": 35,
+        "subcat_fp": 20,
+        "within_frame_fp": 7,
+        "spurious_verb_fp": 6,
+        "total_fp": 33
+      },
+      "Q_slice": {
+        "precision": 0.5882,
+        "recall": 0.2,
+        "f1": 0.2985,
+        "n_pred": 34,
+        "tp": 20,
+        "total_fp": 14
+      },
+      "Q_dense": {
+        "precision": 0.6341,
+        "recall": 0.26,
+        "f1": 0.3688,
+        "n_pred": 41,
+        "tp": 26,
+        "subcat_fp": 7,
+        "within_frame_fp": 3,
+        "spurious_verb_fp": 5,
+        "total_fp": 15
+      },
+      "Q_dperm": {
+        "precision": 0.5556,
+        "recall": 0.25,
+        "n_pred": 45,
+        "total_fp": 20
+      },
+      "precision_delta_paired": 0.1194,
+      "precision_delta_vs_0557": 0.0767,
+      "recall_retention_dense_over_base": 0.7429,
+      "recall_retention_slice_over_base": 0.5714,
+      "slice_precision_delta_vs_0557": 0.0308,
+      "n_fps_suppressed_by_dense": 19,
+      "w_f_dirpp_dense": -1.9822,
+      "w_f_dirpp_slice": -2.4777,
+      "w_f_dirpp_dperm": -3.4454
+    },
+    {
+      "seed": 19,
+      "Q_base": {
+        "precision": 0.5385,
+        "recall": 0.35,
+        "f1": 0.4242,
+        "n_pred": 65,
+        "tp": 35,
+        "subcat_fp": 20,
+        "within_frame_fp": 5,
+        "spurious_verb_fp": 5,
+        "total_fp": 30
+      },
+      "Q_slice": {
+        "precision": 0.5429,
+        "recall": 0.19,
+        "f1": 0.2815,
+        "n_pred": 35,
+        "tp": 19,
+        "total_fp": 16
+      },
+      "Q_dense": {
+        "precision": 0.65,
+        "recall": 0.26,
+        "f1": 0.3714,
+        "n_pred": 40,
+        "tp": 26,
+        "subcat_fp": 7,
+        "within_frame_fp": 4,
+        "spurious_verb_fp": 3,
+        "total_fp": 14
+      },
+      "Q_dperm": {
+        "precision": 0.575,
+        "recall": 0.23,
+        "n_pred": 40,
+        "total_fp": 17
+      },
+      "precision_delta_paired": 0.1115,
+      "precision_delta_vs_0557": 0.0926,
+      "recall_retention_dense_over_base": 0.7429,
+      "recall_retention_slice_over_base": 0.5429,
+      "slice_precision_delta_vs_0557": -0.0145,
+      "n_fps_suppressed_by_dense": 17,
+      "w_f_dirpp_dense": -1.9776,
+      "w_f_dirpp_slice": -2.4378,
+      "w_f_dirpp_dperm": -0.8632
+    }
+  ],
+  "kept_hashes": {
+    "Q_base": "01584b07c849a561",
+    "Q_slice": "19297cbb08928c98",
+    "Q_dense": "478b1947c431afd7"
+  },
+  "arms_differ_verified": true,
+  "slice_vs_dense_kept_differ": true,
+  "arms_differ_exempted": [
+    [
+      "Q_slice",
+      "Q_dense"
+    ]
+  ],
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "crlb_n_a": "precision/recall census over a fixed candidate set; no additive-Gaussian estimator floor",
+  "n_sentences": 163,
+  "n_reader_svo": 225,
+  "n_gold_pos": 100,
+  "n_gold_nopat": 180,
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "config": {
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "p_keep": 60.0,
+    "p_drop": 40.0,
+    "div_thr": 3,
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "dense_max_lessons": null
+  },
+  "HONESTY_GUARD": "Precision reported vs 0.5574 EXACTLY (published stack) AND per-seed paired Q_base. Recall retention reported (a recall-suppression artifact is NOT a precision win -- the 29350 trap). SLICE arm reproduced live as the prior-failure reference. cause-(a) sparse-fixed (true patients recovered by densification) vs cause-(b) structural high-P_do-invisible residual (say/leave/call, densification cannot touch) both reported. build densified P_do STAYS LOW (~0.39, n_DO<n_DIR) so build/huts recovery is NOT expected from densification -- reported explicitly. The MA_SEED Levin scaffold gating f_dirpp + MA construction row are inherited UNCHANGED from 29350; their de-confound is a SEPARATE refinement not claimed here. n_pred ~61 -> precision granularity ~0.016/FP; absolute FP counts reported. No hand-applied number reported as learned. Pre-registered bars NOT retuned (identical to 29350; only the P_do source changed).",
+  "CITED": {
+    "frame_teacher_mechanism": "atom 29349 / exp_lccp_motion_aspectual_syntactic_frame_teacher_v1",
+    "stacked_reader_0557": "atom 29345 / data/exp_quotative_speaker_attribution_stack_break050_v1",
+    "prior_failure_29350": "data/exp_lccp_fullnopat_syntactic_frame_teacher_stack_v1/metrics.json",
+    "density_reopening": "data/exp_animacy_pverb_frame_density_scale_test_v1/metrics.json (MIXED_PDO_DENSIFIES; build 10->25 obs P_do 0.365->0.389)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "precision_Q_base_mean",
+    "precision_Q_slice_mean",
+    "precision_Q_dense_mean",
+    "precision_Q_dperm_mean",
+    "precision_delta_abs_vs_0557",
+    "precision_delta_paired_mean",
+    "recall_retention_mean",
+    "recall_retention_slice_mean",
+    "mustfail_dense_pdo_permute_fires",
+    "w_f_dirpp_dense_per_seed",
+    "slice_reproduces_29350_prior_failure",
+    "cause_decomposition_seed0",
+    "fp_split_Q_base_seed0",
+    "fp_split_Q_dense_seed0",
+    "dense_P_do_ma_sample",
+    "build_P_do_dense",
+    "per_seed"
+  ],
+  "verdict_msg": "HARD_FAIL_RECALL_ARTIFACT | P Q_base=0.5369 Q_slice=0.5803 Q_dense=0.6344+-0.0127 Q_dperm=0.5812 | dAbs_vs0557=+0.0770 (slice +0.0229) dPaired=+0.0975 | Rret dense=0.750 slice=0.617 | mustfail=True material=True paired+=True recallOK=False | w_dirpp_dense=[-2.0598, -1.9822, -1.9776] negAll=True | suppFP_seed0=14 | causeA_recovered=1 causeB_struct=16 still_lost=9 | build P_do 0.3648->0.3885 huts_dense=False | base_repro0557=True(0.5574) slice_repro29350=True | base_in_band=True discrim=True arms_differ=True pdo_sep=True",
+  "summary": "HARD_FAIL_RECALL_ARTIFACT | P Q_base=0.5369 Q_slice=0.5803 Q_dense=0.6344+-0.0127 Q_dperm=0.5812 | dAbs_vs0557=+0.0770 (slice +0.0229) dPaired=+0.0975 | Rret dense=0.750 slice=0.617 | mustfail=True material=True paired+=True recallOK=False | w_dirpp_dense=[-2.0598, -1.9822, -1.9776] negAll=True | suppFP_seed0=14 | causeA_recovered=1 causeB_struct=16 still_lost=9 | build P_do 0.3648->0.3885 huts_dense=False | base_repro0557=True(0.5574) slice_repro29350=True | base_in_band=True discrim=True arms_differ=True pdo_sep=True",
+  "elapsed_s": 60.08061520001502,
+  "ts_iso": "2026-07-19T21:19:08.132117+00:00"
+}

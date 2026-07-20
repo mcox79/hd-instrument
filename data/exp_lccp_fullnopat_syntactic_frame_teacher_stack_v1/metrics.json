@@ -1,0 +1,664 @@
+{
+  "anchor_name": "lccp_fullnopat_syntactic_frame_teacher_stack_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_RECALL_ARTIFACT",
+  "needs_orchestrator_store_sync": true,
+  "primary_metric": "STACKED patient-lens precision Q_treat (LCCP-frame-teacher -> ARG -> quotative) vs 0.5574 reference AND per-seed paired Q_base; recall retention; P_do-permute must-fail",
+  "published_stack_precision_reference": 0.5574,
+  "precision_Q_base_mean": 0.5369,
+  "precision_Q_base_std": 0.0175,
+  "precision_Q_treat_mean": 0.5803,
+  "precision_Q_treat_std": 0.0279,
+  "precision_Q_pdoperm_mean": 0.5833,
+  "precision_Q_pdoperm_std": 0.033,
+  "recall_Q_base_mean": 0.3467,
+  "recall_Q_treat_mean": 0.2133,
+  "precision_delta_abs_vs_0557": 0.0229,
+  "precision_delta_paired_mean": 0.0434,
+  "precision_delta_paired_std": 0.0289,
+  "recall_retention_mean": 0.6165,
+  "recall_retention_std": 0.0848,
+  "mustfail_pdo_permute_fires": false,
+  "material_move": true,
+  "paired_positive": true,
+  "recall_ok": false,
+  "w_f_dirpp_T_per_seed": [
+    -2.4656,
+    -2.4777,
+    -2.4378
+  ],
+  "w_f_dirpp_T_pdoperm_per_seed": [
+    -1.4524,
+    1.3311,
+    -0.8944
+  ],
+  "w_f_dirpp_T_all_negative": true,
+  "baseline_reproduces_0557_seed0": true,
+  "baseline_precision_seed0": 0.5574,
+  "step1_triage_Q_base_residual": {
+    "counts": {
+      "TP": 34,
+      "ADDRESSABLE_nopat_cognition_oblique_other": 3,
+      "spurious_verb_unannotated": 4,
+      "ADDRESSABLE_nopat_motion_aspectual": 7,
+      "OUTOFSCOPE_within_transitive": 5,
+      "nopat_highPdo_cognition_oblique_other": 7,
+      "nopat_highPdo_motion_aspectual": 1
+    },
+    "detail": {
+      "ADDRESSABLE_nopat_cognition_oblique_other": [
+        [
+          "L04_04",
+          "pass",
+          "harm",
+          0.459
+        ],
+        [
+          "L09_06",
+          "build",
+          "stream",
+          0.365
+        ],
+        [
+          "L12_04",
+          "wish",
+          "gate",
+          0.793
+        ]
+      ],
+      "spurious_verb_unannotated": [
+        [
+          "L04_10",
+          "won't",
+          "herbert",
+          0.793
+        ],
+        [
+          "L09_02",
+          "include",
+          "flat",
+          0.844
+        ],
+        [
+          "L09_16",
+          "call",
+          "trappers",
+          0.844
+        ],
+        [
+          "L09_18",
+          "lay",
+          "dam",
+          0.459
+        ]
+      ],
+      "ADDRESSABLE_nopat_motion_aspectual": [
+        [
+          "L04_15",
+          "come",
+          "eyes",
+          0.625
+        ],
+        [
+          "L04_19",
+          "sit",
+          "son",
+          0.276
+        ],
+        [
+          "L07_13",
+          "struggle",
+          "tide",
+          0.793
+        ],
+        [
+          "L09_03",
+          "lie",
+          "skin",
+          0.793
+        ],
+        [
+          "L09_11",
+          "commence",
+          "houses",
+          0.793
+        ],
+        [
+          "L10_19",
+          "come",
+          "charles",
+          0.625
+        ],
+        [
+          "L12_06",
+          "walk",
+          "gravel",
+          0.344
+        ]
+      ],
+      "OUTOFSCOPE_within_transitive": [
+        [
+          "L04_19",
+          "show",
+          "you",
+          0.876
+        ],
+        [
+          "L05_15",
+          "build",
+          "sentence",
+          0.365
+        ],
+        [
+          "L07_09",
+          "meet",
+          "plenty",
+          0.844
+        ],
+        [
+          "L12_04",
+          "invite",
+          "mother",
+          0.793
+        ],
+        [
+          "L12_09",
+          "show",
+          "him",
+          0.876
+        ]
+      ],
+      "nopat_highPdo_cognition_oblique_other": [
+        [
+          "L08_02",
+          "say",
+          "hour",
+          0.931
+        ],
+        [
+          "L10_10",
+          "call",
+          "day",
+          0.844
+        ],
+        [
+          "L10_30",
+          "leave",
+          "mr",
+          0.82
+        ],
+        [
+          "L10_37",
+          "meet",
+          "eyes",
+          0.844
+        ],
+        [
+          "L12_03",
+          "say",
+          "come",
+          0.931
+        ],
+        [
+          "L12_12",
+          "say",
+          "he",
+          0.931
+        ],
+        [
+          "L12_16",
+          "leave",
+          "gardener",
+          0.82
+        ]
+      ],
+      "nopat_highPdo_motion_aspectual": [
+        [
+          "L10_05",
+          "stand",
+          "hut",
+          0.844
+        ]
+      ]
+    },
+    "addressable_verbs": [
+      "build",
+      "come",
+      "commence",
+      "lie",
+      "pass",
+      "sit",
+      "struggle",
+      "walk",
+      "wish"
+    ]
+  },
+  "step1_triage_Q_treat_residual_counts": {
+    "TP": 25,
+    "spurious_verb_unannotated": 4,
+    "OUTOFSCOPE_within_transitive": 4,
+    "nopat_highPdo_cognition_oblique_other": 7,
+    "ADDRESSABLE_nopat_cognition_oblique_other": 1
+  },
+  "fp_split_Q_base_seed0": {
+    "subcat_fp": 18,
+    "spurious_fp": 4,
+    "within_fp": 5
+  },
+  "fp_split_Q_treat_seed0": {
+    "spurious_fp": 4,
+    "within_fp": 4,
+    "subcat_fp": 8
+  },
+  "fps_suppressed_by_treat_seed0": [
+    [
+      "L04_04",
+      "pass",
+      "harm",
+      0.459
+    ],
+    [
+      "L04_15",
+      "come",
+      "eyes",
+      0.625
+    ],
+    [
+      "L04_19",
+      "sit",
+      "son",
+      0.276
+    ],
+    [
+      "L05_15",
+      "build",
+      "sentence",
+      0.365
+    ],
+    [
+      "L07_13",
+      "struggle",
+      "tide",
+      0.793
+    ],
+    [
+      "L09_03",
+      "lie",
+      "skin",
+      0.793
+    ],
+    [
+      "L09_06",
+      "build",
+      "stream",
+      0.365
+    ],
+    [
+      "L09_11",
+      "commence",
+      "houses",
+      0.793
+    ],
+    [
+      "L09_18",
+      "lay",
+      "dam",
+      0.459
+    ],
+    [
+      "L10_05",
+      "stand",
+      "hut",
+      0.844
+    ],
+    [
+      "L10_19",
+      "come",
+      "charles",
+      0.625
+    ],
+    [
+      "L12_06",
+      "walk",
+      "gravel",
+      0.344
+    ]
+  ],
+  "true_patients_lost_by_treat_seed0": [
+    [
+      "L05_06",
+      "knock",
+      "castle"
+    ],
+    [
+      "L07_21",
+      "reach",
+      "them"
+    ],
+    [
+      "L08_02",
+      "hear",
+      "mew"
+    ],
+    [
+      "L09_04",
+      "build",
+      "huts"
+    ],
+    [
+      "L09_05",
+      "build",
+      "huts"
+    ],
+    [
+      "L09_13",
+      "obtain",
+      "wood"
+    ],
+    [
+      "L10_06",
+      "keep",
+      "wheel"
+    ],
+    [
+      "L10_41",
+      "give",
+      "books"
+    ],
+    [
+      "L12_15",
+      "continue",
+      "walk"
+    ]
+  ],
+  "P_do_ma_sample_seed0": {
+    "come": {
+      "n_DO": 3,
+      "n_DIR": 2,
+      "n_other": 3,
+      "P_do": 0.6254
+    },
+    "commence": {
+      "n_DO": 1,
+      "n_DIR": 0,
+      "n_other": 0,
+      "P_do": 0.7926
+    },
+    "continue": {
+      "n_DO": 1,
+      "n_DIR": 0,
+      "n_other": 0,
+      "P_do": 0.7926
+    },
+    "fall": {
+      "n_DO": 0,
+      "n_DIR": 2,
+      "n_other": 0,
+      "P_do": 0.3444
+    },
+    "flit": {
+      "n_DO": 0,
+      "n_DIR": 1,
+      "n_other": 0,
+      "P_do": 0.4593
+    },
+    "go": {
+      "n_DO": 0,
+      "n_DIR": 4,
+      "n_other": 4,
+      "P_do": 0.2296
+    },
+    "keep": {
+      "n_DO": 1,
+      "n_DIR": 1,
+      "n_other": 0,
+      "P_do": 0.5944
+    },
+    "leap": {
+      "n_DO": 0,
+      "n_DIR": 1,
+      "n_other": 0,
+      "P_do": 0.4593
+    },
+    "lie": {
+      "n_DO": 1,
+      "n_DIR": 0,
+      "n_other": 0,
+      "P_do": 0.7926
+    },
+    "reach": {
+      "n_DO": 1,
+      "n_DIR": 0,
+      "n_other": 2,
+      "P_do": 0.7926
+    },
+    "sit": {
+      "n_DO": 0,
+      "n_DIR": 3,
+      "n_other": 0,
+      "P_do": 0.2756
+    },
+    "stand": {
+      "n_DO": 2,
+      "n_DIR": 0,
+      "n_other": 1,
+      "P_do": 0.8444
+    },
+    "struggle": {
+      "n_DO": 1,
+      "n_DIR": 0,
+      "n_other": 1,
+      "P_do": 0.7926
+    },
+    "tread": {
+      "n_DO": 0,
+      "n_DIR": 1,
+      "n_other": 0,
+      "P_do": 0.4593
+    },
+    "walk": {
+      "n_DO": 0,
+      "n_DIR": 2,
+      "n_other": 1,
+      "P_do": 0.3444
+    }
+  },
+  "syntactic_global_do_rate": 0.6889,
+  "pdo_separates_ma_low": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "Q_base": {
+        "precision": 0.5574,
+        "recall": 0.34,
+        "f1": 0.4224,
+        "n_pred": 61,
+        "tp": 34,
+        "subcat_fp": 18,
+        "within_frame_fp": 5,
+        "spurious_verb_fp": 4,
+        "total_fp": 27
+      },
+      "Q_treat": {
+        "precision": 0.6098,
+        "recall": 0.25,
+        "f1": 0.3546,
+        "n_pred": 41,
+        "tp": 25,
+        "subcat_fp": 8,
+        "within_frame_fp": 4,
+        "spurious_verb_fp": 4,
+        "total_fp": 16
+      },
+      "Q_pdoperm": {
+        "precision": 0.6061,
+        "recall": 0.2,
+        "f1": 0.3008,
+        "n_pred": 33,
+        "total_fp": 13
+      },
+      "precision_delta_paired": 0.0524,
+      "precision_delta_vs_0557": 0.0524,
+      "recall_retention_treat_over_base": 0.7353,
+      "n_fps_suppressed_by_treat": 12,
+      "n_true_patients_lost_by_treat": 9,
+      "w_f_dirpp_T": -2.4656,
+      "w_f_dirpp_T_pdoperm": -1.4524,
+      "stacked_gain_clean": 0.0524,
+      "stacked_gain_pdoperm": 0.0487
+    },
+    {
+      "seed": 13,
+      "Q_base": {
+        "precision": 0.5147,
+        "recall": 0.35,
+        "f1": 0.4167,
+        "n_pred": 68,
+        "tp": 35,
+        "subcat_fp": 20,
+        "within_frame_fp": 7,
+        "spurious_verb_fp": 6,
+        "total_fp": 33
+      },
+      "Q_treat": {
+        "precision": 0.5882,
+        "recall": 0.2,
+        "f1": 0.2985,
+        "n_pred": 34,
+        "tp": 20,
+        "subcat_fp": 7,
+        "within_frame_fp": 3,
+        "spurious_verb_fp": 4,
+        "total_fp": 14
+      },
+      "Q_pdoperm": {
+        "precision": 0.5366,
+        "recall": 0.22,
+        "f1": 0.3121,
+        "n_pred": 41,
+        "total_fp": 19
+      },
+      "precision_delta_paired": 0.0735,
+      "precision_delta_vs_0557": 0.0308,
+      "recall_retention_treat_over_base": 0.5714,
+      "n_fps_suppressed_by_treat": 20,
+      "n_true_patients_lost_by_treat": 15,
+      "w_f_dirpp_T": -2.4777,
+      "w_f_dirpp_T_pdoperm": 1.3311,
+      "stacked_gain_clean": 0.0308,
+      "stacked_gain_pdoperm": -0.0208
+    },
+    {
+      "seed": 19,
+      "Q_base": {
+        "precision": 0.5385,
+        "recall": 0.35,
+        "f1": 0.4242,
+        "n_pred": 65,
+        "tp": 35,
+        "subcat_fp": 20,
+        "within_frame_fp": 5,
+        "spurious_verb_fp": 5,
+        "total_fp": 30
+      },
+      "Q_treat": {
+        "precision": 0.5429,
+        "recall": 0.19,
+        "f1": 0.2815,
+        "n_pred": 35,
+        "tp": 19,
+        "subcat_fp": 8,
+        "within_frame_fp": 4,
+        "spurious_verb_fp": 4,
+        "total_fp": 16
+      },
+      "Q_pdoperm": {
+        "precision": 0.6071,
+        "recall": 0.17,
+        "f1": 0.2656,
+        "n_pred": 28,
+        "total_fp": 11
+      },
+      "precision_delta_paired": 0.0044,
+      "precision_delta_vs_0557": -0.0145,
+      "recall_retention_treat_over_base": 0.5429,
+      "n_fps_suppressed_by_treat": 15,
+      "n_true_patients_lost_by_treat": 16,
+      "w_f_dirpp_T": -2.4378,
+      "w_f_dirpp_T_pdoperm": -0.8944,
+      "stacked_gain_clean": -0.0145,
+      "stacked_gain_pdoperm": 0.0497
+    }
+  ],
+  "kept_hashes": {
+    "Q_base_semantic": "01584b07c849a561",
+    "Q_treat_syntactic": "19297cbb08928c98"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "n_sentences": 163,
+  "n_reader_svo": 225,
+  "n_gold_pos": 100,
+  "n_gold_nopat": 180,
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "config": {
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "p_keep": 60.0,
+    "p_drop": 40.0,
+    "div_thr": 3,
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "HONESTY_GUARD": "Precision reported vs 0.5574 EXACTLY (published stack) AND per-seed paired Q_base. Recall retention reported (a recall-suppression artifact is NOT a precision win). Per-class suppression delta + P_do-permute must-fail reported. The hand-seed scaffold (MA_SEED Levin list gating f_dirpp + MA construction row) is inherited UNCHANGED from atom 29349 and honestly declared; its de-confound is a SEPARATE refinement not claimed here. n_pred ~61 -> precision granularity ~0.016/FP; absolute FP counts reported alongside. No hand-applied number reported as learned; no out-of-corpus example.",
+  "CITED": {
+    "frame_teacher_mechanism": "atom 29349 / exp_lccp_motion_aspectual_syntactic_frame_teacher_v1 (P_do EMERGENT, w[f_dirpp] NEGATIVE, must-fail fires, VET-verified)",
+    "stacked_reader_0557": "data/exp_quotative_speaker_attribution_stack_break050_v1/metrics.json :arm_metrics.Q_quotative (precision 0.5574, recall 0.34, atom 29345 CG)",
+    "levin_seed": "Levin 1993 verb classes 51.1/51.3.2/47.6/55.1 (MA_SEED, gates f_dirpp only)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "precision_Q_base_mean",
+    "precision_Q_treat_mean",
+    "precision_Q_pdoperm_mean",
+    "precision_delta_abs_vs_0557",
+    "precision_delta_paired_mean",
+    "recall_retention_mean",
+    "mustfail_pdo_permute_fires",
+    "w_f_dirpp_T_per_seed",
+    "step1_triage_Q_base_residual",
+    "fps_suppressed_by_treat_seed0",
+    "fp_split_Q_base_seed0",
+    "fp_split_Q_treat_seed0",
+    "per_seed"
+  ],
+  "verdict_msg": "HARD_FAIL_RECALL_ARTIFACT | P Q_base=0.5369 Q_treat=0.5803+-0.0279 Q_pdoperm=0.5833 | dAbs_vs0557=+0.0229 dPaired=+0.0434 Rret=0.617 | mustfail_fires=False material=True paired+=True recallOK=False | w_dirpp_T=[-2.4656, -2.4777, -2.4378] negAll=True | suppressed_FPs_seed0=12 truePatLost_seed0=9 | triageQ_base={'TP': 34, 'ADDRESSABLE_nopat_cognition_oblique_other': 3, 'spurious_verb_unannotated': 4, 'ADDRESSABLE_nopat_motion_aspectual': 7, 'OUTOFSCOPE_within_transitive': 5, 'nopat_highPdo_cognition_oblique_other': 7, 'nopat_highPdo_motion_aspectual': 1} | base_repro_0557=True(0.5574) | base_in_band=True discrim=True arms_differ=True pdo_sep=True",
+  "summary": "HARD_FAIL_RECALL_ARTIFACT | P Q_base=0.5369 Q_treat=0.5803+-0.0279 Q_pdoperm=0.5833 | dAbs_vs0557=+0.0229 dPaired=+0.0434 Rret=0.617 | mustfail_fires=False material=True paired+=True recallOK=False | w_dirpp_T=[-2.4656, -2.4777, -2.4378] negAll=True | suppressed_FPs_seed0=12 truePatLost_seed0=9 | triageQ_base={'TP': 34, 'ADDRESSABLE_nopat_cognition_oblique_other': 3, 'spurious_verb_unannotated': 4, 'ADDRESSABLE_nopat_motion_aspectual': 7, 'OUTOFSCOPE_within_transitive': 5, 'nopat_highPdo_cognition_oblique_other': 7, 'nopat_highPdo_motion_aspectual': 1} | base_repro_0557=True(0.5574) | base_in_band=True discrim=True arms_differ=True pdo_sep=True",
+  "elapsed_s": 9.127701700024772,
+  "ts_iso": "2026-07-19T22:54:22.179266+00:00"
+}

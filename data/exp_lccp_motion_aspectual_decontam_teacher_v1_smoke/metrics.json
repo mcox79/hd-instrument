@@ -1,0 +1,525 @@
+{
+  "anchor_name": "lccp_motion_aspectual_decontam_teacher_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_DECONTAM_INSUFFICIENT",
+  "primary_metric": "GENUINE-LEARNING test: w[f_dirpp] sign robustness + must-fail control fires + FP_a seed-stability + approach to direct-gate ceiling (independent gold, cat-c held OUT)",
+  "denominator_M_motion_aspectual_nopat_instances": 8,
+  "fp_a_C0_mean": 0.25,
+  "fp_a_C0_std": 0.0,
+  "fp_a_D_contam_mean": 0.0,
+  "fp_a_D_contam_std": 0.0,
+  "fp_a_E_decontam_mean": 0.0,
+  "fp_a_E_decontam_std": 0.0,
+  "fp_a_reduction_E_mean": 0.25,
+  "fp_a_reduction_E_std": 0.0,
+  "recall_retention_E_mean": 0.7144,
+  "recall_retention_E_std": 0.0,
+  "overall_precision_C0_mean": 0.4375,
+  "overall_precision_D_mean": 0.6,
+  "overall_precision_E_mean": 0.8333,
+  "overall_recall_C0_mean": 0.2059,
+  "overall_recall_E_mean": 0.1471,
+  "LEARNING_w_f_dirpp_E_per_seed": [
+    1.9222
+  ],
+  "LEARNING_w_f_dirpp_D_per_seed": [
+    -0.8575
+  ],
+  "LEARNING_e_dirpp_all_negative": false,
+  "LEARNING_d_dirpp_all_nonneg": false,
+  "LEARNING_fp_a_reduction_E_per_seed": [
+    0.25
+  ],
+  "LEARNING_fp_a_seed_stable_E": true,
+  "mustfail_control": {
+    "w_dirpp_clean": 1.9222,
+    "w_dirpp_degraded": -0.4396,
+    "w_dirpp_clean_abs": 1.9222,
+    "w_dirpp_degraded_abs": 0.4396,
+    "weight_drops_when_degraded": true,
+    "clean_sign_negative": false,
+    "fp_a_reduction_clean_membership": 0.25,
+    "fp_a_reduction_random_membership": 0.125,
+    "fp_a_win_collapses_under_random_membership": true
+  },
+  "prediction4_graded_argument_hood": {
+    "clear_argument_gold_TP": {
+      "mean": 0.4776,
+      "n": 8,
+      "min": 0.0289,
+      "max": 0.7696
+    },
+    "motion_nopat_category_a": {
+      "mean": 0.1648,
+      "n": 8,
+      "min": 0.0001,
+      "max": 0.7879
+    },
+    "contested_gradient_category_c": {
+      "mean": 0.0064,
+      "n": 1,
+      "min": 0.0064,
+      "max": 0.0064
+    },
+    "ordering_ok": true
+  },
+  "direct_gate_ceiling_decontam_cues": {
+    "note": "hand-applied structural gate (dirpp OR low decontam-subcat) over arm-C0; DIAGNOSTIC ceiling only (NOT learned). The LEARNED arm E should approach this without hand-installing the rule.",
+    "fp_a_direct_gate": 0.125,
+    "ma_keeps_direct": 1,
+    "overall_precision_direct": 0.5,
+    "overall_recall_direct": 0.2059,
+    "recall_retention_direct_over_C0": 1.0
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "C0": {
+        "precision": 0.4375,
+        "recall": 0.2059,
+        "f1": 0.28,
+        "n_pred": 16
+      },
+      "D_contam": {
+        "precision": 0.6,
+        "recall": 0.0882,
+        "f1": 0.1538,
+        "n_pred": 5
+      },
+      "E_decontam": {
+        "precision": 0.8333,
+        "recall": 0.1471,
+        "f1": 0.25,
+        "n_pred": 6
+      },
+      "fp_a_C0": 0.25,
+      "fp_a_D": 0.0,
+      "fp_a_E": 0.0,
+      "ma_keeps_C0": 2,
+      "ma_keeps_D": 0,
+      "ma_keeps_E": 0,
+      "fp_a_reduction_E": 0.25,
+      "fp_a_reduction_D": 0.25,
+      "recall_retention_E_over_C0": 0.7144,
+      "w_f_dirpp_D": -0.8575,
+      "w_f_dirpp_E": 1.9222,
+      "w_f_subcatfreq_D": 6.826,
+      "w_f_subcatfreq_E": 4.9414,
+      "keep_abs_D": 0.3385,
+      "keep_abs_E": 0.4637,
+      "ma_prior_D": 0.0899,
+      "ma_prior_E": 0.224
+    }
+  ],
+  "step1_triage_C0": {
+    "counts": {
+      "TP": 7,
+      "b_other_nopat_nonmotion": 3,
+      "b_spurious_or_other": 3,
+      "a_motion_aspectual": 2,
+      "b_within_transitive": 1
+    },
+    "examples": {
+      "b_other_nopat_nonmotion": [
+        [
+          "L04_04",
+          "pass",
+          "harm"
+        ],
+        [
+          "L04_13",
+          "know",
+          "know"
+        ],
+        [
+          "L04_16",
+          "say",
+          "papa"
+        ]
+      ],
+      "b_spurious_or_other": [
+        [
+          "L04_10",
+          "won't",
+          "herbert"
+        ],
+        [
+          "L05_12",
+          "finish",
+          "castle"
+        ],
+        [
+          "L05_17",
+          "can't",
+          "have"
+        ]
+      ],
+      "a_motion_aspectual": [
+        [
+          "L04_15",
+          "come",
+          "eyes"
+        ],
+        [
+          "L04_19",
+          "sit",
+          "son"
+        ]
+      ],
+      "b_within_transitive": [
+        [
+          "L04_19",
+          "show",
+          "you"
+        ]
+      ]
+    }
+  },
+  "step1_triage_E": {
+    "counts": {
+      "TP": 5,
+      "b_spurious_or_other": 1
+    },
+    "examples": {
+      "b_spurious_or_other": [
+        [
+          "L05_17",
+          "can't",
+          "have"
+        ]
+      ]
+    }
+  },
+  "arm_E_artifacts_seed0": {
+    "teacher_kind": "decontam",
+    "teacher_diag": {
+      "kind": "decontam",
+      "disp_thr": 2,
+      "n_ref_patients": 21,
+      "ref_path": "dispersion_purified",
+      "n_distinct_fillers": 20,
+      "top_dispersion_fillers": [
+        [
+          "you",
+          3
+        ],
+        [
+          "castle",
+          2
+        ],
+        [
+          "way",
+          2
+        ],
+        [
+          "harm",
+          1
+        ],
+        [
+          "herbert",
+          1
+        ],
+        [
+          "door",
+          1
+        ],
+        [
+          "eyes",
+          1
+        ],
+        [
+          "papa",
+          1
+        ],
+        [
+          "heart",
+          1
+        ],
+        [
+          "head",
+          1
+        ],
+        [
+          "son",
+          1
+        ],
+        [
+          "use",
+          1
+        ],
+        [
+          "kite",
+          1
+        ],
+        [
+          "sentence",
+          1
+        ],
+        [
+          "forehead",
+          1
+        ]
+      ]
+    },
+    "w": [
+      -1.6109,
+      3.165,
+      -1.3662,
+      -5.2321,
+      -3.8341,
+      -3.5431,
+      1.9222,
+      4.9414
+    ],
+    "feat_names": [
+      "bias",
+      "f_adj",
+      "f_postv",
+      "f_prep",
+      "f_func",
+      "f_clause",
+      "f_dirpp",
+      "f_subcatfreq"
+    ],
+    "n_train": 59,
+    "keep_abs": 0.4637,
+    "drop_abs": 0.3084,
+    "w_f_dirpp": 1.9222,
+    "w_f_subcatfreq": 4.9414,
+    "ma_construction_learned_prior": 0.224,
+    "n_seen_ma_verbs": 8,
+    "seen_ma_verbs": [
+      "begin",
+      "come",
+      "fall",
+      "finish",
+      "flit",
+      "go",
+      "keep",
+      "sit"
+    ],
+    "subcat_freq_ma_sample": {
+      "begin": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "come": {
+        "n_inst": 1,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.4333
+      },
+      "fall": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "finish": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "flit": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "go": {
+        "n_inst": 2,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.075
+      },
+      "keep": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "sit": {
+        "n_inst": 1,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.4333
+      }
+    },
+    "subcat_freq_global": 0.2895
+  },
+  "arm_D_artifacts_seed0": {
+    "teacher_kind": "contam",
+    "teacher_diag": {
+      "kind": "contam",
+      "n_per_verb_centroids": 4,
+      "note": "each verb judged vs its OWN post-verbal-patient centroid (self-fulfilling)"
+    },
+    "w": [
+      -1.5693,
+      1.3215,
+      -0.6345,
+      -5.1185,
+      -3.9367,
+      -3.9263,
+      -0.8575,
+      6.826
+    ],
+    "feat_names": [
+      "bias",
+      "f_adj",
+      "f_postv",
+      "f_prep",
+      "f_func",
+      "f_clause",
+      "f_dirpp",
+      "f_subcatfreq"
+    ],
+    "n_train": 58,
+    "keep_abs": 0.3385,
+    "drop_abs": 0.3148,
+    "w_f_dirpp": -0.8575,
+    "w_f_subcatfreq": 6.826,
+    "ma_construction_learned_prior": 0.0899,
+    "n_seen_ma_verbs": 8,
+    "seen_ma_verbs": [
+      "begin",
+      "come",
+      "fall",
+      "finish",
+      "flit",
+      "go",
+      "keep",
+      "sit"
+    ],
+    "subcat_freq_ma_sample": {
+      "begin": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "come": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "fall": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "finish": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "flit": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "go": {
+        "n_inst": 2,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.075
+      },
+      "keep": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "sit": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      }
+    },
+    "subcat_freq_global": 0.2105
+  },
+  "kept_hashes": {
+    "C0_lccp_armC": "c21de56e6612e3cf",
+    "D_contam": "1adf59d6e0e04da0",
+    "E_decontam": "ad342bb750e6e782"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "n_sentences": 46,
+  "n_reader_svo": 61,
+  "n_gold_pos": 34,
+  "n_gold_nopat": 70,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 40,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "target_mode": "percentile",
+    "p_keep": 60.0,
+    "p_drop": 40.0,
+    "disp_thr": 2,
+    "min_ref": 8,
+    "seeds": [
+      7
+    ]
+  },
+  "ac1817_reference": {
+    "note": "the CONTAMINATED route that failed (MEASURED@data/exp_lccp_motion_aspectual_subcat_break_v1/metrics.json)",
+    "w_f_dirpp_per_seed": [
+      0.4467,
+      0.4439,
+      0.4534
+    ],
+    "fp_a_reduction_per_seed": [
+      0.0333,
+      0.0333,
+      0.2333
+    ],
+    "mustfail_drops": false,
+    "mustfail_w_clean_abs": 0.4467,
+    "mustfail_w_deg_abs": 0.9333,
+    "direct_gate_ceiling_fp_a": 0.1,
+    "direct_gate_ceiling_P": 0.541
+  },
+  "HONESTY_GUARD": "Even full success caps overall precision ~0.541 on arm-C0 scope, BELOW the stacked 0.557 patient-lens reader. Value here is METHODOLOGICAL (a rule GENUINELY LEARNED via a decontaminated signal, not hand-installed) + modest precision, NOT breaking 0.557. The direct-gate ceiling is a HAND-APPLIED diagnostic, reported as a reference NOT a learned result. A stack re-measure is a SEPARATE step, not claimed here.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "fp_a_C0_mean",
+    "fp_a_D_contam_mean",
+    "fp_a_E_decontam_mean",
+    "fp_a_reduction_E_mean",
+    "recall_retention_E_mean",
+    "LEARNING_w_f_dirpp_E_per_seed",
+    "LEARNING_e_dirpp_all_negative",
+    "LEARNING_fp_a_seed_stable_E",
+    "mustfail_control",
+    "direct_gate_ceiling_decontam_cues",
+    "per_seed"
+  ],
+  "verdict_msg": "HARD_FAIL_DECONTAM_INSUFFICIENT | M=8 | FP_a C0=0.250 D_contam=0.000 E_decontam=0.000+-0.000 | redE=+0.250+-0.000 RretE=0.714 | w_dirpp E/seed=[1.9222] D/seed=[-0.8575] Eneg_all=False | redE/seed=[0.25] seedStable=True | mustfail: w_clean=+1.922 w_deg=-0.440 |w|drops=True cleanNeg=False | ceiling FP_a=0.125 P=0.500 | overallP C0=0.438 E=0.833 | base_in_band=True discrim=False arms_differ=True",
+  "summary": "HARD_FAIL_DECONTAM_INSUFFICIENT | M=8 | FP_a C0=0.250 D_contam=0.000 E_decontam=0.000+-0.000 | redE=+0.250+-0.000 RretE=0.714 | w_dirpp E/seed=[1.9222] D/seed=[-0.8575] Eneg_all=False | redE/seed=[0.25] seedStable=True | mustfail: w_clean=+1.922 w_deg=-0.440 |w|drops=True cleanNeg=False | ceiling FP_a=0.125 P=0.500 | overallP C0=0.438 E=0.833 | base_in_band=True discrim=False arms_differ=True",
+  "elapsed_s": 7.774607300001662,
+  "ts_iso": "2026-07-19T13:58:10.251086+00:00"
+}

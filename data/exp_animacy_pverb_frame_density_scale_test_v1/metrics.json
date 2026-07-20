@@ -1,0 +1,404 @@
+{
+  "anchor_name": "animacy_pverb_frame_density_scale_test_v1",
+  "run_mode": "full",
+  "verdict": "MIXED_PDO_DENSIFIES_ANIMACY_BOUND",
+  "verdict_msg": "MIXED_PDO_DENSIFIES_ANIMACY_BOUND | mode=full | corpus A=163sent/225svo  B=5752sent/8663svo (354 lessons) | ANIMACY (same 169 nonseed eval heads, vs WordNet): cov_dist 0.420->0.692 anim_prec 0.1321->0.1443 inan_prec 1.0->0.8333 ev_median 0.0->2.0 | handgold-xcheck A: anim_prec=0.3333 cov=0.4201 (reproduces ~0.33/0.42) | P_do gold-verbs median n_frame 1.0->13.0 build n_frame 10->25 (build P_do 0.3648->0.3885) | densify: animacy=False pdo=True | gates: discrim=True arms_differ=True",
+  "summary": "MIXED_PDO_DENSIFIES_ANIMACY_BOUND | mode=full | corpus A=163sent/225svo  B=5752sent/8663svo (354 lessons) | ANIMACY (same 169 nonseed eval heads, vs WordNet): cov_dist 0.420->0.692 anim_prec 0.1321->0.1443 inan_prec 1.0->0.8333 ev_median 0.0->2.0 | handgold-xcheck A: anim_prec=0.3333 cov=0.4201 (reproduces ~0.33/0.42) | P_do gold-verbs median n_frame 1.0->13.0 build n_frame 10->25 (build P_do 0.3648->0.3885) | densify: animacy=False pdo=True | gates: discrim=True arms_differ=True",
+  "elapsed_s": 63.317881700000726,
+  "ts_iso": "2026-07-19T21:01:54.302957+00:00",
+  "one_variable": "training corpus size (163-sent gold slice vs full ~99k-word all-5-readers corpus)",
+  "corpus_A_gold_slice": {
+    "lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "n_sent": 163,
+    "n_svo": 225,
+    "n_candidate_slots": 225
+  },
+  "corpus_B_full": {
+    "n_lessons": 354,
+    "n_sent": 5752,
+    "n_svo": 8663,
+    "n_candidate_slots": 8663,
+    "readers": [
+      "primer",
+      "first",
+      "second",
+      "third",
+      "fourth"
+    ]
+  },
+  "animacy_same_eval_heads": {
+    "n_eval_heads_nonseed": 169,
+    "independent_reference": "WordNet MFS noun lexname: {noun.person,noun.animal}=animate else inanimate",
+    "ARM_A_gold_slice": {
+      "n_heads": 169,
+      "coverage_distributional": 0.4201,
+      "coverage_confident_any": 0.4201,
+      "n_distributional_labeled": 71,
+      "animate_precision_vs_wn": 0.1321,
+      "animate_n_pred": 53,
+      "inanimate_precision_vs_wn": 1.0,
+      "inanimate_n_pred": 4,
+      "distributional_accuracy_vs_wn": 0.193,
+      "distributional_n_wn_scored": 57,
+      "evidence_frac_ge1": 0.432,
+      "evidence_frac_ge3": 0.0592,
+      "evidence_frac_ge5": 0.0355,
+      "evidence_median": 0.0,
+      "evidence_mean": 0.7988
+    },
+    "ARM_B_full_corpus": {
+      "n_heads": 169,
+      "coverage_distributional": 0.6923,
+      "coverage_confident_any": 0.6923,
+      "n_distributional_labeled": 117,
+      "animate_precision_vs_wn": 0.1443,
+      "animate_n_pred": 97,
+      "inanimate_precision_vs_wn": 0.8333,
+      "inanimate_n_pred": 6,
+      "distributional_accuracy_vs_wn": 0.1845,
+      "distributional_n_wn_scored": 103,
+      "evidence_frac_ge1": 0.7929,
+      "evidence_frac_ge3": 0.4911,
+      "evidence_frac_ge5": 0.3314,
+      "evidence_median": 2.0,
+      "evidence_mean": 5.2959
+    }
+  },
+  "animacy_handgold_xcheck_ARM_A": {
+    "nonseed_animate_precision_handgold": 0.3333,
+    "nonseed_inanimate_precision_handgold": 1.0,
+    "nonseed_coverage_confident_handgold": 0.4201,
+    "nonseed_accuracy_handgold": 0.3529,
+    "n_candidate_heads": 269,
+    "n_nonseed_candidate_heads": 169
+  },
+  "perverb_pdo": {
+    "gold_slice_verbs_ARM_A": {
+      "n_verbs": 77,
+      "median_n_frame": 1.0,
+      "mean_n_frame": 1.7532,
+      "max_n_frame": 10,
+      "frac_ge1": 0.7922,
+      "frac_ge5": 0.0909,
+      "frac_ge10": 0.013,
+      "frac_ge20": 0.0
+    },
+    "gold_slice_verbs_ARM_B": {
+      "n_verbs": 77,
+      "median_n_frame": 13.0,
+      "mean_n_frame": 34.987,
+      "max_n_frame": 272,
+      "frac_ge1": 0.961,
+      "frac_ge5": 0.7532,
+      "frac_ge10": 0.5455,
+      "frac_ge20": 0.4286
+    },
+    "all_verbs_ARM_B": {
+      "n_verbs": 835,
+      "median_n_frame": 2.0,
+      "mean_n_frame": 6.0719,
+      "max_n_frame": 272,
+      "frac_ge1": 0.8683,
+      "frac_ge5": 0.2395,
+      "frac_ge10": 0.1126,
+      "frac_ge20": 0.0539
+    },
+    "global_do_rate_A": 0.6889,
+    "global_do_rate_B": 0.7446,
+    "build_ARM_A": {
+      "n_frame": 10,
+      "n_DO": 3,
+      "n_DIR": 7,
+      "P_do": 0.3648
+    },
+    "build_ARM_B": {
+      "n_frame": 25,
+      "n_DO": 9,
+      "n_DIR": 16,
+      "P_do": 0.3885
+    },
+    "motion_aspectual_verbs_ARM_A": {
+      "begin": {
+        "n_frame": 0,
+        "n_DO": 0,
+        "n_DIR": 0,
+        "P_do": 0.6889
+      },
+      "come": {
+        "n_frame": 5,
+        "n_DO": 3,
+        "n_DIR": 2,
+        "P_do": 0.6254
+      },
+      "commence": {
+        "n_frame": 1,
+        "n_DO": 1,
+        "n_DIR": 0,
+        "P_do": 0.7926
+      },
+      "continue": {
+        "n_frame": 1,
+        "n_DO": 1,
+        "n_DIR": 0,
+        "P_do": 0.7926
+      },
+      "fall": {
+        "n_frame": 2,
+        "n_DO": 0,
+        "n_DIR": 2,
+        "P_do": 0.3444
+      },
+      "finish": {
+        "n_frame": 0,
+        "n_DO": 0,
+        "n_DIR": 0,
+        "P_do": 0.6889
+      },
+      "flit": {
+        "n_frame": 1,
+        "n_DO": 0,
+        "n_DIR": 1,
+        "P_do": 0.4593
+      },
+      "go": {
+        "n_frame": 4,
+        "n_DO": 0,
+        "n_DIR": 4,
+        "P_do": 0.2296
+      },
+      "keep": {
+        "n_frame": 2,
+        "n_DO": 1,
+        "n_DIR": 1,
+        "P_do": 0.5944
+      },
+      "leap": {
+        "n_frame": 1,
+        "n_DO": 0,
+        "n_DIR": 1,
+        "P_do": 0.4593
+      },
+      "lie": {
+        "n_frame": 1,
+        "n_DO": 1,
+        "n_DIR": 0,
+        "P_do": 0.7926
+      },
+      "meddle": {
+        "n_frame": 0,
+        "n_DO": 0,
+        "n_DIR": 0,
+        "P_do": 0.6889
+      },
+      "reach": {
+        "n_frame": 1,
+        "n_DO": 1,
+        "n_DIR": 0,
+        "P_do": 0.7926
+      },
+      "run": {
+        "n_frame": 0,
+        "n_DO": 0,
+        "n_DIR": 0,
+        "P_do": 0.6889
+      },
+      "sit": {
+        "n_frame": 3,
+        "n_DO": 0,
+        "n_DIR": 3,
+        "P_do": 0.2756
+      },
+      "stand": {
+        "n_frame": 2,
+        "n_DO": 2,
+        "n_DIR": 0,
+        "P_do": 0.8444
+      },
+      "struggle": {
+        "n_frame": 1,
+        "n_DO": 1,
+        "n_DIR": 0,
+        "P_do": 0.7926
+      },
+      "tread": {
+        "n_frame": 1,
+        "n_DO": 0,
+        "n_DIR": 1,
+        "P_do": 0.4593
+      },
+      "try": {
+        "n_frame": 0,
+        "n_DO": 0,
+        "n_DIR": 0,
+        "P_do": 0.6889
+      },
+      "walk": {
+        "n_frame": 2,
+        "n_DO": 0,
+        "n_DIR": 2,
+        "P_do": 0.3444
+      }
+    },
+    "motion_aspectual_verbs_ARM_B": {
+      "begin": {
+        "n_frame": 6,
+        "n_DO": 6,
+        "n_DIR": 0,
+        "P_do": 0.9361
+      },
+      "come": {
+        "n_frame": 110,
+        "n_DO": 36,
+        "n_DIR": 74,
+        "P_do": 0.3347
+      },
+      "commence": {
+        "n_frame": 1,
+        "n_DO": 1,
+        "n_DIR": 0,
+        "P_do": 0.8297
+      },
+      "continue": {
+        "n_frame": 1,
+        "n_DO": 1,
+        "n_DIR": 0,
+        "P_do": 0.8297
+      },
+      "fall": {
+        "n_frame": 29,
+        "n_DO": 13,
+        "n_DIR": 16,
+        "P_do": 0.4674
+      },
+      "finish": {
+        "n_frame": 9,
+        "n_DO": 8,
+        "n_DIR": 1,
+        "P_do": 0.8627
+      },
+      "flit": {
+        "n_frame": 5,
+        "n_DO": 2,
+        "n_DIR": 3,
+        "P_do": 0.4985
+      },
+      "go": {
+        "n_frame": 112,
+        "n_DO": 46,
+        "n_DIR": 66,
+        "P_do": 0.4166
+      },
+      "keep": {
+        "n_frame": 61,
+        "n_DO": 43,
+        "n_DIR": 18,
+        "P_do": 0.7062
+      },
+      "leap": {
+        "n_frame": 3,
+        "n_DO": 0,
+        "n_DIR": 3,
+        "P_do": 0.2978
+      },
+      "lie": {
+        "n_frame": 13,
+        "n_DO": 10,
+        "n_DIR": 3,
+        "P_do": 0.7659
+      },
+      "meddle": {
+        "n_frame": 0,
+        "n_DO": 0,
+        "n_DIR": 0,
+        "P_do": 0.7446
+      },
+      "reach": {
+        "n_frame": 29,
+        "n_DO": 28,
+        "n_DIR": 1,
+        "P_do": 0.9513
+      },
+      "run": {
+        "n_frame": 51,
+        "n_DO": 14,
+        "n_DIR": 37,
+        "P_do": 0.2922
+      },
+      "sit": {
+        "n_frame": 62,
+        "n_DO": 11,
+        "n_DIR": 51,
+        "P_do": 0.1951
+      },
+      "stand": {
+        "n_frame": 46,
+        "n_DO": 30,
+        "n_DIR": 16,
+        "P_do": 0.656
+      },
+      "struggle": {
+        "n_frame": 7,
+        "n_DO": 1,
+        "n_DIR": 6,
+        "P_do": 0.2766
+      },
+      "tread": {
+        "n_frame": 1,
+        "n_DO": 0,
+        "n_DIR": 1,
+        "P_do": 0.4964
+      },
+      "try": {
+        "n_frame": 8,
+        "n_DO": 7,
+        "n_DIR": 1,
+        "P_do": 0.8489
+      },
+      "walk": {
+        "n_frame": 29,
+        "n_DO": 4,
+        "n_DIR": 25,
+        "P_do": 0.1771
+      }
+    }
+  },
+  "pre_registered_bars": {
+    "animacy_hard_pass": "cov_distributional_B>=0.75 AND animate_precision_vs_wn_B>=0.70",
+    "pdo_hard_pass": "median n_frame(gold verbs)_B>=10 AND build n_frame_B>=10",
+    "combined": "both densify -> TRAINING_SLICE_ARTIFACT; both bound -> CORPUS_BOUND_REAL; else MIXED"
+  },
+  "densify_animacy": false,
+  "densify_pdo": true,
+  "cited": {
+    "animacy_baseline": "animate_precision~0.33 coverage~0.42 seed-driven",
+    "build_pdo_baseline": 0.365
+  },
+  "arms_differ_verified": true,
+  "discriminator_fires": true,
+  "baseline_reproduced_note": "handgold_xcheck reproduces the published ~0.33 animate-precision / ~0.42 coverage sparse regime on ARM_A",
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n_a": "coverage/precision/sample-size census; no additive-Gaussian estimator floor",
+  "compute_architecture": "sequential-CPU; per-lesson chunked reader; no_storage",
+  "HONESTY_GUARD": "Trains distributional signals on RAW text only. Precision is scored against an INDEPENDENT WordNet MFS reference (its own noise, reported plainly), NOT the hand seed. A PRECISION-ON-THE-READER claim still needs the gold slice (OUT OF SCOPE). Follow-up if densified: re-run the animacy pre-filter / frame teacher with the densified signals and re-VET. STRATEGIC READ pending skunkworks landed-VET.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "animacy_same_eval_heads",
+    "animacy_handgold_xcheck_ARM_A",
+    "perverb_pdo",
+    "densify_animacy",
+    "densify_pdo",
+    "discriminator_fires",
+    "corpus_A_gold_slice",
+    "corpus_B_full"
+  ],
+  "needs_orchestrator_store_sync": true
+}

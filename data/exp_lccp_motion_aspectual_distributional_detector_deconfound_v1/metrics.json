@@ -1,0 +1,704 @@
+{
+  "anchor_name": "lccp_motion_aspectual_distributional_detector_deconfound_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_CLEAN_DECONFOUND",
+  "primary_metric": "CLEAN-DE-CONFOUND test: w[f_dirpp](T_induced) sign (clean + subcatfreq-ablated) + DETECTOR-DEGRADATION collapse ratio + distributional fingerprint recovers the directional category above chance from a 6-item credited seed (independent gold, category-c held OUT; f_dirpp ingredient MA.DIRGOAL untouched)",
+  "needs_orchestrator_store_sync": true,
+  "seed_floor_size_declared": 6,
+  "credited_seed": [
+    "home",
+    "there",
+    "up",
+    "down",
+    "into",
+    "away"
+  ],
+  "scrambled_seed": [
+    "then",
+    "now",
+    "when",
+    "because",
+    "so",
+    "while"
+  ],
+  "K_expand": 12,
+  "fingerprint_diag": {
+    "n_types": 311,
+    "pool_size": 122,
+    "hand_union_present": [
+      "about",
+      "above",
+      "across",
+      "at",
+      "back",
+      "down",
+      "from",
+      "home",
+      "in",
+      "into",
+      "near",
+      "off",
+      "on",
+      "out",
+      "over",
+      "there",
+      "through",
+      "to",
+      "up",
+      "upon"
+    ],
+    "hand_union_in_pool": [
+      "about",
+      "above",
+      "at",
+      "down",
+      "from",
+      "home",
+      "in",
+      "into",
+      "near",
+      "off",
+      "on",
+      "out",
+      "over",
+      "there",
+      "to",
+      "up",
+      "upon"
+    ]
+  },
+  "induced_true_set": [
+    "come",
+    "down",
+    "home",
+    "into",
+    "joe",
+    "let",
+    "make",
+    "near",
+    "of",
+    "off",
+    "over",
+    "said",
+    "that",
+    "there",
+    "to",
+    "up",
+    "you"
+  ],
+  "induced_scrambled_set": [
+    "above",
+    "before",
+    "had",
+    "now",
+    "only",
+    "or",
+    "papa",
+    "she",
+    "should",
+    "so",
+    "some",
+    "soon",
+    "then",
+    "there",
+    "when",
+    "while",
+    "who"
+  ],
+  "recovery_induced_vs_hand": {
+    "precision": 0.5294,
+    "recall": 0.45,
+    "tp": 9,
+    "n_induced": 17,
+    "n_hand_present": 20,
+    "novel_not_in_hand": [
+      "come",
+      "joe",
+      "let",
+      "make",
+      "of",
+      "said",
+      "that",
+      "you"
+    ]
+  },
+  "recovery_scrambled_vs_hand": {
+    "precision": 0.1176,
+    "recall": 0.1,
+    "tp": 2,
+    "n_induced": 17,
+    "n_hand_present": 20,
+    "novel_not_in_hand": [
+      "before",
+      "had",
+      "now",
+      "only",
+      "or",
+      "papa",
+      "she",
+      "should",
+      "so",
+      "some",
+      "soon",
+      "then",
+      "when",
+      "while",
+      "who"
+    ]
+  },
+  "scrambled_overlap_with_induced": 0.0588,
+  "pdo_motion_handlist": {
+    "pdo_motion_mean": 0.5242,
+    "global_do_rate": 0.6691,
+    "n_motion_verbs": 12,
+    "separates_low": true
+  },
+  "pdo_motion_induced": {
+    "pdo_motion_mean": 0.5273,
+    "global_do_rate": 0.5865,
+    "n_motion_verbs": 11,
+    "separates_low": true
+  },
+  "pdo_motion_scrambled": {
+    "pdo_motion_mean": 0.9786,
+    "global_do_rate": 0.9619,
+    "n_motion_verbs": 8,
+    "separates_low": false
+  },
+  "fingerprint_recovers_category": true,
+  "induced_pdo_separates_low": true,
+  "scrambled_pdo_fails_to_separate": true,
+  "recall_above_chance_vs_scrambled": true,
+  "denominator_M_motion_aspectual_nopat_instances": 30,
+  "LEARNING_w_f_dirpp_induced_per_seed": [
+    -0.246,
+    -0.3182,
+    -0.4086
+  ],
+  "LEARNING_w_f_dirpp_handlist_per_seed": [
+    -2.298,
+    -2.3352,
+    -2.3202
+  ],
+  "LEARNING_w_f_dirpp_detector_degraded_per_seed": [
+    1.1855,
+    1.286,
+    1.3463
+  ],
+  "LEARNING_w_f_dirpp_induced_subcatfreq_ablated_per_seed": [
+    -0.7197,
+    -0.8373,
+    -0.7818
+  ],
+  "LEARNING_induced_sign_negative_all_seeds": true,
+  "LEARNING_induced_sign_negative_ablated_all_seeds": true,
+  "LEARNING_handlist_sign_negative_all_seeds": true,
+  "collapse_ratio_detector_degradation_per_seed": [
+    4.8182,
+    4.041,
+    3.2946
+  ],
+  "collapse_ratio_membership_induced_per_seed": [
+    4.8864,
+    7.5965,
+    2.9321
+  ],
+  "collapse_ratio_membership_handlist_per_seed": [
+    0.9078,
+    0.5287,
+    0.8241
+  ],
+  "DETECTOR_DEGRADATION_sign_gone_all_seeds": true,
+  "MEMBERSHIP_handlist_sign_gone_all_seeds": false,
+  "MEMBERSHIP_induced_sign_gone_all_seeds": false,
+  "DETECTOR_DEGRADATION_collapses_clean_all_seeds": true,
+  "collapse_clean_definition": "learned NEGATIVE sign disappears (w_detdeg >= 0) when the detector is rebuilt from a scrambled non-directional seed (drops to ~0 OR flips positive)",
+  "overall_precision_C0_mean": 0.4866,
+  "overall_precision_handlist_mean": 0.5798,
+  "overall_precision_induced_mean": 0.6795,
+  "per_seed": [
+    {
+      "seed": 7,
+      "C0": {
+        "precision": 0.5,
+        "recall": 0.34,
+        "f1": 0.4048,
+        "n_pred": 68
+      },
+      "T_handlist": {
+        "precision": 0.55,
+        "recall": 0.22,
+        "f1": 0.3143,
+        "n_pred": 40
+      },
+      "T_induced": {
+        "precision": 0.6429,
+        "recall": 0.18,
+        "f1": 0.2812,
+        "n_pred": 28
+      },
+      "fp_a_C0": 0.3,
+      "fp_a_handlist": 0.0,
+      "fp_a_induced": 0.0,
+      "w_f_dirpp_handlist": -2.298,
+      "w_f_dirpp_induced": -0.246,
+      "w_f_dirpp_detector_degraded": 1.1855,
+      "w_f_dirpp_induced_membership_randomized": -1.2022,
+      "w_f_dirpp_handlist_membership_randomized": -2.0862,
+      "w_f_dirpp_induced_subcatfreq_ablated": -0.7197,
+      "w_f_dirpp_handlist_subcatfreq_ablated": -4.4194,
+      "collapse_ratio_detector_degradation": 4.8182,
+      "collapse_ratio_membership_induced": 4.8864,
+      "collapse_ratio_membership_handlist": 0.9078,
+      "detector_degradation_sign_gone": true,
+      "membership_induced_sign_gone": false,
+      "membership_handlist_sign_gone": false,
+      "detector_degradation_collapses_clean": true,
+      "induced_sign_negative": true
+    },
+    {
+      "seed": 13,
+      "C0": {
+        "precision": 0.4667,
+        "recall": 0.35,
+        "f1": 0.4,
+        "n_pred": 75
+      },
+      "T_handlist": {
+        "precision": 0.5833,
+        "recall": 0.21,
+        "f1": 0.3088,
+        "n_pred": 36
+      },
+      "T_induced": {
+        "precision": 0.6897,
+        "recall": 0.2,
+        "f1": 0.3101,
+        "n_pred": 29
+      },
+      "fp_a_C0": 0.3,
+      "fp_a_handlist": 0.0,
+      "fp_a_induced": 0.0,
+      "w_f_dirpp_handlist": -2.3352,
+      "w_f_dirpp_induced": -0.3182,
+      "w_f_dirpp_detector_degraded": 1.286,
+      "w_f_dirpp_induced_membership_randomized": -2.4175,
+      "w_f_dirpp_handlist_membership_randomized": -1.2347,
+      "w_f_dirpp_induced_subcatfreq_ablated": -0.8373,
+      "w_f_dirpp_handlist_subcatfreq_ablated": -4.4334,
+      "collapse_ratio_detector_degradation": 4.041,
+      "collapse_ratio_membership_induced": 7.5965,
+      "collapse_ratio_membership_handlist": 0.5287,
+      "detector_degradation_sign_gone": true,
+      "membership_induced_sign_gone": false,
+      "membership_handlist_sign_gone": false,
+      "detector_degradation_collapses_clean": true,
+      "induced_sign_negative": true
+    },
+    {
+      "seed": 19,
+      "C0": {
+        "precision": 0.493,
+        "recall": 0.35,
+        "f1": 0.4094,
+        "n_pred": 71
+      },
+      "T_handlist": {
+        "precision": 0.6061,
+        "recall": 0.2,
+        "f1": 0.3008,
+        "n_pred": 33
+      },
+      "T_induced": {
+        "precision": 0.7059,
+        "recall": 0.24,
+        "f1": 0.3582,
+        "n_pred": 34
+      },
+      "fp_a_C0": 0.3,
+      "fp_a_handlist": 0.0,
+      "fp_a_induced": 0.0,
+      "w_f_dirpp_handlist": -2.3202,
+      "w_f_dirpp_induced": -0.4086,
+      "w_f_dirpp_detector_degraded": 1.3463,
+      "w_f_dirpp_induced_membership_randomized": -1.1982,
+      "w_f_dirpp_handlist_membership_randomized": -1.9122,
+      "w_f_dirpp_induced_subcatfreq_ablated": -0.7818,
+      "w_f_dirpp_handlist_subcatfreq_ablated": -4.4711,
+      "collapse_ratio_detector_degradation": 3.2946,
+      "collapse_ratio_membership_induced": 2.9321,
+      "collapse_ratio_membership_handlist": 0.8241,
+      "detector_degradation_sign_gone": true,
+      "membership_induced_sign_gone": false,
+      "membership_handlist_sign_gone": false,
+      "detector_degradation_collapses_clean": true,
+      "induced_sign_negative": true
+    }
+  ],
+  "arm_T_induced_artifacts_seed0": {
+    "teacher_kind": "syntactic",
+    "teacher_diag": {
+      "kind": "syntactic",
+      "global_do_rate": 0.5865,
+      "tot_DO": 78,
+      "tot_DIR": 55,
+      "n_verbs": 77
+    },
+    "w": [
+      -6.8976,
+      3.1098,
+      -1.3071,
+      -6.6506,
+      -5.4113,
+      -5.8194,
+      -0.246,
+      11.4973
+    ],
+    "feat_names": [
+      "bias",
+      "f_adj",
+      "f_postv",
+      "f_prep",
+      "f_func",
+      "f_clause",
+      "f_dirpp",
+      "f_subcatfreq"
+    ],
+    "n_train": 219,
+    "keep_abs": 0.6521,
+    "drop_abs": 0.6346,
+    "w_f_dirpp": -0.246,
+    "w_f_subcatfreq": 11.4973,
+    "ma_construction_learned_prior": 0.2772,
+    "n_seen_ma_verbs": 16,
+    "seen_ma_verbs": [
+      "begin",
+      "come",
+      "commence",
+      "finish",
+      "flit",
+      "go",
+      "keep",
+      "leap",
+      "lie",
+      "meddle",
+      "reach",
+      "sit",
+      "struggle",
+      "tread",
+      "try",
+      "walk"
+    ],
+    "P_do_ma_sample": {
+      "come": {
+        "n_DO": 3,
+        "n_DIR": 2,
+        "n_other": 3,
+        "P_do": 0.5961
+      },
+      "commence": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 0,
+        "P_do": 0.7243
+      },
+      "continue": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 0,
+        "P_do": 0.7243
+      },
+      "fall": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 1,
+        "P_do": 0.391
+      },
+      "go": {
+        "n_DO": 0,
+        "n_DIR": 4,
+        "n_other": 4,
+        "P_do": 0.1955
+      },
+      "keep": {
+        "n_DO": 1,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.5432
+      },
+      "leap": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.391
+      },
+      "lie": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 0,
+        "P_do": 0.7243
+      },
+      "reach": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 2,
+        "P_do": 0.7243
+      },
+      "sit": {
+        "n_DO": 0,
+        "n_DIR": 3,
+        "n_other": 0,
+        "P_do": 0.2346
+      },
+      "stand": {
+        "n_DO": 2,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.6346
+      },
+      "struggle": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 1,
+        "P_do": 0.7243
+      },
+      "tread": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.391
+      },
+      "walk": {
+        "n_DO": 2,
+        "n_DIR": 0,
+        "n_other": 1,
+        "P_do": 0.7932
+      }
+    }
+  },
+  "arm_T_handlist_artifacts_seed0": {
+    "teacher_kind": "syntactic",
+    "teacher_diag": {
+      "kind": "syntactic",
+      "global_do_rate": 0.6691,
+      "tot_DO": 91,
+      "tot_DIR": 45,
+      "n_verbs": 77
+    },
+    "w": [
+      -11.7495,
+      1.8769,
+      1.2366,
+      -5.9617,
+      -3.9767,
+      -5.8128,
+      -2.298,
+      13.1861
+    ],
+    "feat_names": [
+      "bias",
+      "f_adj",
+      "f_postv",
+      "f_prep",
+      "f_func",
+      "f_clause",
+      "f_dirpp",
+      "f_subcatfreq"
+    ],
+    "n_train": 219,
+    "keep_abs": 0.8154,
+    "drop_abs": 0.7794,
+    "w_f_dirpp": -2.298,
+    "w_f_subcatfreq": 13.1861,
+    "ma_construction_learned_prior": 0.1567,
+    "n_seen_ma_verbs": 16,
+    "seen_ma_verbs": [
+      "begin",
+      "come",
+      "commence",
+      "finish",
+      "flit",
+      "go",
+      "keep",
+      "leap",
+      "lie",
+      "meddle",
+      "reach",
+      "sit",
+      "struggle",
+      "tread",
+      "try",
+      "walk"
+    ],
+    "P_do_ma_sample": {
+      "come": {
+        "n_DO": 3,
+        "n_DIR": 2,
+        "n_other": 3,
+        "P_do": 0.6197
+      },
+      "commence": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 0,
+        "P_do": 0.7794
+      },
+      "continue": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 0,
+        "P_do": 0.7794
+      },
+      "fall": {
+        "n_DO": 0,
+        "n_DIR": 2,
+        "n_other": 0,
+        "P_do": 0.3346
+      },
+      "flit": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.4461
+      },
+      "go": {
+        "n_DO": 0,
+        "n_DIR": 4,
+        "n_other": 4,
+        "P_do": 0.223
+      },
+      "keep": {
+        "n_DO": 1,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.5846
+      },
+      "leap": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.4461
+      },
+      "lie": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 0,
+        "P_do": 0.7794
+      },
+      "reach": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 2,
+        "P_do": 0.7794
+      },
+      "sit": {
+        "n_DO": 0,
+        "n_DIR": 3,
+        "n_other": 0,
+        "P_do": 0.2676
+      },
+      "stand": {
+        "n_DO": 2,
+        "n_DIR": 0,
+        "n_other": 1,
+        "P_do": 0.8346
+      },
+      "struggle": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 1,
+        "P_do": 0.7794
+      },
+      "tread": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.4461
+      },
+      "walk": {
+        "n_DO": 0,
+        "n_DIR": 2,
+        "n_other": 1,
+        "P_do": 0.3346
+      }
+    }
+  },
+  "kept_hashes": {
+    "C0": "abbed72715740f6e",
+    "T_handlist": "3018bd250e6694c0",
+    "T_induced": "27c9923cbc6a8f29"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "crlb_n/a": "sign/collapse-ratio discriminator over learned logistic weights; no argmax-noise capacity floor",
+  "n_sentences": 163,
+  "n_reader_svo": 225,
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "p_keep": 60.0,
+    "p_drop": 40.0,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "prior_confounded_reference": {
+    "atom": 29349,
+    "syntactic_frame_teacher_w_f_dirpp": [
+      -2.4656,
+      -2.4777,
+      -2.4378
+    ],
+    "MEASURED": "data/exp_lccp_motion_aspectual_syntactic_frame_teacher_v1/metrics.json:LEARNING_w_f_dirpp_T_per_seed",
+    "note": "confounded: hand-authored directional list fed the teacher's frame-typing; membership must-fail fired but did not fully collapse (shared-detector residual)."
+  },
+  "HONESTY_GUARD": "LEARNING-CLAIM CLEANUP, not precision. Even full success caps overall precision ~0.52 on arm-C0 scope, BELOW the stacked 0.557 reader. The 6-item credited seed is a legitimate brain-analogous floor for the perceptual path/goal channel text lacks (vision-grounding thread), NOT a hand-rules violation. Induced-detector recall<70% vs the hand list is the EXPECTED honest floor (Redington-Chater). No hand-applied number reported as learned.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "seed_floor_size_declared",
+    "fingerprint_recovers_category",
+    "induced_pdo_separates_low",
+    "scrambled_pdo_fails_to_separate",
+    "recovery_induced_vs_hand",
+    "recovery_scrambled_vs_hand",
+    "LEARNING_w_f_dirpp_induced_per_seed",
+    "LEARNING_w_f_dirpp_handlist_per_seed",
+    "LEARNING_w_f_dirpp_detector_degraded_per_seed",
+    "LEARNING_induced_sign_negative_all_seeds",
+    "collapse_ratio_detector_degradation_per_seed",
+    "collapse_ratio_membership_handlist_per_seed",
+    "DETECTOR_DEGRADATION_collapses_clean_all_seeds",
+    "pdo_motion_induced",
+    "pdo_motion_scrambled",
+    "per_seed"
+  ],
+  "verdict_msg": "HARD_PASS_CLEAN_DECONFOUND | seed_floor=6 K=12 | fingerprint_recovers=True (induced sep_low=True pdo_mot=0.5273<g0.5865; scram sep=False pdo_mot=0.9786) | recall induced=0.45 scram=0.10 prec induced=0.53 | w_dirpp induced/seed=[-0.246, -0.3182, -0.4086] (abl=[-0.7197, -0.8373, -0.7818]) neg_all=True | DETdeg w/seed=[1.1855, 1.286, 1.3463] ratio=[4.818, 4.041, 3.295] clean_all=True | memb ratio hand=[0.908, 0.529, 0.824] induced=[4.886, 7.596, 2.932] | overallP C0=0.487 hand=0.580 induced=0.679 | base_in_band=True discrim=True arms_differ=True",
+  "summary": "HARD_PASS_CLEAN_DECONFOUND | seed_floor=6 K=12 | fingerprint_recovers=True (induced sep_low=True pdo_mot=0.5273<g0.5865; scram sep=False pdo_mot=0.9786) | recall induced=0.45 scram=0.10 prec induced=0.53 | w_dirpp induced/seed=[-0.246, -0.3182, -0.4086] (abl=[-0.7197, -0.8373, -0.7818]) neg_all=True | DETdeg w/seed=[1.1855, 1.286, 1.3463] ratio=[4.818, 4.041, 3.295] clean_all=True | memb ratio hand=[0.908, 0.529, 0.824] induced=[4.886, 7.596, 2.932] | overallP C0=0.487 hand=0.580 induced=0.679 | base_in_band=True discrim=True arms_differ=True",
+  "elapsed_s": 12.95929050000268,
+  "ts_iso": "2026-07-19T15:50:36.244553+00:00"
+}

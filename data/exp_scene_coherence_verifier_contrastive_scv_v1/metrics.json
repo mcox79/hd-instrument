@@ -1,0 +1,400 @@
+{
+  "anchor_name": "scene_coherence_verifier_contrastive_scv_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_P1_SELECTOR_HURTS_OR_EMPTY|HARD_FAIL_P2_NULL_OR_NEGATIVE|HARD_PASS_P3_SCOPE_REAL",
+  "verdict_msg": "P1=HARD_FAIL_P1_SELECTOR_HURTS_OR_EMPTY P2=HARD_FAIL_P2_NULL_OR_NEGATIVE P3=HARD_PASS_P3_SCOPE_REAL | baseline_LCCP_C_P=0.500 scv_sel_P=0.485 (changed=6 fixed=1 broken=2 netdP=-0.015) | P2 frozen_P=0.414 scv_trained_P=0.276 meandelta=-0.137 (min=-0.154) direct_P=0.386 | ablation full=-0.137 small=-0.017 | scope one-coh=17 artif-vs-loc=2 | WNcov=0.848 VNselrestr=0.256 bit_false_incoh=0.240 | base_in_band=True contrast_fires=True",
+  "summary": "P1=HARD_FAIL_P1_SELECTOR_HURTS_OR_EMPTY P2=HARD_FAIL_P2_NULL_OR_NEGATIVE P3=HARD_PASS_P3_SCOPE_REAL | baseline_LCCP_C_P=0.500 scv_sel_P=0.485 (changed=6 fixed=1 broken=2 netdP=-0.015) | P2 frozen_P=0.414 scv_trained_P=0.276 meandelta=-0.137 (min=-0.154) direct_P=0.386 | ablation full=-0.137 small=-0.017 | scope one-coh=17 artif-vs-loc=2 | WNcov=0.848 VNselrestr=0.256 bit_false_incoh=0.240 | base_in_band=True contrast_fires=True",
+  "elapsed_s": 29.096642499993322,
+  "ts_iso": "2026-07-19T21:35:56.783835+00:00",
+  "config": {
+    "mode": "full",
+    "gold_slice": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "mining_files": [
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_primer.clean.txt",
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_first_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_second_reader.clean.txt",
+      "data/corpora/graded_readers_graded/cleaned/mcguffey_fourth_reader.clean.txt"
+    ],
+    "mining_max_sents": null,
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "coh_lr": 0.1,
+    "coh_margin": 0.3,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "prediction1_selector": {
+    "verdict_p1": "HARD_FAIL_P1_SELECTOR_HURTS_OR_EMPTY",
+    "baseline_lccp_C": {
+      "precision": 0.5,
+      "recall": 0.34,
+      "f1": 0.4048,
+      "n_pred": 68,
+      "tp": 34,
+      "n_gold": 100,
+      "n_gold_covered": 34,
+      "subcat_fp": 24,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 4,
+      "total_fp": 34,
+      "fp_rate": 0.5
+    },
+    "scv_selector": {
+      "precision": 0.4853,
+      "recall": 0.33,
+      "f1": 0.3929,
+      "n_pred": 68,
+      "tp": 33,
+      "n_gold": 100,
+      "n_gold_covered": 33,
+      "subcat_fp": 24,
+      "within_frame_fp": 7,
+      "spurious_verb_fp": 4,
+      "total_fp": 35,
+      "fp_rate": 0.5147
+    },
+    "n_changed": 6,
+    "fixed": 1,
+    "broken": 2,
+    "neutral": 3,
+    "net_precision_delta": -0.0147,
+    "contrast_stats": {
+      "n_multi_candidate_instances": 50,
+      "n_exactly_one_coherent": 17,
+      "n_all_coherent": 12,
+      "n_none_coherent": 6,
+      "n_artifact_vs_location_pairs": 2,
+      "n_coherence_pairs": 18,
+      "bit_reason_counts": {
+        "concrete": 66,
+        "pronoun_object": 13,
+        "type_mismatch": 41,
+        "junk_filler": 8,
+        "oov_noun_benefit_of_doubt": 5
+      }
+    },
+    "change_detail": [
+      {
+        "sid": "L07_04",
+        "v": "spend",
+        "old": [
+          "spend",
+          "fields",
+          "time"
+        ],
+        "new": [
+          "spend",
+          "fields",
+          "boys"
+        ],
+        "old_correct": true,
+        "new_correct": false
+      },
+      {
+        "sid": "L07_09",
+        "v": "meet",
+        "old": [
+          "met",
+          "there",
+          "plenty"
+        ],
+        "new": [
+          "met",
+          "there",
+          "boys"
+        ],
+        "old_correct": false,
+        "new_correct": true
+      },
+      {
+        "sid": "L08_02",
+        "v": "say",
+        "old": [
+          "say",
+          "i",
+          "hour"
+        ],
+        "new": [
+          "say",
+          "i",
+          "you"
+        ],
+        "old_correct": false,
+        "new_correct": false
+      },
+      {
+        "sid": "L10_10",
+        "v": "call",
+        "old": [
+          "called",
+          "charles",
+          "day"
+        ],
+        "new": [
+          "called",
+          "charles",
+          "fisherman"
+        ],
+        "old_correct": false,
+        "new_correct": false
+      },
+      {
+        "sid": "L10_26",
+        "v": "see",
+        "old": [
+          "see",
+          "i",
+          "see"
+        ],
+        "new": [
+          "see",
+          "i",
+          "house"
+        ],
+        "old_correct": false,
+        "new_correct": false
+      },
+      {
+        "sid": "L10_38",
+        "v": "rule",
+        "old": [
+          "ruling",
+          "charles",
+          "copybook"
+        ],
+        "new": [
+          "ruling",
+          "charles",
+          "joe"
+        ],
+        "old_correct": true,
+        "new_correct": false
+      }
+    ],
+    "baseline_precision_reproduced": 0.5
+  },
+  "prediction2_trainer": {
+    "verdict_p2": "HARD_FAIL_P2_NULL_OR_NEGATIVE",
+    "mean_delta_full": -0.1372,
+    "min_delta_full": -0.1545,
+    "frozen_precision_mean": 0.4136,
+    "scv_trained_precision_mean": 0.2764,
+    "per_seed": [
+      {
+        "seed": 7,
+        "n_train_examples": 6070,
+        "frozen_precision": 0.4217,
+        "scv_trained_precision": 0.2672,
+        "scv_direct_precision": 0.3864,
+        "frozen_recall": 0.35,
+        "scv_trained_recall": 0.35,
+        "frozen_f1": 0.3825,
+        "scv_trained_f1": 0.303,
+        "delta_full": -0.1545,
+        "delta_small": -0.0174,
+        "w_frozen": [
+          1.1393,
+          1.7129,
+          1.4729,
+          -12.5035,
+          -11.4829,
+          -12.1743,
+          -0.5795
+        ],
+        "w_scv": [
+          1.4639,
+          0.5426,
+          1.6954,
+          -2.6987,
+          -14.0489,
+          -4.6238,
+          7.215
+        ]
+      },
+      {
+        "seed": 13,
+        "n_train_examples": 6070,
+        "frozen_precision": 0.4096,
+        "scv_trained_precision": 0.281,
+        "scv_direct_precision": 0.3864,
+        "frozen_recall": 0.34,
+        "scv_trained_recall": 0.34,
+        "frozen_f1": 0.3716,
+        "scv_trained_f1": 0.3077,
+        "delta_full": -0.1286,
+        "delta_small": -0.0174,
+        "w_frozen": [
+          1.3261,
+          1.8214,
+          1.3961,
+          -12.5032,
+          -11.4782,
+          -12.1715,
+          -1.2424
+        ],
+        "w_scv": [
+          0.9501,
+          0.2554,
+          1.7774,
+          -3.0529,
+          -13.126,
+          -4.2821,
+          7.0635
+        ]
+      },
+      {
+        "seed": 19,
+        "n_train_examples": 6070,
+        "frozen_precision": 0.4096,
+        "scv_trained_precision": 0.281,
+        "scv_direct_precision": 0.3864,
+        "frozen_recall": 0.34,
+        "scv_trained_recall": 0.34,
+        "frozen_f1": 0.3716,
+        "scv_trained_f1": 0.3077,
+        "delta_full": -0.1286,
+        "delta_small": -0.0174,
+        "w_frozen": [
+          1.1585,
+          1.7796,
+          1.5026,
+          -12.5077,
+          -11.479,
+          -12.1755,
+          -1.1134
+        ],
+        "w_scv": [
+          0.8464,
+          0.5879,
+          1.0221,
+          -3.331,
+          -13.7225,
+          -4.3948,
+          7.1363
+        ]
+      }
+    ],
+    "corpus_size_ablation": {
+      "mean_delta_full_corpus": -0.1372,
+      "mean_delta_small_gold_slice_only": -0.0174,
+      "n_coherence_pairs_full": 846,
+      "n_coherence_pairs_small": 18,
+      "interpretation": "if full<=0 AND small<=0 -> mechanism-null; if full>small (esp full>0, small<=0) -> sparsity was masking the signal (per animacy/per-verb-stats sparsity lesson)."
+    },
+    "distillation_attribution": {
+      "scv_direct_precision_mean": 0.3864,
+      "frozen_precision_mean": 0.4136,
+      "scv_trained_precision_mean": 0.2764,
+      "direct_minus_frozen": -0.0272,
+      "trained_minus_frozen": -0.1372,
+      "interpretation": "if direct_minus_frozen already captures most of the residual, the DIRECT WordNet/VerbNet lookup resolves it and the LEARNED training signal adds little (pure distillation, scaffolded); if trained_minus_frozen > 0 while the direct bit is NOT applied at eval, the reader has INTERNALIZED the type-knowledge into portable structural cue-weights (still scaffolded by the curated oracle, NOT learned from the substrate's own experience)."
+    },
+    "oracle_coverage_noise": {
+      "n_unique_filler_nouns": 2292,
+      "wordnet_supersense_coverage": 0.8477,
+      "n_oov_nouns": 349,
+      "n_unique_verbs": 777,
+      "verbnet_object_selrestr_usable_rate": 0.2561,
+      "n_verbs_with_usable_selrestr": 199,
+      "coherence_bit_false_incoherent_rate_on_true_gold_patients": 0.24,
+      "n_true_patients_wrongly_judged_incoherent": 24,
+      "n_true_patients_total": 100,
+      "false_incoherent_reason_counts": {
+        "type_mismatch:noun.act": 3,
+        "type_mismatch:noun.attribute": 3,
+        "type_mismatch:noun.relation": 1,
+        "type_mismatch:noun.feeling": 1,
+        "junk_filler": 3,
+        "type_mismatch:noun.communication": 6,
+        "type_mismatch:noun.event": 2,
+        "type_mismatch:noun.location": 3,
+        "type_mismatch:noun.time": 2
+      }
+    },
+    "contrast_stats_full_mining": {
+      "n_multi_candidate_instances": 1736,
+      "n_exactly_one_coherent": 599,
+      "n_all_coherent": 455,
+      "n_none_coherent": 231,
+      "n_artifact_vs_location_pairs": 59,
+      "n_coherence_pairs": 846,
+      "bit_reason_counts": {
+        "oov_noun_benefit_of_doubt": 456,
+        "concrete": 2084,
+        "junk_filler": 271,
+        "type_mismatch": 1912,
+        "pronoun_object": 386
+      }
+    },
+    "contrast_stats_small": {
+      "n_multi_candidate_instances": 50,
+      "n_exactly_one_coherent": 17,
+      "n_all_coherent": 12,
+      "n_none_coherent": 6,
+      "n_artifact_vs_location_pairs": 2,
+      "n_coherence_pairs": 18,
+      "bit_reason_counts": {
+        "concrete": 66,
+        "pronoun_object": 13,
+        "type_mismatch": 41,
+        "junk_filler": 8,
+        "oov_noun_benefit_of_doubt": 5
+      }
+    },
+    "n_mining_sentences": 4151,
+    "n_eval_sentences": 163
+  },
+  "prediction3_scope": {
+    "verdict_p3": "HARD_PASS_P3_SCOPE_REAL",
+    "exactly_one_coherent_bucket": 17,
+    "artifact_vs_location_specific_bucket": 2,
+    "contrast_stats_gold_slice": {
+      "n_multi_candidate_instances": 50,
+      "n_exactly_one_coherent": 17,
+      "n_all_coherent": 12,
+      "n_none_coherent": 6,
+      "n_artifact_vs_location_pairs": 2,
+      "n_coherence_pairs": 18,
+      "bit_reason_counts": {
+        "concrete": 66,
+        "pronoun_object": 13,
+        "type_mismatch": 41,
+        "junk_filler": 8,
+        "oov_noun_benefit_of_doubt": 5
+      }
+    }
+  },
+  "baseline_in_band": true,
+  "contrast_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "gold_type_oracle_independent": true,
+  "gold_independence_rationale": "data/gold_mcguffey_lccp_argstruct_v1.json is human who-did-what annotation of pos/nopat argument structure, annotated by READING RAW TEXT (verified _meta.independence), INDEPENDENT of WordNet/VerbNet typing. The Pred-1 residual triage is computed vs GOLD (within-frame FP), NOT vs supersense. So the SCV is NOT predicting its own oracle (G-FAIR-1 satisfied).",
+  "claim_ceiling": "SELF-SUPERVISED w.r.t. PARSE-LABELS (no gold parses), but SUPERVISED by an EXTERNAL HAND-CURATED world-knowledge oracle (WordNet supersenses + VerbNet). The world-knowledge is LOOKED UP, not learned by the substrate. This run tests the CONTRAST MECHANISM, NOT learned-world-experience. The fully-honest 'substrate learns type-knowledge from its own reading' version is a HARDER, SEPARATE future test (likely corpus-sparse per atom 29357). Do NOT frame any result as 'the substrate evaluates scene realism from its own experience' (G-FAIR-2).",
+  "excluded_from_mining": "data/corpora/graded_readers_graded/cleaned/mcguffey_third_reader.clean.txt (GOLD source)",
+  "novelty_note": "Genuine novelty = CONTRAST (score BOTH rivals, use the GAP), which does NOT depend on where the knowledge came from. Prior signals failed to TRAIN because non-contrastive (cosine=blended score; animacy=pre-filter, fixed_ON=0).",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "prediction1_selector",
+    "prediction2_trainer",
+    "prediction3_scope",
+    "gold_type_oracle_independent",
+    "claim_ceiling",
+    "prediction2_trainer.distillation_attribution",
+    "prediction2_trainer.oracle_coverage_noise",
+    "prediction2_trainer.corpus_size_ablation"
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "anchor_name": "cleanup_graded_attractor_vs_argmax_v1",
+  "verdict": "STEP_IS_CODEBOOK_SNR_WALL_NOT_CLEANUP_RULE",
+  "verdict_msg": "PHASE top1 cliff(sigma2.5-3.0): modern_hopfield 0.360 vs argmax 0.357 (gap +0.003, max|gap| 0.008); low(sigma<=2.0) mh 1.000 vs argmax 1.000 (no_regression=True); vec_fid cliff mh 0.361 vs argmax 0.358; R-fold(3) cliff mh 0.593 vs argmax 0.592; partial-cue hi-erasure top1 mh 1.000 vs argmax 1.000",
+  "summary": "STEP_IS_CODEBOOK_SNR_WALL_NOT_CLEANUP_RULE: cliff top1 mh 0.36 vs argmax 0.36 (gap +0.00); vec_fid cliff mh 0.36 vs argmax 0.36",
+  "elapsed_s": 18.68,
+  "ts_iso": "2026-07-20T01:08:11.838484+00:00",
+  "pid": 7136,
+  "seed": 20260720,
+  "n_dim": 2048,
+  "n_atoms": 48,
+  "n_seeds": 5,
+  "best_beta": 50.0,
+  "per_beta": {
+    "8.0": 0.2222,
+    "20.0": 0.3681,
+    "50.0": 0.375
+  },
+  "mh_steps": 3,
+  "decision_numbers": {
+    "phase_sigmas": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.5
+    ],
+    "cliff_sigmas": [
+      2.5,
+      2.75,
+      3.0
+    ],
+    "low_sigmas": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "mh_top1_cliff": 0.3597,
+    "argmax_top1_cliff": 0.3569,
+    "cliff_gap": 0.0028,
+    "max_gap": 0.0084,
+    "mh_top1_low": 1.0,
+    "argmax_top1_low": 1.0,
+    "no_low_regression": true,
+    "mh_fid_cliff": 0.3609,
+    "argmax_fid_cliff": 0.3578,
+    "mh_rfold_cliff": 0.593,
+    "argmax_rfold_cliff": 0.5917,
+    "partial_hi_erasure_fracs": [
+      0.8,
+      0.9,
+      0.95
+    ],
+    "mh_partial_top1": 1.0,
+    "argmax_partial_top1": 1.0
+  },
+  "curves": {
+    "phase": {
+      "argmax": {
+        "top1": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.7458,
+          0.2625,
+          0.0625,
+          0.025
+        ],
+        "fid": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.7473,
+          0.2632,
+          0.063,
+          0.0244
+        ]
+      },
+      "modern_hopfield": {
+        "top1": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.7542,
+          0.2583,
+          0.0667,
+          0.0208
+        ],
+        "fid": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.756,
+          0.2595,
+          0.0671,
+          0.0199
+        ]
+      }
+    },
+    "partial": {
+      "argmax": {
+        "top1": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "fid": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "modern_hopfield": {
+        "top1": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "fid": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "rfold": {
+      "argmax": {
+        "top1": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9958,
+          0.6209,
+          0.1583,
+          0.0459
+        ],
+        "fid": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9957,
+          0.6219,
+          0.1601,
+          0.0469
+        ]
+      },
+      "modern_hopfield": {
+        "top1": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9958,
+          0.625,
+          0.1583,
+          0.0459
+        ],
+        "fid": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9957,
+          0.6277,
+          0.1625,
+          0.0469
+        ]
+      }
+    },
+    "phase_sigmas": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.5
+    ],
+    "partial_fracs": [
+      0.0,
+      0.3,
+      0.5,
+      0.7,
+      0.8,
+      0.9,
+      0.95
+    ]
+  },
+  "denoise_witness": {
+    "sigma": 1.5,
+    "cos_raw": 0.3015,
+    "cos_attractor": 1.0
+  },
+  "arms_differ_verified": true,
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "decision_numbers",
+    "curves"
+  ],
+  "cited": {
+    "audit": "notes/drill_platform_maturity_base_elements_brain_sufficient_5x_2026-07-20.md",
+    "envelope": "notes/vsa_core_ops_empirical_envelope_bind_bundle_unbind_2026-07-19.md",
+    "on_disk_mh": [
+      "hdlab/modern_hopfield_readout.py",
+      "hdlab/cleanup_family.py"
+    ]
+  },
+  "caveats": [
+    "ONE VARIABLE = the cleanup rule (argmax vs modern-Hopfield); identical FHRR codebook / cue / noise draw at every (mode,level,seed). PHASE noise = the measured step-function model (v*exp(i*N(0,sigma))).",
+    "argmax-cosine is EXHAUSTIVE nearest-neighbor = the optimal single-cue top-1 cleanup; modern-Hopfield is a softmax APPROXIMATION to it, so on a RANDOM codebook it cannot beat argmax on top-1 id. A cliff-band tie (max|gap|<0.05) => the step is a codebook-SNR wall, and the brain-faithful fix is LEARNED/similarity-structured codebooks (audit item-3) + multi-cue integration, NOT a cleanup-rule swap. HARD-FAIL here is a real finding, not a broken arm (the sigma=0 id=1.0 + denoise witness prove the modern-Hopfield arm is functional).",
+    "vec_fid (cos of recovered vector to true atom) is the GRADED metric: argmax snaps hard (fidelity ~1 if id right, low if wrong); modern-Hopfield returns a continuous denoised blend. A modern-Hopfield vec_fid advantage at the cliff = a real graded-reconstruction win for downstream binding even when top-1 id ties.",
+    "On-disk modern-Hopfield was validated on REAL/bipolar patterns in a CAPACITY (P/N) regime, not FHRR-complex phasors nor this step regime; this cell PORTS the softmax-attention update rule faithfully to the FHRR cleanup path.",
+    "best-beta chosen to maximize the modern-Hopfield arm's cliff top1 (fair best-shot; per-beta logged) -> the comparison vs argmax + bands are pre-registered, not tuned-for-PASS.",
+    "CLAIM-VET-pending (skunkworks landed-VET before fact). needs_orchestrator_store_sync=True."
+  ]
+}

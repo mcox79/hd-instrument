@@ -1,0 +1,191 @@
+{
+  "anchor_name": "graded_thematic_fit_integrated_reader_gate_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_GATE_SPARSE_COVERAGE_FIRST",
+  "verdict_msg": "GATE=HARD_FAIL_GATE_SPARSE_COVERAGE_FIRST | noun-fire gold=9/15 | full=52/82 | rate_full=0.634 | defined_frac_full=0.831 | argC_baseline_P=0.571 | STAGE2=SKIPPED_gate_hard_fail",
+  "summary": "GATE=HARD_FAIL_GATE_SPARSE_COVERAGE_FIRST | noun-fire gold=9/15 | full=52/82 | rate_full=0.634 | defined_frac_full=0.831 | argC_baseline_P=0.571 | STAGE2=SKIPPED_gate_hard_fail",
+  "elapsed_s": 39.49418400001014,
+  "ts_iso": "2026-07-19T22:10:06.915481+00:00",
+  "config": {
+    "mode": "smoke",
+    "gold_slice": [
+      "L04",
+      "L05",
+      "L07"
+    ],
+    "mining_files": [
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_primer.clean.txt",
+      "data/corpora/graded_readers_grade1/cleaned/mcguffey_first_reader.clean.txt"
+    ],
+    "mining_max_sents": 600,
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 40,
+    "keep_thr": 0.45,
+    "gfit_keep": 0.55,
+    "gfit_drop": 0.3,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "stage1_gate_verdict": "HARD_FAIL_GATE_SPARSE_COVERAGE_FIRST",
+  "stage1_firing_gold_slice": {
+    "n_multi_candidate_points": 22,
+    "n_noun_decision_points": 15,
+    "n_all_decision_points": 22,
+    "n_candidates": 93,
+    "kind_counts": {
+      "noun": 75,
+      "pronoun": 6,
+      "oov": 4,
+      "junk": 8
+    },
+    "defined_frac": 0.871,
+    "fire_count_noun_tau015": 9,
+    "fire_rate_noun_tau015": 0.6,
+    "fire_count_all_tau015": 15,
+    "fire_rate_all_tau015": 0.6818,
+    "fire_count_noun_by_tau": {
+      "0.10": 11,
+      "0.15": 9,
+      "0.20": 9,
+      "0.25": 9
+    },
+    "fire_count_all_by_tau": {
+      "0.10": 19,
+      "0.15": 15,
+      "0.20": 14,
+      "0.25": 14
+    },
+    "mean_spread_noun": 0.3499,
+    "mean_spread_all": 0.3851
+  },
+  "stage1_firing_full_mining": {
+    "n_multi_candidate_points": 117,
+    "n_noun_decision_points": 82,
+    "n_all_decision_points": 117,
+    "n_candidates": 532,
+    "kind_counts": {
+      "oov": 48,
+      "noun": 387,
+      "junk": 42,
+      "pronoun": 55
+    },
+    "defined_frac": 0.8308,
+    "fire_count_noun_tau015": 52,
+    "fire_rate_noun_tau015": 0.6341,
+    "fire_count_all_tau015": 93,
+    "fire_rate_all_tau015": 0.7949,
+    "fire_count_noun_by_tau": {
+      "0.10": 59,
+      "0.15": 52,
+      "0.20": 49,
+      "0.25": 43
+    },
+    "fire_count_all_by_tau": {
+      "0.10": 97,
+      "0.15": 93,
+      "0.20": 88,
+      "0.25": 82
+    },
+    "mean_spread_noun": 0.3578,
+    "mean_spread_all": 0.4273
+  },
+  "gfit_model_stats": {
+    "n_object_classes": 21,
+    "max_class_count": 49,
+    "class_obj_counts": {
+      "noun.act": 15,
+      "noun.animal": 38,
+      "noun.artifact": 49,
+      "noun.attribute": 8,
+      "noun.body": 7,
+      "noun.cognition": 4,
+      "noun.communication": 12,
+      "noun.event": 6,
+      "noun.food": 14,
+      "noun.group": 9,
+      "noun.location": 11,
+      "noun.object": 13,
+      "noun.person": 26,
+      "noun.phenomenon": 1,
+      "noun.plant": 10,
+      "noun.possession": 1,
+      "noun.quantity": 5,
+      "noun.relation": 1,
+      "noun.state": 5,
+      "noun.substance": 4,
+      "noun.time": 11
+    },
+    "typ_class": {
+      "noun.act": 0.3061,
+      "noun.animal": 0.7755,
+      "noun.artifact": 1.0,
+      "noun.attribute": 0.1633,
+      "noun.body": 0.1429,
+      "noun.cognition": 0.0816,
+      "noun.communication": 0.2449,
+      "noun.event": 0.1224,
+      "noun.food": 0.2857,
+      "noun.group": 0.1837,
+      "noun.location": 0.2245,
+      "noun.object": 0.2653,
+      "noun.person": 0.5306,
+      "noun.phenomenon": 0.0204,
+      "noun.plant": 0.2041,
+      "noun.possession": 0.0204,
+      "noun.quantity": 0.102,
+      "noun.relation": 0.0204,
+      "noun.state": 0.102,
+      "noun.substance": 0.0816,
+      "noun.time": 0.2245
+    },
+    "n_verbs_with_own_assoc": 21,
+    "global_typ_mean": 0.243
+  },
+  "real_baseline_argC_reproduced": {
+    "precision": 0.5714,
+    "recall": 0.2553,
+    "f1": 0.3529,
+    "n_pred": 21,
+    "tp": 12,
+    "n_gold": 47,
+    "n_gold_covered": 12,
+    "subcat_fp": 5,
+    "within_frame_fp": 2,
+    "spurious_verb_fp": 2,
+    "total_fp": 9,
+    "fp_rate": 0.4286
+  },
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "stage2_learner": null,
+  "arms_differ_verified": null,
+  "n_mining_sentences": 600,
+  "n_eval_sentences": 72,
+  "tau_disc": 0.15,
+  "min_verb_obs": 4,
+  "pron_gfit": 0.6,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "extraction-precision + discriminativeness-count measurement; no quantitative noise floor",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "excluded_from_mining": "data/corpora/graded_readers_graded/cleaned/mcguffey_third_reader.clean.txt (GOLD source)",
+  "gold_type_oracle_independent": true,
+  "gold_independence_rationale": "Gate uses gfit SPREAD across rivals only (never which rival is gold-correct). Stage-2 held-out gold is independent who-did-what annotation (_meta.independence). gfit model built on MINING corpus only; third reader (gold source) EXCLUDED. No ground-by-X-grade-by-X.",
+  "claim_ceiling": "The graded cue is SCAFFOLDED: WordNet supersense (curated lookup) + CLASS-LEVEL distributional object-typicality from 99k (class-smoothed a la Clark&Weir; ~15 classes dense at 99k, per-ITEM counts would NOT be). This is LOOKED-UP world-knowledge, NOT substrate-learned world-experience. ONLY the low-dim cue-integration weight w[6] is LEARNED. Learning NEW distributional-fit VALUES from 99k is OUT OF SCOPE (corpus-gated >=1M-1B+ words). Do NOT frame any result as 'the substrate evaluates scene realism from its own experience'.",
+  "novelty_vs_scv": "SCV used a BINARY bit + POST-HOC contrast (null trainer, atom 29360). This uses a GRADED score INTEGRATED into the incremental per-step target (delta-rule on w[6]). The gate tests whether the graded cue is DISCRIMINATIVE among plausible NOUN rivals densely enough to carry a learning signal (SCV's trigger fired on only 4-20 cases).",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "stage1_gate_verdict",
+    "stage1_firing_gold_slice",
+    "stage1_firing_full_mining",
+    "gfit_model_stats",
+    "real_baseline_argC_reproduced",
+    "stage2_learner",
+    "claim_ceiling",
+    "gold_type_oracle_independent"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "anchor_name": "metacog_abstain_conformal_transfer_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST",
+  "verdict_msg": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST | median rel_red=0.313 (in-sample 0.327) cov=0.507 cw_test=0.500 beats_rand_frac=1.000 pooled_beats=True gap=-0.010 base_wrong=0.732 | must_fail_ctrl_relred=-0.0024650110491422593 | gates=ok",
+  "summary": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST | median rel_red=0.313 (in-sample 0.327) cov=0.507 cw_test=0.500 beats_rand_frac=1.000 pooled_beats=True gap=-0.010 base_wrong=0.732 | must_fail_ctrl_relred=-0.0024650110491422593 | gates=ok",
+  "elapsed_s": 41.359633499989286,
+  "ts_iso": "2026-07-20T02:51:00.805018+00:00",
+  "needs_orchestrator_store_sync": true,
+  "local_only": true,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "prereg": {
+    "target_cov_primary": 0.5,
+    "target_cov_grid": [
+      0.5,
+      0.6,
+      0.7
+    ],
+    "n_splits": 200,
+    "reader_seeds": [
+      7,
+      13,
+      19
+    ],
+    "split_frac_cal": 0.5,
+    "HP": {
+      "cov": [
+        0.45,
+        0.6
+      ],
+      "rel_red": 0.2,
+      "beats_frac": 0.6,
+      "gap_max": 0.12
+    },
+    "HF": {
+      "rel_red_lt": 0.15,
+      "cov_outside": [
+        0.4,
+        0.65
+      ],
+      "beats_frac_lt": 0.4
+    },
+    "insample_relred": 0.327,
+    "method": "split-conformal (Vovk/Angelopoulos) + Chow reject; hdlab/conformal.py"
+  },
+  "result": {
+    "verdict": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST",
+    "primary": {
+      "n_splits_ok": 600,
+      "median_realized_cov": 0.5070422535211268,
+      "median_base_wrong_test": 0.7323943661971831,
+      "median_cw_test": 0.5,
+      "median_rel_red": 0.312715949408041,
+      "median_transfer_gap": -0.010101010101010166,
+      "frac_beats_random": 1.0,
+      "iqr_rel_red": [
+        0.2561904761904761,
+        0.37909921710942124
+      ],
+      "pooled_median_cw": 0.5,
+      "pooled_median_rand_p2.5": 0.6285714285714286,
+      "pooled_beats_random": true
+    },
+    "must_fail_control_median_rel_red": -0.0024650110491422593,
+    "target_cov_grid": {
+      "0.5": {
+        "median_rel_red": 0.3060699588477366,
+        "median_realized_cov": 0.5070422535211268,
+        "frac_beats_random": 1.0
+      },
+      "0.6": {
+        "median_rel_red": 0.19783747692549392,
+        "median_realized_cov": 0.6197183098591549,
+        "frac_beats_random": 0.9833333333333333
+      },
+      "0.7": {
+        "median_rel_red": 0.11651583710407239,
+        "median_realized_cov": 0.7183098591549296,
+        "frac_beats_random": 0.9
+      }
+    },
+    "mondrian": {
+      "applicable_splits": 180,
+      "target": 0.5,
+      "per_group": {
+        "heldout": {
+          "n_splits": 180,
+          "mean_cov_pooled": 0.561733159269924,
+          "mean_cov_mondrian": 0.5387047707242496
+        },
+        "seen": {
+          "n_splits": 180,
+          "mean_cov_pooled": 0.4859531214839282,
+          "mean_cov_mondrian": 0.5088092494314082
+        }
+      }
+    },
+    "adaptive_alpha": {
+      "target_cov": 0.5,
+      "mean_cov_static": 0.5059859154929577,
+      "mean_cov_online": 0.504225352112676,
+      "mean_abs_err_static": 0.07288732394366197,
+      "mean_abs_err_online": 0.024765258215962434
+    },
+    "insample_reference": {
+      "rel_red": 0.327,
+      "confident_wrong": 0.493,
+      "base_wrong": 0.732,
+      "source": "MEASURED@data/exp_metacog_abstain_readout_signal_thresholding_v1/metrics.json"
+    },
+    "gates": {
+      "base_wrong_in_band": true,
+      "signal_nondegenerate": true,
+      "arms_differ": true,
+      "gate_notes": []
+    },
+    "n_pop_per_seed": {
+      "7": 142,
+      "13": 142,
+      "19": 142
+    },
+    "score_digests": {
+      "7": "cffc6f94ba43e9bf306f4c8af2a47d18d6eb4eab57631d7d89e89372d83a6f43",
+      "13": "956ce1ee70542d3d3b3ed519db980ff9549cb7a83cbe4f226a02084e2e7b1d51",
+      "19": "8699bc883957af49085abaa1ec2b0589c66b14565053c2ad205dc01ec2ec77ba"
+    },
+    "elapsed_build_s": 41.33672769999248
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_msg",
+    "summary",
+    "elapsed_s",
+    "result"
+  ]
+}

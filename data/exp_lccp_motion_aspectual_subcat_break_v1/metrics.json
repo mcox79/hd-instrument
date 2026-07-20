@@ -1,0 +1,898 @@
+{
+  "anchor_name": "lccp_motion_aspectual_subcat_break_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND",
+  "primary_metric": "motion_aspectual_subcat_FP_rate (FP_a), independent gold, category-c held OUT",
+  "denominator_M_motion_aspectual_nopat_instances": 30,
+  "fp_a_C0_mean": 0.3,
+  "fp_a_C0_std": 0.0,
+  "fp_a_D_mean": 0.2,
+  "fp_a_D_std": 0.0943,
+  "fp_a_reduction_mean": 0.1,
+  "fp_a_reduction_std": 0.0943,
+  "recall_retention_mean": 0.9429,
+  "recall_retention_std": 0.0404,
+  "overall_precision_C0_mean": 0.4866,
+  "overall_precision_D_mean": 0.4879,
+  "overall_recall_C0_mean": 0.3467,
+  "overall_recall_D_mean": 0.3267,
+  "per_seed": [
+    {
+      "seed": 7,
+      "C0": {
+        "precision": 0.5,
+        "recall": 0.34,
+        "f1": 0.4048,
+        "n_pred": 68,
+        "fp_rate": 0.5,
+        "subcat_fp": 24
+      },
+      "D": {
+        "precision": 0.4789,
+        "recall": 0.34,
+        "f1": 0.3977,
+        "n_pred": 71,
+        "fp_rate": 0.5211,
+        "subcat_fp": 24
+      },
+      "fp_a_C0": 0.3,
+      "fp_a_D": 0.2667,
+      "motion_aspectual_keeps_C0": 9,
+      "motion_aspectual_keeps_D": 8,
+      "fp_a_reduction": 0.0333,
+      "recall_retention_D_over_C0": 1.0,
+      "w_f_dirpp": 0.4467,
+      "w_f_subcatfreq": 1.8248,
+      "ma_construction_learned_prior": 0.4333
+    },
+    {
+      "seed": 13,
+      "C0": {
+        "precision": 0.4667,
+        "recall": 0.35,
+        "f1": 0.4,
+        "n_pred": 75,
+        "fp_rate": 0.5333,
+        "subcat_fp": 26
+      },
+      "D": {
+        "precision": 0.4848,
+        "recall": 0.32,
+        "f1": 0.3855,
+        "n_pred": 66,
+        "fp_rate": 0.5152,
+        "subcat_fp": 23
+      },
+      "fp_a_C0": 0.3,
+      "fp_a_D": 0.2667,
+      "motion_aspectual_keeps_C0": 9,
+      "motion_aspectual_keeps_D": 8,
+      "fp_a_reduction": 0.0333,
+      "recall_retention_D_over_C0": 0.9143,
+      "w_f_dirpp": 0.4439,
+      "w_f_subcatfreq": 1.7937,
+      "ma_construction_learned_prior": 0.429
+    },
+    {
+      "seed": 19,
+      "C0": {
+        "precision": 0.493,
+        "recall": 0.35,
+        "f1": 0.4094,
+        "n_pred": 71,
+        "fp_rate": 0.507,
+        "subcat_fp": 25
+      },
+      "D": {
+        "precision": 0.5,
+        "recall": 0.32,
+        "f1": 0.3902,
+        "n_pred": 64,
+        "fp_rate": 0.5,
+        "subcat_fp": 20
+      },
+      "fp_a_C0": 0.3,
+      "fp_a_D": 0.0667,
+      "motion_aspectual_keeps_C0": 9,
+      "motion_aspectual_keeps_D": 2,
+      "fp_a_reduction": 0.2333,
+      "recall_retention_D_over_C0": 0.9143,
+      "w_f_dirpp": 0.4534,
+      "w_f_subcatfreq": 1.8513,
+      "ma_construction_learned_prior": 0.3405
+    }
+  ],
+  "step1_triage_C0": {
+    "counts": {
+      "TP": 34,
+      "b_other_nopat_nonmotion": 15,
+      "b_spurious_or_other": 4,
+      "a_motion_aspectual": 9,
+      "b_within_transitive": 6
+    },
+    "examples": {
+      "b_other_nopat_nonmotion": [
+        [
+          "L04_04",
+          "pass",
+          "harm"
+        ],
+        [
+          "L04_16",
+          "say",
+          "papa"
+        ],
+        [
+          "L07_07",
+          "tell",
+          "james"
+        ],
+        [
+          "L08_02",
+          "say",
+          "hour"
+        ],
+        [
+          "L09_06",
+          "build",
+          "stream"
+        ],
+        [
+          "L10_03",
+          "tell",
+          "son"
+        ],
+        [
+          "L10_10",
+          "call",
+          "day"
+        ],
+        [
+          "L10_18",
+          "tell",
+          "him"
+        ],
+        [
+          "L10_29",
+          "tell",
+          "charles"
+        ],
+        [
+          "L10_30",
+          "leave",
+          "mr"
+        ],
+        [
+          "L10_37",
+          "meet",
+          "eyes"
+        ],
+        [
+          "L12_03",
+          "say",
+          "come"
+        ]
+      ],
+      "b_spurious_or_other": [
+        [
+          "L04_10",
+          "won't",
+          "herbert"
+        ],
+        [
+          "L09_02",
+          "include",
+          "flat"
+        ],
+        [
+          "L09_16",
+          "call",
+          "trappers"
+        ],
+        [
+          "L09_18",
+          "lay",
+          "dam"
+        ]
+      ],
+      "a_motion_aspectual": [
+        [
+          "L04_15",
+          "come",
+          "eyes"
+        ],
+        [
+          "L04_19",
+          "sit",
+          "son"
+        ],
+        [
+          "L07_13",
+          "struggle",
+          "tide"
+        ],
+        [
+          "L09_03",
+          "lie",
+          "skin"
+        ],
+        [
+          "L09_11",
+          "commence",
+          "houses"
+        ],
+        [
+          "L10_05",
+          "stand",
+          "hut"
+        ],
+        [
+          "L10_19",
+          "come",
+          "charles"
+        ],
+        [
+          "L10_42",
+          "come",
+          "home"
+        ],
+        [
+          "L12_06",
+          "walk",
+          "gravel"
+        ]
+      ],
+      "b_within_transitive": [
+        [
+          "L04_19",
+          "show",
+          "you"
+        ],
+        [
+          "L05_15",
+          "build",
+          "sentence"
+        ],
+        [
+          "L07_09",
+          "meet",
+          "plenty"
+        ],
+        [
+          "L10_26",
+          "see",
+          "see"
+        ],
+        [
+          "L12_04",
+          "invite",
+          "mother"
+        ],
+        [
+          "L12_09",
+          "show",
+          "him"
+        ]
+      ]
+    }
+  },
+  "step1_triage_D": {
+    "counts": {
+      "TP": 34,
+      "b_other_nopat_nonmotion": 16,
+      "b_spurious_or_other": 6,
+      "a_motion_aspectual": 8,
+      "b_within_transitive": 7
+    },
+    "examples": {
+      "b_other_nopat_nonmotion": [
+        [
+          "L04_04",
+          "pass",
+          "harm"
+        ],
+        [
+          "L04_13",
+          "know",
+          "know"
+        ],
+        [
+          "L04_16",
+          "say",
+          "papa"
+        ],
+        [
+          "L07_07",
+          "tell",
+          "james"
+        ],
+        [
+          "L08_02",
+          "say",
+          "hour"
+        ],
+        [
+          "L09_06",
+          "build",
+          "stream"
+        ],
+        [
+          "L10_03",
+          "tell",
+          "son"
+        ],
+        [
+          "L10_10",
+          "call",
+          "day"
+        ],
+        [
+          "L10_18",
+          "tell",
+          "him"
+        ],
+        [
+          "L10_29",
+          "tell",
+          "charles"
+        ],
+        [
+          "L10_30",
+          "leave",
+          "mr"
+        ],
+        [
+          "L10_37",
+          "meet",
+          "eyes"
+        ]
+      ],
+      "b_spurious_or_other": [
+        [
+          "L04_10",
+          "won't",
+          "herbert"
+        ],
+        [
+          "L05_10",
+          "cry",
+          "use"
+        ],
+        [
+          "L05_17",
+          "can't",
+          "have"
+        ],
+        [
+          "L09_02",
+          "include",
+          "flat"
+        ],
+        [
+          "L09_16",
+          "call",
+          "trappers"
+        ],
+        [
+          "L09_18",
+          "lay",
+          "dam"
+        ]
+      ],
+      "a_motion_aspectual": [
+        [
+          "L04_15",
+          "come",
+          "eyes"
+        ],
+        [
+          "L04_19",
+          "sit",
+          "son"
+        ],
+        [
+          "L07_13",
+          "struggle",
+          "tide"
+        ],
+        [
+          "L09_03",
+          "lie",
+          "skin"
+        ],
+        [
+          "L09_11",
+          "commence",
+          "houses"
+        ],
+        [
+          "L10_05",
+          "stand",
+          "hut"
+        ],
+        [
+          "L10_19",
+          "come",
+          "charles"
+        ],
+        [
+          "L10_42",
+          "come",
+          "home"
+        ]
+      ],
+      "b_within_transitive": [
+        [
+          "L04_19",
+          "show",
+          "you"
+        ],
+        [
+          "L05_15",
+          "build",
+          "sentence"
+        ],
+        [
+          "L07_09",
+          "meet",
+          "plenty"
+        ],
+        [
+          "L10_09",
+          "teach",
+          "teach"
+        ],
+        [
+          "L10_26",
+          "see",
+          "see"
+        ],
+        [
+          "L12_04",
+          "invite",
+          "mother"
+        ],
+        [
+          "L12_09",
+          "show",
+          "him"
+        ]
+      ]
+    }
+  },
+  "prediction3_mechanism_validity": {
+    "w_dirpp_clean_abs": 0.4467,
+    "w_dirpp_degraded_abs": 0.9333,
+    "w_dirpp_clean": 0.4467,
+    "w_dirpp_degraded": 0.9333,
+    "weight_drops_when_degraded": false,
+    "fp_a_reduction_clean_membership": 0.0333,
+    "fp_a_reduction_random_membership": 0.0333,
+    "fp_a_win_collapses_under_random_membership": false,
+    "mechanism_not_construction_determined": false
+  },
+  "prediction4_graded_argument_hood": {
+    "clear_argument_gold_TP": {
+      "mean": 0.9329,
+      "n": 38,
+      "min": 0.0019,
+      "max": 0.9927
+    },
+    "motion_nopat_category_a": {
+      "mean": 0.3275,
+      "n": 30,
+      "min": 0.0,
+      "max": 0.993
+    },
+    "contested_gradient_category_c": {
+      "mean": 0.5043,
+      "n": 4,
+      "min": 0.0115,
+      "max": 0.993
+    },
+    "ordering_ok": true
+  },
+  "diagnostic_direct_gate_cue_ceiling": {
+    "note": "hand-applied structural gate (dirpp OR low-class-subcat) over arm-C0; NOT learned; ceiling only",
+    "fp_a_direct_gate": 0.1,
+    "motion_aspectual_keeps_direct": 3,
+    "fp_a_reduction_vs_C0": 0.2,
+    "overall_precision_direct": 0.541,
+    "overall_recall_direct": 0.33,
+    "recall_retention_direct_over_C0": 0.9706,
+    "cue_ceiling_interpretation": "if this reduces FP_a >=0.15 at recall retention >=0.60, the CUES are sufficient and the LEARNED-via-coherence route is what failed (re-design the learning signal); if this ALSO fails, the cues themselves are insufficient (Prediction-1 real HARD-FAIL)."
+  },
+  "arm_D_artifacts_seed0": {
+    "w": [
+      -1.3711,
+      1.7983,
+      3.8647,
+      -9.8039,
+      -8.0055,
+      -9.0254,
+      0.4467,
+      1.8248
+    ],
+    "feat_names": [
+      "bias",
+      "f_adj",
+      "f_postv",
+      "f_prep",
+      "f_func",
+      "f_clause",
+      "f_dirpp",
+      "f_subcatfreq"
+    ],
+    "n_train": 209,
+    "n_candidates": 225,
+    "n_verb_instances": 142,
+    "ma_construction_learned_prior": 0.4333,
+    "n_seen_ma_verbs": 16,
+    "seen_ma_verbs": [
+      "begin",
+      "come",
+      "commence",
+      "finish",
+      "flit",
+      "go",
+      "keep",
+      "leap",
+      "lie",
+      "meddle",
+      "reach",
+      "sit",
+      "struggle",
+      "tread",
+      "try",
+      "walk"
+    ],
+    "w_f_dirpp": 0.4467,
+    "w_f_subcatfreq": 1.8248,
+    "subcat_freq_table_sample": {
+      "begin": {
+        "n_inst": 2,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.075
+      },
+      "build": {
+        "n_inst": 5,
+        "n_coherent_patient": 3,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.5734
+      },
+      "call": {
+        "n_inst": 3,
+        "n_coherent_patient": 2,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.6028
+      },
+      "choose": {
+        "n_inst": 3,
+        "n_coherent_patient": 2,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.6028
+      },
+      "come": {
+        "n_inst": 5,
+        "n_coherent_patient": 4,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.6143
+      },
+      "commence": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "continue": {
+        "n_inst": 1,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.4333
+      },
+      "fall": {
+        "n_inst": 2,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.075
+      },
+      "find": {
+        "n_inst": 4,
+        "n_coherent_patient": 3,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.669
+      },
+      "finish": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "flit": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "give": {
+        "n_inst": 3,
+        "n_coherent_patient": 2,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.6028
+      },
+      "go": {
+        "n_inst": 6,
+        "n_coherent_patient": 2,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.2875
+      },
+      "keep": {
+        "n_inst": 2,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.075
+      },
+      "know": {
+        "n_inst": 3,
+        "n_coherent_patient": 0,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.2028
+      },
+      "leap": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "leave": {
+        "n_inst": 4,
+        "n_coherent_patient": 4,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.8357
+      },
+      "lie": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "look": {
+        "n_inst": 3,
+        "n_coherent_patient": 1,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.4028
+      },
+      "make": {
+        "n_inst": 3,
+        "n_coherent_patient": 3,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.8028
+      },
+      "meddle": {
+        "n_inst": 2,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.075
+      },
+      "reach": {
+        "n_inst": 1,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.4333
+      },
+      "run": {
+        "n_inst": 1,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.4333
+      },
+      "say": {
+        "n_inst": 6,
+        "n_coherent_patient": 5,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.7518
+      },
+      "see": {
+        "n_inst": 5,
+        "n_coherent_patient": 3,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.5734
+      },
+      "send": {
+        "n_inst": 3,
+        "n_coherent_patient": 0,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.2028
+      },
+      "sit": {
+        "n_inst": 1,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.4333
+      },
+      "stand": {
+        "n_inst": 1,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.4333
+      },
+      "struggle": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "tell": {
+        "n_inst": 5,
+        "n_coherent_patient": 4,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.7163
+      },
+      "think": {
+        "n_inst": 3,
+        "n_coherent_patient": 1,
+        "prior_used": 0.507,
+        "smoothed_subcat_freq": 0.4028
+      },
+      "tread": {
+        "n_inst": 1,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.1
+      },
+      "try": {
+        "n_inst": 2,
+        "n_coherent_patient": 0,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.075
+      },
+      "walk": {
+        "n_inst": 2,
+        "n_coherent_patient": 1,
+        "prior_used": 0.15,
+        "smoothed_subcat_freq": 0.325
+      }
+    },
+    "subcat_freq_global": 0.507,
+    "heldout_verbs": [
+      "admire",
+      "amuse",
+      "become",
+      "continue",
+      "fall",
+      "invite",
+      "knock",
+      "lead",
+      "leave",
+      "make",
+      "pass",
+      "peel",
+      "run",
+      "see",
+      "stand",
+      "stroke",
+      "take",
+      "teach",
+      "wish"
+    ],
+    "seen_verbs": [
+      "ask",
+      "beat",
+      "begin",
+      "build",
+      "call",
+      "can't",
+      "choose",
+      "come",
+      "commence",
+      "cry",
+      "enjoy",
+      "fear",
+      "find",
+      "finish",
+      "flit",
+      "get",
+      "give",
+      "go",
+      "hear",
+      "hold",
+      "hunt",
+      "include",
+      "intend",
+      "keep",
+      "know",
+      "lay",
+      "leap",
+      "lie",
+      "live",
+      "look",
+      "mean",
+      "meddle",
+      "meet",
+      "nod",
+      "obey",
+      "obtain",
+      "open",
+      "put",
+      "reach",
+      "rub",
+      "rule",
+      "say",
+      "send",
+      "show",
+      "sit",
+      "spend",
+      "struggle",
+      "tell",
+      "thank",
+      "think",
+      "touch",
+      "tread",
+      "try",
+      "wake",
+      "walk",
+      "won't",
+      "wonder",
+      "work"
+    ]
+  },
+  "kept_hashes": {
+    "C0_lccp_armC": "abbed72715740f6e",
+    "D_motion_aspectual": "608285a39384a2e0"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "n_sentences": 163,
+  "n_reader_svo": 225,
+  "n_gold_pos": 100,
+  "n_gold_nopat": 180,
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "levin_seed_cited": "Levin 1993 English Verb Classes and Alternations (51.1/51.3.2/47.6/55.1); Levin & Rappaport Hovav 1995 directional-PP diagnostic",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "fp_a_C0_mean",
+    "fp_a_D_mean",
+    "fp_a_reduction_mean",
+    "recall_retention_mean",
+    "per_seed",
+    "step1_triage_C0",
+    "step1_triage_D",
+    "prediction3_mechanism_validity",
+    "prediction4_graded_argument_hood"
+  ],
+  "verdict_msg": "MIDDLE_BAND | M=30 | FP_a C0=0.300+-0.000 D=0.200+-0.094 red=+0.100+-0.094 | Rret=0.943 | overallP C0=0.487 D=0.488 overallR C0=0.347 D=0.327 | w_dirpp=0.45 w_subcatfreq=1.82 MAprior=0.4333 | pred3 dirppW clean=0.447 deg=0.933 drops=False | pred4 argTP=0.9329 motionNoPat=0.3275 contested=0.5043(n=4) | triage_C0 a=9 b_wt=6 c=0 | base_in_band=True discrim=True arms_differ=True",
+  "summary": "MIDDLE_BAND | M=30 | FP_a C0=0.300+-0.000 D=0.200+-0.094 red=+0.100+-0.094 | Rret=0.943 | overallP C0=0.487 D=0.488 overallR C0=0.347 D=0.327 | w_dirpp=0.45 w_subcatfreq=1.82 MAprior=0.4333 | pred3 dirppW clean=0.447 deg=0.933 drops=False | pred4 argTP=0.9329 motionNoPat=0.3275 contested=0.5043(n=4) | triage_C0 a=9 b_wt=6 c=0 | base_in_band=True discrim=True arms_differ=True",
+  "elapsed_s": 11.71197510001366,
+  "ts_iso": "2026-07-19T13:41:53.573828+00:00"
+}

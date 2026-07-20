@@ -1,0 +1,3832 @@
+{
+  "anchor_name": "coref_margin_gated_cleanup_local_window_break050_v1",
+  "run_mode": "full",
+  "verdict": "A:HARD_FAIL_A_NET_BREAKAGE | B:HARD_PASS_B_CARRY_SEES_COREF_CONTINUITY",
+  "verdict_msg": "A:HARD_FAIL_A_NET_BREAKAGE | B:HARD_PASS_B_CARRY_SEES_COREF_CONTINUITY | mode=full slice=L04+L05+L07+L08+L09+L10+L12 n_keptC=68 | A: P_OFF=0.938 P_ON=0.854 broke=[5, 6, 5] fixed=[0, 0, 0] n_target=21 n_commit=[5, 6, 5] abstain_rate=0.746 named_prec=0.0 (vs prior 16-broken-for-1-fixed (recall_cost 0.308, dP -0.234)) | B: n_pairs=[2, 3, 2] cont_committed=0.7383 cont_pron_invis=0.0339 cont_random=0.0405 | arms_differ=True base_in_band=True discrim=True",
+  "summary": "A:HARD_FAIL_A_NET_BREAKAGE | B:HARD_PASS_B_CARRY_SEES_COREF_CONTINUITY | mode=full slice=L04+L05+L07+L08+L09+L10+L12 n_keptC=68 | A: P_OFF=0.938 P_ON=0.854 broke=[5, 6, 5] fixed=[0, 0, 0] n_target=21 n_commit=[5, 6, 5] abstain_rate=0.746 named_prec=0.0 (vs prior 16-broken-for-1-fixed (recall_cost 0.308, dP -0.234)) | B: n_pairs=[2, 3, 2] cont_committed=0.7383 cont_pron_invis=0.0339 cont_random=0.0405 | arms_differ=True base_in_band=True discrim=True",
+  "elapsed_s": 17.609789100009948,
+  "ts_iso": "2026-07-19T20:03:23.614342+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 60,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "seed": 7
+  },
+  "verdict_a": "HARD_FAIL_A_NET_BREAKAGE",
+  "verdict_b": "HARD_PASS_B_CARRY_SEES_COREF_CONTINUITY",
+  "aggregates_multiseed": {
+    "precision_OFF": {
+      "mean": 0.9375,
+      "min": 0.9375,
+      "max": 0.9375,
+      "vals": [
+        0.9375,
+        0.9375,
+        0.9375
+      ]
+    },
+    "precision_ON": {
+      "mean": 0.8542,
+      "min": 0.8438,
+      "max": 0.8594,
+      "vals": [
+        0.8594,
+        0.8438,
+        0.8594
+      ]
+    },
+    "newly_broken": {
+      "mean": 5.3333,
+      "min": 5.0,
+      "max": 6.0,
+      "vals": [
+        5,
+        6,
+        5
+      ]
+    },
+    "newly_fixed": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "vals": [
+        0,
+        0,
+        0
+      ]
+    },
+    "n_commit": {
+      "mean": 5.3333,
+      "min": 5.0,
+      "max": 6.0,
+      "vals": [
+        5,
+        6,
+        5
+      ]
+    },
+    "abstain_rate": {
+      "mean": 0.746,
+      "min": 0.7143,
+      "max": 0.7619,
+      "vals": [
+        0.7619,
+        0.7143,
+        0.7619
+      ]
+    },
+    "named_precision": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "vals": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "n_target_pron": {
+      "mean": 21.0,
+      "min": 21.0,
+      "max": 21.0,
+      "vals": [
+        21,
+        21,
+        21
+      ]
+    },
+    "continuity_committed": {
+      "mean": 0.7383,
+      "min": 0.6388,
+      "max": 0.8162,
+      "vals": [
+        0.6388,
+        0.7599,
+        0.8162
+      ]
+    },
+    "continuity_pronoun_invisible": {
+      "mean": 0.0339,
+      "min": 0.0204,
+      "max": 0.0518,
+      "vals": [
+        0.0204,
+        0.0294,
+        0.0518
+      ]
+    },
+    "continuity_random_control": {
+      "mean": 0.0405,
+      "min": 0.0366,
+      "max": 0.0439,
+      "vals": [
+        0.0439,
+        0.0409,
+        0.0366
+      ]
+    },
+    "n_pairs_B": {
+      "mean": 2.3333,
+      "min": 2.0,
+      "max": 3.0,
+      "vals": [
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  "fhrr_seeds": [
+    7,
+    13,
+    19
+  ],
+  "pre_registered": {
+    "TAU_MARGIN": 0.1,
+    "COS_FLOOR": 0.08,
+    "W_ROLE": 0.3,
+    "W_SAL": 0.5,
+    "EPS_NOISE": 0.02,
+    "W_IC": 0.0,
+    "N_DIM": 1024,
+    "ROLE_W": {
+      "subj": 1.0,
+      "obj": 0.5,
+      "obl": 0.25
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "verdict_a": "HARD_FAIL_A_NET_BREAKAGE",
+      "verdict_b": "HARD_PASS_B_CARRY_SEES_COREF_CONTINUITY",
+      "pred_a": {
+        "n_frame": 64,
+        "precision_OFF": 0.9375,
+        "precision_ON": 0.8594,
+        "newly_fixed": 0,
+        "newly_broken": 5,
+        "n_target_pron": 21,
+        "n_commit": 5,
+        "n_abstain_low_margin": 15,
+        "n_abstain_no_candidate": 1,
+        "abstain_rate": 0.7619,
+        "commit_rate": 0.2381,
+        "named_committed": 2,
+        "named_correct": 0,
+        "named_precision": 0.0,
+        "pron_subset_precision_OFF": 1.0,
+        "pron_subset_precision_ON": 0.7619,
+        "pron_subset_n": 21
+      },
+      "pred_b": {
+        "n_pairs": 2,
+        "continuity_committed": 0.6388,
+        "continuity_pronoun_invisible": 0.0204,
+        "continuity_random_control": 0.0439
+      },
+      "commit_log": [
+        {
+          "sid": "L07_21",
+          "v": "reach",
+          "pron": "they",
+          "resolved": "boys",
+          "margin": 0.1089,
+          "cos1": 0.6288,
+          "cos2": 0.5199,
+          "n_pool": 2,
+          "pool": [
+            "men",
+            "boys"
+          ]
+        },
+        {
+          "sid": "L09_18",
+          "v": "lay",
+          "pron": "they",
+          "resolved": "beavers",
+          "margin": 0.9665,
+          "cos1": 0.9665,
+          "cos2": 0.0,
+          "n_pool": 1,
+          "pool": [
+            "beavers"
+          ]
+        },
+        {
+          "sid": "L10_11",
+          "v": "make",
+          "pron": "he",
+          "resolved": "boy",
+          "margin": 0.1662,
+          "cos1": 0.9506,
+          "cos2": 0.7844,
+          "n_pool": 10,
+          "pool": [
+            "boy",
+            "name",
+            "joe",
+            "table",
+            "piece",
+            "chalk",
+            "charles",
+            "hut",
+            "day",
+            "dog"
+          ]
+        },
+        {
+          "sid": "L10_18",
+          "v": "tell",
+          "pron": "they",
+          "resolved": "things",
+          "margin": 0.104,
+          "cos1": 0.9976,
+          "cos2": 0.8937,
+          "n_pool": 2,
+          "pool": [
+            "things",
+            "knees"
+          ]
+        },
+        {
+          "sid": "L12_15",
+          "v": "continue",
+          "pron": "he",
+          "resolved": "boy",
+          "margin": 0.3445,
+          "cos1": 0.9659,
+          "cos2": 0.6214,
+          "n_pool": 5,
+          "pool": [
+            "walk",
+            "garden",
+            "day",
+            "frank",
+            "boy"
+          ]
+        },
+        {
+          "sid": "L12_16",
+          "v": "leave",
+          "pron": "they",
+          "resolved": "flowers",
+          "margin": 0.9976,
+          "cos1": 0.9976,
+          "cos2": 0.0,
+          "n_pool": 1,
+          "pool": [
+            "flowers"
+          ]
+        }
+      ],
+      "pair_log": [
+        {
+          "sid": "L07_21",
+          "prev_sid": "L07_20",
+          "pron": "they",
+          "resolved": "boys",
+          "cont_committed": 0.6346,
+          "cont_pron_invis": 0.0185,
+          "cont_random": 0.0512,
+          "n_map_terms": 2
+        },
+        {
+          "sid": "L09_18",
+          "prev_sid": "L09_17",
+          "pron": "they",
+          "resolved": "beavers",
+          "cont_committed": 0.6429,
+          "cont_pron_invis": 0.0223,
+          "cont_random": 0.0366,
+          "n_map_terms": 2
+        }
+      ],
+      "per_instance": [
+        {
+          "sid": "L04_02",
+          "v": "rub",
+          "off_head": "cat",
+          "on_head": "cat",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "cat",
+            "pussy"
+          ],
+          "named_gold": [
+            "cat",
+            "pussy"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_04",
+          "v": "pass",
+          "off_head": "it",
+          "on_head": "it",
+          "method": "abstain_low_margin",
+          "margin": 0.0049,
+          "cos1": 0.7132,
+          "gold": [
+            "it"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_11",
+          "v": "open",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_15",
+          "v": "come",
+          "off_head": "boy",
+          "on_head": "boy",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "boy"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_16",
+          "v": "say",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "papa"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_18",
+          "v": "hear",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "nod",
+          "off_head": "herbert",
+          "on_head": "herbert",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "herbert"
+          ],
+          "named_gold": [
+            "herbert"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "sit",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "papa"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "show",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_06",
+          "v": "knock",
+          "off_head": "pussy",
+          "on_head": "pussy",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "cat",
+            "pussy"
+          ],
+          "named_gold": [
+            "cat",
+            "pussy"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_15",
+          "v": "build",
+          "off_head": "i'll",
+          "on_head": "i'll",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "you"
+          ],
+          "named_gold": [
+            "you"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L05_22",
+          "v": "see",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_24",
+          "v": "leave",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_04",
+          "v": "spend",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0007,
+          "cos1": 0.6217,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_06",
+          "v": "say",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0797,
+          "cos1": 0.6215,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_07",
+          "v": "tell",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "mother"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_09",
+          "v": "meet",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0657,
+          "cos1": 0.6149,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_13",
+          "v": "struggle",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_no_candidate",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_20",
+          "v": "see",
+          "off_head": "men",
+          "on_head": "men",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "men"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_21",
+          "v": "reach",
+          "off_head": "they",
+          "on_head": "boys",
+          "method": "coref_commit",
+          "margin": 0.1089,
+          "cos1": 0.6288,
+          "gold": [
+            "men",
+            "they"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L07_25",
+          "v": "obey",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0033,
+          "cos1": 0.6188,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_01",
+          "v": "stroke",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "choose",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "kitten"
+          ],
+          "named_gold": [
+            "kitten"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L08_02",
+          "v": "hear",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "open",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "say",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_08",
+          "v": "choose",
+          "off_head": "children",
+          "on_head": "children",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "children"
+          ],
+          "named_gold": [
+            "children"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_03",
+          "v": "lie",
+          "off_head": "fur",
+          "on_head": "fur",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "fur"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_04",
+          "v": "build",
+          "off_head": "beavers",
+          "on_head": "beavers",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_05",
+          "v": "build",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0879,
+          "cos1": 0.9912,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_06",
+          "v": "build",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0971,
+          "cos1": 0.9912,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_11",
+          "v": "commence",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0685,
+          "cos1": 0.9977,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_12",
+          "v": "make",
+          "off_head": "freezing",
+          "on_head": "freezing",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "freezing"
+          ],
+          "named_gold": [
+            "freezing"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_13",
+          "v": "obtain",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.019,
+          "cos1": 0.9912,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_16",
+          "v": "hunt",
+          "off_head": "men",
+          "on_head": "men",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "men"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_17",
+          "v": "see",
+          "off_head": "gentleman",
+          "on_head": "gentleman",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gentleman"
+          ],
+          "named_gold": [
+            "gentleman"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_20",
+          "v": "leave",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0639,
+          "cos1": 0.6213,
+          "gold": [
+            "gentleman",
+            "he"
+          ],
+          "named_gold": [
+            "gentleman"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_03",
+          "v": "tell",
+          "off_head": "rose",
+          "on_head": "rose",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "rose"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_05",
+          "v": "stand",
+          "off_head": "hut",
+          "on_head": "hut",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "hut"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_06",
+          "v": "keep",
+          "off_head": "wife",
+          "on_head": "wife",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "wife"
+          ],
+          "named_gold": [
+            "wife"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_10",
+          "v": "call",
+          "off_head": "charles",
+          "on_head": "charles",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_11",
+          "v": "make",
+          "off_head": "he",
+          "on_head": "boy",
+          "method": "coref_commit",
+          "margin": 0.1662,
+          "cos1": 0.9506,
+          "gold": [
+            "he",
+            "joe"
+          ],
+          "named_gold": [
+            "joe"
+          ],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L10_14",
+          "v": "make",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles",
+            "i"
+          ],
+          "named_gold": [
+            "charles"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_18",
+          "v": "tell",
+          "off_head": "they",
+          "on_head": "things",
+          "method": "coref_commit",
+          "margin": 0.104,
+          "cos1": 0.9976,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L10_19",
+          "v": "come",
+          "off_head": "hour",
+          "on_head": "hour",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "hour"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_26",
+          "v": "see",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_29",
+          "v": "tell",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0213,
+          "cos1": 0.6014,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_30",
+          "v": "leave",
+          "off_head": "gentleman",
+          "on_head": "gentleman",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gentleman"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_36",
+          "v": "put",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0491,
+          "cos1": 0.6154,
+          "gold": [
+            "he",
+            "rose"
+          ],
+          "named_gold": [
+            "rose"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_37",
+          "v": "meet",
+          "off_head": "sight",
+          "on_head": "sight",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "sight"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_38",
+          "v": "rule",
+          "off_head": "charles",
+          "on_head": "charles",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles"
+          ],
+          "named_gold": [
+            "charles"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_41",
+          "v": "give",
+          "off_head": "father",
+          "on_head": "father",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "father"
+          ],
+          "named_gold": [
+            "father"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_42",
+          "v": "come",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0036,
+          "cos1": 0.9685,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_03",
+          "v": "say",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L12_04",
+          "v": "invite",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gardener"
+          ],
+          "named_gold": [
+            "gardener"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L12_04",
+          "v": "wish",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_05",
+          "v": "thank",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "mother"
+          ],
+          "named_gold": [
+            "mother"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_06",
+          "v": "walk",
+          "off_head": "frank",
+          "on_head": "frank",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "frank"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_09",
+          "v": "show",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0463,
+          "cos1": 0.6,
+          "gold": [
+            "gardener",
+            "he"
+          ],
+          "named_gold": [
+            "gardener"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_10",
+          "v": "admire",
+          "off_head": "frank",
+          "on_head": "frank",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "frank"
+          ],
+          "named_gold": [
+            "frank"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_12",
+          "v": "say",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0495,
+          "cos1": 0.6214,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_15",
+          "v": "continue",
+          "off_head": "he",
+          "on_head": "boy",
+          "method": "coref_commit",
+          "margin": 0.3445,
+          "cos1": 0.9659,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L12_15",
+          "v": "enjoy",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "mother"
+          ],
+          "named_gold": [
+            "mother"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_16",
+          "v": "leave",
+          "off_head": "they",
+          "on_head": "flowers",
+          "method": "coref_commit",
+          "margin": 0.9976,
+          "cos1": 0.9976,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "verdict_a": "HARD_FAIL_A_NET_BREAKAGE",
+      "verdict_b": "HARD_PASS_B_CARRY_SEES_COREF_CONTINUITY",
+      "pred_a": {
+        "n_frame": 64,
+        "precision_OFF": 0.9375,
+        "precision_ON": 0.8438,
+        "newly_fixed": 0,
+        "newly_broken": 6,
+        "n_target_pron": 21,
+        "n_commit": 6,
+        "n_abstain_low_margin": 14,
+        "n_abstain_no_candidate": 1,
+        "abstain_rate": 0.7143,
+        "commit_rate": 0.2857,
+        "named_committed": 2,
+        "named_correct": 0,
+        "named_precision": 0.0,
+        "pron_subset_precision_OFF": 1.0,
+        "pron_subset_precision_ON": 0.7143,
+        "pron_subset_n": 21
+      },
+      "pred_b": {
+        "n_pairs": 3,
+        "continuity_committed": 0.7599,
+        "continuity_pronoun_invisible": 0.0294,
+        "continuity_random_control": 0.0409
+      },
+      "commit_log": [
+        {
+          "sid": "L07_21",
+          "v": "reach",
+          "pron": "they",
+          "resolved": "boys",
+          "margin": 0.1021,
+          "cos1": 0.6124,
+          "cos2": 0.5103,
+          "n_pool": 2,
+          "pool": [
+            "men",
+            "boys"
+          ]
+        },
+        {
+          "sid": "L09_06",
+          "v": "build",
+          "pron": "they",
+          "resolved": "huts",
+          "margin": 0.1005,
+          "cos1": 0.9908,
+          "cos2": 0.8903,
+          "n_pool": 4,
+          "pool": [
+            "huts",
+            "banks",
+            "rivers",
+            "lakes"
+          ]
+        },
+        {
+          "sid": "L09_18",
+          "v": "lay",
+          "pron": "they",
+          "resolved": "beavers",
+          "margin": 0.966,
+          "cos1": 0.966,
+          "cos2": 0.0,
+          "n_pool": 1,
+          "pool": [
+            "beavers"
+          ]
+        },
+        {
+          "sid": "L10_11",
+          "v": "make",
+          "pron": "he",
+          "resolved": "boy",
+          "margin": 0.1707,
+          "cos1": 0.9507,
+          "cos2": 0.78,
+          "n_pool": 10,
+          "pool": [
+            "boy",
+            "name",
+            "joe",
+            "table",
+            "piece",
+            "chalk",
+            "charles",
+            "hut",
+            "day",
+            "dog"
+          ]
+        },
+        {
+          "sid": "L10_18",
+          "v": "tell",
+          "pron": "they",
+          "resolved": "things",
+          "margin": 0.1075,
+          "cos1": 0.9975,
+          "cos2": 0.89,
+          "n_pool": 2,
+          "pool": [
+            "things",
+            "knees"
+          ]
+        },
+        {
+          "sid": "L12_15",
+          "v": "continue",
+          "pron": "he",
+          "resolved": "boy",
+          "margin": 0.3514,
+          "cos1": 0.9659,
+          "cos2": 0.6146,
+          "n_pool": 5,
+          "pool": [
+            "walk",
+            "garden",
+            "day",
+            "frank",
+            "boy"
+          ]
+        },
+        {
+          "sid": "L12_16",
+          "v": "leave",
+          "pron": "they",
+          "resolved": "flowers",
+          "margin": 0.9975,
+          "cos1": 0.9975,
+          "cos2": 0.0,
+          "n_pool": 1,
+          "pool": [
+            "flowers"
+          ]
+        }
+      ],
+      "pair_log": [
+        {
+          "sid": "L07_21",
+          "prev_sid": "L07_20",
+          "pron": "they",
+          "resolved": "boys",
+          "cont_committed": 0.6488,
+          "cont_pron_invis": 0.0318,
+          "cont_random": 0.0277,
+          "n_map_terms": 2
+        },
+        {
+          "sid": "L09_06",
+          "prev_sid": "L09_05",
+          "pron": "they",
+          "resolved": "huts",
+          "cont_committed": 1.0,
+          "cont_pron_invis": 0.0189,
+          "cont_random": 0.0395,
+          "n_map_terms": 1
+        },
+        {
+          "sid": "L09_18",
+          "prev_sid": "L09_17",
+          "pron": "they",
+          "resolved": "beavers",
+          "cont_committed": 0.6311,
+          "cont_pron_invis": 0.0374,
+          "cont_random": 0.0555,
+          "n_map_terms": 2
+        }
+      ],
+      "per_instance": [
+        {
+          "sid": "L04_02",
+          "v": "rub",
+          "off_head": "cat",
+          "on_head": "cat",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "cat",
+            "pussy"
+          ],
+          "named_gold": [
+            "cat",
+            "pussy"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_04",
+          "v": "pass",
+          "off_head": "it",
+          "on_head": "it",
+          "method": "abstain_low_margin",
+          "margin": 0.0038,
+          "cos1": 0.7192,
+          "gold": [
+            "it"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_11",
+          "v": "open",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_15",
+          "v": "come",
+          "off_head": "boy",
+          "on_head": "boy",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "boy"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_16",
+          "v": "say",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "papa"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_18",
+          "v": "hear",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "nod",
+          "off_head": "herbert",
+          "on_head": "herbert",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "herbert"
+          ],
+          "named_gold": [
+            "herbert"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "sit",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "papa"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "show",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_06",
+          "v": "knock",
+          "off_head": "pussy",
+          "on_head": "pussy",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "cat",
+            "pussy"
+          ],
+          "named_gold": [
+            "cat",
+            "pussy"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_15",
+          "v": "build",
+          "off_head": "i'll",
+          "on_head": "i'll",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "you"
+          ],
+          "named_gold": [
+            "you"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L05_22",
+          "v": "see",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_24",
+          "v": "leave",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_04",
+          "v": "spend",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0005,
+          "cos1": 0.6151,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_06",
+          "v": "say",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0759,
+          "cos1": 0.6153,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_07",
+          "v": "tell",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "mother"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_09",
+          "v": "meet",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.066,
+          "cos1": 0.6108,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_13",
+          "v": "struggle",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_no_candidate",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_20",
+          "v": "see",
+          "off_head": "men",
+          "on_head": "men",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "men"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_21",
+          "v": "reach",
+          "off_head": "they",
+          "on_head": "boys",
+          "method": "coref_commit",
+          "margin": 0.1021,
+          "cos1": 0.6124,
+          "gold": [
+            "men",
+            "they"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L07_25",
+          "v": "obey",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0014,
+          "cos1": 0.6125,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_01",
+          "v": "stroke",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "choose",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "kitten"
+          ],
+          "named_gold": [
+            "kitten"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L08_02",
+          "v": "hear",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "open",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "say",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_08",
+          "v": "choose",
+          "off_head": "children",
+          "on_head": "children",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "children"
+          ],
+          "named_gold": [
+            "children"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_03",
+          "v": "lie",
+          "off_head": "fur",
+          "on_head": "fur",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "fur"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_04",
+          "v": "build",
+          "off_head": "beavers",
+          "on_head": "beavers",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_05",
+          "v": "build",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0914,
+          "cos1": 0.9908,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_06",
+          "v": "build",
+          "off_head": "they",
+          "on_head": "huts",
+          "method": "coref_commit",
+          "margin": 0.1005,
+          "cos1": 0.9908,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L09_11",
+          "v": "commence",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0703,
+          "cos1": 0.9975,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_12",
+          "v": "make",
+          "off_head": "freezing",
+          "on_head": "freezing",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "freezing"
+          ],
+          "named_gold": [
+            "freezing"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_13",
+          "v": "obtain",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0201,
+          "cos1": 0.9908,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_16",
+          "v": "hunt",
+          "off_head": "men",
+          "on_head": "men",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "men"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_17",
+          "v": "see",
+          "off_head": "gentleman",
+          "on_head": "gentleman",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gentleman"
+          ],
+          "named_gold": [
+            "gentleman"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_20",
+          "v": "leave",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0599,
+          "cos1": 0.6144,
+          "gold": [
+            "gentleman",
+            "he"
+          ],
+          "named_gold": [
+            "gentleman"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_03",
+          "v": "tell",
+          "off_head": "rose",
+          "on_head": "rose",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "rose"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_05",
+          "v": "stand",
+          "off_head": "hut",
+          "on_head": "hut",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "hut"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_06",
+          "v": "keep",
+          "off_head": "wife",
+          "on_head": "wife",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "wife"
+          ],
+          "named_gold": [
+            "wife"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_10",
+          "v": "call",
+          "off_head": "charles",
+          "on_head": "charles",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_11",
+          "v": "make",
+          "off_head": "he",
+          "on_head": "boy",
+          "method": "coref_commit",
+          "margin": 0.1707,
+          "cos1": 0.9507,
+          "gold": [
+            "he",
+            "joe"
+          ],
+          "named_gold": [
+            "joe"
+          ],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L10_14",
+          "v": "make",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles",
+            "i"
+          ],
+          "named_gold": [
+            "charles"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_18",
+          "v": "tell",
+          "off_head": "they",
+          "on_head": "things",
+          "method": "coref_commit",
+          "margin": 0.1075,
+          "cos1": 0.9975,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L10_19",
+          "v": "come",
+          "off_head": "hour",
+          "on_head": "hour",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "hour"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_26",
+          "v": "see",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_29",
+          "v": "tell",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0197,
+          "cos1": 0.5993,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_30",
+          "v": "leave",
+          "off_head": "gentleman",
+          "on_head": "gentleman",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gentleman"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_36",
+          "v": "put",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0497,
+          "cos1": 0.6108,
+          "gold": [
+            "he",
+            "rose"
+          ],
+          "named_gold": [
+            "rose"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_37",
+          "v": "meet",
+          "off_head": "sight",
+          "on_head": "sight",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "sight"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_38",
+          "v": "rule",
+          "off_head": "charles",
+          "on_head": "charles",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles"
+          ],
+          "named_gold": [
+            "charles"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_41",
+          "v": "give",
+          "off_head": "father",
+          "on_head": "father",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "father"
+          ],
+          "named_gold": [
+            "father"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_42",
+          "v": "come",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0035,
+          "cos1": 0.9684,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_03",
+          "v": "say",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L12_04",
+          "v": "invite",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gardener"
+          ],
+          "named_gold": [
+            "gardener"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L12_04",
+          "v": "wish",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_05",
+          "v": "thank",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "mother"
+          ],
+          "named_gold": [
+            "mother"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_06",
+          "v": "walk",
+          "off_head": "frank",
+          "on_head": "frank",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "frank"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_09",
+          "v": "show",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0467,
+          "cos1": 0.5992,
+          "gold": [
+            "gardener",
+            "he"
+          ],
+          "named_gold": [
+            "gardener"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_10",
+          "v": "admire",
+          "off_head": "frank",
+          "on_head": "frank",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "frank"
+          ],
+          "named_gold": [
+            "frank"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_12",
+          "v": "say",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0428,
+          "cos1": 0.6146,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_15",
+          "v": "continue",
+          "off_head": "he",
+          "on_head": "boy",
+          "method": "coref_commit",
+          "margin": 0.3514,
+          "cos1": 0.9659,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L12_15",
+          "v": "enjoy",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "mother"
+          ],
+          "named_gold": [
+            "mother"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_16",
+          "v": "leave",
+          "off_head": "they",
+          "on_head": "flowers",
+          "method": "coref_commit",
+          "margin": 0.9975,
+          "cos1": 0.9975,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "verdict_a": "HARD_FAIL_A_NET_BREAKAGE",
+      "verdict_b": "HARD_PASS_B_CARRY_SEES_COREF_CONTINUITY",
+      "pred_a": {
+        "n_frame": 64,
+        "precision_OFF": 0.9375,
+        "precision_ON": 0.8594,
+        "newly_fixed": 0,
+        "newly_broken": 5,
+        "n_target_pron": 21,
+        "n_commit": 5,
+        "n_abstain_low_margin": 15,
+        "n_abstain_no_candidate": 1,
+        "abstain_rate": 0.7619,
+        "commit_rate": 0.2381,
+        "named_committed": 1,
+        "named_correct": 0,
+        "named_precision": 0.0,
+        "pron_subset_precision_OFF": 1.0,
+        "pron_subset_precision_ON": 0.7619,
+        "pron_subset_n": 21
+      },
+      "pred_b": {
+        "n_pairs": 2,
+        "continuity_committed": 0.8162,
+        "continuity_pronoun_invisible": 0.0518,
+        "continuity_random_control": 0.0366
+      },
+      "commit_log": [
+        {
+          "sid": "L09_06",
+          "v": "build",
+          "pron": "they",
+          "resolved": "huts",
+          "margin": 0.1033,
+          "cos1": 0.9907,
+          "cos2": 0.8873,
+          "n_pool": 4,
+          "pool": [
+            "huts",
+            "banks",
+            "rivers",
+            "lakes"
+          ]
+        },
+        {
+          "sid": "L09_18",
+          "v": "lay",
+          "pron": "they",
+          "resolved": "beavers",
+          "margin": 0.9646,
+          "cos1": 0.9646,
+          "cos2": 0.0,
+          "n_pool": 1,
+          "pool": [
+            "beavers"
+          ]
+        },
+        {
+          "sid": "L10_11",
+          "v": "make",
+          "pron": "he",
+          "resolved": "boy",
+          "margin": 0.1771,
+          "cos1": 0.9528,
+          "cos2": 0.7758,
+          "n_pool": 10,
+          "pool": [
+            "boy",
+            "name",
+            "joe",
+            "table",
+            "piece",
+            "chalk",
+            "charles",
+            "hut",
+            "day",
+            "dog"
+          ]
+        },
+        {
+          "sid": "L10_18",
+          "v": "tell",
+          "pron": "they",
+          "resolved": "things",
+          "margin": 0.1103,
+          "cos1": 0.9975,
+          "cos2": 0.8872,
+          "n_pool": 2,
+          "pool": [
+            "things",
+            "knees"
+          ]
+        },
+        {
+          "sid": "L12_15",
+          "v": "continue",
+          "pron": "he",
+          "resolved": "boy",
+          "margin": 0.3449,
+          "cos1": 0.9675,
+          "cos2": 0.6226,
+          "n_pool": 5,
+          "pool": [
+            "walk",
+            "garden",
+            "day",
+            "frank",
+            "boy"
+          ]
+        },
+        {
+          "sid": "L12_16",
+          "v": "leave",
+          "pron": "they",
+          "resolved": "flowers",
+          "margin": 0.9975,
+          "cos1": 0.9975,
+          "cos2": 0.0,
+          "n_pool": 1,
+          "pool": [
+            "flowers"
+          ]
+        }
+      ],
+      "pair_log": [
+        {
+          "sid": "L09_06",
+          "prev_sid": "L09_05",
+          "pron": "they",
+          "resolved": "huts",
+          "cont_committed": 1.0,
+          "cont_pron_invis": 0.0423,
+          "cont_random": 0.0405,
+          "n_map_terms": 1
+        },
+        {
+          "sid": "L09_18",
+          "prev_sid": "L09_17",
+          "pron": "they",
+          "resolved": "beavers",
+          "cont_committed": 0.6324,
+          "cont_pron_invis": 0.0613,
+          "cont_random": 0.0328,
+          "n_map_terms": 2
+        }
+      ],
+      "per_instance": [
+        {
+          "sid": "L04_02",
+          "v": "rub",
+          "off_head": "cat",
+          "on_head": "cat",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "cat",
+            "pussy"
+          ],
+          "named_gold": [
+            "cat",
+            "pussy"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_04",
+          "v": "pass",
+          "off_head": "it",
+          "on_head": "it",
+          "method": "abstain_low_margin",
+          "margin": 0.003,
+          "cos1": 0.7208,
+          "gold": [
+            "it"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_11",
+          "v": "open",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_15",
+          "v": "come",
+          "off_head": "boy",
+          "on_head": "boy",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "boy"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_16",
+          "v": "say",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "papa"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_18",
+          "v": "hear",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "nod",
+          "off_head": "herbert",
+          "on_head": "herbert",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "herbert"
+          ],
+          "named_gold": [
+            "herbert"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "sit",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "papa"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L04_19",
+          "v": "show",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_06",
+          "v": "knock",
+          "off_head": "pussy",
+          "on_head": "pussy",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "cat",
+            "pussy"
+          ],
+          "named_gold": [
+            "cat",
+            "pussy"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_15",
+          "v": "build",
+          "off_head": "i'll",
+          "on_head": "i'll",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "you"
+          ],
+          "named_gold": [
+            "you"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L05_22",
+          "v": "see",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L05_24",
+          "v": "leave",
+          "off_head": "papa",
+          "on_head": "papa",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "papa"
+          ],
+          "named_gold": [
+            "papa"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_04",
+          "v": "spend",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0,
+          "cos1": 0.6228,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_06",
+          "v": "say",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0672,
+          "cos1": 0.623,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_07",
+          "v": "tell",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "mother"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_09",
+          "v": "meet",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0644,
+          "cos1": 0.6205,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_13",
+          "v": "struggle",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_no_candidate",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_20",
+          "v": "see",
+          "off_head": "men",
+          "on_head": "men",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "men"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_21",
+          "v": "reach",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.099,
+          "cos1": 0.6187,
+          "gold": [
+            "men",
+            "they"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L07_25",
+          "v": "obey",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0001,
+          "cos1": 0.6214,
+          "gold": [
+            "he",
+            "james"
+          ],
+          "named_gold": [
+            "james"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_01",
+          "v": "stroke",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "choose",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "kitten"
+          ],
+          "named_gold": [
+            "kitten"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L08_02",
+          "v": "hear",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "open",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_02",
+          "v": "say",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L08_08",
+          "v": "choose",
+          "off_head": "children",
+          "on_head": "children",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "children"
+          ],
+          "named_gold": [
+            "children"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_03",
+          "v": "lie",
+          "off_head": "fur",
+          "on_head": "fur",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "fur"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_04",
+          "v": "build",
+          "off_head": "beavers",
+          "on_head": "beavers",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_05",
+          "v": "build",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0938,
+          "cos1": 0.9907,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_06",
+          "v": "build",
+          "off_head": "they",
+          "on_head": "huts",
+          "method": "coref_commit",
+          "margin": 0.1033,
+          "cos1": 0.9907,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L09_11",
+          "v": "commence",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0702,
+          "cos1": 0.9975,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_12",
+          "v": "make",
+          "off_head": "freezing",
+          "on_head": "freezing",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "freezing"
+          ],
+          "named_gold": [
+            "freezing"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_13",
+          "v": "obtain",
+          "off_head": "they",
+          "on_head": "they",
+          "method": "abstain_low_margin",
+          "margin": 0.0212,
+          "cos1": 0.9907,
+          "gold": [
+            "beavers",
+            "they"
+          ],
+          "named_gold": [
+            "beavers"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_16",
+          "v": "hunt",
+          "off_head": "men",
+          "on_head": "men",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "men"
+          ],
+          "named_gold": [
+            "men"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_17",
+          "v": "see",
+          "off_head": "gentleman",
+          "on_head": "gentleman",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gentleman"
+          ],
+          "named_gold": [
+            "gentleman"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L09_20",
+          "v": "leave",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0525,
+          "cos1": 0.6228,
+          "gold": [
+            "gentleman",
+            "he"
+          ],
+          "named_gold": [
+            "gentleman"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_03",
+          "v": "tell",
+          "off_head": "rose",
+          "on_head": "rose",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "rose"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_05",
+          "v": "stand",
+          "off_head": "hut",
+          "on_head": "hut",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "hut"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_06",
+          "v": "keep",
+          "off_head": "wife",
+          "on_head": "wife",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "wife"
+          ],
+          "named_gold": [
+            "wife"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_10",
+          "v": "call",
+          "off_head": "charles",
+          "on_head": "charles",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_11",
+          "v": "make",
+          "off_head": "he",
+          "on_head": "boy",
+          "method": "coref_commit",
+          "margin": 0.1771,
+          "cos1": 0.9528,
+          "gold": [
+            "he",
+            "joe"
+          ],
+          "named_gold": [
+            "joe"
+          ],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L10_14",
+          "v": "make",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles",
+            "i"
+          ],
+          "named_gold": [
+            "charles"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_18",
+          "v": "tell",
+          "off_head": "they",
+          "on_head": "things",
+          "method": "coref_commit",
+          "margin": 0.1103,
+          "cos1": 0.9975,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L10_19",
+          "v": "come",
+          "off_head": "hour",
+          "on_head": "hour",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "hour"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_26",
+          "v": "see",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_29",
+          "v": "tell",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0168,
+          "cos1": 0.602,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_30",
+          "v": "leave",
+          "off_head": "gentleman",
+          "on_head": "gentleman",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gentleman"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_36",
+          "v": "put",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0479,
+          "cos1": 0.6211,
+          "gold": [
+            "he",
+            "rose"
+          ],
+          "named_gold": [
+            "rose"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_37",
+          "v": "meet",
+          "off_head": "sight",
+          "on_head": "sight",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "sight"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_38",
+          "v": "rule",
+          "off_head": "charles",
+          "on_head": "charles",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "charles"
+          ],
+          "named_gold": [
+            "charles"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_41",
+          "v": "give",
+          "off_head": "father",
+          "on_head": "father",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "father"
+          ],
+          "named_gold": [
+            "father"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L10_42",
+          "v": "come",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0036,
+          "cos1": 0.97,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_03",
+          "v": "say",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L12_04",
+          "v": "invite",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "gardener"
+          ],
+          "named_gold": [
+            "gardener"
+          ],
+          "okOFF": false,
+          "okON": false
+        },
+        {
+          "sid": "L12_04",
+          "v": "wish",
+          "off_head": "i",
+          "on_head": "i",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "i"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_05",
+          "v": "thank",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "mother"
+          ],
+          "named_gold": [
+            "mother"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_06",
+          "v": "walk",
+          "off_head": "frank",
+          "on_head": "frank",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "frank"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_09",
+          "v": "show",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0414,
+          "cos1": 0.6021,
+          "gold": [
+            "gardener",
+            "he"
+          ],
+          "named_gold": [
+            "gardener"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_10",
+          "v": "admire",
+          "off_head": "frank",
+          "on_head": "frank",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "frank"
+          ],
+          "named_gold": [
+            "frank"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_12",
+          "v": "say",
+          "off_head": "he",
+          "on_head": "he",
+          "method": "abstain_low_margin",
+          "margin": 0.0441,
+          "cos1": 0.6226,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_15",
+          "v": "continue",
+          "off_head": "he",
+          "on_head": "boy",
+          "method": "coref_commit",
+          "margin": 0.3449,
+          "cos1": 0.9675,
+          "gold": [
+            "he"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        },
+        {
+          "sid": "L12_15",
+          "v": "enjoy",
+          "off_head": "mother",
+          "on_head": "mother",
+          "method": "identity",
+          "margin": 0.0,
+          "cos1": 0.0,
+          "gold": [
+            "he",
+            "mother"
+          ],
+          "named_gold": [
+            "mother"
+          ],
+          "okOFF": true,
+          "okON": true
+        },
+        {
+          "sid": "L12_16",
+          "v": "leave",
+          "off_head": "they",
+          "on_head": "flowers",
+          "method": "coref_commit",
+          "margin": 0.9975,
+          "cos1": 0.9975,
+          "gold": [
+            "they"
+          ],
+          "named_gold": [],
+          "okOFF": true,
+          "okON": false
+        }
+      ]
+    }
+  ],
+  "lccp_summary": {
+    "C_precision_lccp": 0.5,
+    "n_keptC": 68,
+    "n_reader_svo": 225
+  },
+  "arms_differ_verified": true,
+  "arms_differ_hashes": {
+    "OFF": "55e73cde8c8a5494",
+    "ON": "8840c9e1ab9d825d"
+  },
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "crlb_n_a": "no additive-Gaussian estimator floor; FHRR crosstalk Plate O(N/log N)~134@N=2048, pools<10",
+  "cited": {
+    "headfinder_B2_agent_lens": 0.938,
+    "prior_coref_break": "16-broken-for-1-fixed (recall_cost 0.308, dP -0.234)",
+    "reader_topline": "reader true-stacked precision 0.557 (separate top-line aggregate; this cell measures the agent-lens P where head-finder OFF=0.938)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_a",
+    "verdict_b",
+    "aggregates_multiseed",
+    "per_seed",
+    "arms_differ_verified",
+    "baseline_in_band",
+    "discriminator_fires"
+  ],
+  "reused_components": {
+    "lccp": "exp_learned_argstruct_parser_lccp_independent_gold_v1 (arm-C keptC; atom 29338)",
+    "head_finder": "exp_np_head_finder_grounding_gate_break050_v1.resolve_heads(use_grounding=True) (atom 29342)",
+    "gold_agentsets": "exp_attachment_coref_lever_lccp_break050_v1.load_gold_agentsets",
+    "overlay": "hdlab.state_of_mind.WorkingOverlay (entity tracking / gender-number / salience)",
+    "fhrr": "hdlab.binding.bind + hdlab.bundling.bundle (Pred B carry; real primitives)"
+  },
+  "notes": "Margin-gated abstaining coref via HD cleanup-memory. Pred A = help-not-hurt break-budget (newly_broken<=newly_fixed, ideally 0) + committed-named precision (who-did-what), the make-or-break vs the prior UNGATED 16-for-1 HARD_FAIL. Pred B = committed coref codes into the Tier-2 FHRR carry reverse Step-1's pronoun-invisible carry (non-zero same-entity continuity). ACCEPT the 65-89%% brain-shared accuracy ceiling: the win is abstain-based help-not-hurt + the entity-carry, NOT high accuracy. IC term OFF (w_ic=0, low feasibility this corpus). STRATEGIC READ = HYPOTHESIS pending skunkworks landed-VET. Single-annotator gold. LOCAL-ONLY; needs_orchestrator_store_sync=True; NO push/remote-persist/git-add-A.",
+  "needs_orchestrator_store_sync": true
+}

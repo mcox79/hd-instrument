@@ -1,0 +1,183 @@
+{
+  "anchor_name": "redundancy_decorrelation_from_coherence_gate_precheck_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_NO_SAFE_SECOND_VIEW",
+  "verdict_msg": "HARD_FAIL_NO_SAFE_SECOND_VIEW | slice=L04+L05+L07+L08+L09+L10+L12 seeds=[7, 13, 19] n_rec=225 | M1 DECORR pearson(sigB,redun|incorrect)=0.1831 ci95=[0.0475, 0.3037] phi_keep=0.0885 (all=0.212; gate-self-ref=1.0) | decorrelated=False same_family=False | M2/M3 correctness base=0.1956 GATE=0.2(n=185) REDUN=0.5714(n=14) DOUBLE=0.5385(n=13) | double-best_single=-0.0329 double_lift=False | M4 gate_catch=0.1844 redun_catch=0.9665 both_miss=0.0335 | seed_inv=True arms_differ=True gate~precheck0.20=True",
+  "summary": "HARD_FAIL_NO_SAFE_SECOND_VIEW | slice=L04+L05+L07+L08+L09+L10+L12 seeds=[7, 13, 19] n_rec=225 | M1 DECORR pearson(sigB,redun|incorrect)=0.1831 ci95=[0.0475, 0.3037] phi_keep=0.0885 (all=0.212; gate-self-ref=1.0) | decorrelated=False same_family=False | M2/M3 correctness base=0.1956 GATE=0.2(n=185) REDUN=0.5714(n=14) DOUBLE=0.5385(n=13) | double-best_single=-0.0329 double_lift=False | M4 gate_catch=0.1844 redun_catch=0.9665 both_miss=0.0335 | seed_inv=True arms_differ=True gate~precheck0.20=True",
+  "elapsed_s": 26.608711300010327,
+  "ts_iso": "2026-07-19T16:14:45.121859+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ]
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "redun_threshold": 2,
+  "gate_thr_keep": 0.15,
+  "decorrelation_seed0": {
+    "n_both_opinion": 222,
+    "n_incorrect": 179,
+    "pearson_sigB_redun_all": 0.212,
+    "pearson_sigB_redun_on_incorrect": 0.1831,
+    "pearson_on_incorrect_ci95": [
+      0.0475,
+      0.3037
+    ],
+    "phi_gatekeep_redunkeep_on_incorrect": 0.0885,
+    "gate_with_itself_reference": 1.0,
+    "gate_catches_wrong_frac": 0.1844,
+    "redun_catches_wrong_frac": 0.9665,
+    "both_miss_wrong_frac": 0.0335
+  },
+  "verdict_detail": {
+    "verdict": "HARD_FAIL_NO_SAFE_SECOND_VIEW",
+    "decorrelated": false,
+    "same_family": false,
+    "double_lift": false,
+    "double_nolift": true,
+    "pearson_on_incorrect": 0.1831,
+    "pearson_ci_upper": 0.3037,
+    "gate_precision": 0.2,
+    "redun_precision": 0.5714,
+    "double_precision": 0.5385,
+    "best_single_precision": 0.5714,
+    "double_minus_best_single": -0.0329,
+    "n_double_kept": 13
+  },
+  "single_filters_seed0": {
+    "base_rate": {
+      "precision": 0.1956,
+      "n": 225,
+      "wilson95": [
+        0.1956,
+        0.149,
+        0.2523
+      ]
+    },
+    "GATE": {
+      "precision": 0.2,
+      "n_kept": 185,
+      "n_correct": 37,
+      "wilson95": [
+        0.2,
+        0.1487,
+        0.2635
+      ]
+    },
+    "REDUN": {
+      "precision": 0.5714,
+      "n_kept": 14,
+      "n_correct": 8,
+      "wilson95": [
+        0.5714,
+        0.3259,
+        0.7862
+      ]
+    },
+    "DOUBLE": {
+      "precision": 0.5385,
+      "n_kept": 13,
+      "n_correct": 7,
+      "wilson95": [
+        0.5385,
+        0.2914,
+        0.7679
+      ]
+    }
+  },
+  "seed_invariant": true,
+  "arms_differ": true,
+  "double_equals_redun_subset_of_gate": false,
+  "double_equals_gate_subset_of_redun": false,
+  "gate_precision_matches_precheck_020": true,
+  "kept_hashes_seed0": {
+    "GATE": "d77ccff18b2d9378",
+    "REDUN": "4a19ab8f32d727c8",
+    "DOUBLE": "1c1ad9f4421f45c5",
+    "ALL": "cab5c6b196d491b7"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "GATE": {
+        "precision": 0.2,
+        "n_kept": 185,
+        "n_correct": 37
+      },
+      "REDUN": {
+        "precision": 0.5714,
+        "n_kept": 14,
+        "n_correct": 8
+      },
+      "DOUBLE": {
+        "precision": 0.5385,
+        "n_kept": 13,
+        "n_correct": 7
+      },
+      "decorr_on_incorrect": 0.1831
+    },
+    {
+      "seed": 13,
+      "GATE": {
+        "precision": 0.2,
+        "n_kept": 185,
+        "n_correct": 37
+      },
+      "REDUN": {
+        "precision": 0.5714,
+        "n_kept": 14,
+        "n_correct": 8
+      },
+      "DOUBLE": {
+        "precision": 0.5385,
+        "n_kept": 13,
+        "n_correct": 7
+      },
+      "decorr_on_incorrect": 0.1831
+    },
+    {
+      "seed": 19,
+      "GATE": {
+        "precision": 0.2,
+        "n_kept": 185,
+        "n_correct": 37
+      },
+      "REDUN": {
+        "precision": 0.5714,
+        "n_kept": 14,
+        "n_correct": 8
+      },
+      "DOUBLE": {
+        "precision": 0.5385,
+        "n_kept": 13,
+        "n_correct": 7
+      },
+      "decorr_on_incorrect": 0.1831
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "needs_orchestrator_store_sync": true,
+  "storage": "local_only",
+  "cited_filtered_raw_precision": 0.2,
+  "cited_redun_corr_vs_correct": 0.244,
+  "cited_gate_corr_vs_correct": 0.139,
+  "reuses_precheck": "experiments/exp_coherence_filter_foundation_growth_safety_precheck_v1.py (build_eval)",
+  "independent_gold_source": "data/gold_mcguffey_lccp_argstruct_v1.json (single-annotator; pos + nopat).",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "decorrelation_seed0",
+    "verdict_detail",
+    "single_filters_seed0"
+  ],
+  "notes": "FORK-(C) STEP-0 decisive gate: is REDUNDANCY a SAFE, error-DECORRELATED second view vs the coherence gate (Blum-Mitchell co-training condition), and does the coherence-AND-redundancy DOUBLE filter beat either single filter's correctness. HARD_PASS => cross-doc consolidation safe to build; HARD_FAIL => no safe second view here (valuable negative, redirect). Reuses the atom-29346 pre-check data (no new experiment). CLAIM-VET-pending; single-annotator gold (caveated); McGuffey L04-L12 real early-reading text. Decorrelation number reported PLAINLY, bar pre-registered (no criterion-swap)."
+}

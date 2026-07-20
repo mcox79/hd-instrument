@@ -1,0 +1,135 @@
+{
+  "anchor_name": "metacog_abstain_conformal_transfer_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST",
+  "verdict_msg": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST | median rel_red=0.317 (in-sample 0.327) cov=0.507 cw_test=0.500 beats_rand_frac=1.000 pooled_beats=True gap=-0.013 base_wrong=0.732 | must_fail_ctrl_relred=-0.003762833951513247 | gates=ok",
+  "summary": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST | median rel_red=0.317 (in-sample 0.327) cov=0.507 cw_test=0.500 beats_rand_frac=1.000 pooled_beats=True gap=-0.013 base_wrong=0.732 | must_fail_ctrl_relred=-0.003762833951513247 | gates=ok",
+  "elapsed_s": 18.791046900005313,
+  "ts_iso": "2026-07-20T02:50:07.350855+00:00",
+  "needs_orchestrator_store_sync": true,
+  "local_only": true,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "prereg": {
+    "target_cov_primary": 0.5,
+    "target_cov_grid": [
+      0.5,
+      0.6,
+      0.7
+    ],
+    "n_splits": 40,
+    "reader_seeds": [
+      7,
+      13,
+      19
+    ],
+    "split_frac_cal": 0.5,
+    "HP": {
+      "cov": [
+        0.45,
+        0.6
+      ],
+      "rel_red": 0.2,
+      "beats_frac": 0.6,
+      "gap_max": 0.12
+    },
+    "HF": {
+      "rel_red_lt": 0.15,
+      "cov_outside": [
+        0.4,
+        0.65
+      ],
+      "beats_frac_lt": 0.4
+    },
+    "insample_relred": 0.327,
+    "method": "split-conformal (Vovk/Angelopoulos) + Chow reject; hdlab/conformal.py"
+  },
+  "result": {
+    "verdict": "HARD_PASS_CONFORMAL_THRESHOLD_TRANSFERS_TO_DISJOINT_TEST",
+    "primary": {
+      "n_splits_ok": 40,
+      "median_realized_cov": 0.5070422535211268,
+      "median_base_wrong_test": 0.7323943661971831,
+      "median_cw_test": 0.5,
+      "median_rel_red": 0.31730769230769235,
+      "median_transfer_gap": -0.01252913752913759,
+      "frac_beats_random": 1.0,
+      "iqr_rel_red": [
+        0.2714871378393391,
+        0.3818678513071896
+      ],
+      "pooled_median_cw": 0.5,
+      "pooled_median_rand_p2.5": 0.637330754352031,
+      "pooled_beats_random": true
+    },
+    "must_fail_control_median_rel_red": -0.003762833951513247,
+    "target_cov_grid": {
+      "0.5": {
+        "median_rel_red": 0.31730769230769235,
+        "median_realized_cov": 0.5070422535211268,
+        "frac_beats_random": 1.0
+      },
+      "0.6": {
+        "median_rel_red": 0.21075643696213664,
+        "median_realized_cov": 0.6056338028169014,
+        "frac_beats_random": 0.975
+      },
+      "0.7": {
+        "median_rel_red": 0.11074071086114701,
+        "median_realized_cov": 0.7464788732394366,
+        "frac_beats_random": 0.925
+      }
+    },
+    "mondrian": {
+      "applicable_splits": 40,
+      "target": 0.5,
+      "per_group": {
+        "heldout": {
+          "n_splits": 40,
+          "mean_cov_pooled": 0.5767523056793568,
+          "mean_cov_mondrian": 0.5135560904523754
+        },
+        "seen": {
+          "n_splits": 40,
+          "mean_cov_pooled": 0.4848782642145448,
+          "mean_cov_mondrian": 0.5101442991007457
+        }
+      }
+    },
+    "adaptive_alpha": {
+      "target_cov": 0.5,
+      "mean_cov_static": 0.4940140845070422,
+      "mean_cov_online": 0.5035211267605634,
+      "mean_abs_err_static": 0.08098591549295775,
+      "mean_abs_err_online": 0.026760563380281682
+    },
+    "insample_reference": {
+      "rel_red": 0.327,
+      "confident_wrong": 0.493,
+      "base_wrong": 0.732,
+      "source": "MEASURED@data/exp_metacog_abstain_readout_signal_thresholding_v1/metrics.json"
+    },
+    "gates": {
+      "base_wrong_in_band": true,
+      "signal_nondegenerate": true,
+      "arms_differ": true,
+      "gate_notes": []
+    },
+    "n_pop_per_seed": {
+      "7": 142
+    },
+    "score_digests": {
+      "7": "cffc6f94ba43e9bf306f4c8af2a47d18d6eb4eab57631d7d89e89372d83a6f43"
+    },
+    "elapsed_build_s": 18.657068000000436
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "verdict_msg",
+    "summary",
+    "elapsed_s",
+    "result"
+  ]
+}

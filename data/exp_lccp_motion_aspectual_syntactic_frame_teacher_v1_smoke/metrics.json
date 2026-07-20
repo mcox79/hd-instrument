@@ -1,0 +1,463 @@
+{
+  "anchor_name": "lccp_motion_aspectual_syntactic_frame_teacher_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_GENUINE_SYNTACTIC_LEARNING",
+  "primary_metric": "GENUINE-SYNTACTIC-LEARNING test: w[f_dirpp](T) sign robustness (clean + subcatfreq-ablated) + must-fail membership-randomization fires + S_semantic reproduces the failed positive-sign route (independent gold, category-c held OUT)",
+  "needs_orchestrator_store_sync": true,
+  "denominator_M_motion_aspectual_nopat_instances": 8,
+  "fp_a_C0_mean": 0.25,
+  "fp_a_C0_std": 0.0,
+  "fp_a_S_semantic_mean": 0.0,
+  "fp_a_S_semantic_std": 0.0,
+  "fp_a_T_syntactic_mean": 0.0,
+  "fp_a_T_syntactic_std": 0.0,
+  "fp_a_reduction_T_mean": 0.25,
+  "fp_a_reduction_T_std": 0.0,
+  "recall_retention_T_mean": 0.5712,
+  "recall_retention_T_std": 0.0,
+  "overall_precision_C0_mean": 0.4375,
+  "overall_precision_S_mean": 0.5833,
+  "overall_precision_T_mean": 0.5714,
+  "overall_recall_C0_mean": 0.2059,
+  "overall_recall_T_mean": 0.1176,
+  "LEARNING_w_f_dirpp_T_per_seed": [
+    -1.4342
+  ],
+  "LEARNING_w_f_dirpp_S_per_seed": [
+    0.2865
+  ],
+  "LEARNING_w_f_dirpp_T_subcatfreq_ablated_per_seed": [
+    -1.7802
+  ],
+  "LEARNING_w_f_dirpp_S_subcatfreq_ablated_per_seed": [
+    0.0136
+  ],
+  "LEARNING_t_dirpp_all_negative": true,
+  "LEARNING_t_dirpp_all_negative_ablated": true,
+  "LEARNING_s_dirpp_all_nonneg": true,
+  "LEARNING_mustfail_membership_all_seeds": true,
+  "LEARNING_mustfail_pdo_permute_all_seeds": false,
+  "LEARNING_clean_sign_negative_all_seeds": true,
+  "mustfail_per_seed": [
+    {
+      "w_dirpp_clean": -1.4342,
+      "w_dirpp_membership_randomized": -0.3661,
+      "w_dirpp_pdo_permuted": -1.8272,
+      "w_dirpp_clean_abs": 1.4342,
+      "w_dirpp_membership_randomized_abs": 0.3661,
+      "w_dirpp_pdo_permuted_abs": 1.8272,
+      "weight_drops_membership": true,
+      "weight_drops_pdo_permute": false,
+      "clean_sign_negative": true,
+      "fp_a_reduction_clean": 0.25,
+      "fp_a_reduction_membership_randomized": 0.25
+    }
+  ],
+  "direct_gate_ceiling": {
+    "note": "HAND-APPLIED structural gate (dirpp OR low syntactic-P_do) over arm-C0; DIAGNOSTIC ceiling only (NOT learned). The LEARNED arm T should approach this WITHOUT hand-installing the rule.",
+    "fp_a_direct_gate": 0.125,
+    "ma_keeps_direct": 1,
+    "overall_precision_direct": 0.4667,
+    "overall_recall_direct": 0.2059,
+    "recall_retention_direct_over_C0": 1.0
+  },
+  "prediction4_graded_argument_hood": {
+    "clear_argument_gold_TP": {
+      "mean": 0.4012,
+      "n": 8,
+      "min": 0.0179,
+      "max": 0.515
+    },
+    "motion_nopat_category_a": {
+      "mean": 0.0706,
+      "n": 8,
+      "min": 0.0001,
+      "max": 0.5033
+    },
+    "contested_gradient_category_c": {
+      "mean": 0.0155,
+      "n": 1,
+      "min": 0.0155,
+      "max": 0.0155
+    },
+    "ordering_ok": true
+  },
+  "syntactic_P_do_ma_sample_seed0": {
+    "come": {
+      "n_DO": 1,
+      "n_DIR": 0,
+      "n_other": 1,
+      "P_do": 0.6381
+    },
+    "fall": {
+      "n_DO": 0,
+      "n_DIR": 1,
+      "n_other": 0,
+      "P_do": 0.3048
+    },
+    "flit": {
+      "n_DO": 0,
+      "n_DIR": 1,
+      "n_other": 0,
+      "P_do": 0.3048
+    },
+    "keep": {
+      "n_DO": 0,
+      "n_DIR": 1,
+      "n_other": 0,
+      "P_do": 0.3048
+    },
+    "sit": {
+      "n_DO": 0,
+      "n_DIR": 3,
+      "n_other": 0,
+      "P_do": 0.1829
+    }
+  },
+  "syntactic_global_do_rate_seed0": 0.4571,
+  "pdo_separates_ma_low": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "C0": {
+        "precision": 0.4375,
+        "recall": 0.2059,
+        "f1": 0.28,
+        "n_pred": 16
+      },
+      "S_semantic": {
+        "precision": 0.5833,
+        "recall": 0.2059,
+        "f1": 0.3043,
+        "n_pred": 12
+      },
+      "T_syntactic": {
+        "precision": 0.5714,
+        "recall": 0.1176,
+        "f1": 0.1951,
+        "n_pred": 7
+      },
+      "fp_a_C0": 0.25,
+      "fp_a_S": 0.0,
+      "fp_a_T": 0.0,
+      "ma_keeps_C0": 2,
+      "ma_keeps_S": 0,
+      "ma_keeps_T": 0,
+      "fp_a_reduction_T": 0.25,
+      "fp_a_reduction_S": 0.25,
+      "recall_retention_T_over_C0": 0.5712,
+      "w_f_dirpp_S": 0.2865,
+      "w_f_dirpp_T": -1.4342,
+      "w_f_subcatfreq_S": 3.5349,
+      "w_f_subcatfreq_T": 3.2641,
+      "w_f_dirpp_T_subcatfreq_ablated": -1.7802,
+      "w_f_dirpp_S_subcatfreq_ablated": 0.0136,
+      "mustfail": {
+        "w_dirpp_clean": -1.4342,
+        "w_dirpp_membership_randomized": -0.3661,
+        "w_dirpp_pdo_permuted": -1.8272,
+        "w_dirpp_clean_abs": 1.4342,
+        "w_dirpp_membership_randomized_abs": 0.3661,
+        "w_dirpp_pdo_permuted_abs": 1.8272,
+        "weight_drops_membership": true,
+        "weight_drops_pdo_permute": false,
+        "clean_sign_negative": true,
+        "fp_a_reduction_clean": 0.25,
+        "fp_a_reduction_membership_randomized": 0.25
+      }
+    }
+  ],
+  "step1_triage_C0": {
+    "counts": {
+      "TP": 7,
+      "b_other_nopat_nonmotion": 3,
+      "b_spurious_or_other": 3,
+      "a_motion_aspectual": 2,
+      "b_within_transitive": 1
+    },
+    "examples": {
+      "b_other_nopat_nonmotion": [
+        [
+          "L04_04",
+          "pass",
+          "harm"
+        ],
+        [
+          "L04_13",
+          "know",
+          "know"
+        ],
+        [
+          "L04_16",
+          "say",
+          "papa"
+        ]
+      ],
+      "b_spurious_or_other": [
+        [
+          "L04_10",
+          "won't",
+          "herbert"
+        ],
+        [
+          "L05_12",
+          "finish",
+          "castle"
+        ],
+        [
+          "L05_17",
+          "can't",
+          "have"
+        ]
+      ],
+      "a_motion_aspectual": [
+        [
+          "L04_15",
+          "come",
+          "eyes"
+        ],
+        [
+          "L04_19",
+          "sit",
+          "son"
+        ]
+      ],
+      "b_within_transitive": [
+        [
+          "L04_19",
+          "show",
+          "you"
+        ]
+      ]
+    }
+  },
+  "step1_triage_T": {
+    "counts": {
+      "TP": 4,
+      "b_spurious_or_other": 2,
+      "b_other_nopat_nonmotion": 1
+    },
+    "examples": {
+      "b_spurious_or_other": [
+        [
+          "L04_10",
+          "won't",
+          "herbert"
+        ],
+        [
+          "L05_17",
+          "can't",
+          "have"
+        ]
+      ],
+      "b_other_nopat_nonmotion": [
+        [
+          "L04_16",
+          "say",
+          "papa"
+        ]
+      ]
+    }
+  },
+  "arm_T_artifacts_seed0": {
+    "teacher_kind": "syntactic",
+    "teacher_diag": {
+      "kind": "syntactic",
+      "global_do_rate": 0.4571,
+      "tot_DO": 16,
+      "tot_DIR": 19,
+      "n_verbs": 30
+    },
+    "w": [
+      -1.7075,
+      0.3075,
+      -0.4388,
+      -4.1628,
+      -3.1026,
+      -2.707,
+      -1.4342,
+      3.2641
+    ],
+    "feat_names": [
+      "bias",
+      "f_adj",
+      "f_postv",
+      "f_prep",
+      "f_func",
+      "f_clause",
+      "f_dirpp",
+      "f_subcatfreq"
+    ],
+    "n_train": 59,
+    "keep_abs": 0.6381,
+    "drop_abs": 0.6381,
+    "w_f_dirpp": -1.4342,
+    "w_f_subcatfreq": 3.2641,
+    "ma_construction_learned_prior": 0.1291,
+    "n_seen_ma_verbs": 8,
+    "seen_ma_verbs": [
+      "begin",
+      "come",
+      "fall",
+      "finish",
+      "flit",
+      "go",
+      "keep",
+      "sit"
+    ],
+    "P_do_ma_sample": {
+      "come": {
+        "n_DO": 1,
+        "n_DIR": 0,
+        "n_other": 1,
+        "P_do": 0.6381
+      },
+      "fall": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.3048
+      },
+      "flit": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.3048
+      },
+      "keep": {
+        "n_DO": 0,
+        "n_DIR": 1,
+        "n_other": 0,
+        "P_do": 0.3048
+      },
+      "sit": {
+        "n_DO": 0,
+        "n_DIR": 3,
+        "n_other": 0,
+        "P_do": 0.1829
+      }
+    }
+  },
+  "arm_S_artifacts_seed0": {
+    "teacher_kind": "semantic",
+    "teacher_diag": {
+      "kind": "semantic",
+      "note": "GloVe cosine to patient centroid (the FAILED route)"
+    },
+    "w": [
+      0.4135,
+      0.6597,
+      -0.265,
+      -6.5225,
+      -5.1981,
+      -5.1551,
+      0.2865,
+      3.5349
+    ],
+    "feat_names": [
+      "bias",
+      "f_adj",
+      "f_postv",
+      "f_prep",
+      "f_func",
+      "f_clause",
+      "f_dirpp",
+      "f_subcatfreq"
+    ],
+    "n_train": 55,
+    "keep_abs": 0.28,
+    "drop_abs": 0.1,
+    "w_f_dirpp": 0.2865,
+    "w_f_subcatfreq": 3.5349,
+    "ma_construction_learned_prior": 0.3115,
+    "n_seen_ma_verbs": 8,
+    "seen_ma_verbs": [
+      "begin",
+      "come",
+      "fall",
+      "finish",
+      "flit",
+      "go",
+      "keep",
+      "sit"
+    ],
+    "P_do_ma_sample": {}
+  },
+  "kept_hashes": {
+    "C0_lccp_armC": "c21de56e6612e3cf",
+    "S_semantic": "e6616b5f78703aa5",
+    "T_syntactic": "faa6a94c46d41e6e"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "discriminator_fires": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "n_sentences": 46,
+  "n_reader_svo": 61,
+  "n_gold_pos": 34,
+  "n_gold_nopat": 70,
+  "seeds": [
+    7
+  ],
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ],
+    "sel_keep": 0.28,
+    "sel_drop": 0.1,
+    "lr": 0.2,
+    "epochs": 40,
+    "keep_thr": 0.45,
+    "subcat_thr": 0.42,
+    "heldout_frac": 0.25,
+    "k_constructions": 4,
+    "p_keep": 60.0,
+    "p_drop": 40.0,
+    "seeds": [
+      7
+    ]
+  },
+  "prior_failed_routes_reference": {
+    "subcat_break_w_f_dirpp_per_seed": [
+      0.4467,
+      0.4439,
+      0.4534
+    ],
+    "subcat_break_MEASURED": "data/exp_lccp_motion_aspectual_subcat_break_v1/metrics.json",
+    "decontam_w_f_dirpp_per_seed": [
+      2.3451,
+      2.3348,
+      2.2668
+    ],
+    "decontam_verdict": "HARD_FAIL_DECONTAM_INSUFFICIENT",
+    "decontam_MEASURED": "data/exp_lccp_motion_aspectual_decontam_teacher_v1/metrics.json",
+    "note": "both prior routes used a SEMANTIC-coherence teacher -> w[f_dirpp] POSITIVE (wrong sign)."
+  },
+  "HONESTY_GUARD": "Even full success caps overall precision ~0.55 on arm-C0 scope, BELOW the stacked 0.557 patient-lens reader. Value here is METHODOLOGICAL (a structural rule GENUINELY LEARNED from a purely-syntactic frame-frequency signal, not hand-installed) + modest precision, NOT breaking 0.557. The direct-gate ceiling is a HAND-APPLIED diagnostic reference, NOT a learned result. A stack re-measure is a SEPARATE step, not claimed.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "fp_a_C0_mean",
+    "fp_a_S_semantic_mean",
+    "fp_a_T_syntactic_mean",
+    "fp_a_reduction_T_mean",
+    "recall_retention_T_mean",
+    "LEARNING_w_f_dirpp_T_per_seed",
+    "LEARNING_w_f_dirpp_S_per_seed",
+    "LEARNING_w_f_dirpp_T_subcatfreq_ablated_per_seed",
+    "LEARNING_t_dirpp_all_negative",
+    "LEARNING_t_dirpp_all_negative_ablated",
+    "LEARNING_s_dirpp_all_nonneg",
+    "LEARNING_mustfail_membership_all_seeds",
+    "mustfail_per_seed",
+    "direct_gate_ceiling",
+    "syntactic_P_do_ma_sample_seed0",
+    "pdo_separates_ma_low",
+    "per_seed"
+  ],
+  "verdict_msg": "HARD_PASS_GENUINE_SYNTACTIC_LEARNING | M=8 | FP_a C0=0.250 S=0.000 T=0.000+-0.000 redT=+0.250 RretT=0.571 | w_dirpp T/seed=[-1.4342] S/seed=[0.2865] Tneg_all=True Tneg_ablated_all=True Snonneg_all=True | mustfail_membership_drops_all=True pdo_permute_drops_all=False cleanNeg_all=True | P_do MA sep low=True (globalDO=0.457) | ceiling FP_a=0.125 P=0.467 | overallP C0=0.438 S=0.583 T=0.571 | base_in_band=True discrim=True arms_differ=True",
+  "summary": "HARD_PASS_GENUINE_SYNTACTIC_LEARNING | M=8 | FP_a C0=0.250 S=0.000 T=0.000+-0.000 redT=+0.250 RretT=0.571 | w_dirpp T/seed=[-1.4342] S/seed=[0.2865] Tneg_all=True Tneg_ablated_all=True Snonneg_all=True | mustfail_membership_drops_all=True pdo_permute_drops_all=False cleanNeg_all=True | P_do MA sep low=True (globalDO=0.457) | ceiling FP_a=0.125 P=0.467 | overallP C0=0.438 S=0.583 T=0.571 | base_in_band=True discrim=True arms_differ=True",
+  "elapsed_s": 8.246018899983028,
+  "ts_iso": "2026-07-19T14:36:23.484263+00:00"
+}

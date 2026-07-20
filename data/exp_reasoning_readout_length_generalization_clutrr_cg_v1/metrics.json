@@ -1,0 +1,254 @@
+{
+  "anchor_name": "reasoning_readout_length_generalization_clutrr_cg_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | long_gap_clean=0.341 long_gap_scram=-0.000 | oracle len2=0.858->lenmax=0.434 (GUARD<0.90) | ARM_B lenmax=0.063 ARM_A_short=0.723 chance=0.056 | bands={'H1': True, 'H2': True, 'H3': True, 'G1': True, 'G2': True, 'G3': True, 'C1': True, 'P1': True, 'baseline_in_band': True}",
+  "summary": "HARD_PASS | long_gap_clean=0.341 long_gap_scram=-0.000 | oracle len2=0.858->lenmax=0.434 (GUARD<0.90) | ARM_B lenmax=0.063 ARM_A_short=0.723 chance=0.056 | bands={'H1': True, 'H2': True, 'H3': True, 'G1': True, 'G2': True, 'G3': True, 'C1': True, 'P1': True, 'baseline_in_band': True}",
+  "elapsed_s": 31.000738600007026,
+  "ts_iso": "2026-07-20T00:29:54.379999+00:00",
+  "config": {
+    "N": 1024,
+    "m": 18,
+    "ambiguity_rate": 0.35,
+    "p_major": 0.6,
+    "train_lengths": [
+      2,
+      3,
+      4
+    ],
+    "n_train_per_len": 4000,
+    "test_lengths": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "n_test_per_len": 600,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "aggregate": {
+    "verdict": "HARD_PASS",
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "chance": 0.05555555555555555,
+    "mean_curve_clean": {
+      "2": {
+        "arm_a": 0.8411111111111111,
+        "arm_b": 0.1911111111111111,
+        "oracle": 0.8583333333333334,
+        "majority_class": 0.09444444444444444,
+        "chance": 0.05555555555555555
+      },
+      "3": {
+        "arm_a": 0.7011111111111111,
+        "arm_b": 0.1127777777777778,
+        "oracle": 0.7433333333333333,
+        "majority_class": 0.09722222222222222,
+        "chance": 0.05555555555555555
+      },
+      "4": {
+        "arm_a": 0.6255555555555555,
+        "arm_b": 0.10166666666666668,
+        "oracle": 0.6761111111111111,
+        "majority_class": 0.09222222222222222,
+        "chance": 0.05555555555555555
+      },
+      "5": {
+        "arm_a": 0.5433333333333333,
+        "arm_b": 0.06888888888888889,
+        "oracle": 0.6227777777777778,
+        "majority_class": 0.08055555555555556,
+        "chance": 0.05555555555555555
+      },
+      "6": {
+        "arm_a": 0.49499999999999994,
+        "arm_b": 0.09277777777777778,
+        "oracle": 0.5655555555555556,
+        "majority_class": 0.09333333333333334,
+        "chance": 0.05555555555555555
+      },
+      "7": {
+        "arm_a": 0.4477777777777778,
+        "arm_b": 0.07166666666666667,
+        "oracle": 0.515,
+        "majority_class": 0.09055555555555556,
+        "chance": 0.05555555555555555
+      },
+      "8": {
+        "arm_a": 0.4138888888888889,
+        "arm_b": 0.07944444444444444,
+        "oracle": 0.4816666666666667,
+        "majority_class": 0.08666666666666667,
+        "chance": 0.05555555555555555
+      },
+      "9": {
+        "arm_a": 0.385,
+        "arm_b": 0.07111111111111111,
+        "oracle": 0.47055555555555556,
+        "majority_class": 0.08555555555555555,
+        "chance": 0.05555555555555555
+      },
+      "10": {
+        "arm_a": 0.34111111111111114,
+        "arm_b": 0.06333333333333334,
+        "oracle": 0.43388888888888894,
+        "majority_class": 0.08277777777777778,
+        "chance": 0.05555555555555555
+      }
+    },
+    "mean_curve_scramble": {
+      "2": {
+        "arm_a": 1.0,
+        "arm_b": 0.23777777777777778,
+        "majority_class": 0.07833333333333332,
+        "chance": 0.05555555555555555
+      },
+      "3": {
+        "arm_a": 0.05833333333333334,
+        "arm_b": 0.05611111111111111,
+        "majority_class": 0.07111111111111111,
+        "chance": 0.05555555555555555
+      },
+      "4": {
+        "arm_a": 0.04888888888888889,
+        "arm_b": 0.05444444444444444,
+        "majority_class": 0.07,
+        "chance": 0.05555555555555555
+      },
+      "5": {
+        "arm_a": 0.05555555555555556,
+        "arm_b": 0.053888888888888896,
+        "majority_class": 0.07277777777777777,
+        "chance": 0.05555555555555555
+      },
+      "6": {
+        "arm_a": 0.05777777777777778,
+        "arm_b": 0.051111111111111114,
+        "majority_class": 0.07833333333333332,
+        "chance": 0.05555555555555555
+      },
+      "7": {
+        "arm_a": 0.05833333333333333,
+        "arm_b": 0.05166666666666667,
+        "majority_class": 0.07555555555555556,
+        "chance": 0.05555555555555555
+      },
+      "8": {
+        "arm_a": 0.06222222222222223,
+        "arm_b": 0.06277777777777778,
+        "majority_class": 0.08111111111111112,
+        "chance": 0.05555555555555555
+      },
+      "9": {
+        "arm_a": 0.05444444444444444,
+        "arm_b": 0.053888888888888896,
+        "majority_class": 0.075,
+        "chance": 0.05555555555555555
+      },
+      "10": {
+        "arm_a": 0.052222222222222225,
+        "arm_b": 0.0661111111111111,
+        "majority_class": 0.075,
+        "chance": 0.05555555555555555
+      }
+    },
+    "long_gap_clean": 0.3408888888888889,
+    "long_gap_scramble": -0.0001111111111111035,
+    "arm_a_short": 0.7225925925925926,
+    "oracle_short": 0.7592592592592592,
+    "arm_a_long": 0.41655555555555557,
+    "oracle_len2": 0.8583333333333334,
+    "oracle_lenmax": 0.43388888888888894,
+    "arm_b_lenmax": 0.06333333333333334,
+    "majority_lenmax": 0.08277777777777778,
+    "arm_a_len2": 0.8411111111111111,
+    "bands": {
+      "H1": true,
+      "H2": true,
+      "H3": true,
+      "G1": true,
+      "G2": true,
+      "G3": true,
+      "C1": true,
+      "P1": true,
+      "baseline_in_band": true
+    },
+    "guard_ok": true,
+    "control_ok": true
+  },
+  "per_unit_count": 54,
+  "expected_n_units": 54,
+  "failures": [],
+  "gate_flags": {
+    "arms_differ_verified": true,
+    "cardinality_ok": true,
+    "discriminator_fired": true
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "needs_orchestrator_store_sync": true,
+  "notes": "Reoriented chain-grade (post atom 29363): LENGTH-GENERALIZATION on CLUTRR-style kinship, ceiling < 1.000, construction-determined GUARD = oracle_lenmax<0.90. ONE variable = iterative fold+cleanup (ARM_A) vs flat single-bundle readout (ARM_B); param-matched [N,N] complex memories; same codes/ordered-position family/data. LOCAL-ONLY. Route to skunkworks landed-VET (adversarial on the GUARD hardest). CLAIM-VET-pending.",
+  "structured_gate_claims": [
+    {
+      "gate_name": "H1_long_gap_clean",
+      "measured": 0.3408888888888889,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "ARM_A beats flat on long chains (k>=6)"
+    },
+    {
+      "gate_name": "H2_arm_b_collapse",
+      "measured": 0.06333333333333334,
+      "threshold": 0.1827777777777778,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "flat collapses at max length (must-fail 1)"
+    },
+    {
+      "gate_name": "G1_oracle_not_free",
+      "measured": 0.43388888888888894,
+      "threshold": 0.9,
+      "op": "<",
+      "gate_verdict": true,
+      "note": "handed rules do NOT solve length-max for free (construction-determined guard)"
+    },
+    {
+      "gate_name": "G2_oracle_decays",
+      "measured": 0.42444444444444446,
+      "threshold": 0.1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "ceiling degrades with length"
+    },
+    {
+      "gate_name": "G3_oracle_above_chance",
+      "measured": 0.43388888888888894,
+      "threshold": 0.1111111111111111,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "task non-degenerate"
+    },
+    {
+      "gate_name": "C1_scramble_gap_collapse",
+      "measured": -0.0001111111111111035,
+      "threshold": 0.08,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "ARM_A advantage vanishes without learnable rule (must-fail 2)"
+    }
+  ]
+}

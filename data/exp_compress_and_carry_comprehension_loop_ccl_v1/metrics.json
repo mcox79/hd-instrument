@@ -4,8 +4,8 @@
   "verdict": "HARD_FAIL_CCL",
   "verdict_msg": "HARD_FAIL_CCL | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 reader=225 | A P=0.500 R=0.340 wf_fp=6 | B P=0.456 R=0.310 | C P=0.456 R=0.310 wf_fp=9 | AXIS1(prec)=False dP(C-A)=-0.044 Rret=0.91 | AXIS2(compound)=False C_prec2-1=+0.040 C_marginslope=0.0293 boot_ci90=[-0.2322, 0.4106] | dissoc(C-B)long-short prec=+0.000 | GateD_A==LCCPc=True n_doc_flip(B/C)=15/16 n_defer=0/0 shifts_C=20 base_in_band=True discrim=True",
   "summary": "HARD_FAIL_CCL | slice=L04+L05+L07+L08+L09+L10+L12 sents=163 reader=225 | A P=0.500 R=0.340 wf_fp=6 | B P=0.456 R=0.310 | C P=0.456 R=0.310 wf_fp=9 | AXIS1(prec)=False dP(C-A)=-0.044 Rret=0.91 | AXIS2(compound)=False C_prec2-1=+0.040 C_marginslope=0.0293 boot_ci90=[-0.2322, 0.4106] | dissoc(C-B)long-short prec=+0.000 | GateD_A==LCCPc=True n_doc_flip(B/C)=15/16 n_defer=0/0 shifts_C=20 base_in_band=True discrim=True",
-  "elapsed_s": 15.746100699994713,
-  "ts_iso": "2026-07-19T08:40:00.309483+00:00",
+  "elapsed_s": 12.528251399984583,
+  "ts_iso": "2026-07-19T08:44:25.949208+00:00",
   "config": {
     "sel_keep": 0.28,
     "sel_drop": 0.1,
