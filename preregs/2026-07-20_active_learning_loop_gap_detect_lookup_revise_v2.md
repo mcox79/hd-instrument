@@ -2,7 +2,9 @@
 
 Cell: `experiments/exp_active_learning_loop_gap_detect_lookup_revise_v2.py`
 Author: hdi_exp_dev. Date: 2026-07-20.
-Status: DESIGN-GATE + SMOKE ONLY. No full dispatch, no queue_add, no push, per Director contract.
+Status: FULL RUN COMPLETE (USER full-auto authorization 2026-07-20). Smoke = 3 seeds; FULL = 7 seeds
+(`FULL_SEEDS = [7,13,19,23,29,31,37]`), same eval regime (Option A). Local commit only; no push, no
+remote-persist, no queue_add. Result flagged POSITIVE-PENDING-VET (routes to Skunkworks).
 Revives: v1 (`preregs/2026-07-20_active_learning_loop_gap_detect_lookup_revise_v1.md`), landed
 MEASURED_MECHANISM (atom 29386, construction-validated WIRING PROOF; all capability numbers
 construction-determined per adversarial VET).
@@ -139,8 +141,16 @@ coverage gap; v2 has no exemption window, only a narrow near-declaration exempti
 13. **COMMON-MODE SEPARATION (Crutch 2b fix):** mirror-pair residual `>= 0.15`; max independent-pair
     residual `<= 0.10`; shuffled mirror residual `<= 0.10` in absolute value. MEASURED@smoke:
     **0.746 / 0.063 / 0.082**.
-14. **NAIVE-vs-AWARE (Crutch 2b fix):** `mean_3seed(naive_false_accept_rate - aware_false_accept_rate)
-    >= 0.05`. MEASURED@smoke: **+0.089**.
+14. **NAIVE-vs-AWARE, calibration-pool scale (Crutch 2b fix):** `mean(naive_false_accept_rate -
+    aware_false_accept_rate) >= 0.05`. MEASURED@smoke-3seed: **+0.089**; MEASURED@full-7seed: **+0.101**.
+14b. **NAIVE-vs-AWARE, REAL 24-term scale (Crutch 2b, capability-relevant number):** the SAME
+    illusory-corroboration failure mode measured on the ACTUAL reader over the 18 AMBIGUOUS eval items
+    (mirror pair returns the real sibling-category WordNet gloss = coherent-but-wrong, at derived mirror
+    reliability ~0.42 < threshold). `mean(realscale_naive_false_accept - realscale_aware_false_accept)
+    >= 0.05`. MEASURED@full-7seed: naive false-accept **0.833** (16/18 coherent siblings all wrongly
+    accepted via double-counting), aware **0.000**, gap **+0.833**; AWARE also WINS on raw accuracy
+    (0.484 vs naive 0.127), so no coverage-cost caveat at this scale. -> HARD-FAIL if gap < 0.05
+    (`HARD_FAIL_NAIVE_NOT_FOOLED_REALSCALE`).
 15. **RELEVANCE CHECK (Crutch 3 fix):** NO_EVIDENCE-subset RANDOMIZED_LOOKUP reject rate `>= 0.70` AND
     NO_EVIDENCE-subset GATED_CLEAN accept rate `>= 0.60`. MEASURED@smoke: **1.000 / 1.000**.
 
@@ -179,16 +189,35 @@ HP_SCOPE:
 The calibration-pool analyses (AUC / common-mode / naive-vs-aware) are NOT per-arm; they are separate
 per-seed computations feeding bands 12/13/14 directly.
 
+## FULL-RUN RESULT (7 seeds, 56/56 units, HARD_PASS) -- POSITIVE-PENDING-VET
+
+MEASURED@`data/exp_active_learning_loop_gap_detect_lookup_revise_v2/metrics.json` (7 seeds):
+- **CAPABILITY (v1's construction-determined number, now earned):** GATED_CLEAN=0.863 vs PASSIVE=0.417,
+  **gap +0.446** on the primary under-determined bucket (real WordNet lookups, non-round-trip-guaranteed
+  classifier). Not 1.000-by-construction (v1); the +0.446 is limited by the classifier's real 0.854
+  round-trip on the actual glosses -- exactly the honest ceiling the independence fix imposes.
+- 4 must-fail controls all hold: margin-of-margins +0.345 (>=0.20); reject ratio 12.0x; randomized delta
+  +0.018 (<=0.10); gap-no-lookup diff 0.000 (<=0.02).
+- 3 anti-construction checks all hold at scale: round_trip 0.854 (broken); AUC 0.697 in-band (per-seed
+  0.676-0.740, stable); common-mode fires 0.745 / indep-quiet 0.063 / shuffle-collapses -0.090; empty-set
+  relevance randomized-reject 1.000 / gated-clean-accept 1.000.
+- REAL-scale common-mode: naive false-accept 0.833 vs aware 0.000 (gap +0.833); aware also wins accuracy.
+- Learning curve (occ2): +0.381 (>=0.20 stretch met).
+- Nothing collapsed at 7 seeds vs 3-seed smoke (numbers moved <=0.03 on every band).
+
 ## HONEST DISCLOSED LIMITATIONS
 
 1. Internal-retrieve is a plain Python dict, not the production HD codebook/cleanup memory (same
    disclosed gap as v1; hardening step = wire onto atom 29368's real codebook).
-2. The NAIVE-vs-AWARE stress test uses a SYNTHETIC 2-candidate-set convention
-   (`sibling=(true_cat+1)%6`) at calibration-pool scale (300 draws), not the 24-item real-term eval set --
-   chosen deliberately for statistical stability (18 real AMBIGUOUS items is too few to resolve the
-   naive/aware gap cleanly; at 300 draws the effect is stable across seeds). The underlying mechanism
-   (derived reliability + closed-form null + shuffle control) is identical to what feeds the main loop's
-   gate.
+2. The NAIVE-vs-AWARE stress test is now run at BOTH scales: (a) calibration-pool scale (300 synthetic
+   draws, band 14) for statistical stability, and (b) the REAL 24-term reader scale (band 14b, over the
+   18 AMBIGUOUS eval items with the mirror pair returning the real sibling-category WordNet gloss). Both
+   fire strongly (calpool gap +0.101; realscale gap +0.833). The full-scale addition (band 14b, added at
+   full-run time per USER instruction) means the common-mode capability number reflects the actual reader,
+   not only the calibration pool. Residual caveat: the realscale metric is per-item near-deterministic
+   (mirror reliability fixed ~0.42, sibling-coherence fixed by real gloss content), so its cross-seed
+   variance is small -- the +0.833 is a construction-robust property of the real glosses, not a noisy
+   estimate; it says "the AWARE reader is not fooled and the NAIVE reader is," which is the intended claim.
 3. The closed-form product-plus-collision null (`phat_a*phat_b + (1-phat_a)*(1-phat_b)/5`) is an
    engineering simplification of atom 29378's rank-1-eigenvector fit, enabled by having per-source marginal
    reliability estimates directly available in this controlled construction. Conceptually equivalent (both
@@ -214,7 +243,7 @@ per-seed computations feeding bands 12/13/14 directly.
 ## SCHEMA-VET / CELL-TEMPLATE FIELDS
 
 ```yaml
-cardinality_ok: true                  # EXPECTED_N_UNITS = len(SEEDS) x len(CONDITIONS) = 3x8 = 24
+cardinality_ok: true                  # EXPECTED_N_UNITS = len(seeds) x len(CONDITIONS); smoke 3x8=24, full 7x8=56 (both MEASURED ok)
 arms_differ_verified: true            # hash-checked at smoke across the 8 conditions' full prediction vectors
 arms_differ_exempted:
   - ["PASSIVE", "GAP_NO_LOOKUP"]

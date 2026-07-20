@@ -1,10 +1,10 @@
 {
   "verdict": "HARD_PASS",
-  "verdict_msg": "primary(N=24): PASSIVE=0.333 GATED_CLEAN=0.833 (gap=+0.500) | GATED_BADSOURCE=0.333 UNGATED_BADSOURCE=0.042 (delta_bad=+0.292 vs delta_clean=+0.000, margin=+0.292) | reject_rate clean=0.083 bad=1.000 (metric=12.000) | RANDOMIZED_LOOKUP delta=+0.042 | GAP_NO_LOOKUP delta=+0.000 | INDEPENDENCE round_trip=0.854 (n_miss=7/48, broken=True) | AUC(reliability)=0.697 in_band=True | COMMONMODE mirror_residual=0.755 (fires>=0.15) max_indep_residual=0.051 (quiet<=0.1) shuffle_residual=-0.086 (collapses<=0.1) | NAIVE_vs_AWARE false_accept naive=0.077 aware=0.000 (gap=+0.077, floor=0.05) [context: acc naive=0.680 aware=0.500] | RELEVANCE(no_evidence) randomized_reject=1.000 (floor=0.7) gatedclean_accept=1.000 (floor=0.6) | learning_curve(occ2) GATED_CLEAN-PASSIVE=+0.333 | goldilocks_ok=True arms_differ_verified=True provenance_complete=True glassbox_hits=0",
+  "verdict_msg": "primary(N=24): PASSIVE=0.333 GATED_CLEAN=0.833 (gap=+0.500) | GATED_BADSOURCE=0.333 UNGATED_BADSOURCE=0.042 (delta_bad=+0.292 vs delta_clean=+0.000, margin=+0.292) | reject_rate clean=0.083 bad=1.000 (metric=12.000) | RANDOMIZED_LOOKUP delta=+0.042 | GAP_NO_LOOKUP delta=+0.000 | INDEPENDENCE round_trip=0.854 (n_miss=7/48, broken=True) | AUC(reliability)=0.697 in_band=True | COMMONMODE mirror_residual=0.755 (fires>=0.15) max_indep_residual=0.051 (quiet<=0.1) shuffle_residual=-0.086 (collapses<=0.1) | NAIVE_vs_AWARE(calpool) false_accept naive=0.077 aware=0.000 (gap=+0.077, floor=0.05) [context: acc naive=0.680 aware=0.500] | NAIVE_vs_AWARE(realscale,18amb/16coh) false_accept naive=0.833 aware=0.000 (gap=+0.833, floor=0.05) [context: acc naive=0.111 aware=0.333] | RELEVANCE(no_evidence) randomized_reject=1.000 (floor=0.7) gatedclean_accept=1.000 (floor=0.6) | learning_curve(occ2) GATED_CLEAN-PASSIVE=+0.333 | goldilocks_ok=True arms_differ_verified=True provenance_complete=True glassbox_hits=0",
   "summary": "HARD_PASS: primary(N=24): PASSIVE=0.333 GATED_CLEAN=0.833 (gap=+0.500) | GATED_BADSOURCE=0.333 UNGATED_BADSOURCE=0.042 (delta_bad=+0.292 vs delta_clean=+0.000, margin=+0.292) | reject_rate clean=0.083 bad=1.000 ",
-  "elapsed_s": 0.03413009998621419,
+  "elapsed_s": 0.6063271000166424,
   "anchor_name": "exp_active_learning_loop_gap_detect_lookup_revise_v2",
-  "ts_iso": "2026-07-20T14:53:01.676198+00:00",
+  "ts_iso": "2026-07-20T15:03:11.651333+00:00",
   "config": {
     "seeds": [
       7
@@ -173,7 +173,15 @@
     "context_mean_naive_stress_acc": 0.68,
     "context_mean_aware_stress_acc": 0.5,
     "naive_combined_rel_seed0": 0.6653234068711154,
-    "aware_combined_rel_seed0": 0.4214876033057851
+    "aware_combined_rel_seed0": 0.4214876033057851,
+    "realscale_n_ambiguous": 18,
+    "realscale_n_coherent_sibling": 16,
+    "realscale_mean_naive_false_accept": 0.8333333333333334,
+    "realscale_mean_aware_false_accept": 0.0,
+    "realscale_gap": 0.8333333333333334,
+    "realscale_ok": true,
+    "realscale_context_naive_acc": 0.1111111111111111,
+    "realscale_context_aware_acc": 0.3333333333333333
   },
   "per_seed_summary": {
     "7": {
@@ -243,7 +251,15 @@
       "accept_rate_gatedclean_noevidence": 1.0,
       "rel_good": 0.8966942148760331,
       "rel_bad": 0.30578512396694213,
-      "rel_mid": 0.5289256198347108
+      "rel_mid": 0.5289256198347108,
+      "realscale_commonmode": {
+        "n_ambiguous": 18,
+        "n_coherent_sibling": 16,
+        "naive_false_accept": 0.8333333333333334,
+        "aware_false_accept": 0.0,
+        "naive_acc": 0.1111111111111111,
+        "aware_acc": 0.3333333333333333
+      }
     }
   },
   "per_unit": {
@@ -364,7 +380,7 @@
       "source_id": "source_good",
       "gate_score": 0.8966942148760331,
       "coherent": true,
-      "ts_iso": "2026-07-20T14:53:01.665601+00:00",
+      "ts_iso": "2026-07-20T15:03:11.630248+00:00",
       "superseded": false
     },
     {
@@ -375,7 +391,7 @@
       "source_id": "source_good",
       "gate_score": 0.8966942148760331,
       "coherent": true,
-      "ts_iso": "2026-07-20T14:53:01.665601+00:00",
+      "ts_iso": "2026-07-20T15:03:11.630248+00:00",
       "superseded": false
     },
     {
@@ -386,7 +402,7 @@
       "source_id": "source_good",
       "gate_score": 0.8966942148760331,
       "coherent": true,
-      "ts_iso": "2026-07-20T14:53:01.665601+00:00",
+      "ts_iso": "2026-07-20T15:03:11.630248+00:00",
       "superseded": false
     },
     {
@@ -397,7 +413,7 @@
       "source_id": "source_good",
       "gate_score": 0.8966942148760331,
       "coherent": true,
-      "ts_iso": "2026-07-20T14:53:01.665601+00:00",
+      "ts_iso": "2026-07-20T15:03:11.630248+00:00",
       "superseded": false
     },
     {
@@ -408,7 +424,7 @@
       "source_id": "source_good",
       "gate_score": 0.8966942148760331,
       "coherent": true,
-      "ts_iso": "2026-07-20T14:53:01.665601+00:00",
+      "ts_iso": "2026-07-20T15:03:11.630248+00:00",
       "superseded": false
     }
   ],

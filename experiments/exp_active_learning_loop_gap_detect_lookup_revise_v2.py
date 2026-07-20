@@ -96,7 +96,8 @@ sys.path.insert(0, REPO)
 
 from hdlab.conformal import calibrate_quantile  # noqa: E402  (real production import)
 
-SEEDS = [7, 13, 19]
+SEEDS = [7, 13, 19]                        # smoke profile (3 seeds)
+FULL_SEEDS = [7, 13, 19, 23, 29, 31, 37]   # full profile (7 seeds; multi-seed variance per confidence-cell discipline)
 RELIABILITY_THRESHOLD = 0.5
 ALPHA = 0.10
 
@@ -893,6 +894,46 @@ def run(output_dir, seeds):
             accepted = sum(1 for iid in attempted if accepted_flag[cond].get(iid, False))
             return accepted / len(attempted)
 
+        # --- REAL-24-TERM-SCALE common-mode stress (not calibration-pool synthetic) --------------------
+        # On each AMBIGUOUS primary eval item, a correlated MIRROR PAIR both return the SIBLING-category
+        # gloss (real WordNet content, coherent-but-WRONG: sibling IS in the item's 2-candidate set, but
+        # sibling != true), at the DERIVED mirror reliability (~0.42, individually BELOW threshold). A
+        # NAIVE reader double-counts the pair as independent corroboration (1-(1-r)^2 ~ 0.66 >= 0.5 ->
+        # ACCEPT the wrong sibling); an AWARE reader (informed by the common-mode detector's fire) treats
+        # the pair as ONE source (min(r,r) ~ 0.42 < 0.5 -> REJECT, fall back to passive). This is the
+        # illusory-corroboration failure mode measured on the ACTUAL reader over the REAL eval items.
+        rel_mirror_naive = cal["naive_combined_rel"]
+        rel_mirror_single = cal["aware_combined_rel"]
+        rs_n = rs_naive_facc = rs_aware_facc = rs_naive_correct = rs_aware_correct = 0
+        rs_coherent = 0
+        for it in base_items:
+            if it["regime"] != "AMBIGUOUS":
+                continue
+            cat = it["cat"]
+            pid = pair_id_of(cat)
+            a, b = SIBLING_PAIRS[pid]
+            sibling_cat = b if cat == a else a
+            sibling_gloss = TERMS_BY_CAT[sibling_cat][it["local_idx"]][2]
+            classified_sib, _ = classify_gloss(sibling_gloss)
+            coherent = classified_sib in it["candidate_set"]
+            rs_n += 1
+            rs_coherent += int(coherent)
+            naive_accept = coherent and (rel_mirror_naive >= RELIABILITY_THRESHOLD)
+            aware_accept = coherent and (rel_mirror_single >= RELIABILITY_THRESHOLD)
+            naive_pred = classified_sib if naive_accept else passive_pred[it["item_id"]]
+            aware_pred = classified_sib if aware_accept else passive_pred[it["item_id"]]
+            rs_naive_facc += int(naive_accept and classified_sib != cat)
+            rs_aware_facc += int(aware_accept and classified_sib != cat)
+            rs_naive_correct += int(naive_pred == cat)
+            rs_aware_correct += int(aware_pred == cat)
+        realscale_commonmode = {
+            "n_ambiguous": rs_n, "n_coherent_sibling": rs_coherent,
+            "naive_false_accept": rs_naive_facc / rs_n if rs_n else float("nan"),
+            "aware_false_accept": rs_aware_facc / rs_n if rs_n else float("nan"),
+            "naive_acc": rs_naive_correct / rs_n if rs_n else float("nan"),
+            "aware_acc": rs_aware_correct / rs_n if rs_n else float("nan"),
+        }
+
         summary = {
             "acc_primary": {c: acc(c, primary_ids) for c in CONDITIONS},
             "acc_strong": {c: acc(c, strong_ids) for c in CONDITIONS},
@@ -906,6 +947,7 @@ def run(output_dir, seeds):
             "accept_rate_gatedclean_noevidence": accept_rate("GATED_CLEAN", noevidence_ids),
             "rel_good": rel_good, "rel_bad": rel_bad, "rel_mid": rel_mid,
             "calibration": cal,
+            "realscale_commonmode": realscale_commonmode,
         }
         per_seed_summary[seed] = summary
 
@@ -991,6 +1033,14 @@ def run(output_dir, seeds):
     mean_naive_false_accept = sum(per_seed_summary[s]["calibration"]["naive_false_accept_rate"] for s in seeds) / len(seeds)
     mean_aware_false_accept = sum(per_seed_summary[s]["calibration"]["aware_false_accept_rate"] for s in seeds) / len(seeds)
 
+    # REAL-24-term-scale common-mode (over the ACTUAL AMBIGUOUS eval items, not the calibration pool)
+    mean_rs_naive_facc = sum(per_seed_summary[s]["realscale_commonmode"]["naive_false_accept"] for s in seeds) / len(seeds)
+    mean_rs_aware_facc = sum(per_seed_summary[s]["realscale_commonmode"]["aware_false_accept"] for s in seeds) / len(seeds)
+    mean_rs_naive_acc = sum(per_seed_summary[s]["realscale_commonmode"]["naive_acc"] for s in seeds) / len(seeds)
+    mean_rs_aware_acc = sum(per_seed_summary[s]["realscale_commonmode"]["aware_acc"] for s in seeds) / len(seeds)
+    rs_n_ambiguous = per_seed_summary[seeds[0]]["realscale_commonmode"]["n_ambiguous"]
+    rs_n_coherent = per_seed_summary[seeds[0]]["realscale_commonmode"]["n_coherent_sibling"]
+
     band1_gap = mean_acc_primary["GATED_CLEAN"] - mean_acc_primary["PASSIVE"]
     delta_clean = mean_acc_primary["GATED_CLEAN"] - mean_acc_primary["UNGATED_CLEAN"]
     delta_bad = mean_acc_primary["GATED_BADSOURCE"] - mean_acc_primary["UNGATED_BADSOURCE"]
@@ -1019,6 +1069,10 @@ def run(output_dir, seeds):
     # make an over-trusting policy look fine even while it is measurably fooled (see disclosed_limitations).
     band14_naive_vs_aware_gap = mean_naive_false_accept - mean_aware_false_accept
     band14_ok = band14_naive_vs_aware_gap >= NAIVE_AWARE_GAP_FLOOR
+    # band14b: SAME illusory-corroboration failure mode measured on the REAL 24-term reader (AMBIGUOUS
+    # eval items), not the synthetic calibration pool -- the capability-relevant common-mode number.
+    band14b_realscale_gap = mean_rs_naive_facc - mean_rs_aware_facc
+    band14b_ok = band14b_realscale_gap >= NAIVE_AWARE_GAP_FLOOR
     band15_relevance_reject_ok = mean_reject_randomized_noevidence >= NOEVIDENCE_RANDOMIZED_REJECT_FLOOR
     band15_relevance_accept_ok = mean_accept_gatedclean_noevidence >= NOEVIDENCE_GATEDCLEAN_ACCEPT_FLOOR
 
@@ -1052,6 +1106,8 @@ def run(output_dir, seeds):
         verdict = "HARD_FAIL_COMMONMODE_NOT_SEPARATED"
     elif not band14_ok:
         verdict = "HARD_FAIL_NAIVE_NOT_FOOLED"
+    elif not band14b_ok:
+        verdict = "HARD_FAIL_NAIVE_NOT_FOOLED_REALSCALE"
     elif not (band15_relevance_reject_ok and band15_relevance_accept_ok):
         verdict = "HARD_FAIL_RELEVANCE_CHECK_INERT"
     elif band1_gap < 0.10:
@@ -1087,9 +1143,12 @@ def run(output_dir, seeds):
         f"COMMONMODE mirror_residual={mean_mirror_residual_real:.3f} (fires>={COMMONMODE_FIRE_FLOOR}) "
         f"max_indep_residual={max_indep_residual_real:.3f} (quiet<={COMMONMODE_QUIET_CEIL}) "
         f"shuffle_residual={mean_mirror_residual_shuf:.3f} (collapses<={COMMONMODE_QUIET_CEIL}) | "
-        f"NAIVE_vs_AWARE false_accept naive={mean_naive_false_accept:.3f} aware={mean_aware_false_accept:.3f} "
+        f"NAIVE_vs_AWARE(calpool) false_accept naive={mean_naive_false_accept:.3f} aware={mean_aware_false_accept:.3f} "
         f"(gap={band14_naive_vs_aware_gap:+.3f}, floor={NAIVE_AWARE_GAP_FLOOR}) "
         f"[context: acc naive={mean_naive_acc:.3f} aware={mean_aware_acc:.3f}] | "
+        f"NAIVE_vs_AWARE(realscale,{rs_n_ambiguous}amb/{rs_n_coherent}coh) false_accept "
+        f"naive={mean_rs_naive_facc:.3f} aware={mean_rs_aware_facc:.3f} (gap={band14b_realscale_gap:+.3f}, "
+        f"floor={NAIVE_AWARE_GAP_FLOOR}) [context: acc naive={mean_rs_naive_acc:.3f} aware={mean_rs_aware_acc:.3f}] | "
         f"RELEVANCE(no_evidence) randomized_reject={mean_reject_randomized_noevidence:.3f} "
         f"(floor={NOEVIDENCE_RANDOMIZED_REJECT_FLOOR}) gatedclean_accept={mean_accept_gatedclean_noevidence:.3f} "
         f"(floor={NOEVIDENCE_GATEDCLEAN_ACCEPT_FLOOR}) | "
@@ -1141,6 +1200,11 @@ def run(output_dir, seeds):
             "context_mean_naive_stress_acc": mean_naive_acc, "context_mean_aware_stress_acc": mean_aware_acc,
             "naive_combined_rel_seed0": per_seed_summary[seeds[0]]["calibration"]["naive_combined_rel"],
             "aware_combined_rel_seed0": per_seed_summary[seeds[0]]["calibration"]["aware_combined_rel"],
+            "realscale_n_ambiguous": rs_n_ambiguous, "realscale_n_coherent_sibling": rs_n_coherent,
+            "realscale_mean_naive_false_accept": mean_rs_naive_facc,
+            "realscale_mean_aware_false_accept": mean_rs_aware_facc,
+            "realscale_gap": band14b_realscale_gap, "realscale_ok": band14b_ok,
+            "realscale_context_naive_acc": mean_rs_naive_acc, "realscale_context_aware_acc": mean_rs_aware_acc,
         },
         "per_seed_summary": {s: {k: v for k, v in per_seed_summary[s].items() if k != "calibration"}
                              for s in seeds},
@@ -1305,9 +1369,11 @@ def main():
         output_dir = os.path.join(REPO, "data", ANCHOR_NAME + "_smoke")
         run(output_dir, seeds=SEEDS)
     else:
-        # Option A (DISCRIMINATOR-MUST-SURVIVE-SCALE): full IS the same regime as smoke; no scale-up axis.
+        # Option A (DISCRIMINATOR-MUST-SURVIVE-SCALE): full IS the same eval regime as smoke (same 48+6
+        # fixed real-WordNet items, same 8-source calibration pool); full differs ONLY in seed count
+        # (7 vs 3) for multi-seed variance per the confidence/contamination-cell discipline.
         output_dir = os.path.join(REPO, "data", ANCHOR_NAME)
-        run(output_dir, seeds=SEEDS)
+        run(output_dir, seeds=FULL_SEEDS)
     sys.exit(0)
 
 
