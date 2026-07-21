@@ -1,0 +1,68 @@
+{
+  "_meta": {
+    "name": "resulting_state_entailment_gold_v1",
+    "purpose": "Resulting-state entailment gold: each sentence labeled with the entailed RESULTING STATE of the affected entity. Extends who-is-affected (patient) with a NEW label = the state the entity ends up in. First composition/reasoning brick above lexical lookup.",
+    "annotator": "director-single-annotator (illustrative; McGuffey-register simple SVO). Same single-annotator caveat as mcguffey_whoaffected_oracle_gold_v2_heldout.",
+    "label_taxonomy": {
+      "not_intact": "physical integrity destroyed/degraded (break/crack/tear/burn/smash). VerbNet result-pred family: degradation_material_integrity, apart, physical_form.",
+      "changed_state": "reversible/qualitative state change, not creation/destruction (open/shut/close/fix/boil/dry/feed). VerbNet: state, cooked, apply_heat, together.",
+      "created": "entity now exists (build/make/knit/write/draw). VerbNet: exist, created_image, made_of, designated. affectedness_type effected.",
+      "possession_changed": "ownership/holding transferred (give/sell/catch/lose/get/send). VerbNet: has_possession, transfer. affectedness_type transfer.",
+      "new_location": "physical position changed (put/move/roll/set/carry). VerbNet: motion, location. affectedness_type motion.",
+      "unchanged": "entity NOT affected: perception (see/look/hear), cognition (think/like), stative possession (have/is), encounter (meet), pursuit (hunt), OR any negated verb. affectedness_type cognition/perception/possession OR negation."
+    },
+    "wsd_ambiguous_flag": "items with ambiguous=true carry a verb whose MODAL VerbNet sense mismatches the sentence sense (burn=glow, write=lecture, draw=pull, get=convert, send=confine, set=impress, carry=cost). These are EXPECTED honest misses -> confirm word-sense-disambiguation is the next gap; they keep the system non-saturated.",
+    "note": "Authored + McGuffey-register. Verb tokens surface-form; affected = patient span; result_state = the NEW entailment label. LOCAL-only eval asset; NO push/persist."
+  },
+  "gold": [
+    {"id": "s01", "text": "Tom broke the cup.", "verb": "broke", "affected": "the cup", "affectedness_type": "change_of_state", "result_state": "not_intact", "ambiguous": false},
+    {"id": "s02", "text": "The boy broke his toy.", "verb": "broke", "affected": "his toy", "affectedness_type": "change_of_state", "result_state": "not_intact", "ambiguous": false},
+    {"id": "s03", "text": "The frost cracked the jug.", "verb": "cracked", "affected": "the jug", "affectedness_type": "change_of_state", "result_state": "not_intact", "ambiguous": false},
+    {"id": "s04", "text": "The dog tore the mat.", "verb": "tore", "affected": "the mat", "affectedness_type": "change_of_state", "result_state": "not_intact", "ambiguous": false},
+    {"id": "s05", "text": "The cat tore the coat.", "verb": "tore", "affected": "the coat", "affectedness_type": "change_of_state", "result_state": "not_intact", "ambiguous": false},
+    {"id": "s06", "text": "The fire burned the barn.", "verb": "burned", "affected": "the barn", "affectedness_type": "change_of_state", "result_state": "not_intact", "ambiguous": true, "wsd_note": "burn modal sense = glow (motion); expected miss"},
+
+    {"id": "s07", "text": "The girl opened the door.", "verb": "opened", "affected": "the door", "affectedness_type": "change_of_state", "result_state": "changed_state", "ambiguous": false},
+    {"id": "s08", "text": "Ann shut the gate.", "verb": "shut", "affected": "the gate", "affectedness_type": "change_of_state", "result_state": "changed_state", "ambiguous": false},
+    {"id": "s09", "text": "The man fixed the clock.", "verb": "fixed", "affected": "the clock", "affectedness_type": "change_of_state", "result_state": "changed_state", "ambiguous": false},
+    {"id": "s10", "text": "The maid closed the box.", "verb": "closed", "affected": "the box", "affectedness_type": "change_of_state", "result_state": "changed_state", "ambiguous": false},
+    {"id": "s11", "text": "The cook boiled the egg.", "verb": "boiled", "affected": "the egg", "affectedness_type": "change_of_state", "result_state": "changed_state", "ambiguous": false},
+    {"id": "s12", "text": "The man fed the hen.", "verb": "fed", "affected": "the hen", "affectedness_type": "change_of_state", "result_state": "changed_state", "ambiguous": false},
+    {"id": "s13", "text": "The sun dried the hay.", "verb": "dried", "affected": "the hay", "affectedness_type": "change_of_state", "result_state": "changed_state", "ambiguous": false},
+
+    {"id": "s14", "text": "The men built a house.", "verb": "built", "affected": "a house", "affectedness_type": "effected", "result_state": "created", "ambiguous": false},
+    {"id": "s15", "text": "The man built a boat.", "verb": "built", "affected": "a boat", "affectedness_type": "effected", "result_state": "created", "ambiguous": false},
+    {"id": "s16", "text": "The girl made a cake.", "verb": "made", "affected": "a cake", "affectedness_type": "effected", "result_state": "created", "ambiguous": false},
+    {"id": "s17", "text": "Nell made a kite.", "verb": "made", "affected": "a kite", "affectedness_type": "effected", "result_state": "created", "ambiguous": false},
+    {"id": "s18", "text": "She knit a cap.", "verb": "knit", "affected": "a cap", "affectedness_type": "effected", "result_state": "created", "ambiguous": false},
+    {"id": "s19", "text": "Nell wrote a note.", "verb": "wrote", "affected": "a note", "affectedness_type": "effected", "result_state": "created", "ambiguous": true, "wsd_note": "write modal sense = lecture (cognition); expected miss"},
+    {"id": "s20", "text": "Tom drew a map.", "verb": "drew", "affected": "a map", "affectedness_type": "effected", "result_state": "created", "ambiguous": true, "wsd_note": "draw modal sense = pull/force; expected miss"},
+
+    {"id": "s21", "text": "The man gave the boy a book.", "verb": "gave", "affected": "a book", "affectedness_type": "transfer", "result_state": "possession_changed", "ambiguous": false},
+    {"id": "s22", "text": "Nell gave Ann a doll.", "verb": "gave", "affected": "a doll", "affectedness_type": "transfer", "result_state": "possession_changed", "ambiguous": false},
+    {"id": "s23", "text": "The man sold the cow.", "verb": "sold", "affected": "the cow", "affectedness_type": "transfer", "result_state": "possession_changed", "ambiguous": false},
+    {"id": "s24", "text": "The cat caught a rat.", "verb": "caught", "affected": "a rat", "affectedness_type": "transfer", "result_state": "possession_changed", "ambiguous": false},
+    {"id": "s25", "text": "Tom lost his cap.", "verb": "lost", "affected": "his cap", "affectedness_type": "transfer", "result_state": "possession_changed", "ambiguous": false},
+    {"id": "s26", "text": "The boy got a top.", "verb": "got", "affected": "a top", "affectedness_type": "transfer", "result_state": "possession_changed", "ambiguous": true, "wsd_note": "get modal sense = convert (change_of_state); expected miss"},
+    {"id": "s27", "text": "She sent a letter.", "verb": "sent", "affected": "a letter", "affectedness_type": "transfer", "result_state": "possession_changed", "ambiguous": true, "wsd_note": "send modal sense = confine (motion/location); ambiguous, expected miss"},
+
+    {"id": "s28", "text": "The girl put the cup on the shelf.", "verb": "put", "affected": "the cup", "affectedness_type": "motion", "result_state": "new_location", "ambiguous": false},
+    {"id": "s29", "text": "The maid put the pot on the fire.", "verb": "put", "affected": "the pot", "affectedness_type": "motion", "result_state": "new_location", "ambiguous": false},
+    {"id": "s30", "text": "The man moved the box.", "verb": "moved", "affected": "the box", "affectedness_type": "motion", "result_state": "new_location", "ambiguous": false},
+    {"id": "s31", "text": "The girl moved the chair.", "verb": "moved", "affected": "the chair", "affectedness_type": "motion", "result_state": "new_location", "ambiguous": false},
+    {"id": "s32", "text": "Ned rolled the log.", "verb": "rolled", "affected": "the log", "affectedness_type": "motion", "result_state": "new_location", "ambiguous": false},
+    {"id": "s33", "text": "Tom set the lamp on the table.", "verb": "set", "affected": "the lamp", "affectedness_type": "motion", "result_state": "new_location", "ambiguous": true, "wsd_note": "set modal sense = image_impression (effected); expected miss"},
+    {"id": "s34", "text": "The boy carried the pail.", "verb": "carried", "affected": "the pail", "affectedness_type": "motion", "result_state": "new_location", "ambiguous": true, "wsd_note": "carry modal sense = cost/value (other); expected miss"},
+
+    {"id": "s35", "text": "See the duck on the pond!", "verb": "see", "affected": "the duck", "affectedness_type": "cognition", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s36", "text": "The children look at the duck.", "verb": "look at", "affected": "the duck", "affectedness_type": "cognition", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s37", "text": "The man has a black hen.", "verb": "has", "affected": "a black hen", "affectedness_type": "possession", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s38", "text": "The duck is on the pond.", "verb": "is", "affected": null, "affectedness_type": "possession", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s39", "text": "Nell likes the doll.", "verb": "likes", "affected": "the doll", "affectedness_type": "cognition", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s40", "text": "Tom thinks of his home.", "verb": "thinks", "affected": "his home", "affectedness_type": "cognition", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s41", "text": "The men met the boy.", "verb": "met", "affected": "the boy", "affectedness_type": "cognition", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s42", "text": "The boys hunt for the nest.", "verb": "hunt", "affected": "the nest", "affectedness_type": "perception", "result_state": "unchanged", "ambiguous": false},
+    {"id": "s43", "text": "We must not touch the nest.", "verb": "touch", "affected": "the nest", "affectedness_type": "negated", "result_state": "unchanged", "ambiguous": false, "neg": true},
+    {"id": "s44", "text": "The girl did not break the cup.", "verb": "break", "affected": "the cup", "affectedness_type": "negated", "result_state": "unchanged", "ambiguous": false, "neg": true, "wsd_note": "same verb break but NEGATED -> must infer unchanged (must-fail control a)"}
+  ]
+}
