@@ -1,0 +1,1071 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS [ORDER_NO_ADVANTAGE] on_miss_mean=0.135 off_miss_mean=1.000 retention_gap=0.865 on_cov_mean=0.698 (on_miss 0.25->0.08) use_real_auc=0.8924 use_shuffle_auc=0.5122+-0.1003 auc_delta=0.3802 | ORDER: ord_cov25=0.6945 shuf_cov25=0.6938+-0.0168 z_cov25=0.043 early_area=0.0032 ord_esc_half=5325 shuf_esc_half=5056.12 z_esc=1.013 | n_sent=21557 n_content_tokens=175024 n_grown=22603 n_escalations=8673 illus=204 grounding_cand=8",
+  "summary": "HARD_PASS_CURRICULUM",
+  "elapsed_s": 45.18,
+  "run_mode": "full",
+  "ts_iso": "2026-07-21T23:37:48.112520+00:00",
+  "anchor_name": "exp_breadth_foundation_curriculum_order_mcguffey_v1",
+  "mode_tag": "full",
+  "n_sent": 21557,
+  "n_content_tokens": 175024,
+  "n_bins": 12,
+  "n_order_bins": 20,
+  "n_order_shuffles": 24,
+  "order_verdict": "ORDER_NO_ADVANTAGE",
+  "bands": {
+    "retention_works": true,
+    "on_coverage_positive": true,
+    "shuffle_collapses": true,
+    "arms_differ": true,
+    "deterministic": true,
+    "cardinality_ok": true,
+    "order_measurement_valid": true
+  },
+  "retention": {
+    "note": "PRIMARY difficulty-gradient-robust signal: growth-ON vs growth-OFF per-token miss. OFF=1.0 by construction (re-asks every token); ON below by retention; GAP is gradient-free.",
+    "growth_ON_miss_curve": [
+      0.2502,
+      0.1327,
+      0.226,
+      0.1387,
+      0.145,
+      0.144,
+      0.1221,
+      0.1131,
+      0.0943,
+      0.0913,
+      0.0788,
+      0.0805
+    ],
+    "growth_OFF_miss_curve": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "growth_SHUFFLE_miss_curve": [
+      0.2502,
+      0.1327,
+      0.226,
+      0.1387,
+      0.145,
+      0.144,
+      0.1221,
+      0.1131,
+      0.0943,
+      0.0913,
+      0.0788,
+      0.0805
+    ],
+    "on_miss_mean": 0.1347,
+    "off_miss_mean": 1.0,
+    "retention_gap_mean": 0.8653,
+    "on_miss_first": 0.2502,
+    "on_miss_last": 0.0805
+  },
+  "ask_rate_per_sentence": {
+    "note": "USER-named view (new-gaps per sentence) on the ordered curriculum. Carries a difficulty-gradient + sentence-length drift (rich late volumes) -> retention gap drives verdict.",
+    "growth_ON_curve": [
+      1.5737,
+      0.9137,
+      1.6578,
+      1.049,
+      1.1441,
+      1.1881,
+      0.7941,
+      0.9905,
+      0.9032,
+      0.8191,
+      0.6767,
+      0.8715
+    ],
+    "growth_OFF_curve": [
+      6.2899,
+      6.8876,
+      7.335,
+      7.5609,
+      7.8898,
+      8.2493,
+      6.5025,
+      8.7602,
+      9.5804,
+      8.9744,
+      8.5843,
+      10.8257
+    ]
+  },
+  "coverage": {
+    "growth_ON_curve": [
+      0.5861,
+      0.6969,
+      0.6144,
+      0.6917,
+      0.6907,
+      0.6892,
+      0.7155,
+      0.7213,
+      0.737,
+      0.7361,
+      0.7413,
+      0.7512
+    ],
+    "growth_OFF_curve": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "on_cov_mean": 0.6976,
+    "off_cov_mean": 0.0,
+    "note": "On graded easy->hard text binned coverage does NOT monotonically rise (rich late volumes lower per-bin coverage); on_cov_mean vs off_cov_mean is the retention view."
+  },
+  "curriculum_order_test": {
+    "ordered": {
+      "volume_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "total_tok": 175024,
+      "coverage_curve": [
+        0.5716,
+        0.6717,
+        0.6883,
+        0.597,
+        0.6831,
+        0.6945,
+        0.6802,
+        0.6949,
+        0.6918,
+        0.7113,
+        0.7303,
+        0.7241,
+        0.7262,
+        0.7293,
+        0.7485,
+        0.7303,
+        0.7471,
+        0.7319,
+        0.7513,
+        0.7547
+      ],
+      "miss_curve": [
+        0.2634,
+        0.1638,
+        0.1378,
+        0.2541,
+        0.1417,
+        0.1378,
+        0.1539,
+        0.1431,
+        0.1417,
+        0.1232,
+        0.1138,
+        0.1082,
+        0.1067,
+        0.0945,
+        0.0931,
+        0.0864,
+        0.074,
+        0.0868,
+        0.082,
+        0.0767
+      ],
+      "cov_at_25": 0.6945,
+      "cov_at_50": 0.7303,
+      "early_cov_mean": 0.6684,
+      "late_cov_mean": 0.7374,
+      "cum_asks_at_half": 14531,
+      "cum_esc_at_half": 5325,
+      "n_escalations": 8673,
+      "n_unique_types": 22603,
+      "ask_smoothness_spearman": -0.9353
+    },
+    "shuffled_n": 24,
+    "shuffled_orders": [
+      [
+        3,
+        2,
+        0,
+        4,
+        1,
+        6,
+        5
+      ],
+      [
+        3,
+        4,
+        0,
+        1,
+        5,
+        2,
+        6
+      ],
+      [
+        6,
+        5,
+        4,
+        1,
+        3,
+        2,
+        0
+      ],
+      [
+        5,
+        2,
+        0,
+        1,
+        6,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5,
+        1,
+        0,
+        6,
+        4
+      ],
+      [
+        0,
+        4,
+        6,
+        5,
+        3,
+        1,
+        2
+      ],
+      [
+        6,
+        4,
+        1,
+        0,
+        3,
+        2,
+        5
+      ],
+      [
+        6,
+        4,
+        5,
+        0,
+        2,
+        3,
+        1
+      ],
+      [
+        5,
+        1,
+        4,
+        3,
+        0,
+        2,
+        6
+      ],
+      [
+        0,
+        3,
+        1,
+        4,
+        2,
+        6,
+        5
+      ],
+      [
+        3,
+        2,
+        5,
+        1,
+        4,
+        6,
+        0
+      ],
+      [
+        5,
+        1,
+        6,
+        3,
+        2,
+        0,
+        4
+      ],
+      [
+        3,
+        5,
+        6,
+        4,
+        0,
+        1,
+        2
+      ],
+      [
+        4,
+        3,
+        6,
+        0,
+        5,
+        2,
+        1
+      ],
+      [
+        4,
+        2,
+        0,
+        1,
+        3,
+        6,
+        5
+      ],
+      [
+        2,
+        5,
+        3,
+        1,
+        0,
+        4,
+        6
+      ],
+      [
+        1,
+        3,
+        2,
+        4,
+        6,
+        0,
+        5
+      ],
+      [
+        1,
+        5,
+        2,
+        4,
+        3,
+        0,
+        6
+      ],
+      [
+        6,
+        4,
+        2,
+        5,
+        1,
+        3,
+        0
+      ],
+      [
+        6,
+        0,
+        1,
+        5,
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        3,
+        5,
+        0,
+        1,
+        6,
+        2
+      ],
+      [
+        4,
+        0,
+        3,
+        6,
+        2,
+        5,
+        1
+      ],
+      [
+        6,
+        0,
+        2,
+        1,
+        3,
+        4,
+        5
+      ],
+      [
+        3,
+        0,
+        4,
+        6,
+        5,
+        2,
+        1
+      ]
+    ],
+    "order_verdict": "ORDER_NO_ADVANTAGE",
+    "order_verdict_escalation": "ORDER_HURTS_more_early_escalations",
+    "order_measurement_valid": true,
+    "early_cov_area_ordered_minus_shuffmean": 0.0032,
+    "ordered_early_cov_mean": 0.6684,
+    "shuffled_early_cov_mean": 0.6652,
+    "shuffled_early_cov_std": 0.0038,
+    "z_early_cov": 0.827,
+    "ordered_cov_at_25": 0.6945,
+    "shuffled_cov_at_25_mean": 0.6938,
+    "shuffled_cov_at_25_std": 0.0168,
+    "z_cov_at_25": 0.043,
+    "ordered_cov_at_50": 0.7303,
+    "shuffled_cov_at_50_mean": 0.7315,
+    "z_cov_at_50": -0.073,
+    "ordered_cum_asks_at_half": 14531,
+    "shuffled_cum_asks_at_half_mean": 15219.67,
+    "z_cum_asks_at_half": -1.539,
+    "ordered_cum_esc_at_half": 5325,
+    "shuffled_cum_esc_at_half_mean": 5056.12,
+    "z_cum_esc_at_half": 1.013,
+    "ordered_ask_smoothness": -0.9353,
+    "shuffled_ask_smoothness_mean": -0.8625,
+    "ordered_early_cov_percentile_vs_shuffled": 0.875,
+    "shuffled_early_cov_distribution": [
+      0.668,
+      0.6687,
+      0.6643,
+      0.6646,
+      0.6716,
+      0.6594,
+      0.6582,
+      0.6582,
+      0.6633,
+      0.668,
+      0.6657,
+      0.6644,
+      0.6719,
+      0.6667,
+      0.668,
+      0.6663,
+      0.6673,
+      0.6604,
+      0.6582,
+      0.6648,
+      0.668,
+      0.6668,
+      0.6659,
+      0.6668
+    ],
+    "shuffled_cov_at_25_distribution": [
+      0.689,
+      0.6929,
+      0.6922,
+      0.6868,
+      0.6941,
+      0.6896,
+      0.6922,
+      0.6922,
+      0.7,
+      0.6973,
+      0.6941,
+      0.7,
+      0.7053,
+      0.6705,
+      0.759,
+      0.7051,
+      0.6936,
+      0.6973,
+      0.6922,
+      0.6922,
+      0.6889,
+      0.6707,
+      0.6922,
+      0.6633
+    ]
+  },
+  "usefulness_probe": {
+    "real_auc": 0.8924,
+    "shuffle_auc_mean": 0.5122,
+    "shuffle_auc_std": 0.1003,
+    "shuffle_auc_max": 0.7014,
+    "auc_delta_real_minus_shuffle_mean": 0.3802,
+    "real_binary_acc": 0.8,
+    "majority_chance": 0.64,
+    "n_high": 16,
+    "n_low": 9,
+    "n_used": 25,
+    "n_shuffle_seeds": 20
+  },
+  "residual_gap_breakdown": {
+    "by_category_types": {
+      "verb_not_in_verbnet": 1714,
+      "adj_oov_wordnet": 1882,
+      "named_entity": 2321,
+      "noun_oov_wordnet": 2756
+    },
+    "by_category_frac_of_grown_types": {
+      "verb_not_in_verbnet": 0.0758,
+      "adj_oov_wordnet": 0.0833,
+      "named_entity": 0.1027,
+      "noun_oov_wordnet": 0.1219
+    },
+    "n_grown_types": 22603,
+    "n_resolved_types": 13930,
+    "n_resolved_sense_flagged": 1982,
+    "n_escalations": 8673
+  },
+  "illustration_report": {
+    "total_illustrations": 204,
+    "total_grounding_candidates": 8,
+    "per_volume_candidates": [
+      {
+        "vol": 0,
+        "vol_name": "primer",
+        "candidates": [
+          "Rat",
+          "Cat",
+          "Kitten"
+        ]
+      },
+      {
+        "vol": 1,
+        "vol_name": "first",
+        "candidates": [
+          "Dog",
+          "Running dog",
+          "Cat"
+        ]
+      },
+      {
+        "vol": 2,
+        "vol_name": "second",
+        "candidates": [
+          "Flowers",
+          "Large tree"
+        ]
+      },
+      {
+        "vol": 3,
+        "vol_name": "third",
+        "candidates": []
+      },
+      {
+        "vol": 4,
+        "vol_name": "fourth",
+        "candidates": []
+      },
+      {
+        "vol": 5,
+        "vol_name": "fifth",
+        "candidates": []
+      },
+      {
+        "vol": 6,
+        "vol_name": "sixth",
+        "candidates": []
+      }
+    ]
+  },
+  "illustration_markers_sample": [
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Two children in hammock",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Cat watching moth",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Rat",
+      "grounding_candidate": true
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Cat",
+      "grounding_candidate": true
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Children playing at the seashore",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Boy running and old man, with gout, sitting",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: a at rat sat can cap lad and The cat ran. Ann ran. The man has a hat",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Boy and dog watching cat on post",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Boy sitting on fence, watching frog sitting on log",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Mother with girl holding cat, by lamplight",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Boy and dog chasing horse",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script exercise: Tom sees Nat's dog. A fat frog is on the log. Can not Rab catch it?",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Cat watching hen, watching eggs in nest",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Dog chasing fox away from a hen",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: This nest has eggs in it",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Girl watching ducks on pond",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Girl lead old, blind man",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Two girls sitting by tree, playing with dolls",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Cat watching bird and eggs in nest on tree top",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Bird perched on girl's hand",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Boys playing in snow by a canal. Town in background",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: Nell will feed the ducks. Sue has a new dress",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Owl perched on tree branch",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Cows standing under a tree",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Cows leaving pasture at subset",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Men rowing through storm to shipwreck",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Children skating on pond in winter",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Sawmill near river; town and hillside in background. two children playing near river in foreground",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: The cows like grass. They stand in the shade",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Four girls roller-skating",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Train approaching railroad crossing; two boys and a horse and wagon waiting to cross tracks",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: How fast the cars go! Can you see them?",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Two boys, one sawing, the other chopping logs",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Two girls walking near a lake. Men working and boys playing in background",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Girl riding in small cart pulled by two goats",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Boys running in front of burning house",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Six children surrounding young woman",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Several people standing in front of school that appears similar to a small church",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Quail in brush",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Baby sleeping in crib",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: There is a baby at Ned's house. Her name is Kate. Ned is not a good boy, but he loves Kate, and I do not think he would hurt her",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Lighthouse on cliff above pounding surf",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Sheep grazing under a tree. Two boys watching from fence in the background",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Three boys making a snowman; two children in foreground carrying water buckets",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Bee flying near vine",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: Work while you work, Play while you play, One thing each time, That is the way. All that you do, Do with your might, Things done by halves, Are not done right",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Boy fishing from log",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Girl talking to boy leading horse and wagon",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Kitten",
+      "grounding_candidate": true
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Children playing in wood. Two boys in foreground playing a fife and drum",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Small girl watching a tree. Two acorns shown in inset",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Sunset; lake in foreground; moon and stars",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: n u n nun u r n urn s u n sun c o w cow s a w saw r i m rim c a t cat l a d lad b o x box h e n hen k i d kid q u o quo p e n pen j a r jar e y e eye g u n gun v i z viz i v y ivy f a n fan",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "caption": "Script Exercise: A B C D E F G H I J K L M N O P Q R S Y U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z SCRIPT FIGURES 1 2 3 4 5 6 7 8 9 0",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 1,
+      "vol_name": "first",
+      "caption": "Script Alphabet A B C D E F G H I J K L M N O P Q R S Y U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z SCRIPT FIGURES 1 2 3 4 5 6 7 8 9 0",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 1,
+      "vol_name": "first",
+      "caption": "Dog",
+      "grounding_candidate": true
+    },
+    {
+      "vol": 1,
+      "vol_name": "first",
+      "caption": "Running dog",
+      "grounding_candidate": true
+    },
+    {
+      "vol": 1,
+      "vol_name": "first",
+      "caption": "Cat",
+      "grounding_candidate": true
+    },
+    {
+      "vol": 1,
+      "vol_name": "first",
+      "caption": "Man with glasses writing at a desk",
+      "grounding_candidate": false
+    },
+    {
+      "vol": 1,
+      "vol_name": "first",
+      "caption": "Hen watching a rat",
+      "grounding_candidate": false
+    }
+  ],
+  "per_volume_meta": [
+    {
+      "vol": 0,
+      "vol_name": "primer",
+      "n_sent": 300,
+      "n_content_tokens": 1716,
+      "n_illustrations": 54,
+      "n_grounding_candidates": 3,
+      "clean_stats": {
+        "n_body_lines": 1202,
+        "n_dropped_lines": 706,
+        "n_kept_lines": 402,
+        "n_illustrations": 54
+      }
+    },
+    {
+      "vol": 1,
+      "vol_name": "first",
+      "n_sent": 575,
+      "n_content_tokens": 3423,
+      "n_illustrations": 66,
+      "n_grounding_candidates": 3,
+      "clean_stats": {
+        "n_body_lines": 1864,
+        "n_dropped_lines": 1034,
+        "n_kept_lines": 704,
+        "n_illustrations": 66
+      }
+    },
+    {
+      "vol": 2,
+      "vol_name": "second",
+      "n_sent": 1183,
+      "n_content_tokens": 7899,
+      "n_illustrations": 76,
+      "n_grounding_candidates": 2,
+      "clean_stats": {
+        "n_body_lines": 3423,
+        "n_dropped_lines": 1487,
+        "n_kept_lines": 1777,
+        "n_illustrations": 76
+      }
+    },
+    {
+      "vol": 3,
+      "vol_name": "third",
+      "n_sent": 1735,
+      "n_content_tokens": 12261,
+      "n_illustrations": 0,
+      "n_grounding_candidates": 0,
+      "clean_stats": {
+        "n_body_lines": 4357,
+        "n_dropped_lines": 1368,
+        "n_kept_lines": 2989,
+        "n_illustrations": 0
+      }
+    },
+    {
+      "vol": 4,
+      "vol_name": "fourth",
+      "n_sent": 4072,
+      "n_content_tokens": 30815,
+      "n_illustrations": 0,
+      "n_grounding_candidates": 0,
+      "clean_stats": {
+        "n_body_lines": 8231,
+        "n_dropped_lines": 2141,
+        "n_kept_lines": 6090,
+        "n_illustrations": 0
+      }
+    },
+    {
+      "vol": 5,
+      "vol_name": "fifth",
+      "n_sent": 6269,
+      "n_content_tokens": 49005,
+      "n_illustrations": 0,
+      "n_grounding_candidates": 0,
+      "clean_stats": {
+        "n_body_lines": 12960,
+        "n_dropped_lines": 3040,
+        "n_kept_lines": 9920,
+        "n_illustrations": 0
+      }
+    },
+    {
+      "vol": 6,
+      "vol_name": "sixth",
+      "n_sent": 7423,
+      "n_content_tokens": 69905,
+      "n_illustrations": 8,
+      "n_grounding_candidates": 0,
+      "clean_stats": {
+        "n_body_lines": 17194,
+        "n_dropped_lines": 3333,
+        "n_kept_lines": 13848,
+        "n_illustrations": 8
+      }
+    }
+  ],
+  "store_hashes": {
+    "ON": "ee783c40ff4c6f4d5de26d411c0d39d804fa157bf58bc39f9305150ed39d8f07",
+    "OFF": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "SHUFFLE": "d5c1b7fa44d74805ae1eb7feb955bb3ee85d198ae606b41841b4596b508fddce"
+  },
+  "vs_ud_ewt_29424": {
+    "note": "UD-EWT breadth loop (atom 29424) reference for contrast.",
+    "ud_ewt_full_on_cov_asymptote": 0.7934,
+    "ud_ewt_full_on_miss_first_last": [
+      0.4251,
+      0.1478
+    ],
+    "ud_ewt_use_real_auc": 0.8924,
+    "ud_ewt_use_shuffle_auc_mean": 0.5122,
+    "source": "MEASURED@data/exp_breadth_foundation_active_growth_loop_ud_ewt_v1/metrics.json"
+  },
+  "prereg_bands": {
+    "HARD_PASS": "retention_works AND on_coverage_positive AND shuffle_collapses AND arms_differ AND deterministic AND cardinality_ok AND order_measurement_valid",
+    "HARD_FAIL": "off_miss_mean<0.98 OR retention_gap<0.30 OR not shuffle_collapses OR not arms_differ OR not deterministic OR not order_measurement_valid",
+    "order_verdict": "REPORTED not gated: ORDER_HELPS(z_cov25>=1 & area>0) | ORDER_NO_ADVANTAGE | ORDER_HURTS(z_cov25<=-1 & area<0)"
+  },
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n/a": "coverage/rate curves on real corpus + labeled human gold; no substrate noise floor",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": "np.random.default_rng(int) only; no hash()/list(set()); PROT-023 clean"
+}
