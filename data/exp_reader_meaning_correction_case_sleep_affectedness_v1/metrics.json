@@ -1,0 +1,356 @@
+{
+  "anchor_name": "reader_meaning_correction_case_sleep_affectedness_v1",
+  "run_mode": "full",
+  "verdict": "MEMORIZATION_OR_NO_TRANSFER",
+  "verdict_msg": "MEMORIZATION_OR_NO_TRANSFER | combined who-affected gold N=128, base_gate_errors=22 (base_acc=0.8281, err_verbs=17, dir={'over_fire': 11, 'under_fire': 11}); held-out (verb-disjoint) generalization: COHERENT fix_rate=0.0534 (base_rate=0.6218, net_gain=-0.0071, rescue_prec=0.4444) vs SCRAMBLE fix=0.2671 (collapse=-0.2137) | REGRESSION-GUARD reg_tau=0.0351 reg_blind=0.4215 holds_all=True | fast_seen_recall=0.9667 | leak_clean=True baseline_in_band=True (base_acc=0.6955) | scramble_collapses=False",
+  "summary": "MEMORIZATION_OR_NO_TRANSFER | combined who-affected gold N=128, base_gate_errors=22 (base_acc=0.8281, err_verbs=17, dir={'over_fire': 11, 'under_fire': 11}); held-out (verb-disjoint) generalization: COHERENT fix_rate=0.0534 (base_rate=0.6218, net_gain=-0.0071, rescue_prec=0.4444) vs SCRAMBLE fix=0.2671 (collapse=-0.2137) | REGRESSION-GUARD reg_tau=0.0351 reg_blind=0.4215 holds_all=True | fast_seen_recall=0.9667 | leak_clean=True baseline_in_band=True (base_acc=0.6955) | scramble_collapses=False",
+  "elapsed_s": 6.95,
+  "ts_iso": "2026-07-21T21:20:27.842461+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "expected_n_seed_rows": 3,
+  "n_seed_rows": 3,
+  "cardinality_ok": true,
+  "census": {
+    "n_instances": 128,
+    "n_base_errors": 22,
+    "base_gate_acc_all": 0.8281,
+    "n_error_verbs": 17,
+    "err_dir": {
+      "over_fire": 11,
+      "under_fire": 11
+    },
+    "by_src_err": {
+      "ud": 12,
+      "mcg1": 2,
+      "mcg2": 8
+    }
+  },
+  "PRIMARY_heldout_fix_rate_coherent": 0.0534,
+  "base_rate_majority": 0.6218,
+  "heldout_net_gain_coherent": -0.0071,
+  "rescue_precision_coherent": 0.4444,
+  "MUSTFAIL_a_scramble_fix_rate": 0.2671,
+  "MUSTFAIL_a_scramble_gain_collapse": -0.2137,
+  "MUSTFAIL_b_regression_guard_reg_at_tau": 0.0351,
+  "MUSTFAIL_b_regression_guard_reg_blind": 0.4215,
+  "MUSTFAIL_b_regression_guard_holds_all_seeds": true,
+  "fast_seen_recall_mean": 0.9667,
+  "leak_clean": true,
+  "baseline_in_band": true,
+  "baseline_heldout_acc": 0.6955,
+  "scramble_collapses_gain": false,
+  "all_seeds_net_gain_positive": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "generalization fix-rate; noise floor=1/n_heldout_err",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <180s)",
+  "calibration_check": "adaptive_with_discriminator_gate (tau on SEEN net_gain; scramble+guard verify fire)",
+  "deterministic_seeding": true,
+  "compose_in_cell_no_hdlab_mutation": true,
+  "production_lexicon_mutated": false,
+  "additive_store_note": "Hebbian superposition consolidated by continual.replay_cycle (NOT AdditiveKGMap)",
+  "oracle_caveat": "meaning corrections oracle-dependent; VerbNet-aggregation-vs-gold agreement ~0.46 (pre-measured)",
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_seen_verbs": 42,
+      "n_seen_fail": 9,
+      "n_heldout": 40,
+      "n_heldout_fail": 13,
+      "n_heldout_correct": 27,
+      "heldout_noise_floor": 0.0769,
+      "base_rate_majority": 0.6154,
+      "tau": 0.016282,
+      "fast_seen_recall": 1.0,
+      "schema": {
+        "n_schemas": 2,
+        "mean_role_purity": 0.6667,
+        "compression": 4.5
+      },
+      "coherent": {
+        "n_heldout": 40,
+        "n_heldout_fail": 13,
+        "n_heldout_correct": 27,
+        "base_acc": 0.675,
+        "loop_acc": 0.65,
+        "net_gain": -0.025,
+        "fixes": 1,
+        "breaks": 2,
+        "overrides": 3,
+        "heldout_fix_rate": 0.0769,
+        "collateral_rate": 0.0741,
+        "rescue_precision": 0.3333
+      },
+      "scramble": {
+        "n_heldout": 40,
+        "n_heldout_fail": 13,
+        "n_heldout_correct": 27,
+        "base_acc": 0.675,
+        "loop_acc": 0.35,
+        "net_gain": -0.325,
+        "fixes": 5,
+        "breaks": 18,
+        "overrides": 23,
+        "heldout_fix_rate": 0.3846,
+        "collateral_rate": 0.6667,
+        "rescue_precision": 0.2174
+      },
+      "blind_override": {
+        "n_heldout": 40,
+        "n_heldout_fail": 13,
+        "n_heldout_correct": 27,
+        "base_acc": 0.675,
+        "loop_acc": 0.6,
+        "net_gain": -0.075,
+        "fixes": 7,
+        "breaks": 10,
+        "overrides": 17,
+        "heldout_fix_rate": 0.5385,
+        "collateral_rate": 0.3704,
+        "rescue_precision": 0.4118
+      },
+      "gain_collapse_scramble": -0.3077,
+      "reg_at_tau": 0.0741,
+      "reg_blind": 0.3704,
+      "guard_holds": true,
+      "learning_curve": [
+        {
+          "frac": 0.1,
+          "n_cases": 0,
+          "heldout_fix_rate": null
+        },
+        {
+          "frac": 0.25,
+          "n_cases": 1,
+          "heldout_fix_rate": null
+        },
+        {
+          "frac": 0.5,
+          "n_cases": 3,
+          "n_seen_verbs": 21,
+          "heldout_fix_rate": 0.3846,
+          "net_gain": -0.325,
+          "rescue_precision": 0.2174
+        },
+        {
+          "frac": 0.75,
+          "n_cases": 8,
+          "n_seen_verbs": 32,
+          "heldout_fix_rate": 0.3846,
+          "net_gain": -0.025,
+          "rescue_precision": 0.4545
+        },
+        {
+          "frac": 1.0,
+          "n_cases": 9,
+          "n_seen_verbs": 42,
+          "heldout_fix_rate": 0.0769,
+          "net_gain": -0.025,
+          "rescue_precision": 0.3333
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "n_seen_verbs": 42,
+      "n_seen_fail": 10,
+      "n_heldout": 38,
+      "n_heldout_fail": 12,
+      "n_heldout_correct": 26,
+      "heldout_noise_floor": 0.0833,
+      "base_rate_majority": 0.5,
+      "tau": 0.018924,
+      "fast_seen_recall": 0.9,
+      "schema": {
+        "n_schemas": 2,
+        "mean_role_purity": 0.619,
+        "compression": 5.0
+      },
+      "coherent": {
+        "n_heldout": 38,
+        "n_heldout_fail": 12,
+        "n_heldout_correct": 26,
+        "base_acc": 0.6842,
+        "loop_acc": 0.7105,
+        "net_gain": 0.0263,
+        "fixes": 1,
+        "breaks": 0,
+        "overrides": 1,
+        "heldout_fix_rate": 0.0833,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "scramble": {
+        "n_heldout": 38,
+        "n_heldout_fail": 12,
+        "n_heldout_correct": 26,
+        "base_acc": 0.6842,
+        "loop_acc": 0.6316,
+        "net_gain": -0.0526,
+        "fixes": 2,
+        "breaks": 4,
+        "overrides": 6,
+        "heldout_fix_rate": 0.1667,
+        "collateral_rate": 0.1538,
+        "rescue_precision": 0.3333
+      },
+      "blind_override": {
+        "n_heldout": 38,
+        "n_heldout_fail": 12,
+        "n_heldout_correct": 26,
+        "base_acc": 0.6842,
+        "loop_acc": 0.7368,
+        "net_gain": 0.0526,
+        "fixes": 9,
+        "breaks": 7,
+        "overrides": 16,
+        "heldout_fix_rate": 0.75,
+        "collateral_rate": 0.2692,
+        "rescue_precision": 0.5625
+      },
+      "gain_collapse_scramble": -0.0834,
+      "reg_at_tau": 0.0,
+      "reg_blind": 0.2692,
+      "guard_holds": true,
+      "learning_curve": [
+        {
+          "frac": 0.1,
+          "n_cases": 0,
+          "heldout_fix_rate": null
+        },
+        {
+          "frac": 0.25,
+          "n_cases": 0,
+          "heldout_fix_rate": null
+        },
+        {
+          "frac": 0.5,
+          "n_cases": 3,
+          "n_seen_verbs": 21,
+          "heldout_fix_rate": 0.5,
+          "net_gain": -0.2368,
+          "rescue_precision": 0.2857
+        },
+        {
+          "frac": 0.75,
+          "n_cases": 9,
+          "n_seen_verbs": 32,
+          "heldout_fix_rate": 0.0,
+          "net_gain": 0.0,
+          "rescue_precision": null
+        },
+        {
+          "frac": 1.0,
+          "n_cases": 10,
+          "n_seen_verbs": 42,
+          "heldout_fix_rate": 0.0833,
+          "net_gain": 0.0263,
+          "rescue_precision": 1.0
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "n_seen_verbs": 42,
+      "n_seen_fail": 10,
+      "n_heldout": 44,
+      "n_heldout_fail": 12,
+      "n_heldout_correct": 32,
+      "heldout_noise_floor": 0.0833,
+      "base_rate_majority": 0.75,
+      "tau": 0.028983,
+      "fast_seen_recall": 1.0,
+      "schema": {
+        "n_schemas": 2,
+        "mean_role_purity": 0.7917,
+        "compression": 5.0
+      },
+      "coherent": {
+        "n_heldout": 44,
+        "n_heldout_fail": 12,
+        "n_heldout_correct": 32,
+        "base_acc": 0.7273,
+        "loop_acc": 0.7045,
+        "net_gain": -0.0227,
+        "fixes": 0,
+        "breaks": 1,
+        "overrides": 1,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0312,
+        "rescue_precision": 0.0
+      },
+      "scramble": {
+        "n_heldout": 44,
+        "n_heldout_fail": 12,
+        "n_heldout_correct": 32,
+        "base_acc": 0.7273,
+        "loop_acc": 0.4545,
+        "net_gain": -0.2727,
+        "fixes": 3,
+        "breaks": 15,
+        "overrides": 18,
+        "heldout_fix_rate": 0.25,
+        "collateral_rate": 0.4688,
+        "rescue_precision": 0.1667
+      },
+      "blind_override": {
+        "n_heldout": 44,
+        "n_heldout_fail": 12,
+        "n_heldout_correct": 32,
+        "base_acc": 0.7273,
+        "loop_acc": 0.3409,
+        "net_gain": -0.3864,
+        "fixes": 3,
+        "breaks": 20,
+        "overrides": 23,
+        "heldout_fix_rate": 0.25,
+        "collateral_rate": 0.625,
+        "rescue_precision": 0.1304
+      },
+      "gain_collapse_scramble": -0.25,
+      "reg_at_tau": 0.0312,
+      "reg_blind": 0.625,
+      "guard_holds": true,
+      "learning_curve": [
+        {
+          "frac": 0.1,
+          "n_cases": 1,
+          "heldout_fix_rate": null
+        },
+        {
+          "frac": 0.25,
+          "n_cases": 1,
+          "heldout_fix_rate": null
+        },
+        {
+          "frac": 0.5,
+          "n_cases": 5,
+          "n_seen_verbs": 21,
+          "heldout_fix_rate": 0.25,
+          "net_gain": -0.2727,
+          "rescue_precision": 0.1667
+        },
+        {
+          "frac": 0.75,
+          "n_cases": 8,
+          "n_seen_verbs": 32,
+          "heldout_fix_rate": 0.0,
+          "net_gain": -0.0227,
+          "rescue_precision": 0.0
+        },
+        {
+          "frac": 1.0,
+          "n_cases": 10,
+          "n_seen_verbs": 42,
+          "heldout_fix_rate": 0.0,
+          "net_gain": -0.0227,
+          "rescue_precision": 0.0
+        }
+      ]
+    }
+  ]
+}
