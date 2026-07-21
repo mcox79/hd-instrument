@@ -1,0 +1,1008 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "native_heldout=1.000 flat_heldout=0.000 gap=1.000 rise=0.958 init=0.042 scramble_ho=0.032 tied_ho=0.004 indist(nb=1.000,flat=1.000) chance=0.042",
+  "summary": "compgen native-bind vs flat: HARD_PASS",
+  "elapsed_s": 92.38,
+  "run_mode": "full",
+  "anchor_name": "compgen_native_bind_role_filler_v1",
+  "ts_iso": "2026-07-21T23:29:45.865256+00:00",
+  "chance": 0.0417,
+  "arms_aggregate": {
+    "native_bind_shared": {
+      "indist": 1.0,
+      "heldout": 1.0,
+      "heldout_init": 0.04223333333333334
+    },
+    "flat": {
+      "indist": 0.9996,
+      "heldout": 0.0,
+      "heldout_init": 0.03333333333333333
+    },
+    "native_bind_scramble": {
+      "indist": 0.032100000000000004,
+      "heldout": 0.03223333333333333,
+      "heldout_init": 0.03223333333333333
+    },
+    "native_bind_tied": {
+      "indist": 1.0,
+      "heldout": 0.004433333333333333,
+      "heldout_init": 0.03553333333333333
+    }
+  },
+  "gap_native_minus_flat_heldout": 1.0,
+  "native_heldout_learning_rise": 0.9578,
+  "hard_pass_checks": {
+    "native_heldout_ge_0.70": true,
+    "flat_heldout_le_0.40": true,
+    "gap_ge_0.30": true,
+    "both_indist_ge_0.80": true,
+    "learning_curve_rises_ge_0.30": true,
+    "native_heldout_init_lt_0.60": true,
+    "scramble_collapses_le_0.10": true,
+    "tied_fails_heldout_le_0.40": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "n_units": 12,
+  "arms_digests": {
+    "native_bind_shared": "b0ad7a1ff02d971e4f94e15ecb75dd5011b8554d8143b7c8031c97c2d17bf42a",
+    "flat": "cf0b5e6ce76eddae5e0c6a1ee52a76f1f080f82ffa680de862feb55821568717",
+    "native_bind_scramble": "72e62e6cc5c861b86f03a0043f1699bcd0300a40eff755b70c7ec6ceb2f3c450",
+    "native_bind_tied": "1febcc1b36d78629d6e41eaaabf9daa50e6a8f57528517fcae59f19bfb5a6140"
+  },
+  "config": {
+    "n_train": 1800,
+    "n_indist": 400,
+    "n_heldout": 300,
+    "epochs": 80,
+    "eval_every": 10,
+    "batch": 256,
+    "lr": 0.01,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "per_unit": [
+    {
+      "arm": "native_bind_shared",
+      "seed": 7,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 1.0,
+      "heldout_init": 0.03,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.0375,
+          "heldout": 0.03
+        },
+        {
+          "epoch": 1,
+          "indist": 0.2563,
+          "heldout": 0.22
+        },
+        {
+          "epoch": 2,
+          "indist": 0.6688,
+          "heldout": 0.6633
+        },
+        {
+          "epoch": 3,
+          "indist": 0.9625,
+          "heldout": 0.91
+        },
+        {
+          "epoch": 4,
+          "indist": 0.9963,
+          "heldout": 0.99
+        },
+        {
+          "epoch": 5,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 6,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 7,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 8,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 9,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 10,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 20,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 30,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 40,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 50,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 60,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 70,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 1.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_scramble",
+      "seed": 7,
+      "indist_final": 0.05,
+      "indist_agent": 0.05,
+      "indist_patient": 0.05,
+      "heldout_final": 0.06,
+      "heldout_init": 0.06,
+      "learning_curve": []
+    },
+    {
+      "arm": "flat",
+      "seed": 7,
+      "indist_final": 0.9988,
+      "indist_agent": 1.0,
+      "indist_patient": 0.9975,
+      "heldout_final": 0.0,
+      "heldout_init": 0.0267,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.0438,
+          "heldout": 0.0267
+        },
+        {
+          "epoch": 1,
+          "indist": 0.9825,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 2,
+          "indist": 0.9975,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 3,
+          "indist": 0.9913,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 4,
+          "indist": 0.9963,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 5,
+          "indist": 0.985,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 6,
+          "indist": 0.9825,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 7,
+          "indist": 0.975,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 8,
+          "indist": 0.9838,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 9,
+          "indist": 0.99,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 10,
+          "indist": 0.9938,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 20,
+          "indist": 0.9975,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 30,
+          "indist": 0.995,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 40,
+          "indist": 0.9963,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 50,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 60,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 70,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 80,
+          "indist": 0.9988,
+          "heldout": 0.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_tied",
+      "seed": 7,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 0.0,
+      "heldout_init": 0.03,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.0238,
+          "heldout": 0.03
+        },
+        {
+          "epoch": 1,
+          "indist": 0.295,
+          "heldout": 0.02
+        },
+        {
+          "epoch": 2,
+          "indist": 0.7212,
+          "heldout": 0.0133
+        },
+        {
+          "epoch": 3,
+          "indist": 0.9475,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 4,
+          "indist": 0.9988,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 5,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 6,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 7,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 8,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 9,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 10,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 20,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 30,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 40,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 50,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 60,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 70,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 0.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_shared",
+      "seed": 13,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 1.0,
+      "heldout_init": 0.0367,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.0738,
+          "heldout": 0.0367
+        },
+        {
+          "epoch": 1,
+          "indist": 0.3888,
+          "heldout": 0.2667
+        },
+        {
+          "epoch": 2,
+          "indist": 0.8262,
+          "heldout": 0.6433
+        },
+        {
+          "epoch": 3,
+          "indist": 0.9875,
+          "heldout": 0.9
+        },
+        {
+          "epoch": 4,
+          "indist": 1.0,
+          "heldout": 0.99
+        },
+        {
+          "epoch": 5,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 6,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 7,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 8,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 9,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 10,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 20,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 30,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 40,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 50,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 60,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 70,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 1.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_scramble",
+      "seed": 13,
+      "indist_final": 0.0288,
+      "indist_agent": 0.0288,
+      "indist_patient": 0.0288,
+      "heldout_final": 0.03,
+      "heldout_init": 0.03,
+      "learning_curve": []
+    },
+    {
+      "arm": "flat",
+      "seed": 13,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 0.0,
+      "heldout_init": 0.04,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.04,
+          "heldout": 0.04
+        },
+        {
+          "epoch": 1,
+          "indist": 0.96,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 2,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 3,
+          "indist": 0.9988,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 4,
+          "indist": 0.9975,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 5,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 6,
+          "indist": 0.9988,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 7,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 8,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 9,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 10,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 20,
+          "indist": 0.9825,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 30,
+          "indist": 0.9975,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 40,
+          "indist": 0.9963,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 50,
+          "indist": 0.9963,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 60,
+          "indist": 0.9975,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 70,
+          "indist": 0.9988,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 0.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_tied",
+      "seed": 13,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 0.0,
+      "heldout_init": 0.0333,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.05,
+          "heldout": 0.0333
+        },
+        {
+          "epoch": 1,
+          "indist": 0.3063,
+          "heldout": 0.0233
+        },
+        {
+          "epoch": 2,
+          "indist": 0.75,
+          "heldout": 0.01
+        },
+        {
+          "epoch": 3,
+          "indist": 0.965,
+          "heldout": 0.01
+        },
+        {
+          "epoch": 4,
+          "indist": 0.9988,
+          "heldout": 0.0067
+        },
+        {
+          "epoch": 5,
+          "indist": 1.0,
+          "heldout": 0.0033
+        },
+        {
+          "epoch": 6,
+          "indist": 1.0,
+          "heldout": 0.0033
+        },
+        {
+          "epoch": 7,
+          "indist": 1.0,
+          "heldout": 0.0033
+        },
+        {
+          "epoch": 8,
+          "indist": 1.0,
+          "heldout": 0.0033
+        },
+        {
+          "epoch": 9,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 10,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 20,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 30,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 40,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 50,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 60,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 70,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 0.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_shared",
+      "seed": 19,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 1.0,
+      "heldout_init": 0.06,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.0688,
+          "heldout": 0.06
+        },
+        {
+          "epoch": 1,
+          "indist": 0.3425,
+          "heldout": 0.2533
+        },
+        {
+          "epoch": 2,
+          "indist": 0.8113,
+          "heldout": 0.6233
+        },
+        {
+          "epoch": 3,
+          "indist": 0.9813,
+          "heldout": 0.9467
+        },
+        {
+          "epoch": 4,
+          "indist": 1.0,
+          "heldout": 0.9967
+        },
+        {
+          "epoch": 5,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 6,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 7,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 8,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 9,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 10,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 20,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 30,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 40,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 50,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 60,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 70,
+          "indist": 1.0,
+          "heldout": 1.0
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 1.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_scramble",
+      "seed": 19,
+      "indist_final": 0.0175,
+      "indist_agent": 0.0175,
+      "indist_patient": 0.0175,
+      "heldout_final": 0.0067,
+      "heldout_init": 0.0067,
+      "learning_curve": []
+    },
+    {
+      "arm": "flat",
+      "seed": 19,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 0.0,
+      "heldout_init": 0.0333,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.0262,
+          "heldout": 0.0333
+        },
+        {
+          "epoch": 1,
+          "indist": 0.9838,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 2,
+          "indist": 0.9913,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 3,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 4,
+          "indist": 1.0,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 5,
+          "indist": 0.9925,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 6,
+          "indist": 0.9863,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 7,
+          "indist": 0.9913,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 8,
+          "indist": 0.9725,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 9,
+          "indist": 0.98,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 10,
+          "indist": 0.9938,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 20,
+          "indist": 0.9988,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 30,
+          "indist": 0.9925,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 40,
+          "indist": 0.9938,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 50,
+          "indist": 0.9975,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 60,
+          "indist": 0.9988,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 70,
+          "indist": 0.995,
+          "heldout": 0.0
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 0.0
+        }
+      ]
+    },
+    {
+      "arm": "native_bind_tied",
+      "seed": 19,
+      "indist_final": 1.0,
+      "indist_agent": 1.0,
+      "indist_patient": 1.0,
+      "heldout_final": 0.0133,
+      "heldout_init": 0.0433,
+      "learning_curve": [
+        {
+          "epoch": 0,
+          "indist": 0.0525,
+          "heldout": 0.0433
+        },
+        {
+          "epoch": 1,
+          "indist": 0.3675,
+          "heldout": 0.04
+        },
+        {
+          "epoch": 2,
+          "indist": 0.8262,
+          "heldout": 0.03
+        },
+        {
+          "epoch": 3,
+          "indist": 0.9863,
+          "heldout": 0.0267
+        },
+        {
+          "epoch": 4,
+          "indist": 1.0,
+          "heldout": 0.0267
+        },
+        {
+          "epoch": 5,
+          "indist": 1.0,
+          "heldout": 0.0233
+        },
+        {
+          "epoch": 6,
+          "indist": 1.0,
+          "heldout": 0.0233
+        },
+        {
+          "epoch": 7,
+          "indist": 1.0,
+          "heldout": 0.0167
+        },
+        {
+          "epoch": 8,
+          "indist": 1.0,
+          "heldout": 0.0167
+        },
+        {
+          "epoch": 9,
+          "indist": 1.0,
+          "heldout": 0.0167
+        },
+        {
+          "epoch": 10,
+          "indist": 1.0,
+          "heldout": 0.0167
+        },
+        {
+          "epoch": 20,
+          "indist": 1.0,
+          "heldout": 0.0133
+        },
+        {
+          "epoch": 30,
+          "indist": 1.0,
+          "heldout": 0.0133
+        },
+        {
+          "epoch": 40,
+          "indist": 1.0,
+          "heldout": 0.0133
+        },
+        {
+          "epoch": 50,
+          "indist": 1.0,
+          "heldout": 0.0133
+        },
+        {
+          "epoch": 60,
+          "indist": 1.0,
+          "heldout": 0.0133
+        },
+        {
+          "epoch": 70,
+          "indist": 1.0,
+          "heldout": 0.0133
+        },
+        {
+          "epoch": 80,
+          "indist": 1.0,
+          "heldout": 0.0133
+        }
+      ]
+    }
+  ]
+}
