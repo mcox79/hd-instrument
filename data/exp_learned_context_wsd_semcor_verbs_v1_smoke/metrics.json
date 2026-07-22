@@ -1,0 +1,549 @@
+{
+  "verdict": "HARD_FAIL",
+  "tier": "INVALID",
+  "verdict_msg": "acc MFS=0.5045 learned=0.5028 lift=-0.0016 (95%CI [-0.0162,0.0122]) McNemar chi2=0.0 p=9.11e-01 | coarse=0.4647 (lift -0.0397) scramble=0.4858 (lift -0.0187) | LC rise=+0.1127 | train_lift=+0.1346 arms_differ=True baseline_in_band=True",
+  "summary": "learned-context WSD vs MFS on SemCor verbs: HARD_FAIL",
+  "elapsed_s": 5.67,
+  "ts_iso": "2026-07-22T04:53:37.334444+00:00",
+  "anchor_name": "learned_context_wsd_semcor_verbs_v1",
+  "run_mode": "smoke",
+  "regime": {
+    "n_instances": 4041,
+    "n_polysemous_lemmas": 205,
+    "n_train": 2808,
+    "n_test": 1233,
+    "min_count": 5,
+    "test_frac": 0.3,
+    "alpha": 0.1,
+    "seed": 20260722
+  },
+  "arms": {
+    "A_MFS": {
+      "acc": 0.5044606650446066,
+      "note": "context OFF = argmax P(sense|lemma) = supervised MFS"
+    },
+    "B_LEARNED": {
+      "acc": 0.5028386050283861,
+      "note": "context ON = NB specific context tokens"
+    },
+    "C_FIXED_COARSE": {
+      "acc": 0.46472019464720193,
+      "note": "NB over WordNet supersense buckets (fixed type)"
+    },
+    "D_SCRAMBLE": {
+      "acc": 0.48580697485806973,
+      "note": "must-fail: train context bags permuted"
+    }
+  },
+  "lift": -0.0016220600162205612,
+  "lift_train": 0.13461538461538458,
+  "coarse_lift": -0.03974047039740469,
+  "scramble_lift": -0.018653690186536898,
+  "mcnemar": {
+    "b": 39,
+    "c": 41,
+    "chi2": 0.0125,
+    "p": 0.910979292510634
+  },
+  "delta_ci95": [
+    -0.01622060016220595,
+    0.012165450121654486
+  ],
+  "learning_curve": [
+    {
+      "frac": 0.1,
+      "n_train": 281,
+      "acc_context_on": 0.39010543390105434,
+      "acc_mfs": 0.3933495539334955
+    },
+    {
+      "frac": 0.2,
+      "n_train": 562,
+      "acc_context_on": 0.41768045417680455,
+      "acc_mfs": 0.42416869424168696
+    },
+    {
+      "frac": 0.4,
+      "n_train": 1123,
+      "acc_context_on": 0.47039740470397406,
+      "acc_mfs": 0.47850770478507704
+    },
+    {
+      "frac": 0.6,
+      "n_train": 1685,
+      "acc_context_on": 0.48905109489051096,
+      "acc_mfs": 0.49797242497972427
+    },
+    {
+      "frac": 0.8,
+      "n_train": 2246,
+      "acc_context_on": 0.48661800486618007,
+      "acc_mfs": 0.4955393349553934
+    },
+    {
+      "frac": 1.0,
+      "n_train": 2808,
+      "acc_context_on": 0.5028386050283861,
+      "acc_mfs": 0.5044606650446066
+    }
+  ],
+  "lc_rise_full_minus_10pct": 0.11273317112733172,
+  "memorization_check": {
+    "acc_train_context_on": 0.7175925925925926,
+    "acc_test_context_on": 0.5028386050283861,
+    "train_minus_test": 0.2147539875642065
+  },
+  "glassbox": {
+    "weights_are_plain_dict": true,
+    "example_lemmas": [
+      "be",
+      "have"
+    ],
+    "top_llr_context_words_per_sense": {
+      "be": {
+        "be.v.01": [
+          [
+            "L1:laws",
+            0.368,
+            1
+          ],
+          [
+            "L2:election",
+            0.368,
+            1
+          ],
+          [
+            "R1:outmoded",
+            0.368,
+            1
+          ],
+          [
+            "R2:inadequate",
+            0.368,
+            1
+          ],
+          [
+            "BAG:georgia",
+            0.368,
+            1
+          ]
+        ],
+        "be.v.02": [
+          [
+            "R2:major",
+            1.421,
+            1
+          ],
+          [
+            "BAG:items",
+            1.421,
+            1
+          ],
+          [
+            "BAG:assistance",
+            1.421,
+            1
+          ],
+          [
+            "L1:tower",
+            1.421,
+            1
+          ],
+          [
+            "L2:john",
+            1.421,
+            1
+          ]
+        ],
+        "be.v.03": [
+          [
+            "L1:barber",
+            2.456,
+            1
+          ],
+          [
+            "R2:year",
+            2.456,
+            1
+          ],
+          [
+            "L1:just",
+            2.456,
+            1
+          ],
+          [
+            "L1:law",
+            2.456,
+            1
+          ],
+          [
+            "L2:escheat",
+            2.456,
+            1
+          ]
+        ],
+        "be.v.05": [
+          [
+            "L1:warning",
+            2.463,
+            1
+          ],
+          [
+            "R1:unanimous",
+            2.463,
+            1
+          ],
+          [
+            "R2:vote",
+            2.463,
+            1
+          ],
+          [
+            "BAG:warning",
+            2.463,
+            1
+          ],
+          [
+            "BAG:unanimous",
+            2.463,
+            1
+          ]
+        ],
+        "constitute.v.01": [
+          [
+            "L1:gainesville",
+            2.751,
+            1
+          ],
+          [
+            "L2:ledford",
+            2.751,
+            1
+          ],
+          [
+            "R1:assistant",
+            2.751,
+            1
+          ],
+          [
+            "BAG:succeeded",
+            2.751,
+            1
+          ],
+          [
+            "BAG:rob",
+            2.751,
+            1
+          ]
+        ],
+        "exist.v.01": [
+          [
+            "L2:said",
+            2.277,
+            1
+          ],
+          [
+            "R1:plan",
+            2.277,
+            1
+          ],
+          [
+            "R2:there",
+            2.277,
+            1
+          ],
+          [
+            "BAG:plan",
+            2.277,
+            1
+          ],
+          [
+            "L2:legislator",
+            2.277,
+            1
+          ]
+        ]
+      },
+      "have": {
+        "experience.v.03": [
+          [
+            "L1:lightweight",
+            1.475,
+            1
+          ],
+          [
+            "L2:ranked",
+            1.475,
+            1
+          ],
+          [
+            "R2:trouble",
+            1.475,
+            1
+          ],
+          [
+            "BAG:kenny",
+            1.475,
+            1
+          ],
+          [
+            "BAG:lane",
+            1.475,
+            1
+          ]
+        ],
+        "get.v.03": [
+          [
+            "L1:act",
+            2.253,
+            1
+          ],
+          [
+            "L2:legislators",
+            2.253,
+            1
+          ],
+          [
+            "R1:laws",
+            2.253,
+            1
+          ],
+          [
+            "R2:studied",
+            2.253,
+            1
+          ],
+          [
+            "BAG:recommended",
+            2.253,
+            1
+          ]
+        ],
+        "have.v.01": [
+          [
+            "R1:son",
+            1.217,
+            1
+          ],
+          [
+            "R2:william",
+            1.217,
+            1
+          ],
+          [
+            "BAG:son",
+            1.217,
+            1
+          ],
+          [
+            "BAG:william",
+            1.217,
+            1
+          ],
+          [
+            "BAG:berry",
+            1.217,
+            1
+          ]
+        ],
+        "have.v.02": [
+          [
+            "L1:palmer",
+            1.123,
+            1
+          ],
+          [
+            "L2:intensity",
+            1.123,
+            1
+          ],
+          [
+            "R2:inherent",
+            1.123,
+            1
+          ],
+          [
+            "BAG:serious",
+            1.123,
+            2
+          ],
+          [
+            "BAG:plays",
+            1.123,
+            1
+          ]
+        ],
+        "have.v.07": [
+          [
+            "L2:hand",
+            2.03,
+            1
+          ],
+          [
+            "R1:been",
+            2.03,
+            1
+          ],
+          [
+            "R2:gathering",
+            2.03,
+            1
+          ],
+          [
+            "BAG:interruption",
+            2.03,
+            1
+          ],
+          [
+            "BAG:auxiliary",
+            2.03,
+            1
+          ]
+        ],
+        "have.v.09": [
+          [
+            "L1:texans",
+            2.507,
+            1
+          ],
+          [
+            "BAG:road",
+            2.507,
+            1
+          ],
+          [
+            "BAG:buffalo",
+            2.507,
+            1
+          ],
+          [
+            "BAG:houston",
+            2.507,
+            1
+          ],
+          [
+            "BAG:folks",
+            2.507,
+            1
+          ]
+        ],
+        "have.v.10": [
+          [
+            "L1:version",
+            2.354,
+            1
+          ],
+          [
+            "L2:film",
+            2.354,
+            1
+          ],
+          [
+            "BAG:ruth",
+            2.354,
+            1
+          ],
+          [
+            "BAG:remained",
+            2.354,
+            1
+          ],
+          [
+            "BAG:naomi",
+            2.354,
+            1
+          ]
+        ],
+        "have.v.12": [
+          [
+            "R1:informed",
+            2.466,
+            1
+          ],
+          [
+            "R2:kidney",
+            2.466,
+            1
+          ],
+          [
+            "BAG:kidney",
+            2.466,
+            1
+          ],
+          [
+            "BAG:liver",
+            2.466,
+            1
+          ],
+          [
+            "BAG:severe",
+            2.466,
+            1
+          ]
+        ],
+        "hold.v.03": [
+          [
+            "R1:good",
+            2.291,
+            1
+          ],
+          [
+            "R2:scrimmage",
+            2.291,
+            1
+          ],
+          [
+            "BAG:tuesday",
+            2.291,
+            1
+          ],
+          [
+            "BAG:wednesday",
+            2.291,
+            1
+          ],
+          [
+            "BAG:thursday",
+            2.291,
+            1
+          ]
+        ],
+        "own.v.01": [
+          [
+            "L1:really",
+            1.472,
+            1
+          ],
+          [
+            "L2:then",
+            1.472,
+            1
+          ],
+          [
+            "R1:go",
+            1.472,
+            1
+          ],
+          [
+            "L1:paget",
+            1.472,
+            1
+          ],
+          [
+            "L2:forbes",
+            1.472,
+            1
+          ]
+        ]
+      }
+    }
+  },
+  "discipline": {
+    "arms_differ_verified": true,
+    "baseline_in_band": true,
+    "final_metrics_atomicity": "tmp_replace",
+    "nondeterminism_guard": "RandomState+sorted; no python hash()",
+    "crlb_n_a": "supervised-classifier metric; feasibility set by MFS headroom"
+  },
+  "prereg": "preregs/2026-07-22_learned_context_wsd_semcor_verbs_v1.md"
+}

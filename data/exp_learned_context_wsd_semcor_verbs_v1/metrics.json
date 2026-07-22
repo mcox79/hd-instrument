@@ -1,0 +1,934 @@
+{
+  "verdict": "HARD_FAIL",
+  "tier": "HONEST_NULL",
+  "verdict_msg": "acc MFS=0.5679 learned=0.5691 lift=+0.0012 (95%CI [-0.0021,0.0047]) McNemar chi2=0.4 p=5.05e-01 | coarse=0.5214 (lift -0.0465) scramble=0.5489 (lift -0.0190) | LC rise=+0.0534 | train_lift=+0.1176 arms_differ=True baseline_in_band=True",
+  "summary": "learned-context WSD vs MFS on SemCor verbs: HARD_FAIL",
+  "elapsed_s": 24.46,
+  "ts_iso": "2026-07-22T04:55:23.705425+00:00",
+  "anchor_name": "learned_context_wsd_semcor_verbs_v1",
+  "run_mode": "full",
+  "regime": {
+    "n_instances": 75456,
+    "n_polysemous_lemmas": 915,
+    "n_train": 52815,
+    "n_test": 22641,
+    "min_count": 10,
+    "test_frac": 0.3,
+    "alpha": 0.1,
+    "seed": 20260722
+  },
+  "arms": {
+    "A_MFS": {
+      "acc": 0.5679077779250034,
+      "note": "context OFF = argmax P(sense|lemma) = supervised MFS"
+    },
+    "B_LEARNED": {
+      "acc": 0.569144472417296,
+      "note": "context ON = NB specific context tokens"
+    },
+    "C_FIXED_COARSE": {
+      "acc": 0.5213992314827084,
+      "note": "NB over WordNet supersense buckets (fixed type)"
+    },
+    "D_SCRAMBLE": {
+      "acc": 0.5489156839362219,
+      "note": "must-fail: train context bags permuted"
+    }
+  },
+  "lift": 0.0012366944922926892,
+  "lift_train": 0.11759916690334182,
+  "coarse_lift": -0.04650854644229496,
+  "scramble_lift": -0.018992093988781433,
+  "mcnemar": {
+    "b": 836,
+    "c": 808,
+    "chi2": 0.44343065693430656,
+    "p": 0.5054712542589734
+  },
+  "delta_ci95": [
+    -0.0020758800406343036,
+    0.00472704385848685
+  ],
+  "data_density_strata": {
+    "all": {
+      "n": 22641,
+      "acc_mfs": 0.5679077779250034,
+      "acc_learned": 0.569144472417296,
+      "lift": 0.0012366944922926892,
+      "mcnemar_p": 0.5054712542589734,
+      "mcnemar_chi2": 0.44343065693430656
+    },
+    "ge35": {
+      "n": 18423,
+      "acc_mfs": 0.5661401508983336,
+      "acc_learned": 0.5657059110893992,
+      "lift": -0.0004342398089344224,
+      "mcnemar_p": 0.8604740999720188,
+      "mcnemar_chi2": 0.0308953341740227
+    },
+    "ge75": {
+      "n": 15256,
+      "acc_mfs": 0.566465652857892,
+      "acc_learned": 0.5637126376507604,
+      "lift": -0.0027530152071315594,
+      "mcnemar_p": 0.29201591198220705,
+      "mcnemar_chi2": 1.1103038309114928
+    },
+    "ge150": {
+      "n": 12001,
+      "acc_mfs": 0.5706191150737439,
+      "acc_learned": 0.5625364552953921,
+      "lift": -0.008082659778351764,
+      "mcnemar_p": 0.009057113194466958,
+      "mcnemar_chi2": 6.811529933481153
+    }
+  },
+  "learning_curve": [
+    {
+      "frac": 0.1,
+      "n_train": 5282,
+      "acc_context_on": 0.515701603286074,
+      "acc_mfs": 0.5214433991431474
+    },
+    {
+      "frac": 0.2,
+      "n_train": 10563,
+      "acc_context_on": 0.5419371935868557,
+      "acc_mfs": 0.5488273486153439
+    },
+    {
+      "frac": 0.4,
+      "n_train": 21126,
+      "acc_context_on": 0.5528024380548562,
+      "acc_mfs": 0.5593392517998321
+    },
+    {
+      "frac": 0.6,
+      "n_train": 31689,
+      "acc_context_on": 0.5614592995009055,
+      "acc_mfs": 0.5645068680711983
+    },
+    {
+      "frac": 0.8,
+      "n_train": 42252,
+      "acc_context_on": 0.5675102689810521,
+      "acc_mfs": 0.5680402809063204
+    },
+    {
+      "frac": 1.0,
+      "n_train": 52815,
+      "acc_context_on": 0.569144472417296,
+      "acc_mfs": 0.5679077779250034
+    }
+  ],
+  "lc_rise_full_minus_10pct": 0.05344286913122209,
+  "memorization_check": {
+    "acc_train_context_on": 0.6935529679068446,
+    "acc_test_context_on": 0.569144472417296,
+    "train_minus_test": 0.12440849548954858
+  },
+  "glassbox": {
+    "weights_are_plain_dict": true,
+    "example_lemmas": [
+      "be",
+      "have"
+    ],
+    "top_llr_context_words_per_sense": {
+      "be": {
+        "be.v.01": [
+          [
+            "L2:departments",
+            0.41,
+            1
+          ],
+          [
+            "R2:operated",
+            0.41,
+            1
+          ],
+          [
+            "BAG:topics",
+            0.41,
+            3
+          ],
+          [
+            "BAG:atlanta",
+            0.41,
+            3
+          ],
+          [
+            "BAG:fulton",
+            0.41,
+            1
+          ]
+        ],
+        "be.v.02": [
+          [
+            "L1:tower",
+            1.572,
+            1
+          ],
+          [
+            "R1:featured",
+            1.572,
+            1
+          ],
+          [
+            "R2:speaker",
+            1.572,
+            1
+          ],
+          [
+            "BAG:savannah",
+            1.572,
+            1
+          ],
+          [
+            "BAG:newly",
+            1.572,
+            1
+          ]
+        ],
+        "be.v.03": [
+          [
+            "L2:hartsfield",
+            2.566,
+            1
+          ],
+          [
+            "R2:pelham",
+            2.566,
+            1
+          ],
+          [
+            "BAG:hartsfield",
+            2.566,
+            1
+          ],
+          [
+            "BAG:pelham",
+            2.566,
+            1
+          ],
+          [
+            "R1:polls",
+            2.566,
+            1
+          ]
+        ],
+        "be.v.05": [
+          [
+            "R1:unanimous",
+            2.728,
+            1
+          ],
+          [
+            "BAG:unanimous",
+            2.728,
+            1
+          ],
+          [
+            "L2:voted",
+            2.728,
+            1
+          ],
+          [
+            "R1:dissents",
+            2.728,
+            1
+          ],
+          [
+            "BAG:dissents",
+            2.728,
+            1
+          ]
+        ],
+        "be.v.08": [
+          [
+            "L1:revelation",
+            3.407,
+            1
+          ],
+          [
+            "L2:miracle",
+            3.407,
+            1
+          ],
+          [
+            "R1:curtain",
+            3.407,
+            1
+          ],
+          [
+            "R2:suddenly",
+            3.407,
+            1
+          ],
+          [
+            "BAG:miracle",
+            3.407,
+            1
+          ]
+        ],
+        "be.v.10": [
+          [
+            "L2:wondered",
+            3.514,
+            1
+          ],
+          [
+            "BAG:confession",
+            3.514,
+            1
+          ],
+          [
+            "BAG:lionel",
+            3.514,
+            1
+          ],
+          [
+            "R2:signed",
+            2.868,
+            1
+          ],
+          [
+            "BAG:signed",
+            2.199,
+            1
+          ]
+        ],
+        "constitute.v.01": [
+          [
+            "L1:gainesville",
+            3.172,
+            1
+          ],
+          [
+            "L2:ledford",
+            3.172,
+            1
+          ],
+          [
+            "R1:assistant",
+            3.172,
+            1
+          ],
+          [
+            "BAG:ledford",
+            3.172,
+            1
+          ],
+          [
+            "BAG:gainesville",
+            3.172,
+            1
+          ]
+        ],
+        "embody.v.02": [
+          [
+            "L1:exactly",
+            3.48,
+            1
+          ],
+          [
+            "R2:burnside",
+            3.48,
+            2
+          ],
+          [
+            "R1:sun",
+            3.48,
+            1
+          ],
+          [
+            "R2:planet",
+            3.48,
+            1
+          ],
+          [
+            "L1:commented",
+            3.48,
+            1
+          ]
+        ],
+        "equal.v.01": [
+          [
+            "R1:lyric",
+            3.139,
+            1
+          ],
+          [
+            "BAG:steinberg",
+            3.139,
+            1
+          ],
+          [
+            "BAG:manages",
+            3.139,
+            1
+          ],
+          [
+            "L1:relation",
+            3.139,
+            1
+          ],
+          [
+            "L2:following",
+            3.139,
+            1
+          ]
+        ],
+        "exist.v.01": [
+          [
+            "L2:sunday",
+            2.593,
+            1
+          ],
+          [
+            "R2:resolution",
+            2.593,
+            1
+          ],
+          [
+            "BAG:resolution",
+            2.593,
+            2
+          ],
+          [
+            "BAG:rescind",
+            2.593,
+            1
+          ],
+          [
+            "L2:legislator",
+            2.593,
+            1
+          ]
+        ]
+      },
+      "have": {
+        "accept.v.02": [
+          [
+            "L1:refused",
+            2.859,
+            1
+          ],
+          [
+            "R1:doctor",
+            2.859,
+            1
+          ],
+          [
+            "R2:insisting",
+            2.859,
+            1
+          ],
+          [
+            "BAG:insisting",
+            2.859,
+            1
+          ],
+          [
+            "L1:perhaps",
+            2.859,
+            1
+          ]
+        ],
+        "consume.v.02": [
+          [
+            "L1:hollywood",
+            2.656,
+            1
+          ],
+          [
+            "L2:came",
+            2.656,
+            1
+          ],
+          [
+            "R1:dinner",
+            2.656,
+            4
+          ],
+          [
+            "BAG:edward",
+            2.656,
+            1
+          ],
+          [
+            "BAG:murrow",
+            2.656,
+            1
+          ]
+        ],
+        "experience.v.03": [
+          [
+            "L1:lightweight",
+            1.921,
+            1
+          ],
+          [
+            "L2:ranked",
+            1.921,
+            1
+          ],
+          [
+            "R2:trouble",
+            1.921,
+            1
+          ],
+          [
+            "BAG:kenny",
+            1.921,
+            1
+          ],
+          [
+            "BAG:lane",
+            1.921,
+            1
+          ]
+        ],
+        "get.v.03": [
+          [
+            "L1:act",
+            2.485,
+            1
+          ],
+          [
+            "L2:legislators",
+            2.485,
+            1
+          ],
+          [
+            "R1:laws",
+            2.485,
+            1
+          ],
+          [
+            "R2:studied",
+            2.485,
+            1
+          ],
+          [
+            "BAG:recommended",
+            2.485,
+            1
+          ]
+        ],
+        "give_birth.v.01": [
+          [
+            "L1:horror",
+            2.839,
+            1
+          ],
+          [
+            "L2:persistent",
+            2.839,
+            1
+          ],
+          [
+            "R1:malformed",
+            2.839,
+            1
+          ],
+          [
+            "R2:child",
+            2.839,
+            1
+          ],
+          [
+            "BAG:persistent",
+            2.839,
+            1
+          ]
+        ],
+        "have.v.01": [
+          [
+            "R1:son",
+            0.6,
+            3
+          ],
+          [
+            "R2:william",
+            0.6,
+            2
+          ],
+          [
+            "BAG:william",
+            0.6,
+            2
+          ],
+          [
+            "BAG:berry",
+            0.6,
+            2
+          ],
+          [
+            "BAG:cheshire",
+            0.6,
+            1
+          ]
+        ],
+        "have.v.02": [
+          [
+            "L1:creature",
+            1.453,
+            1
+          ],
+          [
+            "BAG:weeks",
+            1.453,
+            1
+          ],
+          [
+            "BAG:arnold",
+            1.453,
+            1
+          ],
+          [
+            "BAG:palmer",
+            1.453,
+            1
+          ],
+          [
+            "BAG:creature",
+            1.453,
+            1
+          ]
+        ],
+        "have.v.07": [
+          [
+            "R2:gathering",
+            2.621,
+            1
+          ],
+          [
+            "BAG:interruption",
+            2.621,
+            1
+          ],
+          [
+            "BAG:gathering",
+            2.621,
+            1
+          ],
+          [
+            "BAG:samples",
+            2.621,
+            1
+          ],
+          [
+            "BAG:chicago",
+            2.621,
+            1
+          ]
+        ],
+        "have.v.09": [
+          [
+            "L1:tomorrow",
+            2.713,
+            1
+          ],
+          [
+            "L2:college",
+            2.713,
+            1
+          ],
+          [
+            "R1:doubleheader",
+            2.713,
+            1
+          ],
+          [
+            "R2:quincy",
+            2.713,
+            1
+          ],
+          [
+            "BAG:bears",
+            2.713,
+            1
+          ]
+        ],
+        "have.v.10": [
+          [
+            "L1:version",
+            2.659,
+            1
+          ],
+          [
+            "L2:film",
+            2.659,
+            1
+          ],
+          [
+            "BAG:remained",
+            2.659,
+            1
+          ],
+          [
+            "BAG:finally",
+            2.659,
+            1
+          ],
+          [
+            "BAG:wound",
+            2.659,
+            1
+          ]
+        ],
+        "have.v.11": [
+          [
+            "L1:woodwork",
+            2.736,
+            1
+          ],
+          [
+            "L2:walls",
+            2.736,
+            1
+          ],
+          [
+            "R1:genesis",
+            2.736,
+            1
+          ],
+          [
+            "R2:trisodium",
+            2.736,
+            1
+          ],
+          [
+            "BAG:cleaners",
+            2.736,
+            1
+          ]
+        ],
+        "have.v.12": [
+          [
+            "R1:cancer",
+            2.803,
+            2
+          ],
+          [
+            "BAG:cancer",
+            2.803,
+            2
+          ],
+          [
+            "L1:sloppy",
+            2.803,
+            1
+          ],
+          [
+            "L2:personally",
+            2.803,
+            1
+          ],
+          [
+            "R1:colds",
+            2.803,
+            1
+          ]
+        ],
+        "have.v.17": [
+          [
+            "L1:haddix",
+            2.862,
+            1
+          ],
+          [
+            "R2:redbirds",
+            2.862,
+            1
+          ],
+          [
+            "BAG:haddix",
+            2.862,
+            1
+          ],
+          [
+            "BAG:mark",
+            2.862,
+            1
+          ],
+          [
+            "L1:about",
+            2.862,
+            1
+          ]
+        ],
+        "hold.v.03": [
+          [
+            "L1:player",
+            2.776,
+            1
+          ],
+          [
+            "L2:seen",
+            2.776,
+            1
+          ],
+          [
+            "R1:game",
+            2.776,
+            1
+          ],
+          [
+            "BAG:player",
+            2.776,
+            1
+          ],
+          [
+            "BAG:mankowski",
+            2.776,
+            1
+          ]
+        ],
+        "induce.v.02": [
+          [
+            "R1:breathe",
+            2.787,
+            1
+          ],
+          [
+            "R2:canvas",
+            2.787,
+            1
+          ],
+          [
+            "BAG:recently",
+            2.787,
+            1
+          ],
+          [
+            "BAG:replied",
+            2.787,
+            1
+          ],
+          [
+            "BAG:painted",
+            2.787,
+            1
+          ]
+        ],
+        "own.v.01": [
+          [
+            "L1:committee",
+            2.125,
+            1
+          ],
+          [
+            "L2:executive",
+            2.125,
+            1
+          ],
+          [
+            "R2:charge",
+            2.125,
+            1
+          ],
+          [
+            "BAG:jury",
+            2.125,
+            1
+          ],
+          [
+            "BAG:presentments",
+            2.125,
+            1
+          ]
+        ],
+        "receive.v.01": [
+          [
+            "L2:instruction",
+            2.818,
+            1
+          ],
+          [
+            "BAG:friendship",
+            2.818,
+            1
+          ],
+          [
+            "BAG:chauncey",
+            2.818,
+            1
+          ],
+          [
+            "BAG:ryder",
+            2.818,
+            1
+          ],
+          [
+            "BAG:instruction",
+            2.818,
+            1
+          ]
+        ],
+        "suffer.v.02": [
+          [
+            "L1:disease",
+            2.865,
+            1
+          ],
+          [
+            "L2:cure",
+            2.865,
+            1
+          ],
+          [
+            "BAG:neck",
+            2.865,
+            1
+          ],
+          [
+            "BAG:anatomy",
+            2.865,
+            1
+          ],
+          [
+            "BAG:rays",
+            2.865,
+            1
+          ]
+        ],
+        "take.v.35": [
+          [
+            "R2:women",
+            2.876,
+            1
+          ],
+          [
+            "R1:other",
+            2.23,
+            1
+          ],
+          [
+            "BAG:women",
+            1.84,
+            1
+          ],
+          [
+            "L2:like",
+            1.561,
+            1
+          ],
+          [
+            "L1:men",
+            1.342,
+            1
+          ]
+        ]
+      }
+    }
+  },
+  "discipline": {
+    "arms_differ_verified": true,
+    "baseline_in_band": true,
+    "final_metrics_atomicity": "tmp_replace",
+    "nondeterminism_guard": "RandomState+sorted; no python hash()",
+    "crlb_n_a": "supervised-classifier metric; feasibility set by MFS headroom"
+  },
+  "prereg": "preregs/2026-07-22_learned_context_wsd_semcor_verbs_v1.md"
+}
