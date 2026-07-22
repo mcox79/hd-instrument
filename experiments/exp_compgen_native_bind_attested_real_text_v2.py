@@ -80,8 +80,12 @@ import numpy as np
 import torch
 
 ANCHOR_NAME = "compgen_native_bind_attested_real_text_v2"
+ANCHOR_MATCHED = "compgen_native_bind_matched_hard_v3"   # matched-hard baseline-relative CG gate (extension)
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
+OUTPUT_DIR_MATCHED = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_MATCHED)
+# which dir the crash-handler writes to (set in main; defaults to the v2 dir for --full/--smoke/--self-test)
+CURRENT_OUTPUT_DIR = OUTPUT_DIR
 CONLLU_PATHS = [
     os.path.join(REPO_ROOT, "data", "corpora", "ud_english_ewt", "en_ewt-ud-train.conllu"),
     os.path.join(REPO_ROOT, "data", "corpora", "ud_english_ewt", "en_ewt-ud-test.conllu"),
@@ -102,6 +106,31 @@ DATA_FRACTIONS_SMOKE = [0.50, 1.0]
 
 FULL = dict(fractions=DATA_FRACTIONS_FULL, epochs=50, lr=1e-2, batch=256, seeds=[7, 13, 19])
 SMOKE = dict(fractions=DATA_FRACTIONS_SMOKE, epochs=50, lr=1e-2, batch=256, seeds=[7])
+
+# ---- matched-hard extension (baseline-relative CG gate; harness-reuse, SAME mechanism) ----
+# Denser difficulty grid so each arm can be tuned to MEET the others at equal in-dist accuracy.
+DATA_FRACTIONS_MATCHED = [0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.75, 0.85, 0.95, 1.0]
+DATA_FRACTIONS_MATCHED_SMOKE = [0.40, 0.60, 1.0]
+MATCHED = dict(fractions=DATA_FRACTIONS_MATCHED, epochs=50, lr=1e-2, batch=256, seeds=[7, 13, 19])
+MATCHED_SMOKE = dict(fractions=DATA_FRACTIONS_MATCHED_SMOKE, epochs=50, lr=1e-2, batch=256, seeds=[7])
+
+# PRE-REGISTERED baseline-relative CG gate (fixed BEFORE running; per drill 2026-07-22 + adversarial VET of 29432):
+#   Matched-hard = compare native vs a FAIR flat baseline AND vs the TIED (role-specific-encoder) control
+#   at operating points where all three arms sit at the SAME hard in-dist accuracy (matched within 5pp),
+#   at TWO difficulty levels. This removes the confound in the v2 sweep where a given data-fraction put
+#   native and flat at DIFFERENT in-dist, so their held-out was not a matched comparison.
+MH_TARGETS = [0.825, 0.625]                 # matched in-dist targets: HARD (~0.80-0.85), HARDER (~0.60-0.65)
+MH_TARGET_BANDS = [(0.80, 0.85), (0.60, 0.65)]
+MH_MATCH_TOL = 0.05                         # matched in-dist within 5pp (else point flagged not-matched)
+MH_HP1_MARGIN = 0.15                        # HARD-PASS-1: native_ho - flat_ho >= 15pp
+MH_HP1_CHANCE_MULT = 3.0                    # HARD-PASS-1: native_ho >= 3x chance
+MH_HP2_MARGIN = 0.15                        # HARD-PASS-2: native_ho - tied_ho >= 15pp (LEARNED shared factorization)
+MH_CONTROL_SCRAMBLE_MAX = 0.05             # scramble held-out must collapse
+MH_CONTROL_RISE_MIN = 0.30                 # native learning curve must rise (free-algebra rebuttal)
+# VERDICT: CG_CANDIDATE_BASELINE_RELATIVE iff HARD-PASS-1 AND HARD-PASS-2 hold at BOTH points AND controls hold.
+#   HARD-PASS-2 is the discriminator EXPECTED TO FAIL (the v2 sweep hints native-tied margin collapses at hard
+#   in-dist): if it fails, compgen is strong-MM -> encoder geometry, not learned factorization, generalizes.
+#   Otherwise MEASURED_MECHANISM with the decisive number (which condition failed + by how much).
 
 # arms that are TRAINED (scramble is a decode-time lesion of native_bind_shared)
 ARMS_TRAIN = ["native_bind_shared", "flat_shared_readout", "native_bind_tied"]
@@ -436,6 +465,132 @@ def compute_verdict(sw, curve_agg, flat_oracle_ho, chance, code_off_cos, rand_of
     return verdict, msg, checks, extra
 
 
+# ============================ matched-hard baseline-relative gate ============================
+def _rows_at(per_unit, frac, arm):
+    return [r for r in per_unit if abs(r["frac"] - frac) < 1e-9 and r["arm"] == arm]
+
+
+def _closest_row(sw, arm, target):
+    """Sweep row whose <arm>_indist is closest to target (harness-reuse; picks per-arm difficulty)."""
+    return min(sw, key=lambda r: abs(r[arm + "_indist"] - target))
+
+
+def select_matched_points(sw, per_unit, chance, targets, target_bands):
+    """For each target in-dist level, tune each arm's data-fraction so all three arms MEET at that in-dist.
+    Compare held-out at the matched operating points. Returns per-point dicts + the two HARD-PASS gates."""
+    NB, FL, TI = "native_bind_shared", "flat_shared_readout", "native_bind_tied"
+    points = []
+    for target, (lo, hi) in zip(targets, target_bands):
+        nrow = _closest_row(sw, NB, target)
+        n_frac = nrow["frac"]; n_ind = nrow[NB + "_indist"]; n_ho = nrow[NB + "_heldout"]
+        frow = _closest_row(sw, FL, n_ind)
+        trow = _closest_row(sw, TI, n_ind)
+        f_ind = frow[FL + "_indist"]; f_ho = frow[FL + "_heldout"]; f_frac = frow["frac"]
+        t_ind = trow[TI + "_indist"]; t_ho = trow[TI + "_heldout"]; t_frac = trow["frac"]
+        flat_matched = abs(f_ind - n_ind) <= MH_MATCH_TOL
+        tied_matched = abs(t_ind - n_ind) <= MH_MATCH_TOL
+        sc_rows = _rows_at(per_unit, n_frac, "native_bind_scramble")
+        sc_ho = float(np.mean([r["heldout"] for r in sc_rows])) if sc_rows else float("nan")
+
+        hp1 = bool(flat_matched and (n_ho - f_ho) >= MH_HP1_MARGIN and n_ho >= MH_HP1_CHANCE_MULT * chance)
+        hp2 = bool(tied_matched and (n_ho - t_ho) >= MH_HP2_MARGIN)
+
+        def _ps(frac, arm):
+            return [{"seed": r["seed"], "indist": round(r["indist"], 4), "heldout": round(r["heldout"], 4)}
+                    for r in _rows_at(per_unit, frac, arm)]
+
+        points.append({
+            "target_in_dist": target, "band": [lo, hi], "native_in_band": bool(lo <= n_ind <= hi),
+            "native_frac": n_frac, "native_ind": round(n_ind, 4), "native_ho": round(n_ho, 4),
+            "flat_frac": f_frac, "flat_ind": round(f_ind, 4), "flat_ho": round(f_ho, 4),
+            "tied_frac": t_frac, "tied_ind": round(t_ind, 4), "tied_ho": round(t_ho, 4),
+            "scramble_ho_at_native_frac": round(sc_ho, 4),
+            "flat_matched_within_5pp": flat_matched, "tied_matched_within_5pp": tied_matched,
+            "native_minus_flat_ho": round(n_ho - f_ho, 4), "native_minus_tied_ho": round(n_ho - t_ho, 4),
+            "chance_mult_native_ho": round(n_ho / chance, 1),
+            "hard_pass_1_native_gt_flat": hp1, "hard_pass_2_native_gt_tied": hp2,
+            "per_seed_native": _ps(n_frac, NB), "per_seed_flat": _ps(f_frac, FL), "per_seed_tied": _ps(t_frac, TI),
+        })
+    return points
+
+
+def compute_matched_hard_verdict(points, curve_agg, scramble_full, breaches, geometry_ok, chance):
+    hp1_all = all(p["hard_pass_1_native_gt_flat"] for p in points)
+    hp2_all = all(p["hard_pass_2_native_gt_tied"] for p in points)
+    ci, cf = curve_agg["native_bind_shared"]; rise = cf - ci
+    controls = {
+        "scramble_collapses": scramble_full <= MH_CONTROL_SCRAMBLE_MAX,
+        "no_novelty_breaches": breaches == 0,
+        "learning_curve_rises": rise >= MH_CONTROL_RISE_MIN,
+        "geometry_nonorthogonal": bool(geometry_ok),
+    }
+    controls_ok = all(controls.values())
+    cg = hp1_all and hp2_all and controls_ok
+    verdict = "CG_CANDIDATE_BASELINE_RELATIVE" if cg else "MEASURED_MECHANISM"
+
+    # decisive number: the tightest failing gate and its shortfall
+    decisive = []
+    for p in points:
+        tag = "hard(%.2f)" % p["target_in_dist"]
+        if not p["hard_pass_1_native_gt_flat"]:
+            decisive.append("HP1@%s FAIL native-flat_ho=%.3f (<%.2f) or matched=%s"
+                            % (tag, p["native_minus_flat_ho"], MH_HP1_MARGIN, p["flat_matched_within_5pp"]))
+        if not p["hard_pass_2_native_gt_tied"]:
+            decisive.append("HP2@%s FAIL native-tied_ho=%.3f (<%.2f, short %.3f) matched=%s"
+                            % (tag, p["native_minus_tied_ho"], MH_HP2_MARGIN,
+                               MH_HP2_MARGIN - p["native_minus_tied_ho"], p["tied_matched_within_5pp"]))
+    if not controls_ok:
+        decisive.append("CONTROLS FAIL " + ",".join(k for k, v in controls.items() if not v))
+    if not decisive:
+        decisive.append("ALL GATES HOLD (HP1+HP2 at both points + controls)")
+
+    pt_str = " || ".join(
+        "pt%d[ind~%.2f nf=%.2f/ff=%.2f/tf=%.2f]: native_ho=%.3f flat_ho=%.3f tied_ho=%.3f "
+        "(n-f=%.3f HP1=%s | n-t=%.3f HP2=%s)"
+        % (i + 1, p["native_ind"], p["native_frac"], p["flat_frac"], p["tied_frac"],
+           p["native_ho"], p["flat_ho"], p["tied_ho"], p["native_minus_flat_ho"],
+           p["hard_pass_1_native_gt_flat"], p["native_minus_tied_ho"], p["hard_pass_2_native_gt_tied"])
+        for i, p in enumerate(points))
+    msg = ("verdict=%s | HP1_both=%s HP2_both=%s controls_ok=%s | %s | curve %.3f->%.3f rise=%.3f "
+           "scramble_full=%.3f breaches=%d | DECISIVE: %s"
+           % (verdict, hp1_all, hp2_all, controls_ok, pt_str, ci, cf, rise, scramble_full, breaches,
+              " ; ".join(decisive)))
+    extra = {"hard_pass_1_both_points": hp1_all, "hard_pass_2_both_points": hp2_all,
+             "controls": controls, "controls_ok": controls_ok, "learning_rise": round(rise, 4),
+             "decisive": decisive}
+    return verdict, msg, extra
+
+
+def run_matched_hard(cfg, run_mode):
+    """Harness-reuse: run the IDENTICAL v2 pipeline over a denser difficulty grid, then apply the
+    pre-registered matched-hard baseline-relative CG gate. Writes to OUTPUT_DIR_MATCHED (v2 dir untouched)."""
+    metrics = run(cfg, run_mode)
+    sw = metrics["sweep_by_fraction"]; per = metrics["per_unit"]; chance = metrics["chance"]
+    curve_agg = metrics["learning_curve_native_ho"]
+    full = [r for r in sw if abs(r["frac"] - 1.0) < 1e-6][0]
+    scramble_full = full["native_bind_scramble_heldout"]
+    breaches = metrics["attested_novelty_breaches_seed0"]
+    geometry_ok = (metrics["code_off_cos"] >= 1.5 * metrics["rand_off_cos"]) and (metrics["code_off_cos_max"] >= 0.5)
+    points = select_matched_points(sw, per, chance, MH_TARGETS, MH_TARGET_BANDS)
+    verdict, msg, extra = compute_matched_hard_verdict(points, curve_agg, scramble_full, breaches, geometry_ok, chance)
+
+    metrics["v2_sweep_verdict"] = metrics["verdict"]         # keep the v2 sweep verdict for reference
+    metrics["v2_sweep_verdict_msg"] = metrics["verdict_msg"]
+    metrics["matched_hard_points"] = points
+    metrics["matched_hard_gate"] = extra
+    metrics["matched_hard_prereg"] = {
+        "targets": MH_TARGETS, "target_bands": [list(b) for b in MH_TARGET_BANDS],
+        "match_tol_pp": MH_MATCH_TOL, "hp1_margin": MH_HP1_MARGIN, "hp1_chance_mult": MH_HP1_CHANCE_MULT,
+        "hp2_margin": MH_HP2_MARGIN, "scramble_max": MH_CONTROL_SCRAMBLE_MAX, "rise_min": MH_CONTROL_RISE_MIN}
+    # promote the DECISIVE (baseline-relative) verdict to the top-level fields the runner/dashboard read
+    metrics["verdict"] = verdict
+    metrics["verdict_msg"] = msg
+    metrics["summary"] = "compgen matched-hard baseline-relative CG gate: " + verdict
+    metrics["anchor_name"] = ANCHOR_MATCHED
+    metrics["run_mode"] = run_mode
+    return metrics
+
+
 # ============================ geometry probe ============================
 def codebook_geometry(corp, seed):
     """Fixed-codebook off-diagonal |cos| from real emb (requirement-3 non-orthogonality witness)."""
@@ -552,9 +707,10 @@ def run(cfg, run_mode):
     return metrics
 
 
-def _atomic_write(metrics):
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    tmp = os.path.join(OUTPUT_DIR, "metrics.json.tmp"); final = os.path.join(OUTPUT_DIR, "metrics.json")
+def _atomic_write(metrics, out_dir=None):
+    out_dir = out_dir or OUTPUT_DIR
+    os.makedirs(out_dir, exist_ok=True)
+    tmp = os.path.join(out_dir, "metrics.json.tmp"); final = os.path.join(out_dir, "metrics.json")
     with open(tmp, "w", encoding="utf-8") as f: json.dump(metrics, f, indent=2)
     os.replace(tmp, final)
     return final
@@ -565,8 +721,8 @@ def _write_crash_metrics(exc):
             "summary": "CELL_CRASHED: " + type(exc).__name__, "elapsed_s": 0.0, "run_mode": "crash",
             "anchor_name": ANCHOR_NAME, "traceback": traceback.format_exc()[:5000],
             "ts_iso": datetime.now(timezone.utc).isoformat()}
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    tmp = os.path.join(OUTPUT_DIR, "metrics.json.tmp"); final = os.path.join(OUTPUT_DIR, "metrics.json")
+    os.makedirs(CURRENT_OUTPUT_DIR, exist_ok=True)
+    tmp = os.path.join(CURRENT_OUTPUT_DIR, "metrics.json.tmp"); final = os.path.join(CURRENT_OUTPUT_DIR, "metrics.json")
     with open(tmp, "w", encoding="utf-8") as f: json.dump(diag, f, indent=2)
     os.replace(tmp, final)
 
@@ -647,15 +803,28 @@ def self_test():
 
 
 def main():
+    global CURRENT_OUTPUT_DIR
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--full", action="store_true")
+    ap.add_argument("--matched-hard", action="store_true", help="baseline-relative CG gate (full, 3 seeds)")
+    ap.add_argument("--matched-hard-smoke", action="store_true", help="baseline-relative CG gate (smoke, 1 seed)")
     args = ap.parse_args()
     if sys.stdout is not None and hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(line_buffering=True)
     if args.self_test:
         self_test(); sys.exit(0)
+    if args.matched_hard or args.matched_hard_smoke:
+        CURRENT_OUTPUT_DIR = OUTPUT_DIR_MATCHED
+        cfg = MATCHED_SMOKE if args.matched_hard_smoke else MATCHED
+        run_mode = "matched_hard_smoke" if args.matched_hard_smoke else "matched_hard"
+        print("[run] mode=%s seeds=%s fractions=%s" % (run_mode, cfg["seeds"], cfg["fractions"]), flush=True)
+        metrics = run_matched_hard(cfg, run_mode)
+        path = _atomic_write(metrics, OUTPUT_DIR_MATCHED)
+        print("[run] %s verdict=%s" % (path, metrics["verdict"]), flush=True)
+        print("[run] " + metrics["verdict_msg"], flush=True)
+        return
     cfg = SMOKE if args.smoke else FULL
     run_mode = "smoke" if args.smoke else "full"
     print("[run] mode=%s seeds=%s fractions=%s" % (run_mode, cfg["seeds"], cfg["fractions"]), flush=True)
