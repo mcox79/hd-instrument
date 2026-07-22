@@ -1,0 +1,375 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | incoh dom_WRONG=0.9789 cor=0.0 ctl=0.0 | sep(dom-cor)=0.9789 sep(dom-ctl)=0.9789 frac=1.0 p=0.03125 | scramble_sep=-0.0031 xfeat_sep=-0.1704 | GREEN-LIGHT: selectional-fit coherence alarm separates dominant-wrong from correct AND control; scramble collapses; controls coherent.",
+  "summary": "HARD_PASS",
+  "anchor_name": "pun_coherence_alarm_viability_probe_v1",
+  "run_mode": "smoke",
+  "elapsed_s": 0.047,
+  "ts_iso": "2026-07-22T12:34:48.593657+00:00",
+  "N_DIM": 1024,
+  "seed": 20260722,
+  "verbnet_available": true,
+  "wordnet_available": true,
+  "bands": {
+    "HP_SEP_MIN": 0.3,
+    "HP_FRAC_MIN": 0.7,
+    "HP_CTL_INCOH_MAX": 0.3,
+    "HP_SCRAMBLE_MAX": 0.1,
+    "HF_SEP_MAX": 0.1,
+    "HF_FRAC_MAX": 0.55,
+    "HF_CTL_INCOH_MIN": 0.5
+  },
+  "summary_metrics": {
+    "n_puns": 6,
+    "n_controls": 4,
+    "mean_incoh_dominant_WRONG": 0.9789,
+    "mean_incoh_correct": 0.0,
+    "mean_incoh_control": 0.0,
+    "sep_dom_minus_cor": 0.9789,
+    "sep_dom_minus_ctl": 0.9789,
+    "per_item_frac_dom_gt_cor": 1.0,
+    "sign_test_n_pos": 6,
+    "sign_test_n_eff": 6,
+    "sign_test_p_two_sided": 0.03125,
+    "scramble_mean_separation": -0.0031,
+    "crossfeature_null_mean_separation": -0.1704,
+    "real_separation_effect": 0.9789
+  },
+  "summary_metrics_settling_signal_b": {
+    "mean_tail_resid_dominant_WRONG": 0.001405,
+    "mean_tail_resid_correct": 0.00106,
+    "mean_tail_resid_control": 0.00106,
+    "mean_settle_separation_dom_minus_cor": 0.000344,
+    "per_item_frac_dom_gt_cor": 0.8333,
+    "sign_test_p_two_sided": 0.21875,
+    "settling_separates": false,
+    "readout_note": "settling-residual NULL (does not separate dominant-wrong from correct) -- consistent with exp_settling_fix_learned_recurrent_v1 CODEBOOK_GEOMETRY_FORCES_COLLAPSE; landing-in-a-basin != contextual coherence; plausibility-landscape-shaping (atomize+sleep learned glue) is the follow-on leap",
+    "prior_art_on_disk": {
+      "cell": "exp_settling_fix_learned_recurrent_v1",
+      "verdict": "HARD_FAIL_3_GRADED_BUT_NOT_MEANINGFUL_NULL_GOLD_CORRELATION",
+      "landing_spot_rho_vs_plausibility_gold": {
+        "A": -0.108,
+        "B": 0.063,
+        "C": -0.128,
+        "D": -0.03
+      },
+      "note": "MEASURED@data/settling_fix_learned_recurrent_v1/metrics.json -- raw settling landing-spot NULL vs plausibility gold; mechanism graded (fitted_beta=3.0) but landscape unshaped by plausibility."
+    }
+  },
+  "arms_differ_digests": {
+    "sep_real": "454e217ef1cb9ed6fca776078d385a27f655cee9a1aaef2acec7647699058648",
+    "sep_scramble": "1e1a2d13c71c6b80c70acb46631125f35d13d165abe1ed6fa2b89b17b7690881",
+    "sep_crossfeature": "9b53af6c6609c4a4d8b02c11aa1e06e1d931cc720457b21f5de71b65120cfc60"
+  },
+  "pun_rows": [
+    {
+      "word": "port",
+      "verb": "drink",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "port.n.01",
+      "dom_lexname": "noun.location",
+      "dom_features": [],
+      "cor_synset": "port.n.02",
+      "cor_lexname": "noun.food",
+      "cor_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh_dom": 0.0299,
+      "coh_cor": 1.0069,
+      "incoh_dom": 0.9701,
+      "incoh_cor": 0.0,
+      "sep": 0.9701,
+      "scr_feat": "animate",
+      "incoh_dom_scr": 1.0,
+      "incoh_cor_scr": 1.0,
+      "sep_scr": 0.0,
+      "incoh_dom_xf": 1.0,
+      "incoh_cor_xf": 1.0,
+      "sep_xf": 0.0
+    },
+    {
+      "word": "turkey",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "turkey.n.01",
+      "dom_lexname": "noun.animal",
+      "dom_features": [
+        "animate",
+        "concrete"
+      ],
+      "cor_synset": "turkey.n.04",
+      "cor_lexname": "noun.food",
+      "cor_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh_dom": -0.025,
+      "coh_cor": 1.0069,
+      "incoh_dom": 1.0,
+      "incoh_cor": 0.0,
+      "sep": 1.0,
+      "scr_feat": "organization",
+      "incoh_dom_scr": 0.9813,
+      "incoh_cor_scr": 1.0,
+      "sep_scr": -0.0187,
+      "incoh_dom_xf": 0.0,
+      "incoh_cor_xf": 1.0,
+      "sep_xf": -1.0
+    },
+    {
+      "word": "date",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "date.n.01",
+      "dom_lexname": "noun.time",
+      "dom_features": [],
+      "cor_synset": "date.n.08",
+      "cor_lexname": "noun.food",
+      "cor_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh_dom": 0.0299,
+      "coh_cor": 1.0069,
+      "incoh_dom": 0.9701,
+      "incoh_cor": 0.0,
+      "sep": 0.9701,
+      "scr_feat": "communication",
+      "incoh_dom_scr": 1.0,
+      "incoh_cor_scr": 1.0,
+      "sep_scr": 0.0,
+      "incoh_dom_xf": 1.0,
+      "incoh_cor_xf": 1.0,
+      "sep_xf": 0.0
+    },
+    {
+      "word": "kiwi",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "chinese_gooseberry.n.01",
+      "dom_lexname": "noun.plant",
+      "dom_features": [
+        "concrete"
+      ],
+      "cor_synset": "kiwi.n.03",
+      "cor_lexname": "noun.food",
+      "cor_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh_dom": 0.0069,
+      "coh_cor": 1.0069,
+      "incoh_dom": 0.9931,
+      "incoh_cor": 0.0,
+      "sep": 0.9931,
+      "scr_feat": "body_part",
+      "incoh_dom_scr": 1.0,
+      "incoh_cor_scr": 1.0,
+      "sep_scr": 0.0,
+      "incoh_dom_xf": 0.9779,
+      "incoh_cor_xf": 1.0,
+      "sep_xf": -0.0221
+    },
+    {
+      "word": "draft",
+      "verb": "drink",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "draft.n.01",
+      "dom_lexname": "noun.possession",
+      "dom_features": [],
+      "cor_synset": "draft.n.04",
+      "cor_lexname": "noun.food",
+      "cor_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh_dom": 0.0299,
+      "coh_cor": 1.0069,
+      "incoh_dom": 0.9701,
+      "incoh_cor": 0.0,
+      "sep": 0.9701,
+      "scr_feat": "communication",
+      "incoh_dom_scr": 1.0,
+      "incoh_cor_scr": 1.0,
+      "sep_scr": 0.0,
+      "incoh_dom_xf": 1.0,
+      "incoh_cor_xf": 1.0,
+      "sep_xf": 0.0
+    },
+    {
+      "word": "bass",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "bass.n.01",
+      "dom_lexname": "noun.attribute",
+      "dom_features": [],
+      "cor_synset": "sea_bass.n.01",
+      "cor_lexname": "noun.food",
+      "cor_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh_dom": 0.0299,
+      "coh_cor": 1.0069,
+      "incoh_dom": 0.9701,
+      "incoh_cor": 0.0,
+      "sep": 0.9701,
+      "scr_feat": "animate",
+      "incoh_dom_scr": 1.0,
+      "incoh_cor_scr": 1.0,
+      "sep_scr": 0.0,
+      "incoh_dom_xf": 1.0,
+      "incoh_cor_xf": 1.0,
+      "sep_xf": 0.0
+    }
+  ],
+  "control_rows": [
+    {
+      "word": "apple",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "apple.n.01",
+      "dom_lexname": "noun.food",
+      "dom_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh": 1.0069,
+      "incoh": 0.0
+    },
+    {
+      "word": "bread",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "bread.n.01",
+      "dom_lexname": "noun.food",
+      "dom_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh": 1.0069,
+      "incoh": 0.0
+    },
+    {
+      "word": "cheese",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "cheese.n.01",
+      "dom_lexname": "noun.food",
+      "dom_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh": 1.0069,
+      "incoh": 0.0
+    },
+    {
+      "word": "soup",
+      "verb": "eat",
+      "req_features": [
+        "comestible"
+      ],
+      "dom_synset": "soup.n.01",
+      "dom_lexname": "noun.food",
+      "dom_features": [
+        "comestible",
+        "concrete"
+      ],
+      "coh": 1.0069,
+      "incoh": 0.0
+    }
+  ],
+  "settling_pun_rows": [
+    {
+      "word": "port",
+      "tail_resid_dom": 0.001492,
+      "tail_resid_cor": 0.00106,
+      "iters_dom": 8,
+      "iters_cor": 8,
+      "settle_sep": 0.000432
+    },
+    {
+      "word": "turkey",
+      "tail_resid_dom": 0.001014,
+      "tail_resid_cor": 0.00106,
+      "iters_dom": 8,
+      "iters_cor": 8,
+      "settle_sep": -4.6e-05
+    },
+    {
+      "word": "date",
+      "tail_resid_dom": 0.001492,
+      "tail_resid_cor": 0.00106,
+      "iters_dom": 8,
+      "iters_cor": 8,
+      "settle_sep": 0.000432
+    },
+    {
+      "word": "kiwi",
+      "tail_resid_dom": 0.001445,
+      "tail_resid_cor": 0.00106,
+      "iters_dom": 8,
+      "iters_cor": 8,
+      "settle_sep": 0.000385
+    },
+    {
+      "word": "draft",
+      "tail_resid_dom": 0.001492,
+      "tail_resid_cor": 0.00106,
+      "iters_dom": 8,
+      "iters_cor": 8,
+      "settle_sep": 0.000432
+    },
+    {
+      "word": "bass",
+      "tail_resid_dom": 0.001492,
+      "tail_resid_cor": 0.00106,
+      "iters_dom": 8,
+      "iters_cor": 8,
+      "settle_sep": 0.000432
+    }
+  ],
+  "settling_control_rows": [
+    {
+      "word": "apple",
+      "tail_resid": 0.00106,
+      "iters": 8
+    },
+    {
+      "word": "bread",
+      "tail_resid": 0.00106,
+      "iters": 8
+    },
+    {
+      "word": "cheese",
+      "tail_resid": 0.00106,
+      "iters": 8
+    },
+    {
+      "word": "soup",
+      "tail_resid": 0.00106,
+      "iters": 8
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_architecture": "sequential_cpu_seconds_no_storage"
+}
