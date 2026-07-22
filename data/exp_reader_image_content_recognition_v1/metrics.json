@@ -1,0 +1,181 @@
+{
+  "verdict": "GLASSBOX_RECOG_CONTENT_SENSITIVE",
+  "verdict_msg": "KEYLESS content-recognition (McGuffey woodcuts, PRIMARY depictable K>=2, n_img=56 n_cls=43): NN-shared chance=0.107 | raw=0.125(scr=0.093) edge=0.121 ink=0.179(scr=0.136) | ink_lift=0.072(robust=0.072) ink-raw=0.054 scr_collapse=0.043 raw-chance=0.018 || LOO acc1: raw=0.125 edge=0.104 ink=0.150 (ink labelscr=0.064) -> GLASSBOX_RECOG_CONTENT_SENSITIVE",
+  "summary": "reader image keyless content-recognition (McGuffey woodcuts): GLASSBOX_RECOG_CONTENT_SENSITIVE",
+  "elapsed_s": 97.98174390004715,
+  "anchor_name": "reader_image_content_recognition_v1",
+  "ts_iso": "2026-07-22T00:44:29.375508+00:00",
+  "run_mode": "full",
+  "config": {
+    "grid": 16,
+    "Q": 17,
+    "N": 10000,
+    "edge_scale": 6,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "kmin_primary": 2,
+    "nn_null_trials": 200,
+    "class_filter": "primary_wordnet_sense_in_depictable_lexnames",
+    "depictable_lexnames": [
+      "noun.animal",
+      "noun.artifact",
+      "noun.body",
+      "noun.food",
+      "noun.plant"
+    ]
+  },
+  "primary_depictable_kge2": {
+    "n_img": 56,
+    "n_classes": 43,
+    "chance_nn_shared": 0.10705357142857143,
+    "chance_loo_top1_analytic": 0.023255813953488372,
+    "fronts": {
+      "rung1_raw": {
+        "nn_shared_mean": 0.125,
+        "nn_shared_std": 0.022587697572631276,
+        "nn_shared_scramble_mean": 0.09285714285714286,
+        "loo_acc1_mean": 0.125,
+        "loo_acc1_std": 0.0,
+        "loo_acc3_mean": 0.16071428571428573,
+        "loo_acc1_labelscramble_mean": 0.06428571428571428,
+        "n_seeds": 5
+      },
+      "rung2_edge": {
+        "nn_shared_mean": 0.12142857142857144,
+        "nn_shared_std": 0.01336306209562122,
+        "nn_shared_scramble_mean": 0.08571428571428572,
+        "loo_acc1_mean": 0.10357142857142856,
+        "loo_acc1_std": 0.013363062095621218,
+        "loo_acc3_mean": 0.14642857142857144,
+        "loo_acc1_labelscramble_mean": 0.007142857142857143,
+        "n_seeds": 5
+      },
+      "rung2b_ink": {
+        "nn_shared_mean": 0.17857142857142858,
+        "nn_shared_std": 0.0,
+        "nn_shared_scramble_mean": 0.13571428571428573,
+        "loo_acc1_mean": 0.15,
+        "loo_acc1_std": 0.008748177652797074,
+        "loo_acc3_mean": 0.225,
+        "loo_acc1_labelscramble_mean": 0.06428571428571428,
+        "n_seeds": 5
+      }
+    }
+  },
+  "secondary_depictable_kge3": {
+    "n_img": 47,
+    "n_classes": 18,
+    "chance_nn_shared": 0.12723404255319148,
+    "chance_loo_top1_analytic": 0.05555555555555555,
+    "fronts": {
+      "rung1_raw": {
+        "nn_shared_mean": 0.13617021276595745,
+        "nn_shared_std": 0.010423360607587993,
+        "nn_shared_scramble_mean": 0.11914893617021276,
+        "loo_acc1_mean": 0.11489361702127661,
+        "loo_acc1_std": 0.010423360607587986,
+        "loo_acc3_mean": 0.2553191489361702,
+        "loo_acc1_labelscramble_mean": 0.09361702127659574,
+        "n_seeds": 5
+      },
+      "rung2_edge": {
+        "nn_shared_mean": 0.16170212765957448,
+        "nn_shared_std": 0.010423360607587993,
+        "nn_shared_scramble_mean": 0.11914893617021279,
+        "loo_acc1_mean": 0.17446808510638298,
+        "loo_acc1_std": 0.024812561254660855,
+        "loo_acc3_mean": 0.2893617021276596,
+        "loo_acc1_labelscramble_mean": 0.0978723404255319,
+        "n_seeds": 5
+      },
+      "rung2b_ink": {
+        "nn_shared_mean": 0.17446808510638298,
+        "nn_shared_std": 0.008510638297872342,
+        "nn_shared_scramble_mean": 0.17446808510638295,
+        "loo_acc1_mean": 0.11063829787234043,
+        "loo_acc1_std": 0.008510638297872335,
+        "loo_acc3_mean": 0.24680851063829787,
+        "loo_acc1_labelscramble_mean": 0.11914893617021276,
+        "n_seeds": 5
+      }
+    }
+  },
+  "secondary_animal_only_kge2_SMALL_N_NOISY": {
+    "n_img": 23,
+    "n_classes": 10,
+    "chance_nn_shared": 0.1658695652173913,
+    "chance_loo_top1_analytic": 0.1,
+    "fronts": {
+      "rung1_raw": {
+        "nn_shared_mean": 0.017391304347826087,
+        "nn_shared_std": 0.034782608695652174,
+        "nn_shared_scramble_mean": 0.05217391304347826,
+        "loo_acc1_mean": 0.02608695652173913,
+        "loo_acc1_std": 0.021299910806810242,
+        "loo_acc3_mean": 0.19130434782608693,
+        "loo_acc1_labelscramble_mean": 0.05217391304347826,
+        "n_seeds": 5
+      },
+      "rung2_edge": {
+        "nn_shared_mean": 0.16521739130434782,
+        "nn_shared_std": 0.05070392952039392,
+        "nn_shared_scramble_mean": 0.13043478260869565,
+        "loo_acc1_mean": 0.0,
+        "loo_acc1_std": 0.0,
+        "loo_acc3_mean": 0.0,
+        "loo_acc1_labelscramble_mean": 0.008695652173913044,
+        "n_seeds": 5
+      },
+      "rung2b_ink": {
+        "nn_shared_mean": 0.1391304347826087,
+        "nn_shared_std": 0.03253615118933862,
+        "nn_shared_scramble_mean": 0.12173913043478261,
+        "loo_acc1_mean": 0.043478260869565216,
+        "loo_acc1_std": 0.038888138739126776,
+        "loo_acc3_mean": 0.3565217391304348,
+        "loo_acc1_labelscramble_mean": 0.10434782608695652,
+        "n_seeds": 5
+      }
+    }
+  },
+  "verdict_detail": {
+    "headline_metric": "nn_shared_referent (keyless: nearest content-neighbor shares referent)",
+    "ink_lift_over_chance": 0.07151785714285715,
+    "ink_lift_robust_mean_minus_std": 0.07151785714285715,
+    "ink_over_raw": 0.053571428571428575,
+    "scramble_collapse": 0.042857142857142844,
+    "raw_over_chance_content_blind_check": 0.01794642857142857,
+    "content_sensitive_all_gates": true,
+    "note": "RECOGNITION (keyless, no word-key) vs the grounding brick's keyed retrieval. raw-pixel is the content-blind negative control (background-dominated); ink-mask is the content-sensitive test. NN-shared-referent is robust to tiny per-class N; LOO is the harder cross-instance held-out generalization (1-2 image prototypes on multi-object woodcut scenes = genuinely hard). Label noise from OCR nearby-text is an intrinsic honest bound (specified primary-sense filter reduces but cannot remove it). CONTENT_SENSITIVE = ink robustly > chance AND > raw AND scramble collapses = un-stalls direction but weak absolute recognition -> STRONG needs resonator scene-factoring or a black-box extractor (the strategic fork)."
+  },
+  "bands": {
+    "CHANCE_EPS": 0.03,
+    "INK_LIFT_MIN": 0.05,
+    "INK_OVER_RAW_MIN": 0.03,
+    "SCR_COLLAPSE_MIN": 0.03,
+    "RAW_CONTENT_BLIND_MAX": 0.05,
+    "STRONG_RECOG_MIN": 0.3
+  },
+  "must_fail_controls": {
+    "content_scramble": "per-image pixel/level shuffle (spatial content destroyed)",
+    "label_scramble": "class membership shuffled (LOO only)"
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "rung1_raw": "ed9056955c051f34342c5b157e2b212815da293521ae2d2f0e7967833037a187",
+    "rung2_edge": "a77273122bedf02c71803af6a1bffab5357775d16f5f417b76f869b2b0210790",
+    "rung2b_ink": "061a05d2f9266c9cd87a97b0fb92ce1c47ee06e3c89b1276a9829ac72a8834b4"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "primitives_reused": [
+    "exp_reader_image_word_grounding_v1 encoder (encode_record / build_position_vectors / build_level_codebook / feat_raw / feat_edge / feat_ink / _otsu_threshold / quantize_global) VERBATIM"
+  ],
+  "recipe_adopted": "Kanerva record encoder + thermometer levels + Otsu ink / Sobel edge front-ends (glass-box, specified); keyless NN-shared + LOO class prototypes",
+  "local_only": true,
+  "banked": false
+}
