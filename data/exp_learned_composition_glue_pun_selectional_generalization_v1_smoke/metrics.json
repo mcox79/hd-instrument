@@ -1,0 +1,97 @@
+{
+  "anchor_name": "learned_composition_glue_pun_selectional_generalization_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | held-out (verb-disjoint) resolve-acc: FREQ=0.0 LOOKUP=0.5714 LEARNED-REAL=0.7857 LEARNED-RANDOM=0.4286 SCRAMBLE=0.2857 | majority=0.5 | uncovered-subset REAL=0.8333 LOOKUP=0.0 | SIGN-FLIP(real-rand)=0.3571 SCRAMBLE-COLLAPSE(real-scr)=0.5 CURVE-RISE=0.0 everyseed_real>=0.6=True | leak_clean=True arms_differ=True | partial: some gates fire, not all",
+  "summary": "MIDDLE_BAND | held-out (verb-disjoint) resolve-acc: FREQ=0.0 LOOKUP=0.5714 LEARNED-REAL=0.7857 LEARNED-RANDOM=0.4286 SCRAMBLE=0.2857 | majority=0.5 | uncovered-subset REAL=0.8333 LOOKUP=0.0 | SIGN-FLIP(real-rand)=0.3571 SCRAMBLE-COLLAPSE(real-scr)=0.5 CURVE-RISE=0.0 everyseed_real>=0.6=True | leak_clean=True arms_differ=True | partial: some gates fire, not all",
+  "elapsed_s": 1.6,
+  "ts_iso": "2026-07-22T12:51:22.409852+00:00",
+  "seeds": [
+    7
+  ],
+  "n_seed_rows": 1,
+  "expected_n_seed_rows": 1,
+  "cardinality_ok": true,
+  "N_DIM": 1024,
+  "frac_seen": 0.6,
+  "n_cycles": 6,
+  "bands": {
+    "CG_REAL_MEAN_MIN": 0.7,
+    "CG_REAL_EVERYSEED_MIN": 0.6,
+    "CG_UNCOV_MIN": 0.6,
+    "CG_CURVE_RISE_MIN": 0.15,
+    "CG_SCRAMBLE_COLLAPSE_MIN": 0.2,
+    "CG_SIGNFLIP_MIN": 0.15,
+    "MM_REAL_MAX": 0.55,
+    "MM_SIGNFLIP_MAX": 0.05,
+    "MM_SCRAMBLE_MIN": 0.1,
+    "MM_UNCOV_MAX": 0.15
+  },
+  "summary_metrics": {
+    "mean_acc_freq": 0.0,
+    "mean_acc_lookup": 0.5714,
+    "mean_acc_learned_real": 0.7857,
+    "mean_acc_learned_random": 0.4286,
+    "mean_acc_learned_scramble": 0.2857,
+    "mean_majority_feature_baseline": 0.5,
+    "mean_uncovered_learned_real": 0.8333,
+    "mean_uncovered_lookup": 0.0,
+    "mean_signflip_real_minus_random": 0.3571,
+    "mean_scramble_collapse_real_minus_scr": 0.5,
+    "mean_curve_rise": 0.0,
+    "everyseed_real_ge_0p60": true,
+    "arms_differ_all": true,
+    "leak_clean": true,
+    "n_items": 36,
+    "n_comest_verbs": 18,
+    "n_commun_verbs": 18
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_seen_verbs": 22,
+      "n_held": 14,
+      "n_uncov_held": 6,
+      "majority_feature_baseline": 0.5,
+      "acc_freq": 0.0,
+      "acc_lookup": 0.5714,
+      "acc_learned_real": 0.7857,
+      "acc_learned_random": 0.4286,
+      "acc_learned_scramble": 0.2857,
+      "uncov_learned_real": 0.8333,
+      "uncov_lookup": 0.0,
+      "signflip_real_minus_random": 0.3571,
+      "scramble_collapse_real_minus_scr": 0.5,
+      "learning_curve": [
+        {
+          "frac": 0.25,
+          "n_verbs": 6,
+          "acc": 0.7857
+        },
+        {
+          "frac": 0.5,
+          "n_verbs": 11,
+          "acc": 0.7143
+        },
+        {
+          "frac": 0.75,
+          "n_verbs": 16,
+          "acc": 0.7857
+        },
+        {
+          "frac": 1.0,
+          "n_verbs": 22,
+          "acc": 0.7857
+        }
+      ],
+      "arms_differ": true
+    }
+  ],
+  "leak_clean": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "compute_architecture": "sequential_cpu_seconds_no_storage",
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": true,
+  "no_store_write_no_push_no_atom_bank": true,
+  "honest_scope": "generalization signal is WordNet-hypernym (KB-derived); a full-gate pass is a CANDIDATE for fresh adversarial VET + USER, not a self-declared CG."
+}
