@@ -1,0 +1,2310 @@
+{
+  "verdict": "CG_CANDIDATE_GEOMETRY_FREE",
+  "verdict_msg": "verdict=CG_CANDIDATE_GEOMETRY_FREE | HARD pt[ind~0.82 nr_frac=0.50]: native_random_ho=0.496 flat_geom_ho=0.000 native_geom_ho=0.428 (nr-fg=0.496 nr/ng=1.16 nr/chance=244.1x) scramble_random=0.005 | HARDER pt[ind~0.60]: native_random_ho=0.364 flat_geom_ho=0.002 native_geom_ho=0.179 | sanity: native_random_indist_full=1.000 (valid=True ok=True) | curve 0.022->0.990 rise=0.968 | breaches=0 geom_off|cos|=0.106 rand_off|cos|=0.072 (floor=0.062 destroyed=True) chance=0.0020 | A_gates={'A1_native_random_ge_20x_chance': True, 'A2_native_random_ge_flat_geom_plus_0.15': True, 'A3_native_random_ge_0.50x_native_geom': True, 'A4_curve_init_le_0.10': True, 'A4_curve_rise_ge_0.20': True, 'A5_scramble_random_le_0.05': True, 'A6_breaches_zero': True, 'native_random_in_hard_band': True}",
+  "summary": "compgen GEOMETRY-ABLATION v1: CG_CANDIDATE_GEOMETRY_FREE",
+  "elapsed_s": 247.88,
+  "run_mode": "full",
+  "anchor_name": "compgen_geometry_ablation_v1",
+  "ts_iso": "2026-07-22T06:13:40.718830+00:00",
+  "V": 492,
+  "nverb": 260,
+  "n_triples": 617,
+  "chance": 0.00203,
+  "geom_off_cos": 0.1057,
+  "geom_off_cos_max": 0.9302,
+  "random_off_cos": 0.0721,
+  "random_off_cos_max": 0.3714,
+  "rand_floor": 0.0625,
+  "geometry_destroyed_ok": true,
+  "attested_novelty_breaches_seed0": 0,
+  "n_train_seed0": 468,
+  "n_heldout_seed0": 128,
+  "sweep_by_variant_fraction": [
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "native_bind_shared_indist": 0.4893,
+      "native_bind_shared_heldout": 0.1905,
+      "flat_shared_readout_indist": 0.2018,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.4894,
+      "native_bind_tied_heldout": 0.1563,
+      "native_bind_scramble_indist": 0.0053,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "native_bind_shared_indist": 0.4982,
+      "native_bind_shared_heldout": 0.1787,
+      "flat_shared_readout_indist": 0.21,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.5215,
+      "native_bind_tied_heldout": 0.1925,
+      "native_bind_scramble_indist": 0.0018,
+      "native_bind_scramble_heldout": 0.0073
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "native_bind_shared_indist": 0.5873,
+      "native_bind_shared_heldout": 0.222,
+      "flat_shared_readout_indist": 0.2636,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.5964,
+      "native_bind_tied_heldout": 0.1496,
+      "native_bind_scramble_indist": 0.0,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "native_bind_shared_indist": 0.5343,
+      "native_bind_shared_heldout": 0.1776,
+      "flat_shared_readout_indist": 0.2408,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.6036,
+      "native_bind_tied_heldout": 0.1876,
+      "native_bind_scramble_indist": 0.0053,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "native_bind_shared_indist": 0.6102,
+      "native_bind_shared_heldout": 0.1793,
+      "flat_shared_readout_indist": 0.2153,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.6403,
+      "native_bind_tied_heldout": 0.1456,
+      "native_bind_scramble_indist": 0.0053,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "native_bind_shared_indist": 0.6689,
+      "native_bind_shared_heldout": 0.2504,
+      "flat_shared_readout_indist": 0.1533,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.7189,
+      "native_bind_tied_heldout": 0.2208,
+      "native_bind_scramble_indist": 0.0018,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "native_bind_shared_indist": 0.8343,
+      "native_bind_shared_heldout": 0.4278,
+      "flat_shared_readout_indist": 0.4547,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.799,
+      "native_bind_tied_heldout": 0.249,
+      "native_bind_scramble_indist": 0.0018,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "native_bind_shared_indist": 0.9716,
+      "native_bind_shared_heldout": 0.8391,
+      "flat_shared_readout_indist": 0.615,
+      "flat_shared_readout_heldout": 0.0024,
+      "native_bind_tied_indist": 0.952,
+      "native_bind_tied_heldout": 0.61,
+      "native_bind_scramble_indist": 0.0053,
+      "native_bind_scramble_heldout": 0.0024
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "native_bind_shared_indist": 0.9947,
+      "native_bind_shared_heldout": 0.9163,
+      "flat_shared_readout_indist": 0.7891,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.9965,
+      "native_bind_tied_heldout": 0.654,
+      "native_bind_scramble_indist": 0.0,
+      "native_bind_scramble_heldout": 0.0024
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "native_bind_shared_indist": 0.9965,
+      "native_bind_shared_heldout": 0.9188,
+      "flat_shared_readout_indist": 0.8684,
+      "flat_shared_readout_heldout": 0.0098,
+      "native_bind_tied_indist": 0.9982,
+      "native_bind_tied_heldout": 0.6999,
+      "native_bind_scramble_indist": 0.0018,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "native_bind_shared_indist": 0.6028,
+      "native_bind_shared_heldout": 0.3645,
+      "flat_shared_readout_indist": 0.1872,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.6081,
+      "native_bind_tied_heldout": 0.3074,
+      "native_bind_scramble_indist": 0.0018,
+      "native_bind_scramble_heldout": 0.0097
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "native_bind_shared_indist": 0.6848,
+      "native_bind_shared_heldout": 0.4238,
+      "flat_shared_readout_indist": 0.1951,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.6689,
+      "native_bind_tied_heldout": 0.3351,
+      "native_bind_scramble_indist": 0.0072,
+      "native_bind_scramble_heldout": 0.0024
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "native_bind_shared_indist": 0.7417,
+      "native_bind_shared_heldout": 0.5194,
+      "flat_shared_readout_indist": 0.1964,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.7223,
+      "native_bind_tied_heldout": 0.3264,
+      "native_bind_scramble_indist": 0.0,
+      "native_bind_scramble_heldout": 0.0024
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "native_bind_shared_indist": 0.7244,
+      "native_bind_shared_heldout": 0.4475,
+      "flat_shared_readout_indist": 0.237,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.7169,
+      "native_bind_tied_heldout": 0.3698,
+      "native_bind_scramble_indist": 0.0036,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "native_bind_shared_indist": 0.7508,
+      "native_bind_shared_heldout": 0.4487,
+      "flat_shared_readout_indist": 0.1921,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.7242,
+      "native_bind_tied_heldout": 0.382,
+      "native_bind_scramble_indist": 0.0,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "native_bind_shared_indist": 0.8183,
+      "native_bind_shared_heldout": 0.4962,
+      "flat_shared_readout_indist": 0.1645,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.8113,
+      "native_bind_tied_heldout": 0.4092,
+      "native_bind_scramble_indist": 0.0054,
+      "native_bind_scramble_heldout": 0.0049
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "native_bind_shared_indist": 0.9643,
+      "native_bind_shared_heldout": 0.7785,
+      "flat_shared_readout_indist": 0.4501,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 0.8825,
+      "native_bind_tied_heldout": 0.4996,
+      "native_bind_scramble_indist": 0.0018,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "native_bind_shared_indist": 1.0,
+      "native_bind_shared_heldout": 0.9901,
+      "flat_shared_readout_indist": 0.651,
+      "flat_shared_readout_heldout": 0.0048,
+      "native_bind_tied_indist": 0.9822,
+      "native_bind_tied_heldout": 0.8008,
+      "native_bind_scramble_indist": 0.0,
+      "native_bind_scramble_heldout": 0.0024
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "native_bind_shared_indist": 1.0,
+      "native_bind_shared_heldout": 0.9877,
+      "flat_shared_readout_indist": 0.7668,
+      "flat_shared_readout_heldout": 0.0024,
+      "native_bind_tied_indist": 0.9982,
+      "native_bind_tied_heldout": 0.8752,
+      "native_bind_scramble_indist": 0.0053,
+      "native_bind_scramble_heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "native_bind_shared_indist": 1.0,
+      "native_bind_shared_heldout": 0.9903,
+      "flat_shared_readout_indist": 0.8604,
+      "flat_shared_readout_heldout": 0.0,
+      "native_bind_tied_indist": 1.0,
+      "native_bind_tied_heldout": 0.8924,
+      "native_bind_scramble_indist": 0.0036,
+      "native_bind_scramble_heldout": 0.0
+    }
+  ],
+  "learning_curve_native_ho": {
+    "geom": [
+      0.014333333333333335,
+      0.9187666666666666
+    ],
+    "random": [
+      0.02233333333333333,
+      0.9903
+    ]
+  },
+  "ablation_gate": {
+    "hard_point": {
+      "target_in_dist": 0.825,
+      "band": [
+        0.75,
+        0.9
+      ],
+      "native_random_frac": 0.5,
+      "native_random_ind": 0.8183,
+      "native_random_ho": 0.4962,
+      "native_random_in_band": true,
+      "native_geom_frac": 0.6,
+      "native_geom_ind": 0.8343,
+      "native_geom_ho": 0.4278,
+      "flat_geom_frac": 0.9,
+      "flat_geom_ind": 0.7891,
+      "flat_geom_ho": 0.0,
+      "scramble_random_ho_at_frac": 0.0049,
+      "chance_mult_native_random_ho": 244.1,
+      "native_random_minus_flat_geom_ho": 0.4962,
+      "native_random_over_native_geom_ho": 1.16
+    },
+    "harder_point": {
+      "target_in_dist": 0.62,
+      "band": [
+        0.55,
+        0.68
+      ],
+      "native_random_frac": 0.2,
+      "native_random_ind": 0.6028,
+      "native_random_ho": 0.3645,
+      "native_random_in_band": true,
+      "native_geom_frac": 0.4,
+      "native_geom_ind": 0.6102,
+      "native_geom_ho": 0.1793,
+      "flat_geom_frac": 0.75,
+      "flat_geom_ind": 0.615,
+      "flat_geom_ho": 0.0024,
+      "scramble_random_ho_at_frac": 0.0097,
+      "chance_mult_native_random_ho": 179.3,
+      "native_random_minus_flat_geom_ho": 0.3621,
+      "native_random_over_native_geom_ho": 2.033
+    },
+    "A_checks": {
+      "A1_native_random_ge_20x_chance": true,
+      "A2_native_random_ge_flat_geom_plus_0.15": true,
+      "A3_native_random_ge_0.50x_native_geom": true,
+      "A4_curve_init_le_0.10": true,
+      "A4_curve_rise_ge_0.20": true,
+      "A5_scramble_random_le_0.05": true,
+      "A6_breaches_zero": true,
+      "native_random_in_hard_band": true
+    },
+    "hard_fail_triggered": false,
+    "hard_pass_a": true,
+    "sanity_valid": true,
+    "sanity_ok": true,
+    "native_random_indist_full": 1.0,
+    "learning_rise_random": 0.968,
+    "learning_init_random": 0.0223
+  },
+  "ablation_prereg": {
+    "hard_band": [
+      0.75,
+      0.9
+    ],
+    "harder_band": [
+      0.55,
+      0.68
+    ],
+    "a1_chance_mult": 20.0,
+    "a2_flat_margin": 0.15,
+    "a3_geom_retain": 0.5,
+    "a4_init_max": 0.1,
+    "a4_rise_min": 0.2,
+    "a5_scramble_max": 0.05,
+    "hf_flat_margin": 0.05,
+    "hf_chance_mult": 5.0,
+    "hf_geom_retain": 0.2,
+    "sanity_indist_min": 0.6
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 240,
+  "n_units": 240,
+  "arms_digests": {
+    "native_bind_shared__geom": "493a1af146abdadec570587333b169b3964f8fb160a73977bdaec19f3d7bd162",
+    "flat_shared_readout__geom": "6e54a7f19668faf17a1a9981c9c2c32a8f0fb4b2ca68eca976eeee289e63b2a6",
+    "native_bind_tied__geom": "7bbd56c98aaa55ee014c28558154486b75d04bab84c50dbd6cd36c6282d01e26",
+    "native_bind_shared__random": "6340451b530d1c67e9752753b99a459444e67797103cf5c11c49ea74168cbb87",
+    "flat_shared_readout__random": "8a02949aa50065a69015248fa018e28391e8220a7163ad42167fcbf5e03d74b5",
+    "native_bind_tied__random": "045cd580a173bab6e7eaef90ccdfc2518385d2d29966280eb76bb59061da1b5a"
+  },
+  "config": {
+    "fractions": [
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.5,
+      0.6,
+      0.75,
+      0.9,
+      1.0
+    ],
+    "epochs": 50,
+    "lr": 0.01,
+    "batch": 256,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "per_unit": [
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.4516129046678543,
+      "heldout": 0.2109375
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.01075268816202879,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.24731183052062988,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.45698924362659454,
+      "heldout": 0.1875
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.5537634491920471,
+      "heldout": 0.34375
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.15591397881507874,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.5053763389587402,
+      "heldout": 0.359375
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.5053763389587402,
+      "heldout": 0.21875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.13978494703769684,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.5268817096948624,
+      "heldout": 0.2109375
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.6129032075405121,
+      "heldout": 0.4453125
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.17741935700178146,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.6559139788150787,
+      "heldout": 0.421875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.6182795763015747,
+      "heldout": 0.3984375
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.2150537669658661,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.6344085931777954,
+      "heldout": 0.21875
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.7204301059246063,
+      "heldout": 0.484375
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.16129032149910927,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.7258064448833466,
+      "heldout": 0.4375
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.5215053856372833,
+      "heldout": 0.1796875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.01075268816202879,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.22580644488334656,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.5645161271095276,
+      "heldout": 0.21875
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.7473118305206299,
+      "heldout": 0.5
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.01075268816202879,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.09139784798026085,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.7043010890483856,
+      "heldout": 0.3671875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.5698924958705902,
+      "heldout": 0.2421875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.1505376361310482,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.6182795464992523,
+      "heldout": 0.15625
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.7688171863555908,
+      "heldout": 0.4609375
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.08064515888690948,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.7043010592460632,
+      "heldout": 0.390625
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.6236559152603149,
+      "heldout": 0.3046875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.12365591526031494,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.6720429956912994,
+      "heldout": 0.2890625
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.7849462330341339,
+      "heldout": 0.5
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.01075268816202879,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.053763439413160086,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.7688171863555908,
+      "heldout": 0.40625
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.8010752499103546,
+      "heldout": 0.5390625
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.467741921544075,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.7688172161579132,
+      "heldout": 0.25
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.93548384308815,
+      "heldout": 0.7578125
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.2956989258527756,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.8225806355476379,
+      "heldout": 0.546875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.9784946143627167,
+      "heldout": 0.890625
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.6989247500896454,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.9516128897666931,
+      "heldout": 0.671875
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.984375
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.5322580635547638,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.9731182754039764,
+      "heldout": 0.796875
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.9140625
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.8655914068222046,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.9946236610412598,
+      "heldout": 0.703125
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.984375
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.6182795464992523,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.9946236610412598,
+      "heldout": 0.890625
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 0.9946236610412598,
+      "heldout": 0.921875
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.8602150678634644,
+      "heldout": 0.0078125
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 0.9946236610412598,
+      "heldout": 0.71875
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.9921875
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "flat_shared_readout",
+      "indist": 0.7903226017951965,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 7,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.9140625
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.49473685026168823,
+      "heldout": 0.21167883276939392
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.005263158120214939,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.10526315867900848,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.4842105209827423,
+      "heldout": 0.16788321733474731
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.6578947305679321,
+      "heldout": 0.43065693974494934
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.029197080060839653
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.1315789446234703,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.6736842095851898,
+      "heldout": 0.33576643466949463
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.49473683536052704,
+      "heldout": 0.18978102505207062
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.021897809579968452
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.21052631735801697,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.49473685026168823,
+      "heldout": 0.17518247663974762
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.7263157963752747,
+      "heldout": 0.37226277589797974
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.007299270015209913
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.28421051800251007,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.6947368383407593,
+      "heldout": 0.31386861205101013
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.5736842155456543,
+      "heldout": 0.18248175084590912
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.22631578892469406,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.5578947365283966,
+      "heldout": 0.10948905348777771
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.7789473533630371,
+      "heldout": 0.5985401272773743
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.10526315867900848,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.7368420958518982,
+      "heldout": 0.34306567907333374
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.46315789222717285,
+      "heldout": 0.19708029925823212
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.005263158120214939,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.15263158082962036,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.5526315867900848,
+      "heldout": 0.131386861205101
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.699999988079071,
+      "heldout": 0.45255473256111145
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.1894736886024475,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.7368420958518982,
+      "heldout": 0.41605839133262634
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.6263158023357391,
+      "heldout": 0.17518247663974762
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.005263158120214939,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.21052631735801697,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.6789473593235016,
+      "heldout": 0.1386861354112625
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.7578947246074677,
+      "heldout": 0.45255473256111145
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.19999999552965164,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.7210526168346405,
+      "heldout": 0.37956205010414124
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.6842105090618134,
+      "heldout": 0.24087591469287872
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.005263158120214939,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.12105263397097588,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.710526317358017,
+      "heldout": 0.16058394312858582
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.8421052694320679,
+      "heldout": 0.5985401272773743
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.014598540030419827
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.30526314675807953,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.8263157904148102,
+      "heldout": 0.45255473256111145
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.8631578683853149,
+      "heldout": 0.48905110359191895
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.3210526257753372,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.7947368323802948,
+      "heldout": 0.2700729966163635
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.9736842215061188,
+      "heldout": 0.8686131238937378
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.4578947424888611,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.8947368264198303,
+      "heldout": 0.55474454164505
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.9684210419654846,
+      "heldout": 0.8394160866737366
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.005263158120214939,
+      "heldout": 0.007299270015209913
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.7052631676197052,
+      "heldout": 0.007299270015209913
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.9421052634716034,
+      "heldout": 0.569343090057373
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 1.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.007299270015209913
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.6842105090618134,
+      "heldout": 0.007299270015209913
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.9842105209827423,
+      "heldout": 0.8467153310775757
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.9894736707210541,
+      "heldout": 0.9270073175430298
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.007299270015209913
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.6736842095851898,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 0.9947368502616882,
+      "heldout": 0.6204379796981812
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 1.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.005263158120214939,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.7842105329036713,
+      "heldout": 0.007299270015209913
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.9051094651222229
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 0.9947368502616882,
+      "heldout": 0.9124087691307068
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.005263158120214939,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.8526315689086914,
+      "heldout": 0.014598540030419827
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.6788321137428284
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 1.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "flat_shared_readout",
+      "indist": 0.9736841917037964,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 13,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.8978102207183838
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.5215053856372833,
+      "heldout": 0.1489361673593521
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.2526881694793701,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.5268817245960236,
+      "heldout": 0.11347517371177673
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.5967741906642914,
+      "heldout": 0.3191489279270172
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.27419355511665344,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.2,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.6451612710952759,
+      "heldout": 0.22695034742355347
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.49462366104125977,
+      "heldout": 0.12765957415103912
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.2795698940753937,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.5430107414722443,
+      "heldout": 0.19148936867713928
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.7150537669658661,
+      "heldout": 0.45390069484710693
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.016129032243043184,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.12365591153502464,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.25,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.6559139788150787,
+      "heldout": 0.26950353384017944
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.5698924660682678,
+      "heldout": 0.08510638028383255
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.3494623601436615,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.5967741906642914,
+      "heldout": 0.12056737393140793
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.7258064448833466,
+      "heldout": 0.4751773178577423
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.007092198356986046
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.32258065044879913,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.3,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.7043010890483856,
+      "heldout": 0.19858156144618988
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.6182795763015747,
+      "heldout": 0.1560283750295639
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.34408602118492126,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.6935483813285828,
+      "heldout": 0.21276596188545227
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.7258064448833466,
+      "heldout": 0.39007091522216797
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.430107519030571,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.35,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.7096774280071259,
+      "heldout": 0.326241135597229
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.6344085931777954,
+      "heldout": 0.12056737393140793
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.2849462404847145,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.6236559152603149,
+      "heldout": 0.1418439745903015
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.7258064448833466,
+      "heldout": 0.43262410163879395
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.2956989258527756,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.4,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.7473118305206299,
+      "heldout": 0.3758865296840668
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.698924720287323,
+      "heldout": 0.20567375421524048
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.2150537595152855,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.7741935551166534,
+      "heldout": 0.21276596188545227
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.8279570043087006,
+      "heldout": 0.39007091522216797
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.134408600628376,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.5,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.838709682226181,
+      "heldout": 0.368794322013855
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.838709682226181,
+      "heldout": 0.25531914830207825
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.5752688348293304,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.8333333432674408,
+      "heldout": 0.22695034742355347
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.9838709831237793,
+      "heldout": 0.7092198729515076
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.5967741906642914,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.6,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.9301075339317322,
+      "heldout": 0.39716312289237976
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.9677419364452362,
+      "heldout": 0.7872340679168701
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.01075268816202879,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.44086021184921265,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.9623655676841736,
+      "heldout": 0.588652491569519
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.9858155846595764
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.736559122800827,
+      "heldout": 0.007092198356986046
+    },
+    {
+      "variant": "random",
+      "frac": 0.75,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 0.9892473220825195,
+      "heldout": 0.758865237236023
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 0.9946236610412598,
+      "heldout": 0.9078013896942139
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.8279570043087006,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.6382978558540344
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.978723406791687
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.897849440574646,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 0.9,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.8297872543334961
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.9219858050346375
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.0,
+      "heldout": 0.0
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.8924731016159058,
+      "heldout": 0.007092198356986046
+    },
+    {
+      "variant": "geom",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.7021276354789734
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "native_bind_shared",
+      "indist": 1.0,
+      "heldout": 0.978723406791687
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "native_bind_scramble",
+      "indist": 0.005376344081014395,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "flat_shared_readout",
+      "indist": 0.8172042965888977,
+      "heldout": 0.0
+    },
+    {
+      "variant": "random",
+      "frac": 1.0,
+      "seed": 19,
+      "arm": "native_bind_tied",
+      "indist": 1.0,
+      "heldout": 0.8652482032775879
+    }
+  ]
+}
