@@ -1,0 +1,252 @@
+{
+  "verdict": "PASS_GROUNDING",
+  "verdict_msg": "grounding(keyed w2i): n_clean=112 chance=0.0169 | rung1_raw=0.996 rung2_edge=1.000 rung2b_ink=0.977 (scr d=0.970) [works=['rung1_raw', 'rung2_edge', 'rung2b_ink'] -> PASS_GROUNDING] || SEPARABILITY offcos raw=0.252 edge=0.511 ink=0.092 || N-STRESS(f=0.40) acc@N=125: raw=0.254 edge=0.175 ink=0.299 | fired=True best_sep=rung2b_ink",
+  "summary": "reader image<->word grounding (McGuffey First): PASS_GROUNDING",
+  "elapsed_s": 84.38854969997192,
+  "anchor_name": "reader_image_word_grounding_v1",
+  "ts_iso": "2026-07-22T00:17:07.328572+00:00",
+  "run_mode": "full",
+  "config": {
+    "grid": 16,
+    "Q": 17,
+    "N": 10000,
+    "edge_scale": 6,
+    "n_img": 59,
+    "n_word": 190,
+    "n_clean_pairs": 112,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "ink_otsu_threshold": 91.142578125
+  },
+  "chance": {
+    "w2i": 0.01694915254237288,
+    "i2w": 0.005263157894736842
+  },
+  "rungs": {
+    "rung1_raw": {
+      "w2i_acc1_mean": 0.9964285714285716,
+      "w2i_acc1_std": 0.004374088826398516,
+      "w2i_acc3_mean": 1.0,
+      "i2w_acc1_mean": 0.4017857142857143,
+      "scramble_acc1_mean": 0.026785714285714284,
+      "scramble_delta": 0.9696428571428573,
+      "img_offdiag_cosine_mean": 0.25199054479599,
+      "load_sweep_acc1": {
+        "8": 1.0,
+        "16": 1.0,
+        "32": 1.0,
+        "64": 1.0,
+        "112": 0.9964285714285716
+      },
+      "noise_discrim_acc1": {
+        "0.15": 1.0,
+        "0.25": 1.0,
+        "0.35": 1.0,
+        "0.45": 0.9898305084745763
+      },
+      "noise_discrim_auc": 0.997457627118644,
+      "n_seeds": 5,
+      "noise_stress_by_N_f40": {
+        "125": 0.2542372881355932,
+        "250": 0.6271186440677966,
+        "500": 0.903954802259887,
+        "1000": 0.9774011299435029
+      }
+    },
+    "rung2_edge": {
+      "w2i_acc1_mean": 1.0,
+      "w2i_acc1_std": 0.0,
+      "w2i_acc3_mean": 1.0,
+      "i2w_acc1_mean": 0.4000000000000001,
+      "scramble_acc1_mean": 0.026785714285714284,
+      "scramble_delta": 0.9732142857142857,
+      "img_offdiag_cosine_mean": 0.5109923839569092,
+      "load_sweep_acc1": {
+        "8": 1.0,
+        "16": 1.0,
+        "32": 1.0,
+        "64": 1.0,
+        "112": 1.0
+      },
+      "noise_discrim_acc1": {
+        "0.15": 1.0,
+        "0.25": 1.0,
+        "0.35": 1.0,
+        "0.45": 1.0
+      },
+      "noise_discrim_auc": 1.0,
+      "n_seeds": 5,
+      "noise_stress_by_N_f40": {
+        "125": 0.17514124293785313,
+        "250": 0.48022598870056504,
+        "500": 0.8305084745762712,
+        "1000": 0.9943502824858758
+      }
+    },
+    "rung2b_ink": {
+      "w2i_acc1_mean": 0.9767857142857143,
+      "w2i_acc1_std": 0.014507211436849922,
+      "w2i_acc3_mean": 1.0,
+      "i2w_acc1_mean": 0.39285714285714285,
+      "scramble_acc1_mean": 0.026785714285714284,
+      "scramble_delta": 0.95,
+      "img_offdiag_cosine_mean": 0.09179368913173676,
+      "load_sweep_acc1": {
+        "8": 1.0,
+        "16": 1.0,
+        "32": 0.99375,
+        "64": 0.9875,
+        "112": 0.9767857142857143
+      },
+      "noise_discrim_acc1": {
+        "0.15": 1.0,
+        "0.25": 1.0,
+        "0.35": 1.0,
+        "0.45": 0.9898305084745763
+      },
+      "noise_discrim_auc": 0.997457627118644,
+      "n_seeds": 5,
+      "noise_stress_by_N_f40": {
+        "125": 0.29943502824858753,
+        "250": 0.7231638418079096,
+        "500": 0.9322033898305083,
+        "1000": 0.9661016949152542
+      }
+    }
+  },
+  "verdict_detail": {
+    "rungs_that_work": [
+      "rung1_raw",
+      "rung2_edge",
+      "rung2b_ink"
+    ],
+    "best_rung_keyed": "rung2_edge",
+    "rung2_edge_minus_rung1_raw_w2i_acc1": 0.0035714285714284477,
+    "all_rungs_at_chance": false,
+    "best_rung_keyless_discrim_fullN": "rung2_edge",
+    "edge_minus_raw_noise_auc_fullN": 0.0025423728813559476,
+    "ink_minus_raw_noise_auc_fullN": 0.0,
+    "stress_auc_by_rung": {
+      "rung1_raw": 0.690677966101695,
+      "rung2_edge": 0.6200564971751413,
+      "rung2b_ink": 0.730225988700565
+    },
+    "stress_lowN_acc_by_rung": {
+      "rung1_raw": 0.2542372881355932,
+      "rung2_edge": 0.17514124293785313,
+      "rung2b_ink": 0.29943502824858753
+    },
+    "best_rung_under_N_stress": "rung2b_ink",
+    "discriminator_fired_under_stress": true,
+    "note": "keyed word->image grounding saturates at full N (encoder-insensitive: orthogonal word-keys isolate). Full-N keyless noise-discrim also saturates (offdiag cosine <=~0.5 is ~50-sigma at N=10000). The N-stress sweep is the fire gate: shrinking N ranks true separability (lower offdiag cosine sustains lower N)."
+  },
+  "bands": {
+    "GROUND_ACC1_MIN": 0.2,
+    "GROUND_ACC3_MIN": 0.35,
+    "SCR_DELTA_MIN": 0.1,
+    "CHANCE_EPS": 0.05,
+    "SEP_COS_TARGET": 0.2
+  },
+  "sample_clean_pairs": [
+    [
+      "air",
+      "p044_x358.png"
+    ],
+    [
+      "arm",
+      "p052_x415.png"
+    ],
+    [
+      "arms",
+      "p027_x238.png"
+    ],
+    [
+      "ball",
+      "p028_x245.png"
+    ],
+    [
+      "band",
+      "p031_x267.png"
+    ],
+    [
+      "bank",
+      "p069_x531.png"
+    ],
+    [
+      "barn",
+      "p027_x238.png"
+    ],
+    [
+      "bas",
+      "p052_x415.png"
+    ],
+    [
+      "bee",
+      "p055_x437.png"
+    ],
+    [
+      "ben",
+      "p019_x165.png"
+    ],
+    [
+      "bill",
+      "p083_x635.png"
+    ],
+    [
+      "bite",
+      "p093_x695.png"
+    ],
+    [
+      "bits",
+      "p078_x599.png"
+    ],
+    [
+      "blue",
+      "p044_x358.png"
+    ],
+    [
+      "bow",
+      "p073_x568.png"
+    ],
+    [
+      "bread",
+      "p052_x415.png"
+    ],
+    [
+      "brown",
+      "p083_x635.png"
+    ],
+    [
+      "build",
+      "p077_x592.png"
+    ],
+    [
+      "bush",
+      "p080_x614.png"
+    ],
+    [
+      "cage",
+      "p020_x172.png"
+    ]
+  ],
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "rung1_raw": "a28def9c4febf035e66a851dd552a494a30991d47f8a668bc252aeaa8c1e8fe4",
+    "rung2_edge": "f0187b011f02a528ad0fec8dd5e0518066f74d2822c07b1920b5f127b3f73414",
+    "rung2b_ink": "edc8b8e9d77bbf926b0c71ec1c68fe0f73193391269b89d5e2e90c6d3c570be4"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "primitives_reused": [
+    "hdlab.binding.bsc_bind (elementwise mul, in-cell vectorized)",
+    "hdlab.binding.bsc_bundle (majority sign, in-cell)",
+    "additive superposition memory (sum of binds; composed in-cell)"
+  ],
+  "recipe_adopted": "Kanerva record encoder + Rahimi/Kleyko thermometer levels + Sobel edge / Otsu ink front-ends (all specified, glass-box)",
+  "local_only": true,
+  "banked": false
+}
