@@ -1,0 +1,712 @@
+{
+  "anchor_name": "wsd_frame_selectional_gate_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "frame-matching helps but not decisively",
+  "summary": "baseline_type_acc=0.548 mech_type_acc=0.613 gain=0.065 scramble_mean=0.526",
+  "elapsed_s": 4.371336,
+  "n_total": 31,
+  "n_answerable": 31,
+  "dropped_unanswerable": [],
+  "verdict_block": {
+    "verdict": "MIDDLE_BAND",
+    "verdict_msg": "frame-matching helps but not decisively",
+    "tier_honest": "MEASURED_MECHANISM (WSD = better sense assignment, NOT compositional generalization)",
+    "baseline_type_acc": 0.5483870967741935,
+    "L1_frame_only_type_acc": 0.5483870967741935,
+    "mechanism_type_acc": 0.6129032258064516,
+    "real_gain": 0.06451612903225812,
+    "scramble_type_acc_mean": 0.5258064516129032,
+    "scramble_gain": -0.022580645161290325,
+    "baseline_in_band": true,
+    "scramble_kills_gain": true,
+    "improving_curve_type_acc": {
+      "L0_baseline": 0.5483870967741935,
+      "L1_frame": 0.5483870967741935,
+      "L2_frame_selrestr": 0.6129032258064516
+    }
+  },
+  "binary_affected_acc": {
+    "L0_baseline": 0.6451612903225806,
+    "L1_frame_only": 0.6451612903225806,
+    "L2_frame_selrestr": 0.7096774193548387
+  },
+  "scramble": {
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "type_acc_per_seed": [
+      0.45161290322580644,
+      0.6129032258064516,
+      0.4838709677419355,
+      0.4838709677419355,
+      0.6129032258064516,
+      0.4838709677419355,
+      0.4838709677419355,
+      0.4838709677419355,
+      0.45161290322580644,
+      0.5806451612903226,
+      0.6129032258064516,
+      0.5483870967741935,
+      0.5161290322580645,
+      0.4838709677419355,
+      0.5806451612903226,
+      0.4838709677419355,
+      0.6451612903225806,
+      0.45161290322580644,
+      0.5483870967741935,
+      0.5161290322580645
+    ],
+    "type_acc_mean": 0.5258064516129032,
+    "type_acc_std": 0.060435464500629664
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "L0_baseline": "f5a90f14f800df92f720b882af529dc089df4336af817bd51500920f8fc727bb",
+    "L2_frame_selrestr": "869636a19777f7d12ca4dcca51f81eaadae9b18265e2c079366013ec3c579d63"
+  },
+  "per_item_L0_baseline": [
+    {
+      "sent": "They leave for London tomorrow morning.",
+      "verb": "leave",
+      "gold": "motion",
+      "pred": "transfer",
+      "pred_vn": "fulfilling-13.4.1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "She left the room quietly.",
+      "verb": "left",
+      "gold": "motion",
+      "pred": "transfer",
+      "pred_vn": "fulfilling-13.4.1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "Leave the keys on the table.",
+      "verb": "leave",
+      "gold": "transfer",
+      "pred": "transfer",
+      "pred_vn": "fulfilling-13.4.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "He left his fortune to his son.",
+      "verb": "left",
+      "gold": "transfer",
+      "pred": "transfer",
+      "pred_vn": "fulfilling-13.4.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "Turn the handle to open the door.",
+      "verb": "turn",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The leaves turn red in autumn.",
+      "verb": "turn",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "She turned left at the corner.",
+      "verb": "turned",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "He turned toward the window.",
+      "verb": "turned",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "She got a new bike for her birthday.",
+      "verb": "got",
+      "gold": "transfer",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": false,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "He got the book from the shelf.",
+      "verb": "got",
+      "gold": "transfer",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": false,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "He got tired after the long run.",
+      "verb": "got",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The soup got cold on the counter.",
+      "verb": "got",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The apple fell from the tree.",
+      "verb": "fell",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "A book fell off the shelf.",
+      "verb": "fell",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "Prices fell sharply last month.",
+      "verb": "fell",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The temperature fell overnight.",
+      "verb": "fell",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "She pulled a muscle during practice.",
+      "verb": "pulled",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "hurt-40.8.3-1-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The horse pulled the heavy cart.",
+      "verb": "pulled",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "hurt-40.8.3-1-1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "He pulled the rope hard.",
+      "verb": "pulled",
+      "gold": "contact",
+      "pred": "change_of_state",
+      "pred_vn": "hurt-40.8.3-1-1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "The old man sawed the log into planks.",
+      "verb": "sawed",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "cut-21.1-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The boy saw a bird in the tree.",
+      "verb": "saw",
+      "gold": "cognition",
+      "pred": "change_of_state",
+      "pred_vn": "cut-21.1-1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "She saw her friend at the market.",
+      "verb": "saw",
+      "gold": "cognition",
+      "pred": "change_of_state",
+      "pred_vn": "cut-21.1-1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "The two roads meet at the bridge.",
+      "verb": "meet",
+      "gold": "contact",
+      "pred": "contact",
+      "pred_vn": "contiguous_location-47.8-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "I met an old friend yesterday.",
+      "verb": "met",
+      "gold": "other",
+      "pred": "contact",
+      "pred_vn": "contiguous_location-47.8-1",
+      "type_ok": false,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The chef cut the fresh bread.",
+      "verb": "cut",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "cut-21.1-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "She broke the glass vase.",
+      "verb": "broke",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "break-45.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "The dog ran across the field.",
+      "verb": "ran",
+      "gold": "motion",
+      "pred": "motion",
+      "pred_vn": "run-51.3.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "They looked at the old painting.",
+      "verb": "looked",
+      "gold": "cognition",
+      "pred": "cognition",
+      "pred_vn": "peer-30.3",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "I know the right answer.",
+      "verb": "know",
+      "gold": "cognition",
+      "pred": "cognition",
+      "pred_vn": "conjecture-29.5-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    },
+    {
+      "sent": "He pushed the wooden cart.",
+      "verb": "pushed",
+      "gold": "contact",
+      "pred": "change_of_state",
+      "pred_vn": "split-23.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": null
+    },
+    {
+      "sent": "Put the book on the shelf.",
+      "verb": "put",
+      "gold": "motion",
+      "pred": "motion",
+      "pred_vn": "put-9.1-2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": null
+    }
+  ],
+  "per_item_L2_frame_selrestr": [
+    {
+      "sent": "They leave for London tomorrow morning.",
+      "verb": "leave",
+      "gold": "motion",
+      "pred": "motion",
+      "pred_vn": "escape-51.1-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "She left the room quietly.",
+      "verb": "left",
+      "gold": "motion",
+      "pred": "transfer",
+      "pred_vn": "fulfilling-13.4.1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "Leave the keys on the table.",
+      "verb": "leave",
+      "gold": "transfer",
+      "pred": "transfer",
+      "pred_vn": "fulfilling-13.4.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "He left his fortune to his son.",
+      "verb": "left",
+      "gold": "transfer",
+      "pred": "transfer",
+      "pred_vn": "fulfilling-13.4.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "Turn the handle to open the door.",
+      "verb": "turn",
+      "gold": "change_of_state",
+      "pred": "motion",
+      "pred_vn": "roll-51.3.1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "The leaves turn red in autumn.",
+      "verb": "turn",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "She turned left at the corner.",
+      "verb": "turned",
+      "gold": "motion",
+      "pred": "motion",
+      "pred_vn": "roll-51.3.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "He turned toward the window.",
+      "verb": "turned",
+      "gold": "motion",
+      "pred": "motion",
+      "pred_vn": "roll-51.3.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "She got a new bike for her birthday.",
+      "verb": "got",
+      "gold": "transfer",
+      "pred": "transfer",
+      "pred_vn": "get-13.5.1-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "He got the book from the shelf.",
+      "verb": "got",
+      "gold": "transfer",
+      "pred": "transfer",
+      "pred_vn": "get-13.5.1-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "He got tired after the long run.",
+      "verb": "got",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": true
+    },
+    {
+      "sent": "The soup got cold on the counter.",
+      "verb": "got",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "The apple fell from the tree.",
+      "verb": "fell",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "convert-26.6.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "A book fell off the shelf.",
+      "verb": "fell",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "calibratable_cos-45.6-1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "Prices fell sharply last month.",
+      "verb": "fell",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "calibratable_cos-45.6-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "The temperature fell overnight.",
+      "verb": "fell",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "calibratable_cos-45.6-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "She pulled a muscle during practice.",
+      "verb": "pulled",
+      "gold": "change_of_state",
+      "pred": "transfer",
+      "pred_vn": "get-13.5.1",
+      "type_ok": false,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "The horse pulled the heavy cart.",
+      "verb": "pulled",
+      "gold": "motion",
+      "pred": "change_of_state",
+      "pred_vn": "split-23.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "He pulled the rope hard.",
+      "verb": "pulled",
+      "gold": "contact",
+      "pred": "transfer",
+      "pred_vn": "get-13.5.1",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "The old man sawed the log into planks.",
+      "verb": "sawed",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "split-23.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "The boy saw a bird in the tree.",
+      "verb": "saw",
+      "gold": "cognition",
+      "pred": "change_of_state",
+      "pred_vn": "split-23.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "She saw her friend at the market.",
+      "verb": "saw",
+      "gold": "cognition",
+      "pred": "change_of_state",
+      "pred_vn": "split-23.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "The two roads meet at the bridge.",
+      "verb": "meet",
+      "gold": "contact",
+      "pred": "other",
+      "pred_vn": "meet-36.3-1",
+      "type_ok": false,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "I met an old friend yesterday.",
+      "verb": "met",
+      "gold": "other",
+      "pred": "contact",
+      "pred_vn": "contiguous_location-47.8-1",
+      "type_ok": false,
+      "bin_ok": true,
+      "backoff": true
+    },
+    {
+      "sent": "The chef cut the fresh bread.",
+      "verb": "cut",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "split-23.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "She broke the glass vase.",
+      "verb": "broke",
+      "gold": "change_of_state",
+      "pred": "change_of_state",
+      "pred_vn": "break-45.1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": true
+    },
+    {
+      "sent": "The dog ran across the field.",
+      "verb": "ran",
+      "gold": "motion",
+      "pred": "motion",
+      "pred_vn": "run-51.3.2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "They looked at the old painting.",
+      "verb": "looked",
+      "gold": "cognition",
+      "pred": "cognition",
+      "pred_vn": "peer-30.3",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "I know the right answer.",
+      "verb": "know",
+      "gold": "cognition",
+      "pred": "cognition",
+      "pred_vn": "conjecture-29.5-1",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": false
+    },
+    {
+      "sent": "He pushed the wooden cart.",
+      "verb": "pushed",
+      "gold": "contact",
+      "pred": "change_of_state",
+      "pred_vn": "split-23.2",
+      "type_ok": false,
+      "bin_ok": false,
+      "backoff": false
+    },
+    {
+      "sent": "Put the book on the shelf.",
+      "verb": "put",
+      "gold": "motion",
+      "pred": "motion",
+      "pred_vn": "put-9.1-2",
+      "type_ok": true,
+      "bin_ok": true,
+      "backoff": true
+    }
+  ],
+  "ts_iso": "2026-07-22T03:33:12.077166+00:00"
+}
