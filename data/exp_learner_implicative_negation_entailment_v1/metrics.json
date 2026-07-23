@@ -1,0 +1,202 @@
+{
+  "anchor_name": "learner_implicative_negation_entailment_v1",
+  "run_mode": "self_test",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: module=gam seen_acc=0.9428571428571428 margin_lin_seen=0.19999999999999996 margin_sim_seen=0.0 scramble_delta=-0.05714285714285716 heldout_acc=0.7105263157894737 margin_lin_ho=-0.01754385964912286 margin_sim_ho=-0.01754385964912286",
+  "summary": "MIDDLE_BAND: module=gam seen_acc=0.9428571428571428 margin_lin_seen=0.19999999999999996 margin_sim_seen=0.0 scramble_delta=-0.05714285714285716 heldout_acc=0.7105263157894737 margin_lin_ho=-0.01754385964912286 margin_sim_ho=-0.01754385964912286",
+  "elapsed_s": 0.8888,
+  "ts_iso": "2026-07-23T18:06:26.991022+00:00",
+  "pid": 24372,
+  "positive_control": {
+    "chosen_name": "ruleind",
+    "compression_ratios": {
+      "estimation": 0.975609756097561,
+      "ruleind": 9.841308894082914,
+      "gam": 5.983932094233956
+    },
+    "passed": true
+  },
+  "mining_stats": {
+    "n_sents_scanned": 16622,
+    "n_raw_hits": 114
+  },
+  "n_items_total": 114,
+  "n_seen_train": 79,
+  "n_seen_test": 35,
+  "lovo_n_folds": 9,
+  "lovo_n_total_test_items": 114,
+  "lovo_folds": [
+    {
+      "verb": "avoid",
+      "polarity_class": "neg",
+      "n_test": 17,
+      "n_train": 97,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "gam"
+    },
+    {
+      "verb": "bother",
+      "polarity_class": "pos",
+      "n_test": 11,
+      "n_train": 103,
+      "acc_linear": 0.0,
+      "acc_simvote": 0.0,
+      "acc_module": 0.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "dare",
+      "polarity_class": "pos",
+      "n_test": 1,
+      "n_train": 113,
+      "acc_linear": 0.0,
+      "acc_simvote": 0.0,
+      "acc_module": 0.0,
+      "module_chosen_name": "gam"
+    },
+    {
+      "verb": "decline",
+      "polarity_class": "neg",
+      "n_test": 8,
+      "n_train": 106,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "gam"
+    },
+    {
+      "verb": "fail",
+      "polarity_class": "neg",
+      "n_test": 16,
+      "n_train": 98,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "gam"
+    },
+    {
+      "verb": "forget",
+      "polarity_class": "neg",
+      "n_test": 30,
+      "n_train": 84,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "gam"
+    },
+    {
+      "verb": "hesitate",
+      "polarity_class": "neg",
+      "n_test": 10,
+      "n_train": 104,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "gam"
+    },
+    {
+      "verb": "manage",
+      "polarity_class": "pos",
+      "n_test": 19,
+      "n_train": 95,
+      "acc_linear": 0.0,
+      "acc_simvote": 0.0,
+      "acc_module": 0.0,
+      "module_chosen_name": "gam"
+    },
+    {
+      "verb": "neglect",
+      "polarity_class": "neg",
+      "n_test": 2,
+      "n_train": 112,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 0.0,
+      "module_chosen_name": "ruleind"
+    }
+  ],
+  "lovo_critical_pos_impl_folds": {
+    "bother": {
+      "verb": "bother",
+      "polarity_class": "pos",
+      "n_test": 11,
+      "n_train": 103,
+      "acc_linear": 0.0,
+      "acc_simvote": 0.0,
+      "acc_module": 0.0,
+      "module_chosen_name": "ruleind"
+    },
+    "dare": {
+      "verb": "dare",
+      "polarity_class": "pos",
+      "n_test": 1,
+      "n_train": 113,
+      "acc_linear": 0.0,
+      "acc_simvote": 0.0,
+      "acc_module": 0.0,
+      "module_chosen_name": "gam"
+    },
+    "manage": {
+      "verb": "manage",
+      "polarity_class": "pos",
+      "n_test": 19,
+      "n_train": 95,
+      "acc_linear": 0.0,
+      "acc_simvote": 0.0,
+      "acc_module": 0.0,
+      "module_chosen_name": "gam"
+    }
+  },
+  "module_chosen_name_seen": "gam",
+  "module_compression_ratios_seen": {
+    "estimation": 1.3911671769907028,
+    "ruleind": 2.2490426835776938,
+    "gam": 2.442730176061985
+  },
+  "acc_linear_seen": 0.7428571428571429,
+  "acc_simvote_seen": 0.9428571428571428,
+  "acc_module_seen": 0.9428571428571428,
+  "acc_linear_heldout_lovo": 0.7280701754385965,
+  "acc_simvote_heldout_lovo": 0.7280701754385965,
+  "acc_module_heldout_lovo": 0.7105263157894737,
+  "margin_module_linear_seen": 0.19999999999999996,
+  "margin_module_simvote_seen": 0.0,
+  "margin_module_linear_heldout_lovo": -0.01754385964912286,
+  "margin_module_simvote_heldout_lovo": -0.01754385964912286,
+  "scramble_module_acc_seen": 1.0,
+  "scramble_delta": -0.05714285714285716,
+  "scramble_verb_to_class_map": {
+    "avoid": "neg",
+    "bother": "pos",
+    "dare": "neg",
+    "decline": "pos",
+    "fail": "neg",
+    "forget": "neg",
+    "hesitate": "pos",
+    "manage": "neg",
+    "neglect": "neg"
+  },
+  "arms_differ_seen": {
+    "digests": {
+      "linear": "09ceaa4fe95f10d43cdb4f0fa934f4f08d55d9445f56aa24e34a069b76bf1b89",
+      "simvote": "098465dbb004d7a908e5626931da8ef0a5d6844dde8efd3fc2a496727f6c60e7",
+      "module": "098465dbb004d7a908e5626931da8ef0a5d6844dde8efd3fc2a496727f6c60e7"
+    },
+    "identical_pairs": [
+      [
+        "module",
+        "simvote"
+      ]
+    ]
+  },
+  "arms_differ_verified": false,
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy/compression-ratio measurement, not a capacity/CRLB-bound cell",
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "calibration_check": "default_ok_for_this_regime"
+}
