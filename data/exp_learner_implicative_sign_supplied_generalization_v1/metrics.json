@@ -1,0 +1,194 @@
+{
+  "anchor_name": "learner_implicative_sign_supplied_generalization_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_BEYOND_LINEAR_NOT_BEYOND_SIMILARITY",
+  "verdict_msg": "COVERED HARD_PASS (beyond-linear only): acc_module=1.000 margin_lin=0.343 margin_sim=0.000 (small) acc_simvote=1.000 (trivial-lookup solve; 2-feature joint space fully enumerable once covered) scramble_delta=0.412. Rule composes + generalizes beyond an additive readout given the supplied fact; does NOT beat similarity-based memorization at this task's cardinality.",
+  "summary": "COVERED HARD_PASS (beyond-linear only): acc_module=1.000 margin_lin=0.343 margin_sim=0.000 (small) acc_simvote=1.000 (trivial-lookup solve; 2-feature joint space fully enumerable once covered) scramble_delta=0.412. Rule composes + generalizes beyond an additive readout given the supplied fact; does NOT beat similarity-based memorization at this task's cardinality.",
+  "elapsed_s": 0.4535,
+  "ts_iso": "2026-07-23T19:04:08.502814+00:00",
+  "pid": 20492,
+  "positive_control": {
+    "chosen_name": "ruleind",
+    "compression_ratios": {
+      "estimation": 0.975609756097561,
+      "ruleind": 9.841308894082914,
+      "gam": 5.983932094233956
+    },
+    "passed": true
+  },
+  "mining_stats": {
+    "n_sents_scanned": 16622,
+    "n_raw_hits": 114
+  },
+  "n_items_total": 114,
+  "lovo_n_folds": 9,
+  "lovo_folds": [
+    {
+      "verb": "avoid",
+      "polarity_class": "neg",
+      "n_test": 17,
+      "n_train": 97,
+      "n_covered": 17,
+      "n_uncovered": 0,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "bother",
+      "polarity_class": "pos",
+      "n_test": 11,
+      "n_train": 103,
+      "n_covered": 5,
+      "n_uncovered": 6,
+      "acc_linear": 0.45454545454545453,
+      "acc_simvote": 0.45454545454545453,
+      "acc_module": 0.45454545454545453,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "dare",
+      "polarity_class": "pos",
+      "n_test": 1,
+      "n_train": 113,
+      "n_covered": 1,
+      "n_uncovered": 0,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "decline",
+      "polarity_class": "neg",
+      "n_test": 8,
+      "n_train": 106,
+      "n_covered": 8,
+      "n_uncovered": 0,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "fail",
+      "polarity_class": "neg",
+      "n_test": 16,
+      "n_train": 98,
+      "n_covered": 16,
+      "n_uncovered": 0,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "forget",
+      "polarity_class": "neg",
+      "n_test": 30,
+      "n_train": 84,
+      "n_covered": 30,
+      "n_uncovered": 0,
+      "acc_linear": 0.7,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "hesitate",
+      "polarity_class": "neg",
+      "n_test": 10,
+      "n_train": 104,
+      "n_covered": 10,
+      "n_uncovered": 0,
+      "acc_linear": 0.1,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "manage",
+      "polarity_class": "pos",
+      "n_test": 19,
+      "n_train": 95,
+      "n_covered": 19,
+      "n_uncovered": 0,
+      "acc_linear": 0.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    },
+    {
+      "verb": "neglect",
+      "polarity_class": "neg",
+      "n_test": 2,
+      "n_train": 112,
+      "n_covered": 2,
+      "n_uncovered": 0,
+      "acc_linear": 1.0,
+      "acc_simvote": 1.0,
+      "acc_module": 1.0,
+      "module_chosen_name": "ruleind"
+    }
+  ],
+  "n_covered_test": 108,
+  "n_uncovered_test": 6,
+  "module_chosen_name_per_fold": {
+    "ruleind": 9
+  },
+  "module_is_nonlinear_majority": true,
+  "acc_linear_covered": 0.6574074074074074,
+  "acc_simvote_covered": 1.0,
+  "acc_module_covered": 1.0,
+  "margin_module_linear_covered": 0.34259259259259256,
+  "margin_module_simvote_covered": 0.0,
+  "acc_linear_uncovered": 0.0,
+  "acc_simvote_uncovered": 0.0,
+  "acc_module_uncovered": 0.0,
+  "unseen_joint_cell_extrapolation": "BOUND_CONFIRMED_ASSOCIATIVE_NOT_SYMBOLIC",
+  "is_similarity_near_chance_on_heldout": false,
+  "scramble_module_acc_covered": 0.5877192982456141,
+  "scramble_delta": 0.4122807017543859,
+  "scramble_verb_to_class_map": {
+    "avoid": "neg",
+    "bother": "pos",
+    "dare": "neg",
+    "decline": "pos",
+    "fail": "neg",
+    "forget": "neg",
+    "hesitate": "pos",
+    "manage": "neg",
+    "neglect": "neg"
+  },
+  "arms_differ_covered": {
+    "digests": {
+      "linear": "568676129319ee525669bcc59a8b06a2ae527a09f5a59f2e4cee51cd206765b8",
+      "simvote": "a5ca15891fecb4d8bb0ebbce90e7e8413614c23563087ed3094a6e4f7bc248d3",
+      "module": "a5ca15891fecb4d8bb0ebbce90e7e8413614c23563087ed3094a6e4f7bc248d3"
+    },
+    "identical_pairs": [
+      [
+        "module",
+        "simvote"
+      ]
+    ]
+  },
+  "arms_differ_verified": false,
+  "arms_differ_exempted": [
+    {
+      "pair": [
+        "module",
+        "simvote"
+      ],
+      "rationale": "both arms scored 100% accuracy on the covered subset -- predictions coincide with gold and hence with each other; this IS the reported finding (similarity trivially solves the fully-enumerable 2-feature joint table once covered), not an arm-implementation bug. Linear differs (digest mismatch confirms linear is NOT bit-identical to module/simvote)."
+    }
+  ],
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy/compression-ratio measurement, not a capacity/CRLB-bound cell",
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "calibration_check": "default_ok_for_this_regime"
+}
