@@ -1,0 +1,92 @@
+{
+  "anchor_name": "pivot_selectional_independent_kb_2afc_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND_PARTIAL_GRANULARITY_RECOVERY",
+  "verdict_msg": "VERDICT_core acc_indep_kb=0.568 vs acc_thin=0.491 (gap=+0.076) | acc_llm_rich=0.814 | frac_of_llm_lift_recovered=0.2369 | acc_random=0.491 | acc_indep_kb_scrambled_mean(10 seeds)=0.534+/-0.064 | scramble_margin=+0.034 | acc_llm_rich_scrambled=0.4661 | band_reason=0.05<=gap<0.20 (or acc<0.65), scramble collapses: partial, knowledge-driven recovery | n_items=59 | cov_curve={'0.00': 0.4915, '0.25': 0.5339, '0.50': 0.5, '0.75': 0.5424, '1.00': 0.5678}",
+  "summary": "VERDICT_core acc_indep_kb=0.568 vs acc_thin=0.491 (gap=+0.076) | acc_llm_rich=0.814 | frac_of_llm_lift_recovered=0.2369 | acc_random=0.491 | acc_indep_kb_scrambled_mean(10 seeds)=0.534+/-0.064 | scramble_margin=+0.034 | acc_llm_rich_scrambled=0.4661 | band_reason=0.05<=gap<0.20 (or acc<0.65), scramble collapses: partial, knowledge-driven recovery | n_items=59 | cov_curve={'0.00': 0.4915, '0.25': 0.5339, '0.50': 0.5, '0.75': 0.5424, '1.00': 0.5678}",
+  "elapsed_s": 0.8462084999773651,
+  "ts_iso": "2026-07-23T12:13:12.876370+00:00",
+  "n_items": 59,
+  "n_mining_sentences": 600,
+  "acc_thin": 0.4915,
+  "acc_random": 0.4915,
+  "acc_indep_kb": 0.5678,
+  "acc_indep_kb_scrambled_mean": 0.5339,
+  "acc_indep_kb_scrambled_std": 0.064,
+  "acc_indep_kb_scrambled_all_seeds": [
+    0.6864,
+    0.4746,
+    0.4576,
+    0.5254,
+    0.5593,
+    0.5254,
+    0.5085,
+    0.4661,
+    0.5678,
+    0.5678
+  ],
+  "acc_llm_rich": 0.8136,
+  "acc_llm_rich_scrambled": 0.4661,
+  "gap_kb_vs_thin": 0.0763,
+  "scramble_margin": 0.0339,
+  "scramble_collapses": true,
+  "frac_of_llm_lift_recovered": 0.2369,
+  "band_reason": "0.05<=gap<0.20 (or acc<0.65), scramble collapses: partial, knowledge-driven recovery",
+  "coverage_curve": {
+    "0.00": 0.4915,
+    "0.25": 0.5339,
+    "0.50": 0.5,
+    "0.75": 0.5424,
+    "1.00": 0.5678
+  },
+  "expected_cov_points": 5,
+  "cardinality_ok": true,
+  "strat_acc_thin": {
+    "cross_class": 0.3333,
+    "same_class": 0.5
+  },
+  "strat_acc_indep_kb": {
+    "cross_class": 0.8333,
+    "same_class": 0.5536
+  },
+  "strat_n": {
+    "cross_class": 3,
+    "same_class": 56
+  },
+  "per_item_score_digests": {
+    "thin": "231372ad6c17beb7",
+    "random": "39c05051bbe534a8",
+    "indep_kb": "c37c04c8893847b6",
+    "indep_kb_scrambled_seed0": "7057d2983947eaa0",
+    "llm_rich": "5df85d80df03d57b"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "random_is_chance": true,
+  "discriminator_fires": true,
+  "independent_kb_table_path": "D:\\AI\\hd-instrument\\data\\exp_pivot_selectional_independent_kb_2afc_v1_smoke\\independent_kb_table.json",
+  "n_indep_kb_records": 117,
+  "n_indep_kb_records_with_example_signal": 97,
+  "n_indep_kb_records_with_selrestr_signal": 58,
+  "n_indep_kb_records_neutral_backoff": 20,
+  "runtime_invariant": "glass-box dict lookup ONLY at scoring time; NO LLM/network/autograd at ANY point (build-time uses only local nltk VerbNet/WordNet corpus readers)",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "2AFC discrimination-accuracy; no quantitative noise floor for the discriminator",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "one_variable_note": "Identical item set, split, thin mechanism, and 2AFC scorer as 29471 (imported, not reimplemented). ONLY the independent-KB score table is new; ARM_LLM_RICH is 29471's own landed table loaded read-only.",
+  "leakage_guard": "ARM_INDEP_KB built from VerbNet (nltk.corpus.verbnet: selrestrs + curated EXAMPLE sentences) + WordNet (nltk.corpus.wordnet: hypernym features + wup_similarity) ONLY. The build function never opens gold_mcguffey_lccp_argstruct_v1.json or any mining-corpus file -- leakage-impossible BY CONSTRUCTION, not merely by a forensic-fingerprint argument.",
+  "mapped_ceiling_ref": "exp_pivot_selectional_knowledge_richness_2afc_v1 (29471): HARD_PASS_KNOWLEDGE_POVERTY_WAS_THE_WALL, acc_thin=0.475 -> acc_rich=0.814 (+0.339) via an LLM-self-built table.",
+  "vision_ready_schema_note": "independent_kb_table.json keys entries on verb_concept_id/noun_concept_id (WordNet synset name or verbnet classid), not just the raw lemma string.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "acc_thin",
+    "acc_indep_kb",
+    "acc_random",
+    "acc_indep_kb_scrambled_mean",
+    "gap_kb_vs_thin",
+    "scramble_margin",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "leakage_guard"
+  ]
+}
