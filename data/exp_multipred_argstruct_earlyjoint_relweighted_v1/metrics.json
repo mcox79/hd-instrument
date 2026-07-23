@@ -1,0 +1,6630 @@
+{
+  "verdict": "HARD_FAIL_EARLY_STILL_REDUNDANT",
+  "verdict_msg": "HARD_FAIL: F1(EARLY_RELWEIGHTED) 0.5492 <= CITED structural F1 0.5738: reliability-weighted EARLY integration still does not beat the structural baseline -- the negative is NOT injection-point, selectional knowledge is genuinely redundant with structure for this reader regardless of WHERE/HOW it combines. F1 structural(cited)=0.5738 late(cited)=0.5328 parsefix_only(cited)=0.4651 EARLY_RELWEIGHTED=0.5492 EARLY_KNOWLEDGE_SCRAMBLE=0.4564 EARLY_ARCSCRAMBLE=0.2857 EARLY_STRUCTURAL_ONLY=0.4426. n_diff_tuples: scramble=35 arcscramble=131 vs_structural=32 vs_late=18 vs_structonly=34. tier_weight_stats={'tier0_item': {'n': 266, 'mean_know_weight': 0.5498}, 'tier1_class': {'n': 86, 'mean_know_weight': 0.421}, 'tier2_verbavg': {'n': 258, 'mean_know_weight': 0.2257}, 'tier3_global': {'n': 77, 'mean_know_weight': 0.0538}}. gold_divergence: 19/27. HONEST BOUND: even reliability-weighted, early/joint integration (the brain's constraint-based-lexicalist / Ernst-Banks combination rule) does not let selectional-patient knowledge beat structure at this reader's decision points -- the late-gate's negative was NOT purely an injection-point artifact; a deeper bound on the knowledge leg remains for natural narrative prose at this reader's scale.",
+  "summary": "HARD_FAIL_EARLY_STILL_REDUNDANT: F1 structural(cited)=0.5738 late(cited)=0.5328 parsefix_only(cited)=0.4651 EARLY_RELWEIGHTED=0.5492 EARLY_KNOWLEDGE_SCRAMBLE=0.4564 EARLY_ARCSCRAMBLE=0.2857 EARLY_STRUCTURAL_ONLY=0.4426 | early_vs_late_delta=0.0164 early_vs_structural_delta=-0.0246 | n_diff_tuples: scramble=35 arcscramble=131 | tier_weight_stats={'tier0_item': {'n': 266, 'mean_know_weight': 0.5498}, 'tier1_class': {'n': 86, 'mean_know_weight': 0.421}, 'tier2_verbavg': {'n': 258, 'mean_know_weight': 0.2257}, 'tier3_global': {'n': 77, 'mean_know_weight': 0.0538}} | parser_uas=0.7882",
+  "elapsed_s": 338.76,
+  "ts_iso": "2026-07-23T17:54:52.096510+00:00",
+  "anchor_name": "multipred_argstruct_earlyjoint_relweighted_v1",
+  "run_mode": "full",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "WHERE/HOW the SAME dense knowledge table (dense_item_table_v1.json, byte-identical reuse of denseitem_v1's DENSE_TABLE_PATH) combines with structure: LATE = knowledge argmax among candidates the structural classifier has ALREADY independently labeled PATIENT (post-hoc re-rank, denseitem_v1's own mechanism, cited unchanged); EARLY_RELWEIGHTED = a reliability-weighted combination (Ernst-Banks) of structural PATIENT-confidence + knowledge plausibility computed BEFORE roles are finalized, used for BOTH the role decision itself AND any residual tie-break. Parser training / candidate-to-predicate assignment / learned admissibility gate / dense table contents / scoring pipeline ALL byte-identical reuse of V3/B/D/M/L/ORC/V2's own code (imported, not re-transcribed).",
+  "bands": {
+    "HP_F1_OVER_STRUCTURAL_MIN": 0.01,
+    "HP_F1_OVER_LATE_MIN": 0.02,
+    "HP_SCRAMBLE_F1_MARGIN": 0.02,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HP_MIN_DIFF_TUPLES_SCRAMBLE": 1,
+    "HF_SCRAMBLE_F1_MARGIN": 0.01,
+    "CITED_STRUCTURAL_F1": 0.5738,
+    "CITED_LATE_F1": 0.5328,
+    "CITED_PARSEFIX_ONLY_F1": 0.4651
+  },
+  "reliability_by_tier": {
+    "tier0_item": 0.9,
+    "tier1_class": 0.45,
+    "tier2_verbavg": 0.2,
+    "tier3_global": 0.03
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.44,
+      "n_miss": 56,
+      "n_gold_pos": 100,
+      "precision": 0.1956,
+      "recall": 0.44,
+      "f1": 0.2708,
+      "n_pred": 225,
+      "kept_hash": "6fca7838894babc0"
+    },
+    "V2_FRAMES_29478": {
+      "recall_ceiling": 0.6,
+      "n_miss": 40,
+      "n_gold_pos": 100,
+      "precision": 0.3571,
+      "recall": 0.6,
+      "f1": 0.4478,
+      "n_pred": 168,
+      "kept_hash": "da404cb8a4587965"
+    },
+    "V3_PARSEFIX_ONLY": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.3483,
+      "recall": 0.7,
+      "f1": 0.4651,
+      "n_pred": 201,
+      "kept_hash": "1245b95026d62831"
+    },
+    "V3_INTEGRATED": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V3_ARCSCRAMBLE": {
+      "recall_ceiling": 0.26,
+      "n_miss": 74,
+      "n_gold_pos": 100,
+      "precision": 0.3881,
+      "recall": 0.26,
+      "f1": 0.3114,
+      "n_pred": 67,
+      "kept_hash": "938503a5a8745c07"
+    },
+    "V3_KNOWLEDGE_SCRAMBLE": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V5_INTEGRATED_DENSE": {
+      "recall_ceiling": 0.65,
+      "n_miss": 35,
+      "n_gold_pos": 100,
+      "precision": 0.4514,
+      "recall": 0.65,
+      "f1": 0.5328,
+      "n_pred": 144,
+      "kept_hash": "d4cf1477609679d1"
+    },
+    "V5_ARCSCRAMBLE_DENSE": {
+      "recall_ceiling": 0.26,
+      "n_miss": 74,
+      "n_gold_pos": 100,
+      "precision": 0.3467,
+      "recall": 0.26,
+      "f1": 0.2971,
+      "n_pred": 75,
+      "kept_hash": "31ff2ecfdea5499f"
+    },
+    "V5_KNOWLEDGE_SCRAMBLE_DENSE": {
+      "recall_ceiling": 0.57,
+      "n_miss": 43,
+      "n_gold_pos": 100,
+      "precision": 0.3958,
+      "recall": 0.57,
+      "f1": 0.4672,
+      "n_pred": 144,
+      "kept_hash": "634ba81d547ff774"
+    },
+    "EARLY_RELWEIGHTED": {
+      "recall_ceiling": 0.67,
+      "n_miss": 33,
+      "n_gold_pos": 100,
+      "precision": 0.4653,
+      "recall": 0.67,
+      "f1": 0.5492,
+      "n_pred": 144,
+      "kept_hash": "d3ea99eb3b566b01"
+    },
+    "EARLY_KNOWLEDGE_SCRAMBLE": {
+      "recall_ceiling": 0.55,
+      "n_miss": 45,
+      "n_gold_pos": 100,
+      "precision": 0.3901,
+      "recall": 0.55,
+      "f1": 0.4564,
+      "n_pred": 141,
+      "kept_hash": "1a988743de18acbb"
+    },
+    "EARLY_ARCSCRAMBLE": {
+      "recall_ceiling": 0.25,
+      "n_miss": 75,
+      "n_gold_pos": 100,
+      "precision": 0.3333,
+      "recall": 0.25,
+      "f1": 0.2857,
+      "n_pred": 75,
+      "kept_hash": "5f6dea1abc40dc88"
+    },
+    "EARLY_STRUCTURAL_ONLY": {
+      "recall_ceiling": 0.54,
+      "n_miss": 46,
+      "n_gold_pos": 100,
+      "precision": 0.375,
+      "recall": 0.54,
+      "f1": 0.4426,
+      "n_pred": 144,
+      "kept_hash": "54610f382aaf165d"
+    }
+  },
+  "hard_pass_conditions": {
+    "beats_structural": false,
+    "beats_late": false,
+    "knowledge_scramble_hurts": true,
+    "arcscramble_fires": true,
+    "diff_tuples_scramble_meaningful": true
+  },
+  "hard_fail_reasons": [
+    "F1(EARLY_RELWEIGHTED) 0.5492 <= CITED structural F1 0.5738: reliability-weighted EARLY integration still does not beat the structural baseline -- the negative is NOT injection-point, selectional knowledge is genuinely redundant with structure for this reader regardless of WHERE/HOW it combines"
+  ],
+  "n_clauses_processed": 386,
+  "n_competitions_real": 72,
+  "n_competitions_knowscr": 73,
+  "n_competitions_arcscr": 49,
+  "n_competitions_structonly": 76,
+  "n_diff_tuples_scramble": 35,
+  "n_diff_tuples_arcscramble": 131,
+  "n_diff_tuples_vs_structural": 32,
+  "n_diff_tuples_vs_late": 18,
+  "n_diff_tuples_vs_structonly": 34,
+  "tier_weight_stats": {
+    "tier0_item": {
+      "n": 266,
+      "mean_know_weight": 0.5498
+    },
+    "tier1_class": {
+      "n": 86,
+      "mean_know_weight": 0.421
+    },
+    "tier2_verbavg": {
+      "n": 258,
+      "mean_know_weight": 0.2257
+    },
+    "tier3_global": {
+      "n": 77,
+      "mean_know_weight": 0.0538
+    }
+  },
+  "n_gold_determinable": 27,
+  "n_gold_correct": 19,
+  "leakage_fingerprint_divergent_items": [
+    {
+      "sid": "L04_17",
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "picked": "heart",
+      "gold_patients": [
+        "way"
+      ]
+    },
+    {
+      "sid": "L05_24",
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "picked": "milk",
+      "gold_patients": [
+        "more"
+      ]
+    },
+    {
+      "sid": "L07_09",
+      "vlemma": "meet",
+      "candidates": [
+        "plenty",
+        "boys"
+      ],
+      "picked": "plenty",
+      "gold_patients": [
+        "boys"
+      ]
+    },
+    {
+      "sid": "L10_16",
+      "vlemma": "give",
+      "candidates": [
+        "me",
+        "hour",
+        "day",
+        "myself"
+      ],
+      "picked": "me",
+      "gold_patients": [
+        "hour"
+      ]
+    },
+    {
+      "sid": "L10_41",
+      "vlemma": "give",
+      "candidates": [
+        "him",
+        "books",
+        "joe",
+        "paper",
+        "pens"
+      ],
+      "picked": "him",
+      "gold_patients": [
+        "books"
+      ]
+    },
+    {
+      "sid": "L12_07",
+      "vlemma": "brush",
+      "candidates": [
+        "tops",
+        "flowers"
+      ],
+      "picked": "flowers",
+      "gold_patients": [
+        "tops"
+      ]
+    },
+    {
+      "sid": "L12_09",
+      "vlemma": "show",
+      "candidates": [
+        "him",
+        "seeds"
+      ],
+      "picked": "him",
+      "gold_patients": [
+        "seeds"
+      ]
+    },
+    {
+      "sid": "L12_09",
+      "vlemma": "tell",
+      "candidates": [
+        "him",
+        "name",
+        "flowers",
+        "plants"
+      ],
+      "picked": "him",
+      "gold_patients": [
+        "name"
+      ]
+    }
+  ],
+  "n_divergent_items": 8,
+  "comps_real_sample": [
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "herbert",
+        "anger",
+        "dismay"
+      ],
+      "combined_scores": [
+        0.622074,
+        0.43892,
+        0.43892
+      ],
+      "picked": "herbert",
+      "all_tied": false,
+      "breakdown": {
+        "herbert": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.35,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "anger": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "dismay": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_01"
+    },
+    {
+      "vlemma": "rattl",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "combined_scores": [
+        0.468127,
+        0.466
+      ],
+      "picked": "down",
+      "all_tied": false,
+      "breakdown": {
+        "down": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "floor": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_02"
+    },
+    {
+      "vlemma": "sha'n",
+      "candidates": [
+        "hurt",
+        "pussy"
+      ],
+      "combined_scores": [
+        0.370153,
+        0.709715
+      ],
+      "picked": "pussy",
+      "all_tied": false,
+      "breakdown": {
+        "hurt": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "pussy": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_06"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "combined_scores": [
+        0.468127,
+        0.493079
+      ],
+      "picked": "floor",
+      "all_tied": false,
+      "breakdown": {
+        "down": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "floor": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cover",
+      "candidates": [
+        "face",
+        "hands"
+      ],
+      "combined_scores": [
+        0.831812,
+        0.682636
+      ],
+      "picked": "face",
+      "all_tied": false,
+      "breakdown": {
+        "face": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "hands": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.55,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "milk",
+        "good"
+      ],
+      "combined_scores": [
+        0.759819,
+        0.411841
+      ],
+      "picked": "milk",
+      "all_tied": false,
+      "breakdown": {
+        "milk": [
+          {
+            "value": 0.9574,
+            "reliability": 0.9557,
+            "weight": 0.515,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.003674821666095637,
+                "PATIENT": 0.9573981856605321,
+                "RECIPIENT": 0.004216315531721198,
+                "LOCATION": 0.01304867682410318,
+                "NONE": 0.021662000317547798
+              },
+              "rival_prob": 0.021662000317547798
+            }
+          },
+          {
+            "value": 0.55,
+            "reliability": 0.9,
+            "weight": 0.485,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "good": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_09"
+    },
+    {
+      "vlemma": "rub",
+      "candidates": [
+        "herbert's",
+        "castle"
+      ],
+      "combined_scores": [
+        0.427861,
+        0.493079
+      ],
+      "picked": "castle",
+      "all_tied": false,
+      "breakdown": {
+        "herbert's": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "castle": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_12"
+    },
+    {
+      "vlemma": "hold",
+      "candidates": [
+        "out",
+        "hands"
+      ],
+      "combined_scores": [
+        0.5447,
+        0.872192
+      ],
+      "picked": "hands",
+      "all_tied": false,
+      "breakdown": {
+        "out": [
+          {
+            "value": 0.9926,
+            "reliability": 0.994,
+            "weight": 0.5248,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009745390216098459,
+                "PATIENT": 0.9925983693551651,
+                "RECIPIENT": 0.0012995394976659683,
+                "LOCATION": 0.002964630005139082,
+                "NONE": 0.0021629221204198788
+              },
+              "rival_prob": 0.002964630005139082
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.4752,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "hands": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.9,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_14"
+    },
+    {
+      "vlemma": "come",
+      "candidates": [
+        "eyes",
+        "tears"
+      ],
+      "combined_scores": [
+        0.541578,
+        0.682636
+      ],
+      "picked": "tears",
+      "all_tied": false,
+      "breakdown": {
+        "eyes": [
+          {
+            "value": 0.9574,
+            "reliability": 0.9557,
+            "weight": 0.515,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.003674821666095637,
+                "PATIENT": 0.9573981856605321,
+                "RECIPIENT": 0.004216315531721198,
+                "LOCATION": 0.01304867682410318,
+                "NONE": 0.021662000317547798
+              },
+              "rival_prob": 0.021662000317547798
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.485,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "tears": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.55,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_15"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "combined_scores": [
+        0.629836,
+        0.709715
+      ],
+      "picked": "heart",
+      "all_tied": false,
+      "breakdown": {
+        "way": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "heart": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_17"
+    },
+    {
+      "vlemma": "show",
+      "candidates": [
+        "you",
+        "way"
+      ],
+      "combined_scores": [
+        0.775422,
+        0.790954
+      ],
+      "picked": "way",
+      "all_tied": false,
+      "breakdown": {
+        "you": [
+          {
+            "value": 0.9467,
+            "reliability": 0.9219,
+            "weight": 0.506,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.011749088399898895,
+                "PATIENT": 0.9466703301203389,
+                "RECIPIENT": 0.038449383611096996,
+                "LOCATION": 0.00279365154544472,
+                "NONE": 0.0003375463232206073
+              },
+              "rival_prob": 0.038449383611096996
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.494,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "way": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.75,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "blocks",
+        "side"
+      ],
+      "combined_scores": [
+        0.482248,
+        0.455168
+      ],
+      "picked": "blocks",
+      "all_tied": false,
+      "breakdown": {
+        "blocks": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.18,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "side": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.13,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "lay",
+      "candidates": [
+        "foundation",
+        "castle"
+      ],
+      "combined_scores": [
+        0.928507,
+        0.466
+      ],
+      "picked": "foundation",
+      "all_tied": false,
+      "breakdown": {
+        "foundation": [
+          {
+            "value": 0.956,
+            "reliability": 0.9336,
+            "weight": 0.5092,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009321642855934887,
+                "PATIENT": 0.9559862049579847,
+                "RECIPIENT": 0.0031301909167258035,
+                "LOCATION": 0.0071408817740485535,
+                "NONE": 0.03281055806564751
+              },
+              "rival_prob": 0.03281055806564751
+            }
+          },
+          {
+            "value": 0.9,
+            "reliability": 0.9,
+            "weight": 0.4908,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "castle": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "forget",
+      "candidates": [
+        "grief",
+        "few",
+        "minutes"
+      ],
+      "combined_scores": [
+        0.781258,
+        0.43892,
+        0.547238
+      ],
+      "picked": "grief",
+      "all_tied": false,
+      "breakdown": {
+        "grief": [
+          {
+            "value": 0.956,
+            "reliability": 0.9336,
+            "weight": 0.5092,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009321642855934887,
+                "PATIENT": 0.9559862049579847,
+                "RECIPIENT": 0.0031301909167258035,
+                "LOCATION": 0.0071408817740485535,
+                "NONE": 0.03281055806564751
+              },
+              "rival_prob": 0.03281055806564751
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.4908,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "few": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "minutes": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_05"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "place"
+      ],
+      "combined_scores": [
+        0.468127,
+        0.466
+      ],
+      "picked": "down",
+      "all_tied": false,
+      "breakdown": {
+        "down": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "place": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_07"
+    },
+    {
+      "vlemma": "los",
+      "candidates": [
+        "kite",
+        "thing"
+      ],
+      "combined_scores": [
+        0.879424,
+        0.655556
+      ],
+      "picked": "kite",
+      "all_tied": false,
+      "breakdown": {
+        "kite": [
+          {
+            "value": 0.956,
+            "reliability": 0.9336,
+            "weight": 0.5092,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009321642855934887,
+                "PATIENT": 0.9559862049579847,
+                "RECIPIENT": 0.0031301909167258035,
+                "LOCATION": 0.0071408817740485535,
+                "NONE": 0.03281055806564751
+              },
+              "rival_prob": 0.03281055806564751
+            }
+          },
+          {
+            "value": 0.8,
+            "reliability": 0.9,
+            "weight": 0.4908,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "thing": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_09"
+    },
+    {
+      "vlemma": "see",
+      "candidates": [
+        "papa",
+        "more",
+        "use",
+        "case"
+      ],
+      "combined_scores": [
+        0.796168,
+        0.711326,
+        0.628477,
+        0.601397
+      ],
+      "picked": "papa",
+      "all_tied": false,
+      "breakdown": {
+        "papa": [
+          {
+            "value": 0.4988,
+            "reliability": 0.0116,
+            "weight": 0.0127,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.009350529288506966,
+                "PATIENT": 0.4988158920213215,
+                "RECIPIENT": 0.48737858232409703,
+                "LOCATION": 0.0008641487601715553,
+                "NONE": 0.003590847605902974
+              },
+              "rival_prob": 0.48737858232409703
+            }
+          },
+          {
+            "value": 0.8,
+            "reliability": 0.9,
+            "weight": 0.9873,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "more": [
+          {
+            "value": 0.4174,
+            "reliability": 0.1358,
+            "weight": 0.2318,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.030799119619409246,
+                "PATIENT": 0.4173876120709284,
+                "RECIPIENT": 0.5485131158783684,
+                "LOCATION": 0.0013193543170504625,
+                "NONE": 0.0019807981142434816
+              },
+              "rival_prob": 0.5485131158783684
+            }
+          },
+          {
+            "value": 0.8,
+            "reliability": 0.45,
+            "weight": 0.7682,
+            "meta": {
+              "tier": "tier1_class",
+              "n_samples": 4
+            }
+          }
+        ],
+        "use": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.45,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "case": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_10"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "sticks",
+        "paper"
+      ],
+      "combined_scores": [
+        0.816737,
+        0.649506
+      ],
+      "picked": "sticks",
+      "all_tied": false,
+      "breakdown": {
+        "sticks": [
+          {
+            "value": 0.9339,
+            "reliability": 0.8965,
+            "weight": 0.499,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.004394247112212821,
+                "PATIENT": 0.9339311685272179,
+                "RECIPIENT": 2.6616259283170764e-05,
+                "LOCATION": 0.010673384957272623,
+                "NONE": 0.05097458314401342
+              },
+              "rival_prob": 0.05097458314401342
+            }
+          },
+          {
+            "value": 0.7,
+            "reliability": 0.9,
+            "weight": 0.501,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "paper": [
+          {
+            "value": 0.7372,
+            "reliability": 0.5081,
+            "weight": 0.3608,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0031074019832322236,
+                "PATIENT": 0.737199956547341,
+                "RECIPIENT": 0.00010411480358320035,
+                "LOCATION": 0.01912119319328646,
+                "NONE": 0.24046733347255717
+              },
+              "rival_prob": 0.24046733347255717
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.6392,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_11"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "out",
+        "carriages"
+      ],
+      "combined_scores": [
+        0.5447,
+        0.466
+      ],
+      "picked": "out",
+      "all_tied": false,
+      "breakdown": {
+        "out": [
+          {
+            "value": 0.9926,
+            "reliability": 0.994,
+            "weight": 0.5248,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009745390216098459,
+                "PATIENT": 0.9925983693551651,
+                "RECIPIENT": 0.0012995394976659683,
+                "LOCATION": 0.002964630005139082,
+                "NONE": 0.0021629221204198788
+              },
+              "rival_prob": 0.002964630005139082
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.4752,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "carriages": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_20"
+    },
+    {
+      "vlemma": "see",
+      "candidates": [
+        "child",
+        "servant"
+      ],
+      "combined_scores": [
+        0.793298,
+        0.711326
+      ],
+      "picked": "child",
+      "all_tied": false,
+      "breakdown": {
+        "child": [
+          {
+            "value": 0.4174,
+            "reliability": 0.1358,
+            "weight": 0.1311,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.030799119619409246,
+                "PATIENT": 0.4173876120709284,
+                "RECIPIENT": 0.5485131158783684,
+                "LOCATION": 0.0013193543170504625,
+                "NONE": 0.0019807981142434816
+              },
+              "rival_prob": 0.5485131158783684
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.8689,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "servant": [
+          {
+            "value": 0.4174,
+            "reliability": 0.1358,
+            "weight": 0.2318,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.030799119619409246,
+                "PATIENT": 0.4173876120709284,
+                "RECIPIENT": 0.5485131158783684,
+                "LOCATION": 0.0013193543170504625,
+                "NONE": 0.0019807981142434816
+              },
+              "rival_prob": 0.5485131158783684
+            }
+          },
+          {
+            "value": 0.8,
+            "reliability": 0.45,
+            "weight": 0.7682,
+            "meta": {
+              "tier": "tier1_class",
+              "n_samples": 4
+            }
+          }
+        ]
+      },
+      "sid": "L05_22"
+    },
+    {
+      "vlemma": "leave",
+      "candidates": [
+        "it",
+        "tray",
+        "dishes",
+        "hands"
+      ],
+      "combined_scores": [
+        0.79588,
+        0.736795,
+        0.790954,
+        0.601397
+      ],
+      "picked": "it",
+      "all_tied": false,
+      "breakdown": {
+        "it": [
+          {
+            "value": 0.9771,
+            "reliability": 0.9727,
+            "weight": 0.5194,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013536720669289366,
+                "PATIENT": 0.9771260531788695,
+                "RECIPIENT": 0.008008407705835385,
+                "LOCATION": 0.0012705205024268697,
+                "NONE": 5.8297943578894064e-05
+              },
+              "rival_prob": 0.013536720669289366
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.4806,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "tray": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.65,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "dishes": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.75,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "hands": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_22"
+    },
+    {
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "combined_scores": [
+        0.75108,
+        0.547238,
+        0.845113
+      ],
+      "picked": "milk",
+      "all_tied": false,
+      "breakdown": {
+        "more": [
+          {
+            "value": 0.8196,
+            "reliability": 0.6706,
+            "weight": 0.427,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.01715034848514305,
+                "PATIENT": 0.8196332476226785,
+                "RECIPIENT": 0.16160347361612093,
+                "LOCATION": 0.0006256413031100824,
+                "NONE": 0.000987288972947448
+              },
+              "rival_prob": 0.16160347361612093
+            }
+          },
+          {
+            "value": 0.7,
+            "reliability": 0.9,
+            "weight": 0.573,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "crying": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "milk": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_24"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "school",
+        "he"
+      ],
+      "combined_scores": [
+        0.540591,
+        0.4078
+      ],
+      "picked": "school",
+      "all_tied": false,
+      "breakdown": {
+        "school": [
+          {
+            "value": 0.8194,
+            "reliability": 0.7767,
+            "weight": 0.4632,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0020680217445321033,
+                "PATIENT": 0.8193826855470768,
+                "RECIPIENT": 0.10299372589458793,
+                "LOCATION": 0.0027648060234004737,
+                "NONE": 0.07279076079040267
+              },
+              "rival_prob": 0.10299372589458793
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5368,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "he": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_03"
+    },
+    {
+      "vlemma": "tell",
+      "candidates": [
+        "mother",
+        "he"
+      ],
+      "combined_scores": [
+        0.598713,
+        0.46203
+      ],
+      "picked": "mother",
+      "all_tied": false,
+      "breakdown": {
+        "mother": [
+          {
+            "value": 0.4988,
+            "reliability": 0.0116,
+            "weight": 0.0127,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.009350529288506966,
+                "PATIENT": 0.4988158920213215,
+                "RECIPIENT": 0.48737858232409703,
+                "LOCATION": 0.0008641487601715553,
+                "NONE": 0.003590847605902974
+              },
+              "rival_prob": 0.48737858232409703
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.9873,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "he": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_06"
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "haste",
+        "home",
+        "school"
+      ],
+      "combined_scores": [
+        0.842196,
+        0.629836,
+        0.43892
+      ],
+      "picked": "haste",
+      "all_tied": false,
+      "breakdown": {
+        "haste": [
+          {
+            "value": 0.9735,
+            "reliability": 0.9743,
+            "weight": 0.5198,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0008563008713456992,
+                "PATIENT": 0.9735498153032314,
+                "RECIPIENT": 0.006316392937961232,
+                "LOCATION": 0.006599294441740997,
+                "NONE": 0.01267819644572082
+              },
+              "rival_prob": 0.01267819644572082
+            }
+          },
+          {
+            "value": 0.7,
+            "reliability": 0.9,
+            "weight": 0.4802,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "home": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "school": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "him",
+        "aunt's"
+      ],
+      "combined_scores": [
+        0.84394,
+        0.466
+      ],
+      "picked": "him",
+      "all_tied": false,
+      "breakdown": {
+        "him": [
+          {
+            "value": 0.9771,
+            "reliability": 0.9727,
+            "weight": 0.5194,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013536720669289366,
+                "PATIENT": 0.9771260531788695,
+                "RECIPIENT": 0.008008407705835385,
+                "LOCATION": 0.0012705205024268697,
+                "NONE": 5.8297943578894064e-05
+              },
+              "rival_prob": 0.013536720669289366
+            }
+          },
+          {
+            "value": 0.7,
+            "reliability": 0.9,
+            "weight": 0.4806,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "aunt's": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "meet",
+      "candidates": [
+        "plenty",
+        "boys"
+      ],
+      "combined_scores": [
+        0.850999,
+        0.749852
+      ],
+      "picked": "plenty",
+      "all_tied": false,
+      "breakdown": {
+        "plenty": [
+          {
+            "value": 0.9735,
+            "reliability": 0.9743,
+            "weight": 0.8297,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0008563008713456992,
+                "PATIENT": 0.9735498153032314,
+                "RECIPIENT": 0.006316392937961232,
+                "LOCATION": 0.006599294441740997,
+                "NONE": 0.01267819644572082
+              },
+              "rival_prob": 0.01267819644572082
+            }
+          },
+          {
+            "value": 0.254,
+            "reliability": 0.2,
+            "weight": 0.1703,
+            "meta": {
+              "tier": "tier2_verbavg",
+              "n_samples": 5
+            }
+          }
+        ],
+        "boys": [
+          {
+            "value": 0.4174,
+            "reliability": 0.1358,
+            "weight": 0.1311,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.030799119619409246,
+                "PATIENT": 0.4173876120709284,
+                "RECIPIENT": 0.5485131158783684,
+                "LOCATION": 0.0013193543170504625,
+                "NONE": 0.0019807981142434816
+              },
+              "rival_prob": 0.5485131158783684
+            }
+          },
+          {
+            "value": 0.8,
+            "reliability": 0.9,
+            "weight": 0.8689,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_09"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "james",
+        "money"
+      ],
+      "combined_scores": [
+        0.598713,
+        0.845113
+      ],
+      "picked": "money",
+      "all_tied": false,
+      "breakdown": {
+        "james": [
+          {
+            "value": 0.4988,
+            "reliability": 0.0116,
+            "weight": 0.0127,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.009350529288506966,
+                "PATIENT": 0.4988158920213215,
+                "RECIPIENT": 0.48737858232409703,
+                "LOCATION": 0.0008641487601715553,
+                "NONE": 0.003590847605902974
+              },
+              "rival_prob": 0.48737858232409703
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.9873,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "money": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "them",
+        "water"
+      ],
+      "combined_scores": [
+        0.521173,
+        0.493079
+      ],
+      "picked": "them",
+      "all_tied": false,
+      "breakdown": {
+        "them": [
+          {
+            "value": 0.963,
+            "reliability": 0.9598,
+            "weight": 0.5161,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013249314077786161,
+                "PATIENT": 0.9629757768164753,
+                "RECIPIENT": 0.0197385033487371,
+                "LOCATION": 0.0031314805780328237,
+                "NONE": 0.0009049251789685408
+              },
+              "rival_prob": 0.0197385033487371
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.4839,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "water": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "think",
+      "candidates": [
+        "danger",
+        "he"
+      ],
+      "combined_scores": [
+        0.574318,
+        0.46203
+      ],
+      "picked": "danger",
+      "all_tied": false,
+      "breakdown": {
+        "danger": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.35,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "he": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_11"
+    },
+    {
+      "vlemma": "struggle",
+      "candidates": [
+        "wind",
+        "tide"
+      ],
+      "combined_scores": [
+        0.547238,
+        0.574318
+      ],
+      "picked": "tide",
+      "all_tied": false,
+      "breakdown": {
+        "wind": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "tide": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.35,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_13"
+    },
+    {
+      "vlemma": "save",
+      "candidates": [
+        "them",
+        "watery",
+        "grave"
+      ],
+      "combined_scores": [
+        0.91603,
+        0.411841,
+        0.466
+      ],
+      "picked": "them",
+      "all_tied": false,
+      "breakdown": {
+        "them": [
+          {
+            "value": 0.9771,
+            "reliability": 0.9727,
+            "weight": 0.5194,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013536720669289366,
+                "PATIENT": 0.9771260531788695,
+                "RECIPIENT": 0.008008407705835385,
+                "LOCATION": 0.0012705205024268697,
+                "NONE": 5.8297943578894064e-05
+              },
+              "rival_prob": 0.013536720669289366
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.4806,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "watery": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "grave": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_21"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "they",
+        "clothes"
+      ],
+      "combined_scores": [
+        0.579069,
+        0.863231
+      ],
+      "picked": "clothes",
+      "all_tied": false,
+      "breakdown": {
+        "they": [
+          {
+            "value": 0.9785,
+            "reliability": 0.9668,
+            "weight": 0.5179,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.016502756119431146,
+                "PATIENT": 0.978481256490083,
+                "RECIPIENT": 0.00012979053201533642,
+                "LOCATION": 0.0026680889205633884,
+                "NONE": 0.002218107937907192
+              },
+              "rival_prob": 0.016502756119431146
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.4821,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "clothes": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.75,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_22"
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "they",
+        "home",
+        "parents"
+      ],
+      "combined_scores": [
+        0.579069,
+        0.665589,
+        0.651884
+      ],
+      "picked": "home",
+      "all_tied": false,
+      "breakdown": {
+        "they": [
+          {
+            "value": 0.9785,
+            "reliability": 0.9668,
+            "weight": 0.5179,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.016502756119431146,
+                "PATIENT": 0.978481256490083,
+                "RECIPIENT": 0.00012979053201533642,
+                "LOCATION": 0.0026680889205633884,
+                "NONE": 0.002218107937907192
+              },
+              "rival_prob": 0.016502756119431146
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.4821,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "home": [
+          {
+            "value": 0.9961,
+            "reliability": 0.9954,
+            "weight": 0.5252,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.00015516095589442796,
+                "PATIENT": 0.996142037009356,
+                "RECIPIENT": 0.00020373085265661852,
+                "LOCATION": 0.0011978426620998328,
+                "NONE": 0.002301228519993182
+              },
+              "rival_prob": 0.002301228519993182
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.4748,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "parents": [
+          {
+            "value": 0.9471,
+            "reliability": 0.9204,
+            "weight": 0.5056,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.012375723024878452,
+                "PATIENT": 0.9470629830813735,
+                "RECIPIENT": 0.03923294398881314,
+                "LOCATION": 0.0005310555248935166,
+                "NONE": 0.0007972943800413738
+              },
+              "rival_prob": 0.03923294398881314
+            }
+          },
+          {
+            "value": 0.35,
+            "reliability": 0.9,
+            "weight": 0.4944,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_23"
+    },
+    {
+      "vlemma": "know",
+      "candidates": [
+        "he",
+        "same",
+        "thing"
+      ],
+      "combined_scores": [
+        0.510223,
+        0.627165,
+        0.766099
+      ],
+      "picked": "thing",
+      "all_tied": false,
+      "breakdown": {
+        "he": [
+          {
+            "value": 0.9319,
+            "reliability": 0.8755,
+            "weight": 0.4931,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.061871605147550975,
+                "PATIENT": 0.9319327596607868,
+                "RECIPIENT": 0.00016626329492450446,
+                "LOCATION": 0.0046366682603726185,
+                "NONE": 0.0013927036363651116
+              },
+              "rival_prob": 0.061871605147550975
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5069,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "same": [
+          {
+            "value": 0.9471,
+            "reliability": 0.9204,
+            "weight": 0.5056,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.012375723024878452,
+                "PATIENT": 0.9470629830813735,
+                "RECIPIENT": 0.03923294398881314,
+                "LOCATION": 0.0005310555248935166,
+                "NONE": 0.0007972943800413738
+              },
+              "rival_prob": 0.03923294398881314
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.4944,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "thing": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.55,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_24"
+    },
+    {
+      "vlemma": "keep",
+      "candidates": [
+        "it",
+        "they",
+        "obey"
+      ],
+      "combined_scores": [
+        0.759195,
+        0.489145,
+        0.411841
+      ],
+      "picked": "it",
+      "all_tied": false,
+      "breakdown": {
+        "it": [
+          {
+            "value": 0.9189,
+            "reliability": 0.8972,
+            "weight": 0.4992,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.049766757752166456,
+                "PATIENT": 0.9188793284349588,
+                "RECIPIENT": 0.025332534397186718,
+                "LOCATION": 0.005452133717973375,
+                "NONE": 0.0005692456977146672
+              },
+              "rival_prob": 0.049766757752166456
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5008,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "they": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "obey": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L08_08"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "chiefly",
+        "america"
+      ],
+      "combined_scores": [
+        0.549154,
+        0.887514
+      ],
+      "picked": "america",
+      "all_tied": false,
+      "breakdown": {
+        "chiefly": [
+          {
+            "value": 0.9989,
+            "reliability": 0.9989,
+            "weight": 0.5261,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.00017367108329622763,
+                "PATIENT": 0.99886976049346,
+                "RECIPIENT": 4.122392758957958e-05,
+                "LOCATION": 0.0005292306524449253,
+                "NONE": 0.0003861138432091367
+              },
+              "rival_prob": 0.0005292306524449253
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.4739,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "america": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.8,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_01"
+    },
+    {
+      "vlemma": "plac",
+      "candidates": [
+        "great",
+        "number",
+        "huts",
+        "buildings"
+      ],
+      "combined_scores": [
+        0.456416,
+        0.393839,
+        0.616973,
+        0.790382
+      ],
+      "picked": "buildings",
+      "all_tied": false,
+      "breakdown": {
+        "great": [
+          {
+            "value": 0.9043,
+            "reliability": 0.8166,
+            "weight": 0.4757,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.09131002396618841,
+                "PATIENT": 0.9043494989502198,
+                "RECIPIENT": 0.001551959467405501,
+                "LOCATION": 0.0010561588287332775,
+                "NONE": 0.001732358787453098
+              },
+              "rival_prob": 0.09131002396618841
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5243,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "number": [
+          {
+            "value": 0.7372,
+            "reliability": 0.5081,
+            "weight": 0.3608,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0031074019832322236,
+                "PATIENT": 0.737199956547341,
+                "RECIPIENT": 0.00010411480358320035,
+                "LOCATION": 0.01912119319328646,
+                "NONE": 0.24046733347255717
+              },
+              "rival_prob": 0.24046733347255717
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.6392,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "huts": [
+          {
+            "value": 0.6622,
+            "reliability": 0.338,
+            "weight": 0.273,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007090524072591797,
+                "PATIENT": 0.6621692851564703,
+                "RECIPIENT": 6.953042958447893e-05,
+                "LOCATION": 0.009412935072398718,
+                "NONE": 0.3276391969342873
+              },
+              "rival_prob": 0.3276391969342873
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.727,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "buildings": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_04"
+    },
+    {
+      "vlemma": "build",
+      "candidates": [
+        "huts",
+        "rivers",
+        "lakes"
+      ],
+      "combined_scores": [
+        0.831812,
+        0.411841,
+        0.411841
+      ],
+      "picked": "huts",
+      "all_tied": false,
+      "breakdown": {
+        "huts": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "rivers": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "lakes": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_05"
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "dam",
+        "stream",
+        "purpose"
+      ],
+      "combined_scores": [
+        0.745251,
+        0.574318,
+        0.466
+      ],
+      "picked": "dam",
+      "all_tied": false,
+      "breakdown": {
+        "dam": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.7,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "stream": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.35,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "purpose": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_06"
+    }
+  ],
+  "comps_knowscr_sample": [
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "herbert",
+        "anger",
+        "dismay"
+      ],
+      "combined_scores": [
+        0.468127,
+        0.493079,
+        0.709715
+      ],
+      "picked": "dismay",
+      "all_tied": false,
+      "breakdown": {
+        "herbert": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "anger": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "dismay": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_01"
+    },
+    {
+      "vlemma": "rattl",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "combined_scores": [
+        0.750363,
+        0.43892
+      ],
+      "picked": "down",
+      "all_tied": false,
+      "breakdown": {
+        "down": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "floor": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_02"
+    },
+    {
+      "vlemma": "sha'n",
+      "candidates": [
+        "hurt",
+        "pussy"
+      ],
+      "combined_scores": [
+        0.860665,
+        0.655556
+      ],
+      "picked": "hurt",
+      "all_tied": false,
+      "breakdown": {
+        "hurt": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.9,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "pussy": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_06"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "combined_scores": [
+        0.519443,
+        0.411841
+      ],
+      "picked": "down",
+      "all_tied": false,
+      "breakdown": {
+        "down": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "floor": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cover",
+      "candidates": [
+        "face",
+        "hands"
+      ],
+      "combined_scores": [
+        0.600983,
+        0.709715
+      ],
+      "picked": "hands",
+      "all_tied": false,
+      "breakdown": {
+        "face": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.45,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "hands": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "milk",
+        "good"
+      ],
+      "combined_scores": [
+        0.905312,
+        0.655556
+      ],
+      "picked": "milk",
+      "all_tied": false,
+      "breakdown": {
+        "milk": [
+          {
+            "value": 0.9574,
+            "reliability": 0.9557,
+            "weight": 0.515,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.003674821666095637,
+                "PATIENT": 0.9573981856605321,
+                "RECIPIENT": 0.004216315531721198,
+                "LOCATION": 0.01304867682410318,
+                "NONE": 0.021662000317547798
+              },
+              "rival_prob": 0.021662000317547798
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.485,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "good": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_09"
+    },
+    {
+      "vlemma": "rub",
+      "candidates": [
+        "herbert's",
+        "castle"
+      ],
+      "combined_scores": [
+        0.352841,
+        0.411841
+      ],
+      "picked": "castle",
+      "all_tied": false,
+      "breakdown": {
+        "herbert's": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.02,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "castle": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_12"
+    },
+    {
+      "vlemma": "hold",
+      "candidates": [
+        "out",
+        "hands"
+      ],
+      "combined_scores": [
+        0.592218,
+        0.411841
+      ],
+      "picked": "out",
+      "all_tied": false,
+      "breakdown": {
+        "out": [
+          {
+            "value": 0.9926,
+            "reliability": 0.994,
+            "weight": 0.5248,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009745390216098459,
+                "PATIENT": 0.9925983693551651,
+                "RECIPIENT": 0.0012995394976659683,
+                "LOCATION": 0.002964630005139082,
+                "NONE": 0.0021629221204198788
+              },
+              "rival_prob": 0.002964630005139082
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.4752,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "hands": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_14"
+    },
+    {
+      "vlemma": "come",
+      "candidates": [
+        "eyes",
+        "tears"
+      ],
+      "combined_scores": [
+        0.565827,
+        0.482248
+      ],
+      "picked": "eyes",
+      "all_tied": false,
+      "breakdown": {
+        "eyes": [
+          {
+            "value": 0.9574,
+            "reliability": 0.9557,
+            "weight": 0.515,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.003674821666095637,
+                "PATIENT": 0.9573981856605321,
+                "RECIPIENT": 0.004216315531721198,
+                "LOCATION": 0.01304867682410318,
+                "NONE": 0.021662000317547798
+              },
+              "rival_prob": 0.021662000317547798
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.485,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "tears": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.18,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_15"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "combined_scores": [
+        0.370153,
+        0.411841
+      ],
+      "picked": "heart",
+      "all_tied": false,
+      "breakdown": {
+        "way": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "heart": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_17"
+    },
+    {
+      "vlemma": "show",
+      "candidates": [
+        "you",
+        "way"
+      ],
+      "combined_scores": [
+        0.503734,
+        0.736795
+      ],
+      "picked": "way",
+      "all_tied": false,
+      "breakdown": {
+        "you": [
+          {
+            "value": 0.9467,
+            "reliability": 0.9219,
+            "weight": 0.506,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.011749088399898895,
+                "PATIENT": 0.9466703301203389,
+                "RECIPIENT": 0.038449383611096996,
+                "LOCATION": 0.00279365154544472,
+                "NONE": 0.0003375463232206073
+              },
+              "rival_prob": 0.038449383611096996
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.494,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "way": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.65,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "blocks",
+        "side"
+      ],
+      "combined_scores": [
+        0.395593,
+        0.493079
+      ],
+      "picked": "side",
+      "all_tied": false,
+      "breakdown": {
+        "blocks": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.02,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "side": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "lay",
+      "candidates": [
+        "foundation",
+        "castle"
+      ],
+      "combined_scores": [
+        0.903965,
+        0.845113
+      ],
+      "picked": "foundation",
+      "all_tied": false,
+      "breakdown": {
+        "foundation": [
+          {
+            "value": 0.956,
+            "reliability": 0.9336,
+            "weight": 0.5092,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009321642855934887,
+                "PATIENT": 0.9559862049579847,
+                "RECIPIENT": 0.0031301909167258035,
+                "LOCATION": 0.0071408817740485535,
+                "NONE": 0.03281055806564751
+              },
+              "rival_prob": 0.03281055806564751
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.4908,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "castle": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "forget",
+      "candidates": [
+        "grief",
+        "few",
+        "minutes"
+      ],
+      "combined_scores": [
+        0.63401,
+        0.845113,
+        0.682636
+      ],
+      "picked": "few",
+      "all_tied": false,
+      "breakdown": {
+        "grief": [
+          {
+            "value": 0.956,
+            "reliability": 0.9336,
+            "weight": 0.5092,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009321642855934887,
+                "PATIENT": 0.9559862049579847,
+                "RECIPIENT": 0.0031301909167258035,
+                "LOCATION": 0.0071408817740485535,
+                "NONE": 0.03281055806564751
+              },
+              "rival_prob": 0.03281055806564751
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.4908,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "few": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "minutes": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.55,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_05"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "place"
+      ],
+      "combined_scores": [
+        0.5451,
+        0.709715
+      ],
+      "picked": "place",
+      "all_tied": false,
+      "breakdown": {
+        "down": [
+          {
+            "value": 0.9089,
+            "reliability": 0.8538,
+            "weight": 0.4868,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.019148388918820758,
+                "PATIENT": 0.9088537755541413,
+                "RECIPIENT": 0.07165093554831635,
+                "LOCATION": 0.00027739369508845334,
+                "NONE": 6.950628363326663e-05
+              },
+              "rival_prob": 0.07165093554831635
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5132,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "place": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_07"
+    },
+    {
+      "vlemma": "los",
+      "candidates": [
+        "kite",
+        "thing"
+      ],
+      "combined_scores": [
+        0.584927,
+        0.411841
+      ],
+      "picked": "kite",
+      "all_tied": false,
+      "breakdown": {
+        "kite": [
+          {
+            "value": 0.956,
+            "reliability": 0.9336,
+            "weight": 0.5092,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009321642855934887,
+                "PATIENT": 0.9559862049579847,
+                "RECIPIENT": 0.0031301909167258035,
+                "LOCATION": 0.0071408817740485535,
+                "NONE": 0.03281055806564751
+              },
+              "rival_prob": 0.03281055806564751
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.4908,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "thing": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_09"
+    },
+    {
+      "vlemma": "see",
+      "candidates": [
+        "use",
+        "case"
+      ],
+      "combined_scores": [
+        0.411841,
+        0.709715
+      ],
+      "picked": "case",
+      "all_tied": false,
+      "breakdown": {
+        "use": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "case": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_10"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "sticks",
+        "paper"
+      ],
+      "combined_scores": [
+        0.541199,
+        0.297963
+      ],
+      "picked": "sticks",
+      "all_tied": false,
+      "breakdown": {
+        "sticks": [
+          {
+            "value": 0.9339,
+            "reliability": 0.8965,
+            "weight": 0.499,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.004394247112212821,
+                "PATIENT": 0.9339311685272179,
+                "RECIPIENT": 2.6616259283170764e-05,
+                "LOCATION": 0.010673384957272623,
+                "NONE": 0.05097458314401342
+              },
+              "rival_prob": 0.05097458314401342
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.501,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "paper": [
+          {
+            "value": 0.7372,
+            "reliability": 0.5081,
+            "weight": 0.3608,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0031074019832322236,
+                "PATIENT": 0.737199956547341,
+                "RECIPIENT": 0.00010411480358320035,
+                "LOCATION": 0.01912119319328646,
+                "NONE": 0.24046733347255717
+              },
+              "rival_prob": 0.24046733347255717
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.6392,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_11"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "book"
+      ],
+      "combined_scores": [
+        0.366616,
+        0.411841
+      ],
+      "picked": "book",
+      "all_tied": false,
+      "breakdown": {
+        "down": [
+          {
+            "value": 0.7089,
+            "reliability": 0.4381,
+            "weight": 0.3274,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013379634144456854,
+                "PATIENT": 0.7088649170380348,
+                "RECIPIENT": 0.2769404329014251,
+                "LOCATION": 0.0004910304646378546,
+                "NONE": 0.000323985451445409
+              },
+              "rival_prob": 0.2769404329014251
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.6726,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "book": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_11"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "out",
+        "carriages"
+      ],
+      "combined_scores": [
+        0.924839,
+        0.845113
+      ],
+      "picked": "out",
+      "all_tied": false,
+      "breakdown": {
+        "out": [
+          {
+            "value": 0.9926,
+            "reliability": 0.994,
+            "weight": 0.5248,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0009745390216098459,
+                "PATIENT": 0.9925983693551651,
+                "RECIPIENT": 0.0012995394976659683,
+                "LOCATION": 0.002964630005139082,
+                "NONE": 0.0021629221204198788
+              },
+              "rival_prob": 0.002964630005139082
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.4752,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "carriages": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_20"
+    },
+    {
+      "vlemma": "leave",
+      "candidates": [
+        "it",
+        "tray",
+        "dishes",
+        "hands"
+      ],
+      "combined_scores": [
+        0.699761,
+        0.547238,
+        0.395593,
+        0.655556
+      ],
+      "picked": "it",
+      "all_tied": false,
+      "breakdown": {
+        "it": [
+          {
+            "value": 0.9771,
+            "reliability": 0.9727,
+            "weight": 0.5194,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013536720669289366,
+                "PATIENT": 0.9771260531788695,
+                "RECIPIENT": 0.008008407705835385,
+                "LOCATION": 0.0012705205024268697,
+                "NONE": 5.8297943578894064e-05
+              },
+              "rival_prob": 0.013536720669289366
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.4806,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "tray": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "dishes": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.02,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "hands": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_22"
+    },
+    {
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "combined_scores": [
+        0.464568,
+        0.682636,
+        0.395593
+      ],
+      "picked": "crying",
+      "all_tied": false,
+      "breakdown": {
+        "more": [
+          {
+            "value": 0.8196,
+            "reliability": 0.6706,
+            "weight": 0.427,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.01715034848514305,
+                "PATIENT": 0.8196332476226785,
+                "RECIPIENT": 0.16160347361612093,
+                "LOCATION": 0.0006256413031100824,
+                "NONE": 0.000987288972947448
+              },
+              "rival_prob": 0.16160347361612093
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.573,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "crying": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.55,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "milk": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.02,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L05_24"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "school",
+        "he"
+      ],
+      "combined_scores": [
+        0.486913,
+        0.543375
+      ],
+      "picked": "he",
+      "all_tied": false,
+      "breakdown": {
+        "school": [
+          {
+            "value": 0.8194,
+            "reliability": 0.7767,
+            "weight": 0.4632,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0020680217445321033,
+                "PATIENT": 0.8193826855470768,
+                "RECIPIENT": 0.10299372589458793,
+                "LOCATION": 0.0027648060234004737,
+                "NONE": 0.07279076079040267
+              },
+              "rival_prob": 0.10299372589458793
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5368,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "he": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_03"
+    },
+    {
+      "vlemma": "tell",
+      "candidates": [
+        "he",
+        "school"
+      ],
+      "combined_scores": [
+        0.391531,
+        0.404675
+      ],
+      "picked": "school",
+      "all_tied": false,
+      "breakdown": {
+        "he": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.02,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "school": [
+          {
+            "value": 0.4524,
+            "reliability": 0.0883,
+            "weight": 0.0893,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.004026145656624843,
+                "PATIENT": 0.4523512546488584,
+                "RECIPIENT": 0.37897985289263,
+                "LOCATION": 0.006320766189907336,
+                "NONE": 0.1583219806119794
+              },
+              "rival_prob": 0.37897985289263
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.9107,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_06"
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "haste",
+        "home",
+        "school"
+      ],
+      "combined_scores": [
+        0.794178,
+        0.399007,
+        0.466
+      ],
+      "picked": "haste",
+      "all_tied": false,
+      "breakdown": {
+        "haste": [
+          {
+            "value": 0.9735,
+            "reliability": 0.9743,
+            "weight": 0.5198,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0008563008713456992,
+                "PATIENT": 0.9735498153032314,
+                "RECIPIENT": 0.006316392937961232,
+                "LOCATION": 0.006599294441740997,
+                "NONE": 0.01267819644572082
+              },
+              "rival_prob": 0.01267819644572082
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.4802,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "home": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "school": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "him",
+        "aunt's"
+      ],
+      "combined_scores": [
+        0.531552,
+        0.709715
+      ],
+      "picked": "aunt's",
+      "all_tied": false,
+      "breakdown": {
+        "him": [
+          {
+            "value": 0.9771,
+            "reliability": 0.9727,
+            "weight": 0.5194,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013536720669289366,
+                "PATIENT": 0.9771260531788695,
+                "RECIPIENT": 0.008008407705835385,
+                "LOCATION": 0.0012705205024268697,
+                "NONE": 5.8297943578894064e-05
+              },
+              "rival_prob": 0.013536720669289366
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.4806,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "aunt's": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "meet",
+      "candidates": [
+        "plenty",
+        "boys"
+      ],
+      "combined_scores": [
+        0.849977,
+        0.576065
+      ],
+      "picked": "plenty",
+      "all_tied": false,
+      "breakdown": {
+        "plenty": [
+          {
+            "value": 0.9735,
+            "reliability": 0.9743,
+            "weight": 0.8297,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0008563008713456992,
+                "PATIENT": 0.9735498153032314,
+                "RECIPIENT": 0.006316392937961232,
+                "LOCATION": 0.006599294441740997,
+                "NONE": 0.01267819644572082
+              },
+              "rival_prob": 0.01267819644572082
+            }
+          },
+          {
+            "value": 0.248,
+            "reliability": 0.2,
+            "weight": 0.1703,
+            "meta": {
+              "tier": "tier2_verbavg",
+              "n_samples": 5
+            }
+          }
+        ],
+        "boys": [
+          {
+            "value": 0.4174,
+            "reliability": 0.1358,
+            "weight": 0.1311,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.030799119619409246,
+                "PATIENT": 0.4173876120709284,
+                "RECIPIENT": 0.5485131158783684,
+                "LOCATION": 0.0013193543170504625,
+                "NONE": 0.0019807981142434816
+              },
+              "rival_prob": 0.5485131158783684
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.8689,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_09"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "james",
+        "money"
+      ],
+      "combined_scores": [
+        0.499985,
+        0.547238
+      ],
+      "picked": "money",
+      "all_tied": false,
+      "breakdown": {
+        "james": [
+          {
+            "value": 0.4988,
+            "reliability": 0.0116,
+            "weight": 0.0127,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.009350529288506966,
+                "PATIENT": 0.4988158920213215,
+                "RECIPIENT": 0.48737858232409703,
+                "LOCATION": 0.0008641487601715553,
+                "NONE": 0.003590847605902974
+              },
+              "rival_prob": 0.48737858232409703
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.9873,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "money": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "them",
+        "water"
+      ],
+      "combined_scores": [
+        0.714739,
+        0.466
+      ],
+      "picked": "them",
+      "all_tied": false,
+      "breakdown": {
+        "them": [
+          {
+            "value": 0.963,
+            "reliability": 0.9598,
+            "weight": 0.5161,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013249314077786161,
+                "PATIENT": 0.9629757768164753,
+                "RECIPIENT": 0.0197385033487371,
+                "LOCATION": 0.0031314805780328237,
+                "NONE": 0.0009049251789685408
+              },
+              "rival_prob": 0.0197385033487371
+            }
+          },
+          {
+            "value": 0.45,
+            "reliability": 0.9,
+            "weight": 0.4839,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "water": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "think",
+      "candidates": [
+        "danger",
+        "he"
+      ],
+      "combined_scores": [
+        0.709715,
+        0.543375
+      ],
+      "picked": "danger",
+      "all_tied": false,
+      "breakdown": {
+        "danger": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "he": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.3,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_11"
+    },
+    {
+      "vlemma": "struggle",
+      "candidates": [
+        "wind",
+        "tide"
+      ],
+      "combined_scores": [
+        0.411841,
+        0.493079
+      ],
+      "picked": "tide",
+      "all_tied": false,
+      "breakdown": {
+        "wind": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "tide": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.2,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_13"
+    },
+    {
+      "vlemma": "save",
+      "candidates": [
+        "them",
+        "watery",
+        "grave"
+      ],
+      "combined_scores": [
+        0.699761,
+        0.411841,
+        0.466
+      ],
+      "picked": "them",
+      "all_tied": false,
+      "breakdown": {
+        "them": [
+          {
+            "value": 0.9771,
+            "reliability": 0.9727,
+            "weight": 0.5194,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.013536720669289366,
+                "PATIENT": 0.9771260531788695,
+                "RECIPIENT": 0.008008407705835385,
+                "LOCATION": 0.0012705205024268697,
+                "NONE": 5.8297943578894064e-05
+              },
+              "rival_prob": 0.013536720669289366
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.4806,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "watery": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "grave": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_21"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "they",
+        "clothes"
+      ],
+      "combined_scores": [
+        0.91654,
+        0.571835
+      ],
+      "picked": "they",
+      "all_tied": false,
+      "breakdown": {
+        "they": [
+          {
+            "value": 0.9785,
+            "reliability": 0.9668,
+            "weight": 0.5179,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.016502756119431146,
+                "PATIENT": 0.978481256490083,
+                "RECIPIENT": 0.00012979053201533642,
+                "LOCATION": 0.0026680889205633884,
+                "NONE": 0.002218107937907192
+              },
+              "rival_prob": 0.016502756119431146
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.4821,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "clothes": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_22"
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "they",
+        "home",
+        "parents"
+      ],
+      "combined_scores": [
+        0.579069,
+        0.54688,
+        0.488737
+      ],
+      "picked": "they",
+      "all_tied": false,
+      "breakdown": {
+        "they": [
+          {
+            "value": 0.9785,
+            "reliability": 0.9668,
+            "weight": 0.5179,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.016502756119431146,
+                "PATIENT": 0.978481256490083,
+                "RECIPIENT": 0.00012979053201533642,
+                "LOCATION": 0.0026680889205633884,
+                "NONE": 0.002218107937907192
+              },
+              "rival_prob": 0.016502756119431146
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.4821,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "home": [
+          {
+            "value": 0.9961,
+            "reliability": 0.9954,
+            "weight": 0.5252,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.00015516095589442796,
+                "PATIENT": 0.996142037009356,
+                "RECIPIENT": 0.00020373085265661852,
+                "LOCATION": 0.0011978426620998328,
+                "NONE": 0.002301228519993182
+              },
+              "rival_prob": 0.002301228519993182
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.4748,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "parents": [
+          {
+            "value": 0.9471,
+            "reliability": 0.9204,
+            "weight": 0.5056,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.012375723024878452,
+                "PATIENT": 0.9470629830813735,
+                "RECIPIENT": 0.03923294398881314,
+                "LOCATION": 0.0005310555248935166,
+                "NONE": 0.0007972943800413738
+              },
+              "rival_prob": 0.03923294398881314
+            }
+          },
+          {
+            "value": 0.02,
+            "reliability": 0.9,
+            "weight": 0.4944,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_23"
+    },
+    {
+      "vlemma": "know",
+      "candidates": [
+        "he",
+        "same",
+        "thing"
+      ],
+      "combined_scores": [
+        0.535568,
+        0.726042,
+        0.863231
+      ],
+      "picked": "thing",
+      "all_tied": false,
+      "breakdown": {
+        "he": [
+          {
+            "value": 0.9319,
+            "reliability": 0.8755,
+            "weight": 0.4931,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.061871605147550975,
+                "PATIENT": 0.9319327596607868,
+                "RECIPIENT": 0.00016626329492450446,
+                "LOCATION": 0.0046366682603726185,
+                "NONE": 0.0013927036363651116
+              },
+              "rival_prob": 0.061871605147550975
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5069,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "same": [
+          {
+            "value": 0.9471,
+            "reliability": 0.9204,
+            "weight": 0.5056,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.012375723024878452,
+                "PATIENT": 0.9470629830813735,
+                "RECIPIENT": 0.03923294398881314,
+                "LOCATION": 0.0005310555248935166,
+                "NONE": 0.0007972943800413738
+              },
+              "rival_prob": 0.03923294398881314
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.4944,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "thing": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.75,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L07_24"
+    },
+    {
+      "vlemma": "keep",
+      "candidates": [
+        "it",
+        "they",
+        "obey"
+      ],
+      "combined_scores": [
+        0.709119,
+        0.434915,
+        0.709715
+      ],
+      "picked": "obey",
+      "all_tied": false,
+      "breakdown": {
+        "it": [
+          {
+            "value": 0.9189,
+            "reliability": 0.8972,
+            "weight": 0.4992,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.049766757752166456,
+                "PATIENT": 0.9188793284349588,
+                "RECIPIENT": 0.025332534397186718,
+                "LOCATION": 0.005452133717973375,
+                "NONE": 0.0005692456977146672
+              },
+              "rival_prob": 0.049766757752166456
+            }
+          },
+          {
+            "value": 0.5,
+            "reliability": 0.9,
+            "weight": 0.5008,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "they": [
+          {
+            "value": 0.8317,
+            "reliability": 0.7596,
+            "weight": 0.4577,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0403559157171722,
+                "PATIENT": 0.8317327621918665,
+                "RECIPIENT": 0.11363156876711401,
+                "LOCATION": 0.011200417478584803,
+                "NONE": 0.00307933584526245
+              },
+              "rival_prob": 0.11363156876711401
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5423,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "obey": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L08_08"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "chiefly",
+        "america"
+      ],
+      "combined_scores": [
+        0.715036,
+        0.523269
+      ],
+      "picked": "chiefly",
+      "all_tied": false,
+      "breakdown": {
+        "chiefly": [
+          {
+            "value": 0.9989,
+            "reliability": 0.9989,
+            "weight": 0.5261,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.00017367108329622763,
+                "PATIENT": 0.99886976049346,
+                "RECIPIENT": 4.122392758957958e-05,
+                "LOCATION": 0.0005292306524449253,
+                "NONE": 0.0003861138432091367
+              },
+              "rival_prob": 0.0005292306524449253
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.4739,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "america": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_01"
+    },
+    {
+      "vlemma": "plac",
+      "candidates": [
+        "great",
+        "number",
+        "huts",
+        "buildings"
+      ],
+      "combined_scores": [
+        0.482631,
+        0.329922,
+        0.471574,
+        0.911797
+      ],
+      "picked": "buildings",
+      "all_tied": false,
+      "breakdown": {
+        "great": [
+          {
+            "value": 0.9043,
+            "reliability": 0.8166,
+            "weight": 0.4757,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.09131002396618841,
+                "PATIENT": 0.9043494989502198,
+                "RECIPIENT": 0.001551959467405501,
+                "LOCATION": 0.0010561588287332775,
+                "NONE": 0.001732358787453098
+              },
+              "rival_prob": 0.09131002396618841
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.5243,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "number": [
+          {
+            "value": 0.7372,
+            "reliability": 0.5081,
+            "weight": 0.3608,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0031074019832322236,
+                "PATIENT": 0.737199956547341,
+                "RECIPIENT": 0.00010411480358320035,
+                "LOCATION": 0.01912119319328646,
+                "NONE": 0.24046733347255717
+              },
+              "rival_prob": 0.24046733347255717
+            }
+          },
+          {
+            "value": 0.1,
+            "reliability": 0.9,
+            "weight": 0.6392,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "huts": [
+          {
+            "value": 0.6622,
+            "reliability": 0.338,
+            "weight": 0.273,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007090524072591797,
+                "PATIENT": 0.6621692851564703,
+                "RECIPIENT": 6.953042958447893e-05,
+                "LOCATION": 0.009412935072398718,
+                "NONE": 0.3276391969342873
+              },
+              "rival_prob": 0.3276391969342873
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.727,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "buildings": [
+          {
+            "value": 0.9701,
+            "reliability": 0.9531,
+            "weight": 0.5143,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0005907678931911437,
+                "PATIENT": 0.9701473763077176,
+                "RECIPIENT": 0.0006674178634526953,
+                "LOCATION": 0.005323449704026826,
+                "NONE": 0.02327098823161176
+              },
+              "rival_prob": 0.02327098823161176
+            }
+          },
+          {
+            "value": 0.85,
+            "reliability": 0.9,
+            "weight": 0.4857,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_04"
+    },
+    {
+      "vlemma": "build",
+      "candidates": [
+        "huts",
+        "rivers",
+        "lakes"
+      ],
+      "combined_scores": [
+        0.687544,
+        0.466,
+        0.411841
+      ],
+      "picked": "huts",
+      "all_tied": false,
+      "breakdown": {
+        "huts": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "rivers": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.15,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "lakes": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.05,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_05"
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "dam",
+        "stream",
+        "purpose"
+      ],
+      "combined_scores": [
+        0.572129,
+        0.763874,
+        0.709715
+      ],
+      "picked": "stream",
+      "all_tied": false,
+      "breakdown": {
+        "dam": [
+          {
+            "value": 0.807,
+            "reliability": 0.6596,
+            "weight": 0.4229,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0007049428768872952,
+                "PATIENT": 0.80699447452714,
+                "RECIPIENT": 0.01309437568113507,
+                "LOCATION": 0.013680852584588453,
+                "NONE": 0.16552535433024923
+              },
+              "rival_prob": 0.16552535433024923
+            }
+          },
+          {
+            "value": 0.4,
+            "reliability": 0.9,
+            "weight": 0.5771,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "stream": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.7,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ],
+        "purpose": [
+          {
+            "value": 0.8393,
+            "reliability": 0.7618,
+            "weight": 0.4584,
+            "meta": {
+              "p_role": {
+                "AGENT": 0.0028861797339647726,
+                "PATIENT": 0.8393385562930512,
+                "RECIPIENT": 0.01831777464680452,
+                "LOCATION": 0.02596291390475252,
+                "NONE": 0.11349457542142688
+              },
+              "rival_prob": 0.11349457542142688
+            }
+          },
+          {
+            "value": 0.6,
+            "reliability": 0.9,
+            "weight": 0.5416,
+            "meta": {
+              "tier": "tier0_item",
+              "n_samples": 1
+            }
+          }
+        ]
+      },
+      "sid": "L09_06"
+    }
+  ],
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 94.7,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_structural": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "f1_integrated": 0.5738,
+    "f1_parsefix_only": 0.4651
+  },
+  "cited_late": {
+    "source": "data/exp_multipred_argstruct_denseitem_v1/metrics.json",
+    "f1_integrated_dense": 0.5328,
+    "note": "LATE post-hoc dense-gate re-rank; HARD_FAIL, net-WORSENED vs structural (0.5738->0.5328) despite full item-level table coverage of the real competitions -- this cell's direct motivation: move integration EARLY + reliability-weight it, test whether that (not mere coverage) was the fix"
+  },
+  "constraint_integration_theory": {
+    "rule": "reliability_weighted_combine (Ernst & Banks 2002 optimal cue combination)",
+    "general_interface": "a constraint source is any function -> (value, reliability, meta) in comparable [0,1] units for a decision; N sources combine via a single reliability-weighted average, fully inspectable per-source (glass-box); adding a future source (world-knowledge, coref, sense) to a future decision (attachment, other roles) = appending one more triple, the combiner and decision logic are unchanged",
+    "structural_reliability": "|2q-1|, q=P(PATIENT)/(P(PATIENT)+P(best rival role)) -- MEASURED per-candidate from the classifier's own softmax confidence",
+    "selectional_reliability": "RELIABILITY_BY_TIER[tier] where tier = WHICH backoff tier answered this (verb,noun) pair (Clark & Weir item->class->verb->global) -- MEASURED per-decision coverage/specificity, mapped through a gold-blind rank-ordered prior, never fit to gold"
+  },
+  "brain_check": {
+    "citation_1": "MacDonald, Pearlmutter & Seidenberg (1994) Psychological Review 101(4):676-703 -- constraint-based lexicalist parsing",
+    "citation_2": "Ernst & Banks (2002) Nature 415:429-433 -- optimal multisensory cue integration via reliability (inverse-variance) weighting"
+  },
+  "leakage_authoring_protocol": "153-pair item-level augmentation authored blind to gold by denseitem_v1 (this cell reuses that table byte-identically, does not re-author it); see denseitem_v1's own metrics.json for the full authoring protocol.",
+  "scope_caveat": "Parser trained on UD-EWT via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded training budget, byte-identical reuse of 29483's own training code; out-of-domain transfer to 19th-c. McGuffey narrative prose is the SAME untested transfer prior cells already flagged. RELIABILITY_BY_TIER is a DESIGNED, gold-blind prior (rank-ordered by evidentiary specificity), not learned from data; a follow-up could estimate reliability empirically from held-out coverage statistics rather than a fixed prior -- flagged as a scope/rigor follow-up, not hidden here. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
