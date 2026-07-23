@@ -1,0 +1,987 @@
+{
+  "verdict": "HARD_FAIL_COVERAGE_ARTIFACT_CONFIRMED_EVEN_WITH_BACKOFF",
+  "verdict_msg": "HARD_FAIL: F1(V4_INTEGRATED_BACKOFF) 0.5492 <= cited 29483 F1(V3_INTEGRATED) 0.5738 (back-off adds nothing beyond the pre-fix number; the isolated-2AFC win does not transfer at all even with the revival fix). F1 V3_PARSEFIX_ONLY(cited)=0.4651 V3_INTEGRATED(cited,no-backoff)=0.5738 V4_INTEGRATED_BACKOFF=0.5492 V4_KNOWLEDGE_SCRAMBLE_BACKOFF=0.4672 V4_ARCSCRAMBLE_BACKOFF=0.2994. pick-flip count: OLD_SCHEME=0/76 NEW_SCHEME(backoff)=21/76 (fraction=0.2763). tier_usage={'tier3_global': 86, 'tier2_verbavg': 354, 'tier1_class': 60, 'tier0_item': 66} n_tied_competitions=40. HONEST BOUND: even the OOV back-off/class-smoothing revival fix does not let the isolated-2AFC knowledge win (29479, +0.199) transfer to this reader's decision points.",
+  "summary": "HARD_FAIL_COVERAGE_ARTIFACT_CONFIRMED_EVEN_WITH_BACKOFF: F1 parsefix_only(cited)=0.4651 integrated_no_backoff(cited)=0.5738 integrated_backoff=0.5492 knowledge_scramble_backoff=0.4672 arcscramble_backoff=0.2994 | pick-flips: old_scheme=0/76 new_scheme=21/76 (fraction=0.2763) | tier_usage={'tier3_global': 86, 'tier2_verbavg': 354, 'tier1_class': 60, 'tier0_item': 66} | parser_uas=0.7882",
+  "elapsed_s": 198.53,
+  "ts_iso": "2026-07-23T16:24:47.373929+00:00",
+  "anchor_name": "multipred_argstruct_kboov_backoff_v1",
+  "run_mode": "full",
+  "seed": 20260725,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "OOV back-off (build_backoff_sel_fn: item -> verb+WordNet-noun-supersense class average -> verb average -> global mean) REPLACES 29483's OOV=-1.0 raw sel_fn; assignment mechanism / learned gate / role-assignment clf / parser training ALL byte-identical reuse of 29483's own code (imported, not re-transcribed)",
+  "bands": {
+    "HP_MIN_FLIPS": 1,
+    "HP_MIN_FLIP_FRACTION": 0.05,
+    "HP_SCRAMBLE_F1_MARGIN": 0.02,
+    "HP_F1_OVER_STRUCTURAL_MIN": 0.01,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HF_SCRAMBLE_F1_MARGIN": 0.01,
+    "CITED_29483_F1_INTEGRATED": 0.5738,
+    "CITED_29483_F1_PARSEFIX_ONLY": 0.4651,
+    "CITED_29483_F1_KNOWLEDGE_SCRAMBLE": 0.5738
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.44,
+      "n_miss": 56,
+      "n_gold_pos": 100,
+      "precision": 0.1956,
+      "recall": 0.44,
+      "f1": 0.2708,
+      "n_pred": 225,
+      "kept_hash": "6fca7838894babc0"
+    },
+    "V2_FRAMES_29478": {
+      "recall_ceiling": 0.6,
+      "n_miss": 40,
+      "n_gold_pos": 100,
+      "precision": 0.3571,
+      "recall": 0.6,
+      "f1": 0.4478,
+      "n_pred": 168,
+      "kept_hash": "da404cb8a4587965"
+    },
+    "V3_PARSEFIX_ONLY": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.3483,
+      "recall": 0.7,
+      "f1": 0.4651,
+      "n_pred": 201,
+      "kept_hash": "1245b95026d62831"
+    },
+    "V3_INTEGRATED": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V3_ARCSCRAMBLE": {
+      "recall_ceiling": 0.26,
+      "n_miss": 74,
+      "n_gold_pos": 100,
+      "precision": 0.3881,
+      "recall": 0.26,
+      "f1": 0.3114,
+      "n_pred": 67,
+      "kept_hash": "938503a5a8745c07"
+    },
+    "V3_KNOWLEDGE_SCRAMBLE": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V4_INTEGRATED_BACKOFF": {
+      "recall_ceiling": 0.67,
+      "n_miss": 33,
+      "n_gold_pos": 100,
+      "precision": 0.4653,
+      "recall": 0.67,
+      "f1": 0.5492,
+      "n_pred": 144,
+      "kept_hash": "fc18dff7c96a3020"
+    },
+    "V4_ARCSCRAMBLE_BACKOFF": {
+      "recall_ceiling": 0.25,
+      "n_miss": 75,
+      "n_gold_pos": 100,
+      "precision": 0.3731,
+      "recall": 0.25,
+      "f1": 0.2994,
+      "n_pred": 67,
+      "kept_hash": "84cf94ded2ee34af"
+    },
+    "V4_KNOWLEDGE_SCRAMBLE_BACKOFF": {
+      "recall_ceiling": 0.57,
+      "n_miss": 43,
+      "n_gold_pos": 100,
+      "precision": 0.3958,
+      "recall": 0.57,
+      "f1": 0.4672,
+      "n_pred": 144,
+      "kept_hash": "9e416477b002b991"
+    }
+  },
+  "hard_pass_conditions": {
+    "control_now_flips": true,
+    "flip_fraction_meaningful": true,
+    "control_scramble_hurts_f1": true,
+    "f1_beats_structural_baseline": false,
+    "f1_beats_no_knowledge": true,
+    "control_arcscramble_fires": true
+  },
+  "hard_fail_reasons": [
+    "F1(V4_INTEGRATED_BACKOFF) 0.5492 <= cited 29483 F1(V3_INTEGRATED) 0.5738 (back-off adds nothing beyond the pre-fix number; the isolated-2AFC win does not transfer at all even with the revival fix)"
+  ],
+  "n_competitions_total": 76,
+  "n_flipped_old_scheme": 0,
+  "n_flipped_new_scheme": 21,
+  "flip_fraction_old": 0.0,
+  "flip_fraction_new": 0.2763,
+  "n_tied_competitions_backoff": 40,
+  "tier_usage": {
+    "tier3_global": 86,
+    "tier2_verbavg": 354,
+    "tier1_class": 60,
+    "tier0_item": 66
+  },
+  "comps_new_real_sample": [
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "herbert",
+        "anger",
+        "dismay"
+      ],
+      "scores": [
+        0.366788,
+        0.366788,
+        0.366788
+      ],
+      "picked": "herbert",
+      "all_tied": true
+    },
+    {
+      "vlemma": "rattl",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "down",
+      "all_tied": true
+    },
+    {
+      "vlemma": "sha'n",
+      "candidates": [
+        "hurt",
+        "pussy"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "hurt",
+      "all_tied": true
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.166667,
+        0.075
+      ],
+      "picked": "down",
+      "all_tied": false
+    },
+    {
+      "vlemma": "cover",
+      "candidates": [
+        "face",
+        "hands"
+      ],
+      "scores": [
+        0.85,
+        0.6125
+      ],
+      "picked": "face",
+      "all_tied": false
+    },
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "milk",
+        "good"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "milk",
+      "all_tied": true
+    },
+    {
+      "vlemma": "rub",
+      "candidates": [
+        "herbert's",
+        "castle"
+      ],
+      "scores": [
+        0.14,
+        0.2
+      ],
+      "picked": "castle",
+      "all_tied": false
+    },
+    {
+      "vlemma": "hold",
+      "candidates": [
+        "out",
+        "hands"
+      ],
+      "scores": [
+        0.55,
+        0.9
+      ],
+      "picked": "hands",
+      "all_tied": false
+    },
+    {
+      "vlemma": "come",
+      "candidates": [
+        "eyes",
+        "tears"
+      ],
+      "scores": [
+        0.15,
+        0.05
+      ],
+      "picked": "eyes",
+      "all_tied": false
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "scores": [
+        0.5,
+        0.5275
+      ],
+      "picked": "heart",
+      "all_tied": false
+    },
+    {
+      "vlemma": "show",
+      "candidates": [
+        "you",
+        "way"
+      ],
+      "scores": [
+        0.58125,
+        0.75
+      ],
+      "picked": "way",
+      "all_tied": false
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "blocks",
+        "side"
+      ],
+      "scores": [
+        0.075,
+        0.166667
+      ],
+      "picked": "side",
+      "all_tied": false
+    },
+    {
+      "vlemma": "lay",
+      "candidates": [
+        "foundation",
+        "castle"
+      ],
+      "scores": [
+        0.9,
+        0.446667
+      ],
+      "picked": "foundation",
+      "all_tied": false
+    },
+    {
+      "vlemma": "forget",
+      "candidates": [
+        "grief",
+        "few",
+        "minutes"
+      ],
+      "scores": [
+        0.6,
+        0.375,
+        0.375
+      ],
+      "picked": "grief",
+      "all_tied": false
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "place"
+      ],
+      "scores": [
+        0.05,
+        0.05
+      ],
+      "picked": "down",
+      "all_tied": true
+    },
+    {
+      "vlemma": "los",
+      "candidates": [
+        "kite",
+        "thing"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "kite",
+      "all_tied": true
+    },
+    {
+      "vlemma": "see",
+      "candidates": [
+        "papa",
+        "use",
+        "case"
+      ],
+      "scores": [
+        0.8,
+        0.722727,
+        0.722727
+      ],
+      "picked": "papa",
+      "all_tied": false
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "sticks",
+        "paper"
+      ],
+      "scores": [
+        0.506667,
+        0.506667
+      ],
+      "picked": "sticks",
+      "all_tied": true
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "book"
+      ],
+      "scores": [
+        0.05,
+        0.05
+      ],
+      "picked": "down",
+      "all_tied": true
+    },
+    {
+      "vlemma": "speak",
+      "candidates": [
+        "out",
+        "herbert"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "out",
+      "all_tied": true
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "out",
+        "carriages"
+      ],
+      "scores": [
+        0.05,
+        0.05
+      ],
+      "picked": "out",
+      "all_tied": true
+    },
+    {
+      "vlemma": "leave",
+      "candidates": [
+        "it",
+        "tray",
+        "dishes",
+        "hands"
+      ],
+      "scores": [
+        0.298333,
+        0.65,
+        0.65,
+        0.298333
+      ],
+      "picked": "tray",
+      "all_tied": false
+    },
+    {
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "scores": [
+        0.466667,
+        0.466667,
+        0.466667
+      ],
+      "picked": "more",
+      "all_tied": true
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "him",
+        "school"
+      ],
+      "scores": [
+        0.575,
+        0.575
+      ],
+      "picked": "him",
+      "all_tied": true
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "school",
+        "he"
+      ],
+      "scores": [
+        0.3,
+        0.266667
+      ],
+      "picked": "school",
+      "all_tied": false
+    },
+    {
+      "vlemma": "tell",
+      "candidates": [
+        "mother",
+        "he",
+        "school"
+      ],
+      "scores": [
+        0.16,
+        0.464,
+        0.464
+      ],
+      "picked": "he",
+      "all_tied": false
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "haste",
+        "home",
+        "school"
+      ],
+      "scores": [
+        0.677,
+        0.5,
+        0.677
+      ],
+      "picked": "haste",
+      "all_tied": false
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "him",
+        "aunt's"
+      ],
+      "scores": [
+        0.5275,
+        0.5275
+      ],
+      "picked": "him",
+      "all_tied": true
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "water",
+        "boats"
+      ],
+      "scores": [
+        0.266667,
+        0.266667
+      ],
+      "picked": "water",
+      "all_tied": true
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "james",
+        "money"
+      ],
+      "scores": [
+        0.825,
+        0.26
+      ],
+      "picked": "james",
+      "all_tied": false
+    }
+  ],
+  "comps_new_scr_sample": [
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "herbert",
+        "anger",
+        "dismay"
+      ],
+      "scores": [
+        0.366788,
+        0.366788,
+        0.366788
+      ],
+      "picked": "herbert",
+      "all_tied": true
+    },
+    {
+      "vlemma": "rattl",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "down",
+      "all_tied": true
+    },
+    {
+      "vlemma": "sha'n",
+      "candidates": [
+        "hurt",
+        "pussy"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "hurt",
+      "all_tied": true
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.69,
+        0.635
+      ],
+      "picked": "down",
+      "all_tied": false
+    },
+    {
+      "vlemma": "cover",
+      "candidates": [
+        "face",
+        "hands"
+      ],
+      "scores": [
+        0.02,
+        0.2175
+      ],
+      "picked": "hands",
+      "all_tied": false
+    },
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "milk",
+        "good"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "milk",
+      "all_tied": true
+    },
+    {
+      "vlemma": "rub",
+      "candidates": [
+        "herbert's",
+        "castle"
+      ],
+      "scores": [
+        0.02,
+        0.02
+      ],
+      "picked": "herbert's",
+      "all_tied": true
+    },
+    {
+      "vlemma": "hold",
+      "candidates": [
+        "out",
+        "hands"
+      ],
+      "scores": [
+        0.466667,
+        0.15
+      ],
+      "picked": "out",
+      "all_tied": false
+    },
+    {
+      "vlemma": "come",
+      "candidates": [
+        "eyes",
+        "tears"
+      ],
+      "scores": [
+        0.466667,
+        0.05
+      ],
+      "picked": "eyes",
+      "all_tied": false
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "scores": [
+        0.02,
+        0.33375
+      ],
+      "picked": "heart",
+      "all_tied": false
+    },
+    {
+      "vlemma": "show",
+      "candidates": [
+        "you",
+        "way"
+      ],
+      "scores": [
+        0.27125,
+        0.2
+      ],
+      "picked": "you",
+      "all_tied": false
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "blocks",
+        "side"
+      ],
+      "scores": [
+        0.635,
+        0.69
+      ],
+      "picked": "side",
+      "all_tied": false
+    },
+    {
+      "vlemma": "lay",
+      "candidates": [
+        "foundation",
+        "castle"
+      ],
+      "scores": [
+        0.02,
+        0.386667
+      ],
+      "picked": "castle",
+      "all_tied": false
+    },
+    {
+      "vlemma": "forget",
+      "candidates": [
+        "grief",
+        "few",
+        "minutes"
+      ],
+      "scores": [
+        0.7,
+        0.233333,
+        0.233333
+      ],
+      "picked": "grief",
+      "all_tied": false
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "place"
+      ],
+      "scores": [
+        0.65,
+        0.65
+      ],
+      "picked": "down",
+      "all_tied": true
+    },
+    {
+      "vlemma": "los",
+      "candidates": [
+        "kite",
+        "thing"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "kite",
+      "all_tied": true
+    },
+    {
+      "vlemma": "see",
+      "candidates": [
+        "papa",
+        "use",
+        "case"
+      ],
+      "scores": [
+        0.55,
+        0.329091,
+        0.329091
+      ],
+      "picked": "papa",
+      "all_tied": false
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "sticks",
+        "paper"
+      ],
+      "scores": [
+        0.22,
+        0.22
+      ],
+      "picked": "sticks",
+      "all_tied": true
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "book"
+      ],
+      "scores": [
+        0.65,
+        0.65
+      ],
+      "picked": "down",
+      "all_tied": true
+    },
+    {
+      "vlemma": "speak",
+      "candidates": [
+        "out",
+        "herbert"
+      ],
+      "scores": [
+        0.366788,
+        0.366788
+      ],
+      "picked": "out",
+      "all_tied": true
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "out",
+        "carriages"
+      ],
+      "scores": [
+        0.65,
+        0.75
+      ],
+      "picked": "carriages",
+      "all_tied": false
+    },
+    {
+      "vlemma": "leave",
+      "candidates": [
+        "it",
+        "tray",
+        "dishes",
+        "hands"
+      ],
+      "scores": [
+        0.45,
+        0.275,
+        0.275,
+        0.45
+      ],
+      "picked": "it",
+      "all_tied": false
+    },
+    {
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "scores": [
+        0.306667,
+        0.306667,
+        0.306667
+      ],
+      "picked": "more",
+      "all_tied": true
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "him",
+        "school"
+      ],
+      "scores": [
+        0.155,
+        0.155
+      ],
+      "picked": "him",
+      "all_tied": true
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "school",
+        "he"
+      ],
+      "scores": [
+        0.4,
+        0.3
+      ],
+      "picked": "school",
+      "all_tied": false
+    },
+    {
+      "vlemma": "tell",
+      "candidates": [
+        "mother",
+        "he",
+        "school"
+      ],
+      "scores": [
+        0.31,
+        0.314,
+        0.314
+      ],
+      "picked": "he",
+      "all_tied": false
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "haste",
+        "home",
+        "school"
+      ],
+      "scores": [
+        0.444,
+        0.9,
+        0.444
+      ],
+      "picked": "home",
+      "all_tied": false
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "him",
+        "aunt's"
+      ],
+      "scores": [
+        0.33375,
+        0.33375
+      ],
+      "picked": "him",
+      "all_tied": true
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "water",
+        "boats"
+      ],
+      "scores": [
+        0.3,
+        0.3
+      ],
+      "picked": "water",
+      "all_tied": true
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "james",
+        "money"
+      ],
+      "scores": [
+        0.085,
+        0.425
+      ],
+      "picked": "money",
+      "all_tied": false
+    }
+  ],
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 52.1,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_29483": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "verdict": "HARD_FAIL_INTEGRATION_BOUNDED_CEILINGS_COMPOUND",
+    "f1_integrated": 0.5738,
+    "f1_parsefix_only": 0.4651,
+    "f1_knowledge_scramble": 0.5738,
+    "note": "kept_hash(V3_INTEGRATED) == kept_hash(V3_KNOWLEDGE_SCRAMBLE) -- the coverage bound this cell's back-off fix targets"
+  },
+  "cited_29479": {
+    "source": "data/exp_pivot_scaled_seed_knowledge_table_v1/metrics.json",
+    "verdict": "HARD_PASS_SCALED_KNOWLEDGE_HELPS_AT_COVERAGE",
+    "isolated_2afc_lift": 0.199
+  },
+  "cited_29471": {
+    "note": "WordNet-supersense classes can be too COARSE to discriminate same-class rivals (ties); this cell's n_tied_competitions_backoff + tier_usage fields measure that coarseness directly on this run rather than assuming it"
+  },
+  "scope_caveat": "Parser trained on UD-EWT via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded training budget, byte-identical reuse of 29483's own training code; out-of-domain transfer to 19th-c. McGuffey narrative prose is the SAME untested transfer 29478/29483 already flagged. The knowledge table (29479) is LLM-self-built (residual leakage-adjacent risk per that cell's own scope caveat); an independent-KB replication is the flagged rigor follow-up. WordNet lexname is the FIRST synset only (no WSD) -- a deterministic, glass-box simplification, not sense-disambiguated. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
