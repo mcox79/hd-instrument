@@ -1,0 +1,628 @@
+{
+  "anchor_name": "multi_turn_loop_realtext_confidence_abstain_gate_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (partial-precision-coverage-tradeoff) | NO_GATE halluc=0.419 cov=1.000 prec=0.381 | AUC comb=0.639 [0.322,0.922] (parse=0.188 coref=0.885) | OP@th=0.491: halluc=0.032 cov=0.161 prec=0.800 retained_correct=0.500 (4/8) | scramble halluc=0.101 -> beat=0.068",
+  "summary": "MIDDLE_BAND (partial-precision-coverage-tradeoff) | NO_GATE halluc=0.419 cov=1.000 prec=0.381 | AUC comb=0.639 [0.322,0.922] (parse=0.188 coref=0.885) | OP@th=0.491: halluc=0.032 cov=0.161 prec=0.800 retained_correct=0.500 (4/8) | scramble halluc=0.101 -> beat=0.068",
+  "gate_outcome": "partial-precision-coverage-tradeoff",
+  "run_mode": "full",
+  "elapsed_s": 3.4416,
+  "ts_iso": "2026-07-23T05:04:19.333099+00:00",
+  "n_questions": 31,
+  "arms": [
+    "NO_GATE",
+    "ABSTAIN_GATE",
+    "SCRAMBLE_GATE"
+  ],
+  "baseline_no_gate": {
+    "halluc": 0.4194,
+    "coverage": 0.6774,
+    "precision_on_answered": 0.381,
+    "n_correct": 8,
+    "n_answered": 21,
+    "n_wrong": 13,
+    "n_total": 31
+  },
+  "auc": {
+    "combined": 0.6394,
+    "ci_lo": 0.3222,
+    "ci_hi": 0.9222,
+    "parse_only": 0.1875,
+    "coref_only": 0.8846,
+    "n_boot": 5000,
+    "n_pos": 8,
+    "n_neg": 13
+  },
+  "operating_point": {
+    "halluc": 0.0323,
+    "coverage": 0.1613,
+    "precision_on_answered": 0.8,
+    "n_answered": 5,
+    "n_correct_kept": 4,
+    "n_wrong_kept": 1,
+    "n_total": 31,
+    "threshold": 0.490995
+  },
+  "retained_correct_frac": 0.5,
+  "scramble_matched_coverage": {
+    "halluc_mean": 0.1006,
+    "halluc_p95": 0.1613,
+    "precision_mean": 0.3765,
+    "n_kept": 5,
+    "n_seeds": 400
+  },
+  "beat_scramble": 0.0683,
+  "precision_coverage_curve": [
+    {
+      "halluc": 0.4194,
+      "coverage": 0.6774,
+      "precision_on_answered": 0.381,
+      "n_answered": 21,
+      "n_correct_kept": 8,
+      "n_wrong_kept": 13,
+      "n_total": 31,
+      "threshold": -1.0
+    },
+    {
+      "halluc": 0.4194,
+      "coverage": 0.6129,
+      "precision_on_answered": 0.3158,
+      "n_answered": 19,
+      "n_correct_kept": 6,
+      "n_wrong_kept": 13,
+      "n_total": 31,
+      "threshold": 0.014431
+    },
+    {
+      "halluc": 0.3871,
+      "coverage": 0.5806,
+      "precision_on_answered": 0.3333,
+      "n_answered": 18,
+      "n_correct_kept": 6,
+      "n_wrong_kept": 12,
+      "n_total": 31,
+      "threshold": 0.016077
+    },
+    {
+      "halluc": 0.3548,
+      "coverage": 0.5484,
+      "precision_on_answered": 0.3529,
+      "n_answered": 17,
+      "n_correct_kept": 6,
+      "n_wrong_kept": 11,
+      "n_total": 31,
+      "threshold": 0.029643
+    },
+    {
+      "halluc": 0.2903,
+      "coverage": 0.4839,
+      "precision_on_answered": 0.4,
+      "n_answered": 15,
+      "n_correct_kept": 6,
+      "n_wrong_kept": 9,
+      "n_total": 31,
+      "threshold": 0.048995
+    },
+    {
+      "halluc": 0.2581,
+      "coverage": 0.4516,
+      "precision_on_answered": 0.4286,
+      "n_answered": 14,
+      "n_correct_kept": 6,
+      "n_wrong_kept": 8,
+      "n_total": 31,
+      "threshold": 0.065061
+    },
+    {
+      "halluc": 0.2258,
+      "coverage": 0.4194,
+      "precision_on_answered": 0.4615,
+      "n_answered": 13,
+      "n_correct_kept": 6,
+      "n_wrong_kept": 7,
+      "n_total": 31,
+      "threshold": 0.089109
+    },
+    {
+      "halluc": 0.1935,
+      "coverage": 0.3871,
+      "precision_on_answered": 0.5,
+      "n_answered": 12,
+      "n_correct_kept": 6,
+      "n_wrong_kept": 6,
+      "n_total": 31,
+      "threshold": 0.114287
+    },
+    {
+      "halluc": 0.129,
+      "coverage": 0.2903,
+      "precision_on_answered": 0.5556,
+      "n_answered": 9,
+      "n_correct_kept": 5,
+      "n_wrong_kept": 4,
+      "n_total": 31,
+      "threshold": 0.15
+    },
+    {
+      "halluc": 0.129,
+      "coverage": 0.2581,
+      "precision_on_answered": 0.5,
+      "n_answered": 8,
+      "n_correct_kept": 4,
+      "n_wrong_kept": 4,
+      "n_total": 31,
+      "threshold": 0.273157
+    },
+    {
+      "halluc": 0.0968,
+      "coverage": 0.2258,
+      "precision_on_answered": 0.5714,
+      "n_answered": 7,
+      "n_correct_kept": 4,
+      "n_wrong_kept": 3,
+      "n_total": 31,
+      "threshold": 0.316621
+    },
+    {
+      "halluc": 0.0645,
+      "coverage": 0.1935,
+      "precision_on_answered": 0.6667,
+      "n_answered": 6,
+      "n_correct_kept": 4,
+      "n_wrong_kept": 2,
+      "n_total": 31,
+      "threshold": 0.322739
+    },
+    {
+      "halluc": 0.0323,
+      "coverage": 0.1613,
+      "precision_on_answered": 0.8,
+      "n_answered": 5,
+      "n_correct_kept": 4,
+      "n_wrong_kept": 1,
+      "n_total": 31,
+      "threshold": 0.490995
+    },
+    {
+      "halluc": 0.0323,
+      "coverage": 0.0968,
+      "precision_on_answered": 0.6667,
+      "n_answered": 3,
+      "n_correct_kept": 2,
+      "n_wrong_kept": 1,
+      "n_total": 31,
+      "threshold": 0.558112
+    },
+    {
+      "halluc": 0.0,
+      "coverage": 0.0323,
+      "precision_on_answered": 1.0,
+      "n_answered": 1,
+      "n_correct_kept": 1,
+      "n_wrong_kept": 0,
+      "n_total": 31,
+      "threshold": 0.624822
+    },
+    {
+      "halluc": 0.0,
+      "coverage": 0.0,
+      "precision_on_answered": 0.0,
+      "n_answered": 0,
+      "n_correct_kept": 0,
+      "n_wrong_kept": 0,
+      "n_total": 31,
+      "threshold": 1.0
+    }
+  ],
+  "cross_turn": {
+    "no_gate": {
+      "halluc": 0.4286,
+      "coverage": 0.619,
+      "precision_on_answered": 0.3077,
+      "n_answered": 13,
+      "n_correct_kept": 4,
+      "n_wrong_kept": 9,
+      "n_total": 21
+    },
+    "gated": {
+      "halluc": 0.0,
+      "coverage": 0.0476,
+      "precision_on_answered": 1.0,
+      "n_answered": 1,
+      "n_correct_kept": 1,
+      "n_wrong_kept": 0,
+      "n_total": 21
+    }
+  },
+  "margin_scale": 1.584192,
+  "confidence_signals": [
+    "parse_margin(perceptron argmax-runnerup)",
+    "coref_margin(maintained-overlay salience gap)",
+    "match_support(conflict cap)"
+  ],
+  "gate_threshold_kind": "fixed_interpretable_rule_not_learned",
+  "flexible_improving": "n/a_fixed_rule (curve is the deliverable; learned threshold overfits 21 pts)",
+  "bands": {
+    "HP_auc_min": 0.7,
+    "HP_retained_correct_min": 0.6,
+    "HP_precision_min": 0.8,
+    "HP_halluc_max": 0.05,
+    "HP_beat_scramble_min": 0.1,
+    "HF_auc_max": 0.55,
+    "HF_retained_correct_max": 0.25,
+    "HF_beat_scramble_max": 0.02
+  },
+  "coverage_at_zero_halluc_ceiling": 0.2581,
+  "weakest_interface": [
+    "partial: halluc 0.419->0.032 at coverage 0.161 (retained_correct=0.500, AUC=0.639)"
+  ],
+  "arms_differ_digests": {
+    "NO_GATE": "6e71567a69f6276fead7398cb48dce37dd986e1cb12e418d852e52e7d82483ec",
+    "ABSTAIN_GATE": "69e5b2953cc565c0aeae86860c6eb246384c15cda6737e8f3c971e4939f59095",
+    "SCRAMBLE_GATE": "f6aaaa72e618a2326366ec8f5a876e6313531bd9925ddd62d26996edbf2eadba"
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential_cpu_pure_python",
+  "crlb_n_a": "symbolic glass-box; coverage-at-zero-halluc ceiling 8/31=0.258 is the feasibility bound",
+  "per_question": [
+    {
+      "qid": "N1",
+      "slice": "NC",
+      "ans": "james",
+      "gold": "james",
+      "conf": 0.014431,
+      "parse_conf": 0.014431,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 1
+    },
+    {
+      "qid": "N2",
+      "slice": "NC",
+      "ans": "door",
+      "gold": "mat",
+      "conf": 0.15,
+      "parse_conf": 0.624822,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 2
+    },
+    {
+      "qid": "N3",
+      "slice": "NC",
+      "ans": "house",
+      "gold": "house",
+      "conf": 0.624822,
+      "parse_conf": 0.624822,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 1
+    },
+    {
+      "qid": "N4",
+      "slice": "NC",
+      "ans": "george",
+      "gold": "george",
+      "conf": 0.558112,
+      "parse_conf": 0.558112,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 1
+    },
+    {
+      "qid": "N5",
+      "slice": "NC",
+      "ans": "dodger",
+      "gold": "dodger",
+      "conf": 0.558112,
+      "parse_conf": 0.558112,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 1
+    },
+    {
+      "qid": "N6",
+      "slice": "NC",
+      "ans": "log",
+      "gold": "house",
+      "conf": 0.624822,
+      "parse_conf": 0.624822,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "N7",
+      "slice": "NC",
+      "ans": null,
+      "gold": "dash",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "O1",
+      "slice": "CO",
+      "ans": "father",
+      "gold": "henry",
+      "conf": 0.048995,
+      "parse_conf": 1.0,
+      "coref_conf": 0.048995,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "O2",
+      "slice": "CO",
+      "ans": "mother",
+      "gold": "henry",
+      "conf": 0.089109,
+      "parse_conf": 1.0,
+      "coref_conf": 0.089109,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "O3",
+      "slice": "CO",
+      "ans": null,
+      "gold": "henry",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "CC1",
+      "slice": "CC",
+      "ans": "sport",
+      "gold": "james",
+      "conf": 0.316621,
+      "parse_conf": 0.558112,
+      "coref_conf": 0.316621,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "CC2",
+      "slice": "CC",
+      "ans": "dash",
+      "gold": "mary",
+      "conf": 0.490995,
+      "parse_conf": 0.669119,
+      "coref_conf": 0.490995,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "CC3",
+      "slice": "CC",
+      "ans": null,
+      "gold": "george",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "CC4",
+      "slice": "CC",
+      "ans": null,
+      "gold": "harry",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "CC5",
+      "slice": "CC",
+      "ans": null,
+      "gold": "cat",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "M1",
+      "slice": "CMP",
+      "ans": null,
+      "gold": "tree",
+      "conf": 0.0,
+      "parse_conf": 0.5,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "M2",
+      "slice": "CMP",
+      "ans": "bugs",
+      "gold": "kingbird",
+      "conf": 0.016077,
+      "parse_conf": 1.0,
+      "coref_conf": 0.016077,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M3",
+      "slice": "CMP",
+      "ans": "sport",
+      "gold": "sport",
+      "conf": 0.273157,
+      "parse_conf": 0.273157,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M4",
+      "slice": "CMP",
+      "ans": "sport",
+      "gold": "james",
+      "conf": 0.322739,
+      "parse_conf": 0.372362,
+      "coref_conf": 0.322739,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M5",
+      "slice": "CMP",
+      "ans": "more",
+      "gold": "laura",
+      "conf": 0.048995,
+      "parse_conf": 1.0,
+      "coref_conf": 0.048995,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M6",
+      "slice": "CMP",
+      "ans": "tigress",
+      "gold": "tigress",
+      "conf": 0.014431,
+      "parse_conf": 0.014431,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M7",
+      "slice": "CMP",
+      "ans": "kitten",
+      "gold": "tigress",
+      "conf": 0.114287,
+      "parse_conf": 1.0,
+      "coref_conf": 0.114287,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M8",
+      "slice": "CMP",
+      "ans": null,
+      "gold": "ball",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "M9",
+      "slice": "CMP",
+      "ans": "kittens",
+      "gold": "puss",
+      "conf": 0.065061,
+      "parse_conf": 1.0,
+      "coref_conf": 0.065061,
+      "correct": 0,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M10",
+      "slice": "CMP",
+      "ans": "bounce",
+      "gold": "willie",
+      "conf": 0.029643,
+      "parse_conf": 1.0,
+      "coref_conf": 0.029643,
+      "correct": 0,
+      "n_distinct": 2
+    },
+    {
+      "qid": "M11",
+      "slice": "CMP",
+      "ans": "cunning",
+      "gold": "dog",
+      "conf": 0.15,
+      "parse_conf": 0.558112,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 3
+    },
+    {
+      "qid": "M12",
+      "slice": "CMP",
+      "ans": null,
+      "gold": "james",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "M13",
+      "slice": "CMP",
+      "ans": null,
+      "gold": "mary",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    },
+    {
+      "qid": "M14",
+      "slice": "CMP",
+      "ans": "man",
+      "gold": "man",
+      "conf": 1.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 1
+    },
+    {
+      "qid": "M15",
+      "slice": "CMP",
+      "ans": "cents",
+      "gold": "cents",
+      "conf": 0.15,
+      "parse_conf": 0.558112,
+      "coref_conf": 1.0,
+      "correct": 1,
+      "n_distinct": 2
+    },
+    {
+      "qid": "M16",
+      "slice": "CMP",
+      "ans": null,
+      "gold": "bread",
+      "conf": 0.0,
+      "parse_conf": 1.0,
+      "coref_conf": 1.0,
+      "correct": 0,
+      "n_distinct": 0
+    }
+  ],
+  "reuse_credited": {
+    "realtext_loop_and_baseline": "exp_multi_turn_loop_realtext_oracle_vs_real_compounding_v1.py",
+    "realtext_components_and_gold": "exp_oracle_mention_upperbound_reader_v1.py",
+    "coref_abstain_discipline": "hdlab/state_of_mind.py resolve_pronoun (abstains on no-compatible; extended downstream to low-salience-margin abstention)"
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "baseline_no_gate",
+    "auc",
+    "operating_point",
+    "retained_correct_frac",
+    "scramble_matched_coverage",
+    "beat_scramble",
+    "arms_differ_digests"
+  ],
+  "notes": "Confidence/abstain gate over the real-text conversational loop. Glass-box signals (perceptron role margin + maintained-overlay coref salience margin + match-conflict), no autograd, no LLM. Primary discriminator = AUC(conf,correct) over the 21 answered Qs; SCRAMBLE_GATE = matched-coverage random abstention anti-cheat. CLAIM-VET-pending."
+}
