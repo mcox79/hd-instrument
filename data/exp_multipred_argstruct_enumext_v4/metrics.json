@@ -1,0 +1,478 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL_ENUMEXT",
+  "verdict_msg": "MIDDLE_BAND: no HARD_FAIL trigger fired but not all HARD_PASS conditions held (failing: ['f1_above_bar', 'components_combine']). F1 V3_INTEGRATED=0.5738 -> DOHAVE_ONLY=0.592 -> ECM_ONLY=0.5703 -> FULL=0.5882; recall_ceiling V3=0.7 -> FULL=0.75; precision V3=0.4861 FULL=0.4839; ARCSCRAMBLE F1=0.3936. n_recovered=5 n_regressed=0. residual-miss split: single_sentence_recoverable=25 cross_sentence_bound=0 (of 25 still-missing). Genuine but partial signal; localize which condition failed before escalating scope.",
+  "summary": "MIDDLE_BAND_PARTIAL_ENUMEXT: F1 base=0.2708 v3_integrated=0.5738 dohave_only=0.592 ecm_only=0.5703 full=0.5882 | recall_ceiling v3=0.7 full=0.75 | precision v3=0.4861 full=0.4839 | n_regressed=0 n_recovered=5 | residual_split: single_sentence=25 cross_sentence=0 | parser_uas=0.7882",
+  "elapsed_s": 276.65,
+  "ts_iso": "2026-07-23T20:01:19.631374+00:00",
+  "anchor_name": "multipred_argstruct_enumext_v4",
+  "run_mode": "full",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "candidate-enumeration extension: (1) content_verb_indices_ext -- do/have reclassified as lexical main-verb predicates when not governing/governed-by another verb locally; (2) assign_candidates_to_predicates_ecm -- ECM/small-clause subject-sharing propagates a non-finite (VBG/VBN) predicate's local candidates up to a further predicate ancestor. Parser training / role-assignment clf / subcat-gate FORMULA / knowledge-argmax mechanism UNCHANGED (byte-identical reuse of 29478/29483's own code).",
+  "bands": {
+    "HP_RC_MIN": 0.72,
+    "HP_F1_MIN": 0.5938,
+    "HP_PRECISION_TOLERANCE": 0.03,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HF_RC_MAX": 0.7,
+    "HF_F1_MAX": 0.5738,
+    "HF_PRECISION_DROP_MAX": 0.05,
+    "HF_ARCSCRAMBLE_MARGIN": 0.01,
+    "CITED_V3_F1": 0.5738,
+    "CITED_V3_RECALL_CEILING": 0.7,
+    "CITED_V3_PRECISION": 0.4861
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.44,
+      "n_miss": 56,
+      "n_gold_pos": 100,
+      "precision": 0.1956,
+      "recall": 0.44,
+      "f1": 0.2708,
+      "n_pred": 225,
+      "subcat_fp": 107,
+      "within_frame_fp": 53,
+      "spurious_verb_fp": 21,
+      "kept_hash": "6fca7838894babc0"
+    },
+    "V3_INTEGRATED": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V4_DOHAVE_ONLY": {
+      "recall_ceiling": 0.74,
+      "n_miss": 26,
+      "n_gold_pos": 100,
+      "precision": 0.4933,
+      "recall": 0.74,
+      "f1": 0.592,
+      "n_pred": 150,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 35,
+      "kept_hash": "1de528e0a501662f"
+    },
+    "V4_ECM_ONLY": {
+      "recall_ceiling": 0.71,
+      "n_miss": 29,
+      "n_gold_pos": 100,
+      "precision": 0.4765,
+      "recall": 0.71,
+      "f1": 0.5703,
+      "n_pred": 149,
+      "subcat_fp": 39,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "kept_hash": "1941014588bdb54a"
+    },
+    "V4_FULL": {
+      "recall_ceiling": 0.75,
+      "n_miss": 25,
+      "n_gold_pos": 100,
+      "precision": 0.4839,
+      "recall": 0.75,
+      "f1": 0.5882,
+      "n_pred": 155,
+      "subcat_fp": 39,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 35,
+      "kept_hash": "be39472568268138"
+    },
+    "V4_ARCSCRAMBLE": {
+      "recall_ceiling": 0.37,
+      "n_miss": 63,
+      "n_gold_pos": 100,
+      "precision": 0.4205,
+      "recall": 0.37,
+      "f1": 0.3936,
+      "n_pred": 88,
+      "subcat_fp": 19,
+      "within_frame_fp": 11,
+      "spurious_verb_fp": 21,
+      "kept_hash": "c8dc322a44fd877c"
+    }
+  },
+  "hard_pass_conditions": {
+    "recall_above_bar": true,
+    "f1_above_bar": false,
+    "precision_holds": true,
+    "components_combine": false,
+    "control_arcscramble": true
+  },
+  "hard_fail_reasons": [],
+  "n_regressed_vs_v3": 0,
+  "n_recovered_vs_v3": 5,
+  "n_regressed_vs_baseline": 4,
+  "regressed_vs_v3_sample": [],
+  "recovered_vs_v3_sample": [
+    [
+      "L04_07",
+      "do",
+      "it"
+    ],
+    [
+      "L04_13",
+      "do",
+      "it"
+    ],
+    [
+      "L04_18",
+      "hear",
+      "you"
+    ],
+    [
+      "L05_17",
+      "have",
+      "it"
+    ],
+    [
+      "L07_10",
+      "have",
+      "money"
+    ]
+  ],
+  "n_v3_misses": 30,
+  "n_v3_misses_recovered": 5,
+  "v3_misses_recovered_by_full": [
+    [
+      "L04_07",
+      "do",
+      "it"
+    ],
+    [
+      "L04_13",
+      "do",
+      "it"
+    ],
+    [
+      "L04_18",
+      "hear",
+      "you"
+    ],
+    [
+      "L05_17",
+      "have",
+      "it"
+    ],
+    [
+      "L07_10",
+      "have",
+      "money"
+    ]
+  ],
+  "v3_misses_still_missing": [
+    [
+      "L04_01",
+      "build",
+      "blockhouse"
+    ],
+    [
+      "L04_05",
+      "catch",
+      "her"
+    ],
+    [
+      "L04_06",
+      "hurt",
+      "pussy"
+    ],
+    [
+      "L04_10",
+      "build",
+      "it"
+    ],
+    [
+      "L04_12",
+      "rub",
+      "castle"
+    ],
+    [
+      "L05_05",
+      "forget",
+      "grief"
+    ],
+    [
+      "L05_13",
+      "knock",
+      "one"
+    ],
+    [
+      "L05_15",
+      "knock",
+      "that"
+    ],
+    [
+      "L05_16",
+      "knock",
+      "castles"
+    ],
+    [
+      "L05_18",
+      "watch",
+      "her"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ],
+    [
+      "L07_06",
+      "say",
+      "lessons"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L07_10",
+      "give",
+      "money"
+    ],
+    [
+      "L08_04",
+      "see",
+      "cat"
+    ],
+    [
+      "L09_14",
+      "lay",
+      "it"
+    ],
+    [
+      "L09_18",
+      "push",
+      "another"
+    ],
+    [
+      "L10_01",
+      "teach",
+      "him"
+    ],
+    [
+      "L10_03",
+      "amuse",
+      "himself"
+    ],
+    [
+      "L10_05",
+      "sell",
+      "fish"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ],
+    [
+      "L10_13",
+      "know",
+      "words"
+    ],
+    [
+      "L10_14",
+      "see",
+      "those"
+    ],
+    [
+      "L12_09",
+      "tell",
+      "name"
+    ],
+    [
+      "L12_10",
+      "find",
+      "it"
+    ]
+  ],
+  "residual_miss_classification": [
+    {
+      "sid": "L04_01",
+      "verb": "build",
+      "patient": "blockhouse",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_05",
+      "verb": "catch",
+      "patient": "her",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_06",
+      "verb": "hurt",
+      "patient": "pussy",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_10",
+      "verb": "build",
+      "patient": "it",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L04_12",
+      "verb": "rub",
+      "patient": "castle",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_05",
+      "verb": "forget",
+      "patient": "grief",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_13",
+      "verb": "knock",
+      "patient": "one",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_15",
+      "verb": "knock",
+      "patient": "that",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_16",
+      "verb": "knock",
+      "patient": "castles",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_18",
+      "verb": "watch",
+      "patient": "her",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L05_22",
+      "verb": "see",
+      "patient": "child",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L07_06",
+      "verb": "say",
+      "patient": "lessons",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L07_09",
+      "verb": "meet",
+      "patient": "boys",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L07_10",
+      "verb": "give",
+      "patient": "money",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L08_04",
+      "verb": "see",
+      "patient": "cat",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L09_14",
+      "verb": "lay",
+      "patient": "it",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L09_18",
+      "verb": "push",
+      "patient": "another",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L10_01",
+      "verb": "teach",
+      "patient": "him",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L10_03",
+      "verb": "amuse",
+      "patient": "himself",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L10_05",
+      "verb": "sell",
+      "patient": "fish",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L10_11",
+      "verb": "find",
+      "patient": "boy",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L10_13",
+      "verb": "know",
+      "patient": "words",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L10_14",
+      "verb": "see",
+      "patient": "those",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L12_09",
+      "verb": "tell",
+      "patient": "name",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    },
+    {
+      "sid": "L12_10",
+      "verb": "find",
+      "patient": "it",
+      "classification": "SINGLE_SENTENCE_PARSE_RECOVERABLE"
+    }
+  ],
+  "n_single_sent_recoverable": 25,
+  "n_cross_sent_bound": 0,
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 74.0,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_v3_integrated": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "f1": 0.5738,
+    "recall_ceiling": 0.7,
+    "precision": 0.4861,
+    "verdict": "HARD_PASS_INTEGRATION_LIFTS_PAST_FIND_LEG"
+  },
+  "scope_caveat": "Parser trained on UD-EWT (newswire/web/blog text) via a from-scratch dynamic-oracle arc-eager model, byte-identical reuse of 29478/29483's own training code; out-of-domain transfer to 19th-c. McGuffey narrative prose is the same untested transfer 29478/29483 already flagged. The 5/9-of-30 VERB_NEVER_ENUMERATED items not explained by do/have (catch/knock/lay/teach/hurt) and the relative-clause / parse-mis-attachment items in ENUM_BUT_NO_LOCAL are reported honestly as still-open, single-sentence-recoverable-in-principle (better tagger/parser/antecedent-linking), NOT force-fit into this cell's mechanism. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
