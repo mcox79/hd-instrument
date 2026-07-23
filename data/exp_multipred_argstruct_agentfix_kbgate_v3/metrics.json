@@ -1,0 +1,408 @@
+{
+  "verdict": "HARD_FAIL_INTEGRATION_BOUNDED_CEILINGS_COMPOUND",
+  "verdict_msg": "HARD_FAIL: F1(KNOWLEDGE_SCRAMBLE) 0.5738 >= F1(INTEGRATED) 0.5738 - 0.01 (must-fail control b failed to fail -- scrambled table does nearly as well as the real one). F1 BASELINE=0.2708 V2_FRAMES_29478=0.4478 V3_PARSEFIX_ONLY=0.4651 V3_INTEGRATED=0.5738. recall_ceiling BASELINE=0.44 V2_FRAMES=0.6 PARSEFIX=0.7 INTEGRATED=0.7. precision BASELINE=0.1956 V2_FRAMES=0.3571 PARSEFIX=0.3483 INTEGRATED=0.4861. agent_routing: n=8 closed=7 fraction=0.875. n_regressed(INTEGRATED vs BASELINE)=5 (29478's own was 12). HONEST DEFLATE: the integration did not clear the pre-registered bar even with both new levers. cause_counts={'AGENT_ROUTING_DROP': 8, 'PATIENT_OR_ENUM_DROP': 1, 'OTHER_ROLE_OR_GATE_DROP': 3}.",
+  "summary": "HARD_FAIL_INTEGRATION_BOUNDED_CEILINGS_COMPOUND: F1 base=0.2708 v2_frames_29478=0.4478 parsefix_only=0.4651 integrated=0.5738 | recall_ceiling base=0.44 v2=0.6 integrated=0.7 | precision v2=0.3571 integrated=0.4861 | agent_routing_closure=0.875 (n=8) | n_regressed=5 n_recovered=31 | lc_rise=0.04 | parser_uas=0.7882",
+  "elapsed_s": 225.2,
+  "ts_iso": "2026-07-23T15:51:29.750578+00:00",
+  "anchor_name": "multipred_argstruct_agentfix_kbgate_v3",
+  "run_mode": "full",
+  "seed": 20260725,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "assign_candidates_to_predicates_fixed (two-pass: 29478's ascend-only walk PLUS a fallback checking for a direct-child predicate at each visited node, closing the agent/subject-routing regression class) PAIRED WITH knowledge-gated patient argmax-disambiguation (29479 scaled selectional table); parser training / role-assignment clf / subcat-gate mechanism UNCHANGED (byte-identical reuse of 29478's own code)",
+  "bands": {
+    "HP_F1_MIN": 0.4678,
+    "HP_RECALL_MIN": 0.62,
+    "HP_PRECISION_TOLERANCE": 0.03,
+    "HP_KNOWLEDGE_ADDS_MIN": 0.01,
+    "HP_AGENT_CLOSURE_MIN": 0.5,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HP_KNOWLEDGE_SCRAMBLE_MARGIN": 0.02,
+    "HF_F1_MAX": 0.4478,
+    "HF_RECALL_MAX": 0.6,
+    "HF_AGENT_CLOSURE_MAX": 0.25,
+    "HF_KNOWLEDGE_SCRAMBLE_MARGIN": 0.01,
+    "CITED_29478_F1": 0.4478,
+    "CITED_29478_RECALL_CEILING": 0.6,
+    "CITED_29478_PRECISION": 0.3571,
+    "CITED_29478_N_REGRESSED": 12
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.44,
+      "n_miss": 56,
+      "n_gold_pos": 100,
+      "precision": 0.1956,
+      "recall": 0.44,
+      "f1": 0.2708,
+      "n_pred": 225,
+      "subcat_fp": 107,
+      "within_frame_fp": 53,
+      "spurious_verb_fp": 21,
+      "kept_hash": "6fca7838894babc0"
+    },
+    "V2_FRAMES_29478": {
+      "recall_ceiling": 0.6,
+      "n_miss": 40,
+      "n_gold_pos": 100,
+      "precision": 0.3571,
+      "recall": 0.6,
+      "f1": 0.4478,
+      "n_pred": 168,
+      "subcat_fp": 38,
+      "within_frame_fp": 36,
+      "spurious_verb_fp": 34,
+      "kept_hash": "da404cb8a4587965"
+    },
+    "V3_PARSEFIX_ONLY": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.3483,
+      "recall": 0.7,
+      "f1": 0.4651,
+      "n_pred": 201,
+      "subcat_fp": 44,
+      "within_frame_fp": 44,
+      "spurious_verb_fp": 43,
+      "kept_hash": "1245b95026d62831"
+    },
+    "V3_INTEGRATED": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V3_ARCSCRAMBLE": {
+      "recall_ceiling": 0.26,
+      "n_miss": 74,
+      "n_gold_pos": 100,
+      "precision": 0.3881,
+      "recall": 0.26,
+      "f1": 0.3114,
+      "n_pred": 67,
+      "subcat_fp": 23,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 12,
+      "kept_hash": "938503a5a8745c07"
+    },
+    "V3_KNOWLEDGE_SCRAMBLE": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "kept_hash": "be02002c1579217f"
+    }
+  },
+  "hard_pass_conditions": {
+    "f1_above_bar": true,
+    "recall_above_bar": true,
+    "precision_holds": true,
+    "knowledge_adds": true,
+    "agent_routing_closes": true,
+    "control_arcscramble": true,
+    "control_knowledge_scramble": false
+  },
+  "hard_fail_reasons": [
+    "F1(KNOWLEDGE_SCRAMBLE) 0.5738 >= F1(INTEGRATED) 0.5738 - 0.01 (must-fail control b failed to fail -- scrambled table does nearly as well as the real one)"
+  ],
+  "n_regressed_v3": 5,
+  "n_recovered_v3": 31,
+  "regressed_v3_sample": [
+    [
+      "L04_18",
+      "hear",
+      "you"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ],
+    [
+      "L07_06",
+      "say",
+      "lessons"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ]
+  ],
+  "recovered_v3_sample": [
+    [
+      "L04_03",
+      "throw",
+      "it"
+    ],
+    [
+      "L04_07",
+      "cover",
+      "face"
+    ],
+    [
+      "L04_19",
+      "lay",
+      "foundation"
+    ],
+    [
+      "L05_11",
+      "make",
+      "kite"
+    ],
+    [
+      "L05_15",
+      "build",
+      "it"
+    ],
+    [
+      "L05_15",
+      "finish",
+      "sentence"
+    ],
+    [
+      "L05_17",
+      "knit",
+      "forehead"
+    ],
+    [
+      "L05_22",
+      "leave",
+      "it"
+    ],
+    [
+      "L05_24",
+      "want",
+      "more"
+    ],
+    [
+      "L05_25",
+      "build",
+      "them"
+    ],
+    [
+      "L07_01",
+      "send",
+      "him"
+    ],
+    [
+      "L07_02",
+      "send",
+      "him"
+    ],
+    [
+      "L07_07",
+      "take",
+      "him"
+    ],
+    [
+      "L07_10",
+      "hire",
+      "boat"
+    ],
+    [
+      "L07_21",
+      "save",
+      "them"
+    ],
+    [
+      "L09_06",
+      "make",
+      "dam"
+    ],
+    [
+      "L09_11",
+      "build",
+      "houses"
+    ],
+    [
+      "L09_19",
+      "remind",
+      "him"
+    ],
+    [
+      "L10_09",
+      "send",
+      "him"
+    ],
+    [
+      "L10_09",
+      "teach",
+      "him"
+    ],
+    [
+      "L10_12",
+      "draw",
+      "pictures"
+    ],
+    [
+      "L10_14",
+      "write",
+      "them"
+    ],
+    [
+      "L10_19",
+      "put",
+      "book"
+    ],
+    [
+      "L10_26",
+      "see",
+      "him"
+    ],
+    [
+      "L10_41",
+      "take",
+      "him"
+    ],
+    [
+      "L12_04",
+      "invite",
+      "him"
+    ],
+    [
+      "L12_04",
+      "open",
+      "gate"
+    ],
+    [
+      "L12_07",
+      "brush",
+      "tops"
+    ],
+    [
+      "L12_10",
+      "shake",
+      "it"
+    ],
+    [
+      "L12_12",
+      "pull",
+      "fruit"
+    ],
+    [
+      "L12_16",
+      "give",
+      "flowers"
+    ]
+  ],
+  "n_agent_routing": 8,
+  "n_agent_routing_closed": 7,
+  "agent_routing_closure_fraction": 0.875,
+  "agent_routing_items": [
+    "L04_02|rub|castle",
+    "L04_14|hold|hands",
+    "L04_17|take|way",
+    "L05_22|see|child",
+    "L07_20|see|boys",
+    "L09_16|hunt|animals",
+    "L10_38|rule|copybook",
+    "L12_10|admire|beauty"
+  ],
+  "regression_cause_counts": {
+    "AGENT_ROUTING_DROP": 8,
+    "PATIENT_OR_ENUM_DROP": 1,
+    "OTHER_ROLE_OR_GATE_DROP": 3
+  },
+  "regression_causes": {
+    "L04_02|rub|castle": "AGENT_ROUTING_DROP",
+    "L04_14|hold|hands": "AGENT_ROUTING_DROP",
+    "L04_17|take|way": "AGENT_ROUTING_DROP",
+    "L04_18|hear|you": "PATIENT_OR_ENUM_DROP",
+    "L05_22|see|child": "AGENT_ROUTING_DROP",
+    "L07_06|say|lessons": "OTHER_ROLE_OR_GATE_DROP",
+    "L07_09|meet|boys": "OTHER_ROLE_OR_GATE_DROP",
+    "L07_20|see|boys": "AGENT_ROUTING_DROP",
+    "L09_16|hunt|animals": "AGENT_ROUTING_DROP",
+    "L10_11|find|boy": "OTHER_ROLE_OR_GATE_DROP",
+    "L10_38|rule|copybook": "AGENT_ROUTING_DROP",
+    "L12_10|admire|beauty": "AGENT_ROUTING_DROP"
+  },
+  "learning_curve": {
+    "points": [
+      {
+        "frac": 0.25,
+        "n_train_examples": 11,
+        "f1": 0.5338,
+        "precision": 0.4277,
+        "recall": 0.71
+      },
+      {
+        "frac": 0.5,
+        "n_train_examples": 22,
+        "f1": 0.4359,
+        "precision": 0.6071,
+        "recall": 0.34
+      },
+      {
+        "frac": 0.75,
+        "n_train_examples": 34,
+        "f1": 0.5783,
+        "precision": 0.4832,
+        "recall": 0.72
+      },
+      {
+        "frac": 1.0,
+        "n_train_examples": 45,
+        "f1": 0.5738,
+        "precision": 0.4861,
+        "recall": 0.7
+      }
+    ],
+    "n_points": 4,
+    "lc_rise": 0.04
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 45.4,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_29478": {
+    "source": "data/exp_multipred_depparse_argstruct_recall_v2/metrics.json",
+    "f1": 0.4478,
+    "recall_ceiling": 0.6,
+    "precision": 0.3571,
+    "n_regressed": 12,
+    "verdict": "MIDDLE_BAND_PARTIAL_PARSER_LIFT"
+  },
+  "cited_29479": {
+    "source": "data/exp_pivot_scaled_seed_knowledge_table_v1/metrics.json",
+    "verdict": "HARD_PASS_SCALED_KNOWLEDGE_HELPS_AT_COVERAGE",
+    "acc_scaled_coverage_slice": 0.6898,
+    "acc_thin_coverage_slice": 0.4907
+  },
+  "cited_29473": {
+    "source": "data/exp_pivot_rich_knowledge_full_reader_integration_v1/metrics.json",
+    "note": "F1_thin @ q* reference for the single-main-verb reader; see BASELINE arm here for the byte-identical reader on this same run"
+  },
+  "scope_caveat": "Parser trained on UD-EWT (newswire/web/blog text) via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded training budget, byte-identical reuse of 29478's own training code; out-of-domain transfer to 19th-c. McGuffey narrative prose is the SAME untested transfer 29478 already flagged. The knowledge table (29479) is LLM-self-built (residual leakage-adjacent risk per that cell's own scope caveat); an independent-KB replication is the flagged rigor follow-up. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
