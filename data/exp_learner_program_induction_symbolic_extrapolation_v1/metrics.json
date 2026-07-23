@@ -1,0 +1,121 @@
+{
+  "anchor_name": "learner_program_induction_symbolic_extrapolation_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_UNSEEN_CELL_UNIDENTIFIABLE",
+  "verdict_msg": "HARD_FAIL (bands 1/2): unseen_cell_acc_proginduction=0.000 (need >=0.80), module_autoselects_proginduction=False. Mechanism-soundness checks PASSED (core_py_unchanged=True, AND/MAJORITY generality both exact) -- diagnosis: this specific fold's (sign,neg) truth table has exactly 3/4 cells populated; the pure zero-training-error candidates (OR and XOR of the same 2 atoms) are PROVABLY identical on all 3 observed cells and differ ONLY at the unobserved 4th cell, an exact MDL tie broken arbitrarily by DSL enumeration order, not a search failure. Induced formula=OR(sign=pos, neg=True). Barrier is information-theoretic identifiability (no data + no external prior in the missing cell), deeper than associative-vs-symbolic and NOT fixed by richer search over the SAME 2 atoms.",
+  "summary": "HARD_FAIL (bands 1/2): unseen_cell_acc_proginduction=0.000 (need >=0.80), module_autoselects_proginduction=False. Mechanism-soundness checks PASSED (core_py_unchanged=True, AND/MAJORITY generality both exact) -- diagnosis: this specific fold's (sign,neg) truth table has exactly 3/4 cells populated; the pure zero-training-error candidates (OR and XOR of the same 2 atoms) are PROVABLY identical on all 3 observed cells and differ ONLY at the unobserved 4th cell, an exact MDL tie broken arbitrarily by DSL enumeration order, not a search failure. Induced formula=OR(sign=pos, neg=True). Barrier is information-theoretic identifiability (no data + no external prior in the missing cell), deeper than associative-vs-symbolic and NOT fixed by richer search over the SAME 2 atoms.",
+  "elapsed_s": 0.5113,
+  "ts_iso": "2026-07-23T19:32:38.506468+00:00",
+  "pid": 27732,
+  "n_items_total": 114,
+  "n_train": 103,
+  "n_unseen_cell_test": 6,
+  "associative_arms": {
+    "acc_linear_unseen": 0.0,
+    "acc_simvote_unseen": 0.0,
+    "acc_module_unseen": 0.0,
+    "module_chosen_name_no_proginduction": "ruleind",
+    "module_compression_ratios_no_proginduction": {
+      "estimation": 1.3639848624110738,
+      "ruleind": 35.96962383725336,
+      "gam": 11.613705953721952
+    }
+  },
+  "proginduction_arms": {
+    "proginduction_formula": "OR(sign=pos, neg=True)",
+    "proginduction_node_count": 3,
+    "proginduction_compression_ratio": 7.635270796354388,
+    "acc_proginduction_unseen": 0.0,
+    "acc_module_plus_proginduction_unseen": 0.0,
+    "module_chosen_name_with_proginduction": "ruleind",
+    "module_compression_ratios_with_proginduction": {
+      "estimation": 1.3639848624110738,
+      "ruleind": 35.96962383725336,
+      "gam": 11.613705953721952,
+      "proginduction": 7.635270796354388
+    },
+    "module_autoselects_proginduction": false
+  },
+  "scramble_control": {
+    "acc_true_covered": 1.0,
+    "n_true_covered": 103,
+    "acc_scrambled_covered": 0.5048543689320388,
+    "n_scrambled_covered": 103,
+    "scramble_delta": 0.49514563106796117
+  },
+  "generality_checks": {
+    "and_formula": "AND(a=1, b=1)",
+    "and_mismatches_of_4": 0,
+    "and_pass": true,
+    "majority_formula": "XOR(a=1, AND(XOR(a=1, b=1), XOR(a=1, c=1)))",
+    "majority_node_count": 9,
+    "majority_mismatches_of_8": 0,
+    "majority_pass": true
+  },
+  "core_unchanged_check": {
+    "core_py_unchanged": true,
+    "git_diff_stat_output": "",
+    "git_returncode": 0
+  },
+  "unseen_cell_acc_proginduction": 0.0,
+  "unseen_cell_acc_linear": 0.0,
+  "unseen_cell_acc_simvote": 0.0,
+  "unseen_cell_acc_module_no_proginduction": 0.0,
+  "module_autoselects_proginduction": false,
+  "core_py_unchanged": true,
+  "generality_2nd_task_pass": true,
+  "generality_3rd_task_pass": true,
+  "scramble_collapse_ok": true,
+  "arms_differ_unseen_cell": {
+    "digests": {
+      "linear": "ae23dff114a83c8a4b9f5914bc9bcafa408d0475e8c1f8f09ff1d0866de6c5f5",
+      "simvote": "ae23dff114a83c8a4b9f5914bc9bcafa408d0475e8c1f8f09ff1d0866de6c5f5",
+      "proginduction": "ae23dff114a83c8a4b9f5914bc9bcafa408d0475e8c1f8f09ff1d0866de6c5f5"
+    },
+    "identical_pairs": [
+      [
+        "linear",
+        "proginduction"
+      ],
+      [
+        "linear",
+        "simvote"
+      ],
+      [
+        "proginduction",
+        "simvote"
+      ]
+    ]
+  },
+  "arms_differ_verified": false,
+  "arms_differ_exempted": [
+    {
+      "pair": [
+        "linear",
+        "proginduction"
+      ],
+      "rationale": "predictions coincide on the unseen cell (both wrong in the HARD_FAIL_UNSEEN_CELL_UNIDENTIFIABLE case, both predict the REALIZED-leaning marginal answer) -- reported finding, not an arm-implementation bug."
+    },
+    {
+      "pair": [
+        "linear",
+        "simvote"
+      ],
+      "rationale": "predictions coincide on the unseen cell (both wrong in the HARD_FAIL_UNSEEN_CELL_UNIDENTIFIABLE case, both predict the REALIZED-leaning marginal answer) -- reported finding, not an arm-implementation bug."
+    },
+    {
+      "pair": [
+        "proginduction",
+        "simvote"
+      ],
+      "rationale": "predictions coincide on the unseen cell (both wrong in the HARD_FAIL_UNSEEN_CELL_UNIDENTIFIABLE case, both predict the REALIZED-leaning marginal answer) -- reported finding, not an arm-implementation bug."
+    }
+  ],
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy/compression-ratio + formula-recovery measurement, not a capacity/CRLB-bound cell",
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "calibration_check": "default_ok_for_this_regime"
+}
