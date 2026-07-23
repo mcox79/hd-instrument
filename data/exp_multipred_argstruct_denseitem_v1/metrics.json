@@ -1,0 +1,1466 @@
+{
+  "verdict": "HARD_FAIL_DENSE_COVERAGE_DOES_NOT_HELP",
+  "verdict_msg": "HARD_FAIL: F1(V5_INTEGRATED_DENSE) 0.5328 <= cited 29483 F1(V3_INTEGRATED) 0.5738 (dense item coverage adds nothing beyond the pre-fix number; the isolated-2AFC win does not transfer at all even with full item density; selectional knowledge is not the reader's bottleneck at its real decision points). F1 V3_PARSEFIX_ONLY(cited)=0.4651 V3_INTEGRATED(cited,no-knowledge-fix)=0.5738 V4_INTEGRATED_BACKOFF(cited,29486)=0.5492 V5_INTEGRATED_DENSE=0.5328 V5_KNOWLEDGE_SCRAMBLE_DENSE=0.5 V5_ARCSCRAMBLE_DENSE=0.2994. flip-count: dense_scheme=41/76 (fraction=0.5395). tie-degeneracy: 0/76 (29486 cited 40/76). gold_divergence: 22/28 competition picks match gold where determinable. tier_usage={'tier0_item': 498, 'tier2_verbavg': 42, 'tier1_class': 14, 'tier3_global': 12}. HONEST BOUND: even a DENSE item-level table covering every real competition's members does not let the isolated-2AFC knowledge win (29479, +0.199) transfer to this reader's decision points -- the coverage diagnosis (29484/29486) was correct that coverage BLOCKS transfer, but fixing coverage alone is NOT sufficient; a deeper structural bound remains.",
+  "summary": "HARD_FAIL_DENSE_COVERAGE_DOES_NOT_HELP: F1 parsefix_only(cited)=0.4651 integrated_no_fix(cited)=0.5738 integrated_backoff(cited,29486)=0.5492 integrated_dense=0.5328 knowledge_scramble_dense=0.5 arcscramble_dense=0.2994 | flips: dense_scheme=41/76 (fraction=0.5395) | tie_degeneracy: dense=0/76 vs 29486_cited=40/76 | gold_divergence=22/28 | tier_usage={'tier0_item': 498, 'tier2_verbavg': 42, 'tier1_class': 14, 'tier3_global': 12} | parser_uas=0.7882",
+  "elapsed_s": 294.35,
+  "ts_iso": "2026-07-23T17:19:38.596720+00:00",
+  "anchor_name": "multipred_argstruct_denseitem_v1",
+  "run_mode": "full",
+  "seed": 20260725,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "ratings_table dict passed into 29486's OWN B.build_backoff_sel_fn / B.build_scrambled_backoff_sel_fn (item-first, class/verb/global-fallback tiering CODE unchanged): DENSE 732-pair table (579 base + 153 newly-authored item pairs covering every candidate in the 76 real FULL_SLICE competitions) REPLACES 29486's own 579-pair sparse table as that dict's contents. Assignment mechanism / learned gate / role-assignment clf / parser training / tiering code ALL byte-identical reuse of 29483/29486's own code (imported, not re-transcribed).",
+  "bands": {
+    "HP_MIN_FLIPS": 1,
+    "HP_MIN_FLIP_FRACTION": 0.05,
+    "HP_SCRAMBLE_F1_MARGIN": 0.02,
+    "HP_F1_OVER_STRUCTURAL_MIN": 0.01,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HP_MAX_TIED_DENSE": 10,
+    "HF_SCRAMBLE_F1_MARGIN": 0.01,
+    "CITED_29483_F1_INTEGRATED": 0.5738,
+    "CITED_29483_F1_PARSEFIX_ONLY": 0.4651,
+    "CITED_29486_N_TIED_BACKOFF": 40,
+    "CITED_29486_N_COMPETITIONS": 76,
+    "CITED_29486_F1_BACKOFF": 0.5492
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.44,
+      "n_miss": 56,
+      "n_gold_pos": 100,
+      "precision": 0.1956,
+      "recall": 0.44,
+      "f1": 0.2708,
+      "n_pred": 225,
+      "kept_hash": "6fca7838894babc0"
+    },
+    "V2_FRAMES_29478": {
+      "recall_ceiling": 0.6,
+      "n_miss": 40,
+      "n_gold_pos": 100,
+      "precision": 0.3571,
+      "recall": 0.6,
+      "f1": 0.4478,
+      "n_pred": 168,
+      "kept_hash": "da404cb8a4587965"
+    },
+    "V3_PARSEFIX_ONLY": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.3483,
+      "recall": 0.7,
+      "f1": 0.4651,
+      "n_pred": 201,
+      "kept_hash": "1245b95026d62831"
+    },
+    "V3_INTEGRATED": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V3_ARCSCRAMBLE": {
+      "recall_ceiling": 0.26,
+      "n_miss": 74,
+      "n_gold_pos": 100,
+      "precision": 0.3881,
+      "recall": 0.26,
+      "f1": 0.3114,
+      "n_pred": 67,
+      "kept_hash": "938503a5a8745c07"
+    },
+    "V3_KNOWLEDGE_SCRAMBLE": {
+      "recall_ceiling": 0.7,
+      "n_miss": 30,
+      "n_gold_pos": 100,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "f1": 0.5738,
+      "n_pred": 144,
+      "kept_hash": "be02002c1579217f"
+    },
+    "V5_INTEGRATED_DENSE": {
+      "recall_ceiling": 0.65,
+      "n_miss": 35,
+      "n_gold_pos": 100,
+      "precision": 0.4514,
+      "recall": 0.65,
+      "f1": 0.5328,
+      "n_pred": 144,
+      "kept_hash": "d4cf1477609679d1"
+    },
+    "V5_ARCSCRAMBLE_DENSE": {
+      "recall_ceiling": 0.25,
+      "n_miss": 75,
+      "n_gold_pos": 100,
+      "precision": 0.3731,
+      "recall": 0.25,
+      "f1": 0.2994,
+      "n_pred": 67,
+      "kept_hash": "9caa327971c5ea15"
+    },
+    "V5_KNOWLEDGE_SCRAMBLE_DENSE": {
+      "recall_ceiling": 0.61,
+      "n_miss": 39,
+      "n_gold_pos": 100,
+      "precision": 0.4236,
+      "recall": 0.61,
+      "f1": 0.5,
+      "n_pred": 144,
+      "kept_hash": "57a8141424d7d9f4"
+    }
+  },
+  "hard_pass_conditions": {
+    "control_now_flips": true,
+    "flip_fraction_meaningful": true,
+    "control_scramble_hurts_f1": true,
+    "f1_beats_structural_baseline": false,
+    "f1_beats_no_knowledge": true,
+    "control_arcscramble_fires": true,
+    "tie_degeneracy_collapses": true
+  },
+  "hard_fail_reasons": [
+    "F1(V5_INTEGRATED_DENSE) 0.5328 <= cited 29483 F1(V3_INTEGRATED) 0.5738 (dense item coverage adds nothing beyond the pre-fix number; the isolated-2AFC win does not transfer at all even with full item density; selectional knowledge is not the reader's bottleneck at its real decision points)"
+  ],
+  "n_competitions_total": 76,
+  "n_flipped_dense_scheme": 41,
+  "flip_fraction_dense": 0.5395,
+  "n_tied_competitions_dense": 0,
+  "tier_usage": {
+    "tier0_item": 498,
+    "tier2_verbavg": 42,
+    "tier1_class": 14,
+    "tier3_global": 12
+  },
+  "n_gold_determinable": 28,
+  "n_gold_correct": 22,
+  "leakage_fingerprint_divergent_items": [
+    {
+      "sid": "L04_17",
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "scores": [
+        0.5,
+        0.6
+      ],
+      "picked": "heart",
+      "gold_patients": [
+        "way"
+      ]
+    },
+    {
+      "sid": "L05_22",
+      "vlemma": "leave",
+      "candidates": [
+        "it",
+        "tray",
+        "dishes",
+        "hands"
+      ],
+      "scores": [
+        0.6,
+        0.65,
+        0.75,
+        0.4
+      ],
+      "picked": "dishes",
+      "gold_patients": [
+        "it"
+      ]
+    },
+    {
+      "sid": "L05_24",
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "scores": [
+        0.7,
+        0.3,
+        0.85
+      ],
+      "picked": "milk",
+      "gold_patients": [
+        "more"
+      ]
+    },
+    {
+      "sid": "L10_11",
+      "vlemma": "find",
+      "candidates": [
+        "name",
+        "joe"
+      ],
+      "scores": [
+        0.4,
+        0.6
+      ],
+      "picked": "joe",
+      "gold_patients": [
+        "boy"
+      ]
+    },
+    {
+      "sid": "L10_16",
+      "vlemma": "give",
+      "candidates": [
+        "me",
+        "hour",
+        "day",
+        "myself"
+      ],
+      "scores": [
+        0.7,
+        0.15,
+        0.1,
+        0.25
+      ],
+      "picked": "me",
+      "gold_patients": [
+        "hour"
+      ]
+    },
+    {
+      "sid": "L12_07",
+      "vlemma": "brush",
+      "candidates": [
+        "tops",
+        "flowers"
+      ],
+      "scores": [
+        0.35,
+        0.45
+      ],
+      "picked": "flowers",
+      "gold_patients": [
+        "tops"
+      ]
+    }
+  ],
+  "n_divergent_items": 6,
+  "coverage_pct_of_competition_members": 87.99,
+  "comps_dense_real_sample": [
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "herbert",
+        "anger",
+        "dismay"
+      ],
+      "scores": [
+        0.35,
+        0.1,
+        0.1
+      ],
+      "picked": "herbert",
+      "all_tied": false,
+      "sid": "L04_01"
+    },
+    {
+      "vlemma": "rattl",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.05,
+        0.15
+      ],
+      "picked": "floor",
+      "all_tied": false,
+      "sid": "L04_02"
+    },
+    {
+      "vlemma": "sha'n",
+      "candidates": [
+        "hurt",
+        "pussy"
+      ],
+      "scores": [
+        0.05,
+        0.6
+      ],
+      "picked": "pussy",
+      "all_tied": false,
+      "sid": "L04_06"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.05,
+        0.2
+      ],
+      "picked": "floor",
+      "all_tied": false,
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cover",
+      "candidates": [
+        "face",
+        "hands"
+      ],
+      "scores": [
+        0.85,
+        0.55
+      ],
+      "picked": "face",
+      "all_tied": false,
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "milk",
+        "good"
+      ],
+      "scores": [
+        0.55,
+        0.05
+      ],
+      "picked": "milk",
+      "all_tied": false,
+      "sid": "L04_09"
+    },
+    {
+      "vlemma": "rub",
+      "candidates": [
+        "herbert's",
+        "castle"
+      ],
+      "scores": [
+        0.15,
+        0.2
+      ],
+      "picked": "castle",
+      "all_tied": false,
+      "sid": "L04_12"
+    },
+    {
+      "vlemma": "hold",
+      "candidates": [
+        "out",
+        "hands"
+      ],
+      "scores": [
+        0.05,
+        0.9
+      ],
+      "picked": "hands",
+      "all_tied": false,
+      "sid": "L04_14"
+    },
+    {
+      "vlemma": "come",
+      "candidates": [
+        "eyes",
+        "tears"
+      ],
+      "scores": [
+        0.1,
+        0.55
+      ],
+      "picked": "tears",
+      "all_tied": false,
+      "sid": "L04_15"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "scores": [
+        0.5,
+        0.6
+      ],
+      "picked": "heart",
+      "all_tied": false,
+      "sid": "L04_17"
+    },
+    {
+      "vlemma": "show",
+      "candidates": [
+        "you",
+        "way"
+      ],
+      "scores": [
+        0.6,
+        0.75
+      ],
+      "picked": "way",
+      "all_tied": false,
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "blocks",
+        "side"
+      ],
+      "scores": [
+        0.18,
+        0.13
+      ],
+      "picked": "blocks",
+      "all_tied": false,
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "lay",
+      "candidates": [
+        "foundation",
+        "castle"
+      ],
+      "scores": [
+        0.9,
+        0.15
+      ],
+      "picked": "foundation",
+      "all_tied": false,
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "forget",
+      "candidates": [
+        "grief",
+        "few",
+        "minutes"
+      ],
+      "scores": [
+        0.6,
+        0.1,
+        0.3
+      ],
+      "picked": "grief",
+      "all_tied": false,
+      "sid": "L05_05"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "place"
+      ],
+      "scores": [
+        0.05,
+        0.15
+      ],
+      "picked": "place",
+      "all_tied": false,
+      "sid": "L05_07"
+    },
+    {
+      "vlemma": "los",
+      "candidates": [
+        "kite",
+        "thing"
+      ],
+      "scores": [
+        0.8,
+        0.5
+      ],
+      "picked": "kite",
+      "all_tied": false,
+      "sid": "L05_09"
+    },
+    {
+      "vlemma": "see",
+      "candidates": [
+        "papa",
+        "use",
+        "case"
+      ],
+      "scores": [
+        0.8,
+        0.45,
+        0.4
+      ],
+      "picked": "papa",
+      "all_tied": false,
+      "sid": "L05_10"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "sticks",
+        "paper"
+      ],
+      "scores": [
+        0.7,
+        0.6
+      ],
+      "picked": "sticks",
+      "all_tied": false,
+      "sid": "L05_11"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "book"
+      ],
+      "scores": [
+        0.05,
+        0.15
+      ],
+      "picked": "book",
+      "all_tied": false,
+      "sid": "L05_11"
+    },
+    {
+      "vlemma": "speak",
+      "candidates": [
+        "out",
+        "herbert"
+      ],
+      "scores": [
+        0.05,
+        0.2
+      ],
+      "picked": "herbert",
+      "all_tied": false,
+      "sid": "L05_17"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "out",
+        "carriages"
+      ],
+      "scores": [
+        0.05,
+        0.15
+      ],
+      "picked": "carriages",
+      "all_tied": false,
+      "sid": "L05_20"
+    },
+    {
+      "vlemma": "leave",
+      "candidates": [
+        "it",
+        "tray",
+        "dishes",
+        "hands"
+      ],
+      "scores": [
+        0.6,
+        0.65,
+        0.75,
+        0.4
+      ],
+      "picked": "dishes",
+      "all_tied": false,
+      "sid": "L05_22"
+    },
+    {
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "scores": [
+        0.7,
+        0.3,
+        0.85
+      ],
+      "picked": "milk",
+      "all_tied": false,
+      "sid": "L05_24"
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "him",
+        "school"
+      ],
+      "scores": [
+        0.7,
+        0.25
+      ],
+      "picked": "him",
+      "all_tied": false,
+      "sid": "L07_01"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "school",
+        "he"
+      ],
+      "scores": [
+        0.3,
+        0.05
+      ],
+      "picked": "school",
+      "all_tied": false,
+      "sid": "L07_03"
+    },
+    {
+      "vlemma": "tell",
+      "candidates": [
+        "mother",
+        "he",
+        "school"
+      ],
+      "scores": [
+        0.6,
+        0.15,
+        0.2
+      ],
+      "picked": "mother",
+      "all_tied": false,
+      "sid": "L07_06"
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "haste",
+        "home",
+        "school"
+      ],
+      "scores": [
+        0.7,
+        0.5,
+        0.1
+      ],
+      "picked": "haste",
+      "all_tied": false,
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "him",
+        "aunt's"
+      ],
+      "scores": [
+        0.7,
+        0.15
+      ],
+      "picked": "him",
+      "all_tied": false,
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "water",
+        "boats"
+      ],
+      "scores": [
+        0.2,
+        0.1
+      ],
+      "picked": "water",
+      "all_tied": false,
+      "sid": "L07_08"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "james",
+        "money"
+      ],
+      "scores": [
+        0.6,
+        0.85
+      ],
+      "picked": "money",
+      "all_tied": false,
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "them",
+        "water"
+      ],
+      "scores": [
+        0.05,
+        0.2
+      ],
+      "picked": "water",
+      "all_tied": false,
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "think",
+      "candidates": [
+        "danger",
+        "he"
+      ],
+      "scores": [
+        0.35,
+        0.15
+      ],
+      "picked": "danger",
+      "all_tied": false,
+      "sid": "L07_11"
+    },
+    {
+      "vlemma": "struggle",
+      "candidates": [
+        "wind",
+        "tide"
+      ],
+      "scores": [
+        0.3,
+        0.35
+      ],
+      "picked": "tide",
+      "all_tied": false,
+      "sid": "L07_13"
+    },
+    {
+      "vlemma": "save",
+      "candidates": [
+        "them",
+        "watery",
+        "grave"
+      ],
+      "scores": [
+        0.85,
+        0.05,
+        0.15
+      ],
+      "picked": "them",
+      "all_tied": false,
+      "sid": "L07_21"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "they",
+        "clothes"
+      ],
+      "scores": [
+        0.15,
+        0.75
+      ],
+      "picked": "clothes",
+      "all_tied": false,
+      "sid": "L07_22"
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "they",
+        "home",
+        "parents"
+      ],
+      "scores": [
+        0.15,
+        0.3,
+        0.35
+      ],
+      "picked": "parents",
+      "all_tied": false,
+      "sid": "L07_23"
+    },
+    {
+      "vlemma": "know",
+      "candidates": [
+        "he",
+        "same",
+        "thing"
+      ],
+      "scores": [
+        0.1,
+        0.3,
+        0.55
+      ],
+      "picked": "thing",
+      "all_tied": false,
+      "sid": "L07_24"
+    },
+    {
+      "vlemma": "keep",
+      "candidates": [
+        "it",
+        "they",
+        "obey"
+      ],
+      "scores": [
+        0.6,
+        0.2,
+        0.05
+      ],
+      "picked": "it",
+      "all_tied": false,
+      "sid": "L08_08"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "chiefly",
+        "america"
+      ],
+      "scores": [
+        0.05,
+        0.8
+      ],
+      "picked": "america",
+      "all_tied": false,
+      "sid": "L09_01"
+    },
+    {
+      "vlemma": "plac",
+      "candidates": [
+        "great",
+        "number",
+        "huts",
+        "buildings"
+      ],
+      "scores": [
+        0.05,
+        0.2,
+        0.6,
+        0.6
+      ],
+      "picked": "huts",
+      "all_tied": false,
+      "sid": "L09_04"
+    }
+  ],
+  "comps_dense_scr_sample": [
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "herbert",
+        "anger",
+        "dismay"
+      ],
+      "scores": [
+        0.02,
+        0.6,
+        0.02
+      ],
+      "picked": "anger",
+      "all_tied": false,
+      "sid": "L04_01"
+    },
+    {
+      "vlemma": "rattl",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.18,
+        0.7
+      ],
+      "picked": "floor",
+      "all_tied": false,
+      "sid": "L04_02"
+    },
+    {
+      "vlemma": "sha'n",
+      "candidates": [
+        "hurt",
+        "pussy"
+      ],
+      "scores": [
+        0.2,
+        0.1
+      ],
+      "picked": "hurt",
+      "all_tied": false,
+      "sid": "L04_06"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "down",
+        "floor"
+      ],
+      "scores": [
+        0.02,
+        0.05
+      ],
+      "picked": "floor",
+      "all_tied": false,
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cover",
+      "candidates": [
+        "face",
+        "hands"
+      ],
+      "scores": [
+        0.05,
+        0.1
+      ],
+      "picked": "hands",
+      "all_tied": false,
+      "sid": "L04_07"
+    },
+    {
+      "vlemma": "cry",
+      "candidates": [
+        "milk",
+        "good"
+      ],
+      "scores": [
+        0.05,
+        0.02
+      ],
+      "picked": "milk",
+      "all_tied": false,
+      "sid": "L04_09"
+    },
+    {
+      "vlemma": "rub",
+      "candidates": [
+        "herbert's",
+        "castle"
+      ],
+      "scores": [
+        0.1,
+        0.55
+      ],
+      "picked": "castle",
+      "all_tied": false,
+      "sid": "L04_12"
+    },
+    {
+      "vlemma": "hold",
+      "candidates": [
+        "out",
+        "hands"
+      ],
+      "scores": [
+        0.6,
+        0.02
+      ],
+      "picked": "out",
+      "all_tied": false,
+      "sid": "L04_14"
+    },
+    {
+      "vlemma": "come",
+      "candidates": [
+        "eyes",
+        "tears"
+      ],
+      "scores": [
+        0.5,
+        0.1
+      ],
+      "picked": "eyes",
+      "all_tied": false,
+      "sid": "L04_15"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "way",
+        "heart"
+      ],
+      "scores": [
+        0.05,
+        0.2
+      ],
+      "picked": "heart",
+      "all_tied": false,
+      "sid": "L04_17"
+    },
+    {
+      "vlemma": "show",
+      "candidates": [
+        "you",
+        "way"
+      ],
+      "scores": [
+        0.02,
+        0.05
+      ],
+      "picked": "way",
+      "all_tied": false,
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "sit",
+      "candidates": [
+        "blocks",
+        "side"
+      ],
+      "scores": [
+        0.85,
+        0.05
+      ],
+      "picked": "blocks",
+      "all_tied": false,
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "lay",
+      "candidates": [
+        "foundation",
+        "castle"
+      ],
+      "scores": [
+        0.2,
+        0.02
+      ],
+      "picked": "foundation",
+      "all_tied": false,
+      "sid": "L04_19"
+    },
+    {
+      "vlemma": "forget",
+      "candidates": [
+        "grief",
+        "few",
+        "minutes"
+      ],
+      "scores": [
+        0.15,
+        0.05,
+        0.02
+      ],
+      "picked": "grief",
+      "all_tied": false,
+      "sid": "L05_05"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "place"
+      ],
+      "scores": [
+        0.05,
+        0.9
+      ],
+      "picked": "place",
+      "all_tied": false,
+      "sid": "L05_07"
+    },
+    {
+      "vlemma": "los",
+      "candidates": [
+        "kite",
+        "thing"
+      ],
+      "scores": [
+        0.55,
+        0.75
+      ],
+      "picked": "thing",
+      "all_tied": false,
+      "sid": "L05_09"
+    },
+    {
+      "vlemma": "see",
+      "candidates": [
+        "papa",
+        "use",
+        "case"
+      ],
+      "scores": [
+        0.02,
+        0.02,
+        0.15
+      ],
+      "picked": "case",
+      "all_tied": false,
+      "sid": "L05_10"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "sticks",
+        "paper"
+      ],
+      "scores": [
+        0.08,
+        0.5
+      ],
+      "picked": "paper",
+      "all_tied": false,
+      "sid": "L05_11"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "down",
+        "book"
+      ],
+      "scores": [
+        0.05,
+        0.02
+      ],
+      "picked": "down",
+      "all_tied": false,
+      "sid": "L05_11"
+    },
+    {
+      "vlemma": "speak",
+      "candidates": [
+        "out",
+        "herbert"
+      ],
+      "scores": [
+        0.8,
+        0.45
+      ],
+      "picked": "out",
+      "all_tied": false,
+      "sid": "L05_17"
+    },
+    {
+      "vlemma": "look",
+      "candidates": [
+        "out",
+        "carriages"
+      ],
+      "scores": [
+        0.55,
+        0.7
+      ],
+      "picked": "carriages",
+      "all_tied": false,
+      "sid": "L05_20"
+    },
+    {
+      "vlemma": "leave",
+      "candidates": [
+        "it",
+        "tray",
+        "dishes",
+        "hands"
+      ],
+      "scores": [
+        0.95,
+        0.7,
+        0.2,
+        0.7
+      ],
+      "picked": "it",
+      "all_tied": false,
+      "sid": "L05_22"
+    },
+    {
+      "vlemma": "want",
+      "candidates": [
+        "more",
+        "crying",
+        "milk"
+      ],
+      "scores": [
+        0.85,
+        0.15,
+        0.7
+      ],
+      "picked": "more",
+      "all_tied": false,
+      "sid": "L05_24"
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "him",
+        "school"
+      ],
+      "scores": [
+        0.45,
+        0.05
+      ],
+      "picked": "him",
+      "all_tied": false,
+      "sid": "L07_01"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "school",
+        "he"
+      ],
+      "scores": [
+        0.4,
+        0.15
+      ],
+      "picked": "school",
+      "all_tied": false,
+      "sid": "L07_03"
+    },
+    {
+      "vlemma": "tell",
+      "candidates": [
+        "mother",
+        "he",
+        "school"
+      ],
+      "scores": [
+        0.1,
+        0.1,
+        0.18
+      ],
+      "picked": "school",
+      "all_tied": false,
+      "sid": "L07_06"
+    },
+    {
+      "vlemma": "make",
+      "candidates": [
+        "haste",
+        "home",
+        "school"
+      ],
+      "scores": [
+        0.5,
+        0.55,
+        0.1
+      ],
+      "picked": "home",
+      "all_tied": false,
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "him",
+        "aunt's"
+      ],
+      "scores": [
+        0.85,
+        0.4
+      ],
+      "picked": "him",
+      "all_tied": false,
+      "sid": "L07_07"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "water",
+        "boats"
+      ],
+      "scores": [
+        0.4,
+        0.4
+      ],
+      "picked": "water",
+      "all_tied": true,
+      "sid": "L07_08"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "james",
+        "money"
+      ],
+      "scores": [
+        0.7,
+        0.7
+      ],
+      "picked": "james",
+      "all_tied": true,
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "go",
+      "candidates": [
+        "them",
+        "water"
+      ],
+      "scores": [
+        0.15,
+        0.4
+      ],
+      "picked": "water",
+      "all_tied": false,
+      "sid": "L07_10"
+    },
+    {
+      "vlemma": "think",
+      "candidates": [
+        "danger",
+        "he"
+      ],
+      "scores": [
+        0.15,
+        0.5
+      ],
+      "picked": "he",
+      "all_tied": false,
+      "sid": "L07_11"
+    },
+    {
+      "vlemma": "struggle",
+      "candidates": [
+        "wind",
+        "tide"
+      ],
+      "scores": [
+        0.7,
+        0.1
+      ],
+      "picked": "wind",
+      "all_tied": false,
+      "sid": "L07_13"
+    },
+    {
+      "vlemma": "save",
+      "candidates": [
+        "them",
+        "watery",
+        "grave"
+      ],
+      "scores": [
+        0.9,
+        0.4,
+        0.5
+      ],
+      "picked": "them",
+      "all_tied": false,
+      "sid": "L07_21"
+    },
+    {
+      "vlemma": "take",
+      "candidates": [
+        "they",
+        "clothes"
+      ],
+      "scores": [
+        0.2,
+        0.1
+      ],
+      "picked": "they",
+      "all_tied": false,
+      "sid": "L07_22"
+    },
+    {
+      "vlemma": "send",
+      "candidates": [
+        "they",
+        "home",
+        "parents"
+      ],
+      "scores": [
+        0.6,
+        0.05,
+        0.7
+      ],
+      "picked": "parents",
+      "all_tied": false,
+      "sid": "L07_23"
+    },
+    {
+      "vlemma": "know",
+      "candidates": [
+        "he",
+        "same",
+        "thing"
+      ],
+      "scores": [
+        0.15,
+        0.2,
+        0.1
+      ],
+      "picked": "same",
+      "all_tied": false,
+      "sid": "L07_24"
+    },
+    {
+      "vlemma": "keep",
+      "candidates": [
+        "it",
+        "they",
+        "obey"
+      ],
+      "scores": [
+        0.3,
+        0.9,
+        0.6
+      ],
+      "picked": "they",
+      "all_tied": false,
+      "sid": "L08_08"
+    },
+    {
+      "vlemma": "find",
+      "candidates": [
+        "chiefly",
+        "america"
+      ],
+      "scores": [
+        0.85,
+        0.1
+      ],
+      "picked": "chiefly",
+      "all_tied": false,
+      "sid": "L09_01"
+    },
+    {
+      "vlemma": "plac",
+      "candidates": [
+        "great",
+        "number",
+        "huts",
+        "buildings"
+      ],
+      "scores": [
+        0.85,
+        0.4,
+        0.9,
+        0.05
+      ],
+      "picked": "huts",
+      "all_tied": false,
+      "sid": "L09_04"
+    }
+  ],
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 108.1,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_29483": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "f1_integrated": 0.5738,
+    "f1_parsefix_only": 0.4651
+  },
+  "cited_29486": {
+    "source": "data/exp_multipred_argstruct_kboov_backoff_v1/metrics.json",
+    "f1_integrated_backoff": 0.5492,
+    "n_tied_competitions_backoff": 40,
+    "n_competitions_total": 76,
+    "note": "class/verb-average back-off revived the scramble control (0->21/76) but net-WORSENED F1 (0.5738->0.5492) and left 40/76 competitions tie-degenerate; this cell tests whether ITEM-LEVEL density (not class smoothing) closes both gaps"
+  },
+  "cited_29479": {
+    "source": "data/exp_pivot_scaled_seed_knowledge_table_v1/metrics.json",
+    "isolated_2afc_lift": 0.199
+  },
+  "leakage_authoring_protocol": "153 new item-pairs authored by the build-time LLM (this session) from a flat, unlabeled list of the exact OOV (verb,noun) pairs at the 76 real FULL_SLICE competitions, rating GENERAL-WORLD plausibility only. gold_mcguffey_lccp_argstruct_v1.json was NOT opened during authoring (same discipline as 29471/29472). Gold was read ONLY here, post-authoring, for scoring + the divergence fingerprint above -- exactly as every other arm's F1 is scored against it.",
+  "scope_caveat": "Parser trained on UD-EWT via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded training budget, byte-identical reuse of 29483's own training code; out-of-domain transfer to 19th-c. McGuffey narrative prose is the SAME untested transfer 29478/29483/29486 already flagged. The 153 new ratings are LLM-self-authored (residual leakage-adjacent risk per 29479's own scope caveat, mitigated but not eliminated by the blind-authoring protocol + gold-divergence fingerprint above); an independent-KB replication (per 29472's VerbNet/WordNet-only construction) is the flagged rigor follow-up for these 153 pairs specifically. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
