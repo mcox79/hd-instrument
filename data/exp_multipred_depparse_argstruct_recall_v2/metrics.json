@@ -1,0 +1,513 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL_PARSER_LIFT",
+  "verdict_msg": "MIDDLE_BAND: no HARD_FAIL trigger fired but not all HARD_PASS conditions held (failing: ['rc_frames_above_bar', 'regression_bounded']). recall_ceiling BASELINE=0.44 -> FRAMES=0.6 (rise 0.16); F1 BASELINE=0.2708 FRAMES=0.4478; precision BASELINE=0.1956 FRAMES=0.3571; ARCSCRAMBLE=0.19; 12 regressed. Per-kind recovered breakdown: {'COORD_VP': 1, 'OTHER_PARSE_DERIVED': 8, 'INF_COMP': 5, 'MAIN': 10, 'REDUCED_RELATIVE_OR_PARTICIPIAL': 4}. Genuine but partial signal; localize which condition failed before escalating scope.",
+  "summary": "MIDDLE_BAND_PARTIAL_PARSER_LIFT: recall_ceiling 0.44->0.6 (rise 0.16) | F1 0.2708->0.4478 | precision base=0.1956 keepall=0.2636 frames=0.3571 arcscramble_rc=0.19 | recovered=28 regressed=12 | lc_rise=0.0529 | parser_uas=0.7882",
+  "elapsed_s": 219.94,
+  "ts_iso": "2026-07-23T14:01:07.150643+00:00",
+  "anchor_name": "multipred_depparse_argstruct_recall_v2",
+  "run_mode": "full",
+  "seed": 20260724,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "parser-integrated predicate + argument-span enumeration (content_verb_indices + parse-derived head-chain candidate assignment, replacing v1's find_predicates trigger-word heuristic and restoring split_sentences) paired with a LEARNED subcat/valency gate (fixes v1's static-VerbNet false-negative bug); role-assignment mechanism (candidate_features + AveragedPerceptron clf) UNCHANGED",
+  "bands": {
+    "HP_RC_MIN": 0.65,
+    "HP_RC_RISE_MIN": 0.15,
+    "HF_RC_RISE_MAX": 0.05,
+    "HP_PRECISION_TOLERANCE": 0.03,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HF_ARCSCRAMBLE_MARGIN": 0.02,
+    "N_REGRESSED_TOLERANCE": 3,
+    "BASELINE_RC_CITED": 0.44,
+    "V1_FRAMES_RC_CITED": 0.47
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.44,
+      "n_miss": 56,
+      "n_gold_pos": 100,
+      "precision": 0.1956,
+      "recall": 0.44,
+      "f1": 0.2708,
+      "n_pred": 225,
+      "subcat_fp": 107,
+      "within_frame_fp": 53,
+      "spurious_verb_fp": 21,
+      "kept_hash": "6fca7838894babc0"
+    },
+    "PARSE_KEEPALL": {
+      "recall_ceiling": 0.63,
+      "n_miss": 37,
+      "n_gold_pos": 100,
+      "precision": 0.2636,
+      "recall": 0.63,
+      "f1": 0.3717,
+      "n_pred": 239,
+      "subcat_fp": 97,
+      "within_frame_fp": 39,
+      "spurious_verb_fp": 40,
+      "kept_hash": "776b7875384f9fb0"
+    },
+    "PARSE_FRAMES": {
+      "recall_ceiling": 0.6,
+      "n_miss": 40,
+      "n_gold_pos": 100,
+      "precision": 0.3571,
+      "recall": 0.6,
+      "f1": 0.4478,
+      "n_pred": 168,
+      "subcat_fp": 38,
+      "within_frame_fp": 36,
+      "spurious_verb_fp": 34,
+      "kept_hash": "da404cb8a4587965"
+    },
+    "PARSE_ARCSCRAMBLE": {
+      "recall_ceiling": 0.19,
+      "n_miss": 81,
+      "n_gold_pos": 100,
+      "precision": 0.25,
+      "recall": 0.19,
+      "f1": 0.2159,
+      "n_pred": 76,
+      "subcat_fp": 26,
+      "within_frame_fp": 18,
+      "spurious_verb_fp": 13,
+      "kept_hash": "3c2734b21327d9dd"
+    },
+    "PARSE_GATESCRAMBLE": {
+      "recall_ceiling": 0.58,
+      "n_miss": 42,
+      "n_gold_pos": 100,
+      "precision": 0.2648,
+      "recall": 0.58,
+      "f1": 0.3636,
+      "n_pred": 219,
+      "subcat_fp": 87,
+      "within_frame_fp": 36,
+      "spurious_verb_fp": 38,
+      "kept_hash": "c4add3a6c709a9a1"
+    }
+  },
+  "hard_pass_conditions": {
+    "rc_frames_above_bar": false,
+    "rc_rise_above_bar": true,
+    "f1_rises": true,
+    "precision_no_collapse": true,
+    "control_gate_off_beats_keepall": true,
+    "control_arcscramble_margin": true,
+    "regression_bounded": false
+  },
+  "hard_fail_reasons": [],
+  "recovered_sample": [
+    [
+      "L04_03",
+      "throw",
+      "it"
+    ],
+    [
+      "L04_07",
+      "cover",
+      "face"
+    ],
+    [
+      "L04_19",
+      "lay",
+      "foundation"
+    ],
+    [
+      "L05_15",
+      "build",
+      "it"
+    ],
+    [
+      "L05_15",
+      "finish",
+      "sentence"
+    ],
+    [
+      "L05_17",
+      "knit",
+      "forehead"
+    ],
+    [
+      "L05_24",
+      "want",
+      "more"
+    ],
+    [
+      "L05_25",
+      "build",
+      "them"
+    ],
+    [
+      "L07_01",
+      "send",
+      "him"
+    ],
+    [
+      "L07_02",
+      "send",
+      "him"
+    ],
+    [
+      "L07_07",
+      "take",
+      "him"
+    ],
+    [
+      "L07_10",
+      "hire",
+      "boat"
+    ],
+    [
+      "L07_21",
+      "save",
+      "them"
+    ],
+    [
+      "L09_06",
+      "make",
+      "dam"
+    ],
+    [
+      "L09_11",
+      "build",
+      "houses"
+    ],
+    [
+      "L09_19",
+      "remind",
+      "him"
+    ],
+    [
+      "L10_09",
+      "send",
+      "him"
+    ],
+    [
+      "L10_09",
+      "teach",
+      "him"
+    ],
+    [
+      "L10_12",
+      "draw",
+      "pictures"
+    ],
+    [
+      "L10_14",
+      "write",
+      "them"
+    ],
+    [
+      "L10_19",
+      "put",
+      "book"
+    ],
+    [
+      "L10_26",
+      "see",
+      "him"
+    ],
+    [
+      "L10_41",
+      "take",
+      "him"
+    ],
+    [
+      "L12_04",
+      "invite",
+      "him"
+    ],
+    [
+      "L12_04",
+      "open",
+      "gate"
+    ],
+    [
+      "L12_10",
+      "shake",
+      "it"
+    ],
+    [
+      "L12_12",
+      "pull",
+      "fruit"
+    ],
+    [
+      "L12_16",
+      "give",
+      "flowers"
+    ]
+  ],
+  "n_recovered": 28,
+  "regressed_sample": [
+    [
+      "L04_02",
+      "rub",
+      "castle"
+    ],
+    [
+      "L04_14",
+      "hold",
+      "hands"
+    ],
+    [
+      "L04_17",
+      "take",
+      "way"
+    ],
+    [
+      "L04_18",
+      "hear",
+      "you"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ],
+    [
+      "L07_06",
+      "say",
+      "lessons"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L07_20",
+      "see",
+      "boys"
+    ],
+    [
+      "L09_16",
+      "hunt",
+      "animals"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ],
+    [
+      "L10_38",
+      "rule",
+      "copybook"
+    ],
+    [
+      "L12_10",
+      "admire",
+      "beauty"
+    ]
+  ],
+  "n_regressed": 12,
+  "kind_counts_recovered": {
+    "COORD_VP": 1,
+    "OTHER_PARSE_DERIVED": 8,
+    "INF_COMP": 5,
+    "MAIN": 10,
+    "REDUCED_RELATIVE_OR_PARTICIPIAL": 4
+  },
+  "nopat_override": [
+    "arrive",
+    "come",
+    "depart",
+    "fall",
+    "go",
+    "know",
+    "look",
+    "mean",
+    "proceed",
+    "remain",
+    "rise",
+    "say",
+    "sit",
+    "stand",
+    "stay",
+    "struggle",
+    "tell",
+    "think",
+    "tread",
+    "wonder"
+  ],
+  "learned_evidence_table": {
+    "cry": true,
+    "fall": true,
+    "rub": true,
+    "rattl": true,
+    "throw": true,
+    "pass": true,
+    "reach": true,
+    "sha'n": true,
+    "mean": true,
+    "sit": true,
+    "cover": true,
+    "say": true,
+    "build": true,
+    "exclaim": true,
+    "open": true,
+    "answer": true,
+    "hold": true,
+    "get": true,
+    "come": true,
+    "take": true,
+    "sing": true,
+    "show": true,
+    "nod": true,
+    "lay": true,
+    "ask": true,
+    "forget": true,
+    "knock": true,
+    "flit": true,
+    "tell": true,
+    "look": true,
+    "wonder": true,
+    "retort": true,
+    "los": true,
+    "see": true,
+    "make": true,
+    "finish": true,
+    "can't": true,
+    "speak": true,
+    "knit": true,
+    "grown": true,
+    "go": true,
+    "keep": true,
+    "leave": true,
+    "believe": true,
+    "want": true,
+    "send": true,
+    "spend": true,
+    "meet": true,
+    "find": true,
+    "give": true,
+    "hire": true,
+    "think": true,
+    "manage": true,
+    "struggle": true,
+    "upset": true,
+    "know": true,
+    "save": true,
+    "attend": true,
+    "obey": true,
+    "stroke": true,
+    "choose": true,
+    "hear": true,
+    "intend": true,
+    "shap": true,
+    "lie": true,
+    "plac": true,
+    "swim": true,
+    "obtain": true,
+    "gnaw": true,
+    "peel": true,
+    "hunt": true,
+    "call": true,
+    "leap": true,
+    "push": true,
+    "remind": true,
+    "kill": true,
+    "disturb": true,
+    "live": true,
+    "amuse": true,
+    "stand": true,
+    "teach": true,
+    "inquire": true,
+    "draw": true,
+    "write": true,
+    "thank": true,
+    "wish": true,
+    "put": true,
+    "tak": true,
+    "trust": true,
+    "walk": true,
+    "rule": true,
+    "fear": true,
+    "joe": true,
+    "invite": true,
+    "turn": true,
+    "touch": true,
+    "brush": true,
+    "break": true,
+    "admire": true,
+    "shake": true,
+    "assure": true,
+    "meddle": true,
+    "pull": true,
+    "felt": true,
+    "continue": true,
+    "enjoy": true
+  },
+  "scrambled_table_size": 111,
+  "learning_curve": {
+    "points": [
+      {
+        "frac": 0.25,
+        "n_train_examples": 11,
+        "f1": 0.3949,
+        "precision": 0.2897,
+        "recall": 0.62
+      },
+      {
+        "frac": 0.5,
+        "n_train_examples": 22,
+        "f1": 0.3699,
+        "precision": 0.587,
+        "recall": 0.27
+      },
+      {
+        "frac": 0.75,
+        "n_train_examples": 34,
+        "f1": 0.4366,
+        "precision": 0.337,
+        "recall": 0.62
+      },
+      {
+        "frac": 1.0,
+        "n_train_examples": 45,
+        "f1": 0.4478,
+        "precision": 0.3571,
+        "recall": 0.6
+      }
+    ],
+    "n_points": 4,
+    "lc_rise": 0.0529
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 62.3,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "vn_false_negative_audit": {
+    "put_old_verbnet": false,
+    "hear_old_verbnet": false,
+    "put_learned": true,
+    "hear_learned": true
+  },
+  "cited_baseline": {
+    "source": "notes/research_recall_miss_extraction_vs_filter_diagnosis_2026-07-23.md",
+    "recall_ceiling": 0.44,
+    "n_category_d_misses": 38,
+    "n_total_misses": 56,
+    "n_gold_pos": 100
+  },
+  "cited_v1_hard_fail": {
+    "source": "data/exp_multipred_subcat_argstruct_recall_v1/metrics.json",
+    "recall_ceiling": 0.47,
+    "verdict": "HARD_FAIL_MULTIPRED_NEEDS_REAL_PARSE"
+  },
+  "scope_caveat": "Parser trained on UD-EWT (newswire/web/blog text) via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded training budget (NOT the 29451 atom's own trained weights, which cannot be reused without importing/re-running that script's unconditional module-scope experiment); out-of-domain transfer to 19th-c. McGuffey narrative prose, plus PTB->UPOS tag-mapping approximation, are UNTESTED prior to this run -- the parse-scramble control is the load-bearing check for whether this transfer actually carries usable structure. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
