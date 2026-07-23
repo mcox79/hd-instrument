@@ -1,0 +1,3483 @@
+{
+  "anchor_name": "parser_selfimprove_case_sleep_ppattach_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | out-of-sample PP-attachment census: 2007 instances, 584 parser errors (base_acc=0.709, parser_uas_dev=0.7855); PER-CLUSTER GATE: 202 clusters total (90 promoted to RULE / 112 stayed EPISODIC-ONLY, rule_ratio=0.4455); held-out (verb-disjoint) generalization: CLUSTER_GATED fix_rate=0.4577 (base_rate=0.5817, net_gain=0.0587, rescue_prec=0.6537) | SCRAMBLE collapse=0.3959 (need>=0.15) | ZERO_CYCLES net_gain=0.0 (need flat <= 0.02) | KNN_SIMILARITY fix=0.1517 gain=0.012 (CG beat_margin=0.0467, need>=0.05) | MEMORIZE fix=0.0 gain=0.0 (CG beat_margin=0.0587, need>=0.05) | rule_knn_agreement=0.8918 (>=0.95 = trap-fired) | vs UNGATED(coherent) fix=0.3745 gain=0.0494 collapse=-0.1072 (CG beats ungated by 0.0093) | leak_clean=True baseline_in_band=True",
+  "summary": "MIDDLE_BAND | out-of-sample PP-attachment census: 2007 instances, 584 parser errors (base_acc=0.709, parser_uas_dev=0.7855); PER-CLUSTER GATE: 202 clusters total (90 promoted to RULE / 112 stayed EPISODIC-ONLY, rule_ratio=0.4455); held-out (verb-disjoint) generalization: CLUSTER_GATED fix_rate=0.4577 (base_rate=0.5817, net_gain=0.0587, rescue_prec=0.6537) | SCRAMBLE collapse=0.3959 (need>=0.15) | ZERO_CYCLES net_gain=0.0 (need flat <= 0.02) | KNN_SIMILARITY fix=0.1517 gain=0.012 (CG beat_margin=0.0467, need>=0.05) | MEMORIZE fix=0.0 gain=0.0 (CG beat_margin=0.0587, need>=0.05) | rule_knn_agreement=0.8918 (>=0.95 = trap-fired) | vs UNGATED(coherent) fix=0.3745 gain=0.0494 collapse=-0.1072 (CG beats ungated by 0.0093) | leak_clean=True baseline_in_band=True",
+  "elapsed_s": 82.56,
+  "ts_iso": "2026-07-23T14:31:33.040419+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "expected_n_seed_rows": 3,
+  "n_seed_rows": 3,
+  "cardinality_ok": true,
+  "census": {
+    "n_pp_instances": 2007,
+    "n_base_errors": 584,
+    "base_acc_all": 0.709,
+    "n_distinct_governing_verbs": 508,
+    "class_balance_gold": {
+      "NOUN": 850,
+      "VERB": 1157
+    },
+    "class_balance_pred": {
+      "NOUN": 830,
+      "VERB": 940,
+      "OTHER": 237
+    }
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 4,
+    "elapsed_s": 31.1,
+    "uas_dev": 0.7855,
+    "n_dev": 600
+  },
+  "PRIMARY_heldout_fix_rate_cluster_gated": 0.4577,
+  "base_rate_majority": 0.5817,
+  "heldout_net_gain_cluster_gated": 0.0587,
+  "rescue_precision_cluster_gated": 0.6537,
+  "MUSTFAIL_scramble_gain_collapse": 0.3959,
+  "scramble_collapses_gain": true,
+  "MUSTFAIL_zero_cycles_net_gain": 0.0,
+  "zero_cycles_flat": true,
+  "CONTROL_knn_similarity_fix_rate": 0.1517,
+  "CONTROL_knn_similarity_net_gain": 0.012,
+  "CONTROL_memorize_fix_rate": 0.0,
+  "CONTROL_memorize_net_gain": 0.0,
+  "beat_knn_margin_mean": 0.0467,
+  "beat_memo_margin_mean": 0.0587,
+  "beat_ungated_margin_mean": 0.0093,
+  "beats_knn_hard_pass": false,
+  "beats_memo_hard_pass": true,
+  "all_seeds_net_gain_positive": true,
+  "all_seeds_beat_knn": false,
+  "all_seeds_beat_memo": true,
+  "rule_knn_agreement_mean": 0.8918,
+  "rule_reduces_to_knn_trap_fired": false,
+  "n_clusters_total": 202,
+  "n_rule_clusters_total": 90,
+  "n_episodic_clusters_total": 112,
+  "rule_cluster_ratio": 0.4455,
+  "UNGATED_COMPARISON_fix_rate": 0.3745,
+  "UNGATED_COMPARISON_net_gain": 0.0494,
+  "UNGATED_COMPARISON_scramble_collapse": -0.1072,
+  "fast_seen_recall_mean": 0.9264,
+  "leak_clean": true,
+  "baseline_in_band": true,
+  "baseline_heldout_acc": 0.7101,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "generalization fix-rate; noise floor=1/n_heldout_fail",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <6min)",
+  "calibration_check": "adaptive_with_discriminator_gate (tau on SEEN net_gain; scramble+zero_cycles+knn+memo verify fire)",
+  "deterministic_seeding": true,
+  "compose_in_cell_no_hdlab_mutation": true,
+  "additive_store_note": "Per-cluster gate (USER 2026-07-23): rule clusters consolidated via continual.replay_cycle over CENTROIDS (prototype abstraction, not raw per-item Hebbian sum); episodic clusters use near-exact cosine recall only, no generalization claimed. role_space=W@sig over centroids is still linear (atom 29440 lineage) -- the knn_similarity + memorize arms + rule_knn_agreement diagnostic are the load-bearing checks for whether promoted rules genuinely beat item-level similarity or just reproduce it at cluster granularity",
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_seen_verbs": 305,
+      "n_seen_fail": 357,
+      "n_heldout": 767,
+      "n_heldout_fail": 227,
+      "base_rate_majority": 0.5066,
+      "tau_coherent": 0.010044,
+      "fast_seen_recall": 0.9356,
+      "schema": {
+        "n_schemas": 71,
+        "mean_role_purity": 0.7977,
+        "compression": 5.03
+      },
+      "coherent": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.7536,
+        "net_gain": 0.0495,
+        "fixes": 85,
+        "breaks": 47,
+        "overrides": 144,
+        "heldout_fix_rate": 0.3744,
+        "collateral_rate": 0.087,
+        "rescue_precision": 0.6439
+      },
+      "scramble": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.5541,
+        "net_gain": -0.1499,
+        "fixes": 115,
+        "breaks": 230,
+        "overrides": 396,
+        "heldout_fix_rate": 0.5066,
+        "collateral_rate": 0.4259,
+        "rescue_precision": 0.3333
+      },
+      "order_scramble": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.7419,
+        "net_gain": 0.0378,
+        "fixes": 95,
+        "breaks": 66,
+        "overrides": 176,
+        "heldout_fix_rate": 0.4185,
+        "collateral_rate": 0.1222,
+        "rescue_precision": 0.5901
+      },
+      "zero_cycles": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.704,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_similarity": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.704,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "memorize": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.704,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "gain_collapse_scramble": -0.1322,
+      "beat_knn_margin": 0.0495,
+      "beat_memo_margin": 0.0495,
+      "coherent_beats_knn_fixrate": true,
+      "coherent_beats_memo_fixrate": true,
+      "cycles_curve": [
+        {
+          "n_cycles": 0,
+          "net_gain": 0.0,
+          "heldout_fix_rate": 0.0,
+          "rescue_precision": null
+        },
+        {
+          "n_cycles": 1,
+          "net_gain": 0.0469,
+          "heldout_fix_rate": 0.2467,
+          "rescue_precision": 0.7368
+        },
+        {
+          "n_cycles": 2,
+          "net_gain": 0.0495,
+          "heldout_fix_rate": 0.3789,
+          "rescue_precision": 0.6418
+        },
+        {
+          "n_cycles": 3,
+          "net_gain": 0.0495,
+          "heldout_fix_rate": 0.2203,
+          "rescue_precision": 0.8065
+        },
+        {
+          "n_cycles": 6,
+          "net_gain": 0.0495,
+          "heldout_fix_rate": 0.3744,
+          "rescue_precision": 0.6439
+        }
+      ],
+      "cluster_gated": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.7523,
+        "net_gain": 0.0482,
+        "fixes": 63,
+        "breaks": 26,
+        "overrides": 90,
+        "heldout_fix_rate": 0.2775,
+        "collateral_rate": 0.0481,
+        "rescue_precision": 0.7079
+      },
+      "cluster_gated_scramble": {
+        "n_heldout": 767,
+        "n_heldout_fail": 227,
+        "n_heldout_correct": 540,
+        "base_acc": 0.704,
+        "loop_acc": 0.7066,
+        "net_gain": 0.0026,
+        "fixes": 19,
+        "breaks": 17,
+        "overrides": 49,
+        "heldout_fix_rate": 0.0837,
+        "collateral_rate": 0.0315,
+        "rescue_precision": 0.5278
+      },
+      "cluster_summary": {
+        "n_clusters": 71,
+        "n_rule_clusters": 32,
+        "n_episodic_clusters": 39,
+        "n_rule_cases_abstracted": 32,
+        "n_episodic_cases": 171,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 12,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 2,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 5,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 8,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 8,
+            "size": 9,
+            "purity": 0.7778,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 9,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 11,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 12,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 13,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 10,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 16,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 17,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 19,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 20,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 23,
+            "size": 7,
+            "purity": 0.8571,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 24,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 25,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 11,
+            "purity": 0.9091,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 28,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 30,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 31,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 32,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 33,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 34,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 35,
+            "size": 14,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 36,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 37,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 38,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 39,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 40,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 41,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 42,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 43,
+            "size": 9,
+            "purity": 0.7778,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 44,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 45,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 46,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 47,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 48,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 49,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 50,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 51,
+            "size": 8,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 52,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 53,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 54,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 55,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 56,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 57,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 58,
+            "size": 10,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 59,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 60,
+            "size": 10,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 61,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 62,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 63,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 64,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 65,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 66,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 67,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 68,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 69,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 70,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          }
+        ]
+      },
+      "cluster_summary_scramble": {
+        "n_clusters": 71,
+        "n_rule_clusters": 21,
+        "n_episodic_clusters": 50,
+        "n_rule_cases_abstracted": 21,
+        "n_episodic_cases": 244,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 12,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 2,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 3,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 5,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 8,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 9,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 11,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 12,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 13,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 10,
+            "purity": 0.9,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 17,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 19,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 20,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 9,
+            "purity": 0.7778,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 23,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 24,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 25,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 27,
+            "size": 11,
+            "purity": 0.6364,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 28,
+            "size": 9,
+            "purity": 0.7778,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 29,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 30,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 31,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 32,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 33,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 34,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 35,
+            "size": 14,
+            "purity": 0.5714,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 36,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 37,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 38,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 39,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 40,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 41,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 42,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 43,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 44,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 45,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 46,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 47,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 48,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 49,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 50,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 51,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 52,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 53,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 54,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 55,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 56,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 57,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 58,
+            "size": 10,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 59,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 60,
+            "size": 10,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 61,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 62,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 63,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 64,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 65,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 66,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 67,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 68,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 69,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 70,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          }
+        ]
+      },
+      "gain_collapse_cluster_gated": 0.1938,
+      "beat_knn_margin_cg": 0.0482,
+      "beat_memo_margin_cg": 0.0482,
+      "beat_ungated_margin": -0.0013,
+      "cg_beats_knn_fixrate": true,
+      "cg_beats_memo_fixrate": true,
+      "n_rule_routed_heldout": 335,
+      "n_episodic_routed_heldout": 0,
+      "rule_knn_agreement": 0.9522
+    },
+    {
+      "seed": 13,
+      "n_seen_verbs": 305,
+      "n_seen_fail": 356,
+      "n_heldout": 811,
+      "n_heldout_fail": 228,
+      "base_rate_majority": 0.6316,
+      "tau_coherent": 0.004231,
+      "fast_seen_recall": 0.8904,
+      "schema": {
+        "n_schemas": 71,
+        "mean_role_purity": 0.8224,
+        "compression": 5.01
+      },
+      "coherent": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.7805,
+        "net_gain": 0.0617,
+        "fixes": 74,
+        "breaks": 24,
+        "overrides": 99,
+        "heldout_fix_rate": 0.3246,
+        "collateral_rate": 0.0412,
+        "rescue_precision": 0.7551
+      },
+      "scramble": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.6868,
+        "net_gain": -0.0321,
+        "fixes": 94,
+        "breaks": 120,
+        "overrides": 230,
+        "heldout_fix_rate": 0.4123,
+        "collateral_rate": 0.2058,
+        "rescue_precision": 0.4393
+      },
+      "order_scramble": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.7731,
+        "net_gain": 0.0543,
+        "fixes": 90,
+        "breaks": 46,
+        "overrides": 143,
+        "heldout_fix_rate": 0.3947,
+        "collateral_rate": 0.0789,
+        "rescue_precision": 0.6618
+      },
+      "zero_cycles": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.7189,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_similarity": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.725,
+        "net_gain": 0.0062,
+        "fixes": 11,
+        "breaks": 6,
+        "overrides": 19,
+        "heldout_fix_rate": 0.0482,
+        "collateral_rate": 0.0103,
+        "rescue_precision": 0.6471
+      },
+      "memorize": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.7189,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "gain_collapse_scramble": -0.0877,
+      "beat_knn_margin": 0.0555,
+      "beat_memo_margin": 0.0617,
+      "coherent_beats_knn_fixrate": true,
+      "coherent_beats_memo_fixrate": true,
+      "cycles_curve": [
+        {
+          "n_cycles": 0,
+          "net_gain": 0.0,
+          "heldout_fix_rate": 0.0,
+          "rescue_precision": null
+        },
+        {
+          "n_cycles": 1,
+          "net_gain": 0.0678,
+          "heldout_fix_rate": 0.386,
+          "rescue_precision": 0.7273
+        },
+        {
+          "n_cycles": 2,
+          "net_gain": 0.0727,
+          "heldout_fix_rate": 0.6096,
+          "rescue_precision": 0.6347
+        },
+        {
+          "n_cycles": 3,
+          "net_gain": 0.0678,
+          "heldout_fix_rate": 0.3991,
+          "rescue_precision": 0.7165
+        },
+        {
+          "n_cycles": 6,
+          "net_gain": 0.0617,
+          "heldout_fix_rate": 0.3246,
+          "rescue_precision": 0.7551
+        }
+      ],
+      "cluster_gated": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.8089,
+        "net_gain": 0.09,
+        "fixes": 173,
+        "breaks": 100,
+        "overrides": 290,
+        "heldout_fix_rate": 0.7588,
+        "collateral_rate": 0.1715,
+        "rescue_precision": 0.6337
+      },
+      "cluster_gated_scramble": {
+        "n_heldout": 811,
+        "n_heldout_fail": 228,
+        "n_heldout_correct": 583,
+        "base_acc": 0.7189,
+        "loop_acc": 0.7226,
+        "net_gain": 0.0037,
+        "fixes": 8,
+        "breaks": 5,
+        "overrides": 16,
+        "heldout_fix_rate": 0.0351,
+        "collateral_rate": 0.0086,
+        "rescue_precision": 0.6154
+      },
+      "cluster_summary": {
+        "n_clusters": 71,
+        "n_rule_clusters": 34,
+        "n_episodic_clusters": 37,
+        "n_rule_cases_abstracted": 34,
+        "n_episodic_cases": 155,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 2,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 8,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 5,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 6,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 8,
+            "size": 14,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 11,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 12,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 13,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 17,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 19,
+            "size": 11,
+            "purity": 0.6364,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 20,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 23,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 24,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 25,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 26,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 28,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 30,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 31,
+            "size": 10,
+            "purity": 0.9,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 32,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 33,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 34,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 35,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 36,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 37,
+            "size": 10,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 38,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 39,
+            "size": 15,
+            "purity": 0.5333,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 40,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 41,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 42,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 43,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 44,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 45,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 46,
+            "size": 8,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 47,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 48,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 49,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 50,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 51,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 52,
+            "size": 11,
+            "purity": 0.8182,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 53,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 54,
+            "size": 7,
+            "purity": 0.8571,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 55,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 56,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 57,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 58,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 59,
+            "size": 11,
+            "purity": 0.8182,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 60,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 61,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 62,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 63,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 64,
+            "size": 7,
+            "purity": 0.8571,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 65,
+            "size": 23,
+            "purity": 0.7826,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 66,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 67,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 68,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 69,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 70,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          }
+        ]
+      },
+      "cluster_summary_scramble": {
+        "n_clusters": 71,
+        "n_rule_clusters": 17,
+        "n_episodic_clusters": 54,
+        "n_rule_cases_abstracted": 17,
+        "n_episodic_cases": 277,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 2,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 8,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 4,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 5,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 6,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 8,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 8,
+            "size": 14,
+            "purity": 0.6429,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 11,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 12,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 13,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 17,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 19,
+            "size": 11,
+            "purity": 0.6364,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 20,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 21,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 23,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 24,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 25,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 26,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 28,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 30,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 31,
+            "size": 10,
+            "purity": 0.8,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 32,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 33,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 34,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 35,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 36,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 37,
+            "size": 10,
+            "purity": 0.7,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 38,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 39,
+            "size": 15,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 40,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 41,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 42,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 43,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 44,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 45,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 46,
+            "size": 8,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 47,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 48,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 49,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 50,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 51,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 52,
+            "size": 11,
+            "purity": 0.8182,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 53,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 54,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 55,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 56,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 57,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 58,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 59,
+            "size": 11,
+            "purity": 0.5455,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 60,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 61,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 62,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 63,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 64,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 65,
+            "size": 23,
+            "purity": 0.5652,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 66,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 67,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 68,
+            "size": 7,
+            "purity": 0.8571,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 69,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 70,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          }
+        ]
+      },
+      "gain_collapse_cluster_gated": 0.7237,
+      "beat_knn_margin_cg": 0.0838,
+      "beat_memo_margin_cg": 0.09,
+      "beat_ungated_margin": 0.0283,
+      "cg_beats_knn_fixrate": true,
+      "cg_beats_memo_fixrate": true,
+      "n_rule_routed_heldout": 811,
+      "n_episodic_routed_heldout": 0,
+      "rule_knn_agreement": 0.8385
+    },
+    {
+      "seed": 19,
+      "n_seen_verbs": 305,
+      "n_seen_fail": 299,
+      "n_heldout": 974,
+      "n_heldout_fail": 285,
+      "base_rate_majority": 0.607,
+      "tau_coherent": 0.004141,
+      "fast_seen_recall": 0.9532,
+      "schema": {
+        "n_schemas": 60,
+        "mean_role_purity": 0.7864,
+        "compression": 4.98
+      },
+      "coherent": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.7444,
+        "net_gain": 0.037,
+        "fixes": 121,
+        "breaks": 85,
+        "overrides": 219,
+        "heldout_fix_rate": 0.4246,
+        "collateral_rate": 0.1234,
+        "rescue_precision": 0.5874
+      },
+      "scramble": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.5349,
+        "net_gain": -0.1725,
+        "fixes": 150,
+        "breaks": 318,
+        "overrides": 525,
+        "heldout_fix_rate": 0.5263,
+        "collateral_rate": 0.4615,
+        "rescue_precision": 0.3205
+      },
+      "order_scramble": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.7567,
+        "net_gain": 0.0493,
+        "fixes": 115,
+        "breaks": 67,
+        "overrides": 193,
+        "heldout_fix_rate": 0.4035,
+        "collateral_rate": 0.0972,
+        "rescue_precision": 0.6319
+      },
+      "zero_cycles": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.7074,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_similarity": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.7372,
+        "net_gain": 0.0298,
+        "fixes": 116,
+        "breaks": 87,
+        "overrides": 221,
+        "heldout_fix_rate": 0.407,
+        "collateral_rate": 0.1263,
+        "rescue_precision": 0.5714
+      },
+      "memorize": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.7074,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "gain_collapse_scramble": -0.1017,
+      "beat_knn_margin": 0.0072,
+      "beat_memo_margin": 0.037,
+      "coherent_beats_knn_fixrate": true,
+      "coherent_beats_memo_fixrate": true,
+      "cycles_curve": [
+        {
+          "n_cycles": 0,
+          "net_gain": 0.0,
+          "heldout_fix_rate": 0.0,
+          "rescue_precision": null
+        },
+        {
+          "n_cycles": 1,
+          "net_gain": 0.0719,
+          "heldout_fix_rate": 0.3649,
+          "rescue_precision": 0.7536
+        },
+        {
+          "n_cycles": 2,
+          "net_gain": 0.0462,
+          "heldout_fix_rate": 0.4281,
+          "rescue_precision": 0.6131
+        },
+        {
+          "n_cycles": 3,
+          "net_gain": 0.0452,
+          "heldout_fix_rate": 0.4,
+          "rescue_precision": 0.6196
+        },
+        {
+          "n_cycles": 6,
+          "net_gain": 0.037,
+          "heldout_fix_rate": 0.4246,
+          "rescue_precision": 0.5874
+        }
+      ],
+      "cluster_gated": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.7454,
+        "net_gain": 0.038,
+        "fixes": 96,
+        "breaks": 59,
+        "overrides": 164,
+        "heldout_fix_rate": 0.3368,
+        "collateral_rate": 0.0856,
+        "rescue_precision": 0.6194
+      },
+      "cluster_gated_scramble": {
+        "n_heldout": 974,
+        "n_heldout_fail": 285,
+        "n_heldout_correct": 689,
+        "base_acc": 0.7074,
+        "loop_acc": 0.6745,
+        "net_gain": -0.0329,
+        "fixes": 19,
+        "breaks": 51,
+        "overrides": 75,
+        "heldout_fix_rate": 0.0667,
+        "collateral_rate": 0.074,
+        "rescue_precision": 0.2714
+      },
+      "cluster_summary": {
+        "n_clusters": 60,
+        "n_rule_clusters": 24,
+        "n_episodic_clusters": 36,
+        "n_rule_cases_abstracted": 24,
+        "n_episodic_cases": 143,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 2,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 5,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 8,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 8,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 11,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 12,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 13,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 14,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 10,
+            "purity": 0.9,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 17,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 9,
+            "purity": 0.8889,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 19,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 20,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 23,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 24,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 25,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 28,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 30,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 31,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 32,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 33,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 34,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 35,
+            "size": 11,
+            "purity": 0.8182,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 36,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 37,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 38,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 39,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 40,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 41,
+            "size": 15,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 42,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 43,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 44,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 45,
+            "size": 12,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 46,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 47,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 48,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 49,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 50,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 51,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 52,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 53,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 54,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 55,
+            "size": 7,
+            "purity": 0.8571,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 56,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 57,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 58,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 59,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          }
+        ]
+      },
+      "cluster_summary_scramble": {
+        "n_clusters": 60,
+        "n_rule_clusters": 17,
+        "n_episodic_clusters": 43,
+        "n_rule_cases_abstracted": 17,
+        "n_episodic_cases": 219,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 2,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 4,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 5,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 8,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 8,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 11,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 12,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 13,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 15,
+            "size": 10,
+            "purity": 0.7,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 16,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 17,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 19,
+            "size": 6,
+            "purity": 0.8333,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 20,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 23,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 24,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 25,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 27,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 28,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 30,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 31,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 32,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 33,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 34,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 35,
+            "size": 11,
+            "purity": 0.5455,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 36,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 37,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 38,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 39,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 40,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 41,
+            "size": 15,
+            "purity": 0.5333,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 42,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 43,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 44,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 45,
+            "size": 12,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 46,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 47,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 48,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 49,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 50,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 51,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 52,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "VERB",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 53,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 54,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 55,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "VERB",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 56,
+            "size": 7,
+            "purity": 0.8571,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 57,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "NOUN",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 58,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 59,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "NOUN",
+            "promoted_to_rule": false
+          }
+        ]
+      },
+      "gain_collapse_cluster_gated": 0.2701,
+      "beat_knn_margin_cg": 0.0082,
+      "beat_memo_margin_cg": 0.038,
+      "beat_ungated_margin": 0.001,
+      "cg_beats_knn_fixrate": false,
+      "cg_beats_memo_fixrate": true,
+      "n_rule_routed_heldout": 495,
+      "n_episodic_routed_heldout": 0,
+      "rule_knn_agreement": 0.8848
+    }
+  ]
+}
