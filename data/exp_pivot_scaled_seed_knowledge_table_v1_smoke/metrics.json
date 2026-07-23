@@ -1,0 +1,235 @@
+{
+  "anchor_name": "pivot_scaled_seed_knowledge_table_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_SCALING_DIDNT_HELP_OR_AUDITOR_VACUOUS",
+  "verdict_msg": "VERDICT_core[COVSLICE n=14] acc_scaled=0.5 acc_thin=0.3571 acc_tiny=0.5357 cov_scaled=0.2857 cov_tiny=0.0357 cov_thin=1.0 | auditor catch_rate=1.0 false_flag_rate=0.1845 n_checkable=436 clean_flag_rate=0.1743 | ORIG[n=59] acc_scaled=0.8136 acc_tiny=0.8136 acc_thin=0.4915 | scope_pairs=579 top_verbs=24 n_mine=500 | band_reason=gap_vs_tiny_cov=-0.036 gap_vs_thin_cov=+0.143 scr_margin_cov=-0.071 catch_rate=1.0 cov_tiny=0.036 random_ok=False base_in_band=True",
+  "summary": "VERDICT_core[COVSLICE n=14] acc_scaled=0.5 acc_thin=0.3571 acc_tiny=0.5357 cov_scaled=0.2857 cov_tiny=0.0357 cov_thin=1.0 | auditor catch_rate=1.0 false_flag_rate=0.1845 n_checkable=436 clean_flag_rate=0.1743 | ORIG[n=59] acc_scaled=0.8136 acc_tiny=0.8136 acc_thin=0.4915 | scope_pairs=579 top_verbs=24 n_mine=500 | band_reason=gap_vs_tiny_cov=-0.036 gap_vs_thin_cov=+0.143 scr_margin_cov=-0.071 catch_rate=1.0 cov_tiny=0.036 random_ok=False base_in_band=True",
+  "elapsed_s": 1.171014599967748,
+  "ts_iso": "2026-07-23T14:10:26.702199+00:00",
+  "n_mining_sentences": 500,
+  "n_scope_pairs": 579,
+  "n_top_verbs": 24,
+  "n_covslice_items": 14,
+  "n_original_items": 59,
+  "coverage_slice": {
+    "n_items": 14,
+    "acc_thin": 0.3571,
+    "acc_tiny": 0.5357,
+    "acc_scaled": 0.5,
+    "acc_random": 0.3571,
+    "acc_scaled_scrambled": 0.5714,
+    "coverage_thin": 1.0,
+    "coverage_tiny": 0.0357,
+    "coverage_scaled": 0.2857,
+    "coverage_curve": {
+      "0.00": 0.3571,
+      "0.25": 0.4286,
+      "0.50": 0.3929,
+      "0.75": 0.3571,
+      "1.00": 0.3571
+    },
+    "cardinality_ok": true,
+    "strat_acc_thin": {
+      "cross_class": 0.1667,
+      "same_class": 0.5
+    },
+    "strat_acc_tiny": {
+      "cross_class": 0.5,
+      "same_class": 0.5625
+    },
+    "strat_acc_scaled": {
+      "cross_class": 0.3333,
+      "same_class": 0.625
+    },
+    "strat_n": {
+      "cross_class": 6,
+      "same_class": 8
+    },
+    "digests": {
+      "thin": "89041cc84986d2eb",
+      "tiny": "039bef6422e15ee6",
+      "scaled": "70f81721dbd8bf84",
+      "random": "cddc8eb9bc72f2bb",
+      "scaled_scrambled": "512cf8f72ed07783"
+    },
+    "arms_differ_verified": true
+  },
+  "original_slice": {
+    "n_items": 59,
+    "acc_thin": 0.4915,
+    "acc_tiny": 0.8136,
+    "acc_scaled": 0.8136,
+    "acc_random": 0.4915,
+    "acc_scaled_scrambled": 0.5254,
+    "coverage_thin": 1.0,
+    "coverage_tiny": 1.0,
+    "coverage_scaled": 1.0,
+    "coverage_curve": {
+      "0.00": 0.4915,
+      "0.25": 0.5847,
+      "0.50": 0.7288,
+      "0.75": 0.7034,
+      "1.00": 0.8136
+    },
+    "cardinality_ok": true,
+    "strat_acc_thin": {
+      "cross_class": 0.3333,
+      "same_class": 0.5
+    },
+    "strat_acc_tiny": {
+      "cross_class": 1.0,
+      "same_class": 0.8036
+    },
+    "strat_acc_scaled": {
+      "cross_class": 1.0,
+      "same_class": 0.8036
+    },
+    "strat_n": {
+      "cross_class": 3,
+      "same_class": 56
+    },
+    "digests": {
+      "thin": "231372ad6c17beb7",
+      "tiny": "5df85d80df03d57b",
+      "scaled": "5df85d80df03d57b",
+      "random": "39c05051bbe534a8",
+      "scaled_scrambled": "68be28e1c41dc938"
+    },
+    "arms_differ_verified": false
+  },
+  "auditor": {
+    "n_checkable": 436,
+    "n_flagged_clean": 76,
+    "clean_flag_rate": 0.1743,
+    "injected_battery": {
+      "n_injected": 24,
+      "n_caught": 24,
+      "catch_rate": 1.0,
+      "n_checkable_rest": 412,
+      "n_rest_flagged": 76,
+      "false_flag_rate": 0.1845,
+      "injected_keys": [
+        [
+          "build",
+          "castle"
+        ],
+        [
+          "count",
+          "heat"
+        ],
+        [
+          "enter",
+          "house"
+        ],
+        [
+          "feel",
+          "care"
+        ],
+        [
+          "fly",
+          "care"
+        ],
+        [
+          "follow",
+          "trade"
+        ],
+        [
+          "go",
+          "college"
+        ],
+        [
+          "happen",
+          "class"
+        ],
+        [
+          "join",
+          "clouds"
+        ],
+        [
+          "know",
+          "know"
+        ],
+        [
+          "know",
+          "words"
+        ],
+        [
+          "leave",
+          "dam"
+        ],
+        [
+          "play",
+          "time"
+        ],
+        [
+          "pull",
+          "flowers"
+        ],
+        [
+          "return",
+          "atmosphere"
+        ],
+        [
+          "slip",
+          "basket"
+        ],
+        [
+          "start",
+          "breakfast"
+        ],
+        [
+          "stroke",
+          "beavers"
+        ],
+        [
+          "teach",
+          "catch"
+        ],
+        [
+          "think",
+          "thought"
+        ],
+        [
+          "watch",
+          "bear"
+        ],
+        [
+          "whisper",
+          "beneath"
+        ],
+        [
+          "work",
+          "father"
+        ],
+        [
+          "write",
+          "age"
+        ]
+      ]
+    },
+    "contra_thresh": 0.45,
+    "n_inject": 24
+  },
+  "baseline_in_band": true,
+  "random_is_chance": false,
+  "discriminator_fires": false,
+  "band_reason": "gap_vs_tiny_cov=-0.036 gap_vs_thin_cov=+0.143 scr_margin_cov=-0.071 catch_rate=1.0 cov_tiny=0.036 random_ok=False base_in_band=True",
+  "runtime_invariant": "glass-box dict lookup ONLY at scoring time; NO LLM/network/autograd at inference (build-time LLM authoring only, exactly 29471's invariant)",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "2AFC discrimination-accuracy; no quantitative noise floor for the discriminator",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "one_variable_note": "Identical 2AFC scorer (P._2afc, imported not reimplemented) and thin/tiny/random mechanisms across both slices. ONLY the SCALED score table is new; coverage-slice items are NEW (structural pseudo-gold from mining-corpus attestation, disjoint SOURCE TEXT from the Third-Reader independent gold).",
+  "leakage_guard": "SCALED table entries rated from a shuffled UNLABELED (verb,noun) pair list (--dump-scope) BEFORE any item/gold-vs-distractor role was assigned to any pair (29471's own discipline). Coverage-slice pseudo-gold = real corpus co-occurrence (structural, not independently human-annotated) -- an HONEST, stated limitation, not the same standard as the Third-Reader gold used for the continuity slice.",
+  "coverage_slice_honest_limitation": "gold_patient = the verb's most-frequent REAL attested content-noun patient in the mining corpus (structural pseudo-gold), NOT independent human argument-structure annotation. Verbs whose gold-schema role is nopat (report/cognition/motion/aspectual, per gold_mcguffey_lccp_argstruct_v1's own definition) are EXCLUDED from being the coverage-slice's positive-attestation verb to avoid clausal-complement mis-parses.",
+  "mapped_ceiling_refs": "29471 HARD_PASS_KNOWLEDGE_POVERTY_WAS_THE_WALL (tiny table): acc_thin=0.475->acc_rich=0.814 on a 59-item PROBE-SCOPED test (rich_cov_on_items=1.000 by construction). 29475 MIDDLE_BAND_PARTIAL_GRANULARITY_RECOVERY (pure ontology): acc_indep_kb=0.568 (gap=+0.093 vs thin), frac_of_llm_lift_recovered=0.275 -- ontology alone recovers ~27%% of the LLM's lift; too sparse without LLM-supplied density.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "coverage_slice",
+    "original_slice",
+    "auditor",
+    "baseline_in_band",
+    "random_is_chance",
+    "runtime_invariant",
+    "leakage_guard"
+  ]
+}

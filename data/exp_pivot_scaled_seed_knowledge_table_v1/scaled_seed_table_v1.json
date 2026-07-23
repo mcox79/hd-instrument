@@ -1,0 +1,3486 @@
+{
+  "_provenance": "LLM-built at BUILD TIME by the exp_dev agent (Claude Opus) from general world knowledge, SCALED to cover the readers actual working vocabulary (frequency-selected top-110 verb lemmas x top-3 attested content-noun patients each from the McGuffey second+fourth reader corpus, UNION the 117-pair tiny 29471 table). Rated from a shuffled UNLABELED pair list; agent never saw gold-vs-distractor pairing at rating time. KB-VETTED: every entry checked against a VerbNet+WordNet auditor (see audit_table() in exp_pivot_scaled_seed_knowledge_table_v1.py) that flags CONTRADICTION (not absence) with the ontologys own checkable selectional signal. Runtime = glass-box dict lookup, NO LLM at inference.",
+  "schema": "vision_ready_concept_keyed_v1",
+  "key_note": "primary key = verb_lemma|noun_lemma (matches THIN/TINY lookup convention); each record ALSO carries verb_concept_id/noun_concept_id (stable WordNet-synset or verbnet-classid identity) for future non-string (e.g. vision) grounding to bind onto without re-keying.",
+  "n_records": 579,
+  "n_from_tiny_table_copied": 117,
+  "n_newly_authored_this_cell": 462,
+  "ratings": {
+    "admire|beauty": 0.9,
+    "admire|way": 0.15,
+    "alight|cold": 0.05,
+    "alight|notoriety": 0.05,
+    "answer|corpse": 0.05,
+    "answer|harder": 0.03,
+    "answer|questions": 0.95,
+    "appear|confusion": 0.15,
+    "appear|notoriety": 0.1,
+    "arm|bow": 0.3,
+    "arm|cloak": 0.15,
+    "ask|god": 0.5,
+    "ask|money": 0.7,
+    "ask|questions": 0.95,
+    "attain|balance": 0.7,
+    "attain|notoriety": 0.85,
+    "attend|account": 0.15,
+    "attend|book": 0.2,
+    "bade|bade": 0.02,
+    "bade|blankets": 0.15,
+    "bade|god": 0.3,
+    "bade|wife": 0.6,
+    "bear|bear": 0.03,
+    "bear|bird": 0.25,
+    "become|attention": 0.05,
+    "become|breadth": 0.05,
+    "become|chubby": 0.02,
+    "become|downward": 0.02,
+    "begin|begin": 0.02,
+    "begin|beneath": 0.02,
+    "begin|branches": 0.2,
+    "believe|anyone": 0.55,
+    "believe|box": 0.05,
+    "believe|everything": 0.75,
+    "break|bones": 0.85,
+    "break|can": 0.3,
+    "break|cane": 0.55,
+    "break|house": 0.3,
+    "brought|boy": 0.5,
+    "brought|cut": 0.05,
+    "brought|estate": 0.5,
+    "brought|raft": 0.6,
+    "brush|places": 0.15,
+    "brush|tops": 0.35,
+    "build|blockhouse": 0.85,
+    "build|blocks": 0.5,
+    "build|blossom": 0.05,
+    "build|boat": 0.8,
+    "build|castle": 0.95,
+    "build|castles": 0.85,
+    "build|darkness": 0.05,
+    "build|firs": 0.1,
+    "build|houses": 0.9,
+    "build|huts": 0.85,
+    "buy|cane": 0.7,
+    "buy|cloak": 0.75,
+    "call|danco": 0.02,
+    "call|ephod": 0.15,
+    "call|fred": 0.6,
+    "carry|basket": 0.9,
+    "carry|cane": 0.5,
+    "carry|dozen": 0.15,
+    "carry|fish": 0.85,
+    "cast|beam": 0.6,
+    "cast|cry": 0.15,
+    "catch|ankles": 0.2,
+    "catch|appearance": 0.1,
+    "catch|catch": 0.03,
+    "catch|sight": 0.75,
+    "cause|animals": 0.15,
+    "cause|beast": 0.1,
+    "cause|creatures": 0.1,
+    "cause|held": 0.02,
+    "choose|abode": 0.55,
+    "choose|address": 0.4,
+    "choose|bedside": 0.2,
+    "choose|boy": 0.5,
+    "choose|places": 0.6,
+    "choose|tops": 0.55,
+    "climb|africa": 0.1,
+    "climb|bank": 0.4,
+    "climb|fur": 0.05,
+    "climb|head": 0.1,
+    "come|creeping": 0.05,
+    "come|day": 0.05,
+    "come|home": 0.35,
+    "consider|bear": 0.3,
+    "consider|bird": 0.4,
+    "continue|hands": 0.04,
+    "continue|walk": 0.6,
+    "count|berry": 0.4,
+    "count|bread": 0.15,
+    "count|heat": 0.05,
+    "count|hours": 0.85,
+    "cover|bones": 0.4,
+    "cover|carpet": 0.6,
+    "cover|face": 0.85,
+    "cover|forehead": 0.6,
+    "crawl|crawls": 0.02,
+    "crawl|trade": 0.02,
+    "crush|animal": 0.7,
+    "crush|animals": 0.7,
+    "cut|cut": 0.02,
+    "cut|dogs": 0.05,
+    "cut|estate": 0.05,
+    "cut|hill": 0.1,
+    "do|afternoon": 0.1,
+    "do|anybody": 0.1,
+    "do|day": 0.2,
+    "do|work": 0.9,
+    "draw|bow": 0.7,
+    "draw|bridge": 0.3,
+    "draw|buckles": 0.35,
+    "draw|cord": 0.6,
+    "draw|pictures": 0.95,
+    "draw|wheel": 0.42,
+    "drop|bedside": 0.05,
+    "drop|cage": 0.4,
+    "drop|door": 0.2,
+    "drop|home": 0.05,
+    "earn|carpet": 0.1,
+    "earn|clothes": 0.6,
+    "eat|acorn": 0.9,
+    "eat|acorns": 0.9,
+    "eat|branches": 0.15,
+    "eat|firs": 0.02,
+    "enjoy|day": 0.8,
+    "enjoy|hour": 0.7,
+    "enter|ball": 0.4,
+    "enter|cell": 0.7,
+    "enter|channel": 0.5,
+    "enter|house": 0.85,
+    "fall|accord": 0.02,
+    "fall|asleep": 0.55,
+    "fall|notice": 0.25,
+    "feel|burden": 0.7,
+    "feel|care": 0.4,
+    "feel|catch": 0.05,
+    "feel|sin": 0.35,
+    "felt|arm": 0.3,
+    "felt|chance": 0.3,
+    "felt|head": 0.4,
+    "felt|loss": 0.7,
+    "find|boy": 0.8,
+    "find|child": 0.85,
+    "find|estate": 0.5,
+    "find|find": 0.02,
+    "find|found": 0.02,
+    "find|way": 0.85,
+    "finish|copybook": 0.7,
+    "finish|sentence": 0.82,
+    "fly|bedside": 0.02,
+    "fly|care": 0.02,
+    "fly|home": 0.1,
+    "fly|window": 0.2,
+    "follow|advice": 0.85,
+    "follow|care": 0.1,
+    "follow|trade": 0.5,
+    "follow|work": 0.3,
+    "forget|catch": 0.05,
+    "forget|composition": 0.6,
+    "forget|eye": 0.1,
+    "forget|glass": 0.4,
+    "forget|grief": 0.6,
+    "forget|money": 0.5,
+    "gather|afternoon": 0.02,
+    "gather|berries": 0.9,
+    "gather|day": 0.02,
+    "gather|driftwood": 0.85,
+    "get|anything": 0.7,
+    "get|beds": 0.4,
+    "get|bird": 0.4,
+    "get|bridge": 0.15,
+    "give|account": 0.6,
+    "give|advice": 0.9,
+    "give|books": 0.85,
+    "give|day": 0.1,
+    "give|dollar": 0.85,
+    "give|flowers": 0.9,
+    "give|fruit": 0.9,
+    "give|george": 0.15,
+    "give|hour": 0.15,
+    "give|kite": 0.8,
+    "give|money": 0.9,
+    "give|words": 0.4,
+    "go|college": 0.3,
+    "go|home": 0.2,
+    "go|school": 0.3,
+    "grew|alfred": 0.05,
+    "grew|children": 0.25,
+    "grew|darker": 0.02,
+    "grew|indians": 0.05,
+    "happen|cane": 0.02,
+    "happen|class": 0.05,
+    "happen|farmer": 0.05,
+    "happen|hat": 0.02,
+    "have|kite": 0.7,
+    "have|money": 0.9,
+    "hear|bell": 0.85,
+    "hear|enchantment": 0.1,
+    "hear|love": 0.15,
+    "hear|mew": 0.7,
+    "hear|sound": 0.9,
+    "hear|time": 0.08,
+    "help|approach": 0.2,
+    "help|child": 0.9,
+    "help|city": 0.4,
+    "help|crawls": 0.02,
+    "hire|blockhouse": 0.28,
+    "hire|boat": 0.8,
+    "hold|bills": 0.6,
+    "hold|hand": 0.9,
+    "hold|hands": 0.9,
+    "hold|head": 0.7,
+    "hold|professorship": 0.7,
+    "hold|walk": 0.05,
+    "hung|blossom": 0.05,
+    "hung|firs": 0.05,
+    "hung|hatchet": 0.6,
+    "hung|head": 0.7,
+    "hunt|animals": 0.85,
+    "hunt|gate": 0.04,
+    "hurt|head": 0.8,
+    "hurt|pussy": 0.6,
+    "join|branches": 0.4,
+    "join|cells": 0.5,
+    "join|clouds": 0.15,
+    "join|crowd": 0.85,
+    "jump|basket": 0.1,
+    "jump|bit": 0.02,
+    "jump|cloak": 0.02,
+    "jump|house": 0.1,
+    "keep|care": 0.3,
+    "keep|gate": 0.6,
+    "keep|place": 0.75,
+    "keep|string": 0.5,
+    "keep|wheel": 0.3,
+    "keep|work": 0.5,
+    "knit|face": 0.1,
+    "knit|forehead": 0.2,
+    "knock|castle": 0.4,
+    "knock|castles": 0.45,
+    "knock|door": 0.85,
+    "knock|houses": 0.4,
+    "know|book": 0.4,
+    "know|heart": 0.6,
+    "know|know": 0.02,
+    "know|sentence": 0.4,
+    "know|words": 0.7,
+    "laugh|face": 0.05,
+    "laugh|grace": 0.02,
+    "laugh|head": 0.02,
+    "laugh|laugh": 0.02,
+    "lay|branches": 0.4,
+    "lay|brood": 0.6,
+    "lay|care": 0.1,
+    "lay|cheek": 0.5,
+    "lay|face": 0.18,
+    "lay|foundation": 0.9,
+    "lead|camp": 0.4,
+    "lead|cap": 0.02,
+    "lean|aprons": 0.02,
+    "lean|arms": 0.3,
+    "lean|creature's": 0.2,
+    "lean|face": 0.2,
+    "learn|bird": 0.15,
+    "learn|day": 0.02,
+    "learn|thee": 0.05,
+    "leave|air": 0.3,
+    "leave|alone": 0.02,
+    "leave|arm": 0.15,
+    "leave|be": 0.02,
+    "leave|dam": 0.45,
+    "leave|room": 0.85,
+    "lie|confusion": 0.05,
+    "lie|day": 0.02,
+    "lie|life": 0.15,
+    "lie|summer": 0.02,
+    "lift|bird": 0.4,
+    "lift|curl": 0.3,
+    "lift|eyes": 0.75,
+    "lift|gilbert": 0.4,
+    "like|animal": 0.6,
+    "like|animals": 0.6,
+    "like|bill": 0.4,
+    "like|cavalry": 0.35,
+    "listen|attention": 0.1,
+    "listen|breadth": 0.02,
+    "listen|course": 0.15,
+    "listen|door": 0.1,
+    "live|acorns": 0.15,
+    "live|age": 0.35,
+    "live|appearance": 0.05,
+    "live|home": 0.1,
+    "look|attic": 0.05,
+    "look|breakfast": 0.05,
+    "look|child": 0.05,
+    "lost|balance": 0.85,
+    "lost|dogs": 0.5,
+    "lost|fear": 0.4,
+    "lost|life": 0.7,
+    "love|enchantment": 0.15,
+    "love|fault": 0.1,
+    "love|girls": 0.7,
+    "love|love": 0.02,
+    "make|beam": 0.4,
+    "make|blunders": 0.85,
+    "make|boy": 0.12,
+    "make|dam": 0.7,
+    "make|home": 0.5,
+    "make|kite": 0.85,
+    "make|marks": 0.8,
+    "make|money": 0.9,
+    "make|pictures": 0.8,
+    "make|poems": 0.85,
+    "mean|anything": 0.7,
+    "mean|chase": 0.05,
+    "mean|do": 0.02,
+    "meet|affectionate": 0.02,
+    "meet|boys": 0.8,
+    "meet|caps": 0.05,
+    "meet|cars": 0.3,
+    "meet|marks": 0.1,
+    "nod|face": 0.1,
+    "nod|head": 0.92,
+    "obey|marks": 0.05,
+    "obey|parents": 0.9,
+    "observe|animal": 0.6,
+    "observe|beast": 0.55,
+    "observe|bird": 0.6,
+    "observe|consequence": 0.35,
+    "obtain|fur": 0.7,
+    "obtain|wood": 0.75,
+    "offer|effect": 0.1,
+    "offer|god": 0.5,
+    "offer|last": 0.02,
+    "offer|volume": 0.5,
+    "open|blocks": 0.1,
+    "open|door": 0.97,
+    "open|gate": 0.9,
+    "open|houses": 0.3,
+    "overtook|appearance": 0.05,
+    "overtook|way": 0.3,
+    "own|advice": 0.1,
+    "own|beam": 0.3,
+    "own|establishment": 0.6,
+    "own|means": 0.4,
+    "pass|bear": 0.05,
+    "pass|crack": 0.2,
+    "pass|door": 0.5,
+    "pass|rest": 0.4,
+    "peel|bark": 0.6,
+    "peel|fruit": 0.95,
+    "permit|air": 0.05,
+    "permit|be": 0.02,
+    "pick|aprons": 0.1,
+    "pick|ball": 0.4,
+    "play|annie's": 0.2,
+    "play|good": 0.02,
+    "play|sin": 0.02,
+    "play|time": 0.35,
+    "pray|alfred": 0.1,
+    "pray|device": 0.02,
+    "pray|god": 0.6,
+    "pray|pieces": 0.02,
+    "publish|articles": 0.9,
+    "publish|book": 0.85,
+    "publish|children": 0.02,
+    "publish|poems": 0.9,
+    "pull|aprons": 0.35,
+    "pull|bow": 0.5,
+    "pull|bully": 0.1,
+    "pull|flowers": 0.6,
+    "pull|fruit": 0.55,
+    "pull|horses": 0.3,
+    "push|africa": 0.02,
+    "push|bank": 0.15,
+    "put|ball": 0.6,
+    "put|basket": 0.6,
+    "put|book": 0.7,
+    "put|books": 0.72,
+    "put|forehead": 0.15,
+    "put|hat": 0.7,
+    "put|head": 0.5,
+    "put|put": 0.02,
+    "reach|africa": 0.5,
+    "reach|apple": 0.6,
+    "reach|bank": 0.5,
+    "reach|ground": 0.6,
+    "read|book": 0.95,
+    "read|books": 0.95,
+    "read|call": 0.05,
+    "read|eyes": 0.2,
+    "remember|day": 0.5,
+    "remember|events": 0.85,
+    "remember|god": 0.4,
+    "remember|indians": 0.4,
+    "reply|annie": 0.15,
+    "reply|god": 0.1,
+    "reply|heard": 0.02,
+    "reply|mother": 0.15,
+    "return|abode": 0.2,
+    "return|atmosphere": 0.05,
+    "return|home": 0.15,
+    "return|work": 0.15,
+    "rose|balloon": 0.05,
+    "rose|dignity": 0.02,
+    "rose|enchantment": 0.02,
+    "rose|love": 0.02,
+    "rub|blockhouse": 0.08,
+    "rub|castle": 0.2,
+    "rule|copybook": 0.6,
+    "rule|words": 0.2,
+    "run|kite": 0.15,
+    "run|upstairs": 0.02,
+    "run|way": 0.3,
+    "save|bank": 0.5,
+    "save|death": 0.3,
+    "say|ben": 0.2,
+    "say|day": 0.02,
+    "say|lessons": 0.55,
+    "say|mother": 0.15,
+    "say|walk": 0.05,
+    "see|beavers": 0.75,
+    "see|boys": 0.85,
+    "see|cat": 0.9,
+    "see|child": 0.85,
+    "see|cloud": 0.85,
+    "see|fish": 0.85,
+    "see|flower": 0.85,
+    "see|fur": 0.5,
+    "see|marks": 0.7,
+    "see|sin": 0.35,
+    "see|way": 0.5,
+    "seem|air": 0.02,
+    "seem|cavalry": 0.02,
+    "seem|cold": 0.02,
+    "sell|cat": 0.6,
+    "sell|fish": 0.85,
+    "send|ball": 0.6,
+    "send|bridle": 0.5,
+    "send|collar": 0.5,
+    "send|dog": 0.7,
+    "set|beam": 0.35,
+    "set|cry": 0.3,
+    "set|home": 0.05,
+    "set|set": 0.02,
+    "show|arms": 0.4,
+    "show|beauty": 0.5,
+    "show|collar": 0.5,
+    "show|consequences": 0.7,
+    "show|conviction": 0.6,
+    "show|fruit": 0.6,
+    "show|seeds": 0.6,
+    "show|way": 0.75,
+    "sing|afternoon": 0.02,
+    "sing|birds": 0.15,
+    "sing|day": 0.02,
+    "sing|welcome": 0.35,
+    "sit|door": 0.1,
+    "sit|knees": 0.35,
+    "sit|street": 0.05,
+    "slip|basket": 0.2,
+    "slip|collar": 0.4,
+    "slip|dandelions": 0.3,
+    "slip|end": 0.1,
+    "sound|bear": 0.02,
+    "sound|bird": 0.02,
+    "sound|day": 0.02,
+    "sound|ears": 0.15,
+    "spend|book": 0.05,
+    "spend|cry": 0.02,
+    "spend|mew": 0.02,
+    "spend|time": 0.95,
+    "spread|care": 0.02,
+    "spread|wings": 0.85,
+    "stand|basin": 0.2,
+    "stand|door": 0.1,
+    "stand|window": 0.1,
+    "start|berry": 0.02,
+    "start|bread": 0.05,
+    "start|breakfast": 0.6,
+    "start|cheese": 0.05,
+    "step|baby": 0.2,
+    "step|brother": 0.1,
+    "stole|basket": 0.6,
+    "stole|beds": 0.3,
+    "stole|chamber": 0.15,
+    "stole|eyes": 0.1,
+    "stop|basket": 0.05,
+    "stop|blossoms": 0.05,
+    "stop|bridge": 0.15,
+    "stop|companion's": 0.1,
+    "stroke|beavers": 0.5,
+    "stroke|fur": 0.85,
+    "swept|branches": 0.4,
+    "swept|cellar": 0.5,
+    "swept|crew": 0.1,
+    "swept|crowd": 0.15,
+    "take|beauty": 0.15,
+    "take|blocks": 0.7,
+    "take|care": 0.85,
+    "take|castle": 0.55,
+    "take|crawls": 0.02,
+    "take|hand": 0.7,
+    "take|paper": 0.75,
+    "take|way": 0.5,
+    "teach|authority": 0.15,
+    "teach|catch": 0.02,
+    "tell|father": 0.3,
+    "tell|name": 0.7,
+    "tell|story": 0.9,
+    "tell|tell": 0.02,
+    "tell|words": 0.4,
+    "thank|advice": 0.1,
+    "thank|arm": 0.02,
+    "thank|boy": 0.85,
+    "thank|brother": 0.85,
+    "thank|man": 0.85,
+    "thank|wife": 0.85,
+    "think|cheeks": 0.02,
+    "think|think": 0.02,
+    "think|thought": 0.05,
+    "throw|animal": 0.3,
+    "throw|animals": 0.3,
+    "throw|arms": 0.4,
+    "throw|bones": 0.6,
+    "touch|arm": 0.7,
+    "touch|face": 0.7,
+    "touch|head": 0.6,
+    "touch|touch": 0.02,
+    "travel|africa": 0.5,
+    "travel|animals": 0.05,
+    "travel|apples": 0.02,
+    "travel|bank": 0.05,
+    "try|act": 0.4,
+    "try|bit": 0.1,
+    "try|hour": 0.02,
+    "turn|arm": 0.15,
+    "turn|bags": 0.15,
+    "turn|head": 0.7,
+    "turn|side": 0.4,
+    "wake|call": 0.05,
+    "wake|poems": 0.02,
+    "walk|body": 0.05,
+    "walk|cane": 0.15,
+    "walk|home": 0.1,
+    "want|animal": 0.5,
+    "want|board": 0.4,
+    "want|boot": 0.5,
+    "watch|actions": 0.6,
+    "watch|bear": 0.5,
+    "watch|fish": 0.6,
+    "watch|scene": 0.6,
+    "whisper|beneath": 0.02,
+    "whisper|boughs": 0.02,
+    "whisper|everybody": 0.4,
+    "wish|do": 0.02,
+    "wish|something": 0.75,
+    "wish|string": 0.05,
+    "wonder|annie": 0.1,
+    "wonder|diamond": 0.15,
+    "wonder|music": 0.1,
+    "wore|bones": 0.15,
+    "wore|cap": 0.85,
+    "wore|collar": 0.8,
+    "wore|diamonds": 0.85,
+    "work|afternoon": 0.3,
+    "work|day": 0.3,
+    "work|father": 0.02,
+    "work|feet": 0.15,
+    "write|age": 0.05,
+    "write|appearance": 0.05,
+    "write|number": 0.4,
+    "write|stories": 0.9,
+    "written|afternoon": 0.02,
+    "written|children": 0.05,
+    "written|cry": 0.02,
+    "written|stories": 0.9
+  },
+  "records": {
+    "admire|beauty": {
+      "rating": 0.9,
+      "verb_concept_id": "admire.v.01",
+      "noun_concept_id": "beauty.n.01"
+    },
+    "admire|way": {
+      "rating": 0.15,
+      "verb_concept_id": "admire.v.01",
+      "noun_concept_id": "manner.n.01"
+    },
+    "alight|cold": {
+      "rating": 0.05,
+      "verb_concept_id": "alight.v.01",
+      "noun_concept_id": "cold.n.01"
+    },
+    "alight|notoriety": {
+      "rating": 0.05,
+      "verb_concept_id": "alight.v.01",
+      "noun_concept_id": "notoriety.n.01"
+    },
+    "answer|corpse": {
+      "rating": 0.05,
+      "verb_concept_id": "answer.v.01",
+      "noun_concept_id": "cadaver.n.01"
+    },
+    "answer|harder": {
+      "rating": 0.03,
+      "verb_concept_id": "answer.v.01",
+      "noun_concept_id": null
+    },
+    "answer|questions": {
+      "rating": 0.95,
+      "verb_concept_id": "answer.v.01",
+      "noun_concept_id": "question.n.01"
+    },
+    "appear|confusion": {
+      "rating": 0.15,
+      "verb_concept_id": "look.v.02",
+      "noun_concept_id": "confusion.n.01"
+    },
+    "appear|notoriety": {
+      "rating": 0.1,
+      "verb_concept_id": "look.v.02",
+      "noun_concept_id": "notoriety.n.01"
+    },
+    "arm|bow": {
+      "rating": 0.3,
+      "verb_concept_id": "arm.v.01",
+      "noun_concept_id": "bow.n.01"
+    },
+    "arm|cloak": {
+      "rating": 0.15,
+      "verb_concept_id": "arm.v.01",
+      "noun_concept_id": "cloak.n.01"
+    },
+    "ask|god": {
+      "rating": 0.5,
+      "verb_concept_id": "ask.v.01",
+      "noun_concept_id": "god.n.01"
+    },
+    "ask|money": {
+      "rating": 0.7,
+      "verb_concept_id": "ask.v.01",
+      "noun_concept_id": "money.n.01"
+    },
+    "ask|questions": {
+      "rating": 0.95,
+      "verb_concept_id": "ask.v.01",
+      "noun_concept_id": "question.n.01"
+    },
+    "attain|balance": {
+      "rating": 0.7,
+      "verb_concept_id": "achieve.v.01",
+      "noun_concept_id": "balance.n.01"
+    },
+    "attain|notoriety": {
+      "rating": 0.85,
+      "verb_concept_id": "achieve.v.01",
+      "noun_concept_id": "notoriety.n.01"
+    },
+    "attend|account": {
+      "rating": 0.15,
+      "verb_concept_id": "attend.v.01",
+      "noun_concept_id": "history.n.02"
+    },
+    "attend|book": {
+      "rating": 0.2,
+      "verb_concept_id": "attend.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "bade|bade": {
+      "rating": 0.02,
+      "verb_concept_id": "offer.v.07",
+      "noun_concept_id": "bade.n.01"
+    },
+    "bade|blankets": {
+      "rating": 0.15,
+      "verb_concept_id": "offer.v.07",
+      "noun_concept_id": "blanket.n.01"
+    },
+    "bade|god": {
+      "rating": 0.3,
+      "verb_concept_id": "offer.v.07",
+      "noun_concept_id": "god.n.01"
+    },
+    "bade|wife": {
+      "rating": 0.6,
+      "verb_concept_id": "offer.v.07",
+      "noun_concept_id": "wife.n.01"
+    },
+    "bear|bear": {
+      "rating": 0.03,
+      "verb_concept_id": "bear.v.01",
+      "noun_concept_id": "bear.n.01"
+    },
+    "bear|bird": {
+      "rating": 0.25,
+      "verb_concept_id": "bear.v.01",
+      "noun_concept_id": "bird.n.01"
+    },
+    "become|attention": {
+      "rating": 0.05,
+      "verb_concept_id": "become.v.01",
+      "noun_concept_id": "attention.n.01"
+    },
+    "become|breadth": {
+      "rating": 0.05,
+      "verb_concept_id": "become.v.01",
+      "noun_concept_id": "breadth.n.01"
+    },
+    "become|chubby": {
+      "rating": 0.02,
+      "verb_concept_id": "become.v.01",
+      "noun_concept_id": null
+    },
+    "become|downward": {
+      "rating": 0.02,
+      "verb_concept_id": "become.v.01",
+      "noun_concept_id": null
+    },
+    "begin|begin": {
+      "rating": 0.02,
+      "verb_concept_id": "get_down.v.07",
+      "noun_concept_id": "begin.n.01"
+    },
+    "begin|beneath": {
+      "rating": 0.02,
+      "verb_concept_id": "get_down.v.07",
+      "noun_concept_id": null
+    },
+    "begin|branches": {
+      "rating": 0.2,
+      "verb_concept_id": "get_down.v.07",
+      "noun_concept_id": "branch.n.01"
+    },
+    "believe|anyone": {
+      "rating": 0.55,
+      "verb_concept_id": "believe.v.01",
+      "noun_concept_id": null
+    },
+    "believe|box": {
+      "rating": 0.05,
+      "verb_concept_id": "believe.v.01",
+      "noun_concept_id": "box.n.01"
+    },
+    "believe|everything": {
+      "rating": 0.75,
+      "verb_concept_id": "believe.v.01",
+      "noun_concept_id": null
+    },
+    "break|bones": {
+      "rating": 0.85,
+      "verb_concept_id": "interrupt.v.04",
+      "noun_concept_id": "bones.n.01"
+    },
+    "break|can": {
+      "rating": 0.3,
+      "verb_concept_id": "interrupt.v.04",
+      "noun_concept_id": "can.n.01"
+    },
+    "break|cane": {
+      "rating": 0.55,
+      "verb_concept_id": "interrupt.v.04",
+      "noun_concept_id": "cane.n.01"
+    },
+    "break|house": {
+      "rating": 0.3,
+      "verb_concept_id": "interrupt.v.04",
+      "noun_concept_id": "house.n.01"
+    },
+    "brought|boy": {
+      "rating": 0.5,
+      "verb_concept_id": "bring.v.01",
+      "noun_concept_id": "male_child.n.01"
+    },
+    "brought|cut": {
+      "rating": 0.05,
+      "verb_concept_id": "bring.v.01",
+      "noun_concept_id": "cut.n.01"
+    },
+    "brought|estate": {
+      "rating": 0.5,
+      "verb_concept_id": "bring.v.01",
+      "noun_concept_id": "estate.n.01"
+    },
+    "brought|raft": {
+      "rating": 0.6,
+      "verb_concept_id": "bring.v.01",
+      "noun_concept_id": "raft.n.01"
+    },
+    "brush|places": {
+      "rating": 0.15,
+      "verb_concept_id": "brush.v.01",
+      "noun_concept_id": "topographic_point.n.01"
+    },
+    "brush|tops": {
+      "rating": 0.35,
+      "verb_concept_id": "brush.v.01",
+      "noun_concept_id": "top.n.01"
+    },
+    "build|blockhouse": {
+      "rating": 0.85,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "blockhouse.n.01"
+    },
+    "build|blocks": {
+      "rating": 0.5,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "block.n.01"
+    },
+    "build|blossom": {
+      "rating": 0.05,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "flower.n.02"
+    },
+    "build|boat": {
+      "rating": 0.8,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "boat.n.01"
+    },
+    "build|castle": {
+      "rating": 0.95,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "palace.n.01"
+    },
+    "build|castles": {
+      "rating": 0.85,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "palace.n.01"
+    },
+    "build|darkness": {
+      "rating": 0.05,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "dark.n.01"
+    },
+    "build|firs": {
+      "rating": 0.1,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "fir.n.01"
+    },
+    "build|houses": {
+      "rating": 0.9,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "house.n.01"
+    },
+    "build|huts": {
+      "rating": 0.85,
+      "verb_concept_id": "construct.v.01",
+      "noun_concept_id": "hut.n.01"
+    },
+    "buy|cane": {
+      "rating": 0.7,
+      "verb_concept_id": "buy.v.01",
+      "noun_concept_id": "cane.n.01"
+    },
+    "buy|cloak": {
+      "rating": 0.75,
+      "verb_concept_id": "buy.v.01",
+      "noun_concept_id": "cloak.n.01"
+    },
+    "call|danco": {
+      "rating": 0.02,
+      "verb_concept_id": "name.v.01",
+      "noun_concept_id": null
+    },
+    "call|ephod": {
+      "rating": 0.15,
+      "verb_concept_id": "name.v.01",
+      "noun_concept_id": null
+    },
+    "call|fred": {
+      "rating": 0.6,
+      "verb_concept_id": "name.v.01",
+      "noun_concept_id": null
+    },
+    "carry|basket": {
+      "rating": 0.9,
+      "verb_concept_id": "transport.v.02",
+      "noun_concept_id": "basket.n.01"
+    },
+    "carry|cane": {
+      "rating": 0.5,
+      "verb_concept_id": "transport.v.02",
+      "noun_concept_id": "cane.n.01"
+    },
+    "carry|dozen": {
+      "rating": 0.15,
+      "verb_concept_id": "transport.v.02",
+      "noun_concept_id": "twelve.n.01"
+    },
+    "carry|fish": {
+      "rating": 0.85,
+      "verb_concept_id": "transport.v.02",
+      "noun_concept_id": "fish.n.01"
+    },
+    "cast|beam": {
+      "rating": 0.6,
+      "verb_concept_id": "project.v.10",
+      "noun_concept_id": "radio_beam.n.01"
+    },
+    "cast|cry": {
+      "rating": 0.15,
+      "verb_concept_id": "project.v.10",
+      "noun_concept_id": "cry.n.01"
+    },
+    "catch|ankles": {
+      "rating": 0.2,
+      "verb_concept_id": "catch.v.01",
+      "noun_concept_id": "ankle.n.01"
+    },
+    "catch|appearance": {
+      "rating": 0.1,
+      "verb_concept_id": "catch.v.01",
+      "noun_concept_id": "appearance.n.01"
+    },
+    "catch|catch": {
+      "rating": 0.03,
+      "verb_concept_id": "catch.v.01",
+      "noun_concept_id": "catch.n.01"
+    },
+    "catch|sight": {
+      "rating": 0.75,
+      "verb_concept_id": "catch.v.01",
+      "noun_concept_id": "sight.n.01"
+    },
+    "cause|animals": {
+      "rating": 0.15,
+      "verb_concept_id": "cause.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "cause|beast": {
+      "rating": 0.1,
+      "verb_concept_id": "cause.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "cause|creatures": {
+      "rating": 0.1,
+      "verb_concept_id": "cause.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "cause|held": {
+      "rating": 0.02,
+      "verb_concept_id": "cause.v.01",
+      "noun_concept_id": null
+    },
+    "choose|abode": {
+      "rating": 0.55,
+      "verb_concept_id": "choose.v.01",
+      "noun_concept_id": "residence.n.01"
+    },
+    "choose|address": {
+      "rating": 0.4,
+      "verb_concept_id": "choose.v.01",
+      "noun_concept_id": "address.n.01"
+    },
+    "choose|bedside": {
+      "rating": 0.2,
+      "verb_concept_id": "choose.v.01",
+      "noun_concept_id": "bedside.n.01"
+    },
+    "choose|boy": {
+      "rating": 0.5,
+      "verb_concept_id": "choose.v.01",
+      "noun_concept_id": "male_child.n.01"
+    },
+    "choose|places": {
+      "rating": 0.6,
+      "verb_concept_id": "choose.v.01",
+      "noun_concept_id": "topographic_point.n.01"
+    },
+    "choose|tops": {
+      "rating": 0.55,
+      "verb_concept_id": "choose.v.01",
+      "noun_concept_id": "top.n.01"
+    },
+    "climb|africa": {
+      "rating": 0.1,
+      "verb_concept_id": "climb.v.01",
+      "noun_concept_id": "africa.n.01"
+    },
+    "climb|bank": {
+      "rating": 0.4,
+      "verb_concept_id": "climb.v.01",
+      "noun_concept_id": "bank.n.01"
+    },
+    "climb|fur": {
+      "rating": 0.05,
+      "verb_concept_id": "climb.v.01",
+      "noun_concept_id": "fur.n.01"
+    },
+    "climb|head": {
+      "rating": 0.1,
+      "verb_concept_id": "climb.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "come|creeping": {
+      "rating": 0.05,
+      "verb_concept_id": "come.v.01",
+      "noun_concept_id": "crawl.n.03"
+    },
+    "come|day": {
+      "rating": 0.05,
+      "verb_concept_id": "come.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "come|home": {
+      "rating": 0.35,
+      "verb_concept_id": "come.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "consider|bear": {
+      "rating": 0.3,
+      "verb_concept_id": "see.v.05",
+      "noun_concept_id": "bear.n.01"
+    },
+    "consider|bird": {
+      "rating": 0.4,
+      "verb_concept_id": "see.v.05",
+      "noun_concept_id": "bird.n.01"
+    },
+    "continue|hands": {
+      "rating": 0.04,
+      "verb_concept_id": "continue.v.01",
+      "noun_concept_id": "hands.n.01"
+    },
+    "continue|walk": {
+      "rating": 0.6,
+      "verb_concept_id": "continue.v.01",
+      "noun_concept_id": "walk.n.01"
+    },
+    "count|berry": {
+      "rating": 0.4,
+      "verb_concept_id": "count.v.01",
+      "noun_concept_id": "berry.n.01"
+    },
+    "count|bread": {
+      "rating": 0.15,
+      "verb_concept_id": "count.v.01",
+      "noun_concept_id": "bread.n.01"
+    },
+    "count|heat": {
+      "rating": 0.05,
+      "verb_concept_id": "count.v.01",
+      "noun_concept_id": "heat.n.01"
+    },
+    "count|hours": {
+      "rating": 0.85,
+      "verb_concept_id": "count.v.01",
+      "noun_concept_id": "hours.n.01"
+    },
+    "cover|bones": {
+      "rating": 0.4,
+      "verb_concept_id": "cover.v.01",
+      "noun_concept_id": "bones.n.01"
+    },
+    "cover|carpet": {
+      "rating": 0.6,
+      "verb_concept_id": "cover.v.01",
+      "noun_concept_id": "rug.n.01"
+    },
+    "cover|face": {
+      "rating": 0.85,
+      "verb_concept_id": "cover.v.01",
+      "noun_concept_id": "face.n.01"
+    },
+    "cover|forehead": {
+      "rating": 0.6,
+      "verb_concept_id": "cover.v.01",
+      "noun_concept_id": "brow.n.01"
+    },
+    "crawl|crawls": {
+      "rating": 0.02,
+      "verb_concept_id": "crawl.v.01",
+      "noun_concept_id": "crawl.n.01"
+    },
+    "crawl|trade": {
+      "rating": 0.02,
+      "verb_concept_id": "crawl.v.01",
+      "noun_concept_id": "trade.n.01"
+    },
+    "crush|animal": {
+      "rating": 0.7,
+      "verb_concept_id": "oppress.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "crush|animals": {
+      "rating": 0.7,
+      "verb_concept_id": "oppress.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "cut|cut": {
+      "rating": 0.02,
+      "verb_concept_id": "cut.v.01",
+      "noun_concept_id": "cut.n.01"
+    },
+    "cut|dogs": {
+      "rating": 0.05,
+      "verb_concept_id": "cut.v.01",
+      "noun_concept_id": "dog.n.01"
+    },
+    "cut|estate": {
+      "rating": 0.05,
+      "verb_concept_id": "cut.v.01",
+      "noun_concept_id": "estate.n.01"
+    },
+    "cut|hill": {
+      "rating": 0.1,
+      "verb_concept_id": "cut.v.01",
+      "noun_concept_id": "hill.n.01"
+    },
+    "do|afternoon": {
+      "rating": 0.1,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "afternoon.n.01"
+    },
+    "do|anybody": {
+      "rating": 0.1,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": null
+    },
+    "do|day": {
+      "rating": 0.2,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "do|work": {
+      "rating": 0.9,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "work.n.01"
+    },
+    "draw|bow": {
+      "rating": 0.7,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "bow.n.01"
+    },
+    "draw|bridge": {
+      "rating": 0.3,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "bridge.n.01"
+    },
+    "draw|buckles": {
+      "rating": 0.35,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "buckle.n.01"
+    },
+    "draw|cord": {
+      "rating": 0.6,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "cord.n.01"
+    },
+    "draw|pictures": {
+      "rating": 0.95,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "picture.n.01"
+    },
+    "draw|wheel": {
+      "rating": 0.42,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "wheel.n.01"
+    },
+    "drop|bedside": {
+      "rating": 0.05,
+      "verb_concept_id": "drop.v.01",
+      "noun_concept_id": "bedside.n.01"
+    },
+    "drop|cage": {
+      "rating": 0.4,
+      "verb_concept_id": "drop.v.01",
+      "noun_concept_id": "cage.n.01"
+    },
+    "drop|door": {
+      "rating": 0.2,
+      "verb_concept_id": "drop.v.01",
+      "noun_concept_id": "door.n.01"
+    },
+    "drop|home": {
+      "rating": 0.05,
+      "verb_concept_id": "drop.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "earn|carpet": {
+      "rating": 0.1,
+      "verb_concept_id": "gain.v.08",
+      "noun_concept_id": "rug.n.01"
+    },
+    "earn|clothes": {
+      "rating": 0.6,
+      "verb_concept_id": "gain.v.08",
+      "noun_concept_id": "apparel.n.01"
+    },
+    "eat|acorn": {
+      "rating": 0.9,
+      "verb_concept_id": "eat.v.01",
+      "noun_concept_id": "acorn.n.01"
+    },
+    "eat|acorns": {
+      "rating": 0.9,
+      "verb_concept_id": "eat.v.01",
+      "noun_concept_id": "acorn.n.01"
+    },
+    "eat|branches": {
+      "rating": 0.15,
+      "verb_concept_id": "eat.v.01",
+      "noun_concept_id": "branch.n.01"
+    },
+    "eat|firs": {
+      "rating": 0.02,
+      "verb_concept_id": "eat.v.01",
+      "noun_concept_id": "fir.n.01"
+    },
+    "enjoy|day": {
+      "rating": 0.8,
+      "verb_concept_id": "enjoy.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "enjoy|hour": {
+      "rating": 0.7,
+      "verb_concept_id": "enjoy.v.01",
+      "noun_concept_id": "hour.n.01"
+    },
+    "enter|ball": {
+      "rating": 0.4,
+      "verb_concept_id": "enter.v.01",
+      "noun_concept_id": "ball.n.01"
+    },
+    "enter|cell": {
+      "rating": 0.7,
+      "verb_concept_id": "enter.v.01",
+      "noun_concept_id": "cell.n.01"
+    },
+    "enter|channel": {
+      "rating": 0.5,
+      "verb_concept_id": "enter.v.01",
+      "noun_concept_id": "channel.n.01"
+    },
+    "enter|house": {
+      "rating": 0.85,
+      "verb_concept_id": "enter.v.01",
+      "noun_concept_id": "house.n.01"
+    },
+    "fall|accord": {
+      "rating": 0.02,
+      "verb_concept_id": "fall.v.01",
+      "noun_concept_id": "agreement.n.03"
+    },
+    "fall|asleep": {
+      "rating": 0.55,
+      "verb_concept_id": "fall.v.01",
+      "noun_concept_id": null
+    },
+    "fall|notice": {
+      "rating": 0.25,
+      "verb_concept_id": "fall.v.01",
+      "noun_concept_id": "notice.n.01"
+    },
+    "feel|burden": {
+      "rating": 0.7,
+      "verb_concept_id": "feel.v.01",
+      "noun_concept_id": "burden.n.01"
+    },
+    "feel|care": {
+      "rating": 0.4,
+      "verb_concept_id": "feel.v.01",
+      "noun_concept_id": "care.n.01"
+    },
+    "feel|catch": {
+      "rating": 0.05,
+      "verb_concept_id": "feel.v.01",
+      "noun_concept_id": "catch.n.01"
+    },
+    "feel|sin": {
+      "rating": 0.35,
+      "verb_concept_id": "feel.v.01",
+      "noun_concept_id": "sin.n.01"
+    },
+    "felt|arm": {
+      "rating": 0.3,
+      "verb_concept_id": "felt.v.01",
+      "noun_concept_id": "arm.n.01"
+    },
+    "felt|chance": {
+      "rating": 0.3,
+      "verb_concept_id": "felt.v.01",
+      "noun_concept_id": "opportunity.n.01"
+    },
+    "felt|head": {
+      "rating": 0.4,
+      "verb_concept_id": "felt.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "felt|loss": {
+      "rating": 0.7,
+      "verb_concept_id": "felt.v.01",
+      "noun_concept_id": "loss.n.01"
+    },
+    "find|boy": {
+      "rating": 0.8,
+      "verb_concept_id": "find.v.01",
+      "noun_concept_id": "male_child.n.01"
+    },
+    "find|child": {
+      "rating": 0.85,
+      "verb_concept_id": "find.v.01",
+      "noun_concept_id": "child.n.01"
+    },
+    "find|estate": {
+      "rating": 0.5,
+      "verb_concept_id": "find.v.01",
+      "noun_concept_id": "estate.n.01"
+    },
+    "find|find": {
+      "rating": 0.02,
+      "verb_concept_id": "find.v.01",
+      "noun_concept_id": "discovery.n.03"
+    },
+    "find|found": {
+      "rating": 0.02,
+      "verb_concept_id": "find.v.01",
+      "noun_concept_id": "found.n.01"
+    },
+    "find|way": {
+      "rating": 0.85,
+      "verb_concept_id": "find.v.01",
+      "noun_concept_id": "manner.n.01"
+    },
+    "finish|copybook": {
+      "rating": 0.7,
+      "verb_concept_id": "complete.v.01",
+      "noun_concept_id": "copybook.n.01"
+    },
+    "finish|sentence": {
+      "rating": 0.82,
+      "verb_concept_id": "complete.v.01",
+      "noun_concept_id": "sentence.n.01"
+    },
+    "fly|bedside": {
+      "rating": 0.02,
+      "verb_concept_id": "fly.v.01",
+      "noun_concept_id": "bedside.n.01"
+    },
+    "fly|care": {
+      "rating": 0.02,
+      "verb_concept_id": "fly.v.01",
+      "noun_concept_id": "care.n.01"
+    },
+    "fly|home": {
+      "rating": 0.1,
+      "verb_concept_id": "fly.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "fly|window": {
+      "rating": 0.2,
+      "verb_concept_id": "fly.v.01",
+      "noun_concept_id": "window.n.01"
+    },
+    "follow|advice": {
+      "rating": 0.85,
+      "verb_concept_id": "follow.v.01",
+      "noun_concept_id": "advice.n.01"
+    },
+    "follow|care": {
+      "rating": 0.1,
+      "verb_concept_id": "follow.v.01",
+      "noun_concept_id": "care.n.01"
+    },
+    "follow|trade": {
+      "rating": 0.5,
+      "verb_concept_id": "follow.v.01",
+      "noun_concept_id": "trade.n.01"
+    },
+    "follow|work": {
+      "rating": 0.3,
+      "verb_concept_id": "follow.v.01",
+      "noun_concept_id": "work.n.01"
+    },
+    "forget|catch": {
+      "rating": 0.05,
+      "verb_concept_id": "forget.v.01",
+      "noun_concept_id": "catch.n.01"
+    },
+    "forget|composition": {
+      "rating": 0.6,
+      "verb_concept_id": "forget.v.01",
+      "noun_concept_id": "composition.n.01"
+    },
+    "forget|eye": {
+      "rating": 0.1,
+      "verb_concept_id": "forget.v.01",
+      "noun_concept_id": "eye.n.01"
+    },
+    "forget|glass": {
+      "rating": 0.4,
+      "verb_concept_id": "forget.v.01",
+      "noun_concept_id": "glass.n.01"
+    },
+    "forget|grief": {
+      "rating": 0.6,
+      "verb_concept_id": "forget.v.01",
+      "noun_concept_id": "grief.n.01"
+    },
+    "forget|money": {
+      "rating": 0.5,
+      "verb_concept_id": "forget.v.01",
+      "noun_concept_id": "money.n.01"
+    },
+    "gather|afternoon": {
+      "rating": 0.02,
+      "verb_concept_id": "gather.v.01",
+      "noun_concept_id": "afternoon.n.01"
+    },
+    "gather|berries": {
+      "rating": 0.9,
+      "verb_concept_id": "gather.v.01",
+      "noun_concept_id": "berry.n.01"
+    },
+    "gather|day": {
+      "rating": 0.02,
+      "verb_concept_id": "gather.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "gather|driftwood": {
+      "rating": 0.85,
+      "verb_concept_id": "gather.v.01",
+      "noun_concept_id": "driftwood.n.01"
+    },
+    "get|anything": {
+      "rating": 0.7,
+      "verb_concept_id": "get.v.01",
+      "noun_concept_id": null
+    },
+    "get|beds": {
+      "rating": 0.4,
+      "verb_concept_id": "get.v.01",
+      "noun_concept_id": "bed.n.01"
+    },
+    "get|bird": {
+      "rating": 0.4,
+      "verb_concept_id": "get.v.01",
+      "noun_concept_id": "bird.n.01"
+    },
+    "get|bridge": {
+      "rating": 0.15,
+      "verb_concept_id": "get.v.01",
+      "noun_concept_id": "bridge.n.01"
+    },
+    "give|account": {
+      "rating": 0.6,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "history.n.02"
+    },
+    "give|advice": {
+      "rating": 0.9,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "advice.n.01"
+    },
+    "give|books": {
+      "rating": 0.85,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "give|day": {
+      "rating": 0.1,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "give|dollar": {
+      "rating": 0.85,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "dollar.n.01"
+    },
+    "give|flowers": {
+      "rating": 0.9,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "flower.n.01"
+    },
+    "give|fruit": {
+      "rating": 0.9,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "fruit.n.01"
+    },
+    "give|george": {
+      "rating": 0.15,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "george.n.01"
+    },
+    "give|hour": {
+      "rating": 0.15,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "hour.n.01"
+    },
+    "give|kite": {
+      "rating": 0.8,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "kite.n.01"
+    },
+    "give|money": {
+      "rating": 0.9,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "money.n.01"
+    },
+    "give|words": {
+      "rating": 0.4,
+      "verb_concept_id": "give.v.01",
+      "noun_concept_id": "words.n.01"
+    },
+    "go|college": {
+      "rating": 0.3,
+      "verb_concept_id": "travel.v.01",
+      "noun_concept_id": "college.n.01"
+    },
+    "go|home": {
+      "rating": 0.2,
+      "verb_concept_id": "travel.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "go|school": {
+      "rating": 0.3,
+      "verb_concept_id": "travel.v.01",
+      "noun_concept_id": "school.n.01"
+    },
+    "grew|alfred": {
+      "rating": 0.05,
+      "verb_concept_id": "turn.v.07",
+      "noun_concept_id": "alfred.n.01"
+    },
+    "grew|children": {
+      "rating": 0.25,
+      "verb_concept_id": "turn.v.07",
+      "noun_concept_id": "child.n.01"
+    },
+    "grew|darker": {
+      "rating": 0.02,
+      "verb_concept_id": "turn.v.07",
+      "noun_concept_id": null
+    },
+    "grew|indians": {
+      "rating": 0.05,
+      "verb_concept_id": "turn.v.07",
+      "noun_concept_id": "indian.n.01"
+    },
+    "happen|cane": {
+      "rating": 0.02,
+      "verb_concept_id": "happen.v.01",
+      "noun_concept_id": "cane.n.01"
+    },
+    "happen|class": {
+      "rating": 0.05,
+      "verb_concept_id": "happen.v.01",
+      "noun_concept_id": "class.n.01"
+    },
+    "happen|farmer": {
+      "rating": 0.05,
+      "verb_concept_id": "happen.v.01",
+      "noun_concept_id": "farmer.n.01"
+    },
+    "happen|hat": {
+      "rating": 0.02,
+      "verb_concept_id": "happen.v.01",
+      "noun_concept_id": "hat.n.01"
+    },
+    "have|kite": {
+      "rating": 0.7,
+      "verb_concept_id": "have.v.01",
+      "noun_concept_id": "kite.n.01"
+    },
+    "have|money": {
+      "rating": 0.9,
+      "verb_concept_id": "have.v.01",
+      "noun_concept_id": "money.n.01"
+    },
+    "hear|bell": {
+      "rating": 0.85,
+      "verb_concept_id": "hear.v.01",
+      "noun_concept_id": "bell.n.01"
+    },
+    "hear|enchantment": {
+      "rating": 0.1,
+      "verb_concept_id": "hear.v.01",
+      "noun_concept_id": "captivation.n.02"
+    },
+    "hear|love": {
+      "rating": 0.15,
+      "verb_concept_id": "hear.v.01",
+      "noun_concept_id": "love.n.01"
+    },
+    "hear|mew": {
+      "rating": 0.7,
+      "verb_concept_id": "hear.v.01",
+      "noun_concept_id": "meow.n.01"
+    },
+    "hear|sound": {
+      "rating": 0.9,
+      "verb_concept_id": "hear.v.01",
+      "noun_concept_id": "sound.n.01"
+    },
+    "hear|time": {
+      "rating": 0.08,
+      "verb_concept_id": "hear.v.01",
+      "noun_concept_id": "time.n.01"
+    },
+    "help|approach": {
+      "rating": 0.2,
+      "verb_concept_id": "help.v.01",
+      "noun_concept_id": "approach.n.01"
+    },
+    "help|child": {
+      "rating": 0.9,
+      "verb_concept_id": "help.v.01",
+      "noun_concept_id": "child.n.01"
+    },
+    "help|city": {
+      "rating": 0.4,
+      "verb_concept_id": "help.v.01",
+      "noun_concept_id": "city.n.01"
+    },
+    "help|crawls": {
+      "rating": 0.02,
+      "verb_concept_id": "help.v.01",
+      "noun_concept_id": "crawl.n.01"
+    },
+    "hire|blockhouse": {
+      "rating": 0.28,
+      "verb_concept_id": "hire.v.01",
+      "noun_concept_id": "blockhouse.n.01"
+    },
+    "hire|boat": {
+      "rating": 0.8,
+      "verb_concept_id": "hire.v.01",
+      "noun_concept_id": "boat.n.01"
+    },
+    "hold|bills": {
+      "rating": 0.6,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "bill.n.01"
+    },
+    "hold|hand": {
+      "rating": 0.9,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "hand.n.01"
+    },
+    "hold|hands": {
+      "rating": 0.9,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "hands.n.01"
+    },
+    "hold|head": {
+      "rating": 0.7,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "hold|professorship": {
+      "rating": 0.7,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "professorship.n.01"
+    },
+    "hold|walk": {
+      "rating": 0.05,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "walk.n.01"
+    },
+    "hung|blossom": {
+      "rating": 0.05,
+      "verb_concept_id": "hang.v.01",
+      "noun_concept_id": "flower.n.02"
+    },
+    "hung|firs": {
+      "rating": 0.05,
+      "verb_concept_id": "hang.v.01",
+      "noun_concept_id": "fir.n.01"
+    },
+    "hung|hatchet": {
+      "rating": 0.6,
+      "verb_concept_id": "hang.v.01",
+      "noun_concept_id": "tomahawk.n.01"
+    },
+    "hung|head": {
+      "rating": 0.7,
+      "verb_concept_id": "hang.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "hunt|animals": {
+      "rating": 0.85,
+      "verb_concept_id": "hunt.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "hunt|gate": {
+      "rating": 0.04,
+      "verb_concept_id": "hunt.v.01",
+      "noun_concept_id": "gate.n.01"
+    },
+    "hurt|head": {
+      "rating": 0.8,
+      "verb_concept_id": "ache.v.03",
+      "noun_concept_id": "head.n.01"
+    },
+    "hurt|pussy": {
+      "rating": 0.6,
+      "verb_concept_id": "ache.v.03",
+      "noun_concept_id": "cunt.n.02"
+    },
+    "join|branches": {
+      "rating": 0.4,
+      "verb_concept_id": "join.v.01",
+      "noun_concept_id": "branch.n.01"
+    },
+    "join|cells": {
+      "rating": 0.5,
+      "verb_concept_id": "join.v.01",
+      "noun_concept_id": "cell.n.01"
+    },
+    "join|clouds": {
+      "rating": 0.15,
+      "verb_concept_id": "join.v.01",
+      "noun_concept_id": "cloud.n.01"
+    },
+    "join|crowd": {
+      "rating": 0.85,
+      "verb_concept_id": "join.v.01",
+      "noun_concept_id": "crowd.n.01"
+    },
+    "jump|basket": {
+      "rating": 0.1,
+      "verb_concept_id": "jump.v.01",
+      "noun_concept_id": "basket.n.01"
+    },
+    "jump|bit": {
+      "rating": 0.02,
+      "verb_concept_id": "jump.v.01",
+      "noun_concept_id": "spot.n.10"
+    },
+    "jump|cloak": {
+      "rating": 0.02,
+      "verb_concept_id": "jump.v.01",
+      "noun_concept_id": "cloak.n.01"
+    },
+    "jump|house": {
+      "rating": 0.1,
+      "verb_concept_id": "jump.v.01",
+      "noun_concept_id": "house.n.01"
+    },
+    "keep|care": {
+      "rating": 0.3,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "care.n.01"
+    },
+    "keep|gate": {
+      "rating": 0.6,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "gate.n.01"
+    },
+    "keep|place": {
+      "rating": 0.75,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "topographic_point.n.01"
+    },
+    "keep|string": {
+      "rating": 0.5,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "string.n.01"
+    },
+    "keep|wheel": {
+      "rating": 0.3,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "wheel.n.01"
+    },
+    "keep|work": {
+      "rating": 0.5,
+      "verb_concept_id": "keep.v.01",
+      "noun_concept_id": "work.n.01"
+    },
+    "knit|face": {
+      "rating": 0.1,
+      "verb_concept_id": "knit.v.01",
+      "noun_concept_id": "face.n.01"
+    },
+    "knit|forehead": {
+      "rating": 0.2,
+      "verb_concept_id": "knit.v.01",
+      "noun_concept_id": "brow.n.01"
+    },
+    "knock|castle": {
+      "rating": 0.4,
+      "verb_concept_id": "knock.v.01",
+      "noun_concept_id": "palace.n.01"
+    },
+    "knock|castles": {
+      "rating": 0.45,
+      "verb_concept_id": "knock.v.01",
+      "noun_concept_id": "palace.n.01"
+    },
+    "knock|door": {
+      "rating": 0.85,
+      "verb_concept_id": "knock.v.01",
+      "noun_concept_id": "door.n.01"
+    },
+    "knock|houses": {
+      "rating": 0.4,
+      "verb_concept_id": "knock.v.01",
+      "noun_concept_id": "house.n.01"
+    },
+    "know|book": {
+      "rating": 0.4,
+      "verb_concept_id": "know.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "know|heart": {
+      "rating": 0.6,
+      "verb_concept_id": "know.v.01",
+      "noun_concept_id": "heart.n.01"
+    },
+    "know|know": {
+      "rating": 0.02,
+      "verb_concept_id": "know.v.01",
+      "noun_concept_id": "know.n.01"
+    },
+    "know|sentence": {
+      "rating": 0.4,
+      "verb_concept_id": "know.v.01",
+      "noun_concept_id": "sentence.n.01"
+    },
+    "know|words": {
+      "rating": 0.7,
+      "verb_concept_id": "know.v.01",
+      "noun_concept_id": "words.n.01"
+    },
+    "laugh|face": {
+      "rating": 0.05,
+      "verb_concept_id": "laugh.v.01",
+      "noun_concept_id": "face.n.01"
+    },
+    "laugh|grace": {
+      "rating": 0.02,
+      "verb_concept_id": "laugh.v.01",
+      "noun_concept_id": "grace.n.01"
+    },
+    "laugh|head": {
+      "rating": 0.02,
+      "verb_concept_id": "laugh.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "laugh|laugh": {
+      "rating": 0.02,
+      "verb_concept_id": "laugh.v.01",
+      "noun_concept_id": "laugh.n.01"
+    },
+    "lay|branches": {
+      "rating": 0.4,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "branch.n.01"
+    },
+    "lay|brood": {
+      "rating": 0.6,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "brood.n.01"
+    },
+    "lay|care": {
+      "rating": 0.1,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "care.n.01"
+    },
+    "lay|cheek": {
+      "rating": 0.5,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "cheek.n.01"
+    },
+    "lay|face": {
+      "rating": 0.18,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "face.n.01"
+    },
+    "lay|foundation": {
+      "rating": 0.9,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "foundation.n.01"
+    },
+    "lead|camp": {
+      "rating": 0.4,
+      "verb_concept_id": "lead.v.01",
+      "noun_concept_id": "camp.n.01"
+    },
+    "lead|cap": {
+      "rating": 0.02,
+      "verb_concept_id": "lead.v.01",
+      "noun_concept_id": "cap.n.01"
+    },
+    "lean|aprons": {
+      "rating": 0.02,
+      "verb_concept_id": "lean.v.01",
+      "noun_concept_id": "apron.n.01"
+    },
+    "lean|arms": {
+      "rating": 0.3,
+      "verb_concept_id": "lean.v.01",
+      "noun_concept_id": "weaponry.n.01"
+    },
+    "lean|creature's": {
+      "rating": 0.2,
+      "verb_concept_id": "lean.v.01",
+      "noun_concept_id": null
+    },
+    "lean|face": {
+      "rating": 0.2,
+      "verb_concept_id": "lean.v.01",
+      "noun_concept_id": "face.n.01"
+    },
+    "learn|bird": {
+      "rating": 0.15,
+      "verb_concept_id": "learn.v.01",
+      "noun_concept_id": "bird.n.01"
+    },
+    "learn|day": {
+      "rating": 0.02,
+      "verb_concept_id": "learn.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "learn|thee": {
+      "rating": 0.05,
+      "verb_concept_id": "learn.v.01",
+      "noun_concept_id": null
+    },
+    "leave|air": {
+      "rating": 0.3,
+      "verb_concept_id": "leave.v.01",
+      "noun_concept_id": "air.n.01"
+    },
+    "leave|alone": {
+      "rating": 0.02,
+      "verb_concept_id": "leave.v.01",
+      "noun_concept_id": null
+    },
+    "leave|arm": {
+      "rating": 0.15,
+      "verb_concept_id": "leave.v.01",
+      "noun_concept_id": "arm.n.01"
+    },
+    "leave|be": {
+      "rating": 0.02,
+      "verb_concept_id": "leave.v.01",
+      "noun_concept_id": "beryllium.n.01"
+    },
+    "leave|dam": {
+      "rating": 0.45,
+      "verb_concept_id": "leave.v.01",
+      "noun_concept_id": "dam.n.01"
+    },
+    "leave|room": {
+      "rating": 0.85,
+      "verb_concept_id": "leave.v.01",
+      "noun_concept_id": "room.n.01"
+    },
+    "lie|confusion": {
+      "rating": 0.05,
+      "verb_concept_id": "lie.v.01",
+      "noun_concept_id": "confusion.n.01"
+    },
+    "lie|day": {
+      "rating": 0.02,
+      "verb_concept_id": "lie.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "lie|life": {
+      "rating": 0.15,
+      "verb_concept_id": "lie.v.01",
+      "noun_concept_id": "life.n.01"
+    },
+    "lie|summer": {
+      "rating": 0.02,
+      "verb_concept_id": "lie.v.01",
+      "noun_concept_id": "summer.n.01"
+    },
+    "lift|bird": {
+      "rating": 0.4,
+      "verb_concept_id": "raise.v.02",
+      "noun_concept_id": "bird.n.01"
+    },
+    "lift|curl": {
+      "rating": 0.3,
+      "verb_concept_id": "raise.v.02",
+      "noun_concept_id": "coil.n.02"
+    },
+    "lift|eyes": {
+      "rating": 0.75,
+      "verb_concept_id": "raise.v.02",
+      "noun_concept_id": "eyes.n.01"
+    },
+    "lift|gilbert": {
+      "rating": 0.4,
+      "verb_concept_id": "raise.v.02",
+      "noun_concept_id": "gilbert.n.01"
+    },
+    "like|animal": {
+      "rating": 0.6,
+      "verb_concept_id": "wish.v.02",
+      "noun_concept_id": "animal.n.01"
+    },
+    "like|animals": {
+      "rating": 0.6,
+      "verb_concept_id": "wish.v.02",
+      "noun_concept_id": "animal.n.01"
+    },
+    "like|bill": {
+      "rating": 0.4,
+      "verb_concept_id": "wish.v.02",
+      "noun_concept_id": "bill.n.01"
+    },
+    "like|cavalry": {
+      "rating": 0.35,
+      "verb_concept_id": "wish.v.02",
+      "noun_concept_id": "cavalry.n.01"
+    },
+    "listen|attention": {
+      "rating": 0.1,
+      "verb_concept_id": "listen.v.01",
+      "noun_concept_id": "attention.n.01"
+    },
+    "listen|breadth": {
+      "rating": 0.02,
+      "verb_concept_id": "listen.v.01",
+      "noun_concept_id": "breadth.n.01"
+    },
+    "listen|course": {
+      "rating": 0.15,
+      "verb_concept_id": "listen.v.01",
+      "noun_concept_id": "course.n.01"
+    },
+    "listen|door": {
+      "rating": 0.1,
+      "verb_concept_id": "listen.v.01",
+      "noun_concept_id": "door.n.01"
+    },
+    "live|acorns": {
+      "rating": 0.15,
+      "verb_concept_id": "populate.v.01",
+      "noun_concept_id": "acorn.n.01"
+    },
+    "live|age": {
+      "rating": 0.35,
+      "verb_concept_id": "populate.v.01",
+      "noun_concept_id": "age.n.01"
+    },
+    "live|appearance": {
+      "rating": 0.05,
+      "verb_concept_id": "populate.v.01",
+      "noun_concept_id": "appearance.n.01"
+    },
+    "live|home": {
+      "rating": 0.1,
+      "verb_concept_id": "populate.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "look|attic": {
+      "rating": 0.05,
+      "verb_concept_id": "look.v.01",
+      "noun_concept_id": "loft.n.02"
+    },
+    "look|breakfast": {
+      "rating": 0.05,
+      "verb_concept_id": "look.v.01",
+      "noun_concept_id": "breakfast.n.01"
+    },
+    "look|child": {
+      "rating": 0.05,
+      "verb_concept_id": "look.v.01",
+      "noun_concept_id": "child.n.01"
+    },
+    "lost|balance": {
+      "rating": 0.85,
+      "verb_concept_id": "lose.v.01",
+      "noun_concept_id": "balance.n.01"
+    },
+    "lost|dogs": {
+      "rating": 0.5,
+      "verb_concept_id": "lose.v.01",
+      "noun_concept_id": "dog.n.01"
+    },
+    "lost|fear": {
+      "rating": 0.4,
+      "verb_concept_id": "lose.v.01",
+      "noun_concept_id": "fear.n.01"
+    },
+    "lost|life": {
+      "rating": 0.7,
+      "verb_concept_id": "lose.v.01",
+      "noun_concept_id": "life.n.01"
+    },
+    "love|enchantment": {
+      "rating": 0.15,
+      "verb_concept_id": "love.v.01",
+      "noun_concept_id": "captivation.n.02"
+    },
+    "love|fault": {
+      "rating": 0.1,
+      "verb_concept_id": "love.v.01",
+      "noun_concept_id": "mistake.n.01"
+    },
+    "love|girls": {
+      "rating": 0.7,
+      "verb_concept_id": "love.v.01",
+      "noun_concept_id": "girl.n.01"
+    },
+    "love|love": {
+      "rating": 0.02,
+      "verb_concept_id": "love.v.01",
+      "noun_concept_id": "love.n.01"
+    },
+    "make|beam": {
+      "rating": 0.4,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "radio_beam.n.01"
+    },
+    "make|blunders": {
+      "rating": 0.85,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "blunder.n.01"
+    },
+    "make|boy": {
+      "rating": 0.12,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "male_child.n.01"
+    },
+    "make|dam": {
+      "rating": 0.7,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "dam.n.01"
+    },
+    "make|home": {
+      "rating": 0.5,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "make|kite": {
+      "rating": 0.85,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "kite.n.01"
+    },
+    "make|marks": {
+      "rating": 0.8,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "marks.n.01"
+    },
+    "make|money": {
+      "rating": 0.9,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "money.n.01"
+    },
+    "make|pictures": {
+      "rating": 0.8,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "picture.n.01"
+    },
+    "make|poems": {
+      "rating": 0.85,
+      "verb_concept_id": "make.v.01",
+      "noun_concept_id": "poem.n.01"
+    },
+    "mean|anything": {
+      "rating": 0.7,
+      "verb_concept_id": "mean.v.01",
+      "noun_concept_id": null
+    },
+    "mean|chase": {
+      "rating": 0.05,
+      "verb_concept_id": "mean.v.01",
+      "noun_concept_id": "pursuit.n.01"
+    },
+    "mean|do": {
+      "rating": 0.02,
+      "verb_concept_id": "mean.v.01",
+      "noun_concept_id": "bash.n.02"
+    },
+    "meet|affectionate": {
+      "rating": 0.02,
+      "verb_concept_id": "meet.v.01",
+      "noun_concept_id": null
+    },
+    "meet|boys": {
+      "rating": 0.8,
+      "verb_concept_id": "meet.v.01",
+      "noun_concept_id": "male_child.n.01"
+    },
+    "meet|caps": {
+      "rating": 0.05,
+      "verb_concept_id": "meet.v.01",
+      "noun_concept_id": "cap.n.01"
+    },
+    "meet|cars": {
+      "rating": 0.3,
+      "verb_concept_id": "meet.v.01",
+      "noun_concept_id": "car.n.01"
+    },
+    "meet|marks": {
+      "rating": 0.1,
+      "verb_concept_id": "meet.v.01",
+      "noun_concept_id": "marks.n.01"
+    },
+    "nod|face": {
+      "rating": 0.1,
+      "verb_concept_id": "nod.v.01",
+      "noun_concept_id": "face.n.01"
+    },
+    "nod|head": {
+      "rating": 0.92,
+      "verb_concept_id": "nod.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "obey|marks": {
+      "rating": 0.05,
+      "verb_concept_id": "obey.v.01",
+      "noun_concept_id": "marks.n.01"
+    },
+    "obey|parents": {
+      "rating": 0.9,
+      "verb_concept_id": "obey.v.01",
+      "noun_concept_id": "parent.n.01"
+    },
+    "observe|animal": {
+      "rating": 0.6,
+      "verb_concept_id": "detect.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "observe|beast": {
+      "rating": 0.55,
+      "verb_concept_id": "detect.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "observe|bird": {
+      "rating": 0.6,
+      "verb_concept_id": "detect.v.01",
+      "noun_concept_id": "bird.n.01"
+    },
+    "observe|consequence": {
+      "rating": 0.35,
+      "verb_concept_id": "detect.v.01",
+      "noun_concept_id": "consequence.n.01"
+    },
+    "obtain|fur": {
+      "rating": 0.7,
+      "verb_concept_id": "obtain.v.01",
+      "noun_concept_id": "fur.n.01"
+    },
+    "obtain|wood": {
+      "rating": 0.75,
+      "verb_concept_id": "obtain.v.01",
+      "noun_concept_id": "wood.n.01"
+    },
+    "offer|effect": {
+      "rating": 0.1,
+      "verb_concept_id": "offer.v.01",
+      "noun_concept_id": "consequence.n.01"
+    },
+    "offer|god": {
+      "rating": 0.5,
+      "verb_concept_id": "offer.v.01",
+      "noun_concept_id": "god.n.01"
+    },
+    "offer|last": {
+      "rating": 0.02,
+      "verb_concept_id": "offer.v.01",
+      "noun_concept_id": "stopping_point.n.01"
+    },
+    "offer|volume": {
+      "rating": 0.5,
+      "verb_concept_id": "offer.v.01",
+      "noun_concept_id": "volume.n.01"
+    },
+    "open|blocks": {
+      "rating": 0.1,
+      "verb_concept_id": "open.v.01",
+      "noun_concept_id": "block.n.01"
+    },
+    "open|door": {
+      "rating": 0.97,
+      "verb_concept_id": "open.v.01",
+      "noun_concept_id": "door.n.01"
+    },
+    "open|gate": {
+      "rating": 0.9,
+      "verb_concept_id": "open.v.01",
+      "noun_concept_id": "gate.n.01"
+    },
+    "open|houses": {
+      "rating": 0.3,
+      "verb_concept_id": "open.v.01",
+      "noun_concept_id": "house.n.01"
+    },
+    "overtook|appearance": {
+      "rating": 0.05,
+      "verb_concept_id": "overtake.v.01",
+      "noun_concept_id": "appearance.n.01"
+    },
+    "overtook|way": {
+      "rating": 0.3,
+      "verb_concept_id": "overtake.v.01",
+      "noun_concept_id": "manner.n.01"
+    },
+    "own|advice": {
+      "rating": 0.1,
+      "verb_concept_id": "own.v.01",
+      "noun_concept_id": "advice.n.01"
+    },
+    "own|beam": {
+      "rating": 0.3,
+      "verb_concept_id": "own.v.01",
+      "noun_concept_id": "radio_beam.n.01"
+    },
+    "own|establishment": {
+      "rating": 0.6,
+      "verb_concept_id": "own.v.01",
+      "noun_concept_id": "constitution.n.02"
+    },
+    "own|means": {
+      "rating": 0.4,
+      "verb_concept_id": "own.v.01",
+      "noun_concept_id": "means.n.01"
+    },
+    "pass|bear": {
+      "rating": 0.05,
+      "verb_concept_id": "pass.v.01",
+      "noun_concept_id": "bear.n.01"
+    },
+    "pass|crack": {
+      "rating": 0.2,
+      "verb_concept_id": "pass.v.01",
+      "noun_concept_id": "crack.n.01"
+    },
+    "pass|door": {
+      "rating": 0.5,
+      "verb_concept_id": "pass.v.01",
+      "noun_concept_id": "door.n.01"
+    },
+    "pass|rest": {
+      "rating": 0.4,
+      "verb_concept_id": "pass.v.01",
+      "noun_concept_id": "remainder.n.01"
+    },
+    "peel|bark": {
+      "rating": 0.6,
+      "verb_concept_id": "skin.v.04",
+      "noun_concept_id": "bark.n.01"
+    },
+    "peel|fruit": {
+      "rating": 0.95,
+      "verb_concept_id": "skin.v.04",
+      "noun_concept_id": "fruit.n.01"
+    },
+    "permit|air": {
+      "rating": 0.05,
+      "verb_concept_id": "permit.v.01",
+      "noun_concept_id": "air.n.01"
+    },
+    "permit|be": {
+      "rating": 0.02,
+      "verb_concept_id": "permit.v.01",
+      "noun_concept_id": "beryllium.n.01"
+    },
+    "pick|aprons": {
+      "rating": 0.1,
+      "verb_concept_id": "pick.v.01",
+      "noun_concept_id": "apron.n.01"
+    },
+    "pick|ball": {
+      "rating": 0.4,
+      "verb_concept_id": "pick.v.01",
+      "noun_concept_id": "ball.n.01"
+    },
+    "play|annie's": {
+      "rating": 0.2,
+      "verb_concept_id": "play.v.01",
+      "noun_concept_id": null
+    },
+    "play|good": {
+      "rating": 0.02,
+      "verb_concept_id": "play.v.01",
+      "noun_concept_id": "good.n.01"
+    },
+    "play|sin": {
+      "rating": 0.02,
+      "verb_concept_id": "play.v.01",
+      "noun_concept_id": "sin.n.01"
+    },
+    "play|time": {
+      "rating": 0.35,
+      "verb_concept_id": "play.v.01",
+      "noun_concept_id": "time.n.01"
+    },
+    "pray|alfred": {
+      "rating": 0.1,
+      "verb_concept_id": "pray.v.01",
+      "noun_concept_id": "alfred.n.01"
+    },
+    "pray|device": {
+      "rating": 0.02,
+      "verb_concept_id": "pray.v.01",
+      "noun_concept_id": "device.n.01"
+    },
+    "pray|god": {
+      "rating": 0.6,
+      "verb_concept_id": "pray.v.01",
+      "noun_concept_id": "god.n.01"
+    },
+    "pray|pieces": {
+      "rating": 0.02,
+      "verb_concept_id": "pray.v.01",
+      "noun_concept_id": "piece.n.01"
+    },
+    "publish|articles": {
+      "rating": 0.9,
+      "verb_concept_id": "print.v.01",
+      "noun_concept_id": "article.n.01"
+    },
+    "publish|book": {
+      "rating": 0.85,
+      "verb_concept_id": "print.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "publish|children": {
+      "rating": 0.02,
+      "verb_concept_id": "print.v.01",
+      "noun_concept_id": "child.n.01"
+    },
+    "publish|poems": {
+      "rating": 0.9,
+      "verb_concept_id": "print.v.01",
+      "noun_concept_id": "poem.n.01"
+    },
+    "pull|aprons": {
+      "rating": 0.35,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "apron.n.01"
+    },
+    "pull|bow": {
+      "rating": 0.5,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "bow.n.01"
+    },
+    "pull|bully": {
+      "rating": 0.1,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "bully.n.01"
+    },
+    "pull|flowers": {
+      "rating": 0.6,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "flower.n.01"
+    },
+    "pull|fruit": {
+      "rating": 0.55,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "fruit.n.01"
+    },
+    "pull|horses": {
+      "rating": 0.3,
+      "verb_concept_id": "pull.v.01",
+      "noun_concept_id": "horse.n.01"
+    },
+    "push|africa": {
+      "rating": 0.02,
+      "verb_concept_id": "push.v.01",
+      "noun_concept_id": "africa.n.01"
+    },
+    "push|bank": {
+      "rating": 0.15,
+      "verb_concept_id": "push.v.01",
+      "noun_concept_id": "bank.n.01"
+    },
+    "put|ball": {
+      "rating": 0.6,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "ball.n.01"
+    },
+    "put|basket": {
+      "rating": 0.6,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "basket.n.01"
+    },
+    "put|book": {
+      "rating": 0.7,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "put|books": {
+      "rating": 0.72,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "put|forehead": {
+      "rating": 0.15,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "brow.n.01"
+    },
+    "put|hat": {
+      "rating": 0.7,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "hat.n.01"
+    },
+    "put|head": {
+      "rating": 0.5,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "put|put": {
+      "rating": 0.02,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "put_option.n.02"
+    },
+    "reach|africa": {
+      "rating": 0.5,
+      "verb_concept_id": "reach.v.01",
+      "noun_concept_id": "africa.n.01"
+    },
+    "reach|apple": {
+      "rating": 0.6,
+      "verb_concept_id": "reach.v.01",
+      "noun_concept_id": "apple.n.01"
+    },
+    "reach|bank": {
+      "rating": 0.5,
+      "verb_concept_id": "reach.v.01",
+      "noun_concept_id": "bank.n.01"
+    },
+    "reach|ground": {
+      "rating": 0.6,
+      "verb_concept_id": "reach.v.01",
+      "noun_concept_id": "land.n.04"
+    },
+    "read|book": {
+      "rating": 0.95,
+      "verb_concept_id": "read.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "read|books": {
+      "rating": 0.95,
+      "verb_concept_id": "read.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "read|call": {
+      "rating": 0.05,
+      "verb_concept_id": "read.v.01",
+      "noun_concept_id": "call.n.01"
+    },
+    "read|eyes": {
+      "rating": 0.2,
+      "verb_concept_id": "read.v.01",
+      "noun_concept_id": "eyes.n.01"
+    },
+    "remember|day": {
+      "rating": 0.5,
+      "verb_concept_id": "remember.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "remember|events": {
+      "rating": 0.85,
+      "verb_concept_id": "remember.v.01",
+      "noun_concept_id": "event.n.01"
+    },
+    "remember|god": {
+      "rating": 0.4,
+      "verb_concept_id": "remember.v.01",
+      "noun_concept_id": "god.n.01"
+    },
+    "remember|indians": {
+      "rating": 0.4,
+      "verb_concept_id": "remember.v.01",
+      "noun_concept_id": "indian.n.01"
+    },
+    "reply|annie": {
+      "rating": 0.15,
+      "verb_concept_id": "answer.v.01",
+      "noun_concept_id": null
+    },
+    "reply|god": {
+      "rating": 0.1,
+      "verb_concept_id": "answer.v.01",
+      "noun_concept_id": "god.n.01"
+    },
+    "reply|heard": {
+      "rating": 0.02,
+      "verb_concept_id": "answer.v.01",
+      "noun_concept_id": null
+    },
+    "reply|mother": {
+      "rating": 0.15,
+      "verb_concept_id": "answer.v.01",
+      "noun_concept_id": "mother.n.01"
+    },
+    "return|abode": {
+      "rating": 0.2,
+      "verb_concept_id": "return.v.01",
+      "noun_concept_id": "residence.n.01"
+    },
+    "return|atmosphere": {
+      "rating": 0.05,
+      "verb_concept_id": "return.v.01",
+      "noun_concept_id": "atmosphere.n.01"
+    },
+    "return|home": {
+      "rating": 0.15,
+      "verb_concept_id": "return.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "return|work": {
+      "rating": 0.15,
+      "verb_concept_id": "return.v.01",
+      "noun_concept_id": "work.n.01"
+    },
+    "rose|balloon": {
+      "rating": 0.05,
+      "verb_concept_id": "rise.v.01",
+      "noun_concept_id": "balloon.n.01"
+    },
+    "rose|dignity": {
+      "rating": 0.02,
+      "verb_concept_id": "rise.v.01",
+      "noun_concept_id": "dignity.n.01"
+    },
+    "rose|enchantment": {
+      "rating": 0.02,
+      "verb_concept_id": "rise.v.01",
+      "noun_concept_id": "captivation.n.02"
+    },
+    "rose|love": {
+      "rating": 0.02,
+      "verb_concept_id": "rise.v.01",
+      "noun_concept_id": "love.n.01"
+    },
+    "rub|blockhouse": {
+      "rating": 0.08,
+      "verb_concept_id": "rub.v.01",
+      "noun_concept_id": "blockhouse.n.01"
+    },
+    "rub|castle": {
+      "rating": 0.2,
+      "verb_concept_id": "rub.v.01",
+      "noun_concept_id": "palace.n.01"
+    },
+    "rule|copybook": {
+      "rating": 0.6,
+      "verb_concept_id": "govern.v.03",
+      "noun_concept_id": "copybook.n.01"
+    },
+    "rule|words": {
+      "rating": 0.2,
+      "verb_concept_id": "govern.v.03",
+      "noun_concept_id": "words.n.01"
+    },
+    "run|kite": {
+      "rating": 0.15,
+      "verb_concept_id": "run.v.01",
+      "noun_concept_id": "kite.n.01"
+    },
+    "run|upstairs": {
+      "rating": 0.02,
+      "verb_concept_id": "run.v.01",
+      "noun_concept_id": "upstairs.n.01"
+    },
+    "run|way": {
+      "rating": 0.3,
+      "verb_concept_id": "run.v.01",
+      "noun_concept_id": "manner.n.01"
+    },
+    "save|bank": {
+      "rating": 0.5,
+      "verb_concept_id": "salvage.v.01",
+      "noun_concept_id": "bank.n.01"
+    },
+    "save|death": {
+      "rating": 0.3,
+      "verb_concept_id": "salvage.v.01",
+      "noun_concept_id": "death.n.01"
+    },
+    "say|ben": {
+      "rating": 0.2,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "ben.n.01"
+    },
+    "say|day": {
+      "rating": 0.02,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "say|lessons": {
+      "rating": 0.55,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "lesson.n.01"
+    },
+    "say|mother": {
+      "rating": 0.15,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "mother.n.01"
+    },
+    "say|walk": {
+      "rating": 0.05,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "walk.n.01"
+    },
+    "see|beavers": {
+      "rating": 0.75,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "beaver.n.01"
+    },
+    "see|boys": {
+      "rating": 0.85,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "male_child.n.01"
+    },
+    "see|cat": {
+      "rating": 0.9,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "cat.n.01"
+    },
+    "see|child": {
+      "rating": 0.85,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "child.n.01"
+    },
+    "see|cloud": {
+      "rating": 0.85,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "cloud.n.01"
+    },
+    "see|fish": {
+      "rating": 0.85,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "fish.n.01"
+    },
+    "see|flower": {
+      "rating": 0.85,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "flower.n.01"
+    },
+    "see|fur": {
+      "rating": 0.5,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "fur.n.01"
+    },
+    "see|marks": {
+      "rating": 0.7,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "marks.n.01"
+    },
+    "see|sin": {
+      "rating": 0.35,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "sin.n.01"
+    },
+    "see|way": {
+      "rating": 0.5,
+      "verb_concept_id": "see.v.01",
+      "noun_concept_id": "manner.n.01"
+    },
+    "seem|air": {
+      "rating": 0.02,
+      "verb_concept_id": "look.v.02",
+      "noun_concept_id": "air.n.01"
+    },
+    "seem|cavalry": {
+      "rating": 0.02,
+      "verb_concept_id": "look.v.02",
+      "noun_concept_id": "cavalry.n.01"
+    },
+    "seem|cold": {
+      "rating": 0.02,
+      "verb_concept_id": "look.v.02",
+      "noun_concept_id": "cold.n.01"
+    },
+    "sell|cat": {
+      "rating": 0.6,
+      "verb_concept_id": "sell.v.01",
+      "noun_concept_id": "cat.n.01"
+    },
+    "sell|fish": {
+      "rating": 0.85,
+      "verb_concept_id": "sell.v.01",
+      "noun_concept_id": "fish.n.01"
+    },
+    "send|ball": {
+      "rating": 0.6,
+      "verb_concept_id": "send.v.01",
+      "noun_concept_id": "ball.n.01"
+    },
+    "send|bridle": {
+      "rating": 0.5,
+      "verb_concept_id": "send.v.01",
+      "noun_concept_id": "bridle.n.01"
+    },
+    "send|collar": {
+      "rating": 0.5,
+      "verb_concept_id": "send.v.01",
+      "noun_concept_id": "collar.n.01"
+    },
+    "send|dog": {
+      "rating": 0.7,
+      "verb_concept_id": "send.v.01",
+      "noun_concept_id": "dog.n.01"
+    },
+    "set|beam": {
+      "rating": 0.35,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "radio_beam.n.01"
+    },
+    "set|cry": {
+      "rating": 0.3,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "cry.n.01"
+    },
+    "set|home": {
+      "rating": 0.05,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "set|set": {
+      "rating": 0.02,
+      "verb_concept_id": "put.v.01",
+      "noun_concept_id": "set.n.01"
+    },
+    "show|arms": {
+      "rating": 0.4,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "weaponry.n.01"
+    },
+    "show|beauty": {
+      "rating": 0.5,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "beauty.n.01"
+    },
+    "show|collar": {
+      "rating": 0.5,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "collar.n.01"
+    },
+    "show|consequences": {
+      "rating": 0.7,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "consequence.n.01"
+    },
+    "show|conviction": {
+      "rating": 0.6,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "conviction.n.01"
+    },
+    "show|fruit": {
+      "rating": 0.6,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "fruit.n.01"
+    },
+    "show|seeds": {
+      "rating": 0.6,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "seed.n.01"
+    },
+    "show|way": {
+      "rating": 0.75,
+      "verb_concept_id": "show.v.01",
+      "noun_concept_id": "manner.n.01"
+    },
+    "sing|afternoon": {
+      "rating": 0.02,
+      "verb_concept_id": "sing.v.01",
+      "noun_concept_id": "afternoon.n.01"
+    },
+    "sing|birds": {
+      "rating": 0.15,
+      "verb_concept_id": "sing.v.01",
+      "noun_concept_id": "bird.n.01"
+    },
+    "sing|day": {
+      "rating": 0.02,
+      "verb_concept_id": "sing.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "sing|welcome": {
+      "rating": 0.35,
+      "verb_concept_id": "sing.v.01",
+      "noun_concept_id": "welcome.n.01"
+    },
+    "sit|door": {
+      "rating": 0.1,
+      "verb_concept_id": "sit.v.01",
+      "noun_concept_id": "door.n.01"
+    },
+    "sit|knees": {
+      "rating": 0.35,
+      "verb_concept_id": "sit.v.01",
+      "noun_concept_id": "knee.n.01"
+    },
+    "sit|street": {
+      "rating": 0.05,
+      "verb_concept_id": "sit.v.01",
+      "noun_concept_id": "street.n.01"
+    },
+    "slip|basket": {
+      "rating": 0.2,
+      "verb_concept_id": "steal.v.02",
+      "noun_concept_id": "basket.n.01"
+    },
+    "slip|collar": {
+      "rating": 0.4,
+      "verb_concept_id": "steal.v.02",
+      "noun_concept_id": "collar.n.01"
+    },
+    "slip|dandelions": {
+      "rating": 0.3,
+      "verb_concept_id": "steal.v.02",
+      "noun_concept_id": "dandelion.n.01"
+    },
+    "slip|end": {
+      "rating": 0.1,
+      "verb_concept_id": "steal.v.02",
+      "noun_concept_id": "end.n.01"
+    },
+    "sound|bear": {
+      "rating": 0.02,
+      "verb_concept_id": "sound.v.01",
+      "noun_concept_id": "bear.n.01"
+    },
+    "sound|bird": {
+      "rating": 0.02,
+      "verb_concept_id": "sound.v.01",
+      "noun_concept_id": "bird.n.01"
+    },
+    "sound|day": {
+      "rating": 0.02,
+      "verb_concept_id": "sound.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "sound|ears": {
+      "rating": 0.15,
+      "verb_concept_id": "sound.v.01",
+      "noun_concept_id": "ear.n.01"
+    },
+    "spend|book": {
+      "rating": 0.05,
+      "verb_concept_id": "spend.v.01",
+      "noun_concept_id": "book.n.01"
+    },
+    "spend|cry": {
+      "rating": 0.02,
+      "verb_concept_id": "spend.v.01",
+      "noun_concept_id": "cry.n.01"
+    },
+    "spend|mew": {
+      "rating": 0.02,
+      "verb_concept_id": "spend.v.01",
+      "noun_concept_id": "meow.n.01"
+    },
+    "spend|time": {
+      "rating": 0.95,
+      "verb_concept_id": "spend.v.01",
+      "noun_concept_id": "time.n.01"
+    },
+    "spread|care": {
+      "rating": 0.02,
+      "verb_concept_id": "spread.v.01",
+      "noun_concept_id": "care.n.01"
+    },
+    "spread|wings": {
+      "rating": 0.85,
+      "verb_concept_id": "spread.v.01",
+      "noun_concept_id": "wings.n.01"
+    },
+    "stand|basin": {
+      "rating": 0.2,
+      "verb_concept_id": "stand.v.01",
+      "noun_concept_id": "basin.n.01"
+    },
+    "stand|door": {
+      "rating": 0.1,
+      "verb_concept_id": "stand.v.01",
+      "noun_concept_id": "door.n.01"
+    },
+    "stand|window": {
+      "rating": 0.1,
+      "verb_concept_id": "stand.v.01",
+      "noun_concept_id": "window.n.01"
+    },
+    "start|berry": {
+      "rating": 0.02,
+      "verb_concept_id": "get_down.v.07",
+      "noun_concept_id": "berry.n.01"
+    },
+    "start|bread": {
+      "rating": 0.05,
+      "verb_concept_id": "get_down.v.07",
+      "noun_concept_id": "bread.n.01"
+    },
+    "start|breakfast": {
+      "rating": 0.6,
+      "verb_concept_id": "get_down.v.07",
+      "noun_concept_id": "breakfast.n.01"
+    },
+    "start|cheese": {
+      "rating": 0.05,
+      "verb_concept_id": "get_down.v.07",
+      "noun_concept_id": "cheese.n.01"
+    },
+    "step|baby": {
+      "rating": 0.2,
+      "verb_concept_id": "step.v.01",
+      "noun_concept_id": "baby.n.01"
+    },
+    "step|brother": {
+      "rating": 0.1,
+      "verb_concept_id": "step.v.01",
+      "noun_concept_id": "brother.n.01"
+    },
+    "stole|basket": {
+      "rating": 0.6,
+      "verb_concept_id": "steal.v.01",
+      "noun_concept_id": "basket.n.01"
+    },
+    "stole|beds": {
+      "rating": 0.3,
+      "verb_concept_id": "steal.v.01",
+      "noun_concept_id": "bed.n.01"
+    },
+    "stole|chamber": {
+      "rating": 0.15,
+      "verb_concept_id": "steal.v.01",
+      "noun_concept_id": "chamber.n.01"
+    },
+    "stole|eyes": {
+      "rating": 0.1,
+      "verb_concept_id": "steal.v.01",
+      "noun_concept_id": "eyes.n.01"
+    },
+    "stop|basket": {
+      "rating": 0.05,
+      "verb_concept_id": "stop.v.01",
+      "noun_concept_id": "basket.n.01"
+    },
+    "stop|blossoms": {
+      "rating": 0.05,
+      "verb_concept_id": "stop.v.01",
+      "noun_concept_id": "flower.n.02"
+    },
+    "stop|bridge": {
+      "rating": 0.15,
+      "verb_concept_id": "stop.v.01",
+      "noun_concept_id": "bridge.n.01"
+    },
+    "stop|companion's": {
+      "rating": 0.1,
+      "verb_concept_id": "stop.v.01",
+      "noun_concept_id": null
+    },
+    "stroke|beavers": {
+      "rating": 0.5,
+      "verb_concept_id": "stroke.v.01",
+      "noun_concept_id": "beaver.n.01"
+    },
+    "stroke|fur": {
+      "rating": 0.85,
+      "verb_concept_id": "stroke.v.01",
+      "noun_concept_id": "fur.n.01"
+    },
+    "swept|branches": {
+      "rating": 0.4,
+      "verb_concept_id": "brush.v.04",
+      "noun_concept_id": "branch.n.01"
+    },
+    "swept|cellar": {
+      "rating": 0.5,
+      "verb_concept_id": "brush.v.04",
+      "noun_concept_id": "basement.n.01"
+    },
+    "swept|crew": {
+      "rating": 0.1,
+      "verb_concept_id": "brush.v.04",
+      "noun_concept_id": "crew.n.01"
+    },
+    "swept|crowd": {
+      "rating": 0.15,
+      "verb_concept_id": "brush.v.04",
+      "noun_concept_id": "crowd.n.01"
+    },
+    "take|beauty": {
+      "rating": 0.15,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "beauty.n.01"
+    },
+    "take|blocks": {
+      "rating": 0.7,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "block.n.01"
+    },
+    "take|care": {
+      "rating": 0.85,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "care.n.01"
+    },
+    "take|castle": {
+      "rating": 0.55,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "palace.n.01"
+    },
+    "take|crawls": {
+      "rating": 0.02,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "crawl.n.01"
+    },
+    "take|hand": {
+      "rating": 0.7,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "hand.n.01"
+    },
+    "take|paper": {
+      "rating": 0.75,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "paper.n.01"
+    },
+    "take|way": {
+      "rating": 0.5,
+      "verb_concept_id": "take.v.01",
+      "noun_concept_id": "manner.n.01"
+    },
+    "teach|authority": {
+      "rating": 0.15,
+      "verb_concept_id": "teach.v.01",
+      "noun_concept_id": "authority.n.01"
+    },
+    "teach|catch": {
+      "rating": 0.02,
+      "verb_concept_id": "teach.v.01",
+      "noun_concept_id": "catch.n.01"
+    },
+    "tell|father": {
+      "rating": 0.3,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "father.n.01"
+    },
+    "tell|name": {
+      "rating": 0.7,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "name.n.01"
+    },
+    "tell|story": {
+      "rating": 0.9,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "narrative.n.01"
+    },
+    "tell|tell": {
+      "rating": 0.02,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "tell.n.01"
+    },
+    "tell|words": {
+      "rating": 0.4,
+      "verb_concept_id": "state.v.01",
+      "noun_concept_id": "words.n.01"
+    },
+    "thank|advice": {
+      "rating": 0.1,
+      "verb_concept_id": "thank.v.01",
+      "noun_concept_id": "advice.n.01"
+    },
+    "thank|arm": {
+      "rating": 0.02,
+      "verb_concept_id": "thank.v.01",
+      "noun_concept_id": "arm.n.01"
+    },
+    "thank|boy": {
+      "rating": 0.85,
+      "verb_concept_id": "thank.v.01",
+      "noun_concept_id": "male_child.n.01"
+    },
+    "thank|brother": {
+      "rating": 0.85,
+      "verb_concept_id": "thank.v.01",
+      "noun_concept_id": "brother.n.01"
+    },
+    "thank|man": {
+      "rating": 0.85,
+      "verb_concept_id": "thank.v.01",
+      "noun_concept_id": "man.n.01"
+    },
+    "thank|wife": {
+      "rating": 0.85,
+      "verb_concept_id": "thank.v.01",
+      "noun_concept_id": "wife.n.01"
+    },
+    "think|cheeks": {
+      "rating": 0.02,
+      "verb_concept_id": "think.v.01",
+      "noun_concept_id": "cheek.n.01"
+    },
+    "think|think": {
+      "rating": 0.02,
+      "verb_concept_id": "think.v.01",
+      "noun_concept_id": "think.n.01"
+    },
+    "think|thought": {
+      "rating": 0.05,
+      "verb_concept_id": "think.v.01",
+      "noun_concept_id": "idea.n.01"
+    },
+    "throw|animal": {
+      "rating": 0.3,
+      "verb_concept_id": "throw.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "throw|animals": {
+      "rating": 0.3,
+      "verb_concept_id": "throw.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "throw|arms": {
+      "rating": 0.4,
+      "verb_concept_id": "throw.v.01",
+      "noun_concept_id": "weaponry.n.01"
+    },
+    "throw|bones": {
+      "rating": 0.6,
+      "verb_concept_id": "throw.v.01",
+      "noun_concept_id": "bones.n.01"
+    },
+    "touch|arm": {
+      "rating": 0.7,
+      "verb_concept_id": "touch.v.01",
+      "noun_concept_id": "arm.n.01"
+    },
+    "touch|face": {
+      "rating": 0.7,
+      "verb_concept_id": "touch.v.01",
+      "noun_concept_id": "face.n.01"
+    },
+    "touch|head": {
+      "rating": 0.6,
+      "verb_concept_id": "touch.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "touch|touch": {
+      "rating": 0.02,
+      "verb_concept_id": "touch.v.01",
+      "noun_concept_id": "touch.n.01"
+    },
+    "travel|africa": {
+      "rating": 0.5,
+      "verb_concept_id": "travel.v.01",
+      "noun_concept_id": "africa.n.01"
+    },
+    "travel|animals": {
+      "rating": 0.05,
+      "verb_concept_id": "travel.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "travel|apples": {
+      "rating": 0.02,
+      "verb_concept_id": "travel.v.01",
+      "noun_concept_id": "apple.n.01"
+    },
+    "travel|bank": {
+      "rating": 0.05,
+      "verb_concept_id": "travel.v.01",
+      "noun_concept_id": "bank.n.01"
+    },
+    "try|act": {
+      "rating": 0.4,
+      "verb_concept_id": "try.v.01",
+      "noun_concept_id": "act.n.01"
+    },
+    "try|bit": {
+      "rating": 0.1,
+      "verb_concept_id": "try.v.01",
+      "noun_concept_id": "spot.n.10"
+    },
+    "try|hour": {
+      "rating": 0.02,
+      "verb_concept_id": "try.v.01",
+      "noun_concept_id": "hour.n.01"
+    },
+    "turn|arm": {
+      "rating": 0.15,
+      "verb_concept_id": "turn.v.01",
+      "noun_concept_id": "arm.n.01"
+    },
+    "turn|bags": {
+      "rating": 0.15,
+      "verb_concept_id": "turn.v.01",
+      "noun_concept_id": "bag.n.01"
+    },
+    "turn|head": {
+      "rating": 0.7,
+      "verb_concept_id": "turn.v.01",
+      "noun_concept_id": "head.n.01"
+    },
+    "turn|side": {
+      "rating": 0.4,
+      "verb_concept_id": "turn.v.01",
+      "noun_concept_id": "side.n.01"
+    },
+    "wake|call": {
+      "rating": 0.05,
+      "verb_concept_id": "wake.v.01",
+      "noun_concept_id": "call.n.01"
+    },
+    "wake|poems": {
+      "rating": 0.02,
+      "verb_concept_id": "wake.v.01",
+      "noun_concept_id": "poem.n.01"
+    },
+    "walk|body": {
+      "rating": 0.05,
+      "verb_concept_id": "walk.v.01",
+      "noun_concept_id": "body.n.01"
+    },
+    "walk|cane": {
+      "rating": 0.15,
+      "verb_concept_id": "walk.v.01",
+      "noun_concept_id": "cane.n.01"
+    },
+    "walk|home": {
+      "rating": 0.1,
+      "verb_concept_id": "walk.v.01",
+      "noun_concept_id": "home.n.01"
+    },
+    "want|animal": {
+      "rating": 0.5,
+      "verb_concept_id": "desire.v.01",
+      "noun_concept_id": "animal.n.01"
+    },
+    "want|board": {
+      "rating": 0.4,
+      "verb_concept_id": "desire.v.01",
+      "noun_concept_id": "board.n.01"
+    },
+    "want|boot": {
+      "rating": 0.5,
+      "verb_concept_id": "desire.v.01",
+      "noun_concept_id": "boot.n.01"
+    },
+    "watch|actions": {
+      "rating": 0.6,
+      "verb_concept_id": "watch.v.01",
+      "noun_concept_id": "action.n.01"
+    },
+    "watch|bear": {
+      "rating": 0.5,
+      "verb_concept_id": "watch.v.01",
+      "noun_concept_id": "bear.n.01"
+    },
+    "watch|fish": {
+      "rating": 0.6,
+      "verb_concept_id": "watch.v.01",
+      "noun_concept_id": "fish.n.01"
+    },
+    "watch|scene": {
+      "rating": 0.6,
+      "verb_concept_id": "watch.v.01",
+      "noun_concept_id": "scene.n.01"
+    },
+    "whisper|beneath": {
+      "rating": 0.02,
+      "verb_concept_id": "whisper.v.01",
+      "noun_concept_id": null
+    },
+    "whisper|boughs": {
+      "rating": 0.02,
+      "verb_concept_id": "whisper.v.01",
+      "noun_concept_id": "bough.n.01"
+    },
+    "whisper|everybody": {
+      "rating": 0.4,
+      "verb_concept_id": "whisper.v.01",
+      "noun_concept_id": null
+    },
+    "wish|do": {
+      "rating": 0.02,
+      "verb_concept_id": "wish.v.01",
+      "noun_concept_id": "bash.n.02"
+    },
+    "wish|something": {
+      "rating": 0.75,
+      "verb_concept_id": "wish.v.01",
+      "noun_concept_id": null
+    },
+    "wish|string": {
+      "rating": 0.05,
+      "verb_concept_id": "wish.v.01",
+      "noun_concept_id": "string.n.01"
+    },
+    "wonder|annie": {
+      "rating": 0.1,
+      "verb_concept_id": "wonder.v.01",
+      "noun_concept_id": null
+    },
+    "wonder|diamond": {
+      "rating": 0.15,
+      "verb_concept_id": "wonder.v.01",
+      "noun_concept_id": "diamond.n.01"
+    },
+    "wonder|music": {
+      "rating": 0.1,
+      "verb_concept_id": "wonder.v.01",
+      "noun_concept_id": "music.n.01"
+    },
+    "wore|bones": {
+      "rating": 0.15,
+      "verb_concept_id": "wear.v.01",
+      "noun_concept_id": "bones.n.01"
+    },
+    "wore|cap": {
+      "rating": 0.85,
+      "verb_concept_id": "wear.v.01",
+      "noun_concept_id": "cap.n.01"
+    },
+    "wore|collar": {
+      "rating": 0.8,
+      "verb_concept_id": "wear.v.01",
+      "noun_concept_id": "collar.n.01"
+    },
+    "wore|diamonds": {
+      "rating": 0.85,
+      "verb_concept_id": "wear.v.01",
+      "noun_concept_id": "diamond.n.01"
+    },
+    "work|afternoon": {
+      "rating": 0.3,
+      "verb_concept_id": "work.v.01",
+      "noun_concept_id": "afternoon.n.01"
+    },
+    "work|day": {
+      "rating": 0.3,
+      "verb_concept_id": "work.v.01",
+      "noun_concept_id": "day.n.01"
+    },
+    "work|father": {
+      "rating": 0.02,
+      "verb_concept_id": "work.v.01",
+      "noun_concept_id": "father.n.01"
+    },
+    "work|feet": {
+      "rating": 0.15,
+      "verb_concept_id": "work.v.01",
+      "noun_concept_id": "foot.n.01"
+    },
+    "write|age": {
+      "rating": 0.05,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "age.n.01"
+    },
+    "write|appearance": {
+      "rating": 0.05,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "appearance.n.01"
+    },
+    "write|number": {
+      "rating": 0.4,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "number.n.01"
+    },
+    "write|stories": {
+      "rating": 0.9,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "narrative.n.01"
+    },
+    "written|afternoon": {
+      "rating": 0.02,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "afternoon.n.01"
+    },
+    "written|children": {
+      "rating": 0.05,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "child.n.01"
+    },
+    "written|cry": {
+      "rating": 0.02,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "cry.n.01"
+    },
+    "written|stories": {
+      "rating": 0.9,
+      "verb_concept_id": "write.v.01",
+      "noun_concept_id": "narrative.n.01"
+    }
+  }
+}
