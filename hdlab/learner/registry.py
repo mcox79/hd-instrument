@@ -5,11 +5,12 @@ register it here. hdlab/learner/core.py never needs to change."""
 from __future__ import annotations
 
 from hdlab.learner.core import mdl_select
-from hdlab.learner.plugins import estimation_plugin, ruleind_plugin
+from hdlab.learner.plugins import estimation_plugin, gam_plugin, ruleind_plugin
 
 PLUGINS = {
     estimation_plugin.NAME: estimation_plugin,
     ruleind_plugin.NAME: ruleind_plugin,
+    gam_plugin.NAME: gam_plugin,
 }
 
 
