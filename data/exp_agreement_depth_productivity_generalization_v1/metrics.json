@@ -1,0 +1,431 @@
+{
+  "verdict": "HARD_PASS_DEPTH_PRODUCTIVE",
+  "verdict_tag": "HARD_PASS_DEPTH_PRODUCTIVE",
+  "verdict_msg": "DEPTH-PRODUCTIVITY | DEEP held-out buried (n=2597, 5 seeds): learned_deep=0.7324(+-0.0027) [CI95 0.717-0.751] | ceiling(determ29450)=0.7312 nearest=0.3011 first=0.4667 majority=0.5741 | SHALLOW1 learned=0.8094 -> depth_degradation=+0.0770 | local_bag_deep=0.4717 fixed_random_deep=0.3831 | SCRAMBLE true=0.7347 scr=0.4400 DROP=+0.2947 (change=0.865) | flip=0.0000 | delta of=0.3 that=0.0169 the=-0.0263 | GateD_det_reproduces_ceiling=True | HARD_PASS_DEPTH_PRODUCTIVE",
+  "summary": "HARD_PASS_DEPTH_PRODUCTIVE | learned_deep=0.7324 vs ceiling=0.7312 vs nearest=0.3011 vs majority=0.5741 | depth_degradation=+0.0770 | scramble_drop=+0.2947 | flip=0.0000",
+  "elapsed_s": 96.3,
+  "run_mode": "full",
+  "anchor_name": "exp_agreement_depth_productivity_generalization_v1",
+  "ts_iso": "2026-07-23T00:25:54.833224+00:00",
+  "depth_metric": "span_depth = max det-depth of nouns strictly after subject; K_SHALLOW=1",
+  "deep_test_buried_n": 2597,
+  "shallow_test_depth1_buried_n": 256,
+  "n_seeds": 5,
+  "arms": {
+    "learned_depth": {
+      "deep_mean": 0.7324,
+      "deep_std": 0.0027,
+      "deep_per_seed": [
+        0.7346938848495483,
+        0.7289179563522339,
+        0.7293030619621277,
+        0.7343088388442993,
+        0.7346938848495483
+      ],
+      "deep_ci95": [
+        0.717,
+        0.7509
+      ],
+      "shallow1_mean": 0.8094,
+      "shallow1_per_seed": [
+        0.81640625,
+        0.8125,
+        0.8046875,
+        0.81640625,
+        0.796875
+      ]
+    },
+    "deterministic_depth": {
+      "deep": 0.7312,
+      "note": "29450 recursive-rule ceiling at test regime (Gate D)"
+    },
+    "nearest_noun": {
+      "deep": 0.3011
+    },
+    "first_noun": {
+      "deep": 0.4667
+    },
+    "majority": {
+      "deep": 0.5741
+    },
+    "local_bag": {
+      "deep_mean": 0.4717,
+      "deep_per_seed": [
+        0.4693877696990967,
+        0.46900269389152527,
+        0.4809395372867584,
+        0.4693877696990967,
+        0.4697728157043457
+      ]
+    },
+    "fixed_random": {
+      "deep_mean": 0.3831,
+      "deep_per_seed": [
+        0.4023873805999756,
+        0.33654215931892395,
+        0.43434733152389526,
+        0.33269158005714417,
+        0.40970349311828613
+      ]
+    }
+  },
+  "depth_degradation": 0.077,
+  "depth_curve": {
+    "learned": [
+      {
+        "depth_bin": "1",
+        "n": 1303,
+        "acc": 0.8419,
+        "ci95": [
+          0.8219,
+          0.8619
+        ],
+        "majority": 0.627
+      },
+      {
+        "depth_bin": "2",
+        "n": 1040,
+        "acc": 0.7808,
+        "ci95": [
+          0.7567,
+          0.8058
+        ],
+        "majority": 0.6087
+      },
+      {
+        "depth_bin": "3",
+        "n": 695,
+        "acc": 0.7324,
+        "ci95": [
+          0.6978,
+          0.7655
+        ],
+        "majority": 0.5626
+      },
+      {
+        "depth_bin": "4+",
+        "n": 862,
+        "acc": 0.681,
+        "ci95": [
+          0.6462,
+          0.7111
+        ],
+        "majority": 0.5418
+      }
+    ],
+    "deterministic": [
+      {
+        "depth_bin": "1",
+        "n": 1303,
+        "acc": 0.7751,
+        "ci95": [
+          0.7529,
+          0.7974
+        ],
+        "majority": 0.627
+      },
+      {
+        "depth_bin": "2",
+        "n": 1040,
+        "acc": 0.7894,
+        "ci95": [
+          0.7663,
+          0.8135
+        ],
+        "majority": 0.6087
+      },
+      {
+        "depth_bin": "3",
+        "n": 695,
+        "acc": 0.7295,
+        "ci95": [
+          0.6964,
+          0.764
+        ],
+        "majority": 0.5626
+      },
+      {
+        "depth_bin": "4+",
+        "n": 862,
+        "acc": 0.6624,
+        "ci95": [
+          0.6311,
+          0.6926
+        ],
+        "majority": 0.5418
+      }
+    ],
+    "nearest": [
+      {
+        "depth_bin": "1",
+        "n": 1303,
+        "acc": 0.3085,
+        "ci95": [
+          0.284,
+          0.3338
+        ],
+        "majority": 0.627
+      },
+      {
+        "depth_bin": "2",
+        "n": 1040,
+        "acc": 0.2577,
+        "ci95": [
+          0.2317,
+          0.2827
+        ],
+        "majority": 0.6087
+      },
+      {
+        "depth_bin": "3",
+        "n": 695,
+        "acc": 0.3295,
+        "ci95": [
+          0.295,
+          0.3641
+        ],
+        "majority": 0.5626
+      },
+      {
+        "depth_bin": "4+",
+        "n": 862,
+        "acc": 0.3306,
+        "ci95": [
+          0.2993,
+          0.3619
+        ],
+        "majority": 0.5418
+      }
+    ],
+    "note": "over ALL buried items; depth<=1 is IN-training-distribution for learned (flagged)"
+  },
+  "scramble_discriminator": {
+    "true_acc": 0.7347,
+    "scrambled_acc_mean": 0.44,
+    "scramble_drop": 0.2947,
+    "per_seed_scrambled": [
+      0.4486,
+      0.432,
+      0.4382,
+      0.4413,
+      0.4401
+    ],
+    "per_seed_change_frac": [
+      0.8595,
+      0.8602,
+      0.8799,
+      0.8656,
+      0.8606
+    ],
+    "change_frac_mean": 0.8652,
+    "seeds": [
+      101,
+      103,
+      107,
+      109,
+      113
+    ]
+  },
+  "number_flip_change_frac": 0.0,
+  "learned_deltas_inspect": {
+    "of": 0.3,
+    "in": 0.286,
+    "to": 0.1541,
+    "that": 0.0169,
+    "which": 0.1021,
+    "who": null,
+    ",": -0.0622,
+    "(": 0.2624,
+    ")": -0.4828,
+    "the": -0.0263,
+    "a": null,
+    "and": 0.0844,
+    "is": -0.5537,
+    "are": 0.138
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "learned_deep": 0.7347,
+      "learned_shallow1": 0.8164,
+      "local_bag_deep": 0.4694,
+      "fixed_random_deep": 0.4024,
+      "beta": 2.3939,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.37361,
+          "val_buried": 0.818,
+          "beta": 6.2667
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.37379,
+          "val_buried": 0.818,
+          "beta": 6.2926
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.37383,
+          "val_buried": 0.818,
+          "beta": 6.313
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "learned_deep": 0.7289,
+      "learned_shallow1": 0.8125,
+      "local_bag_deep": 0.469,
+      "fixed_random_deep": 0.3365,
+      "beta": 4.929,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.37364,
+          "val_buried": 0.8197,
+          "beta": 6.2048
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.3737,
+          "val_buried": 0.818,
+          "beta": 6.2295
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.37383,
+          "val_buried": 0.818,
+          "beta": 6.2515
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "learned_deep": 0.7293,
+      "learned_shallow1": 0.8047,
+      "local_bag_deep": 0.4809,
+      "fixed_random_deep": 0.4343,
+      "beta": 6.3039,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.37124,
+          "val_buried": 0.823,
+          "beta": 6.284
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.37285,
+          "val_buried": 0.8246,
+          "beta": 6.3039
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.3713,
+          "val_buried": 0.8246,
+          "beta": 6.3292
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "learned_deep": 0.7343,
+      "learned_shallow1": 0.8164,
+      "local_bag_deep": 0.4694,
+      "fixed_random_deep": 0.3327,
+      "beta": 2.394,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.37374,
+          "val_buried": 0.8197,
+          "beta": 6.2592
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.37371,
+          "val_buried": 0.8164,
+          "beta": 6.2727
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.37449,
+          "val_buried": 0.8213,
+          "beta": 6.3114
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "learned_deep": 0.7347,
+      "learned_shallow1": 0.7969,
+      "local_bag_deep": 0.4698,
+      "fixed_random_deep": 0.4097,
+      "beta": 5.5313,
+      "depth_hist_tail": [
+        {
+          "epoch": 1400,
+          "loss": 0.37435,
+          "val_buried": 0.8082,
+          "beta": 6.2802
+        },
+        {
+          "epoch": 1450,
+          "loss": 0.37392,
+          "val_buried": 0.818,
+          "beta": 6.2918
+        },
+        {
+          "epoch": 1500,
+          "loss": 0.37442,
+          "val_buried": 0.8131,
+          "beta": 6.3139
+        }
+      ]
+    }
+  ],
+  "verdict_conditions": {
+    "cond_a_hold_ceiling": true,
+    "cond_b_above_nearest": true,
+    "cond_c_above_majority": true,
+    "cond_d_small_degradation": true,
+    "cond_e_scramble_fires": true,
+    "cond_f_flip_invariant": true,
+    "hf_i_tie_nearest": false,
+    "hf_ii_at_majority": false,
+    "hf_iii_degradation": false,
+    "hf_iv_scramble_no_effect": false
+  },
+  "gate_d_det_reproduces_ceiling": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "learned_depth": "068153f0bc6195dac19b8bf4965344811d315b1ccb30bca5db7e2c46349bf1dd",
+    "local_bag": "2db8741ea45eaca5d1fbacb462730de574b25a6b1cc610cd03b9bfbcbd56559b",
+    "nearest_noun": "e2078223a3b3758881baf4e26dd566fa2d3b52653e395e90bc5aad107d2b456c"
+  },
+  "baseline_in_band": true,
+  "bands": {
+    "HP_HOLD_CEILING": 0.66,
+    "HP_ABOVE_NEAREST": 0.2,
+    "HP_ABOVE_MAJORITY": 0.05,
+    "HP_MAX_DEGRADATION": 0.08,
+    "HP_SCRAMBLE_DROP": 0.1,
+    "HF_TIE_NEAREST": 0.05,
+    "HF_AT_MAJORITY": 0.02,
+    "HF_DEGRADATION": 0.15,
+    "HF_SCRAMBLE_NOEFFECT": 0.05
+  },
+  "n_vocab": 107,
+  "n_fit": 5443,
+  "n_val": 1360,
+  "n_shallow_test": 1700,
+  "n_deep_test": 2597,
+  "final_metrics_atomicity": "tmp_replace",
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "observed_n_units": 5,
+  "crlb_n_a": "classification accuracy over deterministic-at-runtime selectors; no per-decode Gaussian noise floor",
+  "runtime_glassbox": "hard argmin over learned depth register; NO autograd, NO torch; gradient build-time only (manual numpy)",
+  "progress_logging": "per-VAL_EVERY val_buried prints with flush=True + _heartbeat.jsonl during training"
+}
