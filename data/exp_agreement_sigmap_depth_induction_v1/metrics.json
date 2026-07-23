@@ -1,0 +1,262 @@
+{
+  "verdict": "HARD_FAIL_SIGNATURE_INSUFFICIENT_FOR_DEPTH_INDUCTION",
+  "verdict_tag": "HARD_FAIL_SIGNATURE_INSUFFICIENT_FOR_DEPTH_INDUCTION",
+  "verdict_msg": "SIGMAP-DEPTH-INDUCTION | held-out buried (n=2677, 5 seeds): map_HFholdout=0.6012(+-0.0008) scalar_HFholdout=0.5917(+-0.0000) map_full=0.7071 | majority=0.6279 nearest_noun=0.5521 first_noun=0.4135 det_ceiling=0.7561 | map-scalar=+0.0095 map-majority=-0.0267 | KFOLD map=0.6713 scalar=0.7331 gap=-0.0618 | SCRAMBLE true=0.7097 scr=0.5173 DROP=+0.1924 | number_flip=0.0000 | HF_holdout(24)='s,(,),,,``,according,all,and,as,by,for,from... | theta: connective=-0.1863 p_prev_noun=0.4111 p_next_noun=-0.4138 is_punct=-1.4216 log_freq=-0.0606 | HARD_FAIL_SIGNATURE_INSUFFICIENT_FOR_DEPTH_INDUCTION",
+  "summary": "HARD_FAIL_SIGNATURE_INSUFFICIENT_FOR_DEPTH_INDUCTION | map_HFholdout=0.6012 vs scalar_HFholdout=0.5917 (isolation=+0.0095) vs majority=0.6279 (lift=-0.0267) | map_full=0.7071 det_ceiling=0.7561 | scramble_drop=+0.1924 | flip=0.0000",
+  "elapsed_s": 231.64,
+  "run_mode": "full",
+  "anchor_name": "exp_agreement_sigmap_depth_induction_v1",
+  "ts_iso": "2026-07-23T00:08:44.924203+00:00",
+  "held_out_buried_n": 2677,
+  "n_seeds": 5,
+  "arms": {
+    "signature_map_hf_holdout": {
+      "buried_mean": 0.6012,
+      "buried_std": 0.0008,
+      "per_seed": [
+        0.6007,
+        0.6007,
+        0.6003,
+        0.6022,
+        0.6022
+      ]
+    },
+    "scalar_lookup_hf_holdout": {
+      "buried_mean": 0.5917,
+      "buried_std": 0.0,
+      "per_seed": [
+        0.5917,
+        0.5917,
+        0.5917,
+        0.5917,
+        0.5917
+      ]
+    },
+    "signature_map_full": {
+      "buried_mean": 0.7071,
+      "buried_std": 0.002,
+      "per_seed": [
+        0.7064,
+        0.7083,
+        0.7071,
+        0.7038,
+        0.7097
+      ]
+    },
+    "nearest_noun": {
+      "buried": 0.5521
+    },
+    "first_noun": {
+      "buried": 0.4135
+    },
+    "deterministic_depth": {
+      "buried": 0.7561,
+      "note": "hand-coded structural ceiling positive control at test regime"
+    },
+    "majority": {
+      "buried": 0.6279
+    }
+  },
+  "isolation_map_minus_scalar_hf": 0.0095,
+  "lift_map_minus_majority_hf": -0.0267,
+  "kfold_holdout": {
+    "map_mean": 0.6713,
+    "scalar_mean": 0.7331,
+    "gap_mean": -0.0618,
+    "per_fold": [
+      {
+        "fold": 0,
+        "n_held": 44,
+        "map": 0.6175,
+        "scalar": 0.7243,
+        "gap": -0.1068
+      },
+      {
+        "fold": 1,
+        "n_held": 43,
+        "map": 0.6758,
+        "scalar": 0.7381,
+        "gap": -0.0624
+      },
+      {
+        "fold": 2,
+        "n_held": 29,
+        "map": 0.7097,
+        "scalar": 0.7714,
+        "gap": -0.0616
+      },
+      {
+        "fold": 3,
+        "n_held": 22,
+        "map": 0.7004,
+        "scalar": 0.7647,
+        "gap": -0.0643
+      },
+      {
+        "fold": 4,
+        "n_held": 22,
+        "map": 0.653,
+        "scalar": 0.6668,
+        "gap": -0.0138
+      }
+    ],
+    "seed": 7
+  },
+  "scramble_discriminator": {
+    "true_acc": 0.7097,
+    "scrambled_acc_mean": 0.5173,
+    "scramble_drop": 0.1924,
+    "per_seed_scrambled": [
+      0.5174,
+      0.5136,
+      0.5099,
+      0.5275,
+      0.5181
+    ],
+    "per_seed_change_frac": [
+      0.7213,
+      0.7381,
+      0.7464,
+      0.7191,
+      0.7314
+    ],
+    "change_frac_mean": 0.7313,
+    "seeds": [
+      101,
+      103,
+      107,
+      109,
+      113
+    ]
+  },
+  "number_flip_change_frac": 0.0,
+  "signature_theta_coeffs": {
+    "bias": 0.1275,
+    "log_freq_z": -0.0606,
+    "p_next_noun_z": -0.4138,
+    "p_prev_noun_z": 0.4111,
+    "p_next_content_z": 0.6778,
+    "p_prev_content_z": 0.1753,
+    "p_next_punct_z": -0.218,
+    "p_prev_punct_z": 0.034,
+    "is_punct": -1.4216,
+    "word_len_z": 0.0309,
+    "mean_relpos_z": -0.0989,
+    "succ_diversity_z": -0.2616,
+    "connective_z": -0.1863
+  },
+  "signature_feature_names": [
+    "bias",
+    "log_freq_z",
+    "p_next_noun_z",
+    "p_prev_noun_z",
+    "p_next_content_z",
+    "p_prev_content_z",
+    "p_next_punct_z",
+    "p_prev_punct_z",
+    "is_punct",
+    "word_len_z",
+    "mean_relpos_z",
+    "succ_diversity_z",
+    "connective_z"
+  ],
+  "signature_audit": "features are corpus token-type distributional/positional statistics from FIT sentences only; NO agreement label, NO noun number, NO subjecthood; content proxy = noun_rate>0.5 (frequency/structure, not label)",
+  "hf_holdout_tokens": [
+    "'s",
+    "(",
+    ")",
+    ",",
+    "``",
+    "according",
+    "all",
+    "and",
+    "as",
+    "by",
+    "for",
+    "from",
+    "in",
+    "of",
+    "on",
+    "or",
+    "other",
+    "such",
+    "that",
+    "the",
+    "this",
+    "to",
+    "which",
+    "with"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "map_full": 0.7064,
+      "map_hf_holdout": 0.6007,
+      "scalar_hf_holdout": 0.5917
+    },
+    {
+      "seed": 13,
+      "map_full": 0.7083,
+      "map_hf_holdout": 0.6007,
+      "scalar_hf_holdout": 0.5917
+    },
+    {
+      "seed": 19,
+      "map_full": 0.7071,
+      "map_hf_holdout": 0.6003,
+      "scalar_hf_holdout": 0.5917
+    },
+    {
+      "seed": 23,
+      "map_full": 0.7038,
+      "map_hf_holdout": 0.6022,
+      "scalar_hf_holdout": 0.5917
+    },
+    {
+      "seed": 31,
+      "map_full": 0.7097,
+      "map_hf_holdout": 0.6022,
+      "scalar_hf_holdout": 0.5917
+    }
+  ],
+  "verdict_conditions": {
+    "cond_a_map_above_majority": false,
+    "cond_b_map_over_scalar": false,
+    "cond_c_scalar_collapses": true,
+    "cond_d_scramble_fires": true,
+    "hf_i_map_collapses": true,
+    "hf_ii_no_isolation": true,
+    "hf_iii_scramble_no_effect": false
+  },
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "signature_map": "9e197ff57a2339e404267cde20beeb94959a735210daf9113c5168f983758fb8",
+    "scalar_lookup": "7434bb33c8be8518584b4df7046430e156e0c0441e4ef76c8a0e61b2a3ed765d",
+    "nearest_noun": "3e3ec050b1995d3c3c7a99d26755b571f237f69712da34198048c2e869c23eca"
+  },
+  "baseline_in_band": true,
+  "bands": {
+    "HP_ABOVE_MAJORITY": 0.06,
+    "HP_MAP_OVER_SCALAR": 0.05,
+    "HP_SCALAR_COLLAPSE": 0.03,
+    "HP_SCRAMBLE_DROP": 0.1,
+    "HF_MAP_COLLAPSE": 0.02,
+    "HF_NO_ISOLATION": 0.02,
+    "HF_SCRAMBLE_NOEFFECT": 0.05
+  },
+  "n_vocab": 160,
+  "n_fit": 6747,
+  "n_val": 1802,
+  "n_test": 6212,
+  "hf_holdout_m": 24,
+  "kfolds": 5,
+  "d_sig": 13,
+  "final_metrics_atomicity": "tmp_replace",
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "observed_n_units": 5,
+  "crlb_n_a": "classification accuracy over deterministic-at-runtime selectors; no per-decode Gaussian noise floor",
+  "runtime_glassbox": "hard argmin over signature-mapped depth register; NO autograd, NO torch; gradient build-time only (manual numpy, finite-difference checked)",
+  "one_variable": "F = distributional signature [V,D_sig] vs F = identity one-hot [V,V]; entire pipeline otherwise identical",
+  "progress_logging": "per-VAL_EVERY val_buried prints flush=True + _heartbeat.jsonl during training"
+}
