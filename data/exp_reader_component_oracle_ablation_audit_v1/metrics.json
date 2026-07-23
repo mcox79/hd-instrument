@@ -1,0 +1,367 @@
+{
+  "verdict": "AUDIT_SANITY_OK",
+  "verdict_msg": "AUDIT_SANITY_OK: reproduces cited baseline (f1_real=0.5738 vs cited 0.5738, diff=0.0); f1_all_oracle=0.7106 > f1_real (mechanism ceiling gap=0.1368); top underperformer = CANDIDATE/PREDICATE ENUMERATION (uplift=0.0527). MIXED: all-oracle F1 clears real-baseline substantially but is still well below 1.0 -- SOME of the gap is components, but the reader's OWN composition logic (the admissibility gate / tuple-emission conditions / strict (v_lemma,patient) scoring match) is a SEPARATE, non-trivial bound",
+  "summary": "AUDIT_SANITY_OK: f1_real=0.5738 (cited 0.5738) | uplift PARSE=0.0221 ENUM=0.0527 ROLE=0.0391 ALL_ORACLE_F1=0.7106 | top_underperformer=CANDIDATE/PREDICATE ENUMERATION | parser_uas=0.7882 | recall_ceiling(REAL)=0.7",
+  "elapsed_s": 123.18,
+  "ts_iso": "2026-07-23T20:00:24.818030+00:00",
+  "anchor_name": "reader_component_oracle_ablation_audit_v1",
+  "run_mode": "full",
+  "seed": 20260726,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "which pipeline stage's output is replaced by gold/oracle (oracle_enum / oracle_parse / oracle_role, one or all-3 flagged), holding the reader's OWN routing/labeling/gate mechanism and the shared learned admissibility gate byte-identical across arms",
+  "bands": {
+    "CITED_BASELINE_F1": 0.5738,
+    "REPRO_TOL_OK": 0.02,
+    "REPRO_TOL_FAIL": 0.05,
+    "DISCRIMINATOR_FLOOR": 0.02
+  },
+  "f1": {
+    "REAL": 0.5738,
+    "PARSE_ORACLE": 0.5959,
+    "ENUM_ORACLE": 0.6265,
+    "ROLE_ORACLE": 0.6129,
+    "ALL_ORACLE": 0.7106
+  },
+  "precision": {
+    "REAL": 0.4861,
+    "PARSE_ORACLE": 0.5034,
+    "ENUM_ORACLE": 0.5235,
+    "ROLE_ORACLE": 0.5135,
+    "ALL_ORACLE": 0.5871
+  },
+  "recall": {
+    "REAL": 0.7,
+    "PARSE_ORACLE": 0.73,
+    "ENUM_ORACLE": 0.78,
+    "ROLE_ORACLE": 0.76,
+    "ALL_ORACLE": 0.9
+  },
+  "recall_ceiling": {
+    "REAL": 0.7,
+    "PARSE_ORACLE": 0.73,
+    "ENUM_ORACLE": 0.78,
+    "ROLE_ORACLE": 0.76,
+    "ALL_ORACLE": 0.9
+  },
+  "uplift": {
+    "PARSE_ORACLE": 0.0221,
+    "ENUM_ORACLE": 0.0527,
+    "ROLE_ORACLE": 0.0391,
+    "ALL_ORACLE": 0.1368
+  },
+  "ranked_component_table": [
+    {
+      "component": "CANDIDATE/PREDICATE ENUMERATION",
+      "arm": "ENUM_ORACLE",
+      "standalone_current": 0.7,
+      "standalone_ref_ceiling": 1.0,
+      "standalone_ref_note": "recall_ceiling(REAL) is this stage's OWN standalone upper-bound metric; a candidate-recall push (ad76a3f836d3eaa36) is IN FLIGHT per the routing note -- this row will improve when that lands (flagged, not stale)",
+      "oracle_uplift": 0.0527,
+      "closable_or_mapped_bound": "CLOSABLE_IN_FLIGHT"
+    },
+    {
+      "component": "ROLE/PATIENT ASSIGNMENT (clf + knowledge-gate)",
+      "arm": "ROLE_ORACLE",
+      "standalone_current": 0.4861,
+      "standalone_ref_ceiling": null,
+      "standalone_ref_note": "no single closed-form standalone ceiling; AveragedPerceptron clf trained on this same reader's own labeled examples + the 29479 knowledge table (HARD_PASS_SCALED_KNOWLEDGE_HELPS_AT_COVERAGE, acc_scaled=0.6898 vs acc_thin=0.4907 on ITS OWN coverage slice, MEASURED@data/exp_pivot_scaled_seed_knowledge_table_v1/metrics.json)",
+      "oracle_uplift": 0.0391,
+      "closable_or_mapped_bound": "CLOSABLE"
+    },
+    {
+      "component": "PARSE (candidate-to-predicate routing)",
+      "arm": "PARSE_ORACLE",
+      "standalone_current": 0.7882,
+      "standalone_ref_ceiling": 0.81,
+      "standalone_ref_note": "MAPPED-BOUND: search(29458)+valency(29460) both HARD_FAIL to break ~0.81 UAS; distributed/semantic ceiling per notes/reader_space_MAP_and_deep_lessons_SESSION_SYNTHESIS_2026-07-23.md line 15",
+      "oracle_uplift": 0.0221,
+      "closable_or_mapped_bound": "MAPPED_BOUND"
+    }
+  ],
+  "all_oracle_f1": 0.7106,
+  "all_oracle_logic_ceiling_gap": 0.2894,
+  "components_vs_logic_bound": "MIXED: all-oracle F1 clears real-baseline substantially but is still well below 1.0 -- SOME of the gap is components, but the reader's OWN composition logic (the admissibility gate / tuple-emission conditions / strict (v_lemma,patient) scoring match) is a SEPARATE, non-trivial bound",
+  "top_underperformer": "CANDIDATE/PREDICATE ENUMERATION",
+  "recovered_by_arm": {
+    "PARSE_ORACLE": [
+      [
+        "L04_18",
+        "hear",
+        "you"
+      ],
+      [
+        "L05_05",
+        "forget",
+        "grief"
+      ],
+      [
+        "L12_10",
+        "find",
+        "it"
+      ]
+    ],
+    "ENUM_ORACLE": [
+      [
+        "L04_07",
+        "do",
+        "it"
+      ],
+      [
+        "L04_13",
+        "do",
+        "it"
+      ],
+      [
+        "L05_17",
+        "have",
+        "it"
+      ],
+      [
+        "L05_18",
+        "watch",
+        "her"
+      ],
+      [
+        "L07_10",
+        "have",
+        "money"
+      ],
+      [
+        "L09_18",
+        "push",
+        "another"
+      ],
+      [
+        "L10_03",
+        "amuse",
+        "himself"
+      ],
+      [
+        "L10_05",
+        "sell",
+        "fish"
+      ]
+    ],
+    "ROLE_ORACLE": [
+      [
+        "L04_01",
+        "build",
+        "blockhouse"
+      ],
+      [
+        "L04_12",
+        "rub",
+        "castle"
+      ],
+      [
+        "L05_16",
+        "knock",
+        "castles"
+      ],
+      [
+        "L05_22",
+        "see",
+        "child"
+      ],
+      [
+        "L07_09",
+        "meet",
+        "boys"
+      ],
+      [
+        "L10_11",
+        "find",
+        "boy"
+      ]
+    ],
+    "ALL_ORACLE": [
+      [
+        "L04_01",
+        "build",
+        "blockhouse"
+      ],
+      [
+        "L04_07",
+        "do",
+        "it"
+      ],
+      [
+        "L04_12",
+        "rub",
+        "castle"
+      ],
+      [
+        "L04_13",
+        "do",
+        "it"
+      ],
+      [
+        "L04_18",
+        "hear",
+        "you"
+      ],
+      [
+        "L05_05",
+        "forget",
+        "grief"
+      ],
+      [
+        "L05_13",
+        "knock",
+        "one"
+      ],
+      [
+        "L05_16",
+        "knock",
+        "castles"
+      ],
+      [
+        "L05_17",
+        "have",
+        "it"
+      ],
+      [
+        "L05_18",
+        "watch",
+        "her"
+      ],
+      [
+        "L05_22",
+        "see",
+        "child"
+      ],
+      [
+        "L07_09",
+        "meet",
+        "boys"
+      ],
+      [
+        "L07_10",
+        "have",
+        "money"
+      ],
+      [
+        "L08_04",
+        "see",
+        "cat"
+      ],
+      [
+        "L09_18",
+        "push",
+        "another"
+      ],
+      [
+        "L10_03",
+        "amuse",
+        "himself"
+      ],
+      [
+        "L10_05",
+        "sell",
+        "fish"
+      ],
+      [
+        "L10_11",
+        "find",
+        "boy"
+      ],
+      [
+        "L10_14",
+        "see",
+        "those"
+      ],
+      [
+        "L12_10",
+        "find",
+        "it"
+      ]
+    ]
+  },
+  "n_recovered_by_arm": {
+    "PARSE_ORACLE": 3,
+    "ENUM_ORACLE": 8,
+    "ROLE_ORACLE": 6,
+    "ALL_ORACLE": 20
+  },
+  "arms": {
+    "REAL": {
+      "f1": 0.5738,
+      "precision": 0.4861,
+      "recall": 0.7,
+      "recall_ceiling": 0.7,
+      "n_pred": 144,
+      "subcat_fp": 35,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 33,
+      "kept_hash": "be02002c1579217f"
+    },
+    "PARSE_ORACLE": {
+      "f1": 0.5959,
+      "precision": 0.5034,
+      "recall": 0.73,
+      "recall_ceiling": 0.73,
+      "n_pred": 145,
+      "subcat_fp": 33,
+      "within_frame_fp": 7,
+      "spurious_verb_fp": 32,
+      "kept_hash": "0132b986bab3734f"
+    },
+    "ENUM_ORACLE": {
+      "f1": 0.6265,
+      "precision": 0.5235,
+      "recall": 0.78,
+      "recall_ceiling": 0.78,
+      "n_pred": 149,
+      "subcat_fp": 35,
+      "within_frame_fp": 4,
+      "spurious_verb_fp": 32,
+      "kept_hash": "40eeeb79b3e17217"
+    },
+    "ROLE_ORACLE": {
+      "f1": 0.6129,
+      "precision": 0.5135,
+      "recall": 0.76,
+      "recall_ceiling": 0.76,
+      "n_pred": 148,
+      "subcat_fp": 35,
+      "within_frame_fp": 4,
+      "spurious_verb_fp": 33,
+      "kept_hash": "598b7923a8b82dfc"
+    },
+    "ALL_ORACLE": {
+      "f1": 0.7106,
+      "precision": 0.5871,
+      "recall": 0.9,
+      "recall_ceiling": 0.9,
+      "n_pred": 155,
+      "subcat_fp": 32,
+      "within_frame_fp": 1,
+      "spurious_verb_fp": 31,
+      "kept_hash": "cfef5e55aa090e3a"
+    }
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 57.9,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "cited_29483": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "f1": 0.5738,
+    "arm": "V3_INTEGRATED",
+    "verdict": "HARD_FAIL_INTEGRATION_BOUNDED_CEILINGS_COMPOUND (control-arm sub-finding; the V3_INTEGRATED F1=0.5738 number itself is the reader-under-audit here, independent of that cell's OWN must-fail-control verdict outcome)"
+  },
+  "pos_stage_scope_caveat": "POS was NOT independently oracle-swapped this cycle (no UD/gold-POS treebank exists for McGuffey narrative prose; the UD-EWT gold trains/evals the PARSER only, a different corpus). Enumeration-relevant POS errors ARE captured inside the ENUM_ORACLE row above (it force-includes gold tokens regardless of POS tag); parser-feature-corrupting POS errors are bounded by the PARSE_ORACLE row (routing bypasses decoded arcs for gold-matched candidates). NOT captured: a POS error's effect on the ROLE classifier's own features for candidates NOT gold-matched (second-order residual, not measured this cycle). Standalone reference figures 'substrate ~0.906 vs classical ~0.97' are CITED@task-prompt (2026-07-23 routing note), NOT independently re-verified on disk this cycle (grep across notes/ for '0.906' found zero hits).",
+  "scope_caveat": "Parser trained on UD-EWT (newswire/web/blog) via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded training budget, byte-identical reuse of M/V3's own training code; out-of-domain transfer to 19th-c. McGuffey narrative prose is the SAME untested transfer V3/M already flagged. The knowledge table (29479) is LLM-self-built (residual leakage-adjacent risk per that cell's own scope caveat); an independent-KB replication is the flagged rigor follow-up. The ENUM_ORACLE row's current numbers will change once the in-flight candidate-recall push (ad76a3f836d3eaa36) lands -- flagged, not stale-claimed. This is a MEASUREMENT/diagnostic cell, NOT a capability claim; CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET (skunkworks VETs the numbers separately per the routing task's contract)."
+}
