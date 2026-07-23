@@ -1,0 +1,114 @@
+{
+  "anchor_name": "online_knowledge_condenser_selectional_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_CONDENSATION_GENERALIZES",
+  "verdict_msg": "VERDICT_core acc_unseen_full=0.933 acc_unseen_verbatim=0.500 (gap=+0.433) rise(0.25->1.0)=+0.233 acc_seen_full=0.844 freeze_range=0.0 shuffle_mean=0.8 shuf_delta=0.1333 acc_random=0.600 n_unseen=15 n_seen=48 n_heldout_groups=15 n_train_evidence=307",
+  "summary": "VERDICT_core acc_unseen_full=0.933 acc_unseen_verbatim=0.500 (gap=+0.433) rise(0.25->1.0)=+0.233 acc_seen_full=0.844 freeze_range=0.0 shuffle_mean=0.8 shuf_delta=0.1333 acc_random=0.600 n_unseen=15 n_seen=48 n_heldout_groups=15 n_train_evidence=307",
+  "elapsed_s": 3.7506371999625117,
+  "ts_iso": "2026-07-23T12:40:46.634377+00:00",
+  "n_mining_sentences": 500,
+  "n_reading_stream_evidence": 325,
+  "n_training_stream_evidence": 307,
+  "n_heldout_groups": 15,
+  "n_unseen_items": 15,
+  "n_seen_items": 48,
+  "curve_full_unseen": {
+    "0.00": 0.5,
+    "0.25": 0.7,
+    "0.50": 0.8667,
+    "0.75": 0.8333,
+    "1.00": 0.9333
+  },
+  "curve_full_seen": {
+    "0.00": 0.5104,
+    "0.25": 0.5833,
+    "0.50": 0.6458,
+    "0.75": 0.75,
+    "1.00": 0.8438
+  },
+  "curve_verbatim_unseen": {
+    "0.00": 0.5,
+    "0.25": 0.5,
+    "0.50": 0.5,
+    "0.75": 0.5,
+    "1.00": 0.5
+  },
+  "curve_verbatim_seen": {
+    "0.00": 0.5104,
+    "0.25": 0.5833,
+    "0.50": 0.6875,
+    "0.75": 0.8438,
+    "1.00": 1.0
+  },
+  "curve_freeze_unseen": {
+    "0.00": 0.5,
+    "0.25": 0.5,
+    "0.50": 0.5,
+    "0.75": 0.5,
+    "1.00": 0.5
+  },
+  "exposure_points": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "expected_exposure_points": 5,
+  "cardinality_ok": true,
+  "acc_shuffle_per_seed": [
+    0.8,
+    0.8,
+    0.8,
+    0.7667,
+    0.8333
+  ],
+  "acc_shuffle_mean": 0.8,
+  "acc_random": 0.6,
+  "gap_full_minus_verbatim": 0.4333,
+  "rise_025_to_1p0": 0.2333,
+  "freeze_range": 0.0,
+  "shuffle_delta": 0.1333,
+  "arms_differ_verified": true,
+  "per_item_score_digests": {
+    "freeze_unseen": "738b6b87314b6ade",
+    "full_unseen": "d728ddd35f49fdaf",
+    "verbatim_unseen": "738b6b87314b6ade",
+    "shuffle_seed0_unseen": "80209e559c4561aa",
+    "random_unseen": "8f93e89f55a28403"
+  },
+  "arms_differ_exempted": [
+    [
+      "freeze_unseen",
+      "verbatim_unseen"
+    ]
+  ],
+  "arms_differ_exempt_rationale": "freeze_unseen vs verbatim_unseen tie is EXPECTED: a held-out pair has zero verbatim evidence by construction, so both arms fall back to the identical seed table on every unseen item.",
+  "arms_differ_violations": [],
+  "random_is_chance": true,
+  "baseline_in_band": true,
+  "has_probe_items": true,
+  "n_seed_table_entries": 29,
+  "n_seed_vetted_pool": 97,
+  "seed_fraction": 0.3,
+  "runtime_invariant": "glass-box dict lookup ONLY; NO LLM/network/autograd at inference; the seed table is read-only, built at 29471/29472 build-time, never touched by this cell's 'reading'",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "2AFC discrimination-accuracy measurement; no quantitative noise floor",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng consumed in sorted order; no hash()",
+  "one_variable_note": "All arms share the SAME reading stream (order+content), seed table, split, and 2AFC mechanism. ONLY the condensation granularity/update-status differs: FULL=class-level online, VERBATIM=exact-pair online (abstraction off), FREEZE=class-level but never updated, SHUFFLE=FULL's final table with keys/values permuted, RANDOM=chance control.",
+  "leakage_guard": "Held-out noun is REMOVED from the training stream (true zero exposure for that verb+noun); negative sampling is mechanical (fixed RNG over sorted candidate pools); no gold/label file is consulted anywhere -- the corpus's own attestation IS the evidence the condenser is allowed to read.",
+  "mapped_ceiling_ref": "29471 HARD_PASS_KNOWLEDGE_POVERTY_WAS_THE_WALL (LLM-built rich table); 29472 HARD_PASS_INDEPENDENT_KB (VerbNet+WordNet KB, if landed at that tier) supply this cell's FIXED seed table foundation.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "curve_full_unseen",
+    "curve_verbatim_unseen",
+    "curve_freeze_unseen",
+    "acc_shuffle_mean",
+    "acc_random",
+    "gap_full_minus_verbatim",
+    "rise_025_to_1p0",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "leakage_guard"
+  ]
+}
