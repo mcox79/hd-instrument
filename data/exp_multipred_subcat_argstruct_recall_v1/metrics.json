@@ -1,0 +1,286 @@
+{
+  "verdict": "HARD_FAIL_MULTIPRED_NEEDS_REAL_PARSE",
+  "verdict_msg": "HARD_FAIL: recall_ceiling rise 0.03 < 0.05 (multi-predicate extraction does not generalize to recover the bulk of the multi-predicate misses; needs a real parse, not a frame-lookup extension of the existing trigger set). recall_ceiling BASELINE=0.44 -> FRAMES=0.47 (rise 0.03); KEEPALL=0.51 SCRAMBLED=0.45. F1 BASELINE=0.2708 FRAMES=0.2782. precision BASELINE=0.1956 KEEPALL=0.1486 FRAMES=0.1975. 17 gold-pos items newly recovered, 14 regressed. HONEST DEFLATE: the cheap coordinate-VP + infinitival-complement + bare-subordinator trigger set recovers only a modest slice of the 38 category-d misses (recall_ceiling barely moves); the residual misses are likely reduced-relative / gerund-participial / prepositional-gerund constructions this trigger set does not detect -- consistent with the diagnosis note's own flagged risk that the multipredicate cases need a real shallow parse, not a frame lookup.",
+  "summary": "HARD_FAIL_MULTIPRED_NEEDS_REAL_PARSE: recall_ceiling 0.44->0.47 (rise 0.03) | F1 0.2708->0.2782 | precision base=0.1956 keepall=0.1486 frames=0.1975 scrambled_rc=0.45 | recovered=17 regressed=14",
+  "elapsed_s": 55.54,
+  "ts_iso": "2026-07-23T12:51:10.348311+00:00",
+  "anchor_name": "multipred_subcat_argstruct_recall_v1",
+  "run_mode": "full",
+  "seed": 20260723,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "one_variable": "predicate-enumeration axis (find_predicates: MAIN-only baseline vs MAIN+COORD_VP+INF_COMP+SUBORD/SUBORD_FAR), paired with the subcat/valency frame gate (admits_patient); role-assignment mechanism (candidate_features + AveragedPerceptron clf) unchanged",
+  "bands": {
+    "HP_RC_MIN": 0.65,
+    "HP_RC_RISE_MIN": 0.15,
+    "HF_RC_RISE_MAX": 0.05,
+    "HP_PRECISION_TOLERANCE": 0.02,
+    "BASELINE_RC_CITED": 0.44
+  },
+  "arms": {
+    "BASELINE": {
+      "recall_ceiling": 0.44,
+      "n_miss": 56,
+      "n_gold_pos": 100,
+      "precision": 0.1956,
+      "recall": 0.44,
+      "f1": 0.2708,
+      "n_pred": 225,
+      "subcat_fp": 107,
+      "within_frame_fp": 53,
+      "spurious_verb_fp": 21,
+      "kept_hash": "6fca7838894babc0"
+    },
+    "MULTIPRED_KEEPALL": {
+      "recall_ceiling": 0.51,
+      "n_miss": 49,
+      "n_gold_pos": 100,
+      "precision": 0.1486,
+      "recall": 0.51,
+      "f1": 0.2301,
+      "n_pred": 350,
+      "subcat_fp": 175,
+      "within_frame_fp": 76,
+      "spurious_verb_fp": 47,
+      "kept_hash": "2fad4b674ce13fc8"
+    },
+    "MULTIPRED_FRAMES": {
+      "recall_ceiling": 0.47,
+      "n_miss": 53,
+      "n_gold_pos": 100,
+      "precision": 0.1975,
+      "recall": 0.47,
+      "f1": 0.2782,
+      "n_pred": 243,
+      "subcat_fp": 88,
+      "within_frame_fp": 70,
+      "spurious_verb_fp": 37,
+      "kept_hash": "0e484624fd5c68cd"
+    },
+    "MULTIPRED_SCRAMBLED": {
+      "recall_ceiling": 0.45,
+      "n_miss": 55,
+      "n_gold_pos": 100,
+      "precision": 0.1557,
+      "recall": 0.45,
+      "f1": 0.2314,
+      "n_pred": 289,
+      "subcat_fp": 134,
+      "within_frame_fp": 65,
+      "spurious_verb_fp": 45,
+      "kept_hash": "46de45f8060b9fc9"
+    }
+  },
+  "hard_pass_conditions": {
+    "rc_frames_above_bar": false,
+    "rc_rise_above_bar": false,
+    "f1_rises": true,
+    "precision_no_collapse": true,
+    "control_a_gate_beats_noframe": true,
+    "control_b_frames_beat_scrambled": true,
+    "zero_regression": false
+  },
+  "hard_fail_reasons": [
+    "recall_ceiling rise 0.03 < 0.05 (multi-predicate extraction does not generalize to recover the bulk of the multi-predicate misses; needs a real parse, not a frame-lookup extension of the existing trigger set)"
+  ],
+  "recovered_sample": [
+    [
+      "L04_03",
+      "throw",
+      "it"
+    ],
+    [
+      "L04_19",
+      "lay",
+      "foundation"
+    ],
+    [
+      "L05_11",
+      "make",
+      "kite"
+    ],
+    [
+      "L05_15",
+      "build",
+      "it"
+    ],
+    [
+      "L07_01",
+      "send",
+      "him"
+    ],
+    [
+      "L07_02",
+      "send",
+      "him"
+    ],
+    [
+      "L07_07",
+      "take",
+      "him"
+    ],
+    [
+      "L07_10",
+      "hire",
+      "boat"
+    ],
+    [
+      "L07_21",
+      "save",
+      "them"
+    ],
+    [
+      "L09_14",
+      "lay",
+      "it"
+    ],
+    [
+      "L10_09",
+      "send",
+      "him"
+    ],
+    [
+      "L10_09",
+      "teach",
+      "him"
+    ],
+    [
+      "L10_14",
+      "write",
+      "them"
+    ],
+    [
+      "L10_26",
+      "see",
+      "him"
+    ],
+    [
+      "L10_41",
+      "take",
+      "him"
+    ],
+    [
+      "L12_10",
+      "find",
+      "it"
+    ],
+    [
+      "L12_12",
+      "pull",
+      "fruit"
+    ]
+  ],
+  "n_recovered": 17,
+  "regressed_sample": [
+    [
+      "L04_18",
+      "hear",
+      "you"
+    ],
+    [
+      "L04_19",
+      "nod",
+      "head"
+    ],
+    [
+      "L05_22",
+      "see",
+      "child"
+    ],
+    [
+      "L05_24",
+      "leave",
+      "room"
+    ],
+    [
+      "L07_06",
+      "say",
+      "lessons"
+    ],
+    [
+      "L07_09",
+      "meet",
+      "boys"
+    ],
+    [
+      "L08_02",
+      "choose",
+      "places"
+    ],
+    [
+      "L08_02",
+      "hear",
+      "mew"
+    ],
+    [
+      "L08_02",
+      "open",
+      "door"
+    ],
+    [
+      "L08_08",
+      "choose",
+      "places"
+    ],
+    [
+      "L10_11",
+      "find",
+      "boy"
+    ],
+    [
+      "L10_11",
+      "make",
+      "marks"
+    ],
+    [
+      "L10_14",
+      "make",
+      "you"
+    ],
+    [
+      "L10_36",
+      "put",
+      "head"
+    ]
+  ],
+  "n_regressed": 14,
+  "nopat_override": [
+    "arrive",
+    "come",
+    "depart",
+    "fall",
+    "go",
+    "know",
+    "look",
+    "mean",
+    "proceed",
+    "remain",
+    "rise",
+    "say",
+    "sit",
+    "stand",
+    "stay",
+    "struggle",
+    "tell",
+    "think",
+    "tread",
+    "wonder"
+  ],
+  "scrambled_table_size": 94,
+  "cited_baseline": {
+    "source": "notes/research_recall_miss_extraction_vs_filter_diagnosis_2026-07-23.md",
+    "recall_ceiling": 0.44,
+    "n_category_d_misses": 38,
+    "n_total_misses": 56,
+    "n_gold_pos": 100
+  },
+  "scope_caveat": "Two-cue + bare-subordinator trigger set (COORD_VP, INF_COMP, SUBORD/SUBORD_FAR); does NOT detect reduced relative clauses (NP + VBG/VBN with no relativizer), gerund/participial adjuncts, or prepositional-gerund objects ('by V-ing', 'before V-ing') -- these remain uncaught and are the likely dominant residual per the honest run below. NOPAT_OVERRIDE built WITHOUT reading the private eval gold (data/gold_mcguffey_lccp_argstruct_v1.json); sourced from this codebase's own prior documented bug-class description (CITED) + general English verb-argument-structure knowledge (HYPOTHESIZED, flagged). CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
