@@ -1,0 +1,1881 @@
+{
+  "anchor_name": "reversible_role_relational_case_sleep_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_REAL_STRUCTURAL_RULE",
+  "verdict_msg": "HARD_PASS_REAL_STRUCTURAL_RULE | reversible-role (active/passive) task: n_pairs_seen=150 n_pairs_held=80 baseline(voice-blind status heuristic) held_acc=0.5 (in_band=True); PER-CLUSTER GATE: 90 clusters total (81 RULE / 9 EPISODIC, rule_ratio=0.9); HELDOUT LIFT (lexeme+verb-disjoint): CLUSTER_GATED fix_rate=1.0 net_gain=0.5 rescue_prec=1.0 | SCRAMBLE collapse=0.2708 (need>=0.15) | ZERO_CYCLES net_gain=0.0 (need flat<=0.02) || *** MARGIN-OVER-SIMILARITY-VOTE (headline) ***: SURFACE_KNN fix=0.0125 gain=0.0 (by-construction chance control) -> CG beat_margin=0.5 (need>=0.3 DECISIVE, all_seeds_beat=True) | MEMORIZE fix=0.0 gain=0.0 -> CG beat_margin=0.5 (need>=0.3) || DIAGNOSTIC (non-gating, atom-29441 lever-check): RELATIONAL_KNN(no learning) fix=1.0 gain=0.5 -> CG beat_margin=0.0 (ties_cg=True, |margin|<0.02 means REPRESENTATION not LEARNER per 29441) || vs UNGATED(coherent) fix=1.0 gain=0.5 (CG beats ungated by 0.0) | leak_clean=True",
+  "summary": "HARD_PASS_REAL_STRUCTURAL_RULE | reversible-role (active/passive) task: n_pairs_seen=150 n_pairs_held=80 baseline(voice-blind status heuristic) held_acc=0.5 (in_band=True); PER-CLUSTER GATE: 90 clusters total (81 RULE / 9 EPISODIC, rule_ratio=0.9); HELDOUT LIFT (lexeme+verb-disjoint): CLUSTER_GATED fix_rate=1.0 net_gain=0.5 rescue_prec=1.0 | SCRAMBLE collapse=0.2708 (need>=0.15) | ZERO_CYCLES net_gain=0.0 (need flat<=0.02) || *** MARGIN-OVER-SIMILARITY-VOTE (headline) ***: SURFACE_KNN fix=0.0125 gain=0.0 (by-construction chance control) -> CG beat_margin=0.5 (need>=0.3 DECISIVE, all_seeds_beat=True) | MEMORIZE fix=0.0 gain=0.0 -> CG beat_margin=0.5 (need>=0.3) || DIAGNOSTIC (non-gating, atom-29441 lever-check): RELATIONAL_KNN(no learning) fix=1.0 gain=0.5 -> CG beat_margin=0.0 (ties_cg=True, |margin|<0.02 means REPRESENTATION not LEARNER per 29441) || vs UNGATED(coherent) fix=1.0 gain=0.5 (CG beats ungated by 0.0) | leak_clean=True",
+  "elapsed_s": 10.79,
+  "ts_iso": "2026-07-23T15:11:46.483823+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "expected_n_seed_rows": 3,
+  "n_seed_rows": 3,
+  "cardinality_ok": true,
+  "cfg": {
+    "mode": "full",
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "n_pairs_seen": 150,
+    "n_pairs_held": 80,
+    "replay_frac": 0.5,
+    "n_cycles_coherent": 6,
+    "frac_seen": 0.6
+  },
+  "PRIMARY_heldout_fix_rate_cluster_gated": 1.0,
+  "baseline_held_acc": 0.5,
+  "heldout_net_gain_cluster_gated": 0.5,
+  "rescue_precision_cluster_gated": 1.0,
+  "MUSTFAIL_scramble_gain_collapse": 0.2708,
+  "scramble_collapses_gain": true,
+  "MUSTFAIL_zero_cycles_net_gain": 0.0,
+  "zero_cycles_flat": true,
+  "HEADLINE_CONTROL_surface_knn_fix_rate": 0.0125,
+  "HEADLINE_CONTROL_surface_knn_net_gain": 0.0,
+  "CONTROL_memorize_fix_rate": 0.0,
+  "CONTROL_memorize_net_gain": 0.0,
+  "DIAGNOSTIC_relational_knn_fix_rate": 1.0,
+  "DIAGNOSTIC_relational_knn_net_gain": 0.5,
+  "beat_surface_knn_margin_mean": 0.5,
+  "beat_memo_margin_mean": 0.5,
+  "beat_ungated_margin_mean": 0.0,
+  "beat_relational_knn_margin_mean": 0.0,
+  "relational_knn_ties_cluster_gated": true,
+  "beats_surface_knn_hard_pass": true,
+  "beats_memo_hard_pass": true,
+  "all_seeds_net_gain_positive": true,
+  "all_seeds_beat_surface_knn": true,
+  "all_seeds_beat_memo": true,
+  "n_clusters_total": 90,
+  "n_rule_clusters_total": 81,
+  "n_episodic_clusters_total": 9,
+  "rule_cluster_ratio": 0.9,
+  "UNGATED_COMPARISON_fix_rate": 1.0,
+  "UNGATED_COMPARISON_net_gain": 0.5,
+  "fast_seen_recall_mean": 0.0644,
+  "leak_clean": true,
+  "n_voice_construction_probe_pairs_checked": 40,
+  "baseline_in_band": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "generalization fix-rate; noise floor=1/n_heldout_fail",
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential-CPU (justified <2min)",
+  "calibration_check": "adaptive_with_discriminator_gate (tau on SEEN net_gain; scramble+zero_cycles+surface_knn+memo+relational_knn all fire)",
+  "deterministic_seeding": true,
+  "compose_in_cell_no_hdlab_mutation": true,
+  "voice_weight": 3.0,
+  "n_sig": 1024,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_seen_fail": 150,
+      "n_heldout": 160,
+      "n_heldout_fail": 80,
+      "base_acc_held": 0.5,
+      "tau_coherent": 0.028296,
+      "fast_seen_recall": 0.0933,
+      "coherent": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "scramble": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "zero_cycles": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_surface": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "memorize": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_relational": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "gain_collapse_scramble": 1.0,
+      "cycles_curve": [
+        {
+          "n_cycles": 0,
+          "net_gain": 0.0,
+          "heldout_fix_rate": 0.0,
+          "rescue_precision": null
+        },
+        {
+          "n_cycles": 1,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 2,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 3,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 6,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        }
+      ],
+      "cluster_gated": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "cluster_gated_scramble": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 43,
+        "breaks": 43,
+        "overrides": 86,
+        "heldout_fix_rate": 0.5375,
+        "collateral_rate": 0.5375,
+        "rescue_precision": 0.5
+      },
+      "cluster_summary": {
+        "n_clusters": 30,
+        "n_rule_clusters": 29,
+        "n_episodic_clusters": 1,
+        "n_rule_cases_abstracted": 29,
+        "n_episodic_cases": 2,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 1,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 2,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 3,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 5,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 7,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 8,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 10,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 11,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 12,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 13,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 14,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 9,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 17,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 18,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 19,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 20,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 21,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 22,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 23,
+            "size": 9,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 24,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 25,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 26,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 27,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 28,
+            "size": 9,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 29,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          }
+        ]
+      },
+      "cluster_summary_scramble": {
+        "n_clusters": 30,
+        "n_rule_clusters": 9,
+        "n_episodic_clusters": 21,
+        "n_rule_cases_abstracted": 9,
+        "n_episodic_cases": 111,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 2,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 4,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 5,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 8,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 10,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 11,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 12,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 13,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 15,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 16,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 17,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 19,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 20,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 23,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 24,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 25,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 28,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          }
+        ]
+      },
+      "gain_collapse_cluster_gated": 0.4625,
+      "beat_knn_margin_cg": 0.5,
+      "beat_memo_margin_cg": 0.5,
+      "beat_ungated_margin": 0.0,
+      "beat_relational_knn_margin": 0.0,
+      "cg_beats_knn_fixrate": true,
+      "cg_beats_memo_fixrate": true,
+      "n_rule_routed_heldout": 160,
+      "n_episodic_routed_heldout": 0,
+      "rule_surfaceknn_agreement": 0.5
+    },
+    {
+      "seed": 13,
+      "n_seen_fail": 150,
+      "n_heldout": 160,
+      "n_heldout_fail": 80,
+      "base_acc_held": 0.5,
+      "tau_coherent": 0.028704,
+      "fast_seen_recall": 0.0467,
+      "coherent": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "scramble": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "zero_cycles": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_surface": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 1,
+        "breaks": 1,
+        "overrides": 2,
+        "heldout_fix_rate": 0.0125,
+        "collateral_rate": 0.0125,
+        "rescue_precision": 0.5
+      },
+      "memorize": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_relational": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "gain_collapse_scramble": 1.0,
+      "cycles_curve": [
+        {
+          "n_cycles": 0,
+          "net_gain": 0.0,
+          "heldout_fix_rate": 0.0,
+          "rescue_precision": null
+        },
+        {
+          "n_cycles": 1,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 2,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 3,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 6,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        }
+      ],
+      "cluster_gated": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "cluster_gated_scramble": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 52,
+        "breaks": 52,
+        "overrides": 104,
+        "heldout_fix_rate": 0.65,
+        "collateral_rate": 0.65,
+        "rescue_precision": 0.5
+      },
+      "cluster_summary": {
+        "n_clusters": 30,
+        "n_rule_clusters": 26,
+        "n_episodic_clusters": 4,
+        "n_rule_cases_abstracted": 26,
+        "n_episodic_cases": 7,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 1,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 2,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 3,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 5,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 9,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 7,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 8,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 9,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 8,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 11,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 12,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 13,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 14,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 17,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 18,
+            "size": 8,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 19,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 20,
+            "size": 9,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 21,
+            "size": 8,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 22,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 23,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 24,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 25,
+            "size": 8,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 26,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 28,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 29,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          }
+        ]
+      },
+      "cluster_summary_scramble": {
+        "n_clusters": 30,
+        "n_rule_clusters": 8,
+        "n_episodic_clusters": 22,
+        "n_rule_cases_abstracted": 8,
+        "n_episodic_cases": 114,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 2,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 3,
+            "size": 7,
+            "purity": 0.7143,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 4,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 5,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 8,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 9,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 11,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 12,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 13,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 15,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 17,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 8,
+            "purity": 0.75,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 19,
+            "size": 1,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 20,
+            "size": 9,
+            "purity": 0.5556,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 23,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 24,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 25,
+            "size": 8,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 28,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 29,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          }
+        ]
+      },
+      "gain_collapse_cluster_gated": 0.35,
+      "beat_knn_margin_cg": 0.5,
+      "beat_memo_margin_cg": 0.5,
+      "beat_ungated_margin": 0.0,
+      "beat_relational_knn_margin": 0.0,
+      "cg_beats_knn_fixrate": true,
+      "cg_beats_memo_fixrate": true,
+      "n_rule_routed_heldout": 160,
+      "n_episodic_routed_heldout": 0,
+      "rule_surfaceknn_agreement": 0.5
+    },
+    {
+      "seed": 19,
+      "n_seen_fail": 150,
+      "n_heldout": 160,
+      "n_heldout_fail": 80,
+      "base_acc_held": 0.5,
+      "tau_coherent": 0.029192,
+      "fast_seen_recall": 0.0533,
+      "coherent": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "scramble": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "zero_cycles": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_surface": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 2,
+        "breaks": 2,
+        "overrides": 4,
+        "heldout_fix_rate": 0.025,
+        "collateral_rate": 0.025,
+        "rescue_precision": 0.5
+      },
+      "memorize": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 0.5,
+        "net_gain": 0.0,
+        "fixes": 0,
+        "breaks": 0,
+        "overrides": 0,
+        "heldout_fix_rate": 0.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": null
+      },
+      "knn_relational": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "gain_collapse_scramble": 1.0,
+      "cycles_curve": [
+        {
+          "n_cycles": 0,
+          "net_gain": 0.0,
+          "heldout_fix_rate": 0.0,
+          "rescue_precision": null
+        },
+        {
+          "n_cycles": 1,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 2,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 3,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        },
+        {
+          "n_cycles": 6,
+          "net_gain": 0.5,
+          "heldout_fix_rate": 1.0,
+          "rescue_precision": 1.0
+        }
+      ],
+      "cluster_gated": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "cluster_gated_scramble": {
+        "n_heldout": 160,
+        "n_heldout_fail": 80,
+        "n_heldout_correct": 80,
+        "base_acc": 0.5,
+        "loop_acc": 1.0,
+        "net_gain": 0.5,
+        "fixes": 80,
+        "breaks": 0,
+        "overrides": 80,
+        "heldout_fix_rate": 1.0,
+        "collateral_rate": 0.0,
+        "rescue_precision": 1.0
+      },
+      "cluster_summary": {
+        "n_clusters": 30,
+        "n_rule_clusters": 26,
+        "n_episodic_clusters": 4,
+        "n_rule_cases_abstracted": 26,
+        "n_episodic_cases": 8,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 2,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 9,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 5,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 7,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 8,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 10,
+            "size": 7,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 11,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 12,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 13,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 14,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 15,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 16,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 17,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 18,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 19,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 20,
+            "size": 8,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 21,
+            "size": 9,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 22,
+            "size": 12,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 23,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 24,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 25,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 27,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 28,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 6,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          }
+        ]
+      },
+      "cluster_summary_scramble": {
+        "n_clusters": 30,
+        "n_rule_clusters": 7,
+        "n_episodic_clusters": 23,
+        "n_rule_cases_abstracted": 7,
+        "n_episodic_cases": 115,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 1,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 2,
+            "size": 2,
+            "purity": 0.5,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 3,
+            "size": 9,
+            "purity": 0.8889,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 4,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 5,
+            "size": 5,
+            "purity": 0.8,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 6,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 7,
+            "size": 3,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 8,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 9,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 10,
+            "size": 7,
+            "purity": 0.5714,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 11,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 12,
+            "size": 4,
+            "purity": 0.75,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 13,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 14,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 15,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 16,
+            "size": 4,
+            "purity": 0.5,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 17,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 18,
+            "size": 5,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 19,
+            "size": 4,
+            "purity": 1.0,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": true
+          },
+          {
+            "cluster": 20,
+            "size": 8,
+            "purity": 0.625,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 21,
+            "size": 9,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 22,
+            "size": 12,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 23,
+            "size": 3,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 24,
+            "size": 6,
+            "purity": 0.5,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 25,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 26,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 27,
+            "size": 5,
+            "purity": 0.6,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 28,
+            "size": 2,
+            "purity": 1.0,
+            "majority_role": "MENTION1_AGENT",
+            "promoted_to_rule": false
+          },
+          {
+            "cluster": 29,
+            "size": 6,
+            "purity": 0.6667,
+            "majority_role": "MENTION2_AGENT",
+            "promoted_to_rule": false
+          }
+        ]
+      },
+      "gain_collapse_cluster_gated": 0.0,
+      "beat_knn_margin_cg": 0.5,
+      "beat_memo_margin_cg": 0.5,
+      "beat_ungated_margin": 0.0,
+      "beat_relational_knn_margin": 0.0,
+      "cg_beats_knn_fixrate": true,
+      "cg_beats_memo_fixrate": true,
+      "n_rule_routed_heldout": 160,
+      "n_episodic_routed_heldout": 0,
+      "rule_surfaceknn_agreement": 0.5
+    }
+  ]
+}
