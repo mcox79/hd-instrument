@@ -1,0 +1,125 @@
+{
+  "verdict": "HARD_FAIL_KNOWLEDGE_STILL_REDUNDANT_ON_STRONG_BASE",
+  "verdict_msg": "HARD_FAIL: F1(ARM_PLUS_KNOW) 0.5 <= F1(ARM_BASE) 0.5 (knowledge adds nothing/negative even joint-combined onto the TRUE strong base); F1(ARM_PLUS_KNOW_SCRAMBLE) 0.5 >= F1(ARM_PLUS_KNOW) 0.5 - 0.01 AND n_diff_tuples=0 (must-fail content control never fires). F1 ARM_BASE=0.5 (base_gap_vs_V3_INTEGRATED=0.0556, reproduces=True) ARM_PLUS_KNOW=0.5 ARM_PLUS_KNOW_SCRAMBLE=0.5 ARM_PLUS_KNOW_ARCSCRAMBLE=0.2353. n_diff_tuples: know_vs_base=0 scramble=0 arcscramble=33. HONEST DEFLATE: even joint-combined onto the TRUE strong (positional-inclusive) base, selectional knowledge does not lift F1 for this reader at this scale -- a fair, deeper redundancy bound, not an injection-point artifact. CITED context: V5_INTEGRATED_DENSE (late post-hoc gate, SAME assign_fn/gate_fn base)=0.5328; prior flawed cross-base EARLY_RELWEIGHTED=0.5492.",
+  "summary": "HARD_FAIL_KNOWLEDGE_STILL_REDUNDANT_ON_STRONG_BASE: F1 ARM_BASE=0.5 ARM_PLUS_KNOW=0.5 ARM_PLUS_KNOW_SCRAMBLE=0.5 ARM_PLUS_KNOW_ARCSCRAMBLE=0.2353 | base_gap_vs_V3_INTEGRATED=0.0556 (reproduces=True) | n_competitions=23 | n_diff know_vs_base=0 scramble=0 arcscramble=33 | parser_uas=0.7475",
+  "elapsed_s": 15.66,
+  "ts_iso": "2026-07-23T18:16:42.816416+00:00",
+  "anchor_name": "multipred_argstruct_jointreliability_positional_v1",
+  "run_mode": "smoke",
+  "seed": 20260727,
+  "slice_lessons": [
+    "L04",
+    "L05"
+  ],
+  "n_sentences": 46,
+  "positional_reliability": 0.9,
+  "one_variable": "presence of S3 (selectional knowledge, reliability-tiered over the 732-pair dense table) in the reliability-weighted combine ON TOP OF a base already containing S1 (structural softmax confidence) + S2 (positional-first cue, the source of V3's own actual strength) -- parser training / candidate-to-predicate assignment / role-decision membership / learned admissibility gate ALL byte-identical/held fixed",
+  "bands": {
+    "POSITIONAL_RELIABILITY": 0.9,
+    "BASE_REPRO_TOLERANCE": 0.06,
+    "HP_KNOW_OVER_BASE_MIN": 0.015,
+    "HP_SCRAMBLE_MARGIN": 0.02,
+    "HP_ARCSCRAMBLE_MARGIN": 0.05,
+    "HP_MIN_DIFF_TUPLES_SCRAMBLE": 1,
+    "HF_SCRAMBLE_MARGIN": 0.01,
+    "CITED_V3_INTEGRATED_F1": 0.5738,
+    "CITED_V5_INTEGRATED_DENSE_F1": 0.5328,
+    "CITED_EARLY_RELWEIGHTED_F1": 0.5492
+  },
+  "f1_v3_integrated_same_run": 0.5556,
+  "base_gap_vs_v3_integrated": 0.0556,
+  "base_reproduces_v3": true,
+  "base_fp_hash": "ef3f7fef1fb525d5",
+  "n_competitions": 23,
+  "arms": {
+    "ARM_BASE": {
+      "recall_ceiling": 0.5294,
+      "n_miss": 16,
+      "n_gold_pos": 34,
+      "precision": 0.4737,
+      "recall": 0.5294,
+      "f1": 0.5,
+      "n_pred": 38,
+      "subcat_fp": 11,
+      "within_frame_fp": 3,
+      "spurious_verb_fp": 6,
+      "kept_hash": "5e4dfc8daac4caac"
+    },
+    "ARM_PLUS_KNOW": {
+      "recall_ceiling": 0.5294,
+      "n_miss": 16,
+      "n_gold_pos": 34,
+      "precision": 0.4737,
+      "recall": 0.5294,
+      "f1": 0.5,
+      "n_pred": 38,
+      "subcat_fp": 11,
+      "within_frame_fp": 3,
+      "spurious_verb_fp": 6,
+      "kept_hash": "5e4dfc8daac4caac"
+    },
+    "ARM_PLUS_KNOW_SCRAMBLE": {
+      "recall_ceiling": 0.5294,
+      "n_miss": 16,
+      "n_gold_pos": 34,
+      "precision": 0.4737,
+      "recall": 0.5294,
+      "f1": 0.5,
+      "n_pred": 38,
+      "subcat_fp": 11,
+      "within_frame_fp": 3,
+      "spurious_verb_fp": 6,
+      "kept_hash": "5e4dfc8daac4caac"
+    },
+    "ARM_PLUS_KNOW_ARCSCRAMBLE": {
+      "recall_ceiling": 0.1765,
+      "n_miss": 28,
+      "n_gold_pos": 34,
+      "precision": 0.3529,
+      "recall": 0.1765,
+      "f1": 0.2353,
+      "n_pred": 17,
+      "subcat_fp": 5,
+      "within_frame_fp": 3,
+      "spurious_verb_fp": 3,
+      "kept_hash": "4d4807490d144406"
+    }
+  },
+  "hard_pass_conditions": {
+    "knowledge_beats_base": false,
+    "control_scramble": false,
+    "control_arcscramble": true,
+    "scramble_flips_min_tuples": false
+  },
+  "hard_fail_reasons": [
+    "F1(ARM_PLUS_KNOW) 0.5 <= F1(ARM_BASE) 0.5 (knowledge adds nothing/negative even joint-combined onto the TRUE strong base)",
+    "F1(ARM_PLUS_KNOW_SCRAMBLE) 0.5 >= F1(ARM_PLUS_KNOW) 0.5 - 0.01 AND n_diff_tuples=0 (must-fail content control never fires)"
+  ],
+  "n_diff_know_vs_base": 0,
+  "n_diff_scramble": 0,
+  "n_diff_arcscramble": 33,
+  "cited_v3": {
+    "source": "data/exp_multipred_argstruct_agentfix_kbgate_v3/metrics.json",
+    "f1_v3_integrated": 0.5738,
+    "note": "V3_INTEGRATED's dedup degenerates to a positional-leftmost rule on this slice (V3_KNOWLEDGE_SCRAMBLE reproduced it bit-for-bit) -- this cell's ARM_BASE (S1+S2) is the fair reconstruction of that same strength via an explicit, weighted positional source rather than an accidental OOV-driven hard override."
+  },
+  "cited_v5_late_gate": {
+    "source": "data/exp_multipred_argstruct_denseitem_v1/metrics.json",
+    "f1_v5_integrated_dense": 0.5328,
+    "note": "LATE post-hoc dense-argmax gate on the SAME assign_fn/gate_fn base (HARD_FAILED vs V3_INTEGRATED); reported for the early-vs-late framing."
+  },
+  "cited_early_flawed": {
+    "source": "data/exp_multipred_argstruct_earlyjoint_relweighted_v1/metrics.json",
+    "f1_early_relweighted": 0.5492,
+    "f1_early_structural_only": 0.4426,
+    "note": "SUPERSEDED cross-base comparison this cell fixes: EARLY_STRUCTURAL_ONLY (0.4426) omitted the positional source entirely, so EARLY_RELWEIGHTED (0.5492) was knowledge-added-to-a-weak-base, not knowledge-added-to-V3's-actual-strength."
+  },
+  "parser_info": {
+    "n_train": 1500,
+    "epochs": 2,
+    "elapsed_s": 2.6,
+    "uas_dev": 0.7475,
+    "n_dev": 300
+  },
+  "scope_caveat": "Parser trained on UD-EWT (newswire/web/blog text) via a from-scratch dynamic-oracle arc-eager model at a FOREGROUND-bounded training budget, byte-identical reuse of 29483's own training code; out-of-domain transfer to 19th-c. McGuffey narrative prose is the SAME untested transfer flagged upstream. The dense knowledge table is LLM-self-built (residual leakage-adjacent risk per denseitem_v1's own scope caveat); an independent-KB replication remains the flagged rigor follow-up. POSITIONAL_RELIABILITY=0.90 is a single fixed DESIGNED prior, not swept -- a sensitivity sweep over this constant is a natural follow-up if the base-reproduction gap is large. CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET."
+}
