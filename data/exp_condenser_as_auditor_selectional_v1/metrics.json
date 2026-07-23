@@ -1,0 +1,149 @@
+{
+  "anchor_name": "condenser_as_auditor_selectional_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_CONDENSER_AUDITOR_USELESS",
+  "verdict_msg": "VERDICT_core catch_rate_injected=0.8667 false_flag_rate_clean=0.5256 precision_mixed=0.1232 enrichment_lift=1.5694 coverage_overlap=0.6079 catch_rate_scrambled_mean=0.7 n_injected=30 n_checkable_clean=352 n_seed_entries=579 base_rate=0.0785 arms_differ=True",
+  "summary": "VERDICT_core catch_rate_injected=0.8667 false_flag_rate_clean=0.5256 precision_mixed=0.1232 enrichment_lift=1.5694 coverage_overlap=0.6079 catch_rate_scrambled_mean=0.7 n_injected=30 n_checkable_clean=352 n_seed_entries=579 base_rate=0.0785 arms_differ=True",
+  "elapsed_s": 462.1245294000255,
+  "ts_iso": "2026-07-23T14:53:38.151405+00:00",
+  "n_mining_sentences": 4151,
+  "n_reading_stream_evidence": 5168,
+  "established_min": 2,
+  "min_verb_total_evidence": 3,
+  "disagree_low": 0.35,
+  "disagree_high": 0.65,
+  "n_inject_cap": 30,
+  "n_seed_entries": 579,
+  "n_checkable_clean": 352,
+  "n_flagged_clean": 185,
+  "coverage_overlap": 0.6079,
+  "false_flag_rate_clean": 0.5256,
+  "n_injected": 30,
+  "n_caught": 26,
+  "catch_rate_injected": 0.8667,
+  "precision_mixed": 0.1232,
+  "base_rate_injected_fraction": 0.0785,
+  "enrichment_lift": 1.5694,
+  "catch_rate_scrambled_mean": 0.7,
+  "false_flag_rate_scrambled_mean": 0.6958,
+  "precision_scrambled_mean": 0.1161,
+  "catch_rate_scrambled_per_seed": [
+    0.6333,
+    0.7333,
+    0.6333,
+    0.7333,
+    0.7667
+  ],
+  "arms_differ_verified": true,
+  "digest_real": "375a4faa9427d19f",
+  "digest_scrambled_seed0": "7dc4f61534709ab2",
+  "injected_records_sample": [
+    {
+      "v": "bade",
+      "n_wrong": "hay",
+      "violated_class": "noun.artifact",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "bore",
+      "n_wrong": "flies",
+      "violated_class": "noun.communication",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "captur",
+      "n_wrong": "idleness",
+      "violated_class": "noun.artifact",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "catche",
+      "n_wrong": "vessels",
+      "violated_class": "noun.animal",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "caus",
+      "n_wrong": "ear",
+      "violated_class": "noun.feeling",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "danc",
+      "n_wrong": "cents",
+      "violated_class": "noun.communication",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "don't",
+      "n_wrong": "remote",
+      "violated_class": "noun.act",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "dread",
+      "n_wrong": "shake",
+      "violated_class": "noun.person",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "end",
+      "n_wrong": "friendship",
+      "violated_class": "noun.cognition",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "escap",
+      "n_wrong": "thirty",
+      "violated_class": "noun.artifact",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "fear",
+      "n_wrong": "feelings",
+      "violated_class": "noun.artifact",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    },
+    {
+      "v": "feed",
+      "n_wrong": "simple",
+      "violated_class": "noun.animal",
+      "rating": 0.85,
+      "rating_source": "table_median_high"
+    }
+  ],
+  "n_dominant_verbs": 249,
+  "n_verbs_with_any_evidence": 724,
+  "has_signal": true,
+  "runtime_invariant": "glass-box dict lookup ONLY; NO LLM/network/autograd at inference; the seed table (29479) and the condenser's corpus evidence (29476's reading pipeline) are both pre-built/read-only here",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "recall/precision/false-flag-rate measurement; no quantitative noise floor",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng consumed in sorted order; no hash()",
+  "held_out_property": "the condenser's corpus-reading evidence is built with ZERO visibility into scaled_seed_table_v1.json (injected or original) -- the reading pass never consults the seed table in any way; this is the held-out guarantee: the auditor's knowledge source is independent of what it judges.",
+  "injection_design_note": "realistic, non-pinned: swaps the FILLER NOUN to a real, corpus-attested, cross-class distractor (29476's own sample_distractor, mechanical fixed-RNG) never attested for that verb; the RATING is copied verbatim from an existing real LLM rating (never invented/tuned to cross a threshold) -- the opposite of 29479's inject_errors, which corrupted the NUMBER to an extreme (0.05/0.95) chosen specifically to cross its own detector's threshold by construction.",
+  "honest_scope_note": "class-granularity only, per 29476: this auditor can judge whether the LLM's assigned filler-class matches corpus-attested usage; it cannot judge FINE within-class distinctions (e.g. which specific FOOD noun is most typical).",
+  "ontology_comparison_ref": "29479 MEASURED: ontology auditor catch_rate=1.0 (VACUOUS -- injected values were extreme 0.05/0.95 chosen to trivially cross its own CONTRA_THRESH=0.45 gap) with false_flag_rate=0.1845 on clean entries and (per task brief) 79%% of its clean flags were hand-inspected as ontology-WRONG/LLM-RIGHT (give|money, hold|hands, eat|acorn) -- i.e. ~21%% flag precision. This cell's false_flag_rate_clean and precision_mixed are the direct structural analogs, computed against a NON-pinned injected battery.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "catch_rate_injected",
+    "false_flag_rate_clean",
+    "precision_mixed",
+    "enrichment_lift",
+    "coverage_overlap",
+    "catch_rate_scrambled_mean",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "held_out_property"
+  ]
+}
