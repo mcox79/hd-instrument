@@ -1,0 +1,266 @@
+{
+  "anchor_name": "pivot_rich_knowledge_full_reader_integration_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "VERDICT_core F1_rich=0.387 vs F1_thin=0.318 (gap=+0.069) | disambig_rich=0.833 vs thin=0.556 (gap=+0.278) | disambig_thin=0.556 | disambig_random=0.333 | F1_thin=0.318@q0.30 | reader_raw_F1=0.279(fp=0.795) | |D|=18 | recall_ceiling=0.44 | F1_scrambled=0.269 | rich_cov=1.000 | rich_fixes=5 | rich_breaks=0 | recall_miss_frac=0.560",
+  "summary": "VERDICT_core F1_rich=0.387 vs F1_thin=0.318 (gap=+0.069) | disambig_rich=0.833 vs thin=0.556 (gap=+0.278) | disambig_thin=0.556 | disambig_random=0.333 | F1_thin=0.318@q0.30 | reader_raw_F1=0.279(fp=0.795) | |D|=18 | recall_ceiling=0.44 | F1_scrambled=0.269 | rich_cov=1.000 | rich_fixes=5 | rich_breaks=0 | recall_miss_frac=0.560",
+  "elapsed_s": 22.145,
+  "ts_iso": "2026-07-23T11:46:08.150631+00:00",
+  "slice": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "n_sentences": 163,
+  "n_gold_sentences": 114,
+  "n_candidates": 215,
+  "n_verb_instances": 140,
+  "discriminating_set_size": 18,
+  "headline_operating_point_q": 0.3,
+  "disambig_thin": 0.5555555555555556,
+  "disambig_rich": 0.8333333333333334,
+  "disambig_random": 0.3333333333333333,
+  "disambig_rich_scrambled": 0.6111111111111112,
+  "disambig_gap_rich_minus_thin": 0.2778,
+  "F1_thin": 0.3179,
+  "F1_rich": 0.3868,
+  "F1_random": 0.2476,
+  "F1_rich_scrambled": 0.2685,
+  "F1_gap_rich_minus_thin": 0.0689,
+  "F1_sweep_thin": {
+    "0.00": {
+      "f1": 0.3,
+      "precision": 0.2571,
+      "recall": 0.36,
+      "fp_rate": 0.7429,
+      "n_pred": 140,
+      "thr": -0.12342
+    },
+    "0.30": {
+      "f1": 0.3179,
+      "precision": 0.3263,
+      "recall": 0.31,
+      "fp_rate": 0.6737,
+      "n_pred": 95,
+      "thr": 0.2636
+    },
+    "0.50": {
+      "f1": 0.2635,
+      "precision": 0.3284,
+      "recall": 0.22,
+      "fp_rate": 0.6716,
+      "n_pred": 67,
+      "thr": 0.40624
+    },
+    "0.70": {
+      "f1": 0.2297,
+      "precision": 0.3542,
+      "recall": 0.17,
+      "fp_rate": 0.6458,
+      "n_pred": 48,
+      "thr": 0.62148
+    },
+    "0.90": {
+      "f1": 0.1207,
+      "precision": 0.4375,
+      "recall": 0.07,
+      "fp_rate": 0.5625,
+      "n_pred": 16,
+      "thr": 0.77963
+    }
+  },
+  "F1_sweep_rich": {
+    "0.00": {
+      "f1": 0.3417,
+      "precision": 0.2929,
+      "recall": 0.41,
+      "fp_rate": 0.7071,
+      "n_pred": 140,
+      "thr": 0.05
+    },
+    "0.30": {
+      "f1": 0.3868,
+      "precision": 0.3661,
+      "recall": 0.41,
+      "fp_rate": 0.6339,
+      "n_pred": 112,
+      "thr": 0.15
+    },
+    "0.50": {
+      "f1": 0.4545,
+      "precision": 0.5263,
+      "recall": 0.4,
+      "fp_rate": 0.4737,
+      "n_pred": 76,
+      "thr": 0.35
+    },
+    "0.70": {
+      "f1": 0.3896,
+      "precision": 0.5556,
+      "recall": 0.3,
+      "fp_rate": 0.4444,
+      "n_pred": 54,
+      "thr": 0.7
+    },
+    "0.90": {
+      "f1": 0.3594,
+      "precision": 0.8214,
+      "recall": 0.23,
+      "fp_rate": 0.1786,
+      "n_pred": 28,
+      "thr": 0.85
+    }
+  },
+  "F1_sweep_random": {
+    "0.00": {
+      "f1": 0.2667,
+      "precision": 0.2286,
+      "recall": 0.32,
+      "fp_rate": 0.7714,
+      "n_pred": 140,
+      "thr": 0.00054
+    },
+    "0.30": {
+      "f1": 0.2476,
+      "precision": 0.2364,
+      "recall": 0.26,
+      "fp_rate": 0.7636,
+      "n_pred": 110,
+      "thr": 0.31215
+    },
+    "0.50": {
+      "f1": 0.2447,
+      "precision": 0.2614,
+      "recall": 0.23,
+      "fp_rate": 0.7386,
+      "n_pred": 88,
+      "thr": 0.47877
+    },
+    "0.70": {
+      "f1": 0.1948,
+      "precision": 0.2778,
+      "recall": 0.15,
+      "fp_rate": 0.7222,
+      "n_pred": 54,
+      "thr": 0.72571
+    },
+    "0.90": {
+      "f1": 0.1,
+      "precision": 0.3,
+      "recall": 0.06,
+      "fp_rate": 0.7,
+      "n_pred": 20,
+      "thr": 0.90353
+    }
+  },
+  "F1_sweep_rich_scrambled": {
+    "0.00": {
+      "f1": 0.3083,
+      "precision": 0.2643,
+      "recall": 0.37,
+      "fp_rate": 0.7357,
+      "n_pred": 140,
+      "thr": 0.05
+    },
+    "0.30": {
+      "f1": 0.2685,
+      "precision": 0.25,
+      "recall": 0.29,
+      "fp_rate": 0.75,
+      "n_pred": 116,
+      "thr": 0.15
+    },
+    "0.50": {
+      "f1": 0.246,
+      "precision": 0.2644,
+      "recall": 0.23,
+      "fp_rate": 0.7356,
+      "n_pred": 87,
+      "thr": 0.3
+    },
+    "0.70": {
+      "f1": 0.2264,
+      "precision": 0.3051,
+      "recall": 0.18,
+      "fp_rate": 0.6949,
+      "n_pred": 59,
+      "thr": 0.7
+    },
+    "0.90": {
+      "f1": 0.16,
+      "precision": 0.4,
+      "recall": 0.1,
+      "fp_rate": 0.6,
+      "n_pred": 25,
+      "thr": 0.85
+    }
+  },
+  "reader_raw_reference": {
+    "f1": 0.2794,
+    "precision": 0.2047,
+    "recall": 0.44,
+    "fp_rate": 0.7953,
+    "n_pred": 215
+  },
+  "error_decomposition": {
+    "n_gold_pos": 100,
+    "recall_miss": 56,
+    "recall_miss_fraction": 0.56,
+    "recall_ceiling": 0.44,
+    "disambig_total": 44,
+    "thin_pick_correct": 36,
+    "rich_pick_correct": 41,
+    "rich_fixes_thin_errors": 5,
+    "rich_breaks_thin_correct": 0,
+    "net_disambig_gain": 5
+  },
+  "rich_coverage_on_candidate_pairs": 1.0,
+  "per_instance_pick_digests": {
+    "thin": "3011ea906a6930c4",
+    "random": "36a110ad373051b5",
+    "rich": "9ce86c80366885f0",
+    "rich_scrambled": "d2a3f87d2c8f94d9"
+  },
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "random_is_chance": true,
+  "discriminator_fires": true,
+  "thin_selectional_stats": {
+    "n_verb_centroids": 28,
+    "glove_terms": 708
+  },
+  "expected_q_points": 5,
+  "cardinality_ok": true,
+  "bands": {
+    "HP_F1_GAP": 0.08,
+    "HP_DISAMBIG_GAP": 0.1,
+    "HP_SCRAMBLE_MARGIN": 0.05,
+    "MAX_DISAMBIG_RANDOM": 0.6,
+    "HF_F1_GAP": 0.03
+  },
+  "runtime_invariant": "glass-box dict lookup ONLY; NO LLM/network/autograd at inference (build-time LLM only)",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "discrimination-accuracy + patient-F1; no quantitative HD noise floor for the discriminator",
+  "deterministic_seeding": "fixed int seeds + numpy default_rng + sorted(set); no hash()-seeded RNG",
+  "one_variable_note": "All arms share the SAME reader candidate set, split, keep mechanism, and scoring. ONLY the selectional table differs: THIN=GloVe selectional coherence (reader's real teacher), RICH=LLM-built plausibility (build-time), RANDOM/SCRAMBLED=controls.",
+  "leakage_guard": "Gold = independent LCCP argument-structure annotation (NOT LLM ratings). Rich table generated from a shuffled UNLABELED (verb,noun) candidate list; agent never sees which candidate is the gold patient. Rich must ERR (disambig_rich<1.0); RICH_SCRAMBLED must-fail control. HONEST SCOPE: LLM-self-built table (residual leakage-adjacent risk); independent-KB (VerbNet/ConceptNet) replication is the flagged rigor follow-up.",
+  "integrated_reader_ref": "exp_learned_argstruct_parser_lccp_independent_gold_v1 (HARD_PASS C P=0.500 F1=0.405 vs independent gold). Isolated wins: 29471 selectional-2AFC 0.475->0.814; 29472 PP-attach 0.700->0.822.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "disambig_thin",
+    "disambig_rich",
+    "disambig_random",
+    "disambig_rich_scrambled",
+    "F1_thin",
+    "F1_rich",
+    "F1_gap_rich_minus_thin",
+    "error_decomposition",
+    "arms_differ_verified",
+    "runtime_invariant",
+    "leakage_guard"
+  ]
+}
