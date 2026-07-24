@@ -1,0 +1,366 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ACCURACY PASS: pre-registered per-scene mechanism topical_perscene_charset lifts the SAME-GENDER subset sub_acc=0.4003 vs backbone=0.2462 (delta=+0.1541, sign_stability=1.000), overall xsent 0.4023 vs 0.2487 (no regress). LEVER 1 whole-doc topical FAILED on subset (0.2412, delta=-0.0050: global protagonist over-applies). SCENE-STRUCTURE control: charset-detected=0.4003 vs LOCALITY null max(fixed5=0.4070, Kmean-random=0.3710)=0.4070 (delta=-0.0067) -> scene_structure_supported=False: the lever is LOCAL-WINDOW subject-role-mass, NOT scene detection (a dumb fixed-5-sentence window matches/beats detected scenes). best_diag_arm=topical_local_fixed5 sub=0.4070. her->recency sub=0.3987 (vs her->topical 0.4070: 'her' POS-ambiguity).",
+  "summary": "read_xsent_coref_scene_protagonist_v1: HARD_PASS",
+  "elapsed_s": 0.803,
+  "anchor_name": "read_xsent_coref_scene_protagonist_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-24T05:45:55.211841+00:00",
+  "host": "FrameworkMPC",
+  "corpus": {
+    "source": "LitBank coref (dbamman/litbank), CC-BY 4.0",
+    "corpus_dir": "D:\\AI\\hd-instrument\\data\\corpora\\litbank_coref_conll",
+    "n_books_usable": 25,
+    "books": [
+      "1023_bleak_house_brat.conll",
+      "105_persuasion_brat.conll",
+      "1064_the_masque_of_the_red_death_brat.conll",
+      "110_tess_of_the_durbervilles_a_pure_woman_brat.conll",
+      "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll",
+      "113_the_secret_garden_brat.conll",
+      "1260_jane_eyre_an_autobiography_brat.conll",
+      "1342_pride_and_prejudice_brat.conll",
+      "1400_great_expectations_brat.conll",
+      "158_emma_brat.conll",
+      "174_the_picture_of_dorian_gray_brat.conll",
+      "209_the_turn_of_the_screw_brat.conll",
+      "2489_moby_dick_brat.conll",
+      "2814_dubliners_brat.conll",
+      "2852_the_hound_of_the_baskervilles_brat.conll",
+      "345_dracula_brat.conll",
+      "36_the_war_of_the_worlds_brat.conll",
+      "514_little_women_brat.conll",
+      "521_the_life_and_adventures_of_robinson_crusoe_brat.conll",
+      "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll",
+      "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll",
+      "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll",
+      "76_adventures_of_huckleberry_finn_brat.conll",
+      "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll",
+      "84_frankenstein_or_the_modern_prometheus_brat.conll"
+    ]
+  },
+  "config": {
+    "arms": [
+      "single_sentence_baseline",
+      "backbone",
+      "off_faithful",
+      "topical_wholedoc",
+      "topical_perscene_time",
+      "topical_perscene_charset",
+      "ctrl_random_matched",
+      "topical_local_fixed5",
+      "topical_local_freqonly",
+      "topical_local_her_recency"
+    ],
+    "baseline_arm": "single_sentence_baseline",
+    "p1_arm": "backbone",
+    "faithful_arm": "off_faithful",
+    "mechanism_arm": "topical_perscene_charset",
+    "locality_arm": "topical_local_fixed5",
+    "random_ctrl_arm": "ctrl_random_matched",
+    "local_window": 5,
+    "topical_slot_heads": [
+      "he",
+      "her",
+      "hers",
+      "his",
+      "she"
+    ],
+    "her_recency_heads": [
+      "he",
+      "his",
+      "she"
+    ],
+    "backbone_plateau_cited": 0.2487,
+    "bands": {
+      "validity_gate_max": 0.1,
+      "plateau_repro_eps": 0.01,
+      "hp_margin": 0.03,
+      "hp_sign_stability": 0.9,
+      "no_overall_regress_eps": 0.005,
+      "scene_struct_min": 0.03
+    },
+    "n_bootstrap": 2000,
+    "bootstrap_seed": 20260724,
+    "pass_criterion": "per-scene/local topical beats backbone on same-gender subset by >=0.03 with sign_stability>=0.90 + no overall xsent regression; scene_structure_supported reported separately (detected - random_matched >= 0.03)"
+  },
+  "n_targets_total": 1690,
+  "n_xsent": 599,
+  "n_same_gender_subset": 597,
+  "bucket_counts": {
+    "same": 1091,
+    "plus1": 486,
+    "plus2": 66,
+    "long": 47
+  },
+  "overall_xsent_acc": {
+    "single_sentence_baseline": 0.0,
+    "backbone": 0.24874791318864775,
+    "off_faithful": 0.24874791318864775,
+    "topical_wholedoc": 0.24373956594323873,
+    "topical_perscene_time": 0.2671118530884808,
+    "topical_perscene_charset": 0.4023372287145242,
+    "ctrl_random_matched": 0.3731218697829716,
+    "topical_local_fixed5": 0.4090150250417362,
+    "topical_local_freqonly": 0.39065108514190316,
+    "topical_local_her_recency": 0.4006677796327212
+  },
+  "same_gender_subset_acc": {
+    "single_sentence_baseline": 0.0,
+    "backbone": 0.24623115577889448,
+    "off_faithful": 0.24623115577889448,
+    "topical_wholedoc": 0.24120603015075376,
+    "topical_perscene_time": 0.2646566164154104,
+    "topical_perscene_charset": 0.40033500837520936,
+    "ctrl_random_matched": 0.3710217755443886,
+    "topical_local_fixed5": 0.40703517587939697,
+    "topical_local_freqonly": 0.38860971524288107,
+    "topical_local_her_recency": 0.39865996649916247
+  },
+  "best_persc_arm": "topical_local_fixed5",
+  "best_persc_subset_acc": 0.40703517587939697,
+  "delta_subset_vs_backbone": 0.15410385259631487,
+  "sign_stability": 1.0,
+  "overall_regress": false,
+  "whole_doc_topical_subset_acc": 0.24120603015075376,
+  "whole_doc_topical_delta": -0.005025125628140725,
+  "scene_structure": {
+    "charset_detected_subset_acc": 0.40033500837520936,
+    "random_matched_subset_acc_kmean": 0.3710217755443886,
+    "fixed5_subset_acc": 0.40703517587939697,
+    "locality_null_max_fixed5_random": 0.40703517587939697,
+    "delta_detected_minus_locality_null": -0.006700167504187615,
+    "scene_structure_supported": false,
+    "interpretation": "lever is LOCALITY (window size); scene detection does NOT beat the matched-granularity locality null (deterministic fixed5-window >= charset-detected)"
+  },
+  "validity_ok": true,
+  "faithful_ok": true,
+  "plateau_ok": true,
+  "acc_pass": true,
+  "autopsy": {
+    "mechanism_charset_fixed": 163,
+    "mechanism_charset_broke": 71,
+    "locality_fixed": 161,
+    "locality_broke": 65,
+    "locality_residual_miss": 354,
+    "locality_residual_multi_same_gender": 354
+  },
+  "arms_differ_digests": {
+    "single_sentence_baseline": "d61ab8885b099c60cd39fa46c5a74dfa2209bbc801e929cd24ec245fd24fd7c3",
+    "backbone": "c3e570047e04fef0f3ed429e73d617c3c0188445140521b6b11bcae3e6bd36c7",
+    "off_faithful": "c3e570047e04fef0f3ed429e73d617c3c0188445140521b6b11bcae3e6bd36c7",
+    "topical_wholedoc": "6e2a47a10ad6e3442da79c18a7d0547075dff20bb447cb0ad50d4788b9a6eaaa",
+    "topical_perscene_time": "e9805c26c9411242e36a6a911c0586cb7c2f8d5ed2a94296d436665e28b5de3b",
+    "topical_perscene_charset": "842ac90a7172bf4793900a1d0437af7dde9885a31a62bd33d6e331d373c3feb4",
+    "ctrl_random_matched": "177a8692970c31357ae021dcc6a233af7f62dc9bc0315e8d2132ebc5dd99ea6d",
+    "topical_local_fixed5": "1971155aa0cd1e6fc2c7c1ce36f925a4b7153904f61afc036eac7b5f5fd8e8e6",
+    "topical_local_freqonly": "6d2eeab2845613c052c3d9821f3a31466efb91e4e65a9b10e95dc06003e7b0c1",
+    "topical_local_her_recency": "caacdf34b557cf420886edec0e22913e17466e31720d49b6620565bffb28c040"
+  },
+  "arms_differ_verified": true,
+  "per_book": {
+    "1023_bleak_house_brat.conll": {
+      "n_mentions": 256,
+      "n_sentences": 60,
+      "n_targets": 26,
+      "n_scenes_time": 2,
+      "n_scenes_char": 10,
+      "n_sents": 60
+    },
+    "105_persuasion_brat.conll": {
+      "n_mentions": 286,
+      "n_sentences": 45,
+      "n_targets": 114,
+      "n_scenes_time": 1,
+      "n_scenes_char": 24,
+      "n_sents": 45
+    },
+    "1064_the_masque_of_the_red_death_brat.conll": {
+      "n_mentions": 131,
+      "n_sentences": 84,
+      "n_targets": 22,
+      "n_scenes_time": 2,
+      "n_scenes_char": 5,
+      "n_sents": 84
+    },
+    "110_tess_of_the_durbervilles_a_pure_woman_brat.conll": {
+      "n_mentions": 308,
+      "n_sentences": 94,
+      "n_targets": 39,
+      "n_scenes_time": 2,
+      "n_scenes_char": 13,
+      "n_sents": 94
+    },
+    "11231_bartleby_the_scrivener_a_story_of_wallstreet_brat.conll": {
+      "n_mentions": 306,
+      "n_sentences": 91,
+      "n_targets": 95,
+      "n_scenes_time": 4,
+      "n_scenes_char": 15,
+      "n_sents": 91
+    },
+    "113_the_secret_garden_brat.conll": {
+      "n_mentions": 329,
+      "n_sentences": 109,
+      "n_targets": 139,
+      "n_scenes_time": 1,
+      "n_scenes_char": 27,
+      "n_sents": 109
+    },
+    "1260_jane_eyre_an_autobiography_brat.conll": {
+      "n_mentions": 295,
+      "n_sentences": 65,
+      "n_targets": 65,
+      "n_scenes_time": 1,
+      "n_scenes_char": 14,
+      "n_sents": 65
+    },
+    "1342_pride_and_prejudice_brat.conll": {
+      "n_mentions": 370,
+      "n_sentences": 111,
+      "n_targets": 82,
+      "n_scenes_time": 2,
+      "n_scenes_char": 32,
+      "n_sents": 111
+    },
+    "1400_great_expectations_brat.conll": {
+      "n_mentions": 354,
+      "n_sentences": 103,
+      "n_targets": 63,
+      "n_scenes_time": 1,
+      "n_scenes_char": 21,
+      "n_sents": 103
+    },
+    "158_emma_brat.conll": {
+      "n_mentions": 319,
+      "n_sentences": 77,
+      "n_targets": 108,
+      "n_scenes_time": 1,
+      "n_scenes_char": 32,
+      "n_sents": 77
+    },
+    "174_the_picture_of_dorian_gray_brat.conll": {
+      "n_mentions": 284,
+      "n_sentences": 109,
+      "n_targets": 44,
+      "n_scenes_time": 1,
+      "n_scenes_char": 15,
+      "n_sents": 109
+    },
+    "209_the_turn_of_the_screw_brat.conll": {
+      "n_mentions": 269,
+      "n_sentences": 121,
+      "n_targets": 100,
+      "n_scenes_time": 1,
+      "n_scenes_char": 9,
+      "n_sents": 121
+    },
+    "2489_moby_dick_brat.conll": {
+      "n_mentions": 300,
+      "n_sentences": 94,
+      "n_targets": 21,
+      "n_scenes_time": 1,
+      "n_scenes_char": 5,
+      "n_sents": 94
+    },
+    "2814_dubliners_brat.conll": {
+      "n_mentions": 333,
+      "n_sentences": 96,
+      "n_targets": 83,
+      "n_scenes_time": 3,
+      "n_scenes_char": 16,
+      "n_sents": 96
+    },
+    "2852_the_hound_of_the_baskervilles_brat.conll": {
+      "n_mentions": 290,
+      "n_sentences": 111,
+      "n_targets": 59,
+      "n_scenes_time": 1,
+      "n_scenes_char": 12,
+      "n_sents": 111
+    },
+    "345_dracula_brat.conll": {
+      "n_mentions": 340,
+      "n_sentences": 94,
+      "n_targets": 43,
+      "n_scenes_time": 1,
+      "n_scenes_char": 15,
+      "n_sents": 94
+    },
+    "36_the_war_of_the_worlds_brat.conll": {
+      "n_mentions": 218,
+      "n_sentences": 70,
+      "n_targets": 12,
+      "n_scenes_time": 3,
+      "n_scenes_char": 6,
+      "n_sents": 70
+    },
+    "514_little_women_brat.conll": {
+      "n_mentions": 288,
+      "n_sentences": 85,
+      "n_targets": 41,
+      "n_scenes_time": 1,
+      "n_scenes_char": 36,
+      "n_sents": 85
+    },
+    "521_the_life_and_adventures_of_robinson_crusoe_brat.conll": {
+      "n_mentions": 352,
+      "n_sentences": 28,
+      "n_targets": 61,
+      "n_scenes_time": 1,
+      "n_scenes_char": 8,
+      "n_sents": 28
+    },
+    "5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks_brat.conll": {
+      "n_mentions": 320,
+      "n_sentences": 128,
+      "n_targets": 80,
+      "n_scenes_time": 1,
+      "n_scenes_char": 41,
+      "n_sents": 128
+    },
+    "6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world_brat.conll": {
+      "n_mentions": 353,
+      "n_sentences": 59,
+      "n_targets": 137,
+      "n_scenes_time": 1,
+      "n_scenes_char": 27,
+      "n_sents": 59
+    },
+    "73_the_red_badge_of_courage_an_episode_of_the_american_civil_war_brat.conll": {
+      "n_mentions": 271,
+      "n_sentences": 117,
+      "n_targets": 108,
+      "n_scenes_time": 4,
+      "n_scenes_char": 15,
+      "n_sents": 117
+    },
+    "76_adventures_of_huckleberry_finn_brat.conll": {
+      "n_mentions": 294,
+      "n_sentences": 99,
+      "n_targets": 59,
+      "n_scenes_time": 2,
+      "n_scenes_char": 16,
+      "n_sents": 99
+    },
+    "829_gullivers_travels_into_several_remote_nations_of_the_world_brat.conll": {
+      "n_mentions": 501,
+      "n_sentences": 81,
+      "n_targets": 36,
+      "n_scenes_time": 5,
+      "n_scenes_char": 13,
+      "n_sents": 81
+    },
+    "84_frankenstein_or_the_modern_prometheus_brat.conll": {
+      "n_mentions": 381,
+      "n_sentences": 79,
+      "n_targets": 53,
+      "n_scenes_time": 1,
+      "n_scenes_char": 21,
+      "n_sents": 79
+    }
+  },
+  "book_failures": [],
+  "expected_n_units": 25,
+  "cardinality_ok": true
+}
