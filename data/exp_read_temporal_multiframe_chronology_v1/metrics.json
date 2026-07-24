@@ -1,0 +1,2903 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: running-timeline multi-frame mechanism beats BOTH baselines on the hard subset -- MECH 0.895 vs PP_DEMOTE 0.632 (+0.263) vs TEXT 0.421 (+0.474); holds REAL-only (MECH 0.889 vs PP_DEMOTE 0.667); validity gate fires (TEXT 0.421<=0.6, PP 0.632<=0.75); P2 ablation collapses to PP_DEMOTE; NO single-frame regression (MECH_sf 1.000==1.000); NO control regression (MECH_ctrl 1.000).",
+  "run_mode": "full",
+  "summary": "HARD_PASS: hard MECH 0.895 vs PP_DEMOTE 0.632 (++0.263) vs TEXT 0.421 (++0.474); real-only MECH 0.889 vs PP 0.667; validity=True; sf_noregress=True",
+  "elapsed_s": 2.311,
+  "ts_iso": "2026-07-24T03:26:32.319683+00:00",
+  "anchor_name": "read_temporal_multiframe_chronology_v1",
+  "n_dim": 1024,
+  "prereg_bands": {
+    "validity_text_max": 0.6,
+    "validity_ppdemote_max": 0.75,
+    "hard_pass_margin_pp": 0.15,
+    "hard_pass_margin_text": 0.2,
+    "hard_pass_mech_min": 0.8,
+    "hard_fail_margin_pp": 0.05
+  },
+  "gates": {
+    "validity_gate_fires": true,
+    "p2_ablation_collapses_to_ppdemote": true,
+    "no_single_frame_regression": true,
+    "no_control_regression": true,
+    "margin_pp_hard": 0.2632,
+    "margin_text_hard": 0.4737,
+    "margin_pp_hard_real": 0.2222
+  },
+  "arms": {
+    "TEXT": {
+      "hard_acc": 0.4211,
+      "hard_real_acc": 0.4444,
+      "control_acc": 0.7143,
+      "single_frame_acc": 0.36,
+      "hard_n_scored": 19,
+      "signature_sha256": "8c24267341b10bca"
+    },
+    "PP_DEMOTE": {
+      "hard_acc": 0.6316,
+      "hard_real_acc": 0.6667,
+      "control_acc": 1.0,
+      "single_frame_acc": 1.0,
+      "hard_n_scored": 19,
+      "signature_sha256": "83c19cf79fdeaf4c"
+    },
+    "CELL1_CUE": {
+      "hard_acc": 0.6316,
+      "hard_real_acc": 0.6667,
+      "control_acc": 1.0,
+      "single_frame_acc": 1.0,
+      "hard_n_scored": 19,
+      "signature_sha256": "83c19cf79fdeaf4c"
+    },
+    "MECH": {
+      "hard_acc": 0.8947,
+      "hard_real_acc": 0.8889,
+      "control_acc": 1.0,
+      "single_frame_acc": 1.0,
+      "hard_n_scored": 19,
+      "signature_sha256": "ad71dd4c9b445218"
+    },
+    "MECH_ABLATE": {
+      "hard_acc": 0.6316,
+      "hard_real_acc": 0.6667,
+      "control_acc": 1.0,
+      "single_frame_acc": 1.0,
+      "hard_n_scored": 19,
+      "signature_sha256": "83c19cf79fdeaf4c"
+    }
+  },
+  "arms_differ_exempted": [
+    [
+      "CELL1_CUE",
+      "MECH_ABLATE"
+    ],
+    [
+      "CELL1_CUE",
+      "PP_DEMOTE"
+    ],
+    [
+      "MECH_ABLATE",
+      "PP_DEMOTE"
+    ]
+  ],
+  "improving_property": {
+    "by_n_cues": {
+      "1": {
+        "text_acc": 0.75,
+        "pp_acc": 0.25,
+        "mech_acc": 0.75,
+        "n_items": 4,
+        "n_pairs": 8
+      },
+      ">=2": {
+        "text_acc": 0.0,
+        "pp_acc": 0.0,
+        "mech_acc": 1.0,
+        "n_items": 1,
+        "n_pairs": 1
+      },
+      "0": {
+        "text_acc": 0.2,
+        "pp_acc": 1.0,
+        "mech_acc": 1.0,
+        "n_items": 4,
+        "n_pairs": 10
+      }
+    },
+    "by_chain_len": {
+      ">=4": {
+        "mech_acc": 0.8,
+        "pp_acc": 0.4,
+        "lift": 0.4,
+        "n_items": 2,
+        "n_pairs": 5
+      },
+      "3": {
+        "mech_acc": 0.9167,
+        "pp_acc": 0.8333,
+        "lift": 0.0833,
+        "n_items": 5,
+        "n_pairs": 12
+      },
+      "2": {
+        "mech_acc": 1.0,
+        "pp_acc": 0.0,
+        "lift": 1.0,
+        "n_items": 2,
+        "n_pairs": 2
+      }
+    },
+    "sequence_matrix": {
+      "shared_matrix_mean_chain_depth": 1.7778,
+      "shared_matrix_full_recovery_frac": 0.8889,
+      "per_item_depths": [
+        1,
+        2,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2,
+        1
+      ],
+      "per_item_seqlens": [
+        3,
+        2,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2,
+        1
+      ],
+      "n_distinct_event_lemmas": 24,
+      "n_multi_event_chains": 7,
+      "max_chain_len": 3
+    },
+    "never_confidently_wrong": {
+      "confident_correct": 18,
+      "confident_scored": 20,
+      "confident_acc": 0.9,
+      "abstained_pairs": 6
+    }
+  },
+  "autopsy": {
+    "failing_items": [
+      {
+        "id": "before2",
+        "type": "B",
+        "risk": "real",
+        "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+        "text": "She rose from breakfast before he had finished, and hastened upstairs.",
+        "n_correct": 1,
+        "n_scored": 2,
+        "n_abstain": 0,
+        "extracted": [
+          [
+            "rose",
+            "SI"
+          ],
+          [
+            "finished",
+            "PP"
+          ],
+          [
+            "hastened",
+            "PP"
+          ]
+        ],
+        "mech_order": [
+          "hastened",
+          "rose",
+          "finished"
+        ]
+      },
+      {
+        "id": "before3",
+        "type": "B",
+        "risk": "real",
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "But I fell asleep before I had succeeded, and dreamed of the days when I lived in my godmother's house.",
+        "n_correct": 1,
+        "n_scored": 2,
+        "n_abstain": 0,
+        "extracted": [
+          [
+            "fell",
+            "SI"
+          ],
+          [
+            "succeeded",
+            "PP"
+          ],
+          [
+            "dreamed",
+            "PP"
+          ],
+          [
+            "lived",
+            "SI"
+          ]
+        ],
+        "mech_order": [
+          "dreamed",
+          "fell",
+          "succeeded",
+          "lived"
+        ]
+      }
+    ],
+    "by_cue_type": {
+      "A": {
+        "correct": 2,
+        "scored": 2,
+        "acc": 1.0
+      },
+      "B": {
+        "correct": 5,
+        "scored": 7,
+        "acc": 0.7143
+      },
+      "C": {
+        "correct": 10,
+        "scored": 10,
+        "acc": 1.0
+      }
+    },
+    "candidate_levers": [
+      "clause-bounded tense tagging: shared POS extractor mis-tags a coordinated simple-past verb (hastened/dreamed) as pp via cross-clause 'had' bleed (before2/before3 partials)",
+      "lexical temporal adverbials (the day before / an hour later) beyond connective set",
+      "genuine multi-pp-reorder is near-nonexistent in real prose (case-A leans synthetic)"
+    ]
+  },
+  "gold": {
+    "n_hard_items": 9,
+    "n_hard_real": 8,
+    "n_control_items": 5,
+    "n_single_frame_items": 20,
+    "hard": [
+      {
+        "id": "before1",
+        "type": "B",
+        "risk": "real",
+        "source": "Persuasion (Austen), LitBank 105",
+        "text": "Before Mrs Croft had written, he was arrived, and the very next time Anne walked out, she saw him.",
+        "pairs": [
+          [
+            "arrived",
+            "written"
+          ],
+          [
+            "arrived",
+            "saw"
+          ],
+          [
+            "walked",
+            "saw"
+          ]
+        ]
+      },
+      {
+        "id": "before2",
+        "type": "B",
+        "risk": "real",
+        "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+        "text": "She rose from breakfast before he had finished, and hastened upstairs.",
+        "pairs": [
+          [
+            "rose",
+            "finished"
+          ],
+          [
+            "rose",
+            "hastened"
+          ]
+        ]
+      },
+      {
+        "id": "before3",
+        "type": "B",
+        "risk": "real",
+        "source": "Bleak House (Dickens), LitBank 1023",
+        "text": "But I fell asleep before I had succeeded, and dreamed of the days when I lived in my godmother's house.",
+        "pairs": [
+          [
+            "fell",
+            "succeeded"
+          ],
+          [
+            "fell",
+            "dreamed"
+          ]
+        ]
+      },
+      {
+        "id": "since1",
+        "type": "A",
+        "risk": "real",
+        "source": "Tess of the d'Urbervilles (Hardy), LitBank 110 (trimmed clause)",
+        "text": "She had not set eyes on him since he had conducted her to the cottage the day before.",
+        "pairs": [
+          [
+            "conducted",
+            "set"
+          ]
+        ]
+      },
+      {
+        "id": "flash_held",
+        "type": "C",
+        "risk": "real",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "He felt as if tight strings which had held him had loosened themselves and let him go.",
+        "pairs": [
+          [
+            "held",
+            "felt"
+          ],
+          [
+            "loosened",
+            "felt"
+          ],
+          [
+            "held",
+            "loosened"
+          ]
+        ]
+      },
+      {
+        "id": "flash_asked",
+        "type": "C",
+        "risk": "real",
+        "source": "The Secret Garden (Burnett), LitBank 113",
+        "text": "Mary remembered what he had asked her the day she had gone to his room.",
+        "pairs": [
+          [
+            "asked",
+            "remembered"
+          ],
+          [
+            "gone",
+            "remembered"
+          ]
+        ]
+      },
+      {
+        "id": "flash_saw",
+        "type": "C",
+        "risk": "real",
+        "source": "Great Expectations (Dickens), LitBank 1400",
+        "text": "I saw that the dress had been put upon the rounded figure of a young woman, and that the figure had shrunk to skin and bone.",
+        "pairs": [
+          [
+            "put",
+            "saw"
+          ],
+          [
+            "shrunk",
+            "saw"
+          ],
+          [
+            "put",
+            "shrunk"
+          ]
+        ]
+      },
+      {
+        "id": "flash_come",
+        "type": "C",
+        "risk": "real",
+        "source": "Personality Plus (Ferber), LitBank 12677 (trimmed clause)",
+        "text": "She felt again that sensation of nausea which had come over her when she had met her first sneer.",
+        "pairs": [
+          [
+            "come",
+            "felt"
+          ],
+          [
+            "met",
+            "felt"
+          ]
+        ]
+      },
+      {
+        "id": "after_synth",
+        "type": "A",
+        "risk": "synthetic",
+        "source": "synthetic-illustrative (real multi-pp-reorder near-nonexistent in prose)",
+        "text": "She had mailed the letter after she had written it.",
+        "pairs": [
+          [
+            "written",
+            "mailed"
+          ]
+        ]
+      }
+    ],
+    "control": [
+      {
+        "id": "c_earlier1",
+        "risk": "real",
+        "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+        "text": "She reached the corner of the lane which they had passed half an hour earlier, and she hopped down.",
+        "pairs": [
+          [
+            "passed",
+            "reached"
+          ],
+          [
+            "reached",
+            "hopped"
+          ]
+        ]
+      },
+      {
+        "id": "c_earlier2",
+        "risk": "real",
+        "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+        "text": "She stooped to the threshold of the doorway, where she had pushed in the note two or three days earlier.",
+        "pairs": [
+          [
+            "pushed",
+            "stooped"
+          ]
+        ]
+      },
+      {
+        "id": "c_when1",
+        "risk": "real",
+        "source": "Great Expectations (Dickens), LitBank 1400 (trimmed)",
+        "text": "When she had first seen me she had been startled, and she looked at me steadily.",
+        "pairs": [
+          [
+            "seen",
+            "startled"
+          ],
+          [
+            "startled",
+            "looked"
+          ]
+        ]
+      },
+      {
+        "id": "c_after1",
+        "risk": "real",
+        "source": "Night and Day (Woolf), LitBank 1245",
+        "text": "He had left his wife, and after some years of a reckless existence, she had died before her time.",
+        "pairs": [
+          [
+            "left",
+            "died"
+          ]
+        ]
+      },
+      {
+        "id": "c_before4",
+        "risk": "real",
+        "source": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+        "text": "Before this time he had known it but speculatively; now he thought he knew it as a practical man.",
+        "pairs": [
+          [
+            "known",
+            "thought"
+          ]
+        ]
+      }
+    ]
+  },
+  "per_arm_detail": {
+    "TEXT": {
+      "hard": {
+        "acc": 0.42105263157894735,
+        "n_correct": 8,
+        "n_scored": 19,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "rose",
+              "finished",
+              "hastened"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "fell",
+              "succeeded",
+              "dreamed",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 1,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "felt",
+              "held",
+              "loosened"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "remembered",
+              "asked",
+              "gone"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 1,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "saw",
+              "put",
+              "shrunk"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "felt",
+              "come",
+              "met"
+            ]
+          },
+          {
+            "id": "after_synth",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "mailed",
+              "written"
+            ]
+          }
+        ]
+      },
+      "hard_real": {
+        "acc": 0.4444444444444444,
+        "n_correct": 8,
+        "n_scored": 18,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "rose",
+              "finished",
+              "hastened"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "fell",
+              "succeeded",
+              "dreamed",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 1,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "felt",
+              "held",
+              "loosened"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "remembered",
+              "asked",
+              "gone"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 1,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "saw",
+              "put",
+              "shrunk"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "felt",
+              "come",
+              "met"
+            ]
+          }
+        ]
+      },
+      "control": {
+        "acc": 0.7142857142857143,
+        "n_correct": 5,
+        "n_scored": 7,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "c_earlier1",
+            "n_correct": 1,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "reached",
+              "passed",
+              "hopped"
+            ]
+          },
+          {
+            "id": "c_earlier2",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stooped",
+              "pushed"
+            ]
+          },
+          {
+            "id": "c_when1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "startled",
+              "looked"
+            ]
+          },
+          {
+            "id": "c_after1",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "left",
+              "died"
+            ]
+          },
+          {
+            "id": "c_before4",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "known",
+              "thought",
+              "knew"
+            ]
+          }
+        ]
+      },
+      "single_frame": {
+        "acc": 0.36,
+        "n_correct": 9,
+        "n_scored": 25,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "came",
+              "seen"
+            ]
+          },
+          {
+            "id": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "looked",
+              "disappeared"
+            ]
+          },
+          {
+            "id": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "closed",
+              "lain"
+            ]
+          },
+          {
+            "id": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "said",
+              "saw",
+              "forgotten"
+            ]
+          },
+          {
+            "id": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stood",
+              "brought"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "thought",
+              "stolen"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "said",
+              "decided"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "turned",
+              "found",
+              "taken"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "came",
+              "found",
+              "brought"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "cried",
+              "afraid",
+              "hurt"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "saw",
+              "passed"
+            ]
+          },
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "heard",
+              "wondered",
+              "got"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "id": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "id": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "id": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "id": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "id": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    },
+    "PP_DEMOTE": {
+      "hard": {
+        "acc": 0.631578947368421,
+        "n_correct": 12,
+        "n_scored": 19,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "finished",
+              "hastened",
+              "rose"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "succeeded",
+              "dreamed",
+              "fell",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          },
+          {
+            "id": "after_synth",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "mailed",
+              "written"
+            ]
+          }
+        ]
+      },
+      "hard_real": {
+        "acc": 0.6666666666666666,
+        "n_correct": 12,
+        "n_scored": 18,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "finished",
+              "hastened",
+              "rose"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "succeeded",
+              "dreamed",
+              "fell",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          }
+        ]
+      },
+      "control": {
+        "acc": 1.0,
+        "n_correct": 7,
+        "n_scored": 7,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "c_earlier1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "reached",
+              "hopped"
+            ]
+          },
+          {
+            "id": "c_earlier2",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "pushed",
+              "stooped"
+            ]
+          },
+          {
+            "id": "c_when1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "startled",
+              "looked"
+            ]
+          },
+          {
+            "id": "c_after1",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "left",
+              "died"
+            ]
+          },
+          {
+            "id": "c_before4",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "known",
+              "thought",
+              "knew"
+            ]
+          }
+        ]
+      },
+      "single_frame": {
+        "acc": 1.0,
+        "n_correct": 25,
+        "n_scored": 25,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "came"
+            ]
+          },
+          {
+            "id": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "disappeared",
+              "looked"
+            ]
+          },
+          {
+            "id": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lain",
+              "closed"
+            ]
+          },
+          {
+            "id": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "forgotten",
+              "said",
+              "saw"
+            ]
+          },
+          {
+            "id": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "stood"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stolen",
+              "thought"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "decided",
+              "said"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "taken",
+              "turned",
+              "found"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "came",
+              "found"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "hurt",
+              "cried",
+              "afraid"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "went",
+              "saw"
+            ]
+          },
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "got",
+              "heard",
+              "wondered"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "id": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "id": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "id": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "id": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "id": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    },
+    "CELL1_CUE": {
+      "hard": {
+        "acc": 0.631578947368421,
+        "n_correct": 12,
+        "n_scored": 19,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "finished",
+              "hastened",
+              "rose"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "succeeded",
+              "dreamed",
+              "fell",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          },
+          {
+            "id": "after_synth",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "mailed",
+              "written"
+            ]
+          }
+        ]
+      },
+      "hard_real": {
+        "acc": 0.6666666666666666,
+        "n_correct": 12,
+        "n_scored": 18,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "finished",
+              "hastened",
+              "rose"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "succeeded",
+              "dreamed",
+              "fell",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          }
+        ]
+      },
+      "control": {
+        "acc": 1.0,
+        "n_correct": 7,
+        "n_scored": 7,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "c_earlier1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "reached",
+              "hopped"
+            ]
+          },
+          {
+            "id": "c_earlier2",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "pushed",
+              "stooped"
+            ]
+          },
+          {
+            "id": "c_when1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "startled",
+              "looked"
+            ]
+          },
+          {
+            "id": "c_after1",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "left",
+              "died"
+            ]
+          },
+          {
+            "id": "c_before4",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "known",
+              "thought",
+              "knew"
+            ]
+          }
+        ]
+      },
+      "single_frame": {
+        "acc": 1.0,
+        "n_correct": 25,
+        "n_scored": 25,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "came"
+            ]
+          },
+          {
+            "id": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "disappeared",
+              "looked"
+            ]
+          },
+          {
+            "id": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lain",
+              "closed"
+            ]
+          },
+          {
+            "id": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "forgotten",
+              "said",
+              "saw"
+            ]
+          },
+          {
+            "id": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "stood"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stolen",
+              "thought"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "decided",
+              "said"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "taken",
+              "turned",
+              "found"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "came",
+              "found"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "hurt",
+              "cried",
+              "afraid"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "went",
+              "saw"
+            ]
+          },
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "got",
+              "heard",
+              "wondered"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "id": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "id": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "id": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "id": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "id": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    },
+    "MECH": {
+      "hard": {
+        "acc": 0.8947368421052632,
+        "n_correct": 17,
+        "n_scored": 19,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "arrived",
+              "written",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 1,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "hastened",
+              "rose",
+              "finished"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 1,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "dreamed",
+              "fell",
+              "succeeded",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "conducted",
+              "set"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          },
+          {
+            "id": "after_synth",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "mailed"
+            ]
+          }
+        ]
+      },
+      "hard_real": {
+        "acc": 0.8888888888888888,
+        "n_correct": 16,
+        "n_scored": 18,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "arrived",
+              "written",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 1,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "hastened",
+              "rose",
+              "finished"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 1,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "dreamed",
+              "fell",
+              "succeeded",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "conducted",
+              "set"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          }
+        ]
+      },
+      "control": {
+        "acc": 1.0,
+        "n_correct": 7,
+        "n_scored": 7,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "c_earlier1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "reached",
+              "hopped"
+            ]
+          },
+          {
+            "id": "c_earlier2",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "pushed",
+              "stooped"
+            ]
+          },
+          {
+            "id": "c_when1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "startled",
+              "looked"
+            ]
+          },
+          {
+            "id": "c_after1",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "left",
+              "died"
+            ]
+          },
+          {
+            "id": "c_before4",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "known",
+              "thought",
+              "knew"
+            ]
+          }
+        ]
+      },
+      "single_frame": {
+        "acc": 1.0,
+        "n_correct": 25,
+        "n_scored": 25,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "came"
+            ]
+          },
+          {
+            "id": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "disappeared",
+              "looked"
+            ]
+          },
+          {
+            "id": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lain",
+              "closed"
+            ]
+          },
+          {
+            "id": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "forgotten",
+              "said",
+              "saw"
+            ]
+          },
+          {
+            "id": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "stood"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stolen",
+              "thought"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "decided",
+              "said"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "taken",
+              "turned",
+              "found"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "came",
+              "found"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "hurt",
+              "cried",
+              "afraid"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "went",
+              "saw"
+            ]
+          },
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "got",
+              "heard",
+              "wondered"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "id": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "id": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "id": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "id": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "id": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    },
+    "MECH_ABLATE": {
+      "hard": {
+        "acc": 0.631578947368421,
+        "n_correct": 12,
+        "n_scored": 19,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "finished",
+              "hastened",
+              "rose"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "succeeded",
+              "dreamed",
+              "fell",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          },
+          {
+            "id": "after_synth",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "mailed",
+              "written"
+            ]
+          }
+        ]
+      },
+      "hard_real": {
+        "acc": 0.6666666666666666,
+        "n_correct": 12,
+        "n_scored": 18,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "before1",
+            "n_correct": 2,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "written",
+              "arrived",
+              "walked",
+              "saw"
+            ]
+          },
+          {
+            "id": "before2",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "finished",
+              "hastened",
+              "rose"
+            ]
+          },
+          {
+            "id": "before3",
+            "n_correct": 0,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "succeeded",
+              "dreamed",
+              "fell",
+              "lived"
+            ]
+          },
+          {
+            "id": "since1",
+            "n_correct": 0,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "conducted"
+            ]
+          },
+          {
+            "id": "flash_held",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "held",
+              "loosened",
+              "felt"
+            ]
+          },
+          {
+            "id": "flash_asked",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "asked",
+              "gone",
+              "remembered"
+            ]
+          },
+          {
+            "id": "flash_saw",
+            "n_correct": 3,
+            "n_scored": 3,
+            "n_abstain": 0,
+            "order": [
+              "put",
+              "shrunk",
+              "saw"
+            ]
+          },
+          {
+            "id": "flash_come",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "come",
+              "met",
+              "felt"
+            ]
+          }
+        ]
+      },
+      "control": {
+        "acc": 1.0,
+        "n_correct": 7,
+        "n_scored": 7,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "c_earlier1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "reached",
+              "hopped"
+            ]
+          },
+          {
+            "id": "c_earlier2",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "pushed",
+              "stooped"
+            ]
+          },
+          {
+            "id": "c_when1",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "startled",
+              "looked"
+            ]
+          },
+          {
+            "id": "c_after1",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "left",
+              "died"
+            ]
+          },
+          {
+            "id": "c_before4",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "known",
+              "thought",
+              "knew"
+            ]
+          }
+        ]
+      },
+      "single_frame": {
+        "acc": 1.0,
+        "n_correct": 25,
+        "n_scored": 25,
+        "n_abstain": 0,
+        "per_item": [
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "seen",
+              "came"
+            ]
+          },
+          {
+            "id": "The Flying U Ranch (Bower), LitBank 1206",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "disappeared",
+              "looked"
+            ]
+          },
+          {
+            "id": "The Secret Adversary (Christie), LitBank 1155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lain",
+              "closed"
+            ]
+          },
+          {
+            "id": "Night and Day (Woolf), LitBank 1245",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "forgotten",
+              "said",
+              "saw"
+            ]
+          },
+          {
+            "id": "Personality Plus (Ferber), LitBank 12677",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "stood"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "stolen",
+              "thought"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "decided",
+              "said"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "taken",
+              "turned",
+              "found"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "brought",
+              "came",
+              "found"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "hurt",
+              "cried",
+              "afraid"
+            ]
+          },
+          {
+            "id": "Bleak House (Dickens), LitBank 1023",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "went",
+              "saw"
+            ]
+          },
+          {
+            "id": "The Secret Garden (Burnett), LitBank 113",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "got",
+              "heard",
+              "wondered"
+            ]
+          },
+          {
+            "id": "Bartleby the Scrivener (Melville), LitBank 11231",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "advanced",
+              "demanded"
+            ]
+          },
+          {
+            "id": "Alice's Adventures in Wonderland (Carroll), LitBank 11",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "set",
+              "finished"
+            ]
+          },
+          {
+            "id": "Treasure Island (Stevenson), LitBank 120",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "passed",
+              "turned"
+            ]
+          },
+          {
+            "id": "Elizabeth and Her German Garden (von Arnim), LitBank 1327 (trimmed to clause)",
+            "n_correct": 2,
+            "n_scored": 2,
+            "n_abstain": 0,
+            "order": [
+              "listened",
+              "paused",
+              "said"
+            ]
+          },
+          {
+            "id": "Tess of the d'Urbervilles (Hardy), LitBank 110",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "quickened",
+              "came"
+            ]
+          },
+          {
+            "id": "The Masque of the Red Death (Poe), LitBank 1064",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "went",
+              "commenced"
+            ]
+          },
+          {
+            "id": "The Quest of the Silver Fleece (Du Bois), LitBank 15265",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "lay",
+              "drifted"
+            ]
+          },
+          {
+            "id": "The Moonstone (Collins), LitBank 155",
+            "n_correct": 1,
+            "n_scored": 1,
+            "n_abstain": 0,
+            "order": [
+              "followed",
+              "watched"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "honest_scope": "8/9 hard items are REAL LitBank prose (win holds real-only); 1 flagged synthetic case-A (real multi-pp-reorder near-nonexistent); before2/before3 partials are a SHARED-extractor cross-clause 'had'-bleed mis-tag, not an ordering failure -- named next lever = clause-bounded tense tagging. Deterministic; the graded frontier is extraction robustness + longer cross-turn discourse (situation-model NEXT PHASE)."
+}
