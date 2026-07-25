@@ -194,13 +194,20 @@ class DerivationReasoner:
     def __init__(self, base_encoder=None, pol_lexicon=None, wn=None,
                  tau_unify: float = TAU_UNIFY, tau_sim: float = TAU_SIM, depth: int = DEPTH,
                  seed: int = SEED, licensed: Tuple[str, ...] = LICENSED,
-                 rows: Optional[List[dict]] = None, verbose: bool = True):
+                 rows: Optional[List[dict]] = None, link_mode: str = "glove",
+                 verbose: bool = True):
         self.tau_unify = tau_unify
         self.tau_sim = tau_sim
         self.depth = depth
         self.seed = seed
         self.licensed = licensed
         self.verbose = verbose
+        # entity-linking mode (question word -> rule-entity node). "glove" = original strict GloVe
+        # cos>=tau_unify only (backward-compatible default). "lemma" adds a TIGHT symbolic bridge
+        # (morphy lemma / raw token exact match to node-label lemmas). "lemma_syn" also adds WordNet
+        # same-synset single-token synonyms (rock<->stone). GUARDRAIL: monitor distractor-derive-rate.
+        assert link_mode in ("glove", "lemma", "lemma_syn"), f"bad link_mode {link_mode!r}"
+        self.link_mode = link_mode
 
         # rules (P1 parser)
         if rows is None:
@@ -223,8 +230,54 @@ class DerivationReasoner:
         # derive the three edge-arms from the SINGLE graph (one variable across arms = edge structure)
         self.arms = self._build_arms()
 
-        # word->node cache
+        # word->node cache (GloVe path)
         self._word2nodes: Dict[str, set] = {}
+        # symbolic entity-linking indices (lemma / lemma_syn modes)
+        self._sym_cache: Dict[Tuple[str, str], set] = {}   # (link_mode, word) -> node set
+        self._node_lemma_index = self._build_node_lemma_index()
+
+    # ---- symbolic entity-linking (the coverage lever; TIGHT synonym/lemma bridge) ----
+    def _build_node_lemma_index(self) -> Dict[str, set]:
+        """Map every content-word lemma (and raw token) of each node LABEL to the node id(s).
+        Node labels are science rule-entities (e.g. 'sedimentary rock' -> {sedimentary, rock})."""
+        idx: Dict[str, set] = {}
+        for nid, label in enumerate(self.g["node_label"]):
+            for t in arc._content_words(label, min_len=3):
+                for key in (t, clean._lemma(t, self.wn)):
+                    idx.setdefault(key, set()).add(nid)
+        return idx
+
+    def _wn_synonyms(self, lem: str) -> set:
+        """TIGHT same-synset synonyms: single-token alpha lemmas from lem's synsets (rock->stone).
+        Multi-token, apostrophe, and proper-noun lemmas are dropped to avoid over-connection."""
+        if self.wn is None:
+            return set()
+        syns: set = set()
+        try:
+            for s in self.wn.synsets(lem):
+                for l in s.lemmas():
+                    nm = l.name()
+                    if nm.isalpha() and nm.islower():
+                        syns.add(nm)
+        except Exception:
+            pass
+        syns.discard(lem)
+        return syns
+
+    def _symbolic_nodes(self, w: str) -> set:
+        """Nodes a question word links to via lemma (and, in lemma_syn mode, WordNet synonyms)."""
+        key = (self.link_mode, w)
+        cached = self._sym_cache.get(key)
+        if cached is not None:
+            return cached
+        lem = clean._lemma(w, self.wn)
+        nodes = set(self._node_lemma_index.get(w, set()))
+        nodes |= self._node_lemma_index.get(lem, set())
+        if self.link_mode == "lemma_syn":
+            for syn in self._wn_synonyms(lem):
+                nodes |= self._node_lemma_index.get(syn, set())
+        self._sym_cache[key] = nodes
+        return nodes
 
     # ---- arm construction --------------------------------------------------
     def _build_arms(self) -> Dict[str, dict]:
@@ -268,7 +321,9 @@ class DerivationReasoner:
         self._encode_words(words)
         ns: set = set()
         for w in words:
-            ns |= self._word2nodes.get(w, set())
+            ns |= self._word2nodes.get(w, set())            # GloVe cos>=tau_unify
+            if self.link_mode in ("lemma", "lemma_syn"):
+                ns |= self._symbolic_nodes(w)                # TIGHT lemma/synonym bridge
         return ns
 
     # ---- CI consistency (P4: PolarityLexicon labeled-opposition; Johnson-Laird counterexample) ----
@@ -607,6 +662,16 @@ def _self_test() -> None:
     b1 = r.similarity_baseline(q); b2 = r.similarity_baseline(q)
     assert b1 == b2, "similarity baseline must be deterministic"
     exercised.add("similarity_baseline")
+
+    # (6b) symbolic entity-linking (the coverage lever) bridges lemma + synonym, stays selective.
+    rl = DerivationReasoner(base_encoder=base, pol_lexicon=pol, wn=wn, tau_unify=0.99, tau_sim=0.5,
+                            depth=3, rows=rows, link_mode="lemma_syn", verbose=False)
+    river_nid = next(i for i, lab in enumerate(rl.g["node_label"]) if lab == "river")
+    assert river_nid in rl._symbolic_nodes("rivers"), "lemma bridge 'rivers'->river MUST link"
+    assert rl._symbolic_nodes("zzqq") == set(), "unrelated token MUST NOT link (selectivity)"
+    assert rl.nodes_for("many rivers") and river_nid in rl.nodes_for("many rivers"), "nodes_for lemma link"
+    exercised.add("symbolic_link")
+    print(f"[self-test] symbolic linker OK: 'rivers'->node{river_nid}", flush=True)
 
     # (7) evaluate harness end-to-end on the two planted Qs (real trace collection)
     out = evaluate(r, [q, q2], output_dir=os.path.join(_REPO, "data", "_reasoner_selftest_scratch"))
