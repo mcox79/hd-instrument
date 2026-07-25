@@ -1,0 +1,112 @@
+{
+  "verdict": "NULL-grounded~=distributional",
+  "verdict_msg": "grounded_earned p@10=0.2043 ~= distributional 0.2426 (delta -0.0383 <= 0.005) -- relational grounding adds nothing over the distributional readout HERE (honest pre-registered null; both generalize, grounding-specific lift absent at this scale/slice)",
+  "summary": "NULL-grounded~=distributional: grounded_earned p@10=0.2043 ~= distributional 0.2426 (delta -0.0383 <= 0.005) -- relational grounding adds nothing over the distributional readout HERE (honest pre-registered null; both generalize, grounding-specific lift absent at this scale/slice)",
+  "run_mode": "smoke",
+  "elapsed_s": 146.62,
+  "ts_iso": "2026-07-25T18:00:53.916115+00:00",
+  "anchor_name": "native_meaning_encoder_binder_grounded_v1",
+  "device": "cpu",
+  "seeds": [
+    20260725
+  ],
+  "primary_metric": "held-out (5-fold CV, no-leak) retrieval p@10 vs Binder-65 gold neighborhoods; grounded_earned vs distributional_earned",
+  "one_variable": "input encoder to the SAME ridge->Binder-65 map: grounded (native context+RELATIONS) vs distributional (native context only) vs GloVe (borrowed); same folds/metric",
+  "grounded_earned": {
+    "p_at_10": 0.2043,
+    "spearman": 0.5549,
+    "disc_acc": 0.1064,
+    "n_held": 141
+  },
+  "grounded_earned_p10_ci": [
+    0.184,
+    0.2261
+  ],
+  "distributional_earned": {
+    "p_at_10": 0.2426,
+    "spearman": 0.7119,
+    "disc_acc": 0.1135,
+    "n_held": 141
+  },
+  "glove_earned": null,
+  "glove_note": "GloVe unavailable (ModuleNotFoundError: No module named 'gensim'); CITED-only",
+  "untrained_input": {
+    "p_at_10": 0.0333,
+    "spearman": 0.6121,
+    "disc_acc": 0.0922,
+    "n_held": 141
+  },
+  "shuffle_control": {
+    "p_at_10": 0.0362,
+    "spearman": 0.4763,
+    "disc_acc": 0.0922,
+    "n_held": 141
+  },
+  "chance": {
+    "p_at_10": 0.0262,
+    "spearman": -0.0067,
+    "disc_acc": 0.0496,
+    "n_held": 141
+  },
+  "grounded_minus_distributional_p10": -0.0383,
+  "grounded_minus_distributional_disc": -0.0071,
+  "coverage": {
+    "binder_concepts": 534,
+    "binder_x_worldtree_ge1_rel": 141,
+    "ge2_rel": 50,
+    "n_test_after_vocab_filter": 141,
+    "nan_imputed_cells_binder_internal": 178,
+    "note": "test set = Binder concepts with >=1 WT relation AND in native vocab; CV over these; retrieval pool = all 534 true Binder-65"
+  },
+  "shuffle_collapsed": true,
+  "generalizes_over_chance_and_untrained": true,
+  "arms_differ_verified": true,
+  "arm_pk_hashes": {
+    "grounded": "b526d302e693196d",
+    "distributional": "6e9359cd5b19f942",
+    "untrained": "924cb2c239deb4d1",
+    "shuffle": "f693af9555242c0b"
+  },
+  "no_leak": "held-out concepts' Binder vectors NEVER in ridge training (5-fold CV); shuffle-collapse verifies",
+  "bands": {
+    "MARGIN": 0.02,
+    "EPS": 0.005,
+    "SHUFFLE_EPS": 0.03,
+    "MIN_HELDOUT": 40,
+    "chance_p10": 0.0262,
+    "K_DISC": 9,
+    "N_FOLDS": 5
+  },
+  "config": {
+    "N_DIM": 300,
+    "RIDGE_LAMBDA": 10.0,
+    "encoder_profile": {
+      "max_sentences": 70000,
+      "steps": 1500,
+      "batch": 512
+    },
+    "vocab": 17509,
+    "n_worldtree_triples": 3648,
+    "n_binder_features": 65,
+    "feature_names_head": [
+      "Vision",
+      "Bright",
+      "Dark",
+      "Color",
+      "Pattern",
+      "Large"
+    ]
+  },
+  "objective": "earn held-out concept's Binder-65 grounded vector from native (context+relations) via ridge; NO borrowed vectors in the native encoder (GloVe = eval baseline only)",
+  "framing": "MECHANISM test on Binder brain gold (concrete/embodied grounding); WorldTree-PROP=science grounding is disjoint; the science-reasoning application is the FOLLOW-UP not this cell",
+  "brain_fidelity": "Binder-65 = operationalized Barsalou brain-system grounding; earn-from-relations = Rogers-McClelland item->attribute; ridge = converged linear error-driven readout (MLP curriculum = follow-up)",
+  "final_metrics_atomicity": "tmp_replace",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "progress_logging": "print_flush_true",
+  "deterministic_seeding": "fixed_int_seeds_numpy_default_rng_sorted_no_builtin_hash_seeded_rng",
+  "storage": "no_composition_selfcontained",
+  "gpu_justification": "only the native SGNS encoder over ARC is GPU-worthy (millions of sentences -> quality context vecs = fair distributional baseline); ridge+retrieval CPU-trivial",
+  "contract": "SMOKE local; FULL GPU overnight_queue on smoke clearance; no push/remote-persist by exp_dev; no atom banking; VET-PENDING"
+}
