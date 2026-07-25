@@ -175,10 +175,18 @@ def _heartbeat(output_dir, stage, extra=None):
 # negation-aware encoder wrapper (single change vs base: inject NEG axis for negated fillers)
 # ---------------------------------------------------------------------------
 def _has_neg_token(text):
-    """True iff text carries a literal negation cue (token in NEG_TOKENS or an n't contraction)."""
-    for tok in str(text).lower().replace("'", " ").split():
+    """True iff text carries a GENUINE negation cue: an explicit cue word in NEG_TOKENS, or an n't
+    contraction (don't / isn't / can't / cannot). Does NOT flag a word merely because it ends in "nt"
+    -- that affix heuristic FALSE-FLAGGED common science content (current, element, point, content,
+    present, nutrient, continent, instrument, experiment, event, environment, plant, ...), spuriously
+    negating -> fragmenting those nodes -> artificially depressing coverage (fixed 2026-07-25)."""
+    low = str(text).lower()
+    # n't contraction (ascii apostrophe or unicode right-single-quote U+2019); raw-string check
+    if "n't" in low or ("n" + chr(0x2019) + "t") in low:
+        return True
+    for tok in low.replace("'", " ").split():
         w = "".join(ch for ch in tok if ch.isalpha())
-        if w in NEG_TOKENS or tok.endswith("nt"):
+        if w in NEG_TOKENS:
             return True
     return False
 
