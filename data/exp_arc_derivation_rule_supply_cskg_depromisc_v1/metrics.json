@@ -1,0 +1,702 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "salvage_verdict",
+    "best_deprom_arm",
+    "salvage_hits",
+    "per_arm_table",
+    "per_arm",
+    "positive_control",
+    "induction_confound_addressed",
+    "cskg_load"
+  ],
+  "anchor_name": "arc_derivation_rule_supply_cskg_depromisc_v1",
+  "arm_induction": {
+    "cskg_combined": {
+      "base": "hubcap8",
+      "filter": "precise+science",
+      "n_rows": 33
+    },
+    "cskg_hubcap3": {
+      "deg_cap": 3,
+      "filler_budget": 6000,
+      "kept_max_full_degree": 3,
+      "n_all_labels": 137170,
+      "n_candidate_nodes": 77113,
+      "n_excluded_over_cap_seeds": 9054,
+      "n_kept_frontier": 0,
+      "n_kept_nodes": 6000,
+      "n_kept_rows": 90,
+      "n_kept_seeds": 6000,
+      "n_seed_nodes": 53220,
+      "select_mode": "relevance"
+    },
+    "cskg_hubcap8": {
+      "deg_cap": 8,
+      "filler_budget": 6000,
+      "kept_max_full_degree": 8,
+      "n_all_labels": 137170,
+      "n_candidate_nodes": 81525,
+      "n_excluded_over_cap_seeds": 4642,
+      "n_kept_frontier": 0,
+      "n_kept_nodes": 6000,
+      "n_kept_rows": 141,
+      "n_kept_seeds": 6000,
+      "n_seed_nodes": 53220,
+      "select_mode": "relevance"
+    },
+    "cskg_precise": {
+      "base": "hubcap8",
+      "filter": "precise_relation",
+      "n_rows": 35
+    },
+    "cskg_random16": {
+      "deg_cap": 16,
+      "filler_budget": 6000,
+      "kept_max_full_degree": 16,
+      "n_all_labels": 137170,
+      "n_candidate_nodes": 83378,
+      "n_excluded_over_cap_seeds": 2789,
+      "n_kept_frontier": 2281,
+      "n_kept_nodes": 6000,
+      "n_kept_rows": 121,
+      "n_kept_seeds": 3719,
+      "n_seed_nodes": 53220,
+      "select_mode": "random"
+    },
+    "cskg_science": {
+      "base": "hubcap8",
+      "filter": "science_terms",
+      "n_rows": 125
+    },
+    "cskg_unfiltered": {
+      "filler_budget": 6000,
+      "n_all_labels": 137170,
+      "n_candidate_nodes": 86167,
+      "n_kept_frontier": 3105,
+      "n_kept_nodes": 6000,
+      "n_kept_rows": 38908,
+      "n_kept_seeds": 2895,
+      "n_seed_nodes": 53220
+    }
+  },
+  "bands_preregistered": {
+    "HONEST_GUARD": "coverage AND selectivity tracked together; cov>=0.30 required for SALVAGE so a gap raised only by collapsing coverage is excluded by construction. max_deg_achieved reported per arm to verify the hub cap actually fired.",
+    "MIDDLE_BAND": "otherwise",
+    "NEED_EXTRACTION_per_arm": "typed_gap < 0.05 OR cov < 0.15",
+    "OVERALL_NEED_EXTRACTION": "no arm SALVAGE AND every arm that removed promiscuity (max_deg drop >= 0.3 OR rows drop >= 0.3 vs anchor) stays gap<0.15",
+    "OVERALL_SALVAGE": "ANY deprom arm SALVAGE",
+    "SALVAGE": "cov >= 0.3 AND typed_gap >= 0.15"
+  },
+  "best_deprom_arm": null,
+  "best_deprom_chains_glassbox": [],
+  "config": {
+    "combined_base_k": 8,
+    "cskg_max_lines": 0,
+    "depth": 3,
+    "filler_budget": 6000,
+    "hubcap3": 3,
+    "hubcap8": 8,
+    "n_sample": 100,
+    "n_science_vocab": 2373,
+    "one_variable": "cskg_de_promiscuification (parent-induction anchor vs debiased hub-capped/random inductions +/- science/precise edge filters); node-identity/gate/Qs/depth/thresholds IDENTICAL to parent",
+    "precise_keep": [
+      "CAUSE",
+      "REQUIRES",
+      "IFTHEN"
+    ],
+    "random_cap": 16,
+    "seed": 20260725,
+    "tau_sim": 0.6,
+    "tau_unify": 0.85
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING",
+  "cskg_load": {
+    "induction_caveat": "CSKG query-conditioned subgraph-induced around sampled ARC vocab -> coverage is an UPPER BOUND (generous). A NEED_EXTRACTION verdict under generous induction is DECISIVE.",
+    "n_licensed_rows": 187620,
+    "n_scanned": 6001531,
+    "path": "data\\grounding_testbed\\cskg.tsv.gz"
+  },
+  "elapsed_s": 102.0,
+  "induction_confound_addressed": "parent rs.induce_subgraph has a DEAD max_deg_induce param + ranks candidates by -relevant_degree (top-budget) -> actively selects mega-hubs. This cell's cskg_hubcap*/random arms use induce_subgraph_capped: full-CSKG degree cap AT induction + relevance/random (non-degree) selection so the hub is never manufactured. max_deg_achieved reported per arm.",
+  "notes": "ONE-VARIABLE ablation: CSKG de-promiscuification (induction-debias + edge filter). Node-identity (NegAwareEncoder + head-gate + polarity merge-gate), gate (build_graph_gated + meet_connected), Qs, depth, thresholds IDENTICAL to parent. Debiased induction addresses the parent induction's hub-manufacturing bug (dead max_deg_induce + degree-ranked selection). Science-vocab = WorldTree content words (independent; NOT ARC leakage). STRAIGHT report; NOT tuned to force SALVAGE. NEED_EXTRACTION is the expected + fully reportable outcome.",
+  "parent_ref": {
+    "cell": "arc_derivation_rule_supply_cskg_v1 (ba2d1b174)",
+    "cskg_cov_on_disk": 0.56,
+    "cskg_max_deg_on_disk": 571,
+    "cskg_typed_gap_on_disk": 0.0516,
+    "parent_headline": "MIDDLE_BAND (PROMISCUOUS: cov up, no selectivity)",
+    "worldtree_cov_on_disk": 0.07
+  },
+  "per_arm": {
+    "cskg_combined": {
+      "arm": "cskg_combined",
+      "band": "STILL_STARVED",
+      "example_chains": [],
+      "graph": {
+        "max_degree_node_label": "classification",
+        "max_typed_node_degree": 2,
+        "n_fillers": 54,
+        "n_head_blocked": 3,
+        "n_merges": 53,
+        "n_nodes": 39,
+        "n_null_edges": 76,
+        "n_pol_blocked": 0,
+        "n_typed_edges": 18
+      },
+      "n_rows": 33,
+      "salvage_band": "NEED_EXTRACTION",
+      "source": "cskg_combined",
+      "typed_correct_coverage": 0.0,
+      "typed_full": {
+        "correct_coverage": 0.0,
+        "mean_wrong_coverage": 0.0,
+        "n_correct_connected": 0,
+        "n_questions": 100,
+        "n_wrong_connected": 0,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.0
+      },
+      "typed_gap_beats_untyped": false,
+      "typed_mean_wrong_coverage": 0.0,
+      "typed_selectivity_gap": 0.0,
+      "untyped_correct_coverage": 0.05,
+      "untyped_mean_wrong_coverage": 0.0471,
+      "untyped_null_full": {
+        "correct_coverage": 0.05,
+        "mean_wrong_coverage": 0.04713804713804714,
+        "n_correct_connected": 5,
+        "n_questions": 100,
+        "n_wrong_connected": 14,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.002861952861952864
+      },
+      "untyped_selectivity_gap": 0.0029
+    },
+    "cskg_hubcap3": {
+      "arm": "cskg_hubcap3",
+      "band": "STILL_STARVED",
+      "example_chains": [],
+      "graph": {
+        "max_degree_node_label": "earth's surface",
+        "max_typed_node_degree": 3,
+        "n_fillers": 165,
+        "n_head_blocked": 7,
+        "n_merges": 59,
+        "n_nodes": 142,
+        "n_null_edges": 576,
+        "n_pol_blocked": 2,
+        "n_typed_edges": 72
+      },
+      "n_rows": 90,
+      "salvage_band": "NEED_EXTRACTION",
+      "source": "cskg_hubcap3",
+      "typed_correct_coverage": 0.0,
+      "typed_full": {
+        "correct_coverage": 0.0,
+        "mean_wrong_coverage": 0.003367003367003367,
+        "n_correct_connected": 0,
+        "n_questions": 100,
+        "n_wrong_connected": 1,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.003367003367003367
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.0034,
+      "typed_selectivity_gap": -0.0034,
+      "untyped_correct_coverage": 0.09,
+      "untyped_mean_wrong_coverage": 0.1178,
+      "untyped_null_full": {
+        "correct_coverage": 0.09,
+        "mean_wrong_coverage": 0.11784511784511785,
+        "n_correct_connected": 9,
+        "n_questions": 100,
+        "n_wrong_connected": 35,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.027845117845117853
+      },
+      "untyped_selectivity_gap": -0.0278
+    },
+    "cskg_hubcap8": {
+      "arm": "cskg_hubcap8",
+      "band": "STILL_STARVED",
+      "example_chains": [
+        {
+          "chain": "[only people] --USEDFOR--> [drive cars]",
+          "correct_choice": "drive gasoline-powered automobiles",
+          "qid": "MDSA_2009_5_39",
+          "stem": "A Green Community Many cities in the United States are developing \"green communities.\" A green community is intended to reduce the use of energy and consists of"
+        },
+        {
+          "chain": "[30 of body] --USEDFOR--> [covered by skin]",
+          "correct_choice": "the skin",
+          "qid": "Mercury_7069020",
+          "stem": "What is the first line of defense in the human body against infection and disease?"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "30 of body",
+        "max_typed_node_degree": 4,
+        "n_fillers": 250,
+        "n_head_blocked": 18,
+        "n_merges": 94,
+        "n_nodes": 209,
+        "n_null_edges": 1056,
+        "n_pol_blocked": 2,
+        "n_typed_edges": 115
+      },
+      "n_rows": 141,
+      "salvage_band": "NEED_EXTRACTION",
+      "source": "cskg_hubcap8",
+      "typed_correct_coverage": 0.02,
+      "typed_full": {
+        "correct_coverage": 0.02,
+        "mean_wrong_coverage": 0.013468013468013467,
+        "n_correct_connected": 2,
+        "n_questions": 100,
+        "n_wrong_connected": 4,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.006531986531986533
+      },
+      "typed_gap_beats_untyped": false,
+      "typed_mean_wrong_coverage": 0.0135,
+      "typed_selectivity_gap": 0.0065,
+      "untyped_correct_coverage": 0.2,
+      "untyped_mean_wrong_coverage": 0.1886,
+      "untyped_null_full": {
+        "correct_coverage": 0.2,
+        "mean_wrong_coverage": 0.18855218855218855,
+        "n_correct_connected": 20,
+        "n_questions": 100,
+        "n_wrong_connected": 56,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.011447811447811457
+      },
+      "untyped_selectivity_gap": 0.0114
+    },
+    "cskg_precise": {
+      "arm": "cskg_precise",
+      "band": "STILL_STARVED",
+      "example_chains": [],
+      "graph": {
+        "max_degree_node_label": "classification",
+        "max_typed_node_degree": 2,
+        "n_fillers": 56,
+        "n_head_blocked": 3,
+        "n_merges": 54,
+        "n_nodes": 40,
+        "n_null_edges": 76,
+        "n_pol_blocked": 0,
+        "n_typed_edges": 18
+      },
+      "n_rows": 35,
+      "salvage_band": "NEED_EXTRACTION",
+      "source": "cskg_precise",
+      "typed_correct_coverage": 0.0,
+      "typed_full": {
+        "correct_coverage": 0.0,
+        "mean_wrong_coverage": 0.0,
+        "n_correct_connected": 0,
+        "n_questions": 100,
+        "n_wrong_connected": 0,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.0
+      },
+      "typed_gap_beats_untyped": false,
+      "typed_mean_wrong_coverage": 0.0,
+      "typed_selectivity_gap": 0.0,
+      "untyped_correct_coverage": 0.05,
+      "untyped_mean_wrong_coverage": 0.0471,
+      "untyped_null_full": {
+        "correct_coverage": 0.05,
+        "mean_wrong_coverage": 0.04713804713804714,
+        "n_correct_connected": 5,
+        "n_questions": 100,
+        "n_wrong_connected": 14,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.002861952861952864
+      },
+      "untyped_selectivity_gap": 0.0029
+    },
+    "cskg_random16": {
+      "arm": "cskg_random16",
+      "band": "STILL_STARVED",
+      "example_chains": [],
+      "graph": {
+        "max_degree_node_label": "item",
+        "max_typed_node_degree": 3,
+        "n_fillers": 225,
+        "n_head_blocked": 2,
+        "n_merges": 2,
+        "n_nodes": 223,
+        "n_null_edges": 363,
+        "n_pol_blocked": 0,
+        "n_typed_edges": 120
+      },
+      "n_rows": 121,
+      "salvage_band": "NEED_EXTRACTION",
+      "source": "cskg_random16",
+      "typed_correct_coverage": 0.0,
+      "typed_full": {
+        "correct_coverage": 0.0,
+        "mean_wrong_coverage": 0.0,
+        "n_correct_connected": 0,
+        "n_questions": 100,
+        "n_wrong_connected": 0,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.0
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.0,
+      "typed_selectivity_gap": 0.0,
+      "untyped_correct_coverage": 0.01,
+      "untyped_mean_wrong_coverage": 0.0135,
+      "untyped_null_full": {
+        "correct_coverage": 0.01,
+        "mean_wrong_coverage": 0.013468013468013467,
+        "n_correct_connected": 1,
+        "n_questions": 100,
+        "n_wrong_connected": 4,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.003468013468013467
+      },
+      "untyped_selectivity_gap": -0.0035
+    },
+    "cskg_science": {
+      "arm": "cskg_science",
+      "band": "STILL_STARVED",
+      "example_chains": [
+        {
+          "chain": "[only people] --USEDFOR--> [drive cars]",
+          "correct_choice": "drive gasoline-powered automobiles",
+          "qid": "MDSA_2009_5_39",
+          "stem": "A Green Community Many cities in the United States are developing \"green communities.\" A green community is intended to reduce the use of energy and consists of"
+        },
+        {
+          "chain": "[30 of body] --USEDFOR--> [covered by skin]",
+          "correct_choice": "the skin",
+          "qid": "Mercury_7069020",
+          "stem": "What is the first line of defense in the human body against infection and disease?"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "30 of body",
+        "max_typed_node_degree": 4,
+        "n_fillers": 221,
+        "n_head_blocked": 16,
+        "n_merges": 90,
+        "n_nodes": 184,
+        "n_null_edges": 857,
+        "n_pol_blocked": 2,
+        "n_typed_edges": 101
+      },
+      "n_rows": 125,
+      "salvage_band": "NEED_EXTRACTION",
+      "source": "cskg_science",
+      "typed_correct_coverage": 0.02,
+      "typed_full": {
+        "correct_coverage": 0.02,
+        "mean_wrong_coverage": 0.010101010101010102,
+        "n_correct_connected": 2,
+        "n_questions": 100,
+        "n_wrong_connected": 3,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.009898989898989899
+      },
+      "typed_gap_beats_untyped": false,
+      "typed_mean_wrong_coverage": 0.0101,
+      "typed_selectivity_gap": 0.0099,
+      "untyped_correct_coverage": 0.18,
+      "untyped_mean_wrong_coverage": 0.165,
+      "untyped_null_full": {
+        "correct_coverage": 0.18,
+        "mean_wrong_coverage": 0.16498316498316498,
+        "n_correct_connected": 18,
+        "n_questions": 100,
+        "n_wrong_connected": 49,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.015016835016835012
+      },
+      "untyped_selectivity_gap": 0.015
+    },
+    "cskg_unfiltered": {
+      "arm": "cskg_unfiltered",
+      "band": "MIDDLE_BAND",
+      "example_chains": [
+        {
+          "chain": "[earth] --USEDFOR--> [live] ; [live] --IFTHEN--> [school] ; [school] --IFTHEN--> [water]",
+          "correct_choice": "water vapor",
+          "qid": "Mercury_7212993",
+          "stem": "Which of these gases is the most abundant greenhouse gas in the lower atmosphere of Earth?"
+        },
+        {
+          "chain": "[show] --IFTHEN--> [book] ; [book] --SOURCEOF--> [paper] ; [paper] --SOURCEOF--> [tree]",
+          "correct_choice": "A tree removes a gas from the air.",
+          "qid": "AKDE&ED_2008_4_26",
+          "stem": "Which example shows a relationship between a living thing and a nonliving thing?"
+        },
+        {
+          "chain": "[plant] --REQUIRES--> [water] ; [water] --USEDFOR--> [food] ; [food] --USEDFOR--> [produce]",
+          "correct_choice": "They will always produce round seeds.",
+          "qid": "LEAP_2007_8_10417",
+          "stem": "In pea plants, the trait for round seeds is dominant over the trait for wrinkled seeds. If a pure dominant plant with round seeds is crossed with a plant with w"
+        },
+        {
+          "chain": "[water] --USEDFOR--> [cooking] ; [cooking] --CAUSE--> [eat] ; [eat] --IFTHEN--> [table]",
+          "correct_choice": "table salt",
+          "qid": "Mercury_7215828",
+          "stem": "Which substance, when mixed with water, will produce the best conductor of electricity?"
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "person",
+        "max_typed_node_degree": 571,
+        "n_fillers": 5774,
+        "n_head_blocked": 2931,
+        "n_merges": 3746,
+        "n_nodes": 3882,
+        "n_null_edges": 67243,
+        "n_pol_blocked": 85,
+        "n_typed_edges": 30012
+      },
+      "n_rows": 38908,
+      "salvage_band": "MIDDLE_BAND",
+      "source": "cskg_unfiltered",
+      "typed_correct_coverage": 0.56,
+      "typed_full": {
+        "correct_coverage": 0.56,
+        "mean_wrong_coverage": 0.5084175084175084,
+        "n_correct_connected": 56,
+        "n_questions": 100,
+        "n_wrong_connected": 151,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.05158249158249162
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.5084,
+      "typed_selectivity_gap": 0.0516,
+      "untyped_correct_coverage": 0.7,
+      "untyped_mean_wrong_coverage": 0.6734,
+      "untyped_null_full": {
+        "correct_coverage": 0.7,
+        "mean_wrong_coverage": 0.6734006734006734,
+        "n_correct_connected": 70,
+        "n_questions": 100,
+        "n_wrong_connected": 200,
+        "n_wrong_total": 297,
+        "selectivity_gap": 0.02659932659932651
+      },
+      "untyped_selectivity_gap": 0.0266
+    },
+    "worldtree": {
+      "arm": "worldtree",
+      "band": "STILL_STARVED",
+      "example_chains": [
+        {
+          "chain": "[plant] --SOURCEOF--> [acid] ; [acid] --CAUSE--> [chemical reaction]",
+          "correct_choice": "chemical energy to electrical energy.",
+          "qid": "Mercury_7064575",
+          "stem": "Coal-powered plants are designed specifically to convert"
+        },
+        {
+          "chain": "[star] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --IFTHEN--> [come from the same source]",
+          "correct_choice": "use its fuel source much more quickly.",
+          "qid": "Mercury_188335",
+          "stem": "A star with twice the mass as the Sun would"
+        },
+        {
+          "chain": "[force] --REQUIRES--> [energy] ; [energy] --USEDFOR--> [object] ; [object] --COUPLEDRELATIONSHIP--> [increase]",
+          "correct_choice": "increase",
+          "qid": "NYSEDREGENTS_2012_8_42",
+          "stem": "If the force used to push a shopping cart increases, the cart's acceleration will"
+        },
+        {
+          "chain": "[energy] --USEDFOR--> [object] ; [object] --IFTHEN--> [something] ; [something] --IFTHEN--> [solar energy]",
+          "correct_choice": "Clouds reflect the energy into space.",
+          "qid": "Mercury_7161315",
+          "stem": "Some part of Earth is being heated by the Sun at all times. If Earth absorbed all of the energy it received from the Sun, environmental conditions would change "
+        }
+      ],
+      "graph": {
+        "max_degree_node_label": "something",
+        "max_typed_node_degree": 83,
+        "n_fillers": 3189,
+        "n_head_blocked": 4351,
+        "n_merges": 3728,
+        "n_nodes": 2359,
+        "n_null_edges": 191545,
+        "n_pol_blocked": 760,
+        "n_typed_edges": 1735
+      },
+      "n_rows": 1868,
+      "salvage_band": "NEED_EXTRACTION",
+      "source": "worldtree",
+      "typed_correct_coverage": 0.07,
+      "typed_full": {
+        "correct_coverage": 0.07,
+        "mean_wrong_coverage": 0.07407407407407407,
+        "n_correct_connected": 7,
+        "n_questions": 100,
+        "n_wrong_connected": 22,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.004074074074074063
+      },
+      "typed_gap_beats_untyped": true,
+      "typed_mean_wrong_coverage": 0.0741,
+      "typed_selectivity_gap": -0.0041,
+      "untyped_correct_coverage": 0.51,
+      "untyped_mean_wrong_coverage": 0.5387,
+      "untyped_null_full": {
+        "correct_coverage": 0.51,
+        "mean_wrong_coverage": 0.5387205387205387,
+        "n_correct_connected": 51,
+        "n_questions": 100,
+        "n_wrong_connected": 160,
+        "n_wrong_total": 297,
+        "selectivity_gap": -0.028720538720538702
+      },
+      "untyped_selectivity_gap": -0.0287
+    }
+  },
+  "per_arm_table": [
+    {
+      "arm": "worldtree",
+      "cov": 0.07,
+      "gap_beats_untyped": true,
+      "hub": "something",
+      "max_deg_achieved": 83,
+      "n_nodes": 2359,
+      "n_rows": 1868,
+      "prom_removed": null,
+      "salvage_band": "NEED_EXTRACTION",
+      "typed_gap": -0.0041,
+      "untyped_cov": 0.51,
+      "untyped_gap": -0.0287
+    },
+    {
+      "arm": "cskg_unfiltered",
+      "cov": 0.56,
+      "gap_beats_untyped": true,
+      "hub": "person",
+      "max_deg_achieved": 571,
+      "n_nodes": 3882,
+      "n_rows": 38908,
+      "prom_removed": null,
+      "salvage_band": "MIDDLE_BAND",
+      "typed_gap": 0.0516,
+      "untyped_cov": 0.7,
+      "untyped_gap": 0.0266
+    },
+    {
+      "arm": "cskg_hubcap8",
+      "cov": 0.02,
+      "gap_beats_untyped": false,
+      "hub": "30 of body",
+      "max_deg_achieved": 4,
+      "n_nodes": 209,
+      "n_rows": 141,
+      "prom_removed": true,
+      "salvage_band": "NEED_EXTRACTION",
+      "typed_gap": 0.0065,
+      "untyped_cov": 0.2,
+      "untyped_gap": 0.0114
+    },
+    {
+      "arm": "cskg_hubcap3",
+      "cov": 0.0,
+      "gap_beats_untyped": true,
+      "hub": "earth's surface",
+      "max_deg_achieved": 3,
+      "n_nodes": 142,
+      "n_rows": 90,
+      "prom_removed": true,
+      "salvage_band": "NEED_EXTRACTION",
+      "typed_gap": -0.0034,
+      "untyped_cov": 0.09,
+      "untyped_gap": -0.0278
+    },
+    {
+      "arm": "cskg_random16",
+      "cov": 0.0,
+      "gap_beats_untyped": true,
+      "hub": "item",
+      "max_deg_achieved": 3,
+      "n_nodes": 223,
+      "n_rows": 121,
+      "prom_removed": true,
+      "salvage_band": "NEED_EXTRACTION",
+      "typed_gap": 0.0,
+      "untyped_cov": 0.01,
+      "untyped_gap": -0.0035
+    },
+    {
+      "arm": "cskg_science",
+      "cov": 0.02,
+      "gap_beats_untyped": false,
+      "hub": "30 of body",
+      "max_deg_achieved": 4,
+      "n_nodes": 184,
+      "n_rows": 125,
+      "prom_removed": true,
+      "salvage_band": "NEED_EXTRACTION",
+      "typed_gap": 0.0099,
+      "untyped_cov": 0.18,
+      "untyped_gap": 0.015
+    },
+    {
+      "arm": "cskg_precise",
+      "cov": 0.0,
+      "gap_beats_untyped": false,
+      "hub": "classification",
+      "max_deg_achieved": 2,
+      "n_nodes": 40,
+      "n_rows": 35,
+      "prom_removed": true,
+      "salvage_band": "NEED_EXTRACTION",
+      "typed_gap": 0.0,
+      "untyped_cov": 0.05,
+      "untyped_gap": 0.0029
+    },
+    {
+      "arm": "cskg_combined",
+      "cov": 0.0,
+      "gap_beats_untyped": false,
+      "hub": "classification",
+      "max_deg_achieved": 2,
+      "n_nodes": 39,
+      "n_rows": 33,
+      "prom_removed": true,
+      "salvage_band": "NEED_EXTRACTION",
+      "typed_gap": 0.0,
+      "untyped_cov": 0.05,
+      "untyped_gap": 0.0029
+    }
+  ],
+  "pid": 10564,
+  "positive_control": {
+    "arm": "cskg_unfiltered",
+    "measured_cov": 0.56,
+    "measured_max_deg": 571,
+    "measured_typed_gap": 0.0516,
+    "note": "parent degree-ranked induction; reproduces parent CSKG anchor at matched regime",
+    "parent_cov": 0.56,
+    "repro_dev": 0.0,
+    "repro_ok": true,
+    "repro_tol": 0.1
+  },
+  "prom_removed_arms": [
+    "cskg_hubcap8",
+    "cskg_hubcap3",
+    "cskg_random16",
+    "cskg_science",
+    "cskg_precise",
+    "cskg_combined"
+  ],
+  "run_mode": "full",
+  "salvage_hits": [],
+  "salvage_verdict": "NEED_EXTRACTION",
+  "summary": "CSKG DE-PROMISCUIFY(debiased-induction) | verdict=NEED_EXTRACTION | anchor(unfiltered) cov=0.560 gap=+0.0516 maxdeg=571 (parent cov 0.56, repro_dev=0.000 ok=True) | best_deprom=None gap=+0.0000 cov=0.000 maxdeg=NA | salvage_hits=[]",
+  "ts_iso": "2026-07-25T09:59:40.262644+00:00",
+  "verdict": "GATE_MEASURED",
+  "verdict_msg": "NEED_EXTRACTION: even with a DEBIASED induction that excludes the mega-hubs at induction time (max-degree << 571, non-degree selection so the hub is not re-manufactured), every promiscuity-removing arm keeps typed gap <0.15 with cov<0.30 (or coverage collapses) -> there is NO science-causal core; CSKG's connectivity WAS the vacuous hub bridges. Redirect to science-precise rule EXTRACTION (text/curated causal rules), NOT off-the-shelf commonsense KBs."
+}
