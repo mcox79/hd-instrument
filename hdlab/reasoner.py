@@ -91,6 +91,32 @@ DEPTH = 3           # max derivation chain depth (meet-in-middle d_fwd=ceil, d_b
 
 MOD = 1000  # certified do-operator modulus (provenance below)
 
+# ---------------------------------------------------------------------------
+# QUESTION-INTENT / RELATION-TYPE patterns (the SYMBOLIC tie-break lever).
+# Maps a question's asked-relation to trigger substrings in the stem. A candidate
+# whose derivation TERMINATES via (or contains) the asked relation is preferred over
+# one reached by an off-type chain. Patterns are HAND-DESIGNED from the relation
+# semantics -- NOT fit to test labels (anti-leak). Loose triggers deliberately omitted
+# (bare " if ", " help ", " affect ") so intent stays discriminating; when intent does
+# not fire the ordering degrades gracefully to the chain-quality / combiner keys.
+# ---------------------------------------------------------------------------
+INTENT_PATTERNS = {
+    "CAUSE": [" cause", " causes", " caused", " because ", " results in ", " result in ",
+              " leads to ", " lead to ", " why does ", " why do ", " why is ", " effect of ",
+              " responsible for ", " due to "],
+    "REQUIRES": [" require", " requires", " required", " need ", " needs ", " needed ",
+                 " must have ", " depends on ", " depend on ", " necessary for ",
+                 " in order for ", " in order to "],
+    "USEDFOR": [" used for ", " used to ", " purpose of ", " function of ", " used in ",
+                " used by ", " so that "],
+    "SOURCEOF": [" source of ", " come from ", " comes from ", " came from ", " origin of ",
+                 " produced by ", " where does ", " where do ", " obtained from ", " made from "],
+    "COUPLEDRELATIONSHIP": [" as the ", " the more ", " the greater ", " the faster ",
+                            " relationship between ", " increases ", " decreases ",
+                            " faster ", " slower ", " greater "],
+    "IFTHEN": [" what happens if ", " what would happen "],
+}
+
 
 # ===========================================================================
 # atomic metrics / heartbeat / crash-diag / start-marker
@@ -195,13 +221,20 @@ class DerivationReasoner:
                  tau_unify: float = TAU_UNIFY, tau_sim: float = TAU_SIM, depth: int = DEPTH,
                  seed: int = SEED, licensed: Tuple[str, ...] = LICENSED,
                  rows: Optional[List[dict]] = None, link_mode: str = "glove",
-                 verbose: bool = True):
+                 tiebreak_mode: str = "legacy", verbose: bool = True):
         self.tau_unify = tau_unify
         self.tau_sim = tau_sim
         self.depth = depth
         self.seed = seed
         self.licensed = licensed
         self.verbose = verbose
+        # tie-break method among CO-DERIVABLE valid candidates.
+        #   "legacy"   = completeness -> shortest -> combiner (thin cosine) -> index (BACKWARD-COMPAT default).
+        #   "symbolic" = intent-terminal-match -> intent-any-match -> do-calculus -> completeness ->
+        #                shortest -> combiner -> index (the SYMBOLIC lever; thin cosine DEMOTED below
+        #                the symbolic signals). One variable across arms = this mode.
+        assert tiebreak_mode in ("legacy", "symbolic"), f"bad tiebreak_mode {tiebreak_mode!r}"
+        self.tiebreak_mode = tiebreak_mode
         # entity-linking mode (question word -> rule-entity node). "glove" = original strict GloVe
         # cos>=tau_unify only (backward-compatible default). "lemma" adds a TIGHT symbolic bridge
         # (morphy lemma / raw token exact match to node-label lemmas). "lemma_syn" also adds WordNet
@@ -355,10 +388,40 @@ class DerivationReasoner:
         cn = np.asarray(sorted(choice_nodes), dtype=np.int64)
         return float((nr[cn] @ bundle).max())
 
+    # ---- QUESTION-INTENT parser (the SYMBOLIC tie-break lever) ---------------
+    def _question_intent(self, stem: str) -> set:
+        """Parse what the question ASKS -> the set of asked relation-type(s). Pure symbolic
+        substring match against INTENT_PATTERNS; empty set when nothing fires (graceful)."""
+        s = " " + " ".join(str(stem).lower().split()) + " "
+        intent: set = set()
+        for rel, pats in INTENT_PATTERNS.items():
+            for p in pats:
+                if p in s:
+                    intent.add(rel)
+                    break
+        return intent
+
+    @staticmethod
+    def _symbolic_key(c: dict, intent: set):
+        """Lexicographic tie-break key among CO-DERIVABLE candidates (lower sorts first = preferred).
+        SYMBOLIC signals rank ABOVE the thin-cosine combiner:
+          1. intent-TERMINAL match: the candidate is REACHED BY the asked relation (strongest).
+          2. intent-ANY match: the asked relation appears anywhere on the chain.
+          3. do-calculus present: chain carries a certified COUPLEDRELATIONSHIP intervention.
+          4. completeness (givens_covered), 5. shortest chain, 6. combiner (thin cosine LAST), 7. index."""
+        rels = set(c.get("chain_relations") or [])
+        term = c.get("term_rel")
+        intent_terminal = 1 if (term is not None and term in intent) else 0
+        intent_any = 1 if (rels & intent) else 0
+        do_bonus = 1 if c.get("do_calculus") else 0
+        return (-intent_terminal, -intent_any, -do_bonus,
+                -c["givens_covered"], c["chain_len"], -c["combiner_score"], c["choice_index"])
+
     # ---- per-question reasoning over ONE arm --------------------------------
     def _reason_arm(self, question: dict, arm: dict) -> dict:
         fwd, bwd, er = arm["fwd"], arm["bwd"], arm["edge_rel"]
         lab = self.g["node_label"]
+        intent = self._question_intent(question["stem"])
         given_nodes = self.nodes_for(question["stem"])
         # evidence pool for the combiner readout = undirected spread from givens (retrieve-wide analog)
         evidence = set(gate._reach(self.g["undirected"], given_nodes, self.depth)) if given_nodes else set()
@@ -386,6 +449,8 @@ class DerivationReasoner:
                                if gate.meet_connected(fwd, bwd, {gn}, cnodes, self.depth, min_len=1))
                     givens_covered = hits / len(given_nodes)
             comb = self._combiner_score(cnodes, evidence)
+            chain_rels = [s[1] for s in chain_steps]
+            term_rel = chain_steps[-1][1] if chain_steps else None
             per_choice.append({
                 "choice_index": ci, "choice_text": ch[:160],
                 "derivable": bool(derivable), "rejected_by_ci": bool(rejected),
@@ -393,9 +458,11 @@ class DerivationReasoner:
                 "chain_len": len(chain_steps), "givens_covered": round(givens_covered, 3),
                 "do_calculus": do_ann, "combiner_score": round(comb, 4),
                 "n_choice_nodes": len(cnodes),
+                "chain_relations": chain_rels, "term_rel": term_rel,
             })
-        chosen, decision_mode = self._decide(per_choice)
+        chosen, decision_mode = self._decide(per_choice, intent)
         return {"chosen_index": chosen, "decision_mode": decision_mode,
+                "intent_relations": sorted(intent),
                 "n_given_nodes": len(given_nodes), "per_choice": per_choice}
 
     @staticmethod
@@ -420,11 +487,18 @@ class DerivationReasoner:
             labels.append(d)
         return labels, steps
 
-    def _decide(self, per_choice: List[dict]) -> Tuple[int, str]:
-        """Prefer a valid (derivable + not CI-rejected) candidate: completeness -> shortest -> combiner.
-        Else fall back to the pure similarity combiner readout (+ lexical overlap final tiebreak)."""
+    def _decide(self, per_choice: List[dict], intent: Optional[set] = None) -> Tuple[int, str]:
+        """Prefer a valid (derivable + not CI-rejected) candidate. tiebreak_mode selects the ordering
+        among CO-DERIVABLE valid candidates: 'legacy' = completeness -> shortest -> combiner (thin
+        cosine); 'symbolic' = intent-terminal -> intent-any -> do-calculus -> completeness -> shortest ->
+        combiner. Else fall back to the pure similarity combiner readout (+ index final tiebreak).
+        GUARDRAIL: when exactly one candidate is valid (gold_only case) BOTH modes return it unchanged."""
         valid = [c for c in per_choice if c["derivable"] and not c["rejected_by_ci"]]
         if valid:
+            if self.tiebreak_mode == "symbolic":
+                intent = intent or set()
+                valid.sort(key=lambda c: self._symbolic_key(c, intent))
+                return valid[0]["choice_index"], "derivation"
             valid.sort(key=lambda c: (-c["givens_covered"], c["chain_len"], -c["combiner_score"],
                                       c["choice_index"]))
             return valid[0]["choice_index"], "derivation"
@@ -492,7 +566,10 @@ def evaluate(reasoner: DerivationReasoner, questions: List[dict], output_dir: st
     null_cov, _ = acc("untyped_null", covered)
     base_whole = sum(r["baseline"]["correct"] for r in per_q) / n if n else 0.0
     base_cov = (sum(per_q[i]["baseline"]["correct"] for i in covered) / len(covered)) if covered else 0.0
-    chance = 1.0 / max(2, int(np.mean([len(q["choices"]) for q in questions])))
+    # FIX (2026-07-25): per-question chance = mean(1/n_choices), NOT 1/int(mean(n_choices)).
+    # The old 1/int(mean) quirk floored the divisor (mean ~3.9 -> int 3 -> chance 0.333); the correct
+    # random-guess baseline averages 1/n over each question's own choice count (~0.25 for mostly-4-way ARC).
+    chance = float(np.mean([1.0 / max(2, len(q["choices"])) for q in questions])) if questions else 0.0
 
     # covered-subset coverage (fraction of questions with >=1 derivable candidate)
     coverage_frac = len(covered) / n if n else 0.0
