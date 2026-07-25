@@ -1,0 +1,35 @@
+{
+  "n_rules": 233,
+  "n_questions": 80,
+  "coverage_fraction": 0.15,
+  "n_covered": 12,
+  "correct_reachable_fraction": 0.1125,
+  "covered_subset": {
+    "n": 12,
+    "typed_acc": 0.25,
+    "baseline_acc": 0.25,
+    "shuffle_direction_acc": 0.25,
+    "untyped_null_acc": 0.25,
+    "typed_minus_baseline": 0.0,
+    "typed_minus_shuffle": 0.0,
+    "typed_minus_untyped_null": 0.0
+  },
+  "chance": 0.3333,
+  "whole_set": {
+    "typed": 0.2375,
+    "baseline": 0.25
+  },
+  "selectivity": {
+    "gold_derivable": 9,
+    "only_gold_derivable": 3,
+    "clean_selective_frac": 0.3333,
+    "distractor_derive_rate": 0.0633
+  },
+  "graph": {
+    "n_nodes": 215,
+    "n_typed_edges": 209,
+    "max_typed_node_degree": 16,
+    "max_degree_node_label": "heat",
+    "n_merges": 10
+  }
+}

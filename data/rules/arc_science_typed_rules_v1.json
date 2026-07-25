@@ -1,0 +1,1262 @@
+{
+  "meta": {
+    "n_rules": 233,
+    "n_nodes": 225,
+    "per_relation": {
+      "CAUSE": 106,
+      "COUPLEDRELATIONSHIP": 18,
+      "IFTHEN": 5,
+      "REQUIRES": 36,
+      "SOURCEOF": 28,
+      "USEDFOR": 40
+    },
+    "dropped_exact_dupes": 4,
+    "self_loops_dropped": 0,
+    "hub_max_threshold": 12,
+    "flagged_hubs_over_threshold": [
+      [
+        "heat",
+        16
+      ]
+    ],
+    "top15_degree_nodes": [
+      [
+        "heat",
+        16
+      ],
+      [
+        "photosynthesis",
+        10
+      ],
+      [
+        "water",
+        10
+      ],
+      [
+        "oxygen",
+        9
+      ],
+      [
+        "current",
+        9
+      ],
+      [
+        "food",
+        8
+      ],
+      [
+        "survival",
+        8
+      ],
+      [
+        "energy",
+        8
+      ],
+      [
+        "erosion",
+        7
+      ],
+      [
+        "sunlight",
+        7
+      ],
+      [
+        "cooling",
+        6
+      ],
+      [
+        "light",
+        6
+      ],
+      [
+        "disease",
+        6
+      ],
+      [
+        "fire",
+        5
+      ],
+      [
+        "reaction",
+        5
+      ]
+    ],
+    "licensed": [
+      "CAUSE",
+      "IFTHEN",
+      "REQUIRES",
+      "COUPLEDRELATIONSHIP",
+      "SOURCEOF",
+      "USEDFOR"
+    ],
+    "format": "list[{relation, arg0, arg1}] -> DerivationReasoner(rows=...); directed arg0->arg1",
+    "provenance": "LLM-authored science-precise supply; replaces vacuous ConceptNet/CSKG hub-bridges"
+  },
+  "rules": [
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "force",
+      "arg1": "acceleration"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "mass",
+      "arg1": "inertia"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "speed",
+      "arg1": "distance"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "speed",
+      "arg1": "momentum"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "mass",
+      "arg1": "momentum"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "friction",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "friction",
+      "arg1": "wear"
+    },
+    {
+      "relation": "IFTHEN",
+      "arg0": "friction",
+      "arg1": "slowing"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "gravity",
+      "arg1": "weight"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "gravity",
+      "arg1": "falling"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "gravity",
+      "arg1": "orbit"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "push",
+      "arg1": "motion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "pull",
+      "arg1": "motion"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "acceleration",
+      "arg1": "force"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "lever",
+      "arg1": "lifting"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "pulley",
+      "arg1": "lifting"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "ramp",
+      "arg1": "lifting"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "wheel",
+      "arg1": "rolling"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "magnet",
+      "arg1": "attraction"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "rotation",
+      "arg1": "daytime"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "revolution",
+      "arg1": "year"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "sunlight",
+      "arg1": "energy"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "sunlight",
+      "arg1": "heat"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "food",
+      "arg1": "energy"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "battery",
+      "arg1": "energy"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "coal",
+      "arg1": "energy"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "solar",
+      "arg1": "electricity"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "wind",
+      "arg1": "electricity"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "coal",
+      "arg1": "electricity"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "generator",
+      "arg1": "electricity"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "height",
+      "arg1": "potential"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "speed",
+      "arg1": "kinetic"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "motion",
+      "arg1": "kinetic"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "falling",
+      "arg1": "kinetic"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "combustion",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "burning",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "burning",
+      "arg1": "light"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "food",
+      "arg1": "energy"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "sugar",
+      "arg1": "energy"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "fuel",
+      "arg1": "energy"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "heat",
+      "arg1": "expansion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "cooling",
+      "arg1": "contraction"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "heat",
+      "arg1": "melting"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "heat",
+      "arg1": "evaporation"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "cooling",
+      "arg1": "condensation"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "cooling",
+      "arg1": "freezing"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "temperature",
+      "arg1": "evaporation"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "temperature",
+      "arg1": "molecules"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "temperature",
+      "arg1": "dissolving"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "temperature",
+      "arg1": "reaction"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "insulation",
+      "arg1": "warmth"
+    },
+    {
+      "relation": "IFTHEN",
+      "arg0": "insulation",
+      "arg1": "warmth"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "conduction",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "convection",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "radiation",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "melting",
+      "arg1": "liquid"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "freezing",
+      "arg1": "solid"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "evaporation",
+      "arg1": "vapor"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "boiling",
+      "arg1": "vapor"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "condensation",
+      "arg1": "liquid"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "sublimation",
+      "arg1": "vapor"
+    },
+    {
+      "relation": "IFTHEN",
+      "arg0": "heating",
+      "arg1": "melting"
+    },
+    {
+      "relation": "IFTHEN",
+      "arg0": "cooling",
+      "arg1": "freezing"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "freezing",
+      "arg1": "expansion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "condensation",
+      "arg1": "clouds"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "clouds",
+      "arg1": "precipitation"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "precipitation",
+      "arg1": "rain"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "precipitation",
+      "arg1": "rain"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "rain",
+      "arg1": "runoff"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "runoff",
+      "arg1": "river"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "river",
+      "arg1": "ocean"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "glacier",
+      "arg1": "river"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "heat",
+      "arg1": "wind"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "wind",
+      "arg1": "waves"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "wind",
+      "arg1": "erosion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "tilt",
+      "arg1": "seasons"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "moon",
+      "arg1": "tides"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "gravity",
+      "arg1": "tides"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "earthquake",
+      "arg1": "tsunami"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "volcano",
+      "arg1": "lava"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "volcano",
+      "arg1": "ash"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "weathering",
+      "arg1": "erosion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "erosion",
+      "arg1": "sediment"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "sediment",
+      "arg1": "sedimentary"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "pressure",
+      "arg1": "metamorphic"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "cooling",
+      "arg1": "igneous"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "magma",
+      "arg1": "lava"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "rotation",
+      "arg1": "daytime"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "orbit",
+      "arg1": "seasons"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "ocean",
+      "arg1": "clouds"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "opaque",
+      "arg1": "shadow"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "mirror",
+      "arg1": "reflection"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "lens",
+      "arg1": "refraction"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "refraction",
+      "arg1": "bending"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "prism",
+      "arg1": "spectrum"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "sunlight",
+      "arg1": "light"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "vision",
+      "arg1": "light"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "sight",
+      "arg1": "light"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "light",
+      "arg1": "reflection"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "current",
+      "arg1": "circuit"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "circuit",
+      "arg1": "conductor"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "conductor",
+      "arg1": "current"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "copper",
+      "arg1": "current"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "wire",
+      "arg1": "current"
+    },
+    {
+      "relation": "IFTHEN",
+      "arg0": "insulator",
+      "arg1": "resistance"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "battery",
+      "arg1": "current"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "current",
+      "arg1": "magnetism"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "current",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "current",
+      "arg1": "light"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "voltage",
+      "arg1": "current"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "magnet",
+      "arg1": "force"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "friction",
+      "arg1": "static"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "static",
+      "arg1": "attraction"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "mixing",
+      "arg1": "mixture"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "reaction",
+      "arg1": "product"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "reaction",
+      "arg1": "heat"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "burning",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "rusting",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "rusting",
+      "arg1": "water"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "rusting",
+      "arg1": "corrosion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "acid",
+      "arg1": "corrosion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "dissolving",
+      "arg1": "solution"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "dissolving",
+      "arg1": "solvent"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "evaporation",
+      "arg1": "salt"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "photosynthesis",
+      "arg1": "sunlight"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "photosynthesis",
+      "arg1": "water"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "photosynthesis",
+      "arg1": "carbon"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "photosynthesis",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "photosynthesis",
+      "arg1": "sugar"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "plants",
+      "arg1": "sunlight"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "plants",
+      "arg1": "water"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "plants",
+      "arg1": "soil"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "plants",
+      "arg1": "food"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "producer",
+      "arg1": "food"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "animals",
+      "arg1": "food"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "animals",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "animals",
+      "arg1": "water"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "fish",
+      "arg1": "water"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "life",
+      "arg1": "water"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "growth",
+      "arg1": "nutrients"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "growth",
+      "arg1": "energy"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "predator",
+      "arg1": "prey"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "population",
+      "arg1": "resources"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "competition",
+      "arg1": "extinction"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "overpopulation",
+      "arg1": "competition"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "decomposition",
+      "arg1": "nutrients"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "decay",
+      "arg1": "decomposition"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "decomposer",
+      "arg1": "nutrients"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "pollution",
+      "arg1": "harm"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "drought",
+      "arg1": "shortage"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "genes",
+      "arg1": "traits"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "mutation",
+      "arg1": "variation"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "variation",
+      "arg1": "adaptation"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "adaptation",
+      "arg1": "survival"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "camouflage",
+      "arg1": "protection"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "camouflage",
+      "arg1": "hiding"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "migration",
+      "arg1": "survival"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "hibernation",
+      "arg1": "survival"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "adaptation",
+      "arg1": "survival"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "parents",
+      "arg1": "offspring"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "reproduction",
+      "arg1": "offspring"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "roots",
+      "arg1": "absorption"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "roots",
+      "arg1": "water"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "leaves",
+      "arg1": "photosynthesis"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "stems",
+      "arg1": "support"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "wings",
+      "arg1": "flight"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "feathers",
+      "arg1": "flight"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "feathers",
+      "arg1": "warmth"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "gills",
+      "arg1": "breathing"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "lungs",
+      "arg1": "breathing"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "heart",
+      "arg1": "circulation"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "muscles",
+      "arg1": "movement"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "bones",
+      "arg1": "support"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "skeleton",
+      "arg1": "support"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "stomach",
+      "arg1": "digestion"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "brain",
+      "arg1": "control"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "bacteria",
+      "arg1": "disease"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "virus",
+      "arg1": "disease"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "parasite",
+      "arg1": "disease"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "infection",
+      "arg1": "disease"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "disease",
+      "arg1": "death"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "exercise",
+      "arg1": "strength"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "survival",
+      "arg1": "water"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "survival",
+      "arg1": "food"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "survival",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "fire",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "fire",
+      "arg1": "fuel"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "fire",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "fire",
+      "arg1": "smoke"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "fire",
+      "arg1": "ash"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "atoms",
+      "arg1": "matter"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "charge",
+      "arg1": "attraction"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "reaction",
+      "arg1": "endothermic"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "endothermic",
+      "arg1": "heat"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "exothermic",
+      "arg1": "heat"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "combustion",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "habitat",
+      "arg1": "survival"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "predation",
+      "arg1": "extinction"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "disease",
+      "arg1": "extinction"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "extinction",
+      "arg1": "loss"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "plant",
+      "arg1": "sunlight"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "plant",
+      "arg1": "water"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "plant",
+      "arg1": "food"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "animal",
+      "arg1": "food"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "animal",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "leaf",
+      "arg1": "photosynthesis"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "root",
+      "arg1": "water"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "wing",
+      "arg1": "flight"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "gill",
+      "arg1": "breathing"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "lung",
+      "arg1": "breathing"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "muscle",
+      "arg1": "movement"
+    },
+    {
+      "relation": "USEDFOR",
+      "arg0": "bone",
+      "arg1": "support"
+    },
+    {
+      "relation": "COUPLEDRELATIONSHIP",
+      "arg0": "temperature",
+      "arg1": "molecule"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "wind",
+      "arg1": "wave"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "mixing",
+      "arg1": "mixtures"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "reaction",
+      "arg1": "products"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "genes",
+      "arg1": "trait"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "mutation",
+      "arg1": "variations"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "decomposition",
+      "arg1": "nutrient"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "growth",
+      "arg1": "nutrient"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "sunlight",
+      "arg1": "photosynthesis"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "photosynthesis",
+      "arg1": "sugar"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "photosynthesis",
+      "arg1": "oxygen"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "evaporation",
+      "arg1": "cooling"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "vibration",
+      "arg1": "sound"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "vibration",
+      "arg1": "sound"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "sound",
+      "arg1": "hearing"
+    },
+    {
+      "relation": "REQUIRES",
+      "arg0": "hearing",
+      "arg1": "sound"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "earthquake",
+      "arg1": "damage"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "flooding",
+      "arg1": "erosion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "glacier",
+      "arg1": "erosion"
+    },
+    {
+      "relation": "CAUSE",
+      "arg0": "erosion",
+      "arg1": "canyon"
+    },
+    {
+      "relation": "SOURCEOF",
+      "arg0": "erosion",
+      "arg1": "sediment"
+    }
+  ]
+}
