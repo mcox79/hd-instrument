@@ -399,22 +399,24 @@ def run(mode, output_dir, try_glove=True):
     E0 = enc0.E.detach().cpu().numpy().astype(np.float32)
     R0 = enc0.R.detach().cpu().numpy().astype(np.float32)
 
-    # --- build per-arm input matrices over the rel_concepts test set ---
+    # --- build per-arm input matrices over the rel_concepts test set (ISOLATE input source) ---
     _heartbeat(output_dir, "build_inputs")
-    ctx_in, rel_in, ctx0_in, keep = [], [], [], []
+    ctx_in, relonly_in, both_in, ctx0_in, keep = [], [], [], [], []
     for c in rel_concepts:
         cv = native_context_vec(E, c, word2id)
         rv = native_relation_vec(E, R, c, rels_by_concept[c], word2id)
         cv0 = native_context_vec(E0, c, word2id)
         if cv is None or rv is None or cv0 is None:
             continue
-        ctx_in.append(cv)
-        rel_in.append(np.concatenate([cv, rv]))       # grounded = context + relation structure
+        ctx_in.append(cv)                              # CONTEXT-ONLY (distributional)
+        relonly_in.append(rv)                          # RELATIONS-ONLY (brain-grounded relational signal)
+        both_in.append(np.concatenate([cv, rv]))       # BOTH (context + relation structure)
         ctx0_in.append(cv0)
         keep.append(cidx[c])
     keep = np.asarray(keep)
     ctx_in = np.asarray(ctx_in, dtype=np.float32)
-    rel_in = np.asarray(rel_in, dtype=np.float32)
+    relonly_in = np.asarray(relonly_in, dtype=np.float32)
+    both_in = np.asarray(both_in, dtype=np.float32)
     ctx0_in = np.asarray(ctx0_in, dtype=np.float32)
     n_test = len(keep)
     _heartbeat(output_dir, "inputs_built", {"n_test": n_test})
@@ -458,34 +460,41 @@ def run(mode, output_dir, try_glove=True):
     A_chance = _multiseed(lambda sd: chance_retrieval(X_true, keep, sd))
     _heartbeat(output_dir, "arm_untrained")
     A_unt = _multiseed(lambda sd: earn_and_retrieve(ctx0_in, X_true, np.arange(n_test), keep, sd))
-    _heartbeat(output_dir, "arm_distributional")
-    A_dist = _multiseed(lambda sd: earn_and_retrieve(ctx_in, X_true, np.arange(n_test), keep, sd))
-    _heartbeat(output_dir, "arm_grounded")
-    A_grnd = _multiseed(lambda sd: earn_and_retrieve(rel_in, X_true, np.arange(n_test), keep, sd))
+    _heartbeat(output_dir, "arm_context_only")
+    A_ctx = _multiseed(lambda sd: earn_and_retrieve(ctx_in, X_true, np.arange(n_test), keep, sd))
+    _heartbeat(output_dir, "arm_relations_only")
+    A_rel = _multiseed(lambda sd: earn_and_retrieve(relonly_in, X_true, np.arange(n_test), keep, sd))
+    _heartbeat(output_dir, "arm_both")
+    A_both = _multiseed(lambda sd: earn_and_retrieve(both_in, X_true, np.arange(n_test), keep, sd))
     _heartbeat(output_dir, "arm_shuffle")
-    A_shuf = _multiseed(lambda sd: earn_and_retrieve(rel_in, X_true, np.arange(n_test), keep, sd, shuffle=True))
+    A_shuf = _multiseed(lambda sd: earn_and_retrieve(relonly_in, X_true, np.arange(n_test), keep, sd, shuffle=True))
     A_glove = None
     if glove_in is not None:
         gl, gkeep = glove_in
         A_glove = _multiseed(lambda sd: earn_and_retrieve(gl, X_true, np.arange(len(gkeep)), keep[gkeep], sd))
 
-    # pooled CI for grounded p@10 (Wilson over per-concept top-10 hits at last seed)
-    pk = A_grnd["_pk"]
-    k_hit = int(round(float(np.sum(pk)) * 10))
-    n_hit = int(len(pk) * 10)
-    grnd_ci = wilson_ci(k_hit, n_hit) if n_hit else (0.0, 0.0)
+    def _p10_ci(a):
+        pk = a["_pk"]
+        return wilson_ci(int(round(float(np.sum(pk)) * 10)), int(len(pk) * 10)) if len(pk) else (0.0, 0.0)
+
+    rel_ci = _p10_ci(A_rel)
+    ctx_ci = _p10_ci(A_ctx)
+    both_ci = _p10_ci(A_both)
 
     # gates
-    arm_hashes = {"grounded": _arm_hash(A_grnd["_pk"]), "distributional": _arm_hash(A_dist["_pk"]),
-                  "untrained": _arm_hash(A_unt["_pk"]), "shuffle": _arm_hash(A_shuf["_pk"])}
-    arms_differ = len({A_grnd["p_at_10"], A_dist["p_at_10"], A_unt["p_at_10"], A_shuf["p_at_10"]}) > 1
+    arm_hashes = {"relations_only": _arm_hash(A_rel["_pk"]), "context_only": _arm_hash(A_ctx["_pk"]),
+                  "both": _arm_hash(A_both["_pk"]), "untrained": _arm_hash(A_unt["_pk"]),
+                  "shuffle": _arm_hash(A_shuf["_pk"])}
+    arms_differ = len({A_rel["p_at_10"], A_ctx["p_at_10"], A_unt["p_at_10"], A_shuf["p_at_10"]}) > 1
     chance_p10 = A_chance["p_at_10"]
     shuffle_collapsed = (A_shuf["p_at_10"] <= chance_p10 + SHUFFLE_EPS)
-    generalizes = (grnd_ci[0] > chance_p10 and A_grnd["p_at_10"] > A_unt["p_at_10"])
-    grnd_beats_dist = (A_grnd["p_at_10"] - A_dist["p_at_10"])
+    rel_generalizes = (rel_ci[0] > chance_p10 and A_rel["p_at_10"] > A_unt["p_at_10"])
+    ctx_generalizes = (ctx_ci[0] > chance_p10 and A_ctx["p_at_10"] > A_unt["p_at_10"])
+    rel_minus_ctx = round(A_rel["p_at_10"] - A_ctx["p_at_10"], 4)
 
-    verdict, vmsg = _decide(A_grnd, A_dist, A_unt, A_chance, A_glove, A_shuf, grnd_ci, n_test,
-                            shuffle_collapsed, generalizes, grnd_beats_dist, mode)
+    verdict, vmsg = _decide_source(A_rel, A_ctx, A_both, A_unt, A_chance, A_glove, A_shuf,
+                                   rel_ci, ctx_ci, n_test, shuffle_collapsed, rel_generalizes,
+                                   ctx_generalizes, rel_minus_ctx)
 
     def _clean(a):
         return {k: v for k, v in a.items() if not k.startswith("_")} if a else None
@@ -495,22 +504,24 @@ def run(mode, output_dir, try_glove=True):
         "run_mode": mode, "elapsed_s": round(time.perf_counter() - _T0[0], 2),
         "ts_iso": datetime.now(timezone.utc).isoformat(), "anchor_name": ANCHOR_NAME,
         "device": DEVICE, "seeds": list(seeds),
-        "primary_metric": "held-out (5-fold CV, no-leak) retrieval p@10 vs Binder-65 gold neighborhoods; grounded_earned vs distributional_earned",
-        "one_variable": "input encoder to the SAME ridge->Binder-65 map: grounded (native context+RELATIONS) vs distributional (native context only) vs GloVe (borrowed); same folds/metric",
-        # headline arms
-        "grounded_earned": _clean(A_grnd), "grounded_earned_p10_ci": list(grnd_ci),
-        "distributional_earned": _clean(A_dist),
+        "primary_metric": "held-out (5-fold CV, no-leak) retrieval p@10 vs Binder-65 gold neighborhoods; INPUT SOURCE ISOLATED: relations_only vs context_only vs both",
+        "one_variable": "input SOURCE to the SAME ridge->Binder-65 map: relations_only (brain-grounded relational) vs context_only (distributional / native-Feature2Vec) vs both; same folds/metric",
+        # headline arms (INPUT SOURCE ISOLATED per Director)
+        "relations_only_earned": _clean(A_rel), "relations_only_p10_ci": list(rel_ci),
+        "context_only_earned": _clean(A_ctx), "context_only_p10_ci": list(ctx_ci),
+        "both_earned": _clean(A_both), "both_p10_ci": list(both_ci),
         "glove_earned": _clean(A_glove), "glove_note": glove_note,
         "untrained_input": _clean(A_unt), "shuffle_control": _clean(A_shuf), "chance": _clean(A_chance),
-        "grounded_minus_distributional_p10": round(grnd_beats_dist, 4),
-        "grounded_minus_distributional_disc": round(A_grnd["disc_acc"] - A_dist["disc_acc"], 4),
+        "relations_only_minus_context_only_p10": rel_minus_ctx,
+        "relations_only_generalizes": bool(rel_generalizes), "context_only_generalizes": bool(ctx_generalizes),
+        "input_source_note": "relations_only = the brain-consistent test (earn grounded meaning from relational structure); context_only = distributional-to-grounded projection (native Feature2Vec, weaker/less-brain-consistent lever); verdict states which source carries any generalization signal",
         # coverage (headline finding)
         "coverage": {"binder_concepts": Nb, "binder_x_worldtree_ge1_rel": len(rel_concepts),
                      "ge2_rel": len(rel_ge2), "n_test_after_vocab_filter": n_test,
                      "nan_imputed_cells_binder_internal": nan_count,
                      "note": "test set = Binder concepts with >=1 WT relation AND in native vocab; CV over these; retrieval pool = all 534 true Binder-65"},
         # controls / gates
-        "shuffle_collapsed": bool(shuffle_collapsed), "generalizes_over_chance_and_untrained": bool(generalizes),
+        "shuffle_collapsed": bool(shuffle_collapsed),
         "arms_differ_verified": bool(arms_differ), "arm_pk_hashes": arm_hashes,
         "no_leak": "held-out concepts' Binder vectors NEVER in ridge training (5-fold CV); shuffle-collapse verifies",
         "bands": {"MARGIN": MARGIN, "EPS": EPS, "SHUFFLE_EPS": SHUFFLE_EPS, "MIN_HELDOUT": MIN_HELDOUT,
@@ -531,42 +542,50 @@ def run(mode, output_dir, try_glove=True):
     }
     _write_metrics_atomic(output_dir, metrics)
     print(f"[verdict] {verdict}: {vmsg}", flush=True)
-    print(f"[headline] grounded p@10={A_grnd['p_at_10']} (ci {grnd_ci}) disc={A_grnd['disc_acc']} | "
-          f"distributional p@10={A_dist['p_at_10']} disc={A_dist['disc_acc']} | "
-          f"glove={A_glove['p_at_10'] if A_glove else None} | untrained={A_unt['p_at_10']} "
-          f"shuffle={A_shuf['p_at_10']} chance={chance_p10}", flush=True)
-    print(f"[gates] n_test={n_test} grounded-distributional={round(grnd_beats_dist,4)} "
-          f"generalizes={generalizes} shuffle_collapsed={shuffle_collapsed} arms_differ={arms_differ}", flush=True)
+    print(f"[headline] relations_only p@10={A_rel['p_at_10']} (ci {rel_ci}) disc={A_rel['disc_acc']} | "
+          f"context_only p@10={A_ctx['p_at_10']} (ci {ctx_ci}) disc={A_ctx['disc_acc']} | "
+          f"both p@10={A_both['p_at_10']} | glove={A_glove['p_at_10'] if A_glove else None} | "
+          f"untrained={A_unt['p_at_10']} shuffle={A_shuf['p_at_10']} chance={chance_p10}", flush=True)
+    print(f"[gates] n_test={n_test} relations_only-context_only={rel_minus_ctx} "
+          f"rel_generalizes={rel_generalizes} ctx_generalizes={ctx_generalizes} "
+          f"shuffle_collapsed={shuffle_collapsed} arms_differ={arms_differ}", flush=True)
     return metrics
 
 
-def _decide(A_grnd, A_dist, A_unt, A_chance, A_glove, A_shuf, grnd_ci, n_test,
-            shuffle_collapsed, generalizes, grnd_beats_dist, mode):
+def _decide_source(A_rel, A_ctx, A_both, A_unt, A_chance, A_glove, A_shuf, rel_ci, ctx_ci, n_test,
+                   shuffle_collapsed, rel_gen, ctx_gen, rel_minus_ctx):
+    """State WHICH input source carries the generalization signal (Director): relations_only
+    (brain-grounded) vs context_only (distributional / native-Feature2Vec)."""
+    chance = A_chance["p_at_10"]
+    rp, cp = A_rel["p_at_10"], A_ctx["p_at_10"]
+    tail = (f"[relations_only p@10={rp} ci{list(rel_ci)} | context_only p@10={cp} ci{list(ctx_ci)} | "
+            f"both={A_both['p_at_10']} | untrained={A_unt['p_at_10']} | shuffle={A_shuf['p_at_10']} | "
+            f"chance={chance} | glove={A_glove['p_at_10'] if A_glove else 'CITED'}]")
     if n_test < MIN_HELDOUT:
-        return "INVALID", f"only {n_test} test concepts (< {MIN_HELDOUT}) -- coverage too thin for a stable held-out CV; DATA-COVERAGE finding"
+        return "INVALID", f"only {n_test} test concepts (< {MIN_HELDOUT}) -- coverage too thin for stable held-out CV; DATA-COVERAGE finding {tail}"
     if not shuffle_collapsed:
-        return ("INVALID", f"SHUFFLE control did NOT collapse (shuffle p@10={A_shuf['p_at_10']} vs chance "
-                f"{A_chance['p_at_10']}) -- leak/memorization; retrieval metric void")
-    if not generalizes:
-        return ("NULL-grounded~=distributional",
-                f"grounded_earned does NOT generalize above chance/untrained (grounded p@10={A_grnd['p_at_10']} "
-                f"ci-lower={grnd_ci[0]} vs chance {A_chance['p_at_10']}, untrained {A_unt['p_at_10']}) -- the earned "
-                f"grounded map did not beat the floor on held-out (honest null: earning grounded meaning did not generalize here)")
-    if grnd_beats_dist >= MARGIN:
-        return ("GROUNDED-EARNS-AND-GENERALIZES",
-                f"grounded_earned held-out p@10={A_grnd['p_at_10']} (ci {list(grnd_ci)}) BEATS distributional "
-                f"{A_dist['p_at_10']} by {round(grnd_beats_dist,4)}>={MARGIN} (disc {A_grnd['disc_acc']} vs {A_dist['disc_acc']}); "
-                f"generalizes (>chance {A_chance['p_at_10']}, >untrained {A_unt['p_at_10']}); shuffle collapses -- "
-                f"RELATIONAL grounding earns generalizing brain-grounded meaning beyond distributional context "
-                f"(GloVe={A_glove['p_at_10'] if A_glove else 'CITED'})")
-    if grnd_beats_dist <= EPS:
-        return ("NULL-grounded~=distributional",
-                f"grounded_earned p@10={A_grnd['p_at_10']} ~= distributional {A_dist['p_at_10']} "
-                f"(delta {round(grnd_beats_dist,4)} <= {EPS}) -- relational grounding adds nothing over the distributional "
-                f"readout HERE (honest pre-registered null; both generalize, grounding-specific lift absent at this scale/slice)")
-    return ("MIDDLE",
-            f"grounded_earned p@10={A_grnd['p_at_10']} beats distributional {A_dist['p_at_10']} by "
-            f"{round(grnd_beats_dist,4)} (< {MARGIN}) and generalizes -- real but sub-threshold grounding lift")
+        return "INVALID", f"SHUFFLE did NOT collapse (shuffle p@10={A_shuf['p_at_10']} vs chance {chance}) -- leak/memorization; metric void {tail}"
+    if not rel_gen and not ctx_gen:
+        return ("NULL-neither-source-generalizes",
+                f"NEITHER relations_only nor context_only earns generalizing grounded meaning above the floor "
+                f"(chance {chance}, untrained {A_unt['p_at_10']}) -- honest null: no source earns grounded meaning here {tail}")
+    # relations-only carries it, and is not beaten by context by more than MARGIN -> the brain-consistent win
+    if rel_gen and rel_minus_ctx >= MARGIN:
+        return ("GROUNDED-FROM-RELATIONS-CARRIES",
+                f"RELATIONS-ONLY carries the signal: relations_only p@10={rp} (ci {list(rel_ci)}) generalizes AND "
+                f"BEATS context_only {cp} by {rel_minus_ctx}>={MARGIN}; shuffle collapses -- brain-consistent grounding "
+                f"earns generalizing meaning FROM RELATIONAL STRUCTURE {tail}")
+    if rel_gen and abs(rel_minus_ctx) < MARGIN:
+        return ("BOTH-SOURCES-EARN-relations-genuine",
+                f"BOTH sources earn generalizing grounded meaning and are comparable (relations_only {rp} ~= context_only "
+                f"{cp}, delta {rel_minus_ctx}); the relations_only arm is a GENUINE brain-grounded signal (not just "
+                f"distributional) -- reported separately, not conflated {tail}")
+    # context dominates (rel underperforms or does not generalize) -> distributional-to-grounded, NOT the brain result
+    return ("CONTEXT-CARRIES-distributional-to-grounded",
+            f"CONTEXT-ONLY carries the signal (context_only p@10={cp} > relations_only {rp} by {round(-rel_minus_ctx,4)}; "
+            f"relations_only generalizes={rel_gen}). The generalization is DISTRIBUTIONAL-to-grounded projection "
+            f"(native Feature2Vec) -- honest, but this is NOT the brain-grounded-from-relations result and is the "
+            f"weaker/less-brain-consistent lever; do NOT sell as 'grounding-from-relations works' {tail}")
 
 
 # ---------------------------------------------------------------------------

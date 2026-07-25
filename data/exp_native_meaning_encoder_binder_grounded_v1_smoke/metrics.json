@@ -1,33 +1,47 @@
 {
-  "verdict": "NULL-grounded~=distributional",
-  "verdict_msg": "grounded_earned p@10=0.2043 ~= distributional 0.2426 (delta -0.0383 <= 0.005) -- relational grounding adds nothing over the distributional readout HERE (honest pre-registered null; both generalize, grounding-specific lift absent at this scale/slice)",
-  "summary": "NULL-grounded~=distributional: grounded_earned p@10=0.2043 ~= distributional 0.2426 (delta -0.0383 <= 0.005) -- relational grounding adds nothing over the distributional readout HERE (honest pre-registered null; both generalize, grounding-specific lift absent at this scale/slice)",
+  "verdict": "CONTEXT-CARRIES-distributional-to-grounded",
+  "verdict_msg": "CONTEXT-ONLY carries the signal (context_only p@10=0.2426 > relations_only 0.139 by 0.1036; relations_only generalizes=True). The generalization is DISTRIBUTIONAL-to-grounded projection (native Feature2Vec) -- honest, but this is NOT the brain-grounded-from-relations result and is the weaker/less-brain-consistent lever; do NOT sell as 'grounding-from-relations works' [relations_only p@10=0.139 ci[0.1219, 0.158] | context_only p@10=0.2426 ci[0.2209, 0.2656] | both=0.2043 | untrained=0.0333 | shuffle=0.0418 | chance=0.0262 | glove=CITED]",
+  "summary": "CONTEXT-CARRIES-distributional-to-grounded: CONTEXT-ONLY carries the signal (context_only p@10=0.2426 > relations_only 0.139 by 0.1036; relations_only generalizes=True). The generalization is DISTRIBUTIONAL-to-grounded projection (native Feature2Vec) -- honest, but this is NOT the brain-grounded-from-relations result and is the weaker/less-brain-consistent lever; do NOT sell as 'grounding-from-relations works' [relations_only p@10=0.139 ci[0.1219, 0.158] | context_only p@10=0.2426 ci[0.2209, 0.2656] | both=0.2043 | untrained=0.0333 | shuffle=0.0418 | chance=0.0262 | glove=CITED]",
   "run_mode": "smoke",
-  "elapsed_s": 146.62,
-  "ts_iso": "2026-07-25T18:00:53.916115+00:00",
+  "elapsed_s": 146.65,
+  "ts_iso": "2026-07-25T18:08:49.877579+00:00",
   "anchor_name": "native_meaning_encoder_binder_grounded_v1",
   "device": "cpu",
   "seeds": [
     20260725
   ],
-  "primary_metric": "held-out (5-fold CV, no-leak) retrieval p@10 vs Binder-65 gold neighborhoods; grounded_earned vs distributional_earned",
-  "one_variable": "input encoder to the SAME ridge->Binder-65 map: grounded (native context+RELATIONS) vs distributional (native context only) vs GloVe (borrowed); same folds/metric",
-  "grounded_earned": {
-    "p_at_10": 0.2043,
-    "spearman": 0.5549,
-    "disc_acc": 0.1064,
+  "primary_metric": "held-out (5-fold CV, no-leak) retrieval p@10 vs Binder-65 gold neighborhoods; INPUT SOURCE ISOLATED: relations_only vs context_only vs both",
+  "one_variable": "input SOURCE to the SAME ridge->Binder-65 map: relations_only (brain-grounded relational) vs context_only (distributional / native-Feature2Vec) vs both; same folds/metric",
+  "relations_only_earned": {
+    "p_at_10": 0.139,
+    "spearman": 0.5237,
+    "disc_acc": 0.1206,
     "n_held": 141
   },
-  "grounded_earned_p10_ci": [
-    0.184,
-    0.2261
+  "relations_only_p10_ci": [
+    0.1219,
+    0.158
   ],
-  "distributional_earned": {
+  "context_only_earned": {
     "p_at_10": 0.2426,
     "spearman": 0.7119,
     "disc_acc": 0.1135,
     "n_held": 141
   },
+  "context_only_p10_ci": [
+    0.2209,
+    0.2656
+  ],
+  "both_earned": {
+    "p_at_10": 0.2043,
+    "spearman": 0.5549,
+    "disc_acc": 0.1064,
+    "n_held": 141
+  },
+  "both_p10_ci": [
+    0.184,
+    0.2261
+  ],
   "glove_earned": null,
   "glove_note": "GloVe unavailable (ModuleNotFoundError: No module named 'gensim'); CITED-only",
   "untrained_input": {
@@ -37,9 +51,9 @@
     "n_held": 141
   },
   "shuffle_control": {
-    "p_at_10": 0.0362,
-    "spearman": 0.4763,
-    "disc_acc": 0.0922,
+    "p_at_10": 0.0418,
+    "spearman": 0.4814,
+    "disc_acc": 0.0638,
     "n_held": 141
   },
   "chance": {
@@ -48,8 +62,10 @@
     "disc_acc": 0.0496,
     "n_held": 141
   },
-  "grounded_minus_distributional_p10": -0.0383,
-  "grounded_minus_distributional_disc": -0.0071,
+  "relations_only_minus_context_only_p10": -0.1036,
+  "relations_only_generalizes": true,
+  "context_only_generalizes": true,
+  "input_source_note": "relations_only = the brain-consistent test (earn grounded meaning from relational structure); context_only = distributional-to-grounded projection (native Feature2Vec, weaker/less-brain-consistent lever); verdict states which source carries any generalization signal",
   "coverage": {
     "binder_concepts": 534,
     "binder_x_worldtree_ge1_rel": 141,
@@ -59,13 +75,13 @@
     "note": "test set = Binder concepts with >=1 WT relation AND in native vocab; CV over these; retrieval pool = all 534 true Binder-65"
   },
   "shuffle_collapsed": true,
-  "generalizes_over_chance_and_untrained": true,
   "arms_differ_verified": true,
   "arm_pk_hashes": {
-    "grounded": "b526d302e693196d",
-    "distributional": "6e9359cd5b19f942",
+    "relations_only": "d9323d4e54842b88",
+    "context_only": "6e9359cd5b19f942",
+    "both": "b526d302e693196d",
     "untrained": "924cb2c239deb4d1",
-    "shuffle": "f693af9555242c0b"
+    "shuffle": "844f956fff8abc7f"
   },
   "no_leak": "held-out concepts' Binder vectors NEVER in ridge training (5-fold CV); shuffle-collapse verifies",
   "bands": {
