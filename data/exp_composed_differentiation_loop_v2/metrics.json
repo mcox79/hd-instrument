@@ -1,0 +1,278 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "composed held-out=0.2396 (CI (0.216, 0.262)); beats MFV=False bar=False compression=1.1706 shuffle_collapsed=True -- real+modest, not to the clear bar",
+  "summary": "MIDDLE: composed held-out=0.2396 (CI (0.216, 0.262)); beats MFV=False bar=False compression=1.1706 shuffle_collapsed=True -- real+modest, not to the clear bar",
+  "run_mode": "full",
+  "elapsed_s": 194.47,
+  "ts_iso": "2026-07-25T16:19:39.301271+00:00",
+  "anchor_name": "composed_differentiation_loop_v2",
+  "seeds": [
+    20260725,
+    13,
+    101
+  ],
+  "one_variable": "concept->value predictor (borrowed-vector baselines vs OUR composed encoder+MDL-learner); identical items/candidates/split",
+  "primary_metric": "held-out-to-NEW-concepts fine-value discrimination accuracy (aggregate over ALL held-out, Wilson CI)",
+  "composed_held_out_acc": 0.2396,
+  "composed_held_out_ci": [
+    0.216,
+    0.262
+  ],
+  "composed_chosen_plugins_per_seed": [
+    "gam",
+    "gam",
+    "gam"
+  ],
+  "composed_compression_ratio": 1.1706,
+  "composed_invocab_acc": 0.6771,
+  "composed_scorable_heldout_per_seed": [
+    174,
+    244,
+    217
+  ],
+  "chance": 0.1824,
+  "mfv_held_out_acc": 0.2242,
+  "glove_zerofit_held_out_acc": 0.5681,
+  "glove_learned_held_out_acc": 0.454,
+  "bge_learned_bar_CITED": 0.228,
+  "bge_learned_note": "CITED@data/exp_bge_finemeaning_wall_probe_v1/metrics.json (learned_bge_fine_heldout=0.2278); inline BGE-model recompute out of scope (heavy) -- flagged, not on same distractor set",
+  "bar_to_beat": 0.228,
+  "shuffle_control_held_out_acc": 0.1975,
+  "glove_learned_shuffle_held_out_acc": 0.2218,
+  "shuffle_collapsed": true,
+  "ablation_relation_only_held_out_acc": 0.2077,
+  "ablation_ce_only_held_out_acc": 0.238,
+  "ablation_ce_no_learner_held_out_acc": 0.3386,
+  "ablation_note": "composed(relation+CE) vs relation-only vs CE-only vs CE-no-learner vs GloVe-learned attributes signal to learner / encoder / relations",
+  "coverage": {
+    "n_heldout_items_total": 1314,
+    "n_heldout_fine_total": 513,
+    "n_scorable_heldout_per_seed": [
+      174,
+      244,
+      217
+    ],
+    "note": "accuracy aggregated over ALL held-out (unscorable counted, not dropped)"
+  },
+  "all_plugin_compression_per_seed": [
+    {
+      "estimation": 0.8208,
+      "ruleind": 0.968,
+      "gam": 1.178
+    },
+    {
+      "estimation": 0.8057,
+      "ruleind": 0.9832,
+      "gam": 1.1717
+    },
+    {
+      "estimation": 0.8145,
+      "ruleind": 0.9547,
+      "gam": 1.162
+    }
+  ],
+  "data_integrity_preflight": {
+    "passed": true,
+    "per_relation_precision_proxy": {
+      "CONSUMERS-EATING": 1.0,
+      "CONTAINS": 0.9821,
+      "FORMEDBY": 0.7872,
+      "HABITAT": 0.9545,
+      "KINDOF": 0.9902,
+      "LOCATIONS": 0.8442,
+      "MADEOF": 0.9273,
+      "PARTOF": 0.9872,
+      "PREDATOR-PREY": 1.0,
+      "PROP-CHEM-ACIDITY": 1.0,
+      "PROP-CHEM-CHARGE": 1.0,
+      "PROP-CHEM-REACT": 0.8571,
+      "PROP-CONDUCTIVITY": 1.0,
+      "PROP-FLEX-RIGIDITY": 1.0,
+      "PROP-HARDNESS": 1.0,
+      "PROP-INHERITEDLEARNED": 0.8605,
+      "PROP-MAGNETISM": 1.0,
+      "PROP-MAT-DURABILITY": 1.0,
+      "PROP-MAT-OPACITY": 1.0,
+      "PROP-RECYCLABLE": 1.0,
+      "PROP-RESOURCES-RENEWABLE": 1.0,
+      "PROP-SOLUBILITY": 1.0,
+      "PROP-STATESOFMATTER-TEMPS": 1.0,
+      "PROP-WARM-COLD-BLOODED": 1.0,
+      "SOURCEOF": 0.882,
+      "USEDFOR": 0.9288,
+      "XIVORE": 1.0
+    },
+    "relations_below_floor": {},
+    "multi_valid_value_rate": 0.0991,
+    "concept_relation_density": {
+      "mean": 1.38,
+      "median": 1,
+      "frac_ge2": 0.2398,
+      "max": 9
+    },
+    "note": "curated column-stable tables (precision by construction; free-text noisy relations e.g. IFTHEN excluded a priori). scorable held-out requires >=2 distinct relations."
+  },
+  "brain_fidelity_map": {
+    "concept_encoder": "cortical competitive-Hebbian/WTA sparse coding (Foldiak/Kohonen); SHAPE ok",
+    "concept_encoder_GAP": "batch accumulator = ORDER-INVARIANT -> cannot express Rogers-McClelland curriculum LEARNING DYNAMICS; label-conditioned aggregation = binding not error-driven prediction (flagged, not fixed in scope)",
+    "typed_relation_features": "Rogers-McClelland PDP relational differentiation; coarse->fine reported as STATIC signature (coarse KINDOF vs fine held-out), not a dynamic",
+    "learner_MDL_gate": "Complementary Learning Systems (rule=neocortical semantic; KEEP_EPISODIC=hippocampal episodic); MDL two-part code = computational-level formalization -- right shape",
+    "working_memory_cowan4": "MAX_COACTIVE_REL=4 co-active relations/concept (Cowan ~4; matches WorldTree ~2.5-central-fact) -- right shape+metric",
+    "supervision_error_driven": "learner is MDL/description-length error-driven (right); concept_encoder is label-conditioned (GAP, flagged)",
+    "curriculum_order_status": "batch learners are order-invariant -> curriculum coarse->fine DYNAMIC not expressible here; KNOWN GAP; static coarse-vs-fine reported instead"
+  },
+  "coarse_vs_fine_held_out": {
+    "note": "static coarse->fine signature (curriculum dynamic not expressible with batch learners -- flagged gap)"
+  },
+  "gate_outcomes": {
+    "G1_beats_mfv": false,
+    "G2_shuffle_collapses": true,
+    "G3_apples_to_apples": "GloVe zero-fit + GloVe-learned recomputed on SAME items/split/neutral distractors; BGE=CITED (recompute flagged out-of-scope)",
+    "G4_no_leak_non_circular": "held-out concepts never in training; target relation EXCLUDED from features (asserted in build_environment feats)",
+    "G5_ablations_present": true,
+    "G6_coverage_reported": true,
+    "compression_vs_episodic": 1.1706,
+    "keep_episodic": false
+  },
+  "discriminator_fires": true,
+  "arms_differ_verified": true,
+  "bands": {
+    "MARGIN_OVER_MFV": 0.03,
+    "BGE_LEARNED_BAR": 0.228,
+    "SHUFFLE_COLLAPSE_EPS": 0.03,
+    "MIN_HELDOUT_ITEMS": 60,
+    "FROZEN_SAT": 0.85,
+    "MIN_REL_PRECISION_PROXY": 0.7
+  },
+  "config": {
+    "K_DISTRACT": 5,
+    "HELDOUT_FRAC": 0.2,
+    "MAX_COACTIVE_REL": 4,
+    "CE_N_DIM": 1024,
+    "CE_K_SPARSITY": 0.02,
+    "INCLUDE_GAM": true,
+    "INCLUDE_PROGIND": false,
+    "CE_N_PROTOTYPES": 48,
+    "CE_KMEANS_ITERS": 12,
+    "FREQ_MATCH_BINS": 4,
+    "n_tables": 27,
+    "n_ce_prototypes_per_seed": [
+      48,
+      48,
+      48
+    ],
+    "proginduction_excluded_reason": "no biological analog + boolean-DSL (<=2 outputs) structurally unsuited to hundreds-of-values multiclass target"
+  },
+  "v2_fixes": {
+    "A_scorer": "gold placed at RANDOMIZED position per item (was always index 0 in v1); abstain/fixed-index -> chance not auto-correct; all scorers score pick==gold_pos. Honest MFV/base-rate.",
+    "B_ce_bridge": "native ConceptEncoder codes QUANTIZED into CE_N_PROTOTYPES cluster prototypes (spherical k-means); ONE low-card CEPROTO<k> token/concept (was ~20 raw high-card CE<dim>); estimation category-key uses symbolic KINDOF else earned CEPROTO.",
+    "C_freq_matched_distractors": "distractors drawn from the gold value's SAME marginal-frequency quantile bin (FREQ_MATCH_BINS) excluding concept valid+alias values; MFV cannot preferentially pick gold.",
+    "denser_source": "widened from 8 to 27 audited WorldTree tables (multi-valued PROP-* + structural feature relations); frac_ge2 reported."
+  },
+  "borrowed_embedding_never_the_encoder": "GloVe + BGE are BASELINES only; the encoder under test is native hdlab/concept_encoder.py (WTA); no borrowed vector enters the CE code or the CEPROTO prototype.",
+  "per_seed": [
+    {
+      "seed": 20260725,
+      "n_train": 1836,
+      "n_held": 407,
+      "n_held_fine": 164,
+      "n_scorable_held": 174,
+      "chance": 0.1857,
+      "mfv_held": 0.2408,
+      "frozen_glove_held": 0.6044,
+      "frozen_glove_invocab": 0.5708,
+      "glove_learned_held": 0.4742,
+      "glove_learned_invocab": 0.7658,
+      "ce_no_learner_held": 0.3784,
+      "composed_held": 0.2629,
+      "composed_invocab": 0.6645,
+      "composed_chosen_plugin": "gam",
+      "composed_compression_ratio": 1.178,
+      "composed_scorable_held": 174,
+      "abl_relation_only_held": 0.2211,
+      "abl_relation_only_plugin": "gam",
+      "abl_ce_only_held": 0.258,
+      "abl_ce_only_plugin": "gam",
+      "shuffle_control_held": 0.2187,
+      "shuffle_control_plugin": "gam",
+      "glove_learned_shuffle_held": 0.2113,
+      "all_plugin_compression": {
+        "estimation": 0.8208,
+        "ruleind": 0.968,
+        "gam": 1.178
+      },
+      "ce_active": true,
+      "n_ce_prototypes": 48
+    },
+    {
+      "seed": 13,
+      "n_train": 1780,
+      "n_held": 464,
+      "n_held_fine": 185,
+      "n_scorable_held": 244,
+      "chance": 0.1786,
+      "mfv_held": 0.2241,
+      "frozen_glove_held": 0.5151,
+      "frozen_glove_invocab": 0.5674,
+      "glove_learned_held": 0.4138,
+      "glove_learned_invocab": 0.7854,
+      "ce_no_learner_held": 0.3168,
+      "composed_held": 0.1918,
+      "composed_invocab": 0.6781,
+      "composed_chosen_plugin": "gam",
+      "composed_compression_ratio": 1.1717,
+      "composed_scorable_held": 244,
+      "abl_relation_only_held": 0.1853,
+      "abl_relation_only_plugin": "gam",
+      "abl_ce_only_held": 0.1918,
+      "abl_ce_only_plugin": "gam",
+      "shuffle_control_held": 0.1638,
+      "shuffle_control_plugin": "gam",
+      "glove_learned_shuffle_held": 0.2284,
+      "all_plugin_compression": {
+        "estimation": 0.8057,
+        "ruleind": 0.9832,
+        "gam": 1.1717
+      },
+      "ce_active": true,
+      "n_ce_prototypes": 48
+    },
+    {
+      "seed": 101,
+      "n_train": 1799,
+      "n_held": 443,
+      "n_held_fine": 164,
+      "n_scorable_held": 217,
+      "chance": 0.1828,
+      "mfv_held": 0.2077,
+      "frozen_glove_held": 0.5847,
+      "frozen_glove_invocab": 0.5842,
+      "glove_learned_held": 0.474,
+      "glove_learned_invocab": 0.791,
+      "ce_no_learner_held": 0.3205,
+      "composed_held": 0.2641,
+      "composed_invocab": 0.6887,
+      "composed_chosen_plugin": "gam",
+      "composed_compression_ratio": 1.162,
+      "composed_scorable_held": 217,
+      "abl_relation_only_held": 0.2167,
+      "abl_relation_only_plugin": "gam",
+      "abl_ce_only_held": 0.2641,
+      "abl_ce_only_plugin": "gam",
+      "shuffle_control_held": 0.2099,
+      "shuffle_control_plugin": "gam",
+      "glove_learned_shuffle_held": 0.2257,
+      "all_plugin_compression": {
+        "estimation": 0.8145,
+        "ruleind": 0.9547,
+        "gam": 1.162
+      },
+      "ce_active": true,
+      "n_ce_prototypes": 48
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": "fixed_int_seeds_numpy_default_rng_sorted_no_builtin_hash",
+  "storage": "no_composition_selfcontained_differentiation",
+  "contract": "INLINE-LOCAL foreground-to-completion; no borrowed vectors in composed build; no push/remote-persist; VET-PENDING"
+}
