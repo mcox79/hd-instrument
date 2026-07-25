@@ -1,0 +1,408 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "native-binding generalizes over frozen (bind_lift=0.2222) but its concat+linear ablation MATCHES it (bind_over_concat=0.0<0.1) -> binding is NOT the lever; AND the flat-MLP FAILS to generalize (mlp_lift=0.0<0.1) -> 29556's failure is the NONLINEAR HIDDEN LAYER, not the combination format: a SINGLE LINEAR readout over EITHER bind or concat generalizes, the MLP's entangling hidden layer does not. Genuine item-specific systematicity beyond the base-rate-matched shuffled control = shuffle_sep=0.1111 (<0.15); much of the raw held-out lift is majority-class base rate (shuffled reaches 0.6667)",
+  "summary": "MIDDLE: native-binding generalizes over frozen (bind_lift=0.2222) but its concat+linear ablation MATCHES it (bind_over_concat=0.0<0.1) -> binding is NOT the lever; AND the flat-MLP FAILS to generalize (mlp_lift=0.0<0.1) -> 29556's failure is the NONLINEAR HIDDEN LAYER, not the combination format: a SINGLE LINEAR readout over EITHER bind or concat generalizes, the MLP's entangling hidden layer does not. Genuine item-specific systematicity beyond the base-rate-matched shuffled control = shuffle_sep=0.1111 (<0.15); much of the raw held-out lift is majority-class base rate (shuffled reaches 0.6667)",
+  "run_mode": "full",
+  "elapsed_s": 204.17,
+  "ts_iso": "2026-07-25T17:22:03.900567+00:00",
+  "anchor_name": "native_binding_compositional_generalization_v1",
+  "seed": 20260725,
+  "one_variable": "combination mechanism: native-bind + single linear readout vs flat concat + MLP hub (meaning/targets/eval identical)",
+  "metric": "PROPERTY-VALUE recovery on category-correlated held-out pairs (deviation from note's concept-recovery, documented: concept-recovery is ill-posed for shared-value category-correlated relations)",
+  "primary_metric": "native-binding held-out property-recovery LIFT over frozen (systematicity edge)",
+  "n_domains": 4,
+  "domains": [
+    "animal",
+    "energy",
+    "metal",
+    "planet"
+  ],
+  "dropped_oov": [],
+  "chance_heldout": 0.4259,
+  "exposures": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512
+  ],
+  "native_binding_heldout_curve": [
+    0.4444,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.8889,
+    0.7778,
+    0.7778
+  ],
+  "flat_mlp_heldout_curve": [
+    0.2222,
+    0.3333,
+    0.3333,
+    0.4444,
+    0.5556,
+    0.5556,
+    0.5556,
+    0.6667,
+    0.6667,
+    0.5556,
+    0.5556
+  ],
+  "shuffled_label_heldout_curve": [
+    0.4444,
+    0.5556,
+    0.5556,
+    0.5556,
+    0.5556,
+    0.5556,
+    0.5556,
+    0.6667,
+    0.6667,
+    0.6667,
+    0.6667
+  ],
+  "concat_linear_heldout_curve": [
+    0.2222,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778,
+    0.7778
+  ],
+  "bind_mlp_heldout_curve": [
+    0.2222,
+    0.2222,
+    0.3333,
+    0.4444,
+    0.4444,
+    0.5556,
+    0.5556,
+    0.5556,
+    0.6667,
+    0.6667,
+    0.5556
+  ],
+  "native_encoder_bind_heldout_curve": [
+    0.5556,
+    0.8889,
+    0.8889,
+    0.8889,
+    0.8889,
+    0.8889,
+    0.8889,
+    0.8889,
+    0.8889,
+    0.8889,
+    0.8889
+  ],
+  "native_encoder_bind_invocab_cc_curve": [
+    0.3333,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "frozen_heldout": 0.5556,
+  "frozen_heldout_per_domain": {
+    "animal": 1.0,
+    "energy": 0.5,
+    "metal": 0.6667,
+    "planet": 0.0
+  },
+  "native_binding_invocab_cc_curve": [
+    0.4667,
+    0.9333,
+    0.9333,
+    0.9333,
+    0.9333,
+    0.9333,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "flat_mlp_invocab_cc_curve": [
+    0.2,
+    0.2667,
+    0.4,
+    0.5333,
+    0.4667,
+    0.6667,
+    0.7333,
+    0.6667,
+    0.6,
+    0.4667,
+    0.4667
+  ],
+  "frozen_invocab_cc": 0.5333,
+  "native_binding_ho_lift": 0.2222,
+  "flat_mlp_ho_lift": 0.0,
+  "concat_linear_ho_lift": 0.2222,
+  "bind_mlp_ho_lift": 0.0,
+  "shuffle_separation": 0.1111,
+  "bind_over_concat": 0.0,
+  "shuffled_flat": false,
+  "role_max_pairwise_cos": 0.1889,
+  "arm3n_native_encoder": {
+    "held_max": 0.8889,
+    "held_last": 0.8889,
+    "ho_lift_vs_frozen_glove": 0.3333,
+    "lift_over_chance": 0.463,
+    "invocab_cc_last": 1.0,
+    "role_max_pairwise_cos": 0.0627,
+    "item_structure": {
+      "within_cat_cos_mean": 0.7007,
+      "cross_cat_cos_mean": 0.0289,
+      "n_concepts": 24,
+      "n_dim": 2048
+    },
+    "caveat": "construction-sensitive: category structure DESIGNER-IMPOSED via synthetic corpus; shares GloVe frozen baseline (native HD is 2048d, cannot cosine 300d targets); tests whether the native bind stack generalizes GIVEN category-structured input, NOT that the unsupervised encoder discovers such structure"
+  },
+  "combination_x_readout_2x2": {
+    "bind_linear": 0.2222,
+    "concat_linear": 0.2222,
+    "bind_mlp": 0.0,
+    "concat_mlp_flatMLP": 0.0
+  },
+  "heldout_n": 9,
+  "invocab_cc_n": 15,
+  "split_detail": {
+    "animal": {
+      "relation": "body",
+      "held": [
+        [
+          "salmon",
+          "fins"
+        ],
+        [
+          "eagle",
+          "wings"
+        ]
+      ],
+      "value_groups": {
+        "fins": [
+          "salmon",
+          "shark",
+          "tuna"
+        ],
+        "wings": [
+          "eagle",
+          "penguin",
+          "sparrow"
+        ]
+      }
+    },
+    "energy": {
+      "relation": "byproduct",
+      "held": [
+        [
+          "geothermal",
+          "clean"
+        ],
+        [
+          "hydroelectric",
+          "clean"
+        ]
+      ],
+      "value_groups": {
+        "clean": [
+          "geothermal",
+          "hydroelectric",
+          "solar",
+          "wind"
+        ],
+        "radiation": [
+          "nuclear"
+        ],
+        "smoke": [
+          "coal"
+        ]
+      }
+    },
+    "metal": {
+      "relation": "source",
+      "held": [
+        [
+          "gold",
+          "nugget"
+        ],
+        [
+          "aluminum",
+          "ore"
+        ],
+        [
+          "copper",
+          "ore"
+        ]
+      ],
+      "value_groups": {
+        "nugget": [
+          "gold",
+          "silver"
+        ],
+        "ore": [
+          "aluminum",
+          "copper",
+          "iron",
+          "lead"
+        ]
+      }
+    },
+    "planet": {
+      "relation": "moons",
+      "held": [
+        [
+          "jupiter",
+          "many"
+        ],
+        [
+          "mercury",
+          "none"
+        ]
+      ],
+      "value_groups": {
+        "many": [
+          "jupiter",
+          "neptune",
+          "saturn"
+        ],
+        "none": [
+          "mercury",
+          "venus"
+        ],
+        "two": [
+          "mars"
+        ]
+      }
+    }
+  },
+  "near_degenerate_cosine_per_domain": {
+    "animal": 0.278,
+    "energy": 0.3474,
+    "metal": 0.4959,
+    "planet": 0.3704
+  },
+  "glassbox_heldout_decodes": [
+    {
+      "domain": "animal",
+      "concept": "eagle",
+      "relation": "body",
+      "true_value": "wings",
+      "picked": "wings",
+      "scores": {
+        "fins": 0.5052,
+        "wings": 0.686
+      }
+    },
+    {
+      "domain": "animal",
+      "concept": "salmon",
+      "relation": "body",
+      "true_value": "fins",
+      "picked": "fins",
+      "scores": {
+        "fins": 0.8429,
+        "wings": 0.4387
+      }
+    },
+    {
+      "domain": "energy",
+      "concept": "geothermal",
+      "relation": "byproduct",
+      "true_value": "clean",
+      "picked": "clean",
+      "scores": {
+        "clean": 0.7257,
+        "radiation": 0.4311,
+        "smoke": 0.4711
+      }
+    },
+    {
+      "domain": "energy",
+      "concept": "hydroelectric",
+      "relation": "byproduct",
+      "true_value": "clean",
+      "picked": "smoke",
+      "scores": {
+        "clean": 0.5205,
+        "radiation": 0.5501,
+        "smoke": 0.6483
+      }
+    },
+    {
+      "domain": "metal",
+      "concept": "aluminum",
+      "relation": "source",
+      "true_value": "ore",
+      "picked": "ore",
+      "scores": {
+        "nugget": 0.2624,
+        "ore": 0.8016
+      }
+    },
+    {
+      "domain": "metal",
+      "concept": "copper",
+      "relation": "source",
+      "true_value": "ore",
+      "picked": "ore",
+      "scores": {
+        "nugget": 0.6024,
+        "ore": 0.7642
+      }
+    }
+  ],
+  "arm_prediction_digests": {
+    "frozen": "8013db3b4767305b",
+    "native_binding": "ac07df46dcd7495c",
+    "flat_mlp": "164720c20022495e",
+    "concat_linear": "cd8ec5f7dbee709f"
+  },
+  "bands": {
+    "REL_LIFT_HP": 0.25,
+    "REL_LIFT_HF": 0.1,
+    "SHUFFLE_SEP": 0.15,
+    "SHUFFLE_FLAT": 0.12,
+    "BIND_OVER_CONCAT": 0.1,
+    "FROZEN_SAT": 0.85,
+    "ROLE_DEGEN_COS": 0.5
+  },
+  "readout_config": {
+    "LINEAR_LR": 0.3,
+    "LINEAR_WD": 0.0001,
+    "MLP_LR": 0.1,
+    "H_BOTTLENECK": 32,
+    "WEIGHT_DECAY": 0.0001,
+    "n_dim_meaning": 300,
+    "bind": "hdlab.binding.bind (HRR circular conv)"
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": "fixed_int_seeds_numpy_default_rng_sorted_no_builtin_hash",
+  "storage": "no_composition_single_hop_property_completion",
+  "crlb_n/a": "discriminator is argmax over a small property-value contrast set; no continuous-noise CRLB floor",
+  "compute_architecture": "sequential-CPU (tiny scale, wall < 10s; reuses substrate bind primitive; bind features fixed -> precomputed once per arm, only linear readout iterates)",
+  "contract": "INLINE-LOCAL foreground-to-completion; no push/remote-persist; VET-PENDING"
+}

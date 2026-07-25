@@ -57,6 +57,17 @@ ARMS (all on the SAME corrected category-correlated-only held-out split, same pr
                               arm 3 (bind) does NOT beat arm 5 (concat) with the same linear readout, the
                               generalization is not conferred by BINDING specifically (it is the linear
                               readout / format), and the "it's the binding" claim is NOT earned.
+6. BIND-then-MLP           -- (note's arm 5) fixed bind feeding a small MLP readout (H_BOTTLENECK). With
+                              arms 2/3/5 this completes the {bind,concat} x {linear,MLP} 2x2: if bind+MLP
+                              ALSO fails like concat+MLP (flat-MLP) while BOTH linear arms generalize, the
+                              lever is READOUT-LINEARITY, not the combination format (bind vs concat).
+3n NATIVE-ENCODER (Director addition ii; DIAGNOSTIC, non-gating) -- item vector = the REAL
+                              hdlab.concept_encoder.ConceptEncoder (competitive-Hebbian) HD instead of
+                              frozen GloVe, then the SAME fixed bind + single linear readout. Answers "is
+                              the fully-native stack there yet". CONSTRUCTION-SENSITIVE: category structure
+                              is designer-imposed via a synthetic non-leaky corpus (see NATIVE_NDIM block);
+                              it tests the native bind stack GIVEN category-structured input, not that the
+                              unsupervised encoder discovers structure. Shares the GloVe frozen baseline.
 
 VERDICT (a priori, from the note's bands + the binding-necessity gate; NO tuning to force a win):
   HARD_PASS = bind_ho_lift >= REL_LIFT_HP(0.25) AND real-vs-shuffled sep >= SHUFFLE_SEP(0.15) AND shuffled
@@ -123,6 +134,7 @@ os.environ.setdefault("GENSIM_DATA_DIR", os.path.join(_REPO, "data", "gensim_cac
 import torch  # noqa: E402  (only for the REAL substrate bind primitive)
 
 from hdlab.binding import bind as hd_bind  # noqa: E402  (REAL substrate bind; HRR circular conv on real dtype)
+from hdlab.concept_encoder import ConceptEncoder  # noqa: E402  (fully-native item encoder, arm 3n)
 
 from experiments.exp_semantic_hd_encoder_meaning_match_v1 import (  # noqa: E402
     SemanticHDEncoder, _load_glove, _load_wordnet)
@@ -146,6 +158,16 @@ LINEAR_LR = 0.3          # linear-readout full-batch GD lr (stable: 2*lr < 1 wit
                          #  worst-case lambda_max(X^T X) <= n, so lr*(2/n)*n = 2*lr = 0.6 < 1). Verified
                          #  convergent on the planted env in self_test.
 LINEAR_WD = 1e-4         # tiny L2 on the readout
+
+# arm 3n (Director addition ii): fully-native item vector from hdlab/concept_encoder.py (competitive-
+# Hebbian), replacing the frozen GloVe item -> "does the fully-native stack generalize". Construction-
+# SENSITIVE DIAGNOSTIC (non-gating): category structure is DESIGNER-IMPOSED via a synthetic corpus with
+# shared per-category marker tokens (disjoint across categories; property VALUES never appear -> the held
+# cc completion is NOT leaked). Mirrors hdlab/concept_encoder.py's own scope-honesty docstring: this tests
+# "IF the native encoder is fed category-structured input, does the fully-native bind stack generalize?",
+# NOT that the unsupervised encoder discovers such structure.
+NATIVE_NDIM = 2048       # ConceptEncoder validated stable envelope (>= 2048); arm-3n item dim
+NATIVE_SPC = 24          # sentences/concept for the arm-3n synthetic category-structured corpus
 
 # ---------------------------------------------------------------------------
 # pre-registered bands (author-designed a priori; from the note's predictions)
@@ -379,6 +401,62 @@ def concat_feat(d, c, rel):
     return np.concatenate([d["cvec"][c], _rel_onehot(rel)]).astype(np.float32)
 
 
+# ---------------------------------------------------------------------------
+# arm 3n: native ConceptEncoder item vectors (fully-native stack). Non-leaky category-structured corpus.
+# ---------------------------------------------------------------------------
+def build_native_items(env, seed):
+    """Fit the REAL hdlab.concept_encoder.ConceptEncoder on a synthetic CATEGORY-STRUCTURED, non-leaky
+    corpus; return ({(domain,concept): L2 float32 native HD [NATIVE_NDIM]}, structure diagnostic).
+    Corpus: each concept gets NATIVE_SPC sentences built from per-(domain,category) marker tokens that are
+    SHARED within a category and DISJOINT across categories; property VALUES never appear (no leak).
+    mask_target_word=True removes the concept name -> the native item HD reflects category co-occurrence
+    structure only. Deterministic (numpy default_rng, sorted iteration)."""
+    concepts, names, cat_key = [], [], []
+    for d in env:
+        for c in d["concepts"]:
+            concepts.append((d["domain"], c))
+            names.append(c)
+            cat_key.append((d["domain"], d["cat"][c]))
+    n_concepts = len(concepts)
+    uniq_cats = sorted(set(cat_key))
+    cat_markers = {ck: [f"mk{ci}tok{k}" for k in range(4)] for ci, ck in enumerate(uniq_cats)}
+    verbs = ["appears", "relates", "belongs", "occurs"]
+    templates = ["the {c} {v} {m1} {m2}", "a {c} {v} near {m1}", "{c} {v} the {m1} {m2}"]
+    rng = np.random.default_rng(int(seed) + 555)
+    sentences, labels = [], []
+    for gid, (dom, c) in enumerate(concepts):
+        pool = cat_markers[cat_key[gid]]
+        for _ in range(NATIVE_SPC):
+            m1 = pool[int(rng.integers(0, len(pool)))]
+            m2 = pool[int(rng.integers(0, len(pool)))]
+            v = verbs[int(rng.integers(0, len(verbs)))]
+            t = templates[int(rng.integers(0, len(templates)))]
+            sentences.append(t.format(c=c, v=v, m1=m1, m2=m2))
+            labels.append(gid)
+    enc = ConceptEncoder(n_dim=NATIVE_NDIM, n_concepts=n_concepts, k_sparsity=0.02, seed=int(seed),
+                         max_pos=24, concept_names=names, mask_target_word=True)
+    enc.fit(sentences, np.asarray(labels, dtype=np.int64))
+    items = {}
+    for gid, (dom, c) in enumerate(concepts):
+        items[(dom, c)] = _l2(enc.concept_hds[gid].astype(np.float32))
+    within, cross = [], []
+    for i in range(n_concepts):
+        for j in range(i + 1, n_concepts):
+            cij = float(items[concepts[i]] @ items[concepts[j]])
+            (within if cat_key[i] == cat_key[j] else cross).append(cij)
+    diag = {"within_cat_cos_mean": round(float(np.mean(within)), 4) if within else None,
+            "cross_cat_cos_mean": round(float(np.mean(cross)), 4) if cross else None,
+            "n_concepts": n_concepts, "n_dim": NATIVE_NDIM}
+    return items, diag
+
+
+def make_native_bind_feat(role_n, native_items):
+    """arm-3n feature: L2( bind(native_item_HV, role_HV[rel]) )  [NATIVE_NDIM]."""
+    def feat(d, c, rel):
+        return hd_conv(native_items[(d["domain"], c)], role_n[rel])
+    return feat
+
+
 def property_recovery(env, pairs, pred_fn):
     """PROPERTY-VALUE recovery: for each (c*, rel), argmax cosine over the (domain,rel) distinct property
     VALUE meaning vectors; correct iff argmax value word == c*'s true value word. pred_fn(d,c,rel)->vec300.
@@ -571,9 +649,25 @@ def self_test():
     print(f"[self-test]   real: held={len(held)} rels={held_rels} frozen_ho={fr} bind_ho(2ep)={bd} "
           f"role_max_cos={role_cos} dropped={dropped}", flush=True)
 
+    # arm 3n REAL code path: build native ConceptEncoder items + native bind feature + one readout epoch
+    native_items, native_diag = build_native_items(env, SEED)
+    exercised.update({"ConceptEncoder", "build_native_items"})
+    assert len(native_items) == sum(len(d["concepts"]) for d in env), "real: native item count mismatch"
+    role_n = make_role_vectors(SEED + 88, NATIVE_NDIM, RELATIONS)
+    nfeat = make_native_bind_feat(role_n, native_items)
+    exercised.add("make_native_bind_feat")
+    nf = nfeat(env[0], env[0]["concepts"][0], sorted(env[0]["targ"].keys())[0][1])
+    assert nf.shape == (NATIVE_NDIM,) and abs(float(np.linalg.norm(nf)) - 1.0) < 1e-3, "real: native bind feat"
+    nhub = LinearHub(NATIVE_NDIM, PRETRAIN_DIM, seed=SEED + 11)
+    Xn, Yn = _feat_matrix(env, train_all, nfeat)
+    nhub.train_epochs(Xn, Yn, 2, LINEAR_LR, LINEAR_WD)
+    nb, _, _ = property_recovery(env, held, _learned_pred(nhub, nfeat))
+    print(f"[self-test]   arm3n real: native_diag={native_diag} native_bind_ho(2ep)={nb} "
+          f"role_n_cos={role_max_pairwise_cos(role_n)}", flush=True)
+
     declared = {"SemanticHDEncoder", "meaning_vec", "build_environment", "corrected_split",
                 "make_role_vectors", "make_bind_feat", "LinearHub", "property_recovery",
-                "hdlab.binding.bind"}
+                "hdlab.binding.bind", "ConceptEncoder", "build_native_items", "make_native_bind_feat"}
     missing = declared - exercised
     assert not missing, f"real_code_path: declared entrypoints not exercised: {missing}"
     print("[self-test] PASS (planted bind+linear generalizes; REAL substrate bind path; corrected split "
@@ -753,6 +847,31 @@ def run(mode, output_dir):
                             LINEAR_LR, LINEAR_WD, "concat", output_dir)
     C_ho = concat["curves"]["heldout"]
 
+    # ---- BIND-then-MLP (note's arm 5): completes the {bind,concat} x {linear,MLP} 2x2. If this ALSO
+    #      fails like flat-MLP (concat+MLP), the lever is READOUT-LINEARITY not the combination format. ----
+    _heartbeat(output_dir, "bind_mlp_curve")
+    bindmlp = exposure_curve(lambda: Hub(PRETRAIN_DIM, H_BOTTLENECK, PRETRAIN_DIM, seed=SEED + 11),
+                             bind_feat, env, env, train_all, eval_sets, cfg["schedule"],
+                             MLP_LR, WEIGHT_DECAY, "bind_mlp", output_dir)
+    BM_ho = bindmlp["curves"]["heldout"]
+
+    # ---- arm 3n (Director addition ii): fully-native item vector (ConceptEncoder) + bind + linear M.
+    #      DIAGNOSTIC, construction-sensitive (synthetic category-structured corpus); non-gating. Shares
+    #      the GloVe frozen baseline for ho_lift (native HD lives in a different 2048d space, cannot cosine
+    #      the 300d property targets directly), reported with that caveat + absolute + lift-over-chance. ----
+    _heartbeat(output_dir, "native_items")
+    native_items, native_diag = build_native_items(env, SEED)
+    print(f"[native] arm-3n item structure: {native_diag}", flush=True)
+    role_n = make_role_vectors(SEED + 88, NATIVE_NDIM, RELATIONS)
+    role_n_cos = role_max_pairwise_cos(role_n)
+    native_feat = make_native_bind_feat(role_n, native_items)
+    _heartbeat(output_dir, "native_bind_curve")
+    native = exposure_curve(lambda: LinearHub(NATIVE_NDIM, PRETRAIN_DIM, seed=SEED + 11),
+                            native_feat, env, env, train_all, eval_sets, cfg["schedule"],
+                            LINEAR_LR, LINEAR_WD, "native_bind", output_dir)
+    N_ho = native["curves"]["heldout"]
+    N_iv = native["curves"]["invocab_cc"]
+
     # ---- glass-box: a few held-out decodes (native-binding arm, final readout) ----
     glass = []
     bpred = _learned_pred(bind["hub"], bind_feat)
@@ -806,6 +925,9 @@ def run(mode, output_dir):
         "flat_mlp_heldout_curve": M_ho,
         "shuffled_label_heldout_curve": S_ho,
         "concat_linear_heldout_curve": C_ho,
+        "bind_mlp_heldout_curve": BM_ho,
+        "native_encoder_bind_heldout_curve": N_ho,
+        "native_encoder_bind_invocab_cc_curve": N_iv,
         "frozen_heldout": frozen_ho,
         "frozen_heldout_per_domain": frozen_ho_pd,
         # in-vocab category-correlated curves (sanity: arms learn in-vocab)
@@ -816,10 +938,27 @@ def run(mode, output_dir):
         "native_binding_ho_lift": gx["bind_ho_lift"],
         "flat_mlp_ho_lift": gx["mlp_ho_lift"],
         "concat_linear_ho_lift": gx["concat_ho_lift"],
+        "bind_mlp_ho_lift": round(BM_ho[-1] - frozen_ho, 4),
         "shuffle_separation": gx["shuffle_sep"],
         "bind_over_concat": gx["bind_over_concat"],
         "shuffled_flat": gx["shuffled_flat"],
         "role_max_pairwise_cos": role_cos,
+        # arm 3n (fully-native encoder stack): DIAGNOSTIC, construction-sensitive, non-gating
+        "arm3n_native_encoder": {
+            "held_max": round(max(N_ho), 4), "held_last": round(N_ho[-1], 4),
+            "ho_lift_vs_frozen_glove": round(N_ho[-1] - frozen_ho, 4),
+            "lift_over_chance": round(N_ho[-1] - chance_ho, 4),
+            "invocab_cc_last": round(N_iv[-1], 4),
+            "role_max_pairwise_cos": role_n_cos,
+            "item_structure": native_diag,
+            "caveat": "construction-sensitive: category structure DESIGNER-IMPOSED via synthetic corpus; "
+                      "shares GloVe frozen baseline (native HD is 2048d, cannot cosine 300d targets); "
+                      "tests whether the native bind stack generalizes GIVEN category-structured input, "
+                      "NOT that the unsupervised encoder discovers such structure"},
+        # 2x2 combination-mechanism x readout-nonlinearity summary (ho_lift over frozen, max exposure)
+        "combination_x_readout_2x2": {
+            "bind_linear": gx["bind_ho_lift"], "concat_linear": gx["concat_ho_lift"],
+            "bind_mlp": round(BM_ho[-1] - frozen_ho, 4), "concat_mlp_flatMLP": gx["mlp_ho_lift"]},
         "heldout_n": len(held),
         "invocab_cc_n": len(invocab_cc),
         "split_detail": split_detail,
@@ -845,7 +984,11 @@ def run(mode, output_dir):
     _write_metrics_atomic(output_dir, metrics)
     print(f"[verdict] {verdict}: {vmsg}", flush=True)
     print(f"[curves] frozen_ho={frozen_ho} bind_ho={B_ho} mlp_ho={M_ho}", flush=True)
-    print(f"[curves] shuffled_ho={S_ho} concat_ho={C_ho}", flush=True)
+    print(f"[curves] shuffled_ho={S_ho} concat_ho={C_ho} bind_mlp_ho={BM_ho}", flush=True)
+    print(f"[arm3n] native_encoder held={N_ho} (vs frozen_glove {frozen_ho}; chance {chance_ho}) "
+          f"structure={native_diag}", flush=True)
+    print(f"[2x2 ho_lift] bind+linear={gx['bind_ho_lift']} concat+linear={gx['concat_ho_lift']} "
+          f"bind+MLP={round(BM_ho[-1]-frozen_ho,4)} concat+MLP(flatMLP)={gx['mlp_ho_lift']}", flush=True)
     print(f"[gates] {gx}", flush=True)
     print(f"[glass] {json.dumps(glass, indent=0)}", flush=True)
     return metrics
