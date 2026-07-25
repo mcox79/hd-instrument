@@ -1,0 +1,1036 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "positive_control",
+    "arms",
+    "deltas",
+    "preregistered_bands",
+    "gold_only_preserved",
+    "acquisition"
+  ],
+  "acquisition": {
+    "consolidation": "sleep KEEP_EPISODIC (definitional=assignment-lookup; MDL comp=1)",
+    "n_concept_keys": 5423,
+    "n_facts": 9289,
+    "source": "WorldTree tablestore (parse_tablestore_typed, ALL relations)",
+    "totals": {
+      "n_conflict": 48,
+      "n_ingested": 976,
+      "n_live_recovered": 976
+    },
+    "trust_gate": "hd_fact_store.HDFactStore (WorldTree=TRUST_HIGH)"
+  },
+  "anchor_name": "intrinsic_foundation_loop_tie_gaps_v1",
+  "arms": {
+    "arm0_legacy_combiner": 0.3409,
+    "arm1_oracle_ceiling": 0.5455,
+    "arm2_autonomous_loop": 0.5,
+    "arm3_scramble_global": 0.3636,
+    "arm3_scramble_within": 0.4545,
+    "floor_mm_no_facts": 0.25
+  },
+  "bands_definition": {
+    "arm1_beats_arm0": ">= 0.15 (oracle ceiling beats deployed baseline)",
+    "arm1_beats_floor": ">= 0.1 (lift attributable to FACTS not scorer swap)",
+    "global_scramble_collapses": "ARM3global - FLOOR <= 0.05 (concept-specific fact drove it; robust across arity)",
+    "gold_only_preserved": ">= 1.0",
+    "hard_fail_kill": "d(ARM1-ARM0) <= 0.05 -> honest kill, route to deeper grounding"
+  },
+  "config": {
+    "base_mode": "lemma_syn",
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "gap_mode": "lemma",
+    "k_facts": 8,
+    "meaning_match": "SemanticHDEncoder text cosine (thin GloVe; INTERIM, HONEST caveat)",
+    "min_len": 3,
+    "n_eval": 1172,
+    "n_rules": 233,
+    "n_total_test": 1172,
+    "one_variable_arm1_to_arm2": "retrieval reach (oracle WN-synonyms vs autonomous+trust-gate)",
+    "one_variable_floor_to_arm1": "acquired-fact augmentation (scorer identical)",
+    "rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "seed": 20260725,
+    "store_dim": 4096,
+    "tiebreak_mode": "legacy"
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "decomp_by_arity": {
+    "multi_way": {
+      "arm0": 0.1739,
+      "arm1": 0.3913,
+      "arm2": 0.3043,
+      "arm3_global": 0.2609,
+      "arm3_within": 0.3913,
+      "floor": 0.087,
+      "n": 23
+    },
+    "two_way": {
+      "arm0": 0.5238,
+      "arm1": 0.7143,
+      "arm2": 0.7143,
+      "arm3_global": 0.4762,
+      "arm3_within": 0.5238,
+      "floor": 0.4286,
+      "n": 21
+    }
+  },
+  "deltas": {
+    "arm1_minus_arm0": 0.2046,
+    "arm1_minus_floor": 0.2955,
+    "arm2_minus_arm0": 0.1591,
+    "arm2_minus_arm1": -0.0455,
+    "arm3_global_minus_floor": 0.1136,
+    "arm3_within_minus_floor": 0.2045,
+    "ceiling_fraction_captured_by_arm2": 0.7776
+  },
+  "elapsed_s": 135.5,
+  "gap_set": {
+    "gold_only_n_lemma": 16,
+    "n_gap": 44,
+    "n_valid_multi": 44,
+    "tie_n_lemma": 44,
+    "tie_n_lemma_syn": 66
+  },
+  "gold_only_checked": 16,
+  "gold_only_preserved": 1.0,
+  "hard_kill_triggered": false,
+  "n_bands_pass": 3,
+  "per_tie": [
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 0,
+      "arm2_pick": 1,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 1,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "ACTAAP_2010_7_14",
+      "valid_indices": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 2,
+      "arm2_correct": 0,
+      "arm2_pick": 2,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 0,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "CSZ_2005_5_CSZ10021",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 3,
+      "correct_index": 2,
+      "floor_pick": 0,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "LEAP__7_10351",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 0,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 0,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "MCAS_2004_8_14",
+      "valid_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 0,
+      "correct_index": 2,
+      "floor_pick": 1,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "MCAS_2004_9_5",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 0,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 3,
+      "correct_index": 3,
+      "floor_pick": 0,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "MCAS_2006_8_31",
+      "valid_indices": [
+        0,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 0,
+      "arm2_pick": 3,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 3,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "MCAS_2006_9_1",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 3,
+      "arm2_correct": 1,
+      "arm2_pick": 3,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 0,
+      "correct_index": 3,
+      "floor_pick": 3,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "MCAS_2006_9_44",
+      "valid_indices": [
+        0,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 3,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 1,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 3,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "MCAS_2009_8_17",
+      "valid_indices": [
+        1,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 1,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 0,
+      "arm2_pick": 1,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 0,
+      "correct_index": 0,
+      "floor_pick": 1,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "MCAS_2012_8_23651",
+      "valid_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 1,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 1,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 3,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "MDSA_2011_5_3",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 2,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 2,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "MEA_2014_8_10",
+      "valid_indices": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 2,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 2,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "MSA_2012_5_23",
+      "valid_indices": [
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 0,
+      "arm2_pick": 1,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 1,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "Mercury_409115",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 1,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 1,
+      "correct_index": 1,
+      "floor_pick": 0,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_409301",
+      "valid_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 1,
+      "arm1_correct": 0,
+      "arm1_pick": 0,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 3,
+      "correct_index": 3,
+      "floor_pick": 0,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_416404",
+      "valid_indices": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 1,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 1,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 0,
+      "correct_index": 1,
+      "floor_pick": 1,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_417150",
+      "valid_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 0,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 0,
+      "correct_index": 0,
+      "floor_pick": 1,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_7011130",
+      "valid_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 0,
+      "arm2_pick": 1,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 0,
+      "correct_index": 0,
+      "floor_pick": 0,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_7012880",
+      "valid_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 3,
+      "arm2_correct": 0,
+      "arm2_pick": 3,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 1,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "Mercury_7015208",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 1,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 2,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_7024273",
+      "valid_indices": [
+        1,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 3,
+      "arm1_correct": 0,
+      "arm1_pick": 3,
+      "arm2_correct": 0,
+      "arm2_pick": 3,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 3,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "Mercury_7040775",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 1,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 1,
+      "correct_index": 1,
+      "floor_pick": 1,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_7064575",
+      "valid_indices": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 2,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 0,
+      "correct_index": 2,
+      "floor_pick": 0,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_7116288",
+      "valid_indices": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 3,
+      "arm1_correct": 1,
+      "arm1_pick": 3,
+      "arm2_correct": 0,
+      "arm2_pick": 2,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 2,
+      "correct_index": 3,
+      "floor_pick": 2,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_7174213",
+      "valid_indices": [
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 2,
+      "arm1_correct": 0,
+      "arm1_pick": 3,
+      "arm2_correct": 0,
+      "arm2_pick": 3,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 2,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_7212328",
+      "valid_indices": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 0,
+      "arm2_correct": 1,
+      "arm2_pick": 0,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 2,
+      "correct_index": 0,
+      "floor_pick": 2,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_7212678",
+      "valid_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 2,
+      "arm1_correct": 0,
+      "arm1_pick": 0,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 3,
+      "correct_index": 2,
+      "floor_pick": 3,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_7221988",
+      "valid_indices": [
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 2,
+      "arm1_correct": 0,
+      "arm1_pick": 3,
+      "arm2_correct": 0,
+      "arm2_pick": 3,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 3,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_7268328",
+      "valid_indices": [
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 1,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 1,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "Mercury_7270393",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 0,
+      "arm2_pick": 1,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 1,
+      "correct_index": 3,
+      "floor_pick": 1,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_SC_406458",
+      "valid_indices": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 2,
+      "arm1_correct": 0,
+      "arm1_pick": 0,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 0,
+      "correct_index": 3,
+      "floor_pick": 0,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "Mercury_SC_407572",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 1,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 0,
+      "correct_index": 2,
+      "floor_pick": 0,
+      "n_auto_facts": 32,
+      "n_oracle_facts": 32,
+      "n_valid": 4,
+      "qid": "Mercury_SC_408547",
+      "valid_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 3,
+      "arm2_correct": 0,
+      "arm2_pick": 0,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 0,
+      "correct_index": 3,
+      "floor_pick": 0,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_SC_408748",
+      "valid_indices": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 2,
+      "arm1_correct": 0,
+      "arm1_pick": 3,
+      "arm2_correct": 0,
+      "arm2_pick": 3,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 0,
+      "correct_index": 0,
+      "floor_pick": 3,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_SC_409009",
+      "valid_indices": [
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 1,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 1,
+      "correct_index": 2,
+      "floor_pick": 1,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_SC_409139",
+      "valid_indices": [
+        1,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 2,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 2,
+      "correct_index": 2,
+      "floor_pick": 2,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_SC_414339",
+      "valid_indices": [
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 3,
+      "arm2_correct": 1,
+      "arm2_pick": 3,
+      "arm3_global_pick": 1,
+      "arm3_within_pick": 3,
+      "correct_index": 3,
+      "floor_pick": 1,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_SC_415457",
+      "valid_indices": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 0,
+      "arm2_correct": 1,
+      "arm2_pick": 0,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 2,
+      "correct_index": 0,
+      "floor_pick": 0,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_SC_415471",
+      "valid_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 0,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 0,
+      "arm3_within_pick": 0,
+      "correct_index": 2,
+      "floor_pick": 0,
+      "n_auto_facts": 24,
+      "n_oracle_facts": 24,
+      "n_valid": 3,
+      "qid": "Mercury_SC_416104",
+      "valid_indices": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 3,
+      "arm1_correct": 1,
+      "arm1_pick": 1,
+      "arm2_correct": 1,
+      "arm2_pick": 1,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 3,
+      "correct_index": 1,
+      "floor_pick": 3,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "Mercury_SC_416529",
+      "valid_indices": [
+        1,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 2,
+      "arm1_correct": 1,
+      "arm1_pick": 2,
+      "arm2_correct": 1,
+      "arm2_pick": 2,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 3,
+      "correct_index": 2,
+      "floor_pick": 2,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "NAEP_2000_8_S21+4",
+      "valid_indices": [
+        2,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 0,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 3,
+      "arm2_correct": 1,
+      "arm2_pick": 3,
+      "arm3_global_pick": 3,
+      "arm3_within_pick": 0,
+      "correct_index": 3,
+      "floor_pick": 0,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "OHAT_2010_5_18",
+      "valid_indices": [
+        0,
+        3
+      ]
+    },
+    {
+      "arm0_correct": 1,
+      "arm0_pick": 0,
+      "arm1_correct": 1,
+      "arm1_pick": 0,
+      "arm2_correct": 1,
+      "arm2_pick": 0,
+      "arm3_global_pick": 2,
+      "arm3_within_pick": 0,
+      "correct_index": 0,
+      "floor_pick": 0,
+      "n_auto_facts": 16,
+      "n_oracle_facts": 16,
+      "n_valid": 2,
+      "qid": "TIMSS_1995_8_K18",
+      "valid_indices": [
+        0,
+        2
+      ]
+    }
+  ],
+  "pid": 28580,
+  "positive_control": {
+    "arm0_acc": 0.3409,
+    "arm0_target": 0.3409,
+    "n_gap_expected": 44,
+    "n_gap_reproduced": 44,
+    "note": "full ARC-Challenge test set",
+    "reproduces_29570": true
+  },
+  "preregistered_bands": {
+    "arm1_beats_arm0_ge_0.15": true,
+    "arm1_beats_floor_ge_0.10": true,
+    "global_scramble_collapses_within_0.05": false,
+    "gold_only_preserved": true
+  },
+  "run_mode": "full",
+  "summary": "INTRINSIC LOOP on 44 GENUINE ties | ARM0(legacy)=0.341 FLOOR(mm,no-fact)=0.250 ARM1(oracle)=0.545 ARM2(autonomous)=0.500 ARM3within=0.455 ARM3global=0.364 | d(ARM1-ARM0)=+0.205 d(ARM1-FLOOR)=+0.295 d(ARM2-ARM0)=+0.159 d(ARM3global-FLOOR)=+0.114 | 2way(n=21): arm1=0.714 arm3within=0.524 | gold_only_preserved=1.00 | repro_29570=True | tier=MIDDLE_BAND",
+  "tier": "MIDDLE_BAND",
+  "ts_iso": "2026-07-25T22:52:01.439228+00:00",
+  "verdict": "PARTIAL_TIE_RESOLUTION",
+  "verdict_msg": "Intrinsic foundation loop instantiated on the composed reasoner's OWN 44 GENUINE lemma tie-gaps (exactly reproduced from exp_arc_reasoner_link_precision_tie_prune_v1 via its own eval_config/classify functions -- positive control ARM0=15/44=0.3409 reproduces 29570). Ladder: ARM0 legacy node-combiner tie-break / FLOOR text meaning-match no facts / ARM1 ORACLE-acquisition ceiling (widest answer-agnostic retrieval: choice content+lemma+WordNet synonyms from the WorldTree tablestore) / ARM2 AUTONOMOUS loop (substrate detects the tie, retrieves its own way, INGESTS through the hd_fact_store trust-gate, sleep-consolidates KEEP_EPISODIC, queries facts back by glass-box unbind, re-decides; answerKey never seen) / ARM3 SCRAMBLE must-fail (oracle facts shuffled across tied choices [within-question], plus a ROBUST GLOBAL scramble that fully breaks concept->fact binding across all questions -- the within-question control is clean only on 2-way ties, the global control challenges gold even for multi-way ties). ANTI-LEAK: acquisition keyed on choice/stem content-words never the answer; tie-break is a general meaning-match (augmented-choice vs stem cosine), not a fact->choice map; single-valid gold_only decisions returned unchanged (preserved @1.00 by construction). HELD-OUT ARC-Challenge; science rules not from test labels. DECISIVE DIAGNOSTIC = ARM1: if the oracle fact cannot break ties over thin-GloVe meaning-match (d(ARM1-ARM0)<=0.05) the loop cannot work over this rep -> HONEST KILL routing to deeper grounding; if ARM1 shows headroom the bottleneck is acquisition-precision (tractable). NOTE: meaning-match is still thin GloVe (SemanticHDEncoder) -- the honestly-expected outcome is MIDDLE/HONEST-NEG. VET-PENDING; no atom banking."
+}
