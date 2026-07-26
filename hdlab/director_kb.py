@@ -91,9 +91,43 @@ def _resolve_source_root(repo_root: Path, class_def: dict) -> Path | None:
     return None
 
 
+# Transient / noise file classes that must NEVER enter the KB even if a source
+# glob would match them: gate self-test logs, scratch/smoke logs, temp/lock
+# files. These are pollution in data/ (842 gate_log_*.txt observed 2026-07-26)
+# that are (a) not worth searching and (b) bloat the file walk. Matched against
+# the file NAME only (case-insensitive). Deliberately conservative so it can
+# never drop a legitimate note (*.md), prereg (*.md), metric (metrics.json), or
+# atom/relation JSONL: none of those names contain these tokens.
+_NOISE_NAME_RE = re.compile(
+    r"^gate_log_"            # gate_log_*.txt gate self-test / scratch logs
+    r"|self[_\-]?test"       # *_self-test* / *_selftest* scratch
+    r"|\.scratch(?:\.|$)"    # *.scratch / *.scratch.*
+    r"|_smoke(?:_|\.|$)"     # *_smoke_* / *_smoke.* smoke logs
+    r"|~\$"                  # office/editor lock temp files
+    r"|\.tmp$",              # generic temp files
+    re.IGNORECASE,
+)
+
+
+def _is_noise_file(name: str) -> bool:
+    """True if `name` is a transient/noise artifact that must not enter the KB."""
+    return bool(_NOISE_NAME_RE.search(name))
+
+
 def _glob_files(root: Path, glob: str, limit: int | None) -> list[Path]:
-    """Enumerate matching files in deterministic lexicographic order (Principle 2)."""
-    matches = sorted(root.glob(glob))
+    """Enumerate matching files in deterministic lexicographic order (Principle 2).
+
+    Resilience (testbed 2026-07-26): drops transient/noise files (gate self-test
+    logs, scratch/smoke logs, temp files) that are not worth searching and only
+    bloat the walk. A whole-walk OSError (e.g. Windows WinError 1450
+    'insufficient system resources' during a scandir of a cluttered dir under
+    heavy multi-agent I/O contention) is left to PROPAGATE so the continuous
+    driver can back off + retry -- rather than being swallowed into a silently
+    partial KB. Per-file read/extract errors are handled downstream in
+    run_ingest (skip-not-abort); this function only governs discovery.
+    """
+    matches = [p for p in root.glob(glob) if not _is_noise_file(p.name)]
+    matches.sort()
     if limit is not None and len(matches) > limit:
         matches = matches[:limit]
     return matches
@@ -885,7 +919,20 @@ def run_ingest(
                 if reject is not None:
                     skipped.append({"path": rel_path, "skip_reason": reject, "source_class": cname})
                     continue
-            triples = _extract_triples_for_file(path, cname, cdef, text, schema, repo_root)
+            # Resilience (testbed 2026-07-26): a single file's extraction error
+            # (bio-parser OSError on a locked/unreadable ontology file, a
+            # malformed record, etc.) must SKIP that file, never abort the whole
+            # KB rebuild. _read_file_text already guards text/jsonl reads; this
+            # guards the bio parsers (which read the file themselves) and any
+            # extractor bug so one bad file cannot make the index go stale.
+            try:
+                triples = _extract_triples_for_file(path, cname, cdef, text, schema, repo_root)
+            except OSError as e:
+                skipped.append({"path": rel_path, "skip_reason": f"io_error:{type(e).__name__}", "source_class": cname})
+                continue
+            except Exception as e:  # noqa: BLE001
+                skipped.append({"path": rel_path, "skip_reason": f"extract_error:{type(e).__name__}", "source_class": cname})
+                continue
             # _extract_triples_for_file is guaranteed to return >=1 triple (fallback
             # DESCRIBES anchor); keep the empty-check as a defensive belt-and-suspenders
             # in case future extractor refactor removes the fallback.

@@ -55,12 +55,45 @@ STATE_PATH = REPO / "data" / "director_kb_continuous_state.json"
 LOCK_PATH = REPO / "data" / "director_kb_continuous.lock"
 LOG_PATH = REPO / "data" / "director_kb_continuous.log"
 
-# Reduced from 600s to 90s: a hung ingest blocks the loop entirely; after one full
-# ingest cycle (~7min) + buffer (~1.5min headroom for slow disk) we consider any
-# lock holder dead. Combined with PID-liveness check, this clears orphaned locks
-# from crashed mid-ingest processes promptly (caught 2026-06-26: PID 25308 died
-# mid-ingest 20:53, lock held until 21:03 = 10min KB-dark window).
-STALE_LOCK_SEC = 90.0
+# Age fallback ONLY applies when the lock file has no parseable holder PID (a
+# crash that left no PID trace). When a PID is present, _pid_alive is
+# authoritative and a LIVE holder is NEVER stolen from -- see _acquire_lock.
+# Bumped 90s -> 1800s (testbed 2026-07-08): the post-UNIFIED-KB full ingest now
+# takes ~21min (state last_ingest_elapsed_s=1268), so the old 90s age threshold
+# stole the lock from a LIVE 21-min ingest, spawning a concurrent second ingest.
+# Two ~9GB E-codebook builds = ~18GB peak on a 32GB box -> OOM kill -> empty
+# staging dir + dead PID leftovers with no logged exception: the exact
+# stuck-since-2026-07-02 signature. 1800s is a safe belt for the no-PID case.
+STALE_LOCK_SEC = 1800.0
+
+
+# Windows transient resource-exhaustion error codes. Under heavy multi-agent
+# I/O contention a scandir of a cluttered dir (data/ holds 842 gate_log_*.txt
+# scratch files as of 2026-07-26) can raise these; they are TRANSIENT -- a
+# gc + backoff + retry on a calmer pass succeeds. This is what turned a
+# recoverable blip into 4 recorded permanent ingest failures + an 18-day-stale
+# index.
+#   1450 = ERROR_NO_SYSTEM_RESOURCES ("Insufficient system resources ...")
+#   1455 = ERROR_COMMITMENT_LIMIT ("The paging file is too small ...")
+#      8 = ERROR_NOT_ENOUGH_MEMORY
+_TRANSIENT_WINERRORS = frozenset({8, 1450, 1455})
+_INGEST_RETRY_BACKOFFS_SEC = (30.0, 60.0)  # 1 initial try + len() retries
+
+
+def _is_transient_resource_error(exc: BaseException) -> bool:
+    """True if `exc` is a transient Windows resource-exhaustion error worth a
+    backoff + retry rather than recording a permanent ingest failure."""
+    winerr = getattr(exc, "winerror", None)
+    if winerr in _TRANSIENT_WINERRORS:
+        return True
+    msg = str(exc).lower()
+    return (
+        "insufficient system resources" in msg
+        or "not enough memory" in msg
+        or "winerror 1450" in msg
+        or "winerror 1455" in msg
+        or "paging file is too small" in msg
+    )
 
 
 def _scan_max_mtime(plan: dict) -> tuple[float, int]:
@@ -95,7 +128,21 @@ def _pid_alive(pid: int) -> bool:
                 PROCESS_QUERY_LIMITED_INFORMATION, False, pid
             )
             if not h:
-                # ERROR_INVALID_PARAMETER (87) typically means PID gone; treat as dead
+                # CRITICAL (testbed 2026-07-08): OpenProcess returning NULL does
+                # NOT always mean the PID is gone. ERROR_ACCESS_DENIED (5) means
+                # the process EXISTS but is owned by another security context
+                # (e.g. a Task-Scheduler pythonw cannot open a handle to a
+                # bash-launched python in a different session/token). The old
+                # `return False` here conflated access-denied with dead-PID, so a
+                # scheduled --once tick declared a LIVE 21-min ingest dead, STOLE
+                # its lock, and launched a concurrent ingest -> ~28GB combined ->
+                # OOM/thrash. Distinguish via GetLastError: only ERROR_INVALID_
+                # PARAMETER (87) / ERROR_NOT_FOUND means gone.
+                err = ctypes.windll.kernel32.GetLastError()
+                ERROR_ACCESS_DENIED = 5
+                if err == ERROR_ACCESS_DENIED:
+                    return True  # exists but cross-context -> alive
+                # 87 (invalid param) / other -> treat as gone
                 return False
             # Check if process has exited
             exit_code = ctypes.c_ulong(0)
@@ -162,10 +209,18 @@ def _acquire_lock(timeout_s: float = 60.0) -> bool:
                 holder_pid = int(content) if content.isdigit() else -1
                 age = time.time() - LOCK_PATH.stat().st_mtime
                 stale_reason = None
-                if holder_pid > 0 and not _pid_alive(holder_pid):
-                    stale_reason = f"holder_pid_{holder_pid}_dead"
+                if holder_pid > 0:
+                    # PID-liveness is authoritative. A LIVE holder is NEVER
+                    # stale, no matter how long its ingest runs (~21min full
+                    # ingest). Only a DEAD holder frees the lock. The age
+                    # fallback is deliberately NOT applied here -- applying it
+                    # stole the lock from live long ingests and caused
+                    # concurrent-ingest OOM (testbed 2026-07-08).
+                    if not _pid_alive(holder_pid):
+                        stale_reason = f"holder_pid_{holder_pid}_dead"
                 elif age > STALE_LOCK_SEC:
-                    stale_reason = f"age_{age:.0f}s_exceeds_{STALE_LOCK_SEC}s"
+                    # No parseable holder PID (crash left no trace): age fallback.
+                    stale_reason = f"unknown_pid_age_{age:.0f}s_exceeds_{STALE_LOCK_SEC}s"
                 if stale_reason:
                     print(f"[continuous-ingest] clearing stale lock: {stale_reason}",
                           flush=True, file=sys.stderr)
@@ -185,12 +240,72 @@ def _release_lock() -> None:
         pass
 
 
+def _rename_with_retry(src: str, dst: str, tries: int = 7,
+                        base_delay: float = 0.5) -> None:
+    """os.rename with exponential-backoff retry on Windows PermissionError.
+
+    Root cause 2026-07-02: Windows Search Indexer / Defender realtime scan opens
+    transient handles on newly-created dirs; rename fails with WinError 5. A
+    live director_kb_query.py process can also hold an mmap handle on
+    E.pt / E_unit_fp16.npy inside the live dir, blocking the dir rename. Retry
+    with jitter clears in almost all cases. tries=7 gives a ~30s cumulative
+    backoff window (0.5,1,2,4,8,16s) vs the prior ~8s, which was too short for a
+    reader holding a handle across a query (testbed 2026-07-08).
+    """
+    import random  # noqa: PLC0415
+    last_exc = None
+    for attempt in range(tries):
+        try:
+            os.rename(src, dst)
+            return
+        except PermissionError as e:  # noqa: PERF203
+            last_exc = e
+            if attempt == tries - 1:
+                break
+            delay = base_delay * (2 ** attempt) + random.uniform(0, 0.25)
+            print(f"[continuous-ingest] rename retry {attempt+1}/{tries} "
+                  f"after {delay:.2f}s (WinError likely): {e}",
+                  flush=True, file=sys.stderr)
+            time.sleep(delay)
+    assert last_exc is not None
+    raise last_exc
+
+
+def _sweep_stale_staging_dirs(out_dir: Path) -> int:
+    """Clean up `<name>.staging.<pid>` dirs where PID is not alive AND `<name>.old.<pid>`.
+    Runs at daemon startup + before every ingest to prevent 380-dir accumulation
+    (observed 2026-07-02: silent accumulation over ~150 successful ingests + N
+    failed swaps left an empty dir per PID that never got cleaned).
+    """
+    import re, shutil  # noqa: PLC0415
+    parent = out_dir.parent
+    base = out_dir.name
+    n_cleaned = 0
+    for p in parent.iterdir():
+        if not p.is_dir():
+            continue
+        m = re.match(rf"^{re.escape(base)}\.(?:staging|old)\.(\d+)$", p.name)
+        if not m:
+            continue
+        pid = int(m.group(1))
+        if pid == os.getpid():
+            continue  # our own; other logic handles it
+        if _pid_alive(pid):
+            continue  # some other live process; leave alone
+        try:
+            shutil.rmtree(p, ignore_errors=True)
+            n_cleaned += 1
+        except OSError:
+            pass
+    return n_cleaned
+
+
 def _atomic_swap_kb(staging: Path, final: Path) -> None:
     """Replace `final` with `staging` atomically (best-effort on Windows).
 
     Strategy:
       1. If `final` exists, rename it to `final.old.<pid>` (atomic on same-FS)
-      2. Rename `staging` -> `final` (atomic)
+      2. Rename `staging` -> `final` (atomic; retry on WinError 5)
       3. Delete the `.old` backup
     On step-2 failure, restore from step-1 backup.
     """
@@ -202,9 +317,9 @@ def _atomic_swap_kb(staging: Path, final: Path) -> None:
             # Clean up any leftover backup from a prior crash
             import shutil as _sh
             _sh.rmtree(backup, ignore_errors=True)
-        os.rename(str(final), str(backup))
+        _rename_with_retry(str(final), str(backup))
     try:
-        os.rename(str(staging), str(final))
+        _rename_with_retry(str(staging), str(final))
     except OSError:
         # Roll back the backup
         if backup.exists() and not final.exists():
@@ -229,6 +344,12 @@ def _do_ingest(schema: dict, trigger: str, quiet: bool = False) -> dict:
     if staging_dir.exists():
         import shutil
         shutil.rmtree(staging_dir, ignore_errors=True)
+    # Sweep other-PID stale staging + old dirs (accumulate silently over months
+    # otherwise; 2026-07-02 found 380 empty stale .staging.<pid> dirs).
+    n_swept = _sweep_stale_staging_dirs(out_dir)
+    if n_swept > 0 and not quiet:
+        print(f"[continuous-ingest] swept {n_swept} stale staging/old dirs",
+              flush=True)
 
     plan = build_ingest_plan(schema=schema, repo_root=REPO, max_files_per_class=None,
                               only_classes=None)
@@ -298,18 +419,41 @@ def scan_once(schema: dict, force: bool = False, quiet: bool = False) -> dict:
         event["skipped_locked"] = True
         return event
     try:
-        try:
-            result = _do_ingest(schema, trigger="mtime_changed", quiet=quiet)
-        except Exception as e:  # noqa: BLE001
-            # Record the failure in state so we don't blindly skip on next scan
-            # (last_scan_max_mtime stays at prev value -> next scan retries).
-            state["last_failed_ingest_ts"] = time.time()
-            state["last_failed_ingest_error"] = f"{type(e).__name__}: {str(e)[:500]}"
-            state["n_failed_ingests"] = int(state.get("n_failed_ingests", 0)) + 1
-            _save_state(state)
-            event["ingest_failed"] = True
-            event["ingest_error"] = f"{type(e).__name__}: {str(e)[:300]}"
-            return event
+        # Resilience (testbed 2026-07-26): retry transient Windows resource-
+        # exhaustion (WinError 1450/1455/8) with gc + backoff before recording a
+        # permanent failure. Root cause of the 4 recorded failures + 18-day-stale
+        # index: a scandir over a cluttered data/ dir hit WinError 1450 under
+        # multi-agent I/O contention and aborted the whole run. A calmer retry
+        # pass succeeds. Non-transient errors fail fast (no wasted backoff).
+        import gc  # noqa: PLC0415
+        result = None
+        n_attempts = 1 + len(_INGEST_RETRY_BACKOFFS_SEC)
+        for attempt in range(n_attempts):
+            try:
+                result = _do_ingest(schema, trigger="mtime_changed", quiet=quiet)
+                break
+            except Exception as e:  # noqa: BLE001
+                is_last = attempt >= n_attempts - 1
+                if _is_transient_resource_error(e) and not is_last:
+                    backoff = _INGEST_RETRY_BACKOFFS_SEC[attempt]
+                    gc.collect()
+                    print(f"[continuous-ingest] transient resource error "
+                          f"(attempt {attempt+1}/{n_attempts}); gc + backoff "
+                          f"{backoff:.0f}s then retry: {type(e).__name__}: {str(e)[:200]}",
+                          flush=True, file=sys.stderr)
+                    time.sleep(backoff)
+                    continue
+                # Non-transient OR retries exhausted: record the failure so the
+                # next scan retries (last_scan_max_mtime stays at prev value).
+                state["last_failed_ingest_ts"] = time.time()
+                state["last_failed_ingest_error"] = f"{type(e).__name__}: {str(e)[:500]}"
+                state["n_failed_ingests"] = int(state.get("n_failed_ingests", 0)) + 1
+                state["last_failed_ingest_attempts"] = attempt + 1
+                _save_state(state)
+                event["ingest_failed"] = True
+                event["ingest_error"] = f"{type(e).__name__}: {str(e)[:300]}"
+                event["ingest_attempts"] = attempt + 1
+                return event
         # Regression guard: verify per-class file counts match
         coverage_check = _verify_kb_coverage(schema, result["manifest"], plan)
         if not coverage_check["ok"]:
