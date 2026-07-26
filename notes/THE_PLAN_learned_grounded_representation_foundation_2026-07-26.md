@@ -1,0 +1,42 @@
+# THE PLAN — Learned Grounded Representation Foundation → Reasoning Substrate (AUTHORITATIVE, consolidated 2026-07-26)
+
+**Supersedes/reconciles:** foundation_build_plan_2026-07-14, encoder_rescue_plan_converged_diagnosis_2026-07-04, director_MASTER_PLAN_2026-06-25 + stage1/stage2 design notes, the 2026-07-25 phase commitment, and the 2026-07-26 inference-arc (a TANGENT, see Conflicts). This is the one clear plan. USER-reaffirmed 2026-07-26: commit to the learned grounded representation foundation, brain-true, no shortcuts.
+
+## NORTH STAR
+A glass-box VSA/HDC substrate you can CONVERSE with that genuinely REASONS (inspectable derivations), not parrots. Invariants: NO external LLM at inference; NO borrowed embedding (GloVe/BGE/transformer) as the meaning organ; the substrate EARNS its meaning the brain's way.
+
+## THE THREE LAYERS (what a reasoning substrate needs)
+1. **REPRESENTATION (meaning)** — how concepts are encoded. Must be LEARNED + GROUNDED + GENERALIZING the brain's way. **<< THE CURRENT FOCUS / the blocker.**
+2. **KNOWLEDGE (facts/relations)** — dense vetted per-concept relations. May be SOURCED from existing tools (foundation-from-tools pivot) BUT represented + reasoned-over glass-box, with a held-out slice reserved to prove reasoning not parroting.
+3. **REASONING** — additive multi-constraint CONSTRAINT-SATISFACTION (brain CA3 attractor / pattern-completion) over 1+2. Reasoning resolution scales with the NUMBER OF CONSTRAINTS brought to bear.
+
+## WHAT IS DONE — key components (BANKED, do NOT rebuild; keep discoverable)
+- **Brain-true LEARNING PRIMITIVES (Stage-2 concept-encoder spokes, HARD_PASS):** competitive-Hebbian WTA (spoke1_v3_D), temporal-contiguity Foldiak/slow-feature (spoke2), sparse-hippocampal DG-CA3 pattern-separation (spoke3), predictive-coding competitive-allocation. hdlab/concept_encoder.py.
+- **LEARNED concept representation GENERALIZES on clean structure (Stage-1 SEMANTIC concept-learner battery = CHAIN_GRADE v1 / HARD_PASS v2,v3):** held-out-to-NEW-concept top1=1.000, inheritance 0.93, compose 0.53-0.71, chain 0.93, refuse 1.0, retention 0.94. CAVEAT: SYNTHETIC 8-12 category space; perfect held-out flagged construction-favorable => PROOF-OF-MECHANISM, not yet real-data.
+- **REASONING THEORY (07-14, [[project_reasoning_theory_constraints_brought_to_bear...]]):** additive constraint-satisfaction hits 0.99 (toy) where joint tensor-binding fails (0.018); density = capacity-for-constraints; single-hop modest because 1 constraint = underdetermined. Density value = MEANINGFUL not transformative (3x rescue on the 83% taxonomy-misses, ~0.25 MRR modest ceiling). CONJUNCTIONS > chains.
+- **Storage/infra (banked):** sharded CG store (foundation-scale, RAM-bound not crosstalk-bound, 100k proven/1M analytical, 29532/34); trust-vetting HD fact store (29531); SemanticHDEncoder meaning-match (29533, SUPPLY-semantic); CLIMB ingestion; sleep-loop (compresses clean structure, KEEP_EPISODIC honest on high-entropy).
+- **REASONING MECHANISM (this session, banked 29537-29570):** verification-by-derivation reasoner (hdlab/reasoner.py) — real glass-box selective derivation traces; 100% on cleanly-derivable; both symbolic tie-break doors measured shut (meaning-bound).
+
+## THE BLOCKER (front-and-center, the real gap — do NOT bury)
+The learned-representation mechanism (proven on SYNTHETIC) does NOT yet scale to REAL vocabulary:
+- **ENCODER MIGRATION (bag-of-words -> concept encoder at 178k) HARD_FAILED (encoder_rescue_plan_2026-07-04):** the learned OBJECTIVE does not scale (DENSE geometry collapses 0.825@3k -> 0.368@178k; not under-training; in-batch RKD never supervises graded geometry at scale), AND it depended on an EXTERNAL BGE teacher (violates the no-borrowed-vector + substrate-standalone locks).
+- On real data generally: composed_differentiation_loop v1 MEMORIZES (KEEP_EPISODIC), v2 held-out 0.24 (modest); learned_meaning_frontend_differentiation (29556) ho_lift 0 (flat-MLP over borrowed GloVe memorized).
+
+## THE FIX (brain-true, sequenced — from encoder_rescue R1-R5, still valid)
+Make the learned representation SCALE on REAL data the brain's way, judged ONLY on held-out-to-NEW-concept generalization:
+1. **Fix the OBJECTIVE to form rich geometry at scale (R1, load-bearing):** global/landmark RKD (match each concept's code-geometry to a fixed ~8k anchor frame + neighbor-clustered batches) so graded geometry is supervised independent of random in-batch co-occurrence. VALIDATE dense recovers ~0.8 at scale FIRST.
+2. **Dense-first-then-sparsify (R2):** introduce sparsity by anneal / competitive k-WTA AFTER geometry forms (brain D1), never a step-0 hard bottleneck.
+3. **WEAN OFF the external teacher -> INTERNAL SELF-TEACHER (R3/R4) — THE key brain-true move:** EMA self-distillation + positives from the KB's own relational/gloss co-occurrence (R3); predictive/temporal-contiguity auxiliary over the relational graph (R4, reuses the Stage-2 spokes). Resolves the substrate-standalone + no-borrowed-vector locks. This is the direction the whole 07-26 arc independently reconfirmed (borrowed vectors beat us BUT are banned => the substrate must self-teach).
+4. **GROUND it:** Binder brain-features / experiential norms as grounded targets so representations carry generalizing structure (NOT distributional; NOT borrowed).
+5. **R5 capacity diagnostic:** is target sparsity physically reachable or capacity-bound (USER strategy call).
+
+## THEN (once representations are learned+grounded+generalizing at real scale)
+Source dense vetted KNOWLEDGE (layer 2) into the learned-grounded reps; REASON via additive multi-constraint constraint-satisfaction (layer 3); reserve held-out to prove reasoning-not-parroting. -> the glass-box conversational reasoning substrate (north star).
+
+## CONFLICTS REMOVED (the doc was contradictory; these are the resolutions)
+1. **SUPPLY vs LEARN (the main conflict):** the REPRESENTATION/meaning is LEARNED the brain's way — no BGE, no borrowed vectors, internal self-teacher (LOCKED). KNOWLEDGE/relations MAY be sourced from vetted external tools (foundation-from-tools, still licensed) but are REPRESENTED + REASONED glass-box. Different layers, not a contradiction. (The 07-14 plan's "LLM-generate relations" applies to layer-2 KNOWLEDGE, NOT to the layer-1 meaning encoder.)
+2. **"Everything fails" (2026-07-26 inference arc 29580-84):** that arc tested INFERENCE OVER SUPPLIED SYMBOLIC KBs (analogy/composition/density/redundancy over WordNet/WorldTree/ConceptNet) — a TANGENT. It rigorously confirmed you CANNOT shortcut the foundation (supplied-symbol inference fails + loses to embeddings), which POINTS AT this plan. It does NOT contradict the learned-representation positives (those are real, on synthetic; the gap is real-data scaling = the encoder-migration objective fix). Do NOT conflate "supplied-KB inference fails" with "learned-representation fails."
+3. **The encoder-migration HARD_FAIL is the CURRENT front line** (not buried under the inference arc): the R1 objective fix + R3/R4 self-teacher is the immediate next build when work resumes.
+
+## IMMEDIATE NEXT (when building resumes — NOT started per USER)
+R1 global/landmark RKD objective fix on the concept encoder (validate DENSE recovers ~0.8 at scale, teacher-free-capable), then R3/R4 internal self-teacher, grounded (Binder), measured on held-out-to-new-concept generalization. Build component-by-component, brain-first, can-fail, VET on the generalization bar.

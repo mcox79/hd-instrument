@@ -10,7 +10,9 @@ Conventions for AI-assisted work in this repository.
 
 ### STEP 0 (research role, post-compaction recovery):
 
-Before arming Monitor, query the substrate-Director-KB for the post-compaction backup doc:
+**FIRST, ALWAYS: read `notes/SUBSTRATE_CHARTER_read_first.md`** — the succinct goal + invariants + 3 layers + CURRENT FOCUS + anti-drift rule. It exists because sessions have strayed; re-anchor to it before dispatching anything. Then `notes/THE_PLAN_learned_grounded_representation_foundation_2026-07-26.md` for the detailed plan.
+
+Then, before arming Monitor, query the substrate-Director-KB for the post-compaction backup doc:
 
 ```bash
 date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp
@@ -29,7 +31,7 @@ Spawn `hdi_<role>` sub-agents via the Agent tool. Available roles: `hdi_exp_dev`
 - Strategy + goal direction + thinking through the process
 - 1-off important docs (BACKUP, memory rules, plan updates)
 - Reading metrics.json / verdict_msg (verification)
-- Running observability tools (`tools/runner_status.py`, `tools/peek_arm_metrics.py`, dashboard reads)
+- Running observability tools. PRIMARY monitor = `python tools/inflight_monitor.py` (reliable never-silent status: GPU, queues, runners, local off-queue experiments, alerts). Local GUI = `tools/dash_gui.py` (Tkinter window reading the same `build_state()`; replaces the fragile web dashboard as the day-to-day monitor). Also `tools/runner_status.py`, `tools/peek_arm_metrics.py`.
 - Reading queue state
 - Pulling/pushing git commits via Bash (status_log, BACKUP)
 - Dispatching agents (Agent tool with `hdi_<role>`)
