@@ -1,0 +1,507 @@
+{
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "tier",
+    "per_config",
+    "verdicts",
+    "coverage_diagnostic",
+    "sr_sanity",
+    "arm_tie_acc",
+    "preregistered_bands",
+    "prereg_thresholds"
+  ],
+  "anchor_name": "arc_reasoner_sr_gated_tiebreak_v1",
+  "arm_tie_acc": {
+    "lemma": {
+      "LEGACY": 0.3409,
+      "RANDOM_OCC": 0.3182,
+      "SR_GATED": 0.3409,
+      "SR_ONLY": 0.3864,
+      "SR_SCRAMBLED": 0.2955,
+      "SYMBOLIC": 0.3409
+    },
+    "lemma_syn": {
+      "LEGACY": 0.3636,
+      "RANDOM_OCC": 0.3182,
+      "SR_GATED": 0.2879,
+      "SR_ONLY": 0.3182,
+      "SR_SCRAMBLED": 0.3182,
+      "SYMBOLIC": 0.3636
+    }
+  },
+  "config": {
+    "comprehension": "INTERIM _content_words stand-in (situation_reader NOT adapted; P6)",
+    "depth_bump": 6,
+    "gamma": 0.85,
+    "lambda_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "link_modes": [
+      "lemma_syn",
+      "lemma"
+    ],
+    "n_eval": 1172,
+    "n_folds": 5,
+    "n_rules": 233,
+    "n_total_test": 1172,
+    "one_variable_across_arms": "tie_break_decision (graph/link/CI/do identical)",
+    "rules_path": "D:\\AI\\hd-instrument\\data\\rules\\arc_science_typed_rules_v1.json",
+    "seed": 20260726
+  },
+  "contract": "INLINE-LOCAL; no push/remote-persist; VET-PENDING; no atom banking",
+  "coverage_diagnostic": {
+    "lemma": {
+      "counts": {
+        "DEPTH_BLOCKED": 13,
+        "LINK_FAILURE": 26,
+        "STRUCTURALLY_ABSENT": 30
+      },
+      "fractions": {
+        "DEPTH_BLOCKED": 0.1884,
+        "LINK_FAILURE": 0.3768,
+        "STRUCTURALLY_ABSENT": 0.4348
+      },
+      "n_dist_only": 69
+    },
+    "lemma_syn": {
+      "counts": {
+        "DEPTH_BLOCKED": 14,
+        "LINK_FAILURE": 31,
+        "STRUCTURALLY_ABSENT": 69
+      },
+      "fractions": {
+        "DEPTH_BLOCKED": 0.1228,
+        "LINK_FAILURE": 0.2719,
+        "STRUCTURALLY_ABSENT": 0.6053
+      },
+      "n_dist_only": 114
+    }
+  },
+  "elapsed_s": 114.6,
+  "graph": {
+    "max_typed_node_degree": 16,
+    "mean_out_degree": 0.9721,
+    "n_nodes": 215,
+    "n_typed_edges": 209,
+    "per_relation": {
+      "CAUSE": 106,
+      "COUPLEDRELATIONSHIP": 18,
+      "IFTHEN": 5,
+      "REQUIRES": 36,
+      "SOURCEOF": 28,
+      "USEDFOR": 40
+    }
+  },
+  "host": "FrameworkMPC",
+  "per_config": {
+    "lemma": {
+      "arm_tie_acc": {
+        "LEGACY": 0.3409,
+        "RANDOM_OCC": 0.3182,
+        "SR_GATED": 0.3409,
+        "SR_ONLY": 0.3864,
+        "SR_SCRAMBLED": 0.2955,
+        "SYMBOLIC": 0.3409
+      },
+      "buckets": {
+        "dist_only": 69,
+        "gold_only": 16,
+        "not_derived": 1043,
+        "tie": 44
+      },
+      "coverage_diagnostic": {
+        "counts": {
+          "DEPTH_BLOCKED": 13,
+          "LINK_FAILURE": 26,
+          "STRUCTURALLY_ABSENT": 30
+        },
+        "fractions": {
+          "DEPTH_BLOCKED": 0.1884,
+          "LINK_FAILURE": 0.3768,
+          "STRUCTURALLY_ABSENT": 0.4348
+        },
+        "n_dist_only": 69
+      },
+      "cv": {
+        "random": {
+          "cv_acc": 0.3181818181818182,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.72,
+          "per_fold_lambda": [
+            0.9,
+            0.9,
+            0.9,
+            0.0,
+            0.9
+          ]
+        },
+        "real": {
+          "cv_acc": 0.3409090909090909,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.9199999999999999,
+          "per_fold_lambda": [
+            0.6,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "scrambled": {
+          "cv_acc": 0.29545454545454547,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.38,
+          "per_fold_lambda": [
+            0.0,
+            0.1,
+            0.6,
+            0.6,
+            0.6
+          ]
+        }
+      },
+      "gamma_sweep_cv_tie_acc": {
+        "0.70": 0.2955,
+        "0.85": 0.3409,
+        "0.95": 0.3409
+      },
+      "gold_only_acc": 1.0,
+      "link_mode": "lemma",
+      "n_questions": 1172,
+      "n_tie": 44,
+      "sr_sanity": {
+        "SR_DEGEN_STD_MIN": 0.0001,
+        "graph_col_std_mean": 0.08816946189017957,
+        "graph_reach_density": 0.02195,
+        "sr_not_degenerate": true,
+        "tie_occ_allzero_frac": 0.0,
+        "tie_occ_std_mean": 0.09025450438624556
+      },
+      "tie_examples": [
+        {
+          "n_valid": 4,
+          "occ_raw": [
+            1.03739,
+            1.03739,
+            1.03739,
+            0.17637
+          ],
+          "qid": "Mercury_SC_408547"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.85,
+            0.85
+          ],
+          "qid": "MCAS_2006_9_44"
+        },
+        {
+          "n_valid": 4,
+          "occ_raw": [
+            1.85,
+            1.85,
+            1.85,
+            1.85
+          ],
+          "qid": "Mercury_7270393"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.28333,
+            0.28333
+          ],
+          "qid": "Mercury_SC_409139"
+        },
+        {
+          "n_valid": 3,
+          "occ_raw": [
+            0.00796,
+            0.00796,
+            0.23424
+          ],
+          "qid": "Mercury_7116288"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            3.6036,
+            0.28333
+          ],
+          "qid": "Mercury_7174213"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            2.00834,
+            1.0
+          ],
+          "qid": "Mercury_7212678"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.29983,
+            0.29983
+          ],
+          "qid": "Mercury_SC_416529"
+        }
+      ]
+    },
+    "lemma_syn": {
+      "arm_tie_acc": {
+        "LEGACY": 0.3636,
+        "RANDOM_OCC": 0.3182,
+        "SR_GATED": 0.2879,
+        "SR_ONLY": 0.3182,
+        "SR_SCRAMBLED": 0.3182,
+        "SYMBOLIC": 0.3636
+      },
+      "buckets": {
+        "dist_only": 114,
+        "gold_only": 26,
+        "not_derived": 966,
+        "tie": 66
+      },
+      "coverage_diagnostic": {
+        "counts": {
+          "DEPTH_BLOCKED": 14,
+          "LINK_FAILURE": 31,
+          "STRUCTURALLY_ABSENT": 69
+        },
+        "fractions": {
+          "DEPTH_BLOCKED": 0.1228,
+          "LINK_FAILURE": 0.2719,
+          "STRUCTURALLY_ABSENT": 0.6053
+        },
+        "n_dist_only": 114
+      },
+      "cv": {
+        "random": {
+          "cv_acc": 0.3181818181818182,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.8,
+          "per_fold_lambda": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "real": {
+          "cv_acc": 0.2878787878787879,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.56,
+          "per_fold_lambda": [
+            0.0,
+            0.6,
+            1.0,
+            0.6,
+            0.6
+          ]
+        },
+        "scrambled": {
+          "cv_acc": 0.3181818181818182,
+          "cv_fallback_single_split": false,
+          "mean_lambda": 0.4800000000000001,
+          "per_fold_lambda": [
+            0.5,
+            0.6,
+            0.6,
+            0.6,
+            0.1
+          ]
+        }
+      },
+      "gamma_sweep_cv_tie_acc": {
+        "0.70": 0.3182,
+        "0.85": 0.2879,
+        "0.95": 0.3182
+      },
+      "gold_only_acc": 1.0,
+      "link_mode": "lemma_syn",
+      "n_questions": 1172,
+      "n_tie": 66,
+      "sr_sanity": {
+        "SR_DEGEN_STD_MIN": 0.0001,
+        "graph_col_std_mean": 0.08816946189017957,
+        "graph_reach_density": 0.02195,
+        "sr_not_degenerate": true,
+        "tie_occ_allzero_frac": 0.0,
+        "tie_occ_std_mean": 0.09905876579163635
+      },
+      "tie_examples": [
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.85,
+            0.85
+          ],
+          "qid": "Mercury_7175875"
+        },
+        {
+          "n_valid": 4,
+          "occ_raw": [
+            1.03739,
+            1.03739,
+            1.03739,
+            0.17637
+          ],
+          "qid": "Mercury_SC_408547"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.85,
+            0.85
+          ],
+          "qid": "MCAS_2006_9_44"
+        },
+        {
+          "n_valid": 4,
+          "occ_raw": [
+            1.85,
+            1.85,
+            1.85,
+            1.85
+          ],
+          "qid": "Mercury_7270393"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            0.28333,
+            0.28333
+          ],
+          "qid": "Mercury_SC_409139"
+        },
+        {
+          "n_valid": 3,
+          "occ_raw": [
+            0.00796,
+            0.00796,
+            0.23424
+          ],
+          "qid": "Mercury_7116288"
+        },
+        {
+          "n_valid": 2,
+          "occ_raw": [
+            3.6036,
+            0.28333
+          ],
+          "qid": "Mercury_7174213"
+        },
+        {
+          "n_valid": 3,
+          "occ_raw": [
+            2.00834,
+            1.53153,
+            1.0
+          ],
+          "qid": "Mercury_7212678"
+        }
+      ]
+    }
+  },
+  "pid": 4524,
+  "prereg_thresholds": {
+    "gold_only_floor": 0.95,
+    "lambda_leans_min": 0.15,
+    "n_tie_min": 30,
+    "repro_tol": 0.02,
+    "scramble_flat_max": 0.03,
+    "sr_degen_std_min": 0.0001,
+    "tie_abs_pass": 0.42,
+    "tie_rise_pass": 0.1,
+    "tie_rise_stuck": 0.03
+  },
+  "preregistered_bands": {
+    "guardrails_ok": true,
+    "hard_fail": true,
+    "hard_pass": false,
+    "middle_band": false,
+    "scramble_artifact": false
+  },
+  "primary_config": "lemma_syn",
+  "run_mode": "full",
+  "sr_sanity": {
+    "lemma": {
+      "SR_DEGEN_STD_MIN": 0.0001,
+      "graph_col_std_mean": 0.08816946189017957,
+      "graph_reach_density": 0.02195,
+      "sr_not_degenerate": true,
+      "tie_occ_allzero_frac": 0.0,
+      "tie_occ_std_mean": 0.09025450438624556
+    },
+    "lemma_syn": {
+      "SR_DEGEN_STD_MIN": 0.0001,
+      "graph_col_std_mean": 0.08816946189017957,
+      "graph_reach_density": 0.02195,
+      "sr_not_degenerate": true,
+      "tie_occ_allzero_frac": 0.0,
+      "tie_occ_std_mean": 0.09905876579163635
+    }
+  },
+  "summary": "SR-gated ARC tie-break [lemma_syn]: TIE n=66 | LEGACY=0.3636 SYMBOLIC=0.3636 SR_ONLY=0.3182 SR_GATED=0.2879 (rise=-0.0757, lam*=0.5600) SR_SCR=0.3182 RAND=0.3182 | SR non-degen=True (tie_occ_std=0.099) | gold_only>=0.95=True | coverage(dist_only n=114): LINK=31 DEPTH_BLOCKED=14 STRUCT_ABSENT=69 | HARD_FAIL_SR_GATED_TIEBREAK_FAILS",
+  "tier": "VET_PENDING",
+  "ts_iso": "2026-07-26T01:41:43.644975+00:00",
+  "verdict": "HARD_FAIL_SR_GATED_TIEBREAK_FAILS",
+  "verdict_msg": "First honest ARC-facing test of the prior HARD_PASS SR-routing + gated-fusion mechanisms wired to the DerivationReasoner tie-break: does an SR graph-support-strength channel (M[given,candidate] = discounted forward occupancy, gamma=0.85 pre-registered), gated vs the existing cosine combiner by 5-fold CV lambda, resolve the co-derivable ARC ties where symbolic tie-break measured d=0.000? ONE variable = the tie-break decision (graph/link/CI/do identical across arms). Must-fail controls = degree-preserving graph scramble + i.i.d. random occupancy (both must stay flat). SR non-degeneracy reported BEFORE the tie result (mean out-degree<1 -> honest degeneracy risk pre-registered as HARD_FAIL_SR_DEGENERATE, a THIRD meaning-boundedness diagnosis not a hidden failure). Coverage diagnostic (report-only) settles whether a separate DEPTH-bump cell is worth queuing. Held-out ARC-Challenge test; rules NOT derived from test labels. INLINE-LOCAL; VET-PENDING; no bank.",
+  "verdicts": {
+    "lemma": {
+      "bands": {
+        "guardrails_ok": true,
+        "hard_fail": true,
+        "hard_pass": false,
+        "middle_band": false,
+        "scramble_artifact": false
+      },
+      "buckets_match": true,
+      "gold_only_preserved": true,
+      "link_mode": "lemma",
+      "mean_cv_lambda": 0.92,
+      "n_tie": 44,
+      "random_occ_tie_acc": 0.3182,
+      "repro_ok": true,
+      "repro_target": 0.3409,
+      "scramble_rise_minus_legacy": -0.0454,
+      "sr_not_degenerate": true,
+      "tie_rise_gated_minus_legacy": 0.0,
+      "verdict": "HARD_FAIL_SR_GATED_TIEBREAK_FAILS"
+    },
+    "lemma_syn": {
+      "bands": {
+        "guardrails_ok": true,
+        "hard_fail": true,
+        "hard_pass": false,
+        "middle_band": false,
+        "scramble_artifact": false
+      },
+      "buckets_match": true,
+      "gold_only_preserved": true,
+      "link_mode": "lemma_syn",
+      "mean_cv_lambda": 0.56,
+      "n_tie": 66,
+      "random_occ_tie_acc": 0.3182,
+      "repro_ok": true,
+      "repro_target": 0.3636,
+      "scramble_rise_minus_legacy": -0.0454,
+      "sr_not_degenerate": true,
+      "tie_rise_gated_minus_legacy": -0.0757,
+      "verdict": "HARD_FAIL_SR_GATED_TIEBREAK_FAILS"
+    }
+  }
+}
