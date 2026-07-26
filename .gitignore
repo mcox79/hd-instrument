@@ -120,3 +120,7 @@ data/director_kb_continuous.log
 
 # dashboard supervisor singleton runtime pid-file (testbed 2026-07-04)
 tools/dashboard/supervisor.pid
+
+# large foundation data artifact (258MB) — keep local, out of git
+data/cskg_foundation_v1/
+data/exp_cskg_foundation_v1/
