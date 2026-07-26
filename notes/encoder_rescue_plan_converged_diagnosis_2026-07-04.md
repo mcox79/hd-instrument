@@ -1,3 +1,5 @@
+> **STILL-VALID DIAGNOSIS, folded into `THE_PLAN_learned_grounded_representation_foundation_2026-07-26.md`** (read that first). The R1-R5 rescue sequence below is THE_PLAN's "THE FIX." R3/R4 (internal self-teacher) now draws its positives from the seeded relational foundation (see THE_PLAN's KNOWLEDGE-ACQUISITION ARCHITECTURE).
+
 # Encoder rescue plan — converged diagnosis (2026-07-04)
 
 Synthesis of the FULL HARD_FAIL, the exp_dev diagnosis (a03cf07), and the brain drill (ad8b03).

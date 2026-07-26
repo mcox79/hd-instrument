@@ -1,3 +1,5 @@
+> **SUPERSEDED BY `THE_PLAN_learned_grounded_representation_foundation_2026-07-26.md`** (read that first). This doc's layer-2 KNOWLEDGE plan is folded into THE_PLAN's "KNOWLEDGE-ACQUISITION ARCHITECTURE" section (seed from large relational KBs -> reader adds -> sleep consolidates); its "LLM-generate relations" applies to layer-2 knowledge only, NOT the layer-1 meaning encoder (which is LEARNED, no borrowed vectors). Kept for the reasoning theory + de-risk detail.
+
 # Knowledge Foundation — Build Plan (first pass)
 
 Status 2026-07-14. USER-authorized pivot: build the substrate's knowledge FOUNDATION from existing tools (full + vetted); runtime reasoning stays glass-box. This is the plan. ONE decision (density strategy) is gated on the Part-C experiment; everything else is decided.
