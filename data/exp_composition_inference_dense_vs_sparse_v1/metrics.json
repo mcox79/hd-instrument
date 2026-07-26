@@ -1,0 +1,2791 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "COMPOSITION TIES FLOOR ON DENSE (coverage<0.10 or no lift over FREQ) -> composition does not invent on these corpora; the bottleneck is absent compositional-redundancy structure, NOT mechanism. DENSE COMPOSE top10=0.014 (freq=0.008 cov=0.014) | SPARSE COMPOSE top10=0.070 | planted_ok=True",
+  "summary": "HARD_FAIL",
+  "run_mode": "full",
+  "elapsed_s": 54.19,
+  "ts_iso": "2026-07-26T06:47:10.766039+00:00",
+  "anchor_name": "exp_composition_inference_dense_vs_sparse_v1",
+  "expected_n_units": 27,
+  "n_valid_units": 27,
+  "cardinality_ok": true,
+  "planted_control": {
+    "compose_top1": 1.0,
+    "compose_top10": 1.0,
+    "compose_coverage": 1.0,
+    "floor_top1": 0.0,
+    "shuffled_top1": 0.1
+  },
+  "density": {
+    "wordnet": {
+      "corpus": "wordnet",
+      "n_triples": 169775,
+      "n_concepts": 113345,
+      "n_relations": 12,
+      "rel_types_per_concept_median": 2.0,
+      "rel_types_per_concept_mean": 1.6013851515285191,
+      "edges_per_concept_median": 2.0,
+      "edges_per_concept_mean": 2.995721028717632,
+      "relation_counts": {
+        "HYPERNYM": 97666,
+        "DERIV": 31839,
+        "MEMBER_MERONYM": 12293,
+        "SIMILAR_TO": 10693,
+        "PART_MERONYM": 9097,
+        "ANTONYM": 3802,
+        "ALSO_SEE": 1447,
+        "VERB_GROUP": 874,
+        "SUBSTANCE_MERONYM": 797,
+        "ATTRIBUTE": 639,
+        "ENTAILMENT": 408,
+        "CAUSE": 220
+      }
+    },
+    "worldtree": {
+      "corpus": "worldtree",
+      "n_triples": 4630,
+      "n_concepts": 4111,
+      "n_relations": 17,
+      "rel_types_per_concept_median": 1.0,
+      "rel_types_per_concept_mean": 1.4247141814643638,
+      "edges_per_concept_median": 1.0,
+      "edges_per_concept_mean": 2.252493310630017,
+      "relation_counts": {
+        "KINDOF": 2086,
+        "SYNONYMY": 693,
+        "USEDFOR": 319,
+        "PARTOF": 231,
+        "MADEOF": 215,
+        "REQUIRES": 173,
+        "CONTAINS": 165,
+        "SOURCEOF": 158,
+        "LOCATIONS": 151,
+        "CAUSE": 151,
+        "EXAMPLES": 63,
+        "OPPOSITES": 62,
+        "AFFORDANCES": 59,
+        "HABITAT": 44,
+        "INSTANCES": 30,
+        "PROP-CHEM-ELEMSYMB": 17,
+        "PREDATOR-PREY": 13
+      }
+    }
+  },
+  "results": [
+    {
+      "corpus": "wordnet",
+      "relation": "DERIV",
+      "seed": 7,
+      "n_heldout_heads": 120,
+      "n_pool": 17799,
+      "base_rate": 5.618293162537221e-05,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.016666666666666666,
+          "top10": 0.016666666666666666,
+          "coverage": 0.016666666666666666
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.016666666666666666,
+          "top10": 0.016666666666666666,
+          "coverage": 0.016666666666666666
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.025,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.008333333333333333,
+          "top10": 0.05,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 2
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 193
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 129
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 17
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "ANTONYM",
+          "n": 8
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "SUBSTANCE_MERONYM",
+          "n": 2
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 2
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 2
+        },
+        {
+          "r1": "SUBSTANCE_MERONYM",
+          "r2": "DERIV",
+          "n": 2
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 1
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "DERIV",
+          "n": 1
+        },
+        {
+          "r1": "SUBSTANCE_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 1
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "DERIV",
+      "seed": 13,
+      "n_heldout_heads": 120,
+      "n_pool": 17799,
+      "base_rate": 5.618293162537221e-05,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.025,
+          "top10": 0.06666666666666667,
+          "coverage": 0.06666666666666667
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.025,
+          "top10": 0.075,
+          "coverage": 0.075
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.008333333333333333,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.025,
+          "top10": 0.06666666666666667,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 8
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 184
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 128
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 38
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 9
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "ANTONYM",
+          "n": 6
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 5
+        },
+        {
+          "r1": "ANTONYM",
+          "r2": "HYPERNYM",
+          "n": 4
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "DERIV",
+          "n": 3
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 2
+        },
+        {
+          "r1": "SUBSTANCE_MERONYM",
+          "r2": "DERIV",
+          "n": 2
+        },
+        {
+          "r1": "SUBSTANCE_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 1
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "SUBSTANCE_MERONYM",
+          "n": 1
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "DERIV",
+      "seed": 19,
+      "n_heldout_heads": 120,
+      "n_pool": 17799,
+      "base_rate": 5.618293162537221e-05,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.016666666666666666,
+          "top10": 0.041666666666666664,
+          "coverage": 0.041666666666666664
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.025,
+          "top10": 0.041666666666666664,
+          "coverage": 0.041666666666666664
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.016666666666666666,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.016666666666666666,
+          "top10": 0.05,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 4,
+        "3": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 141
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 130
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 48
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 20
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "DERIV",
+          "n": 9
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 8
+        },
+        {
+          "r1": "ANTONYM",
+          "r2": "HYPERNYM",
+          "n": 5
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "ANTONYM",
+          "n": 4
+        },
+        {
+          "r1": "ANTONYM",
+          "r2": "PART_MERONYM",
+          "n": 3
+        },
+        {
+          "r1": "ANTONYM",
+          "r2": "DERIV",
+          "n": 2
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 2
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 1
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "PART_MERONYM",
+      "seed": 7,
+      "n_heldout_heads": 120,
+      "n_pool": 7859,
+      "base_rate": 0.0001272426517368622,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.025,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.08333333333333333,
+          "top10": 0.13333333333333333,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 131
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 105
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 46
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 19
+        },
+        {
+          "r1": "DERIV",
+          "r2": "HYPERNYM",
+          "n": 14
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "DERIV",
+          "n": 6
+        },
+        {
+          "r1": "SUBSTANCE_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 5
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "SUBSTANCE_MERONYM",
+          "n": 4
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 4
+        },
+        {
+          "r1": "DERIV",
+          "r2": "DERIV",
+          "n": 3
+        },
+        {
+          "r1": "DERIV",
+          "r2": "ANTONYM",
+          "n": 2
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 1
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "PART_MERONYM",
+      "seed": 13,
+      "n_heldout_heads": 120,
+      "n_pool": 7859,
+      "base_rate": 0.0001272426517368622,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.008333333333333333,
+          "top10": 0.025,
+          "coverage": 0.025
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.008333333333333333,
+          "top10": 0.025,
+          "coverage": 0.025
+        },
+        "FREQ": {
+          "top1": 0.008333333333333333,
+          "top10": 0.008333333333333333,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.041666666666666664,
+          "top10": 0.1,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 3
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 133
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 113
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 50
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 33
+        },
+        {
+          "r1": "DERIV",
+          "r2": "HYPERNYM",
+          "n": 24
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "SUBSTANCE_MERONYM",
+          "n": 11
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "DERIV",
+          "n": 6
+        },
+        {
+          "r1": "DERIV",
+          "r2": "VERB_GROUP",
+          "n": 5
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 4
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 3
+        },
+        {
+          "r1": "DERIV",
+          "r2": "ENTAILMENT",
+          "n": 2
+        },
+        {
+          "r1": "DERIV",
+          "r2": "CAUSE",
+          "n": 1
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "PART_MERONYM",
+      "seed": 19,
+      "n_heldout_heads": 120,
+      "n_pool": 7859,
+      "base_rate": 0.0001272426517368622,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.008333333333333333,
+          "top10": 0.008333333333333333,
+          "coverage": 0.008333333333333333
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.008333333333333333,
+          "top10": 0.008333333333333333,
+          "coverage": 0.008333333333333333
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.008333333333333333,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.025,
+          "top10": 0.06666666666666667,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 127
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 118
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 40
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 23
+        },
+        {
+          "r1": "DERIV",
+          "r2": "HYPERNYM",
+          "n": 17
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "DERIV",
+          "n": 6
+        },
+        {
+          "r1": "DERIV",
+          "r2": "VERB_GROUP",
+          "n": 5
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "SUBSTANCE_MERONYM",
+          "n": 4
+        },
+        {
+          "r1": "DERIV",
+          "r2": "ENTAILMENT",
+          "n": 4
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 4
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 3
+        },
+        {
+          "r1": "MEMBER_MERONYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 2
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "MEMBER_MERONYM",
+      "seed": 7,
+      "n_heldout_heads": 120,
+      "n_pool": 12201,
+      "base_rate": 8.196049504139005e-05,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 123
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 51
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 20
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 17
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 8
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 4
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 3
+        },
+        {
+          "r1": "DERIV",
+          "r2": "HYPERNYM",
+          "n": 1
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "MEMBER_MERONYM",
+      "seed": 13,
+      "n_heldout_heads": 120,
+      "n_pool": 12201,
+      "base_rate": 8.196049504139005e-05,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "PART_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 150
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 121
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 41
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 14
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 9
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 7
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "PART_MERONYM",
+          "n": 4
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "DERIV",
+          "n": 3
+        },
+        {
+          "r1": "DERIV",
+          "r2": "HYPERNYM",
+          "n": 2
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "MEMBER_MERONYM",
+      "seed": 19,
+      "n_heldout_heads": 120,
+      "n_pool": 12201,
+      "base_rate": 8.196049504139005e-05,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "HYPERNYM",
+          "r2": "HYPERNYM",
+          "n": 121
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "HYPERNYM",
+          "n": 67
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "DERIV",
+          "n": 16
+        },
+        {
+          "r1": "HYPERNYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 15
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "PART_MERONYM",
+          "n": 10
+        },
+        {
+          "r1": "DERIV",
+          "r2": "HYPERNYM",
+          "n": 7
+        },
+        {
+          "r1": "PART_MERONYM",
+          "r2": "MEMBER_MERONYM",
+          "n": 6
+        },
+        {
+          "r1": "DERIV",
+          "r2": "ANTONYM",
+          "n": 1
+        }
+      ]
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "ATTRIBUTE",
+      "seed": 7,
+      "n_heldout_heads": 0,
+      "n_pool": 320,
+      "base_rate": 0.003125,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": []
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "ATTRIBUTE",
+      "seed": 13,
+      "n_heldout_heads": 0,
+      "n_pool": 320,
+      "base_rate": 0.003125,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": []
+    },
+    {
+      "corpus": "wordnet",
+      "relation": "ATTRIBUTE",
+      "seed": 19,
+      "n_heldout_heads": 0,
+      "n_pool": 320,
+      "base_rate": 0.003125,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": []
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "CONTAINS",
+      "seed": 7,
+      "n_heldout_heads": 47,
+      "n_pool": 123,
+      "base_rate": 0.008130081300813009,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0425531914893617,
+          "top10": 0.06382978723404255,
+          "coverage": 0.06382978723404255
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0425531914893617,
+          "top10": 0.0851063829787234,
+          "coverage": 0.0851063829787234
+        },
+        "FREQ": {
+          "top1": 0.0851063829787234,
+          "top10": 0.19148936170212766,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.02127659574468085,
+          "top10": 0.0425531914893617,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 3
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 133
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 110
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 71
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 40
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 35
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 27
+        },
+        {
+          "r1": "SOURCEOF",
+          "r2": "KINDOF",
+          "n": 21
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "REQUIRES",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 17
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "SYNONYMY",
+          "n": 13
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "CONTAINS",
+      "seed": 13,
+      "n_heldout_heads": 47,
+      "n_pool": 123,
+      "base_rate": 0.008130081300813009,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0425531914893617,
+          "top10": 0.06382978723404255,
+          "coverage": 0.06382978723404255
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0425531914893617,
+          "top10": 0.0851063829787234,
+          "coverage": 0.0851063829787234
+        },
+        "FREQ": {
+          "top1": 0.0851063829787234,
+          "top10": 0.19148936170212766,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.02127659574468085,
+          "top10": 0.0425531914893617,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.02127659574468085,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 3
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 133
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 110
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 71
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 40
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 35
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 27
+        },
+        {
+          "r1": "SOURCEOF",
+          "r2": "KINDOF",
+          "n": 21
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "REQUIRES",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 17
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "SYNONYMY",
+          "n": 13
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "CONTAINS",
+      "seed": 19,
+      "n_heldout_heads": 47,
+      "n_pool": 123,
+      "base_rate": 0.008130081300813009,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0425531914893617,
+          "top10": 0.06382978723404255,
+          "coverage": 0.06382978723404255
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0425531914893617,
+          "top10": 0.0851063829787234,
+          "coverage": 0.0851063829787234
+        },
+        "FREQ": {
+          "top1": 0.0851063829787234,
+          "top10": 0.19148936170212766,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.02127659574468085,
+          "top10": 0.0425531914893617,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.02127659574468085,
+          "top10": 0.02127659574468085,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 3
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 133
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 110
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 71
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 40
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 35
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 27
+        },
+        {
+          "r1": "SOURCEOF",
+          "r2": "KINDOF",
+          "n": 21
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "REQUIRES",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 17
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "SYNONYMY",
+          "n": 13
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "REQUIRES",
+      "seed": 7,
+      "n_heldout_heads": 31,
+      "n_pool": 130,
+      "base_rate": 0.007692307692307693,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.03225806451612903,
+          "coverage": 0.03225806451612903
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.06451612903225806,
+          "coverage": 0.06451612903225806
+        },
+        "FREQ": {
+          "top1": 0.03225806451612903,
+          "top10": 0.16129032258064516,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.03225806451612903,
+          "top10": 0.0967741935483871,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 82
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 54
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 46
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 20
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 20
+        },
+        {
+          "r1": "SOURCEOF",
+          "r2": "KINDOF",
+          "n": 17
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 15
+        },
+        {
+          "r1": "HABITAT",
+          "r2": "KINDOF",
+          "n": 10
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "AFFORDANCES",
+          "n": 6
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "REQUIRES",
+      "seed": 13,
+      "n_heldout_heads": 31,
+      "n_pool": 130,
+      "base_rate": 0.007692307692307693,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.03225806451612903,
+          "coverage": 0.03225806451612903
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.06451612903225806,
+          "coverage": 0.06451612903225806
+        },
+        "FREQ": {
+          "top1": 0.03225806451612903,
+          "top10": 0.16129032258064516,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.03225806451612903,
+          "top10": 0.03225806451612903,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 82
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 54
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 46
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 20
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 20
+        },
+        {
+          "r1": "SOURCEOF",
+          "r2": "KINDOF",
+          "n": 17
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 15
+        },
+        {
+          "r1": "HABITAT",
+          "r2": "KINDOF",
+          "n": 10
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "AFFORDANCES",
+          "n": 6
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "REQUIRES",
+      "seed": 19,
+      "n_heldout_heads": 31,
+      "n_pool": 130,
+      "base_rate": 0.007692307692307693,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.03225806451612903,
+          "coverage": 0.03225806451612903
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.06451612903225806,
+          "coverage": 0.06451612903225806
+        },
+        "FREQ": {
+          "top1": 0.03225806451612903,
+          "top10": 0.16129032258064516,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.03225806451612903,
+          "top10": 0.03225806451612903,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 82
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 54
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 46
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 21
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 20
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 20
+        },
+        {
+          "r1": "SOURCEOF",
+          "r2": "KINDOF",
+          "n": 17
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 15
+        },
+        {
+          "r1": "HABITAT",
+          "r2": "KINDOF",
+          "n": 10
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "AFFORDANCES",
+          "n": 6
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "SOURCEOF",
+      "seed": 7,
+      "n_heldout_heads": 46,
+      "n_pool": 93,
+      "base_rate": 0.010752688172043012,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.021739130434782608,
+          "top10": 0.06521739130434782,
+          "coverage": 0.06521739130434782
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.10869565217391304,
+          "top10": 0.15217391304347827,
+          "coverage": 0.15217391304347827
+        },
+        "FREQ": {
+          "top1": 0.08695652173913043,
+          "top10": 0.21739130434782608,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.021739130434782608,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.021739130434782608,
+          "top10": 0.043478260869565216,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 112
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 67
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 64
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 63
+        },
+        {
+          "r1": "REQUIRES",
+          "r2": "KINDOF",
+          "n": 37
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 22
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 20
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 17
+        },
+        {
+          "r1": "SYNONYMY",
+          "r2": "KINDOF",
+          "n": 14
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 13
+        },
+        {
+          "r1": "USEDFOR",
+          "r2": "KINDOF",
+          "n": 12
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "SOURCEOF",
+      "seed": 13,
+      "n_heldout_heads": 46,
+      "n_pool": 93,
+      "base_rate": 0.010752688172043012,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.021739130434782608,
+          "top10": 0.06521739130434782,
+          "coverage": 0.06521739130434782
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.10869565217391304,
+          "top10": 0.15217391304347827,
+          "coverage": 0.15217391304347827
+        },
+        "FREQ": {
+          "top1": 0.08695652173913043,
+          "top10": 0.21739130434782608,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.021739130434782608,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.06521739130434782,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 112
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 67
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 64
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 63
+        },
+        {
+          "r1": "REQUIRES",
+          "r2": "KINDOF",
+          "n": 37
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 22
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 20
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 17
+        },
+        {
+          "r1": "SYNONYMY",
+          "r2": "KINDOF",
+          "n": 14
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 13
+        },
+        {
+          "r1": "USEDFOR",
+          "r2": "KINDOF",
+          "n": 12
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "SOURCEOF",
+      "seed": 19,
+      "n_heldout_heads": 46,
+      "n_pool": 93,
+      "base_rate": 0.010752688172043012,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.021739130434782608,
+          "top10": 0.06521739130434782,
+          "coverage": 0.06521739130434782
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.10869565217391304,
+          "top10": 0.15217391304347827,
+          "coverage": 0.15217391304347827
+        },
+        "FREQ": {
+          "top1": 0.08695652173913043,
+          "top10": 0.21739130434782608,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0,
+          "top10": 0.021739130434782608,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.021739130434782608,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 112
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 67
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 64
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 63
+        },
+        {
+          "r1": "REQUIRES",
+          "r2": "KINDOF",
+          "n": 37
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 28
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 22
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 20
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 17
+        },
+        {
+          "r1": "SYNONYMY",
+          "r2": "KINDOF",
+          "n": 14
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 13
+        },
+        {
+          "r1": "USEDFOR",
+          "r2": "KINDOF",
+          "n": 12
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "PARTOF",
+      "seed": 7,
+      "n_heldout_heads": 41,
+      "n_pool": 139,
+      "base_rate": 0.007194244604316547,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.04878048780487805,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.04878048780487805,
+          "top10": 0.04878048780487805,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 108
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 92
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 65
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 32
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 26
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 25
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 23
+        },
+        {
+          "r1": "USEDFOR",
+          "r2": "KINDOF",
+          "n": 21
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 18
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "EXAMPLES",
+          "n": 17
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 17
+        },
+        {
+          "r1": "SYNONYMY",
+          "r2": "KINDOF",
+          "n": 12
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "PARTOF",
+      "seed": 13,
+      "n_heldout_heads": 41,
+      "n_pool": 139,
+      "base_rate": 0.007194244604316547,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.04878048780487805,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.04878048780487805,
+          "top10": 0.04878048780487805,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 108
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 92
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 65
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 32
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 26
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 25
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 23
+        },
+        {
+          "r1": "USEDFOR",
+          "r2": "KINDOF",
+          "n": 21
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 18
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "EXAMPLES",
+          "n": 17
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 17
+        },
+        {
+          "r1": "SYNONYMY",
+          "r2": "KINDOF",
+          "n": 12
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "PARTOF",
+      "seed": 19,
+      "n_heldout_heads": 41,
+      "n_pool": 139,
+      "base_rate": 0.007194244604316547,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "FREQ": {
+          "top1": 0.0,
+          "top10": 0.04878048780487805,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.04878048780487805,
+          "top10": 0.04878048780487805,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 108
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 92
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 65
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 32
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 26
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 25
+        },
+        {
+          "r1": "CONTAINS",
+          "r2": "KINDOF",
+          "n": 23
+        },
+        {
+          "r1": "USEDFOR",
+          "r2": "KINDOF",
+          "n": 21
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 18
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "EXAMPLES",
+          "n": 17
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "USEDFOR",
+          "n": 17
+        },
+        {
+          "r1": "SYNONYMY",
+          "r2": "KINDOF",
+          "n": 12
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "USEDFOR",
+      "seed": 7,
+      "n_heldout_heads": 80,
+      "n_pool": 238,
+      "base_rate": 0.004201680672268907,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0125,
+          "top10": 0.05,
+          "coverage": 0.05
+        },
+        "FREQ": {
+          "top1": 0.0125,
+          "top10": 0.1,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0375,
+          "top10": 0.05,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 152
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 99
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 82
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 31
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 29
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "EXAMPLES",
+          "n": 24
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 23
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "REQUIRES",
+          "n": 23
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "KINDOF",
+          "n": 19
+        },
+        {
+          "r1": "REQUIRES",
+          "r2": "KINDOF",
+          "n": 19
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 17
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 14
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "USEDFOR",
+      "seed": 13,
+      "n_heldout_heads": 80,
+      "n_pool": 238,
+      "base_rate": 0.004201680672268907,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0125,
+          "top10": 0.05,
+          "coverage": 0.05
+        },
+        "FREQ": {
+          "top1": 0.0125,
+          "top10": 0.1,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0375,
+          "top10": 0.05,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 152
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 99
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 82
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 31
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 29
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "EXAMPLES",
+          "n": 24
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 23
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "REQUIRES",
+          "n": 23
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "KINDOF",
+          "n": 19
+        },
+        {
+          "r1": "REQUIRES",
+          "r2": "KINDOF",
+          "n": 19
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 17
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 14
+        }
+      ]
+    },
+    {
+      "corpus": "worldtree",
+      "relation": "USEDFOR",
+      "seed": 19,
+      "n_heldout_heads": 80,
+      "n_pool": 238,
+      "base_rate": 0.004201680672268907,
+      "depth": 4,
+      "min_isa_deg": 2,
+      "arms": {
+        "COMPOSE_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "COMPOSE_ANY2HOP": {
+          "top1": 0.0125,
+          "top10": 0.05,
+          "coverage": 0.05
+        },
+        "FREQ": {
+          "top1": 0.0125,
+          "top10": 0.1,
+          "coverage": 0.0
+        },
+        "FLAT": {
+          "top1": 0.0375,
+          "top10": 0.05,
+          "coverage": 0.0
+        },
+        "STORE_RECALL_FLOOR": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        },
+        "SHUFFLED_INHERIT": {
+          "top1": 0.0,
+          "top10": 0.0,
+          "coverage": 0.0
+        }
+      },
+      "genuine_cross_frac_inherit": 1.0,
+      "genuine_cross_frac_any2hop": 1.0,
+      "path_len_dist": {},
+      "top_relpairs_any2hop": [
+        {
+          "r1": "KINDOF",
+          "r2": "KINDOF",
+          "n": 152
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "REQUIRES",
+          "n": 99
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SYNONYMY",
+          "n": 82
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CAUSE",
+          "n": 31
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "SOURCEOF",
+          "n": 29
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "EXAMPLES",
+          "n": 24
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "MADEOF",
+          "n": 23
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "REQUIRES",
+          "n": 23
+        },
+        {
+          "r1": "PARTOF",
+          "r2": "KINDOF",
+          "n": 19
+        },
+        {
+          "r1": "REQUIRES",
+          "r2": "KINDOF",
+          "n": 19
+        },
+        {
+          "r1": "MADEOF",
+          "r2": "KINDOF",
+          "n": 17
+        },
+        {
+          "r1": "KINDOF",
+          "r2": "CONTAINS",
+          "n": 14
+        }
+      ]
+    }
+  ],
+  "config": {
+    "run_mode": "full",
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "topk": 10,
+    "depth": 4,
+    "min_isa_deg": 2,
+    "tasks": [
+      [
+        "wordnet",
+        [
+          "DERIV",
+          "PART_MERONYM",
+          "MEMBER_MERONYM",
+          "ATTRIBUTE"
+        ],
+        120
+      ],
+      [
+        "worldtree",
+        [
+          "CONTAINS",
+          "REQUIRES",
+          "SOURCEOF",
+          "PARTOF",
+          "USEDFOR"
+        ],
+        120
+      ]
+    ]
+  }
+}
