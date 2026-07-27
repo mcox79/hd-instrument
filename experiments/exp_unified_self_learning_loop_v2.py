@@ -998,14 +998,29 @@ def main():
     if args.self_test:
         self_test()
         return
-    cfg = dict(FULL_CFG if args.full else SMOKE_CFG)
+    # Run-mode resolution: the production runner (runner_v2_prod) invokes the script BARE and signals
+    # FULL scope via HDLAB_RUN_MODE=full (it passes NO CLI flags). Honor that so a queue-dispatched run
+    # loads the ckpt + FULL_CFG instead of silently falling to SMOKE (SCRIPT_PRECONDITION_VIOLATION).
+    env_mode = os.environ.get("HDLAB_RUN_MODE", "").lower()
+    is_full = bool(args.full or (env_mode == "full" and not args.smoke))
+    cfg = dict(FULL_CFG if is_full else SMOKE_CFG)
     if args.seed is not None:
         cfg["seed"] = args.seed
+    # ckpt resolution: explicit --ckpt wins; else FULL auto-resolves the seed's v2 checkpoint (the
+    # comprehension engine). SMOKE trains a tiny fresh encoder (ckpt=None). Fail LOUD if FULL + missing.
+    ckpt_path = args.ckpt
+    if is_full and not ckpt_path:
+        ckpt_path = os.path.join(_REPO, "data", "exp_scale_meaning_learn_arc_heldout_v2",
+                                 "ckpt_seed_%d.pt" % cfg["seed"])
+    if is_full and not (ckpt_path and os.path.exists(ckpt_path)):
+        raise RuntimeError("FULL run requires the v2 comprehension-engine checkpoint; not found at %r "
+                           "(pass --ckpt or stage data/exp_scale_meaning_learn_arc_heldout_v2/"
+                           "ckpt_seed_%d.pt)" % (ckpt_path, cfg["seed"]))
     out_dir = _out_dir(cfg["run_mode"])
     _write_start_marker(out_dir, cfg["run_mode"], expected_units=len(ARMS) * cfg["n_cycles"])
     t0 = time.perf_counter()
-    _log("RUN START run_mode=%s" % cfg["run_mode"])
-    payload = run_full(cfg, out_dir, args.ckpt)
+    _log("RUN START run_mode=%s ckpt=%s" % (cfg["run_mode"], ckpt_path))
+    payload = run_full(cfg, out_dir, ckpt_path)
     elapsed = time.perf_counter() - t0
     payload["elapsed_s"] = round(elapsed, 3)
     final = _write_metrics(out_dir, payload, elapsed)
@@ -1014,8 +1029,16 @@ def main():
 
 
 if __name__ == "__main__":
-    _od = _out_dir(FULL_CFG["run_mode"] if "--full" in sys.argv else
-                   (SMOKE_CFG["run_mode"] if "--smoke" in sys.argv else "selftest"))
+    if "--self-test" in sys.argv:
+        _mode = "selftest"
+    elif "--full" in sys.argv or (os.environ.get("HDLAB_RUN_MODE", "").lower() == "full"
+                                  and "--smoke" not in sys.argv):
+        _mode = "full"
+    elif "--smoke" in sys.argv:
+        _mode = "smoke"
+    else:
+        _mode = "selftest"
+    _od = _out_dir(_mode)
     try:
         main()
     except SystemExit:
