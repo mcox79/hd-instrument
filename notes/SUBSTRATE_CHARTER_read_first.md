@@ -7,7 +7,7 @@ Build a glass-box VSA/HDC substrate you can CONVERSE with that genuinely REASONS
 
 ## INVARIANTS (never violate — this is what "brain-true" means here)
 1. **Glass-box:** reasoning is inspectable; NO external LLM at inference.
-2. **No borrowed embedding** (GloVe / BGE / any transformer vector) as the meaning organ. The substrate EARNS meaning — error-driven, grounded, internal self-teacher.
+2. **No borrowed embedding** (GloVe / BGE / any transformer vector) as the meaning organ, AND **no bolt-on existing reader/parser** (situation_reader, spaCy, external NLP) as the comprehension organ (USER 07-27: "EVERY time you used an existing reader it was a disaster"). The substrate EARNS meaning AND comprehension itself — error-driven, its own learned mechanism. Supplying KNOWLEDGE/DATA (CSKG, grounding norms) is fine; supplying the MEANING or COMPREHENSION mechanism is the forbidden shortcut.
 3. **Brain = existence proof + reference standard.** It does this, so it IS achievable. A shortfall is NEVER a ceiling: on every negative, evaluate the difference between what we do and how the BRAIN does it, and iterate toward the brain's mechanism. Do NOT be defeatist; do NOT lead with fail-odds.
 4. **VET every load-bearing verdict** before treating it as fact (the Director over-reads positives — the VET is the guardrail; separate MEASURED from READ).
 5. **Check prior work FIRST, on the FILESYSTEM** (experiments/ + data/*/metrics.json + atoms), not just KB cosine-query — we have done a LOT; build on it, don't reinvent.
