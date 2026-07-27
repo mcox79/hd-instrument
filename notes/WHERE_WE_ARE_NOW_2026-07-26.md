@@ -1,48 +1,41 @@
-# WHERE WE ARE NOW — clean current state (tier 3; REWRITE this each session, keep tight) — 2026-07-26 (updated PM)
+# WHERE WE ARE NOW — clean current state (tier 3; REWRITE each session, keep tight) — updated 2026-07-27 ~15:30Z
 
-## Direction (authoritative — read these FIRST)
-1. GOAL/invariants/anti-drift: `notes/SUBSTRATE_CHARTER_read_first.md`
-2. The plan: `notes/THE_PLAN_learned_grounded_representation_foundation_2026-07-26.md` (now encodes the CLS KNOWLEDGE-ACQUISITION ARCHITECTURE: seed -> read -> sleep, coupled to the self-teacher)
-3. Conversion scoping + blueprint anchors: `notes/kb_foundation_conversion_scoping_2026-07-26.md`, `notes/cskg_commonsense_core_kcore_density_gate_2026-07-10.md`
+## Direction (read FIRST)
+1. GOAL + invariants + anti-drift: `notes/SUBSTRATE_CHARTER_read_first.md`
+2. The plan: `notes/THE_PLAN_learned_grounded_representation_foundation_2026-07-26.md`
+3. This = the live snapshot. (Charter+plan govern; this is what changed.)
 
-## THE ARCHITECTURE (USER-directed 2026-07-26) — CLS end-to-end
-SEED the cortex from large relational KBs -> READ new material (hippocampal fast-write) -> SLEEP consolidates into the foundation. The optimized relational foundation is ALSO the R3/R4 self-teacher's training signal (a concept earns meaning from its relational neighborhood). One loop, not two phases.
+## THE GOAL (one line)
+A glass-box VSA/HDC substrate you can CONVERSE with that genuinely REASONS, by EARNING its meaning + knowledge the brain's way (no borrowed embeddings, no external LLM at inference). Architecture = CLS: SEED a foundation from relational KBs -> READ new material -> SLEEP-consolidate. Coupled to a LEARNED grounded representation.
 
-## CURRENT FOCUS / STATUS (the frontier)
-**LAYER 2 (KNOWLEDGE) seed = LANDED this session.** `cskg_foundation_v1` (data/cskg_foundation_v1/, 258MB, gitignored/local): CSKG cross-cutting spine = **482,588 nodes / 1,238,686 typed edges** (16 shards + 24,774 held-out), 79.1% lexical dilution stripped, canonicalized (lemma sense-merge), grounded (Lancaster/concreteness/VAD/AoA on ~41k single-token nodes, honest 5.25% partial), dense 12-14 k-core flagged (`is_dense_core`), hd_fact_store PLAIN-filler schema (NO borrowed vectors). Can-fail gate HARD_PASS: relation-reconstruction real 0.696 vs shuffle 0.237 vs base 0.259 (pre-registered, control collapses). Cell exp_cskg_foundation_v1.py + prereg committed; artifact gitignored.
-**Director VET (on disk) = CLEAN** (blueprint match, no borrowed vectors, held-out disjoint 0/3000, gate numbers confirmed in metrics). Independent skunkworks landed-VET IN FLIGHT (aa214747) — recompute gate + spine integrity + banking decision.
+## ✅ CONFIRMED + BANKED (do NOT rebuild; all VET'd, local-only store, tail=29590)
+- **Knowledge FOUNDATION** `cskg_foundation_v1` (data/cskg_foundation_v1/, gitignored 258MB): 482,588 concepts / 1.24M typed edges from CSKG cross-cutting spine, cleaned/canonicalized/grounded (Lancaster/concreteness/VAD/AoA), dense 12-14 k-core flagged, glass-box, NO borrowed vectors. VET-CONFIRM HARD_PASS, **seq 29585**.
+- **Ingest fixed + VERIFIED**: director-KB continuous ingest was failing (WinError 1450) -> resilient + bounded; full clean pass = 2.83M triples, 0 new failures. Substrate-as-memory is queryable (tools/director_kb_query.py) — search via query, NOT grep (notes/ has 26k files).
+- **Relational-inference WIN** (banked **29587/88/89**, VET-confirmed leak-proof + adversarial shuffle-control): the LEARNED encoder does GENUINE inductive relational inference on held-out-NEW concepts — beats grounding-homophily +0.108 & non-learned 2-hop +0.093; survives 1-edge context (dose-response +0.068->+0.112 = reasoning theory: resolution scales with #constraints); holds TWO-NEW-CONCEPT (+0.117/+0.073); scales with data. Modest absolute (~0.65) but real. Contradicts "VSA recalls-not-invents" prior.
+- **Local decision-time REASONING space MAPPED + EXHAUSTED** (3 honest negatives: depth-FLAT, reasoner-combiner-WORSE, chain-through-hidden-intermediate-FLAT): composition already lives IN the learned representation at encode-time (distributed coding, brain-true); bolting reasoning on top adds nothing. => the lever is REPRESENTATION QUALITY (data/scale), not reasoning tricks.
+- **SCALE PARTIAL WIN** (banked **29590**, VET-confirmed leak-proof): from-scratch encoder (OUR own, 237M-token ARC, no borrowed vectors) LEARNED real meaning (+0.10 over random-init) and TEXT-ALONE beats grounding **+0.039 on held-out-NEW SEMANTIC** (both seeds, controls at chance). FIRST time learning beats the grounding ceiling on new-concept generalization. Scale WORKS + is DATA-LIMITED (more data grows it). The run's "TIE_NULL" headline was a FUSION ARTIFACT (naive 50/50 fused < text-alone); tiered MM pending a fusion-fixed re-run.
 
-## What's DONE (banked / landed — do NOT rebuild)
-- **KNOWLEDGE seed:** cskg_foundation_v1 (above). Full raw KBs on disk: ConceptNet 5.7 (498MB), CSKG (112MB), ATOMIC v4. Grounding norms in data/grounding_testbed/ (Binder NOT on disk; Lancaster is our experiential set).
-- **Learned-rep MECHANISM (synthetic):** Stage-1 SEMANTIC concept-learner battery CHAIN_GRADE; Stage-2 spokes HARD_PASS (competitive-Hebbian, temporal-contiguity, sparse-DG-CA3, predictive-coding). hdlab/concept_encoder.py.
-- **Encoder R1 intel (for next step):** v4_joint_reverify_relock = HARD_PASS dense~0.90 mid-scale via in-batch RKD; teacher-free start point = teacher_free_relational_encoder_cn_subgraph_v1 (RKD-only; NCE is a geometry-corruptor). Open gaps = full-178k scale + teacher-free weaning.
-- **Reader+sleep loop (prototype):** situation_reader + clarify_gate + condenser + learner(MDL sleep) = exp_ingest_learn_sleep_loop_cycle1 CYCLE_COMPLETE; p4_replay_consolidation HARD_PASS. Not yet KB-scale. (CLIMB is a retrieval-QA benchmark, NOT a reader.)
-- **Reasoning:** verification-by-derivation reasoner hdlab/reasoner.py.
-- **Infra:** sharded CG store hdlab/hd_fact_store.py (trust/provenance schema); director-KB ingest hdlab/director_kb.py (indexes 16k notes/2.66M triples = the substrate IS our searchable memory — query via tools/director_kb_query.py, NOT grep).
+## 🔬 IN FLIGHT (right now)
+- **SCALE v2** (remote GPU): clean-win promotion — learned-gate fusion (primary beats grounding?) + text-alone on the RELATIONAL headroom bar (unmeasured in v1) + SAVES checkpoint. Reproduces v1 exactly. Landing-watch Monitor b4u5jy9ot. Metrics -> data/exp_scale_meaning_learn_arc_heldout_v2/metrics.json.
+- **SELF-LEARNING LOOP v1** (local CPU, on the REAL seed-7 encoder ckpt): the decisive test — does the substrate LEARN+IMPROVE from reading real prose? Mechanism VALIDATED at smoke (loop runs; SLEEP FIRES EVERY CYCLE [the old cycle2 bug FIXED]; comprehension real = real prose beats scrambled +0.05-0.07; controls clean). Knowledge-gain-across-cycles = the open question (tiny-smoke encoder regressed by averaging; real encoder is the test). Monitor b8u7gvdhx. Cell exp_unified_self_learning_loop_v1.py (636e3531e).
 
-## Fixed this session
-- **Director-KB continuous ingest** was failing on WinError 1450 (resource exhaustion over ~26k files) -> FIXED (bab7b0f00): resilient (skip+log bad/locked files, no abort), bounded handles, noise-exclusion. Resilience PROVEN; full clean-pass verification running detached (PID 14392) under Monitor b4wf8nlba.
-- Docs: THE_PLAN now encodes the CLS architecture + corrects Binder->Lancaster + surfaces grounding-arc assets; superseded banners on old plans; tangent doc banner-flagged. Optimal-state audit GREEN (notes/optimal_state_review_2026-07-26.md).
+## 🧠 THE SELF-LEARNING LOOP = the current frontier (USER-directed 2026-07-27)
+Ingestion had been BYPASSING the reader (scale run fed the encoder only). CORRECTION: every corpus feeds BOTH the encoder (representation) AND the reader (read->flag-unknowns->extract->SLEEP-consolidate into foundation). The trained encoder is the reader's comprehension engine (it was previously blocked on having none). STANDING: use ALL capabilities in every experiment; the substrate learns from all exposure — but VALIDATE the loop improves consistently BEFORE scaling it wide.
 
-## In flight (read on resume)
-- skunkworks landed-VET of cskg_foundation_v1 = **aa214747** (recompute gate, spine integrity, banking decision).
-- ingest full clean-pass verification = detached PID 14392, Monitor b4wf8nlba.
-- background commit of foundation cell/prereg = bash b1skog5qw.
+## ✅ LOOP-V2 FIX RECIPE READY (if loop v1 regresses — likely, it uses plain averaging)
+From drill (notes/drill_brainfaithful_consolidation_for_read_sleep_loop_2026-07-27.md) + scour (notes/scour_prior_consolidation_fusion_selflearning_2026-07-27.md) — MOSTLY REUSE, not new research:
+- CONSOLIDATION (replace plain mention-averaging, which dilutes to centroid via noise + anisotropy): **CA3-completion-before-write** (prior HARD_PASS, retention 0.933 vs 0.020) AND/OR precision-weighted Kalman update + common-mode/anisotropy subtraction (need BOTH: precision fixes noise, common-mode fixes centroid-collapse).
+- FUSION (naive 50/50 dilutes): **learned convex gate** (prior HARD_PASS, +0.23 MRR).
+- REAL RISK (the deeper one): reader knowledge-OVERRIDE net-HURTS cold-transfer across 3 prior tests -> needs a **COVERAGE-AWARE OVERRIDE GATE** (new read-knowledge overrides only when high-confidence/high-coverage; else defer to existing).
 
-## Store
-Banked 29560-29584 LOCAL-only; cert ledger tail 29584. NO push / NO remote-persist without in-session USER auth. cskg_foundation_v1 atom may be banked by skunkworks VET (local-only).
+## NEXT (in order)
+1. Loop v1 lands -> VET (knowledge-gain genuine? sleep fired? controls? leak-proof?). 
+2. Build loop-v2: CA3-completion consolidation + learned-gate fusion + coverage-aware override gate. Validate CONSISTENT improvement (monotone-ish, sleep-fires, retention held, controls flat) on REAL prose.
+3. v2 scale lands -> VET clean-win (fusion-fixed primary beats grounding + relational headroom answered) -> promote 29590 MM to clean win.
+4. Then BREADTH: Simple English Wikipedia (~150-400M tok, clean, one-line HF download) THROUGH the loop (feeds encoder+reader), then web/books/dialogue. Plan: notes/breadth_corpus_expansion_plan_2026-07-27.md. Insight: ARC gap is REGISTER not presence.
 
-## ENCODER ARC RESULT (v1->v2->v3, VET'd — read honestly, do NOT over-read)
-Teacher-free inductive encoder self-teaching from cskg_foundation_v1, judged on held-out-NEW-concept.
-- v1 (grounding-only): HARD_FAIL (lost to popularity). v2 (+mean-pool relational context, degree-matched eval): MIDDLE_BAND (beat popularity, tied structure). v3 (+neighbor-identity codes, stratified eval): the "beats Adamic-Adar +0.234 on structure-poor" headline was a **CONSTRUCTION ARTIFACT** (poor-slice = 0-shared-neighbours pins AA<=0.5 by construction). **Skunkworks DOWNGRADE, banked seq 29586 MEASURED_MECHANISM.**
-- **What is REAL (3-seed stable):** grounded encoder places novel concepts above popularity (+0.165) and collapse (+0.18), BUT **learning adds only +0.043 over RAW grounding norms** — the raw Lancaster/concreteness/VAD/AoA carry the signal; the learned self-teacher barely helps; v3's identity mechanism REGRESSED. The whole mechanism arc added ~nothing.
-- SCOPE: modest real novel-concept signal from grounding; LEARNING does not yet earn meaning beyond the input norms; "generalizes where structure can't" NOT established.
+## PROCESS FIXES (bake into cell template — cost us this session)
+checkpoint-ALWAYS (v1 no-save forced a 6h retrain); design the FULL eval up front (all arms + right fusion, not naive 50/50 keyed as primary); pre-flight dependency check (gitignored data didn't travel -> gate-fail).
 
-## Reader+sleep (Track B, VET-pending)
-cls_read_sleep_foundation_acquire_v1 FULL HARD_PASS but acquisition text was TEMPLATED from held-out triples = plumbing+stability demo (read->episodic->sleep->semantic pipeline + trust-gated interference-resistance are REAL), NOT comprehension. Next: real prose + independent extractor (hdlab/situation_reader).
-
-## Immediate next (the frontier — full-auto)
-1. IN FLIGHT (af0723e5): **R1 graded-semantic-geometry encoder** (Rogers-McClelland differentiation, teacher-free) judged on SEMANTIC-NEIGHBOURHOOD generalization (WordNet category) — the untried load-bearing lever. THE bar = does LEARNING beat RAW GROUNDING on new concepts (grow +0.043). If not, honest evidence of an INPUT-CEILING (grounding+1-hop-relational insufficient -> need richer input), not an objective tweak.
-2. Track B real-prose extraction to test comprehension.
-3. Reader+sleep KB-scale.
-CHECK prior work FILESYSTEM-first (query the substrate KB, not grep). Brain-first, can-fail, VET every load-bearing verdict; DO NOT over-read positives (v3 was over-read, VET caught it).
+## STORE / DISCIPLINE
+Tail 29590, LOCAL-ONLY (needs_orchestrator_store_sync), NO push without in-session USER auth. A CONCURRENT session may be live (only stop/kill what THIS session spawned). VET every load-bearing verdict — 3 tempting positives were killed by VET this session; do NOT over-read. Brain = existence proof; on every negative, evaluate the difference vs the brain and iterate.

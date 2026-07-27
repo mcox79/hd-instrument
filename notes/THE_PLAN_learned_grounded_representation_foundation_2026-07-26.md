@@ -1,5 +1,7 @@
 # THE PLAN — Learned Grounded Representation Foundation → Reasoning Substrate (AUTHORITATIVE, consolidated 2026-07-26)
 
+> **STATUS UPDATE 2026-07-27 (see WHERE_WE_ARE_NOW for live detail):** "THE BLOCKER" below (encoder doesn't scale) is now PARTIALLY OVERCOME — the from-scratch encoder trained on 237M real tokens BEATS grounding +0.039 leak-proof on held-out-NEW concepts (banked 29590); scale WORKS + is data-limited. Learned relational inference GENERALIZES to unseen concepts (29587/88/89). Foundation built + VET'd (29585). CURRENT FRONTIER = the SELF-LEARNING LOOP (read->extract->sleep-consolidate->improve) on the trained encoder + breadth ingestion THROUGH the reader. The R1-R5 framing below is HISTORY of how we got here; the plan's spine (learn meaning the brain's way, CLS seed->read->sleep) holds.
+
 **Supersedes/reconciles:** foundation_build_plan_2026-07-14, encoder_rescue_plan_converged_diagnosis_2026-07-04, director_MASTER_PLAN_2026-06-25 + stage1/stage2 design notes, the 2026-07-25 phase commitment, and the 2026-07-26 inference-arc (a TANGENT, see Conflicts). This is the one clear plan. USER-reaffirmed 2026-07-26: commit to the learned grounded representation foundation, brain-true, no shortcuts.
 
 ## NORTH STAR
