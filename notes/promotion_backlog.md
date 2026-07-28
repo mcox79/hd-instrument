@@ -1,3 +1,10 @@
+> **SUPERSEDED (2026-07-28, testbed):** This file's checkboxes ROTTED -- disk-verified
+> 2026-07-28 that P1 (`hdlab/typed_rule_parser.py`) and P5 (`hdlab/reasoner.py`) both
+> landed on 2026-07-25 while their boxes here are still unchecked. Current SSOT for
+> gate decisions: `data/capability_registry.jsonl`, auto-audited by
+> `tools/capability_registry_audit.py` (status is computed from the import graph, not
+> hand-checked). Kept for historical reference / the still-open housekeeping items only.
+
 # Promotion backlog — proven capabilities to WIRE into hdlab (owner: hdi_testbed)
 
 A capability is DONE when WIRED into hdlab + discoverable, NOT when its atom is banked.

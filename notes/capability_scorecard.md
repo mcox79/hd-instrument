@@ -1,6 +1,15 @@
 # Substrate Capability Scorecard
 
-> **TRACKING SSOT NOTE (locked 2026-06-07):** This file = research-side cycle-by-cycle synthesis. Live append-updated log = `substrate_capability_map_history.md` tail. Full per-anchor annotations = `strategy_decisions_<date>.md` tail. **STALE:** `substrate_capability_map.md` (not rewritten after cycle 146). Process reference: `research_drill_disparate_fields_substrate_capability_plus_process_2x_2026-06-05.md`.
+> **SUPERSEDED (2026-07-28, testbed):** Both this file AND the
+> `substrate_capability_map.md` / `promotion_backlog.md` line of hand-kept tracking
+> docs below are RETIRED as the SSOT (checkboxes rotted -- e.g. promotion_backlog.md's
+> P1/P5 boxes were still unchecked 2026-07-28 despite `hdlab/typed_rule_parser.py` and
+> `hdlab/reasoner.py` having existed on disk since 2026-07-25). Current SSOT:
+> `notes/capability_integration_ledger_2026-07-28.md` + `data/capability_registry.jsonl`
+> (machine-audited via `tools/capability_registry_audit.py`; query via
+> `tools/capability_registry_query.py`). Kept for historical reference only.
+
+> **TRACKING SSOT NOTE (locked 2026-06-07, HISTORICAL):** This file = research-side cycle-by-cycle synthesis. Live append-updated log = `substrate_capability_map_history.md` tail. Full per-anchor annotations = `strategy_decisions_<date>.md` tail. **STALE:** `substrate_capability_map.md` (not rewritten after cycle 146). Process reference: `research_drill_disparate_fields_substrate_capability_plus_process_2x_2026-06-05.md`.
 
 **Research-side synthesis of validated substrate capabilities.** Living document; update per drill/experiment landing.
 

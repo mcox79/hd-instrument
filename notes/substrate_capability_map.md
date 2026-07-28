@@ -1,5 +1,17 @@
 # hd-instrument substrate -- capability map v596
 
+> **SUPERSEDED (2026-07-28, testbed):** This file is a manually-maintained doc and
+> rotted (last real content update pre-dates 2026-07-08; the pattern it exhibits --
+> hand-kept tracking doc goes stale, capability gets rediscovered/islanded -- is the
+> exact failure this note documents its own replacement for). Current SSOT:
+> `notes/capability_integration_ledger_2026-07-28.md` (the human-readable WIRE/SHELVE
+> narrative) + `data/capability_registry.jsonl` (the machine-readable, auto-audited
+> gate-decision registry; status is COMPUTED via `tools/capability_registry_audit.py`,
+> not hand-typed, so it can't silently rot the same way). Query it via
+> `python tools/capability_registry_query.py` or `director_kb_query.py
+> --source-class=capability_registry`. This file is kept for historical reference only
+> -- not load-bearing for current positioning.
+
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
 we had it.
