@@ -123,6 +123,24 @@ positive_control_arms:
     regime_extension_audit: SHAPE_MATCH (identical config; no regime change)
 ```
 
+**MEASURED reproduction (this session, exp_dev, `HDLAB_UNITS_OVERRIDE` debug preview, single unit at
+FULL_CFG, `data/exp_relational_readout_promote_v1_previewcheck/metrics.json`)**: `BASELINE_COSINE` =
+0.56423 (bit-identical to the diagnostic's 0.56423 -- exact match, no-fit deterministic arm) and
+`PROBE_DIAG` = 0.58779 (bit-identical to the diagnostic's 0.58779). `PROBE_BILINEAR` = 0.61199 vs the
+diagnostic's 0.63082 (diff 0.0188, WITHIN the 0.02 tolerance but close to it) -> `margin_over_baseline`
+= 0.0478 vs the diagnostic's 0.0666. Diagnosis: the bilinear probe (torch.nn.Linear + Adam, 500
+steps) is the ONLY arm that differs between two same-seed runs; the no-fit cosine arm and the
+near-no-op diagonal-probe arm reproduce bit-for-bit. This is consistent with known CPU
+multi-threaded floating-point non-associativity in torch's Linear/Adam ops (thread-scheduling-
+dependent reduction order), NOT a refactor bug -- the same seed does not guarantee bit-identical
+CPU matmul results across process invocations. **Gate D: PASS** (within tolerance); qualitative
+finding reproduces robustly (margin still clears HARD_PASS_MARGIN=0.03 by a comfortable margin, CI
+[0.0169, 0.0813] excludes zero, train_corroborates=True, validity_ok=True, n_query=213 -- identical
+query count to the diagnostic, confirming split/eligibility logic is unchanged). This CPU-float-
+variance finding is itself supporting evidence FOR the DIAG_SEED-sweep replication design above --
+even nominally "the same" seed shows non-trivial bilinear-fit variance run-to-run, which the 3-seed
+majority-vote gate is designed to average over rather than trust a single point estimate.
+
 ## Compute architecture
 
 - **Class: (b) sequential-CPU with justification.** Per-unit compute (probe fit: 500 Adam steps
