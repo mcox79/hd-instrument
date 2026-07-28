@@ -499,12 +499,34 @@ def build_state() -> dict:
     # (no web server, no per-refresh SSH) whenever the web feed is absent/stale.
     cache = _load_json(CACHE) if CACHE.is_file() else None
     cache_age = _file_age_s(CACHE)
+    # PAYLOAD age = age of the snapshot_ts the REMOTE emitter stamped INTO the file,
+    # independent of the local file mtime. This closes the false-fresh masking hole:
+    # if the remote emitter freezes but its file still exists, the local SCP pull keeps
+    # copying the SAME frozen-payload file every 30s -- refreshing the local file MTIME
+    # while snapshot_ts stays frozen. Keying freshness off mtime alone would then report
+    # the cache as live while the queue/GPU/verdict payload is actually stale (the exact
+    # blindness that hid a remote CELL_CRASHED for hours 2026-07-17..28). We therefore
+    # require BOTH the file mtime AND the payload snapshot_ts to be fresh. snapshot_ts is
+    # naive-remote-local; snapshot_ts_utc (offset-aware) is preferred when present.
+    payload_age = None
+    if isinstance(cache, dict):
+        payload_age = _naive_or_utc_age_s(
+            cache.get("snapshot_ts_utc") or cache.get("snapshot_ts")
+        )
     cache_fresh = (isinstance(cache, dict) and cache_age is not None
-                   and cache_age <= CACHE_STALE_S)
+                   and cache_age <= CACHE_STALE_S
+                   and payload_age is not None and payload_age <= CACHE_STALE_S)
     if cache_age is not None and cache_age > CACHE_STALE_S:
         alerts.append({"level": "WARN", "code": "CACHE_STALE",
                        "msg": f"remote_state_cache {int(cache_age)}s old "
                               f"(> {int(CACHE_STALE_S)}s); emitter/SCP-back may be dead"})
+    elif payload_age is not None and payload_age > CACHE_STALE_S:
+        # File mtime is fresh but the payload snapshot_ts is stale -> false-fresh.
+        alerts.append({"level": "CRITICAL", "code": "PAYLOAD_STALE",
+                       "msg": f"remote_state_cache FILE is fresh ({int(cache_age or 0)}s) but its "
+                              f"snapshot_ts payload is {int(payload_age)}s old "
+                              f"(> {int(CACHE_STALE_S)}s); remote emitter frozen while SCP keeps "
+                              f"re-copying the same stale file -- queue/GPU/verdict state is NOT live"})
 
     # --- Dashboard live view (GPU truth + feed freshness) ---
     # The web dashboard (localhost:8765) is DEPRIORITIZED (USER monitors via the Tk
