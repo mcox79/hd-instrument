@@ -1,0 +1,62 @@
+---
+name: research_drill_does_brain_composition_beat_semantic_similarity_2026-07-22
+description: "Adversarial brain-check on the refuted 29440 finding (learned-loop = WordNet-hypernym similarity-kNN in disguise): is 'beat semantic similarity' a brain-faithful CG bar, or does the brain also just do similarity/analogy -- explicit test against the Director's repeated mis-specification pattern"
+metadata:
+  node_type: memory
+  type: reference
+  originSessionId: 02e8b04e-1164-42ee-b96d-ac16726a826a
+---
+
+**Context:** Brain-check on atom 29440 (linear Hebbian loop W += vk^T analytically reduces to a WordNet-hypernym-similarity vote; parameter-free similarity-kNN control matched it 70/70 -- "learned composition" was structured-lookup, not a learned rule). Builds on `research_drill_puns_multiple_interpretation_learned_composition_2026-07-22.md`, `research_drill_is_learned_not_algebra_free_CG_bar_coherent_2026-07-22.md`, `research_drill_compositional_generalization_role_binding_brain_mechanism_2026-07-21.md`.
+
+## HEADLINE
+
+**The beat-similarity bar is BRAIN-FAITHFUL. The strong case for "brain genuinely goes beyond similarity" does NOT fail** -- it clears on four independent, converging, well-established lines of evidence, one of which (Marcus et al. 1999) is a near-exact historical precedent of our own finding: associative/similarity-based networks succeeding only on near-neighbor test items and failing on designed-dissimilar ones, with humans/infants succeeding on the dissimilar items. This is judged NOT a repeat of the geometry-free-style over-read.
+
+**(1) Developmental verdict.** The generativist-vs-usage-based debate does not resolve cleanly to "similarity only." Usage-based construction acquisition (Tomasello 2003; Goldberg 1995/2006) generalizes schemas via DISTRIBUTIONAL/functional similarity (words that behave alike across constructions), which is already a step beyond raw taxonomic/hypernym similarity -- but the more decisive evidence is Pinker's dual-route account (*Words and Rules*, 1999): regular morphology applies via an algebraic operation UNBOUNDED by similarity to any stored exemplar, while irregulars are retrieved via similarity-based analogy to neighbors. Both mechanisms coexist; the PRODUCTIVE/systematic half (the one "composition" in the CG-literature sense actually names) is the similarity-independent one.
+
+**(2) THE DISCRIMINATOR -- YES, humans generalize composition to semantically dissimilar novel combinations, beyond what a similarity-kNN could reach:**
+- Berko's wug test (1958): nonce words engineered to resemble no real English word; children productively apply the plural rule anyway -- similarity has nothing to vote on.
+- Marcus et al. (Science 1999): 7-month-olds generalize ABB/ABA grammatical patterns to test items built from CONSONANTS NEVER HEARD in familiarization. Marcus explicitly showed contemporary simple recurrent (associative/similarity-driven) networks generalized ONLY to phonetically-similar test items and FAILED on the dissimilar ones -- infants succeeded where the similarity-shaped model failed. This is structurally our own test, already adversarially run once in the literature.
+- Lake & Baroni (SCAN 2018; MLC, *Nature* 2023): primitives are deliberately meaning-free nonce forms (dax/wif/lug/zup) so no semantic-similarity metric applies; humans and the meta-trained network both generalize systematically over them.
+- Gentner's structure-mapping (1983; Gentner & Toupin 1986; Gentner & Rattermann 1991, "relational shift"): humans align low-surface-similarity scenes/stories that share RELATIONAL structure, and analogy research explicitly DEFINES itself in contrast to mere surface-similarity matching (Gick & Holyoak's transfer studies show subjects must effortfully override a salient surface-similar-but-structurally-wrong distractor).
+
+**(3) Therefore VALID, not mis-specified -- justification against the adversarial guard.** The difficulty-invariance and shared-vs-role-specific mis-specifications were resolved by a DIRECT finding that the brain fails the same way with no counter-evidence. Here the opposite obtains: four convergent paradigms show the brain positively exceeding similarity, and one (Marcus 1999) is an adversarial precedent where an associative/similarity-shaped model was DIRECTLY TESTED and FAILED at exactly this test while humans succeeded -- the same shape as our own 29440 finding. Concluding "mis-specified" here would require explaining away all four; none was contradicted. The bar stands.
+
+**(4) Nonlinear mechanism sketch (fork A).** A linear associative matrix is mathematically a kernel machine -- it can only ever emit weighted-similarity outputs, which is the actual reason 29440 collapsed to kNN. Beating similarity requires either (a) a NONLINEAR conflict-resolution/settling step that privileges a relational match over a stronger surface/featural match when they disagree (Gentner/Gick-Holyoak's documented effortful override -- testable via a slower/harder-case signature, mirroring the pun-escalation drill's subordinate-bias effect), or (b) genuine VARIABLE-BINDING (role registers separate from filler content, per Frankland-Greene, already sketched in the 07-21 CG drill) so the operation applies uniformly regardless of what fills the role. The concrete, cheap buildable test: a **relational-vs-similarity CONFLICT corpus** -- items where the WordNet-hypernym-similarity vote gives the WRONG answer but the true compositional/relational structure gives a different, verifiable-correct one. This directly operationalizes "beat similarity" as accuracy on the conflict subset specifically (not the non-conflict items, where any mechanism would agree with kNN anyway).
+
+## Cheap decisive test
+
+Build N>=40 relational-vs-similarity conflict items (constructed analogous to Marcus's ABA/ABB paradigm: role-filler combinations where the nearest WordNet-hypernym neighbor predicts the wrong class, but the correct compositional/relational reading is independently verifiable e.g. via held-out role-swap). Run the fork-A candidate mechanism (nonlinear settling or role-binding-with-conflict-resolution) against the SAME parameter-free similarity-kNN control that beat the linear loop, scored ONLY on the conflict subset.
+
+## Falsifiable predictions
+
+**HARD-PASS:** candidate beats the similarity-kNN control by a wide margin (>=20 accuracy points) on the conflict subset specifically -- proves a genuine beyond-similarity mechanism exists in-substrate, matching the brain's documented relational-override capacity (Gentner/Gick-Holyoak) and Marcus's rule-vs-similarity split. Effortful/slower resolution on conflict items (vs non-conflict) would be a bonus brain-faithfulness signature (mirrors Duffy et al.'s subordinate-bias effect already drilled for puns).
+
+**HARD-FAIL:** candidate performs at or below the similarity-kNN control on the conflict subset -- the nonlinear mechanism ALSO collapses to similarity-voting when it actually matters; 29440's finding generalizes beyond linear architectures, and the "learned, not algebra/similarity" CG target should be considered closed for this mechanism class (same terminal-conclusion logic as the 07-22 "is-learned" drill's own HARD-FAIL branch).
+
+**MIDDLE:** candidate ties the control on the conflict subset within noise -- inconclusive; the conflict corpus likely needs sharper cases (larger relational/similarity divergence) before it has discriminating power.
+
+## Cross-thread synthesis
+
+Directly resolves the open question left by `research_drill_puns_multiple_interpretation_learned_composition_2026-07-22.md` (which established escalation-on-incoherence as the missing valuation step but did not address whether escalation itself must beat similarity) and `research_drill_is_learned_not_algebra_free_CG_bar_coherent_2026-07-22.md` (which found the free-algebra-vs-learned bar coherent at the architecture level; this drill supplies the human/developmental confirmation that the analogous bar is ALSO coherent at the composition-vs-similarity level, not just the geometry-scrambling level). Extends the 07-21 CG role-binding drill's constraint-satisfaction-settling design with an explicit, falsifiable behavioral signature (relational-override effortfulness) it did not yet specify. Does NOT reopen the difficulty-invariance or shared-vs-role-specific closures -- those remain correctly mis-specified; this drill's adversarial-guard section explains why this case is different (positive convergent evidence + a directly-adversarial historical precedent, not merely "brain probably also does X").
+
+## Substrate-product implications
+
+If HARD-PASS on the conflict-corpus test: a demonstrable "beyond near-neighbor" compositional capability is a recognizable understanding/analogy capability (metaphor comprehension, avoiding confusable-near-neighbor misreadings, structural transfer across domains) -- directly product-relevant, not academic. It would also be the second frequency-beating mechanism this session (after the pun-escalation candidate), strengthening the case that composition (not lexical assignment) is where genuine learned generalization lives, per the meaning-is-assignment-not-generalization anchor. If HARD-FAIL: an honest, cheap closure that the free-algebra/similarity ceiling is architecture-independent within the mechanisms tried so far, redirecting search toward genuine variable-binding architectures (fork B, program-level) rather than nonlinear tweaks to the current loop.
+
+## Citations (verified count: 12; established literature, no new source independently re-verified this cycle -- see WEB-FETCH REQUESTS)
+
+Tomasello (2003, usage-based construction acquisition); Goldberg (1995/2006, Construction Grammar); Pinker (1999, *Words and Rules*, dual-route regular/irregular morphology); Marcus, Vijayan, Bandi Rao & Vishton (Science 1999, infant ABA/ABB rule generalization to novel consonants vs SRN failure); Berko (1958, wug test); Lake & Baroni (ICML 2018, SCAN, "generalization without systematicity"); Lake & Baroni (Nature 2023, MLC); Gentner (1983, structure-mapping theory); Gentner & Toupin (1986, relational vs surface analogy in children); Gentner & Rattermann (1991, "relational shift"); Gick & Holyoak (1980/1983, analogical transfer, surface-vs-structural override cost); Fodor & Pylyshyn (1988, systematicity, cited for continuity with the 07-22 free-algebra drill only, not re-derived).
+
+## WEB-FETCH REQUESTS (for Director; headless research cannot web-auth)
+
+1. Search "Marcus Vijayan Bandi Rao Vishton 1999 Science rule learning seven month old infants" + any SRN-failure replication/critique (Elman response, Vilcu & Hadley, Christiansen) -- verify the exact claim that associative/similarity-driven networks of that era failed the novel-consonant generalization while infants succeeded; this is the load-bearing precedent for point (3) above.
+2. Search "Lake Baroni MLC 2023 Nature human experiment meaningless primitives systematic generalization accuracy" -- verify the human-arm accuracy number and confirm the primitives were genuinely meaning-free (not weakly analogous to real words), to sharpen the discriminator's strength.
+3. Search "Gentner Gick Holyoak surface similarity relational override reaction time cost" -- verify whether the "effortful/slower resolution under conflict" signature (used here as the fork-A design's testable prediction) has a direct RT/accuracy measurement, not just a qualitative finding.
+
+## P_deflated
+
+**0.40** (novel-synthesis cap 0.50 applied; further deflated because: the four-paradigm convergence is a synthesis connecting well-established but not-this-cycle-reverified sources -- WEB-FETCH #1-3 unresolved; the conflict-corpus cheap test is UNRUN; the "coexistence of both mechanisms, productive-half is similarity-independent" developmental verdict is the mainstream integrative reading but the generativist-vs-usage-based debate is not fully closed in the field itself, only within the narrower claim this drill needs).
+
+HYPOTHESIS-pending until (a) WEB-FETCH #1 confirms the Marcus 1999 SRN-failure precedent as accurately characterized above, and (b) the conflict-corpus cheap decisive test runs and clears adversarial VET -- same conflict-of-interest discipline as 29437/29440's own adjudication (the Director wanting the bar to be either valid or mis-specified are both potentially self-serving; this verdict should not be self-tiered without the VET pass).

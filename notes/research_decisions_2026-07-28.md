@@ -1,0 +1,1 @@
+- research_comprehension_eval_battery_lit_grounding_2026-07-28: notes/research_comprehension_eval_battery_lit_grounding_2026-07-28.md -- lit grounding (neuro/psycholinguistic assessment-of-knowing + NLP shortcut-learning eval design) for a reusable comprehension eval battery; no design proposed, citations only.

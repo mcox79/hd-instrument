@@ -1,0 +1,22 @@
+# Brain-drill: Kintsch CI comprehension loop + situation model (Layer-1 component #2)
+
+**Filed:** Director, 2026-07-21 (self-drive tick; web-fetched by Director). Readies component #2 (the comprehension-loop BACKBONE) while component #1 (the role-encoder, a2f37b8e) runs. Brain-drill-first per USER directive. HYPOTHESIS-pending until design+cell+VET. Follows [[research_drill_compositional_generalization_role_binding_brain_mechanism_2026-07-21]] (component #1).
+
+## BRAIN MECHANISM (the comprehension loop)
+1. **Kintsch Construction-Integration (CI), 2 cyclical phases:** CONSTRUCTION = each input activates a network of propositions from text + prior knowledge (permissive, includes inconsistent). INTEGRATION = refine into a COHERENT representation via CONSTRAINT-SATISFACTION spreading-activation SETTLING (resolve inconsistencies, strengthen relevant). Coherence = the settled state. Three LEVELS: surface-structure -> TEXTBASE (propositions, locally connected by inference) -> SITUATION MODEL (integrated with prior knowledge = deep comprehension = the running state). Constraint-satisfaction IS the integration mechanism (ties to the eLife compgen constraint-satisfaction finding + our resonator/iterative_attractor settling).
+2. **N400 = SEMANTIC PREDICTION ERROR = meaning-representation UPDATE.** The N400 amplitude tracks how much the distributed sentence-meaning representation UPDATES on each word (semantic update, not just lexical surprisal -- more sustained than surprisal). => the UPDATE MAGNITUDE is the prediction-error signal = the COHERENCE-GATE + the LEARNING SIGNAL the scour design wants (large unexpected update = incoherence/surprise).
+3. **DIRECT PRECEDENT + brain-validation -- the SENTENCE GESTALT model (Rabovsky/McClelland; also Franklin/Gershman SEM):** a LEARNED model mapping sentences -> a description of meaning = a list of ARGUMENTS (action + agent + patient + time/location/manner) -- i.e. EXACTLY component #1's role representation -- whose incremental UPDATE PREDICTS the N400. => our architecture (learned text->role + incremental prediction-error update) has a BRAIN-VALIDATED computational precedent. Strong de-risk. CREDIT it.
+
+## DESIGN (component #2: the CI comprehension loop / situation-model integrator)
+- Take component #1's per-sentence role-bindings and INTEGRATE incrementally into a running SITUATION-MODEL vector (VSA superposition/bundle accumulating across sentences).
+- CONSTRUCTION: add each sentence's role-binding to the situation model (+ activate prior-knowledge associations).
+- INTEGRATION: constraint-satisfaction SETTLING (resonator / iterative_attractor / coherence) -> bind cross-sentence referents (coref = a later component), strengthen coherent, damp incoherent.
+- PREDICTION-ERROR / COHERENCE-GATE: measure the UPDATE MAGNITUDE (situation-model change per input) = N400-like semantic prediction error = surprise/incoherence detector + learning signal (the compress-and-carry Kintsch loop). Large update on a coherent-resolvable input = learn; large update that DOESN'T resolve = incoherence flag / escalation.
+- The situation model = the running comprehension STATE -> enables coref + state-tracking + cross-sentence inference (Layer-2).
+
+## CAN-FAIL CELL SHAPE (when built, after component #1 lands)
+- Real baseline = no-integration (per-sentence bags, no running situation model). Discriminator = a task that REQUIRES the running state (cross-sentence: coref resolution / state-tracking / a coherence judgment). Can-fail (the loop gives no lift over per-sentence). MUST-FAIL: scramble sentence ORDER / inject INCOHERENCE -> the coherence-signal must fire + comprehension must drop (the settling is doing work). Measure the prediction-error curve. One-variable (integration on/off).
+- Brain-check bound to watch: the SG precedent is a LEARNED distributed model -> our glass-box VSA settling must show it captures the same incremental-update dynamic without an opaque net (the glass-box test).
+
+## CREDITS
+Kintsch & van Dijk (Construction-Integration 1978/88); Rabovsky, Hansen & McClelland (Sentence Gestalt / N400 as semantic update, 2018+); Franklin & Gershman (SEM 2020); Ettinger/Michaelov et al (N400 as semantic prediction error, NoL 2024); Landscape/LSA descendants. Related: [[project_reasoning_theory_constraints_brought_to_bear_dense_plus_constraint_satisfaction_2026-07-14]], [[research_drill_compositional_generalization_role_binding_brain_mechanism_2026-07-21]].
