@@ -975,7 +975,11 @@ def main():
             raise
         return
 
-    is_full = bool(args.full)
+    # HDLAB_RUN_MODE=full is how the PRODUCTION RUNNER signals FULL (env var injection,
+    # runner_v2_prod.py run_one() -- it does NOT pass a --full CLI flag). --smoke in argv
+    # always wins (explicit smoke request should never be silently upgraded to FULL).
+    env_mode = os.environ.get("HDLAB_RUN_MODE", "").lower()
+    is_full = bool(args.full or (env_mode == "full" and not args.smoke))
     run_mode = "full" if is_full else "smoke"
     cfg = dict(FULL_CFG if is_full else SMOKE_CFG)
     if args.seed is not None:
