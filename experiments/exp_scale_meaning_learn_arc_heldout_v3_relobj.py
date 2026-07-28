@@ -150,6 +150,7 @@ from datetime import datetime, timezone
 
 import numpy as np
 import torch
+import torch.utils.checkpoint
 from tokenizers import Tokenizer  # noqa: E402  -- needed to reload v2's persisted tokenizer (baseline reuse)
 
 _THIS = os.path.abspath(__file__)
@@ -719,20 +720,30 @@ class TinyTransformer(torch.nn.Module):
         self.max_len = max_len
         self.d_model = d_model
 
-    def _contextual(self, ids):
+    def _contextual(self, ids, use_checkpoint=False):
+        """use_checkpoint: SH-5 VRAM-fit fix (relobj pooling-forward OOM, 2026-07-28) -- gradient-
+        checkpoint the encoder stack (recompute-in-backward, NOT stored activations). Mathematically
+        identical output (no dropout, LayerNorm/attention are per-row so batch-chunking is also exact);
+        this is a correctness-neutral memory-footprint change. Only used by pooled() callers that opt in
+        (the relobj relational-pooling forward); mlm_logits() (the main MLM path that already fits) is
+        UNCHANGED (use_checkpoint defaults False)."""
         pad_mask = (ids == self.pad_id)
         L = ids.shape[1]
         pos = torch.arange(L, device=ids.device).unsqueeze(0)
         h = self.tok_emb(ids) + self.pos_emb(pos)
-        h = self.enc(h, src_key_padding_mask=pad_mask)
+        if use_checkpoint and self.training and torch.is_grad_enabled():
+            h = torch.utils.checkpoint.checkpoint(
+                self.enc, h, use_reentrant=False, src_key_padding_mask=pad_mask)
+        else:
+            h = self.enc(h, src_key_padding_mask=pad_mask)
         return self.norm(h), pad_mask
 
     def mlm_logits(self, ids):
         h, _ = self._contextual(ids)
         return torch.nn.functional.linear(h, self.tok_emb.weight)   # tied head
 
-    def pooled(self, ids):
-        h, pad_mask = self._contextual(ids)
+    def pooled(self, ids, use_checkpoint=False):
+        h, pad_mask = self._contextual(ids, use_checkpoint=use_checkpoint)
         keep = (~pad_mask).float().unsqueeze(-1)
         summed = (h * keep).sum(dim=1)
         cnt = keep.sum(dim=1).clamp_min(1.0)
@@ -764,11 +775,30 @@ def _save_inprogress_ckpt(out_dir, seed, model, opt, step, spec, cfg):
         return False
 
 
-def _pooled_for_rows(model, win_ids, rows, device, use_amp):
-    ids = torch.from_numpy(win_ids[rows]).to(device)
-    with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_amp):
-        z = model.pooled(ids)
-    return z.float()
+def _pooled_for_rows(model, win_ids, rows, device, use_amp, chunk_size=32):
+    """SH-5 VRAM-fit fix (2026-07-28): the relobj pooling forward (anchor/positive/landmark rows,
+    e.g. 128+128+96=352 rows at FULL) is a JOINT-loss addition on top of the MLM forward that already
+    fills the 8GB card close to its cap -- torch.OutOfMemoryError crashed step 0 (Tried to allocate 12
+    MiB; 6.77GiB already allocated on a ~6.8GiB usable cap). Fix is correctness-neutral (batch-dim
+    chunking is exact for LayerNorm/self-attention; gradient checkpointing recomputes identical forward
+    ops in backward instead of storing activations) -- NOT a change to the relational objective,
+    landmark-negative semantics, leak gates, anti-collapse coverage, or eval. Two independent memory
+    reductions stack: (1) use_checkpoint=True bounds backward-time peak to ~1 checkpoint segment instead
+    of all 3 groups' full activations retained simultaneously; (2) chunk_size bounds each segment's row
+    count so even one group's checkpoint-recompute doesn't spike VRAM."""
+    ids_all = torch.from_numpy(win_ids[rows]).to(device)
+    n = ids_all.shape[0]
+    if n <= chunk_size:
+        with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_amp):
+            z = model.pooled(ids_all, use_checkpoint=True)
+        return z.float()
+    parts = []
+    for i in range(0, n, chunk_size):
+        sub = ids_all[i:i + chunk_size]
+        with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_amp):
+            z = model.pooled(sub, use_checkpoint=True)
+        parts.append(z.float())
+    return torch.cat(parts, dim=0)
 
 
 def mlm_train_relobj(stream, spec, cfg, device, seed, out_dir, hb_total, relobj):
@@ -842,9 +872,13 @@ def mlm_train_relobj(stream, spec, cfg, device, seed, out_dir, hb_total, relobj)
                 pos_idx[k] = nb[int(rel_rng.integers(0, len(nb)))]
             l_bs = min(cfg["n_land_batch"], landmarks.shape[0])
             l_idx = rel_rng.choice(landmarks, size=l_bs, replace=False)
-            z_a = torch.nn.functional.normalize(_pooled_for_rows(model, win_ids, a_idx, device, use_amp), dim=1)
-            z_p = torch.nn.functional.normalize(_pooled_for_rows(model, win_ids, pos_idx, device, use_amp), dim=1)
-            z_l = torch.nn.functional.normalize(_pooled_for_rows(model, win_ids, l_idx, device, use_amp), dim=1)
+            pool_chunk = int(cfg.get("rel_pool_chunk", 32))
+            z_a = torch.nn.functional.normalize(
+                _pooled_for_rows(model, win_ids, a_idx, device, use_amp, chunk_size=pool_chunk), dim=1)
+            z_p = torch.nn.functional.normalize(
+                _pooled_for_rows(model, win_ids, pos_idx, device, use_amp, chunk_size=pool_chunk), dim=1)
+            z_l = torch.nn.functional.normalize(
+                _pooled_for_rows(model, win_ids, l_idx, device, use_amp, chunk_size=pool_chunk), dim=1)
             cand = torch.cat([z_p.unsqueeze(1), z_l.unsqueeze(0).expand(a_bs, -1, -1)], dim=1)  # [a_bs, 1+l_bs, d]
             logits_rel = torch.einsum("ad,akd->ak", z_a, cand) / tau
             tgt_rel = torch.zeros(a_bs, dtype=torch.long, device=device)  # true positive is column 0
