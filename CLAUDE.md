@@ -68,6 +68,17 @@ If any answer is no: do it in main thread, defer, or serialize behind an in-flig
 
 Filename cap: 120 chars (incl. `.md`). Topic-slug 5-10 words snake_case; optional ALL_CAPS for emphasis.
 
+## Capability tracking (durability gate)
+
+`data/capability_registry.jsonl` is the single current reference for every genuinely-built capability + its wire-or-shelve decision (supersedes `notes/capability_map.md` / `capability_scorecard.md` / `promotion_backlog.md` checkboxes -- those rotted silently; this one is machine-audited by `tools/capability_registry_audit.py`, not hand-checked). Query it before building anything that might already exist.
+
+Gate, at land-time, for anything genuinely-good (cert / HARD_PASS):
+1. **WIRE** (promote to `hdlab/`, register in the registry, target + step noted) or **SHELVE** (explicit revival criteria) -- nothing stays in limbo.
+2. New experiments CONSULT the registry first; reuse WIRED capabilities, don't reinvent.
+3. Run `python tools/capability_registry_audit.py` at **SESSION START** (research role ritual, part of the SESSION STARTUP RITUAL above) AND on the meta_audit cadence -- two triggers, not one.
+
+**The durability anchor is the session-start read, not an OS cron.** 11 `hd_*` scheduled tasks silently disabled for ~12 days (2026-07-16 to 2026-07-28) with no one noticing -- OS crons proved fragile and unmonitored. A rule or capability that lives only in a scheduler is one silent disable away from not existing. Cadence crons (`hd_capability_registry_audit`, meta_audit) still run and are useful, but they are a backstop, NOT the enforcement mechanism -- the enforcement is this file + MEMORY.md + WHERE_WE_ARE_NOW getting read every session regardless of what the scheduler is doing.
+
 ## Conventions
 
 - Python 3.11+, PyTorch tensors with explicit dtypes (complex64 for FHRR, float32 for HRR).
