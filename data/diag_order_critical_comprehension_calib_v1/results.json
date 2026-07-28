@@ -1,0 +1,678 @@
+{
+  "script": "diag_order_critical_comprehension_calib_v1.py",
+  "ts_iso": "2026-07-28T11:04:28.144702+00:00",
+  "pid": 28472,
+  "seed": 20260728,
+  "margin_thresh": 0.15,
+  "coherent_floor": 0.65,
+  "sanity_margin": 0.1,
+  "constructions_meta": {
+    "AGENT_PATIENT": {
+      "n_train": 900,
+      "n_eval": 400,
+      "n_train_groups": 193,
+      "n_eval_groups": 83
+    },
+    "ENTITY_STATE": {
+      "n_train": 900,
+      "n_eval": 400,
+      "n_train_groups": 210,
+      "n_eval_groups": 90
+    }
+  },
+  "calibration_models": [
+    "MiniLM",
+    "BGE_SMALL"
+  ],
+  "calibration_results": {
+    "MiniLM": {
+      "AGENT_PATIENT": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.5935225486755371,
+            "train_sanity": {
+              "train_balanced_acc": 0.72,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.68,
+            "coherent_balanced_acc": 0.6799999999999999,
+            "scrambled_acc": 0.5025,
+            "scrambled_balanced_acc": 0.5025,
+            "margin": 0.1775000000000001,
+            "z_stat": 5.106212630324463,
+            "n_eval": 400,
+            "comprehension_specific": true
+          },
+          "CLS_TOKEN": {
+            "name": "CLS_TOKEN",
+            "decoder_final_loss": 0.6320680975914001,
+            "train_sanity": {
+              "train_balanced_acc": 0.6688888888888889,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.6175,
+            "coherent_balanced_acc": 0.6174999999999999,
+            "scrambled_acc": 0.5225,
+            "scrambled_balanced_acc": 0.5225,
+            "margin": 0.09500000000000008,
+            "z_stat": 2.7137319479402033,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.5958421230316162,
+            "train_sanity": {
+              "train_balanced_acc": 0.7122222222222222,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.675,
+            "coherent_balanced_acc": 0.675,
+            "scrambled_acc": 0.505,
+            "scrambled_balanced_acc": 0.505,
+            "margin": 0.17000000000000004,
+            "z_stat": 4.888166439995809,
+            "n_eval": 400,
+            "comprehension_specific": true
+          }
+        },
+        "t_encode_s": 11.42983640008606
+      },
+      "ENTITY_STATE": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.6377577781677246,
+            "train_sanity": {
+              "train_balanced_acc": 0.6777777777777778,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.5525,
+            "coherent_balanced_acc": 0.5525,
+            "scrambled_acc": 0.4225,
+            "scrambled_balanced_acc": 0.4225,
+            "margin": 0.13,
+            "z_stat": 3.678104849586652,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "CLS_TOKEN": {
+            "name": "CLS_TOKEN",
+            "decoder_final_loss": 0.6690428853034973,
+            "train_sanity": {
+              "train_balanced_acc": 0.62,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.49,
+            "coherent_balanced_acc": 0.49,
+            "scrambled_acc": 0.445,
+            "scrambled_balanced_acc": 0.445,
+            "margin": 0.044999999999999984,
+            "z_stat": 1.2754895298313884,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.6282022595405579,
+            "train_sanity": {
+              "train_balanced_acc": 0.7,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.6025,
+            "coherent_balanced_acc": 0.6025,
+            "scrambled_acc": 0.4675,
+            "scrambled_balanced_acc": 0.4675,
+            "margin": 0.135,
+            "z_stat": 3.8277661618193046,
+            "n_eval": 400,
+            "comprehension_specific": false
+          }
+        },
+        "t_encode_s": 3.3215616999659687
+      }
+    },
+    "BGE_SMALL": {
+      "AGENT_PATIENT": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.6220808625221252,
+            "train_sanity": {
+              "train_balanced_acc": 0.6977777777777778,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.5825,
+            "coherent_balanced_acc": 0.5825,
+            "scrambled_acc": 0.54,
+            "scrambled_balanced_acc": 0.54,
+            "margin": 0.04249999999999998,
+            "z_stat": 1.2112036924518674,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "CLS_TOKEN": {
+            "name": "CLS_TOKEN",
+            "decoder_final_loss": 0.6213563084602356,
+            "train_sanity": {
+              "train_balanced_acc": 0.6988888888888889,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.595,
+            "coherent_balanced_acc": 0.595,
+            "scrambled_acc": 0.5475,
+            "scrambled_balanced_acc": 0.5475,
+            "margin": 0.04749999999999999,
+            "z_stat": 1.3573549604272874,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.621356189250946,
+            "train_sanity": {
+              "train_balanced_acc": 0.6988888888888889,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.595,
+            "coherent_balanced_acc": 0.595,
+            "scrambled_acc": 0.5475,
+            "scrambled_balanced_acc": 0.5475,
+            "margin": 0.04749999999999999,
+            "z_stat": 1.3573549604272874,
+            "n_eval": 400,
+            "comprehension_specific": false
+          }
+        },
+        "t_encode_s": 3.7562143999384716
+      },
+      "ENTITY_STATE": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.5402892231941223,
+            "train_sanity": {
+              "train_balanced_acc": 0.7933333333333333,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.7375,
+            "coherent_balanced_acc": 0.7375,
+            "scrambled_acc": 0.49,
+            "scrambled_balanced_acc": 0.49000000000000005,
+            "margin": 0.24750000000000005,
+            "z_stat": 7.188862918728077,
+            "n_eval": 400,
+            "comprehension_specific": true
+          },
+          "CLS_TOKEN": {
+            "name": "CLS_TOKEN",
+            "decoder_final_loss": 0.5516356825828552,
+            "train_sanity": {
+              "train_balanced_acc": 0.7844444444444445,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.7275,
+            "coherent_balanced_acc": 0.7275,
+            "scrambled_acc": 0.4925,
+            "scrambled_balanced_acc": 0.4925,
+            "margin": 0.23500000000000004,
+            "z_stat": 6.813741277562718,
+            "n_eval": 400,
+            "comprehension_specific": true
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.5516360998153687,
+            "train_sanity": {
+              "train_balanced_acc": 0.7844444444444445,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.7275,
+            "coherent_balanced_acc": 0.7275,
+            "scrambled_acc": 0.4925,
+            "scrambled_balanced_acc": 0.4925,
+            "margin": 0.23500000000000004,
+            "z_stat": 6.813741277562718,
+            "n_eval": 400,
+            "comprehension_specific": true
+          }
+        },
+        "t_encode_s": 6.52795989997685
+      }
+    }
+  },
+  "instrument_valid_per_construction": {
+    "AGENT_PATIENT": true,
+    "ENTITY_STATE": true
+  },
+  "instrument_valid_overall_both": true,
+  "instrument_valid_any": true,
+  "validated_readout_per_construction": {
+    "AGENT_PATIENT": {
+      "model": "MiniLM",
+      "readout": "MEAN_POOL",
+      "margin": 0.1775000000000001,
+      "coherent_acc": 0.68
+    },
+    "ENTITY_STATE": {
+      "model": "BGE_SMALL",
+      "readout": "MEAN_POOL",
+      "margin": 0.24750000000000005,
+      "coherent_acc": 0.7375
+    }
+  },
+  "own_encoder_results": {
+    "BASELINE_v2": {
+      "AGENT_PATIENT": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.6681662201881409,
+            "train_sanity": {
+              "train_balanced_acc": 0.6766666666666667,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.625,
+            "coherent_balanced_acc": 0.625,
+            "scrambled_acc": 0.5125,
+            "scrambled_balanced_acc": 0.5125,
+            "margin": 0.11250000000000004,
+            "z_stat": 3.2124935280776463,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.585456132888794,
+            "train_sanity": {
+              "train_balanced_acc": 0.7733333333333333,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.7225,
+            "coherent_balanced_acc": 0.7225,
+            "scrambled_acc": 0.4625,
+            "scrambled_balanced_acc": 0.4625,
+            "margin": 0.26,
+            "z_stat": 7.483079547303592,
+            "n_eval": 400,
+            "comprehension_specific": true
+          },
+          "HRR_POSITION_BIND_bonus": {
+            "name": "HRR_POSITION_BIND_bonus",
+            "decoder_final_loss": 0.585105299949646,
+            "train_sanity": {
+              "train_balanced_acc": 0.7855555555555556,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.72,
+            "coherent_balanced_acc": 0.72,
+            "scrambled_acc": 0.515,
+            "scrambled_balanced_acc": 0.515,
+            "margin": 0.20499999999999996,
+            "z_stat": 5.965332534028509,
+            "n_eval": 400,
+            "comprehension_specific": true
+          }
+        },
+        "t_encode_s": 11.178445999976248,
+        "ckpt_meta": {
+          "seed": 7,
+          "run_mode": "full",
+          "anchor": "scale_meaning_learn_arc_heldout_v2",
+          "w_star_semantic": 0.9,
+          "selected_arm_semantic": "ARM_FUSE_ZAVG",
+          "model_cfg": {
+            "vocab": 16000,
+            "max_len": 128,
+            "d_model": 512,
+            "n_layers": 6,
+            "n_heads": 8,
+            "ffn_mult": 4,
+            "pad_id": 0
+          }
+        },
+        "calibration_winner": {
+          "model": "MiniLM",
+          "readout": "MEAN_POOL",
+          "margin": 0.1775000000000001,
+          "coherent_acc": 0.68
+        },
+        "matched_readout_used": "MEAN_POOL",
+        "matched_readout_result": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.6681662201881409,
+          "train_sanity": {
+            "train_balanced_acc": 0.6766666666666667,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.625,
+          "coherent_balanced_acc": 0.625,
+          "scrambled_acc": 0.5125,
+          "scrambled_balanced_acc": 0.5125,
+          "margin": 0.11250000000000004,
+          "z_stat": 3.2124935280776463,
+          "n_eval": 400,
+          "comprehension_specific": false
+        },
+        "matched_vs_known_reader_gap": 0.06500000000000006,
+        "matched_vs_chance": 0.125
+      },
+      "ENTITY_STATE": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.6822686195373535,
+            "train_sanity": {
+              "train_balanced_acc": 0.6733333333333333,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.675,
+            "coherent_balanced_acc": 0.675,
+            "scrambled_acc": 0.5475,
+            "scrambled_balanced_acc": 0.5475,
+            "margin": 0.12750000000000006,
+            "z_stat": 3.698967755517062,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.5072497129440308,
+            "train_sanity": {
+              "train_balanced_acc": 0.9155555555555556,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.895,
+            "coherent_balanced_acc": 0.895,
+            "scrambled_acc": 0.4925,
+            "scrambled_balanced_acc": 0.4925,
+            "margin": 0.4025,
+            "z_stat": 12.349271415938048,
+            "n_eval": 400,
+            "comprehension_specific": true
+          },
+          "HRR_POSITION_BIND_bonus": {
+            "name": "HRR_POSITION_BIND_bonus",
+            "decoder_final_loss": 0.5993787050247192,
+            "train_sanity": {
+              "train_balanced_acc": 0.8177777777777777,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.795,
+            "coherent_balanced_acc": 0.795,
+            "scrambled_acc": 0.4775,
+            "scrambled_balanced_acc": 0.47750000000000004,
+            "margin": 0.31750000000000006,
+            "z_stat": 9.33347414569044,
+            "n_eval": 400,
+            "comprehension_specific": true
+          }
+        },
+        "t_encode_s": 11.24750039994251,
+        "ckpt_meta": {
+          "seed": 7,
+          "run_mode": "full",
+          "anchor": "scale_meaning_learn_arc_heldout_v2",
+          "w_star_semantic": 0.9,
+          "selected_arm_semantic": "ARM_FUSE_ZAVG",
+          "model_cfg": {
+            "vocab": 16000,
+            "max_len": 128,
+            "d_model": 512,
+            "n_layers": 6,
+            "n_heads": 8,
+            "ffn_mult": 4,
+            "pad_id": 0
+          }
+        },
+        "calibration_winner": {
+          "model": "BGE_SMALL",
+          "readout": "MEAN_POOL",
+          "margin": 0.24750000000000005,
+          "coherent_acc": 0.7375
+        },
+        "matched_readout_used": "MEAN_POOL",
+        "matched_readout_result": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.6822686195373535,
+          "train_sanity": {
+            "train_balanced_acc": 0.6733333333333333,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.675,
+          "coherent_balanced_acc": 0.675,
+          "scrambled_acc": 0.5475,
+          "scrambled_balanced_acc": 0.5475,
+          "margin": 0.12750000000000006,
+          "z_stat": 3.698967755517062,
+          "n_eval": 400,
+          "comprehension_specific": false
+        },
+        "matched_vs_known_reader_gap": 0.12,
+        "matched_vs_chance": 0.17500000000000004
+      }
+    },
+    "RELOBJ_v3": {
+      "AGENT_PATIENT": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.5978373289108276,
+            "train_sanity": {
+              "train_balanced_acc": 0.7144444444444444,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.635,
+            "coherent_balanced_acc": 0.635,
+            "scrambled_acc": 0.4975,
+            "scrambled_balanced_acc": 0.49749999999999994,
+            "margin": 0.1375,
+            "z_stat": 3.923682383295181,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.5640735626220703,
+            "train_sanity": {
+              "train_balanced_acc": 0.7477777777777778,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.63,
+            "coherent_balanced_acc": 0.6299999999999999,
+            "scrambled_acc": 0.48,
+            "scrambled_balanced_acc": 0.48,
+            "margin": 0.15000000000000002,
+            "z_stat": 4.268543974081784,
+            "n_eval": 400,
+            "comprehension_specific": false
+          },
+          "HRR_POSITION_BIND_bonus": {
+            "name": "HRR_POSITION_BIND_bonus",
+            "decoder_final_loss": 0.5171909928321838,
+            "train_sanity": {
+              "train_balanced_acc": 0.8066666666666666,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.6875,
+            "coherent_balanced_acc": 0.6875,
+            "scrambled_acc": 0.5125,
+            "scrambled_balanced_acc": 0.5125,
+            "margin": 0.17500000000000004,
+            "z_stat": 5.051814855409226,
+            "n_eval": 400,
+            "comprehension_specific": true
+          }
+        },
+        "t_encode_s": 11.720788599923253,
+        "ckpt_meta": {
+          "seed": 7,
+          "run_mode": "full",
+          "anchor": "scale_meaning_learn_arc_heldout_v3_relobj",
+          "w_star_semantic": 0.8,
+          "selected_arm_semantic": "ARM_FUSE_WTUNED",
+          "model_cfg": {
+            "vocab": 16000,
+            "max_len": 128,
+            "d_model": 512,
+            "n_layers": 6,
+            "n_heads": 8,
+            "ffn_mult": 4,
+            "pad_id": 0
+          }
+        },
+        "calibration_winner": {
+          "model": "MiniLM",
+          "readout": "MEAN_POOL",
+          "margin": 0.1775000000000001,
+          "coherent_acc": 0.68
+        },
+        "matched_readout_used": "MEAN_POOL",
+        "matched_readout_result": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.5978373289108276,
+          "train_sanity": {
+            "train_balanced_acc": 0.7144444444444444,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.635,
+          "coherent_balanced_acc": 0.635,
+          "scrambled_acc": 0.4975,
+          "scrambled_balanced_acc": 0.49749999999999994,
+          "margin": 0.1375,
+          "z_stat": 3.923682383295181,
+          "n_eval": 400,
+          "comprehension_specific": false
+        },
+        "matched_vs_known_reader_gap": 0.04000000000000009,
+        "matched_vs_chance": 0.135
+      },
+      "ENTITY_STATE": {
+        "per_readout": {
+          "MEAN_POOL": {
+            "name": "MEAN_POOL",
+            "decoder_final_loss": 0.556391716003418,
+            "train_sanity": {
+              "train_balanced_acc": 0.8066666666666666,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.78,
+            "coherent_balanced_acc": 0.78,
+            "scrambled_acc": 0.4975,
+            "scrambled_balanced_acc": 0.4975,
+            "margin": 0.28250000000000003,
+            "z_stat": 8.316949520135713,
+            "n_eval": 400,
+            "comprehension_specific": true
+          },
+          "LAST_TOKEN": {
+            "name": "LAST_TOKEN",
+            "decoder_final_loss": 0.40385764837265015,
+            "train_sanity": {
+              "train_balanced_acc": 0.8988888888888888,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.87,
+            "coherent_balanced_acc": 0.87,
+            "scrambled_acc": 0.5075,
+            "scrambled_balanced_acc": 0.5075000000000001,
+            "margin": 0.36250000000000004,
+            "z_stat": 11.072291801648753,
+            "n_eval": 400,
+            "comprehension_specific": true
+          },
+          "HRR_POSITION_BIND_bonus": {
+            "name": "HRR_POSITION_BIND_bonus",
+            "decoder_final_loss": 0.4539715647697449,
+            "train_sanity": {
+              "train_balanced_acc": 0.8944444444444444,
+              "chance": 0.5,
+              "train_beats_chance": true
+            },
+            "coherent_acc": 0.8675,
+            "coherent_balanced_acc": 0.8674999999999999,
+            "scrambled_acc": 0.4875,
+            "scrambled_balanced_acc": 0.4875,
+            "margin": 0.38000000000000006,
+            "z_stat": 11.496855825396871,
+            "n_eval": 400,
+            "comprehension_specific": true
+          }
+        },
+        "t_encode_s": 17.033420199993998,
+        "ckpt_meta": {
+          "seed": 7,
+          "run_mode": "full",
+          "anchor": "scale_meaning_learn_arc_heldout_v3_relobj",
+          "w_star_semantic": 0.8,
+          "selected_arm_semantic": "ARM_FUSE_WTUNED",
+          "model_cfg": {
+            "vocab": 16000,
+            "max_len": 128,
+            "d_model": 512,
+            "n_layers": 6,
+            "n_heads": 8,
+            "ffn_mult": 4,
+            "pad_id": 0
+          }
+        },
+        "calibration_winner": {
+          "model": "BGE_SMALL",
+          "readout": "MEAN_POOL",
+          "margin": 0.24750000000000005,
+          "coherent_acc": 0.7375
+        },
+        "matched_readout_used": "MEAN_POOL",
+        "matched_readout_result": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.556391716003418,
+          "train_sanity": {
+            "train_balanced_acc": 0.8066666666666666,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.78,
+          "coherent_balanced_acc": 0.78,
+          "scrambled_acc": 0.4975,
+          "scrambled_balanced_acc": 0.4975,
+          "margin": 0.28250000000000003,
+          "z_stat": 8.316949520135713,
+          "n_eval": 400,
+          "comprehension_specific": true
+        },
+        "matched_vs_known_reader_gap": -0.034999999999999976,
+        "matched_vs_chance": 0.28
+      }
+    }
+  },
+  "verdict_msg": "ORDER-CRITICAL CALIBRATION: AGENT_PATIENT: instrument_valid=True (winner=MiniLM/MEAN_POOL margin=+0.1775 coherent=0.6800) | ENTITY_STATE: instrument_valid=True (winner=BGE_SMALL/MEAN_POOL margin=+0.2475 coherent=0.7375)",
+  "note_caveat": "MiniLM + bge-small-en-v1.5 used DIAGNOSTIC-ONLY for instrument calibration -- neither is wired into the substrate and neither is proposed as the encoder (per standing USER directive against borrowed embeddings as the substrate's encoder). All arms within a construction share the IDENTICAL TRAIN/EVAL split and IDENTICAL scrambled-eval sentences, so every comparison is fair and paired.",
+  "elapsed_s_total": 91.50010479998309
+}

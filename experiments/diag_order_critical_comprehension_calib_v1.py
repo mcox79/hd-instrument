@@ -1,0 +1,574 @@
+"""ORDER-CRITICAL COMPREHENSION INSTRUMENT + CALIBRATION GATE (2026-07-28).
+
+NOT a dispatched cell. No queue, no GPU, no bank/push. Standalone script; run to completion in
+the foreground (CPU-only) and read results.json off disk.
+
+WHY THIS EXISTS: tonight's ruler-fix re-measure (diag_ruler_fix_remeasure_v1.py,
+data/diag_ruler_fix_remeasure_v1/results.json) found that even a KNOWN capable reader
+(sentence-transformers/all-MiniLM-L6-v2, scored with its own native mean-pooled sentence
+embedding + a properly class-weighted linear decoder -- the SAME fixed methodology that flipped
+our frozen encoder to comprehension_specific=True) does NOT clear the comprehension_specific
+margin on eval_battery_relational_cloze_v7's task (margin=-0.026, i.e. scrambled scores
+about as well as coherent). Diagnosis: CSKG relation-cloze is CONTENT-CUED -- the relation is
+recoverable from the bag of content words regardless of word order, so the task does not
+REQUIRE reading order even for a real reader. A comprehension test a known-capable reader
+cannot pass is BROKEN; it cannot be used to judge our own encoder.
+
+PRINCIPLE: CALIBRATE FIRST on known readers; iterate construction/readout until a known reader
+clearly passes; ONLY THEN score our own encoder. Calibration is the acceptance gate, not an
+afterthought.
+
+CONSTRUCTION -- two independent ORDER-CRITICAL item families where swapping word order changes
+the ground-truth label while the WORD MULTISET stays IDENTICAL (unlike relation-cloze, where
+content words alone give away the answer):
+
+  (1) AGENT_PATIENT_REVERSIBLE -- "the {A} {verb} the {B} ." vs "the {B} {verb} the {A} ."
+      Same three content words + verb; label = which entity is the AGENT (subject position).
+      A bag-of-words / order-blind reader sees the identical multiset for both sentences of a
+      pair and cannot solve it above chance; an order-sensitive reader can.
+
+  (2) ENTITY_STATE_TIME_UPDATE -- "{adv1} the {obj} was {sA} . {adv2} it became {sB} ." vs the
+      swapped-order sentence with sA/sB exchanged. Label = which state is the FINAL (current)
+      state. Same content words (obj, sA, sB, adv1, adv2); only the temporal ORDER of the two
+      state-mentions determines which is current -- a direct order/structure requirement.
+
+Both constructions are held out LEAK-PROOF by construction identity: AGENT_PATIENT splits by
+UNORDERED ENTITY PAIR (train pairs never appear, in either order, in eval); ENTITY_STATE splits
+by (object, state-pair) COMBO. This forces a probe to generalize the "order/direction" feature
+across never-seen lexical fillers, not memorize per-item order shortcuts.
+
+CALIBRATION GATE (the deliverable's core): for each of two cached, offline, DIAGNOSTIC-ONLY
+known readers (sentence-transformers/all-MiniLM-L6-v2, BAAI/bge-small-en-v1.5 -- never wired
+into the substrate, per standing USER directive against borrowed embeddings as the encoder),
+try THREE readouts from ONE frozen forward pass over raw per-token hidden states: MEAN_POOL
+(attention-mask-weighted mean, the standard SBERT convention -- NOT naive bag-of-words, since
+each token's hidden state is already contextualized by self-attention + position embeddings),
+CLS_TOKEN (position-0 hidden state; the BGE-family's own recommended pooling), LAST_TOKEN (final
+non-pad hidden state, has attended to the full sequence). A class-balanced linear probe is fit
+on TRAIN-only coherent embeddings (never touching eval items or their entity/combo identities)
+and scored on EVAL coherent vs EVAL word-scrambled (LOOP2._scramble_words) sentences.
+comprehension_specific = (coherent_acc - scrambled_acc) >= MARGIN_THRESH AND coherent_acc clears
+a floor AND the TRAIN fit itself beats chance (decoder-collapse sanity gate, the exact bug fixed
+in tonight's eval_battery_relational_cloze_v7 commit, applied proactively here).
+
+ONLY IF at least one known reader passes on a construction: score OUR frozen encoders
+(data/exp_scale_meaning_learn_arc_heldout_v2/ckpt_seed_7.pt "BASELINE",
+data/exp_scale_meaning_learn_arc_heldout_v3_relobj/ckpt_seed_7.pt "RELOBJ") on the SAME
+construction using the MATCHED readout category (our encoder has no CLS token, so MEAN_POOL /
+LAST_NON_PAD_TOKEN are the fair matched analogs; readout_mean_pool / readout_last_non_pad reused
+verbatim from diag_comprehension_readout_sweep_v1.py) plus HRR_POSITION_BIND as a labeled BONUS
+(the v5 fix for our own encoder's order-blindness, informative but not the calibration-matched
+comparison point).
+
+REUSE (wiring + one new instrument construction, not new mechanism): experiments.
+exp_unified_self_learning_loop_v2._scramble_words (scramble control, unchanged);
+experiments.diag_readout_limit_probe_v1.load_frozen_encoder (frozen ckpt loader);
+experiments.diag_comprehension_readout_sweep_v1.compute_hidden_cache / readout_mean_pool /
+readout_last_non_pad / readout_hrr_position_bind (own-encoder readout machinery, unchanged);
+experiments.eval_battery_relational_cloze_v7's class-weighted-CE + train-fit-sanity discipline
+(reimplemented here in binary form -- see fit_binary_probe / _probe_sanity -- same fix that
+un-collapsed the relation-cloze decoder tonight, applied proactively to a NEW binary task rather
+than imported, since the label cardinality differs, K=2 not K=n_relations). New code: the two
+item-family generators (gen_agent_patient / gen_entity_state), the raw-HF three-readout encoder
+(_raw_hf_encode, transformers AutoTokenizer/AutoModel, offline, CPU), the binary probe fit/eval,
+and the calibrate-then-score orchestration in main().
+
+LEAK-PROOFING: TRAIN/EVAL split by entity-pair (construction 1) / (object,state-pair) combo
+(construction 2) identity, asserted disjoint by self-test before any probe is fit. The linear
+probe for every arm (calibration models AND our own encoders) is fit ONLY on TRAIN coherent
+items; EVAL coherent + EVAL scrambled are scored forward-only, never touching the fit.
+"""
+from __future__ import annotations
+
+import itertools
+import os
+import sys
+import time
+import traceback
+from datetime import datetime, timezone
+
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+
+import json  # noqa: E402
+import numpy as np  # noqa: E402
+import torch  # noqa: E402
+import torch.nn as nn  # noqa: E402
+import torch.nn.functional as F  # noqa: E402
+
+_THIS = os.path.abspath(__file__)
+_REPO = os.path.dirname(os.path.dirname(_THIS))
+if _REPO not in sys.path:
+    sys.path.insert(0, _REPO)
+
+import experiments.exp_unified_self_learning_loop_v2 as LOOP2  # noqa: E402
+from experiments.diag_readout_limit_probe_v1 import load_frozen_encoder  # noqa: E402
+from experiments.diag_comprehension_readout_sweep_v1 import (  # noqa: E402
+    compute_hidden_cache, readout_mean_pool, readout_last_non_pad, readout_hrr_position_bind,
+)
+
+OUT_DIR = os.path.join(_REPO, "data", "diag_order_critical_comprehension_calib_v1")
+SEED = 20260728
+MARGIN_THRESH = 0.15          # coherent_acc - scrambled_acc must clear this to call it "passes"
+COHERENT_FLOOR = 0.65         # coherent_acc itself must clear chance(0.5)+0.15
+SANITY_MARGIN = 0.10          # train balanced_acc must clear chance + this (decoder-collapse gate)
+
+BASELINE_CKPT = os.path.join(_REPO, "data", "exp_scale_meaning_learn_arc_heldout_v2", "ckpt_seed_7.pt")
+RELOBJ_CKPT = os.path.join(_REPO, "data", "exp_scale_meaning_learn_arc_heldout_v3_relobj", "ckpt_seed_7.pt")
+
+CALIBRATION_MODELS = [
+    ("sentence-transformers/all-MiniLM-L6-v2", "MiniLM"),
+    ("BAAI/bge-small-en-v1.5", "BGE_SMALL"),
+]
+
+# ---------------------------------------------------------------------------
+# Vocab (common words -- friendly to a from-scratch BPE vocab trained on real text)
+# ---------------------------------------------------------------------------
+AGENT_ENTITIES = [
+    "man", "woman", "boy", "girl", "dog", "cat", "lion", "tiger", "doctor", "teacher",
+    "farmer", "soldier", "king", "queen", "horse", "wolf", "bear", "eagle", "snake", "monkey",
+    "child", "nurse", "robot", "alien",
+]
+AGENT_VERBS = [
+    "bit", "chased", "pushed", "kicked", "hit", "scared", "followed", "watched", "helped",
+    "hugged", "grabbed", "blocked", "warned", "tricked", "carried", "lifted", "struck",
+    "bumped", "nudged", "startled",
+]
+
+STATE_OBJECTS = [
+    "door", "window", "light", "box", "gate", "valve", "switch", "machine", "engine", "lamp",
+    "faucet", "oven", "fan", "alarm", "lock", "screen", "radio", "printer", "pump", "heater",
+]
+STATE_PAIRS = [
+    ("open", "closed"), ("on", "off"), ("up", "down"), ("hot", "cold"), ("loud", "quiet"),
+    ("full", "empty"), ("locked", "unlocked"), ("broken", "fixed"), ("wet", "dry"),
+    ("bright", "dark"), ("clean", "dirty"), ("new", "old"), ("fast", "slow"), ("heavy", "light"),
+    ("sharp", "dull"),
+]
+TIME_TEMPLATES = [
+    ("first", "then"), ("initially", "later"), ("at first", "afterward"),
+    ("originally", "eventually"), ("before that", "after that"),
+]
+
+
+def _log(msg):
+    print("[order_critical_calib] %s" % msg, flush=True)
+
+
+def _now():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _shuffled(seq, rng):
+    idx = rng.permutation(len(seq))
+    return [seq[i] for i in idx]
+
+
+def _sample(pool, k, rng):
+    k = min(k, len(pool))
+    idx = rng.choice(len(pool), size=k, replace=False)
+    return [pool[i] for i in idx]
+
+
+# ===========================================================================
+# CONSTRUCTION 1: AGENT_PATIENT_REVERSIBLE
+# ===========================================================================
+def gen_agent_patient(rng, eval_pair_frac=0.30, train_target=900, eval_target_per_label=200):
+    entities = AGENT_ENTITIES
+    pairs = _shuffled(list(itertools.combinations(range(len(entities)), 2)), rng)
+    n_eval_pairs = max(30, int(round(eval_pair_frac * len(pairs))))
+    eval_pair_set = set(pairs[:n_eval_pairs])
+    train_pair_set = set(pairs[n_eval_pairs:])
+    assert train_pair_set.isdisjoint(eval_pair_set), "AGENT_PATIENT leak: pair overlap"
+
+    def build_pools(pair_set):
+        pool0, pool1 = [], []
+        for (ai, bi) in pair_set:
+            a, b = entities[ai], entities[bi]
+            for v in AGENT_VERBS:
+                pool0.append(dict(sent="the %s %s the %s ." % (a, v, b), label=0, group=(ai, bi), verb=v))
+                pool1.append(dict(sent="the %s %s the %s ." % (b, v, a), label=1, group=(ai, bi), verb=v))
+        return pool0, pool1
+
+    tr0, tr1 = build_pools(train_pair_set)
+    ev0, ev1 = build_pools(eval_pair_set)
+    train_items = _shuffled(_sample(tr0, train_target // 2, rng) + _sample(tr1, train_target // 2, rng), rng)
+    eval_items = _shuffled(_sample(ev0, eval_target_per_label, rng) + _sample(ev1, eval_target_per_label, rng), rng)
+    return dict(name="AGENT_PATIENT", train=train_items, eval=eval_items,
+                train_group_set=train_pair_set, eval_group_set=eval_pair_set,
+                n_entities=len(entities), n_verbs=len(AGENT_VERBS))
+
+
+# ===========================================================================
+# CONSTRUCTION 2: ENTITY_STATE_TIME_UPDATE
+# ===========================================================================
+def gen_entity_state(rng, eval_combo_frac=0.30, train_target=900, eval_target_per_label=200):
+    objects = STATE_OBJECTS
+    pairs = STATE_PAIRS
+    combos = _shuffled(list(itertools.product(range(len(objects)), range(len(pairs)))), rng)
+    n_eval_combos = max(30, int(round(eval_combo_frac * len(combos))))
+    eval_combo_set = set(combos[:n_eval_combos])
+    train_combo_set = set(combos[n_eval_combos:])
+    assert train_combo_set.isdisjoint(eval_combo_set), "ENTITY_STATE leak: combo overlap"
+
+    def build_pools(combo_set):
+        pool0, pool1 = [], []
+        for (oi, pi) in combo_set:
+            obj = objects[oi]
+            sA, sB = pairs[pi]
+            for (adv1, adv2) in TIME_TEMPLATES:
+                # forward: first sA, then sB -> final state = sB -> label 1
+                pool1.append(dict(sent="%s the %s was %s . %s it became %s ." % (adv1, obj, sA, adv2, sB),
+                                   label=1, group=(oi, pi), adv=(adv1, adv2)))
+                # reverse: first sB, then sA -> final state = sA -> label 0
+                pool0.append(dict(sent="%s the %s was %s . %s it became %s ." % (adv1, obj, sB, adv2, sA),
+                                   label=0, group=(oi, pi), adv=(adv1, adv2)))
+        return pool0, pool1
+
+    tr0, tr1 = build_pools(train_combo_set)
+    ev0, ev1 = build_pools(eval_combo_set)
+    train_items = _shuffled(_sample(tr0, train_target // 2, rng) + _sample(tr1, train_target // 2, rng), rng)
+    eval_items = _shuffled(_sample(ev0, eval_target_per_label, rng) + _sample(ev1, eval_target_per_label, rng), rng)
+    return dict(name="ENTITY_STATE", train=train_items, eval=eval_items,
+                train_group_set=train_combo_set, eval_group_set=eval_combo_set,
+                n_objects=len(objects), n_state_pairs=len(pairs))
+
+
+def _self_test_constructions(constructions, rng):
+    """Leak-proofness + scramble self-tests. Raises on violation (no silent continue)."""
+    for c in constructions:
+        assert c["train_group_set"].isdisjoint(c["eval_group_set"]), \
+            "%s: LEAK -- train/eval group overlap" % c["name"]
+        y_tr = [it["label"] for it in c["train"]]
+        y_ev = [it["label"] for it in c["eval"]]
+        assert set(y_tr) == {0, 1}, "%s: TRAIN labels not both present: %s" % (c["name"], set(y_tr))
+        assert set(y_ev) == {0, 1}, "%s: EVAL labels not both present: %s" % (c["name"], set(y_ev))
+        n0 = sum(1 for y in y_ev if y == 0)
+        n1 = sum(1 for y in y_ev if y == 1)
+        assert abs(n0 - n1) <= 2, "%s: EVAL not balanced (%d vs %d)" % (c["name"], n0, n1)
+        assert len(c["eval"]) >= 300, "%s: EVAL too small for adequate power (%d < 300)" % (c["name"], len(c["eval"]))
+        # scramble preserves word multiset, changes order (sample check)
+        srng = np.random.default_rng(SEED + 77)
+        n_order_changed = 0
+        for it in c["eval"][:30]:
+            s = it["sent"]
+            scr = LOOP2._scramble_words(s, srng)
+            assert sorted(s.split()) == sorted(scr.split()), "%s: scramble changed word multiset" % c["name"]
+            if scr != s:
+                n_order_changed += 1
+        assert n_order_changed >= 25, ("%s: scramble suspiciously often a no-op (%d/30 changed) -- "
+                                        "RNG or sentence-length bug" % (c["name"], n_order_changed))
+        _log("%s self-test OK: train=%d eval=%d (n0=%d n1=%d) train/eval groups disjoint (%d/%d)"
+             % (c["name"], len(c["train"]), len(c["eval"]), n0, n1,
+                len(c["train_group_set"]), len(c["eval_group_set"])))
+
+
+# ===========================================================================
+# CALIBRATION MODEL ENCODING: one raw HF forward pass -> 3 readouts
+# ===========================================================================
+_HF_MODEL_CACHE = {}
+
+
+def _load_hf_model_cached(model_name):
+    """Cache tokenizer+model across the many _raw_hf_encode calls per model_name (train/eval/
+    eval_scrambled x 2 constructions) -- avoids ~1-2s reload overhead per call, purely an
+    efficiency wrapper (no behavior change vs a fresh from_pretrained each time)."""
+    if model_name not in _HF_MODEL_CACHE:
+        from transformers import AutoTokenizer, AutoModel
+        tok = AutoTokenizer.from_pretrained(model_name)
+        mdl = AutoModel.from_pretrained(model_name)
+        mdl.eval()
+        _HF_MODEL_CACHE[model_name] = (tok, mdl)
+    return _HF_MODEL_CACHE[model_name]
+
+
+def _raw_hf_encode(model_name, sentences, batch_size=64, max_length=32):
+    tok, mdl = _load_hf_model_cached(model_name)
+    means, clss, lasts = [], [], []
+    with torch.no_grad():
+        for i in range(0, len(sentences), batch_size):
+            batch = sentences[i:i + batch_size]
+            enc = tok(batch, padding=True, truncation=True, max_length=max_length, return_tensors="pt")
+            out = mdl(**enc)
+            h = out.last_hidden_state
+            mask = enc["attention_mask"]
+            keep = mask.unsqueeze(-1).float()
+            summed = (h * keep).sum(dim=1)
+            cnt = keep.sum(dim=1).clamp(min=1.0)
+            mean_g = F.normalize(summed / cnt, dim=1)
+            cls_g = F.normalize(h[:, 0, :], dim=1)
+            lengths = mask.sum(dim=1).long() - 1
+            lengths = lengths.clamp(min=0)
+            last_g = h[torch.arange(h.shape[0]), lengths, :]
+            last_g = F.normalize(last_g, dim=1)
+            means.append(mean_g.numpy())
+            clss.append(cls_g.numpy())
+            lasts.append(last_g.numpy())
+    return dict(MEAN_POOL=np.concatenate(means, axis=0).astype(np.float32),
+                CLS_TOKEN=np.concatenate(clss, axis=0).astype(np.float32),
+                LAST_TOKEN=np.concatenate(lasts, axis=0).astype(np.float32))
+
+
+# ===========================================================================
+# BINARY LINEAR PROBE: class-balanced CE + decoder-collapse sanity gate
+# (binary re-implementation of the SAME fix landed in eval_battery_relational_cloze_v7 tonight)
+# ===========================================================================
+def fit_binary_probe(X_train, y_train, steps=300, lr=0.05, wd=0.001, seed=0):
+    torch.manual_seed(seed)
+    d = X_train.shape[1]
+    lin = nn.Linear(d, 2)
+    opt = torch.optim.Adam(lin.parameters(), lr=lr, weight_decay=wd)
+    X = torch.from_numpy(X_train).float()
+    y = torch.from_numpy(y_train).long()
+    counts = torch.clamp(torch.bincount(y, minlength=2).float(), min=1.0)
+    class_weight = counts.sum() / (2 * counts)
+    last_loss = float("nan")
+    for _ in range(steps):
+        opt.zero_grad()
+        logits = lin(X)
+        loss = F.cross_entropy(logits, y, weight=class_weight)
+        loss.backward()
+        opt.step()
+        last_loss = float(loss.detach())
+    if not np.isfinite(last_loss):
+        raise FloatingPointError("binary probe training diverged (non-finite loss)")
+    return lin, last_loss
+
+
+def _probe_sanity(lin, X_train, y_train):
+    with torch.no_grad():
+        pred = lin(torch.from_numpy(X_train).float()).numpy().argmax(axis=1)
+    recalls = []
+    for c in (0, 1):
+        mask = (y_train == c)
+        if mask.sum() > 0:
+            recalls.append(float((pred[mask] == c).mean()))
+    balanced_acc = float(np.mean(recalls)) if recalls else 0.0
+    return dict(train_balanced_acc=balanced_acc, chance=0.5,
+                train_beats_chance=bool(balanced_acc >= 0.5 + SANITY_MARGIN))
+
+
+def _probe_eval_acc(lin, X, y):
+    with torch.no_grad():
+        pred = lin(torch.from_numpy(X).float()).numpy().argmax(axis=1)
+    acc = float((pred == y).mean())
+    recalls = []
+    for c in (0, 1):
+        mask = (y == c)
+        if mask.sum() > 0:
+            recalls.append(float((pred[mask] == c).mean()))
+    balanced_acc = float(np.mean(recalls)) if recalls else 0.0
+    return acc, balanced_acc
+
+
+def _two_prop_z(acc1, n1, acc2, n2):
+    """Two-proportion z-test for coherent_acc vs scrambled_acc (independent samples)."""
+    p_pool = (acc1 * n1 + acc2 * n2) / (n1 + n2)
+    se = np.sqrt(p_pool * (1 - p_pool) * (1.0 / n1 + 1.0 / n2))
+    if se <= 1e-12:
+        return 0.0
+    return float((acc1 - acc2) / se)
+
+
+def score_readout_arm(name, X_train, y_train, X_eval_coh, X_eval_scr, y_eval, seed):
+    lin, final_loss = fit_binary_probe(X_train, y_train, seed=seed)
+    sanity = _probe_sanity(lin, X_train, y_train)
+    coh_acc, coh_bal = _probe_eval_acc(lin, X_eval_coh, y_eval)
+    scr_acc, scr_bal = _probe_eval_acc(lin, X_eval_scr, y_eval)
+    margin = coh_acc - scr_acc
+    z = _two_prop_z(coh_acc, len(y_eval), scr_acc, len(y_eval))
+    comprehension_specific = bool(sanity["train_beats_chance"] and coh_acc >= COHERENT_FLOOR
+                                   and margin >= MARGIN_THRESH)
+    return dict(name=name, decoder_final_loss=final_loss, train_sanity=sanity,
+                coherent_acc=coh_acc, coherent_balanced_acc=coh_bal,
+                scrambled_acc=scr_acc, scrambled_balanced_acc=scr_bal,
+                margin=margin, z_stat=z, n_eval=len(y_eval),
+                comprehension_specific=comprehension_specific)
+
+
+# ===========================================================================
+# OUR OWN ENCODER SCORING (matched readout categories + HRR bonus)
+# ===========================================================================
+def _own_encoder_readouts(ckpt_path, train_sents, eval_coh_sents, eval_scr_sents, seed):
+    model, tok, spec, ckpt_meta = load_frozen_encoder(ckpt_path)
+    device = torch.device("cpu")
+    cfg = dict(max_len=min(32, model.max_len if hasattr(model, "max_len") else 32), encode_batch=256)
+    H_tr, M_tr, _ = compute_hidden_cache(model, tok, spec, train_sents, cfg, device)
+    H_ec, M_ec, _ = compute_hidden_cache(model, tok, spec, eval_coh_sents, cfg, device)
+    H_es, M_es, _ = compute_hidden_cache(model, tok, spec, eval_scr_sents, cfg, device)
+    out = {}
+    out["MEAN_POOL"] = (readout_mean_pool(H_tr, M_tr), readout_mean_pool(H_ec, M_ec), readout_mean_pool(H_es, M_es))
+    out["LAST_TOKEN"] = (readout_last_non_pad(H_tr, M_tr), readout_last_non_pad(H_ec, M_ec), readout_last_non_pad(H_es, M_es))
+    out["HRR_POSITION_BIND_bonus"] = (readout_hrr_position_bind(H_tr, M_tr),
+                                       readout_hrr_position_bind(H_ec, M_ec),
+                                       readout_hrr_position_bind(H_es, M_es))
+    return out, ckpt_meta
+
+
+# ===========================================================================
+# Main orchestration
+# ===========================================================================
+def main():
+    t_wall0 = time.perf_counter()
+    os.makedirs(OUT_DIR, exist_ok=True)
+    rng = np.random.default_rng(SEED)
+
+    ap = gen_agent_patient(rng)
+    es = gen_entity_state(rng)
+    constructions = [ap, es]
+    _self_test_constructions(constructions, rng)
+
+    srng = np.random.default_rng(SEED + 1234)
+    for c in constructions:
+        c["eval_scrambled_sents"] = [LOOP2._scramble_words(it["sent"], srng) for it in c["eval"]]
+
+    calibration_results = {}
+    validated_readout_per_construction = {}
+
+    for model_name, short_name in CALIBRATION_MODELS:
+        calibration_results[short_name] = {}
+        for c in constructions:
+            train_sents = [it["sent"] for it in c["train"]]
+            eval_sents = [it["sent"] for it in c["eval"]]
+            eval_scr_sents = c["eval_scrambled_sents"]
+            y_train = np.array([it["label"] for it in c["train"]], dtype=np.int64)
+            y_eval = np.array([it["label"] for it in c["eval"]], dtype=np.int64)
+
+            t0 = time.perf_counter()
+            G_tr = _raw_hf_encode(model_name, train_sents)
+            G_ec = _raw_hf_encode(model_name, eval_sents)
+            G_es = _raw_hf_encode(model_name, eval_scr_sents)
+            t_enc = time.perf_counter() - t0
+            _log("%s / %s encoded (%.1fs): train=%d eval=%d" % (short_name, c["name"], t_enc, len(train_sents), len(eval_sents)))
+
+            per_readout = {}
+            for readout_name in ("MEAN_POOL", "CLS_TOKEN", "LAST_TOKEN"):
+                res = score_readout_arm(readout_name, G_tr[readout_name], y_train,
+                                         G_ec[readout_name], G_es[readout_name], y_eval, SEED)
+                per_readout[readout_name] = res
+                _log("  %s/%s/%s: train_sanity=%s coherent=%.4f scrambled=%.4f margin=%+.4f z=%.2f pass=%s"
+                     % (short_name, c["name"], readout_name, res["train_sanity"]["train_beats_chance"],
+                        res["coherent_acc"], res["scrambled_acc"], res["margin"], res["z_stat"],
+                        res["comprehension_specific"]))
+
+            calibration_results[short_name][c["name"]] = dict(per_readout=per_readout, t_encode_s=t_enc)
+
+            passing = [r for r in per_readout if per_readout[r]["comprehension_specific"]]
+            if passing:
+                best = max(passing, key=lambda r: per_readout[r]["margin"])
+                cur = validated_readout_per_construction.get(c["name"])
+                if cur is None or per_readout[best]["margin"] > cur["margin"]:
+                    validated_readout_per_construction[c["name"]] = dict(
+                        model=short_name, readout=best, margin=per_readout[best]["margin"],
+                        coherent_acc=per_readout[best]["coherent_acc"])
+
+    instrument_valid_per_construction = {c["name"]: (c["name"] in validated_readout_per_construction)
+                                          for c in constructions}
+    instrument_valid_overall = all(instrument_valid_per_construction.values())
+    instrument_valid_any = any(instrument_valid_per_construction.values())
+
+    _log("CALIBRATION GATE: per-construction valid=%s overall(both)=%s any=%s winners=%s"
+         % (instrument_valid_per_construction, instrument_valid_overall, instrument_valid_any,
+            validated_readout_per_construction))
+
+    own_encoder_results = {}
+    if instrument_valid_any:
+        for ckpt_name, ckpt_path in (("BASELINE_v2", BASELINE_CKPT), ("RELOBJ_v3", RELOBJ_CKPT)):
+            if not os.path.exists(ckpt_path):
+                own_encoder_results[ckpt_name] = dict(skipped="ckpt not found at %s" % ckpt_path)
+                continue
+            own_encoder_results[ckpt_name] = {}
+            for c in constructions:
+                if not instrument_valid_per_construction[c["name"]]:
+                    own_encoder_results[ckpt_name][c["name"]] = dict(skipped="construction not validated by any known reader")
+                    continue
+                train_sents = [it["sent"] for it in c["train"]]
+                eval_sents = [it["sent"] for it in c["eval"]]
+                eval_scr_sents = c["eval_scrambled_sents"]
+                y_train = np.array([it["label"] for it in c["train"]], dtype=np.int64)
+                y_eval = np.array([it["label"] for it in c["eval"]], dtype=np.int64)
+
+                t0 = time.perf_counter()
+                readouts, ckpt_meta = _own_encoder_readouts(ckpt_path, train_sents, eval_sents, eval_scr_sents, SEED)
+                t_enc = time.perf_counter() - t0
+                _log("%s / %s own-encoder readouts computed (%.1fs)" % (ckpt_name, c["name"], t_enc))
+
+                winner = validated_readout_per_construction[c["name"]]
+                matched_readout = "MEAN_POOL" if winner["readout"] in ("MEAN_POOL", "CLS_TOKEN") else "LAST_TOKEN"
+                # CLS_TOKEN has no direct analog on a no-CLS encoder; MEAN_POOL is the closest
+                # matched "native pooled sentence embedding" category -- documented, not silent.
+
+                per_readout = {}
+                for rname in ("MEAN_POOL", "LAST_TOKEN", "HRR_POSITION_BIND_bonus"):
+                    G_tr, G_ec, G_es = readouts[rname]
+                    res = score_readout_arm(rname, G_tr, y_train, G_ec, G_es, y_eval, SEED)
+                    per_readout[rname] = res
+                    _log("  %s/%s/%s: train_sanity=%s coherent=%.4f scrambled=%.4f margin=%+.4f pass=%s"
+                         % (ckpt_name, c["name"], rname, res["train_sanity"]["train_beats_chance"],
+                            res["coherent_acc"], res["scrambled_acc"], res["margin"], res["comprehension_specific"]))
+
+                own_encoder_results[ckpt_name][c["name"]] = dict(
+                    per_readout=per_readout, t_encode_s=t_enc, ckpt_meta=ckpt_meta,
+                    calibration_winner=winner, matched_readout_used=matched_readout,
+                    matched_readout_result=per_readout[matched_readout],
+                    matched_vs_known_reader_gap=(winner["margin"] - per_readout[matched_readout]["margin"]),
+                    matched_vs_chance=(per_readout[matched_readout]["coherent_acc"] - 0.5),
+                )
+    else:
+        _log("NO construction validated by ANY known reader on ANY readout -- skipping own-encoder scoring "
+             "(would be uninterpretable against a broken instrument).")
+
+    verdict_msg_parts = []
+    for c in constructions:
+        v = instrument_valid_per_construction[c["name"]]
+        w = validated_readout_per_construction.get(c["name"])
+        verdict_msg_parts.append("%s: instrument_valid=%s%s" % (
+            c["name"], v, ("" if not v else (" (winner=%s/%s margin=%+.4f coherent=%.4f)"
+                                              % (w["model"], w["readout"], w["margin"], w["coherent_acc"])))))
+    verdict_msg = "ORDER-CRITICAL CALIBRATION: " + " | ".join(verdict_msg_parts)
+    _log("VERDICT: %s" % verdict_msg)
+
+    payload = dict(
+        script=os.path.basename(_THIS), ts_iso=_now(), pid=os.getpid(), seed=SEED,
+        margin_thresh=MARGIN_THRESH, coherent_floor=COHERENT_FLOOR, sanity_margin=SANITY_MARGIN,
+        constructions_meta={c["name"]: dict(n_train=len(c["train"]), n_eval=len(c["eval"]),
+                                             n_train_groups=len(c["train_group_set"]),
+                                             n_eval_groups=len(c["eval_group_set"]))
+                            for c in constructions},
+        calibration_models=[s for _, s in CALIBRATION_MODELS],
+        calibration_results=calibration_results,
+        instrument_valid_per_construction=instrument_valid_per_construction,
+        instrument_valid_overall_both=instrument_valid_overall,
+        instrument_valid_any=instrument_valid_any,
+        validated_readout_per_construction=validated_readout_per_construction,
+        own_encoder_results=own_encoder_results,
+        verdict_msg=verdict_msg,
+        note_caveat=("MiniLM + bge-small-en-v1.5 used DIAGNOSTIC-ONLY for instrument calibration -- "
+                     "neither is wired into the substrate and neither is proposed as the encoder "
+                     "(per standing USER directive against borrowed embeddings as the substrate's "
+                     "encoder). All arms within a construction share the IDENTICAL TRAIN/EVAL split "
+                     "and IDENTICAL scrambled-eval sentences, so every comparison is fair and paired."),
+        elapsed_s_total=time.perf_counter() - t_wall0,
+    )
+    tmp = os.path.join(OUT_DIR, "results.json.tmp")
+    final = os.path.join(OUT_DIR, "results.json")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, default=str)
+    os.replace(tmp, final)
+    _log("wrote %s (elapsed %.1fs)" % (final, payload["elapsed_s_total"]))
+    return payload
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except SystemExit:
+        raise
+    except KeyboardInterrupt:
+        raise
+    except Exception as e:
+        traceback.print_exc()
+        os.makedirs(OUT_DIR, exist_ok=True)
+        with open(os.path.join(OUT_DIR, "crash.txt"), "w", encoding="utf-8") as f:
+            f.write("%s: %s\n\n%s" % (type(e).__name__, e, traceback.format_exc()))
+        sys.exit(1)
