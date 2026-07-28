@@ -234,6 +234,10 @@ def check_undecided_validated(rows: list[dict]) -> list[dict]:
         fam = (fam_row.get("capability_family") or "").lower()
         if not fam or len(fam) < 4:
             continue
+        # 'other' is the aggregator catch-all for untagged tests (thousands), not a
+        # real capability -- never a gate decision (skunkworks triage 2026-07-28).
+        if fam == "other":
+            continue
         # loose match: family name (or its underscore tokens) appears in the registry blob
         tokens = [t for t in fam.replace("-", "_").split("_") if len(t) >= 4]
         matched = fam in registry_blob or (
