@@ -101,11 +101,14 @@ _REPO = os.path.dirname(os.path.dirname(_THIS))
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
+from tokenizers import Tokenizer  # noqa: E402
+
 import experiments.exp_unified_self_learning_loop_v2 as LOOP2  # noqa: E402
 from experiments.diag_readout_limit_probe_v1 import load_frozen_encoder  # noqa: E402
 from experiments.diag_comprehension_readout_sweep_v1 import (  # noqa: E402
     compute_hidden_cache, readout_mean_pool, readout_last_non_pad, readout_hrr_position_bind,
 )
+from experiments.exp_scale_meaning_learn_arc_heldout_v2 import TinyTransformer  # noqa: E402
 
 OUT_DIR = os.path.join(_REPO, "data", "diag_order_critical_comprehension_calib_v1")
 SEED = 20260728
@@ -120,6 +123,17 @@ CALIBRATION_MODELS = [
     ("sentence-transformers/all-MiniLM-L6-v2", "MiniLM"),
     ("BAAI/bge-small-en-v1.5", "BGE_SMALL"),
 ]
+
+# --- MULTI_ENTITY_STATE gate B (random-init-core control, 2026-07-29) ---
+# Gate (B) of the acceptance test: a RANDOM-INIT encoder run through the SAME architecture +
+# SAME readout must FAIL (margin near chance) where a TRAINED known reader (gate A) passes. This
+# is OUR substrate encoder's own architecture (TinyTransformer, per BASELINE_CKPT's model_cfg),
+# not a random-init HF model -- the question is whether OUR encoder family's raw untrained
+# structure alone (position embeddings + self-attention geometry) can solve the construction, vs
+# requiring the LEARNED weights. Matches design doc D3: "MANDATORY random-init-ENCODER-through-
+# the-full-stateful-core control -- if the untrained core matches, it is structure not learning."
+RANDOM_INIT_SEED = 20260729
+RANDOM_INIT_MARGIN_FAIL_THRESH = 0.05   # gate B: random-init margin must stay BELOW this to "fail" (pass the gate)
 
 # ---------------------------------------------------------------------------
 # Vocab (common words -- friendly to a from-scratch BPE vocab trained on real text)
@@ -330,6 +344,150 @@ def gen_entity_state(rng, eval_combo_frac=0.30, train_target=900, eval_target_pe
                 n_objects=len(objects), n_state_pairs=len(pairs))
 
 
+# ===========================================================================
+# CONSTRUCTION 4: MULTI_ENTITY_STATE (added 2026-07-29, stateful-core measurement-first build,
+# notes/stateful_core_situation_model_build_design.md "MEASUREMENT" + D3).
+#
+# >=3 entities, MULTI-update entity-state tracking: a stream of update events on a SHARED
+# state-axis ("the {target} became {sA}", interleaved with distractor entities' updates, "the
+# {target} became {sB}"); the query asks for the FINAL state of the SPECIFIC target entity --
+# requires tracking WHICH updates applied to WHICH entity across the whole interleaved sequence
+# and applying the LAST update to that entity, not the naive "last state-word seen anywhere".
+#
+# ORDER_1 (consistent, label=1): distractor noise, THEN target's FIRST update (sA), THEN more
+#   distractor noise, THEN target's FINAL update (sB); query clause states "the target is sB now"
+#   -- TRUE (matches target's actual last update).
+# ORDER_0 (violated, label=0): the exact same distractor sentences in the exact same positions,
+#   but the target's two update sentences are SWAPPED (final update is now sA, not sB); the SAME
+#   query clause text ("the target is sB now") is now FALSE (target's actual last update is sA).
+# ORDER_1 and ORDER_0 share an IDENTICAL WORD MULTISET (only the position of the target's two own
+# update sentences differs; all distractor sentences + the query are byte-identical and in the
+# same slots) -- same discipline as AGENT_PATIENT / ENTITY_STATE / CROSS_BOUNDARY: NOT solvable
+# by bag-of-words; a SINGLE positional cue (e.g. "last mention of sB anywhere") is also
+# insufficient once >=1 distractor entity's OWN random state words can coincide with sA/sB by
+# chance -- the construction requires per-entity state-slot maintenance across intervening
+# updates about OTHER entities, harder than CROSS_BOUNDARY's single 2-sentence clause.
+#
+# DIFFICULTY KNOBS (swept in main(), per the acceptance-gate iteration requirement): n_distractor
+# entities (>=2, so total entities >=3) and n_distractor_events (sentences interleaved between the
+# target's two own update sentences and around them) -- more distractors = more entities to track
+# simultaneously = harder positional-attention-only solution, easier genuine per-entity maintenance
+# gate to separate a trained known reader (gate A) from an untrained random-init core (gate B).
+# ===========================================================================
+def gen_multi_entity_state(rng, n_distractor_entities=3, n_distractor_events=4,
+                            eval_combo_frac=0.30, train_target=900, eval_target_per_label=160):
+    objects = STATE_OBJECTS
+    pairs = STATE_PAIRS
+    combos = _shuffled(list(itertools.product(range(len(objects)), range(len(pairs)))), rng)
+    n_eval_combos = max(30, int(round(eval_combo_frac * len(combos))))
+    eval_combo_set = set(combos[:n_eval_combos])
+    train_combo_set = set(combos[n_eval_combos:])
+    assert train_combo_set.isdisjoint(eval_combo_set), "MULTI_ENTITY_STATE leak: combo overlap"
+
+    def _distractor_sents(target_idx, n, local_rng, shared_pair, p_shared=0.5):
+        """Distractor update sentences for entities OTHER than the target. With probability
+        p_shared, reuse the TARGET's own shared state-axis (sA/sB) for the distractor instead of
+        an unrelated pair -- this creates lexical overlap (the word sB can appear attached to a
+        DIFFERENT entity after the target's own last update) so a naive "last occurrence of the
+        word sB anywhere" positional shortcut fails; the correct answer requires binding state
+        words to the SPECIFIC entity that owns each update, not just finding the last sB token."""
+        distract_pool = [j for j in range(len(objects)) if j != target_idx]
+        n_use = min(n_distractor_entities, len(distract_pool))
+        pick = local_rng.choice(len(distract_pool), size=n_use, replace=False)
+        distract_entities = [objects[distract_pool[j]] for j in pick]
+        out = []
+        for _ in range(n):
+            de = distract_entities[int(local_rng.integers(0, len(distract_entities)))]
+            if local_rng.random() < p_shared:
+                dpidx_pair = shared_pair
+            else:
+                dpidx_pair = pairs[int(local_rng.integers(0, len(pairs)))]
+            dwhich = int(local_rng.integers(0, 2))
+            dval = dpidx_pair[dwhich]
+            out.append("the %s became %s ." % (de, dval))
+        return out
+
+    def build_pools(combo_set, local_rng):
+        pool0, pool1 = [], []
+        for (oi, pi) in combo_set:
+            obj = objects[oi]
+            sA, sB = pairs[pi]
+            for (adv1, adv2) in TIME_TEMPLATES:
+                n_pre = n_distractor_events // 2
+                n_mid = n_distractor_events - n_pre
+                d_pre = _distractor_sents(oi, n_pre, local_rng, (sA, sB))
+                d_mid = _distractor_sents(oi, n_mid, local_rng, (sA, sB))
+                target_first = "%s the %s became %s ." % (adv1, obj, sA)
+                target_final = "the %s became %s ." % (obj, sB)
+                query = "%s the %s is %s now ." % (adv2, obj, sB)
+                # ORDER_1 (label=1, consistent): target's own two updates in TRUE chronological
+                # order (first sA, then sB) -> query "target is sB now" is TRUE.
+                stream1 = d_pre + [target_first] + d_mid + [target_final]
+                # ORDER_0 (label=0, violated): the SAME d_pre/d_mid distractor sentences in the
+                # SAME slots, but the target's own two sentences SWAPPED -> target's actual last
+                # update is now sA, so the SAME query text "target is sB now" is FALSE. stream0 is
+                # a pure permutation of stream1 (same two target sentences + same distractor
+                # sentences, only target-sentence SLOT order differs) -> identical word multiset
+                # by construction (verified below).
+                stream0 = d_pre + [target_final] + d_mid + [target_first]
+                group = (oi, pi)
+                pool1.append(dict(sent=" ".join(stream1 + [query]), label=1, group=group,
+                                   adv=(adv1, adv2), n_distractor_entities=n_distractor_entities,
+                                   n_distractor_events=n_distractor_events))
+                pool0.append(dict(sent=" ".join(stream0 + [query]), label=0, group=group,
+                                   adv=(adv1, adv2), n_distractor_entities=n_distractor_entities,
+                                   n_distractor_events=n_distractor_events))
+        return pool0, pool1
+
+    tr0, tr1 = build_pools(train_combo_set, rng)
+    ev0, ev1 = build_pools(eval_combo_set, rng)
+
+    # By-construction multiset check (same discipline as CROSS_BOUNDARY): index-aligned pool0/
+    # pool1 items share the same (group, adv) triple and MUST have identical word multisets --
+    # verified BEFORE sampling.
+    n_checked = 0
+    for k in range(0, min(len(tr0), len(tr1)), max(1, len(tr0) // 40)):
+        w0 = sorted(tr0[k]["sent"].split())
+        w1 = sorted(tr1[k]["sent"].split())
+        assert tr0[k]["group"] == tr1[k]["group"] and tr0[k]["adv"] == tr1[k]["adv"], \
+            "MULTI_ENTITY_STATE: pool0/pool1 index-alignment broken at k=%d" % k
+        assert w0 == w1, "MULTI_ENTITY_STATE: multiset mismatch at k=%d: %r vs %r" % (k, w0, w1)
+        n_checked += 1
+    assert n_checked >= 5, "MULTI_ENTITY_STATE multiset self-test found too few pairs (%d)" % n_checked
+    _log("MULTI_ENTITY_STATE(distE=%d,distEv=%d) multiset self-test OK: %d index-aligned pairs "
+         "share identical word multiset (by-construction, pre-sampling)"
+         % (n_distractor_entities, n_distractor_events, n_checked))
+
+    train_items = _shuffled(_sample(tr0, train_target // 2, rng) + _sample(tr1, train_target // 2, rng), rng)
+    eval_items = _shuffled(_sample(ev0, eval_target_per_label, rng) + _sample(ev1, eval_target_per_label, rng), rng)
+    return dict(name="MULTI_ENTITY_STATE_distE%d_distEv%d" % (n_distractor_entities, n_distractor_events),
+                train=train_items, eval=eval_items,
+                train_group_set=train_combo_set, eval_group_set=eval_combo_set,
+                n_objects=len(objects), n_state_pairs=len(pairs),
+                n_distractor_entities=n_distractor_entities, n_distractor_events=n_distractor_events,
+                n_total_entities=n_distractor_entities + 1)
+
+
+def load_random_init_encoder(ckpt_path, seed):
+    """Gate-B control: SAME architecture as the frozen checkpoint at ckpt_path (model_cfg only --
+    the LEARNED weights are discarded), freshly initialized with `seed`. Same tokenizer/spec as
+    the checkpoint (BPE vocab is not the learned representation under test; only the transformer
+    weights are). Returns the same (model, tok, spec, meta) tuple shape as load_frozen_encoder so
+    it drops into the same readout machinery."""
+    ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+    mc = ckpt["model_cfg"]
+    torch.manual_seed(seed)
+    model = TinyTransformer(mc["vocab"], mc["max_len"], mc["d_model"], mc["n_layers"],
+                            mc["n_heads"], mc["ffn_mult"], mc["pad_id"])
+    model.eval()
+    for p in model.parameters():
+        p.requires_grad_(False)
+    tok = Tokenizer.from_str(ckpt["tokenizer_json"])
+    spec = ckpt["spec"]
+    meta = dict(seed=seed, run_mode="RANDOM_INIT_CONTROL", source_arch_ckpt=ckpt_path, model_cfg=mc)
+    return model, tok, spec, meta
+
+
 def _self_test_constructions(constructions, rng):
     """Leak-proofness + scramble self-tests. Raises on violation (no silent continue)."""
     for c in constructions:
@@ -501,6 +659,23 @@ def _own_encoder_readouts(ckpt_path, train_sents, eval_coh_sents, eval_scr_sents
     return out, ckpt_meta
 
 
+def _random_init_readouts(arch_ckpt_path, train_sents, eval_coh_sents, eval_scr_sents, seed):
+    """Gate-B control: SAME forward-pass + readout machinery as _own_encoder_readouts, but the
+    encoder is load_random_init_encoder's untrained SAME-architecture model (see that function's
+    docstring). Only MEAN_POOL/LAST_TOKEN -- the two matched-analog readout categories used for
+    known-reader comparison -- are computed (no HRR bonus; not needed for the gate)."""
+    model, tok, spec, meta = load_random_init_encoder(arch_ckpt_path, seed)
+    device = torch.device("cpu")
+    cfg = dict(max_len=min(32, model.max_len if hasattr(model, "max_len") else 32), encode_batch=256)
+    H_tr, M_tr, _ = compute_hidden_cache(model, tok, spec, train_sents, cfg, device)
+    H_ec, M_ec, _ = compute_hidden_cache(model, tok, spec, eval_coh_sents, cfg, device)
+    H_es, M_es, _ = compute_hidden_cache(model, tok, spec, eval_scr_sents, cfg, device)
+    out = {}
+    out["MEAN_POOL"] = (readout_mean_pool(H_tr, M_tr), readout_mean_pool(H_ec, M_ec), readout_mean_pool(H_es, M_es))
+    out["LAST_TOKEN"] = (readout_last_non_pad(H_tr, M_tr), readout_last_non_pad(H_ec, M_ec), readout_last_non_pad(H_es, M_es))
+    return out, meta
+
+
 # ===========================================================================
 # Main orchestration
 # ===========================================================================
@@ -615,6 +790,121 @@ def main():
         _log("NO construction validated by ANY known reader on ANY readout -- skipping own-encoder scoring "
              "(would be uninterpretable against a broken instrument).")
 
+    # =========================================================================
+    # MULTI_ENTITY_STATE two-gate acceptance test (2026-07-29, stateful-core measurement-first
+    # gating item). Difficulty escalates (more distractor entities/events); at each difficulty:
+    #   Gate A: does >=1 known reader (MiniLM/BGE) x readout clear comprehension_specific
+    #     (margin >= MARGIN_THRESH and coherent_acc >= COHERENT_FLOOR)?
+    #   Gate B: does a RANDOM-INIT SAME-ARCHITECTURE encoder (untrained TinyTransformer, same
+    #     model_cfg as BASELINE_CKPT) through the MATCHED readout stay near chance (margin <
+    #     RANDOM_INIT_MARGIN_FAIL_THRESH)?
+    # BOTH must hold at the SAME difficulty for the construction to be valid (a known reader can
+    # solve it via learned comprehension; raw untrained structure cannot). Stop escalating once
+    # BOTH gates pass (success) OR gate A itself fails (already too hard for a trained reader --
+    # escalating further will not recover gate A, since more distractors only makes it harder).
+    # =========================================================================
+    MES_DIFFICULTY_VARIANTS = [
+        dict(n_distractor_entities=2, n_distractor_events=2),
+        dict(n_distractor_entities=3, n_distractor_events=4),
+        dict(n_distractor_entities=4, n_distractor_events=6),
+        dict(n_distractor_entities=5, n_distractor_events=8),
+    ]
+    mes_rng = np.random.default_rng(SEED + 555)
+    mes_srng = np.random.default_rng(SEED + 556)
+    mes_results = {}
+    mes_order = []
+    mes_acceptance_gate_satisfied = False
+    mes_stop_reason = None
+
+    for variant in MES_DIFFICULTY_VARIANTS:
+        mc_ = gen_multi_entity_state(mes_rng, **variant)
+        mes_order.append(mc_["name"])
+        _self_test_constructions([mc_], mes_rng)   # generic leak/balance/scramble self-test (reused)
+
+        eval_scr_sents = [LOOP2._scramble_words(it["sent"], mes_srng) for it in mc_["eval"]]
+        train_sents = [it["sent"] for it in mc_["train"]]
+        eval_sents = [it["sent"] for it in mc_["eval"]]
+        y_train = np.array([it["label"] for it in mc_["train"]], dtype=np.int64)
+        y_eval = np.array([it["label"] for it in mc_["eval"]], dtype=np.int64)
+
+        per_model = {}
+        best_known = None
+        for model_name, short_name in CALIBRATION_MODELS:
+            t0 = time.perf_counter()
+            G_tr = _raw_hf_encode(model_name, train_sents)
+            G_ec = _raw_hf_encode(model_name, eval_sents)
+            G_es = _raw_hf_encode(model_name, eval_scr_sents)
+            t_enc = time.perf_counter() - t0
+            _log("MES(%s)/%s encoded (%.1fs): train=%d eval=%d"
+                 % (mc_["name"], short_name, t_enc, len(train_sents), len(eval_sents)))
+            per_readout = {}
+            for readout_name in ("MEAN_POOL", "CLS_TOKEN", "LAST_TOKEN"):
+                res = score_readout_arm(readout_name, G_tr[readout_name], y_train,
+                                         G_ec[readout_name], G_es[readout_name], y_eval, SEED)
+                per_readout[readout_name] = res
+                _log("  MES(%s)/%s/%s: coherent=%.4f scrambled=%.4f margin=%+.4f pass=%s"
+                     % (mc_["name"], short_name, readout_name, res["coherent_acc"],
+                        res["scrambled_acc"], res["margin"], res["comprehension_specific"]))
+                if res["comprehension_specific"] and (best_known is None or res["margin"] > best_known["margin"]):
+                    best_known = dict(model=short_name, readout=readout_name, margin=res["margin"],
+                                       coherent_acc=res["coherent_acc"])
+            per_model[short_name] = per_readout
+
+        gate_a_pass = best_known is not None
+
+        gate_b = None
+        gate_b_pass = None
+        if gate_a_pass:
+            matched_readout = "MEAN_POOL" if best_known["readout"] in ("MEAN_POOL", "CLS_TOKEN") else "LAST_TOKEN"
+            ri_readouts, ri_meta = _random_init_readouts(BASELINE_CKPT, train_sents, eval_sents,
+                                                          eval_scr_sents, RANDOM_INIT_SEED)
+            G_tr, G_ec, G_es = ri_readouts[matched_readout]
+            ri_res = score_readout_arm(matched_readout + "_RANDOM_INIT", G_tr, y_train,
+                                        G_ec, G_es, y_eval, SEED)
+            gate_b = ri_res
+            # Gate B PASSES (construction is valid on this axis) when the random-init margin
+            # stays BELOW threshold -- i.e. the untrained core FAILS, as required.
+            gate_b_pass = bool(ri_res["margin"] < RANDOM_INIT_MARGIN_FAIL_THRESH)
+            _log("MES(%s) gate B random-init-core (%s): coherent=%.4f scrambled=%.4f margin=%+.4f "
+                 "random_init_fails(gate_b_pass)=%s"
+                 % (mc_["name"], matched_readout, ri_res["coherent_acc"], ri_res["scrambled_acc"],
+                    ri_res["margin"], gate_b_pass))
+
+        both_gates_pass = bool(gate_a_pass and gate_b_pass)
+        mes_results[mc_["name"]] = dict(
+            variant=variant, n_train=len(mc_["train"]), n_eval=len(mc_["eval"]),
+            n_total_entities=mc_["n_total_entities"], per_model=per_model,
+            gate_a_pass=gate_a_pass, best_known_reader=best_known,
+            gate_b_random_init=gate_b, gate_b_pass=gate_b_pass, both_gates_pass=both_gates_pass,
+        )
+        _log("MES(%s) VERDICT: gate_A(known_reader_passes)=%s gate_B(random_init_fails)=%s BOTH=%s"
+             % (mc_["name"], gate_a_pass, gate_b_pass, both_gates_pass))
+
+        if both_gates_pass:
+            mes_acceptance_gate_satisfied = True
+            mes_stop_reason = "both_gates_pass_at_%s" % mc_["name"]
+            _log("MES ACCEPTANCE GATE SATISFIED at %s -- stopping difficulty escalation." % mc_["name"])
+            break
+        if not gate_a_pass:
+            mes_stop_reason = "gate_a_failed_at_%s_stopping_escalation" % mc_["name"]
+            _log("MES(%s): gate A already fails (no known reader clears comprehension_specific) -- "
+                 "already too hard for a TRAINED reader; harder variants will not recover gate A. "
+                 "Stopping escalation." % mc_["name"])
+            break
+        # gate_a_pass True but gate_b_pass False (random-init ALSO matches -> structure-alone,
+        # same failure class as the original cross-boundary v1 result) -> escalate to next
+        # (harder) variant and re-test.
+
+    if mes_stop_reason is None:
+        mes_stop_reason = "exhausted_all_variants_without_resolution"
+
+    mes_verdict_msg = (
+        "MULTI_ENTITY_STATE two-gate sweep: acceptance_gate_satisfied=%s (stop_reason=%s); "
+        "variants tried=%s; per-variant BOTH-gates=%s"
+        % (mes_acceptance_gate_satisfied, mes_stop_reason, mes_order,
+           {name: mes_results[name]["both_gates_pass"] for name in mes_order}))
+    _log("MES FINAL: %s" % mes_verdict_msg)
+
     verdict_msg_parts = []
     for c in constructions:
         v = instrument_valid_per_construction[c["name"]]
@@ -622,7 +912,7 @@ def main():
         verdict_msg_parts.append("%s: instrument_valid=%s%s" % (
             c["name"], v, ("" if not v else (" (winner=%s/%s margin=%+.4f coherent=%.4f)"
                                               % (w["model"], w["readout"], w["margin"], w["coherent_acc"])))))
-    verdict_msg = "ORDER-CRITICAL CALIBRATION: " + " | ".join(verdict_msg_parts)
+    verdict_msg = "ORDER-CRITICAL CALIBRATION: " + " | ".join(verdict_msg_parts) + " || " + mes_verdict_msg
     _log("VERDICT: %s" % verdict_msg)
 
     payload = dict(
@@ -639,6 +929,14 @@ def main():
         instrument_valid_any=instrument_valid_any,
         validated_readout_per_construction=validated_readout_per_construction,
         own_encoder_results=own_encoder_results,
+        random_init_seed=RANDOM_INIT_SEED,
+        random_init_margin_fail_thresh=RANDOM_INIT_MARGIN_FAIL_THRESH,
+        mes_difficulty_variants=MES_DIFFICULTY_VARIANTS,
+        mes_order=mes_order,
+        mes_results=mes_results,
+        mes_acceptance_gate_satisfied=mes_acceptance_gate_satisfied,
+        mes_stop_reason=mes_stop_reason,
+        mes_verdict_msg=mes_verdict_msg,
         verdict_msg=verdict_msg,
         note_caveat=("MiniLM + bge-small-en-v1.5 used DIAGNOSTIC-ONLY for instrument calibration -- "
                      "neither is wired into the substrate and neither is proposed as the encoder "
