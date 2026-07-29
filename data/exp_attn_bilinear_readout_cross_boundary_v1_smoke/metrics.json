@@ -1,0 +1,305 @@
+{
+  "verdict": "HARD_FAIL_STRUCTURE_ALONE",
+  "verdict_msg": "MANDATORY random-init-ENCODER control matched/exceeded the trained ATTN_BILINEAR gain over MEAN_POOL on >=1 gating unit (structure alone, not learning). Per-gating-unit gain/random_encoder_gain: {'RELOBJ_v3_seed_7': (0.2250000000000001, 0.2883333333333334)}",
+  "summary": "MANDATORY random-init-ENCODER control matched/exceeded the trained ATTN_BILINEAR gain over MEAN_POOL on >=1 gating unit (structure alone, not learning). Per-gating-unit gain/random_encoder_gain: {'RELOBJ_v3_seed_7': (0.2250000000000001, 0.2883333333333334)}",
+  "anchor_name": "attn_bilinear_readout_cross_boundary_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-29T12:03:25.823787+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_units": 1,
+  "per_unit": {
+    "RELOBJ_v3_seed_7": {
+      "unit": "RELOBJ_v3_seed_7",
+      "gating": true,
+      "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_relobj\\ckpt_seed_7.pt",
+      "ckpt_meta": {
+        "seed": 7,
+        "run_mode": "full",
+        "anchor": "scale_meaning_learn_arc_heldout_v3_relobj",
+        "w_star_semantic": 0.8,
+        "selected_arm_semantic": "ARM_FUSE_WTUNED",
+        "model_cfg": {
+          "vocab": 16000,
+          "max_len": 128,
+          "d_model": 512,
+          "n_layers": 6,
+          "n_heads": 8,
+          "ffn_mult": 4,
+          "pad_id": 0
+        }
+      },
+      "d_model": 512,
+      "mean_pool": {
+        "name": "MEAN_POOL",
+        "decoder_final_loss": 0.5923206210136414,
+        "train_sanity": {
+          "train_balanced_acc": 0.7505555555555556,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.69,
+        "coherent_balanced_acc": 0.69,
+        "scrambled_acc": 0.48,
+        "scrambled_balanced_acc": 0.48,
+        "margin": 0.20999999999999996,
+        "z_stat": 7.382066288490895,
+        "n_eval": 600,
+        "comprehension_specific": true
+      },
+      "clause_split_concat": {
+        "name": "CLAUSE_SPLIT_CONCAT",
+        "decoder_final_loss": 0.5245930552482605,
+        "train_sanity": {
+          "train_balanced_acc": 0.8333333333333333,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.7166666666666667,
+        "coherent_balanced_acc": 0.7166666666666667,
+        "scrambled_acc": 0.4766666666666667,
+        "scrambled_balanced_acc": 0.4766666666666667,
+        "margin": 0.24,
+        "z_stat": 8.47371636658675,
+        "n_eval": 600,
+        "comprehension_specific": true
+      },
+      "attn_bilinear_trained": {
+        "name": "ATTN_BILINEAR",
+        "train_sanity": {
+          "train_balanced_acc": 0.9277777777777778,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.91,
+        "coherent_balanced_acc": 0.9099999999999999,
+        "scrambled_acc": 0.475,
+        "scrambled_balanced_acc": 0.475,
+        "margin": 0.43500000000000005,
+        "n_eval": 600,
+        "comprehension_specific": true
+      },
+      "random_init_readout": {
+        "name": "RANDOM_INIT_READOUT",
+        "train_sanity": {
+          "train_balanced_acc": 0.5105555555555555,
+          "chance": 0.5,
+          "train_beats_chance": false
+        },
+        "coherent_acc": 0.51,
+        "coherent_balanced_acc": 0.51,
+        "scrambled_acc": 0.49833333333333335,
+        "scrambled_balanced_acc": 0.4983333333333333,
+        "margin": 0.011666666666666659,
+        "n_eval": 600,
+        "comprehension_specific": false
+      },
+      "random_init_encoder": {
+        "name": "RANDOM_INIT_ENCODER",
+        "train_sanity": {
+          "train_balanced_acc": 0.9994444444444445,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.9916666666666667,
+        "coherent_balanced_acc": 0.9916666666666667,
+        "scrambled_acc": 0.49333333333333335,
+        "scrambled_balanced_acc": 0.49333333333333335,
+        "margin": 0.49833333333333335,
+        "n_eval": 600,
+        "comprehension_specific": true
+      },
+      "random_init_encoder_mean_pool": {
+        "name": "RANDOM_INIT_ENCODER_MEAN_POOL",
+        "decoder_final_loss": 0.6640487909317017,
+        "train_sanity": {
+          "train_balanced_acc": 0.6327777777777778,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.5666666666666667,
+        "coherent_balanced_acc": 0.5666666666666667,
+        "scrambled_acc": 0.495,
+        "scrambled_balanced_acc": 0.495,
+        "margin": 0.07166666666666666,
+        "z_stat": 2.4873400630586318,
+        "n_eval": 600,
+        "comprehension_specific": false
+      },
+      "gain_over_meanpool": 0.2250000000000001,
+      "random_readout_gain_over_meanpool": -0.1983333333333333,
+      "random_encoder_gain_over_meanpool": 0.2883333333333334,
+      "structure_alone_encoder": true,
+      "structure_alone_readout_note": false,
+      "arms_differ_digests": {
+        "MEAN_POOL": "57cc229b58ab30082a8ca32a0f8aa646743ecaeaeb1418ff317f419ad2e05f93",
+        "CLAUSE_SPLIT_CONCAT": "caf1400683256827d047c4db681525c0a7c277183bf7d268d3c42d107a01ca34",
+        "ATTN_BILINEAR_feats": "ee7dbcfd85d1fbfb7ef2b8820dea6bd056e372521ae58c3ff8bbb1994ce54031",
+        "RANDOM_INIT_READOUT_feats": "23db68ec20f030c778adc47f8b88dc7a032afeebc2b519aae9e4b545746361a2",
+        "RANDOM_INIT_ENCODER_feats": "2fbd613811d0ebbb73cd50d3199dc10984034560ad972d20532b800087674ce9",
+        "RANDOM_INIT_ENCODER_MEAN_POOL": "3515ff6c03457eb2880615ccadc268c9d2c973ab2bf2fbc97249357ee5bc5e27"
+      },
+      "unit_pass": false,
+      "failure_class": null,
+      "elapsed_s": 137.02971100003924,
+      "seed": "RELOBJ_v3_seed_7",
+      "_ckpt_key": "RELOBJ_v3_seed_7",
+      "_partial_written_at": 1785326605.6974142
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "got_n_units": 1,
+  "calibration": {
+    "per_model": {
+      "MiniLM": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.6300156116485596,
+          "train_sanity": {
+            "train_balanced_acc": 0.6977777777777778,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.63,
+          "coherent_balanced_acc": 0.63,
+          "scrambled_acc": 0.49166666666666664,
+          "scrambled_balanced_acc": 0.49166666666666664,
+          "margin": 0.13833333333333336,
+          "z_stat": 4.827873427703441,
+          "n_eval": 600,
+          "comprehension_specific": false
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.6708501577377319,
+          "train_sanity": {
+            "train_balanced_acc": 0.5938888888888889,
+            "chance": 0.5,
+            "train_beats_chance": false
+          },
+          "coherent_acc": 0.525,
+          "coherent_balanced_acc": 0.525,
+          "scrambled_acc": 0.49833333333333335,
+          "scrambled_balanced_acc": 0.49833333333333335,
+          "margin": 0.026666666666666672,
+          "z_stat": 0.9240120015500727,
+          "n_eval": 600,
+          "comprehension_specific": false
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.6472329497337341,
+          "train_sanity": {
+            "train_balanced_acc": 0.6655555555555556,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.5683333333333334,
+          "coherent_balanced_acc": 0.5683333333333334,
+          "scrambled_acc": 0.49166666666666664,
+          "scrambled_balanced_acc": 0.4916666666666667,
+          "margin": 0.07666666666666672,
+          "z_stat": 2.660604644587886,
+          "n_eval": 600,
+          "comprehension_specific": false
+        }
+      },
+      "BGE_SMALL": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.5967047214508057,
+          "train_sanity": {
+            "train_balanced_acc": 0.7911111111111111,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.7483333333333333,
+          "coherent_balanced_acc": 0.7483333333333333,
+          "scrambled_acc": 0.48833333333333334,
+          "scrambled_balanced_acc": 0.48833333333333334,
+          "margin": 0.25999999999999995,
+          "z_stat": 9.27001698190502,
+          "n_eval": 600,
+          "comprehension_specific": true
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.6088992357254028,
+          "train_sanity": {
+            "train_balanced_acc": 0.7605555555555557,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.735,
+          "coherent_balanced_acc": 0.735,
+          "scrambled_acc": 0.49,
+          "scrambled_balanced_acc": 0.49,
+          "margin": 0.245,
+          "z_stat": 8.710394235735572,
+          "n_eval": 600,
+          "comprehension_specific": true
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.6088994145393372,
+          "train_sanity": {
+            "train_balanced_acc": 0.7605555555555557,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.735,
+          "coherent_balanced_acc": 0.735,
+          "scrambled_acc": 0.49,
+          "scrambled_balanced_acc": 0.49,
+          "margin": 0.245,
+          "z_stat": 8.710394235735572,
+          "n_eval": 600,
+          "comprehension_specific": true
+        }
+      }
+    },
+    "calibration_pass": true
+  },
+  "calibration_enforced": true,
+  "vet_mean_pool_replication": null,
+  "bands": {
+    "hard_pass_gain": 0.05,
+    "middle_band_gain": 0.02,
+    "random_encoder_eps": 0.02,
+    "vet_replicate_margin": 0.15,
+    "margin_thresh": 0.15,
+    "coherent_floor": 0.65
+  },
+  "hp_scope": {
+    "applies_to": [
+      "RELOBJ_v3_seed_7",
+      "RELOBJ_v3_seed_13"
+    ],
+    "informational_only": [
+      "BASELINE_v2_seed_7 (all arms)",
+      "random_init_readout arm (all units)",
+      "random_init_encoder_mean_pool arm (all units, feeds VET only)"
+    ]
+  },
+  "cfg": {
+    "run_mode": "smoke",
+    "train_target": 1800,
+    "eval_target_per_label": 300,
+    "r": 32,
+    "epochs": 40,
+    "seeds": [
+      "RELOBJ_v3_seed_7"
+    ],
+    "enforce_calibration": true
+  },
+  "elapsed_s_total": 161.40000659995712,
+  "construction_meta": {
+    "n_train": 1800,
+    "n_eval": 600,
+    "n_train_groups": 133,
+    "n_eval_groups": 57
+  },
+  "wire_target": "experiments/_learned_relational_readout.py (AttnBilinearReadout) IF HARD_PASS -- target integration site (hdlab/ promotion) TBD by Skunkworks/Director at WIRE time per WIRE-DON'T-ISLAND.",
+  "elapsed_s": 137.02971100003924
+}
