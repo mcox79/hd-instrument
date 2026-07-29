@@ -90,13 +90,48 @@ class SlotAttentionWM(nn.Module):
         # addressing decision (the audit-C correction to the old mean-pool summary).
         self.addr_net = _mlp(2 * d_model, hidden, 1, g)
         # PER-SLOT PE-gated write (PBWM per-stripe, O'Reilly-Frank 2006): each slot's OWN
-        # maintain-or-update decision from [clause_rep, slot_k, surprise_k]. Shared weights,
-        # applied broadcast across the K slot dimension.
+        # maintain-or-update decision. gate_net now MODULATES (learned fine control in [0,1]) the
+        # PE-threshold boundary signal rather than being the free convex-blend gate it was in
+        # ee714c31 -- see step() for the SEM/EST bistable segmentation write (audit gap C).
         self.gate_net = _mlp(2 * d_model + 1, hidden, 1, g)
         # addressing-softmax temperature (<1 => sharper competition => non-addressed slots are
         # truly HELD, approaching PBWM bistable maintain-OR-replace rather than a graded average).
         # Fixed low temp; keeps addr_w peaked while remaining fully differentiable (no hard argmax).
         self.addr_temp = 0.5
+        # ----- BISTABLE PE-THRESHOLD EVENT-BOUNDARY WRITE (audit gap C; SEM/EST segmentation) -----
+        # Comprehension = maintain event/entity states, HOLD the current model, and REPLACE only at
+        # a prediction-error SPIKE (event boundary), NOT continuously average (Franklin/Gershman/
+        # Norman/Zacks 2020 SEM; Zacks/Kurby Event Segmentation Theory). The write weight is
+        # boundary_k = sigmoid((surprise_k - theta) / tau): a per-slot HOLD-vs-REPLACE decision.
+        # theta = LEARNED PE threshold (event-boundary criterion, in surprise = 1-cos space).
+        self.write_theta = nn.Parameter(torch.tensor(0.5))
+        # tau = write temperature, ANNEALED soft->sharp: high tau early (~continuous, gradients
+        # flow, trainable) -> low tau late (~bistable 0/1, brain-faithful discrete segmentation).
+        # The fit-probe STUCK_FLAT finding (2026-07-29): a sharp gate from step 0 gives a degenerate
+        # loss surface, so bistability MUST be annealed IN, never hard from the start. Default
+        # schedule below; the FINAL schedule is set from the fit-probe sweep recipe when it lands.
+        self.write_tau_start = 1.0   # soft start (near-continuous)
+        self.write_tau_end = 0.1     # sharp end (near-bistable)
+        self.write_tau = float(self.write_tau_start)
+        # KB-SLOT PROTECTION (audit gap D): slot 0 holds the supplied KB world-model prior (Arm B).
+        # Exempt it from ordinary write competition (small base write rate) so the prior PERSISTS
+        # and BIASES inference instead of being eroded by ordinary blend writes. Applied ONLY when
+        # kb_prior is present (Arm B); Arm A (kb_prior=None) is unaffected. A small nonzero rate
+        # (not hard zero) still allows GENTLE assimilation of confirming evidence.
+        self.kb_protect = 0.1
+
+    def set_write_tau(self, tau: float) -> None:
+        """Set the bistable write temperature directly (soft = high, sharp = low)."""
+        self.write_tau = max(float(tau), 1e-4)
+
+    def anneal_write_tau(self, frac: float) -> None:
+        """Drive the soft->sharp write-tau anneal from a training-progress fraction in [0,1].
+        Geometric interpolation write_tau_start -> write_tau_end (frac=0 soft, frac=1 sharp).
+        The training loop calls this per epoch/step so the write gate starts near-continuous
+        (trainable) and becomes near-bistable (brain-faithful segmentation) late in training."""
+        frac = min(max(float(frac), 0.0), 1.0)
+        ratio = self.write_tau_end / self.write_tau_start
+        self.write_tau = max(self.write_tau_start * (ratio ** frac), 1e-4)
 
     def init_slots(self, batch_size: int, device, kb_prior: torch.Tensor | None = None) -> torch.Tensor:
         """[B, n_slots, d]. Arm A: all-zero. Arm B: kb_prior (if given) seeds slot 0 -- the
@@ -162,14 +197,35 @@ class SlotAttentionWM(nn.Module):
         readback = unbind(slots, key.unsqueeze(1))                        # [B, K, d] per-slot unbind
         surprise_k = 1.0 - F.cosine_similarity(readback, clause_b, dim=-1)  # [B, K] each slot's own PE
 
-        # PER-SLOT write gate (PBWM per-stripe): each slot's OWN maintain-or-update decision.
-        gate_in = torch.cat([clause_b, slots, surprise_k.unsqueeze(-1)], dim=-1)  # [B, K, 2d+1]
-        write_k = torch.sigmoid(self.gate_net(gate_in)).squeeze(-1)       # [B, K] LEARNED per-slot gate
+        # PER-SLOT BISTABLE PE-THRESHOLD BOUNDARY (audit gap C; SEM/EST event segmentation):
+        # a slot is REPLACED only when its OWN prediction error crosses the learned threshold
+        # theta (an event boundary = PE spike); otherwise it HOLDS. boundary_k = sigmoid((PE -
+        # theta)/tau) with tau ANNEALED soft->sharp so this is ~continuous (trainable) early and
+        # ~bistable 0/1 (discrete segmentation, brain-faithful) late. This REPLACES the old free
+        # continuous convex blend (write_k = sigmoid(gate_net)) whose graded per-step averaging was
+        # the anti-thesis of discrete segmentation.
+        tau = max(float(self.write_tau), 1e-4)
+        boundary_k = torch.sigmoid((surprise_k - self.write_theta) / tau)  # [B, K] hold(0)/replace(1)
 
-        # PER-SLOT update: w_k = addr_w * write_k (sharp addr_w => non-addressed slots ~held).
+        # gate_net now MODULATES (learned fine control in [0,1]); it can only ATTENUATE the write,
+        # so the PE-threshold boundary is the DOMINANT write signal (not a free gate).
+        gate_in = torch.cat([clause_b, slots, surprise_k.unsqueeze(-1)], dim=-1)  # [B, K, 2d+1]
+        gate_mod = torch.sigmoid(self.gate_net(gate_in)).squeeze(-1)      # [B, K] learned modulator
+        write_k = boundary_k * gate_mod                                   # [B, K] per-slot write propensity
+
+        # PER-SLOT update: w_k = addr_w * write_k = (which entity) x (is-this-a-boundary x learned mod).
+        # A slot either HOLDS (w~0) or is REPLACED (w~1) at the bistable end -- not averaged.
         candidate = bind(key, clause_rep).unsqueeze(1)                    # [B, 1, d] role-bound content
-        w_k = (addr_w * write_k).unsqueeze(-1)                            # [B, K, 1] per-slot weight
-        new_slots = (1.0 - w_k) * slots + w_k * candidate                # [B, K, d] hold/replace-approach
+        w_k = addr_w * write_k                                            # [B, K] per-slot weight
+        # KB-SLOT PROTECTION (audit gap D, Arm B only): shield slot 0 (the supplied KB world-model
+        # prior) from ordinary write competition so it PERSISTS and biases inference. Arm A
+        # (kb_prior=None) unaffected. Multiplicative + out-of-place => fully differentiable.
+        if kb_prior is not None:
+            protect = torch.ones(K, device=slots.device, dtype=w_k.dtype)
+            protect[0] = self.kb_protect
+            w_k = w_k * protect.view(1, K)
+        w_k = w_k.unsqueeze(-1)                                           # [B, K, 1] per-slot weight
+        new_slots = (1.0 - w_k) * slots + w_k * candidate                # [B, K, d] HOLD-vs-REPLACE
 
         # aggregate per-slot -> the scalars the judge expects (shape UNCHANGED).
         surprise = (addr_w * surprise_k).sum(dim=-1)                     # [B]

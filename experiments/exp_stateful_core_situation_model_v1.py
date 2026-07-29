@@ -414,6 +414,12 @@ def train_and_eval_arm(model, wm, judge, tok, spec, max_len, train_items, eval_i
     order = np.arange(n)
     last_loss = float("nan")
     for ep in range(epochs):
+        # ANNEAL the bistable write temperature soft->sharp over training (audit gap C / SEM-EST):
+        # near-continuous early (trainable), near-bistable late (brain-faithful segmentation). Guard
+        # with hasattr so the random-init-core control (same class) and any older WM are unaffected.
+        # The FINAL schedule (start/end tau, warmup) will be set from the fit-probe sweep recipe.
+        if hasattr(wm, "anneal_write_tau"):
+            wm.anneal_write_tau(ep / max(1, epochs - 1))
         rng.shuffle(order)
         ep_losses = []
         for bstart in range(0, n, batch_size):
