@@ -659,14 +659,21 @@ def _own_encoder_readouts(ckpt_path, train_sents, eval_coh_sents, eval_scr_sents
     return out, ckpt_meta
 
 
-def _random_init_readouts(arch_ckpt_path, train_sents, eval_coh_sents, eval_scr_sents, seed):
+def _random_init_readouts(arch_ckpt_path, train_sents, eval_coh_sents, eval_scr_sents, seed, max_len=32):
     """Gate-B control: SAME forward-pass + readout machinery as _own_encoder_readouts, but the
     encoder is load_random_init_encoder's untrained SAME-architecture model (see that function's
     docstring). Only MEAN_POOL/LAST_TOKEN -- the two matched-analog readout categories used for
-    known-reader comparison -- are computed (no HRR bonus; not needed for the gate)."""
+    known-reader comparison -- are computed (no HRR bonus; not needed for the gate).
+    `max_len` MUST be sized to the construction's actual sentence length (BPE-token count, not
+    word count) -- see MES_MAX_LEN / MES_HF_MAX_LENGTH below; silently truncating at the default
+    32 (fine for AGENT_PATIENT/ENTITY_STATE/CROSS_BOUNDARY's <=20-word sentences) would corrupt
+    any longer construction (MULTI_ENTITY_STATE's multi-distractor streams run 30-65+ BPE tokens)
+    by cutting off the query and/or one of the two target-update sentences -- a truncation-driven
+    positional artifact, not a genuine comprehension signal (caught 2026-07-29 by checking actual
+    tokenizer output length against the hardcoded cap before trusting the first full run)."""
     model, tok, spec, meta = load_random_init_encoder(arch_ckpt_path, seed)
     device = torch.device("cpu")
-    cfg = dict(max_len=min(32, model.max_len if hasattr(model, "max_len") else 32), encode_batch=256)
+    cfg = dict(max_len=min(max_len, model.max_len if hasattr(model, "max_len") else max_len), encode_batch=256)
     H_tr, M_tr, _ = compute_hidden_cache(model, tok, spec, train_sents, cfg, device)
     H_ec, M_ec, _ = compute_hidden_cache(model, tok, spec, eval_coh_sents, cfg, device)
     H_es, M_es, _ = compute_hidden_cache(model, tok, spec, eval_scr_sents, cfg, device)
@@ -803,6 +810,15 @@ def main():
     # BOTH gates pass (success) OR gate A itself fails (already too hard for a trained reader --
     # escalating further will not recover gate A, since more distractors only makes it harder).
     # =========================================================================
+    # MES sentences run far longer than AGENT_PATIENT/ENTITY_STATE/CROSS_BOUNDARY's <=20-word
+    # items (measured 2026-07-29: 29-65 BPE tokens across these 4 variants, vs the file's default
+    # 32-token cap used elsewhere) -- MUST raise max_length here or every variant silently
+    # truncates the query and/or one of the two target-update sentences, producing a truncation-
+    # POSITION artifact (which target sentence survives near the front of the truncated window)
+    # that masquerades as a real order-sensitivity signal at BOTH gate A and gate B. 96 covers the
+    # hardest variant (measured max ~65 tokens) with margin; the own-encoder architecture's
+    # positional-embedding table (model_cfg max_len=128) comfortably supports it.
+    MES_MAX_LEN = 96
     MES_DIFFICULTY_VARIANTS = [
         dict(n_distractor_entities=2, n_distractor_events=2),
         dict(n_distractor_entities=3, n_distractor_events=4),
@@ -831,9 +847,9 @@ def main():
         best_known = None
         for model_name, short_name in CALIBRATION_MODELS:
             t0 = time.perf_counter()
-            G_tr = _raw_hf_encode(model_name, train_sents)
-            G_ec = _raw_hf_encode(model_name, eval_sents)
-            G_es = _raw_hf_encode(model_name, eval_scr_sents)
+            G_tr = _raw_hf_encode(model_name, train_sents, max_length=MES_MAX_LEN)
+            G_ec = _raw_hf_encode(model_name, eval_sents, max_length=MES_MAX_LEN)
+            G_es = _raw_hf_encode(model_name, eval_scr_sents, max_length=MES_MAX_LEN)
             t_enc = time.perf_counter() - t0
             _log("MES(%s)/%s encoded (%.1fs): train=%d eval=%d"
                  % (mc_["name"], short_name, t_enc, len(train_sents), len(eval_sents)))
@@ -857,7 +873,8 @@ def main():
         if gate_a_pass:
             matched_readout = "MEAN_POOL" if best_known["readout"] in ("MEAN_POOL", "CLS_TOKEN") else "LAST_TOKEN"
             ri_readouts, ri_meta = _random_init_readouts(BASELINE_CKPT, train_sents, eval_sents,
-                                                          eval_scr_sents, RANDOM_INIT_SEED)
+                                                          eval_scr_sents, RANDOM_INIT_SEED,
+                                                          max_len=MES_MAX_LEN)
             G_tr, G_ec, G_es = ri_readouts[matched_readout]
             ri_res = score_readout_arm(matched_readout + "_RANDOM_INIT", G_tr, y_train,
                                         G_ec, G_es, y_eval, SEED)
