@@ -1,59 +1,45 @@
-# WHERE WE ARE NOW — clean current state (tier 3; REWRITE each session) — updated 2026-07-28 (clean consolidation)
+# WHERE WE ARE NOW — clean current state (REWRITE each session) — updated 2026-07-29 (compaction-prep, brain-alignment focus)
 
-## Direction (read FIRST)
-1. GOAL + invariants + anti-drift: `notes/SUBSTRATE_CHARTER_read_first.md`
+## Direction (read FIRST, in order)
+1. GOAL + invariants + disciplines: `notes/SUBSTRATE_CHARTER_read_first.md`
 2. Plan: `notes/THE_PLAN.md`
-3. This = the live snapshot (rewritten clean; tonight's blow-by-blow collapsed to pointers).
-4. **METHODOLOGY (USER 07-28, now operating): `notes/component_brain_fidelity_ledger.md`** — nail each component brain-faithful, judged on its OWN brain-metric (NOT downstream task-win), one-by-one, then assemble. Status tally: most components NOT yet faithful (2 faithful / 1 improving / 4 partial / 2 unfaithful / 1 absent). The 4 in-flight drills = the biology-first step for readout/maintenance/objective/consolidation.
+3. This = live snapshot.
+4. **METHODOLOGY: `notes/component_brain_fidelity_ledger.md`** (nail each component brain-faithful, judged on the BRAIN's metric not task-win).
+5. **THE ANALYSIS (load-bearing): `notes/brain_foundational_component_analysis.md`** + `notes/drill_language_world_model_framing.md` + `notes/stateful_core_situation_model_build_design.md`.
+
+## 🧠 THE MANDATE (USER, standing + emphasized 2026-07-29)
+ALIGN TO THE BRAIN as much as possible to overcome the comprehension barrier — we've been trying to show comprehension for OVER A WEEK. Do the HARD thing, not easy paths (frozen-head shortcuts have failed repeatedly). Nail each component brain-faithful, then assemble. Do NOT lose focus or drift. [[feedback_do_the_hard_blocking_thing_not_easy_paths_easy_bias_disastrous_2026-07-29]]
 
 ## THE GOAL
-Glass-box VSA/HDC substrate you can CONVERSE with that genuinely REASONS, EARNING its meaning + knowledge the brain's way (NO borrowed embeddings/LLM at inference; the substrate learns it itself). CLS architecture: SEED a foundation from relational KBs -> READ new material -> SLEEP-consolidate. 3 legs: (1) earn MEANING, (2) REASON over it, (3) LEARN from reading.
+A glass-box VSA/HDC substrate you can CONVERSE with that genuinely REASONS/COMPREHENDS, earning meaning the brain's way (NO borrowed embeddings/LLM at inference; NO bolt-on reader). Foundation (CSKG, 1.24M edges) is BANKED; the frontier is COMPREHENSION.
 
-## ✅ BANKED — do NOT rebuild (all VET-survived; local-only store, tail 29591)
-- **LEG 1 EARN MEANING (29591 CHAIN_GRADE):** own from-scratch encoder on 237M-token ARC (no borrowed vectors) beats grounding on held-out-NEW concepts (+0.050 sem / +0.071 rel text-alone, both seeds, controls at chance). Scale WORKS + is DATA-LIMITED. Modest band (0.56-0.63), held-out-NEW placement of corpus-seen concepts, NOT zero-shot invention. Specs: 6L/512d/128ctx/16k-vocab, MLM on ~158M ARC-science tokens.
-- **LEG 2 REASON (29587/88/89):** learned encoder does genuine inductive relational inference on held-out-NEW concepts (beats grounding-homophily +0.108, non-learned 2-hop +0.093; dose-response in #constraints). Local decision-time reasoning EXHAUSTED -> composition lives IN the representation (encode-time), not bolt-on.
-- **FOUNDATION (29585):** cskg_foundation_v1 (gitignored 258MB): 482,588 concepts / 1.24M typed edges, cleaned/canonicalized/grounded (Lancaster/concreteness/VAD/AoA), glass-box. Ingest fixed+verified (director-KB 2.83M triples; query via tools/director_kb_query.py).
+## 🧭 THE CONVERGED DIAGNOSIS (the barrier, named precisely)
+Our encoder is **FEED-FORWARD + BIDIRECTIONAL (MLM) + STATELESS**, where the brain is **RECURRENT + FORWARD-PREDICTIVE + STATEFUL**. A feed-forward net computes a static function of a fixed window; it CANNOT maintain/update a situation model — so comprehension can't be decoded out of it, because it was never CONSTRUCTED. **THE RECURRING ERROR behind a week of failures: we kept bolting ISOLATED pieces onto a FROZEN feed-forward encoder** (contrastive objectives, slot-memory compressed to scalars, position-bind readouts, loop-extraction) instead of building the coupled maintain-and-update machinery END-TO-END.
 
-## 🧭 THE CONVERGED PICTURE (this session's arc — the key strategic update)
-The encoder's ~0.56-0.63 held-out-NEW ceiling is **NOT cheaply liftable.** Every cheap lever was tested and spent this session — so the real lever is the deeper COMPREHENSION MECHANISM (situation model), now proven-by-elimination rather than assumed.
+## 🌍 THE FRAMING (resolved via deep drill, brain-lit-grounded)
+Comprehension = using language to UPDATE/QUERY a pre-existing WORLD MODEL, not building meaning from a blank slate (Spelke, Barsalou/Zwaan/Bergen, Friston/Clark, Lambon-Ralph hub-and-spoke; LLM Othello-GPT / space-time = world models emerge from text-at-scale). CORRECTIONS: "grounded" = RELATIONAL/amodal-hub (= our foundation KB), NOT sensorimotor (contested + failed). It's a TARGET-UPGRADE to the stateful core, not a pivot — framing + mechanism are the same missing organ. OUR THIRD ROUTE (vs LLM emergence-at-scale, vs embodiment we lack): SUPPLY the world model (foundation KB as a PRIOR) + LEARN to update it, glass-box.
 
-**WINS (banked this session):**
-- **READOUT FIX = HARD_PASS_MAJORITY, WIRE.** Relational placement is substantially READOUT-limited, not representation-limited. Learned rank-32 bilinear readout beats cosine-NN on held-out-NEW by ~+0.038 mean (2/3 diag-seeds clear +0.03, CI excludes 0; relObj cross-seed +0.043/+0.050 informational). Controls clean, leak-proof. CAVEAT: only 1 MLM training-seed ckpt on disk -> training-seed replication still OPEN (needs a 2nd baseline ckpt). Module: experiments/_learned_relational_readout.py. It's the fair-test harness for any encoder.
-- **gated_fusion ISLAND CASHED IN = two-seed HARD_PASS, WIRE.** Per-axis learned gate strictly Pareto-dominates fixed z-avg on both axes both seeds (all 5 pre-reg bands, lambda=0.5==zavg xcheck exact, VAL!=TEST leak-assert, remote==local parity). HONEST SCOPE: a better fusion OPERATOR, NOT a grounding rescue (grounding doesn't transfer); gains small. Module hdlab/gated_fusion.py.
+## 🔨 THE CURRENT BUILD — coupled stateful core (THE hard build, IN PROGRESS)
+`experiments/exp_stateful_core_situation_model_v1.py` + `hdlab/slot_attention_wm.py` (committed d92d52c59, 22df65218). Brain-faithful: K=6 FULL-d-dim entity slots (NO scalar compression), recurrently maintained; LEARNED PE-gated write (PBWM analog); role-general HRR binding (content-key, position-invariant, hdlab/binding); encoder UNFROZEN, trained END-TO-END. Objective = forward-prediction from WM + comprehension-consistency. **ARMS (one variable = the framing test): Arm A blank slots vs Arm B KB-grounded** (slots seeded/keyed by foundation-KB concepts, KB prior encoded through OUR OWN encoder — invariant-checked, not borrowed). Reuses prior blueprint (notes/research_drill_substrate_operand_selection_mwp 2026-06-12 + contentgate v6/v8).
+- **STATUS: SMOKE = DISCRIMINATOR_WEAK (both arms ~chance) BUT train_loss ~0.75 ≈ chance => the mechanism can't even OVERFIT 64 training items = a GRADIENT/WIRING red flag, NOT a clean mechanism refutation and NOT just undertraining.**
+- **IMMEDIATE NEXT (do NOT ship the GPU full run yet): DEBUG the gradient path — prove the core can OVERFIT a tiny training set (train_loss -> ~0). Likely culprits: gradients not flowing through the WM PE-gate / slot-attention / HRR-bind into the judgment head; or the judgment head not actually consuming the WM output; or LR/optimization. Fix the wiring, re-smoke, THEN the full GPU run.**
+- FULL run (HELD, GPU, --full --n-random-init-seeds 5): verdict signature = Arm B beats Arm A SELECTIVELY on KD (bridging) + beats worst-case random-init-core, both seeds.
 
-**NULLS (clean, banked this session):**
-- **Objective axis DEAD:** relObj retrain (L_mlm+lambda*L_rel from foundation edges) HARD_FAILED both seeds; the full R3/R4 self-teacher (landmark+VICReg+relational-InfoNCE+EMA) tied grounding. The relational OBJECTIVE is not the lever. (Narrow scope: a different objective isn't logically ruled out, but two serious attempts failed.)
-- **Grounding DEAD (HARD_FAIL_NO_TRANSFER, both seeds):** experiential (Lancaster sensorimotor, 11-dim) grounding as a training auxiliary does not transfer to held-out-NEW (sem_margin -0.0065, rel ~0). BRAIN-FIDELITY DIAGNOSIS: sensorimotor grounding is for CONCRETE perceptual meaning; the brain grounds ABSTRACT/RELATIONAL meaning RELATIONALLY (from the graph). Mismatch -> null was predicted. SHELVED (revival: relational grounding from the foundation, not sensorimotor).
-- **Breadth NULL (seed_7; seed_13 replicating):** v4_breadth (v2 MLM + ARC+SimpleWiki+breadth_v1 at EQUAL 121.08M token budget, one variable = source diversity) does not lift held-out-NEW vs the v2 baseline (readout-margin -0.0096, cosine -0.0054; within HARD_FAIL band). Clean controls, leak-safe all 3 sources, budget pinned. Likely mechanism: SimpleWiki diluted science density at equal budget. HONEST SCOPE: refutes the CHEAP equal-budget general-diversity hypothesis; does NOT refute much-more/richer data (full enwiki 4B untested).
+## 📏 MEASUREMENT (done, honest)
+Both in `experiments/diag_order_critical_comprehension_calib_v1.py`, LOCKED_CONSTRUCTION.json + KD_FRAMING_FINDING.json.
+- **MES** (MULTI_ENTITY_STATE distE4/distEv6) = MAINTENANCE test. Validated (BGE +0.19-0.25) but NOT bulletproof (~20% structure-alone: 4/5 random-init seeds fail, seed_101 solves at +0.075). GUARD: mechanism must beat WORST-case (~+0.08) random-init across >=5 seeds.
+- **KD** (gen_knowledge_dependent, real CSKG facts) = BRIDGING/framing test. MEASUREMENT-LIMIT INSIGHT: you CANNOT frozen-reader-validate a bridging task (bridging IS the capability; a frozen linear reader can't do the 2-step conditional inference even with the KB fact injected). So KD is judged by the SELECTIVE Arm-B-vs-A delta DIRECTLY (no frozen-reader gate) + random-init-fails guard + provably-solvable-by-construction.
 
-## 🔴 THE FRONTIER — COMPREHENSION MECHANISM (situation model)
-The deep gap: our encoder produces a shallow TEXTBASE (bag-of-contextualized-tokens); the brain builds a dynamic updatable SITUATION MODEL (entities/state/time/causality/goals; Kintsch, Zwaan, Frankland-Greene, Rabovsky). Binding is ROLE-GENERAL not positional — brain (lmSTC AGENT/PATIENT slots) AND our own probe agree (position-bind 0.52 self-consistency vs mean-pool 0.95).
-- **Full design + biology + invariants + measurement bands: `notes/comprehension_situation_model_frontier_scoping.md`.**
-- **Design A LANDED = HARD_FAIL (mechanism refuted), but a VET-PENDING incidental positive — see the "COMPREHENSION EXP A" section at the bottom.** Headline: the frozen encoder's plain mean-pool+probe already tracks cross-boundary entity state at +0.21 (near known-reader BGE +0.23) on a VALID order-required construction => likely READOUT-limited not mechanism-limited (same theme as the readout fix). Two-seed VET in flight before believing; do NOT escalate to design B (objective change) until it confirms.
-- INVARIANTS (locked): learned gate NOT a hand-coded resolver (state_of_mind.py resolvers are SHELVED for this); frozen OWN encoder, no borrowed embedding as meaning organ; no external LLM. Supplying STRUCTURE ok; supplying the MECHANISM forbidden.
+## ✅ BANKED this week (do NOT rebuild) + ❌ what's SPENT
+- WINS: learned readout (relational placement is readout-limited, +0.038, WIRE); gated_fusion island cashed in (two-seed HARD_PASS, per-axis gate > z-avg, WIRE). Foundation (29585), scale-encoder (29591), reasoner — banked.
+- NULLS (all clean, both seeds): grounding (HARD_FAIL_NO_TRANSFER — sensorimotor is for concrete, not relational); objective axis (relObj + full R3/R4 self-teacher); breadth (data lever refuted, equal-budget); forward-PC-alone v5 (crashed CUDA OOM on full-position logits — causal-LM logits chunking needed; and forward-PC-alone is stateless anyway -> folded into the coupled build as an arm).
+- **READOUT EASY-PATH SPENT for comprehension**: cross-boundary VET failed-to-replicate (seed-luck); AttnBilinearReadout HARD_FAIL_STRUCTURE_ALONE (random-init matched). A decoder can't fix a signal the encoder never built -> the fix is UPSTREAM (this build).
 
-## 📏 MEASUREMENT STATE (what to trust)
-- **VALID = the calibration-first order-critical instrument** (experiments/diag_order_critical_comprehension_calib_v1.py): order-critical minimal pairs where scrambling changes meaning; ACCEPTANCE = a known reader (MiniLM/BGE, diagnostic-only) must pass. This is the ONLY comprehension measure to trust. Score our encoder only after a known reader passes.
-- **INVALID = the relation-cloze ruler** (eval_battery_relational_cloze_v7): content-cued (a known reader shows no coherent>scrambled margin) -> does not require reading order. Do NOT draw comprehension conclusions from it.
-- Comprehension "encoder reads" signals so far are weak/seed-dependent (seed-7 entity-state +0.283 did NOT replicate on seed-13 +0.130). Superseded comprehension-loop history (v1-v6, 3 stacked measurement artifacts found+fixed): pointers in notes/how_the_brain_reads_comprehension_target_audit_2026-07-28.md, notes/brain_fidelity_full_pipeline_element_audit_2026-07-28.md.
+## 🛠️ PROCESS FIXES (2026-07-29, durable)
+- **FS: fixed the right way** — `git config core.fsmonitor/untrackedCache/fscache true` (git 2.53). git status 2min-timeout -> 0.68s. Non-destructive; store (data/substrate_index/concept/atoms.jsonl + corpora) + tracking design intact. (Root: 42k tracked files incl. intentional data/*/metrics.json; NOT a runaway cron.) Deferred (careful): the metrics-in-git tracking design bloats history but fsmonitor makes it fast, store is intermingled -> don't untrack rashly.
+- **SUBSTRATE-SEARCH (USER-relocked)**: knowledge/prior-work -> `tools/director_kb_query.py` / `substrate_query.sh`, NOT grep/find. (git/file plumbing stays filesystem.) It surfaces prior work I'd miss + avoids slow fs scans.
+- **BUILD-AGENT STALLS diagnosed**: (1) 2-min tool timeout vs multi-minute experiments -> agents background runs + stall at "started it"; (2) fs slowness (now fixed). FIX = SPLIT WORKFLOW: exp_dev builds+self-tests+COMMITS only (fast), returns the run command; DIRECTOR runs the long smoke/full + reads the result off disk. This WORKED for the stateful-core build. Smokes go REMOTE (USER: no local smokes).
+- Remote liveness truth = ckpt-mtime + GPU-util, NOT the heartbeat (fooled the Director 3x).
 
-## ⏳ IN FLIGHT
-- **Breadth seed_13** (GPU, ~3h) — replicating the seed_7 null to close the data-lever verdict. HEALTHY (verify via ckpt-mtime + GPU-util, NOT the coarse ~6000-unit heartbeat that false-alarmed 3x).
-- **Cross-boundary VET** (remote CPU) — does the frozen-encoder mean-pool+probe +0.21 cross-boundary tracking margin REPLICATE on seed_13 (+ v2 baseline)? Key: seed-7 comprehension died on seed-13 before, so this gates whether "encoder tracks entity state / gap is readout not mechanism" is real. REPLICATES if seed_13 >= ~0.15 w/ clean controls; else reassess.
-
-## 🅿️ PARKED (with triggers — not islands)
-- **gate code-swap** z-avg->gate in the encoder eval/loop fusion path — HELD until breadth lands (don't destabilize breadth's live eval). Realizes the gated_fusion WIRE.
-- **remote fleet-health** — deferred to GPU-idle, NON-destructive: the marsh@home checkout is 1515-behind + dirty BY DESIGN (SCP-freshness per queue_add Patterns 1-6; unsynced result files -> do NOT git reset). Real gaps: queue_add doesn't auto-stage corpus data (fixed ad-hoc this session; testbed durable-fix candidate); remote metrics.json not synced back.
-- **bigger data bet** (full enwiki ~4B) — only if we later decide raw volume (not equal-budget diversity) is worth testing; not now.
-
-## 🛠️ OPS LESSONS (this session, durable)
-- **Remote liveness: trust ckpt-mtime + GPU-util, NOT the heartbeat** (coarse ~6000-unit cadence fooled the Director 3x into false stall/stale alarms).
-- **VET + REPLICATE positives before believing** (seed-luck over-reads recur; check the active-control's GAIN not level; single-seed = hypothesis).
-- **Verify what you SAY is in flight** (caught myself repeating "gated_fusion queued" without checking — it wasn't).
-- Capability gate healthy: registry 41 rows, undecided 24->0 (triaged), 'other' artifact excluded. Run `tools/capability_registry_audit.py` at session start.
-
-## STORE / DISCIPLINE
-Tail 29591, LOCAL-ONLY. Origin pushed to HEAD this session (USER-authorized, private repo mcox79/hd-instrument) so remote runs importing new hdlab modules resolve. NO further push without in-session USER auth. Only stop/kill what THIS session spawned. Heartbeat every turn-end. Brain = existence proof; on every negative evaluate the difference vs the brain + iterate.
-
-## 🔬 COMPREHENSION EXP A (07-28) = design A REFUTED, but an INCIDENTAL POSITIVE (VET-pending)
-entity_slot_gate_cross_boundary_v1 (5da0144bc). CALIBRATION-GATE PASSED: new gen_cross_boundary construction (word-multiset-controlled, order-REQUIRED, 2-sentence entity-consistency) — known reader BGE +0.23 z=8.28 clears it (MiniLM +0.14, per-model validity). DESIGN A (Hebbian-bundled slot memory -> 3-scalar surprise/gate readout) = clean HARD_FAIL: capacity crosstalk + 3-scalar bottleneck throw away signal; random-init control MATCHED trained (structure not learning); triple cross-checked; NOT dispatched. entity_slot_gate.py SHELVED. **INCIDENTAL HEADLINE (VET-PENDING, single-seed): on this VALID order-required construction, the frozen encoder RELOBJ_v3 seed_7 MEAN_POOL+probe already gets +0.21 — right below BGE +0.23, above MiniLM +0.14. => first clean evidence the encoder DOES track cross-boundary entity state, near known-reader level, decodable by a SIMPLE readout. Same readout-limited-not-representation-limited theme as the relational readout fix, now for COMPREHENSION. Clause-split-concat +0.24 (>mean-pool +0.21, small extra).** DO NOT escalate to Design B (objective change — session shows those don't pay) NOR believe the +0.21 yet (seed-7 comprehension over-read us before, +0.283 died on seed-13). NEXT = cheap two-seed VET: does mean-pool+probe cross-boundary margin replicate on seed_13 (+ v2 baseline)? If yes -> comprehension gap is READOUT not mechanism, much smaller than feared. If no -> reassess.
+## STORE / OPS
+Local-only; NO origin push / remote-persist without in-session USER auth. Only stop/kill what THIS session spawned. Heartbeat every turn-end. Brain = existence proof; on every negative, the difference vs the brain + iterate (diligently, not defeatist). VET+REPLICATE positives before believing.
