@@ -1,0 +1,268 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "0/1 units clear MIDDLE_BAND_GAIN=0.02. Per-unit gains: {'seed_7': -0.1383333333333333}",
+  "summary": "0/1 units clear MIDDLE_BAND_GAIN=0.02. Per-unit gains: {'seed_7': -0.1383333333333333}",
+  "anchor_name": "entity_slot_gate_cross_boundary_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-29T02:24:12.614875+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_units": 1,
+  "per_unit": {
+    "seed_7": {
+      "seed": 7,
+      "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_relobj\\ckpt_seed_7.pt",
+      "ckpt_meta": {
+        "seed": 7,
+        "run_mode": "full",
+        "anchor": "scale_meaning_learn_arc_heldout_v3_relobj",
+        "w_star_semantic": 0.8,
+        "selected_arm_semantic": "ARM_FUSE_WTUNED",
+        "model_cfg": {
+          "vocab": 16000,
+          "max_len": 128,
+          "d_model": 512,
+          "n_layers": 6,
+          "n_heads": 8,
+          "ffn_mult": 4,
+          "pad_id": 0
+        }
+      },
+      "d_model": 512,
+      "meanpool": {
+        "name": "MEAN_POOL",
+        "decoder_final_loss": 0.5923206210136414,
+        "train_sanity": {
+          "train_balanced_acc": 0.7505555555555556,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.69,
+        "coherent_balanced_acc": 0.69,
+        "scrambled_acc": 0.48,
+        "scrambled_balanced_acc": 0.48,
+        "margin": 0.20999999999999996,
+        "z_stat": 7.382066288490895,
+        "n_eval": 600,
+        "comprehension_specific": true
+      },
+      "slot_gate_trained": {
+        "name": "SLOT_GATE_TRAINED",
+        "decoder_final_loss": 0.6710123419761658,
+        "train_sanity": {
+          "train_balanced_acc": 0.5911111111111111,
+          "chance": 0.5,
+          "train_beats_chance": false
+        },
+        "coherent_acc": 0.5616666666666666,
+        "coherent_balanced_acc": 0.5616666666666668,
+        "scrambled_acc": 0.49,
+        "scrambled_balanced_acc": 0.49,
+        "margin": 0.07166666666666666,
+        "z_stat": 2.4859263959976947,
+        "n_eval": 600,
+        "comprehension_specific": false
+      },
+      "slot_gate_random_gate": {
+        "name": "SLOT_GATE_RANDOM_GATE",
+        "decoder_final_loss": 0.692721962928772,
+        "train_sanity": {
+          "train_balanced_acc": 0.5072222222222222,
+          "chance": 0.5,
+          "train_beats_chance": false
+        },
+        "coherent_acc": 0.5133333333333333,
+        "coherent_balanced_acc": 0.5133333333333333,
+        "scrambled_acc": 0.5083333333333333,
+        "scrambled_balanced_acc": 0.5083333333333333,
+        "margin": 0.0050000000000000044,
+        "z_stat": 0.1732457501579219,
+        "n_eval": 600,
+        "comprehension_specific": false
+      },
+      "random_init_encoder_slot_gate": {
+        "name": "RANDOM_INIT_ENCODER_SLOT_GATE",
+        "decoder_final_loss": 0.6931458115577698,
+        "train_sanity": {
+          "train_balanced_acc": 0.5011111111111111,
+          "chance": 0.5,
+          "train_beats_chance": false
+        },
+        "coherent_acc": 0.5016666666666667,
+        "coherent_balanced_acc": 0.5016666666666667,
+        "scrambled_acc": 0.47333333333333333,
+        "scrambled_balanced_acc": 0.47333333333333333,
+        "margin": 0.028333333333333377,
+        "z_stat": 0.9818023188015441,
+        "n_eval": 600,
+        "comprehension_specific": false
+      },
+      "gain_over_meanpool": -0.1383333333333333,
+      "random_gate_gain_over_meanpool": -0.20499999999999996,
+      "structure_alone": false,
+      "arms_differ_digests": {
+        "MEAN_POOL": "ee67dea3bee6712ef735050fea596b3c9d727bb0076234211b1bc276bc3478cc",
+        "SLOT_GATE_TRAINED_feats": "b129237f5548b588d4e82298006fb925ea4e09281258f62f52fd14db226f3c8e",
+        "SLOT_GATE_RANDOM_GATE_feats": "ec0363c01431e2bcbeb7c87c002bbfe639a2388a8be7734bec17b9f3ca33ab1c",
+        "RANDOM_INIT_ENCODER_feats": "9f633e1101f427912ec3ffd05e34e0eb7e23f86e3518f0eaa46be18e5d52af27"
+      },
+      "unit_pass": false,
+      "failure_class": null,
+      "elapsed_s": 215.78134009998757,
+      "_ckpt_key": "seed_7",
+      "_partial_written_at": 1785291852.2543604
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "got_n_units": 1,
+  "calibration": {
+    "per_model": {
+      "MiniLM": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.6300156116485596,
+          "train_sanity": {
+            "train_balanced_acc": 0.6977777777777778,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.63,
+          "coherent_balanced_acc": 0.63,
+          "scrambled_acc": 0.49166666666666664,
+          "scrambled_balanced_acc": 0.49166666666666664,
+          "margin": 0.13833333333333336,
+          "z_stat": 4.827873427703441,
+          "n_eval": 600,
+          "comprehension_specific": false
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.6708501577377319,
+          "train_sanity": {
+            "train_balanced_acc": 0.5938888888888889,
+            "chance": 0.5,
+            "train_beats_chance": false
+          },
+          "coherent_acc": 0.525,
+          "coherent_balanced_acc": 0.525,
+          "scrambled_acc": 0.49833333333333335,
+          "scrambled_balanced_acc": 0.49833333333333335,
+          "margin": 0.026666666666666672,
+          "z_stat": 0.9240120015500727,
+          "n_eval": 600,
+          "comprehension_specific": false
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.6472329497337341,
+          "train_sanity": {
+            "train_balanced_acc": 0.6655555555555556,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.5683333333333334,
+          "coherent_balanced_acc": 0.5683333333333334,
+          "scrambled_acc": 0.49166666666666664,
+          "scrambled_balanced_acc": 0.4916666666666667,
+          "margin": 0.07666666666666672,
+          "z_stat": 2.660604644587886,
+          "n_eval": 600,
+          "comprehension_specific": false
+        }
+      },
+      "BGE_SMALL": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.5967047214508057,
+          "train_sanity": {
+            "train_balanced_acc": 0.7911111111111111,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.7483333333333333,
+          "coherent_balanced_acc": 0.7483333333333333,
+          "scrambled_acc": 0.48833333333333334,
+          "scrambled_balanced_acc": 0.48833333333333334,
+          "margin": 0.25999999999999995,
+          "z_stat": 9.27001698190502,
+          "n_eval": 600,
+          "comprehension_specific": true
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.6088992357254028,
+          "train_sanity": {
+            "train_balanced_acc": 0.7605555555555557,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.735,
+          "coherent_balanced_acc": 0.735,
+          "scrambled_acc": 0.49,
+          "scrambled_balanced_acc": 0.49,
+          "margin": 0.245,
+          "z_stat": 8.710394235735572,
+          "n_eval": 600,
+          "comprehension_specific": true
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.6088993549346924,
+          "train_sanity": {
+            "train_balanced_acc": 0.7605555555555557,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.735,
+          "coherent_balanced_acc": 0.735,
+          "scrambled_acc": 0.49,
+          "scrambled_balanced_acc": 0.49,
+          "margin": 0.245,
+          "z_stat": 8.710394235735572,
+          "n_eval": 600,
+          "comprehension_specific": true
+        }
+      }
+    },
+    "calibration_pass": true
+  },
+  "calibration_enforced": true,
+  "bands": {
+    "hard_pass_gain": 0.05,
+    "middle_band_gain": 0.02,
+    "random_gate_eps": 0.02,
+    "margin_thresh": 0.15,
+    "coherent_floor": 0.65
+  },
+  "hp_scope": {
+    "applies_to": [
+      "seed_7",
+      "seed_13"
+    ],
+    "informational_only": [
+      "random_init_encoder_slot_gate arm (all units)"
+    ]
+  },
+  "cfg": {
+    "run_mode": "smoke",
+    "train_target": 1800,
+    "eval_target_per_label": 300,
+    "n_slots": 16,
+    "epochs": 8,
+    "gate_hidden": 32,
+    "seeds": [
+      7
+    ],
+    "enforce_calibration": true
+  },
+  "elapsed_s_total": 253.76833220000844,
+  "construction_meta": {
+    "n_train": 1800,
+    "n_eval": 600,
+    "n_train_groups": 133,
+    "n_eval_groups": 57
+  },
+  "wire_target": "hdlab/entity_slot_gate.py (EntitySlotGate) IF HARD_PASS -- target integration site TBD by Skunkworks/Director at WIRE time per WIRE-DON'T-ISLAND.",
+  "elapsed_s": 215.78134009998757
+}

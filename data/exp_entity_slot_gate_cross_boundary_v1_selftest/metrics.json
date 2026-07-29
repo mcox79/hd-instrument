@@ -1,0 +1,268 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SLOT_GATE_TRAINED beats matched MEAN_POOL readout by >=0.05 margin on ALL 1 units, random-init-gate control does NOT match the gain on any unit. Per-unit gains: {'seed_7': 0.175}",
+  "summary": "SLOT_GATE_TRAINED beats matched MEAN_POOL readout by >=0.05 margin on ALL 1 units, random-init-gate control does NOT match the gain on any unit. Per-unit gains: {'seed_7': 0.175}",
+  "anchor_name": "entity_slot_gate_cross_boundary_v1",
+  "run_mode": "selftest",
+  "ts_iso": "2026-07-29T02:25:01.416711+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_units": 1,
+  "per_unit": {
+    "seed_7": {
+      "seed": 7,
+      "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_relobj\\ckpt_seed_7.pt",
+      "ckpt_meta": {
+        "seed": 7,
+        "run_mode": "full",
+        "anchor": "scale_meaning_learn_arc_heldout_v3_relobj",
+        "w_star_semantic": 0.8,
+        "selected_arm_semantic": "ARM_FUSE_WTUNED",
+        "model_cfg": {
+          "vocab": 16000,
+          "max_len": 128,
+          "d_model": 512,
+          "n_layers": 6,
+          "n_heads": 8,
+          "ffn_mult": 4,
+          "pad_id": 0
+        }
+      },
+      "d_model": 512,
+      "meanpool": {
+        "name": "MEAN_POOL",
+        "decoder_final_loss": 0.21024581789970398,
+        "train_sanity": {
+          "train_balanced_acc": 0.975,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.575,
+        "coherent_balanced_acc": 0.575,
+        "scrambled_acc": 0.6,
+        "scrambled_balanced_acc": 0.6,
+        "margin": -0.025000000000000022,
+        "z_stat": -0.22711148374248105,
+        "n_eval": 40,
+        "comprehension_specific": false
+      },
+      "slot_gate_trained": {
+        "name": "SLOT_GATE_TRAINED",
+        "decoder_final_loss": 0.6491280794143677,
+        "train_sanity": {
+          "train_balanced_acc": 0.6499999999999999,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.575,
+        "coherent_balanced_acc": 0.575,
+        "scrambled_acc": 0.425,
+        "scrambled_balanced_acc": 0.42500000000000004,
+        "margin": 0.14999999999999997,
+        "z_stat": 1.3416407864998736,
+        "n_eval": 40,
+        "comprehension_specific": false
+      },
+      "slot_gate_random_gate": {
+        "name": "SLOT_GATE_RANDOM_GATE",
+        "decoder_final_loss": 0.6857361197471619,
+        "train_sanity": {
+          "train_balanced_acc": 0.55,
+          "chance": 0.5,
+          "train_beats_chance": false
+        },
+        "coherent_acc": 0.475,
+        "coherent_balanced_acc": 0.475,
+        "scrambled_acc": 0.525,
+        "scrambled_balanced_acc": 0.525,
+        "margin": -0.050000000000000044,
+        "z_stat": -0.44721359549995837,
+        "n_eval": 40,
+        "comprehension_specific": false
+      },
+      "random_init_encoder_slot_gate": {
+        "name": "RANDOM_INIT_ENCODER_SLOT_GATE",
+        "decoder_final_loss": 0.49983447790145874,
+        "train_sanity": {
+          "train_balanced_acc": 0.75,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.575,
+        "coherent_balanced_acc": 0.575,
+        "scrambled_acc": 0.525,
+        "scrambled_balanced_acc": 0.525,
+        "margin": 0.04999999999999993,
+        "z_stat": 0.4494665749754941,
+        "n_eval": 40,
+        "comprehension_specific": false
+      },
+      "gain_over_meanpool": 0.175,
+      "random_gate_gain_over_meanpool": -0.025000000000000022,
+      "structure_alone": false,
+      "arms_differ_digests": {
+        "MEAN_POOL": "825bd73b71633e138825a510db7fc4da44a2f3d53e77de9a21ef2015fad19aa5",
+        "SLOT_GATE_TRAINED_feats": "3e7c8a65040acafe4a5fa55d3ed7733c2d985db7b33b429ee63ed6ee92c93363",
+        "SLOT_GATE_RANDOM_GATE_feats": "c52ff6594cc6eb152258bbc1c436859070f615324e60a3d091b42d14e9176285",
+        "RANDOM_INIT_ENCODER_feats": "80d69b7549f32884994dbd285b5c045a02b32538063830d87970bdea0a020270"
+      },
+      "unit_pass": true,
+      "failure_class": null,
+      "elapsed_s": 5.500470099970698,
+      "_ckpt_key": "seed_7",
+      "_partial_written_at": 1785291901.3743834
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "got_n_units": 1,
+  "calibration": {
+    "per_model": {
+      "MiniLM": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.15479275584220886,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.425,
+          "coherent_balanced_acc": 0.425,
+          "scrambled_acc": 0.425,
+          "scrambled_balanced_acc": 0.425,
+          "margin": 0.0,
+          "z_stat": 0.0,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.26976278424263,
+          "train_sanity": {
+            "train_balanced_acc": 0.95,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.525,
+          "coherent_balanced_acc": 0.5249999999999999,
+          "scrambled_acc": 0.45,
+          "scrambled_balanced_acc": 0.44999999999999996,
+          "margin": 0.07500000000000001,
+          "z_stat": 0.6710301229387412,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.18505042791366577,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.475,
+          "coherent_balanced_acc": 0.475,
+          "scrambled_acc": 0.425,
+          "scrambled_balanced_acc": 0.42500000000000004,
+          "margin": 0.04999999999999999,
+          "z_stat": 0.4494665749754946,
+          "n_eval": 40,
+          "comprehension_specific": false
+        }
+      },
+      "BGE_SMALL": {
+        "MEAN_POOL": {
+          "name": "MEAN_POOL",
+          "decoder_final_loss": 0.19836974143981934,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.4,
+          "coherent_balanced_acc": 0.4,
+          "scrambled_acc": 0.425,
+          "scrambled_balanced_acc": 0.425,
+          "margin": -0.024999999999999967,
+          "z_stat": -0.22711148374248055,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "CLS_TOKEN": {
+          "name": "CLS_TOKEN",
+          "decoder_final_loss": 0.21797923743724823,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.4,
+          "coherent_balanced_acc": 0.4,
+          "scrambled_acc": 0.4,
+          "scrambled_balanced_acc": 0.4,
+          "margin": 0.0,
+          "z_stat": 0.0,
+          "n_eval": 40,
+          "comprehension_specific": false
+        },
+        "LAST_TOKEN": {
+          "name": "LAST_TOKEN",
+          "decoder_final_loss": 0.21797975897789001,
+          "train_sanity": {
+            "train_balanced_acc": 0.975,
+            "chance": 0.5,
+            "train_beats_chance": true
+          },
+          "coherent_acc": 0.4,
+          "coherent_balanced_acc": 0.4,
+          "scrambled_acc": 0.4,
+          "scrambled_balanced_acc": 0.4,
+          "margin": 0.0,
+          "z_stat": 0.0,
+          "n_eval": 40,
+          "comprehension_specific": false
+        }
+      }
+    },
+    "calibration_pass": false
+  },
+  "calibration_enforced": false,
+  "bands": {
+    "hard_pass_gain": 0.05,
+    "middle_band_gain": 0.02,
+    "random_gate_eps": 0.02,
+    "margin_thresh": 0.15,
+    "coherent_floor": 0.65
+  },
+  "hp_scope": {
+    "applies_to": [
+      "seed_7",
+      "seed_13"
+    ],
+    "informational_only": [
+      "random_init_encoder_slot_gate arm (all units)"
+    ]
+  },
+  "cfg": {
+    "run_mode": "selftest",
+    "train_target": 40,
+    "eval_target_per_label": 20,
+    "n_slots": 2,
+    "epochs": 3,
+    "gate_hidden": 8,
+    "seeds": [
+      7
+    ],
+    "enforce_calibration": false
+  },
+  "elapsed_s_total": 12.003364000003785,
+  "construction_meta": {
+    "n_train": 40,
+    "n_eval": 40,
+    "n_train_groups": 133,
+    "n_eval_groups": 57
+  },
+  "wire_target": "hdlab/entity_slot_gate.py (EntitySlotGate) IF HARD_PASS -- target integration site TBD by Skunkworks/Director at WIRE time per WIRE-DON'T-ISLAND.",
+  "elapsed_s": 5.500470099970698
+}

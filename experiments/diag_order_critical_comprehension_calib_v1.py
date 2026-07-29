@@ -200,6 +200,102 @@ def gen_agent_patient(rng, eval_pair_frac=0.30, train_target=900, eval_target_pe
 
 
 # ===========================================================================
+# CONSTRUCTION 3: CROSS_BOUNDARY (added 2026-07-28, comprehension-frontier design-A cell
+# `experiments/exp_entity_slot_gate_cross_boundary_v1.py`; extends this instrument IN PLACE
+# per notes/comprehension_situation_model_frontier_scoping.md "Measurement").
+#
+# Genuine cross-CLAUSE-BOUNDARY entity-tracking construction (2-sentence consistent-vs-violated).
+# Two entities (e1, e2), ONE shared state-axis (sA, sB) from STATE_PAIRS. Clause 1 is TWO short
+# sentences, each stating one entity's current state; clause 2 (the boundary) makes ONE claim --
+# "it became sA" -- using the pronoun "it" (standard recency-antecedent convention: "it" binds to
+# the LAST-mentioned entity in clause 1, a construction-template ground-truth label, not a resolver
+# the mechanism is given).
+#   ORDER_1 (e1 first=sA, e2 last=sB): "it"->e2 (was sB); "it became sA" = sB->sA, a VALID
+#       antonym flip -> label=1 CONSISTENT.
+#   ORDER_2 (e2 first=sB, e1 last=sA; clause 1's two sentences SWAPPED, clause 2 IDENTICAL text):
+#       "it"->e1 (was ALREADY sA); "it became sA" while already sA = a null/invalid transition
+#       -> label=0 VIOLATED.
+# ORDER_1 and ORDER_2 share an IDENTICAL WORD MULTISET (only the order of clause 1's two sentences
+# differs) -- exactly the AGENT_PATIENT/ENTITY_STATE discipline (same words, order determines
+# label; NOT solvable by bag-of-words / axis-membership shortcuts). Requires carrying an
+# entity-state assignment ACROSS the clause boundary to judge clause 2 -- the gap the frontier
+# note flags as UNMEASURED (cross-boundary persistence/update), motivating the entity-slot+gate
+# mechanism cell.
+#
+# CALIBRATION ITERATION (2026-07-28, honest record per the calibration-first rule -- "a
+# construction no known reader passes is broken; fix the construction, don't score ours"):
+#   v1 "adv1 the e1 was sA and the e2 was sB . adv2 it became sA ." (single "and"-joined clause 1,
+#     train=900/eval=400) -- FAILED: best margin 0.1175 (BGE_SMALL MEAN_POOL), below
+#     MARGIN_THRESH=0.15. MEASURED@this session's exp_dev calibration probe.
+#   v2 "... it was still sB ." (direct state-equality framing instead of "became") -- WORSE
+#     (margin ~0.02-0.07 across both models): the fixed "sB" target removed a usable structural
+#     cue rather than adding one. Reverted.
+#   v3 ordinal references ("the second one" / "the one mentioned last" instead of pronoun "it")
+#     -- WORSE still (margin ~0.02-0.07): pronoun "it" was not the bottleneck.
+#   v4 (LANDED) -- split clause 1 into TWO SEPARATE SENTENCES ("the e1 was sA . the e2 was sB .")
+#     instead of one "and"-joined clause, KEEP "it became sA", and INCREASE N (train=1800,
+#     eval_per_label=300 vs the sibling constructions' 900/200) -- PASSES: BGE_SMALL MEAN_POOL
+#     coherent=0.7483 scrambled=0.4883 margin=+0.2600 (z-sig, train_sanity=True); LAST_TOKEN
+#     margin=+0.2450; CLS_TOKEN margin=+0.2450. MiniLM still short (best margin 0.1383) but the
+#     calibration gate only requires ONE known reader to pass on ONE readout -- satisfied.
+#     MEASURED@this session's exp_dev calibration probe (reduced-scale iteration harness, then
+#     reproduced at this exact regime by this script's own main() run -- see results.json).
+#
+# clause1_text / clause2_text are stored SEPARATELY (not re-parsed from `sent`) so the entity-slot
+# mechanism can encode each clause with its own frozen-encoder forward pass without any string
+# parsing/resolver logic -- the boundary is known because WE generated the template (construction-
+# template info, per the frontier note's ALLOWED list), never inferred by the mechanism.
+# ===========================================================================
+def gen_cross_boundary(rng, eval_pair_frac=0.30, train_target=1800, eval_target_per_label=300):
+    entities = STATE_OBJECTS
+    pairs = _shuffled(list(itertools.combinations(range(len(entities)), 2)), rng)
+    n_eval_pairs = max(30, int(round(eval_pair_frac * len(pairs))))
+    eval_pair_set = set(pairs[:n_eval_pairs])
+    train_pair_set = set(pairs[n_eval_pairs:])
+    assert train_pair_set.isdisjoint(eval_pair_set), "CROSS_BOUNDARY leak: pair overlap"
+
+    def build_pools(pair_set):
+        pool0, pool1 = [], []
+        for (ei, ej) in pair_set:
+            e1, e2 = entities[ei], entities[ej]
+            for pidx, (sA, sB) in enumerate(STATE_PAIRS):
+                for (adv1, adv2) in TIME_TEMPLATES:
+                    group = (ei, ej, pidx)
+                    c1_order1 = "%s the %s was %s . the %s was %s ." % (adv1, e1, sA, e2, sB)
+                    c1_order2 = "%s the %s was %s . the %s was %s ." % (adv1, e2, sB, e1, sA)
+                    c2 = "%s it became %s ." % (adv2, sA)
+                    pool1.append(dict(sent=c1_order1 + " " + c2, clause1=c1_order1, clause2=c2,
+                                       label=1, group=group, adv=(adv1, adv2)))
+                    pool0.append(dict(sent=c1_order2 + " " + c2, clause1=c1_order2, clause2=c2,
+                                       label=0, group=group, adv=(adv1, adv2)))
+        return pool0, pool1
+
+    tr0, tr1 = build_pools(train_pair_set)
+    ev0, ev1 = build_pools(eval_pair_set)
+    # By-construction multiset check: pool0[k]/pool1[k] are built in LOCKSTEP inside the same
+    # nested-loop iteration (same group/pidx/adv), so index-aligned pairs are guaranteed to be the
+    # ORDER_1/ORDER_2 variant of the identical (group,adv) triple -- check BEFORE sampling (a random
+    # post-hoc sample of train/eval need not co-select both labels for the same triple).
+    n_checked = 0
+    for k in range(0, min(len(tr0), len(tr1)), max(1, len(tr0) // 40)):
+        w0 = sorted(tr0[k]["sent"].split())
+        w1 = sorted(tr1[k]["sent"].split())
+        assert tr0[k]["group"] == tr1[k]["group"] and tr0[k]["adv"] == tr1[k]["adv"], \
+            "CROSS_BOUNDARY: pool0/pool1 index-alignment broken at k=%d" % k
+        assert w0 == w1, "CROSS_BOUNDARY: multiset mismatch at k=%d: %r vs %r" % (k, w0, w1)
+        n_checked += 1
+    assert n_checked >= 5, "CROSS_BOUNDARY multiset self-test found too few pairs (%d)" % n_checked
+    _log("CROSS_BOUNDARY multiset self-test OK: %d index-aligned ORDER_1/ORDER_2 pairs "
+         "share identical word multiset (by-construction, pre-sampling)" % n_checked)
+
+    train_items = _shuffled(_sample(tr0, train_target // 2, rng) + _sample(tr1, train_target // 2, rng), rng)
+    eval_items = _shuffled(_sample(ev0, eval_target_per_label, rng) + _sample(ev1, eval_target_per_label, rng), rng)
+    return dict(name="CROSS_BOUNDARY", train=train_items, eval=eval_items,
+                train_group_set=train_pair_set, eval_group_set=eval_pair_set,
+                n_entities=len(entities), n_pairs=len(STATE_PAIRS), has_clause_split=True)
+
+
+# ===========================================================================
 # CONSTRUCTION 2: ENTITY_STATE_TIME_UPDATE
 # ===========================================================================
 def gen_entity_state(rng, eval_combo_frac=0.30, train_target=900, eval_target_per_label=200):
@@ -415,7 +511,8 @@ def main():
 
     ap = gen_agent_patient(rng)
     es = gen_entity_state(rng)
-    constructions = [ap, es]
+    cb = gen_cross_boundary(rng)   # runs its own by-construction multiset self-test internally
+    constructions = [ap, es, cb]
     _self_test_constructions(constructions, rng)
 
     srng = np.random.default_rng(SEED + 1234)
