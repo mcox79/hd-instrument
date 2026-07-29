@@ -208,9 +208,28 @@ ledger's row 1 moves from "untested" to "tested, refuted" and future sessions re
 architecture/readout/consolidation rows instead of re-spinning the objective axis a 4th time.
 
 ## Evidence (this session, local CPU; MEASURED per META_RULE_AC tagging)
-Filled in after self-test + headroom-precheck runs below this pre-reg's authoring; see completion report
-for exact numbers (`data/exp_scale_meaning_learn_arc_heldout_v5_forwardpc_selftest/metrics.json`,
-`data/exp_scale_meaning_learn_arc_heldout_v5_forwardpc_smoke/metrics.json`).
+- Self-test: `MEASURED@data/exp_scale_meaning_learn_arc_heldout_v5_forwardpc_selftest/metrics.json`,
+  verdict SELF-TEST PASS, real code paths (CausalTinyTransformer, causal_lm_train, V2.prepare_data/
+  run_one_seed fresh-MLM arm, gen_cross_boundary, score_readout_arm) all fired, ckpt saved, elapsed 102s.
+- HEADROOM PRECHECK (smoke, seed 7, both objectives trained fresh on identical bundle, d=128/2L/vocab=
+  4096/250 steps, CROSS_BOUNDARY n_eval=160):
+  `MEASURED@data/exp_scale_meaning_learn_arc_heldout_v5_forwardpc_smoke/metrics.json`:
+  - CROSS_BOUNDARY MEAN_POOL margin: causal-PC=0.0812 (coherent_acc=0.575, scrambled_acc=0.494),
+    MLM-baseline=0.0312 (coherent_acc=0.500), RANDOM_INIT(causal arch, untrained)=0.0875.
+    causal-vs-MLM delta=+0.0500 (mechanism-consistent direction).
+  - Semantic held-out-NEW TEXT-lift (text-RAW): causal=-0.1029, MLM-baseline=-0.1085, delta=+0.0056
+    (both negative at smoke = undertrained tiny model; delta is noise-level).
+  - final causal_lm_loss=6.8955 (finite, decreasing 86.4->6.9 over 250 steps).
+  - HEADROOM verdict = HEADROOM_YES (causal beats MLM on the discriminator, semantic non-worse).
+  - **HONEST CAVEAT (surfaced by the RANDOM_INIT arm, reported loudly, not hidden):** at smoke scale
+    random-init causal (0.0875) ~= trained causal (0.0812), so the +0.05 CROSS_BOUNDARY advantage over
+    MLM is attributable to the causal ATTENTION MASK (order-sensitive pooling even untrained), not to
+    LEARNING, at this scale. This is an UNDERTRAINING artifact (coherent_acc 0.575 ~ chance => neither
+    model has left init at 250 steps), so it is uninformative about the FULL outcome; the causal-vs-MLM
+    delta (both equally undertrained) is the decision-relevant "not obviously doomed" signal. The FULL
+    run's own RANDOM_INIT + both-seeds confound guards (build_full_verdict:
+    MIDDLE_BAND_STRUCTURE_ALONE_CONFOUND if random-init clears MARGIN_THRESH; HARD_PASS requires
+    both-seed replication) are what render the honest learned-vs-mask verdict at proper scale.
 
 ## Timeout (queue_add.sh `timeout_s`) -- computed BEFORE FULL dispatch, only if headroom passes
 V2's own FULL run: `elapsed_s=10206.5` per seed (2.83h) for MLM at IDENTICAL architecture/steps/batch.
@@ -219,19 +238,32 @@ difference is the loss computed over ~100% of positions instead of ~15%, a cheap
 cross-entropy over the SAME logits tensor already computed for MLM at every position -- negligible
 marginal cost). Comprehension-VET overhead (CROSS_BOUNDARY construction + 3-arm probe fit/score) is
 smoke-cheap (pure numpy/small-linear-probe fit, no GPU) -- a few minutes at FULL scale (1800 train items,
-2 eval labels x 300). Estimated FULL per-seed wall ~ V2's own 10206s + 5-10 min overhead ->
-`ceil(1.5 * (10206 + 480)) = 16029s` (1.5x safety margin, queue_add.sh's own formula). This exceeds the
-14400s soft cap -- justified: it is the SAME order of magnitude as v2's own already-landed FULL wall
-time on identical architecture/compute, not a new unbounded risk; two seeds run sequentially in one
-process per convention (`~32058s` total), each seed's partial written independently so a mid-run failure
-after seed_7 does not lose that seed's result.
+2 eval labels x 300).
+CRITICAL: `timeout_s` is the WHOLE-CELL timeout and the cell runs BOTH seeds in ONE process. v2's own
+2-seed FULL wall = 2 x 10206.5 = 20413s. Plus causal-negligible per-step overhead + comprehension-VET
+(a few min/seed) + FULL MLM-baseline arm = REUSED ckpt (re-encode postings only, ~minutes/seed, no
+retrain) -> ~21400s realistic 2-seed wall. `timeout_s = ceil(1.5 * 21400) = 32100s`. Exceeds the 14400s
+soft cap -- justified: SAME order of magnitude as v2's own already-landed 2-seed FULL on identical
+architecture/compute; each seed's partial written independently so a mid-run failure after seed_7
+preserves that seed's result. (An earlier draft used 16029 = a PER-SEED value; that is WRONG for the
+whole-cell timeout -- would timeout-kill after seed 7. Corrected to 32100.)
 
-## Queue dispatch (exp_dev hand-off; orchestrator ships + REMOTE VERIFIES) -- ONLY IF HEADROOM_YES
+## Queue dispatch (exp_dev hand-off; orchestrator ships + REMOTE VERIFIES) -- HEADROOM_YES confirmed
 ```
 bash tools/orchestrator/queue_add.sh overnight_queue scale_meaning_learn_arc_heldout_v5_forwardpc \
   experiments/exp_scale_meaning_learn_arc_heldout_v5_forwardpc.py \
-  preregs/2026-07-29_scale_meaning_learn_arc_heldout_v5_forwardpc.md 16029
+  preregs/2026-07-29_scale_meaning_learn_arc_heldout_v5_forwardpc.md 32100
 ```
-Sequencing: route AFTER any currently-running GPU job on the single remote box; confirm via
-`python tools/inflight_monitor.py` before ship; confirm `data/orchestrator_paused.flag` absent
-(re-verified at hand-off time, not just at authoring time).
+REMOTE PREREQUISITES the orchestrator must satisfy before/at ship (exp_dev cannot push/SCP):
+1. Push commit to origin/main (hd_metrics_sync) OR add-only SCP the cell + its sibling imports
+   (`exp_scale_meaning_learn_arc_heldout_v2.py`, `diag_order_critical_comprehension_calib_v1.py`,
+   `exp_unified_self_learning_loop_v2.py`, `experiments/_seed_checkpoint.py`) -- remote checkout is
+   stale-by-design. The cell's module-level imports do NOT pull `transformers` (calibration HF path not
+   invoked) -- verified by clean local self-test + smoke.
+2. Confirm on remote GPU box: ARC corpus at `data/corpora/arc/` (v2's FULL ran there -> present) AND
+   v2 baseline ckpts `data/exp_scale_meaning_learn_arc_heldout_v2/ckpt_seed_{7,13}.pt` (FULL MLM-baseline
+   arm; CITED-fallback if a seed's ckpt absent, reused_checkpoint strongly preferred).
+3. Post-ship REMOTE VERIFY: queue_add exit 0 (not exit-5 referent-absent); on landing, verify
+   run_mode=full (a 668B self_test landing = dispatch bug, per RUN_MODE VERIFICATION discipline).
+Sequencing: GPU idle/free confirmed (`inflight_monitor.py`: gpu util 0%, overnight_queue pending=0);
+`data/orchestrator_paused.flag` confirmed absent (re-verify at hand-off).
