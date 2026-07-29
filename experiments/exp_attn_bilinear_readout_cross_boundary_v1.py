@@ -85,9 +85,13 @@ Run modes:
                 fit_attn_bilinear_readout, fit_binary_probe) at tiny scale (Gate F.1). Calibration
                 gate is COMPUTED but NOT hard-blocking at this scale.
   --smoke     : FULL-scale construction (train=1800, eval_per_label=300 -- IDENTICAL to FULL_CFG)
-                but ONE unit (RELOBJ_v3 seed_7) and reduced ATTN_BILINEAR epochs (8 vs 15) for
-                speed. Calibration gate IS enforced (this is the real construction).
-  --full      : all 3 units, full epochs (15), r=32.
+                but ONE unit (RELOBJ_v3 seed_7). epochs=8 was tried first and found to badly
+                UNDER-fit (ATTN_BILINEAR train_balanced_acc=0.564, below the SANITY_MARGIN gate) --
+                epochs=40 is required for the end-to-end attention+interaction+classifier fit to
+                converge on ~1800 full-batch items; SMOKE_CFG and FULL_CFG both use epochs=40
+                (no smoke/full epoch discrepancy, since 8 was a real convergence bug, not a
+                legitimate speed/fidelity tradeoff). Calibration gate IS enforced.
+  --full      : all 3 units, epochs=40, r=32.
 """
 from __future__ import annotations
 
@@ -142,9 +146,12 @@ SEED = 20260728          # construction RNG seed -- MATCHES diag_order_critical_
 SELFTEST_CFG = dict(run_mode="selftest", train_target=40, eval_target_per_label=20,
                      r=4, epochs=3, seeds=["RELOBJ_v3_seed_7"], enforce_calibration=False)
 SMOKE_CFG = dict(run_mode="smoke", train_target=1800, eval_target_per_label=300,
-                  r=32, epochs=8, seeds=["RELOBJ_v3_seed_7"], enforce_calibration=True)
+                  r=32, epochs=40, seeds=["RELOBJ_v3_seed_7"], enforce_calibration=True)
+# epochs=8 tried first (see module docstring) -- badly under-fit (ATTN_BILINEAR
+# train_balanced_acc=0.564 < SANITY_MARGIN gate). MEASURED@d:/AI/hd-instrument/data/
+# exp_attn_bilinear_readout_cross_boundary_v1_smoke/metrics.json (pre-fix run, since overwritten).
 FULL_CFG = dict(run_mode="full", train_target=1800, eval_target_per_label=300,
-                 r=32, epochs=15, seeds=["RELOBJ_v3_seed_7", "RELOBJ_v3_seed_13", "BASELINE_v2_seed_7"],
+                 r=32, epochs=40, seeds=["RELOBJ_v3_seed_7", "RELOBJ_v3_seed_13", "BASELINE_v2_seed_7"],
                  enforce_calibration=True)
 
 HARD_PASS_GAIN = 0.05        # ATTN_BILINEAR margin - MEAN_POOL margin, per gating unit
