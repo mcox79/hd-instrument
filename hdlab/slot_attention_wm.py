@@ -33,6 +33,8 @@ script for how the two arms are wired.
 """
 from __future__ import annotations
 
+import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -100,7 +102,9 @@ class SlotAttentionWM(nn.Module):
         new_slots = (1.0 - w) * slots + w * candidate.unsqueeze(1)
 
         ent = -(addr_w.clamp_min(1e-8) * addr_w.clamp_min(1e-8).log()).sum(dim=-1)
-        addr_entropy = ent / torch.log(torch.tensor(float(self.n_slots)))
+        # divide by a PYTHON float (math.log), not a 0-dim CPU tensor: keeps addr_entropy on
+        # `ent`'s device with no wrapped-scalar cross-device reliance (cuda-safe).
+        addr_entropy = ent / math.log(self.n_slots)
 
         feats = dict(surprise=surprise, write_strength=write_strength, addr_entropy=addr_entropy)
         if kb_prior is not None:

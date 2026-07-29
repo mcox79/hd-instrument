@@ -84,6 +84,12 @@ DEVIATION FROM SPEC (documented, not silent -- CPU-only laptop, no GPU available
     REDUCED item count (see SMOKE_* caps below) and n_seeds=1 (+1 random-init-core seed) --
     the FULL run (item count = LOCKED_CONSTRUCTION's full train/eval, n_seeds>=2 trained +
     n_seeds>=5 random-init-core control) is HELD per Director instruction, GPU-only.
+
+GPU FULL LAUNCH (device-plumbing 2026-07-29): `--device` is honored (was hardcoded cpu). FULL is a
+DIRECT detached invocation on the GPU host (this cell is argparse-gated so it cannot go through the
+runner). Exact fire-verbatim command + done-sentinel/log convention:
+notes/stateful_core_full_gpu_launch_recipe.md (launch body committed as
+tools/_launch_full_stateful_core.bat). No autocast/AMP (HRR/cosine fp16 risk > gain on ~25M params).
 """
 from __future__ import annotations
 
@@ -519,15 +525,23 @@ def self_test():
 # ---------------------------------------------------------------------------
 # Smoke / full runner
 # ---------------------------------------------------------------------------
-def run_regime(run_mode, seed, n_random_init_seeds):
+def run_regime(run_mode, seed, n_random_init_seeds, device_str="cpu"):
     t0 = time.perf_counter()
     output_dir = out_dir_for(run_mode)
     is_smoke = (run_mode == "smoke")
     expected = 2 * (1 + n_random_init_seeds)  # 2 arms x (1 trained + N random-init) units
     _write_start_marker(output_dir, run_mode, expected_n_units=expected)
-    device = torch.device("cpu")
+    # DEVICE (2026-07-29 device-plumbing): honor the caller's device (was hardcoded cpu, which
+    # silently pinned even a GPU-host FULL run to cpu -- exactly the PROT-020 item-7 0%-util bug).
+    # ALL tensor/model creation in run_regime + train_and_eval_arm + forward_item_batch +
+    # build_random_init_encoder + encode_clause_batch + SlotAttentionWM.step routes through this
+    # `device` (load_encoder_and_tok(.., device) .to(device); torch.tensor(.., device=device);
+    # SlotAttentionWM.init_slots/step derive device from the slots/clause_rep tensors), so setting
+    # it here places the WHOLE computation on the requested device.
+    device = torch.device(device_str)
 
     _log = lambda msg: print("[%s] %s" % (run_mode.upper(), msg))
+    _log("device=%s (cuda_available=%s)" % (device, torch.cuda.is_available()))
     _log("loading encoder+tokenizer from %s" % CKPT_PATH)
     if not os.path.exists(CKPT_PATH):
         raise FileNotFoundError("checkpoint not found: %s (need ckpt_seed_%d.pt)" % (CKPT_PATH, seed))
@@ -677,7 +691,7 @@ def run_regime(run_mode, seed, n_random_init_seeds):
     metrics = dict(
         verdict=verdict, verdict_tag=verdict, verdict_msg=verdict_msg, summary=verdict_msg[:200],
         elapsed_s=elapsed, ts_iso=datetime.now(timezone.utc).isoformat(), pid=os.getpid(),
-        anchor_name=ANCHOR_NAME, run_mode=run_mode, seed=seed,
+        anchor_name=ANCHOR_NAME, run_mode=run_mode, seed=seed, device=str(device),
         n_random_init_seeds=n_random_init_seeds,
         results=results, arm_b_minus_a=arm_b_minus_a,
         random_init_core=random_init_results, random_init_core_worst=ri_worst,
@@ -709,14 +723,24 @@ def main():
     ap.add_argument("--device", type=str, default="cpu")
     args = ap.parse_args()
 
+    # Resolve + validate device. FAIL LOUD (SystemExit) if cuda is requested but unavailable,
+    # rather than silently falling back to cpu -- a GPU-dispatched FULL that quietly runs on cpu
+    # is the PROT-020 item-7 "0%-util GPU run" waste class + would take days at cpu pace.
+    device_str = args.device
+    if device_str.startswith("cuda") and not torch.cuda.is_available():
+        raise SystemExit("--device %s requested but torch.cuda.is_available()==False on this host "
+                         "(dispatch to a GPU host, or use --device cpu)" % device_str)
+
     if args.self_test:
         self_test()
         return
     if args.smoke:
-        run_regime("smoke", args.seed, n_random_init_seeds=args.n_random_init_seeds)
+        run_regime("smoke", args.seed, n_random_init_seeds=args.n_random_init_seeds,
+                   device_str=device_str)
         return
     if args.full:
-        run_regime("full", args.seed, n_random_init_seeds=max(5, args.n_random_init_seeds))
+        run_regime("full", args.seed, n_random_init_seeds=max(5, args.n_random_init_seeds),
+                   device_str=device_str)
         return
     raise SystemExit("must specify one of --self-test / --smoke / --full")
 
