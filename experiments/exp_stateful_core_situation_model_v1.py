@@ -129,20 +129,50 @@ CSKG_EDGE_SHARDS = [os.path.join(_REPO, "data", "cskg_foundation_v1", "edges_sha
 
 SMOKE_MES_TRAIN_CAP = 64
 SMOKE_MES_EVAL_CAP = 32   # 16 per label
-# NOTE (2026-07-29, post-landed-smoke review): a PRIOR smoke run at SMOKE_EPOCHS=2 (228s wall,
-# data/exp_stateful_core_situation_model_v1_smoke/metrics.json) landed SMOKE_DISCRIMINATOR_WEAK
-# (both arms/constructions at ~chance; train_loss barely moved off ln(2)=0.693). With
-# MES_TRAIN_CAP=64 / batch=32 that is only 2 batches/epoch = 4 gradient steps total at lr=1e-4 --
-# almost certainly UNDERTRAINED (too few steps for a 512d/6L unfrozen fine-tune), not yet
-# evidence the mechanism fails. Bumped epochs 2->6 (12 steps) and lr 1e-4->3e-4 (see
-# train_and_eval_arm call in run_regime) to give the discriminator-fires gate a fair chance
-# before concluding WEAK; re-smoke before trusting the DISCRIMINATOR_WEAK verdict.
-SMOKE_EPOCHS = 6
-SMOKE_BATCH = 32
+# TRAINING-BUDGET SIZING (2026-07-29, post gradient-path probe -- treat as established):
+# The prior smoke landed SMOKE_DISCRIMINATOR_WEAK (both arms ~chance, train_loss ~ln2). A tiny-
+# config overfit probe (d=16, 1L, REAL TinyTransformer+SlotAttentionWM+gen_multi_entity_state,
+# Arm A) OVERFITS 16 items cleanly (loss 0.692->0.015, acc 1.000 by step 25/400) with all three
+# per-component grad norms (g_enc/g_wm/g_judge) nonzero every step and slot_mean features
+# distinct (pairwise cosine ~ -0.07). So the encoder->WM->judge gradient path and feature
+# distinctness are HEALTHY -- the weak smoke was NOT a wiring/gradient bug. ROOT CAUSE = too few
+# optimizer STEPS: the old MES_TRAIN_CAP=64 / batch=32 x epochs=6 = 2 batches/epoch x 6 = only
+# 12 gradient steps to fine-tune a ~25M-param 512d/6L transformer through an ~11-step recurrence.
+# A random-init 1-layer toy needed ~25 steps; the deep unfrozen fine-tune needs far more.
+#
+# FIX (parametrized by a MIN-GRADIENT-STEPS target so a future reader sees WHY): target >= ~200
+# optimizer steps for each trained smoke arm. steps/arm = epochs * ceil(train_items / batch).
+#
+# The BINDING CONSTRAINT on how we reach the step target is the queue_add.py gate's smoke
+# ceiling: this cell's smoke LANDS via the gate preflight (--smoke, HDLAB_EXP_NAME=<name>_smoke),
+# NOT via the runner (the runner spawns the script with no flag + HDLAB_RUN_MODE=full, which this
+# argparse-dispatched cell does not honor), so the smoke must finish under the gate's
+# HDLAB_SMOKE_TIMEOUT_S ceiling of 3600s. Since wall ~= steps * batch * per_item_cost, the lever
+# to hit a fixed step target CHEAPLY is a SMALL batch (fewer item-forwards per step -> lower wall
+# for the same step count), NOT more epochs at a large batch.
+#
+# MEASURED (2026-07-29 micro-benchmark, real 512d/6L ckpt on this CPU, batch=8): MES arm
+# ~3.5s/step (the long multi-entity clause recurrence dominates), KD arm ~1.1s/step. So:
+#   batch=8 -> MES(64 items)=8 batches/epoch, KD(64 items)=8 batches/epoch.
+#   epochs=25 -> MES=200 steps (~1400s over 2 arms), KD=200 steps (~420s); + random-init control
+#   (~320s) + fixed overhead (~15s) => ~2150s laptop wall, comfortably under the 3600s ceiling.
+# batch=16 at the same step target would ~double the wall and risk the ceiling on a slower remote.
+# lr stays 3e-4 (step-count, not LR, was the deficit). Gradient clipping (max_norm=1.0) is added
+# in train_and_eval_arm to absorb the joint-fine-tune instability spike observed at ~step 125.
+# Ship with HDLAB_SMOKE_TIMEOUT_S=3600 so the gate allows the (measured ~36min) smoke to complete.
+SMOKE_MIN_GRAD_STEPS_TARGET = 200
+SMOKE_EPOCHS = 25
+SMOKE_BATCH = 8
 SMOKE_LR = 3e-4
-FULL_EPOCHS = 8
+# FULL step-count audit: MES full train_target=900 / FULL_BATCH=24 = ~38 batches/epoch; KD full
+# (kd_train+ts_train, several hundred items) even more. At the old FULL_EPOCHS=8 that is only
+# ~300 MES steps (each item seen 8x) -- borderline for the 25M unfrozen fine-tune. Raised to 12
+# (~450 MES steps) to sit comfortably above "a few hundred" while keeping GPU runtime bounded.
+# FULL_LR held at 1e-4 (lower than smoke: full has far more steps, so a gentler rate is safe).
+FULL_EPOCHS = 12
 FULL_BATCH = 24
 FULL_LR = 1e-4
+GRAD_CLIP_MAX_NORM = 1.0
 
 
 # ---------------------------------------------------------------------------
@@ -376,6 +406,10 @@ def train_and_eval_arm(model, wm, judge, tok, spec, max_len, train_items, eval_i
                 raise FloatingPointError("non-finite loss arm=%s epoch=%d batch_start=%d" % (arm, ep, bstart))
             opt.zero_grad(set_to_none=True)
             loss.backward()
+            # Gradient clipping: the joint UNFROZEN fine-tune (encoder+WM+judge) destabilizes --
+            # a probe saw grad-norm jump ~18x at ~step 125 (loss bumped then recovered). Clip to
+            # keep the longer (200+ step) smoke/full runs stable. Applies to all trainable params.
+            torch.nn.utils.clip_grad_norm_(params, max_norm=GRAD_CLIP_MAX_NORM)
             opt.step()
             ep_losses.append(float(loss.detach()))
         last_loss = float(np.mean(ep_losses))
@@ -516,8 +550,11 @@ def run_regime(run_mode, seed, n_random_init_seeds):
         rngshuf = np.random.default_rng(seed)
         rngshuf.shuffle(kd_train_all)
         rngshuf.shuffle(kd_eval_all)
-        kd_train_all = kd_train_all[:min(len(kd_train_all), 96)]
-        kd_eval_all = kd_eval_all[:min(len(kd_eval_all), 40)]
+        # KD smoke cap 64/32 (was 96/40): with SMOKE_BATCH=8 this is 8 batches/epoch x
+        # SMOKE_EPOCHS=25 = 200 optimizer steps (matches the MES smoke step count) and bounds
+        # KD wall so the whole smoke stays comfortably under the gate's 3600s preflight ceiling.
+        kd_train_all = kd_train_all[:min(len(kd_train_all), 64)]
+        kd_eval_all = kd_eval_all[:min(len(kd_eval_all), 32)]
     for it in kd_train_all + kd_eval_all:
         it["kb_id"] = tuple(it["kb_relation"])[0]
     _log("KD_TS: train=%d eval=%d" % (len(kd_train_all), len(kd_eval_all)))

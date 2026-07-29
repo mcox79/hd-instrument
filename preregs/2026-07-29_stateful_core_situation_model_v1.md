@@ -38,7 +38,7 @@ Both `MULTI_ENTITY_STATE` (distE4/distEv6, LOCKED construction from `diag_order_
 - **MIDDLE_BAND:** +0.02 to +0.05 gain, or single-seed only, or a gain that clears the mechanism gate but not the framing-selectivity gate (or vice versa) -- do not bank; re-probe with the added-weight/regime adjustments the drill doc names.
 
 ## Compute architecture
-Mixed, justified. The per-clause-step recurrence (WM update depends on the previous slot state) is a genuine SEQUENTIAL dependency within an item -- cannot batch across clause-steps -- but items ARE batched (encode_clause_batch processes a [B, L] tensor per clause-step; B=SMOKE_BATCH=32 / FULL_BATCH=24). This is "sequential-within-item, batched-across-items," the standard recurrent-net pattern; not a batching-candidate violation (genuine sequential dependency, exp_dev.md GPU-batching-mandatory exemption (a): "chained retrieval where step N depends on step N-1"). SMOKE runs CPU-only (laptop; no local GPU); the encoder is UNFROZEN so this is a real (small) fine-tune, not a frozen-rep readout -- CPU wall-time is the justified reason SMOKE uses item-count reduction (discriminator-preview option C) rather than full-N. FULL should route to GPU (overnight_queue) given d_model=512, 6L, UNFROZEN backprop through the full item counts x FULL_EPOCHS=8 x >=5 random-init-core seeds -- CPU-only estimate for FULL is several hours (see completion report timeout-derivation), a GPU-batching candidate per the mandatory rule; Director/Orchestrator routes FULL to GPU.
+Mixed, justified. The per-clause-step recurrence (WM update depends on the previous slot state) is a genuine SEQUENTIAL dependency within an item -- cannot batch across clause-steps -- but items ARE batched (encode_clause_batch processes a [B, L] tensor per clause-step; B=SMOKE_BATCH=8 / FULL_BATCH=24). This is "sequential-within-item, batched-across-items," the standard recurrent-net pattern; not a batching-candidate violation (genuine sequential dependency, exp_dev.md GPU-batching-mandatory exemption (a): "chained retrieval where step N depends on step N-1"). SMOKE runs CPU-only (laptop; no local GPU); the encoder is UNFROZEN so this is a real (small) fine-tune, not a frozen-rep readout -- CPU wall-time is the justified reason SMOKE uses item-count reduction (discriminator-preview option C) rather than full-N. FULL should route to GPU (overnight_queue) given d_model=512, 6L, UNFROZEN backprop through the full item counts x FULL_EPOCHS=8 x >=5 random-init-core seeds -- CPU-only estimate for FULL is several hours (see completion report timeout-derivation), a GPU-batching candidate per the mandatory rule; Director/Orchestrator routes FULL to GPU.
 Storage: no_storage / no_composition (single-pass-per-item slot maintenance, no cross-item persistent store).
 
 ## Self-test (real code path, tiny scale, exp_dev.md META_RULE F.1)
@@ -56,7 +56,7 @@ Self-test constructs the REAL objects the FULL run uses at N~8-16: a real `TinyT
 - baseline_in_band: true by construction (label-balanced binary judgment; untrained/random baseline ~0.50, in-band per META_RULE_AG's 0.05-0.95 window). SMOKE additionally asserts `discriminator_fires` (best_acc>=0.55) and `baseline_in_band` (0.05<best_acc<0.95) per-construction in metrics.
 - HP_SCOPE: `{mechanism_gate: [trained_core beats random_init_core worst-case, both constructions], framing_gate: [Arm B - Arm A >= +0.05 on KD, concentrated not uniform]}`. Random-init-core arm is EXEMPT from the mechanism HARD_PASS gate (it IS the floor the gate is measured against, not a candidate for HARD_PASS itself).
 - calibration_check: default_ok_for_this_regime (reuses the ALREADY-VALIDATED MES distE4/distEv6 + KD constructions from `diag_order_critical_comprehension_calib_v1.py`; gate-A/gate-B calibration independently measured 2026-07-29, see `hardening.json` / `KD_FRAMING_FINDING.json` / `kd_framing_revalidation.json`).
-- discriminator survives scale: option (C), discriminator-preview at FULL DIFFICULTY (real distE4/distEv6 + real-KB KD construction, not a toy regime) with a REDUCED ITEM COUNT (SMOKE_MES_TRAIN_CAP=64, SMOKE_MES_EVAL_CAP=32, KD capped to 96 train/40 eval) and n_seeds=1 trained + 1 random-init-core seed -- documented, justified by CPU-only-laptop constraint; FULL restores full item counts + FULL_EPOCHS=8 + >=5 random-init-core seeds on GPU.
+- discriminator survives scale: option (C), discriminator-preview at FULL DIFFICULTY (real distE4/distEv6 + real-KB KD construction, not a toy regime) with a REDUCED ITEM COUNT (SMOKE_MES_TRAIN_CAP=64, SMOKE_MES_EVAL_CAP=32, KD capped to 64 train/32 eval) and n_seeds=1 trained + 1 random-init-core seed -- documented, justified by CPU-only-laptop constraint; FULL restores full item counts + FULL_EPOCHS=12 + >=5 random-init-core seeds on GPU.
 - Section-15 gates (composition cell -- reuses `hdlab.binding` HRR bind/unbind + `diag_order_critical_comprehension_calib_v1`'s constructions): `composition_edges`: `SlotAttentionWM.step -> hdlab.binding.bind/unbind` SHAPE_MATCH ([B,d] key / [B,K,d] slots, `unbind(slots, key.unsqueeze(1))` broadcasts correctly -- verified by self-test's finite-loss + arms-differ pass); `gen_multi_entity_state`/`gen_knowledge_dependent -> forward_item_batch` SHAPE_MATCH (dict items with `sent`/`label`[/`kb_id`] consumed directly). `positive_control_arms`: N/A -- this is the FIRST cell to compose `SlotAttentionWM` (novel module, no prior chain-grade atom to reproduce); the random-init-core control plays the equivalent falsification role (Gate D's spirit: an untrained-but-real-architecture arm that MUST fail for the trained arm's result to be trusted). `functional_requirements`: (1) maintain persistent entity state across a clause stream -> `SlotAttentionWM.step` recurrence; (2) update only when input is prediction-error-inconsistent -> `gate_net` write_strength; (3) bind fillers by content not position -> `role_key_net` + HRR bind/unbind; (4) ground state in world-knowledge selectively -> `gen_kb_prior` + `kb_consistency` term, gated to Arm B only.
 - `real_code_path_and_signature_preflight` (F.1-F.5): F.1 satisfied (self-test constructs real `TinyTransformer`/`Tokenizer`/`SlotAttentionWM`/the real construction-generator functions, not a synthetic-only branch; `exercised_entrypoints` populated and logged). F.2/F.3 (signature binding against BASE/portable kwargs): `TinyTransformer(vocab, max_len, d_model, n_layers, n_heads, ffn_mult, pad_id)` -- these are the same required positional kwargs used by `load_encoder_and_tok` (loading the REAL v2 ckpt) and by `self_test()`'s tiny_cfg construction; no version-specific optional kwargs used. Not formally run through `experiments._validity_preflight.run_validity_preflight` (undeclared -- per exp_dev.md "Mode = ENFORCE" this WARNS, does not block; flagged here for Director/Skunkworks visibility rather than silently omitted). F.4 n/a (no control-beats-baseline break-guard in this cell). F.5: seeding audited -- all RNG seeds are explicit integers (`seed`, `seed+555`, `seed+9001`, `1000+ri_seed`, `2000+ri_seed`) or `np.random.default_rng(int)`; no `hash()`-derived seeding, no `list(set(...))` ordering found (grep clean).
 
@@ -83,19 +83,31 @@ was `SMOKE_DISCRIMINATOR_WEAK` (MES A=0.500 B=0.500, KD A=0.525 B=0.475 -- both 
 train_loss barely moved off ln(2)=0.693). Root-cause read (not yet re-verified): at
 MES_TRAIN_CAP=64/batch=32 x 2 epochs = only 4 gradient steps total at lr=1e-4 for a 512d/6L
 UNFROZEN fine-tune -- almost certainly UNDERTRAINED, not yet evidence the mechanism fails.
-**Fix applied (this session, before hand-off): SMOKE_EPOCHS 2->6 and SMOKE_LR 1e-4->3e-4**
-(12 gradient steps at 3x the learning rate); self-test re-verified PASS after the edit
-(elapsed 2.9s, unaffected -- self-test doesn't touch these constants). `progress_logging` wired
-to `line_buffered_stdout` since the new smoke config pushes wall-time toward/above 1800s.
-**Timeout estimate for the RE-SMOKE (HYPOTHESIZED, not yet measured at the new config):** 228s
-measured at 2 epochs scales to roughly 3x more trained-arm gradient steps (per-epoch fixed
-costs like data-gen/KB-lookup are NOT epoch-scaled, so expect somewhat less than a clean 3x) --
-estimate ~500-700s. **Recommend `timeout_s=1800`** (30 min) for the re-smoke command as a
-generous bound around this estimate; if `SMOKE_DISCRIMINATOR_WEAK` persists at the new config,
-that IS evidence worth trusting (not an undertraining artifact) and the mechanism/framing
-verdict should be read from it directly rather than tuned further. FULL (8 epochs, full item
-counts ~10-20x SMOKE's batches, >=5 random-init-core seeds) is CPU-infeasible in a reasonable
-wall-time (rough extrapolation from the 228s/500-700s smoke measurements: multiple hours) --
-**route FULL to GPU (overnight_queue)**; Director/Orchestrator sets FULL timeout after seeing
-the re-smoke wall-time (recommend `timeout_s=7200` as a starting GPU estimate, adjust once the
-CPU/GPU speedup ratio is known).
+**Diagnosis (gradient-path probe, 2026-07-29 -- established, not re-derived here):** a tiny-config
+overfit probe (d=16, 1L, REAL TinyTransformer+SlotAttentionWM+gen_multi_entity_state, Arm A)
+OVERFITS 16 items cleanly (loss 0.692->0.015, acc 1.000 by step 25/400) with all three
+per-component grad norms (g_enc/g_wm/g_judge) nonzero every step and slot_mean features distinct
+(pairwise cosine ~ -0.07). The gradient path + feature distinctness are HEALTHY -- the weak smoke
+was NOT a wiring bug. ROOT CAUSE = too few optimizer STEPS: old MES_TRAIN_CAP=64 / batch=32 x
+epochs=6 = 12 gradient steps to fine-tune a ~25M-param 512d/6L transformer through an ~11-step
+recurrence. SECONDARY: one instability spike at ~step 125 (grad-norm ~18x) -> gradient clipping.
+
+**Fix applied (this hand-off): training-budget + stability only, mechanism/arms/measurement
+UNCHANGED.** (1) SMOKE_BATCH 32->8, SMOKE_EPOCHS 6->25 => MES=200 and KD=200 optimizer steps
+per trained arm (>= the ~200-step target); KD smoke cap 96/40 -> 64/32 so KD hits 200 steps and
+its wall is bounded. (2) `torch.nn.utils.clip_grad_norm_(params, max_norm=1.0)` added in
+train_and_eval_arm. (3) FULL_EPOCHS 8->12 (FULL MES ~456 steps, above "a few hundred"; FULL_LR
+held at 1e-4). SMOKE_LR held 3e-4. Self-test re-verified PASS (elapsed ~2.8s -- self-test doesn't
+touch these constants). `progress_logging` wired to `line_buffered_stdout` (smoke wall > 1800s).
+
+**BINDING CONSTRAINT + timeout (MEASURED micro-benchmark, real 512d/6L ckpt this CPU, batch=8):**
+this cell's smoke LANDS via the queue_add.py gate preflight (--smoke), NOT the runner (runner
+spawns with no flag + HDLAB_RUN_MODE=full, which this argparse-dispatched cell ignores), so the
+smoke must finish under the gate's HDLAB_SMOKE_TIMEOUT_S ceiling of 3600s. Per-step: MES arm
+~3.5s (long clause recurrence dominates), KD arm ~1.1s. Est smoke wall ~2150s (MES 200 steps x2
+arms ~1400s + KD ~420s + random-init control ~320s + overhead). **Ship with
+HDLAB_SMOKE_TIMEOUT_S=3600 and `--timeout 3600`.** If `SMOKE_DISCRIMINATOR_WEAK` persists at 200+
+steps, that IS evidence worth trusting (not an undertraining artifact). FULL (12 epochs, full item
+counts, >=5 random-init-core seeds) is CPU-infeasible in reasonable wall-time and the cell
+hardcodes device=cpu -- **route FULL to GPU (overnight_queue)**; Director/Orchestrator sets FULL
+timeout after the re-smoke wall is known.
