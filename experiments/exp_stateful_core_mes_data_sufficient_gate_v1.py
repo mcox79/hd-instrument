@@ -267,7 +267,7 @@ def fit_random_init_control(cfg, device, ctrl_seed, d_model, tok, spec, max_len,
     ri_model.eval()
     for p in ri_model.parameters():
         p.requires_grad_(False)
-    wm_ri = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=1000 + ctrl_seed)
+    wm_ri = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=1000 + ctrl_seed).to(device)
     for p in wm_ri.parameters():
         p.requires_grad_(False)
 
@@ -345,8 +345,12 @@ def run_gate(mes_sizes, seeds, target_steps, ctrl_epochs, device_str, run_mode,
         steps = ep * max(1, math.ceil(len(tr) / BATCH))
         torch.manual_seed(seed)
         model, tok, spec, _cfg = load_encoder_and_tok(CKPT_PATH, device)
-        wm = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=seed)
-        judge = make_judge_head(d_model, arm)
+        # DEVICE FIX (2026-07-29): SlotAttentionWM + judge head must be moved to `device` --
+        # the encoder loads onto `device` (cuda) but the WM params (role_query / role_key_net /
+        # addr_net / gate_net) + judge default to cpu, so the gap-B einsum(tok_reps[cuda],
+        # role_query[cpu]) crashes on cuda. (Latent in the shared run_regime too; cpu never hit it.)
+        wm = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=seed).to(device)
+        judge = make_judge_head(d_model, arm).to(device)
         res = train_and_eval_arm(model, wm, judge, tok, spec, MAX_LEN, tr, ev, device,
                                  kb_prior_lookup=(kb_lookup if arm == "B" else None), arm=arm,
                                  epochs=ep, batch_size=BATCH, lr=LR, lambda_pe=LAMBDA_PE,

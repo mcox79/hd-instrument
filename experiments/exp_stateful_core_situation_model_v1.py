@@ -613,8 +613,11 @@ def run_regime(run_mode, seed, n_random_init_seeds, device_str="cpu"):
         for arm in ("A", "B"):
             torch.manual_seed(seed)
             model_arm, tok_arm, spec_arm, cfg_arm = load_encoder_and_tok(CKPT_PATH, device)
-            wm = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=seed)
-            judge = make_judge_head(d_model, arm)
+            # DEVICE FIX (2026-07-29): move WM + judge to `device` -- they instantiate on cpu, but
+            # the encoder is on `device` (cuda), so the gap-B einsum(tok_reps[cuda], role_query[cpu])
+            # crashes on the first cuda FULL run (invisible under --device cpu). Every param on device.
+            wm = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=seed).to(device)
+            judge = make_judge_head(d_model, arm).to(device)
             lookup = kb_lookup if arm == "B" else None
             res = train_and_eval_arm(model_arm, wm, judge, tok_arm, spec_arm, max_len, tr, ev,
                                        device, lookup, arm, epochs, batch_size, lr=lr,
@@ -639,8 +642,9 @@ def run_regime(run_mode, seed, n_random_init_seeds, device_str="cpu"):
         for cname, (tr, ev, kb_lookup) in constructions.items():
             ri_model = build_random_init_encoder(cfg, device, seed=1000 + ri_seed)
             ri_model.eval()
-            wm_ri = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=1000 + ri_seed)
-            judge_ri = make_judge_head(d_model, "B")
+            # DEVICE FIX (2026-07-29): WM + judge to `device` (see run_regime trained-arm note above).
+            wm_ri = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=1000 + ri_seed).to(device)
+            judge_ri = make_judge_head(d_model, "B").to(device)
             # fit ONLY the judgment head (encoder + WM frozen/untrained) -- the structure-alone control
             for p in ri_model.parameters():
                 p.requires_grad_(False)
