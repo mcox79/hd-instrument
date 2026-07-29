@@ -231,6 +231,126 @@ def eval_relational_all_arms(text_reps, ground, split, adj, deg, have_text, w_di
     return res, per_query
 
 
+class AttnBilinearReadout(torch.nn.Module):
+    """Brain-faithful structure-preserving readout (ledger row 4, 2026-07-29;
+    notes/drill_brain_faithful_comprehension_readout.md). Learned head on a FROZEN encoder's
+    per-token hidden states -- NOT a retrain of the encoder. Two components:
+
+    (a) Query-conditioned ATTENTION POOL over per-token hidden states H [N,L,D] with pad mask
+        M [N,L] (True=pad; matches diag_comprehension_readout_sweep_v1.readout_mean_pool's mask
+        convention). Mirrors that module's AttnPool (nn.Linear(d,1) score + masked softmax +
+        weighted sum) -- reimplemented inline here (not imported) to avoid dragging that
+        diagnostic's heavy eval_battery_relational_cloze_v7/LOOP5 import chain into this shared,
+        lightweight probe module; same mechanism, credited not duplicated-as-novel. This replaces
+        order-blind mean-pool with a content/query-dependent weighting -- the gain-modulated-
+        readout analog (Reynolds & Heeger attentional gain).
+    (b) Explicit LOW-RANK QUADRATIC interaction term between the two attention-pooled segments
+        (e.g. clause1 vs clause2): P: d->r (the SAME low-rank machinery as fit_bilinear_probe
+        above, r=32 default) then an ELEMENTWISE PRODUCT P(u1)*P(u2) -- a genuinely multiplicative
+        cross-feature between the two inputs, not two independent linear projections. This is the
+        mixed-selectivity substitute (Rigotti/Fusi 2013): the nonlinear interaction lives in the
+        FEATURE CONSTRUCTION, so the downstream classifier on [u1, u2, interaction] can stay
+        linear and still express an XOR-class (order/relation) decision.
+
+    Trained END-TO-END (attention weights + low-rank projection + final linear classifier) via a
+    single class-weighted cross-entropy loss -- same TRAIN-only leak-proof discipline as
+    fit_bilinear_probe/fit_diag_probe above (train_reps/labels only; eval is forward-only).
+    """
+
+    def __init__(self, d_model: int, r: int = 32, seed: int = 0):
+        super().__init__()
+        torch.manual_seed(seed)
+        self.d_model = d_model
+        self.r = r
+        self.w_attn = torch.nn.Linear(d_model, 1)          # attention-pool score head
+        self.P = torch.nn.Linear(d_model, r, bias=False)   # low-rank projection for interaction term
+        torch.nn.init.orthogonal_(self.P.weight)
+        self.classifier = torch.nn.Linear(2 * d_model + r, 2)
+
+    def attn_pool(self, H: torch.Tensor, M: torch.Tensor) -> torch.Tensor:
+        """H: [N,L,D] float; M: [N,L] bool, True=PAD (matches readout_mean_pool convention)."""
+        scores = self.w_attn(H).squeeze(-1)
+        scores = scores.masked_fill(M, float("-inf"))
+        a = torch.softmax(scores, dim=1)
+        pooled = (a.unsqueeze(-1) * H).sum(dim=1)
+        return pooled
+
+    def features(self, H1, M1, H2, M2):
+        u1 = self.attn_pool(H1, M1)
+        u2 = self.attn_pool(H2, M2)
+        p1 = self.P(u1)
+        p2 = self.P(u2)
+        interaction = p1 * p2
+        return torch.cat([u1, u2, interaction], dim=1)
+
+    def forward(self, H1, M1, H2, M2):
+        feat = self.features(H1, M1, H2, M2)
+        return self.classifier(feat), feat
+
+
+def fit_attn_bilinear_readout(d_model, H1_tr, M1_tr, H2_tr, M2_tr, y_train, r=32, epochs=15,
+                               lr=0.01, wd=1e-3, seed=0, random_init=False):
+    """TRAIN-only fit (both endpoints of every training pair are TRAIN items by construction of
+    the caller's split). random_init=True: build the identical structure at its
+    torch.manual_seed(seed) initialization and take ZERO optimizer steps -- the MANDATORY
+    structure-vs-learning control (per the frontier-scoping doc's random-init discipline)."""
+    mod = AttnBilinearReadout(d_model, r=r, seed=seed)
+    if random_init:
+        mod.eval()
+        return mod
+    mod.train()
+    opt = torch.optim.Adam(mod.parameters(), lr=lr, weight_decay=wd)
+    y = y_train if torch.is_tensor(y_train) else torch.as_tensor(y_train, dtype=torch.long)
+    counts = torch.clamp(torch.bincount(y, minlength=2).float(), min=1.0)
+    class_weight = counts.sum() / (2 * counts)
+    last_loss = float("nan")
+    for _ in range(epochs):
+        opt.zero_grad()
+        logits, _ = mod(H1_tr, M1_tr, H2_tr, M2_tr)
+        loss = torch.nn.functional.cross_entropy(logits, y, weight=class_weight)
+        loss.backward()
+        opt.step()
+        last_loss = float(loss.detach())
+    if not np.isfinite(last_loss):
+        raise FloatingPointError("AttnBilinearReadout training diverged (non-finite loss)")
+    mod.eval()
+    return mod
+
+
+def score_attn_bilinear_arm(name, mod, H1_tr, M1_tr, H2_tr, M2_tr, y_train,
+                            H1_ec, M1_ec, H2_ec, M2_ec, H1_es, M1_es, H2_es, M2_es, y_eval,
+                            margin_thresh, coherent_floor, sanity_margin):
+    """Same output-dict schema as diag_order_critical_comprehension_calib_v1.score_readout_arm so
+    this arm plugs into the SAME verdict logic as every other readout arm in this arc (margin,
+    comprehension_specific, train_sanity decoder-collapse gate). y_train/y_eval: numpy int arrays."""
+    with torch.no_grad():
+        pred_tr = mod(H1_tr, M1_tr, H2_tr, M2_tr)[0].argmax(dim=1).numpy()
+        pred_ec = mod(H1_ec, M1_ec, H2_ec, M2_ec)[0].argmax(dim=1).numpy()
+        pred_es = mod(H1_es, M1_es, H2_es, M2_es)[0].argmax(dim=1).numpy()
+
+    def _bal_acc(pred, y):
+        recalls = []
+        for c in (0, 1):
+            mask = (y == c)
+            if mask.sum() > 0:
+                recalls.append(float((pred[mask] == c).mean()))
+        return float(np.mean(recalls)) if recalls else 0.0
+
+    train_bal = _bal_acc(pred_tr, y_train)
+    sanity = dict(train_balanced_acc=train_bal, chance=0.5,
+                  train_beats_chance=bool(train_bal >= 0.5 + sanity_margin))
+    coh_acc = float((pred_ec == y_eval).mean())
+    coh_bal = _bal_acc(pred_ec, y_eval)
+    scr_acc = float((pred_es == y_eval).mean())
+    scr_bal = _bal_acc(pred_es, y_eval)
+    margin = coh_acc - scr_acc
+    comprehension_specific = bool(sanity["train_beats_chance"] and coh_acc >= coherent_floor
+                                   and margin >= margin_thresh)
+    return dict(name=name, train_sanity=sanity, coherent_acc=coh_acc, coherent_balanced_acc=coh_bal,
+                scrambled_acc=scr_acc, scrambled_balanced_acc=scr_bal, margin=margin,
+                n_eval=int(len(y_eval)), comprehension_specific=comprehension_specific)
+
+
 def arms_must_differ_hashes(arms_outputs: dict) -> dict:
     """META_RULE_AF hash-test: assert arm score arrays are not bit-identical. Returns digests to log."""
     import hashlib
