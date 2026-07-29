@@ -1,0 +1,35 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_tag": "SELFTEST_PASS",
+  "verdict_msg": "self-test PASS: real TinyTransformer+SlotAttentionWM+gen_multi_entity_state+gen_knowledge_dependent+gen_kb_prior code paths exercised at N~8-16; arm losses finite (A=0.7828 B=0.8013); arms differ (hash A=a80977a7 B=16346223)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 3.9058393000159413,
+  "ts_iso": "2026-07-29T15:20:00.161334+00:00",
+  "pid": 23628,
+  "anchor_name": "stateful_core_situation_model_v1",
+  "run_mode": "selftest",
+  "exercised_entrypoints": [
+    "SlotAttentionWM_step",
+    "TinyTransformer_unfrozen_train",
+    "gen_kb_prior"
+  ],
+  "arm_a": {
+    "train_loss": 0.7828429639339447,
+    "eval_acc": 0.5
+  },
+  "arm_b": {
+    "train_loss": 0.8012992143630981,
+    "eval_acc": 0.75
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A": "a80977a736ef461374b0c7f5968871151c09ef68bf4f4b468095ddab3bfad966",
+    "B": "163462235a41472d1acf04ac2aa46aa5f1e65dbdcd710363e27952b007b5f1c6"
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "final_metrics_atomicity": "tmp_replace"
+}
