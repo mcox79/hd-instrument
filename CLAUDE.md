@@ -10,7 +10,7 @@ Conventions for AI-assisted work in this repository.
 
 ### STEP 0 (research role, post-compaction recovery):
 
-**FIRST, ALWAYS: read `notes/SUBSTRATE_CHARTER_read_first.md`** — the succinct goal + invariants + 3 layers + CURRENT FOCUS + anti-drift rule. It exists because sessions have strayed; re-anchor to it before dispatching anything. Then `notes/THE_PLAN_learned_grounded_representation_foundation_2026-07-26.md` for the detailed plan.
+**FIRST, ALWAYS: read `notes/SUBSTRATE_CHARTER_read_first.md`** — the succinct goal + invariants + 3 layers + CURRENT FOCUS + anti-drift rule. It exists because sessions have strayed; re-anchor to it before dispatching anything. Then `notes/THE_PLAN.md` for the detailed plan.
 
 Then, before arming Monitor, query the substrate-Director-KB for the post-compaction backup doc:
 
@@ -32,6 +32,7 @@ Spawn `hdi_<role>` sub-agents via the Agent tool. Available roles: `hdi_exp_dev`
 - 1-off important docs (BACKUP, memory rules, plan updates)
 - Reading metrics.json / verdict_msg (verification)
 - Running observability tools. PRIMARY monitor = `python tools/inflight_monitor.py` (reliable never-silent status: GPU, queues, runners, local off-queue experiments, alerts). Local GUI = `tools/dash_gui.py` (Tkinter window reading the same `build_state()`; replaces the fragile web dashboard as the day-to-day monitor). Also `tools/runner_status.py`, `tools/peek_arm_metrics.py`.
+- **REMOTE-LIVENESS TRUTH SIGNAL = inprogress-checkpoint mtime + GPU utilization, NOT the training heartbeat.** The `_heartbeat.jsonl` cadence is coarse (e.g. every ~6000 units / ~20 min) and stops between beats and when a run finishes — it repeatedly false-alarms as a "stall" or "stale" when the run is fine (fooled the Director 3x on 2026-07-28). To decide if a remote run is alive/progressing: SSH and check that the `ckpt_seed_*_inprogress.pt` mtime is advancing AND `nvidia-smi` util is high. A fresh checkpoint = training is progressing regardless of heartbeat age. Never conclude "stalled/landed" from the heartbeat alone.
 - Reading queue state
 - Pulling/pushing git commits via Bash (status_log, BACKUP)
 - Dispatching agents (Agent tool with `hdi_<role>`)
