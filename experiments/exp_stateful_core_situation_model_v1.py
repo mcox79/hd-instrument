@@ -270,6 +270,23 @@ def encode_clause_batch(model, tok, pad_id, max_len, sents, device):
     return model.pooled(t)   # [B, d]
 
 
+def encode_clause_batch_tok(model, tok, pad_id, max_len, sents, device):
+    """Like encode_clause_batch but ALSO returns token-level contextual reps + pad mask in ONE
+    forward (audit gap B: the WM's entity-role query needs [B,L,d] token reps, not just the pool).
+    pooled is replicated EXACTLY from TinyTransformer.pooled (masked mean + L2-normalize) so the
+    stored-content path is unchanged. Grad-enabled (encoder is unfrozen). Returns
+    (pooled [B,d], tok_reps [B,L,d], pad_mask [B,L] bool True==pad)."""
+    ids = np.stack([_encode_pad_ids(tok, s, max_len, pad_id) for s in sents])
+    t = torch.from_numpy(ids).long().to(device)
+    h, pad_mask = model._contextual(t)                    # [B,L,d], [B,L]
+    keep = (~pad_mask).float().unsqueeze(-1)
+    summed = (h * keep).sum(dim=1)
+    cnt = keep.sum(dim=1).clamp_min(1.0)
+    rep = summed / cnt
+    pooled = rep / (rep.norm(dim=1, keepdim=True) + 1e-8)  # [B,d] == model.pooled(t)
+    return pooled, h, pad_mask
+
+
 def split_clauses(sent):
     parts = [p.strip() for p in sent.split(" .") if p.strip()]
     out = [p + " ." for p in parts]
@@ -362,8 +379,11 @@ def forward_item_batch(model, wm, judge, tok, spec, max_len, items, device,
     feats = None
     for t in range(max_c):
         batch_sents = [clause_lists[i][t] if t < n_clauses[i] else clause_lists[i][-1] for i in range(B)]
-        clause_rep = encode_clause_batch(model, tok, spec["pad"], max_len, batch_sents, device)
-        slots, feats = wm.step(slots, clause_rep, kb_prior=kb_prior_batch)
+        # gap B: token-level reps for the entity-role query drive the addressing key.
+        clause_rep, tok_reps, pad_mask = encode_clause_batch_tok(
+            model, tok, spec["pad"], max_len, batch_sents, device)
+        slots, feats = wm.step(slots, clause_rep, tok_reps=tok_reps, pad_mask=pad_mask,
+                               kb_prior=kb_prior_batch)
 
     slot_mean = slots.mean(dim=1)  # [B, d]
     judge_in = [slot_mean, feats["surprise"].unsqueeze(-1),

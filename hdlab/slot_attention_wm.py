@@ -60,12 +60,29 @@ class SlotAttentionWM(nn.Module):
     stream, with role-general (learned content-key) HRR binding. See module docstring.
     """
 
-    def __init__(self, d_model: int, n_slots: int = 6, hidden: int = 64, seed: int = 0) -> None:
+    def __init__(self, d_model: int, n_slots: int = 6, hidden: int = 64, seed: int = 0,
+                 n_roles: int = 1) -> None:
         super().__init__()
         self.d_model = d_model
         self.n_slots = n_slots
         g = torch.Generator().manual_seed(seed)
-        # learned content key (role-general binding key derived from clause content, NOT position)
+        # AUDIT GAP B (2026-07-29): ROLE-DIFFERENTIATED, ENTITY-FOCUSED addressing key.
+        # A SMALL SET of `n_roles` LEARNED role-query vectors each attend (differentiable, softmax
+        # over token positions, position-invariant) over the clause's TOKEN-LEVEL reps [B,L,d] to
+        # extract a role-specific filler. Role 0 = the entity/subject role: its filler carries
+        # ENTITY IDENTITY (which entity the clause is about), used both to ADDRESS (which slot) and
+        # as the binding content KEY -- replacing the old single POOLED-CLAUSE key that blended
+        # verb+all-entities and could not disambiguate WHICH tracked entity a clause updates (the
+        # MES-specific floor). Parser-free / no bolt-on reader: the queries are learned parameters,
+        # the attention is a differentiable softmax (Frankland&Greene2015 role-general, lmSTC).
+        # n_roles=1 by default => exactly one entity-role query (no dead params); the [n_roles, d]
+        # shape is kept so a future AGENT/PATIENT differentiation can add roles without a rewrite.
+        self.n_roles = int(n_roles)
+        self.role_query = nn.Parameter(torch.empty(self.n_roles, d_model))
+        with torch.no_grad():
+            self.role_query.normal_(0.0, 0.02, generator=g)
+        # learned content key: NOW derived from the entity-role filler (was: pooled clause_rep).
+        # role-general binding key derived from entity content, NOT position, NOT clause gist.
         self.role_key_net = _mlp(d_model, hidden, d_model, g)
         # PER-SLOT content-addressed competition (brain-faithful slot-attention, Locatello 2020):
         # a SHARED small MLP scores EACH slot from [clause_rep, slot_k] -> one logit; softmax
@@ -92,26 +109,53 @@ class SlotAttentionWM(nn.Module):
             slots[:, 0, :] = kb_prior
         return slots
 
+    def entity_filler(self, tok_reps: torch.Tensor,
+                       pad_mask: torch.Tensor | None = None) -> torch.Tensor:
+        """Entity-focused addressing representation (audit gap B). tok_reps: [B, L, d] token-level
+        contextual reps; pad_mask: [B, L] bool (True == padding, excluded from attention). Each
+        learned role query attends (softmax over token positions, padding masked to -inf) over the
+        token reps to pull a role-specific filler; role 0 (entity/subject) is returned as [B, d].
+        Position-invariant, parser-free, differentiable. Falls back to the pooled clause_rep at the
+        call site when tok_reps is None (see step)."""
+        B, L, d = tok_reps.shape
+        scores = torch.einsum("bld,rd->brl", tok_reps, self.role_query) / math.sqrt(d)  # [B, R, L]
+        if pad_mask is not None:
+            scores = scores.masked_fill(pad_mask.unsqueeze(1), float("-inf"))
+        attn = torch.softmax(scores, dim=-1)                              # [B, R, L] per-role weights
+        fillers = torch.einsum("brl,bld->brd", attn, tok_reps)           # [B, R, d] role fillers
+        return fillers[:, 0, :]                                           # [B, d] entity/subject role
+
     def step(self, slots: torch.Tensor, clause_rep: torch.Tensor,
+              tok_reps: torch.Tensor | None = None, pad_mask: torch.Tensor | None = None,
               kb_prior: torch.Tensor | None = None) -> tuple[torch.Tensor, dict]:
-        """One clause update. slots: [B, K, d]; clause_rep: [B, d].
+        """One clause update. slots: [B, K, d]; clause_rep: [B, d] (pooled clause, the stored
+        CONTENT); tok_reps: [B, L, d] token-level reps + pad_mask [B, L] for the entity-role query.
         Returns (new_slots [B,K,d], features dict with per-batch scalars + optional kb term).
 
-        PER-SLOT-LOCAL gating (audit-C rewrite, 2026-07-29): addressing, prediction-error, and
-        the write gate are ALL computed independently per slot -- NO slots.mean(), no single
-        global write scalar. Each slot k competes on its OWN content [clause_rep, slot_k] and
-        decides its OWN update from its OWN surprise -- brain-faithful PBWM per-stripe gating +
-        faithful Locatello per-slot competition. The judge-facing scalars (surprise /
-        write_strength / addr_entropy) are addr_w-weighted aggregates of the per-slot quantities,
-        so the downstream judge feature shape is UNCHANGED.
+        AUDIT GAP B (2026-07-29): the ADDRESSING KEY is now ENTITY-FOCUSED. `addr_src` = the
+        role-query entity filler (from TOKEN-LEVEL reps) when tok_reps is given, ELSE the pooled
+        clause_rep (byte-identical ee714c31 fallback, so run_clause_stream / the gen-curve diag are
+        unchanged). The entity filler feeds BOTH (a) the binding content key `key` (role_key_net)
+        and (b) the per-slot addressing competition (addr_net first half) -- routing clause t to the
+        slot for THE ENTITY that clause is about, instead of by blended clause gist. The STORED
+        CONTENT (candidate = bind(key, clause_rep)), the per-slot PE surprise_k, the per-slot PBWM
+        write gate, and the temp-sharpened competition are UNCHANGED IN FORM from ee714c31 -- only
+        the SOURCE of the key/addressing changes (pooled-clause -> entity role-query). Judge feature
+        shape UNCHANGED (surprise/write_strength/addr_entropy are addr_w-weighted aggregates).
+
+        PER-SLOT-LOCAL gating (audit-C, retained): addressing, prediction-error, and the write gate
+        are ALL computed independently per slot -- NO slots.mean(), no single global write scalar.
         """
         B, K, d = slots.shape
-        key = F.normalize(self.role_key_net(clause_rep), dim=-1)          # [B, d] content key
-        clause_b = clause_rep.unsqueeze(1).expand(B, K, d)                # [B, K, d] broadcast
+        # ENTITY-FOCUSED addressing source (gap B); fallback to pooled clause_rep for old callers.
+        addr_src = self.entity_filler(tok_reps, pad_mask) if tok_reps is not None else clause_rep
+        key = F.normalize(self.role_key_net(addr_src), dim=-1)            # [B, d] key from ENTITY id
+        clause_b = clause_rep.unsqueeze(1).expand(B, K, d)                # [B, K, d] stored CONTENT
+        addr_b = addr_src.unsqueeze(1).expand(B, K, d)                    # [B, K, d] addressing input
 
-        # PER-SLOT addressing: shared MLP scores [clause_rep, slot_k] -> one logit per slot;
+        # PER-SLOT addressing: shared MLP scores [entity_filler, slot_k] -> one logit per slot;
         # softmax (temperature-sharpened) normalizes ACROSS slots. No mean-pool.
-        addr_logits = self.addr_net(torch.cat([clause_b, slots], dim=-1)).squeeze(-1)  # [B, K]
+        addr_logits = self.addr_net(torch.cat([addr_b, slots], dim=-1)).squeeze(-1)  # [B, K]
         addr_w = torch.softmax(addr_logits / self.addr_temp, dim=-1)      # [B, K] sharp competition
 
         # PER-SLOT prediction error: unbind THAT slot with the content key, cos vs clause_rep.
@@ -143,16 +187,23 @@ class SlotAttentionWM(nn.Module):
         return new_slots, feats
 
     def run_clause_stream(self, clause_reps: list[torch.Tensor],
-                            kb_prior: torch.Tensor | None = None) -> tuple[torch.Tensor, list[dict]]:
-        """clause_reps: list of [B, d] tensors (one per clause, same B throughout). Returns
+                            kb_prior: torch.Tensor | None = None,
+                            tok_reps: list[torch.Tensor] | None = None,
+                            pad_masks: list[torch.Tensor] | None = None,
+                            ) -> tuple[torch.Tensor, list[dict]]:
+        """clause_reps: list of [B, d] pooled tensors (one per clause, same B throughout). Optional
+        tok_reps/pad_masks: parallel lists of [B, L, d] / [B, L] for the entity-role query (gap B);
+        if omitted, addressing falls back to pooled clause_rep (ee714c31 behavior). Returns
         (final_slots [B,K,d], per_step_feats list-of-dict, len == len(clause_reps))."""
         assert len(clause_reps) >= 1, "run_clause_stream needs >=1 clause"
         B = clause_reps[0].shape[0]
         device = clause_reps[0].device
         slots = self.init_slots(B, device, kb_prior=kb_prior)
         per_step = []
-        for cr in clause_reps:
-            slots, feats = self.step(slots, cr, kb_prior=kb_prior)
+        for i, cr in enumerate(clause_reps):
+            tr = tok_reps[i] if tok_reps is not None else None
+            pm = pad_masks[i] if pad_masks is not None else None
+            slots, feats = self.step(slots, cr, tok_reps=tr, pad_mask=pm, kb_prior=kb_prior)
             per_step.append(feats)
         return slots, per_step
 
