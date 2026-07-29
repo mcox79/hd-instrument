@@ -1,0 +1,89 @@
+{
+  "verdict": "SMOKE_DISCRIMINATOR_WEAK",
+  "verdict_tag": "SMOKE_DISCRIMINATOR_WEAK",
+  "verdict_msg": "SMOKE(distE4/distEv6+KD real-KB, item-count-capped, seed=7): MES A=0.5000 B=0.5000 (B-A=+0.0000); KD A=0.5250 B=0.4750 (B-A=-0.0500); random_init_core worst eval_acc MES=0.5 KD=0.525; discriminator_fires={'MES': False, 'KD': False}; baseline_in_band={'MES': True, 'KD': True}; arms_differ={'MES': True, 'KD': True}; n_kb_edges_resolved=9/9",
+  "summary": "SMOKE(distE4/distEv6+KD real-KB, item-count-capped, seed=7): MES A=0.5000 B=0.5000 (B-A=+0.0000); KD A=0.5250 B=0.4750 (B-A=-0.0500); random_init_core worst eval_acc MES=0.5 KD=0.525; discriminator_fi",
+  "elapsed_s": 228.0559008999262,
+  "ts_iso": "2026-07-29T15:00:10.376117+00:00",
+  "pid": 26308,
+  "anchor_name": "stateful_core_situation_model_v1",
+  "run_mode": "smoke",
+  "seed": 7,
+  "n_random_init_seeds": 1,
+  "results": {
+    "MES": {
+      "A": {
+        "train_loss": 0.7511036992073059,
+        "eval_acc": 0.5
+      },
+      "B": {
+        "train_loss": 0.7511479258537292,
+        "eval_acc": 0.5
+      }
+    },
+    "KD": {
+      "A": {
+        "train_loss": 0.7872575720151266,
+        "eval_acc": 0.525
+      },
+      "B": {
+        "train_loss": 0.9188817540804545,
+        "eval_acc": 0.475
+      }
+    }
+  },
+  "arm_b_minus_a": {
+    "MES": 0.0,
+    "KD": -0.050000000000000044
+  },
+  "random_init_core": {
+    "MES": [
+      0.5
+    ],
+    "KD": [
+      0.525
+    ]
+  },
+  "random_init_core_worst": {
+    "MES": 0.5,
+    "KD": 0.525
+  },
+  "discriminator_fires": {
+    "MES": false,
+    "KD": false
+  },
+  "baseline_in_band": {
+    "MES": true,
+    "KD": true
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "MES": {
+      "A": "575651ccf40d0b51b2b6169d05cd4776af67e7cf29915154877082faaa3cc6aa",
+      "B": "5bce2e6e576eae0548a94bf3ca7e6330f68709507cd354dfc34af3da244a77bd"
+    },
+    "KD": {
+      "A": "4f6e5da230dab8cbc7819014d202f37f04b8847767b487dbb5a6b47878185c35",
+      "B": "02ebfd5de270ff5c0ce7f894b5065cbad662433d5b0d8538283de80f06e53ebc"
+    }
+  },
+  "n_kb_edges_resolved": 9,
+  "n_kb_ids_total": 9,
+  "mes_n_train": 64,
+  "mes_n_eval": 32,
+  "kd_n_train": 96,
+  "kd_n_eval": 40,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "final_metrics_atomicity": "tmp_replace",
+  "item_count_reduced_vs_full": true,
+  "smoke_caps": {
+    "mes_train_cap": 64,
+    "mes_eval_cap": 32,
+    "epochs": 2,
+    "batch_size": 32
+  }
+}

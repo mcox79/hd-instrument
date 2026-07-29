@@ -103,6 +103,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# exp_dev.md section 17: line-buffer stdout so progress prints (_log in run_regime) are
+# diagnosable in real time on the runner log, not stuck in a buffer until process exit.
+try:
+    sys.stdout.reconfigure(line_buffering=True)
+except (AttributeError, ValueError):
+    pass
+
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
@@ -122,10 +129,20 @@ CSKG_EDGE_SHARDS = [os.path.join(_REPO, "data", "cskg_foundation_v1", "edges_sha
 
 SMOKE_MES_TRAIN_CAP = 64
 SMOKE_MES_EVAL_CAP = 32   # 16 per label
-SMOKE_EPOCHS = 2
+# NOTE (2026-07-29, post-landed-smoke review): a PRIOR smoke run at SMOKE_EPOCHS=2 (228s wall,
+# data/exp_stateful_core_situation_model_v1_smoke/metrics.json) landed SMOKE_DISCRIMINATOR_WEAK
+# (both arms/constructions at ~chance; train_loss barely moved off ln(2)=0.693). With
+# MES_TRAIN_CAP=64 / batch=32 that is only 2 batches/epoch = 4 gradient steps total at lr=1e-4 --
+# almost certainly UNDERTRAINED (too few steps for a 512d/6L unfrozen fine-tune), not yet
+# evidence the mechanism fails. Bumped epochs 2->6 (12 steps) and lr 1e-4->3e-4 (see
+# train_and_eval_arm call in run_regime) to give the discriminator-fires gate a fair chance
+# before concluding WEAK; re-smoke before trusting the DISCRIMINATOR_WEAK verdict.
+SMOKE_EPOCHS = 6
 SMOKE_BATCH = 32
+SMOKE_LR = 3e-4
 FULL_EPOCHS = 8
 FULL_BATCH = 24
+FULL_LR = 1e-4
 
 
 # ---------------------------------------------------------------------------
@@ -512,6 +529,7 @@ def run_regime(run_mode, seed, n_random_init_seeds):
 
     epochs = SMOKE_EPOCHS if is_smoke else FULL_EPOCHS
     batch_size = SMOKE_BATCH if is_smoke else FULL_BATCH
+    lr = SMOKE_LR if is_smoke else FULL_LR
     d_model = cfg["d_model"]
 
     constructions = {"MES": (mc["train"], mc["eval"], None), "KD": (kd_train_all, kd_eval_all, kb_edges)}
@@ -528,7 +546,7 @@ def run_regime(run_mode, seed, n_random_init_seeds):
             judge = make_judge_head(d_model, arm)
             lookup = kb_lookup if arm == "B" else None
             res = train_and_eval_arm(model_arm, wm, judge, tok_arm, spec_arm, max_len, tr, ev,
-                                       device, lookup, arm, epochs, batch_size, lr=1e-4,
+                                       device, lookup, arm, epochs, batch_size, lr=lr,
                                        lambda_pe=0.2, lambda_kb=0.2,
                                        rng=np.random.default_rng(seed))
             results[cname][arm] = dict(train_loss=res["train_loss"], eval_acc=res["eval_acc"])

@@ -66,7 +66,7 @@ Self-test constructs the REAL objects the FULL run uses at N~8-16: a real `TinyT
 - crash_diagnostic_present: true (`_write_crash_metrics`, atomic tmp+replace, invoked from `main()`'s outer except).
 - heartbeat_present: true (`_heartbeat` appended to `_heartbeat.jsonl` per unit in `run_regime`).
 - defensive_error_checking: passed_all_4_patterns.
-- progress_logging: `line_buffered_stdout` should be added before FULL dispatch if `timeout_s >= 1800` (exp_dev.md section 17) -- **NOT YET WIRED** in the current cell (uses plain `print`, relies on runner's `python -u`); flagged as a pre-FULL-dispatch TODO for whoever ships FULL (cheap one-line fix: `sys.stdout.reconfigure(line_buffering=True)` at cell-module top, or add explicit `flush=True` to the `_log` lambda's print call in `run_regime`). SMOKE (this hand-off) is short enough (~minutes, estimated) that this is not yet load-bearing, but MUST be fixed before FULL (which will exceed 1800s).
+- progress_logging: `line_buffered_stdout` -- WIRED (`sys.stdout.reconfigure(line_buffering=True)` at module top, guarded by try/except for interpreters where reconfigure is unavailable); required because SMOKE now targets `timeout_s>=1800` after the epoch/lr bump below.
 
 ## Number provenance (META_RULE_AC)
 - self-test arm losses/eval_acc: MEASURED@`data/exp_stateful_core_situation_model_v1_selftest/metrics.json`.
@@ -75,5 +75,27 @@ Self-test constructs the REAL objects the FULL run uses at N~8-16: a real `TinyT
 - v2 encoder config (d_model=512, n_layers=6, n_heads=8, vocab=16000): MEASURED@`data/exp_scale_meaning_learn_arc_heldout_v2/ckpt_seed_7.pt` (`model_cfg`, `spec`, read live this session).
 - SMOKE/FULL timeout estimates below: HYPOTHESIZED (not yet measured -- CPU-only estimate; the cell has never been run at smoke/full scale, only self-test scale). Flagged explicitly as an estimate in the hand-off.
 
-## Timeout derivation (HYPOTHESIZED, not yet measured -- see caveat above)
-Self-test (tiny d=16, 1L, N~8-16 items, 1 epoch) = 3.9s wall (includes ~1-2s fixed tokenizer-train overhead). SMOKE scales up to d=512/6L (32x d, 6x layers) with real item counts (MES train=64/eval=32, KD train<=96/eval<=40), 2 epochs, batch=32/24, x2 arms x2 constructions x(1 trained seed + 1 random-init-core seed). Rough estimate (matmul-dominated, ~batches x clause-steps x forward+backward cost at d=512/6L on CPU): several minutes to <=30 min. **Recommend Director set `timeout_s=2400` (40 min) for the smoke command** as a generous first-measurement bound (this is the FIRST run past self-test scale; if it lands well under this, tighten for any resmoke). FULL (8 epochs, full item counts ~10-20x SMOKE's batches, >=5 random-init-core seeds) is CPU-infeasible in a reasonable wall-time (rough extrapolation: multiple hours) -- **route FULL to GPU (overnight_queue)**; Director/Orchestrator sets FULL timeout after seeing actual smoke wall-time (recommend `timeout_s=7200` as a starting GPU estimate, adjust once smoke wall-clock is measured and the CPU/GPU speedup ratio is known).
+## Timeout derivation (partly MEASURED -- a prior smoke landed on disk before this pre-reg was filed)
+A smoke run at the ORIGINAL config (SMOKE_EPOCHS=2, lr=1e-4) already landed on disk at
+`data/exp_stateful_core_situation_model_v1_smoke/metrics.json`: **MEASURED elapsed_s=228.06**
+(seed=7, 2 constructions x 2 arms trained + 1 random-init-core seed x 2 constructions). Verdict
+was `SMOKE_DISCRIMINATOR_WEAK` (MES A=0.500 B=0.500, KD A=0.525 B=0.475 -- both ~chance;
+train_loss barely moved off ln(2)=0.693). Root-cause read (not yet re-verified): at
+MES_TRAIN_CAP=64/batch=32 x 2 epochs = only 4 gradient steps total at lr=1e-4 for a 512d/6L
+UNFROZEN fine-tune -- almost certainly UNDERTRAINED, not yet evidence the mechanism fails.
+**Fix applied (this session, before hand-off): SMOKE_EPOCHS 2->6 and SMOKE_LR 1e-4->3e-4**
+(12 gradient steps at 3x the learning rate); self-test re-verified PASS after the edit
+(elapsed 2.9s, unaffected -- self-test doesn't touch these constants). `progress_logging` wired
+to `line_buffered_stdout` since the new smoke config pushes wall-time toward/above 1800s.
+**Timeout estimate for the RE-SMOKE (HYPOTHESIZED, not yet measured at the new config):** 228s
+measured at 2 epochs scales to roughly 3x more trained-arm gradient steps (per-epoch fixed
+costs like data-gen/KB-lookup are NOT epoch-scaled, so expect somewhat less than a clean 3x) --
+estimate ~500-700s. **Recommend `timeout_s=1800`** (30 min) for the re-smoke command as a
+generous bound around this estimate; if `SMOKE_DISCRIMINATOR_WEAK` persists at the new config,
+that IS evidence worth trusting (not an undertraining artifact) and the mechanism/framing
+verdict should be read from it directly rather than tuned further. FULL (8 epochs, full item
+counts ~10-20x SMOKE's batches, >=5 random-init-core seeds) is CPU-infeasible in a reasonable
+wall-time (rough extrapolation from the 228s/500-700s smoke measurements: multiple hours) --
+**route FULL to GPU (overnight_queue)**; Director/Orchestrator sets FULL timeout after seeing
+the re-smoke wall-time (recommend `timeout_s=7200` as a starting GPU estimate, adjust once the
+CPU/GPU speedup ratio is known).
