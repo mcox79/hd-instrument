@@ -1,0 +1,189 @@
+{
+  "ts": "2026-07-29T14:41:02Z",
+  "primary_reader": "BGE_SMALL",
+  "readout": "MEAN_POOL",
+  "coherent_floor": 0.65,
+  "kd_aug_lift_thresh": 0.1,
+  "ts_aug_lift_max": 0.05,
+  "random_init_margin_fail_thresh": 0.05,
+  "split_seeds": [
+    90001,
+    424242,
+    987654
+  ],
+  "random_init_seeds": [
+    20260729,
+    7,
+    13,
+    101,
+    20250101
+  ],
+  "per_split": [
+    {
+      "split_seed": 90001,
+      "eval_fact_ids": [
+        0,
+        5,
+        9
+      ],
+      "train_fact_ids": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+      ],
+      "readers": {
+        "BGE_SMALL": {
+          "kd_plain_acc": 0.4270833333333333,
+          "kd_aug_acc": 0.5104166666666666,
+          "kd_lift": 0.08333333333333331,
+          "ts_plain_acc": 0.625,
+          "ts_aug_acc": 0.5416666666666666,
+          "ts_lift": -0.08333333333333337
+        },
+        "MiniLM": {
+          "kd_plain_acc": 0.5,
+          "kd_aug_acc": 0.5208333333333334,
+          "kd_lift": 0.02083333333333337,
+          "ts_plain_acc": 0.4270833333333333,
+          "ts_aug_acc": 0.4375,
+          "ts_lift": 0.010416666666666685
+        }
+      },
+      "random_init_kd_aug_acc": {
+        "20260729": 0.46875,
+        "7": 0.53125,
+        "13": 0.5208333333333334,
+        "101": 0.5208333333333334,
+        "20250101": 0.5208333333333334
+      },
+      "random_init_kd_aug_margin_vs_chance": {
+        "20260729": -0.03125,
+        "7": 0.03125,
+        "13": 0.02083333333333337,
+        "101": 0.02083333333333337,
+        "20250101": 0.02083333333333337
+      },
+      "random_init_worst_case_margin": 0.03125
+    },
+    {
+      "split_seed": 424242,
+      "eval_fact_ids": [
+        1,
+        5,
+        6
+      ],
+      "train_fact_ids": [
+        0,
+        2,
+        3,
+        4,
+        7,
+        8,
+        9
+      ],
+      "readers": {
+        "BGE_SMALL": {
+          "kd_plain_acc": 0.53125,
+          "kd_aug_acc": 0.53125,
+          "kd_lift": 0.0,
+          "ts_plain_acc": 0.65625,
+          "ts_aug_acc": 0.5416666666666666,
+          "ts_lift": -0.11458333333333337
+        },
+        "MiniLM": {
+          "kd_plain_acc": 0.46875,
+          "kd_aug_acc": 0.4895833333333333,
+          "kd_lift": 0.020833333333333315,
+          "ts_plain_acc": 0.5833333333333334,
+          "ts_aug_acc": 0.5833333333333334,
+          "ts_lift": 0.0
+        }
+      },
+      "random_init_kd_aug_acc": {
+        "20260729": 0.4479166666666667,
+        "7": 0.4791666666666667,
+        "13": 0.4270833333333333,
+        "101": 0.4583333333333333,
+        "20250101": 0.4895833333333333
+      },
+      "random_init_kd_aug_margin_vs_chance": {
+        "20260729": -0.052083333333333315,
+        "7": -0.020833333333333315,
+        "13": -0.07291666666666669,
+        "101": -0.041666666666666685,
+        "20250101": -0.010416666666666685
+      },
+      "random_init_worst_case_margin": -0.010416666666666685
+    },
+    {
+      "split_seed": 987654,
+      "eval_fact_ids": [
+        2,
+        5,
+        6
+      ],
+      "train_fact_ids": [
+        0,
+        1,
+        3,
+        4,
+        7,
+        8,
+        9
+      ],
+      "readers": {
+        "BGE_SMALL": {
+          "kd_plain_acc": 0.5,
+          "kd_aug_acc": 0.5625,
+          "kd_lift": 0.0625,
+          "ts_plain_acc": 0.625,
+          "ts_aug_acc": 0.5,
+          "ts_lift": -0.125
+        },
+        "MiniLM": {
+          "kd_plain_acc": 0.5625,
+          "kd_aug_acc": 0.4895833333333333,
+          "kd_lift": -0.07291666666666669,
+          "ts_plain_acc": 0.5729166666666666,
+          "ts_aug_acc": 0.6041666666666666,
+          "ts_lift": 0.03125
+        }
+      },
+      "random_init_kd_aug_acc": {
+        "20260729": 0.5,
+        "7": 0.4479166666666667,
+        "13": 0.4895833333333333,
+        "101": 0.4895833333333333,
+        "20250101": 0.5104166666666666
+      },
+      "random_init_kd_aug_margin_vs_chance": {
+        "20260729": 0.0,
+        "7": -0.052083333333333315,
+        "13": -0.010416666666666685,
+        "101": -0.010416666666666685,
+        "20250101": 0.01041666666666663
+      },
+      "random_init_worst_case_margin": 0.01041666666666663
+    }
+  ],
+  "mean_primary": {
+    "kd_plain_acc": 0.4861111111111111,
+    "kd_aug_acc": 0.5347222222222222,
+    "kd_lift": 0.048611111111111105,
+    "ts_plain_acc": 0.6354166666666666,
+    "ts_aug_acc": 0.5277777777777778,
+    "ts_lift": -0.10763888888888884,
+    "random_init_kd_aug_worst_margin": 0.03125
+  },
+  "gate_a_aug_passes_kd": false,
+  "gate_a_prime_textonly_passes_ts": false,
+  "gate_b_selective_lift": false,
+  "gate_c_random_init_fails": true,
+  "construction_valid": false,
+  "verdict_msg": "KD FRAMING re-validation (BGE_SMALL, mean over 3 splits): gate_A(aug passes KD acc=0.5347>=0.65)=False | gate_A'(text-only passes TS acc=0.6354)=False | gate_B(KD_lift=+0.0486>=0.10 AND TS_lift=-0.1076<=0.05)=False | gate_C(random-init KD_aug worst margin=+0.0312<0.05)=True -> VALID=False",
+  "elapsed_s": 87.16463600005955
+}

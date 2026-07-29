@@ -1,0 +1,50 @@
+{
+  "ts": "2026-07-29",
+  "purpose": "Measurement foundation for the FRAMING TEST (world-model vs blank-slate; stateful-core Arm A blank vs Arm B KB-grounded). Records whether a clean KNOWLEDGE-DEPENDENT vs TEXT-SUFFICIENT construction can be BUILT and VALIDATED as the framing-test measurement.",
+  "generator": "experiments.diag_order_critical_comprehension_calib_v1.gen_knowledge_dependent",
+  "construction_status": "BUILT_AND_CONFOUND_CLEAN_BUT_NOT_GATE_VALIDATABLE",
+  "self_tests_pass": {
+    "leak_proof_by_fact_id": true,
+    "label_balance": true,
+    "valence_shortcut_blocked": "20/20 (fact_id,candidate-word) pairs carry BOTH labels via the causal/noncausal 2x2 cross -> no candidate word deterministically predicts label",
+    "note": "The KD/TS item split, leak-proof fact holdout, and valence-shortcut immunity are all clean; the construction itself is well-formed."
+  },
+  "corrected_gate_logic": "A text-only reader SHOULD fail KD items (that is what makes them knowledge-dependent). Gate A = KNOWLEDGE-AUGMENTED reader passes KD (acc>=0.65); Gate A' = text-only reader passes TS (acc>=0.65); Gate B = (KD_aug - KD_plain)>=0.10 AND (TS_aug - TS_plain)<=0.05; Gate C = random-init encoder fails KD_aug (worst-case margin<0.05, >=5 seeds).",
+  "measured_primary_reader": "BAAI/bge-small-en-v1.5 MEAN_POOL, mean over 3 fact-holdout splits [90001,424242,987654], eval N=96 KD + 96 TS per split",
+  "measured": {
+    "kd_plain_acc": 0.4861,
+    "kd_aug_acc": 0.5347,
+    "kd_lift": 0.0486,
+    "ts_plain_acc": 0.6354,
+    "ts_aug_acc": 0.5278,
+    "ts_lift": -0.1076,
+    "random_init_kd_aug_worst_case_margin_vs_chance": 0.0312
+  },
+  "gates": {
+    "gate_a_aug_passes_kd": false,
+    "gate_a_prime_textonly_passes_ts": false,
+    "gate_b_selective_lift": false,
+    "gate_c_random_init_fails": true,
+    "construction_valid": false
+  },
+  "finding": "MEASUREMENT-LIMIT. Even with the real KB bridge fact INJECTED into the input, the diagnostic known reader (BGE-small / MiniLM) + linear probe over frozen mean-pooled embeddings CANNOT solve the knowledge-dependent items (KD_aug acc 0.53, ~chance). The KB fact does NOT selectively lift KD (lift +0.05, below the +0.10 gate) and actively HURTS TS (-0.11, the extra sentence perturbs the pooled embedding). The bottleneck is the READER'S inability to perform the 2-step conditional bridging inference the construction requires (read action-clause -> is it causal? -> combine with world-fact -> judge claim-consistency) -- a composition a linear readout over pooled sentence embeddings fundamentally cannot express, EVEN when the bridge fact is present in the text. Injecting a fact cannot rescue a reasoning-composition bottleneck.",
+  "implication_for_framing_test": "The framing test's calibration prerequisite (design-doc D3: 'a knowledge-augmented reader must beat a text-only reader on the knowledge-dependent items, else the construction can't express a world-model advantage') is UNMEETABLE with linear-probe diagnostic readers, because those readers cannot do bridging inference over pooled embeddings at all. A construction whose knowledge-dependence IS expressible to a pooled-embedding linear reader would reduce to a lexical-association cue -- i.e. NOT genuine bridging inference -- defeating the purpose. So the clean knowledge-dependent construction CAN be built (this one is), but it CANNOT be calibration-validated with the available known-reader apparatus. This is itself informative for the framing test: the discriminating signature the world-model hypothesis predicts (KB helps concentrated on bridging items) can only be measured by a reader capable of the bridge -- which the stateful core aspires to BE, not a frozen linear probe. The framing A/B ablation must therefore judge Arm B vs Arm A DIRECTLY on the KD items, WITHOUT a known-reader gate-B precondition on those items (there is no known linear-probe reader that can serve as the positive control for bridging inference).",
+  "kb_relation_provenance": [
+    {"fact_id": 0, "subj": "iron", "kb_relation": ["iron", "/r/CapableOf", "rust"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 1, "subj": "bread", "kb_relation": ["bread", "/r/CapableOf", "get_stale"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 2, "subj": "fruit", "kb_relation": ["fruit", "/r/CapableOf", "grow_mold"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 3, "subj": "water", "kb_relation": ["water", "/r/CapableOf", "freeze"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 4, "subj": "water(bowl)", "kb_relation": ["water", "/r/CapableOf", "evaporate"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 5, "subj": "candle", "kb_relation": ["candle", "/r/CapableOf", "burn_for_hours"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 6, "subj": "shirt", "kb_relation": ["cleaning_clothes", "/r/Causes", "clothes_to_shrink"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 7, "subj": "flower", "kb_relation": ["floral", "/r/CapableOf", "wilt"], "kb_trust": "TRUST_MID"},
+    {"fact_id": 8, "subj": "juice", "kb_relation": ["grape", "/r/CapableOf", "taste_sour"], "kb_trust": "TRUST_HIGH"},
+    {"fact_id": 9, "subj": "paper", "kb_relation": ["burning_match", "/r/CapableOf", "cause_paper_to_burn_in_air"], "kb_trust": "TRUST_HIGH"}
+  ],
+  "kb_source": "data/cskg_foundation_v1/edges_shard_*.jsonl (ConceptNet-class /r/CapableOf and /r/Causes edges; verified live 2026-07-29)",
+  "results_on_disk": {
+    "full_run": "data/diag_order_critical_comprehension_calib_v1/results.json (kd_* fields, original mis-specified gate A)",
+    "corrected_revalidation": "data/diag_order_critical_comprehension_calib_v1/kd_framing_revalidation.json"
+  },
+  "not_locked_as_valid": true
+}

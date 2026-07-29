@@ -468,6 +468,209 @@ def gen_multi_entity_state(rng, n_distractor_entities=3, n_distractor_events=4,
                 n_total_entities=n_distractor_entities + 1)
 
 
+# ===========================================================================
+# CONSTRUCTION 5: KNOWLEDGE_DEPENDENT vs TEXT_SUFFICIENT (added 2026-07-29, FRAMING TEST
+# measurement foundation, notes/drill_language_world_model_framing.md + notes/
+# stateful_core_situation_model_build_design.md). Builds the item-class split the coming
+# stateful-core Arm-A(blank)-vs-Arm-B(KB-grounded) ablation needs: KNOWLEDGE_DEPENDENT items
+# whose consistent-vs-violated judgment REQUIRES a world-knowledge bridge fact that is real (drawn
+# from data/cskg_foundation_v1's ConceptNet-class edges, /r/CapableOf and /r/Causes, TRUST_HIGH/MID
+# only) but NOT stated in the passage, vs TEXT_SUFFICIENT control items of matched structure whose
+# ground truth needs no such bridge because the causal verb is stated directly.
+#
+# KB PROVENANCE (verified live against data/cskg_foundation_v1/edges_shard_*.jsonl this session --
+# see FACT_TUPLES kb_relation/kb_trust fields, one real edge per fact):
+#   iron/CapableOf/rust (HIGH), bread/CapableOf/get_stale (HIGH), fruit/CapableOf/grow_mold (HIGH),
+#   water/CapableOf/freeze (HIGH), water/CapableOf/evaporate (HIGH) [realized as "the bowl"/dry],
+#   candle/CapableOf/burn_for_hours (HIGH) [realized as melted], cleaning_clothes/Causes/
+#   clothes_to_shrink (HIGH), floral/CapableOf/wilt (MID), grape/CapableOf/taste_sour (HIGH) +
+#   ferment/Causes/sour (HIGH), burning_match/CapableOf/cause_paper_to_burn_in_air (HIGH).
+#
+# THE VALENCE-SHORTCUT CONFOUND (caught before scoring, load-bearing): a naive "true_result =
+# degraded/bad state, false_result = preserved/good state" design would let a reader solve every
+# item from candidate-word VALENCE ALONE (rusty/stale/moldy/frozen/melted/tight/wilted/sour/burned
+# are all "something happened" words) with NO subject-specific knowledge at all -- not a fair test.
+# FIX: each fact tuple carries a CAUSAL action (triggers true_result) AND a NONCAUSAL action
+# (triggers false_result, i.e. nothing happens so the baseline state persists). Every item is one
+# of a 2x2 cross {causal, noncausal} x {true_result, false_result} claim -- so EVERY candidate word
+# appears as the correct claim under ONE action type and the incorrect claim under the OTHER,
+# breaking any "candidate word predicts label" shortcut and forcing the action clause to be read.
+# Verified by self-test (_self_test_knowledge_dependent) below.
+#
+# TEXT_SUFFICIENT items are structurally identical (same subj/action/claim template) but the
+# context clause explicitly states the outcome verb ("... and rusted ." / "... and stayed shiny
+# ."), so the SAME 2x2-immunity applies but no KB bridge is required to resolve it.
+#
+# Full word-multiset identity across labels (like AGENT_PATIENT/CROSS_BOUNDARY/MULTI_ENTITY_STATE)
+# is NOT used here and is not achievable while keeping KD items genuinely knowledge-dependent (the
+# two labels differ in which real-world outcome is asserted, i.e. a different candidate word) --
+# the 2x2 causal/noncausal cross above is the confound-control that IS feasible and load-bearing
+# for this construction; this is a documented, deliberate deviation from the sibling constructions'
+# multiset discipline, not an oversight.
+#
+# KNOWLEDGE-AUGMENTATION (the new gate-B mechanism): for both classes, an "augmented" eval variant
+# appends ONE generic fact sentence (`fact_sentence`, a near-paraphrase of the real KB
+# CapableOf/Causes edge, e.g. "Iron can rust in the rain.") before the claim. For KD items this
+# makes the previously-implicit bridge explicit in the text; for TS items it is redundant (the
+# outcome is already stated). Gate B = does injecting this sentence lift accuracy selectively on
+# KD (bridge now supplied) and NOT on TS (already had it)?
+# ===========================================================================
+KD_AUG_LIFT_THRESH = 0.10   # gate B: KD aug-vs-plain accuracy lift must clear this to "selectively help"
+TS_AUG_LIFT_MAX = 0.05      # gate B: TS aug-vs-plain lift must stay AT/BELOW this (already text-sufficient)
+
+FACT_TUPLES = [
+    dict(fact_id=0, subj="the iron", causal_action="left outside in the rain for a month",
+         noncausal_action="kept indoors in a dry cabinet for a month",
+         true_result="rusty", false_result="shiny",
+         causal_verb_clause="rusted", noncausal_verb_clause="stayed shiny",
+         kb_relation=("iron", "/r/CapableOf", "rust"), kb_trust="TRUST_HIGH",
+         fact_sentence="Iron can rust in the rain."),
+    dict(fact_id=1, subj="the bread", causal_action="left out on the counter uncovered for a week",
+         noncausal_action="sealed in an airtight bag and frozen",
+         true_result="stale", false_result="fresh",
+         causal_verb_clause="went stale", noncausal_verb_clause="stayed fresh",
+         kb_relation=("bread", "/r/CapableOf", "get_stale"), kb_trust="TRUST_HIGH",
+         fact_sentence="Bread can go stale if left uncovered."),
+    dict(fact_id=2, subj="the fruit", causal_action="left in a warm damp place for two weeks",
+         noncausal_action="kept refrigerated and dry",
+         true_result="moldy", false_result="fresh",
+         causal_verb_clause="grew moldy", noncausal_verb_clause="stayed fresh",
+         kb_relation=("fruit", "/r/CapableOf", "grow_mold"), kb_trust="TRUST_HIGH",
+         fact_sentence="Fruit can grow mold in warm damp places."),
+    dict(fact_id=3, subj="the water", causal_action="put in the freezer overnight",
+         noncausal_action="kept in a warm room overnight",
+         true_result="frozen", false_result="liquid",
+         causal_verb_clause="froze", noncausal_verb_clause="stayed liquid",
+         kb_relation=("water", "/r/CapableOf", "freeze"), kb_trust="TRUST_HIGH",
+         fact_sentence="Water can freeze in a freezer."),
+    dict(fact_id=4, subj="the bowl", causal_action="left uncovered in the sun for a week",
+         noncausal_action="kept covered in a cool room for a week",
+         true_result="dry", false_result="full",
+         causal_verb_clause="evaporated dry", noncausal_verb_clause="stayed full",
+         kb_relation=("water", "/r/CapableOf", "evaporate"), kb_trust="TRUST_HIGH",
+         fact_sentence="Water can evaporate in the sun."),
+    dict(fact_id=5, subj="the candle", causal_action="lit and left burning for an hour",
+         noncausal_action="left unlit in a drawer for an hour",
+         true_result="melted", false_result="solid",
+         causal_verb_clause="melted", noncausal_verb_clause="stayed solid",
+         kb_relation=("candle", "/r/CapableOf", "burn_for_hours"), kb_trust="TRUST_HIGH",
+         fact_sentence="Candles can melt when they burn."),
+    dict(fact_id=6, subj="the shirt", causal_action="washed in very hot water",
+         noncausal_action="washed in cold water",
+         true_result="tight", false_result="loose",
+         causal_verb_clause="shrank", noncausal_verb_clause="stayed loose",
+         kb_relation=("cleaning_clothes", "/r/Causes", "clothes_to_shrink"), kb_trust="TRUST_HIGH",
+         fact_sentence="Hot water can shrink clothes."),
+    dict(fact_id=7, subj="the flower", causal_action="left without water for two weeks",
+         noncausal_action="watered every day for two weeks",
+         true_result="wilted", false_result="blooming",
+         causal_verb_clause="wilted", noncausal_verb_clause="stayed blooming",
+         kb_relation=("floral", "/r/CapableOf", "wilt"), kb_trust="TRUST_MID",
+         fact_sentence="Flowers can wilt without water."),
+    dict(fact_id=8, subj="the juice", causal_action="left unrefrigerated for a month",
+         noncausal_action="kept refrigerated for a month",
+         true_result="sour", false_result="sweet",
+         causal_verb_clause="turned sour", noncausal_verb_clause="stayed sweet",
+         kb_relation=("grape", "/r/CapableOf", "taste_sour"), kb_trust="TRUST_HIGH",
+         fact_sentence="Juice can turn sour if left unrefrigerated."),
+    dict(fact_id=9, subj="the paper", causal_action="dropped into a burning fireplace",
+         noncausal_action="placed in a filing cabinet",
+         true_result="burned", false_result="intact",
+         causal_verb_clause="burned", noncausal_verb_clause="stayed intact",
+         kb_relation=("burning_match", "/r/CapableOf", "cause_paper_to_burn_in_air"), kb_trust="TRUST_HIGH",
+         fact_sentence="Paper can burn in fire."),
+]
+
+ADV_LIST = ["recently", "yesterday", "last month", "at some point",
+            "after a while", "for no particular reason", "as it happened", "eventually"]
+
+
+def _kd_ts_items_for_fact(ft, adv, action_type, cand_is_true):
+    """One (KD_item, TS_item) pair for a given fact tuple / adverb / action-type / candidate choice.
+    action_type in {"causal","noncausal"}; cand_is_true selects which candidate word is claimed.
+    label = 1 (consistent) iff (causal & true) or (noncausal & false) -- the 2x2 cross that blocks
+    the valence-shortcut (see module docstring above)."""
+    subj = ft["subj"]
+    action = ft["causal_action"] if action_type == "causal" else ft["noncausal_action"]
+    verb_clause = ft["causal_verb_clause"] if action_type == "causal" else ft["noncausal_verb_clause"]
+    cand = ft["true_result"] if cand_is_true else ft["false_result"]
+    label = 1 if ((action_type == "causal") == cand_is_true) else 0
+    claim = "%s is %s now ." % (subj[0].upper() + subj[1:], cand)  # capitalize subj at clause start
+    kd_context = "%s %s was %s ." % (adv.capitalize(), subj, action)
+    ts_context = "%s %s was %s and %s ." % (adv.capitalize(), subj, action, verb_clause)
+    kd_item = dict(sent=kd_context + " " + claim, label=label, fact_id=ft["fact_id"],
+                    action_type=action_type, cand=cand, item_class="KNOWLEDGE_DEPENDENT",
+                    kb_relation=list(ft["kb_relation"]), kb_trust=ft["kb_trust"],
+                    fact_sentence=ft["fact_sentence"],
+                    sent_aug=kd_context + " " + ft["fact_sentence"] + " " + claim)
+    ts_item = dict(sent=ts_context + " " + claim, label=label, fact_id=ft["fact_id"],
+                    action_type=action_type, cand=cand, item_class="TEXT_SUFFICIENT",
+                    kb_relation=list(ft["kb_relation"]), kb_trust=ft["kb_trust"],
+                    fact_sentence=ft["fact_sentence"],
+                    sent_aug=ts_context + " " + ft["fact_sentence"] + " " + claim)
+    return kd_item, ts_item
+
+
+def gen_knowledge_dependent(rng, eval_fact_frac=0.30):
+    """Returns dict with train/eval item lists for BOTH item_class values (KD, TS), leak-proof by
+    fact_id (train facts and eval facts are disjoint -- the specific subject+outcome-word vocabulary
+    of eval facts never appears in train, so a probe cannot memorize per-fact-id word-label pairs
+    and must use whatever transfers)."""
+    fact_ids = list(range(len(FACT_TUPLES)))
+    shuffled = _shuffled(fact_ids, rng)
+    n_eval_facts = max(2, int(round(eval_fact_frac * len(fact_ids))))
+    eval_fact_set = set(shuffled[:n_eval_facts])
+    train_fact_set = set(shuffled[n_eval_facts:])
+    assert train_fact_set.isdisjoint(eval_fact_set), "KNOWLEDGE_DEPENDENT leak: fact_id overlap"
+
+    kd_train, kd_eval, ts_train, ts_eval = [], [], [], []
+    for ft in FACT_TUPLES:
+        bucket_kd = kd_train if ft["fact_id"] in train_fact_set else kd_eval
+        bucket_ts = ts_train if ft["fact_id"] in train_fact_set else ts_eval
+        for adv in ADV_LIST:
+            for action_type in ("causal", "noncausal"):
+                for cand_is_true in (True, False):
+                    kd_item, ts_item = _kd_ts_items_for_fact(ft, adv, action_type, cand_is_true)
+                    bucket_kd.append(kd_item)
+                    bucket_ts.append(ts_item)
+
+    return dict(name="KNOWLEDGE_DEPENDENT_vs_TEXT_SUFFICIENT",
+                kd_train=_shuffled(kd_train, rng), kd_eval=_shuffled(kd_eval, rng),
+                ts_train=_shuffled(ts_train, rng), ts_eval=_shuffled(ts_eval, rng),
+                train_fact_set=train_fact_set, eval_fact_set=eval_fact_set)
+
+
+def _self_test_knowledge_dependent(kdc):
+    """Leak-proofness + label-balance + valence-shortcut-immunity self-tests. Raises on violation."""
+    assert kdc["train_fact_set"].isdisjoint(kdc["eval_fact_set"]), "KD/TS: LEAK -- train/eval fact overlap"
+    for key in ("kd_train", "kd_eval", "ts_train", "ts_eval"):
+        items = kdc[key]
+        ys = [it["label"] for it in items]
+        assert set(ys) == {0, 1}, "%s: labels not both present: %s" % (key, set(ys))
+        n0 = sum(1 for y in ys if y == 0)
+        n1 = sum(1 for y in ys if y == 1)
+        assert abs(n0 - n1) <= 2, "%s: not balanced (%d vs %d)" % (key, n0, n1)
+        assert len(items) >= 60, "%s: too small (%d < 60)" % (key, len(items))
+    # valence-shortcut-immunity: for every (fact_id, cand-word) pair actually present, verify BOTH
+    # labels 0 and 1 occur across the four buckets combined -- i.e. no candidate word deterministically
+    # predicts label (each candidate is the TRUE claim under its causal/noncausal partner and the
+    # FALSE claim under the other, by construction; this checks it held after generation).
+    by_fact_cand = {}
+    all_items = kdc["kd_train"] + kdc["kd_eval"] + kdc["ts_train"] + kdc["ts_eval"]
+    for it in all_items:
+        key = (it["fact_id"], it["cand"])
+        by_fact_cand.setdefault(key, set()).add(it["label"])
+    n_both = sum(1 for v in by_fact_cand.values() if v == {0, 1})
+    assert n_both == len(by_fact_cand), (
+        "KD/TS valence-shortcut NOT blocked: %d/%d (fact_id,cand) pairs have only ONE label -- "
+        "candidate word would deterministically predict label" % (n_both, len(by_fact_cand)))
+    _log("KNOWLEDGE_DEPENDENT/TEXT_SUFFICIENT self-test OK: kd_train=%d kd_eval=%d ts_train=%d "
+         "ts_eval=%d train/eval facts disjoint (%d/%d); valence-shortcut blocked (%d/%d cand pairs "
+         "have both labels)" % (len(kdc["kd_train"]), len(kdc["kd_eval"]), len(kdc["ts_train"]),
+                                 len(kdc["ts_eval"]), len(kdc["train_fact_set"]),
+                                 len(kdc["eval_fact_set"]), n_both, len(by_fact_cand)))
+
+
 def load_random_init_encoder(ckpt_path, seed):
     """Gate-B control: SAME architecture as the frozen checkpoint at ckpt_path (model_cfg only --
     the LEARNED weights are discarded), freshly initialized with `seed`. Same tokenizer/spec as
@@ -922,6 +1125,124 @@ def main():
            {name: mes_results[name]["both_gates_pass"] for name in mes_order}))
     _log("MES FINAL: %s" % mes_verdict_msg)
 
+    # =========================================================================
+    # KNOWLEDGE_DEPENDENT vs TEXT_SUFFICIENT three-gate acceptance test (2026-07-29, FRAMING TEST
+    # measurement foundation). Gate A: known reader passes the construction overall (KD+TS
+    # combined, matching the other constructions' calibration methodology). Gate B (the NEW gate):
+    # knowledge-augmentation (injecting the real KB fact sentence) must lift accuracy on KD items
+    # by >= KD_AUG_LIFT_THRESH while NOT lifting TS items by more than TS_AUG_LIFT_MAX -- this is
+    # what proves the KD/TS split is genuine (KD items actually need the bridge; TS items don't).
+    # Gate C: random-init same-architecture control across >=5 seeds must stay near chance
+    # WORST-CASE (per the LOCKED_CONSTRUCTION D3 guard, scored against max not mean).
+    # =========================================================================
+    KD_MAX_LEN = 40  # KD/TS sentences run ~15-22 words; 40 BPE-token cap is generous headroom
+    kd_rng = np.random.default_rng(SEED + 9001)
+    kdc = gen_knowledge_dependent(kd_rng)
+    _self_test_knowledge_dependent(kdc)
+
+    kd_srng = np.random.default_rng(SEED + 9002)
+    combined_train = kdc["kd_train"] + kdc["ts_train"]
+    combined_eval = kdc["kd_eval"] + kdc["ts_eval"]
+    combined_train_sents = [it["sent"] for it in combined_train]
+    combined_eval_sents = [it["sent"] for it in combined_eval]
+    combined_eval_scr_sents = [LOOP2._scramble_words(it["sent"], kd_srng) for it in combined_eval]
+    y_train_kd = np.array([it["label"] for it in combined_train], dtype=np.int64)
+    y_eval_kd = np.array([it["label"] for it in combined_eval], dtype=np.int64)
+
+    kd_calibration = {}
+    kd_best_known = None
+    for model_name, short_name in CALIBRATION_MODELS:
+        t0 = time.perf_counter()
+        G_tr = _raw_hf_encode(model_name, combined_train_sents, max_length=KD_MAX_LEN)
+        G_ec = _raw_hf_encode(model_name, combined_eval_sents, max_length=KD_MAX_LEN)
+        G_es = _raw_hf_encode(model_name, combined_eval_scr_sents, max_length=KD_MAX_LEN)
+        t_enc = time.perf_counter() - t0
+        _log("KD_TS/%s encoded (%.1fs): train=%d eval=%d" % (short_name, t_enc, len(combined_train_sents), len(combined_eval_sents)))
+        per_readout = {}
+        for readout_name in ("MEAN_POOL", "CLS_TOKEN", "LAST_TOKEN"):
+            res = score_readout_arm(readout_name, G_tr[readout_name], y_train_kd,
+                                     G_ec[readout_name], G_es[readout_name], y_eval_kd, SEED)
+            per_readout[readout_name] = res
+            _log("  KD_TS/%s/%s: coherent=%.4f scrambled=%.4f margin=%+.4f pass=%s"
+                 % (short_name, readout_name, res["coherent_acc"], res["scrambled_acc"],
+                    res["margin"], res["comprehension_specific"]))
+            if res["comprehension_specific"] and (kd_best_known is None or res["margin"] > kd_best_known["margin"]):
+                kd_best_known = dict(model=short_name, model_name=model_name, readout=readout_name,
+                                      margin=res["margin"], coherent_acc=res["coherent_acc"])
+        kd_calibration[short_name] = per_readout
+
+    kd_gate_a_pass = kd_best_known is not None
+    _log("KD_TS GATE A: overall construction valid=%s winner=%s" % (kd_gate_a_pass, kd_best_known))
+
+    kd_gate_b = None
+    kd_gate_b_pass = None
+    if kd_gate_a_pass:
+        # Fit ONE probe on TRAIN-plain embeddings (matched readout) from the winning model; score it
+        # (no refit) on four eval slices: KD plain/aug, TS plain/aug -- isolates the effect of
+        # injecting the fact sentence on a FIXED decision boundary.
+        model_name = kd_best_known["model_name"]
+        readout_name = kd_best_known["readout"]
+        kd_eval_plain_sents = [it["sent"] for it in kdc["kd_eval"]]
+        kd_eval_aug_sents = [it["sent_aug"] for it in kdc["kd_eval"]]
+        ts_eval_plain_sents = [it["sent"] for it in kdc["ts_eval"]]
+        ts_eval_aug_sents = [it["sent_aug"] for it in kdc["ts_eval"]]
+        y_kd_eval = np.array([it["label"] for it in kdc["kd_eval"]], dtype=np.int64)
+        y_ts_eval = np.array([it["label"] for it in kdc["ts_eval"]], dtype=np.int64)
+
+        G_train_full = _raw_hf_encode(model_name, combined_train_sents, max_length=KD_MAX_LEN)[readout_name]
+        G_kd_plain = _raw_hf_encode(model_name, kd_eval_plain_sents, max_length=KD_MAX_LEN)[readout_name]
+        G_kd_aug = _raw_hf_encode(model_name, kd_eval_aug_sents, max_length=KD_MAX_LEN)[readout_name]
+        G_ts_plain = _raw_hf_encode(model_name, ts_eval_plain_sents, max_length=KD_MAX_LEN)[readout_name]
+        G_ts_aug = _raw_hf_encode(model_name, ts_eval_aug_sents, max_length=KD_MAX_LEN)[readout_name]
+
+        lin, _ = fit_binary_probe(G_train_full, y_train_kd, seed=SEED)
+        kd_plain_acc, _ = _probe_eval_acc(lin, G_kd_plain, y_kd_eval)
+        kd_aug_acc, _ = _probe_eval_acc(lin, G_kd_aug, y_kd_eval)
+        ts_plain_acc, _ = _probe_eval_acc(lin, G_ts_plain, y_ts_eval)
+        ts_aug_acc, _ = _probe_eval_acc(lin, G_ts_aug, y_ts_eval)
+        kd_lift = kd_aug_acc - kd_plain_acc
+        ts_lift = ts_aug_acc - ts_plain_acc
+        kd_gate_b_pass = bool(kd_lift >= KD_AUG_LIFT_THRESH and ts_lift <= TS_AUG_LIFT_MAX)
+        kd_gate_b = dict(model=kd_best_known["model"], readout=readout_name,
+                          kd_plain_acc=kd_plain_acc, kd_aug_acc=kd_aug_acc, kd_lift=kd_lift,
+                          ts_plain_acc=ts_plain_acc, ts_aug_acc=ts_aug_acc, ts_lift=ts_lift,
+                          kd_aug_lift_thresh=KD_AUG_LIFT_THRESH, ts_aug_lift_max=TS_AUG_LIFT_MAX,
+                          gate_b_pass=kd_gate_b_pass)
+        _log("KD_TS GATE B: KD lift=%+.4f (thresh>=%.2f) TS lift=%+.4f (max<=%.2f) pass=%s"
+             % (kd_lift, KD_AUG_LIFT_THRESH, ts_lift, TS_AUG_LIFT_MAX, kd_gate_b_pass))
+    else:
+        _log("KD_TS: gate A failed -- skipping gate B (would be uninterpretable against a broken instrument).")
+
+    kd_gate_c = None
+    kd_gate_c_pass = None
+    KD_RANDOM_INIT_SEEDS = [20260729, 7, 13, 101, 20250101]
+    if kd_gate_a_pass:
+        matched_readout = "MEAN_POOL" if kd_best_known["readout"] in ("MEAN_POOL", "CLS_TOKEN") else "LAST_TOKEN"
+        ri_margins = {}
+        for ri_seed in KD_RANDOM_INIT_SEEDS:
+            ri_readouts, ri_meta = _random_init_readouts(BASELINE_CKPT, combined_train_sents,
+                                                          combined_eval_sents, combined_eval_scr_sents,
+                                                          ri_seed, max_len=KD_MAX_LEN)
+            G_tr, G_ec, G_es = ri_readouts[matched_readout]
+            ri_res = score_readout_arm(matched_readout + "_RANDOM_INIT", G_tr, y_train_kd,
+                                        G_ec, G_es, y_eval_kd, SEED)
+            ri_margins[str(ri_seed)] = ri_res["margin"]
+            _log("KD_TS gate C random-init seed=%d margin=%+.4f" % (ri_seed, ri_res["margin"]))
+        worst_case_margin = max(ri_margins.values())
+        kd_gate_c_pass = bool(worst_case_margin < RANDOM_INIT_MARGIN_FAIL_THRESH)
+        kd_gate_c = dict(matched_readout=matched_readout, seeds=KD_RANDOM_INIT_SEEDS,
+                          margins=ri_margins, worst_case_margin=worst_case_margin,
+                          fail_thresh=RANDOM_INIT_MARGIN_FAIL_THRESH, gate_c_pass=kd_gate_c_pass)
+        _log("KD_TS GATE C: worst-case random-init margin=%+.4f (fail_thresh=%.2f) pass(random-init-fails)=%s"
+             % (worst_case_margin, RANDOM_INIT_MARGIN_FAIL_THRESH, kd_gate_c_pass))
+
+    kd_construction_valid = bool(kd_gate_a_pass and kd_gate_b_pass and kd_gate_c_pass)
+    kd_verdict_msg = (
+        "KNOWLEDGE_DEPENDENT_vs_TEXT_SUFFICIENT: gate_A(known_reader)=%s gate_B(selective_kb_aug_lift)=%s "
+        "gate_C(random_init_worst_case_fails)=%s -> construction_valid=%s"
+        % (kd_gate_a_pass, kd_gate_b_pass, kd_gate_c_pass, kd_construction_valid))
+    _log("KD_TS FINAL: %s" % kd_verdict_msg)
+
     verdict_msg_parts = []
     for c in constructions:
         v = instrument_valid_per_construction[c["name"]]
@@ -929,7 +1250,8 @@ def main():
         verdict_msg_parts.append("%s: instrument_valid=%s%s" % (
             c["name"], v, ("" if not v else (" (winner=%s/%s margin=%+.4f coherent=%.4f)"
                                               % (w["model"], w["readout"], w["margin"], w["coherent_acc"])))))
-    verdict_msg = "ORDER-CRITICAL CALIBRATION: " + " | ".join(verdict_msg_parts) + " || " + mes_verdict_msg
+    verdict_msg = ("ORDER-CRITICAL CALIBRATION: " + " | ".join(verdict_msg_parts) + " || " + mes_verdict_msg
+                   + " || " + kd_verdict_msg)
     _log("VERDICT: %s" % verdict_msg)
 
     payload = dict(
@@ -954,6 +1276,17 @@ def main():
         mes_acceptance_gate_satisfied=mes_acceptance_gate_satisfied,
         mes_stop_reason=mes_stop_reason,
         mes_verdict_msg=mes_verdict_msg,
+        kd_fact_tuples=[dict(fact_id=ft["fact_id"], subj=ft["subj"], kb_relation=list(ft["kb_relation"]),
+                              kb_trust=ft["kb_trust"], true_result=ft["true_result"],
+                              false_result=ft["false_result"]) for ft in FACT_TUPLES],
+        kd_train_fact_ids=sorted(kdc["train_fact_set"]), kd_eval_fact_ids=sorted(kdc["eval_fact_set"]),
+        kd_n_kd_train=len(kdc["kd_train"]), kd_n_kd_eval=len(kdc["kd_eval"]),
+        kd_n_ts_train=len(kdc["ts_train"]), kd_n_ts_eval=len(kdc["ts_eval"]),
+        kd_calibration=kd_calibration, kd_best_known_reader=kd_best_known,
+        kd_gate_a_pass=kd_gate_a_pass, kd_gate_b=kd_gate_b, kd_gate_b_pass=kd_gate_b_pass,
+        kd_gate_c=kd_gate_c, kd_gate_c_pass=kd_gate_c_pass,
+        kd_construction_valid=kd_construction_valid, kd_verdict_msg=kd_verdict_msg,
+        kd_aug_lift_thresh=KD_AUG_LIFT_THRESH, ts_aug_lift_max=TS_AUG_LIFT_MAX,
         verdict_msg=verdict_msg,
         note_caveat=("MiniLM + bge-small-en-v1.5 used DIAGNOSTIC-ONLY for instrument calibration -- "
                      "neither is wired into the substrate and neither is proposed as the encoder "

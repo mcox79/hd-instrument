@@ -1,7 +1,7 @@
 {
   "script": "diag_order_critical_comprehension_calib_v1.py",
-  "ts_iso": "2026-07-29T13:59:33.218765+00:00",
-  "pid": 37920,
+  "ts_iso": "2026-07-29T14:35:05.379573+00:00",
+  "pid": 34412,
   "seed": 20260728,
   "margin_thresh": 0.15,
   "coherent_floor": 0.65,
@@ -53,7 +53,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.6320680975914001,
+            "decoder_final_loss": 0.6320681571960449,
             "train_sanity": {
               "train_balanced_acc": 0.6688888888888889,
               "chance": 0.5,
@@ -86,7 +86,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 6.434216200141236
+        "t_encode_s": 18.690836400026456
       },
       "ENTITY_STATE": {
         "per_readout": {
@@ -109,7 +109,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.6690428853034973,
+            "decoder_final_loss": 0.6690429449081421,
             "train_sanity": {
               "train_balanced_acc": 0.62,
               "chance": 0.5,
@@ -142,7 +142,7 @@
             "comprehension_specific": false
           }
         },
-        "t_encode_s": 3.201826199889183
+        "t_encode_s": 2.5583252999931574
       },
       "CROSS_BOUNDARY": {
         "per_readout": {
@@ -165,7 +165,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.6712267398834229,
+            "decoder_final_loss": 0.6712267994880676,
             "train_sanity": {
               "train_balanced_acc": 0.6016666666666667,
               "chance": 0.5,
@@ -198,7 +198,7 @@
             "comprehension_specific": false
           }
         },
-        "t_encode_s": 7.847487800056115
+        "t_encode_s": 5.375357500044629
       }
     },
     "BGE_SMALL": {
@@ -206,7 +206,7 @@
         "per_readout": {
           "MEAN_POOL": {
             "name": "MEAN_POOL",
-            "decoder_final_loss": 0.6220808625221252,
+            "decoder_final_loss": 0.6220809817314148,
             "train_sanity": {
               "train_balanced_acc": 0.6977777777777778,
               "chance": 0.5,
@@ -223,7 +223,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.6213563084602356,
+            "decoder_final_loss": 0.6213564276695251,
             "train_sanity": {
               "train_balanced_acc": 0.6988888888888889,
               "chance": 0.5,
@@ -256,7 +256,7 @@
             "comprehension_specific": false
           }
         },
-        "t_encode_s": 3.5904402998276055
+        "t_encode_s": 3.0700044000986964
       },
       "ENTITY_STATE": {
         "per_readout": {
@@ -296,7 +296,7 @@
           },
           "LAST_TOKEN": {
             "name": "LAST_TOKEN",
-            "decoder_final_loss": 0.5516360998153687,
+            "decoder_final_loss": 0.5516361594200134,
             "train_sanity": {
               "train_balanced_acc": 0.7844444444444445,
               "chance": 0.5,
@@ -312,7 +312,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 5.884867000160739
+        "t_encode_s": 5.331826300127432
       },
       "CROSS_BOUNDARY": {
         "per_readout": {
@@ -335,7 +335,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.6213983297348022,
+            "decoder_final_loss": 0.6213982701301575,
             "train_sanity": {
               "train_balanced_acc": 0.7516666666666667,
               "chance": 0.5,
@@ -368,7 +368,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 14.498871700139716
+        "t_encode_s": 13.899883500067517
       }
     }
   },
@@ -455,7 +455,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 11.25268579996191,
+        "t_encode_s": 9.535740199964494,
         "ckpt_meta": {
           "seed": 7,
           "run_mode": "full",
@@ -553,7 +553,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 10.115132700186223,
+        "t_encode_s": 9.917314500082284,
         "ckpt_meta": {
           "seed": 7,
           "run_mode": "full",
@@ -651,7 +651,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 19.78456320008263,
+        "t_encode_s": 16.238642799900845,
         "ckpt_meta": {
           "seed": 7,
           "run_mode": "full",
@@ -735,7 +735,7 @@
           },
           "HRR_POSITION_BIND_bonus": {
             "name": "HRR_POSITION_BIND_bonus",
-            "decoder_final_loss": 0.5171909928321838,
+            "decoder_final_loss": 0.5171909332275391,
             "train_sanity": {
               "train_balanced_acc": 0.8066666666666666,
               "chance": 0.5,
@@ -751,7 +751,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 10.762002799892798,
+        "t_encode_s": 10.138803200097755,
         "ckpt_meta": {
           "seed": 7,
           "run_mode": "full",
@@ -799,7 +799,7 @@
         "per_readout": {
           "MEAN_POOL": {
             "name": "MEAN_POOL",
-            "decoder_final_loss": 0.556391716003418,
+            "decoder_final_loss": 0.5563916563987732,
             "train_sanity": {
               "train_balanced_acc": 0.8066666666666666,
               "chance": 0.5,
@@ -816,7 +816,7 @@
           },
           "LAST_TOKEN": {
             "name": "LAST_TOKEN",
-            "decoder_final_loss": 0.40385764837265015,
+            "decoder_final_loss": 0.40385758876800537,
             "train_sanity": {
               "train_balanced_acc": 0.8988888888888888,
               "chance": 0.5,
@@ -833,7 +833,7 @@
           },
           "HRR_POSITION_BIND_bonus": {
             "name": "HRR_POSITION_BIND_bonus",
-            "decoder_final_loss": 0.4539715647697449,
+            "decoder_final_loss": 0.4539715349674225,
             "train_sanity": {
               "train_balanced_acc": 0.8944444444444444,
               "chance": 0.5,
@@ -849,7 +849,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 12.986191200092435,
+        "t_encode_s": 9.595704399980605,
         "ckpt_meta": {
           "seed": 7,
           "run_mode": "full",
@@ -875,7 +875,7 @@
         "matched_readout_used": "MEAN_POOL",
         "matched_readout_result": {
           "name": "MEAN_POOL",
-          "decoder_final_loss": 0.556391716003418,
+          "decoder_final_loss": 0.5563916563987732,
           "train_sanity": {
             "train_balanced_acc": 0.8066666666666666,
             "chance": 0.5,
@@ -897,7 +897,7 @@
         "per_readout": {
           "MEAN_POOL": {
             "name": "MEAN_POOL",
-            "decoder_final_loss": 0.5993992686271667,
+            "decoder_final_loss": 0.5993993282318115,
             "train_sanity": {
               "train_balanced_acc": 0.7333333333333334,
               "chance": 0.5,
@@ -947,7 +947,7 @@
             "comprehension_specific": true
           }
         },
-        "t_encode_s": 18.450062199961394,
+        "t_encode_s": 16.821974399965256,
         "ckpt_meta": {
           "seed": 7,
           "run_mode": "full",
@@ -973,7 +973,7 @@
         "matched_readout_used": "MEAN_POOL",
         "matched_readout_result": {
           "name": "MEAN_POOL",
-          "decoder_final_loss": 0.5993992686271667,
+          "decoder_final_loss": 0.5993993282318115,
           "train_sanity": {
             "train_balanced_acc": 0.7333333333333334,
             "chance": 0.5,
@@ -1031,7 +1031,7 @@
         "MiniLM": {
           "MEAN_POOL": {
             "name": "MEAN_POOL",
-            "decoder_final_loss": 0.5915927290916443,
+            "decoder_final_loss": 0.5915926694869995,
             "train_sanity": {
               "train_balanced_acc": 0.7766666666666666,
               "chance": 0.5,
@@ -1048,7 +1048,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.6635929346084595,
+            "decoder_final_loss": 0.6635929942131042,
             "train_sanity": {
               "train_balanced_acc": 0.6133333333333333,
               "chance": 0.5,
@@ -1084,7 +1084,7 @@
         "BGE_SMALL": {
           "MEAN_POOL": {
             "name": "MEAN_POOL",
-            "decoder_final_loss": 0.6133847832679749,
+            "decoder_final_loss": 0.6133847236633301,
             "train_sanity": {
               "train_balanced_acc": 0.7611111111111111,
               "chance": 0.5,
@@ -1144,7 +1144,7 @@
       },
       "gate_b_random_init": {
         "name": "MEAN_POOL_RANDOM_INIT",
-        "decoder_final_loss": 0.6292287111282349,
+        "decoder_final_loss": 0.6292287707328796,
         "train_sanity": {
           "train_balanced_acc": 0.7466666666666667,
           "chance": 0.5,
@@ -1191,7 +1191,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.6709689497947693,
+            "decoder_final_loss": 0.6709688901901245,
             "train_sanity": {
               "train_balanced_acc": 0.6333333333333333,
               "chance": 0.5,
@@ -1227,7 +1227,7 @@
         "BGE_SMALL": {
           "MEAN_POOL": {
             "name": "MEAN_POOL",
-            "decoder_final_loss": 0.5939823985099792,
+            "decoder_final_loss": 0.593982458114624,
             "train_sanity": {
               "train_balanced_acc": 0.7711111111111111,
               "chance": 0.5,
@@ -1244,7 +1244,7 @@
           },
           "CLS_TOKEN": {
             "name": "CLS_TOKEN",
-            "decoder_final_loss": 0.5919789671897888,
+            "decoder_final_loss": 0.591978907585144,
             "train_sanity": {
               "train_balanced_acc": 0.7855555555555556,
               "chance": 0.5,
@@ -1351,7 +1351,7 @@
           },
           "LAST_TOKEN": {
             "name": "LAST_TOKEN",
-            "decoder_final_loss": 0.6531775593757629,
+            "decoder_final_loss": 0.6531776189804077,
             "train_sanity": {
               "train_balanced_acc": 0.6488888888888888,
               "chance": 0.5,
@@ -1370,7 +1370,7 @@
         "BGE_SMALL": {
           "MEAN_POOL": {
             "name": "MEAN_POOL",
-            "decoder_final_loss": 0.595307469367981,
+            "decoder_final_loss": 0.5953075289726257,
             "train_sanity": {
               "train_balanced_acc": 0.74,
               "chance": 0.5,
@@ -1452,7 +1452,265 @@
   "mes_acceptance_gate_satisfied": true,
   "mes_stop_reason": "both_gates_pass_at_MULTI_ENTITY_STATE_distE4_distEv6",
   "mes_verdict_msg": "MULTI_ENTITY_STATE two-gate sweep: acceptance_gate_satisfied=True (stop_reason=both_gates_pass_at_MULTI_ENTITY_STATE_distE4_distEv6); variants tried=['MULTI_ENTITY_STATE_distE2_distEv2', 'MULTI_ENTITY_STATE_distE3_distEv4', 'MULTI_ENTITY_STATE_distE4_distEv6']; per-variant BOTH-gates={'MULTI_ENTITY_STATE_distE2_distEv2': False, 'MULTI_ENTITY_STATE_distE3_distEv4': False, 'MULTI_ENTITY_STATE_distE4_distEv6': True}",
-  "verdict_msg": "ORDER-CRITICAL CALIBRATION: AGENT_PATIENT: instrument_valid=True (winner=MiniLM/MEAN_POOL margin=+0.1775 coherent=0.6800) | ENTITY_STATE: instrument_valid=True (winner=BGE_SMALL/MEAN_POOL margin=+0.2475 coherent=0.7375) | CROSS_BOUNDARY: instrument_valid=True (winner=BGE_SMALL/MEAN_POOL margin=+0.2300 coherent=0.7517) || MULTI_ENTITY_STATE two-gate sweep: acceptance_gate_satisfied=True (stop_reason=both_gates_pass_at_MULTI_ENTITY_STATE_distE4_distEv6); variants tried=['MULTI_ENTITY_STATE_distE2_distEv2', 'MULTI_ENTITY_STATE_distE3_distEv4', 'MULTI_ENTITY_STATE_distE4_distEv6']; per-variant BOTH-gates={'MULTI_ENTITY_STATE_distE2_distEv2': False, 'MULTI_ENTITY_STATE_distE3_distEv4': False, 'MULTI_ENTITY_STATE_distE4_distEv6': True}",
+  "kd_fact_tuples": [
+    {
+      "fact_id": 0,
+      "subj": "the iron",
+      "kb_relation": [
+        "iron",
+        "/r/CapableOf",
+        "rust"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "rusty",
+      "false_result": "shiny"
+    },
+    {
+      "fact_id": 1,
+      "subj": "the bread",
+      "kb_relation": [
+        "bread",
+        "/r/CapableOf",
+        "get_stale"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "stale",
+      "false_result": "fresh"
+    },
+    {
+      "fact_id": 2,
+      "subj": "the fruit",
+      "kb_relation": [
+        "fruit",
+        "/r/CapableOf",
+        "grow_mold"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "moldy",
+      "false_result": "fresh"
+    },
+    {
+      "fact_id": 3,
+      "subj": "the water",
+      "kb_relation": [
+        "water",
+        "/r/CapableOf",
+        "freeze"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "frozen",
+      "false_result": "liquid"
+    },
+    {
+      "fact_id": 4,
+      "subj": "the bowl",
+      "kb_relation": [
+        "water",
+        "/r/CapableOf",
+        "evaporate"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "dry",
+      "false_result": "full"
+    },
+    {
+      "fact_id": 5,
+      "subj": "the candle",
+      "kb_relation": [
+        "candle",
+        "/r/CapableOf",
+        "burn_for_hours"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "melted",
+      "false_result": "solid"
+    },
+    {
+      "fact_id": 6,
+      "subj": "the shirt",
+      "kb_relation": [
+        "cleaning_clothes",
+        "/r/Causes",
+        "clothes_to_shrink"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "tight",
+      "false_result": "loose"
+    },
+    {
+      "fact_id": 7,
+      "subj": "the flower",
+      "kb_relation": [
+        "floral",
+        "/r/CapableOf",
+        "wilt"
+      ],
+      "kb_trust": "TRUST_MID",
+      "true_result": "wilted",
+      "false_result": "blooming"
+    },
+    {
+      "fact_id": 8,
+      "subj": "the juice",
+      "kb_relation": [
+        "grape",
+        "/r/CapableOf",
+        "taste_sour"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "sour",
+      "false_result": "sweet"
+    },
+    {
+      "fact_id": 9,
+      "subj": "the paper",
+      "kb_relation": [
+        "burning_match",
+        "/r/CapableOf",
+        "cause_paper_to_burn_in_air"
+      ],
+      "kb_trust": "TRUST_HIGH",
+      "true_result": "burned",
+      "false_result": "intact"
+    }
+  ],
+  "kd_train_fact_ids": [
+    0,
+    2,
+    4,
+    5,
+    7,
+    8,
+    9
+  ],
+  "kd_eval_fact_ids": [
+    1,
+    3,
+    6
+  ],
+  "kd_n_kd_train": 224,
+  "kd_n_kd_eval": 96,
+  "kd_n_ts_train": 224,
+  "kd_n_ts_eval": 96,
+  "kd_calibration": {
+    "MiniLM": {
+      "MEAN_POOL": {
+        "name": "MEAN_POOL",
+        "decoder_final_loss": 0.5621389746665955,
+        "train_sanity": {
+          "train_balanced_acc": 0.8214285714285714,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.5,
+        "coherent_balanced_acc": 0.5,
+        "scrambled_acc": 0.5,
+        "scrambled_balanced_acc": 0.5,
+        "margin": 0.0,
+        "z_stat": 0.0,
+        "n_eval": 192,
+        "comprehension_specific": false
+      },
+      "CLS_TOKEN": {
+        "name": "CLS_TOKEN",
+        "decoder_final_loss": 0.6474388837814331,
+        "train_sanity": {
+          "train_balanced_acc": 0.6495535714285714,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.4895833333333333,
+        "coherent_balanced_acc": 0.48958333333333337,
+        "scrambled_acc": 0.5052083333333334,
+        "scrambled_balanced_acc": 0.5052083333333333,
+        "margin": -0.015625000000000056,
+        "z_stat": -0.3061903708487578,
+        "n_eval": 192,
+        "comprehension_specific": false
+      },
+      "LAST_TOKEN": {
+        "name": "LAST_TOKEN",
+        "decoder_final_loss": 0.5913670659065247,
+        "train_sanity": {
+          "train_balanced_acc": 0.7678571428571428,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.4895833333333333,
+        "coherent_balanced_acc": 0.4895833333333333,
+        "scrambled_acc": 0.5104166666666666,
+        "scrambled_balanced_acc": 0.5104166666666667,
+        "margin": -0.020833333333333315,
+        "z_stat": -0.40824829046386263,
+        "n_eval": 192,
+        "comprehension_specific": false
+      }
+    },
+    "BGE_SMALL": {
+      "MEAN_POOL": {
+        "name": "MEAN_POOL",
+        "decoder_final_loss": 0.5227899551391602,
+        "train_sanity": {
+          "train_balanced_acc": 0.8816964285714286,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.5052083333333334,
+        "coherent_balanced_acc": 0.5052083333333334,
+        "scrambled_acc": 0.5208333333333334,
+        "scrambled_balanced_acc": 0.5208333333333333,
+        "margin": -0.015625,
+        "z_stat": -0.30629009359397597,
+        "n_eval": 192,
+        "comprehension_specific": false
+      },
+      "CLS_TOKEN": {
+        "name": "CLS_TOKEN",
+        "decoder_final_loss": 0.5398709774017334,
+        "train_sanity": {
+          "train_balanced_acc": 0.8883928571428572,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.5364583333333334,
+        "coherent_balanced_acc": 0.5364583333333334,
+        "scrambled_acc": 0.5208333333333334,
+        "scrambled_balanced_acc": 0.5208333333333333,
+        "margin": 0.015625,
+        "z_stat": 0.3066899611587172,
+        "n_eval": 192,
+        "comprehension_specific": false
+      },
+      "LAST_TOKEN": {
+        "name": "LAST_TOKEN",
+        "decoder_final_loss": 0.5398717522621155,
+        "train_sanity": {
+          "train_balanced_acc": 0.8883928571428572,
+          "chance": 0.5,
+          "train_beats_chance": true
+        },
+        "coherent_acc": 0.5364583333333334,
+        "coherent_balanced_acc": 0.5364583333333334,
+        "scrambled_acc": 0.5208333333333334,
+        "scrambled_balanced_acc": 0.5208333333333333,
+        "margin": 0.015625,
+        "z_stat": 0.3066899611587172,
+        "n_eval": 192,
+        "comprehension_specific": false
+      }
+    }
+  },
+  "kd_best_known_reader": null,
+  "kd_gate_a_pass": false,
+  "kd_gate_b": null,
+  "kd_gate_b_pass": null,
+  "kd_gate_c": null,
+  "kd_gate_c_pass": null,
+  "kd_construction_valid": false,
+  "kd_verdict_msg": "KNOWLEDGE_DEPENDENT_vs_TEXT_SUFFICIENT: gate_A(known_reader)=False gate_B(selective_kb_aug_lift)=None gate_C(random_init_worst_case_fails)=None -> construction_valid=False",
+  "kd_aug_lift_thresh": 0.1,
+  "ts_aug_lift_max": 0.05,
+  "verdict_msg": "ORDER-CRITICAL CALIBRATION: AGENT_PATIENT: instrument_valid=True (winner=MiniLM/MEAN_POOL margin=+0.1775 coherent=0.6800) | ENTITY_STATE: instrument_valid=True (winner=BGE_SMALL/MEAN_POOL margin=+0.2475 coherent=0.7375) | CROSS_BOUNDARY: instrument_valid=True (winner=BGE_SMALL/MEAN_POOL margin=+0.2300 coherent=0.7517) || MULTI_ENTITY_STATE two-gate sweep: acceptance_gate_satisfied=True (stop_reason=both_gates_pass_at_MULTI_ENTITY_STATE_distE4_distEv6); variants tried=['MULTI_ENTITY_STATE_distE2_distEv2', 'MULTI_ENTITY_STATE_distE3_distEv4', 'MULTI_ENTITY_STATE_distE4_distEv6']; per-variant BOTH-gates={'MULTI_ENTITY_STATE_distE2_distEv2': False, 'MULTI_ENTITY_STATE_distE3_distEv4': False, 'MULTI_ENTITY_STATE_distE4_distEv6': True} || KNOWLEDGE_DEPENDENT_vs_TEXT_SUFFICIENT: gate_A(known_reader)=False gate_B(selective_kb_aug_lift)=None gate_C(random_init_worst_case_fails)=None -> construction_valid=False",
   "note_caveat": "MiniLM + bge-small-en-v1.5 used DIAGNOSTIC-ONLY for instrument calibration -- neither is wired into the substrate and neither is proposed as the encoder (per standing USER directive against borrowed embeddings as the substrate's encoder). All arms within a construction share the IDENTICAL TRAIN/EVAL split and IDENTICAL scrambled-eval sentences, so every comparison is fair and paired.",
-  "elapsed_s_total": 307.0017082998529
+  "elapsed_s_total": 290.8030307998415
 }
