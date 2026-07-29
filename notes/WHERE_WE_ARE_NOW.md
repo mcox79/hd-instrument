@@ -4,6 +4,7 @@
 1. GOAL + invariants + anti-drift: `notes/SUBSTRATE_CHARTER_read_first.md`
 2. Plan: `notes/THE_PLAN.md`
 3. This = the live snapshot (rewritten clean; tonight's blow-by-blow collapsed to pointers).
+4. **METHODOLOGY (USER 07-28, now operating): `notes/component_brain_fidelity_ledger.md`** — nail each component brain-faithful, judged on its OWN brain-metric (NOT downstream task-win), one-by-one, then assemble. Status tally: most components NOT yet faithful (2 faithful / 1 improving / 4 partial / 2 unfaithful / 1 absent). The 4 in-flight drills = the biology-first step for readout/maintenance/objective/consolidation.
 
 ## THE GOAL
 Glass-box VSA/HDC substrate you can CONVERSE with that genuinely REASONS, EARNING its meaning + knowledge the brain's way (NO borrowed embeddings/LLM at inference; the substrate learns it itself). CLS architecture: SEED a foundation from relational KBs -> READ new material -> SLEEP-consolidate. 3 legs: (1) earn MEANING, (2) REASON over it, (3) LEARN from reading.
@@ -28,7 +29,7 @@ The encoder's ~0.56-0.63 held-out-NEW ceiling is **NOT cheaply liftable.** Every
 ## 🔴 THE FRONTIER — COMPREHENSION MECHANISM (situation model)
 The deep gap: our encoder produces a shallow TEXTBASE (bag-of-contextualized-tokens); the brain builds a dynamic updatable SITUATION MODEL (entities/state/time/causality/goals; Kintsch, Zwaan, Frankland-Greene, Rabovsky). Binding is ROLE-GENERAL not positional — brain (lmSTC AGENT/PATIENT slots) AND our own probe agree (position-bind 0.52 self-consistency vs mean-pool 0.95).
 - **Full design + biology + invariants + measurement bands: `notes/comprehension_situation_model_frontier_scoping.md`.**
-- **First can-fail experiment (design A, IN FLIGHT):** entity-slot scaffold + a small LEARNED write-gate on the FROZEN encoder's own hidden states (reuse hdlab/sequence_memory.SequenceMatrix). Same cheap "learned head on frozen reps" class as the readout fix — NO retrain. Extends the calibration-first instrument in place. Measured with the MANDATORY untrained-random-init control + calibration gate (a known reader must clear the new construction first). Escalation path = design B (forward state-prediction self-teacher).
+- **Design A LANDED = HARD_FAIL (mechanism refuted), but a VET-PENDING incidental positive — see the "COMPREHENSION EXP A" section at the bottom.** Headline: the frozen encoder's plain mean-pool+probe already tracks cross-boundary entity state at +0.21 (near known-reader BGE +0.23) on a VALID order-required construction => likely READOUT-limited not mechanism-limited (same theme as the readout fix). Two-seed VET in flight before believing; do NOT escalate to design B (objective change) until it confirms.
 - INVARIANTS (locked): learned gate NOT a hand-coded resolver (state_of_mind.py resolvers are SHELVED for this); frozen OWN encoder, no borrowed embedding as meaning organ; no external LLM. Supplying STRUCTURE ok; supplying the MECHANISM forbidden.
 
 ## 📏 MEASUREMENT STATE (what to trust)
@@ -38,7 +39,7 @@ The deep gap: our encoder produces a shallow TEXTBASE (bag-of-contextualized-tok
 
 ## ⏳ IN FLIGHT
 - **Breadth seed_13** (GPU, ~3h) — replicating the seed_7 null to close the data-lever verdict. HEALTHY (verify via ckpt-mtime + GPU-util, NOT the coarse ~6000-unit heartbeat that false-alarmed 3x).
-- **Comprehension exp A** (remote CPU) — re-dispatched after an API-flap crash (told to commit early/often); status uncertain, awaiting notification. Do NOT re-dispatch a 3rd time into an unstable API on speculation.
+- **Cross-boundary VET** (remote CPU) — does the frozen-encoder mean-pool+probe +0.21 cross-boundary tracking margin REPLICATE on seed_13 (+ v2 baseline)? Key: seed-7 comprehension died on seed-13 before, so this gates whether "encoder tracks entity state / gap is readout not mechanism" is real. REPLICATES if seed_13 >= ~0.15 w/ clean controls; else reassess.
 
 ## 🅿️ PARKED (with triggers — not islands)
 - **gate code-swap** z-avg->gate in the encoder eval/loop fusion path — HELD until breadth lands (don't destabilize breadth's live eval). Realizes the gated_fusion WIRE.
@@ -53,3 +54,6 @@ The deep gap: our encoder produces a shallow TEXTBASE (bag-of-contextualized-tok
 
 ## STORE / DISCIPLINE
 Tail 29591, LOCAL-ONLY. Origin pushed to HEAD this session (USER-authorized, private repo mcox79/hd-instrument) so remote runs importing new hdlab modules resolve. NO further push without in-session USER auth. Only stop/kill what THIS session spawned. Heartbeat every turn-end. Brain = existence proof; on every negative evaluate the difference vs the brain + iterate.
+
+## 🔬 COMPREHENSION EXP A (07-28) = design A REFUTED, but an INCIDENTAL POSITIVE (VET-pending)
+entity_slot_gate_cross_boundary_v1 (5da0144bc). CALIBRATION-GATE PASSED: new gen_cross_boundary construction (word-multiset-controlled, order-REQUIRED, 2-sentence entity-consistency) — known reader BGE +0.23 z=8.28 clears it (MiniLM +0.14, per-model validity). DESIGN A (Hebbian-bundled slot memory -> 3-scalar surprise/gate readout) = clean HARD_FAIL: capacity crosstalk + 3-scalar bottleneck throw away signal; random-init control MATCHED trained (structure not learning); triple cross-checked; NOT dispatched. entity_slot_gate.py SHELVED. **INCIDENTAL HEADLINE (VET-PENDING, single-seed): on this VALID order-required construction, the frozen encoder RELOBJ_v3 seed_7 MEAN_POOL+probe already gets +0.21 — right below BGE +0.23, above MiniLM +0.14. => first clean evidence the encoder DOES track cross-boundary entity state, near known-reader level, decodable by a SIMPLE readout. Same readout-limited-not-representation-limited theme as the relational readout fix, now for COMPREHENSION. Clause-split-concat +0.24 (>mean-pool +0.21, small extra).** DO NOT escalate to Design B (objective change — session shows those don't pay) NOR believe the +0.21 yet (seed-7 comprehension over-read us before, +0.283 died on seed-13). NEXT = cheap two-seed VET: does mean-pool+probe cross-boundary margin replicate on seed_13 (+ v2 baseline)? If yes -> comprehension gap is READOUT not mechanism, much smaller than feared. If no -> reassess.
