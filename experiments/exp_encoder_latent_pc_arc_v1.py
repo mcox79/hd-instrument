@@ -1221,6 +1221,12 @@ def _parse_args():
                          "(LITE_ARMS, no ARM_LPC_TC ablation); writes to data/exp_%s_lite/ (a DISTINCT "
                          "dir from the FULL run's data/exp_%s/, so it never collides with the in-progress "
                          "FULL GPU run's checkpoints/units.jsonl)." % (ANCHOR_NAME, ANCHOR_NAME))
+    ap.add_argument("--lite-steps", type=int, default=None,
+                    help="override LITE_CFG['mlm_steps'] (only applies with --lite). MEASURED CPU cost "
+                         "(this repo, 2026-07-30, 6 torch threads): ~14.6s/step for ARM_LPC at "
+                         "d_model=512/L=6 -- 6000 steps is CPU-infeasible (~24h+ for LPC alone, before "
+                         "ARM_MLM); this cfg is sized for GPU. Use --lite-steps to shrink for a bounded "
+                         "CPU/remote_cpu_queue run if GPU placement is unavailable.")
     ap.add_argument("--co-scaled", action="store_true",
                     help="capacity-ratio follow-up: smaller encoder (d=256,L=4) over the same tokens")
     ap.add_argument("--device", default=None)
@@ -1238,6 +1244,8 @@ def main(args):
         cfg = dict(SMOKE_CFG)
     elif args.lite:
         cfg = dict(LITE_CFG)
+        if args.lite_steps is not None:
+            cfg["mlm_steps"] = int(args.lite_steps)
     else:
         cfg = dict(FULL_CFG)
     if args.co_scaled:
