@@ -783,17 +783,29 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--full", action="store_true")
+    ap.add_argument("--ckpt-path", default=None,
+                    help="path-swap (2026-07-30, per notes/brain_syntax_to_role_mechanism_and_forward_"
+                         "predictive_encoder_spec_2026-07-30.md): FrozenV2Encoder-shaped ckpt "
+                         "(state_dict+model_cfg+tokenizer_json) to probe INSTEAD OF the default frozen "
+                         "v2 MLM ckpt (V2_CKPT). Zero other code changes -- SyntaxRoleEncoder only needs "
+                         "a ckpt_path string. Output dir is suffixed with the ckpt's basename so a "
+                         "different-encoder run never overwrites the frozen-v2 metrics.json.")
     args = ap.parse_args()
 
     torch.set_num_threads(min(6, max(1, os.cpu_count() or 1)))
     run_mode = "self_test" if args.self_test or not args.full else "full"
-    _write_start_marker(OUTPUT_DIR, run_mode, EXPECTED_N_UNITS)
+    ckpt_path = args.ckpt_path if args.ckpt_path else V2_CKPT
+    out_dir = OUTPUT_DIR
+    if args.ckpt_path:
+        tag = os.path.splitext(os.path.basename(args.ckpt_path))[0]
+        out_dir = OUTPUT_DIR + "__" + tag
+    _write_start_marker(out_dir, run_mode, EXPECTED_N_UNITS)
     t0 = time.perf_counter()
 
     if run_mode == "self_test":
         st = run_self_test()
         elapsed = time.perf_counter() - t0
-        _atomic_write_metrics(OUTPUT_DIR, {
+        _atomic_write_metrics(out_dir, {
             "verdict": "SELFTEST_PASS",
             "verdict_msg": "SELFTEST_PASS (balance + position-only-construction + frames-differ + "
                            "real full pipeline + arms-differ)",
@@ -802,19 +814,19 @@ def main():
         _log("DONE self-test in %.1fs" % elapsed)
         return
 
-    _log("FULL: directions=%s chance=%.4f n_context_sentences=%d n_bare_words=%d"
-         % (DIRECTIONS, CHANCE, len(ALL_CONTEXT_SENTENCES), len(BARE_WORDS)))
-    enc = SyntaxRoleEncoder(V2_CKPT)
+    _log("FULL: directions=%s chance=%.4f n_context_sentences=%d n_bare_words=%d ckpt=%s"
+         % (DIRECTIONS, CHANCE, len(ALL_CONTEXT_SENTENCES), len(BARE_WORDS), ckpt_path))
+    enc = SyntaxRoleEncoder(ckpt_path)
     n_cached = enc.build_cache()
     _log("  cached %d unique sentences (d=%d)" % (n_cached, enc.d))
 
-    prior_units = ckpt.load_units(OUTPUT_DIR)
+    prior_units = ckpt.load_units(out_dir)
     if prior_units:
         _log("checkpoint: %d/%d units already recorded on disk; resuming"
              % (len(prior_units), EXPECTED_N_UNITS))
 
-    with CellHeartbeat(OUTPUT_DIR, total_units=EXPECTED_N_UNITS, interval_s=30) as hb:
-        pipeline_out = run_pipeline(enc, OUTPUT_DIR, hb)
+    with CellHeartbeat(out_dir, total_units=EXPECTED_N_UNITS, interval_s=30) as hb:
+        pipeline_out = run_pipeline(enc, out_dir, hb)
 
     verdict, msg, bands = decide_verdict(pipeline_out)
     elapsed = time.perf_counter() - t0
@@ -825,7 +837,7 @@ def main():
     check_arms_differ(digests)   # raises loudly on an undeclared collision; never silently continues
     arms_differ = True
 
-    _atomic_write_metrics(OUTPUT_DIR, {
+    _atomic_write_metrics(out_dir, {
         "verdict": verdict, "verdict_msg": msg,
         "summary": "%s | chance=%.4f | %s" % (verdict, CHANCE, msg[:160]),
         "run_mode": "full", "elapsed_s": elapsed, "ts_iso": _now_iso(), "anchor_name": ANCHOR_NAME,
@@ -843,7 +855,7 @@ def main():
                    "module docstring rationale)",
                    "conditioning": "global_mean_centering (contextualized reps and bag-of-words reps "
                                    "centered SEPARATELY, per module docstring)",
-                   "v2_ckpt": os.path.relpath(V2_CKPT, REPO_ROOT), "shuffle_seed": SHUFFLE_SEED,
+                   "v2_ckpt": os.path.relpath(ckpt_path, REPO_ROOT), "shuffle_seed": SHUFFLE_SEED,
                    "n_shuffle_trials": N_SHUFFLE_TRIALS},
         "start_marker_written": True, "crash_diagnostic_present": True,
         "final_metrics_atomicity": "tmp_replace", "defensive_error_checking": "passed_all_4_patterns",

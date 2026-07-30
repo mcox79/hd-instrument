@@ -16,12 +16,16 @@ WHY (notes/encoder_representation_lever_ranking_2026-07-29.md lever #1;
   NO working-memory module, NO slot state -- it is judged PURELY on representation quality (section 3
   of the ranking note), on a FROZEN encoder snapshot, so the two workstreams never confound.
 
-WHAT (the run): four encoder objectives, MATCHED training budget (same tokens/steps/architecture),
-  each frozen and scored on the SAME independent rep-quality battery:
-    ARM_LPC     : latent-PC (JEPA) alone. EMA/stop-grad target encoder (SimSiam-style) + VICReg
-                  variance-floor + covariance/decorrelation term (collapse guard, REQUIRED per lit).
-    ARM_LPC_TC  : latent-PC + temporal-contiguity aux loss (Foldiak slow-feature). Wires the ALREADY
-                  BANKED hdlab/temporal_trace.py primitive as a one-variable ABLATION arm.
+WHAT (the run): five encoder arms (2026-07-30: added ARM_LPC_CAUSAL, renamed ARM_LPC->ARM_LPC_BIDIR),
+  MATCHED training budget (same tokens/steps/architecture), each frozen and scored on the SAME
+  independent rep-quality battery:
+    ARM_LPC_CAUSAL : causal next-latent prediction (lower-triangular mask) + hold-then-revise role gate
+                  (diagnostic) + clause-level hierarchy head -- PRIMARY, 2026-07-30 amendment.
+    ARM_LPC_BIDIR : latent-PC (JEPA), UNCHANGED bidirectional masked-span -- CONTROL (was ARM_LPC).
+                  EMA/stop-grad target encoder (SimSiam-style) + VICReg variance-floor + covariance/
+                  decorrelation term (collapse guard, REQUIRED per lit).
+    ARM_LPC_TC  : ARM_LPC_BIDIR + temporal-contiguity aux loss (Foldiak slow-feature). Wires the
+                  ALREADY BANKED hdlab/temporal_trace.py primitive as a one-variable ABLATION arm.
     ARM_MLM     : the CURRENT MLM v2 encoder (imported from exp_scale_meaning_learn_arc_heldout_v2),
                   same architecture/steps/tokens -> the known-good reference (29591 baseline).
     ARM_RANDOM  : random-init encoder (same architecture, untrained) -> the floor.
@@ -37,15 +41,19 @@ REP-QUALITY BATTERY (frozen encoder; KB used READ-ONLY as a probe, NEVER a train
     4. rep_dispersion + collapse: per-dim concept-rep std + mean pairwise cosine (collapse witness)
                                   + training-time min target-embedding std (VICReg guard telemetry).
 
-THE PRE-REGISTERED BANDS (deflated per lit-scan calibration; section 3 of the ranking note):
-  HARD_PASS  = ARM_LPC graded_geometry beats ARM_MLM by >= +0.10 AND beats ARM_RANDOM by >= +0.15,
+THE PRE-REGISTERED BANDS (deflated per lit-scan calibration; section 3 of the ranking note; this is
+  the REP-QUALITY bonus criterion inherited from the prior lever -- the DECISIVE causal-encoder claim
+  is the SEPARATE syntax-role cross-voice probe cell, see CAUSAL-ENCODER AMENDMENT note below):
+  HARD_PASS  = ARM_LPC_CAUSAL graded_geometry beats ARM_MLM by >= +0.10 AND beats ARM_RANDOM by >= +0.15,
                in >= 1 of 2 seeds with the OTHER seed non-negative, AND held-out probe does NOT
                regress (>= MLM - 0.01), AND NO collapse (rep_std + target_std above floors).
-  HARD_FAIL_NO_EFFECT = ARM_LPC ties BOTH ARM_MLM and ARM_RANDOM within +/-0.03 on graded_geometry.
+  HARD_FAIL_NO_EFFECT = ARM_LPC_CAUSAL ties BOTH ARM_MLM and ARM_RANDOM within +/-0.03 on graded_geometry.
   FAIL_BY_COLLAPSE    = geometry metrics move but variance collapses (rep_std < floor OR training
                         target_std < floor) -> distinct diagnosis (mechanism class NOT refuted).
   MIDDLE_BAND         = anything else (real-but-below-band gain).
-  ARM_LPC_TC is reported as an ABLATION (does temporal-contiguity add over LPC alone?).
+  ARM_LPC_TC is reported as an ABLATION (does temporal-contiguity add over bidirectional-LPC alone?);
+  ARM_LPC_CAUSAL vs ARM_LPC_BIDIR (causal_vs_bidir_delta) is reported as a SECOND ablation (does the
+  causal-mask amendment beat its own bidirectional control?). Both UNGATED (reported, not HP/FAIL gated).
 
 CAPACITY-RATIO WATCH (SimSiam small-scale sensitivity finding, SCAN 1): collapse risk is
   capacity/data-ratio dependent, not simply "small data fails". FULL uses d_model=512 over ~130M
@@ -87,8 +95,47 @@ BUILD-PLAN FIXES 2026-07-30 (notes/forward_predictive_second_encoder_build_plan_
   Fix 4  ARM_MLM reuses V2 ckpt_seed_{7,13}.pt at FULL (no retrain); FULL mlm_steps bumped 40000->60000
          to MATCH V2 FULL so the reused MLM arm and the fresh LPC arms share the step budget (flagged).
 
+CAUSAL-ENCODER AMENDMENT 2026-07-30 (notes/brain_syntax_to_role_mechanism_and_forward_predictive_
+  encoder_spec_2026-07-30.md Part 2; answers the measured wall in exp_syntactic_role_agent_patient_
+  voice_probe_v1, 74d4ea0c1: frozen MLM cross-voice agent/patient probe = 0.18/0.16, INVERTS on
+  passives). ONE axis changed (masked-bidirectional -> causal next-latent prediction) + two small NEW
+  components, everything else above (VICReg guards, EMA/stop-grad, OOM-tripwire, Fix A/C/D/2b/2c/2d)
+  carried forward VERBATIM:
+  (a) CAUSAL objective: NEW arm ARM_LPC_CAUSAL trains with a lower-triangular attention mask (see
+      `_causal_contextual`, a local wrapper around the SAME TinyTransformer -- no change to the
+      imported v2 class, so ARM_MLM/ARM_RANDOM and every other v2 consumer is unaffected) + a
+      left-truncated span rule (target span start >= 1, so there is always >=1 token of real left
+      context; the SAME masked-span mechanism as before, just no longer allowed to start at t=0).
+      The renamed ARM_LPC_BIDIR is the UNCHANGED prior bidirectional arm, kept as the causal-vs-
+      bidirectional control (spec anchor-candidate #2).
+  (b) HOLD-THEN-REVISE gate: `hold_then_revise_gate` + `role_hypothesis_pass` reuse the EXACT PBWM
+      bistable-write math from hdlab/slot_attention_wm.py (`boundary = sigmoid((surprise-theta)/tau)`,
+      REPLACE not blend at low tau) at token-to-clause granularity on the causal arm's own latents
+      (diagnostic pass, logged as role_gate_mean_replace_rate; not wired into the training loss --
+      the gate's job per the spec is role-state tracking, not an additional loss term).
+  (c) HIERARCHY: `ClausePredictor` (d_model->d_model, same shape/pattern as `LatentPredictor`) adds a
+      second smooth-L1+VICReg loss term on the causal arm only, predicting the NEXT WINDOW's pooled
+      latent (EMA target, stop-grad) from the current window's last-valid-position causal latent.
+      FLAG (spec-vs-code discrepancy, honest per META_RULE_AC): the spec's own text says this head
+      "reuses the ForwardPredictor already designed in forward_predictive_objective_from_wm_state_
+      design_2026-07-29.md section 2" -- grepped, no such importable class exists anywhere in the repo
+      (design-note only). Built fresh at the same architecture PATTERN the spec mandates (d_model->
+      d_model MLP + smooth-L1/VICReg, OOM-immune). "Next clause" is PROXIED as "next training window
+      in corpus order" (no clause/sentence-boundary segmenter exists in this pipeline) -- this is a
+      HYPOTHESIZED proxy for clause-adjacency, not a literal linguistic clause boundary; flagged, not
+      oversold.
+  (d) Glass-box: no change -- same TinyTransformer, same from-scratch tokenizer/BPE, gate operates on
+      the encoder's own latents (no bolt-on parser).
+  --lite REPURPOSED (2026-07-30, per Director's explicit spec): now trains ONLY ARM_LPC_CAUSAL, ONE
+  seed, ~10x fewer steps, SAME architecture as FULL -> ckpt_seed_7_ARM_LPC_CAUSAL_lite.pt, for the
+  cross-voice role probe's early directional read. FLAG (breaking change, low risk): this REPLACES the
+  prior --lite semantics (which trained ARM_LPC[now ARM_LPC_BIDIR]+ARM_MLM+ARM_RANDOM for
+  exp_context_invariance_lpc_lite_probe_v1.py) -- verified no data/exp_encoder_latent_pc_arc_v1_lite/
+  artifacts exist yet on disk, so nothing already-landed is broken, but that OTHER probe cell's
+  contract with --lite no longer holds if invoked after this change.
+
 # CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
-# - arms_differ_verified at run (META_RULE_AF; hash of the 4 arms' held-out rep matrices)
+# - arms_differ_verified at run (META_RULE_AF; hash of the 5 arms' held-out rep matrices)
 # - final_metrics_atomicity: tmp_replace (via _seed_checkpoint.write_metrics + os.replace + per-seed partials)
 # - except SystemExit: raise BEFORE except Exception (no BaseException)
 # - crlb_n/a: this is a representation-geometry comparison (Spearman/probe-acc), not a noise-floor
@@ -97,7 +144,8 @@ BUILD-PLAN FIXES 2026-07-30 (notes/forward_predictive_second_encoder_build_plan_
 # - discriminator survives scale: analytical (objective gap is architectural; battery NOT saturated -- MLM
 #     ~0.56-0.63 leaves >0.10 headroom, RANDOM near 0 gives >0.15 headroom) + smoke previews arm ordering
 # - HARD_PASS strictly above floor: >= +0.10 over MLM AND >= +0.15 over RANDOM (both well above no-effect 0.03)
-# - HP_SCOPE: HP gates apply to ARM_LPC (primary). ARM_LPC_TC = ablation (reported, not gated for HP).
+# - HP_SCOPE: HP gates apply to ARM_LPC_CAUSAL (primary, 2026-07-30). ARM_LPC_BIDIR = control
+#     (unchanged bidirectional cell), ARM_LPC_TC = ablation (both reported, not gated for HP).
 #     ARM_MLM/ARM_RANDOM = reference/floor (NOT gated).
 # - no sweep axis -> cardinality_ok via EXPECTED_N_UNITS = n_seeds
 # - per-unit failure-class instrumentation (no bare except; specific classes -> metrics)
@@ -163,16 +211,17 @@ _DATA_CFG_KEYS = ("min_deg", "cap_eval_concepts", "heldout_count", "min_mentions
                   "train_token_budget", "max_shards", "n_freq_buckets")
 
 # Arms
-ARM_LPC = "ARM_LPC"                # latent-PC (JEPA) alone -- PRIMARY
-ARM_LPC_TC = "ARM_LPC_TC"         # latent-PC + temporal-contiguity -- ABLATION
+ARM_LPC_CAUSAL = "ARM_LPC_CAUSAL"  # causal next-latent prediction + hold-then-revise + clause head -- PRIMARY (2026-07-30)
+ARM_LPC_BIDIR = "ARM_LPC_BIDIR"    # UNCHANGED prior bidirectional masked-span latent-PC -- CONTROL (was ARM_LPC)
+ARM_LPC_TC = "ARM_LPC_TC"         # bidirectional latent-PC + temporal-contiguity -- ABLATION (unaffected by causal axis)
 ARM_MLM = "ARM_MLM"               # current MLM baseline (matched budget) -- reference
 ARM_RANDOM = "ARM_RANDOM"         # random-init -- floor
-ARMS = [ARM_LPC, ARM_LPC_TC, ARM_MLM, ARM_RANDOM]
-OBJECTIVE_ARMS = [ARM_LPC, ARM_LPC_TC]   # arms that carry training-time collapse telemetry
-# --lite (2026-07-30 early-signal build, coordinator-revised spec): trains ARM_LPC + ARM_MLM at a
-# BUDGET-MATCHED reduced schedule (the ONE variable is the objective) + ARM_RANDOM (untrained floor).
-# ARM_LPC_TC (ablation) is skipped -- not needed for the early gate; saves ~1/3 of lite wall-clock.
-LITE_ARMS = [ARM_LPC, ARM_MLM, ARM_RANDOM]
+ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC, ARM_MLM, ARM_RANDOM]
+OBJECTIVE_ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC]   # arms carrying training-time collapse telemetry
+# --lite (2026-07-30 REPURPOSED per Director spec for the causal-encoder cross-voice role-probe early
+# read): trains ONLY ARM_LPC_CAUSAL, ONE seed, ~10x fewer steps, SAME architecture as FULL. Supersedes
+# the prior lite semantics (ARM_LPC[now ARM_LPC_BIDIR]+ARM_MLM+ARM_RANDOM) -- see header FLAG.
+LITE_ARMS = [ARM_LPC_CAUSAL]
 
 # Pre-reg bands (headline = graded_geometry_spearman; deflated per lit-scan calibration)
 HP_GG_OVER_MLM = 0.10            # ARM_LPC - ARM_MLM graded-geometry (break the reference)
@@ -193,6 +242,10 @@ MIN_QUERY_TASKS = 40             # power floor for the geometry/probe evals to b
 _LPC_COMMON = dict(
     lpc_mask_frac=0.20, lpc_ema_m=0.996, lpc_var_coef=1.0, lpc_cov_coef=0.04,
     lpc_pred_hidden_mult=2, lpc_tc_coef=0.5, lpc_tc_alpha=0.1,
+    # causal amendment 2026-07-30: hold-then-revise gate (theta/tau reused from
+    # hdlab/slot_attention_wm.py SlotAttentionWM.write_theta / write_tau_end=0.1, near-bistable) +
+    # clause-head loss coefficient (same weight class as lpc_tc_coef).
+    role_gate_theta=0.5, role_gate_tau=0.1, lpc_clause_coef=0.5,
 )
 
 SELFTEST_CFG = dict(
@@ -233,16 +286,14 @@ FULL_CFG = dict(
 # Co-scaled follow-up variant (capacity-ratio watch): smaller encoder over the same ~130M tokens.
 FULL_COSCALED_OVERRIDE = dict(d_model=256, n_layers=4, n_heads=8, ffn_mult=4)
 
-# LITE early-signal config (2026-07-30 hand-off, coordinator-revised spec): the FULL GPU run (this same
-# file, no --lite) trains for ~15h; this config buys an EARLY read on the encoder-objective question
-# WITHOUT waiting for it. SAME ARCHITECTURE as FULL (d_model/n_layers/n_heads/ffn_mult/vocab/max_len
-# UNCHANGED -- representativeness: an early signal from a smaller/shallower net would not transfer) but
-# ~10x fewer steps (6000 vs 60000) and a much smaller data subset (faster data-prep + faster/seed).
-# Trains ARM_LPC + ARM_MLM (budget-matched -- objective is the ONE variable) + ARM_RANDOM (untrained
-# floor); ARM_LPC_TC ablation is skipped (LITE_ARMS, not ARMS). ARM_MLM is FRESH-TRAINED at this reduced
-# budget (NOT the V2 60000-step reuse -- that would be the unfair confounded comparison the coordinator
-# flagged: undertrained LPC vs fully-trained MLM. _build_encoder only reuses V2's ckpt when
-# cfg["run_mode"]=="full"; "lite" always falls through to a fresh matched-budget mlm_train call).
+# LITE early-signal config (2026-07-30 REPURPOSED for the causal-encoder cross-voice role-probe early
+# read; supersedes the prior ARM_LPC+ARM_MLM+ARM_RANDOM lite -- see header FLAG). The FULL GPU run
+# (this same file, no --lite) trains for ~15-19h; this config buys an EARLY directional read on the
+# causal-encoder question WITHOUT waiting for it. SAME ARCHITECTURE as FULL (d_model/n_layers/n_heads/
+# ffn_mult/vocab/max_len UNCHANGED -- representativeness: an early signal from a smaller/shallower net
+# would not transfer) but ~10x fewer steps (6000 vs 60000) and a much smaller data subset (faster
+# data-prep + faster/seed). Trains ONLY ARM_LPC_CAUSAL (LITE_ARMS = [ARM_LPC_CAUSAL]), ONE seed (7) --
+# saves ckpt_seed_7_ARM_LPC_CAUSAL_lite.pt for the syntax-role probe's path-swap early read.
 LITE_CFG = dict(
     run_mode="lite", seeds=[7],
     min_deg=2, cap_eval_concepts=3000, heldout_count=150, min_mentions_eval=5,
@@ -326,6 +377,73 @@ class LatentPredictor(torch.nn.Module):
         return self.net(z)
 
 
+class ClausePredictor(torch.nn.Module):
+    """d_model->d_model MLP predicting the NEXT-clause latent from the current causal state (spec Part
+    2(c), hierarchy lever). Same shape/OOM-immunity class as LatentPredictor -- never [.,vocab]."""
+    def __init__(self, d_model, hidden_mult):
+        super().__init__()
+        h = max(d_model, hidden_mult * d_model)
+        self.net = torch.nn.Sequential(
+            torch.nn.Linear(d_model, h), torch.nn.GELU(), torch.nn.Linear(h, d_model))
+
+    def forward(self, z):  # [B, d] -> [B, d]
+        return self.net(z)
+
+
+# ---------------------------------------------------------------------------
+# CAUSAL attention path (spec Part 2(a)): a LOCAL wrapper around the imported, UNCHANGED TinyTransformer
+# -- reuses the model's own tok_emb/pos_emb/enc/norm, only flips the attention mask from full
+# (bidirectional) to lower-triangular (causal). No architecture change to the v2 class itself, so every
+# other consumer of TinyTransformer (ARM_MLM/ARM_RANDOM/v2's own MLM pipeline) is completely unaffected.
+# ---------------------------------------------------------------------------
+def _causal_contextual(model, ids):
+    """Position t attends ONLY to positions <= t (strict lower-triangular incl. diagonal). Mirrors
+    TinyTransformer._contextual exactly except for the added `mask=` argument to `model.enc(...)`."""
+    pad_mask = (ids == model.pad_id)
+    L = ids.shape[1]
+    pos = torch.arange(L, device=ids.device).unsqueeze(0)
+    h = model.tok_emb(ids) + model.pos_emb(pos)
+    # torch.nn.TransformerEncoderLayer additive-mask convention: True/-inf positions are DISALLOWED.
+    # triu(diagonal=1) marks strictly-upper (future) positions -> disallow those, allow diagonal+lower.
+    causal_mask = torch.triu(torch.ones(L, L, device=ids.device, dtype=torch.bool), diagonal=1)
+    h = model.enc(h, mask=causal_mask, src_key_padding_mask=pad_mask)
+    return model.norm(h), pad_mask
+
+
+# ---------------------------------------------------------------------------
+# HOLD-THEN-REVISE gate (spec Part 2(b)): reuses the EXACT PBWM bistable-write math from
+# hdlab/slot_attention_wm.py SlotAttentionWM.step (boundary = sigmoid((surprise-theta)/tau); REPLACE,
+# not blend, at low/bistable tau), instantiated at token-to-clause granularity on the causal encoder's
+# OWN latents (not a bolt-on parser). Diagnostic-only pass (role-state tracking telemetry; not wired
+# into the training loss -- the spec's mechanism claim is about role-hypothesis tracking, not a loss).
+# ---------------------------------------------------------------------------
+def hold_then_revise_gate(h_role, new_val, pe, theta, tau):
+    """h_role, new_val: [B,d]. pe: [B] per-row surprise (1-cos convention, matching slot_attention_wm).
+    Returns (h_role_new, boundary[B]): boundary~0 = HOLD, boundary~1 = REPLACE (bistable at low tau)."""
+    boundary = torch.sigmoid((pe - theta) / tau)          # [B]
+    h_role_new = (1.0 - boundary).unsqueeze(-1) * h_role + boundary.unsqueeze(-1) * new_val
+    return h_role_new, boundary
+
+
+def role_hypothesis_pass(h_seq, theta, tau):
+    """Run the hold-then-revise gate token-to-clause across a window's causal latents h_seq [B,L,d].
+    h_role initialized from position 0 (the eADM/TDH canonical "first-mentioned-NP=provisional-agent"
+    default, per spec Part 2(b): computing the default first is brain-faithful; the wrongness the
+    measured wall showed is FAILING TO REVISE it). At each subsequent position, PE = 1-cos(h_role, cur);
+    a spike triggers REPLACE (not blend). Returns (final h_role [B,d], boundary_trace [B,L-1])."""
+    B, L, _D = h_seq.shape
+    h_role = h_seq[:, 0, :].clone()
+    if L < 2:
+        return h_role, h_seq.new_zeros((B, 0))
+    boundaries = []
+    for t in range(1, L):
+        cur = h_seq[:, t, :]
+        pe = 1.0 - torch.nn.functional.cosine_similarity(h_role, cur, dim=-1)
+        h_role, b = hold_then_revise_gate(h_role, cur, pe, theta, tau)
+        boundaries.append(b)
+    return h_role, torch.stack(boundaries, dim=1)
+
+
 # ---------------------------------------------------------------------------
 # VICReg collapse-guard terms (computed in float32; safe under AMP)
 # ---------------------------------------------------------------------------
@@ -351,11 +469,16 @@ def _vicreg_covariance(z):
 # ---------------------------------------------------------------------------
 # Latent-predictive-coding (JEPA) training. CUDA-device-safe throughout.
 # ---------------------------------------------------------------------------
-def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=False):
+def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=False, causal=False):
     """Train the online encoder by masked-span latent prediction against an EMA target encoder.
 
     Collapse guard = EMA/stop-grad target (SimSiam-style) + VICReg variance floor + covariance term.
     Optional temporal-contiguity aux loss wires hdlab.temporal_trace (Foldiak slow-feature).
+    `causal=True` (spec Part 2, 2026-07-30): flips attention to lower-triangular (_causal_contextual),
+    constrains masked-span starts to >=1 (left context always exists), adds the ClausePredictor
+    next-window loss term, and runs the hold-then-revise role-hypothesis pass (diagnostic telemetry).
+    `causal` and `temporal_contiguity` are mutually exclusive in practice (ARM_LPC_CAUSAL vs
+    ARM_LPC_TC) but not asserted so, since nothing in the math actually forbids combining them.
     Returns (online_encoder: TinyTransformer, diag: dict). OOM-free: no vocab-sized tensor anywhere.
     """
     torch.manual_seed(seed)
@@ -373,11 +496,15 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
         p.requires_grad_(False)
     target.eval()
     predictor = LatentPredictor(cfg["d_model"], cfg["lpc_pred_hidden_mult"]).to(device)
+    clause_predictor = ClausePredictor(cfg["d_model"], cfg["lpc_pred_hidden_mult"]).to(device) if causal else None
 
     params = list(online.parameters()) + list(predictor.parameters())
+    if causal:
+        params += list(clause_predictor.parameters())
     n_enc_params = sum(p.numel() for p in online.parameters())
+    _tag = "+TC" if temporal_contiguity else ("+CAUSAL" if causal else "")
     _log("  LPC%s online-encoder params=%.2fM predictor=%.3fM device=%s d=%d L=%d"
-         % ("+TC" if temporal_contiguity else "", n_enc_params / 1e6,
+         % (_tag, n_enc_params / 1e6,
             sum(p.numel() for p in predictor.parameters()) / 1e6,
             device.type, cfg["d_model"], cfg["n_layers"]))
     opt = torch.optim.AdamW(params, lr=cfg["mlm_lr"])
@@ -395,11 +522,14 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
     ema_m = cfg["lpc_ema_m"]
     var_coef, cov_coef = cfg["lpc_var_coef"], cfg["lpc_cov_coef"]
     tc_coef = cfg["lpc_tc_coef"] if temporal_contiguity else 0.0
+    clause_coef = cfg["lpc_clause_coef"] if causal else 0.0
+    role_theta, role_tau = cfg["role_gate_theta"], cfg["role_gate_tau"]
     mask_id, pad_id = spec["mask"], spec["pad"]
     trace = TemporalTrace(alpha=cfg["lpc_tc_alpha"], n_dim=cfg["d_model"]) if temporal_contiguity else None
+    contextual_fn = (lambda m, x: _causal_contextual(m, x)) if causal else (lambda m, x: m._contextual(x))
 
     log_every = max(1, steps // 10)
-    pred_hist, tgtstd_hist, tc_hist = [], [], []
+    pred_hist, tgtstd_hist, tc_hist, clause_hist, replace_rate_hist = [], [], [], [], []
     t0 = time.perf_counter()
     online.train()
     predictor.train()
@@ -416,7 +546,11 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
         pad = (ids == pad_id)
         span = max(1, int(round(mask_frac * L)))
         # per-row contiguous target span; ALL device tensors (cuda-safe: no torch.Generator, no cpu tensor)
-        starts = torch.randint(0, max(1, L - span + 1), (B,), device=device)
+        # causal (spec 2a, "left-truncated span rule"): start >= 1 so >=1 token of real left context
+        # always precedes the target span (a causal encoder predicting a span starting at t=0 would have
+        # NO left context to predict from -- the bidirectional arm has no such constraint).
+        start_lo = 1 if (causal and L > 1) else 0
+        starts = torch.randint(start_lo, max(start_lo + 1, L - span + 1), (B,), device=device)
         ar = torch.arange(L, device=device).unsqueeze(0)
         tgt_mask = (ar >= starts.unsqueeze(1)) & (ar < (starts.unsqueeze(1) + span))
         tgt_mask = tgt_mask & (~pad)
@@ -430,9 +564,9 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
 
         opt.zero_grad(set_to_none=True)
         with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_amp):
-            h_ctx, _ = online._contextual(ctx_ids)          # [B,L,d]
+            h_ctx, _ = contextual_fn(online, ctx_ids)        # [B,L,d]  (causal: lower-triangular mask)
             with torch.no_grad():
-                h_tgt, _ = target._contextual(ids)          # [B,L,d] stop-grad EMA target
+                h_tgt, _ = contextual_fn(target, ids)        # [B,L,d] stop-grad EMA target
             zc = h_ctx[tgt_mask]                             # [T,d] context latents at target positions
             zt = h_tgt[tgt_mask].detach()                   # [T,d] target latents (stop-grad)
             zp = predictor(zc)                              # [T,d] predicted target latents
@@ -443,6 +577,26 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
             var_loss = _vicreg_variance(zp32) + _vicreg_variance(zt32)
             cov_loss = _vicreg_covariance(zp32) + _vicreg_covariance(zt32)
             loss = pred_loss + var_coef * var_loss + cov_coef * cov_loss
+
+            clause_val = 0.0
+            if causal:
+                # HIERARCHY (spec 2c): predict the NEXT window's pooled latent (EMA target, stop-grad;
+                # clause-adjacency PROXIED as next-window-in-corpus-order, see header FLAG) from the
+                # current window's last-valid (non-pad) causal position -- d_model->d_model only.
+                last_valid = (~pad).float().cumsum(dim=1).argmax(dim=1)          # [B] last non-pad idx
+                cur_state = h_ctx[torch.arange(B, device=device), last_valid]    # [B,d] grad-carrying
+                sel_next = torch.from_numpy(((sel + 1) % n_win).astype(np.int64)).to(device)
+                ids_next = torch.from_numpy(windows[sel_next.cpu().numpy()].astype(np.int64)).to(device)
+                with torch.no_grad():
+                    h_tgt_next, pad_next = contextual_fn(target, ids_next)
+                    keep_next = (~pad_next).float().unsqueeze(-1)
+                    pooled_next = (h_tgt_next * keep_next).sum(dim=1) / keep_next.sum(dim=1).clamp_min(1.0)
+                clause_pred = clause_predictor(cur_state)
+                if step == 0:
+                    _assert_no_vocab_dim((cur_state, pooled_next, clause_pred), cfg["d_model"], spec["size"])
+                clause_loss = torch.nn.functional.smooth_l1_loss(clause_pred, pooled_next.detach())
+                loss = loss + clause_coef * clause_loss
+                clause_val = float(clause_loss.detach())
 
             tc_val = 0.0
             if temporal_contiguity:
@@ -479,12 +633,19 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
         pred_hist.append(float(pred_loss.detach()))
         tgtstd_hist.append(tgt_std)
         tc_hist.append(tc_val)
+        clause_hist.append(clause_val)
+        if causal:
+            # HOLD-THEN-REVISE diagnostic (spec 2b): run on the just-computed causal target latents
+            # h_tgt (no_grad, stop-grad already) -- a role-tracking telemetry pass, not a loss term.
+            with torch.no_grad():
+                _, boundary_trace = role_hypothesis_pass(h_tgt, role_theta, role_tau)
+                replace_rate_hist.append(float(boundary_trace.mean().detach()) if boundary_trace.numel() else 0.0)
         if (step % log_every == 0) or (step == steps - 1):
             el = time.perf_counter() - t0
-            _log("  LPC%s seed=%d step=%d/%d pred=%.4f var=%.4f cov=%.4f tc=%.4f tgt_std=%.4f (%.1fs)"
-                 % ("+TC" if temporal_contiguity else "", seed, step, steps,
+            _log("  LPC%s seed=%d step=%d/%d pred=%.4f var=%.4f cov=%.4f tc=%.4f clause=%.4f tgt_std=%.4f (%.1fs)"
+                 % (_tag, seed, step, steps,
                     float(pred_loss.detach()), float(var_loss.detach()), float(cov_loss.detach()),
-                    tc_val, tgt_std, el))
+                    tc_val, clause_val, tgt_std, el))
             _heartbeat(out_dir, step, hb_total, el,
                        extra={"pred_loss": float(pred_loss.detach()), "tgt_std": tgt_std, "seed": seed})
 
@@ -496,6 +657,10 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
         min_target_std=float(np.min(tgtstd_hist)) if tgtstd_hist else 0.0,
         final_target_std=float(np.mean(tgtstd_hist[-k:])) if tgtstd_hist else 0.0,
         mean_tc_loss=float(np.mean(tc_hist)) if temporal_contiguity else None,
+        init_clause_loss=float(np.mean(clause_hist[:k])) if causal else None,
+        final_clause_loss=float(np.mean(clause_hist[-k:])) if causal else None,
+        role_gate_mean_replace_rate=float(np.mean(replace_rate_hist)) if replace_rate_hist else None,
+        causal=bool(causal),
         n_steps=steps,
     )
     return online, diag
@@ -772,11 +937,17 @@ def _build_encoder(arm, cfg, spec, device, seed, stream, out_dir, hb_total):
                                 cfg["n_heads"], cfg["ffn_mult"], spec["pad"]).to(device)
         model.eval()
         return model, dict(untrained=True), None, None
-    if arm == ARM_LPC:
-        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=False)
+    if arm == ARM_LPC_BIDIR:
+        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total,
+                         temporal_contiguity=False, causal=False)
         return m, d, None, None
     if arm == ARM_LPC_TC:
-        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=True)
+        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total,
+                         temporal_contiguity=True, causal=False)
+        return m, d, None, None
+    if arm == ARM_LPC_CAUSAL:
+        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total,
+                         temporal_contiguity=False, causal=True)
         return m, d, None, None
     raise ValueError("unknown arm %s" % arm)
 
@@ -876,66 +1047,84 @@ def _fmt(x):
 # inconclusive, a positive is encouraging" mandate.
 # ---------------------------------------------------------------------------
 def build_lite_verdict(per_seed, cfg):
+    """2026-07-30 REPURPOSED: --lite now trains ONLY ARM_LPC_CAUSAL, ONE seed (spec Part 2 hand-off).
+    This is UNDERTRAINED BY CONSTRUCTION (6000 steps vs FULL's 60000) -- never judged against
+    build_verdict()'s HARD_PASS/HARD_FAIL bands. Certifies: trained+checkpointed cleanly, no collapse,
+    clause-loss descended, role-gate fired (some REPLACE events, not stuck at 0 or 1). The DECISIVE
+    early read is the syntax-role cross-voice probe (exp_syntactic_role_agent_patient_voice_probe_v1.py)
+    path-swapped onto ckpt_seed_7_ARM_LPC_CAUSAL_lite.pt -- a separate cell, run by the Director."""
     seeds = sorted(per_seed.keys(), key=lambda k: int(k))
     sk = seeds[0]
-    arms = LITE_ARMS
+    arm = ARM_LPC_CAUSAL
 
-    def mean(key, arm):
+    def mean(key):
         vv = [per_seed[k]["arms"].get(arm, {}).get(key) for k in seeds]
         vv = [x for x in vv if x is not None]
         return float(np.mean(vv)) if vv else None
 
-    all_trained = all(arm in per_seed[sk].get("arms", {}) for arm in arms)
-    ckpts_saved = all(per_seed[sk].get("ckpt_paths", {}).get(arm) for arm in (ARM_LPC, ARM_MLM))
+    all_trained = all(arm in per_seed[k].get("arms", {}) for k in seeds)
+    ckpts_saved = all(per_seed[k].get("ckpt_paths", {}).get(arm) for k in seeds)
 
-    m_repstd = {a: mean("rep_std", a) for a in arms}
-    lpc_train_diags = [per_seed[k]["arms"][ARM_LPC].get("train_diag") or {}
-                       for k in seeds if ARM_LPC in per_seed[k].get("arms", {})]
+    m_repstd = mean("rep_std")
+    lpc_train_diags = [per_seed[k]["arms"][arm].get("train_diag") or {}
+                       for k in seeds if arm in per_seed[k].get("arms", {})]
     min_tgt_stds = [d.get("min_target_std") for d in lpc_train_diags if d.get("min_target_std") is not None]
-    mintgt_lpc = float(np.mean(min_tgt_stds)) if min_tgt_stds else None
+    mintgt = float(np.mean(min_tgt_stds)) if min_tgt_stds else None
+    clause_init = [d.get("init_clause_loss") for d in lpc_train_diags if d.get("init_clause_loss") is not None]
+    clause_final = [d.get("final_clause_loss") for d in lpc_train_diags if d.get("final_clause_loss") is not None]
+    clause_descended = (bool(clause_init) and bool(clause_final)
+                        and float(np.mean(clause_final)) < float(np.mean(clause_init)))
+    replace_rates = [d.get("role_gate_mean_replace_rate") for d in lpc_train_diags
+                     if d.get("role_gate_mean_replace_rate") is not None]
+    mean_replace_rate = float(np.mean(replace_rates)) if replace_rates else None
+    # gate FIRES (not stuck at the hold-everything or replace-everything degenerate extremes)
+    gate_fired = (mean_replace_rate is not None and 0.01 < mean_replace_rate < 0.99)
 
-    no_collapse = (m_repstd[ARM_LPC] is not None and m_repstd[ARM_LPC] >= COLLAPSE_REP_STD_FLOOR
-                  and mintgt_lpc is not None and mintgt_lpc >= COLLAPSE_TARGET_STD_FLOOR)
+    no_collapse = (m_repstd is not None and m_repstd >= COLLAPSE_REP_STD_FLOOR
+                  and mintgt is not None and mintgt >= COLLAPSE_TARGET_STD_FLOOR)
 
-    digests = per_seed[sk].get("arm_digests", {})
-    arms_differ = len(set(digests.values())) == len(digests) and len(digests) == len(arms)
-
-    m_gg = {a: mean("graded_geometry", a) for a in arms}
-    d_mlm = ((m_gg[ARM_LPC] - m_gg[ARM_MLM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_MLM] is not None)
-             else None)
-    d_rand = ((m_gg[ARM_LPC] - m_gg[ARM_RANDOM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_RANDOM] is not None)
-              else None)
+    m_gg = mean("graded_geometry")
 
     if not (all_trained and ckpts_saved):
         verdict = "LITE_TRAIN_INCOMPLETE"
-        vmsg = ("LITE_TRAIN_INCOMPLETE: not all of ARM_LPC/ARM_MLM/ARM_RANDOM trained+checkpointed "
+        vmsg = ("LITE_TRAIN_INCOMPLETE: ARM_LPC_CAUSAL not trained+checkpointed for all seeds "
                 "(all_trained=%s ckpts_saved=%s)." % (all_trained, ckpts_saved))
     elif not no_collapse:
         verdict = "LITE_COLLAPSE"
-        vmsg = ("LITE_COLLAPSE: ARM_LPC rep_std=%s (floor %.3f) or min_target_std=%s (floor %.3f) below "
-                "floor -- undertrained collapse, NOT an encoder-quality refutation at this budget."
-                % (_fmt(m_repstd[ARM_LPC]), COLLAPSE_REP_STD_FLOOR, _fmt(mintgt_lpc), COLLAPSE_TARGET_STD_FLOOR))
-    elif not arms_differ:
-        verdict = "LITE_ARMS_IDENTICAL_BUG"
-        vmsg = "META_RULE_AF VIOLATION at lite scale: arm held-rep digests not all distinct (%s)" % digests
+        vmsg = ("LITE_COLLAPSE: ARM_LPC_CAUSAL rep_std=%s (floor %.3f) or min_target_std=%s (floor %.3f) "
+                "below floor -- undertrained collapse, NOT an encoder-quality refutation at this budget."
+                % (_fmt(m_repstd), COLLAPSE_REP_STD_FLOOR, _fmt(mintgt), COLLAPSE_TARGET_STD_FLOOR))
+    elif not clause_descended:
+        verdict = "LITE_CLAUSE_HEAD_NOT_LEARNING"
+        vmsg = ("LITE_CLAUSE_HEAD_NOT_LEARNING: clause-predictor loss did not descend (init=%s final=%s) "
+                "-- hierarchy head may need more steps or a coefficient retune."
+                % (_fmt(float(np.mean(clause_init)) if clause_init else None),
+                   _fmt(float(np.mean(clause_final)) if clause_final else None)))
+    elif not gate_fired:
+        verdict = "LITE_ROLE_GATE_DEGENERATE"
+        vmsg = ("LITE_ROLE_GATE_DEGENERATE: mean_replace_rate=%s not in (0.01,0.99) -- gate stuck at "
+                "always-hold or always-replace; theta/tau may need retuning at this budget."
+                % _fmt(mean_replace_rate))
     else:
         verdict = "LITE_TRAIN_COMPLETE"
-        vmsg = ("LITE_TRAIN_COMPLETE: ARM_LPC/ARM_MLM/ARM_RANDOM all trained (budget-matched, SAME "
-                "architecture as FULL), checkpoints saved, no collapse, arms differ. BONUS/UNGATED "
-                "graded_geometry (undertrained -- never treat as HARD_PASS/HARD_FAIL) LPC-MLM=%s "
-                "LPC-RANDOM=%s. DECISIVE early read = the separate context-invariance/role-distinctness/"
-                "filler-invariance probe cell (exp_context_invariance_lpc_lite_probe_v1.py) consuming "
-                "these 3 ckpts." % (_fmt(d_mlm), _fmt(d_rand)))
+        vmsg = ("LITE_TRAIN_COMPLETE: ARM_LPC_CAUSAL trained (budget-matched reduced steps, SAME "
+                "architecture as FULL), checkpoint saved, no collapse, clause-head loss descended, "
+                "role-gate fires (mean_replace_rate=%s). BONUS/UNGATED graded_geometry=%s (undertrained "
+                "-- never treat as HARD_PASS/HARD_FAIL). DECISIVE early read = path-swap "
+                "exp_syntactic_role_agent_patient_voice_probe_v1.py onto this ckpt (a separate cell)."
+                % (_fmt(mean_replace_rate), _fmt(m_gg)))
 
     summary = dict(all_trained=all_trained, ckpts_saved=ckpts_saved, no_collapse=no_collapse,
-                  arms_differ=arms_differ, rep_std=m_repstd, min_target_std_lpc=mintgt_lpc,
+                  clause_descended=clause_descended, gate_fired=gate_fired,
+                  rep_std=m_repstd, min_target_std=mintgt, mean_replace_rate=mean_replace_rate,
                   graded_geometry_bonus_ungated=m_gg,
-                  gg_bonus_delta_lpc_minus_mlm=d_mlm, gg_bonus_delta_lpc_minus_random=d_rand,
-                  ckpt_paths={a: per_seed[sk].get("ckpt_paths", {}).get(a) for a in (ARM_LPC, ARM_MLM)})
+                  ckpt_paths={k: per_seed[k].get("ckpt_paths", {}).get(arm) for k in seeds})
     gates = [record_gate("lite_no_collapse", 1.0 if no_collapse else 0.0, 1.0, "==",
-                        note="ARM_LPC rep_std + min_target_std both above floor at lite budget"),
-             record_gate("lite_arms_differ", 1.0 if arms_differ else 0.0, 1.0, "==",
-                        note="META_RULE_AF at lite scale (LPC/MLM/RANDOM held-rep digests distinct)")]
+                        note="ARM_LPC_CAUSAL rep_std + min_target_std both above floor at lite budget"),
+             record_gate("lite_clause_descended", 1.0 if clause_descended else 0.0, 1.0, "==",
+                        note="clause-predictor loss descended over training"),
+             record_gate("lite_gate_fired", 1.0 if gate_fired else 0.0, 1.0, "==",
+                        note="hold-then-revise mean_replace_rate in (0.01,0.99), not degenerate")]
     return verdict, vmsg, summary, gates
 
 
@@ -968,7 +1157,16 @@ def build_verdict(per_seed, cfg):
     m_rel = {a: mean(rel[a]) for a in ARMS}
     m_repstd = {a: mean(rep_std[a]) for a in ARMS}
 
-    # per-seed deltas for the "1 of 2 seeds with other non-negative" rule (ARM_LPC primary)
+    # per-seed deltas for the "1 of 2 seeds with other non-negative" rule (ARM_LPC_CAUSAL primary,
+    # 2026-07-30 amendment). NOTE (honest flag): this cell's OWN HARD_PASS/FAIL bands below are the
+    # PRIOR representation-quality lever's own criterion (graded_geometry Spearman vs MLM/RANDOM) --
+    # UNCHANGED and still reported/gated here as a bonus rep-quality signal, but per the spec's own
+    # "FAIR-TEST" section, the DECISIVE claim for the causal-encoder amendment is the SEPARATE
+    # cross-voice syntax-role probe (exp_syntactic_role_agent_patient_voice_probe_v1.py, path-swapped
+    # onto this cell's ARM_LPC_CAUSAL ckpt) -- this cell's verdict below does NOT itself certify or
+    # refute the role-probe hypothesis.
+    PRIMARY = ARM_LPC_CAUSAL
+
     def deltas(arm, ref):
         out = []
         for i in range(len(seeds)):
@@ -976,8 +1174,8 @@ def build_verdict(per_seed, cfg):
             out.append((va - vr) if (va is not None and vr is not None) else None)
         return out
 
-    d_mlm = deltas(ARM_LPC, ARM_MLM)
-    d_rand = deltas(ARM_LPC, ARM_RANDOM)
+    d_mlm = deltas(PRIMARY, ARM_MLM)
+    d_rand = deltas(PRIMARY, ARM_RANDOM)
     valid_pairs = [i for i in range(len(seeds)) if d_mlm[i] is not None and d_rand[i] is not None]
 
     def _one_of_n(dm, dr):
@@ -988,34 +1186,36 @@ def build_verdict(per_seed, cfg):
         return any_pass and others_nonneg
 
     lpc_hp_geometry = _one_of_n(d_mlm, d_rand)
-    probe_no_regress = (m_probe[ARM_LPC] is not None and m_probe[ARM_MLM] is not None
-                        and m_probe[ARM_LPC] >= m_probe[ARM_MLM] - PROBE_NOREGRESS_EPS)
+    probe_no_regress = (m_probe[PRIMARY] is not None and m_probe[ARM_MLM] is not None
+                        and m_probe[PRIMARY] >= m_probe[ARM_MLM] - PROBE_NOREGRESS_EPS)
     # collapse guard: frozen rep dispersion + training-time target std both above floor
-    no_collapse_reps = (m_repstd[ARM_LPC] is not None and m_repstd[ARM_LPC] >= COLLAPSE_REP_STD_FLOOR)
-    m_mintgt_lpc = mean(min_tgt_std.get(ARM_LPC, []))
+    no_collapse_reps = (m_repstd[PRIMARY] is not None and m_repstd[PRIMARY] >= COLLAPSE_REP_STD_FLOOR)
+    m_mintgt_lpc = mean(min_tgt_std.get(PRIMARY, []))
     no_collapse_train = (m_mintgt_lpc is not None and m_mintgt_lpc >= COLLAPSE_TARGET_STD_FLOOR)
     collapsed = (not no_collapse_reps) or (not no_collapse_train)
 
-    # no-effect: LPC ties BOTH MLM and RANDOM within eps on graded geometry
+    # no-effect: causal arm ties BOTH MLM and RANDOM within eps on graded geometry
     no_effect = False
-    if m_gg[ARM_LPC] is not None and m_gg[ARM_MLM] is not None and m_gg[ARM_RANDOM] is not None:
-        no_effect = (abs(m_gg[ARM_LPC] - m_gg[ARM_MLM]) < NO_EFFECT_EPS
-                     and abs(m_gg[ARM_LPC] - m_gg[ARM_RANDOM]) < NO_EFFECT_EPS)
+    if m_gg[PRIMARY] is not None and m_gg[ARM_MLM] is not None and m_gg[ARM_RANDOM] is not None:
+        no_effect = (abs(m_gg[PRIMARY] - m_gg[ARM_MLM]) < NO_EFFECT_EPS
+                     and abs(m_gg[PRIMARY] - m_gg[ARM_RANDOM]) < NO_EFFECT_EPS)
 
     # power
-    min_gg_nq = min([per_seed[k]["arms"][ARM_LPC].get("graded_geometry_nq", 0) for k in seeds] or [0])
+    min_gg_nq = min([per_seed[k]["arms"][PRIMARY].get("graded_geometry_nq", 0) for k in seeds] or [0])
 
-    # ablation: does temporal-contiguity add over LPC alone?
-    tc_delta = (m_gg[ARM_LPC_TC] - m_gg[ARM_LPC]) if (m_gg[ARM_LPC_TC] is not None and m_gg[ARM_LPC] is not None) else None
+    # ablations (both UNGATED, reported only): does temporal-contiguity add over bidirectional-LPC?
+    # does the causal amendment beat its own bidirectional control (spec anchor #2)?
+    tc_delta = (m_gg[ARM_LPC_TC] - m_gg[ARM_LPC_BIDIR]) if (m_gg[ARM_LPC_TC] is not None and m_gg[ARM_LPC_BIDIR] is not None) else None
+    causal_vs_bidir_delta = (m_gg[PRIMARY] - m_gg[ARM_LPC_BIDIR]) if (m_gg[PRIMARY] is not None and m_gg[ARM_LPC_BIDIR] is not None) else None
 
     gates = []
-    gates.append(record_gate("lpc_gg_over_mlm", (m_gg[ARM_LPC] - m_gg[ARM_MLM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_MLM] is not None) else -9.0,
-                             HP_GG_OVER_MLM, ">=", note="ARM_LPC-ARM_MLM graded geometry (mean)"))
-    gates.append(record_gate("lpc_gg_over_random", (m_gg[ARM_LPC] - m_gg[ARM_RANDOM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_RANDOM] is not None) else -9.0,
-                             HP_GG_OVER_RANDOM, ">=", note="ARM_LPC-ARM_RANDOM graded geometry (mean)"))
+    gates.append(record_gate("lpc_causal_gg_over_mlm", (m_gg[PRIMARY] - m_gg[ARM_MLM]) if (m_gg[PRIMARY] is not None and m_gg[ARM_MLM] is not None) else -9.0,
+                             HP_GG_OVER_MLM, ">=", note="ARM_LPC_CAUSAL-ARM_MLM graded geometry (mean)"))
+    gates.append(record_gate("lpc_causal_gg_over_random", (m_gg[PRIMARY] - m_gg[ARM_RANDOM]) if (m_gg[PRIMARY] is not None and m_gg[ARM_RANDOM] is not None) else -9.0,
+                             HP_GG_OVER_RANDOM, ">=", note="ARM_LPC_CAUSAL-ARM_RANDOM graded geometry (mean)"))
     gates.append(record_gate("probe_no_regress", 1.0 if probe_no_regress else 0.0, 1.0, "==",
                              note="held-out probe >= MLM - %.2f" % PROBE_NOREGRESS_EPS))
-    gates.append(record_gate("no_collapse_reps", m_repstd[ARM_LPC] if m_repstd[ARM_LPC] is not None else -1.0,
+    gates.append(record_gate("no_collapse_reps", m_repstd[PRIMARY] if m_repstd[PRIMARY] is not None else -1.0,
                              COLLAPSE_REP_STD_FLOOR, ">=", note="frozen rep per-dim std floor"))
     gates.append(record_gate("no_collapse_train", m_mintgt_lpc if m_mintgt_lpc is not None else -1.0,
                              COLLAPSE_TARGET_STD_FLOOR, ">=", note="training min target-embedding std floor"))
@@ -1026,61 +1226,75 @@ def build_verdict(per_seed, cfg):
     if run_mode in ("selftest", "smoke"):
         ran_ok = all(m_gg[a] is not None for a in ARMS) and all(m_repstd[a] is not None for a in ARMS)
         verdict = "SMOKE_PASS" if ran_ok else "SMOKE_INCOMPLETE"
-        vmsg = ("SMOKE run_mode=%s gg[LPC=%s TC=%s MLM=%s RAND=%s] probe[LPC=%s MLM=%s] "
-                "rel[LPC=%s MLM=%s] rep_std[LPC=%s RAND=%s] min_tgt_std_LPC=%s tc_delta=%s gg_nq_min=%d"
-                % (run_mode, _fmt(m_gg[ARM_LPC]), _fmt(m_gg[ARM_LPC_TC]), _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM]),
-                   _fmt(m_probe[ARM_LPC]), _fmt(m_probe[ARM_MLM]), _fmt(m_rel[ARM_LPC]), _fmt(m_rel[ARM_MLM]),
-                   _fmt(m_repstd[ARM_LPC]), _fmt(m_repstd[ARM_RANDOM]), _fmt(m_mintgt_lpc), _fmt(tc_delta), min_gg_nq))
+        vmsg = ("SMOKE run_mode=%s gg[CAUSAL=%s BIDIR=%s TC=%s MLM=%s RAND=%s] probe[CAUSAL=%s MLM=%s] "
+                "rel[CAUSAL=%s MLM=%s] rep_std[CAUSAL=%s RAND=%s] min_tgt_std_CAUSAL=%s tc_delta=%s "
+                "causal_vs_bidir=%s gg_nq_min=%d"
+                % (run_mode, _fmt(m_gg[PRIMARY]), _fmt(m_gg[ARM_LPC_BIDIR]), _fmt(m_gg[ARM_LPC_TC]),
+                   _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM]),
+                   _fmt(m_probe[PRIMARY]), _fmt(m_probe[ARM_MLM]), _fmt(m_rel[PRIMARY]), _fmt(m_rel[ARM_MLM]),
+                   _fmt(m_repstd[PRIMARY]), _fmt(m_repstd[ARM_RANDOM]), _fmt(m_mintgt_lpc), _fmt(tc_delta),
+                   _fmt(causal_vs_bidir_delta), min_gg_nq))
     else:
         if collapsed:
             verdict = "FAIL_BY_COLLAPSE"
-            vmsg = ("FAIL_BY_COLLAPSE: ARM_LPC variance collapsed (rep_std=%s floor=%.3f; "
+            vmsg = ("FAIL_BY_COLLAPSE: ARM_LPC_CAUSAL variance collapsed (rep_std=%s floor=%.3f; "
                     "min_target_std=%s floor=%.3f). Mechanism class NOT refuted; retune VICReg/EMA "
-                    "or use --co-scaled (capacity-ratio). gg[LPC=%s MLM=%s RAND=%s]"
-                    % (_fmt(m_repstd[ARM_LPC]), COLLAPSE_REP_STD_FLOOR, _fmt(m_mintgt_lpc),
-                       COLLAPSE_TARGET_STD_FLOOR, _fmt(m_gg[ARM_LPC]), _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM])))
+                    "or use --co-scaled (capacity-ratio). gg[CAUSAL=%s BIDIR=%s MLM=%s RAND=%s]"
+                    % (_fmt(m_repstd[PRIMARY]), COLLAPSE_REP_STD_FLOOR, _fmt(m_mintgt_lpc),
+                       COLLAPSE_TARGET_STD_FLOOR, _fmt(m_gg[PRIMARY]), _fmt(m_gg[ARM_LPC_BIDIR]),
+                       _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM])))
         elif min_gg_nq < MIN_QUERY_TASKS:
             verdict = "HARD_FAIL_UNDERPOWERED"
             vmsg = ("UNDERPOWERED: graded-geometry min query count %d < %d." % (min_gg_nq, MIN_QUERY_TASKS))
         elif lpc_hp_geometry and probe_no_regress:
             verdict = "HARD_PASS"
-            vmsg = ("HARD_PASS: latent-PC encoder BEATS MLM by >=+%.2f AND random-init by >=+%.2f on "
-                    "graded-geometry (>=1/2 seeds, other non-negative), probe no-regress. "
-                    "gg[LPC=%s TC=%s MLM=%s RAND=%s] probe[LPC=%s MLM=%s RAND=%s] rel[LPC=%s MLM=%s] "
-                    "d_mlm=%s d_rand=%s tc_ablation_delta=%s rep_std_LPC=%s"
-                    % (HP_GG_OVER_MLM, HP_GG_OVER_RANDOM, _fmt(m_gg[ARM_LPC]), _fmt(m_gg[ARM_LPC_TC]),
-                       _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM]), _fmt(m_probe[ARM_LPC]), _fmt(m_probe[ARM_MLM]),
-                       _fmt(m_probe[ARM_RANDOM]), _fmt(m_rel[ARM_LPC]), _fmt(m_rel[ARM_MLM]),
+            vmsg = ("HARD_PASS (rep-quality bonus band, NOT the decisive role-probe claim -- see "
+                    "separate probe cell): causal-LPC encoder BEATS MLM by >=+%.2f AND random-init by "
+                    ">=+%.2f on graded-geometry (>=1/2 seeds, other non-negative), probe no-regress. "
+                    "gg[CAUSAL=%s BIDIR=%s TC=%s MLM=%s RAND=%s] probe[CAUSAL=%s MLM=%s RAND=%s] "
+                    "rel[CAUSAL=%s MLM=%s] d_mlm=%s d_rand=%s tc_ablation_delta=%s "
+                    "causal_vs_bidir_delta=%s rep_std_CAUSAL=%s"
+                    % (HP_GG_OVER_MLM, HP_GG_OVER_RANDOM, _fmt(m_gg[PRIMARY]), _fmt(m_gg[ARM_LPC_BIDIR]),
+                       _fmt(m_gg[ARM_LPC_TC]), _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM]),
+                       _fmt(m_probe[PRIMARY]), _fmt(m_probe[ARM_MLM]), _fmt(m_probe[ARM_RANDOM]),
+                       _fmt(m_rel[PRIMARY]), _fmt(m_rel[ARM_MLM]),
                        str([_fmt(x) for x in d_mlm]), str([_fmt(x) for x in d_rand]), _fmt(tc_delta),
-                       _fmt(m_repstd[ARM_LPC])))
+                       _fmt(causal_vs_bidir_delta), _fmt(m_repstd[PRIMARY])))
         elif no_effect:
             verdict = "HARD_FAIL_NO_EFFECT"
-            vmsg = ("HARD_FAIL_NO_EFFECT: latent-PC ties BOTH MLM and random-init within +/-%.2f on "
-                    "graded-geometry. Objective change did not improve representation richness at this "
-                    "regime. gg[LPC=%s MLM=%s RAND=%s] probe[LPC=%s MLM=%s]"
-                    % (NO_EFFECT_EPS, _fmt(m_gg[ARM_LPC]), _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM]),
-                       _fmt(m_probe[ARM_LPC]), _fmt(m_probe[ARM_MLM])))
+            vmsg = ("HARD_FAIL_NO_EFFECT: causal-LPC ties BOTH MLM and random-init within +/-%.2f on "
+                    "graded-geometry (rep-quality bonus band; does NOT itself decide the role-probe "
+                    "hypothesis). gg[CAUSAL=%s BIDIR=%s MLM=%s RAND=%s] probe[CAUSAL=%s MLM=%s] "
+                    "causal_vs_bidir=%s"
+                    % (NO_EFFECT_EPS, _fmt(m_gg[PRIMARY]), _fmt(m_gg[ARM_LPC_BIDIR]), _fmt(m_gg[ARM_MLM]),
+                       _fmt(m_gg[ARM_RANDOM]), _fmt(m_probe[PRIMARY]), _fmt(m_probe[ARM_MLM]),
+                       _fmt(causal_vs_bidir_delta)))
         else:
             verdict = "MIDDLE_BAND"
-            vmsg = ("MIDDLE_BAND: real-but-below-band. gg[LPC=%s TC=%s MLM=%s RAND=%s] d_mlm=%s d_rand=%s "
-                    "probe[LPC=%s MLM=%s] tc_delta=%s (HP needs LPC-MLM>=%.2f AND LPC-RAND>=%.2f, 1/2 seeds)"
-                    % (_fmt(m_gg[ARM_LPC]), _fmt(m_gg[ARM_LPC_TC]), _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM]),
+            vmsg = ("MIDDLE_BAND: real-but-below-band. gg[CAUSAL=%s BIDIR=%s TC=%s MLM=%s RAND=%s] "
+                    "d_mlm=%s d_rand=%s probe[CAUSAL=%s MLM=%s] tc_delta=%s causal_vs_bidir=%s "
+                    "(HP needs CAUSAL-MLM>=%.2f AND CAUSAL-RAND>=%.2f, 1/2 seeds)"
+                    % (_fmt(m_gg[PRIMARY]), _fmt(m_gg[ARM_LPC_BIDIR]), _fmt(m_gg[ARM_LPC_TC]),
+                       _fmt(m_gg[ARM_MLM]), _fmt(m_gg[ARM_RANDOM]),
                        str([_fmt(x) for x in d_mlm]), str([_fmt(x) for x in d_rand]),
-                       _fmt(m_probe[ARM_LPC]), _fmt(m_probe[ARM_MLM]), _fmt(tc_delta),
-                       HP_GG_OVER_MLM, HP_GG_OVER_RANDOM))
+                       _fmt(m_probe[PRIMARY]), _fmt(m_probe[ARM_MLM]), _fmt(tc_delta),
+                       _fmt(causal_vs_bidir_delta), HP_GG_OVER_MLM, HP_GG_OVER_RANDOM))
 
     summary = dict(
         graded_geometry={a: m_gg[a] for a in ARMS},
         heldout_probe={a: m_probe[a] for a in ARMS},
         relational_auc={a: m_rel[a] for a in ARMS},
         rep_std={a: m_repstd[a] for a in ARMS},
-        min_target_std_lpc=m_mintgt_lpc,
+        min_target_std_causal=m_mintgt_lpc,
         min_target_std_lpc_tc=mean(min_tgt_std.get(ARM_LPC_TC, [])),
-        lpc_gg_minus_mlm=(m_gg[ARM_LPC] - m_gg[ARM_MLM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_MLM] is not None) else None,
-        lpc_gg_minus_random=(m_gg[ARM_LPC] - m_gg[ARM_RANDOM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_RANDOM] is not None) else None,
+        lpc_gg_minus_mlm=(m_gg[PRIMARY] - m_gg[ARM_MLM]) if (m_gg[PRIMARY] is not None and m_gg[ARM_MLM] is not None) else None,
+        lpc_gg_minus_random=(m_gg[PRIMARY] - m_gg[ARM_RANDOM]) if (m_gg[PRIMARY] is not None and m_gg[ARM_RANDOM] is not None) else None,
         tc_ablation_delta=tc_delta,
+        causal_vs_bidir_delta=causal_vs_bidir_delta,
         per_seed_d_mlm=d_mlm, per_seed_d_rand=d_rand,
         collapsed=collapsed, no_effect=no_effect, min_gg_query=int(min_gg_nq),
+        note="HARD_PASS/FAIL bands above are the rep-quality (graded_geometry) bonus criterion; the "
+             "DECISIVE causal-encoder claim is the separate syntax-role cross-voice probe cell.",
     )
     return verdict, vmsg, summary, gates
 
@@ -1095,7 +1309,8 @@ def _cuda_safety_audit(device):
     spec = dict(size=64, pad=0, mask=2, unk=1)
     cfg = dict(max_len=16, d_model=16, n_layers=1, n_heads=2, ffn_mult=2, mlm_steps=2, mlm_batch=8,
                mlm_lr=1e-3, lpc_mask_frac=0.25, lpc_ema_m=0.99, lpc_var_coef=1.0, lpc_cov_coef=0.04,
-               lpc_pred_hidden_mult=2, lpc_tc_coef=0.5, lpc_tc_alpha=0.1)
+               lpc_pred_hidden_mult=2, lpc_tc_coef=0.5, lpc_tc_alpha=0.1,
+               role_gate_theta=0.5, role_gate_tau=0.1, lpc_clause_coef=0.5)
     rng = np.random.default_rng(0)
     stream = rng.integers(3, 64, size=16 * 40).astype(np.int64)
     tmp = os.path.join(get_output_dir(ANCHOR_NAME), "_cuda_audit_tmp")
@@ -1105,8 +1320,17 @@ def _cuda_safety_audit(device):
     dev_ok = all(p.device.type == device.type for p in model.parameters())
     assert dev_ok, "device audit: model params not on run device %s" % device
     assert np.isfinite(diag["final_pred_loss"]), "device audit: non-finite pred loss on %s" % device
+    # causal path (2026-07-30) has its OWN host<->device crossing (clause-head next-window indexing via
+    # sel_next.cpu().numpy()) -> exercise it explicitly too, same discipline as the TC path above.
+    model_c, diag_c = lpc_train(stream, spec, cfg, device, seed=0, out_dir=tmp, hb_total=2, causal=True)
+    dev_ok_c = all(p.device.type == device.type for p in model_c.parameters())
+    assert dev_ok_c, "device audit: causal-path model params not on run device %s" % device
+    assert np.isfinite(diag_c["final_pred_loss"]), "device audit: causal-path non-finite pred loss on %s" % device
+    assert np.isfinite(diag_c["final_clause_loss"]), "device audit: causal-path non-finite clause loss on %s" % device
     return dict(device=device.type, cuda_tested=(device.type == "cuda"),
-                final_pred_loss=diag["final_pred_loss"], params_on_device=dev_ok)
+                final_pred_loss=diag["final_pred_loss"], params_on_device=(dev_ok and dev_ok_c),
+                causal_final_pred_loss=diag_c["final_pred_loss"],
+                causal_final_clause_loss=diag_c["final_clause_loss"])
 
 
 def _selftest_assertions(per_seed, summary, verdict, out_dir, audit):
@@ -1128,6 +1352,19 @@ def _selftest_assertions(per_seed, summary, verdict, out_dir, audit):
             "%s target embedding collapsed: min_target_std=%.4f < %.3f" % (arm, td["min_target_std"], COLLAPSE_TARGET_STD_FLOOR)
     # temporal-contiguity actually fired (aux loss computed)
     assert r["arms"][ARM_LPC_TC]["train_diag"].get("mean_tc_loss") is not None, "TC aux loss did not fire"
+    # causal amendment (2026-07-30): clause-head loss descends + role gate fires + causal flag recorded
+    causal_diag = r["arms"][ARM_LPC_CAUSAL]["train_diag"]
+    assert causal_diag.get("causal") is True, "ARM_LPC_CAUSAL train_diag missing causal=True flag"
+    assert causal_diag["final_clause_loss"] < causal_diag["init_clause_loss"], \
+        "clause-head loss did not descend: init=%.4f final=%.4f" % (
+            causal_diag["init_clause_loss"], causal_diag["final_clause_loss"])
+    rr = causal_diag.get("role_gate_mean_replace_rate")
+    assert rr is not None, "role_gate_mean_replace_rate missing (hold-then-revise diagnostic did not run)"
+    # bidir arm must NOT carry causal-only diagnostics (proves the two training paths genuinely differ)
+    bidir_diag = r["arms"][ARM_LPC_BIDIR]["train_diag"]
+    assert bidir_diag.get("causal") is False, "ARM_LPC_BIDIR unexpectedly ran the causal path"
+    assert bidir_diag.get("role_gate_mean_replace_rate") is None, \
+        "ARM_LPC_BIDIR should not carry a role-gate diagnostic (causal-only pass)"
     # arms differ (bit-level)
     assert len(set(r["arm_digests"].values())) == len(ARMS), "arms not all distinct"
     # cuda-safety audit ran
@@ -1164,7 +1401,7 @@ def _selftest_plumbing():
         tr = trainers.BpeTrainer(vocab_size=64, special_tokens=["[PAD]", "[UNK]", "[MASK]"],
                                  show_progress=False)
         tok.train_from_iterator(["red cat sat", "blue dog ran", "green fish swam"], trainer=tr)
-        path = _save_arm_ckpt(tmp, 7, ARM_LPC, m, tok, spec, cfg)
+        path = _save_arm_ckpt(tmp, 7, ARM_LPC_CAUSAL, m, tok, spec, cfg)
         assert path is not None, "arm-ckpt save returned None"
         ck = torch.load(os.path.join(_REPO, path), map_location="cpu", weights_only=False)
         for kk in ("state_dict", "spec", "model_cfg", "tokenizer_json", "seed", "arm"):
@@ -1176,7 +1413,7 @@ def _selftest_plumbing():
                              mc["n_heads"], mc["ffn_mult"], mc["pad_id"])
         m2.load_state_dict(ck["state_dict"])            # bit-identical to what FrozenV2Encoder does
         _ = Tokenizer.from_str(ck["tokenizer_json"])
-        assert ck["arm"] == ARM_LPC and int(ck["seed"]) == 7
+        assert ck["arm"] == ARM_LPC_CAUSAL and int(ck["seed"]) == 7
         assert _save_arm_ckpt(tmp, 7, ARM_RANDOM, m, tok, spec, cfg) is None, "ARM_RANDOM must save nothing"
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -1198,10 +1435,61 @@ def _selftest_plumbing():
             ckpt.record_unit(tmp2, ckpt.unit_key(7, a), _fake(a))
         assert n_skip == 2, "resume did not skip exactly 2 completed arms (%d)" % n_skip
         assert len(ckpt.load_units(tmp2)) == len(ARMS), "resume did not complete remaining arms"
-        assert ckpt.unit_key(7, ARM_LPC) != ckpt.unit_key(13, ARM_LPC), "seed-scoped keys collide"
+        assert ckpt.unit_key(7, ARM_LPC_CAUSAL) != ckpt.unit_key(13, ARM_LPC_CAUSAL), "seed-scoped keys collide"
     finally:
         shutil.rmtree(tmp2, ignore_errors=True)
-    _log("PLUMBING SELF-TEST PASS (headroom projection + arm-ckpt round-trip + (seed,arm) resume)")
+
+    # (d) Causal-mask correctness (spec 2a): position t must NOT see position t+1..L-1. Change a FUTURE
+    # token's id and assert the causal encoder's output at all EARLIER positions is bit-identical; the
+    # bidirectional (_contextual) path, by contrast, MUST change (control -- proves the test itself has
+    # power, not just a numerically-quiet no-op).
+    spec2 = dict(size=64, pad=0, unk=1, mask=2)
+    m3 = TinyTransformer(spec2["size"], 12, 16, 1, 2, 2, spec2["pad"])
+    m3.eval()
+    rng2 = np.random.default_rng(1)
+    base_ids = torch.from_numpy(rng2.integers(3, 64, size=(2, 12)).astype(np.int64))
+    changed_ids = base_ids.clone()
+    changed_ids[:, -1] = (changed_ids[:, -1] + 7) % 61 + 3          # perturb ONLY the LAST token
+    with torch.no_grad():
+        h_base, _ = _causal_contextual(m3, base_ids)
+        h_changed, _ = _causal_contextual(m3, changed_ids)
+        hb_base, _ = m3._contextual(base_ids)
+        hb_changed, _ = m3._contextual(changed_ids)
+    earlier = slice(0, -1)
+    assert torch.allclose(h_base[:, earlier], h_changed[:, earlier], atol=1e-6), \
+        "CAUSAL_LEAKAGE: perturbing the LAST token changed an earlier position's causal latent"
+    assert not torch.allclose(hb_base[:, earlier], hb_changed[:, earlier], atol=1e-6), \
+        "control failed: bidirectional path did not change on the same perturbation (test has no power)"
+    assert not torch.allclose(h_base[:, -1], h_changed[:, -1], atol=1e-6), \
+        "causal path did not react to a change at its OWN position (mask over-restrictive)"
+
+    # (e) Hold-then-revise gate (spec 2b): low PE -> HOLD (h_role ~ unchanged); PE spike -> REPLACE
+    # (h_role ~ new_val), bistable at the low tau this cell uses (ROLE_GATE_TAU family, self-test uses
+    # tau=0.1 to match cfg default).
+    h_role0 = torch.tensor([[1.0, 0.0, 0.0, 0.0]])
+    new_val = torch.tensor([[0.0, 1.0, 0.0, 0.0]])
+    low_pe = torch.tensor([0.01])     # well below theta=0.5 -> HOLD
+    high_pe = torch.tensor([0.95])    # well above theta=0.5 -> REPLACE
+    theta, tau = 0.5, 0.1
+    h_hold, b_hold = hold_then_revise_gate(h_role0, new_val, low_pe, theta, tau)
+    h_replace, b_replace = hold_then_revise_gate(h_role0, new_val, high_pe, theta, tau)
+    assert float(b_hold[0]) < 0.05, "gate did not HOLD on low PE (boundary=%.4f)" % float(b_hold[0])
+    assert float(b_replace[0]) > 0.95, "gate did not REPLACE on PE spike (boundary=%.4f)" % float(b_replace[0])
+    assert torch.allclose(h_hold, h_role0, atol=3e-2), "HOLD case moved h_role too far from its prior value"
+    assert torch.allclose(h_replace, new_val, atol=3e-2), "REPLACE case did not swap to new_val on spike"
+    # role_hypothesis_pass end-to-end: a sequence with one abrupt latent change should show a boundary spike
+    seq = torch.zeros(1, 6, 4)
+    seq[:, :3, 0] = 1.0            # first 3 positions: role A
+    seq[:, 3:, 1] = 1.0            # last 3 positions: abrupt switch to role B
+    _, btrace = role_hypothesis_pass(seq, theta=0.5, tau=0.1)
+    assert btrace.shape == (1, 5), "role_hypothesis_pass boundary trace wrong shape: %s" % (btrace.shape,)
+    assert float(btrace[0, 2]) > 0.9, \
+        "gate did not fire a REPLACE spike at the abrupt role switch (boundary=%.4f)" % float(btrace[0, 2])
+    assert float(btrace[0, 0]) < 0.1, \
+        "gate incorrectly fired on a HOLD-case transition (boundary=%.4f)" % float(btrace[0, 0])
+
+    _log("PLUMBING SELF-TEST PASS (headroom projection + arm-ckpt round-trip + (seed,arm) resume + "
+         "causal no-leakage + hold-then-revise gate)")
 
 
 # ---------------------------------------------------------------------------
@@ -1216,17 +1504,18 @@ def _parse_args():
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--lite", action="store_true",
-                    help="early-signal cfg (2026-07-30): SAME architecture as FULL, ~10x fewer steps + "
-                         "a smaller data subset; trains ARM_LPC+ARM_MLM(budget-matched)+ARM_RANDOM only "
-                         "(LITE_ARMS, no ARM_LPC_TC ablation); writes to data/exp_%s_lite/ (a DISTINCT "
-                         "dir from the FULL run's data/exp_%s/, so it never collides with the in-progress "
-                         "FULL GPU run's checkpoints/units.jsonl)." % (ANCHOR_NAME, ANCHOR_NAME))
+                    help="early-signal cfg (2026-07-30 REPURPOSED for the causal-encoder cross-voice "
+                         "role probe): SAME architecture as FULL, ~10x fewer steps + a smaller data "
+                         "subset; trains ONLY ARM_LPC_CAUSAL, ONE seed (LITE_ARMS=[ARM_LPC_CAUSAL]); "
+                         "writes to data/exp_%s_lite/ (a DISTINCT dir from the FULL run's "
+                         "data/exp_%s/, so it never collides with the in-progress FULL GPU run's "
+                         "checkpoints/units.jsonl)." % (ANCHOR_NAME, ANCHOR_NAME))
     ap.add_argument("--lite-steps", type=int, default=None,
                     help="override LITE_CFG['mlm_steps'] (only applies with --lite). MEASURED CPU cost "
-                         "(this repo, 2026-07-30, 6 torch threads): ~14.6s/step for ARM_LPC at "
-                         "d_model=512/L=6 -- 6000 steps is CPU-infeasible (~24h+ for LPC alone, before "
-                         "ARM_MLM); this cfg is sized for GPU. Use --lite-steps to shrink for a bounded "
-                         "CPU/remote_cpu_queue run if GPU placement is unavailable.")
+                         "(this repo, 2026-07-30, 6 torch threads): ~14.6s/step for the LPC objective at "
+                         "d_model=512/L=6 -- 6000 steps is CPU-infeasible (~24h+); this cfg is sized for "
+                         "GPU. Use --lite-steps to shrink for a bounded CPU/remote_cpu_queue run if GPU "
+                         "placement is unavailable.")
     ap.add_argument("--co-scaled", action="store_true",
                     help="capacity-ratio follow-up: smaller encoder (d=256,L=4) over the same tokens")
     ap.add_argument("--device", default=None)
