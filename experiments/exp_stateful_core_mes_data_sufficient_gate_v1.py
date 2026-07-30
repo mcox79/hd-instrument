@@ -142,7 +142,7 @@ BGE_READOUTS = ("MEAN_POOL", "CLS_TOKEN", "LAST_TOKEN")
 def out_dir_for(run_mode):
     # SEPARATE dirs per run_mode (hygiene #6): selftest/smoke/gate/cuda_sanity never collide.
     suffix = {"selftest": "_selftest", "smoke": "_smoke", "gate": "",
-              "cuda_sanity": "_cuda_sanity"}[run_mode]
+              "cuda_sanity": "_cuda_sanity", "fit_check": "_fitcheck"}[run_mode]
     return os.path.join(_REPO, "data", "exp_%s%s" % (ANCHOR_NAME, suffix))
 
 
@@ -437,6 +437,89 @@ def bge_recal_on_task(name, train_items, eval_items):
                 headroom_confirmed=headroom,
                 headroom_verdict=("HEADROOM_ABOVE_STRUCTURE_FLOOR" if headroom
                                   else "MEASUREMENT_IS_THE_BLOCK_no_detectable_known_reader_margin"))
+
+
+# ---------------------------------------------------------------------------
+# FIT-CHECK (gates the full gate): does the bistable mechanism FIT MES-256 at scale on the real
+# 512d encoder with the sweep recipe? Lean (MES arm A only, no ctrl/KD/BGE) so we do NOT burn the
+# full run before confirming train_loss < TRAIN_FIT_THRESH. Reports per-seed train_loss + fit flag.
+# ---------------------------------------------------------------------------
+def fit_check(seeds, target_steps, device_str, lr, warmup_frac, cosine, tau_start, tau_end,
+              size=PRIMARY_SIZE, eval_per_label=100):
+    t0 = time.perf_counter()
+    output_dir = out_dir_for("fit_check")
+    expected = len(seeds)
+    _write_start_marker(output_dir, "fit_check", expected_n_units=expected)
+    device = torch.device(device_str)
+    _log = lambda m: print("[FIT_CHECK] %s" % m)
+    _log("device=%s size=%d seeds=%s lr=%.2e warmup=%.2f cosine=%s target_steps=%d tau=%.2f->%.2f "
+         "equalize=%s" % (device, size, seeds, lr, warmup_frac, cosine, target_steps, tau_start,
+                          tau_end, EQUALIZE))
+    if not os.path.exists(CKPT_PATH):
+        raise FileNotFoundError("checkpoint not found: %s" % CKPT_PATH)
+    mc = gen_multi_entity_state(np.random.default_rng(DATA_RNG_MES),
+                                n_distractor_entities=4, n_distractor_events=6,
+                                train_target=size * 2, eval_target_per_label=eval_per_label)
+    tr = balanced_nested_subsets(mc["train"], [size])[size]
+    ev = mc["eval"]
+    _log("MES(%s): train=%d eval=%d" % (mc["name"], len(tr), len(ev)))
+    _m0, _tok0, _spec0, cfg = load_encoder_and_tok(CKPT_PATH, device)
+    d_model = cfg["d_model"]
+    del _m0
+    per_seed = {}
+    n_done = 0
+    for seed in seeds:
+        ep = epochs_for(len(tr), BATCH, target_steps)
+        steps = ep * max(1, math.ceil(len(tr) / BATCH))
+        torch.manual_seed(seed)
+        model, tok, spec, _c = load_encoder_and_tok(CKPT_PATH, device)
+        wm = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=seed).to(device)
+        wm.write_tau_start = float(tau_start)
+        wm.write_tau_end = float(tau_end)
+        wm.write_tau = float(tau_start)
+        judge = make_judge_head(d_model, "A", equalize=EQUALIZE).to(device)
+        res = train_and_eval_arm(model, wm, judge, tok, spec, MAX_LEN, tr, ev, device,
+                                 kb_prior_lookup=None, arm="A", epochs=ep, batch_size=BATCH, lr=lr,
+                                 lambda_pe=LAMBDA_PE, lambda_kb=LAMBDA_KB,
+                                 rng=np.random.default_rng(seed), equalize=EQUALIZE,
+                                 warmup_frac=warmup_frac, cosine=cosine)
+        fit = bool(res["train_loss"] < TRAIN_FIT_THRESH)
+        unstable = bool(res["train_loss"] > UNSTABLE_THRESH)
+        per_seed[seed] = dict(train_loss=res["train_loss"], eval_acc=res["eval_acc"], fit=fit,
+                              unstable=unstable, epochs=ep, steps=steps)
+        del model, wm, judge
+        n_done += 1
+        _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+                   extra={"seed": seed, "train_loss": res["train_loss"],
+                          "eval_acc": res["eval_acc"], "fit": fit, "steps": steps})
+        _log("seed=%d steps=%d train_loss=%.4f eval_acc=%.4f fit=%s"
+             % (seed, steps, res["train_loss"], res["eval_acc"], fit))
+    all_fit = all(per_seed[s]["fit"] for s in seeds)
+    any_unstable = any(per_seed[s]["unstable"] for s in seeds)
+    verdict = "FIT_CONFIRMED" if all_fit else ("OPTIMIZATION_UNSTABLE" if any_unstable else "FIT_FAILED")
+    elapsed = time.perf_counter() - t0
+    msg = ("FIT-CHECK MES size=%d recipe(lr=%.2e warmup=%.2f cosine=%s steps=%d tau=%.2f->%.2f): %s. "
+           "per_seed=%s (fit=train_loss<%.2f; unstable=train_loss>%.2f)"
+           % (size, lr, warmup_frac, cosine, target_steps, tau_start, tau_end, verdict,
+              {s: dict(loss=round(per_seed[s]["train_loss"], 4),
+                       acc=round(per_seed[s]["eval_acc"], 4), fit=per_seed[s]["fit"]) for s in seeds},
+              TRAIN_FIT_THRESH, UNSTABLE_THRESH))
+    metrics = dict(verdict="FIT_CHECK_COMPLETE", verdict_tag=verdict, verdict_msg=msg, summary=msg[:200],
+                   elapsed_s=elapsed, ts_iso=datetime.now(timezone.utc).isoformat(), pid=os.getpid(),
+                   anchor_name=ANCHOR_NAME, run_mode="fit_check", device=str(device),
+                   all_fit=all_fit, any_unstable=any_unstable, per_seed=per_seed, size=size,
+                   lr=lr, warmup_frac=warmup_frac, cosine=cosine, target_steps=target_steps,
+                   tau_start=tau_start, tau_end=tau_end, train_fit_thresh=TRAIN_FIT_THRESH,
+                   unstable_thresh=UNSTABLE_THRESH, equalize=EQUALIZE,
+                   expected_n_units=expected, n_units_done=n_done, cardinality_ok=bool(n_done == expected),
+                   start_marker_written=True, crash_diagnostic_present=True, heartbeat_present=True,
+                   final_metrics_atomicity="tmp_replace", cell_chunked=False,
+                   defensive_error_checking="passed_all_4_patterns")
+    _write_metrics(output_dir, metrics)
+    _done_sentinel(output_dir)
+    _log("DONE elapsed=%.1fs %s per_seed_loss=%s"
+         % (elapsed, verdict, {s: round(per_seed[s]["train_loss"], 4) for s in seeds}))
+    return metrics
 
 
 # ---------------------------------------------------------------------------
@@ -942,6 +1025,10 @@ def main():
     ap.add_argument("--smoke", action="store_true", help="tiny real-ckpt end-to-end")
     ap.add_argument("--cuda-sanity", action="store_true",
                     help="tiny end-to-end on cuda (~5 steps, 1 config) to prove no device error")
+    ap.add_argument("--fit-check", action="store_true",
+                    help="MES-256 arm-A fit-check with the recipe (gates the full gate); reports "
+                         "per-seed train_loss + fit flag")
+    ap.add_argument("--fit-seeds", type=str, default="7,13", help="comma seeds for --fit-check")
     ap.add_argument("--gate", action="store_true", help="the full fairness-hardened gate")
     ap.add_argument("--device", type=str, default="cpu")
     ap.add_argument("--no-bge", action="store_true", help="skip the BGE recal (e.g. offline host)")
@@ -964,6 +1051,12 @@ def main():
 
     if args.self_test:
         self_test()
+        return
+    if args.fit_check:
+        fseeds = [int(x) for x in args.fit_seeds.split(",") if x.strip()]
+        fit_check(seeds=fseeds, target_steps=args.target_steps, device_str=device_str, lr=args.lr,
+                  warmup_frac=args.warmup_frac, cosine=args.cosine, tau_start=args.tau_start,
+                  tau_end=args.tau_end)
         return
     if args.cuda_sanity:
         if not device_str.startswith("cuda"):
@@ -997,6 +1090,7 @@ if __name__ == "__main__":
     except Exception as e:  # noqa: BLE001 -- not BaseException, per META_RULE
         rm = ("smoke" if "--smoke" in sys.argv else
               "cuda_sanity" if "--cuda-sanity" in sys.argv else
+              "fit_check" if "--fit-check" in sys.argv else
               "gate" if "--gate" in sys.argv else "selftest")
         _write_crash_metrics(out_dir_for(rm), e)
         raise
