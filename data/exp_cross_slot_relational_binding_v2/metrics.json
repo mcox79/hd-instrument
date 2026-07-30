@@ -1,0 +1,445 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "PER_SLOT_BASELINE and MAJORITY_NONE both pinned EXACTLY at chance=0.50 ([0.5, 0.5, 0.5] / [0.5, 0.5, 0.5]), but ARM_NATIVE_VSA_COMPOSITIONAL no longer clears the recalibrated chain-grade gate (eval=[0.805, 0.805, 0.785] vs PROVEN_MIN=0.80, floors_ok=True vs FLOOR_MAX=0.62 wrongrole=[0.5, 0.5, 0.495] shuffled=[0.495, 0.49, 0.48]) -- v1 MEASURED main-eval was [0.855, 0.815] (chain-grade under v1's mis-set bands); delta vs v2=[0.04999999999999993, 0.009999999999999898]. Delta is within ordinary re-run/seed-composition noise (<= 0.10); reporting PARTIAL, not a regression.",
+  "summary": "PARTIAL | PER_SLOT_BASELINE and MAJORITY_NONE both pinned EXACTLY at chance=0.50 ([0.5, 0.5, 0.5] / [0.5, 0.5, 0.5]), but ARM_NATIVE_VSA_COMPOSITIONAL no longer clears the recalibrated chain",
+  "run_mode": "full",
+  "elapsed_s": 54.76714130002074,
+  "ts_iso": "2026-07-30T20:25:19.294569+00:00",
+  "anchor_name": "cross_slot_relational_binding_v2",
+  "n_classes": 21,
+  "bands": {
+    "chance_pinned": 0.5,
+    "per_slot_must_fail_max": 0.7,
+    "proven_min": 0.8,
+    "gap_max": 0.62,
+    "floor_max": 0.62,
+    "swap_min_acc_for_proven": 0.8,
+    "per_slot_baseline_eval": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "majority_none_eval": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "per_slot_pinned_at_chance": true,
+    "majority_pinned_at_chance": true,
+    "per_slot_fails": true,
+    "majority_fails": true,
+    "readcond_eval_acc": [
+      0.2849999964237213,
+      0.3449999988079071,
+      0.3400000035762787
+    ],
+    "readcond_swap_acc": [
+      0.328000009059906,
+      0.2639999985694885,
+      0.3959999978542328
+    ],
+    "readcond_ri_max": [
+      0.3050000071525574,
+      0.3449999988079071,
+      0.30000001192092896
+    ],
+    "readcond_ri_swap_max": [
+      0.30399999022483826,
+      0.1720000058412552,
+      0.24400000274181366
+    ],
+    "readcond_shuffled_probe_acc": [
+      0.2800000011920929,
+      0.3400000035762787,
+      0.33500000834465027
+    ],
+    "readcond_floors_ok": true,
+    "readcond_proven": false,
+    "readcond_missing": true,
+    "vsa_eval_acc": [
+      0.805,
+      0.805,
+      0.785
+    ],
+    "vsa_swap_acc": [
+      0.776,
+      0.784,
+      0.748
+    ],
+    "vsa_floor_wrongrole_acc": [
+      0.5,
+      0.5,
+      0.495
+    ],
+    "vsa_floor_shuffled_acc": [
+      0.495,
+      0.49,
+      0.48
+    ],
+    "vsa_floors_ok": true,
+    "vsa_eval_chain_grade": false,
+    "vsa_swap_ci_per_seed": [
+      {
+        "p": 0.776,
+        "n": 250,
+        "correct": 194,
+        "se": 0.026368466015299408,
+        "ci_lo": 0.7243178066100132,
+        "ci_hi": 0.8276821933899868,
+        "significant_above_chance": true
+      },
+      {
+        "p": 0.784,
+        "n": 250,
+        "correct": 196,
+        "se": 0.026026448086513842,
+        "ci_lo": 0.7329881617504329,
+        "ci_hi": 0.8350118382495672,
+        "significant_above_chance": true
+      },
+      {
+        "p": 0.748,
+        "n": 250,
+        "correct": 187,
+        "se": 0.027458769091130066,
+        "ci_lo": 0.6941808125813851,
+        "ci_hi": 0.8018191874186149,
+        "significant_above_chance": true
+      }
+    ],
+    "vsa_eval_ci_per_seed": [
+      {
+        "p": 0.805,
+        "n": 200,
+        "correct": 161,
+        "se": 0.028015620642777128,
+        "ci_lo": 0.7500893835401569,
+        "ci_hi": 0.8599106164598432,
+        "significant_above_chance": true
+      },
+      {
+        "p": 0.805,
+        "n": 200,
+        "correct": 161,
+        "se": 0.028015620642777128,
+        "ci_lo": 0.7500893835401569,
+        "ci_hi": 0.8599106164598432,
+        "significant_above_chance": true
+      },
+      {
+        "p": 0.785,
+        "n": 200,
+        "correct": 157,
+        "se": 0.02904952667428507,
+        "ci_lo": 0.7280629277184013,
+        "ci_hi": 0.8419370722815988,
+        "significant_above_chance": true
+      }
+    ],
+    "vsa_swap_pooled_ci": {
+      "p": 0.7693333333333333,
+      "n": 750,
+      "correct": 577,
+      "se": 0.015382221580147022,
+      "ci_lo": 0.7391841790362451,
+      "ci_hi": 0.7994824876304215,
+      "significant_above_chance": true
+    },
+    "swap_significant_per_seed": true,
+    "swap_pooled_significant": true,
+    "swap_clears_proven": false,
+    "v1_vsa_eval_acc_reference": [
+      0.855,
+      0.815
+    ],
+    "v1_vsa_swap_acc_reference": [
+      0.7333333333333333,
+      0.7666666666666667
+    ]
+  },
+  "audit": {
+    "n_train": 350,
+    "n_swap": 250,
+    "forbid_violations_in_train": 0,
+    "swap_leak": 0,
+    "match_frac_train": 0.5,
+    "direction_frac_fwd_train": 0.49714285714285716,
+    "role_overlap_entities": 20,
+    "per_slot_baseline_acc_sample": 0.5,
+    "majority_none_acc_sample": 0.5,
+    "swap1_consistent": true,
+    "swap2_consistent": true,
+    "fails": []
+  },
+  "gamma_chosen": 0.95,
+  "thresh_chosen": 0.3,
+  "gamma_thresh_grid_scores": {
+    "0.85_0.30": 0.52,
+    "0.85_0.40": 0.5,
+    "0.85_0.50": 0.5,
+    "0.85_0.60": 0.5,
+    "0.90_0.30": 0.62,
+    "0.90_0.40": 0.585,
+    "0.90_0.50": 0.54,
+    "0.90_0.60": 0.505,
+    "0.95_0.30": 0.78,
+    "0.95_0.40": 0.76,
+    "0.95_0.50": 0.69,
+    "0.95_0.60": 0.62
+  },
+  "role_cos": 0.15594369173049927,
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "n_units_done": 6,
+  "arms_differ_verified": true,
+  "hold_a": 12,
+  "hold_b": 13,
+  "params": {
+    "D_MEM": 64,
+    "HIDDEN": 64,
+    "D_ENC": 512,
+    "ADDR_TEMP": 0.3,
+    "STEPS_WM": 220,
+    "STEPS_READOUT": 120,
+    "LR": 0.01,
+    "AUX_W": 1.0,
+    "PCA_EPS": 0.0001,
+    "N_RANDOM_INIT": 2,
+    "train_n": 350,
+    "eval_n": 200,
+    "swap_per_cfg": 125,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "n_cached_sentences": 762,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten",
+    "readcond_combiner": "linear_only",
+    "vsa_binding_flavor": "FHRR_complex64_elementwise",
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "learned_per_seed": [
+    {
+      "seed": 7,
+      "learned": {
+        "eval_acc": 0.2849999964237213,
+        "swap_acc": 0.328000009059906,
+        "shuffled_probe_acc": 0.2800000011920929,
+        "first_loss": 6.085592746734619,
+        "last_loss": 0.00267995148897171,
+        "steps_run": 220
+      },
+      "random_init": {
+        "accs": [
+          0.3050000071525574,
+          0.2549999952316284
+        ],
+        "mean": 0.2800000011920929,
+        "max": 0.3050000071525574,
+        "swap_accs": [
+          0.30399999022483826,
+          0.2160000056028366
+        ],
+        "swap_max": 0.30399999022483826
+      },
+      "power": {
+        "ri_mean": 0.2800000011920929,
+        "ri_max": 0.3050000071525574,
+        "se_diff": 0.0450208284567666,
+        "gap": 0.004999995231628418,
+        "z": 0.11105960070081566,
+        "p_value": 0.4557845422345,
+        "significant": false
+      },
+      "arms_differ_verified": true,
+      "per_slot_baseline_eval": 0.5,
+      "majority_none_eval": 0.5,
+      "per_slot_baseline_swap": 0.5,
+      "majority_none_swap": 0.5
+    },
+    {
+      "seed": 13,
+      "learned": {
+        "eval_acc": 0.3449999988079071,
+        "swap_acc": 0.2639999985694885,
+        "shuffled_probe_acc": 0.3400000035762787,
+        "first_loss": 5.091377258300781,
+        "last_loss": 0.002235319698229432,
+        "steps_run": 220
+      },
+      "random_init": {
+        "accs": [
+          0.3149999976158142,
+          0.3449999988079071
+        ],
+        "mean": 0.32999999821186066,
+        "max": 0.3449999988079071,
+        "swap_accs": [
+          0.14000000059604645,
+          0.1720000058412552
+        ],
+        "swap_max": 0.1720000058412552
+      },
+      "power": {
+        "ri_mean": 0.32999999821186066,
+        "ri_max": 0.3449999988079071,
+        "se_diff": 0.04727975248573557,
+        "gap": 0.015000000596046448,
+        "z": 0.317260556737728,
+        "p_value": 0.37552295184373347,
+        "significant": false
+      },
+      "arms_differ_verified": true,
+      "per_slot_baseline_eval": 0.5,
+      "majority_none_eval": 0.5,
+      "per_slot_baseline_swap": 0.5,
+      "majority_none_swap": 0.5
+    },
+    {
+      "seed": 19,
+      "learned": {
+        "eval_acc": 0.3400000035762787,
+        "swap_acc": 0.3959999978542328,
+        "shuffled_probe_acc": 0.33500000834465027,
+        "first_loss": 9.459419250488281,
+        "last_loss": 0.003143566893413663,
+        "steps_run": 220
+      },
+      "random_init": {
+        "accs": [
+          0.2849999964237213,
+          0.30000001192092896
+        ],
+        "mean": 0.29250000417232513,
+        "max": 0.30000001192092896,
+        "swap_accs": [
+          0.20399999618530273,
+          0.24400000274181366
+        ],
+        "swap_max": 0.24400000274181366
+      },
+      "power": {
+        "ri_mean": 0.29250000417232513,
+        "ri_max": 0.30000001192092896,
+        "se_diff": 0.046440486263384664,
+        "gap": 0.04749999940395355,
+        "z": 1.0228144282245435,
+        "p_value": 0.1531977974222684,
+        "significant": false
+      },
+      "arms_differ_verified": true,
+      "per_slot_baseline_eval": 0.5,
+      "majority_none_eval": 0.5,
+      "per_slot_baseline_swap": 0.5,
+      "majority_none_swap": 0.5
+    }
+  ],
+  "vsa_per_seed": [
+    {
+      "seed": 7,
+      "eval_acc": 0.805,
+      "swap_acc": 0.776,
+      "floor_wrongrole_acc": 0.5,
+      "floor_shuffled_acc": 0.495,
+      "swap_correct": 194,
+      "swap_n": 250,
+      "swap_ci": {
+        "p": 0.776,
+        "n": 250,
+        "correct": 194,
+        "se": 0.026368466015299408,
+        "ci_lo": 0.7243178066100132,
+        "ci_hi": 0.8276821933899868,
+        "significant_above_chance": true
+      },
+      "eval_correct": 161,
+      "eval_n": 200,
+      "eval_ci": {
+        "p": 0.805,
+        "n": 200,
+        "correct": 161,
+        "se": 0.028015620642777128,
+        "ci_lo": 0.7500893835401569,
+        "ci_hi": 0.8599106164598432,
+        "significant_above_chance": true
+      },
+      "preds_digest_main": "f0b557d6eb7ecaf0f28daabcd2211c2d124c216c0154451d5327a4a2d8c85e93",
+      "preds_digest_wrong": "4bde5c52c2bea8b68eeb75c315e07bfd95907cebfd4e36011b71c3490ee1761f",
+      "preds_digest_shuf": "516ec7bda10a6c62d4afc5c582ef0c462b808ffd6013485094a4b03c42a1af00"
+    },
+    {
+      "seed": 13,
+      "eval_acc": 0.805,
+      "swap_acc": 0.784,
+      "floor_wrongrole_acc": 0.5,
+      "floor_shuffled_acc": 0.49,
+      "swap_correct": 196,
+      "swap_n": 250,
+      "swap_ci": {
+        "p": 0.784,
+        "n": 250,
+        "correct": 196,
+        "se": 0.026026448086513842,
+        "ci_lo": 0.7329881617504329,
+        "ci_hi": 0.8350118382495672,
+        "significant_above_chance": true
+      },
+      "eval_correct": 161,
+      "eval_n": 200,
+      "eval_ci": {
+        "p": 0.805,
+        "n": 200,
+        "correct": 161,
+        "se": 0.028015620642777128,
+        "ci_lo": 0.7500893835401569,
+        "ci_hi": 0.8599106164598432,
+        "significant_above_chance": true
+      },
+      "preds_digest_main": "1774e75f1db7791c7cbafb9455ff900008d52e218a6e679ecc8f77130a30d23f",
+      "preds_digest_wrong": "912ffcb6e85bec8ef2424978fc34d12f1ea297b4cd5d8fff6b01e5d74b3d5bb5",
+      "preds_digest_shuf": "2132ffe4ea6e1d0746a436d6299af2289a0cc3c120ff5cdf4cb15fa287c520e9"
+    },
+    {
+      "seed": 19,
+      "eval_acc": 0.785,
+      "swap_acc": 0.748,
+      "floor_wrongrole_acc": 0.495,
+      "floor_shuffled_acc": 0.48,
+      "swap_correct": 187,
+      "swap_n": 250,
+      "swap_ci": {
+        "p": 0.748,
+        "n": 250,
+        "correct": 187,
+        "se": 0.027458769091130066,
+        "ci_lo": 0.6941808125813851,
+        "ci_hi": 0.8018191874186149,
+        "significant_above_chance": true
+      },
+      "eval_correct": 157,
+      "eval_n": 200,
+      "eval_ci": {
+        "p": 0.785,
+        "n": 200,
+        "correct": 157,
+        "se": 0.02904952667428507,
+        "ci_lo": 0.7280629277184013,
+        "ci_hi": 0.8419370722815988,
+        "significant_above_chance": true
+      },
+      "preds_digest_main": "7ab78f69180205a9797565fed6882ad4a21bb8cd8f6d4721374919899ae5b03c",
+      "preds_digest_wrong": "d014d2864e2e490c8d4c3a262a9d78a852a4fe980146ef4be3a6a6db7f09192e",
+      "preds_digest_shuf": "50e2e118219cad6fa620ff2951241fdbba01918fffb66a2445e7a104791569d5"
+    }
+  ],
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 20,
+  "crlb_n_a": "no learned-noise Cramer-Rao floor; discriminator is the pre-registered per-slot-must-fail + floors-must-floor + PROVEN/GAP recall bands (see decide_verdict)",
+  "calibration_check": "adaptive_with_discriminator_gate: gamma/thresh grid-tuned on a disjoint TUNING corpus (never touches TRAIN/EVAL_STD/SWAP), frozen before main run (see tune_gamma_thresh + gamma_thresh_grid_scores)"
+}
