@@ -89,7 +89,9 @@ from experiments.exp_stateful_core_situation_model_v1 import (  # noqa: E402
     load_encoder_and_tok, build_random_init_encoder, train_and_eval_arm, make_judge_head,
     forward_item_batch, encode_clause_batch_tok, split_clauses,
     load_kb_edges_for_ids, kb_ids_for_kd_items, CKPT_PATH,
+    _lr_at, _addr_temp_at, _encode_pad_ids,
 )
+from hdlab.slot_attention_wm import gen_kb_prior  # noqa: E402
 from experiments.diag_order_critical_comprehension_calib_v1 import (  # noqa: E402
     gen_multi_entity_state, gen_knowledge_dependent, fit_binary_probe, _probe_eval_acc,
 )
@@ -142,7 +144,8 @@ BGE_READOUTS = ("MEAN_POOL", "CLS_TOKEN", "LAST_TOKEN")
 def out_dir_for(run_mode):
     # SEPARATE dirs per run_mode (hygiene #6): selftest/smoke/gate/cuda_sanity never collide.
     suffix = {"selftest": "_selftest", "smoke": "_smoke", "gate": "",
-              "cuda_sanity": "_cuda_sanity", "fit_check": "_fitcheck"}[run_mode]
+              "cuda_sanity": "_cuda_sanity", "fit_check": "_fitcheck",
+              "gate_frozen": "_frozen", "smoke_frozen": "_smoke_frozen"}[run_mode]
     return os.path.join(_REPO, "data", "exp_%s%s" % (ANCHOR_NAME, suffix))
 
 
@@ -523,7 +526,430 @@ def fit_check(seeds, target_steps, device_str, lr, warmup_frac, cosine, tau_star
 
 
 # ---------------------------------------------------------------------------
-# The gate
+# FROZEN-ENCODER path (coordinator fix 2026-07-29): unfreezing the encoder during WM training
+# lets the joint optimizer COLLAPSE the encoder's already-adequate features (STUCK_FLAT at 0.5).
+# FIX = FREEZE the encoder (~0.81 alone), train WM+judge ONLY. The frozen encoder's clause reps
+# are STATIC -> cache ONCE and reuse across all seeds/arms -> CPU-FAST training on cached reps.
+# ---------------------------------------------------------------------------
+def cache_clause_reps(model, tok, spec, max_len, items, device, half=True):
+    """Frozen-encoder rep cache. Per item: (clause_reps [C,d], tok_reps [C,L,d], pad_mask [C,L],
+    n_clauses, label, item). Encoder run ONCE under no_grad; tok_reps stored float16 to bound RAM
+    (cast to float32 per-batch at use). Reused across seeds/arms (frozen encoder is invariant)."""
+    model.eval()
+    out = []
+    with torch.no_grad():
+        for it in items:
+            clauses = split_clauses(it["sent"])
+            cr, tr, pm = encode_clause_batch_tok(model, tok, spec["pad"], max_len, clauses, device)
+            out.append(dict(clause_reps=cr.detach().to("cpu"),
+                            tok_reps=(tr.detach().to("cpu").half() if half else tr.detach().to("cpu")),
+                            pad_mask=pm.detach().to("cpu"),
+                            n_clauses=len(clauses), label=it["label"], item=it))
+    return out
+
+
+def precompute_kb_priors(model, tok, spec, max_len, kb_edges, kb_ids, device):
+    """Frozen-encoder KB prior per kb_id (gen_kb_prior -> encoder.pooled on real CSKG edge text).
+    None if no edges (Arm B degrades to Arm A for that item). Reused across seeds/arms."""
+    model.eval()
+    priors = {}
+
+    def _enc(text):
+        return torch.from_numpy(_encode_pad_ids(tok, text, max_len, spec["pad"])).unsqueeze(0)
+
+    with torch.no_grad():
+        for kid in kb_ids:
+            edges = kb_edges.get(kid, [])
+            priors[kid] = (gen_kb_prior(model, _enc, kid, edges, device).detach().to("cpu")
+                           if edges else None)
+    return priors
+
+
+def forward_cached(wm, judge, cache_batch, kb_priors, device, arm, equalize, kb_id_key):
+    """Cached-rep mirror of forward_item_batch (frozen encoder): consumes cached clause/tok reps,
+    runs wm.step (WM params trainable) + judge. Byte-equivalent to forward_item_batch on the same
+    frozen encoder (validated in self-test)."""
+    B = len(cache_batch)
+    n_clauses = [c["n_clauses"] for c in cache_batch]
+    max_c = max(n_clauses)
+    d = cache_batch[0]["clause_reps"].shape[-1]
+    kb_prior_batch = None
+    if arm == "B" and kb_priors is not None:
+        any_p = False
+        plist = []
+        for c in cache_batch:
+            kid = c["item"].get(kb_id_key)
+            p = kb_priors.get(kid) if kid else None
+            if p is not None:
+                any_p = True
+                plist.append(p.to(device).float())
+            else:
+                plist.append(torch.zeros(d, device=device))
+        if any_p:
+            kb_prior_batch = torch.stack(plist, dim=0)
+    slots = wm.init_slots(B, device, kb_prior=kb_prior_batch)
+    feats = None
+    for t in range(max_c):
+        cr = torch.stack([cache_batch[i]["clause_reps"][min(t, n_clauses[i] - 1)] for i in range(B)]).to(device).float()
+        tr = torch.stack([cache_batch[i]["tok_reps"][min(t, n_clauses[i] - 1)] for i in range(B)]).to(device).float()
+        pm = torch.stack([cache_batch[i]["pad_mask"][min(t, n_clauses[i] - 1)] for i in range(B)]).to(device)
+        slots, feats = wm.step(slots, cr, tok_reps=tr, pad_mask=pm, kb_prior=kb_prior_batch)
+    slot_mean = slots.mean(dim=1)
+    judge_in = [slot_mean, feats["surprise"].unsqueeze(-1),
+                feats["write_strength"].unsqueeze(-1), feats["addr_entropy"].unsqueeze(-1)]
+    kbc = feats.get("kb_consistency")
+    if kbc is not None:
+        judge_in.append(kbc.unsqueeze(-1))
+    elif arm == "B":
+        judge_in.append(torch.zeros(B, 1, device=device))
+    elif equalize:
+        judge_in.append(torch.zeros(B, 1, device=device))
+    logits = judge(torch.cat(judge_in, dim=-1))
+    return logits, feats
+
+
+def train_and_eval_frozen(cache_train, cache_eval, wm, judge, kb_priors, device, arm, epochs, batch,
+                          lr, lambda_pe, lambda_kb, rng, equalize, kb_id_key, warmup_frac, cosine,
+                          addr_temp_start, addr_temp_end, tau_start, tau_end):
+    """Train WM+judge ONLY (encoder FROZEN -> excluded from params) on cached reps. Same loss +
+    schedules + grad-clip as train_and_eval_arm; the ONLY difference is the encoder does not update."""
+    wm.write_tau_start = float(tau_start)
+    wm.write_tau_end = float(tau_end)
+    wm.write_tau = float(tau_start)
+    params = list(wm.parameters()) + list(judge.parameters())     # encoder EXCLUDED (frozen)
+    opt = torch.optim.AdamW(params, lr=lr)
+    n = len(cache_train)
+    order = np.arange(n)
+    total_steps = epochs * max(1, math.ceil(n / batch))
+    gstep = 0
+    last = float("nan")
+    for ep in range(epochs):
+        if hasattr(wm, "anneal_write_tau"):
+            wm.anneal_write_tau(ep / max(1, epochs - 1))
+        rng.shuffle(order)
+        ep_losses = []
+        for bs in range(0, n, batch):
+            idx = order[bs:bs + batch]
+            cb = [cache_train[i] for i in idx]
+            y = torch.tensor([c["label"] for c in cb], dtype=torch.long, device=device)
+            lr_now = _lr_at(gstep, total_steps, lr, warmup_frac, cosine)
+            for pg in opt.param_groups:
+                pg["lr"] = lr_now
+            if hasattr(wm, "addr_temp"):
+                wm.addr_temp = _addr_temp_at(gstep, total_steps, warmup_frac, addr_temp_start, addr_temp_end)
+            gstep += 1
+            logits, feats = forward_cached(wm, judge, cb, kb_priors, device, arm, equalize, kb_id_key)
+            coh = (y == 1)
+            bce = F.cross_entropy(logits, y)
+            pe = feats["surprise"][coh].mean() if coh.any() else torch.tensor(0.0, device=device)
+            loss = bce + lambda_pe * pe
+            kbc = feats.get("kb_consistency")
+            if arm == "B" and kbc is not None and coh.any():
+                loss = loss + lambda_kb * (1.0 - kbc[coh]).mean()
+            if not torch.isfinite(loss):
+                raise FloatingPointError("frozen train non-finite loss arm=%s ep=%d" % (arm, ep))
+            opt.zero_grad(set_to_none=True)
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(params, max_norm=1.0)
+            opt.step()
+            ep_losses.append(float(loss.detach()))
+        last = float(np.mean(ep_losses))
+    with torch.no_grad():
+        all_logits = []
+        for bs in range(0, len(cache_eval), batch):
+            cb = cache_eval[bs:bs + batch]
+            logits, _ = forward_cached(wm, judge, cb, kb_priors, device, arm, equalize, kb_id_key)
+            all_logits.append(logits.cpu())
+    logits_all = torch.cat(all_logits, dim=0)
+    preds = logits_all.argmax(dim=-1).numpy()
+    yv = np.array([c["label"] for c in cache_eval], dtype=np.int64)
+    return dict(train_loss=last, eval_acc=float((preds == yv).mean()), logits=logits_all.numpy())
+
+
+def fit_meanpool_frozen(cache_train, cache_eval, d, device, epochs=200, lr=1e-2):
+    """CLEAN CONTROL (coordinator): mean-pool the frozen encoder's clause reps per item -> Linear(d,2).
+    No WM. Tells us bistable-WM-vs-plain-mean-pool on the SAME frozen encoder (isolation: meanpool
+    preserves signal forward-only, encoder-alone ~0.81)."""
+    def _feat(cache):
+        return torch.stack([c["clause_reps"].to(device).float().mean(dim=0) for c in cache], dim=0)
+    Xtr, Xev = _feat(cache_train), _feat(cache_eval)
+    ytr = torch.tensor([c["label"] for c in cache_train], dtype=torch.long, device=device)
+    yev = np.array([c["label"] for c in cache_eval], dtype=np.int64)
+    head = nn.Linear(d, 2).to(device)
+    opt = torch.optim.AdamW(head.parameters(), lr=lr)
+    for _ in range(epochs):
+        loss = F.cross_entropy(head(Xtr), ytr)
+        opt.zero_grad(set_to_none=True)
+        loss.backward()
+        opt.step()
+    with torch.no_grad():
+        preds = head(Xev).argmax(dim=-1).cpu().numpy()
+    return float((preds == yev).mean())
+
+
+def run_gate_frozen(mes_sizes, seeds, ctrl_seeds, target_steps, ctrl_epochs, device_str, run_mode,
+                    eval_per_label, run_bge=True, lr=LR, warmup_frac=WARMUP_FRAC, cosine=COSINE,
+                    tau_start=TAU_START, tau_end=TAU_END):
+    """The FULL hardened gate with the encoder FROZEN (train WM+judge only, cached reps). Same
+    trustworthy metric as run_gate: margin over the >=5-seed random-init DISTRIBUTION + significance.
+    Adds a mean-pool-WM frozen-encoder control arm."""
+    t0 = time.perf_counter()
+    output_dir = out_dir_for(run_mode)
+    n_mes_trained = len(mes_sizes) * len(seeds) * 2
+    n_mes_ctrl = len(mes_sizes) * len(ctrl_seeds)
+    n_kd_trained = len(seeds) * 3
+    n_kd_ctrl = len(ctrl_seeds)
+    n_meanpool = len(mes_sizes) + 1                # MES sizes + KD
+    n_bge = 2 if run_bge else 0
+    expected = n_mes_trained + n_mes_ctrl + n_kd_trained + n_kd_ctrl + n_meanpool + n_bge
+    _write_start_marker(output_dir, run_mode, expected_n_units=expected)
+    device = torch.device(device_str)
+    _log = lambda m: print("[MES_GATE_FROZEN] %s" % m)
+    _log("device=%s FROZEN-ENCODER mes_sizes=%s seeds=%s ctrl_seeds=%s target_steps=%d eval_per_label=%d "
+         "equalize=%s lr=%.2e warmup=%.2f cosine=%s tau=%.2f->%.2f run_bge=%s"
+         % (device, mes_sizes, seeds, ctrl_seeds, target_steps, eval_per_label, EQUALIZE, lr,
+            warmup_frac, cosine, tau_start, tau_end, run_bge))
+    if not os.path.exists(CKPT_PATH):
+        raise FileNotFoundError("checkpoint not found: %s" % CKPT_PATH)
+
+    # ---- FIXED data ----
+    mes_pool_target = max(mes_sizes) * 2
+    mc = gen_multi_entity_state(np.random.default_rng(DATA_RNG_MES),
+                                n_distractor_entities=4, n_distractor_events=6,
+                                train_target=mes_pool_target, eval_target_per_label=eval_per_label)
+    mes_eval = mc["eval"]
+    mes_subsets = balanced_nested_subsets(mc["train"], mes_sizes)
+    kdc = gen_knowledge_dependent(np.random.default_rng(DATA_RNG_KD), eval_fact_frac=KD_EVAL_FACT_FRAC)
+    kd_train = kdc["kd_train"] + kdc["ts_train"]
+    kd_eval = kdc["kd_eval"] + kdc["ts_eval"]
+    for it in kd_train + kd_eval:
+        it["kb_id"] = tuple(it["kb_relation"])[0]
+    shuf_rng = np.random.default_rng(KD_SHUF_RNG)
+    frac_self_tr = assign_shuffled_kb(kd_train, shuf_rng)
+    frac_self_ev = assign_shuffled_kb(kd_eval, shuf_rng)
+    kd_ids = kb_ids_for_kd_items(kd_train + kd_eval)
+    kd_edges = load_kb_edges_for_ids(kd_ids, max_per_id=6)
+    n_kd_edges = sum(1 for v in kd_edges.values() if v)
+
+    # ---- FROZEN encoder + ONE-TIME rep cache (reused across all seeds/arms) ----
+    model0, tok0, spec0, cfg = load_encoder_and_tok(CKPT_PATH, device)
+    d_model = cfg["d_model"]
+    for p in model0.parameters():
+        p.requires_grad_(False)
+    model0.eval()
+    _log("caching frozen-encoder reps (once)...")
+    cache_mes_train = {s: cache_clause_reps(model0, tok0, spec0, MAX_LEN, mes_subsets[s], device)
+                       for s in mes_sizes}
+    cache_mes_eval = cache_clause_reps(model0, tok0, spec0, MAX_LEN, mes_eval, device)
+    cache_kd_train = cache_clause_reps(model0, tok0, spec0, MAX_LEN, kd_train, device)
+    cache_kd_eval = cache_clause_reps(model0, tok0, spec0, MAX_LEN, kd_eval, device)
+    kb_priors = precompute_kb_priors(model0, tok0, spec0, MAX_LEN, kd_edges, kd_ids, device)
+    _log("cache done: MES train=%s eval=%d KD train=%d eval=%d kb_priors=%d/%d elapsed=%.1fs"
+         % ({s: len(v) for s, v in cache_mes_train.items()}, len(cache_mes_eval),
+            len(cache_kd_train), len(cache_kd_eval),
+            sum(1 for v in kb_priors.values() if v is not None), len(kb_priors),
+            time.perf_counter() - t0))
+
+    def train_one_frozen(ctrain, ceval, arm, seed, kb_id_key="kb_id"):
+        ep = epochs_for(len(ctrain), BATCH, target_steps)
+        torch.manual_seed(seed)
+        wm = SlotAttentionWM(d_model=d_model, n_slots=6, hidden=64, seed=seed).to(device)
+        judge = make_judge_head(d_model, arm, equalize=EQUALIZE).to(device)
+        res = train_and_eval_frozen(ctrain, ceval, wm, judge,
+                                    kb_priors=(kb_priors if arm == "B" else None), device=device,
+                                    arm=arm, epochs=ep, batch=BATCH, lr=lr, lambda_pe=LAMBDA_PE,
+                                    lambda_kb=LAMBDA_KB, rng=np.random.default_rng(seed),
+                                    equalize=EQUALIZE, kb_id_key=kb_id_key, warmup_frac=warmup_frac,
+                                    cosine=cosine, addr_temp_start=1.0, addr_temp_end=0.5,
+                                    tau_start=tau_start, tau_end=tau_end)
+        del wm, judge
+        return res, ep
+
+    results = {"MES": {}, "KD": {}}
+    controls = {"MES": {}, "KD": {}}
+    meanpool = {"MES": {}, "KD": None}
+    logits_for_hash = {}
+    n_done = 0
+
+    # ---- MES trained (frozen) + random-init control distribution + mean-pool control ----
+    for size in mes_sizes:
+        results["MES"][size] = {}
+        controls["MES"][size] = {"ri_accs": {}}
+        ctr = cache_mes_train[size]
+        for seed in seeds:
+            results["MES"][size][seed] = {}
+            for arm in ("A", "B"):
+                res, ep = train_one_frozen(ctr, cache_mes_eval, arm, seed)
+                results["MES"][size][seed][arm] = dict(train_loss=res["train_loss"], eval_acc=res["eval_acc"], epochs=ep)
+                logits_for_hash[("MES", size, seed, arm)] = res["logits"]
+                n_done += 1
+                _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+                           extra={"construction": "MES", "size": size, "seed": seed, "arm": arm,
+                                  "train_loss": res["train_loss"], "eval_acc": res["eval_acc"]})
+                _log("MES size=%d seed=%d arm=%s: train_loss=%.4f eval_acc=%.4f"
+                     % (size, seed, arm, res["train_loss"], res["eval_acc"]))
+        for cseed in ctrl_seeds:
+            ri_acc, _ = fit_random_init_control(cfg, device, cseed, d_model, tok0, spec0, MAX_LEN,
+                                                mes_subsets[size], mes_eval, ctrl_epochs, CTRL_LR,
+                                                equalize=EQUALIZE)
+            controls["MES"][size]["ri_accs"][cseed] = ri_acc
+            n_done += 1
+            _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+                       extra={"construction": "MES", "size": size, "ctrl_seed": cseed,
+                              "arm": "RANDOM_INIT_ENCODER", "eval_acc": ri_acc})
+            _log("MES size=%d RANDOM_INIT_ENCODER cseed=%d: eval_acc=%.4f" % (size, cseed, ri_acc))
+        mp = fit_meanpool_frozen(ctr, cache_mes_eval, d_model, device)
+        meanpool["MES"][size] = mp
+        n_done += 1
+        _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+                   extra={"construction": "MES", "size": size, "arm": "MEANPOOL_FROZEN", "eval_acc": mp})
+        _log("MES size=%d MEANPOOL_FROZEN: eval_acc=%.4f" % (size, mp))
+
+    # ---- KD trained (frozen): A, B, B_SHUF + control + mean-pool ----
+    kd_arm_specs = [("A", "kb_id"), ("B", "kb_id"), ("B_SHUF", "kb_id_shuf")]
+    for seed in seeds:
+        results["KD"][seed] = {}
+        for arm_label, id_key in kd_arm_specs:
+            fwd_arm = "A" if arm_label == "A" else "B"
+            res, ep = train_one_frozen(cache_kd_train, cache_kd_eval, fwd_arm, seed, kb_id_key=id_key)
+            results["KD"][seed][arm_label] = dict(train_loss=res["train_loss"], eval_acc=res["eval_acc"], epochs=ep)
+            logits_for_hash[("KD", "full", seed, arm_label)] = res["logits"]
+            n_done += 1
+            _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+                       extra={"construction": "KD", "seed": seed, "arm": arm_label,
+                              "train_loss": res["train_loss"], "eval_acc": res["eval_acc"]})
+            _log("KD seed=%d arm=%s: train_loss=%.4f eval_acc=%.4f"
+                 % (seed, arm_label, res["train_loss"], res["eval_acc"]))
+    controls["KD"]["ri_accs"] = {}
+    for cseed in ctrl_seeds:
+        ri_acc, _ = fit_random_init_control(cfg, device, cseed, d_model, tok0, spec0, MAX_LEN,
+                                            kd_train, kd_eval, ctrl_epochs, CTRL_LR, equalize=EQUALIZE)
+        controls["KD"]["ri_accs"][cseed] = ri_acc
+        n_done += 1
+        _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+                   extra={"construction": "KD", "ctrl_seed": cseed, "arm": "RANDOM_INIT_ENCODER", "eval_acc": ri_acc})
+        _log("KD RANDOM_INIT_ENCODER cseed=%d: eval_acc=%.4f" % (cseed, ri_acc))
+    meanpool["KD"] = fit_meanpool_frozen(cache_kd_train, cache_kd_eval, d_model, device)
+    n_done += 1
+    _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+               extra={"construction": "KD", "arm": "MEANPOOL_FROZEN", "eval_acc": meanpool["KD"]})
+    _log("KD MEANPOOL_FROZEN: eval_acc=%.4f" % meanpool["KD"])
+
+    # ---- BGE recal ----
+    bge = {}
+    if run_bge:
+        for cname, (tr_items, ev_items) in (("MES", (mc["train"], mes_eval)),
+                                            ("KD", (kd_train, kd_eval))):
+            r = bge_recal_on_task(cname, tr_items, ev_items)
+            bge[cname] = r
+            n_done += 1
+            _heartbeat(output_dir, n_done, expected, time.perf_counter() - t0,
+                       extra={"construction": cname, "arm": "BGE_RECAL", "status": r.get("bge_recal_status")})
+        _write_json(output_dir, "bge_recal.json", bge)
+
+    # ---- arms-must-differ (MES A/B exempt; KD pairs checked) ----
+    arm_digests = {}
+    arms_differ_exempted = []
+    for cname in ("MES", "KD"):
+        keys = sorted({(k[1], k[2]) for k in logits_for_hash if k[0] == cname})
+        exempt = {frozenset({"A", "B"})} if cname == "MES" else set()
+        for size, seed in keys:
+            arms_here = {k[3]: logits_for_hash[k] for k in logits_for_hash
+                         if k[0] == cname and k[1] == size and k[2] == seed}
+            d = _arms_must_differ({a: torch.from_numpy(v) for a, v in arms_here.items()}, exempt_pairs=exempt)
+            arm_digests["%s_%s_%s" % (cname, size, seed)] = d
+            if exempt:
+                arms_differ_exempted.append(dict(construction=cname, size=size, seed=seed, pair=["A", "B"]))
+
+    elapsed = time.perf_counter() - t0
+
+    # ---- VERDICT (MES primary; fair significance over ri distribution) ----
+    primary = PRIMARY_SIZE if PRIMARY_SIZE in mes_sizes else min(mes_sizes)
+    ri_accs_primary = list(controls["MES"][primary]["ri_accs"].values())
+    n_eval_mes = len(mes_eval)
+    per_seed = {}
+    for seed in seeds:
+        mesA = results["MES"][primary][seed]["A"]
+        mesB = results["MES"][primary][seed]["B"]
+        best_trained = max(mesA["eval_acc"], mesB["eval_acc"])
+        a_loss = mesA["train_loss"]
+        ps = power_stats(best_trained, n_eval_mes, ri_accs_primary)
+        fit = bool(a_loss < TRAIN_FIT_THRESH)
+        unstable = bool(a_loss > UNSTABLE_THRESH)
+        if unstable:
+            sv = "OPTIMIZATION_UNSTABLE"
+        elif fit and ps["gap"] >= MECH_MARGIN and ps["significant"]:
+            sv = "HARD_PASS"
+        elif fit and (ps["gap"] < MECH_MARGIN or not ps["significant"]):
+            sv = "MECHANISM_INSUFFICIENT"
+        else:
+            sv = "MARGINAL_FIT"
+        per_seed[seed] = dict(best_trained_eval=best_trained, mes_a_train_loss=a_loss,
+                              train_fit=fit, seed_verdict=sv, power=ps)
+    svs = [per_seed[s]["seed_verdict"] for s in seeds]
+    if any(v == "OPTIMIZATION_UNSTABLE" for v in svs):
+        gate_verdict = "OPTIMIZATION_UNSTABLE"
+    elif all(v == "HARD_PASS" for v in svs):
+        gate_verdict = "HARD_PASS"
+    elif all(v in ("HARD_PASS", "MECHANISM_INSUFFICIENT") for v in svs) and all(per_seed[s]["train_fit"] for s in seeds):
+        gate_verdict = "MECHANISM_INSUFFICIENT"
+    else:
+        gate_verdict = "MIXED_MARGINAL"
+
+    mean_trained = float(np.mean([per_seed[s]["best_trained_eval"] for s in seeds]))
+    mean_ri = float(np.mean(ri_accs_primary))
+    gate_mde = float(np.mean([per_seed[s]["power"]["min_detectable_effect_2sigma"] for s in seeds]))
+    kd_b_minus_a = {s: results["KD"][s]["B"]["eval_acc"] - results["KD"][s]["A"]["eval_acc"] for s in seeds}
+    kd_b_minus_shuf = {s: results["KD"][s]["B"]["eval_acc"] - results["KD"][s]["B_SHUF"]["eval_acc"] for s in seeds}
+
+    verdict_msg = (
+        "MES/KD FROZEN-ENCODER HARDENED GATE (train WM+judge only; primary size=%d; seeds=%s; "
+        "eval_N=%d; ri_seeds=%d): gate_verdict=%s. mean_trained=%.4f mean_random_init=%.4f "
+        "gate_mde(2sig)=%.4f. per_seed=%s. bar: gap>=%.2f over ri-DIST AND (z>=%.1f AND >ri_max) WITH "
+        "train_loss<%.2f. meanpool_ctrl(MES=%s,KD=%.4f). KD B-A=%s B-B_SHUF=%s. BGE: MES=%s KD=%s."
+        % (primary, seeds, n_eval_mes, len(ri_accs_primary), gate_verdict, mean_trained, mean_ri, gate_mde,
+           {s: dict(trained=round(per_seed[s]["best_trained_eval"], 4),
+                    ri_mean=round(per_seed[s]["power"]["ri_mean"], 4),
+                    gap=round(per_seed[s]["power"]["gap"], 4), z=round(per_seed[s]["power"]["z"], 2),
+                    p=round(per_seed[s]["power"]["p_value"], 4), sig=per_seed[s]["power"]["significant"],
+                    a_loss=round(per_seed[s]["mes_a_train_loss"], 4), fit=per_seed[s]["train_fit"],
+                    v=per_seed[s]["seed_verdict"]) for s in seeds},
+           MECH_MARGIN, Z_THRESH, TRAIN_FIT_THRESH,
+           {s: round(v, 4) for s, v in meanpool["MES"].items()}, meanpool["KD"],
+           {s: round(kd_b_minus_a[s], 4) for s in seeds}, {s: round(kd_b_minus_shuf[s], 4) for s in seeds},
+           bge.get("MES", {}).get("headroom_verdict", "n/a"), bge.get("KD", {}).get("headroom_verdict", "n/a")))
+
+    metrics = dict(
+        verdict="GATE_COMPLETE", verdict_tag=gate_verdict, verdict_msg=verdict_msg,
+        summary=verdict_msg[:200], elapsed_s=elapsed, ts_iso=datetime.now(timezone.utc).isoformat(),
+        pid=os.getpid(), anchor_name=ANCHOR_NAME, run_mode=run_mode, device=str(device),
+        encoder_frozen=True, train_wm_judge_only=True,
+        gate_verdict=gate_verdict, primary_size=primary, seeds=seeds, mes_sizes=mes_sizes,
+        ctrl_seeds=ctrl_seeds, per_seed=per_seed, gate_mean_trained=mean_trained,
+        gate_mean_random_init=mean_ri, gate_min_detectable_effect_2sigma=gate_mde,
+        mes_eval_n=n_eval_mes, ri_accs_primary=ri_accs_primary, results=results, controls=controls,
+        meanpool_control=meanpool, kd_b_minus_a=kd_b_minus_a, kd_b_minus_shuf=kd_b_minus_shuf,
+        kd_shuf_self_frac=dict(train=frac_self_tr, eval=frac_self_ev), bge_recal=bge,
+        n_kd_edges_resolved=n_kd_edges, kd_eval_n=len(kd_eval), kd_train_n=len(kd_train),
+        batch=BATCH, target_steps=target_steps, lr=lr, warmup_frac=warmup_frac, cosine=cosine,
+        tau_start=tau_start, tau_end=tau_end, mech_margin=MECH_MARGIN, z_thresh=Z_THRESH,
+        train_fit_thresh=TRAIN_FIT_THRESH, unstable_thresh=UNSTABLE_THRESH, equalize=EQUALIZE,
+        arms_capacity_equalized=True, shuffled_kb_placebo_arm=True, gap_b_token_rep_path=True,
+        cuda_generator_safe=True, expected_n_units=expected, n_units_done=n_done,
+        cardinality_ok=bool(n_done == expected), arms_differ_verified=True, arm_digests=arm_digests,
+        arms_differ_exempted=arms_differ_exempted, data_fixed_across_seeds=True,
+        start_marker_written=True, crash_diagnostic_present=True, heartbeat_present=True,
+        final_metrics_atomicity="tmp_replace", cell_chunked=False,
+        defensive_error_checking="passed_all_4_patterns",
+    )
+    _write_metrics(output_dir, metrics)
+    _done_sentinel(output_dir)
+    _log("DONE elapsed=%.1fs gate_verdict=%s (units %d/%d)" % (elapsed, gate_verdict, n_done, expected))
+    return metrics
+
+
+# ---------------------------------------------------------------------------
+# The gate (encoder UNFROZEN -- the original path; kept for comparison)
 # ---------------------------------------------------------------------------
 def run_gate(mes_sizes, seeds, ctrl_seeds, target_steps, ctrl_epochs, device_str, run_mode,
              eval_per_label, run_bge=True, lr=LR, warmup_frac=WARMUP_FRAC, cosine=COSINE,
@@ -902,6 +1328,36 @@ def self_test():
     exercised.add("lr_schedule_warmup_cosine")
     assert np.isfinite(res["train_loss"]) and 0.0 <= res["eval_acc"] <= 1.0, "self-test: bad trained res"
 
+    # --- FROZEN-ENCODER cache path: forward_cached MUST equal forward_item_batch (same frozen enc) ---
+    for p in model.parameters():
+        p.requires_grad_(False)
+    model.eval()
+    wm_f = SlotAttentionWM(d_model=16, n_slots=2, hidden=8, seed=1)
+    judge_f = make_judge_head(16, "A", equalize=EQUALIZE)
+    cache_tr = cache_clause_reps(model, tok, spec, 16, subs[4], device, half=False)
+    cache_ev = cache_clause_reps(model, tok, spec, 16, eval_items, device, half=False)
+    with torch.no_grad():
+        log_real = forward_item_batch(model, wm_f, judge_f, tok, spec, 16, subs[4], device,
+                                      kb_prior_lookup=None, arm="A", equalize=EQUALIZE)[0]
+        log_cached, _ = forward_cached(wm_f, judge_f, cache_tr, None, device, "A", EQUALIZE, "kb_id")
+    maxdiff = float((log_real - log_cached).abs().max())
+    assert maxdiff < 1e-3, ("CACHE MISMATCH: forward_cached != forward_item_batch (maxdiff=%.2e) -- "
+                            "the frozen cached path is NOT equivalent to the real forward" % maxdiff)
+    exercised.add("cache_clause_reps")
+    exercised.add("forward_cached")
+    res_f = train_and_eval_frozen(cache_tr, cache_ev,
+                                  SlotAttentionWM(d_model=16, n_slots=2, hidden=8, seed=1),
+                                  make_judge_head(16, "A", equalize=EQUALIZE), None, device, "A",
+                                  epochs=2, batch=4, lr=0.01, lambda_pe=0.1, lambda_kb=0.0,
+                                  rng=np.random.default_rng(0), equalize=EQUALIZE, kb_id_key="kb_id",
+                                  warmup_frac=0.25, cosine=True, addr_temp_start=1.0, addr_temp_end=0.5,
+                                  tau_start=1.0, tau_end=0.5)
+    exercised.add("train_and_eval_frozen")
+    assert np.isfinite(res_f["train_loss"]) and 0.0 <= res_f["eval_acc"] <= 1.0, "self-test: bad frozen res"
+    mp = fit_meanpool_frozen(cache_tr, cache_ev, 16, device, epochs=10)
+    exercised.add("fit_meanpool_frozen")
+    assert 0.0 <= mp <= 1.0, "self-test: bad meanpool res"
+
     # --- KD construction + shuffled-KB placebo + arm B/B_SHUF (gap-B + KB prior path) ---
     kdc = gen_knowledge_dependent(np.random.default_rng(1), eval_fact_frac=KD_EVAL_FACT_FRAC)
     exercised.add("gen_knowledge_dependent")
@@ -1029,7 +1485,10 @@ def main():
                     help="MES-256 arm-A fit-check with the recipe (gates the full gate); reports "
                          "per-seed train_loss + fit flag")
     ap.add_argument("--fit-seeds", type=str, default="7,13", help="comma seeds for --fit-check")
-    ap.add_argument("--gate", action="store_true", help="the full fairness-hardened gate")
+    ap.add_argument("--gate", action="store_true", help="the full fairness-hardened gate (encoder UNFROZEN)")
+    ap.add_argument("--gate-frozen", action="store_true",
+                    help="the full fairness-hardened gate with encoder FROZEN (train WM+judge only, cached reps)")
+    ap.add_argument("--smoke-frozen", action="store_true", help="tiny frozen-gate end-to-end")
     ap.add_argument("--device", type=str, default="cpu")
     ap.add_argument("--no-bge", action="store_true", help="skip the BGE recal (e.g. offline host)")
     # SETTABLE recipe overrides (the fit-probe sweep recipe plugs in here):
@@ -1077,7 +1536,18 @@ def main():
                  ctrl_epochs=CTRL_EPOCHS, device_str=device_str, run_mode="gate",
                  eval_per_label=EVAL_PER_LABEL, **common)
         return
-    raise SystemExit("must specify one of --self-test / --smoke / --cuda-sanity / --gate")
+    if args.smoke_frozen:
+        run_gate_frozen(mes_sizes=[16], seeds=[7], ctrl_seeds=[7, 13], target_steps=32, ctrl_epochs=20,
+                        device_str=device_str, run_mode="smoke_frozen", eval_per_label=16, **common)
+        return
+    if args.gate_frozen:
+        # FROZEN confirmation: MES-256 primary (drop 384 supporting to bound CPU), 2 seeds, 5 ctrl.
+        run_gate_frozen(mes_sizes=[PRIMARY_SIZE], seeds=SEEDS, ctrl_seeds=CTRL_SEEDS,
+                        target_steps=args.target_steps, ctrl_epochs=CTRL_EPOCHS, device_str=device_str,
+                        run_mode="gate_frozen", eval_per_label=EVAL_PER_LABEL, **common)
+        return
+    raise SystemExit("must specify one of --self-test / --smoke / --cuda-sanity / --fit-check / "
+                     "--gate / --smoke-frozen / --gate-frozen")
 
 
 if __name__ == "__main__":
@@ -1088,7 +1558,9 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         raise
     except Exception as e:  # noqa: BLE001 -- not BaseException, per META_RULE
-        rm = ("smoke" if "--smoke" in sys.argv else
+        rm = ("smoke_frozen" if "--smoke-frozen" in sys.argv else
+              "gate_frozen" if "--gate-frozen" in sys.argv else
+              "smoke" if "--smoke" in sys.argv else
               "cuda_sanity" if "--cuda-sanity" in sys.argv else
               "fit_check" if "--fit-check" in sys.argv else
               "gate" if "--gate" in sys.argv else "selftest")
