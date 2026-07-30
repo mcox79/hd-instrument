@@ -1,0 +1,83 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (role split integrity + expanded construction + real encoder + warm-start held-out-row integrity + control B + arms-differ)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 230.7587225001771,
+  "ts_iso": "2026-07-30T13:24:26.204849+00:00",
+  "anchor_name": "wm_addressing_heldout_role_warmstart_v1",
+  "addr_chance": 0.06666666666666667,
+  "chance_recall": 0.05,
+  "selftest": {
+    "role_split": {
+      "train": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        12,
+        14
+      ],
+      "held_out": [
+        6,
+        11,
+        13
+      ]
+    },
+    "construction": {
+      "keep_last": 1.0,
+      "shortcut_accs": {
+        "globally_last": 0.04,
+        "first_occurrence": 0.0375,
+        "most_frequent": 0.06
+      },
+      "n_train_q": 319,
+      "n_held_q": 81,
+      "fails": []
+    },
+    "n_cached": 3015,
+    "warmstart_diag": {
+      "per_role_fit_acc": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "7": 1.0,
+        "8": 1.0,
+        "9": 1.0,
+        "10": 1.0,
+        "12": 1.0,
+        "14": 1.0
+      },
+      "n_rows_warmstarted": 12,
+      "n_rows_total": 15,
+      "trainrole_probeset_addr_acc": 1.0,
+      "held_out_rows_unchanged_verified": true
+    },
+    "control_b": {
+      "heldout_acc": 0.0,
+      "train_acc": 1.0,
+      "n_train": 158,
+      "n_held": 42
+    },
+    "tiny_warm": {
+      "eval_acc": 0.2800000011920929,
+      "addr_train": 1.0,
+      "addr_held": 0.0
+    },
+    "tiny_control_a": {
+      "eval_acc": 0.0533333346247673,
+      "addr_train": 0.06034482643008232,
+      "addr_held": 0.0
+    },
+    "arms_differ_verified": true
+  }
+}
