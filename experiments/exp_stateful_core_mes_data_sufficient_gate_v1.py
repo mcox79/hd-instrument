@@ -145,7 +145,8 @@ def out_dir_for(run_mode):
     # SEPARATE dirs per run_mode (hygiene #6): selftest/smoke/gate/cuda_sanity never collide.
     suffix = {"selftest": "_selftest", "smoke": "_smoke", "gate": "",
               "cuda_sanity": "_cuda_sanity", "fit_check": "_fitcheck",
-              "gate_frozen": "_frozen", "smoke_frozen": "_smoke_frozen"}[run_mode]
+              "gate_frozen": "_frozen", "smoke_frozen": "_smoke_frozen",
+              "wholesent": "_wholesent"}[run_mode]
     return os.path.join(_REPO, "data", "exp_%s%s" % (ANCHOR_NAME, suffix))
 
 
@@ -685,6 +686,112 @@ def fit_meanpool_frozen(cache_train, cache_eval, d, device, epochs=200, lr=1e-2)
     with torch.no_grad():
         preds = head(Xev).argmax(dim=-1).cpu().numpy()
     return float((preds == yev).mean())
+
+
+def _our_wholesent_embed(model, tok, spec, max_len, sents, device, chunk=64):
+    """OUR encoder's model.pooled on the WHOLE sentence (NOT clause-split, NOT the WM). The exact
+    BGE-arm readout but with our encoder -> isolates encoder-vs-architecture as the lever."""
+    model.eval()
+    outs = []
+    with torch.no_grad():
+        for i in range(0, len(sents), chunk):
+            ids = np.stack([_encode_pad_ids(tok, s, max_len, spec["pad"]) for s in sents[i:i + chunk]])
+            t = torch.from_numpy(ids).long().to(device)
+            outs.append(model.pooled(t).cpu().numpy())
+    return np.concatenate(outs, axis=0).astype(np.float32)
+
+
+def wholesent_arm(device_str, run_mode, eval_per_label, seeds, ctrl_seeds):
+    """LEVER-LOCATING ARM (in the trustworthy gate): OUR encoder WHOLE-SENTENCE pooled + linear
+    judge on the SAME order-critical MES construction, held-out N=800, both seeds, SAME random-init
+    (our-encoder) bar. Reports side-by-side with BGE (0.67) and clause-mean (0.50)."""
+    t0 = time.perf_counter()
+    output_dir = out_dir_for(run_mode)
+    _write_start_marker(output_dir, run_mode, expected_n_units=len(seeds) + len(ctrl_seeds))
+    device = torch.device(device_str)
+    _log = lambda m: print("[WHOLESENT] %s" % m)
+    if not os.path.exists(CKPT_PATH):
+        raise FileNotFoundError("checkpoint not found: %s" % CKPT_PATH)
+    # SAME mc as the frozen gate (train pool = PRIMARY_SIZE*2, eval_per_label -> N=800) so the number
+    # is directly comparable to the BGE=0.67 and clause-mean=0.50 arms.
+    mc = gen_multi_entity_state(np.random.default_rng(DATA_RNG_MES),
+                                n_distractor_entities=4, n_distractor_events=6,
+                                train_target=PRIMARY_SIZE * 2, eval_target_per_label=eval_per_label)
+    tr_sents = [it["sent"] for it in mc["train"]]
+    y_tr = np.array([it["label"] for it in mc["train"]], dtype=np.int64)
+    ev_sents = [it["sent"] for it in mc["eval"]]
+    y_ev = np.array([it["label"] for it in mc["eval"]], dtype=np.int64)
+
+    model, tok, spec, cfg = load_encoder_and_tok(CKPT_PATH, device)
+    for p in model.parameters():
+        p.requires_grad_(False)
+    model.eval()
+    max_len = min(MAX_LEN, cfg["max_len"])
+    tok_lens = [len(tok.encode(s).ids) for s in ev_sents[:100]]
+    n_trunc = sum(1 for L in tok_lens if L > max_len)
+    _log("model.max_len=%d MAX_LEN=%d used_max_len=%d; eval-sent token lens min/med/max=%d/%d/%d; "
+         "%d/100 exceed used_max_len (truncated)" % (cfg["max_len"], MAX_LEN, max_len,
+         min(tok_lens), int(np.median(tok_lens)), max(tok_lens), n_trunc))
+
+    def _fit_acc(X, y, Xe, ye, seed):
+        lin, _ = fit_binary_probe(X, y, seed=seed)
+        acc, _bal = _probe_eval_acc(lin, Xe, ye)
+        return acc
+
+    Xtr = _our_wholesent_embed(model, tok, spec, max_len, tr_sents, device)
+    Xev = _our_wholesent_embed(model, tok, spec, max_len, ev_sents, device)
+    trained_acc = {}
+    n_done = 0
+    for s in seeds:
+        trained_acc[s] = _fit_acc(Xtr, y_tr, Xev, y_ev, s)
+        n_done += 1
+        _heartbeat(output_dir, n_done, len(seeds) + len(ctrl_seeds), time.perf_counter() - t0,
+                   extra={"arm": "OUR_ENCODER_WHOLESENT_TRAINED", "seed": s, "eval_acc": trained_acc[s]})
+        _log("OUR encoder WHOLE-SENTENCE trained seed=%d: eval_acc=%.4f" % (s, trained_acc[s]))
+    ri_accs = {}
+    for cs in ctrl_seeds:
+        ri_model = build_random_init_encoder(cfg, device, seed=1000 + cs)
+        for p in ri_model.parameters():
+            p.requires_grad_(False)
+        ri_model.eval()
+        Xtr_r = _our_wholesent_embed(ri_model, tok, spec, max_len, tr_sents, device)
+        Xev_r = _our_wholesent_embed(ri_model, tok, spec, max_len, ev_sents, device)
+        ri_accs[cs] = _fit_acc(Xtr_r, y_tr, Xev_r, y_ev, 7)
+        n_done += 1
+        _heartbeat(output_dir, n_done, len(seeds) + len(ctrl_seeds), time.perf_counter() - t0,
+                   extra={"arm": "OUR_ENCODER_WHOLESENT_RANDOMINIT", "ctrl_seed": cs, "eval_acc": ri_accs[cs]})
+        _log("OUR encoder WHOLE-SENTENCE random-init cseed=%d: eval_acc=%.4f" % (cs, ri_accs[cs]))
+
+    mean_trained = float(np.mean(list(trained_acc.values())))
+    ps = power_stats(mean_trained, len(ev_sents), list(ri_accs.values()))
+    # interpretation per coordinator thresholds
+    if mean_trained >= 0.62 and ps["gap"] >= MECH_MARGIN and ps["significant"]:
+        interp = "ENCODER_FINE_ARCHITECTURE_IS_THE_LEVER (our whole-sentence ~=BGE; clause-split+WM destroys order)"
+    elif mean_trained <= 0.55:
+        interp = "ENCODER_IS_THE_LEVER (our from-scratch encoder weaker than BGE on order-critical MES)"
+    else:
+        interp = "INTERMEDIATE (our whole-sentence between chance and BGE; partial encoder + partial architecture)"
+    elapsed = time.perf_counter() - t0
+    msg = ("OUR-ENCODER WHOLE-SENTENCE arm (held-out N=%d, seeds=%s): trained=%s mean=%.4f; "
+           "random-init(our-enc) dist=%s mean=%.4f; gap=%.4f z=%.2f p=%.4f sig=%s MDE(2sig)=%.4f. "
+           "SIDE-BY-SIDE: our-whole-sentence=%.4f vs BGE-whole-sentence=0.67 vs our-clause-mean=0.50. "
+           "INTERPRETATION: %s"
+           % (len(ev_sents), seeds, {s: round(trained_acc[s], 4) for s in seeds}, mean_trained,
+              {c: round(v, 4) for c, v in ri_accs.items()}, ps["ri_mean"], ps["gap"], ps["z"],
+              ps["p_value"], ps["significant"], ps["min_detectable_effect_2sigma"], mean_trained, interp))
+    metrics = dict(verdict="WHOLESENT_ARM_COMPLETE", verdict_tag=interp.split()[0], verdict_msg=msg,
+                   summary=msg[:200], elapsed_s=elapsed, ts_iso=datetime.now(timezone.utc).isoformat(),
+                   pid=os.getpid(), anchor_name=ANCHOR_NAME, run_mode=run_mode, device=str(device),
+                   our_encoder_wholesent_trained=trained_acc, our_encoder_wholesent_mean=mean_trained,
+                   our_encoder_wholesent_randominit=ri_accs, power=ps,
+                   ref_bge_wholesent=0.67, ref_our_clause_mean=0.50,
+                   model_max_len=cfg["max_len"], used_max_len=max_len, n_eval=len(ev_sents),
+                   interpretation=interp, start_marker_written=True, crash_diagnostic_present=True,
+                   heartbeat_present=True, final_metrics_atomicity="tmp_replace")
+    _write_metrics(output_dir, metrics)
+    _done_sentinel(output_dir)
+    _log("DONE elapsed=%.1fs mean_trained=%.4f %s" % (elapsed, mean_trained, interp))
+    return metrics
 
 
 def run_gate_frozen(mes_sizes, seeds, ctrl_seeds, target_steps, ctrl_epochs, device_str, run_mode,
@@ -1489,6 +1596,8 @@ def main():
     ap.add_argument("--gate-frozen", action="store_true",
                     help="the full fairness-hardened gate with encoder FROZEN (train WM+judge only, cached reps)")
     ap.add_argument("--smoke-frozen", action="store_true", help="tiny frozen-gate end-to-end")
+    ap.add_argument("--wholesent-arm", action="store_true",
+                    help="lever-locating: OUR encoder whole-sentence pooled + judge on MES (held-out N=800)")
     ap.add_argument("--device", type=str, default="cpu")
     ap.add_argument("--no-bge", action="store_true", help="skip the BGE recal (e.g. offline host)")
     # SETTABLE recipe overrides (the fit-probe sweep recipe plugs in here):
@@ -1536,6 +1645,10 @@ def main():
                  ctrl_epochs=CTRL_EPOCHS, device_str=device_str, run_mode="gate",
                  eval_per_label=EVAL_PER_LABEL, **common)
         return
+    if args.wholesent_arm:
+        wholesent_arm(device_str=device_str, run_mode="wholesent", eval_per_label=EVAL_PER_LABEL,
+                      seeds=SEEDS, ctrl_seeds=CTRL_SEEDS)
+        return
     if args.smoke_frozen:
         run_gate_frozen(mes_sizes=[16], seeds=[7], ctrl_seeds=[7, 13], target_steps=32, ctrl_epochs=20,
                         device_str=device_str, run_mode="smoke_frozen", eval_per_label=16, **common)
@@ -1558,7 +1671,8 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         raise
     except Exception as e:  # noqa: BLE001 -- not BaseException, per META_RULE
-        rm = ("smoke_frozen" if "--smoke-frozen" in sys.argv else
+        rm = ("wholesent" if "--wholesent-arm" in sys.argv else
+              "smoke_frozen" if "--smoke-frozen" in sys.argv else
               "gate_frozen" if "--gate-frozen" in sys.argv else
               "smoke" if "--smoke" in sys.argv else
               "cuda_sanity" if "--cuda-sanity" in sys.argv else
