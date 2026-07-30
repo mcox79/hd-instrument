@@ -281,6 +281,27 @@ timeout_s = max( class_floor, ceil( 1.5 * smoke_wall_s * PRODUCT_over_axes( (ful
 
 If smoke_wall_s is not available (--skip-smoke path): use the most recent comparable experiment's elapsed_s from the bridge recent_verdicts as the anchor, and add 50% extra margin. State this assumption in the prereq.
 
+## Multi-unit cells MUST use the checkpoint/resume shard helper (MANDATORY)
+
+**Root cause this closes (2026-07-30):** multi-unit cells accumulated per-(arm,seed) results
+in a bare Python list and wrote `metrics.json` once at the very end — a kill/hang at unit 5 of
+6 lost ALL completed-unit work with no resumability and no crash trail of what finished.
+
+Any cell whose main loop iterates over more than one (arm, seed) unit MUST import
+`tools/exp_checkpoint.py` (`unit_key`, `completed_units`, `record_unit`, `load_units`):
+- `if unit_key(...) in completed_units(OUTPUT_DIR)`: skip, load the prior result from
+  `load_units(OUTPUT_DIR)` instead of recomputing.
+- else: compute the unit, then `record_unit(OUTPUT_DIR, unit_key(...), result)` immediately
+  (this appends one line to `OUTPUT_DIR/units.jsonl`, flush+fsync — durable per-unit progress).
+- Final `metrics.json` is still assembled from `load_units(OUTPUT_DIR)` and written ONCE via
+  the existing atomic `os.replace` pattern (`_atomic_write_metrics`) — unchanged.
+- Resume order must stay deterministic: iterate units in the same fixed order every run
+  (respect the repo's `sorted(set())` discipline), so a resumed run computes the same
+  remaining units a from-scratch run would have.
+
+Self-test proof lives in `tools/exp_checkpoint.py`'s own `_selftest()` (run via
+`python tools/exp_checkpoint.py`); it is a small stdlib-only module, no new dependency.
+
 ## Script template top (every new script starts with this)
 
 ```python

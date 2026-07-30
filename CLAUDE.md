@@ -95,6 +95,19 @@ Gate, at land-time, for anything genuinely-good (cert / HARD_PASS):
 - No emojis in code, comments, or output.
 - No em dashes in code output.
 
+## Multi-unit cell checkpoint/resume (MANDATORY)
+
+Any experiment cell that loops over >1 (arm, seed) unit MUST use `tools/exp_checkpoint.py`
+(`unit_key`, `completed_units`, `record_unit`, `load_units`) instead of accumulating results
+in a bare in-memory list. For each unit: skip it if its `unit_key` is already in
+`completed_units(OUTPUT_DIR)` (load its prior result from `load_units` instead); otherwise
+compute it and call `record_unit(OUTPUT_DIR, key, result)` immediately after it finishes, so a
+killed/hung run loses at most the in-flight unit. The final `metrics.json` is still assembled
+from `load_units(OUTPUT_DIR)` and written once via the existing atomic `os.replace` pattern —
+this only changes how per-unit progress survives a crash, not the final-metrics contract.
+Resume order must stay deterministic (respect the existing `sorted(set())` discipline) so a
+resumed run computes the same remaining units a fresh run would have.
+
 ## Verification discipline
 
 - Every framework feature ships with at least one scaffold-free witness in `verification/`.
