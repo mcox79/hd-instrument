@@ -1,0 +1,155 @@
+{
+  "verdict": "ENCODER_POSITION_ONLY",
+  "verdict_msg": "Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.17916666666666667, 'passive_to_active': 0.1625} <= FAIL_MAX=0.55 on at least one direction (no better than the position-only control / near chance=0.50) -- the frozen encoder only supplies positional cues, not voice-invariant syntactic role; syntax->role is the WALL on this encoder for the richer-NL comprehension direction. Within-voice reference: {'active_to_active_ref': 0.9, 'passive_to_passive_ref': 0.85}.",
+  "summary": "ENCODER_POSITION_ONLY | chance=0.5000 | Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.17916666666666667, 'passive_to_active': 0.1625} <= FAIL_MAX=0.55 on at least one di",
+  "run_mode": "full",
+  "elapsed_s": 2.457549100043252,
+  "ts_iso": "2026-07-30T21:28:04.259187+00:00",
+  "anchor_name": "syntactic_role_agent_patient_voice_probe_v1",
+  "chance": 0.5,
+  "bands": {
+    "chance": 0.5,
+    "role_probe_pass_min": 0.7,
+    "role_probe_fail_max": 0.55,
+    "position_only_fail_max": 0.55,
+    "bagofwords_floor_band": [
+      0.15,
+      0.85
+    ],
+    "shuffled_floor_band": [
+      0.35,
+      0.65
+    ],
+    "role_probe_by_direction": {
+      "active_to_passive": 0.1792,
+      "passive_to_active": 0.1625
+    },
+    "position_only_combined": 0.5,
+    "bagofwords_by_direction": {
+      "active_to_passive": 0.3333,
+      "passive_to_active": 0.3333
+    },
+    "shuffled_control_by_direction": {
+      "active_to_passive": 0.5128,
+      "passive_to_active": 0.5288
+    },
+    "within_voice_reference": {
+      "active_to_active_ref": 0.9,
+      "passive_to_passive_ref": 0.85
+    },
+    "posonly_fails_cross_voice": true,
+    "bagofwords_floors": true,
+    "shuffled_floors": true
+  },
+  "results_by_unit": {
+    "combined|position_only": {
+      "acc": 0.5,
+      "acc_active_only": 1.0,
+      "acc_passive_only": 0.0,
+      "digest": "5699d4230b34e1445ada686b19a3d580d79e176966142d6448d11be92c2f4851"
+    },
+    "active_to_passive|role_probe": {
+      "acc": 0.17916666666666667,
+      "digest": "0d1680b33fb896c75a13ffdb096f9a891609d8c9a6ebfedfb985fafb8f48a201"
+    },
+    "active_to_passive|bagofwords": {
+      "acc": 0.3333333333333333,
+      "digest": "306ef2319f9f98c471531309f07984e58941b0ed6b24cc91216259bf4ed725a7"
+    },
+    "active_to_passive|shuffled_control": {
+      "acc": 0.5127777777777777,
+      "sd": 0.1428501761969728,
+      "digest": "6f5ce3c3aaf2951b53fc3e23e0187ef94e031f02173c94ed14e87fd74f3c2520"
+    },
+    "passive_to_active|role_probe": {
+      "acc": 0.1625,
+      "digest": "aced729e81a09ce2298ff5acbcf7fc053673df4cd9c2676be3fc865994ca46e0"
+    },
+    "passive_to_active|bagofwords": {
+      "acc": 0.3333333333333333,
+      "digest": "306ef2319f9f98c471531309f07984e58941b0ed6b24cc91216259bf4ed725a7"
+    },
+    "passive_to_active|shuffled_control": {
+      "acc": 0.52875,
+      "sd": 0.13290882944501636,
+      "digest": "4e402159835e8e7731cefca26626bd02e8ba34ab95925be07260eb96ed1af7ba"
+    }
+  },
+  "within_voice_reference": {
+    "active_to_active_ref": 0.9,
+    "passive_to_passive_ref": 0.85
+  },
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [
+    [
+      "active_to_passive|bagofwords",
+      "passive_to_active|bagofwords"
+    ]
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 7,
+  "n_units_done": 7,
+  "params": {
+    "entities": [
+      "red",
+      "blue",
+      "green",
+      "yellow",
+      "black",
+      "white",
+      "orange",
+      "purple",
+      "brown",
+      "pink",
+      "gray",
+      "cyan",
+      "gold",
+      "silver",
+      "teal",
+      "maroon",
+      "violet",
+      "beige",
+      "olive",
+      "navy"
+    ],
+    "verbs_all": [
+      "helped",
+      "chased",
+      "greeted",
+      "followed",
+      "warned",
+      "thanked",
+      "noticed",
+      "watched"
+    ],
+    "train_verbs": [
+      "helped",
+      "chased",
+      "greeted",
+      "followed"
+    ],
+    "heldout_verbs": [
+      "warned",
+      "thanked",
+      "noticed",
+      "watched"
+    ],
+    "n_train_pairs": 30,
+    "n_test_pairs": 30,
+    "n_cached_sentences": 500,
+    "encoder": "real_v2_frozen",
+    "extraction": "direct_token_position_meanpool (departs from oc.build_role_query_probe single-fixed-attention-pool -- see module docstring rationale)",
+    "conditioning": "global_mean_centering (contextualized reps and bag-of-words reps centered SEPARATELY, per module docstring)",
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+    "shuffle_seed": 771331,
+    "n_shuffle_trials": 30
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "no learned-noise Cramer-Rao floor; discriminator is the pre-registered ENCODER_ENCODES_SYNTACTIC_ROLE/ENCODER_POSITION_ONLY/INVALID decision rule (see decide_verdict)",
+  "calibration_check": "default_ok_for_this_regime: ROLE_PROBE_PASS_MIN/FAIL_MAX, POSITION_ONLY_FAIL_MAX, BAGOFWORDS_FLOOR_BAND, SHUFFLED_FLOOR_BAND are fixed HYPOTHESIZED thresholds set before running (not tuned post-hoc); chance=0.50 is exact-by-construction (binary balanced task)."
+}
