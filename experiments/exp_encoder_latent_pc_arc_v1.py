@@ -67,6 +67,26 @@ CUDA-DEVICE-SAFE (recurring bug class this session: WM.to(device) then cpu-Gener
   back. A tiny end-to-end cuda sanity runs in --self-test WHEN cuda is present; when absent the identical
   device-routed step runs on cpu and a static device-parity audit is recorded (see _cuda_safety_audit).
 
+BUILD-PLAN FIXES 2026-07-30 (notes/forward_predictive_second_encoder_build_plan_2026-07-30.md sec 2):
+  Fix A  data-prep progress logging inside count/collect/tokenize passes (in v2, imported) -- every
+         500k lines log n_read/rate/ETA + _heartbeat.jsonl (silent->visibly-alive).
+  Fix B  (single-pass merge) NOT APPLIED -- FLAGGED. The pipeline is count_pass -> build_split ->
+         collect_pass: collect's held/train line routing needs the SPLIT, which needs the full COUNTS.
+         A correctness-preserving merge would need to buffer >cap_mentions postings for ALL concepts
+         (unbounded memory at FULL) to survive post-hoc split routing; the cap-in-corpus-order posting
+         semantics cannot be reproduced from a pre-split single pass. The actual failure (silent 5h
+         death) is fully addressed by Fix A (visibility) + Fix D (cache: crash never repeats data-prep)
+         + Fix C (headroom gate detects a too-slow env before FULL). Kept 3 correct passes.
+  Fix C  --smoke data-prep-headroom gate: measure REAL lines/sec on a 2M-line slice, project to FULL,
+         REFUSE FULL if projected > DATA_PREP_TIME_CEILING_S (4h). Prints DATA_PREP_OK|DATA_PREP_TOO_SLOW.
+  Fix D  torch.save the prepare_data() bundle keyed by a sha256 digest of (data-cfg subset, corpus
+         mtime); main() reuses it before re-running data-prep.
+  Fix 2b OOM tripwire: _assert_no_vocab_dim on the loss-path latents (last-dim==d_model, != vocab).
+  Fix 2c (seed, arm) checkpoint/resume via tools/exp_checkpoint.py (crash keeps completed arms' GPU-hrs).
+  Fix 2d per-arm reusable ckpt (state_dict+model_cfg+tokenizer_json) = FrozenV2Encoder-shape, for sec 3.
+  Fix 4  ARM_MLM reuses V2 ckpt_seed_{7,13}.pt at FULL (no retrain); FULL mlm_steps bumped 40000->60000
+         to MATCH V2 FULL so the reused MLM arm and the fresh LPC arms share the step budget (flagged).
+
 # CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
 # - arms_differ_verified at run (META_RULE_AF; hash of the 4 arms' held-out rep matrices)
 # - final_metrics_atomicity: tmp_replace (via _seed_checkpoint.write_metrics + os.replace + per-seed partials)
@@ -114,13 +134,33 @@ from experiments._seed_checkpoint import (  # noqa: E402
 # Reuse the PROVEN v2 data pipeline + encoder + MLM baseline verbatim (guarantees matched data /
 # architecture across arms; the ONLY new machinery here is the LPC objective + the rep battery).
 from experiments.exp_scale_meaning_learn_arc_heldout_v2 import (  # noqa: E402
-    TinyTransformer, mlm_train, load_concept_universe, prepare_data,
+    TinyTransformer, mlm_train, load_concept_universe, prepare_data, count_pass,
     encode_concept_text_reps, relational_eval, ARC_CORPUS,
+    FULL_CFG as V2_FULL_CFG,  # noqa: F401  (to audit MLM-reuse budget parity)
     RAW_ARM as V2_RAW_ARM,  # noqa: F401  (imported to assert module wiring in self-test)
 )
 from hdlab.temporal_trace import TemporalTrace  # noqa: E402  (banked Foldiak slow-feature primitive)
 
+# (seed, arm) per-unit checkpoint/resume (CLAUDE.md mandate; Fix 2c). Same path convention every cell
+# uses: tools/ on sys.path, then `import exp_checkpoint`.
+sys.path.insert(0, os.path.join(_REPO, "tools"))
+import exp_checkpoint as ckpt  # noqa: E402
+
 ANCHOR_NAME = "encoder_latent_pc_arc_v1"
+
+# Reuse of V2's already-trained MLM checkpoints for ARM_MLM at FULL (section 4 cost fix; Fix 4): the
+# MLM baseline arm is architecturally + data + BUDGET identical to V2's FULL MLM (see FULL_CFG note
+# below), so we load V2's ckpt_seed_{7,13}.pt instead of retraining ~2 GPU-hr/seed. Graceful fallback
+# to a fresh matched-budget MLM train when a seed's ckpt is absent (smoke/self-test/other seeds).
+V2_CKPT_DIR = os.path.join(_REPO, "data", "exp_scale_meaning_learn_arc_heldout_v2")
+
+# Data-prep-headroom smoke gate (Fix C) + resumable data-prep cache (Fix D).
+DATA_PREP_SMOKE_LINES = 2_000_000        # real-corpus probe slice (measure lines/sec, extrapolate)
+DATA_PREP_TIME_CEILING_S = 14400         # 4h ceiling on projected FULL data-prep (fail loud above)
+N_DATA_PASSES = 3                        # count_pass + collect_pass + tokenize_train_stream (see Fix B flag)
+_DATA_CFG_KEYS = ("min_deg", "cap_eval_concepts", "heldout_count", "min_mentions_eval", "max_lines",
+                  "dedup_cap", "bpe_sample_lines", "cap_mentions", "vocab", "max_len",
+                  "train_token_budget", "max_shards", "n_freq_buckets")
 
 # Arms
 ARM_LPC = "ARM_LPC"                # latent-PC (JEPA) alone -- PRIMARY
@@ -177,7 +217,12 @@ FULL_CFG = dict(
     max_lines=10000000, dedup_cap=6000000, bpe_sample_lines=400000, cap_mentions=128,
     vocab=16000, max_len=128, train_token_budget=130000000, max_shards=16,
     d_model=512, n_layers=6, n_heads=8, ffn_mult=4,
-    mlm_steps=40000, mlm_batch=128, mlm_mask_frac=0.15, mlm_lr=3e-4,
+    # mlm_steps=60000 MATCHES V2 FULL (exp_scale_meaning_learn_arc_heldout_v2.FULL_CFG.mlm_steps=60000).
+    # This is the ONE scientific-parameter change vs the cell's prior 40000, made so ARM_MLM (now REUSED
+    # from V2's 60000-step ckpt, Fix 4) and the fresh-trained ARM_LPC/ARM_LPC_TC share an IDENTICAL step
+    # budget -> the one-variable (objective) comparison stays budget-matched. Flagged for Director
+    # sign-off. A runtime parity assert (see _load_mlm_baseline_encoder use) guards against silent drift.
+    mlm_steps=60000, mlm_batch=128, mlm_mask_frac=0.15, mlm_lr=3e-4,
     encode_batch=256, n_freq_buckets=8,
     **_LPC_COMMON,
 )
@@ -236,6 +281,15 @@ def _heartbeat(output_dir, unit_idx, total_units, elapsed_s, extra=None):
 # ---------------------------------------------------------------------------
 # Latent predictor (I-JEPA-style small MLP; predicts target latent from context latent)
 # ---------------------------------------------------------------------------
+def _assert_no_vocab_dim(tensors, d_model, vocab_size):
+    """OOM regression tripwire (Fix 2b): the latent-PC loss path is bounded by d_model and must NEVER
+    materialize a vocab-sized [.,vocab] tensor (the v5 causal-LM OOM class). Verification-only guard."""
+    for t in tensors:
+        last = int(t.shape[-1])
+        assert last == d_model, ("OOM_TRIPWIRE: loss-path latent last-dim=%d != d_model=%d" % (last, d_model))
+        assert last != vocab_size, ("OOM_TRIPWIRE: loss-path tensor has vocab-sized last-dim=%d" % last)
+
+
 class LatentPredictor(torch.nn.Module):
     def __init__(self, d_model, hidden_mult):
         super().__init__()
@@ -357,6 +411,8 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
             zc = h_ctx[tgt_mask]                             # [T,d] context latents at target positions
             zt = h_tgt[tgt_mask].detach()                   # [T,d] target latents (stop-grad)
             zp = predictor(zc)                              # [T,d] predicted target latents
+            if step == 0:
+                _assert_no_vocab_dim((zc, zt, zp), cfg["d_model"], spec["size"])
             pred_loss = torch.nn.functional.smooth_l1_loss(zp, zt)
             zp32, zt32 = zp.float(), zt.float()
             var_loss = _vicreg_variance(zp32) + _vicreg_variance(zt32)
@@ -556,22 +612,147 @@ def _arms_differ(rep_dict):
 
 
 # ---------------------------------------------------------------------------
-# Encoder builders per arm (each returns a frozen TinyTransformer + training diag)
+# MLM-baseline reuse (Fix 4): reuse V2's already-trained ckpt instead of retraining ARM_MLM.
+# Returns (model, tok, spec, source) or (None,...,"fresh") when the seed's ckpt is absent.
+# ---------------------------------------------------------------------------
+def _load_mlm_baseline_encoder(seed, device):
+    ckpt_path = os.path.join(V2_CKPT_DIR, "ckpt_seed_%d.pt" % seed)
+    if not os.path.exists(ckpt_path):
+        return None, None, None, "fresh_no_v2_ckpt"
+    ck = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+    mc = ck["model_cfg"]
+    model = TinyTransformer(mc["vocab"], mc["max_len"], mc["d_model"], mc["n_layers"],
+                            mc["n_heads"], mc["ffn_mult"], mc["pad_id"]).to(device)
+    model.load_state_dict(ck["state_dict"])
+    model.eval()
+    for p in model.parameters():
+        p.requires_grad_(False)
+    from tokenizers import Tokenizer
+    tok = Tokenizer.from_str(ck["tokenizer_json"])
+    return model, tok, ck["spec"], "reused_v2_ckpt"
+
+
+# ---------------------------------------------------------------------------
+# Per-arm reusable checkpoint (Fix 2d): bit-identical dict shape to what FrozenV2Encoder loads
+# (state_dict + model_cfg + tokenizer_json), so the downstream binding-compare cell needs zero new
+# loader code -- only a path change. Saved for the arms section 3 consumes (ARM_LPC, ARM_MLM) plus
+# ARM_LPC_TC for completeness (ARM_RANDOM skipped -- untrained, nothing to reuse).
+# ---------------------------------------------------------------------------
+def _save_arm_ckpt(out_dir, seed, arm, model, tok, spec, cfg):
+    if arm == ARM_RANDOM:
+        return None
+    try:
+        ck = dict(
+            state_dict={k: v.detach().cpu() for k, v in model.state_dict().items()},
+            spec=spec,
+            model_cfg=dict(vocab=int(spec["size"]), max_len=int(cfg["max_len"]),
+                           d_model=int(cfg["d_model"]), n_layers=int(cfg["n_layers"]),
+                           n_heads=int(cfg["n_heads"]), ffn_mult=int(cfg["ffn_mult"]),
+                           pad_id=int(spec["pad"])),
+            tokenizer_json=tok.to_str(),
+            seed=int(seed), run_mode=cfg["run_mode"], anchor=ANCHOR_NAME, arm=arm)
+        path = os.path.join(out_dir, "ckpt_seed_%d_%s.pt" % (seed, arm))
+        tmp = path + ".tmp"
+        torch.save(ck, tmp)
+        os.replace(tmp, path)
+    except (OSError, RuntimeError, ValueError) as e:
+        _log("  WARN arm-ckpt save failed (%s/%s): %s" % (arm, seed, str(e)[:200]))
+        return None
+    try:
+        return os.path.relpath(path, _REPO)          # repo-relative in production
+    except ValueError:
+        return os.path.abspath(path)                 # cross-drive (self-test temp on another mount)
+
+
+# ---------------------------------------------------------------------------
+# Data-prep bundle cache (Fix D): torch.save the seed-independent prepare_data() bundle keyed by a hash
+# of (data-affecting cfg subset, corpus mtime) so a crash DURING arm training does not repeat the
+# ~2-3h data-prep on resume. Tokenizer serialized via to_str()/from_str() (numpy/python-native rest).
+# ---------------------------------------------------------------------------
+def _dataprep_cache_key(cfg):
+    corpus_mtime = os.path.getmtime(ARC_CORPUS) if os.path.exists(ARC_CORPUS) else 0.0
+    payload = dict(cfg_subset={k: cfg.get(k) for k in _DATA_CFG_KEYS},
+                   corpus_mtime=round(float(corpus_mtime), 3), run_mode=cfg["run_mode"])
+    return hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()[:16]
+
+
+def _bundle_cache_path(out_dir, cfg):
+    return os.path.join(out_dir, "dataprep_bundle_%s.pt" % _dataprep_cache_key(cfg))
+
+
+def _save_bundle_cache(path, bundle):
+    b = dict(bundle)
+    b["tok_json"] = b["tok"].to_str()
+    b.pop("tok", None)
+    tmp = path + ".tmp"
+    torch.save(b, tmp)
+    os.replace(tmp, path)
+
+
+def _load_bundle_cache(path):
+    from tokenizers import Tokenizer
+    b = torch.load(path, map_location="cpu", weights_only=False)
+    b["tok"] = Tokenizer.from_str(b.pop("tok_json"))
+    return b
+
+
+# ---------------------------------------------------------------------------
+# Data-prep-headroom gate (Fix C): measure the REAL per-line rate on a bounded corpus slice, extrapolate
+# to the full data-prep cost, and REFUSE FULL if the projected ETA exceeds the ceiling. Fails loud.
+# ---------------------------------------------------------------------------
+def _headroom_projection(measured_rate, full_lines, n_passes, ceiling_s):
+    proj = ((full_lines / measured_rate) * n_passes) if measured_rate > 0 else float("inf")
+    return dict(measured_lines_per_sec=float(measured_rate), projected_full_dataprep_s=float(proj),
+                n_passes=int(n_passes), ceiling_s=int(ceiling_s), full_lines=int(full_lines),
+                verdict=("DATA_PREP_OK" if proj <= ceiling_s else "DATA_PREP_TOO_SLOW"))
+
+
+def _data_prep_headroom(out_dir):
+    """Run count_pass over DATA_PREP_SMOKE_LINES of the REAL corpus at FULL cfg, measure lines/sec, and
+    project the full data-prep ETA (n_passes single-line passes over FULL max_lines)."""
+    full_uni = load_concept_universe(FULL_CFG)
+    probe = dict(FULL_CFG)
+    probe["max_lines"] = DATA_PREP_SMOKE_LINES
+    _log("data-prep headroom probe: count_pass over %d REAL corpus lines (FULL cfg)..."
+         % DATA_PREP_SMOKE_LINES)
+    t0 = time.perf_counter()
+    _counts, stats = count_pass(probe, full_uni["surf_to_idx"], out_dir=out_dir)
+    el = time.perf_counter() - t0
+    rate = (stats["n_read"] / el) if el > 0 else 0.0
+    full_lines = FULL_CFG["max_lines"] or stats["n_read"]
+    h = _headroom_projection(rate, full_lines, N_DATA_PASSES, DATA_PREP_TIME_CEILING_S)
+    h.update(probe_lines=int(stats["n_read"]), probe_elapsed_s=float(el))
+    return h
+
+
+# ---------------------------------------------------------------------------
+# Encoder builders per arm (each returns a frozen TinyTransformer + training diag + optional tok/spec
+# override for the reused-MLM arm, which must encode with ITS OWN ckpt tokenizer).
 # ---------------------------------------------------------------------------
 def _build_encoder(arm, cfg, spec, device, seed, stream, out_dir, hb_total):
     if arm == ARM_MLM:
+        if cfg["run_mode"] == "full":
+            m, mtok, mspec, src = _load_mlm_baseline_encoder(seed, device)
+            if m is not None:
+                _log("  ARM_MLM: reused V2 ckpt_seed_%d.pt (no retrain; budget-matched at 60000 steps)"
+                     % seed)
+                return m, dict(reused_v2_ckpt=True, baseline_source=src), mtok, mspec
+            _log("  ARM_MLM: V2 ckpt_seed_%d.pt ABSENT -> fresh matched-budget MLM train (fallback)"
+                 % seed)
         model, final_loss = mlm_train(stream, spec, cfg, device, seed, out_dir, hb_total)
-        return model, dict(final_mlm_loss=float(final_loss))
+        return model, dict(final_mlm_loss=float(final_loss), reused_v2_ckpt=False), None, None
     if arm == ARM_RANDOM:
         torch.manual_seed(seed + 999)
         model = TinyTransformer(spec["size"], cfg["max_len"], cfg["d_model"], cfg["n_layers"],
                                 cfg["n_heads"], cfg["ffn_mult"], spec["pad"]).to(device)
         model.eval()
-        return model, dict(untrained=True)
+        return model, dict(untrained=True), None, None
     if arm == ARM_LPC:
-        return lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=False)
+        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=False)
+        return m, d, None, None
     if arm == ARM_LPC_TC:
-        return lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=True)
+        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_contiguity=True)
+        return m, d, None, None
     raise ValueError("unknown arm %s" % arm)
 
 
@@ -587,13 +768,33 @@ def run_one_seed(seed, cfg, device, out_dir, universe, bundle):
     hb_total = cfg["mlm_steps"] * len(OBJECTIVE_ARMS)
 
     arm_results = {}
-    held_reps = {}
+    arm_digests = {}
+    ckpt_paths = {}
+    # (seed, arm) unit checkpoint/resume (Fix 2c): a crash in a later arm keeps every already-complete
+    # arm's ~2.8-3.2 GPU-hr of work. Resume skips units already recorded in units.jsonl.
+    done = ckpt.completed_units(out_dir)
+    prior = ckpt.load_units(out_dir) if done else {}
     for arm in ARMS:
+        key = ckpt.unit_key(seed, arm)
+        if key in done:
+            u = prior[key]                            # load_units already unwraps to the result dict
+            arm_results[arm] = u["arm_result"]
+            arm_digests[arm] = u["held_rep_digest"]
+            ckpt_paths[arm] = u.get("ckpt_path")
+            _log("seed=%d ARM=%s: RESUMED (already in units.jsonl; skip retrain)" % (seed, arm))
+            continue
         _log("seed=%d ARM=%s: build encoder..." % (seed, arm))
-        model, tdiag = _build_encoder(arm, cfg, spec, device, seed, bundle["stream"], out_dir, hb_total)
+        model, tdiag, enc_tok, enc_spec = _build_encoder(
+            arm, cfg, spec, device, seed, bundle["stream"], out_dir, hb_total)
+        use_tok = enc_tok if enc_tok is not None else tok
+        use_spec = enc_spec if enc_spec is not None else spec
+        # persist the reusable encoder ckpt BEFORE the (potentially long) rep battery, so a crash mid-
+        # battery still leaves the trained weights on disk (Fix 2d).
+        ckpt_paths[arm] = _save_arm_ckpt(out_dir, seed, arm, model, use_tok, use_spec, cfg)
         _log("seed=%d ARM=%s: encode concept reps..." % (seed, arm))
-        reps, mrep_cnt = encode_concept_text_reps(model, tok, postings, cfg, device, spec)
-        held_reps[arm] = reps[split["held_idx"]].copy()
+        reps, mrep_cnt = encode_concept_text_reps(model, use_tok, postings, cfg, device, use_spec)
+        held = reps[split["held_idx"]].copy()
+        digest = hashlib.sha256(np.ascontiguousarray(held).tobytes()).hexdigest()
 
         gg, gg_nq = graded_geometry_eval(reps, split, adj, seed, max_q=cfg.get("gg_max_q"))
         probe, probe_nq = heldout_probe_eval(reps, universe, split)
@@ -610,11 +811,20 @@ def run_one_seed(seed, cfg, device, out_dir, universe, bundle):
             mention_rep_coverage=float((mrep_cnt[split["held_idx"]] > 0).mean()),
             train_diag=tdiag,
         )
+        arm_digests[arm] = digest
+        ckpt.record_unit(out_dir, key, dict(arm_result=arm_results[arm], held_rep_digest=digest,
+                                             ckpt_path=ckpt_paths[arm]))
         _log("seed=%d ARM=%s: gg=%s probe=%s rel=%s rep_std=%s (gg_nq=%d)"
              % (seed, arm, _fmt(gg), _fmt(probe), _fmt(rel_auc), _fmt(cdiag["rep_std"]), gg_nq))
 
-    arm_digests = _arms_differ(held_reps)
+    # ARMS-MUST-DIFFER (META_RULE_AF) from the recorded per-arm held-rep digests (resume-safe).
+    _names = sorted(arm_digests)
+    for _i in range(len(_names)):
+        for _j in range(_i + 1, len(_names)):
+            assert arm_digests[_names[_i]] != arm_digests[_names[_j]], \
+                "META_RULE_AF VIOLATION: %s and %s bit-identical" % (_names[_i], _names[_j])
     return dict(seed=int(seed), run_mode=cfg["run_mode"], elapsed_s=float(time.perf_counter() - t0),
+                ckpt_paths=ckpt_paths,
                 arms=arm_results, arm_digests=arm_digests,
                 matched_budget=dict(steps=cfg["mlm_steps"], batch=cfg["mlm_batch"],
                                     train_token_budget=cfg["train_token_budget"],
@@ -825,6 +1035,75 @@ def _selftest_assertions(per_seed, summary, verdict, out_dir, audit):
 
 
 # ---------------------------------------------------------------------------
+# Plumbing self-tests (fast, no corpus): headroom projection + arm-ckpt round-trip + (seed,arm) resume
+# ---------------------------------------------------------------------------
+def _selftest_plumbing():
+    import shutil
+    import tempfile
+    from tokenizers import Tokenizer, models, pre_tokenizers, trainers
+
+    # (a) Fix C headroom projection branch logic
+    fast = _headroom_projection(20000.0, 10_000_000, N_DATA_PASSES, DATA_PREP_TIME_CEILING_S)
+    assert fast["verdict"] == "DATA_PREP_OK", fast
+    slow = _headroom_projection(500.0, 10_000_000, N_DATA_PASSES, DATA_PREP_TIME_CEILING_S)
+    assert slow["verdict"] == "DATA_PREP_TOO_SLOW", slow
+    edge_rate = (10_000_000 * N_DATA_PASSES) / float(DATA_PREP_TIME_CEILING_S)   # projected == ceiling
+    assert _headroom_projection(edge_rate, 10_000_000, N_DATA_PASSES,
+                                DATA_PREP_TIME_CEILING_S)["verdict"] == "DATA_PREP_OK"
+
+    # (b) Fix 2d arm-ckpt round-trips into a fresh TinyTransformer (FrozenV2Encoder-shape loader)
+    tmp = tempfile.mkdtemp(prefix="lpc_ckpt_selftest_")
+    try:
+        spec = dict(size=64, pad=0, unk=1, mask=2)
+        cfg = dict(max_len=8, d_model=16, n_layers=1, n_heads=2, ffn_mult=2, run_mode="selftest")
+        m = TinyTransformer(spec["size"], cfg["max_len"], cfg["d_model"], cfg["n_layers"],
+                            cfg["n_heads"], cfg["ffn_mult"], spec["pad"])
+        tok = Tokenizer(models.BPE(unk_token="[UNK]"))
+        tok.pre_tokenizer = pre_tokenizers.Whitespace()
+        tr = trainers.BpeTrainer(vocab_size=64, special_tokens=["[PAD]", "[UNK]", "[MASK]"],
+                                 show_progress=False)
+        tok.train_from_iterator(["red cat sat", "blue dog ran", "green fish swam"], trainer=tr)
+        path = _save_arm_ckpt(tmp, 7, ARM_LPC, m, tok, spec, cfg)
+        assert path is not None, "arm-ckpt save returned None"
+        ck = torch.load(os.path.join(_REPO, path), map_location="cpu", weights_only=False)
+        for kk in ("state_dict", "spec", "model_cfg", "tokenizer_json", "seed", "arm"):
+            assert kk in ck, "arm-ckpt missing key %s" % kk
+        mc = ck["model_cfg"]
+        for kk in ("vocab", "max_len", "d_model", "n_layers", "n_heads", "ffn_mult", "pad_id"):
+            assert kk in mc, "model_cfg missing %s" % kk
+        m2 = TinyTransformer(mc["vocab"], mc["max_len"], mc["d_model"], mc["n_layers"],
+                             mc["n_heads"], mc["ffn_mult"], mc["pad_id"])
+        m2.load_state_dict(ck["state_dict"])            # bit-identical to what FrozenV2Encoder does
+        _ = Tokenizer.from_str(ck["tokenizer_json"])
+        assert ck["arm"] == ARM_LPC and int(ck["seed"]) == 7
+        assert _save_arm_ckpt(tmp, 7, ARM_RANDOM, m, tok, spec, cfg) is None, "ARM_RANDOM must save nothing"
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+    # (c) Fix 2c (seed, arm) checkpoint/resume: crash after 2 arms -> resume skips exactly those 2
+    tmp2 = tempfile.mkdtemp(prefix="lpc_resume_selftest_")
+    try:
+        def _fake(a):
+            return dict(arm_result={"graded_geometry": 0.5}, held_rep_digest="dg_" + a, ckpt_path=None)
+        for a in ARMS[:2]:
+            ckpt.record_unit(tmp2, ckpt.unit_key(7, a), _fake(a))
+        done = ckpt.completed_units(tmp2)
+        assert done == {ckpt.unit_key(7, a) for a in ARMS[:2]}, done
+        n_skip = 0
+        for a in ARMS:
+            if ckpt.unit_key(7, a) in done:
+                n_skip += 1
+                continue
+            ckpt.record_unit(tmp2, ckpt.unit_key(7, a), _fake(a))
+        assert n_skip == 2, "resume did not skip exactly 2 completed arms (%d)" % n_skip
+        assert len(ckpt.load_units(tmp2)) == len(ARMS), "resume did not complete remaining arms"
+        assert ckpt.unit_key(7, ARM_LPC) != ckpt.unit_key(13, ARM_LPC), "seed-scoped keys collide"
+    finally:
+        shutil.rmtree(tmp2, ignore_errors=True)
+    _log("PLUMBING SELF-TEST PASS (headroom projection + arm-ckpt round-trip + (seed,arm) resume)")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def _select_device():
@@ -853,6 +1132,9 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
     _write_start_marker(out_dir, cfg["run_mode"], len(cfg["seeds"]))
 
+    if args.self_test:
+        _selftest_plumbing()
+
     device = torch.device(args.device) if args.device else _select_device()
     _log("run_mode=%s device=%s seeds=%s cuda=%s co_scaled=%s"
          % (cfg["run_mode"], device.type, cfg["seeds"], torch.cuda.is_available(), args.co_scaled))
@@ -864,11 +1146,42 @@ def main():
     if not os.path.exists(ARC_CORPUS):
         raise FileNotFoundError("ARC corpus not found at %s (remote staging?)" % ARC_CORPUS)
 
+    # ---- data-prep-headroom gate (Fix C): fail loud BEFORE any full data-prep/dispatch if too slow ----
+    headroom = None
+    if args.smoke:
+        headroom = _data_prep_headroom(out_dir)
+        _log("data_prep_headroom: %s | measured=%.0f lines/s | projected_full_dataprep=%.0fs "
+             "(%.1fh) ceiling=%ds n_passes=%d (probe %d lines in %.1fs)"
+             % (headroom["verdict"], headroom["measured_lines_per_sec"],
+                headroom["projected_full_dataprep_s"], headroom["projected_full_dataprep_s"] / 3600.0,
+                headroom["ceiling_s"], headroom["n_passes"], headroom["probe_lines"],
+                headroom["probe_elapsed_s"]))
+        if headroom["verdict"] == "DATA_PREP_TOO_SLOW":
+            raise RuntimeError(
+                "DATA_PREP_TOO_SLOW: projected full data-prep %.0fs (%.1fh) > ceiling %ds at measured "
+                "%.0f lines/s -- REFUSING to green-light FULL GPU dispatch (env too slow / a per-line "
+                "regression). Investigate before FULL."
+                % (headroom["projected_full_dataprep_s"], headroom["projected_full_dataprep_s"] / 3600.0,
+                   headroom["ceiling_s"], headroom["measured_lines_per_sec"]))
+
     _log("loading concept universe...")
     universe = load_concept_universe(cfg)
     _log("concept universe: K=%d single-token grounded+lexname concepts" % universe["K"])
-    _log("preparing shared data (seed-independent: split, tokenizer, postings, stream, graph)...")
-    bundle = prepare_data(cfg, universe)
+
+    # ---- data-prep bundle cache (Fix D): reuse across crash/resume so arm-training crashes never
+    # repeat the ~2-3h data-prep ----
+    cache_path = _bundle_cache_path(out_dir, cfg)
+    if os.path.exists(cache_path):
+        _log("data-prep bundle cache HIT: %s (skip re-prep)" % os.path.basename(cache_path))
+        bundle = _load_bundle_cache(cache_path)
+    else:
+        _log("preparing shared data (seed-independent: split, tokenizer, postings, stream, graph)...")
+        bundle = prepare_data(cfg, universe, out_dir=out_dir)
+        try:
+            _save_bundle_cache(cache_path, bundle)
+            _log("data-prep bundle cached: %s" % os.path.basename(cache_path))
+        except (OSError, RuntimeError, ValueError) as e:
+            _log("WARN bundle cache save failed (%s): %s" % (type(e).__name__, str(e)[:200]))
 
     for seed in cfg["seeds"]:
         res = run_one_seed(seed, cfg, device, out_dir, universe, bundle)
@@ -894,6 +1207,16 @@ def main():
                    collapse_target_std_floor=COLLAPSE_TARGET_STD_FLOOR, min_query=MIN_QUERY_TASKS),
         cardinality_ok=(len(per_seed) == len(cfg["seeds"])),
         expected_n_units=len(cfg["seeds"]),
+        data_prep_headroom=headroom,
+        mlm_reuse=dict(v2_ckpt_dir=os.path.relpath(V2_CKPT_DIR, _REPO),
+                       budget_matched_steps=int(cfg["mlm_steps"]),
+                       note="ARM_MLM reuses V2 ckpt at FULL (mlm_steps matched to V2 FULL=60000)"),
+        checkpoint=dict(unit_granularity="(seed, arm)", helper="tools/exp_checkpoint.py",
+                        dataprep_bundle_cache=os.path.basename(cache_path),
+                        per_arm_ckpts={str(s): per_seed[s].get("ckpt_paths") for s in per_seed}),
+        progress_logging="print_flush_true",
+        start_marker_written=True, crash_diagnostic_present=True,
+        final_metrics_atomicity="tmp_replace", defensive_error_checking="passed_all_4_patterns",
     )
     write_metrics(out_dir, metrics, results=list(per_seed.values()), gate_claims=gates)
 

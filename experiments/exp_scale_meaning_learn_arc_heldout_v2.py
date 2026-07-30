@@ -251,6 +251,23 @@ def _heartbeat(output_dir, unit_idx, total_units, elapsed_s, extra=None):
         pass
 
 
+# In-loop data-prep progress (Fix A, forward_predictive_second_encoder_build_plan_2026-07-30):
+# a multi-hour pure-Python line loop with NO interim signal is indistinguishable from a hang. Emit a
+# rate/ETA line every _PROGRESS_EVERY_LINES lines (stdout always; _heartbeat.jsonl when out_dir given).
+_PROGRESS_EVERY_LINES = 500000
+
+
+def _pass_progress(out_dir, pass_name, n_read, t0, max_lines):
+    el = time.perf_counter() - t0
+    rate = (n_read / el) if el > 0 else 0.0
+    eta = ((max_lines - n_read) / rate) if (max_lines and rate > 0) else float("nan")
+    _log("  [%s] read=%d elapsed=%.1fs rate=%.0f lines/s eta_to_max=%.1fs"
+         % (pass_name, n_read, el, rate, eta))
+    if out_dir is not None:
+        _heartbeat(out_dir, n_read, int(max_lines or 0), el,
+                   extra=dict(pass_name=pass_name, lines_per_sec=float(rate), eta_s=float(eta)))
+
+
 # ---------------------------------------------------------------------------
 # Deterministic held-out split (sha256; PYTHONHASHSEED-independent)
 # ---------------------------------------------------------------------------
@@ -422,18 +439,21 @@ def _line_hash(line):
 # ---------------------------------------------------------------------------
 # Pass 1: count mentions per concept (deduped + quality-filtered), corpus stats
 # ---------------------------------------------------------------------------
-def count_pass(cfg, surf_to_idx):
+def count_pass(cfg, surf_to_idx, out_dir=None):
     K = len(surf_to_idx)
     counts = np.zeros(K, dtype=np.int64)
     dedup_cap = cfg["dedup_cap"]
     seen = set()
     n_read = n_kept = n_dup = n_lowq = 0
     total_tokens = 0
+    t0 = time.perf_counter()
     with open(ARC_CORPUS, "r", encoding="utf-8", errors="ignore") as f:
         for raw in f:
             if cfg["max_lines"] is not None and n_read >= cfg["max_lines"]:
                 break
             n_read += 1
+            if n_read % _PROGRESS_EVERY_LINES == 0:
+                _pass_progress(out_dir, "count_pass", n_read, t0, cfg["max_lines"])
             line = raw.strip()
             if not line:
                 continue
@@ -507,7 +527,7 @@ def _scrub_variants(surface):
 # ---------------------------------------------------------------------------
 # Pass 2: collect BPE-sample lines + per-concept mention postings (train + held-out)
 # ---------------------------------------------------------------------------
-def collect_pass(cfg, universe, split):
+def collect_pass(cfg, universe, split, out_dir=None):
     surf_to_idx = universe["surf_to_idx"]
     scrub = set()
     for s in split["heldout_surfaces"]:
@@ -520,11 +540,14 @@ def collect_pass(cfg, universe, split):
     n_train_lines = n_held_lines = 0
     train_tokens = 0
     n_read = 0
+    t0 = time.perf_counter()
     with open(ARC_CORPUS, "r", encoding="utf-8", errors="ignore") as f:
         for raw in f:
             if cfg["max_lines"] is not None and n_read >= cfg["max_lines"]:
                 break
             n_read += 1
+            if n_read % _PROGRESS_EVERY_LINES == 0:
+                _pass_progress(out_dir, "collect_pass", n_read, t0, cfg["max_lines"])
             line = raw.strip()
             if not line:
                 continue
@@ -590,7 +613,7 @@ def _encode_pad(tok, text, max_len, pad_id):
 # ---------------------------------------------------------------------------
 # Pass 3: tokenize training text into a contiguous token stream (budget-bounded)
 # ---------------------------------------------------------------------------
-def tokenize_train_stream(cfg, tok, split, spec):
+def tokenize_train_stream(cfg, tok, split, spec, out_dir=None):
     scrub = set()
     for s in split["heldout_surfaces"]:
         scrub |= _scrub_variants(s)
@@ -600,11 +623,14 @@ def tokenize_train_stream(cfg, tok, split, spec):
     buf = []
     total = 0
     n_read = 0
+    t0 = time.perf_counter()
     with open(ARC_CORPUS, "r", encoding="utf-8", errors="ignore") as f:
         for raw in f:
             if cfg["max_lines"] is not None and n_read >= cfg["max_lines"]:
                 break
             n_read += 1
+            if n_read % _PROGRESS_EVERY_LINES == 0:
+                _pass_progress(out_dir, "tokenize_stream", n_read, t0, cfg["max_lines"])
             line = raw.strip()
             if not line:
                 continue
@@ -1035,9 +1061,9 @@ def _arms_differ(rep_dict):
 # ---------------------------------------------------------------------------
 # Seed-independent data prep (done ONCE; split/tokenizer/postings/graph are seed-free)
 # ---------------------------------------------------------------------------
-def prepare_data(cfg, universe):
+def prepare_data(cfg, universe, out_dir=None):
     _log("count pass...")
-    counts, corpus_stats = count_pass(cfg, universe["surf_to_idx"])
+    counts, corpus_stats = count_pass(cfg, universe["surf_to_idx"], out_dir=out_dir)
     _log("  corpus: read=%d kept=%d dup_rate=%.4f low_q=%d tokens=%d"
          % (corpus_stats["n_read"], corpus_stats["n_kept"], corpus_stats["dup_rate"],
             corpus_stats["n_lowq"], corpus_stats["total_alpha_tokens"]))
@@ -1047,7 +1073,7 @@ def prepare_data(cfg, universe):
             split["split_meta"]["median_mentions_eligible"]))
 
     _log("collect pass (postings + BPE sample)...")
-    postings, bpe_lines, collect_meta = collect_pass(cfg, universe, split)
+    postings, bpe_lines, collect_meta = collect_pass(cfg, universe, split, out_dir=out_dir)
     _log("  train_lines=%d held_lines=%d bpe_sample=%d train_tokens_avail=%d"
          % (collect_meta["n_train_lines"], collect_meta["n_held_lines"],
             collect_meta["bpe_sample"], collect_meta["train_tokens_available"]))
@@ -1059,7 +1085,7 @@ def prepare_data(cfg, universe):
     _log("  BPE size=%d pad=%d unk=%d mask=%d" % (spec["size"], spec["pad"], spec["unk"], spec["mask"]))
 
     _log("tokenize train stream (budget=%d)..." % cfg["train_token_budget"])
-    stream, trained_tokens = tokenize_train_stream(cfg, tok, split, spec)
+    stream, trained_tokens = tokenize_train_stream(cfg, tok, split, spec, out_dir=out_dir)
     _log("  trained_tokens=%d windows=%d" % (trained_tokens, stream.shape[0] // cfg["max_len"]))
 
     # ZERO-OVERLAP WITNESS: no held-out surface may appear in any TRAIN line (leak-proof gate).
@@ -1510,7 +1536,7 @@ def main():
     _log("concept universe: K=%d single-token grounded+lexname concepts" % universe["K"])
 
     _log("preparing shared data (seed-independent: split, tokenizer, postings, stream, graph)...")
-    bundle = prepare_data(cfg, universe)
+    bundle = prepare_data(cfg, universe, out_dir=out_dir)
 
     for seed in cfg["seeds"]:
         res = run_one_seed(seed, cfg, device, out_dir, universe, bundle)
