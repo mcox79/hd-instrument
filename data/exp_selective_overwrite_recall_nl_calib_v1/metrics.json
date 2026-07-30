@@ -1,0 +1,147 @@
+{
+  "verdict": "NL_RESERVOIR_FAILING_VALID",
+  "verdict_msg": "all can-fail reservoirs < 0.100 (worst 0.069; worst whole-seq-attention 0.059) AND oracle keep-last >= 0.95 (min 1.000), both seeds; chance=0.0500 -> the NL construction separates learned content-gated binding+maintenance from structure-alone. Known-reader (BGE, pooled) does NOT clear (min 0.054) -- EXPECTED: mean-pooling cannot bind slot->last-filler; the oracle (1.000) proves learnability, so a STATEFUL WM that binds+gates is exactly the point. Reported, non-blocking.",
+  "summary": "NL_RESERVOIR_FAILING_VALID | chance=0.0500 | all can-fail reservoirs < 0.100 (worst 0.069; worst whole-seq-attention 0.059) AND oracle keep-last >= 0.95 (min 1.000), both seeds; chance=",
+  "run_mode": "full",
+  "elapsed_s": 185.95345999998972,
+  "ts_iso": "2026-07-30T10:06:22.800918+00:00",
+  "anchor_name": "selective_overwrite_recall_nl_calib_v1",
+  "chance": 0.05,
+  "bands": {
+    "chance": 0.05,
+    "near_chance_bar": 0.1,
+    "oracle_keep_last_min": 0.95,
+    "worst_reservoir_acc": 0.06857142857142857,
+    "worst_whole_seq_attention_acc": 0.05857142857142857,
+    "min_oracle_acc": 1.0,
+    "known_reader_status": "MEASURED",
+    "known_reader_accs": [
+      0.054285714285714284,
+      0.054285714285714284
+    ],
+    "known_reader_clears": false,
+    "known_reader_clear_bar": 0.1
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "params": {
+    "V_FILL": 20,
+    "S_TARGET": 6,
+    "N_DISTRACT_SLOTS": 24,
+    "N_DISTRACT_EVENTS": 36,
+    "WRITES": [
+      2,
+      4
+    ],
+    "TAIL_MIN": 6,
+    "TARGET_TAIL_MIN": 4,
+    "MAX_TOKENS": 320,
+    "D_EMB": 96,
+    "N_LAYERS": 2,
+    "N_HEADS": 4,
+    "vocab_size": 63,
+    "train_n": 1200,
+    "eval_n": 700,
+    "seeds": [
+      7,
+      13
+    ],
+    "with_bge": true
+  },
+  "construction_selftest": {
+    "shortcut_accs": {
+      "globally_last": 0.03666666666666667,
+      "first_occurrence": 0.025,
+      "most_frequent": 0.056666666666666664,
+      "fixed_position_0": 0.021666666666666667,
+      "fixed_position_5": 0.043333333333333335,
+      "fixed_position_10": 0.041666666666666664,
+      "fixed_position_20": 0.03166666666666667,
+      "fixed_position_-1": 0.03666666666666667
+    },
+    "label_max_share": 0.06833333333333333,
+    "keep_last": 1.0,
+    "split_overlap": 0,
+    "chance": 0.05,
+    "vocab_size": 63,
+    "token_len_min": 273,
+    "token_len_med": 309,
+    "token_len_max": 320,
+    "fails": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "train_n": 1200,
+      "eval_n": 700,
+      "arms": {
+        "randinit_embed_meanpool_linear": 0.06857142857142857,
+        "randinit_embed_meanpool_mlp": 0.05857142857142857,
+        "randinit_transformer_reservoir_linear": 0.04857142857142857,
+        "randinit_transformer_reservoir_mlp": 0.05857142857142857,
+        "shortcut_globally_last": 0.03142857142857143,
+        "shortcut_first_occurrence": 0.03142857142857143,
+        "shortcut_most_frequent": 0.05857142857142857,
+        "shortcut_fixed_position": 0.05857142857142857,
+        "oracle_keep_last": 1.0,
+        "known_reader_bge": 0.054285714285714284,
+        "bge_random_init_reservoir": 0.04
+      },
+      "train_accs": {
+        "randinit_embed_meanpool_linear": 0.3016666666666667,
+        "randinit_embed_meanpool_mlp": 1.0,
+        "randinit_transformer_reservoir_linear": 0.665,
+        "randinit_transformer_reservoir_mlp": 1.0,
+        "known_reader_bge": 1.0
+      },
+      "bge": {
+        "bge_status": "MEASURED",
+        "bge_n_train": 350,
+        "bge_n_eval": 350,
+        "known_reader_bge": 0.054285714285714284,
+        "known_reader_bge_train": 1.0,
+        "bge_random_init_reservoir": 0.04,
+        "bge_random_init_reservoir_train": 1.0
+      }
+    },
+    {
+      "seed": 13,
+      "train_n": 1200,
+      "eval_n": 700,
+      "arms": {
+        "randinit_embed_meanpool_linear": 0.05285714285714286,
+        "randinit_embed_meanpool_mlp": 0.06428571428571428,
+        "randinit_transformer_reservoir_linear": 0.05285714285714286,
+        "randinit_transformer_reservoir_mlp": 0.041428571428571426,
+        "shortcut_globally_last": 0.03142857142857143,
+        "shortcut_first_occurrence": 0.03142857142857143,
+        "shortcut_most_frequent": 0.05857142857142857,
+        "shortcut_fixed_position": 0.05857142857142857,
+        "oracle_keep_last": 1.0,
+        "known_reader_bge": 0.054285714285714284,
+        "bge_random_init_reservoir": 0.04
+      },
+      "train_accs": {
+        "randinit_embed_meanpool_linear": 0.31666666666666665,
+        "randinit_embed_meanpool_mlp": 1.0,
+        "randinit_transformer_reservoir_linear": 0.6275,
+        "randinit_transformer_reservoir_mlp": 1.0,
+        "known_reader_bge": 1.0
+      },
+      "bge": {
+        "bge_status": "MEASURED",
+        "bge_n_train": 350,
+        "bge_n_eval": 350,
+        "known_reader_bge": 0.054285714285714284,
+        "known_reader_bge_train": 1.0,
+        "bge_random_init_reservoir": 0.04,
+        "bge_random_init_reservoir_train": 1.0
+      }
+    }
+  ],
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns"
+}
