@@ -1,0 +1,167 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "Neither HARD condition cleared. VARIED_SYNTAX probe=[0.675, 0.675, 0.675] (CHANCE=0.20, FAIL_MAX=0.35, PASS_MIN=0.70) sep_gap=[0.145, 0.145, 0.145] (FAIL=0.05, MIN=0.15); degradation vs NEAR_IDENTICAL (probe=[0.675, 0.675, 0.675] sep_gap=[0.245, 0.245, 0.245]) = 0.000 (modest cutoff=0.20) -- partial signal, report exact numbers, do not force a HARD verdict.",
+  "summary": "MIDDLE | chance_probe=0.2000 | mean_varied_probe=0.6750 | Neither HARD condition cleared. VARIED_SYNTAX probe=[0.675, 0.675, 0.675] (CHANCE=0.20, FAIL_MAX=0.35, PASS_MIN=0.70) sep_gap=[0.145, 0.145,",
+  "run_mode": "full",
+  "elapsed_s": 4.308567199856043,
+  "ts_iso": "2026-07-30T20:38:45.283930+00:00",
+  "anchor_name": "role_key_syntax_invariance_diagnostic_v1",
+  "chance_probe": 0.2,
+  "bands": {
+    "floors_valid": true,
+    "shuffled_floor_max": 0.30000000000000004,
+    "shuffled_vals": [
+      0.172,
+      0.205,
+      0.199,
+      0.167,
+      0.213,
+      0.19
+    ],
+    "chance_probe": 0.2,
+    "probe_pass_min": 0.7,
+    "probe_fail_max": 0.35,
+    "sep_gap_min": 0.15,
+    "sep_gap_fail": 0.05,
+    "degradation_modest_max": 0.2,
+    "varied_syntax_probe_by_seed": {
+      "7": 0.675,
+      "13": 0.675,
+      "19": 0.675
+    },
+    "varied_syntax_sep_gap_by_seed": {
+      "7": 0.1449,
+      "13": 0.145,
+      "19": 0.1449
+    },
+    "near_identical_probe_by_seed": {
+      "7": 0.675,
+      "13": 0.675,
+      "19": 0.675
+    },
+    "near_identical_sep_gap_by_seed": {
+      "7": 0.245,
+      "13": 0.2451,
+      "19": 0.2449
+    },
+    "mean_varied_probe": 0.6750000000000002,
+    "mean_near_identical_probe": 0.6750000000000002,
+    "degradation_vs_near_identical": 0.0
+  },
+  "results_by_condition_seed": {
+    "near_identical|7": {
+      "condition": "near_identical",
+      "seed": 7,
+      "within_role_consistency": 0.518717920333147,
+      "between_role_cosine": 0.2736717282794416,
+      "sep_gap": 0.24504619205370543,
+      "heldout_frame_roleid_probe_acc": 0.675,
+      "shuffled_floor_acc": 0.16749999999999998,
+      "shuffled_floor_sd": 0.11345153150134203,
+      "shuffled_floor_n_trials": 30,
+      "n_heldout_examples": 200,
+      "digest": "3a546bd584e3b4baba920446b13eb91cf30691851e411ca9b5562c7d2ed977b6"
+    },
+    "near_identical|13": {
+      "condition": "near_identical",
+      "seed": 13,
+      "within_role_consistency": 0.5187557233870029,
+      "between_role_cosine": 0.27365543162450195,
+      "sep_gap": 0.24510029176250098,
+      "heldout_frame_roleid_probe_acc": 0.675,
+      "shuffled_floor_acc": 0.21349999999999997,
+      "shuffled_floor_sd": 0.13671228913305492,
+      "shuffled_floor_n_trials": 30,
+      "n_heldout_examples": 200,
+      "digest": "3ba59ad0effdb929c0f4e62ab37aa2c6da0e1f3fa1e33b3a127efe59e90e96d0"
+    },
+    "near_identical|19": {
+      "condition": "near_identical",
+      "seed": 19,
+      "within_role_consistency": 0.5186656231433153,
+      "between_role_cosine": 0.27374143805354834,
+      "sep_gap": 0.244924185089767,
+      "heldout_frame_roleid_probe_acc": 0.675,
+      "shuffled_floor_acc": 0.1898333333333334,
+      "shuffled_floor_sd": 0.14263872389907153,
+      "shuffled_floor_n_trials": 30,
+      "n_heldout_examples": 200,
+      "digest": "2b34bc10794c88b5cd2ce8f88612082a0479c9d865b4e9a3323aca9509cf485f"
+    },
+    "varied_syntax|7": {
+      "condition": "varied_syntax",
+      "seed": 7,
+      "within_role_consistency": 0.4701522183418274,
+      "between_role_cosine": 0.32530126813799143,
+      "sep_gap": 0.14485095020383598,
+      "heldout_frame_roleid_probe_acc": 0.675,
+      "shuffled_floor_acc": 0.17200000000000001,
+      "shuffled_floor_sd": 0.1251239385569364,
+      "shuffled_floor_n_trials": 30,
+      "n_heldout_examples": 200,
+      "digest": "d41260fac30b055f0d7c2898da924776a26e765ec3d75d08128e79fc752de414"
+    },
+    "varied_syntax|13": {
+      "condition": "varied_syntax",
+      "seed": 13,
+      "within_role_consistency": 0.47017124965786933,
+      "between_role_cosine": 0.32518682880327104,
+      "sep_gap": 0.14498442085459828,
+      "heldout_frame_roleid_probe_acc": 0.675,
+      "shuffled_floor_acc": 0.20516666666666666,
+      "shuffled_floor_sd": 0.13063615715243446,
+      "shuffled_floor_n_trials": 30,
+      "n_heldout_examples": 200,
+      "digest": "c6517ae948e582dbe1d72fc4b6cdd351ab6d37880f78010280750c083e8f3b41"
+    },
+    "varied_syntax|19": {
+      "condition": "varied_syntax",
+      "seed": 19,
+      "within_role_consistency": 0.4701556929945946,
+      "between_role_cosine": 0.32527756597846746,
+      "sep_gap": 0.14487812701612712,
+      "heldout_frame_roleid_probe_acc": 0.675,
+      "shuffled_floor_acc": 0.19850000000000007,
+      "shuffled_floor_sd": 0.15895046398170723,
+      "shuffled_floor_n_trials": 30,
+      "n_heldout_examples": 200,
+      "digest": "79bce7bd7ff35510a284bf64556756a9fdcb13956d6bb667a79a077f3dd1a015"
+    }
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "n_units_done": 6,
+  "params": {
+    "role_words": [
+      "agent",
+      "patient",
+      "recipient",
+      "instrument",
+      "location"
+    ],
+    "n_entities": 20,
+    "n_train_frames": 3,
+    "n_heldout_frames": 2,
+    "probe_seeds": [
+      7,
+      13,
+      19
+    ],
+    "n_cached_sentences": 900,
+    "encoder": "real_v2_frozen",
+    "extraction": "oc.build_role_query_probe + oc._extract_slot_rep_single (reused verbatim)",
+    "conditioning": "global_mean_centering_per_seed (subtract full-closed-set mean before cosine; standard first step of rc.Conditioner's pca_whiten, fixed before interpreting results -- see module docstring)",
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+    "shuffle_seed": 909111
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 15,
+  "crlb_n_a": "no learned-noise Cramer-Rao floor; discriminator is the pre-registered ENCODER_SURVIVES_SYNTAX/SYNTAX_DEGRADES_KEYS/INVALID decision rule (see decide_verdict)",
+  "calibration_check": "default_ok_for_this_regime: PROBE_PASS_MIN/PROBE_FAIL_MAX/SEP_GAP_MIN/SEP_GAP_FAIL/DEGRADATION_MODEST_MAX are fixed HYPOTHESIZED thresholds set before running (not tuned post-hoc); SHUFFLED_FLOOR is the adaptive can-fail control validating the probe construction discriminates at all"
+}
