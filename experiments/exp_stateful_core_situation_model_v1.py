@@ -435,14 +435,31 @@ def _lr_at(step, total, base_lr, warmup_frac, cosine):
     return base_lr
 
 
+def _addr_temp_at(step, total, warmup_frac, t_start, t_end):
+    """Per-step addressing-softmax temperature schedule, MIRRORING the fit-probe train_loop's
+    temp_at (2026-07-29): soft (t_start) -> sharp (t_end) LINEARLY over the warmup window, then
+    held at t_end. warmup_frac<=0 returns t_end always == the sharp-from-step-0 legacy behavior
+    (so legacy callers with warmup_frac=0 are unchanged). Sharp-addressing-from-step-0 was the
+    STUCK_FLAT condition: this softens addressing early so the joint fine-tune can escape the
+    degenerate init, matching the fit-probe configs that descend."""
+    warmup_steps = int(round(warmup_frac * total))
+    if warmup_steps <= 0 or step >= warmup_steps:
+        return t_end
+    return t_start + (t_end - t_start) * (float(step) / float(warmup_steps))
+
+
 def train_and_eval_arm(model, wm, judge, tok, spec, max_len, train_items, eval_items, device,
                         kb_prior_lookup, arm, epochs, batch_size, lr, lambda_pe, lambda_kb, rng,
-                        equalize=False, kb_id_key="kb_id", warmup_frac=0.0, cosine=False):
+                        equalize=False, kb_id_key="kb_id", warmup_frac=0.0, cosine=False,
+                        addr_temp_start=1.0, addr_temp_end=0.5):
     """Train (encoder+WM+judge jointly, unfrozen) one arm/seed; eval on held-out.
     New (2026-07-29): equalize + kb_id_key are forwarded to forward_item_batch (fairness:
     capacity-equalized arms + shuffled-KB placebo). warmup_frac/cosine drive an optional per-step
-    LR schedule so the fit-probe sweep recipe (warmup+cosine+temp-anneal) plugs in cleanly; both
-    default to the flat-LR legacy behavior. Tau-anneal is already wired via wm.anneal_write_tau."""
+    LR schedule so the fit-probe sweep recipe (warmup+cosine+temp-anneal) plugs in cleanly.
+    addr_temp anneal (addr_temp_start->addr_temp_end over the warmup window) is NOW wired here to
+    MATCH the fit-probe train_loop: the gate previously left wm.addr_temp at the sharp default 0.5
+    for ALL steps (sharp-addressing-from-step-0 = the STUCK_FLAT condition). With warmup_frac=0 the
+    addr_temp schedule returns addr_temp_end throughout == legacy behavior (legacy callers safe)."""
     params = list(model.parameters()) + list(wm.parameters()) + list(judge.parameters())
     opt = torch.optim.AdamW(params, lr=lr)
     n = len(train_items)
@@ -465,6 +482,11 @@ def train_and_eval_arm(model, wm, judge, tok, spec, max_len, train_items, eval_i
             lr_now = _lr_at(gstep, total_steps, lr, warmup_frac, cosine)
             for pg in opt.param_groups:
                 pg["lr"] = lr_now
+            # addr_temp anneal soft->sharp over warmup (mirrors fit-probe train_loop temp_at);
+            # guarded so the random-init-core control / older WM without addr_temp are unaffected.
+            if hasattr(wm, "addr_temp"):
+                wm.addr_temp = _addr_temp_at(gstep, total_steps, warmup_frac,
+                                             addr_temp_start, addr_temp_end)
             gstep += 1
             y = torch.tensor([it["label"] for it in batch], dtype=torch.long, device=device)
             logits, surprise, _, _, kb_cons = forward_item_batch(
