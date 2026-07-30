@@ -51,7 +51,7 @@ Syntactic-role probe (exp_syntactic_role_agent_patient_voice_probe_v1): cross-vo
 
 ## IN-FLIGHT AT COMPACTION (results survive on disk; check when they land)
 - a0b9c2f6 (research): brain-mechanism + forward-predictive-encoder SPEC -> notes/brain_syntax_to_role_mechanism_and_forward_predictive_encoder_spec_2026-07-30.md.
-- a8855d36 (exp_dev): TPR effective-rank probe -> a new data/exp_*tpr*/metrics.json (VERDICT TPR_PROBE_PASS / TPR_COLLAPSE). If TPR_COLLAPSE -> encoder capacity is the bottleneck (doubly-earned pivot).
+- a8855d36 (exp_dev): TPR effective-rank probe -> data/exp_tpr_role_key_effective_rank_probe_v1/. **STATUS: CRASHED at self-test (~21:40Z), NO verdict yet** — toy bind/unbind cosine=0.756 not >0.99 = NON-UNITARY FHRR construction bug (NOT a real negative). FIX (post-compaction, cheap): use UNITARY phase-encoded complex64 vectors for exact bind/unbind invertibility — exactly the fix exp_vsa_native_bind_zeroshot_role_v1.py already applied (its early Gaussian version also hit ~0.75). Then re-run -> VERDICT TPR_PROBE_PASS (learned-TPR keys well-conditioned+generalize -> nail composition on frozen encoder) / TPR_COLLAPSE (rank<=14, memorizes -> encoder capacity is the bottleneck, doubly-earned pivot). Design: notes/learned_tpr_role_keys_binder_ablation_plan_2026-07-30.md.
 
 ## KEY FILES / COMMITS (all LOCAL, push-free — NO origin push w/o in-session USER auth)
 - Registry: data/capability_registry.jsonl (5 tonight: read_conditioning_novel_filler_known_role, native_vsa_zeroshot_novel_role, native_vsa_cross_slot_relational_binding, native_vsa_cross_slot_relational_binding tightened, native_vsa_multirelation_composition_slotfilling).
