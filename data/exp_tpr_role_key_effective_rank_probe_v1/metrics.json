@@ -1,0 +1,115 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (toy bind/unbind-reconstruct + compositional-reachability + zeroshot-corpus-exclusion + gradient-flows + real encoder + real oracle table + tiny TPR/FLAT/ORACLE arms-differ + checkpoint-resume)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 11.373774099862203,
+  "ts_iso": "2026-07-30T22:04:17.813181+00:00",
+  "anchor_name": "tpr_role_key_effective_rank_probe_v1",
+  "chance_recall": 0.05,
+  "selftest": {
+    "toy_diag": {
+      "toy_cosine": 1.0,
+      "toy_pred": 3,
+      "toy_pass": true
+    },
+    "compositional_zeroshot_diag": {
+      "compositional_reachability_all_ok": true,
+      "per_role": {
+        "3": {
+          "a": 1,
+          "b": 0,
+          "a_in_train": true,
+          "b_in_train": true,
+          "reachable": true
+        },
+        "4": {
+          "a": 1,
+          "b": 1,
+          "a_in_train": true,
+          "b_in_train": true,
+          "reachable": true
+        },
+        "6": {
+          "a": 2,
+          "b": 0,
+          "a_in_train": true,
+          "b_in_train": true,
+          "reachable": true
+        },
+        "7": {
+          "a": 2,
+          "b": 1,
+          "a_in_train": true,
+          "b_in_train": true,
+          "reachable": true
+        },
+        "14": {
+          "a": 4,
+          "b": 2,
+          "a_in_train": true,
+          "b_in_train": true,
+          "reachable": true
+        }
+      },
+      "n_heldout_in_training_corpus_sample": 0,
+      "train_roles": [
+        0,
+        1,
+        2,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "held_out_roles": [
+        3,
+        4,
+        6,
+        7,
+        14
+      ]
+    },
+    "gradient_flow_diag": {
+      "params_moved": true
+    },
+    "n_cached": 3015,
+    "d_enc": 512,
+    "d_key": 10,
+    "pr_oracle_selftest": 3.566441774368286,
+    "tiny_pr": {
+      "tpr": 5.817229747772217,
+      "flat": 6.5916242599487305
+    },
+    "tiny_results": {
+      "tpr": {
+        "acc_train": 0.36666666666666664,
+        "acc_held": 0.3333333333333333,
+        "dig_held": "419f223fe8634a0b1685b422e6fe3c013048e554832ad45b2ba1821c73fde326"
+      },
+      "flat": {
+        "acc_train": 0.5166666666666667,
+        "acc_held": 0.3333333333333333,
+        "dig_held": "fde467a33135f18e5309158cb2527f080628fa62388454bd80aacb8cbcb2fe98"
+      },
+      "random": {
+        "acc_train": NaN,
+        "acc_held": 0.36666666666666664,
+        "dig_held": "4a979e147a140bef924a93059e815f7f8c9dbd693d64ef23ccd0cff483ebc558"
+      },
+      "oracle": {
+        "acc_train": 0.43333333333333335,
+        "acc_held": 0.35,
+        "dig_held": "f99464c483fd99c01537db257f331540e48b06a0898394af636bf176b25b662b"
+      }
+    },
+    "arms_differ_verified": true
+  },
+  "checkpoint_selftest": {
+    "resume_skip_count": 1,
+    "bit_identical_resume": true
+  }
+}
