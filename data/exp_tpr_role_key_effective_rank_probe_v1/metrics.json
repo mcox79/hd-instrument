@@ -1,10 +1,10 @@
 {
   "verdict": "OBJECTIVE_STILL_BROKEN",
-  "verdict_msg": "DISCRIMINATOR-FIRES GATE FAILED: TPR train-role recall=[0.39, 0.352, 0.34] did not exceed the untrained random-key baseline's train-role recall=[0.372, 0.325, 0.35] by the required DISCRIM_MARGIN=0.05 on every seed (margins=[0.018, 0.027, -0.01]). The contrastive-loss fix still isn't learning to beat doing nothing on the roles it trained on -- the mechanism is not learning, so TPR-vs-flat held-out generalization is UNINTERPRETABLE and is NOT reported as a verdict. This is an honest report of a still-broken training objective/regime, not a forced factorization verdict.",
-  "summary": "OBJECTIVE_STILL_BROKEN | chance_recall=0.0500 | DISCRIMINATOR-FIRES GATE FAILED: TPR train-role recall=[0.39, 0.352, 0.34] did not exceed the untrained random-key baseline's train-role recall=[0.372, 0.325, 0.35] by the required DISCRIM_MARGIN=0.05",
+  "verdict_msg": "DISCRIMINATOR-FIRES GATE FAILED: TPR train-role recall=[0.38, 0.383, 0.37] did not exceed the untrained random-key baseline's train-role recall=[0.372, 0.325, 0.35] by the required DISCRIM_MARGIN=0.05 on every seed (margins=[0.008, 0.057, 0.02]). The contrastive-loss fix still isn't learning to beat doing nothing on the roles it trained on -- the mechanism is not learning, so TPR-vs-flat held-out generalization is UNINTERPRETABLE and is NOT reported as a verdict. This is an honest report of a still-broken training objective/regime, not a forced factorization verdict.",
+  "summary": "OBJECTIVE_STILL_BROKEN | chance_recall=0.0500 | DISCRIMINATOR-FIRES GATE FAILED: TPR train-role recall=[0.38, 0.383, 0.37] did not exceed the untrained random-key baseline's train-role recall=[0.372, 0.325, 0.35] by the required DISCRIM_MARGIN=0.05",
   "run_mode": "full",
-  "elapsed_s": 32.03642789996229,
-  "ts_iso": "2026-07-30T22:16:52.078148+00:00",
+  "elapsed_s": 183.5053445000667,
+  "ts_iso": "2026-07-30T22:38:56.061805+00:00",
   "anchor_name": "tpr_role_key_effective_rank_probe_v1",
   "chance_recall": 0.05,
   "bands": {
@@ -13,9 +13,9 @@
     "discrim_margin": 0.05,
     "discriminator_fires": false,
     "tpr_train": [
-      0.39,
-      0.3525,
-      0.34
+      0.38,
+      0.3825,
+      0.37
     ],
     "random_train": [
       0.3725,
@@ -23,19 +23,19 @@
       0.35
     ],
     "discrim_margins_per_seed": [
-      0.017500000000000016,
-      0.02749999999999997,
-      -0.009999999999999953
+      0.007500000000000007,
+      0.057499999999999996,
+      0.020000000000000018
     ],
     "tpr_held": [
-      0.355,
-      0.345,
-      0.36
+      0.315,
+      0.34,
+      0.3575
     ],
     "flat_held": [
-      0.43,
-      0.365,
-      0.3225
+      0.345,
+      0.3425,
+      0.3425
     ],
     "random_held": [
       0.345,
@@ -47,55 +47,55 @@
   "per_seed": [
     {
       "seed": 7,
-      "tpr_held": 0.355,
-      "tpr_train": 0.39,
-      "flat_held": 0.43,
-      "flat_train": 0.3775,
-      "pr_tpr": 5.742829322814941,
+      "tpr_held": 0.315,
+      "tpr_train": 0.38,
+      "flat_held": 0.345,
+      "flat_train": 0.3825,
+      "pr_tpr": 6.404057025909424,
       "pr_oracle": 3.566441774368286,
       "oracle_held": 0.29,
       "oracle_train": 0.345,
       "random_held": 0.345,
       "random_train": 0.3725,
       "pr_random": 6.293411731719971,
-      "dig_tpr": "b7b6cd258c16bc0e89c9a8cad1525592749e91c75675d8bba3b58d7cb80c99c2",
-      "dig_flat": "ee5d816c983aea2ed4192e67a7950c7f03e724a7e1a9a4b38842532bded79200",
+      "dig_tpr": "a66d5697564e961e05903e0c69bedbf1402d7a02adc03d6c60aa10c69be73d7e",
+      "dig_flat": "f73084b4aff1cd996edcec2f9a607e45492d0a715e94460a095d52c4afaaf21d",
       "dig_oracle": "2e4cd786ae7fcfc44a1d2fcc49a034fbef21eef369e4eaddd618a16e7d209cfd",
       "dig_random": "3479b722931a336a911085c8216c950e2fb1a21a6bf18f852502fa8cbbe2675f"
     },
     {
       "seed": 13,
-      "tpr_held": 0.345,
-      "tpr_train": 0.3525,
-      "flat_held": 0.365,
-      "flat_train": 0.2925,
-      "pr_tpr": 5.98940372467041,
+      "tpr_held": 0.34,
+      "tpr_train": 0.3825,
+      "flat_held": 0.3425,
+      "flat_train": 0.3925,
+      "pr_tpr": 6.238186836242676,
       "pr_oracle": 3.566441774368286,
       "oracle_held": 0.335,
       "oracle_train": 0.33,
       "random_held": 0.3775,
       "random_train": 0.325,
       "pr_random": 6.293411731719971,
-      "dig_tpr": "1339f172a4d32eda51233966ddc19ae31033e2c9ba0d6a4aa613a2103cd80863",
-      "dig_flat": "d3ba3a95de5b63391c84b29d9a9984f57e3c16550934015a76190db31ab67f9f",
+      "dig_tpr": "63e86f21611b38099f5827742d5e9146ee4341487f180281f032bb885219bb06",
+      "dig_flat": "5581b02fef948434e62551865c08c47d28d29155a9519bfa64a1b9bcb24eacbc",
       "dig_oracle": "8c7ea10692914b83e142f60e3fbc69995d4aa004b79389cd9eabd8a55458b25d",
       "dig_random": "dae678f30404239ad5f3b388b68ee131fa39e8355041f18cbfd2523fb34262e8"
     },
     {
       "seed": 19,
-      "tpr_held": 0.36,
-      "tpr_train": 0.34,
-      "flat_held": 0.3225,
-      "flat_train": 0.3475,
-      "pr_tpr": 6.6242289543151855,
+      "tpr_held": 0.3575,
+      "tpr_train": 0.37,
+      "flat_held": 0.3425,
+      "flat_train": 0.405,
+      "pr_tpr": 6.261229038238525,
       "pr_oracle": 3.566441774368286,
       "oracle_held": 0.32,
       "oracle_train": 0.3075,
       "random_held": 0.345,
       "random_train": 0.35,
       "pr_random": 6.293411731719971,
-      "dig_tpr": "3a2339e7dc9e90e026d70bbad99c50291379eefe9e02a9b64c26dd3599b35b22",
-      "dig_flat": "d6a18c27d2e28671b3a7807013386507e5c0355a4a23b8571854ecf131082356",
+      "dig_tpr": "821e6734f425a361bbfa74797e2eaa617fd3a7f3bd3fd597d4aced8ca9c1a1c5",
+      "dig_flat": "4c73947031383127ca039ba136a72befefc5213b9b1537e2337db2b8a94e48af",
       "dig_oracle": "7f4f279cb320287ed4d27170baf3ecd05c941b9ccf13b4e90b582b0304c523ba",
       "dig_random": "8d29e57e44da2f818da3d008d4cc4594ff83965e01edeb1d563b708394fc1cee"
     }
@@ -174,9 +174,9 @@
     "D_KEY": 10,
     "ANGLE_SCALE": 60.0,
     "RANDOM_MARGIN": 0.1,
-    "steps_train": 400,
+    "steps_train": 4000,
     "batch": 64,
-    "lr": 0.005,
+    "lr": 0.03,
     "seeds": [
       7,
       13,

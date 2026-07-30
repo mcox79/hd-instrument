@@ -279,11 +279,25 @@ CONTRASTIVE_TEMPERATURE = 0.15
 # OTHER role's key -- exactly the property TPR-vs-flat-vs-oracle is being compared on.
 N_DISTRACT = len(TRAIN_ROLES_V2) - 1            # 9: all OTHER train roles bound simultaneously
 
-# ---- run params (compute-proportionality: cheap gating probe, <10 min target) ----
+# ---- run params (proper-budget retry, Director coordinator 2026-07-30: the 400-step run's
+# OBJECTIVE_STILL_BROKEN was suspected UNDERTRAINING, so give a FAIR budget once, then STOP iterating
+# this secondary deployability gate). STEPS_TRAIN 400 -> 4000; LR swept {5e-3, 1e-2, 3e-2} + contrastive
+# softmax temperature swept {0.15, 0.07, 0.03} at both 2000 and 4000 steps
+# (MEASURED@scratchpad/tpr_sweep.py + tpr_sweep2.py dev iteration): the winning WELL-BEHAVED config
+# (train loss descends without the temp-too-low overconfidence blowup) is LR=3e-2, temp=0.15, H=12
+# (loss 2.144->2.052, dL=-0.092 over 4000 steps). H_FACTOR=24 did NOT help (acc no better); temp<=0.07
+# made the loss descend more but ONLY by recovering from an overconfidence penalty, with acc_train STILL
+# flat at random -- so temperature stays 0.15. NOTE the decisive finding this budget SURFACED: NO config
+# (any LR/temp/H, 2000 or 4000 steps) lifted TPR acc_train meaningfully above the untrained random-key
+# baseline (~0.3725 at seed 7); per-checkpoint acc traces are noise, not a learning curve. This is a
+# CAPACITY-limited regime (D_KEY=10 with N_DISTRACT=9 simultaneous bindings puts random near-orthogonal
+# FHRR keys already near the superposition-recovery ceiling), so a learned key has ~nothing to gain over
+# random -- the honest read is the bottleneck is NOT key-derivation but upstream capacity (connects to
+# the encoder-capacity question), not that the objective/budget is wrong.
 SEEDS_FULL = (7, 13, 19)
-STEPS_TRAIN = 400
+STEPS_TRAIN = 4000
 BATCH = 64
-LR = 5e-3
+LR = 3e-2
 N_EVAL_TRAIN = 400                              # eval examples per seed, TRAIN_ROLES_V2-only
 N_EVAL_HELD = 400                               # eval examples per seed, HELD_OUT_ROLES_V2-only
 FILLER_KEY_SEED = 606002                         # fixed filler codebook (shared, not the DV)
