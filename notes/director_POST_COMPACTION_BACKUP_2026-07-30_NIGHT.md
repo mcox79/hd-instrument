@@ -1,0 +1,71 @@
+# DIRECTOR POST-COMPACTION BACKUP — 2026-07-30 NIGHT (~21:35Z)
+
+Self-contained recovery. READ FIRST after compaction, then notes/WHERE_WE_ARE_NOW.md (live detail), then MEMORY.md CURRENT FOCUS. First action: heartbeat `date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp`. Supersedes the morning backup (director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-30.md) — the read-conditioning arc it describes is RESOLVED and folded below.
+
+## THE GOAL (unchanged)
+Glass-box VSA/HDC substrate that genuinely COMPREHENDS, earning meaning the brain's way. Invariants: NO borrowed embeddings/LLM at inference; NO bolt-on reader/parser; from-scratch encoder; supply KNOWLEDGE/STRUCTURE ok, supply MECHANISM = forbidden. North star = a glass-box substrate you can CONVERSE with.
+
+## 🎯 IMMEDIATE POST-COMPACTION FOCUS (do this)
+The night converged on ONE earned decision: **the FORWARD-PREDICTIVE / RECURRENT ENCODER PIVOT is now MEASURED-earned** (not hoped). Two in-flight results gate the exact next build:
+1. **Encoder-spec drill [research a0b9c2f6, RUNNING]** -> writes notes/brain_syntax_to_role_mechanism_and_forward_predictive_encoder_spec_2026-07-30.md = the cited brain-mechanism-of-syntax->role + the build-ready forward-predictive encoder design spec (with the fixes for the prior data-prep-hang + OOM). READ IT when it lands; it is the plan for the next build.
+2. **TPR effective-rank probe [exp_dev a8855d36, RUNNING]** -> tests whether gradient-learned TPR-factored role keys are well-conditioned + generalize (rank>14, held-out>flat-floor) = can we NAIL the composition/binding on the frozen encoder, OR does it ALSO need a better encoder (TPR_COLLAPSE -> encoder doubly-earned).
+If both point upstream (encoder wall for reading + TPR collapse) -> the forward-predictive encoder is THE next major hard build. Build it from the spec drill's design; VET positives hardest.
+
+## THE NIGHT'S ARC (so you don't re-litigate)
+Started post-morning-compaction on read-conditioning. It RESOLVED and then a USER-driven "work backwards from what we're sure of + make tests fair" reframe flipped the whole picture:
+1. **Read-conditioning WM_NL_PROVEN** (whiten + slot-address supervision) — learns NL binding, VET-confirmed, but held-out-ROLE HARD-FAILED (per-role lookup, memorizes).
+2. **Oracle work-backwards (USER instinct):** feeding the proven WM a context-invariant address -> held-out recall works... BUT the CLEAN zero-shot version (v2) = INSUFFICIENT: even a PERFECT one-hot address fails zero-shot novel-role. => the LEARNED WM ROUTING can't route an unseen key regardless of address quality. NOT the encoder.
+3. **THE REFRAME (load-bearing):** held-out-ROLE was the WRONG/too-hard target. Comprehension = novel-FILLER-to-known-role (open-class entities into known structure), which read-conditioning ALREADY does. And the substrate's NATIVE algebraic binding (not a learned router) is the right binder.
+
+## ✅ 4 VET-CONFIRMED CAPABILITIES BANKED TONIGHT (all honestly scoped; registry data/capability_registry.jsonl)
+- **(A) read_conditioning_novel_filler_known_role** (VET af702f3b CONFIRMED): read-conditioning WM binds a NOVEL FILLER never co-occurring with a role, to that KNOWN role, at 0.97-0.99 (novelty airtight, floors at chance, same hard difficulty). = the core open-class comprehension op. Scope: Q2 was per-slot-INDEPENDENT (NOT relational); not zero-shot novel-role.
+- **(B) native_vsa_zeroshot_novel_role** (VET acc9348f CONFIRMED bounded): native FHRR bind/unbind (zero learned params) zero-shot-recalls a NOVEL role — clean quasi-orthogonal keys 0.65 vs learned-WM 0.05 (<=0.12 even w/ one-hot oracle). Deployable ENCODER keys = 0.29 (cos 0.35, non-orthogonal). CONFIRMED: a LEARNED address can't route an unseen key; the ALGEBRAIC binder can. Gap = key-orthogonality. ENABLER FAILED: fixed orthogonalization NO_HELP (bottleneck = phase-encoding a RANK-DEFICIENT rank<=14 key matrix, not raw geometry).
+- **(C) native_vsa_cross_slot_relational_binding** (VET a7d8f2d4 CONFIRMED; tightened v2): native FHRR role-typed bind/unbind does cross-slot RELATIONAL (who-did-what-to-whom) — EVAL 0.80-boundary (0.805/0.805/0.785), causally-attributed (wrongrole+shuffled controls collapse to chance), role-swap-generalizes 0.769+/-0.03 (real but bounded <0.80). Learned per-slot WM CANNOT (0.33, linear-cant-do-bilinear). True chance ~0.5 majority-class.
+- **(D) native_vsa_multirelation_composition_slotfilling** (VET a9dfce95 PARTIALLY -> scoped): frontier cell HARD-PASS (novel-filler-via-pronoun 1.0, relational 0.94-0.98, 2-hop 0.99, floors collapse) BUT VET scoped it: it's native FHRR COMPOSITION over a STRUCTURED slot-filling construction (each role its OWN sentence with an EXPLICIT role word; single-antecedent pronoun; NO overwrite; closed vocab). NOT naturalistic paragraph comprehension, NOT syntactic parsing, NOT competitive coref.
+
+UNIFYING: **the substrate's NATIVE algebraic binding (FHRR) — not a learned reader/slot-WM — is the COMPOSITION mechanism.** Proven across zero-shot binding, relational structure, multi-relation superposition. Glass-box, zero learned params in the VSA arm.
+
+## 🧠 BRAIN-FIDELITY — HONEST (VET a3b18a72, notes/brain_fidelity_audit_native_binding_comprehension_2026-07-30.md): NOT full brain-foundational
+- **FHRR/VSA binding**: Marr-L2 plausible (spiking impls: Eliasmith SPA/Nengo, Frady-Sommer resonators) BUT rests on binding-by-SYNCHRONY (theta-gamma, Lisman-Jensen/Fries) = CONTESTED; MIXED-SELECTIVITY/conjunctive coding (Rigotti-Fusi) is the better-credentialed rival. P_deflated 0.35 = hypothesis, NOT settled. Director had OVER-CLAIMED it.
+- **Oracle role-key derivation** = LEAST-defensible (no mechanistic analog); faithful replacement = gradient-learned TPR (Smolensky), which ~= the mixed-selectivity rival.
+- **Encoder (feed-forward MLM, stateless)** = LOW fidelity, the one component with no defense (founding gap).
+- **WM-maintenance** (temporal update-gating, PBWM) = a still-ABSENT gap (we omitted overwrite tonight); binding does NOT substitute for it.
+
+## 🧱 THE MEASURED ENCODER WALL (74d4ea0c1, FAIR, committed 0cfd13b6e) — the decisive negative
+Syntactic-role probe (exp_syntactic_role_agent_patient_voice_probe_v1): cross-voice agent/patient = 0.18/0.16 (BELOW chance, INVERTS on passive) vs within-voice 0.90/0.85. => **the frozen encoder encodes SURFACE POSITION, not voice-invariant THEMATIC ROLE — it is a Broca's-lesioned reader.** All floors validated. => REAL READING (parse who-did-what from SYNTAX when roles are not named) is WALLED at the encoder. The confirmed capabilities used EXPLICIT role words -> slot-filling, not reading. => forward-predictive/recurrent encoder pivot EARNED.
+
+## 🧠 HOW THE BRAIN DOES IT (the mechanism the encoder must replicate; detail -> spec drill a0b9c2f6)
+1. **Thematic role from syntax, against word order**: left IFG/Broca's (BA44/45) builds HIERARCHICAL structure (Merge; Friederici); roles read off the TREE + morphosyntactic cues (voice "was..by", case), NOT surface position. Broca's aphasia -> position-default on passives/object-relatives = EXACTLY our encoder's failure (Caramazza-Zurif; Grodzinsky; Bornkessel-Schlesewsky eADM).
+2. **Forward-predictive**: cortex predicts next word/structure, updates on error (predictive coding Rao-Ballard/Friston; surprisal Hale/Levy; next-word-prediction best-matches brain language responses Schrimpf/Goldstein). P600=syntactic reanalysis, N400=semantic fit. OUR encoder is bidirectional-MLM (fill-in-blank), NOT forward-predictive.
+3. **Recurrent/stateful situation model**: running who-did-what, updated incrementally (Kintsch C-I; Zwaan; Zacks/Franklin SEM event-segmentation via prediction error). OUR encoder is stateless.
+4. **Binding** (contested): synchrony/theta-gamma (FHRR analog) vs conjunctive/mixed-selectivity (TPR analog) vs ATL semantic hub (Lambon-Ralph).
+
+## ARE WE DOING IT THE BRAIN'S WAY? — mostly NO
+- Structure-building: NO (position, not tree — measured). Morphosyntactic reassign: NO. Forward-predictive: NO (MLM). Recurrent/situation-model: mostly NO (stateless; omitted maintenance). Binding: PARTIAL (FHRR ~ theta-gamma, but contested; testing vs TPR). => the READING mechanism (structure+prediction+recurrence) is exactly what we lack = the earned pivot.
+
+## THE PLAN (earned, honest)
+1. **Forward-predictive/recurrent encoder** (from spec drill a0b9c2f6): forward-prediction objective (next-token/structure) + recurrence/statefulness + hierarchy, so reps carry VOICE-INVARIANT thematic role. MUST carry fixes for the prior latent-PC data-prep silent-hang + full-vocab-logit OOM (resumable, logit-chunking, data-prep-headroom gate). FAIR-TEST GATE = the SAME cross-voice agent/patient probe 74d4ea0c1 (does the new encoder clear voice-invariant role ABOVE chance where MLM was BELOW).
+2. **TPR-vs-FHRR/mixed-selectivity binder ablation** (gated on TPR probe a8855d36): learned TPR-factored role keys (replace oracle) + ablate the binder. Decisive metric = zero-shot novel-role + role-swap generalization. Design: notes/learned_tpr_role_keys_binder_ablation_plan_2026-07-30.md.
+3. Restore WM-MAINTENANCE (temporal gating) in the naturalistic pipeline.
+4. Then: a NON-simplified naturalistic comprehension cell (roles from SYNTAX not explicit words, overwrite, competitive coref, entity-gen) — the real reading milestone — on the new encoder.
+
+## IN-FLIGHT AT COMPACTION (results survive on disk; check when they land)
+- a0b9c2f6 (research): brain-mechanism + forward-predictive-encoder SPEC -> notes/brain_syntax_to_role_mechanism_and_forward_predictive_encoder_spec_2026-07-30.md.
+- a8855d36 (exp_dev): TPR effective-rank probe -> a new data/exp_*tpr*/metrics.json (VERDICT TPR_PROBE_PASS / TPR_COLLAPSE). If TPR_COLLAPSE -> encoder capacity is the bottleneck (doubly-earned pivot).
+
+## KEY FILES / COMMITS (all LOCAL, push-free — NO origin push w/o in-session USER auth)
+- Registry: data/capability_registry.jsonl (5 tonight: read_conditioning_novel_filler_known_role, native_vsa_zeroshot_novel_role, native_vsa_cross_slot_relational_binding, native_vsa_cross_slot_relational_binding tightened, native_vsa_multirelation_composition_slotfilling).
+- Confirmed cells: exp_selective_overwrite_recall_nl_wm_novel_filler_composition_v1.py (7d87342a8), exp_vsa_native_bind_zeroshot_role_v1.py (5605c92af), exp_cross_slot_relational_binding_v1.py (1cac05ffd) / v2 (2fff2ea4d), exp_native_binding_naturalistic_multirelation_v1.py (a5dbb1830/15636c6b0).
+- Measured wall: exp_syntactic_role_agent_patient_voice_probe_v1.py (74d4ea0c1). Enabler NO_HELP: exp_vsa_key_orthogonalization_transform_v1.py (aca66a929), exp_vsa_key_globalscale_phase_conversion_v1.py (c6ee9b09).
+- Native binding: hdlab/binding.py (FHRR/HRR). Frozen encoder: data/exp_scale_meaning_learn_arc_heldout_v2/ckpt_seed_7.pt.
+- Notes: brain_fidelity_audit_native_binding_comprehension_2026-07-30.md, learned_tpr_role_keys_binder_ablation_plan_2026-07-30.md, native_binding_comprehension_richer_nl_frontier_plan_2026-07-30.md, forward_predictive_second_encoder_build_plan_2026-07-30.md, brain_whitening_decorrelation_pattern_separation_fidelity_2026-07-30.md.
+
+## DISCIPLINES THAT SAVED THE NIGHT (keep)
+- **VET POSITIVES HARDEST** via skunkworks/trustworthy gate — caught 3+ over-claims (oracle-v1 "zero-shot"; frontier "naturalistic comprehension"; my FHRR brain-fidelity over-claim). Report MEASURED vs MY-READ.
+- **MAKE TESTS FAIR** — floors must EMPIRICALLY floor (random floor sat at 0.38 not chance; shuffled didn't drop; FLOOR_MAX mis-set below chance — all caught). Per-slot/non-relational baseline MUST fail = the relational discriminator. Same hard task, genuine novelty, no leakage.
+- **WORK BACKWARDS from what's proven** (USER) — the oracle move localized the problem.
+- ONE VARIABLE; measurement-first (cheap gate before expensive build); push-free scp NO origin push; only kill what THIS session spawned; heartbeat every turn-end. Self-drive cron fired ~every 30min (session-only, re-create post-compaction if wanted).
+- GPU forward-predictive-encoder DIED earlier (~2h, produced nothing, (seed,arm) ckpt too coarse) — deprioritized then, RE-EARNED now for the READING direction (measured wall).
+
+## HONEST SCORECARD
+Real, VET-confirmed: native algebraic binding does the composition-relevant binding (novel-filler, relational, multi-relation) on STRUCTURED tasks. NOT yet: naturalistic reading (syntax->roles, measured wall at the frozen encoder), full brain-fidelity (FHRR contested, oracle-keys indefensible, encoder LOW, WM-maintenance absent). The night turned a week of walls into a coherent mechanism (native binding composes) + a PRECISELY-localized single gap (the reading mechanism = forward-predictive+recurrent+hierarchical encoder), which is also the deepest brain-fidelity fix. That is the earned next build.
