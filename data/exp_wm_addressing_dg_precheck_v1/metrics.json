@@ -1,0 +1,36 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (jaccard + distinct-bucket-stats + fixed-projection-import + synthetic clean/degenerate grid-measurement sanity, no real encoder load)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 0.027863399824127555,
+  "ts_iso": "2026-07-30T16:38:27.642108+00:00",
+  "anchor_name": "wm_addressing_dg_precheck_v1",
+  "selftest": {
+    "jaccard_checks": {
+      "identical": 1.0,
+      "disjoint": 0.0,
+      "partial": 0.3333333333333333
+    },
+    "distinct_bucket_checks": {
+      "bijection": {
+        "n_distinct": 5,
+        "n_roles": 5,
+        "n_held_distinct": 2,
+        "n_held": 2,
+        "n_train_distinct": 3,
+        "n_train": 3
+      },
+      "collision": {
+        "n_distinct": 1,
+        "n_roles": 3,
+        "n_held_distinct": 1,
+        "n_held": 1,
+        "n_train_distinct": 0,
+        "n_train": 2
+      }
+    },
+    "synthetic_clean_verdict": "PRECHECK_FAIL",
+    "synthetic_degenerate_verdict": "PRECHECK_FAIL"
+  }
+}

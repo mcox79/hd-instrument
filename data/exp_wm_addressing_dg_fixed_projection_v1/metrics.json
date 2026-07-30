@@ -1,0 +1,76 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (serialization safety + checkpoint/resume + role split integrity + expanded construction + real encoder + FixedDGAddressWM no-learned-key invariant + addr_logits shape + arms-differ + verdict-reuse)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 111.3100781000685,
+  "ts_iso": "2026-07-30T16:40:51.852236+00:00",
+  "anchor_name": "wm_addressing_dg_fixed_projection_v1",
+  "addr_chance": 0.06666666666666667,
+  "chance_recall": 0.05,
+  "d_exp_mult": 2,
+  "k_wta": 8,
+  "dg_seed": 20260730001,
+  "selftest": {
+    "serialization_selftest": {
+      "jsonify_roundtrip_ok": true,
+      "strip_for_checkpoint_ok": true
+    },
+    "checkpoint_resume_selftest": {
+      "resume_skip_count": 2,
+      "bit_identical_resume": true
+    },
+    "fixed_projection_unit_checks": {
+      "deterministic": true,
+      "seed_sensitive": true,
+      "kwta_bounded": true,
+      "bucket_pool_shape_ok": true
+    },
+    "role_split": {
+      "train": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        12,
+        14
+      ],
+      "held_out": [
+        6,
+        11,
+        13
+      ]
+    },
+    "construction": {
+      "keep_last": 1.0,
+      "shortcut_accs": {
+        "globally_last": 0.04,
+        "first_occurrence": 0.0375,
+        "most_frequent": 0.06
+      },
+      "n_train_q": 319,
+      "n_held_q": 81,
+      "fails": []
+    },
+    "n_cached": 3015,
+    "no_learned_key_verified": true,
+    "tiny_fixed_dg": {
+      "eval_acc": 0.019999999552965164,
+      "addr_train": 0.06034482643008232,
+      "addr_held": 0.0
+    },
+    "tiny_control_a": {
+      "eval_acc": 0.0533333346247673,
+      "addr_train": 0.06034482643008232,
+      "addr_held": 0.0
+    },
+    "arms_differ_verified": true,
+    "fake_verdict_for_msg_check": "INVALID"
+  }
+}
