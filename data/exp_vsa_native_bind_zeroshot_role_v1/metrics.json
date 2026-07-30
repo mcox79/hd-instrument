@@ -1,0 +1,235 @@
+{
+  "verdict": "VSA_NEEDS_CLEAN_KEYS",
+  "verdict_msg": "All 3 floors validly collapsed (ctx=[0.067, 0.031, 0.09] wrongkey=[0.022, 0.015, 0.075] shuffled=[0.079, 0.108, 0.075], all <= 0.150), and ARM_CLEAN_KEYS held-out recall=[0.64, 0.646, 0.657] clears ORACLE_MIN=0.50 on every seed (native binding DOES zero-shot novel roles in principle), BUT ARM_ENCODER_KEYS held-out recall=[0.315, 0.277, 0.284] (encoder_key_cosine_mean=0.3478, highly non-orthogonal) did NOT clear ORACLE_MIN on every seed -- the gap is KEY-ORTHOGONALITY, not the binding mechanism: the real encoder's role reps are too correlated for algebraic recovery; open question becomes a from-scratch encoder objective / fixed orthogonalizing projection, not a learned WM.",
+  "summary": "VSA_NEEDS_CLEAN_KEYS | chance_recall=0.0500 | encoder_key_cosine_mean=0.3478 | All 3 floors validly collapsed (ctx=[0.067, 0.031, 0.09] wrongkey=[0.022, 0.015, 0.075] shuffled=[0.079, 0.108, 0.075], all <= 0.150), and A",
+  "run_mode": "full",
+  "elapsed_s": 30.861968399956822,
+  "ts_iso": "2026-07-30T19:27:34.604749+00:00",
+  "anchor_name": "vsa_native_bind_zeroshot_role_v1",
+  "chance_recall": 0.05,
+  "bands": {
+    "chance_recall": 0.05,
+    "fail_max": 0.15000000000000002,
+    "oracle_min": 0.5,
+    "floors_valid": true,
+    "ctx_fails": true,
+    "wrongkey_fails": true,
+    "shuffled_fails": true,
+    "clean_held": [
+      0.6404494382022472,
+      0.6461538461538462,
+      0.6567164179104478
+    ],
+    "encoder_held": [
+      0.3146067415730337,
+      0.27692307692307694,
+      0.2835820895522388
+    ],
+    "floor_contextvarying_held": [
+      0.06741573033707865,
+      0.03076923076923077,
+      0.08955223880597014
+    ],
+    "floor_wrongkey_held": [
+      0.02247191011235955,
+      0.015384615384615385,
+      0.07462686567164178
+    ],
+    "floor_shuffled_held": [
+      0.07865168539325842,
+      0.1076923076923077,
+      0.07462686567164178
+    ],
+    "learned_wm_zeroshot_reference": "MEASURED@data/exp_oracle_context_invariant_address_wm_v2/metrics.json:bands.context_held (near CHANCE_RECALL by design)"
+  },
+  "held_recall_mean_sd_by_arm": {
+    "clean": {
+      "mean": 0.647773234088847,
+      "sd": 0.006738964815151361
+    },
+    "encoder": {
+      "mean": 0.2917039693494498,
+      "sd": 0.016421293979522616
+    },
+    "floor_contextvarying": {
+      "mean": 0.06257906663742652,
+      "sd": 0.024240537607755193
+    },
+    "floor_wrongkey": {
+      "mean": 0.03749446372287224,
+      "sd": 0.026415511762387087
+    },
+    "floor_shuffled": {
+      "mean": 0.08699028625240264,
+      "sd": 0.014730468700884238
+    }
+  },
+  "encoder_key_cosine_mean": 0.3477550293718066,
+  "encoder_key_cosine_max": 0.444898396730423,
+  "gamma_chosen": 0.95,
+  "gamma_grid_scores": {
+    "0.75": 0.17333333333333334,
+    "0.85": 0.30666666666666664,
+    "0.90": 0.47333333333333333,
+    "0.95": 0.7,
+    "0.99": 0.6133333333333333
+  },
+  "gamma_tuning_diag": {
+    "n_heldout_events_in_tuning_corpus": 0,
+    "n_heldout_queries_in_tuning_corpus": 0
+  },
+  "arm_results": {
+    "clean": [
+      {
+        "recall_train_acc": 0.6564885496183206,
+        "recall_heldout_acc": 0.6404494382022472,
+        "preds_digest": "a1385e6f618f6e37972a5942234eeeabec437146838ade8e85360cdc6531ca6b",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.6064516129032258,
+        "recall_heldout_acc": 0.6461538461538462,
+        "preds_digest": "a05b56732ddb8fc9d13d54f54e22f9e0a2a96b1b23a139ad707845c0f6f57af7",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.7124183006535948,
+        "recall_heldout_acc": 0.6567164179104478,
+        "preds_digest": "7a6f3260ae8dd2dd15e83e9db4a2db988768abd902c9db70a1f61069a4a40ded",
+        "n_examples": 220
+      }
+    ],
+    "encoder": [
+      {
+        "recall_train_acc": 0.32061068702290074,
+        "recall_heldout_acc": 0.3146067415730337,
+        "preds_digest": "8f973d336cc3eec648db9b85712be7419e19ea4470bc0971ba99d38201282175",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.3032258064516129,
+        "recall_heldout_acc": 0.27692307692307694,
+        "preds_digest": "76bf6f17e3560b0368a54e9944177034c04274ca3d189123eff935ba5538bd2f",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.3202614379084967,
+        "recall_heldout_acc": 0.2835820895522388,
+        "preds_digest": "2992725bdd443cca9bed9f0513a503fc660bbce50f11ad72c37b828cbb39e1be",
+        "n_examples": 220
+      }
+    ],
+    "floor_contextvarying": [
+      {
+        "recall_train_acc": 0.030534351145038167,
+        "recall_heldout_acc": 0.06741573033707865,
+        "preds_digest": "4ac5ecbd943e2fea738fdb544bad69f44b533a97c78d78e5d4f67d646a05128c",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.05161290322580645,
+        "recall_heldout_acc": 0.03076923076923077,
+        "preds_digest": "a02b50c411e69a122f4d5ab21a05a0a5fb144e7d67d04c48c79a202cd1836856",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.058823529411764705,
+        "recall_heldout_acc": 0.08955223880597014,
+        "preds_digest": "14e7ab9543dd4aaa64e129f18111e1d5aa1252ba43b9459763e47b3212c61028",
+        "n_examples": 220
+      }
+    ],
+    "floor_wrongkey": [
+      {
+        "recall_train_acc": 0.06870229007633588,
+        "recall_heldout_acc": 0.02247191011235955,
+        "preds_digest": "121550463b93f6f4124cc0a2fba7029e38cdda29ea1ab4214a1e88573e59b018",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.04516129032258064,
+        "recall_heldout_acc": 0.015384615384615385,
+        "preds_digest": "35aad2529cfaaca9d3141bc8f37c102f6107b984e01134aa2150202a36abd4a2",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.0457516339869281,
+        "recall_heldout_acc": 0.07462686567164178,
+        "preds_digest": "c3d2fe7e19a7786f943a93f6b9edb8aad3891817f96e8e39d5456155f63f7b89",
+        "n_examples": 220
+      }
+    ],
+    "floor_shuffled": [
+      {
+        "recall_train_acc": 0.03816793893129771,
+        "recall_heldout_acc": 0.07865168539325842,
+        "preds_digest": "cd12c277345914601498741038dc8cc228cc07a7d8a55449cdd1923c02840a7b",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.07096774193548387,
+        "recall_heldout_acc": 0.1076923076923077,
+        "preds_digest": "7b6056654b061de58bdc2bfe7af6ea2b52536a4b0bb9c45fd7a6e8c934c787f5",
+        "n_examples": 220
+      },
+      {
+        "recall_train_acc": 0.0784313725490196,
+        "recall_heldout_acc": 0.07462686567164178,
+        "preds_digest": "945e5dc0da9568940e2ffae1f5b48a7cd464f38b45aa65b30a8bedadffbe3e31",
+        "n_examples": 220
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 15,
+  "n_units_done": 15,
+  "params": {
+    "S_TARGET_TOTAL": 15,
+    "V_FILL": 20,
+    "train_n": 300,
+    "eval_n": 220,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "train_roles_v2": [
+      0,
+      1,
+      2,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "held_out_roles_v2": [
+      3,
+      4,
+      6,
+      7,
+      14
+    ],
+    "n_cached_sentences": 3015,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten",
+    "binding_flavor": "HRR_real_circular_convolution",
+    "clean_key_seed": 555001,
+    "filler_seed": 555002,
+    "distract_seed": 555003,
+    "shuffle_seed": 555004,
+    "oracle_probe_seed": 20260730,
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 15,
+  "crlb_n_a": "no learned-noise Cramer-Rao floor; discriminator is the pre-registered recall-vs-band decision rule (see decide_verdict)",
+  "calibration_check": "adaptive_with_discriminator_gate: GAMMA tuned via small grid search on ARM_CLEAN_KEYS TRAIN-roles-only recall (seed 7), held-out roles never touched during tuning (measured, see gamma_tuning_diag)"
+}
