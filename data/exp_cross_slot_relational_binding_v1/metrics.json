@@ -1,0 +1,239 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "PER_SLOT_BASELINE ([0.53, 0.415]) and MAJORITY_NONE ([0.47, 0.585]) correctly fail (< 0.70), but neither arm clears PROVEN_MIN=0.80 nor falls fully into the GAP_MAX=0.55 floor on every seed/eval-set -- honest middle state. readcond_eval=[0.33000001311302185, 0.32499998807907104] readcond_swap=[0.36666667461395264, 0.36666667461395264] vsa_eval=[0.855, 0.815] vsa_swap=[0.7333333333333333, 0.7666666666666667]",
+  "summary": "PARTIAL | PER_SLOT_BASELINE ([0.53, 0.415]) and MAJORITY_NONE ([0.47, 0.585]) correctly fail (< 0.70), but neither arm clears PROVEN_MIN=0.80 nor falls fully into the GAP_MAX=0.55 floor on e",
+  "run_mode": "full",
+  "elapsed_s": 30.04751699999906,
+  "ts_iso": "2026-07-30T20:01:51.238075+00:00",
+  "anchor_name": "cross_slot_relational_binding_v1",
+  "n_classes": 21,
+  "bands": {
+    "per_slot_must_fail_max": 0.7,
+    "proven_min": 0.8,
+    "gap_max": 0.55,
+    "floor_max": 0.35,
+    "swap_min_acc_for_proven": 0.8,
+    "per_slot_baseline_eval": [
+      0.53,
+      0.415
+    ],
+    "majority_none_eval": [
+      0.47,
+      0.585
+    ],
+    "per_slot_fails": true,
+    "majority_fails": true,
+    "readcond_eval_acc": [
+      0.33000001311302185,
+      0.32499998807907104
+    ],
+    "readcond_swap_acc": [
+      0.36666667461395264,
+      0.36666667461395264
+    ],
+    "readcond_ri_max": [
+      0.32499998807907104,
+      0.41499999165534973
+    ],
+    "readcond_ri_swap_max": [
+      0.36666667461395264,
+      0.4333333373069763
+    ],
+    "readcond_shuffled_probe_acc": [
+      0.3499999940395355,
+      0.3700000047683716
+    ],
+    "readcond_floors_ok": false,
+    "readcond_proven": false,
+    "readcond_missing": true,
+    "vsa_eval_acc": [
+      0.855,
+      0.815
+    ],
+    "vsa_swap_acc": [
+      0.7333333333333333,
+      0.7666666666666667
+    ],
+    "vsa_floor_wrongrole_acc": [
+      0.47,
+      0.585
+    ],
+    "vsa_floor_shuffled_acc": [
+      0.465,
+      0.58
+    ],
+    "vsa_floors_ok": false,
+    "vsa_proven": false,
+    "vsa_missing": false
+  },
+  "audit": {
+    "n_train": 350,
+    "n_swap": 30,
+    "forbid_violations_in_train": 0,
+    "swap_leak": 0,
+    "match_frac_train": 0.48,
+    "direction_frac_fwd_train": 0.4942857142857143,
+    "role_overlap_entities": 20,
+    "per_slot_baseline_acc_sample": 0.48,
+    "majority_none_acc_sample": 0.52,
+    "swap1_consistent": true,
+    "swap2_consistent": true,
+    "fails": []
+  },
+  "gamma_chosen": 0.95,
+  "thresh_chosen": 0.3,
+  "gamma_thresh_grid_scores": {
+    "0.85_0.30": 0.595,
+    "0.85_0.40": 0.565,
+    "0.85_0.50": 0.555,
+    "0.85_0.60": 0.555,
+    "0.90_0.30": 0.675,
+    "0.90_0.40": 0.62,
+    "0.90_0.50": 0.585,
+    "0.90_0.60": 0.56,
+    "0.95_0.30": 0.815,
+    "0.95_0.40": 0.79,
+    "0.95_0.50": 0.7,
+    "0.95_0.60": 0.645
+  },
+  "role_cos": 0.15594369173049927,
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "n_units_done": 4,
+  "arms_differ_verified": true,
+  "hold_a": 12,
+  "hold_b": 13,
+  "params": {
+    "D_MEM": 64,
+    "HIDDEN": 64,
+    "D_ENC": 512,
+    "ADDR_TEMP": 0.3,
+    "STEPS_WM": 220,
+    "STEPS_READOUT": 120,
+    "LR": 0.01,
+    "AUX_W": 1.0,
+    "PCA_EPS": 0.0001,
+    "N_RANDOM_INIT": 2,
+    "train_n": 350,
+    "eval_n": 200,
+    "swap_per_cfg": 15,
+    "seeds": [
+      7,
+      13
+    ],
+    "n_cached_sentences": 762,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten",
+    "readcond_combiner": "linear_only",
+    "vsa_binding_flavor": "FHRR_complex64_elementwise",
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "learned_per_seed": [
+    {
+      "seed": 7,
+      "learned": {
+        "eval_acc": 0.33000001311302185,
+        "swap_acc": 0.36666667461395264,
+        "shuffled_probe_acc": 0.3499999940395355,
+        "first_loss": 5.955995559692383,
+        "last_loss": 0.002904189983382821,
+        "steps_run": 220
+      },
+      "random_init": {
+        "accs": [
+          0.2849999964237213,
+          0.32499998807907104
+        ],
+        "mean": 0.3049999922513962,
+        "max": 0.32499998807907104,
+        "swap_accs": [
+          0.2666666805744171,
+          0.36666667461395264
+        ],
+        "swap_max": 0.36666667461395264
+      },
+      "power": {
+        "ri_mean": 0.3049999922513962,
+        "ri_max": 0.32499998807907104,
+        "se_diff": 0.04653359009556815,
+        "gap": 0.02500002086162567,
+        "z": 0.5372467675561243,
+        "p_value": 0.2955485852050427,
+        "significant": false
+      },
+      "arms_differ_verified": true,
+      "per_slot_baseline_eval": 0.53,
+      "majority_none_eval": 0.47,
+      "per_slot_baseline_swap": 0.5,
+      "majority_none_swap": 0.5
+    },
+    {
+      "seed": 13,
+      "learned": {
+        "eval_acc": 0.32499998807907104,
+        "swap_acc": 0.36666667461395264,
+        "shuffled_probe_acc": 0.3700000047683716,
+        "first_loss": 5.077320098876953,
+        "last_loss": 0.002156497910618782,
+        "steps_run": 220
+      },
+      "random_init": {
+        "accs": [
+          0.41499999165534973,
+          0.375
+        ],
+        "mean": 0.39499999582767487,
+        "max": 0.41499999165534973,
+        "swap_accs": [
+          0.4333333373069763,
+          0.36666667461395264
+        ],
+        "swap_max": 0.4333333373069763
+      },
+      "power": {
+        "ri_mean": 0.39499999582767487,
+        "ri_max": 0.41499999165534973,
+        "se_diff": 0.04787222550453898,
+        "gap": -0.07000000774860382,
+        "z": -1.4622258942602702,
+        "p_value": 0.9281603409895229,
+        "significant": false
+      },
+      "arms_differ_verified": true,
+      "per_slot_baseline_eval": 0.415,
+      "majority_none_eval": 0.585,
+      "per_slot_baseline_swap": 0.5,
+      "majority_none_swap": 0.5
+    }
+  ],
+  "vsa_per_seed": [
+    {
+      "seed": 7,
+      "eval_acc": 0.855,
+      "swap_acc": 0.7333333333333333,
+      "floor_wrongrole_acc": 0.47,
+      "floor_shuffled_acc": 0.465,
+      "preds_digest_main": "1c2a10b73fddc296ceec2ea548eb3963b2a8a5838418c886baf3013b93872904",
+      "preds_digest_wrong": "65469afff74661680c4d47cdc567b3dd69aab695a887faaf5a09b17762eb92e3",
+      "preds_digest_shuf": "5b4bc539584c97d39d21c81cd1e5664b36b03b7545914759f47181c2c3a130d0"
+    },
+    {
+      "seed": 13,
+      "eval_acc": 0.815,
+      "swap_acc": 0.7666666666666667,
+      "floor_wrongrole_acc": 0.585,
+      "floor_shuffled_acc": 0.58,
+      "preds_digest_main": "8e10c1a43dcc023532e78480b28737c3a921fc2526ace444874dcb9a708a4088",
+      "preds_digest_wrong": "4bde5c52c2bea8b68eeb75c315e07bfd95907cebfd4e36011b71c3490ee1761f",
+      "preds_digest_shuf": "dcd6f9500e5916c80a2dd3baf997e643d098f59cb553dc5455343468c79af92c"
+    }
+  ],
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 20,
+  "crlb_n_a": "no learned-noise Cramer-Rao floor; discriminator is the pre-registered per-slot-must-fail + floors-must-floor + PROVEN/GAP recall bands (see decide_verdict)",
+  "calibration_check": "adaptive_with_discriminator_gate: gamma/thresh grid-tuned on a disjoint TUNING corpus (never touches TRAIN/EVAL_STD/SWAP), frozen before main run (see tune_gamma_thresh + gamma_thresh_grid_scores)"
+}
