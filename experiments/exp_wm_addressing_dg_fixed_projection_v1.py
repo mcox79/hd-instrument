@@ -2,11 +2,13 @@
 # - arms_differ_verified at self-test (META_RULE_AF; FIXED_DG_ADDRESS vs CONTROL_A eval-logit hash)
 # - final_metrics_atomicity: tmp_replace (os.replace at end) -- reuses ho._jsonify / _strip_for_checkpoint
 # - except SystemExit: raise BEFORE except Exception (no BaseException)
-# - crlb_n/a: no Cramer-Rao noise floor; discriminator = held-out-role ADDRESSING accuracy vs the SAME
-#   pre-registered HARD-PASS/HARD-FAIL/INVALID bands as the HARD-FAILED cell this forks (bands NOT
-#   loosened; reused verbatim via ho.decide_verdict). chance_addr=1/15, chance_recall=0.05, ceiling 1.0.
+# - crlb_n/a: no Cramer-Rao noise floor; discriminator = held-out-role RECALL accuracy (v2 CONFOUND FIX:
+#   NOT addr-argmax==q_slot, which is structurally unsatisfiable by a fixed random hash -- see
+#   decide_verdict_recall + docstring). New recall-based HARD-PASS/HARD-FAIL/INVALID bands (this file,
+#   NOT ho.decide_verdict's addr-based bands). chance_recall=0.05, addr_chance=1/15 (diagnostic only),
+#   ceiling 1.0.
 # - baseline_in_band: CONTROL_A_NO_WARMSTART (reused unchanged from ho) MUST reproduce STUCK_FLAT on
-#   both splits, else INVALID. Judged live by ho.decide_verdict.
+#   both RECALL splits, else INVALID. Judged live by decide_verdict_recall (this file).
 # - discriminator survives scale: FULL is the scale of interest; self-test builds the REAL v2 encoder +
 #   REAL FixedDGAddressWM at tiny N (real_code_path).
 # - numbers in comments tagged MEASURED@ / HYPOTHESIZED@ / THEORETICAL@ / CITED@ (META_RULE_AC)
@@ -37,10 +39,11 @@ the 15-role TRAIN/HELD_OUT split (ho.TRAIN_ROLES / ho.HELD_OUT_ROLES, ROLE_SPLIT
 gen_stream_expanded/gen_dataset_expanded construction + leak-guards + construction_selftest, the
 CONTROL_A_NO_WARMSTART control (ho.run_control_a, MUST reproduce STUCK_FLAT), the CONTROL_A_LONGER
 Olsson-counter-hypothesis diagnostic, the CONTROL_B_PERROLE_LOOKUP_GROUNDTRUTH zero-training ceiling
-(ho.control_b_perrole_groundtruth), the decisive addressing-accuracy metric + ALL pre-registered
-HARD-PASS/HARD-FAIL/INVALID/MIDDLE_BAND bands (ho.decide_verdict, called directly, NOT re-derived), the
+(ho.control_b_perrole_groundtruth), and train_arm_ext's training/eval loop (ho.train_arm_ext, which
+already computes recall_train_acc/recall_heldout_acc alongside addr_train_acc/addr_heldout_acc) plus the
 serialization + checkpoint/resume self-tests (ho.serialization_selftest / ho.checkpoint_resume_selftest,
-reused verbatim -- generic over unit labels), and train_arm_ext's training/eval loop (ho.train_arm_ext).
+reused verbatim -- generic over unit labels). NOT reused: ho.decide_verdict's addr-argmax-based bands --
+see "DECISIVE METRIC + BANDS" below for why, and decide_verdict_recall (this file) for the replacement.
 
 ARMS (mirrors the HARD-FAILED cell's arm list; WARM_STARTED replaced by FIXED_DG_ADDRESS):
   FIXED_DG_ADDRESS (the capability under test) -- FixedDGAddressWM: pca_whiten conditioning (unchanged,
@@ -57,27 +60,47 @@ ARMS (mirrors the HARD-FAILED cell's arm list; WARM_STARTED replaced by FIXED_DG
     FixedDGAddressWM deletes it in __init__). Seeds 7, 13 (ho.SEEDS_FULL).
   CONTROL_A_NO_WARMSTART (reused UNCHANGED from ho.run_control_a) -- same architecture class
     (rc.ReadCondWM, NOT FixedDGAddressWM), conditioning=none, random key init, no aux, end-to-end only.
-    MUST reproduce near-chance addressing on BOTH splits (ho.decide_verdict's controlA_ok gate), else
-    the test is INVALID. Seeds 7, 13.
+    MUST reproduce near-chance RECALL on BOTH splits (decide_verdict_recall's controlA_ok gate, this
+    file), else the test is INVALID. Seeds 7, 13.
   CONTROL_A_LONGER_SCHEDULE (reused UNCHANGED from ho.run_control_a, LONGER_MULT=8x steps, seed=7) --
     Olsson counter-hypothesis diagnostic, reported alongside not instead of.
   CONTROL_B_PERROLE_LOOKUP_GROUNDTRUTH (reused UNCHANGED from ho.control_b_perrole_groundtruth) --
     zero-training symbolic per-role-lookup ceiling; near-1.0 on train roles, structurally 0.0 on
     held-out roles by construction.
 
-DECISIVE METRIC + BANDS: IDENTICAL to the HARD-FAILED cell, reused verbatim via ho.decide_verdict --
-held-out-role vs train-role addressing accuracy (argmax over K=15 address logits), NOT loosened:
-  HARD_PASS_HELDOUT_ROLE_GENERALIZATION: held-out addr_acc >= 0.80 (both seeds) AND
-    (train_addr_acc - held_addr_acc) <= 0.15 (both seeds) AND CONTROL_A near chance_addr on both splits
-    (both seeds) AND held_addr_acc - control_B_heldout_acc >= 0.30 (both seeds).
-  HARD_FAIL_PERROLE_LOOKUP_ONLY: held-out addr_acc < 0.40 (any seed) OR gap > 0.35 (any seed) OR
-    |held_addr_acc - control_B_heldout_acc| <= 0.10 (any seed).
-  INVALID / MIDDLE_BAND_INCONCLUSIVE: as ho.decide_verdict defines (see that file).
-Note: ho.decide_verdict's verdict_msg text was authored for the WARM_STARTED arm's mechanism
-("warm-started arm", "warm-start fix"); this file substitutes those two phrases for
-"FIXED_DG_ADDRESS arm" / "FIXED_DG_ADDRESS mechanism" post-hoc (see _retarget_msg below) so the message
-reads correctly for THIS arm's mechanism -- the underlying numeric bands/logic are reused byte-identical,
-only the cosmetic arm-name substrings are swapped.
+DECISIVE METRIC + BANDS (v2 -- CONFOUND FIX, this supersedes the v1 addr-argmax decisive metric; see
+exp_wm_addressing_dg_precheck_v1.py's docstring for the full diagnosis): v1 reused ho.decide_verdict
+verbatim, i.e. its decisive metric was argmax(addr_logits) == literal q_slot (addressing accuracy). That
+is structurally UNSATISFIABLE by a FIXED random projection: E and bucket_of are deterministic functions
+of the INPUT REP, not of the numeric slot id -- a fixed hash gives a consistent-but-ARBITRARY bucket per
+role, never aligned to the WM's particular slot-id numbering. Measuring "did role r land in bucket r"
+would FALSE-FAIL a mechanism that is working exactly as designed (consistent+distinct addressing, just
+not address==slot-id). THE FIX: the decisive metric is now END-TO-END CONTENT-GENERAL RECALL accuracy on
+held-out-role queries (recall_heldout_acc, already computed by ho.train_arm_ext -- predicted filler ==
+true filler, which only requires the address to be internally consistent+distinct, NOT numerically equal
+to q_slot). addr_heldout_acc / addr_train_acc are RETAINED and reported as a SECONDARY diagnostic ONLY,
+explicitly labeled unfair_to_random_hash in the metrics (a fixed hash's address for role r need not equal
+literal id r even when the mechanism is working perfectly).
+
+Bands (decide_verdict_recall, this file, NOT ho.decide_verdict -- new function, see below; chance_recall
+= ho.CHANCE_RECALL = 0.05 [1/V_FILL=20], oracle ceiling 1.0):
+  HARD_PASS_HELDOUT_RECALL_GENERALIZATION: recall_held >= 0.50 (both seeds; ~10x chance_recall, the
+    analogous margin to the HARD-FAILED cell's ~12x chance_addr addr-based bar) AND
+    (recall_train - recall_held) <= 0.35 (both seeds; looser than the addr-based 0.15 gap bar because
+    recall requires BOTH a correct address AND a correct value-read -- strictly harder / noisier than
+    pure addressing) AND CONTROL_A_NO_WARMSTART stays near chance_recall on both splits (both seeds) AND
+    FIXED_DG_ADDRESS's recall_held clears CONTROL_B_PERROLE_LOOKUP_GROUNDTRUTH's structurally-0.0
+    held-out recall ceiling by >= 0.20 (both seeds).
+  HARD_FAIL_PERROLE_LOOKUP_ONLY: recall_held < 0.15 (any seed) OR gap > 0.55 (any seed) OR
+    |recall_held - control_B_heldout_recall| <= 0.08 (any seed).
+  INVALID: CONTROL_A does not reproduce near-chance_recall on both splits (construction bug) OR
+    recall_train_acc < 0.60 on any seed (the mechanism did not even converge on TRAIN roles -- a
+    prerequisite failure, not a generalization failure; 0.60 not 0.85 because recall's ceiling is lower
+    than pure addressing's even on TRAIN roles, since it composes address correctness with value-read
+    correctness).
+  MIDDLE_BAND_INCONCLUSIVE: none of the above triggers.
+addr_heldout_acc / addr_train_acc remain in the metrics for diagnostic transparency but do NOT gate any
+verdict in this file.
 
 Fixed-projection sweep (exp_dev autonomy note per the build plan section 3): d_exp defaults to 2x d_enc
 (Spoke-3 design-note precedent, MEASURED@notes/design_stage2_concept_encoder_spoke3_..._2026-07-02.md
@@ -132,6 +155,19 @@ OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
 D_EXP_MULT_DEFAULT = 2                          # HYPOTHESIZED@this file: Spoke-3 2x-expansion precedent
 K_WTA_DEFAULT = 8                               # MEASURED@data/exp_substrate_sparse_resonator_blocklocal_K26_v1_n5000/metrics.json:K8_acc=1.00
 DG_SEED = 20260730001                           # fixed; SAME across seeds 7/13 (addressing geometry not a seed confound)
+
+# ---- decisive-metric bands (v2 CONFOUND FIX; recall_heldout_acc, NOT addr_heldout_acc -- see docstring
+# "DECISIVE METRIC + BANDS" section for the full rationale). NOT the same object as ho's addr-based
+# bands; a fixed random projection cannot be expected to satisfy argmax(addr_logits)==literal q_slot. ----
+RECALL_HARDPASS_MIN = 0.50            # HYPOTHESIZED@this file: ~10x chance_recall=0.05
+RECALL_GAP_HARDPASS_MAX = 0.35        # looser than the addr-bands' 0.15 gap (recall = address AND value)
+RECALL_HARDFAIL_MAX = 0.15            # ~3x chance_recall
+RECALL_GAP_HARDFAIL_MIN = 0.55
+RECALLB_MARGIN_HARDPASS = 0.20        # recall_held - control_b_heldout_recall(structurally 0.0) >= this
+RECALLB_INDISTINCT_MARGIN = 0.08
+RECALL_TRAINROLE_INVALID_MIN = 0.60   # prerequisite convergence floor on TRAIN roles (looser than addr's 0.85)
+CONTROLA_RECALL_STUCKFLAT_MARGIN = 0.10   # CONTROL_A recall must stay < chance_recall + this on both splits
+CHANCE_RECALL_REF = ho.CHANCE_RECALL      # 0.05 (1/V_FILL=20); module-level alias for decide_verdict_recall
 
 
 def _log(msg):
@@ -257,12 +293,94 @@ def run_fixed_dg_address(enc, cond, tr_batch, ev_batch, seed, steps, d_exp_mult,
     return res
 
 
-def _retarget_msg(msg):
-    """ho.decide_verdict's verdict_msg text was authored for the WARM_STARTED arm's mechanism. The
-    numeric bands/logic are reused byte-identical (this function touches ONLY these two cosmetic
-    substrings) so the message reads correctly for the FIXED_DG_ADDRESS arm's actual mechanism."""
-    return (msg.replace("warm-started arm", "FIXED_DG_ADDRESS arm")
-               .replace("warm-start fix", "FIXED_DG_ADDRESS mechanism"))
+def decide_verdict_recall(fixed_results, controlA_results, control_b, longer_result):
+    """v2 CONFOUND FIX: decisive metric is recall_heldout_acc (end-to-end content-general recall on
+    held-out-role queries), NOT addr_heldout_acc. A FIXED random projection gives a consistent-but-
+    ARBITRARY bucket per role -- there is no reason its address should equal the literal q_slot id, so
+    gating on argmax(addr_logits)==q_slot (ho.decide_verdict's metric) would FALSE-FAIL a mechanism that
+    is addressing correctly-but-differently-numbered. Recall accuracy only requires the address to be
+    internally CONSISTENT (same bucket -> same memory row on write and read) and DISTINCT (no
+    cross-role contamination) -- exactly the property under test, independent of numeric labeling.
+    control_b's reported 'heldout_acc'/'train_acc' fields are ALREADY recall-type accuracy (predicted
+    filler == true filler via symbolic per-role-lookup replay, not an address-id match), so they compare
+    directly against recall_heldout_acc/recall_train_acc with no transformation needed."""
+    controlA_ok = all(
+        (r["recall_train_acc"] < CHANCE_RECALL_REF + CONTROLA_RECALL_STUCKFLAT_MARGIN)
+        and (r["recall_heldout_acc"] < CHANCE_RECALL_REF + CONTROLA_RECALL_STUCKFLAT_MARGIN)
+        for r in controlA_results)
+    train_recalls = [r["recall_train_acc"] for r in fixed_results]
+    held_recalls = [r["recall_heldout_acc"] for r in fixed_results]
+    gaps = [t - h for t, h in zip(train_recalls, held_recalls)]
+    train_ok = all(t >= RECALL_TRAINROLE_INVALID_MIN for t in train_recalls)
+
+    if not controlA_ok:
+        verdict = "INVALID"
+        msg = ("CONTROL_A_NO_WARMSTART did not reproduce near-chance RECALL (chance_recall=%.4f, "
+               "margin=%.2f) on both splits: train=%s held=%s -- the split/construction is not a valid "
+               "test of the FIXED_DG_ADDRESS intervention (may itself be informative, but do not "
+               "interpret the FIXED_DG_ADDRESS arm's gap against this control)."
+               % (CHANCE_RECALL_REF, CONTROLA_RECALL_STUCKFLAT_MARGIN,
+                  [round(r["recall_train_acc"], 3) for r in controlA_results],
+                  [round(r["recall_heldout_acc"], 3) for r in controlA_results]))
+    elif not train_ok:
+        verdict = "INVALID"
+        msg = ("TRAIN-role RECALL accuracy < %.2f on >=1 seed (%s): the FIXED_DG_ADDRESS mechanism did "
+               "not even converge on its OWN train-role episodes -- a prerequisite failure, not a "
+               "generalization failure." % (RECALL_TRAINROLE_INVALID_MIN, [round(t, 3) for t in train_recalls]))
+    else:
+        cb_held = control_b["heldout_acc"]
+        clears_b = all((h - cb_held) >= RECALLB_MARGIN_HARDPASS for h in held_recalls)
+        indistinct_b = any(abs(h - cb_held) <= RECALLB_INDISTINCT_MARGIN for h in held_recalls)
+        hard_pass = (all(h >= RECALL_HARDPASS_MIN for h in held_recalls)
+                     and all(g <= RECALL_GAP_HARDPASS_MAX for g in gaps)
+                     and clears_b)
+        hard_fail = (any(h < RECALL_HARDFAIL_MAX for h in held_recalls)
+                     or any(g > RECALL_GAP_HARDFAIL_MIN for g in gaps)
+                     or indistinct_b)
+        if hard_pass:
+            verdict = "HARD_PASS_HELDOUT_RECALL_GENERALIZATION"
+            msg = ("held-out-role RECALL >= %.2f (both seeds: %s) AND gap-vs-train <= %.2f (%s) AND "
+                   "CONTROL_A stayed near chance_recall=%.4f on both splits AND FIXED_DG_ADDRESS arm "
+                   "clears CONTROL_B (per-role-lookup ceiling, held-out=%.4f) by >= %.2f on held-out "
+                   "roles (margins: %s). The fixed DG-analog projection generalizes to held-out roles "
+                   "via consistent+distinct addressing, with NO per-role learned parameter -- genuine "
+                   "generalizing binding, structurally distinct from the HARD-FAILED learned-key arm."
+                   % (RECALL_HARDPASS_MIN, [round(h, 3) for h in held_recalls], RECALL_GAP_HARDPASS_MAX,
+                      [round(g, 3) for g in gaps], CHANCE_RECALL_REF, cb_held, RECALLB_MARGIN_HARDPASS,
+                      [round(h - cb_held, 3) for h in held_recalls]))
+        elif hard_fail:
+            verdict = "HARD_FAIL_PERROLE_LOOKUP_ONLY"
+            msg = ("held-out-role RECALL < %.2f (some seed: %s) OR gap > %.2f (some seed: %s) OR "
+                   "within %.2f of CONTROL_B's held-out recall ceiling (%.4f). The FIXED_DG_ADDRESS "
+                   "mechanism does not generalize content-general recall to held-out roles -- consistent "
+                   "with the addressing geometry not separating/aligning held-out roles well enough for "
+                   "downstream read to work. Held-out recall accs=%s, gaps=%s."
+                   % (RECALL_HARDFAIL_MAX, [round(h, 3) for h in held_recalls], RECALL_GAP_HARDFAIL_MIN,
+                      [round(g, 3) for g in gaps], RECALLB_INDISTINCT_MARGIN, cb_held,
+                      [round(h, 3) for h in held_recalls], [round(g, 3) for g in gaps]))
+        else:
+            verdict = "MIDDLE_BAND_INCONCLUSIVE"
+            msg = ("Result sits between the pre-registered RECALL bands: held-out recall accs=%s, "
+                   "gaps=%s, control_B held-out recall ceiling=%.4f. Neither HARD_PASS nor HARD_FAIL "
+                   "criteria fully met -- report honestly, do not round up." % (
+                       [round(h, 3) for h in held_recalls], [round(g, 3) for g in gaps], cb_held))
+    bands = {"chance_recall": CHANCE_RECALL_REF, "oracle_ceiling": 1.0,
+             "recall_hardpass_min": RECALL_HARDPASS_MIN, "recall_gap_hardpass_max": RECALL_GAP_HARDPASS_MAX,
+             "recall_hardfail_max": RECALL_HARDFAIL_MAX, "recall_gap_hardfail_min": RECALL_GAP_HARDFAIL_MIN,
+             "recallb_margin_hardpass": RECALLB_MARGIN_HARDPASS,
+             "recallb_indistinct_margin": RECALLB_INDISTINCT_MARGIN,
+             "recall_trainrole_invalid_min": RECALL_TRAINROLE_INVALID_MIN,
+             "controla_recall_stuckflat_margin": CONTROLA_RECALL_STUCKFLAT_MARGIN,
+             "controlA_ok": bool(controlA_ok), "train_ok": bool(train_ok),
+             "train_recalls": train_recalls, "held_recalls": held_recalls, "gaps": gaps,
+             "control_b": control_b,
+             "longer_schedule_result": {k: v for k, v in longer_result.items() if k != "ev_logits"},
+             # secondary diagnostic only (NOT gated on): a fixed hash's address need not equal literal
+             # q_slot id even when the mechanism works correctly -- see docstring.
+             "addr_diagnostic_unfair_to_random_hash": {
+                 "addr_train_accs": [r["addr_train_acc"] for r in fixed_results],
+                 "addr_heldout_accs": [r["addr_heldout_acc"] for r in fixed_results]}}
+    return verdict, msg, bands
 
 
 # ---------------- self-test ----------------
@@ -341,12 +459,32 @@ def run_self_test():
         assert 0.0 <= r["addr_train_acc"] <= 1.0
         assert 0.0 <= r["addr_heldout_acc"] <= 1.0
 
-    _log("SELF-TEST: decide_verdict reuse + message-retargeting sanity ...")
-    fake_verdict, fake_msg, _ = ho.decide_verdict([fixed_res], [ctrl_res], ho.control_b_perrole_groundtruth(
-        ho.gen_dataset_expanded(200, np.random.default_rng(7 + 999))), ctrl_res)
-    retargeted = _retarget_msg(fake_msg)
-    assert "warm-started arm" not in retargeted and "warm-start fix" not in retargeted, (
-        "message retargeting failed to substitute WARM_STARTED phrasing")
+    _log("SELF-TEST: decide_verdict_recall (v2 CONFOUND FIX -- recall-gated, not addr-gated) sanity on "
+         "constructed HARD_PASS-shaped and HARD_FAIL-shaped inputs ...")
+
+    def _mk_result(recall_train, recall_held, addr_train=0.5, addr_held=0.5):
+        return {"recall_train_acc": recall_train, "recall_heldout_acc": recall_held,
+                "addr_train_acc": addr_train, "addr_heldout_acc": addr_held}
+
+    hp_fixed = [_mk_result(0.90, 0.70), _mk_result(0.88, 0.65)]
+    hp_ctrlA = [_mk_result(0.06, 0.06), _mk_result(0.05, 0.07)]
+    hp_cb = {"heldout_acc": 0.0, "train_acc": 0.95}
+    hp_verdict, hp_msg, hp_bands = decide_verdict_recall(hp_fixed, hp_ctrlA, hp_cb, hp_ctrlA[0])
+    assert hp_verdict == "HARD_PASS_HELDOUT_RECALL_GENERALIZATION", (
+        "constructed HARD_PASS-shaped input did not classify as HARD_PASS, got %s (msg=%s)"
+        % (hp_verdict, hp_msg))
+    assert "addr_diagnostic_unfair_to_random_hash" in hp_bands, "secondary addr diagnostic not carried"
+
+    hf_fixed = [_mk_result(0.90, 0.06), _mk_result(0.88, 0.04)]
+    hf_verdict, hf_msg, _ = decide_verdict_recall(hf_fixed, hp_ctrlA, hp_cb, hp_ctrlA[0])
+    assert hf_verdict == "HARD_FAIL_PERROLE_LOOKUP_ONLY", (
+        "constructed HARD_FAIL-shaped input (held recall at chance) did not classify as HARD_FAIL, "
+        "got %s (msg=%s)" % (hf_verdict, hf_msg))
+
+    inv_ctrlA_stuck = [_mk_result(0.60, 0.55), _mk_result(0.58, 0.50)]   # CONTROL_A did NOT stay flat
+    inv_verdict, inv_msg, _ = decide_verdict_recall(hp_fixed, inv_ctrlA_stuck, hp_cb, inv_ctrlA_stuck[0])
+    assert inv_verdict == "INVALID", (
+        "CONTROL_A not near chance_recall must INVALID the test, got %s (msg=%s)" % (inv_verdict, inv_msg))
 
     _log("SELF-TEST PASS")
     return {"serialization_selftest": ser_diag, "checkpoint_resume_selftest": ckpt_diag,
@@ -358,7 +496,9 @@ def run_self_test():
                                "addr_held": fixed_res["addr_heldout_acc"]},
             "tiny_control_a": {"eval_acc": ctrl_res["eval_acc"], "addr_train": ctrl_res["addr_train_acc"],
                                 "addr_held": ctrl_res["addr_heldout_acc"]},
-            "arms_differ_verified": bool(arms_differ), "fake_verdict_for_msg_check": fake_verdict}
+            "arms_differ_verified": bool(arms_differ),
+            "decide_verdict_recall_checks": {"hard_pass": hp_verdict, "hard_fail": hf_verdict,
+                                              "invalid": inv_verdict}}
 
 
 # ---------------- main ----------------
@@ -483,8 +623,7 @@ def main():
 
     arms_differ = fixed_results[0]["ev_logits_sha256"] != controlA_results[0]["ev_logits_sha256"]
 
-    verdict, msg, bands = ho.decide_verdict(fixed_results, controlA_results, control_b, longer_result)
-    msg = _retarget_msg(msg)
+    verdict, msg, bands = decide_verdict_recall(fixed_results, controlA_results, control_b, longer_result)
     elapsed = time.perf_counter() - t0
 
     n_units_done = len(fixed_results) + len(controlA_results) + 1 + 1
@@ -492,9 +631,11 @@ def main():
 
     _atomic_write_metrics(OUTPUT_DIR, {
         "verdict": verdict, "verdict_msg": msg,
-        "summary": "%s | addr_chance=%.4f | %s" % (verdict, ho.ADDR_CHANCE, msg[:160]),
+        "summary": "%s | chance_recall=%.4f | %s" % (verdict, ho.CHANCE_RECALL, msg[:160]),
         "run_mode": "full", "elapsed_s": elapsed, "ts_iso": _now_iso(), "anchor_name": ANCHOR_NAME,
-        "addr_chance": ho.ADDR_CHANCE, "chance_recall": ho.CHANCE_RECALL, "oracle_ceiling_ref": 1.0,
+        "decisive_metric": "recall_heldout_acc",
+        "addr_chance_diagnostic_unfair_to_random_hash": ho.ADDR_CHANCE,
+        "chance_recall": ho.CHANCE_RECALL, "oracle_ceiling_ref": 1.0,
         "bands": bands, "role_split": {"train_roles": ho.TRAIN_ROLES, "held_out_roles": ho.HELD_OUT_ROLES,
                                         "role_split_seed": ho.ROLE_SPLIT_SEED},
         "construction_selftest": cst, "control_b": control_b,
