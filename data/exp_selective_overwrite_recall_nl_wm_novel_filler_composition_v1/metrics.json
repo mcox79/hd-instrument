@@ -1,0 +1,251 @@
+{
+  "verdict": "HAVE_COMPREHENSION_TARGET",
+  "verdict_msg": "Q1 (novel-filler-to-known-role) learned_acc=[0.989, 0.972] (chance 0.050) clears 0.50 both seeds, floors collapse clean (ri_q1_max=[0.05, 0.039], shuf_q1=[0.061, 0.039] < bars) -> the PROVEN read-conditioning WM (pca_whiten_aux_warm) ALREADY covers the comprehension-relevant novel-filler binding at the real task difficulty (std reproduction=[0.965, 0.955], matches the readcond cell's 0.989). The held-out-ROLE failures were a harder, likely-not-required target. Q2 (novel composition) ALSO >= 0.50 both seeds ([0.906, 0.856]), floor_broken=False -> compositional generalization holds too.",
+  "summary": "HAVE_COMPREHENSION_TARGET | chance=0.0500 | Q1 (novel-filler-to-known-role) learned_acc=[0.989, 0.972] (chance 0.050) clears 0.50 both seeds, floors collapse clean (ri_q1_max=[0.05, 0.039], shuf_q1=[0.061",
+  "run_mode": "full",
+  "elapsed_s": 102.29801969998516,
+  "ts_iso": "2026-07-30T19:29:00.982619+00:00",
+  "anchor_name": "selective_overwrite_recall_nl_wm_novel_filler_composition_v1",
+  "chance": 0.05,
+  "oracle_ceiling_ref": 1.0,
+  "bands": {
+    "chance": 0.05,
+    "q_proven_min": 0.5,
+    "q_chance_max": 0.15,
+    "ri_near_chance": 0.1,
+    "shuf_near_chance": 0.15,
+    "q1_accs": [
+      0.9888888597488403,
+      0.9722222089767456
+    ],
+    "q2_accs": [
+      0.9055555462837219,
+      0.855555534362793
+    ],
+    "std_accs": [
+      0.9649999737739563,
+      0.9549999833106995
+    ],
+    "q1_floor_broken": false,
+    "q2_floor_broken": false,
+    "std_floor_broken": false,
+    "q1_proven": true,
+    "q1_missing": false,
+    "q2_proven": true,
+    "q2_missing": false
+  },
+  "audit": {
+    "n_train": 500,
+    "n_q1": 180,
+    "n_q2": 180,
+    "q1_violations_in_train": 0,
+    "filler_seen_elsewhere_counts": {
+      "12": 1346,
+      "13": 1354,
+      "14": 1355,
+      "15": 1364,
+      "16": 1336,
+      "17": 1332
+    },
+    "q2_joint_violations_in_train": 0,
+    "q2a_alone_count": 26,
+    "q2b_alone_count": 23,
+    "q1_eval_consistent": true,
+    "q2_eval_consistent": true,
+    "q1_leak": 0,
+    "q2_leak": 0,
+    "fails": []
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "held_out_filler": {
+    "0": 12,
+    "1": 13,
+    "2": 14,
+    "3": 15,
+    "4": 16,
+    "5": 17
+  },
+  "q2_holdout": {
+    "slot_a": 0,
+    "slot_b": 1,
+    "filler_a": 10,
+    "filler_b": 11
+  },
+  "params": {
+    "K_SLOTS": 6,
+    "D_MEM": 64,
+    "D_ENC": 512,
+    "HIDDEN": 64,
+    "ADDR_TEMP": 0.3,
+    "STEPS_WM": 300,
+    "STEPS_READOUT": 150,
+    "LR": 0.01,
+    "AUX_W": 1.0,
+    "PCA_EPS": 0.0001,
+    "N_RANDOM_INIT": 2,
+    "train_n": 500,
+    "eval_std": 200,
+    "eval_q1_per_slot": 30,
+    "eval_q2_per_query": 90,
+    "seeds": [
+      7,
+      13
+    ],
+    "n_cached_sentences": 3006,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten_aux_warm",
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "warmstart_diag": {
+        "warmstart_probe_fit_acc": 1.0,
+        "warmstart_frozen_addr_acc": 1.0,
+        "warmstart_mean_maxprob": 1.0
+      },
+      "learned": {
+        "std_acc": 0.9649999737739563,
+        "train_acc": 1.0,
+        "q1_acc": 0.9888888597488403,
+        "q2_acc": 0.9055555462837219,
+        "first_loss": 3.063382387161255,
+        "last_loss": 6.329540337901562e-05,
+        "steps_run": 201
+      },
+      "shuffled_query": {
+        "std": 0.03500000014901161,
+        "q1": 0.06111111119389534,
+        "q2": 0.03888889029622078
+      },
+      "random_init": {
+        "std_accs": [
+          0.05999999865889549,
+          0.04500000178813934
+        ],
+        "q1_accs": [
+          0.03888889029622078,
+          0.05000000074505806
+        ],
+        "q2_accs": [
+          0.06111111119389534,
+          0.07222222536802292
+        ],
+        "std_mean": 0.05250000022351742,
+        "std_max": 0.05999999865889549,
+        "q1_mean": 0.04444444552063942,
+        "q1_max": 0.05000000074505806,
+        "q2_mean": 0.06666666828095913,
+        "q2_max": 0.07222222536802292
+      },
+      "power": {
+        "std": {
+          "ri_mean": 0.05250000022351742,
+          "ri_max": 0.05999999865889549,
+          "se_diff": 0.023023766547041934,
+          "gap": 0.9124999735504389,
+          "z": 39.63295804298692,
+          "p_value": 0.0,
+          "significant": true
+        },
+        "q1": {
+          "ri_mean": 0.04444444552063942,
+          "ri_max": 0.05000000074505806,
+          "se_diff": 0.018939659944008813,
+          "gap": 0.9444444142282009,
+          "z": 49.86596470159736,
+          "p_value": 0.0,
+          "significant": true
+        },
+        "q2": {
+          "ri_mean": 0.06666666828095913,
+          "ri_max": 0.07222222536802292,
+          "se_diff": 0.029707653310303395,
+          "gap": 0.8388888780027628,
+          "z": 28.23814016005815,
+          "p_value": 9.952604267812328e-176,
+          "significant": true
+        }
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "seed": 13,
+      "warmstart_diag": {
+        "warmstart_probe_fit_acc": 1.0,
+        "warmstart_frozen_addr_acc": 1.0,
+        "warmstart_mean_maxprob": 1.0
+      },
+      "learned": {
+        "std_acc": 0.9549999833106995,
+        "train_acc": 1.0,
+        "q1_acc": 0.9722222089767456,
+        "q2_acc": 0.855555534362793,
+        "first_loss": 3.020364284515381,
+        "last_loss": 4.6996014134492725e-05,
+        "steps_run": 201
+      },
+      "shuffled_query": {
+        "std": 0.03500000014901161,
+        "q1": 0.03888889029622078,
+        "q2": 0.011111111380159855
+      },
+      "random_init": {
+        "std_accs": [
+          0.04500000178813934,
+          0.05999999865889549
+        ],
+        "q1_accs": [
+          0.03888889029622078,
+          0.02222222276031971
+        ],
+        "q2_accs": [
+          0.03888889029622078,
+          0.01666666753590107
+        ],
+        "std_mean": 0.05250000022351742,
+        "std_max": 0.05999999865889549,
+        "q1_mean": 0.030555556528270245,
+        "q1_max": 0.03888889029622078,
+        "q2_mean": 0.027777778916060925,
+        "q2_max": 0.03888889029622078
+      },
+      "power": {
+        "std": {
+          "ri_mean": 0.05250000022351742,
+          "ri_max": 0.05999999865889549,
+          "se_diff": 0.024001953670439072,
+          "gap": 0.902499983087182,
+          "z": 37.60110512165123,
+          "p_value": 1.03103435859158e-309,
+          "significant": true
+        },
+        "q1": {
+          "ri_mean": 0.030555556528270245,
+          "ri_max": 0.03888889029622078,
+          "se_diff": 0.02129529192233501,
+          "gap": 0.9416666524484754,
+          "z": 44.21947611156403,
+          "p_value": 0.0,
+          "significant": true
+        },
+        "q2": {
+          "ri_mean": 0.027777778916060925,
+          "ri_max": 0.03888889029622078,
+          "se_diff": 0.03291663565360349,
+          "gap": 0.827777755446732,
+          "z": 25.14770233986876,
+          "p_value": 7.4869867007082035e-140,
+          "significant": true
+        }
+      },
+      "arms_differ_verified": true
+    }
+  ],
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns"
+}
