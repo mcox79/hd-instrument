@@ -1,0 +1,358 @@
+{
+  "verdict": "HARD-PASS",
+  "verdict_msg": "Both mandatory floors validly collapsed (coref-random-antecedent=[0.0, 0.0], wrongrole/shuffled-codebook floors all near chance) AND POOLED_READER stayed below PROVEN_MIN on relational/multi-hop (b=[0.4124999940395355, 0.3062500059604645], c=[0.05000000074505806, 0.06875000149011612]) AND native-VSA MAIN arm clears PROVEN_MIN=0.80 on ALL THREE query types on both seeds: {'a_novel_filler_pronoun': [1.0, 1.0], 'b_relational_5role': [0.94375, 0.98125], 'c_multihop_chained_unbind': [0.99375, 0.99375]}. The substrate reads a naturalistic multi-relation passage and answers who/what/where via glass-box native FHRR binding, composing novel-filler-via-pronoun + zero-shot-role + cross-slot-relational + a new 2-hop chained-unbind capability.",
+  "summary": "HARD-PASS | Both mandatory floors validly collapsed (coref-random-antecedent=[0.0, 0.0], wrongrole/shuffled-codebook floors all near chance) AND POOLED_READER stayed below PROVEN_MIN on relati",
+  "run_mode": "full",
+  "elapsed_s": 22.90798190003261,
+  "ts_iso": "2026-07-30T20:59:34.617278+00:00",
+  "anchor_name": "native_binding_naturalistic_multirelation_v1",
+  "audit": {
+    "n": 300,
+    "instrument_collisions": 0,
+    "pronoun_events": 600,
+    "match_frac_query_b": 0.47,
+    "fails": []
+  },
+  "threshold_tuned": 0.5,
+  "threshold_grid_scores": {
+    "0.20": 0.9666666666666667,
+    "0.30": 0.975,
+    "0.40": 0.9875,
+    "0.50": 0.9916666666666667,
+    "0.60": 0.9916666666666667
+  },
+  "vsa_main_acc": {
+    "a_novel_filler_pronoun": [
+      1.0,
+      1.0
+    ],
+    "b_relational_5role": [
+      0.94375,
+      0.98125
+    ],
+    "c_multihop_chained_unbind": [
+      0.99375,
+      0.99375
+    ]
+  },
+  "floor_random_antecedent_acc": {
+    "a_novel_filler_pronoun": [
+      0.0,
+      0.0
+    ],
+    "b_relational_5role": [
+      0.975,
+      0.9875
+    ],
+    "c_multihop_chained_unbind": [
+      1.0,
+      1.0
+    ]
+  },
+  "floor_wrongrole_acc": {
+    "a_novel_filler_pronoun": [
+      0.025,
+      0.0375
+    ],
+    "b_relational_5role": [
+      0.55,
+      0.49375
+    ],
+    "c_multihop_chained_unbind": [
+      0.0,
+      0.0
+    ]
+  },
+  "floor_shuffled_codebook_acc": {
+    "a_novel_filler_pronoun": [
+      0.0,
+      0.0
+    ],
+    "b_relational_5role": [
+      0.5375,
+      0.48125
+    ],
+    "c_multihop_chained_unbind": [
+      0.0,
+      0.0
+    ]
+  },
+  "pooled_reader_acc": {
+    "a_novel_filler_pronoun": [
+      0.18125000596046448,
+      0.13750000298023224
+    ],
+    "b_relational_5role": [
+      0.4124999940395355,
+      0.3062500059604645
+    ],
+    "c_multihop_chained_unbind": [
+      0.05000000074505806,
+      0.06875000149011612
+    ]
+  },
+  "pronoun_decode_acc_by_seed": [
+    1.0,
+    1.0
+  ],
+  "bands": {
+    "floors_ok": true,
+    "floor_notes": [],
+    "pooled_reader_b": [
+      0.4124999940395355,
+      0.3062500059604645
+    ],
+    "pooled_reader_c": [
+      0.05000000074505806,
+      0.06875000149011612
+    ],
+    "per_query_type_acc": {
+      "a_novel_filler_pronoun": [
+        1.0,
+        1.0
+      ],
+      "b_relational_5role": [
+        0.94375,
+        0.98125
+      ],
+      "c_multihop_chained_unbind": [
+        0.99375,
+        0.99375
+      ]
+    },
+    "per_query_type_pass": {
+      "a_novel_filler_pronoun": true,
+      "b_relational_5role": true,
+      "c_multihop_chained_unbind": true
+    },
+    "per_query_type_hard_fail": {
+      "a_novel_filler_pronoun": false,
+      "b_relational_5role": false,
+      "c_multihop_chained_unbind": false
+    },
+    "proven_min": 0.8,
+    "gap_max": 0.55
+  },
+  "per_seed": {
+    "vsa_main": {
+      "7": {
+        "a_novel_filler_pronoun": {
+          "acc": 1.0,
+          "n": 160,
+          "preds_digest": "fdba40d1390cec56256ac1c56d072f76dc015ff8121168afa8d1f1115126e027"
+        },
+        "b_relational_5role": {
+          "acc": 0.94375,
+          "n": 160,
+          "preds_digest": "52196d5d68e679e8604ee7cea088f73849364d75429fc38165f4190928da8fac"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.99375,
+          "n": 160,
+          "preds_digest": "2813273263d088b81a6fb3af671257e192e360e209e4d747c747ac2d3bdbb5ff"
+        },
+        "pronoun_decode_acc": 1.0
+      },
+      "13": {
+        "a_novel_filler_pronoun": {
+          "acc": 1.0,
+          "n": 160,
+          "preds_digest": "6b030c4cd9f4f2ef3da3d7752f94c3953f3a57800c332e7cc8df0dbddaa2da44"
+        },
+        "b_relational_5role": {
+          "acc": 0.98125,
+          "n": 160,
+          "preds_digest": "812605e0c649f43e32833817d79a331f08c938e9e62cf82af9c3f55c2ad2b508"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.99375,
+          "n": 160,
+          "preds_digest": "52c77507a59b81b8ef3a48ec29ee127382c82f2b277f1bad47093f224d19198d"
+        },
+        "pronoun_decode_acc": 1.0
+      }
+    },
+    "floor_random_antecedent": {
+      "7": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "30300585f7e950e5e56b2fdea1a2f946f8a8de39bcc122ef17517960bc53ede0"
+        },
+        "b_relational_5role": {
+          "acc": 0.975,
+          "n": 160,
+          "preds_digest": "24a608316bd1b699d2e4267a08f07700ddf0a967a976b1f5bca54603a678a5ef"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 1.0,
+          "n": 160,
+          "preds_digest": "cf949e111b7cc19db06b9a9793b922ebf8465cf5e005b02af0e63883217e173e"
+        },
+        "pronoun_decode_acc": 0.0
+      },
+      "13": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "6e4438176a440e0dd3f01e0850426fecad7fc1f35d238573f3f779bb5a57dc8e"
+        },
+        "b_relational_5role": {
+          "acc": 0.9875,
+          "n": 160,
+          "preds_digest": "6a6ee91ce0e1426c3522cad110d6768e9a68fcc8a6bf9160afb583c8db2557b9"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 1.0,
+          "n": 160,
+          "preds_digest": "fb222e5e4392fd459a187b41cc5a52c0ad1ae122d59cf41060630320854eb33d"
+        },
+        "pronoun_decode_acc": 0.0
+      }
+    },
+    "floor_wrongrole": {
+      "7": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.025,
+          "n": 160,
+          "preds_digest": "ed770f8c01feb799489dc0e527b2956b0b9241203b8d4f9df49960a51f14d6e4"
+        },
+        "b_relational_5role": {
+          "acc": 0.55,
+          "n": 160,
+          "preds_digest": "4bdff09b42b535fc25878e72c099a04a1097ded31761aa5507fd8614faac0eb3"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "4bdff09b42b535fc25878e72c099a04a1097ded31761aa5507fd8614faac0eb3"
+        },
+        "pronoun_decode_acc": 1.0
+      },
+      "13": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.0375,
+          "n": 160,
+          "preds_digest": "5ca83cd04794c0e9f444e7b7c2706bc6c01802d5518fee025d684478626a605e"
+        },
+        "b_relational_5role": {
+          "acc": 0.49375,
+          "n": 160,
+          "preds_digest": "4bdff09b42b535fc25878e72c099a04a1097ded31761aa5507fd8614faac0eb3"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "4bdff09b42b535fc25878e72c099a04a1097ded31761aa5507fd8614faac0eb3"
+        },
+        "pronoun_decode_acc": 1.0
+      }
+    },
+    "floor_shuffled": {
+      "7": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "027b9f46e5954aec71b25fecb948f3a88a4c30423d35b87ababf4604e3bb5869"
+        },
+        "b_relational_5role": {
+          "acc": 0.5375,
+          "n": 160,
+          "preds_digest": "840bada1482aeec41e34b9dc89c7b408728c858863e70f9c2223fc418e1e13b3"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "b8883d71bedffd19db78e5c017a8e85399dc797fc4e43065755a4c13071ce1b2"
+        },
+        "pronoun_decode_acc": 1.0
+      },
+      "13": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "9d24ddca3d914034fcd3ac57f8ef6cfd0c6c0175ca3d43bd89b874bb523e07e8"
+        },
+        "b_relational_5role": {
+          "acc": 0.48125,
+          "n": 160,
+          "preds_digest": "8e5108ecb022a0b2f60282184037ecd56451f7c3d067bb5b4e4ecc1cc158b172"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.0,
+          "n": 160,
+          "preds_digest": "460f3fe2ffb41cb49fe394426aeddcb40986b34da49aa6cf0c966d4fa855fe46"
+        },
+        "pronoun_decode_acc": 1.0
+      }
+    },
+    "pooled_reader": {
+      "7": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.18125000596046448,
+          "n": 160,
+          "preds_digest": "d8d1e61328d0b103d244a88c0bed685ca166c668c6d695e78e018b3d7916409d"
+        },
+        "b_relational_5role": {
+          "acc": 0.4124999940395355,
+          "n": 160,
+          "preds_digest": "0a71037d03498ba497b0e439898e3cefb80b4483b52bd8a11d8dc605fae69acc"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.05000000074505806,
+          "n": 160,
+          "preds_digest": "5a9b5034f135d582f31be5fe0b39c2808c7f3e699e4b2aa4867df594a712ff68"
+        }
+      },
+      "13": {
+        "a_novel_filler_pronoun": {
+          "acc": 0.13750000298023224,
+          "n": 160,
+          "preds_digest": "b1140d8addad83bc02c16a8e68a65e601f0be4bc6adf744a7b41d465abd56896"
+        },
+        "b_relational_5role": {
+          "acc": 0.3062500059604645,
+          "n": 160,
+          "preds_digest": "584e9d56bc1dc308b339331d75dac548b785661fee71e25b14f96bd3927b48e9"
+        },
+        "c_multihop_chained_unbind": {
+          "acc": 0.06875000149011612,
+          "n": 160,
+          "preds_digest": "061eb287395b625429453fe1df3d3095a85e0a5476d7bedacd2edf47d3687bde"
+        }
+      }
+    }
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 8,
+  "n_units_done": 8,
+  "params": {
+    "n_roles": 5,
+    "n_instances": 2,
+    "n_ent": 20,
+    "n_distract_events": 12,
+    "n_distract_roles": 8,
+    "train_n": 260,
+    "eval_n": 160,
+    "tuning_n": 120,
+    "seeds": [
+      7,
+      13
+    ],
+    "n_cached_sentences": 1238,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten",
+    "binding_flavor": "FHRR_complex64_elementwise",
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 10,
+  "crlb_n_a": "no learned-noise Cramer-Rao floor; discriminator is the pre-registered per-query-type accuracy vs HARD-PASS/PARTIAL/HARD-FAIL/INVALID decision rule",
+  "calibration_check": "default_ok_for_this_regime: threshold tuned via small grid search on a disjoint TUNING corpus (seed 7001, never touching TRAIN/EVAL), discriminator-still-fires verified in threshold_grid_scores",
+  "prior_work_check": "MEASURED cosine 0.363 top hit = exp_native_binding_compositional_generalization_v1 (MIDDLE, different question: GloVe item x relation property-value systematicity, no NL passages/coreference/multi-hop) -- genuinely novel composition, not a rediscovery"
+}
