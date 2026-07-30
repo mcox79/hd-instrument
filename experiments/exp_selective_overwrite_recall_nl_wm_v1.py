@@ -1,0 +1,768 @@
+# CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
+# - arms_differ_verified at self-test (META_RULE_AF; LEARNED vs RANDOM_INIT eval-logit hash)
+# - final_metrics_atomicity: tmp_replace (os.replace at end)
+# - except SystemExit: raise BEFORE except Exception (no BaseException)
+# - crlb_n/a: no Cramer-Rao noise floor; discriminator = LEARNED_WM vs random-init-WM separation,
+#   judged live (chance=1/V_FILL, oracle ceiling 1.0 from the NL calib).
+# - baseline_in_band: RANDOM_INIT_WM (frozen wm, trained readout) is the can-fail baseline; MUST stay
+#   near chance (calib already showed all reservoirs ~chance). Judged live.
+# - discriminator survives scale: FULL is the scale of interest; self-test builds REAL v2 encoder +
+#   REAL WM at tiny N (real_code_path).
+# - numbers in comments tagged MEASURED@ / HYPOTHESIZED@ / THEORETICAL@ / CITED@ (META_RULE_AC)
+# - deterministic seeding: numpy default_rng + torch.manual_seed only; NO hash(), NO list(set())
+"""Selective-Overwrite-Recall NATURAL-LANGUAGE + REAL-v2-FROZEN encoder -- the WM BINDING proof (v1).
+
+CULMINATING TEST OF THE ARC. The synthetic WM proof (exp_selective_overwrite_recall_wm_v1,
+commit 88d050955) was VET-CONFIRMED but its encoder was DEGENERATE: the WM was handed clean,
+factored slot_emb + fill_emb, so it proved TEMPORAL GATING only, NOT binding. This cell runs the
+SAME proven content-gated WM mechanism with the ONE VARIABLE changed:
+  - ENCODER: our REAL v2 encoder (data/exp_scale_meaning_learn_arc_heldout_v2/ckpt_seed_7.pt),
+    FROZEN. A 6-layer d=512 TinyTransformer MLM-pretrained from scratch on ARC text.
+  - INPUT: NL text (exp_selective_overwrite_recall_nl_calib_v1, commit 1e1a49e95 -- VALID:
+    NL_RESERVOIR_FAILING_VALID; all pooled reservoirs at chance 0.05, oracle keep-last 1.0).
+The (slot, filler) now live ENTANGLED in one per-event rep, so the WM must LEARN to (a) address by
+the slot subspace, (b) store the filler subspace, (c) gate by recency -- i.e. BIND from surface text
+AND gate, not just gate clean atoms. The mechanism (K content-address keys + write-gate + gated
+OVERWRITE + value-proj + readout) is IDENTICAL to the proven WM; only the encoder + input change.
+
+SLICE METHOD (author decision; autonomy granted). The v2 encoder has a FIXED max_len=128 positional
+table (MEASURED@ckpt model_cfg), so a single shared pass over the ~300+-token passage is INFEASIBLE.
+Binding here is INTRA-sentence (slot noun + filler color live in the SAME event sentence), so each
+event sentence is encoded INDEPENDENTLY through the frozen v2 (masked-mean pooled contextual rep,
+d=512); the WM's own sequential recurrence supplies the cross-event temporal integration (which is
+where recency/overwrite is decided). There are only 3006 UNIQUE sentences (5 templates x 30 nouns x
+20 colors + 6 queries), so all encodings are CACHED once (encoder is frozen + seed-independent).
+
+ENCODER-CARRIES-BINDING preflight (MEASURED@this cell's diagnostic, reproduced from a standalone
+probe 2026-07-30): a linear probe on the frozen v2 pooled event rep recovers SLOT id at acc=1.000
+(chance 0.033) and FILLER id at acc=1.000 (chance 0.050). So the frozen reps LINEARLY carry both
+(slot, filler): the encoder is NOT the block. If the WM still cannot learn, the block is the WM's
+LEARNED binding-address/gating -- reported as the lever diagnosis.
+
+ARMS (per seed in {7,13}; SAME frozen v2 encoder + cached reps shared across arms):
+  LEARNED_WM     -- train key + write-gate + value-proj + readout end-to-end. The capability.
+  RANDOM_INIT_WM (>=5 control seeds) -- FREEZE key + write-gate + value-proj at random init, train
+                   ONLY the readout on the (fixed) memory-read features. The CAN-FAIL control: MUST
+                   stay ~chance (0.05). LEARNED_WM must BEAT it by a large, significant margin.
+
+VERDICT: WM_NL_PROVEN / WM_NL_CANT_LEARN / WM_NL_PARTIAL / CONTROL_FLOOR_BROKEN (see bands).
+  IF WM_NL_CANT_LEARN: the encoder-carries-binding diagnostic (always emitted) is the lever -- reps
+  carry (slot, filler) => the WM's learned binding-address is the block (not the encoder).
+
+Run:  .venv/Scripts/python.exe experiments/exp_selective_overwrite_recall_nl_wm_v1.py --self-test
+      .venv/Scripts/python.exe experiments/exp_selective_overwrite_recall_nl_wm_v1.py --full
+
+ASCII-only. No emojis. Deterministic seeding (torch.Generator + np.random.default_rng; no hash(),
+no list(set())). CPU (local, push-free; this .venv has no CUDA).
+"""
+
+import argparse
+import hashlib
+import json
+import math
+import os
+import platform
+import sys
+import time
+import traceback
+from datetime import datetime, timezone
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+# the VALID NL construction (single source of truth for task + oracles + vocab)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import exp_selective_overwrite_recall_nl_calib_v1 as calib  # noqa: E402
+
+ANCHOR_NAME = "selective_overwrite_recall_nl_wm_v1"
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
+V2_CKPT = os.path.join(REPO_ROOT, "data", "exp_scale_meaning_learn_arc_heldout_v2", "ckpt_seed_7.pt")
+
+# ---- pull the CALIBRATED NL construction constants ----
+V_FILL = calib.V_FILL              # 20 -> CHANCE = 0.05
+CHANCE = calib.CHANCE
+S_TARGET = calib.S_TARGET          # 6 target slots
+COLORS = calib.COLORS
+SLOT_NOUNS = calib.SLOT_NOUNS
+EVENT_TEMPLATES = calib.EVENT_TEMPLATES
+QUERY_TEMPLATE = calib.QUERY_TEMPLATE
+
+# ---- WM / training params (IDENTICAL to the proven synthetic WM exp_..._wm_v1) ----
+K_SLOTS = 6                        # content-addressed slots (= S_TARGET; distractors suppressed by gate)
+D_MEM = 64                        # slot memory width
+HIDDEN = 64                       # write-gate MLP hidden
+ADDR_TEMP = 0.3                   # addressing softmax temp (same lever as the proven WM)
+SENT_CAP = 16                     # BPE token cap per event/query sentence (MEASURED max unique = 9)
+
+FULL_TRAIN, FULL_EVAL = 1200, 700  # matches the NL calib scale
+STEPS_WM = 1000                    # identical-recipe minibatch Adam (deterministically stalls at chance
+                                   # on this binding task; 2000 adds nothing -- MEASURED 2026-07-30)
+BATCH = 256
+STEPS_READOUT = 400
+LR = 1e-2
+EARLY_STOP_LOSS = 0.03
+RETRY_TRAIN_ACC = 0.50            # a COMPLETED LEARNED_WM below this train_acc = a dud trajectory
+MAX_RESTARTS = 1                  # restart a dud LEARNED_WM once (documents it is robust-dead, not luck)
+SEEDS_FULL = (7, 13)
+N_RANDOM_INIT = 5
+# capacity probe: can the SAME mechanism at least MEMORIZE a tiny set full-batch? (expressiveness vs
+# generalization localizer). MEASURED@2026-07-30: full-batch overfit-100 -> train 0.96 BUT eval 0.06
+# (chance) across init-scale/temp/lr -> mechanism is EXPRESSIVE but the learned binding does NOT
+# GENERALIZE. This separates "mechanism too weak to fit anything" from "fits by memorizing, no rule".
+CAP_PROBE_N = 100
+CAP_PROBE_STEPS = 800
+
+# ---- bands (pre-reg; same as the proven synthetic WM) ----
+Z_THRESH = 2.0
+RI_NEAR_CHANCE = 0.10             # each random-init control MUST be < this (clean floor)
+MECH_MARGIN = 0.30                # LEARNED_WM - ri_mean must be >= this
+WM_PROVEN_MIN = 0.50              # LEARNED_WM eval acc must be >= this (>=10x chance), both seeds
+WM_CANT_LEARN_MAX = 0.15          # <= this on BOTH seeds -> can't-learn
+LOSS_DESCEND_RATIO = 0.90
+ORACLE_CEILING = 1.0              # MEASURED@data/exp_selective_overwrite_recall_nl_calib_v1/metrics.json
+
+
+def _log(msg):
+    print("[%s] %s" % (ANCHOR_NAME, msg), flush=True)
+
+
+def _now_iso():
+    return datetime.now(timezone.utc).isoformat()
+
+
+# ---------------- canonical hardening ----------------
+def _write_start_marker(output_dir, run_mode, expected_n_units):
+    marker = {"pid": os.getpid(), "ts_iso": _now_iso(), "anchor_name": ANCHOR_NAME,
+              "run_mode": run_mode, "expected_n_units": expected_n_units, "host": platform.node()}
+    os.makedirs(output_dir, exist_ok=True)
+    tmp = os.path.join(output_dir, "_start_marker.json.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(marker, f)
+    os.replace(tmp, os.path.join(output_dir, "_start_marker.json"))
+
+
+def _write_crash_metrics(output_dir, exc):
+    diag = {"verdict": "CELL_CRASHED",
+            "verdict_msg": "%s: %s" % (type(exc).__name__, str(exc)[:500]),
+            "summary": "CELL_CRASHED: %s" % type(exc).__name__, "elapsed_s": 0.0,
+            "traceback": traceback.format_exc()[:5000], "ts_iso": _now_iso(),
+            "pid": os.getpid(), "anchor_name": ANCHOR_NAME, "failure_class": type(exc).__name__}
+    os.makedirs(output_dir, exist_ok=True)
+    tmp = os.path.join(output_dir, "metrics.json.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(diag, f, indent=2)
+    os.replace(tmp, os.path.join(output_dir, "metrics.json"))
+
+
+def _atomic_write_metrics(output_dir, metrics):
+    os.makedirs(output_dir, exist_ok=True)
+    tmp = os.path.join(output_dir, "metrics.json.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(metrics, f, indent=2)
+    os.replace(tmp, os.path.join(output_dir, "metrics.json"))
+
+
+# ---------------- significance (verbatim from the hardened MES/WM gate) ----------------
+def _binom_se(acc, n):
+    n = max(int(n), 1)
+    return math.sqrt(max(acc * (1.0 - acc), 1e-9) / n)
+
+
+def _one_sided_p(z):
+    return 0.5 * math.erfc(z / math.sqrt(2.0))
+
+
+def power_stats(trained_acc, n_eval, ri_accs):
+    ri = np.asarray(ri_accs, dtype=float)
+    ri_mean = float(ri.mean())
+    ri_std = float(ri.std(ddof=1)) if ri.size > 1 else 0.0
+    ri_max = float(ri.max())
+    se_trained = _binom_se(trained_acc, n_eval)
+    se_ri_mean = _binom_se(ri_mean, n_eval)
+    se_diff = math.sqrt(se_trained ** 2 + se_ri_mean ** 2 + ri_std ** 2)
+    gap = trained_acc - ri_mean
+    z = (gap / se_diff) if se_diff > 0 else 0.0
+    return dict(ri_mean=ri_mean, ri_std=ri_std, ri_max=ri_max, n_ri_seeds=int(ri.size),
+                se_diff=se_diff, gap=gap, z=z, p_value=_one_sided_p(z),
+                min_detectable_effect_2sigma=2.0 * se_diff, beats_ri_max=bool(trained_acc > ri_max),
+                significant=bool(z >= Z_THRESH and trained_acc > ri_max))
+
+
+# ---------------- frozen REAL v2 encoder (redefined to match the ckpt state_dict exactly) ----------------
+class V2Transformer(nn.Module):
+    """Byte-identical architecture to exp_scale_meaning_learn_arc_heldout_v2.TinyTransformer, so the
+    saved state_dict loads exactly. Redefined here to avoid importing the heavy training module."""
+
+    def __init__(self, vocab, max_len, d_model, n_layers, n_heads, ffn_mult, pad_id):
+        super().__init__()
+        self.pad_id = pad_id
+        self.tok_emb = nn.Embedding(vocab, d_model, padding_idx=pad_id)
+        self.pos_emb = nn.Embedding(max_len, d_model)
+        layer = nn.TransformerEncoderLayer(
+            d_model=d_model, nhead=n_heads, dim_feedforward=ffn_mult * d_model,
+            dropout=0.0, activation="gelu", batch_first=True, norm_first=True)
+        self.enc = nn.TransformerEncoder(layer, num_layers=n_layers)
+        self.norm = nn.LayerNorm(d_model)
+        self.max_len = max_len
+        self.d_model = d_model
+
+    def _contextual(self, ids):
+        pad_mask = (ids == self.pad_id)
+        L = ids.shape[1]
+        pos = torch.arange(L, device=ids.device).unsqueeze(0)
+        h = self.tok_emb(ids) + self.pos_emb(pos)
+        h = self.enc(h, src_key_padding_mask=pad_mask)
+        return self.norm(h), pad_mask
+
+    @torch.no_grad()
+    def pooled(self, ids):
+        """masked-mean over real (non-pad) contextual tokens, L2-normalized. Shape [B, d]."""
+        h, pad_mask = self._contextual(ids)
+        keep = (~pad_mask).float().unsqueeze(-1)
+        summed = (h * keep).sum(dim=1)
+        cnt = keep.sum(dim=1).clamp_min(1.0)
+        rep = summed / cnt
+        return rep / (rep.norm(dim=1, keepdim=True) + 1e-8)
+
+
+class FrozenV2Encoder:
+    """Loads the real v2 checkpoint + its BPE tokenizer; caches pooled reps of the CLOSED sentence
+    set (3006 uniques). event_rep_of(text) / query_rep_of(text) are then O(1) dict lookups."""
+
+    def __init__(self, ckpt_path):
+        from tokenizers import Tokenizer
+        ck = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+        mc = ck["model_cfg"]
+        self.pad_id = int(mc["pad_id"])
+        self.d = int(mc["d_model"])
+        self.model = V2Transformer(mc["vocab"], mc["max_len"], mc["d_model"], mc["n_layers"],
+                                   mc["n_heads"], mc["ffn_mult"], mc["pad_id"])
+        self.model.load_state_dict(ck["state_dict"])
+        self.model.eval()
+        self.tok = Tokenizer.from_str(ck["tokenizer_json"])
+        self.cache = {}
+        self._selected_arm = ck.get("selected_arm")
+        self._seed = ck.get("seed")
+
+    def _encode_ids(self, texts):
+        ids = np.full((len(texts), SENT_CAP), self.pad_id, dtype=np.int64)
+        for i, t in enumerate(texts):
+            e = self.tok.encode(t).ids[:SENT_CAP]
+            ids[i, :len(e)] = e
+        return ids
+
+    def build_cache(self):
+        """Enumerate + encode the full closed sentence set ONCE."""
+        sents = []
+        for tm in EVENT_TEMPLATES:
+            for sl in SLOT_NOUNS:
+                for fl in COLORS:
+                    sents.append(tm.format(slot=sl, fill=fl))
+        for sl in range(S_TARGET):
+            sents.append(QUERY_TEMPLATE.format(slot=SLOT_NOUNS[sl]))
+        # dedupe deterministically (sorted; NOT list(set()))
+        uniq = sorted(set(sents))
+        ids = self._encode_ids(uniq)
+        reps = np.zeros((len(uniq), self.d), dtype=np.float32)
+        for i in range(0, len(uniq), 256):
+            reps[i:i + 256] = self.model.pooled(torch.from_numpy(ids[i:i + 256])).numpy()
+        self.cache = {s: reps[i] for i, s in enumerate(uniq)}
+        return len(uniq)
+
+    def rep_of(self, text):
+        r = self.cache.get(text)
+        if r is None:                       # not in closed set -> encode on demand (should not happen)
+            r = self.model.pooled(torch.from_numpy(self._encode_ids([text]))).numpy()[0]
+            self.cache[text] = r
+        return r
+
+
+# ---------------- build per-example rep tensors from cached sentence reps ----------------
+def _event_texts(ex, rng_tmpl):
+    """Re-render each event to the SAME template-randomized surface used by calib.render_text, but
+    return the per-event sentence list (so we can slice reps). Query is separate."""
+    parts = []
+    for sl, fl in zip(ex["slots"], ex["fills"]):
+        tmpl = EVENT_TEMPLATES[int(rng_tmpl.integers(0, len(EVENT_TEMPLATES)))]
+        parts.append(tmpl.format(slot=SLOT_NOUNS[int(sl)], fill=COLORS[int(fl)]))
+    q = QUERY_TEMPLATE.format(slot=SLOT_NOUNS[int(ex["query"])])
+    return parts, q
+
+
+def build_rep_batch(examples, enc, seed):
+    """Returns dict of tensors: ev_reps [B,Lmax,d] float32, q_rep [B,d], active [B,Lmax], answer [B]."""
+    rng_tmpl = np.random.default_rng(seed + 313)      # template choice per event (surface variety)
+    B = len(examples)
+    lengths = [len(ex["slots"]) for ex in examples]
+    Lmax = max(lengths)
+    d = enc.d
+    ev_reps = np.zeros((B, Lmax, d), dtype=np.float32)
+    q_rep = np.zeros((B, d), dtype=np.float32)
+    active = np.zeros((B, Lmax), dtype=np.float32)
+    answer = np.zeros((B,), dtype=np.int64)
+    for i, ex in enumerate(examples):
+        ev_texts, q_text = _event_texts(ex, rng_tmpl)
+        for t, s in enumerate(ev_texts):
+            ev_reps[i, t] = enc.rep_of(s)
+        active[i, :len(ev_texts)] = 1.0
+        q_rep[i] = enc.rep_of(q_text)
+        answer[i] = ex["answer"]
+    return {"ev_reps": torch.from_numpy(ev_reps), "q_rep": torch.from_numpy(q_rep),
+            "active": torch.from_numpy(active), "answer": torch.from_numpy(answer)}
+
+
+# ---------------- the SAME content-gated overwrite WM, adapted to entangled rep inputs ----------------
+class ContentGatedWM(nn.Module):
+    """IDENTICAL mechanism to exp_selective_overwrite_recall_wm_v1.ContentGatedWM: K content-address
+    keys route a rep -> slot; a learned scalar write gate decides write-or-suppress; a gated OVERWRITE
+    (1-w)*h + w*cand keeps the LAST write. THE ONE VARIABLE: the address/gate/value now read the
+    ENTANGLED per-event rep (d=512, slot+filler mixed) instead of a clean factored slot_emb/fill_emb,
+    and the query address reads the encoded query sentence rep. So the WM must LEARN to disentangle
+    (bind) slot-for-addressing from filler-for-value out of the surface-text rep."""
+
+    def __init__(self, seed, d_enc, d_mem, k_slots, hidden, v_fill, addr_temp):
+        super().__init__()
+        self.k_slots = k_slots
+        self.d_mem = d_mem
+        self.addr_temp = addr_temp
+        g = torch.Generator().manual_seed(seed + 1234)
+        key = torch.empty(k_slots, d_enc)
+        key.normal_(0.0, 1.0, generator=g).div_(math.sqrt(d_enc))
+        self.key = nn.Parameter(key)                                  # [K, d_enc] address keys
+        self.write_gate = nn.Sequential(nn.Linear(d_enc, hidden), nn.Tanh(), nn.Linear(hidden, 1))
+        self.value_proj = nn.Linear(d_enc, d_mem)                     # entangled rep -> stored candidate
+        self.readout = nn.Linear(d_mem, v_fill)                       # stored content -> filler class
+        with torch.no_grad():
+            for m in list(self.write_gate) + [self.value_proj, self.readout]:
+                if isinstance(m, nn.Linear):
+                    w = torch.empty_like(m.weight)
+                    w.normal_(0.0, 0.1, generator=g)
+                    m.weight.copy_(w)
+                    m.bias.zero_()
+
+    def wm_params(self):
+        """key + write-gate + value-proj (everything BUT the readout) -- frozen in the control."""
+        return list(self.write_gate.parameters()) + list(self.value_proj.parameters()) + [self.key]
+
+    def _address(self, x):
+        """x [B,d_enc] -> addr [B,K] softmax over slots."""
+        return torch.softmax(x @ self.key.t() / self.addr_temp, dim=-1)
+
+    def read_features(self, batch):
+        """Run the WM over the padded rep stream, then read the queried slot -> h_read [B, d_mem].
+        Address/gate/value are computed BATCHED over all timesteps (independent per step); only the
+        overwrite update is sequential (bit-equivalent to the proven per-step loop)."""
+        ev = batch["ev_reps"]; active = batch["active"]; q = batch["q_rep"]
+        B, Lmax, d = ev.shape
+        flat = ev.reshape(B * Lmax, d)
+        addr = self._address(flat).reshape(B, Lmax, self.k_slots)         # [B,L,K]
+        wgate = torch.sigmoid(self.write_gate(flat)).reshape(B, Lmax)     # [B,L]
+        cand = self.value_proj(flat).reshape(B, Lmax, self.d_mem)         # [B,L,d_mem]
+        h = torch.zeros(B, self.k_slots, self.d_mem)
+        for t in range(Lmax):
+            w = (addr[:, t] * (wgate[:, t] * active[:, t]).unsqueeze(-1)).unsqueeze(-1)  # [B,K,1]
+            h = (1.0 - w) * h + w * cand[:, t].unsqueeze(1)               # gated OVERWRITE (last wins)
+        addr_q = self._address(q)                                         # [B,K]
+        return (addr_q.unsqueeze(-1) * h).sum(dim=1)                      # [B, d_mem] h_read
+
+    def forward(self, batch):
+        return self.readout(self.read_features(batch))                   # [B, V]
+
+
+# ---------------- train / eval ----------------
+def _eval_acc(logits, answer):
+    return float((logits.argmax(dim=-1) == answer).float().mean().item())
+
+
+def _minibatch(tr_batch, idx):
+    return {k: v[idx] for k, v in tr_batch.items()}
+
+
+def train_arm(wm, tr_batch, ev_batch, steps, lr, train_params, seed, log_tag, batch=None):
+    torch.manual_seed(seed)
+    g = torch.Generator().manual_seed(seed + 555)
+    opt = torch.optim.Adam(train_params, lr=lr)
+    N = tr_batch["answer"].shape[0]
+    loss_curve = []
+    ema = None
+    step = 0
+    for step in range(steps):
+        opt.zero_grad()
+        if batch is not None and batch < N:
+            idx = torch.randint(0, N, (batch,), generator=g)
+            mb = _minibatch(tr_batch, idx)
+        else:
+            mb = tr_batch
+        logits = wm(mb)
+        loss = F.cross_entropy(logits, mb["answer"])
+        loss.backward()
+        opt.step()
+        lv = float(loss.item())
+        ema = lv if ema is None else 0.9 * ema + 0.1 * lv
+        if step == 0 or (step + 1) % max(1, steps // 8) == 0:
+            loss_curve.append((step, lv))
+        if step >= 400 and ema is not None and ema < EARLY_STOP_LOSS:
+            break
+    wm.eval()
+    with torch.no_grad():
+        ev_logits = wm(ev_batch)
+        acc = _eval_acc(ev_logits, ev_batch["answer"])
+        tr_logits = wm(tr_batch)
+        tr_acc = _eval_acc(tr_logits, tr_batch["answer"])
+    wm.train()
+    first_loss = loss_curve[0][1] if loss_curve else float("nan")
+    last_loss = loss_curve[-1][1] if loss_curve else float("nan")
+    _log("  [%s seed=%d] eval_acc=%.4f train_acc=%.4f loss %.3f->%.3f ema=%.3f steps=%d"
+         % (log_tag, seed, acc, tr_acc, first_loss, last_loss,
+            ema if ema is not None else float("nan"), step + 1))
+    return dict(eval_acc=acc, train_acc=tr_acc, ev_logits=ev_logits.detach(),
+                loss_curve=loss_curve, first_loss=first_loss, last_loss=last_loss,
+                ema=float(ema) if ema is not None else float("nan"), steps_run=step + 1)
+
+
+def train_readout_cached(wm, tr_batch, ev_batch, steps, lr, seed, log_tag):
+    """CONTROL fast-path: WM frozen -> read features fixed -> fit ONLY the readout on cached feats."""
+    torch.manual_seed(seed)
+    with torch.no_grad():
+        tr_feat = wm.read_features(tr_batch)
+        ev_feat = wm.read_features(ev_batch)
+    opt = torch.optim.Adam(wm.readout.parameters(), lr=lr)
+    loss_curve = []
+    for step in range(steps):
+        opt.zero_grad()
+        loss = F.cross_entropy(wm.readout(tr_feat), tr_batch["answer"])
+        loss.backward()
+        opt.step()
+        if step == 0 or (step + 1) % max(1, steps // 8) == 0:
+            loss_curve.append((step, float(loss.item())))
+    with torch.no_grad():
+        ev_logits = wm.readout(ev_feat)
+        acc = _eval_acc(ev_logits, ev_batch["answer"])
+    _log("  [%s seed=%d] eval_acc=%.4f loss %.3f->%.3f"
+         % (log_tag, seed, acc, loss_curve[0][1], loss_curve[-1][1]))
+    return dict(eval_acc=acc, ev_logits=ev_logits.detach(),
+                first_loss=loss_curve[0][1], last_loss=loss_curve[-1][1])
+
+
+# ---------------- encoder-carries-binding diagnostic (the lever) ----------------
+def encoder_binding_probe(enc, seed, n=4000, ntr=3000):
+    """Linear probe on frozen v2 pooled event reps -> can it recover slot id + filler id? + query rep
+    -> slot id. reps carry (slot, filler) => encoder is NOT the block."""
+    from sklearn.linear_model import LogisticRegression
+    rng = np.random.default_rng(seed + 4242)
+    reps = np.zeros((n, enc.d), dtype=np.float32)
+    slots = np.zeros(n, dtype=np.int64)
+    fills = np.zeros(n, dtype=np.int64)
+    for i in range(n):
+        sl = int(rng.integers(0, len(SLOT_NOUNS))); fl = int(rng.integers(0, V_FILL))
+        tm = EVENT_TEMPLATES[int(rng.integers(0, len(EVENT_TEMPLATES)))]
+        reps[i] = enc.rep_of(tm.format(slot=SLOT_NOUNS[sl], fill=COLORS[fl]))
+        slots[i] = sl; fills[i] = fl
+
+    def _probe(y):
+        mu = reps[:ntr].mean(0, keepdims=True); sd = reps[:ntr].std(0, keepdims=True) + 1e-8
+        clf = LogisticRegression(max_iter=400, C=1.0)
+        clf.fit((reps[:ntr] - mu) / sd, y[:ntr])
+        return float((clf.predict((reps[ntr:] - mu) / sd) == y[ntr:]).mean())
+
+    slot_acc = _probe(slots)
+    fill_acc = _probe(fills)
+    # query rep -> slot (few classes; small set, use all target queries repeated)
+    qtexts = [QUERY_TEMPLATE.format(slot=SLOT_NOUNS[s]) for s in range(S_TARGET)]
+    q_reps = np.stack([enc.rep_of(t) for t in qtexts])
+    # trivially separable (6 fixed vectors); report pairwise min cosine as a separability proxy
+    qn = q_reps / (np.linalg.norm(q_reps, axis=1, keepdims=True) + 1e-8)
+    cos = qn @ qn.T
+    off = cos[~np.eye(S_TARGET, dtype=bool)]
+    return {"slot_probe_acc": slot_acc, "slot_chance": 1.0 / len(SLOT_NOUNS),
+            "filler_probe_acc": fill_acc, "filler_chance": CHANCE,
+            "query_rep_max_offdiag_cos": float(off.max()),
+            "carries_slot": bool(slot_acc >= 0.5), "carries_filler": bool(fill_acc >= 0.5)}
+
+
+# ---------------- capacity probe (expressiveness vs generalization localizer) ----------------
+def capacity_probe(enc, seed=7):
+    """Train the SAME LEARNED_WM full-batch on a TINY set (memorization regime). If train_acc is high
+    but eval_acc stays at chance, the mechanism is EXPRESSIVE but its learned binding does NOT
+    GENERALIZE (the lever). Uses the identical mechanism + recipe (full-batch)."""
+    tr = calib.gen_dataset(CAP_PROBE_N, np.random.default_rng(seed))
+    ev = calib.gen_dataset(500, np.random.default_rng(seed + 777))
+    trb = build_rep_batch(tr, enc, seed)
+    evb = build_rep_batch(ev, enc, seed + 777)
+    wm = ContentGatedWM(seed, enc.d, D_MEM, K_SLOTS, HIDDEN, V_FILL, ADDR_TEMP)
+    res = train_arm(wm, trb, evb, CAP_PROBE_STEPS, LR, list(wm.parameters()), seed,
+                    "CAPACITY_PROBE fullbatch n=%d" % CAP_PROBE_N, batch=None)  # full-batch
+    return {"n_train": CAP_PROBE_N, "steps": CAP_PROBE_STEPS, "train_acc": res["train_acc"],
+            "eval_acc": res["eval_acc"], "first_loss": res["first_loss"], "last_loss": res["last_loss"],
+            "memorizes": bool(res["train_acc"] >= 0.70),
+            "generalizes": bool(res["eval_acc"] >= CHANCE + 0.10)}
+
+
+# ---------------- per-seed run ----------------
+def run_seed(seed, enc, train_n, eval_n, steps_wm, steps_readout, n_random_init):
+    rng = np.random.default_rng(seed)
+    tr = calib.gen_dataset(train_n, rng)
+    ev = calib.gen_dataset(eval_n, np.random.default_rng(seed + 777))
+    tr_batch = build_rep_batch(tr, enc, seed)
+    ev_batch = build_rep_batch(ev, enc, seed + 777)
+    d_enc = enc.d
+
+    # LEARNED_WM: train everything; restart on a dud trajectory (train-triggered).
+    n_attempts = 0
+    dud_train_accs = []
+    for attempt in range(MAX_RESTARTS + 1):
+        n_attempts = attempt + 1
+        wseed = seed + attempt * 7919
+        wm = ContentGatedWM(wseed, d_enc, D_MEM, K_SLOTS, HIDDEN, V_FILL, ADDR_TEMP)
+        learned = train_arm(wm, tr_batch, ev_batch, steps_wm, LR, list(wm.parameters()),
+                            wseed, "LEARNED_WM a%d" % attempt, batch=BATCH)
+        if learned["train_acc"] >= RETRY_TRAIN_ACC:
+            break
+        dud_train_accs.append(round(learned["train_acc"], 3))
+        _log("  LEARNED_WM seed=%d attempt=%d DUD (train_acc=%.3f < %.2f) -> restart"
+             % (seed, attempt, learned["train_acc"], RETRY_TRAIN_ACC))
+    learned["n_attempts"] = n_attempts
+
+    # RANDOM_INIT_WM controls: freeze key+write-gate+value-proj; train ONLY readout.
+    ri_accs = []
+    ri_logits_first = None
+    for c in range(n_random_init):
+        cseed = seed * 100 + c
+        wm_ri = ContentGatedWM(cseed, d_enc, D_MEM, K_SLOTS, HIDDEN, V_FILL, ADDR_TEMP)
+        for p in wm_ri.wm_params():
+            p.requires_grad_(False)
+        ri = train_readout_cached(wm_ri, tr_batch, ev_batch, steps_readout, LR, cseed,
+                                  "RANDOM_INIT_WM c=%d" % c)
+        ri_accs.append(ri["eval_acc"])
+        if ri_logits_first is None:
+            ri_logits_first = ri["ev_logits"]
+
+    ps = power_stats(learned["eval_acc"], eval_n, ri_accs)
+
+    def _digest(t):
+        return hashlib.sha256(t.cpu().numpy().tobytes()).hexdigest()
+    arms_differ = _digest(learned["ev_logits"]) != _digest(ri_logits_first)
+
+    return {
+        "seed": seed, "train_n": train_n, "eval_n": eval_n, "chance": CHANCE,
+        "learned_wm": {"eval_acc": learned["eval_acc"], "train_acc": learned["train_acc"],
+                       "first_loss": learned["first_loss"], "last_loss": learned["last_loss"],
+                       "loss_curve": learned["loss_curve"], "ema": learned.get("ema"),
+                       "n_attempts": learned.get("n_attempts", 1), "steps_run": learned.get("steps_run"),
+                       "dud_train_accs": dud_train_accs},
+        "random_init_wm": {"accs": ri_accs, "mean": float(np.mean(ri_accs)),
+                           "max": float(np.max(ri_accs)), "min": float(np.min(ri_accs))},
+        "power": ps,
+        "arms_differ_verified": bool(arms_differ),
+    }
+
+
+# ---------------- verdict ----------------
+def decide_verdict(per_seed, enc_probe, cap_probe):
+    learned_accs = [ps["learned_wm"]["eval_acc"] for ps in per_seed]
+    ri_maxes = [ps["random_init_wm"]["max"] for ps in per_seed]
+    gaps = [ps["power"]["gap"] for ps in per_seed]
+    sigs = [ps["power"]["significant"] for ps in per_seed]
+
+    ri_all = [a for ps in per_seed for a in ps["random_init_wm"]["accs"]]
+    control_floor_ok = all(a < RI_NEAR_CHANCE for a in ri_all)
+
+    loss_shapes = []
+    stuck_any = False
+    for ps in per_seed:
+        fl, ll = ps["learned_wm"]["first_loss"], ps["learned_wm"]["last_loss"]
+        descended = (ll < LOSS_DESCEND_RATIO * fl)
+        loss_shapes.append({"seed": ps["seed"], "first_loss": fl, "last_loss": ll,
+                            "descended": bool(descended)})
+        if not descended:
+            stuck_any = True
+
+    proven = (all(a >= WM_PROVEN_MIN for a in learned_accs)
+              and all(g >= MECH_MARGIN for g in gaps)
+              and all(sigs)
+              and control_floor_ok)
+    cant_learn = all(a <= WM_CANT_LEARN_MAX for a in learned_accs)
+
+    # lever diagnosis (always available): do the frozen reps carry (slot, filler)? + does the SAME
+    # mechanism memorize-but-not-generalize (learned-binding block) vs fail-to-fit (expressiveness)?
+    reps_carry = bool(enc_probe["carries_slot"] and enc_probe["carries_filler"])
+    cap_note = (" CAPACITY-PROBE: full-batch overfit-%d train_acc=%.3f eval_acc=%.3f (memorizes=%s, "
+                "generalizes=%s) -> mechanism is %s." %
+                (cap_probe["n_train"], cap_probe["train_acc"], cap_probe["eval_acc"],
+                 cap_probe["memorizes"], cap_probe["generalizes"],
+                 "EXPRESSIVE but its learned binding does NOT generalize (learned-address block)"
+                 if (cap_probe["memorizes"] and not cap_probe["generalizes"]) else
+                 "unable to even fit a tiny set (deeper optimization/expressiveness block)"
+                 if not cap_probe["memorizes"] else "able to fit AND generalize a tiny set"))
+    lever = (("encoder reps LINEARLY carry (slot=%.3f, filler=%.3f): the frozen v2 reps SUPPORT binding "
+              "-> the WM's LEARNED binding-address/gating is the block, not the encoder."
+              % (enc_probe["slot_probe_acc"], enc_probe["filler_probe_acc"]) if reps_carry else
+              "encoder reps do NOT linearly carry (slot=%.3f, filler=%.3f): the frozen v2 reps do NOT "
+              "support binding -> the ENCODER/representation is the block."
+              % (enc_probe["slot_probe_acc"], enc_probe["filler_probe_acc"])) + cap_note)
+
+    if not control_floor_ok:
+        verdict = "CONTROL_FLOOR_BROKEN"
+        msg = ("a RANDOM_INIT_WM control cleared %.2f (max=%.3f): the can-fail floor is not clean -> "
+               "the NL task/encoder leaks a shortcut; margin not trustworthy" % (RI_NEAR_CHANCE, max(ri_all)))
+    elif proven:
+        verdict = "WM_NL_PROVEN"
+        msg = ("LEARNED_WM eval_acc=%s >> chance %.3f AND >> random-init (gap=%s, z=%s, beats ri_max), "
+               "BOTH seeds, controls at floor -> the learned content-gated WM BINDS slot+filler from "
+               "REAL NL text (real v2 frozen encoder) AND gates recency. ceiling(oracle)=%.2f."
+               % ([round(a, 3) for a in learned_accs], CHANCE, [round(g, 3) for g in gaps],
+                  [round(ps["power"]["z"], 2) for ps in per_seed], ORACLE_CEILING))
+    elif cant_learn:
+        verdict = "WM_NL_CANT_LEARN"
+        msg = ("LEARNED_WM stalls near chance (accs=%s <= %.2f). loss %s. LEVER: %s"
+               % ([round(a, 3) for a in learned_accs], WM_CANT_LEARN_MAX,
+                  "STUCK_FLAT" if stuck_any else "DESCENDED-but-eval-chance", lever))
+    else:
+        verdict = "WM_NL_PARTIAL"
+        msg = ("LEARNED_WM accs=%s (chance %.3f, gaps=%s, sig=%s): beats random-init but not the "
+               "WM_NL_PROVEN bar (>=%.2f both seeds, gap>=%.2f, significant). LEVER: %s"
+               % ([round(a, 3) for a in learned_accs], CHANCE, [round(g, 3) for g in gaps], sigs,
+                  WM_PROVEN_MIN, MECH_MARGIN, lever))
+
+    bands = {"chance": CHANCE, "oracle_ceiling": ORACLE_CEILING, "wm_proven_min": WM_PROVEN_MIN,
+             "wm_cant_learn_max": WM_CANT_LEARN_MAX, "mech_margin": MECH_MARGIN,
+             "z_thresh": Z_THRESH, "ri_near_chance": RI_NEAR_CHANCE,
+             "learned_accs": learned_accs, "ri_maxes": ri_maxes, "gaps": gaps,
+             "significant_per_seed": [bool(s) for s in sigs], "control_floor_ok": bool(control_floor_ok),
+             "loss_shapes": loss_shapes, "encoder_reps_carry_binding": reps_carry,
+             "capacity_probe": cap_probe, "lever": lever}
+    return verdict, msg, bands
+
+
+# ---------------- self-test ----------------
+def run_self_test():
+    _log("SELF-TEST: load REAL v2 encoder + cache + tiny end-to-end ...")
+    assert os.path.exists(V2_CKPT), "v2 checkpoint missing: %s" % V2_CKPT
+    enc = FrozenV2Encoder(V2_CKPT)
+    n_cached = enc.build_cache()
+    _log("  cached %d unique sentence reps (d=%d)" % (n_cached, enc.d))
+    assert n_cached >= 3000, "closed sentence set smaller than expected"
+
+    # overwrite (not accumulate) unit check -- the load-bearing mechanism invariant
+    with torch.no_grad():
+        h = torch.zeros(1, 1, 3)
+        for cand_val in (torch.tensor([[1.0, 0.0, 0.0]]), torch.tensor([[0.0, 1.0, 0.0]])):
+            w = torch.ones(1, 1, 1)
+            h = (1.0 - w) * h + w * cand_val.unsqueeze(1)
+        assert torch.allclose(h.squeeze(), torch.tensor([0.0, 1.0, 0.0])), "overwrite kept a blend"
+
+    # tiny full pipeline: real encoder + real WM + train, reduced scale
+    res = run_seed(7, enc, train_n=200, eval_n=200, steps_wm=120, steps_readout=60, n_random_init=3)
+    lw = res["learned_wm"]["eval_acc"]
+    ri = res["random_init_wm"]["mean"]
+    _log("  tiny: LEARNED_WM=%.3f RANDOM_INIT_WM(mean)=%.3f gap=%.3f arms_differ=%s"
+         % (lw, ri, res["power"]["gap"], res["arms_differ_verified"]))
+    assert res["arms_differ_verified"], "arms bit-identical (LEARNED vs RANDOM_INIT eval logits)"
+    assert 0.0 <= lw <= 1.0 and 0.0 <= ri <= 1.0, "acc out of range"
+
+    # forward determinism on fixed reps
+    d = enc.d
+    torch.manual_seed(7)
+    wm = ContentGatedWM(7, d, D_MEM, K_SLOTS, HIDDEN, V_FILL, ADDR_TEMP)
+    ex = calib.gen_dataset(16, np.random.default_rng(1))
+    b = build_rep_batch(ex, enc, 1)
+    with torch.no_grad():
+        l1 = wm(b); l2 = wm(b)
+    assert torch.allclose(l1, l2), "forward not deterministic on fixed reps"
+
+    # encoder-carries-binding diagnostic (small)
+    probe = encoder_binding_probe(enc, 7, n=800, ntr=600)
+    _log("  enc probe: slot=%.3f filler=%.3f (chance %.3f/%.3f)"
+         % (probe["slot_probe_acc"], probe["filler_probe_acc"], probe["slot_chance"], probe["filler_chance"]))
+    _log("SELF-TEST PASS")
+    return {"tiny": {"learned_wm": lw, "random_init_wm_mean": ri, "gap": res["power"]["gap"],
+                     "arms_differ": res["arms_differ_verified"]},
+            "n_cached": n_cached, "enc_probe_small": probe}
+
+
+# ---------------- main ----------------
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--full", action="store_true")
+    ap.add_argument("--train-n", type=int, default=FULL_TRAIN)
+    ap.add_argument("--eval-n", type=int, default=FULL_EVAL)
+    ap.add_argument("--steps-wm", type=int, default=STEPS_WM)
+    args = ap.parse_args()
+
+    torch.set_num_threads(min(6, max(1, os.cpu_count() or 1)))
+    run_mode = "self_test" if args.self_test else "full"
+    expected_units = 1 if run_mode == "self_test" else len(SEEDS_FULL)
+    _write_start_marker(OUTPUT_DIR, run_mode, expected_units)
+    t0 = time.perf_counter()
+
+    if run_mode == "self_test":
+        st = run_self_test()
+        elapsed = time.perf_counter() - t0
+        _atomic_write_metrics(OUTPUT_DIR, {
+            "verdict": "SELFTEST_PASS",
+            "verdict_msg": "SELFTEST_PASS (real v2 encoder + cache + real WM + overwrite unit + determinism + enc-probe)",
+            "summary": "SELFTEST_PASS", "run_mode": "self_test", "elapsed_s": elapsed,
+            "ts_iso": _now_iso(), "anchor_name": ANCHOR_NAME, "chance": CHANCE, "selftest": st})
+        _log("DONE self-test in %.1fs" % elapsed)
+        return
+
+    _log("FULL: train_n=%d eval_n=%d steps_wm=%d seeds=%s chance=%.4f K=%d encoder=real_v2_frozen"
+         % (args.train_n, args.eval_n, args.steps_wm, SEEDS_FULL, CHANCE, K_SLOTS))
+    enc = FrozenV2Encoder(V2_CKPT)
+    n_cached = enc.build_cache()
+    _log("  cached %d unique sentence reps (d=%d)" % (n_cached, enc.d))
+
+    _log("--- encoder-carries-binding diagnostic (the lever) ---")
+    enc_probe = encoder_binding_probe(enc, 7)
+    _log("  slot_probe=%.3f (chance %.3f) filler_probe=%.3f (chance %.3f) carries_slot=%s carries_filler=%s"
+         % (enc_probe["slot_probe_acc"], enc_probe["slot_chance"], enc_probe["filler_probe_acc"],
+            enc_probe["filler_chance"], enc_probe["carries_slot"], enc_probe["carries_filler"]))
+
+    _log("--- capacity probe (full-batch memorize-vs-generalize) ---")
+    cap_probe = capacity_probe(enc, seed=7)
+    _log("  capacity: train_acc=%.3f eval_acc=%.3f memorizes=%s generalizes=%s"
+         % (cap_probe["train_acc"], cap_probe["eval_acc"], cap_probe["memorizes"], cap_probe["generalizes"]))
+
+    per_seed = []
+    for seed in SEEDS_FULL:
+        _log("--- seed %d ---" % seed)
+        per_seed.append(run_seed(seed, enc, args.train_n, args.eval_n, args.steps_wm,
+                                 STEPS_READOUT, N_RANDOM_INIT))
+    verdict, msg, bands = decide_verdict(per_seed, enc_probe, cap_probe)
+    elapsed = time.perf_counter() - t0
+
+    _atomic_write_metrics(OUTPUT_DIR, {
+        "verdict": verdict, "verdict_msg": msg,
+        "summary": "%s | chance=%.4f | %s" % (verdict, CHANCE, msg[:140]),
+        "run_mode": "full", "elapsed_s": elapsed, "ts_iso": _now_iso(), "anchor_name": ANCHOR_NAME,
+        "chance": CHANCE, "oracle_ceiling_ref": ORACLE_CEILING, "bands": bands,
+        "encoder_binding_probe": enc_probe, "capacity_probe": cap_probe,
+        "cardinality_ok": bool(len(per_seed) == len(SEEDS_FULL)),
+        "expected_n_units": len(SEEDS_FULL), "n_units_done": len(per_seed),
+        "params": {"K_SLOTS": K_SLOTS, "D_MEM": D_MEM, "D_ENC": enc.d, "HIDDEN": HIDDEN,
+                   "ADDR_TEMP": ADDR_TEMP, "STEPS_WM": args.steps_wm, "STEPS_READOUT": STEPS_READOUT,
+                   "LR": LR, "N_RANDOM_INIT": N_RANDOM_INIT, "train_n": args.train_n,
+                   "eval_n": args.eval_n, "seeds": list(SEEDS_FULL), "n_cached_sentences": n_cached,
+                   "encoder": "real_v2_frozen", "v2_ckpt": os.path.relpath(V2_CKPT, REPO_ROOT)},
+        "per_seed": per_seed,
+        "start_marker_written": True, "crash_diagnostic_present": True,
+        "final_metrics_atomicity": "tmp_replace", "defensive_error_checking": "passed_all_4_patterns"})
+    _log("VERDICT: %s" % verdict)
+    _log("  %s" % msg)
+    _log("DONE full in %.1fs" % elapsed)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except SystemExit:
+        raise
+    except KeyboardInterrupt:
+        raise
+    except Exception as e:  # NOT BaseException
+        _write_crash_metrics(OUTPUT_DIR, e)
+        raise

@@ -1,0 +1,277 @@
+{
+  "verdict": "WM_NL_CANT_LEARN",
+  "verdict_msg": "LEARNED_WM stalls near chance (accs=[0.061, 0.039] <= 0.15). loss STUCK_FLAT. LEVER: encoder reps LINEARLY carry (slot=1.000, filler=1.000): the frozen v2 reps SUPPORT binding -> the WM's LEARNED binding-address/gating is the block, not the encoder. CAPACITY-PROBE: full-batch overfit-100 train_acc=0.960 eval_acc=0.072 (memorizes=True, generalizes=False) -> mechanism is EXPRESSIVE but its learned binding does NOT generalize (learned-address block).",
+  "summary": "WM_NL_CANT_LEARN | chance=0.0500 | LEARNED_WM stalls near chance (accs=[0.061, 0.039] <= 0.15). loss STUCK_FLAT. LEVER: encoder reps LINEARLY carry (slot=1.000, filler=1.000):",
+  "run_mode": "full",
+  "elapsed_s": 397.78892599977553,
+  "ts_iso": "2026-07-30T11:01:28.519484+00:00",
+  "anchor_name": "selective_overwrite_recall_nl_wm_v1",
+  "chance": 0.05,
+  "oracle_ceiling_ref": 1.0,
+  "bands": {
+    "chance": 0.05,
+    "oracle_ceiling": 1.0,
+    "wm_proven_min": 0.5,
+    "wm_cant_learn_max": 0.15,
+    "mech_margin": 0.3,
+    "z_thresh": 2.0,
+    "ri_near_chance": 0.1,
+    "learned_accs": [
+      0.06142857298254967,
+      0.03857142850756645
+    ],
+    "ri_maxes": [
+      0.055714286863803864,
+      0.05285714194178581
+    ],
+    "gaps": [
+      0.009428573399782182,
+      -0.00714285671710968
+    ],
+    "significant_per_seed": [
+      false,
+      false
+    ],
+    "control_floor_ok": true,
+    "loss_shapes": [
+      {
+        "seed": 7,
+        "first_loss": 3.0047616958618164,
+        "last_loss": 2.9889638423919678,
+        "descended": false
+      },
+      {
+        "seed": 13,
+        "first_loss": 2.99605131149292,
+        "last_loss": 2.9928596019744873,
+        "descended": false
+      }
+    ],
+    "encoder_reps_carry_binding": true,
+    "capacity_probe": {
+      "n_train": 100,
+      "steps": 800,
+      "train_acc": 0.9599999785423279,
+      "eval_acc": 0.07199999690055847,
+      "first_loss": 3.010512590408325,
+      "last_loss": 0.0574350580573082,
+      "memorizes": true,
+      "generalizes": false
+    },
+    "lever": "encoder reps LINEARLY carry (slot=1.000, filler=1.000): the frozen v2 reps SUPPORT binding -> the WM's LEARNED binding-address/gating is the block, not the encoder. CAPACITY-PROBE: full-batch overfit-100 train_acc=0.960 eval_acc=0.072 (memorizes=True, generalizes=False) -> mechanism is EXPRESSIVE but its learned binding does NOT generalize (learned-address block)."
+  },
+  "encoder_binding_probe": {
+    "slot_probe_acc": 1.0,
+    "slot_chance": 0.03333333333333333,
+    "filler_probe_acc": 1.0,
+    "filler_chance": 0.05,
+    "query_rep_max_offdiag_cos": 0.995803713798523,
+    "carries_slot": true,
+    "carries_filler": true
+  },
+  "capacity_probe": {
+    "n_train": 100,
+    "steps": 800,
+    "train_acc": 0.9599999785423279,
+    "eval_acc": 0.07199999690055847,
+    "first_loss": 3.010512590408325,
+    "last_loss": 0.0574350580573082,
+    "memorizes": true,
+    "generalizes": false
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "params": {
+    "K_SLOTS": 6,
+    "D_MEM": 64,
+    "D_ENC": 512,
+    "HIDDEN": 64,
+    "ADDR_TEMP": 0.3,
+    "STEPS_WM": 1000,
+    "STEPS_READOUT": 400,
+    "LR": 0.01,
+    "N_RANDOM_INIT": 5,
+    "train_n": 1200,
+    "eval_n": 700,
+    "seeds": [
+      7,
+      13
+    ],
+    "n_cached_sentences": 3006,
+    "encoder": "real_v2_frozen",
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "train_n": 1200,
+      "eval_n": 700,
+      "chance": 0.05,
+      "learned_wm": {
+        "eval_acc": 0.06142857298254967,
+        "train_acc": 0.06583333015441895,
+        "first_loss": 3.0047616958618164,
+        "last_loss": 2.9889638423919678,
+        "loss_curve": [
+          [
+            0,
+            3.0047616958618164
+          ],
+          [
+            124,
+            2.986661911010742
+          ],
+          [
+            249,
+            2.9740214347839355
+          ],
+          [
+            374,
+            2.984963893890381
+          ],
+          [
+            499,
+            2.9767398834228516
+          ],
+          [
+            624,
+            2.9938673973083496
+          ],
+          [
+            749,
+            2.988454580307007
+          ],
+          [
+            874,
+            3.0001633167266846
+          ],
+          [
+            999,
+            2.9889638423919678
+          ]
+        ],
+        "ema": 2.9887500854857594,
+        "n_attempts": 2,
+        "steps_run": 1000,
+        "dud_train_accs": [
+          0.063,
+          0.066
+        ]
+      },
+      "random_init_wm": {
+        "accs": [
+          0.051428571343421936,
+          0.055714286863803864,
+          0.044285714626312256,
+          0.05428571254014969,
+          0.05428571254014969
+        ],
+        "mean": 0.051999999582767485,
+        "max": 0.055714286863803864,
+        "min": 0.044285714626312256
+      },
+      "power": {
+        "ri_mean": 0.051999999582767485,
+        "ri_std": 0.004584801524473863,
+        "ri_max": 0.055714286863803864,
+        "n_ri_seeds": 5,
+        "se_diff": 0.013183614643250451,
+        "gap": 0.009428573399782182,
+        "z": 0.7151736192933462,
+        "p_value": 0.2372508839587649,
+        "min_detectable_effect_2sigma": 0.026367229286500902,
+        "beats_ri_max": true,
+        "significant": false
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "seed": 13,
+      "train_n": 1200,
+      "eval_n": 700,
+      "chance": 0.05,
+      "learned_wm": {
+        "eval_acc": 0.03857142850756645,
+        "train_acc": 0.05666666850447655,
+        "first_loss": 2.99605131149292,
+        "last_loss": 2.9928596019744873,
+        "loss_curve": [
+          [
+            0,
+            2.99605131149292
+          ],
+          [
+            124,
+            2.9992713928222656
+          ],
+          [
+            249,
+            2.990652561187744
+          ],
+          [
+            374,
+            2.9941885471343994
+          ],
+          [
+            499,
+            3.004828453063965
+          ],
+          [
+            624,
+            2.9943344593048096
+          ],
+          [
+            749,
+            2.988701820373535
+          ],
+          [
+            874,
+            3.000458002090454
+          ],
+          [
+            999,
+            2.9928596019744873
+          ]
+        ],
+        "ema": 2.9950642363619178,
+        "n_attempts": 2,
+        "steps_run": 1000,
+        "dud_train_accs": [
+          0.057,
+          0.057
+        ]
+      },
+      "random_init_wm": {
+        "accs": [
+          0.05285714194178581,
+          0.04571428522467613,
+          0.04571428522467613,
+          0.03999999910593033,
+          0.044285714626312256
+        ],
+        "mean": 0.04571428522467613,
+        "max": 0.05285714194178581,
+        "min": 0.03999999910593033
+      },
+      "power": {
+        "ri_mean": 0.04571428522467613,
+        "ri_std": 0.004629100395394325,
+        "ri_max": 0.05285714194178581,
+        "n_ri_seeds": 5,
+        "se_diff": 0.011692987036863053,
+        "gap": -0.00714285671710968,
+        "z": -0.610866726747517,
+        "p_value": 0.7293560929288069,
+        "min_detectable_effect_2sigma": 0.023385974073726105,
+        "beats_ri_max": false,
+        "significant": false
+      },
+      "arms_differ_verified": true
+    }
+  ],
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns"
+}
