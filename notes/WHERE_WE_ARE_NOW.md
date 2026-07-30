@@ -10,6 +10,17 @@
 ## 🧠 THE MANDATE (USER, standing + emphasized 2026-07-29)
 ALIGN TO THE BRAIN as much as possible to overcome the comprehension barrier — we've been trying to show comprehension for OVER A WEEK. Do the HARD thing, not easy paths (frozen-head shortcuts have failed repeatedly). Nail each component brain-faithful, then assemble. Do NOT lose focus or drift. [[feedback_do_the_hard_blocking_thing_not_easy_paths_easy_bias_disastrous_2026-07-29]]
 
+## 🌙 ALL-NIGHT FULL-AUTO (USER-authorized 2026-07-30)
+Drive autonomously all night. CADENCE per major result: (1) honest synthesis; (2) BRAIN-FOUNDATIONAL fidelity check of the components involved + honest LEVER re-eval (is this the right, most-effective path?); (3) update docs + heartbeat; (4) dispatch the next HARD step, never the cheap one. Two easy-path traps to guard: cheap-mechanism AND instrument-perfectionism. If a verdict is negative, go UP to the harder root cause (encoder/representation), not sideways into tractable tinkering. Choose the RIGHT path to project success, not the easy one.
+
+## 🧵 TWO PARALLEL TRACKS (separate axes, separate measurement — never confound)
+- **Track A — WM / situation-model** (the built mechanism): gate-hardening (a53222d) -> RUN the bistable verdict on the hard-line. Judged on the MES/KD gate.
+- **Track B — Encoder / representation** (the #1 ceiling): lever ranking (a444ba4c) -> build top lever (latent-PC). Judged on rep-quality (graded geometry / relational probe / random-init baseline).
+- RULE: parallel DEVELOPMENT ok; NEVER change encoder + WM then read one gate (attribution death).
+
+## 📉 ENCODER-TRACK VERDICT (3 lit-scans, VET'd, 2026-07-30)
+Scale-floor question is genuinely UNRESOLVED in the literature, BUT the closest anchor (BabyLM, 10-100M words ≈ our regime) shows clever objectives/curricula/architecture give REAL but BOUNDED gains — they do NOT close the gap to large-corpus richness. => SOFT FLOOR likely: encoder cleverness makes reps less thin but won't reach brain-level on 158M tokens within invariants. STRATEGIC IMPLICATION (validates USER roadmap): the ceiling-raiser is GROUNDING EXPANSION (adds information beyond the text floor), NOT encoder tricks alone (which extract more from what we have). Ranked levers: (1) latent-PC/JEPA [= our banked forward-predictive fix, OOM-free, top]; (2) multi-timescale hierarchy (Hasson/HM-RNN); (3) slow-feature aux; (4) better data/curriculum (BabyLM lessons); (5) k-WTA DEPRIORITIZED as a richness lever (gain is compactness not sample-efficiency — folk wisdom oversold). Collapse guard across all = VICReg variance-floor; collapse risk is capacity-RATIO-dependent (watch: is 512d over-capacity for 158M?). Full note: notes/encoder_representation_lever_ranking_2026-07-29.md.
+
 ## THE GOAL
 A glass-box VSA/HDC substrate you can CONVERSE with that genuinely REASONS/COMPREHENDS, earning meaning the brain's way (NO borrowed embeddings/LLM at inference; NO bolt-on reader). Foundation (CSKG, 1.24M edges) is BANKED; the frontier is COMPREHENSION.
 
