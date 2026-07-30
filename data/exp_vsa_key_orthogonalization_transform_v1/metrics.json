@@ -1,10 +1,10 @@
 {
-  "verdict": "NO_HELP",
-  "verdict_msg": "No transform arm improves mean held-out recall over ARM_RAW (raw_mean=0.292) by >= PARTIAL_MARGIN=0.10; best=zca improve=0.059. Key non-orthogonality is not cheaply fixable this way at this construction; would need a from-scratch encoder objective. All-arm summary: {'zca': {'mean': 0.351, 'improve': 0.059, 'cos': 0.3521}, 'dg_expand': {'mean': 0.318, 'improve': 0.027, 'cos': 0.3437}, 'qr': {'mean': 0.306, 'improve': 0.014, 'cos': 0.3497}}",
-  "summary": "NO_HELP | chance_recall=0.0500 | cosines={'raw': 0.3478, 'zca': 0.3521, 'dg_expand': 0.3437, 'qr': 0.3497, 'clean': -0.0036} | No transform arm improves mean held-out recall over ARM_RAW (raw_mean=0.292) by >= PARTIAL_MARGIN=0.10; best=zca improve=0.059. Key non-orth",
+  "verdict": "PARTIAL",
+  "verdict_msg": "ARM_LOWDIN held-out recall=[0.371, 0.369, 0.313] (mean=0.351) improves over ARM_RAW (0.292) but does not fully clear the HARD-PASS bar (ORACLE_MIN=0.50 on all seeds AND cosine_15<0.15 AND SYNTHETIC_SCALED cosine_60<0.25): cosine_15=0.3520, SYNTHETIC_SCALED lowdin cosine at 60 roles=0.3621. Partial fix -- report the degradation curve; consider whether the frontier experiment should cap role/relation count at whatever scale still clears (interpolate from the 15/30/60 curve). Legacy per-transform verdict: NO_HELP -- No transform arm improves mean held-out recall over ARM_RAW (raw_mean=0.292) by >= PARTIAL_MARGIN=0.10; best=zca improve=0.059. Key non-orthogonality is not cheaply fixable this way at this construction; would need a from-scratch encoder objective. All-arm summary: {'zca': {'mean': 0.351, 'improve': 0.059, 'cos': 0.3521}, 'dg_expand': {'mean': 0.318, 'improve': 0.027, 'cos': 0.3437}, 'qr': {'mean': 0.306, 'improve': 0.014, 'cos': 0.3497}, 'lowdin': {'mean': 0.351, 'improve': 0.059, 'cos': 0.352}}",
+  "summary": "PARTIAL | chance_recall=0.0500 | cosines={'raw': 0.3478, 'zca': 0.3521, 'dg_expand': 0.3437, 'qr': 0.3497, 'lowdin': 0.352, 'clean': -0.0036} | ARM_LOWDIN held-out recall=[0.371, 0.369, 0.313] (mean=0.351) improves over ARM_RAW (0.292) but does not fully clear the HARD-PASS bar (ORAC",
   "run_mode": "full",
-  "elapsed_s": 38.102717800065875,
-  "ts_iso": "2026-07-30T20:28:59.937425+00:00",
+  "elapsed_s": 20.15009730006568,
+  "ts_iso": "2026-07-30T20:38:45.409508+00:00",
   "anchor_name": "vsa_key_orthogonalization_transform_v1",
   "chance_recall": 0.05,
   "cosines": {
@@ -23,6 +23,10 @@
     "qr": {
       "mean": 0.3497387370892933,
       "max": 0.5748974084854126
+    },
+    "lowdin": {
+      "mean": 0.35199944249221254,
+      "max": 0.5949283838272095
     },
     "clean": {
       "mean": -0.0036357617537890164,
@@ -45,6 +49,10 @@
     "qr": {
       "mean": 0.30570569795792,
       "sd": 0.017309914140094865
+    },
+    "lowdin": {
+      "mean": 0.3511500406351991,
+      "sd": 0.026677652844279476
     },
     "clean": {
       "mean": 0.647773234088847,
@@ -71,6 +79,12 @@
       "all_valid": true
     },
     "qr": {
+      "ctx_fails": true,
+      "wrong_fails": true,
+      "shuf_fails": true,
+      "all_valid": true
+    },
+    "lowdin": {
       "ctx_fails": true,
       "wrong_fails": true,
       "shuf_fails": true,
@@ -116,8 +130,120 @@
       "improve_vs_raw": 0.01400172860847021,
       "cosine_mean": 0.3497387370892933,
       "clears_oracle_min": false
+    },
+    "lowdin": {
+      "held": [
+        0.3707865168539326,
+        0.36923076923076925,
+        0.31343283582089554
+      ],
+      "mean": 0.3511500406351991,
+      "improve_vs_raw": 0.0594460712857493,
+      "cosine_mean": 0.35199944249221254,
+      "clears_oracle_min": false
+    },
+    "_bands_extra": {
+      "lowdin_cos_15": 0.35199944249221254,
+      "lowdin_cos_60": 0.36206900724920177,
+      "lowdin_mean_held": 0.3511500406351991,
+      "lowdin_works_all_seeds": false,
+      "hard_pass_cos_15": 0.15,
+      "hard_pass_cos_60": 0.25,
+      "hard_fail_recall_15": 0.35,
+      "legacy_verdict": "NO_HELP"
     }
   },
+  "scaling_sweep": {
+    "raw": {
+      "15": {
+        "cosine_mean": 0.34267163560504005,
+        "cosine_max": 0.4762427806854248,
+        "recall_acc": 0.98,
+        "floor_wrongkey_acc": 0.06,
+        "floor_shuffled_acc": 0.13333333333333333,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      },
+      "30": {
+        "cosine_mean": 0.3548053821955604,
+        "cosine_max": 0.4765767753124237,
+        "recall_acc": 0.9466666666666667,
+        "floor_wrongkey_acc": 0.05333333333333334,
+        "floor_shuffled_acc": 0.06,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      },
+      "60": {
+        "cosine_mean": 0.36167631329452926,
+        "cosine_max": 0.5244467854499817,
+        "recall_acc": 0.96,
+        "floor_wrongkey_acc": 0.02666666666666667,
+        "floor_shuffled_acc": 0.1,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      }
+    },
+    "zca": {
+      "15": {
+        "cosine_mean": 0.3428230881690979,
+        "cosine_max": 0.4137348532676697,
+        "recall_acc": 0.9733333333333334,
+        "floor_wrongkey_acc": 0.04666666666666667,
+        "floor_shuffled_acc": 0.1,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      },
+      "30": {
+        "cosine_mean": 0.3551285797152026,
+        "cosine_max": 0.4166429936885834,
+        "recall_acc": 0.94,
+        "floor_wrongkey_acc": 0.07333333333333333,
+        "floor_shuffled_acc": 0.02666666666666667,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      },
+      "60": {
+        "cosine_mean": 0.36262586399660274,
+        "cosine_max": 0.42400890588760376,
+        "recall_acc": 0.92,
+        "floor_wrongkey_acc": 0.06666666666666667,
+        "floor_shuffled_acc": 0.1,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      }
+    },
+    "lowdin": {
+      "15": {
+        "cosine_mean": 0.34176046479315986,
+        "cosine_max": 0.3975044786930084,
+        "recall_acc": 0.96,
+        "floor_wrongkey_acc": 0.03333333333333333,
+        "floor_shuffled_acc": 0.04,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      },
+      "30": {
+        "cosine_mean": 0.3550396421860004,
+        "cosine_max": 0.42230740189552307,
+        "recall_acc": 0.96,
+        "floor_wrongkey_acc": 0.04,
+        "floor_shuffled_acc": 0.04666666666666667,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      },
+      "60": {
+        "cosine_mean": 0.36206900724920177,
+        "cosine_max": 0.4153599143028259,
+        "recall_acc": 0.9466666666666667,
+        "floor_wrongkey_acc": 0.04,
+        "floor_shuffled_acc": 0.12666666666666668,
+        "floor_contextvarying": "n_a_synthetic_scale"
+      }
+    }
+  },
+  "scaling_sweep_role_counts": [
+    15,
+    30,
+    60
+  ],
+  "scaling_sweep_transforms": [
+    "raw",
+    "zca",
+    "lowdin"
+  ],
+  "scaling_sweep_note": "SYNTHETIC_SCALED (bootstrap-resampled from real 15-role oracle table; REAL NL role inventory is hard-capped at 15 by shared SLOT_NOUNS lexicon -- see ROLE_COUNTS_SWEEP comment in source for full rationale). Only FLOOR_WRONGKEY and FLOOR_SHUFFLED_CODEBOOK apply at synthetic scale (no real per-sentence context to construct FLOOR_CONTEXTVARYING).",
   "gamma_chosen": 0.95,
   "gamma_tuning_diag": {
     "n_heldout_events_in_tuning_corpus": 0,
@@ -452,6 +578,88 @@
         }
       ]
     },
+    "lowdin": {
+      "main": [
+        {
+          "recall_train_acc": 0.24427480916030533,
+          "recall_heldout_acc": 0.3707865168539326,
+          "preds_digest": "2a1b5b8e0f25662393745794255a95d04d0356b509becbbf95d63a7b4f03770e",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.2709677419354839,
+          "recall_heldout_acc": 0.36923076923076925,
+          "preds_digest": "8ffc6a5680a90b24683ba8dabdcd48f4ef6da699b9df9e60725d85229c416c73",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.3006535947712418,
+          "recall_heldout_acc": 0.31343283582089554,
+          "preds_digest": "de30d12b3b1caee79124a83b77bcc220b7b1738046dc86a4398f63bbcbd34983",
+          "n_examples": 220
+        }
+      ],
+      "floor_wrongkey": [
+        {
+          "recall_train_acc": 0.030534351145038167,
+          "recall_heldout_acc": 0.02247191011235955,
+          "preds_digest": "02243c5a1d09b2c2288af32ce406e111b883a3c867d37a26720f84d305528967",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.025806451612903226,
+          "recall_heldout_acc": 0.015384615384615385,
+          "preds_digest": "e590b496f62633a2ab573b3f4babd1812dc67ae14d5530c7dff8e95c3e60887e",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.0457516339869281,
+          "recall_heldout_acc": 0.04477611940298507,
+          "preds_digest": "2768731b0d46b8369e47d4912070b9a5e58cece4810dea9309022275c2d1f6b4",
+          "n_examples": 220
+        }
+      ],
+      "floor_shuffled": [
+        {
+          "recall_train_acc": 0.05343511450381679,
+          "recall_heldout_acc": 0.056179775280898875,
+          "preds_digest": "f2ff508049902e6dfe9bf875c98b498cacc1ad68bc853b4f914b432a07ed10d0",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.05806451612903226,
+          "recall_heldout_acc": 0.1076923076923077,
+          "preds_digest": "fdc4e1e8fd31e3bd6b286f1ed6a7831ccd2e02df55326ddd5dcf1a5ae7d334a3",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.0915032679738562,
+          "recall_heldout_acc": 0.07462686567164178,
+          "preds_digest": "34535f34df718e7a2f979a0c9456873d2c77f97b6831873204d3d0e8fa04b839",
+          "n_examples": 220
+        }
+      ],
+      "floor_contextvarying": [
+        {
+          "recall_train_acc": 0.030534351145038167,
+          "recall_heldout_acc": 0.06741573033707865,
+          "preds_digest": "4ac5ecbd943e2fea738fdb544bad69f44b533a97c78d78e5d4f67d646a05128c",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.05161290322580645,
+          "recall_heldout_acc": 0.03076923076923077,
+          "preds_digest": "a02b50c411e69a122f4d5ab21a05a0a5fb144e7d67d04c48c79a202cd1836856",
+          "n_examples": 220
+        },
+        {
+          "recall_train_acc": 0.058823529411764705,
+          "recall_heldout_acc": 0.08955223880597014,
+          "preds_digest": "14e7ab9543dd4aaa64e129f18111e1d5aa1252ba43b9459763e47b3212c61028",
+          "n_examples": 220
+        }
+      ]
+    },
     "clean": {
       "main": [
         {
@@ -537,8 +745,8 @@
   },
   "arms_differ_verified": true,
   "cardinality_ok": true,
-  "expected_n_units": 60,
-  "n_units_done": 60,
+  "expected_n_units": 72,
+  "n_units_done": 72,
   "params": {
     "S_TARGET_TOTAL": 15,
     "V_FILL": 20,
