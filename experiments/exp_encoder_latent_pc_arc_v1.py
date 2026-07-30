@@ -169,6 +169,10 @@ ARM_MLM = "ARM_MLM"               # current MLM baseline (matched budget) -- ref
 ARM_RANDOM = "ARM_RANDOM"         # random-init -- floor
 ARMS = [ARM_LPC, ARM_LPC_TC, ARM_MLM, ARM_RANDOM]
 OBJECTIVE_ARMS = [ARM_LPC, ARM_LPC_TC]   # arms that carry training-time collapse telemetry
+# --lite (2026-07-30 early-signal build, coordinator-revised spec): trains ARM_LPC + ARM_MLM at a
+# BUDGET-MATCHED reduced schedule (the ONE variable is the objective) + ARM_RANDOM (untrained floor).
+# ARM_LPC_TC (ablation) is skipped -- not needed for the early gate; saves ~1/3 of lite wall-clock.
+LITE_ARMS = [ARM_LPC, ARM_MLM, ARM_RANDOM]
 
 # Pre-reg bands (headline = graded_geometry_spearman; deflated per lit-scan calibration)
 HP_GG_OVER_MLM = 0.10            # ARM_LPC - ARM_MLM graded-geometry (break the reference)
@@ -228,6 +232,27 @@ FULL_CFG = dict(
 )
 # Co-scaled follow-up variant (capacity-ratio watch): smaller encoder over the same ~130M tokens.
 FULL_COSCALED_OVERRIDE = dict(d_model=256, n_layers=4, n_heads=8, ffn_mult=4)
+
+# LITE early-signal config (2026-07-30 hand-off, coordinator-revised spec): the FULL GPU run (this same
+# file, no --lite) trains for ~15h; this config buys an EARLY read on the encoder-objective question
+# WITHOUT waiting for it. SAME ARCHITECTURE as FULL (d_model/n_layers/n_heads/ffn_mult/vocab/max_len
+# UNCHANGED -- representativeness: an early signal from a smaller/shallower net would not transfer) but
+# ~10x fewer steps (6000 vs 60000) and a much smaller data subset (faster data-prep + faster/seed).
+# Trains ARM_LPC + ARM_MLM (budget-matched -- objective is the ONE variable) + ARM_RANDOM (untrained
+# floor); ARM_LPC_TC ablation is skipped (LITE_ARMS, not ARMS). ARM_MLM is FRESH-TRAINED at this reduced
+# budget (NOT the V2 60000-step reuse -- that would be the unfair confounded comparison the coordinator
+# flagged: undertrained LPC vs fully-trained MLM. _build_encoder only reuses V2's ckpt when
+# cfg["run_mode"]=="full"; "lite" always falls through to a fresh matched-budget mlm_train call).
+LITE_CFG = dict(
+    run_mode="lite", seeds=[7],
+    min_deg=2, cap_eval_concepts=3000, heldout_count=150, min_mentions_eval=5,
+    max_lines=1200000, dedup_cap=900000, bpe_sample_lines=150000, cap_mentions=32,
+    vocab=16000, max_len=128, train_token_budget=9000000, max_shards=10,
+    d_model=512, n_layers=6, n_heads=8, ffn_mult=4,          # SAME architecture as FULL_CFG
+    mlm_steps=6000, mlm_batch=64, mlm_mask_frac=0.15, mlm_lr=3e-4,
+    encode_batch=256, n_freq_buckets=8,
+    **_LPC_COMMON,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -765,7 +790,9 @@ def run_one_seed(seed, cfg, device, out_dir, universe, bundle):
     postings = bundle["postings"]
     ground = bundle["ground"]           # noqa: F841  (grounding not scored here; encoder-only battery)
     adj, deg, n_shards = bundle["adj"], bundle["deg"], bundle["n_shards"]
-    hb_total = cfg["mlm_steps"] * len(OBJECTIVE_ARMS)
+    arms_to_run = LITE_ARMS if cfg["run_mode"] == "lite" else ARMS
+    n_obj_arms_running = max(1, len([a for a in arms_to_run if a in OBJECTIVE_ARMS]))
+    hb_total = cfg["mlm_steps"] * n_obj_arms_running
 
     arm_results = {}
     arm_digests = {}
@@ -774,7 +801,7 @@ def run_one_seed(seed, cfg, device, out_dir, universe, bundle):
     # arm's ~2.8-3.2 GPU-hr of work. Resume skips units already recorded in units.jsonl.
     done = ckpt.completed_units(out_dir)
     prior = ckpt.load_units(out_dir) if done else {}
-    for arm in ARMS:
+    for arm in arms_to_run:
         key = ckpt.unit_key(seed, arm)
         if key in done:
             u = prior[key]                            # load_units already unwraps to the result dict
@@ -836,6 +863,80 @@ def run_one_seed(seed, cfg, device, out_dir, universe, bundle):
 
 def _fmt(x):
     return ("%.4f" % x) if isinstance(x, float) else str(x)
+
+
+# ---------------------------------------------------------------------------
+# LITE verdict (2026-07-30 coordinator-revised spec): this run is UNDERTRAINED BY CONSTRUCTION (6000
+# steps vs FULL's 60000). It must NEVER be judged against build_verdict()'s HARD_PASS/HARD_FAIL bands --
+# those bands are calibrated for the FULL budget and a lite null would be misreported as a refutation.
+# This verdict ONLY certifies the 3 encoders trained/saved cleanly (no collapse, arms differ); the
+# DECISIVE early-signal comparison (context-invariance / role-distinctness / filler-invariance) is a
+# SEPARATE cell (exp_context_invariance_lpc_lite_probe_v1.py) that consumes the ckpts this run produces.
+# A graded_geometry delta is reported here too, but tagged UNGATED/BONUS -- honesty per the "a null is
+# inconclusive, a positive is encouraging" mandate.
+# ---------------------------------------------------------------------------
+def build_lite_verdict(per_seed, cfg):
+    seeds = sorted(per_seed.keys(), key=lambda k: int(k))
+    sk = seeds[0]
+    arms = LITE_ARMS
+
+    def mean(key, arm):
+        vv = [per_seed[k]["arms"].get(arm, {}).get(key) for k in seeds]
+        vv = [x for x in vv if x is not None]
+        return float(np.mean(vv)) if vv else None
+
+    all_trained = all(arm in per_seed[sk].get("arms", {}) for arm in arms)
+    ckpts_saved = all(per_seed[sk].get("ckpt_paths", {}).get(arm) for arm in (ARM_LPC, ARM_MLM))
+
+    m_repstd = {a: mean("rep_std", a) for a in arms}
+    lpc_train_diags = [per_seed[k]["arms"][ARM_LPC].get("train_diag") or {}
+                       for k in seeds if ARM_LPC in per_seed[k].get("arms", {})]
+    min_tgt_stds = [d.get("min_target_std") for d in lpc_train_diags if d.get("min_target_std") is not None]
+    mintgt_lpc = float(np.mean(min_tgt_stds)) if min_tgt_stds else None
+
+    no_collapse = (m_repstd[ARM_LPC] is not None and m_repstd[ARM_LPC] >= COLLAPSE_REP_STD_FLOOR
+                  and mintgt_lpc is not None and mintgt_lpc >= COLLAPSE_TARGET_STD_FLOOR)
+
+    digests = per_seed[sk].get("arm_digests", {})
+    arms_differ = len(set(digests.values())) == len(digests) and len(digests) == len(arms)
+
+    m_gg = {a: mean("graded_geometry", a) for a in arms}
+    d_mlm = ((m_gg[ARM_LPC] - m_gg[ARM_MLM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_MLM] is not None)
+             else None)
+    d_rand = ((m_gg[ARM_LPC] - m_gg[ARM_RANDOM]) if (m_gg[ARM_LPC] is not None and m_gg[ARM_RANDOM] is not None)
+              else None)
+
+    if not (all_trained and ckpts_saved):
+        verdict = "LITE_TRAIN_INCOMPLETE"
+        vmsg = ("LITE_TRAIN_INCOMPLETE: not all of ARM_LPC/ARM_MLM/ARM_RANDOM trained+checkpointed "
+                "(all_trained=%s ckpts_saved=%s)." % (all_trained, ckpts_saved))
+    elif not no_collapse:
+        verdict = "LITE_COLLAPSE"
+        vmsg = ("LITE_COLLAPSE: ARM_LPC rep_std=%s (floor %.3f) or min_target_std=%s (floor %.3f) below "
+                "floor -- undertrained collapse, NOT an encoder-quality refutation at this budget."
+                % (_fmt(m_repstd[ARM_LPC]), COLLAPSE_REP_STD_FLOOR, _fmt(mintgt_lpc), COLLAPSE_TARGET_STD_FLOOR))
+    elif not arms_differ:
+        verdict = "LITE_ARMS_IDENTICAL_BUG"
+        vmsg = "META_RULE_AF VIOLATION at lite scale: arm held-rep digests not all distinct (%s)" % digests
+    else:
+        verdict = "LITE_TRAIN_COMPLETE"
+        vmsg = ("LITE_TRAIN_COMPLETE: ARM_LPC/ARM_MLM/ARM_RANDOM all trained (budget-matched, SAME "
+                "architecture as FULL), checkpoints saved, no collapse, arms differ. BONUS/UNGATED "
+                "graded_geometry (undertrained -- never treat as HARD_PASS/HARD_FAIL) LPC-MLM=%s "
+                "LPC-RANDOM=%s. DECISIVE early read = the separate context-invariance/role-distinctness/"
+                "filler-invariance probe cell (exp_context_invariance_lpc_lite_probe_v1.py) consuming "
+                "these 3 ckpts." % (_fmt(d_mlm), _fmt(d_rand)))
+
+    summary = dict(all_trained=all_trained, ckpts_saved=ckpts_saved, no_collapse=no_collapse,
+                  arms_differ=arms_differ, rep_std=m_repstd, min_target_std_lpc=mintgt_lpc,
+                  graded_geometry_bonus_ungated=m_gg,
+                  gg_bonus_delta_lpc_minus_mlm=d_mlm, gg_bonus_delta_lpc_minus_random=d_rand,
+                  ckpt_paths={a: per_seed[sk].get("ckpt_paths", {}).get(a) for a in (ARM_LPC, ARM_MLM)})
+    gates = [record_gate("lite_no_collapse", 1.0 if no_collapse else 0.0, 1.0, "==",
+                        note="ARM_LPC rep_std + min_target_std both above floor at lite budget"),
+             record_gate("lite_arms_differ", 1.0 if arms_differ else 0.0, 1.0, "==",
+                        note="META_RULE_AF at lite scale (LPC/MLM/RANDOM held-rep digests distinct)")]
+    return verdict, vmsg, summary, gates
 
 
 # ---------------------------------------------------------------------------
@@ -1110,25 +1211,39 @@ def _select_device():
     return torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
-def main():
+def _parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--lite", action="store_true",
+                    help="early-signal cfg (2026-07-30): SAME architecture as FULL, ~10x fewer steps + "
+                         "a smaller data subset; trains ARM_LPC+ARM_MLM(budget-matched)+ARM_RANDOM only "
+                         "(LITE_ARMS, no ARM_LPC_TC ablation); writes to data/exp_%s_lite/ (a DISTINCT "
+                         "dir from the FULL run's data/exp_%s/, so it never collides with the in-progress "
+                         "FULL GPU run's checkpoints/units.jsonl)." % (ANCHOR_NAME, ANCHOR_NAME))
     ap.add_argument("--co-scaled", action="store_true",
                     help="capacity-ratio follow-up: smaller encoder (d=256,L=4) over the same tokens")
     ap.add_argument("--device", default=None)
-    args = ap.parse_args()
+    return ap.parse_args()
 
+
+def _anchor_dir_name(args):
+    return (ANCHOR_NAME + "_lite") if args.lite else ANCHOR_NAME
+
+
+def main(args):
     if args.self_test:
         cfg = dict(SELFTEST_CFG)
     elif args.smoke:
         cfg = dict(SMOKE_CFG)
+    elif args.lite:
+        cfg = dict(LITE_CFG)
     else:
         cfg = dict(FULL_CFG)
     if args.co_scaled:
         cfg.update(FULL_COSCALED_OVERRIDE)
 
-    out_dir = get_output_dir(ANCHOR_NAME)
+    out_dir = get_output_dir(_anchor_dir_name(args))
     os.makedirs(out_dir, exist_ok=True)
     _write_start_marker(out_dir, cfg["run_mode"], len(cfg["seeds"]))
 
@@ -1189,7 +1304,10 @@ def main():
         _log("seed=%d done in %.1fs" % (seed, res["elapsed_s"]))
 
     per_seed = aggregate_partials(out_dir, cfg["seeds"])
-    verdict, vmsg, summary, gates = build_verdict(per_seed, cfg)
+    if cfg["run_mode"] == "lite":
+        verdict, vmsg, summary, gates = build_lite_verdict(per_seed, cfg)
+    else:
+        verdict, vmsg, summary, gates = build_verdict(per_seed, cfg)
     _log("VERDICT: %s" % verdict)
     _log(vmsg)
 
@@ -1226,9 +1344,10 @@ def main():
 
 
 if __name__ == "__main__":
-    _out = get_output_dir(ANCHOR_NAME)
+    _args = _parse_args()
+    _out = get_output_dir(_anchor_dir_name(_args))
     try:
-        main()
+        main(_args)
     except SystemExit:
         raise
     except KeyboardInterrupt:
