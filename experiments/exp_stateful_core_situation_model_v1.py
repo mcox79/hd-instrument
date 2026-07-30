@@ -97,6 +97,7 @@ import argparse
 import hashlib
 import itertools
 import json
+import math
 import os
 import platform
 import sys
@@ -347,10 +348,17 @@ def _arms_must_differ(arms_outputs):
 # Core forward pass over a batch of items (padded-clause recurrence)
 # ---------------------------------------------------------------------------
 def forward_item_batch(model, wm, judge, tok, spec, max_len, items, device,
-                        kb_prior_lookup=None, arm="A"):
+                        kb_prior_lookup=None, arm="A", equalize=False, kb_id_key="kb_id"):
     """items: list of dicts with 'sent','label'[, 'kb_id']. kb_prior_lookup: dict kb_id ->
     (edges list) OR None. Returns (logits [B,2], surprise [B], write_strength [B],
     addr_entropy [B], kb_consistency [B] or None).
+
+    equalize (fairness, 2026-07-29): when True, Arm A appends a dead ZEROS placebo column so its
+    judge input dim == Arm B's (d+4). Removes the +1-input capacity confound the VET flagged --
+    make_judge_head(..., equalize=True) MUST be paired with this so the head dim matches.
+    kb_id_key (fairness): which item field names the KB node id. Pass "kb_id_shuf" for the
+    SHUFFLED-KB placebo arm (kb_consistency computed against a MISMATCHED fact prior) -- a real
+    grounding lift must beat this placebo, not just Arm A.
     """
     clause_lists = [split_clauses(it["sent"]) for it in items]
     n_clauses = [len(c) for c in clause_lists]
@@ -362,7 +370,7 @@ def forward_item_batch(model, wm, judge, tok, spec, max_len, items, device,
         priors = []
         any_prior = False
         for it in items:
-            kb_id = it.get("kb_id")
+            kb_id = it.get(kb_id_key)
             edges = kb_prior_lookup.get(kb_id, []) if kb_id else []
             if edges:
                 p = gen_kb_prior(model, lambda text: torch.from_numpy(
@@ -393,26 +401,55 @@ def forward_item_batch(model, wm, judge, tok, spec, max_len, items, device,
         judge_in.append(kb_consistency.unsqueeze(-1))
     elif arm == "B":
         judge_in.append(torch.zeros(B, 1, device=device))
+    elif equalize:
+        # Arm A dead placebo column so A/B judge in_dim are IDENTICAL (capacity-equalized).
+        judge_in.append(torch.zeros(B, 1, device=device))
     judge_feat = torch.cat(judge_in, dim=-1)
     logits = judge(judge_feat)
     return logits, feats["surprise"], feats["write_strength"], feats["addr_entropy"], kb_consistency
 
 
-def make_judge_head(d_model, arm):
-    in_dim = d_model + 3 + (1 if arm == "B" else 0)
+def make_judge_head(d_model, arm, equalize=False):
+    """Judge head. Legacy (equalize=False): Arm A in_dim=d+3, Arm B in_dim=d+4 (extra
+    kb_consistency). equalize=True (fairness, 2026-07-29): BOTH arms in_dim=d+4 (Arm A gets a
+    dead placebo column via forward_item_batch(equalize=True)) so the arms are capacity-identical
+    and the KD B-A lift cannot be a +1-input artifact."""
+    in_dim = (d_model + 4) if equalize else (d_model + 3 + (1 if arm == "B" else 0))
     return nn.Linear(in_dim, 2)
 
 
 # ---------------------------------------------------------------------------
 # Training / eval for ONE arm, ONE seed
 # ---------------------------------------------------------------------------
+def _lr_at(step, total, base_lr, warmup_frac, cosine):
+    """Per-step LR schedule (settable recipe: warmup + cosine). warmup_frac=0.0, cosine=False
+    reproduces the flat-LR legacy behavior exactly."""
+    total = max(1, int(total))
+    w = warmup_frac * total
+    if w > 0 and step < w:
+        return base_lr * float(step + 1) / max(1.0, w)
+    if cosine:
+        prog = (step - w) / max(1.0, (total - w))
+        prog = min(max(prog, 0.0), 1.0)
+        return base_lr * 0.5 * (1.0 + math.cos(math.pi * prog))
+    return base_lr
+
+
 def train_and_eval_arm(model, wm, judge, tok, spec, max_len, train_items, eval_items, device,
-                        kb_prior_lookup, arm, epochs, batch_size, lr, lambda_pe, lambda_kb, rng):
+                        kb_prior_lookup, arm, epochs, batch_size, lr, lambda_pe, lambda_kb, rng,
+                        equalize=False, kb_id_key="kb_id", warmup_frac=0.0, cosine=False):
+    """Train (encoder+WM+judge jointly, unfrozen) one arm/seed; eval on held-out.
+    New (2026-07-29): equalize + kb_id_key are forwarded to forward_item_batch (fairness:
+    capacity-equalized arms + shuffled-KB placebo). warmup_frac/cosine drive an optional per-step
+    LR schedule so the fit-probe sweep recipe (warmup+cosine+temp-anneal) plugs in cleanly; both
+    default to the flat-LR legacy behavior. Tau-anneal is already wired via wm.anneal_write_tau."""
     params = list(model.parameters()) + list(wm.parameters()) + list(judge.parameters())
     opt = torch.optim.AdamW(params, lr=lr)
     n = len(train_items)
     order = np.arange(n)
     last_loss = float("nan")
+    total_steps = epochs * max(1, math.ceil(n / batch_size))
+    gstep = 0
     for ep in range(epochs):
         # ANNEAL the bistable write temperature soft->sharp over training (audit gap C / SEM-EST):
         # near-continuous early (trainable), near-bistable late (brain-faithful segmentation). Guard
@@ -425,9 +462,14 @@ def train_and_eval_arm(model, wm, judge, tok, spec, max_len, train_items, eval_i
         for bstart in range(0, n, batch_size):
             idx = order[bstart:bstart + batch_size]
             batch = [train_items[i] for i in idx]
+            lr_now = _lr_at(gstep, total_steps, lr, warmup_frac, cosine)
+            for pg in opt.param_groups:
+                pg["lr"] = lr_now
+            gstep += 1
             y = torch.tensor([it["label"] for it in batch], dtype=torch.long, device=device)
             logits, surprise, _, _, kb_cons = forward_item_batch(
-                model, wm, judge, tok, spec, max_len, batch, device, kb_prior_lookup, arm)
+                model, wm, judge, tok, spec, max_len, batch, device, kb_prior_lookup, arm,
+                equalize=equalize, kb_id_key=kb_id_key)
             coh = (y == 1)
             bce = F.cross_entropy(logits, y)
             pe_term = surprise[coh].mean() if coh.any() else torch.tensor(0.0, device=device)
@@ -452,7 +494,8 @@ def train_and_eval_arm(model, wm, judge, tok, spec, max_len, train_items, eval_i
         for bstart in range(0, len(eval_items), batch_size):
             batch = eval_items[bstart:bstart + batch_size]
             logits, _, _, _, _ = forward_item_batch(model, wm, judge, tok, spec, max_len,
-                                                       batch, device, kb_prior_lookup, arm)
+                                                       batch, device, kb_prior_lookup, arm,
+                                                       equalize=equalize, kb_id_key=kb_id_key)
             all_logits.append(logits.cpu())
     logits_all = torch.cat(all_logits, dim=0)
     preds = logits_all.argmax(dim=-1).numpy()

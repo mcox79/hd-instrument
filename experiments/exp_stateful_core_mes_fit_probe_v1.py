@@ -268,7 +268,10 @@ def train_loop(model, wm, judge, tok, spec, max_len, train_items, device, cfg_di
     clip. Sets LR schedule + addr_temp per step externally (no mechanism edit). Returns
     (curve_dict, summary_dict). Assumes model/wm/judge already on `device`."""
     if cfg_dict.get("rq_std") is not None:
-        g = torch.Generator().manual_seed(seed)
+        # CUDA-SAFE (2026-07-29): wm is already .to(device); role_query may be a cuda tensor, so the
+        # generator MUST be on that tensor's device (a cpu Generator against a cuda tensor raises
+        # "Expected a 'cuda' device type for generator but found 'cpu'" -- this crashed the sweep).
+        g = torch.Generator(device=wm.role_query.device).manual_seed(seed)
         with torch.no_grad():
             wm.role_query.normal_(0.0, cfg_dict["rq_std"], generator=g)
     params = list(model.parameters()) + list(wm.parameters()) + list(judge.parameters())
