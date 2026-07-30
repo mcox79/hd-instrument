@@ -126,6 +126,8 @@ import exp_selective_overwrite_recall_nl_wm_readcond_v1 as rc  # noqa: E402
 
 ANCHOR_NAME = "wm_addressing_heldout_role_warmstart_v1"
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(REPO_ROOT, "tools"))
+import exp_checkpoint as ckpt  # noqa: E402  -- per-unit checkpoint/resume (MANDATORY, CLAUDE.md)
 OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
 V2_CKPT = base.V2_CKPT
 
@@ -222,11 +224,34 @@ def _write_crash_metrics(output_dir, exc):
     os.replace(tmp, os.path.join(output_dir, "metrics.json"))
 
 
+def _jsonify(obj):
+    """Recursively coerce torch Tensors / numpy scalars-arrays / other non-JSON-native values into
+    plain python types. Belt-and-suspenders ONLY -- the real fix is coercing values at the point they
+    are captured (see _digest_and_strip / train_arm_ext usage below); this exists so that any field we
+    missed fails safe (as a real number/list) instead of crashing json.dump after a ~75min run."""
+    if isinstance(obj, torch.Tensor):
+        return _jsonify(obj.detach().cpu().tolist())
+    if isinstance(obj, np.ndarray):
+        return _jsonify(obj.tolist())
+    if isinstance(obj, (np.floating,)):
+        return float(obj)
+    if isinstance(obj, (np.integer,)):
+        return int(obj)
+    if isinstance(obj, np.bool_):
+        return bool(obj)
+    if isinstance(obj, dict):
+        return {str(k): _jsonify(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_jsonify(v) for v in obj]
+    return obj
+
+
 def _atomic_write_metrics(output_dir, metrics):
     os.makedirs(output_dir, exist_ok=True)
+    safe_metrics = _jsonify(metrics)   # belt-and-suspenders; source fields are already JSON-native
     tmp = os.path.join(output_dir, "metrics.json.tmp")
     with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(metrics, f, indent=2)
+        json.dump(safe_metrics, f, indent=2)
     os.replace(tmp, os.path.join(output_dir, "metrics.json"))
 
 
@@ -427,6 +452,21 @@ def control_b_perrole_groundtruth(examples):
             "n_train": total_train, "n_held": total_held}
 
 
+def _digest_tensor(t):
+    return hashlib.sha256(t.detach().cpu().numpy().tobytes()).hexdigest()
+
+
+def _strip_for_checkpoint(res):
+    """Make a train_arm_ext() result durable-checkpoint-safe: the only non-JSON-native field is
+    'ev_logits' (a torch.Tensor, kept in-process for META_RULE_AF bit-identical-arms digest checks).
+    Replace it with its sha256 hex digest (a plain string) BEFORE recording the unit -- this preserves
+    the arms-must-differ check across a kill/resume boundary without ever putting a Tensor on disk."""
+    out = dict(res)
+    t = out.pop("ev_logits")
+    out["ev_logits_sha256"] = _digest_tensor(t)
+    return out
+
+
 # ---------------- training loop (identical arch; local so the TRAIN-ONLY aux mask is explicit) ----------------
 def _eval_acc(logits, answer):
     return float((logits.argmax(dim=-1) == answer).float().mean().item())
@@ -583,12 +623,108 @@ def decide_verdict(warm_results, controlA_results, controlB, longer_result):
              "controla_stuckflat_margin": CONTROLA_STUCKFLAT_MARGIN,
              "controlA_ok": bool(controlA_ok), "train_ok": bool(train_ok),
              "train_addrs": train_addrs, "held_addrs": held_addrs, "gaps": gaps,
-             "control_b": controlB, "longer_schedule_result": longer_result}
+             "control_b": controlB,
+             "longer_schedule_result": {k: v for k, v in longer_result.items() if k != "ev_logits"}}
     return verdict, msg, bands
+
+
+# ---------------- self-test: serialization safety (the exact crash class that lost a ~75min run) ----------------
+def serialization_selftest():
+    """Assert the final-metrics JSON path is bulletproof against stray Tensor/np-scalar fields:
+    (1) a synthetic dict shaped like the real one (nested dict containing a raw torch.Tensor, a
+        raw np.float32, a raw np.int64, and a tuple-of-(int, tensor) loss_curve entry) survives
+        _jsonify() + json.dumps() and round-trips to real python numbers, not stringified reprs.
+    (2) _strip_for_checkpoint() on a real train_arm_ext()-shaped dict removes the Tensor and leaves
+        a dict that json.dumps() accepts directly (no _jsonify needed -- this is the actual fix,
+        not just the belt-and-suspenders net)."""
+    fake_bands = {
+        "control_b": {"heldout_acc": 0.0, "train_acc": np.float64(0.91)},
+        "longer_schedule_result": {"eval_acc": torch.tensor(0.5), "steps_run": np.int64(6400),
+                                    "loss_curve": [(0, torch.tensor(1.23)), (799, 0.01)]},
+    }
+    safe = _jsonify(fake_bands)
+    dumped = json.dumps(safe)  # must not raise
+    reloaded = json.loads(dumped)
+    assert isinstance(reloaded["longer_schedule_result"]["eval_acc"], float), \
+        "Tensor field was stringified/lost instead of coerced to a real float"
+    assert abs(reloaded["longer_schedule_result"]["eval_acc"] - 0.5) < 1e-6
+    assert isinstance(reloaded["control_b"]["train_acc"], float)
+    assert reloaded["longer_schedule_result"]["steps_run"] == 6400
+
+    fake_train_res = dict(eval_acc=0.5, train_acc=0.6, addr_train_acc=0.9, addr_heldout_acc=0.8,
+                           recall_train_acc=0.5, recall_heldout_acc=0.4,
+                           ev_logits=torch.randn(4, K_SLOTS), loss_curve=[(0, 1.0), (10, 0.5)],
+                           steps_run=11, first_loss=1.0, last_loss=0.5)
+    stripped = _strip_for_checkpoint(fake_train_res)
+    assert "ev_logits" not in stripped, "ev_logits Tensor leaked past _strip_for_checkpoint"
+    assert isinstance(stripped["ev_logits_sha256"], str) and len(stripped["ev_logits_sha256"]) == 64
+    json.dumps(stripped)  # must not raise -- this is the real fix, not the fallback net
+    return {"jsonify_roundtrip_ok": True, "strip_for_checkpoint_ok": True}
+
+
+# ---------------- self-test: checkpoint/resume wiring (kill-after-k-units -> resume -> bit-identical) ----
+def checkpoint_resume_selftest():
+    """Exercise tools/exp_checkpoint.py exactly the way main()'s full-run loop uses it: record 2 of 4
+    synthetic units, simulate a process death, "resume" in a fresh call by checking completed_units(),
+    skip the 2 already-done, compute+record the remaining 2, then assert the assembled result is
+    bit-identical (same JSON) to a single uninterrupted pass over all 4 units, and that every recorded
+    unit is independently json.dumps-safe (so a real crash mid-run can never re-lose everything)."""
+    import shutil
+    import tempfile
+    tmp_dir = tempfile.mkdtemp(prefix="wm_addr_heldout_ckpt_selftest_")
+    try:
+        unit_specs = [("control_b", None), ("warm", 7), ("control_a", 7), ("control_a_longer", 7)]
+
+        def _compute(kind, seed):
+            # deterministic stand-in shaped like a real (possibly Tensor-bearing) unit result
+            g = torch.Generator().manual_seed((hash(kind) % 100000) + (seed or 0))
+            return {"kind": kind, "seed": seed, "acc": float(torch.rand(1, generator=g).item()),
+                    "ev_logits_sha256": _digest_tensor(torch.rand(3, 3, generator=g))}
+
+        def _key(kind, seed):
+            return ckpt.unit_key(kind, seed) if seed is not None else ckpt.unit_key(kind)
+
+        d_single = os.path.join(tmp_dir, "single")
+        for kind, seed in unit_specs:
+            k = _key(kind, seed)
+            res = _compute(kind, seed)
+            json.dumps(res)  # every recorded unit must be independently serializable
+            ckpt.record_unit(d_single, k, res)
+        single_final = ckpt.load_units(d_single)
+        assert len(single_final) == 4
+
+        d_resume = os.path.join(tmp_dir, "resume")
+        for kind, seed in unit_specs[:2]:               # "process dies" after 2/4 units
+            ckpt.record_unit(d_resume, _key(kind, seed), _compute(kind, seed))
+        done = ckpt.completed_units(d_resume)            # "new process" resumes here
+        assert done == {_key(k, s) for k, s in unit_specs[:2]}
+        n_skipped = 0
+        for kind, seed in unit_specs:
+            k = _key(kind, seed)
+            if k in done:
+                n_skipped += 1
+                continue
+            ckpt.record_unit(d_resume, k, _compute(kind, seed))
+        assert n_skipped == 2, "resume did not skip exactly the 2 already-completed units"
+        resumed_final = ckpt.load_units(d_resume)
+        assert len(resumed_final) == 4
+        assert json.dumps(resumed_final, sort_keys=True) == json.dumps(single_final, sort_keys=True), \
+            "resumed assembled result differs from an uninterrupted single-shot run"
+        return {"resume_skip_count": n_skipped, "bit_identical_resume": True}
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
 # ---------------- self-test ----------------
 def run_self_test():
+    _log("SELF-TEST: serialization safety (final-metrics json.dump path) ...")
+    ser_diag = serialization_selftest()
+    _log("  serialization_selftest PASS: %s" % ser_diag)
+
+    _log("SELF-TEST: checkpoint/resume wiring (kill-after-2-units -> resume -> bit-identical) ...")
+    ckpt_diag = checkpoint_resume_selftest()
+    _log("  checkpoint_resume_selftest PASS: %s" % ckpt_diag)
+
     _log("SELF-TEST: role split integrity ...")
     _log("  TRAIN_ROLES(%d)=%s HELD_OUT_ROLES(%d)=%s"
          % (len(TRAIN_ROLES), TRAIN_ROLES, len(HELD_OUT_ROLES), HELD_OUT_ROLES))
@@ -647,7 +783,8 @@ def run_self_test():
         assert 0.0 <= r["addr_train_acc"] <= 1.0
         assert 0.0 <= r["addr_heldout_acc"] <= 1.0
     _log("SELF-TEST PASS")
-    return {"role_split": {"train": TRAIN_ROLES, "held_out": HELD_OUT_ROLES}, "construction": cst,
+    return {"serialization_selftest": ser_diag, "checkpoint_resume_selftest": ckpt_diag,
+            "role_split": {"train": TRAIN_ROLES, "held_out": HELD_OUT_ROLES}, "construction": cst,
             "n_cached": n_cached, "warmstart_diag": wd, "control_b": cb,
             "tiny_warm": {"eval_acc": warm_res["eval_acc"], "addr_train": warm_res["addr_train_acc"],
                           "addr_held": warm_res["addr_heldout_acc"]},
@@ -677,8 +814,9 @@ def main():
         elapsed = time.perf_counter() - t0
         _atomic_write_metrics(OUTPUT_DIR, {
             "verdict": "SELFTEST_PASS",
-            "verdict_msg": "SELFTEST_PASS (role split integrity + expanded construction + real "
-                           "encoder + warm-start held-out-row integrity + control B + arms-differ)",
+            "verdict_msg": "SELFTEST_PASS (serialization safety + checkpoint/resume + role split "
+                           "integrity + expanded construction + real encoder + warm-start held-out-row "
+                           "integrity + control B + arms-differ)",
             "summary": "SELFTEST_PASS", "run_mode": "self_test", "elapsed_s": elapsed,
             "ts_iso": _now_iso(), "anchor_name": ANCHOR_NAME, "addr_chance": ADDR_CHANCE,
             "chance_recall": CHANCE_RECALL, "selftest": st})
@@ -706,35 +844,70 @@ def main():
         datasets[seed] = (build_index_batch_ext(tr, enc, seed), build_index_batch_ext(ev, enc, seed + 777),
                           tr, ev)
 
-    _log("--- control B (zero-training per-role-lookup ceiling; eval sets pooled) ---")
-    pooled_eval = []
-    for seed in SEEDS_FULL:
-        pooled_eval.extend(datasets[seed][3])
-    control_b = control_b_perrole_groundtruth(pooled_eval)
-    _log("  control_b: train_acc=%.4f held_acc=%.4f" % (control_b["train_acc"], control_b["heldout_acc"]))
+    # ---- MANDATORY per-unit checkpoint/resume (tools/exp_checkpoint.py; CLAUDE.md contract) ----
+    # 6 units total (matches expected_units above): control_b, warm x2 seeds, control_a x2 seeds,
+    # control_a_longer x1. Each unit is recorded to data/exp_<name>/units.jsonl the instant it finishes,
+    # so a crash/kill loses at most the one in-flight unit, never the whole ~75min run again.
+    prior_units = ckpt.load_units(OUTPUT_DIR)
+    if prior_units:
+        _log("checkpoint: %d/6 units already recorded on disk; resuming (skipping those)"
+             % len(prior_units))
+
+    cb_key = ckpt.unit_key("control_b")
+    if cb_key in prior_units:
+        control_b = prior_units[cb_key]
+        _log("  [resume] control_b loaded from checkpoint: train_acc=%.4f held_acc=%.4f"
+             % (control_b["train_acc"], control_b["heldout_acc"]))
+    else:
+        _log("--- control B (zero-training per-role-lookup ceiling; eval sets pooled) ---")
+        pooled_eval = []
+        for seed in SEEDS_FULL:
+            pooled_eval.extend(datasets[seed][3])
+        control_b = control_b_perrole_groundtruth(pooled_eval)
+        _log("  control_b: train_acc=%.4f held_acc=%.4f" % (control_b["train_acc"], control_b["heldout_acc"]))
+        ckpt.record_unit(OUTPUT_DIR, cb_key, control_b)   # already JSON-native (floats/ints only)
 
     _log("--- WARM_STARTED (pca_whiten + train-only aux + train-only warmstart) ---")
     warm_results = []
     for seed in SEEDS_FULL:
+        k = ckpt.unit_key("warm", seed)
+        if k in prior_units:
+            warm_results.append(prior_units[k])
+            _log("  [resume] warm seed=%d loaded from checkpoint" % seed)
+            continue
         tr_b, ev_b, _, _ = datasets[seed]
-        warm_results.append(run_warm_started(enc, cond, tr_b, ev_b, seed, steps_wm))
+        res = _strip_for_checkpoint(run_warm_started(enc, cond, tr_b, ev_b, seed, steps_wm))
+        ckpt.record_unit(OUTPUT_DIR, k, res)
+        warm_results.append(res)
 
     _log("--- CONTROL_A_NO_WARMSTART (original STUCK_FLAT setup, same split/steps) ---")
     controlA_results = []
     for seed in SEEDS_FULL:
+        k = ckpt.unit_key("control_a", seed)
+        if k in prior_units:
+            controlA_results.append(prior_units[k])
+            _log("  [resume] control_a seed=%d loaded from checkpoint" % seed)
+            continue
         tr_b, ev_b, _, _ = datasets[seed]
-        controlA_results.append(run_control_a(enc, cond, tr_b, ev_b, seed, steps_wm))
+        res = _strip_for_checkpoint(run_control_a(enc, cond, tr_b, ev_b, seed, steps_wm))
+        ckpt.record_unit(OUTPUT_DIR, k, res)
+        controlA_results.append(res)
 
     _log("--- CONTROL_A_LONGER_SCHEDULE (Olsson counter-hypothesis diagnostic, %dx steps, seed=%s) ---"
          % (LONGER_MULT, LONGER_SEED))
     longer_seed = LONGER_SEED[0]
-    tr_b, ev_b, _, _ = datasets[longer_seed]
-    longer_result = run_control_a(enc, cond, tr_b, ev_b, longer_seed, steps_wm * LONGER_MULT,
-                                  log_tag="CONTROL_A_LONGER")
+    lk = ckpt.unit_key("control_a_longer", longer_seed)
+    if lk in prior_units:
+        longer_result = prior_units[lk]
+        _log("  [resume] control_a_longer seed=%d loaded from checkpoint" % longer_seed)
+    else:
+        tr_b, ev_b, _, _ = datasets[longer_seed]
+        longer_result = _strip_for_checkpoint(
+            run_control_a(enc, cond, tr_b, ev_b, longer_seed, steps_wm * LONGER_MULT,
+                          log_tag="CONTROL_A_LONGER"))
+        ckpt.record_unit(OUTPUT_DIR, lk, longer_result)
 
-    def _digest(t):
-        return hashlib.sha256(t.cpu().numpy().tobytes()).hexdigest()
-    arms_differ = _digest(warm_results[0]["ev_logits"]) != _digest(controlA_results[0]["ev_logits"])
+    arms_differ = warm_results[0]["ev_logits_sha256"] != controlA_results[0]["ev_logits_sha256"]
 
     verdict, msg, bands = decide_verdict(warm_results, controlA_results, control_b, longer_result)
     elapsed = time.perf_counter() - t0
