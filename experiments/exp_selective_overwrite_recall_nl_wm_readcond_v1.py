@@ -142,13 +142,20 @@ LOSS_DESCEND_RATIO = 0.90
 ORACLE_CEILING = 1.0
 
 # config matrix: (name, conditioning, aux, warmstart)
+# ONE-VARIABLE discipline (2026-07-30 amendment): every arm below is EITHER a pure single-lever test
+# vs baseline ("zscore"/"pca_whiten" isolate conditioning; "aux_only"/"warm_only" isolate aux/warmstart
+# with conditioning="none", reusing the already-computed "none" RI control -- clean attribution, no
+# silent stacking) OR the one designated COMBINED arm (all three stacked, per the pre-reg contract).
+# Compute-proportionality: trimmed the earlier stacked-but-not-requested "pca_whiten_aux" /
+# "pca_whiten_warm" 2-variable rows (they served neither the pure-attribution goal nor the combined-arm
+# ask, just added 4 more LEARNED units) -- 6 configs total, not 8.
 CONFIGS = [
-    ("none",                 "none",       False, False),
-    ("zscore",               "zscore",     False, False),
-    ("pca_whiten",           "pca_whiten", False, False),
-    ("pca_whiten_aux",       "pca_whiten", True,  False),
-    ("pca_whiten_warm",      "pca_whiten", False, True),
-    ("pca_whiten_aux_warm",  "pca_whiten", True,  True),
+    ("none",                 "none",       False, False),   # ARM BASELINE (reproduce STILL_CANT_LEARN)
+    ("zscore",               "zscore",     False, False),   # ARM WHITEN (variant: per-dim z-score)
+    ("pca_whiten",           "pca_whiten", False, False),   # ARM WHITEN (primary: PCA-whiten)
+    ("aux_only",             "none",       True,  False),   # ARM AUX (pure, no conditioning)
+    ("warm_only",            "none",       False, True),    # ARM WARMSTART (pure, no conditioning)
+    ("pca_whiten_aux_warm",  "pca_whiten", True,  True),    # ARM COMBINED (all three stacked)
 ]
 CONDITIONINGS = ["none", "zscore", "pca_whiten"]   # controls computed once per conditioning
 
