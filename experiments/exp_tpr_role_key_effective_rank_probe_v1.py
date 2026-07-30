@@ -4,8 +4,10 @@
 # - final_metrics_atomicity: tmp_replace (os.replace at end)
 # - except SystemExit: raise BEFORE except Exception (no BaseException)
 # - crlb_n/a: no Cramer-Rao noise floor; discriminator = held-out-role RECALL accuracy + effective-rank
-#   vs the pre-registered TPR_PROBE_PASS / TPR_COLLAPSE / MIDDLE_BAND / INVALID decision rule (Director
-#   spawn 2026-07-30, "learned TPR role keys -- cheap gating probe before the full 3-arm binder ablation")
+#   vs the pre-registered TPR_PROBE_PASS / TPR_COLLAPSE / MIDDLE_BAND / INVALID / OBJECTIVE_STILL_BROKEN
+#   decision rule (Director spawn 2026-07-30 bugfix: "fix the training-objective bug -- reconstruction
+#   cosine-loss didn't fire the discriminator -- replace with contrastive/InfoNCE, verify trained>random
+#   on train BEFORE interpreting held-out generalization")
 # - baseline_in_band: CONTROL_A (flat learned key) is the can-fail floor -- MUST reproduce the prior
 #   near-chance HARD-FAIL (exp_oracle_context_invariant_address_wm_v2 / exp_wm_addressing_heldout_role_
 #   warmstart_v1) on held-out roles, else the fairness comparison is INVALID.
@@ -36,12 +38,27 @@ embedding-vs-factorization differs), so a genuine reproduction validates the com
 WHAT THIS CELL BUILDS (NOT the full 3-arm binder ablation -- that is gated on this probe's verdict):
 a small gradient-learned TPR-FACTORED role-key module trained end-to-end through the SUBSTRATE'S OWN
 bind/unbind algebra (hdlab/binding.py, complex64 FHRR dispatch: elementwise mul / conjugate-mul, exact
-by construction once keys are phase-encoded to unit-magnitude-per-component -- see _phase_encode) against a
-RECONSTRUCTION objective (bind role_key x filler -> superpose with 2 fixed-key distractor bindings ->
-unbind by role_key -> recover filler; loss = 1 - cosine(recovered, true_filler)), NOT a role-
-classification cross-entropy (classification pressure alone can shortcut via per-role logits with no
-factor structure, reproducing the flat-lookup failure mode -- this is the design's central point, per
-the plan's Section 1).
+by construction once keys are phase-encoded to unit-magnitude-per-component -- see _phase_encode) against
+a CONTRASTIVE (InfoNCE-style) objective (bind role_key x filler -> superpose with N_DISTRACT real-role
+distractor bindings -> unbind by role_key -> recover an approximate filler vector -> softmax
+cross-entropy over cosine-similarity-to-the-FULL-V_FILL-codebook, target = true filler id), NOT a
+role-classification cross-entropy over role identity (classification pressure over ROLES alone can
+shortcut via per-role logits with no factor structure, reproducing the flat-lookup failure mode -- this
+is the design's central point, per the plan's Section 1; the contrastive loss here classifies the
+FILLER, via the algebraic bind/unbind path, so it cannot bypass the role-key's separation quality).
+
+BUG-FIX NOTE (this commit, fixing f51c58bf9's self-test-PASS-but-training-broken regression): the
+ORIGINAL objective was a plain RECONSTRUCTION cosine-loss (loss = 1 - cosine(recovered, true_filler))
+with NO term penalizing similarity to the OTHER V_FILL-1 candidate fillers. MEASURED@dev smoke-preview
+(prior run, WITHHELD): this let gradient descent lower the loss while collapsing decode-ARGMAX
+discriminability -- trained keys ended up WORSE than the untrained random-key baseline at the same
+D_KEY (e.g. D_KEY=20 trained 0.305 vs random 0.55) -- a loss-metric mismatch, not a factorization
+result. FIX: replace the reconstruction cosine-loss with contrastive_ce_loss() (see below), a softmax
+cross-entropy over cosine-similarities to the FULL filler codebook -- this directly optimizes the same
+argmax-decode quantity decode_batch() measures, so trained keys can no longer "succeed" on the loss
+while failing the metric. Everything else (FactoredRoleKey/FlatRoleKey architecture, oracle CONTROL_B,
+TRAIN_ROLES_V2/HELD_OUT_ROLES_V2 split, unitary complex64 FHRR keys, D_KEY, distractor construction,
+optimizer/steps/seeds, checkpoint/resume) is UNCHANGED -- the loss function is the ONE variable fixed.
 
 ARCHITECTURE (the ONE variable across TPR vs CONTROL_A is factorization; everything else -- downstream
 projection Linear(H*H -> d_enc), training objective, distractor construction, optimizer, steps, seeds --
@@ -116,11 +133,20 @@ why literal CHANCE_RECALL=0.05 is unreachable in this algebraic bind/unbind-capa
 classifier/softmax-routing WM cells this design descends from; V_FILL=20 -> CHANCE_RECALL=0.05 is still
 reported for reference, matching exp_oracle_context_invariant_address_wm_v2 / exp_vsa_native_bind_
 zeroshot_role_v1's convention, but is not the operative CONTROL_A validity threshold here):
-  VALIDITY GATE (checked FIRST, MEASURED not literal-chance): CONTROL_A held-out recall must be <=
-    random_key_baseline_held + RANDOM_MARGIN=0.10 (a FRESH, untrained, fixed-seed reference table
-    measured every run) on EVERY seed, else verdict=INVALID -- an untrained/never-updated row doing
-    meaningfully BETTER than a random key of the same working dimensionality would mean something is
-    fairness-leaking, not that training legitimately helped a row it never touched.
+  DISCRIMINATOR-FIRES GATE (checked ABSOLUTE FIRST, before the validity gate): TPR held-out is only
+    interpretable if training actually LEARNED something, per the Director's fairness mandate (2026-07-30
+    bugfix spawn). Measured as: TPR train-role recall (acc_train, averaged over the fixed N_EVAL_TRAIN
+    eval set) must exceed the untrained random-key baseline's TRAIN-role recall (random_train, same
+    query-pool/distractor-universe/eval-count, computed fresh every run) by >= DISCRIM_MARGIN=0.05 on
+    EVERY seed. If this fails on ANY seed, verdict=OBJECTIVE_STILL_BROKEN -- the contrastive fix still
+    doesn't beat random on train, so the mechanism isn't learning and TPR-vs-flat is UNINTERPRETABLE;
+    report honestly, do NOT force a TPR_PROBE_PASS/COLLAPSE/MIDDLE_BAND verdict.
+  VALIDITY GATE (checked SECOND, only if the discriminator fires; MEASURED not literal-chance):
+    CONTROL_A held-out recall must be <= random_key_baseline_held + RANDOM_MARGIN=0.10 (a FRESH,
+    untrained, fixed-seed reference table measured every run) on EVERY seed, else verdict=INVALID -- an
+    untrained/never-updated row doing meaningfully BETTER than a random key of the same working
+    dimensionality would mean something is fairness-leaking, not that training legitimately helped a row
+    it never touched.
   TPR_PROBE_PASS (HARD-PASS -- GO to the full 3-arm binder ablation): held-out recall (TPR) >= 0.55 on
     EVERY seed AND (train_acc - held_acc) <= 0.20 on EVERY seed AND (TPR_held - CONTROL_A_held) >= 0.15
     on EVERY seed AND effective_rank(TPR, all 15 roles) > effective_rank(ORACLE, all 15 roles) (this
@@ -229,6 +255,19 @@ ANGLE_SCALE = 60.0
 D_KEY = 10
 RANDOM_BASELINE_SEED = 606004                    # fixed untrained reference-key table (see below)
 RANDOM_MARGIN = 0.10                             # CONTROL_A validity: held must not beat this margin
+# DISCRIM_MARGIN: the discriminator-fires gate (checked FIRST, before validity). TPR train-role recall
+# must exceed the untrained random-key baseline's train-role recall by this much on every seed, else the
+# contrastive fix still isn't learning and the run is OBJECTIVE_STILL_BROKEN (HYPOTHESIZED: 0.05 is a
+# small-but-non-noise margin at N_EVAL_TRAIN=400 samples/seed -- binomial SE at p~0.5 is ~0.025, so a
+# 0.05 gap is ~2 SE, distinguishable from eval noise).
+DISCRIM_MARGIN = 0.05
+# CONTRASTIVE_TEMPERATURE: scales the cosine-similarity-to-codebook logits before softmax
+# cross-entropy (contrastive_ce_loss). HYPOTHESIZED: cosine similarities live in [-1, 1], a raw-scale
+# softmax over such a narrow logit range is under-confident/slow to separate classes early in training;
+# temperature=0.15 sharpens the softmax (divides logits, effectively raising the score scale ~6.7x) to a
+# comparable strength to typical contrastive-learning presets (e.g. SimCLR-style tau in [0.05, 0.2]) --
+# not tuned against held-out results (fixed before running, per calibration_check discipline).
+CONTRASTIVE_TEMPERATURE = 0.15
 # N_DISTRACT: distractor bindings drawn from the SAME real role-id space as the query (NOT a separate
 # disjoint key pool) -- this is the load-bearing design point. If distractors used a small separate
 # pool of fixed random keys, unbind(h, query_key) would recover the target almost perfectly REGARDLESS
@@ -460,6 +499,31 @@ def complex_cosine_batched(a, b):
     return inner / (norm_a * norm_b)
 
 
+def complex_cosine_to_codebook(a, codebook):
+    """Cosine similarity of each row of `a` [B, d] complex64 against EVERY row of `codebook` [V, d]
+    complex64. Returns real [B, V]. THE BUGFIX PRIMITIVE: unlike complex_cosine_batched (one similarity
+    per example, against only the TRUE filler), this scores against ALL V candidates so the training
+    loss can be made to penalize similarity to the OTHER V-1 fillers explicitly -- the property the
+    original reconstruction-cosine loss lacked (MEASURED regression: trained keys < random-key baseline,
+    e.g. D_KEY=20 trained 0.305 vs random 0.55, because nothing in that loss discouraged the recovered
+    vector from drifting toward a WRONG filler as long as it also drifted toward the true one)."""
+    inner = torch.einsum("bd,vd->bv", a, codebook.conj()).real                    # [B, V]
+    norm_a = torch.sqrt((a.abs() ** 2).sum(dim=-1).clamp_min(1e-12))              # [B]
+    norm_v = torch.sqrt((codebook.abs() ** 2).sum(dim=-1).clamp_min(1e-12))       # [V]
+    return inner / (norm_a.unsqueeze(1) * norm_v.unsqueeze(0))
+
+
+def contrastive_ce_loss(recovered, fills_t, filler_table, temperature=CONTRASTIVE_TEMPERATURE):
+    """THE FIX: softmax cross-entropy over cosine-similarity-to-the-full-filler-codebook, target = true
+    filler id. This is EXACTLY the quantity decode_batch() takes argmax over (same complex_cosine_to_
+    codebook scores, same codebook), so minimizing this loss directly optimizes decode-argmax accuracy --
+    unlike the old reconstruction-cosine loss (1 - cos(recovered, true_filler) only), which had no term
+    discouraging similarity to the other V_FILL-1 candidates and could be lowered while decode-argmax
+    discriminability collapsed. Differentiable (einsum + cross_entropy are autograd-friendly)."""
+    scores = complex_cosine_to_codebook(recovered, filler_table) / temperature   # [B, V_FILL]
+    return F.cross_entropy(scores, fills_t)
+
+
 # ---------------- fixed (never-trained) filler codebook shared bit-identically across arms ----------
 def build_fixed_tables(d_out):
     filler_table = phase_vec_table(V_FILL, d_out, FILLER_KEY_SEED)
@@ -541,9 +605,7 @@ def train_role_key_module(mode, seed, d_out, filler_table, steps, batch, lr):
         h, query_keys = build_bound_superposition(module, roles_t, fills_t, d_roles_t, d_fills_t,
                                                     filler_table)
         recovered = binding.unbind(h, query_keys)
-        true_fv = filler_table[fills_t]
-        cos = complex_cosine_batched(recovered, true_fv)
-        loss = (1.0 - cos).mean()
+        loss = contrastive_ce_loss(recovered, fills_t, filler_table)
         loss.backward()
         opt.step()
         lv = float(loss.item())
@@ -650,6 +712,45 @@ def toy_bind_unbind_recon_selftest():
     return {"toy_cosine": cos, "toy_pred": pred, "toy_pass": True}
 
 
+def contrastive_loss_distinguishes_distractor_confusion_selftest():
+    """Directly demonstrates the ROOT CAUSE of the withheld run's bug and confirms the fix: constructs a
+    single decode-AMBIGUOUS example (a recovered vector whose inner product favors a WRONG (distractor)
+    filler over the TRUE filler, so decode_batch would MISPREDICT) and shows the OLD reconstruction
+    cosine-loss (1 - cos(recovered, true_filler), what f51c58bf9 trained against) reports a misleadingly
+    LOW loss for it (it only measures cos-to-true, blind to the winning distractor), while the NEW
+    contrastive_ce_loss reports a HIGH loss (it directly penalizes the distractor outscoring the true
+    filler in the same softmax the decode-argmax uses) -- i.e. the fix's loss landscape actually points
+    training away from decode failures the old loss was blind to. MEASURED@this file's dev iteration
+    (fixed toy construction, d=16, V=6, alpha=0.60 mix of wrong_fv/true_fv): old_style_loss=0.4069
+    (comfortably below a 0.9 "this looks fine" threshold) at the exact point decode flips to the WRONG
+    filler; new_loss=1.8502 (comfortably above 1.0, i.e. true filler's softmax prob well under 50%)."""
+    d = 16
+    filler_table = phase_vec_table(6, d, 909001)
+    true_idx, wrong_idx = 2, 3
+    true_fv = filler_table[true_idx]
+    wrong_fv = filler_table[wrong_idx]
+    alpha = 0.60                                    # weight on the WRONG filler (MEASURED to flip decode)
+    recovered = (alpha * wrong_fv + (1.0 - alpha) * true_fv).unsqueeze(0)   # [1, d]
+    pred = int(decode_batch(recovered, filler_table).item())
+    assert pred == wrong_idx, (
+        "SELFTEST_CONSTRUCTION_FAIL: expected the toy mix to flip decode to the WRONG filler "
+        "(pred=%d, expected=%d) -- alpha needs re-tuning" % (pred, wrong_idx))
+    old_style_loss = float((1.0 - complex_cosine_batched(recovered, true_fv.unsqueeze(0))).item())
+    fills_t = torch.tensor([true_idx], dtype=torch.int64)
+    new_loss = float(contrastive_ce_loss(recovered, fills_t, filler_table).item())
+    assert old_style_loss < 0.9, (
+        "SELFTEST_CONSTRUCTION_FAIL: old-style reconstruction loss=%.4f is not in the 'misleadingly low "
+        "despite wrong decode' regime this test needs (expected < 0.9)" % old_style_loss)
+    assert new_loss > 1.0, (
+        "CONTRASTIVE_LOSS_SELFTEST_FAIL: new contrastive_ce_loss=%.4f did not fire large on a "
+        "decode-WRONG example (expected > 1.0) -- the fix does not penalize distractor-similarity as "
+        "intended" % new_loss)
+    return {"pred": pred, "true_idx": true_idx, "wrong_idx": wrong_idx, "alpha": alpha,
+            "old_style_reconstruction_loss": old_style_loss, "new_contrastive_ce_loss": new_loss,
+            "bug_reproduced_old_loss_misleadingly_low_on_wrong_decode": bool(old_style_loss < 0.9),
+            "fix_confirmed_new_loss_fires_on_wrong_decode": bool(new_loss > 1.0)}
+
+
 def gradient_flows_selftest(d_out):
     """Directly measures that the reconstruction loss actually backpropagates into the role-key
     module's parameters (catches a silently-detached graph bug in the bind/unbind path)."""
@@ -665,7 +766,7 @@ def gradient_flows_selftest(d_out):
                                                    torch.from_numpy(fills), torch.from_numpy(d_roles),
                                                    torch.from_numpy(d_fills), filler_table)
         recovered = binding.unbind(h, query_keys)
-        loss = (1.0 - complex_cosine_batched(recovered, filler_table[torch.from_numpy(fills)])).mean()
+        loss = contrastive_ce_loss(recovered, torch.from_numpy(fills), filler_table)
         loss.backward()
         opt.step()
     moved = any(not torch.allclose(p0[n], p.detach()) for n, p in module.named_parameters())
@@ -685,6 +786,10 @@ def run_self_test():
         "both present in TRAIN_ROLES_V2: %s" % cz_diag["per_role"])
     _log("  PASS: reachability_all_ok=%s n_heldout_in_corpus_sample=%d"
          % (cz_diag["compositional_reachability_all_ok"], cz_diag["n_heldout_in_training_corpus_sample"]))
+
+    _log("SELF-TEST: contrastive loss penalizes distractor-similarity (the bugfix's central claim) ...")
+    loss_diag = contrastive_loss_distinguishes_distractor_confusion_selftest()
+    _log("  PASS: %s" % loss_diag)
 
     _log("SELF-TEST: gradient actually flows into the TPR module through bind/unbind (real_code_path) ...")
     grad_diag = gradient_flows_selftest(d_out=32)
@@ -729,22 +834,34 @@ def run_self_test():
                                          filler_table, "held")
     acc_held_r, dig_held_r = eval_recall(random_baseline, 7, HELD_OUT_ROLES_V2, TRAIN_ROLES_V2, 60,
                                          filler_table, "held")
-    tiny_results["random"] = {"acc_train": float("nan"), "acc_held": acc_held_r, "dig_held": dig_held_r}
+    # DISCRIMINATOR-FIRES preview (tiny scale, informational only -- only 30 steps, not the hard gate;
+    # the hard gate runs at FULL scale with 400 steps / N_EVAL_TRAIN=400 -- see decide_verdict). Compute
+    # the SAME random-key baseline's accuracy on the TRAIN-role pool (same query pool the trained arms
+    # are evaluated on) so the tiny run can show an early read on "does training even beat doing nothing".
+    acc_train_r, dig_train_r = eval_recall(random_baseline, 7, TRAIN_ROLES_V2, TRAIN_ROLES_V2, 60,
+                                           filler_table, "train")
+    tiny_results["random"] = {"acc_train": acc_train_r, "acc_held": acc_held_r, "dig_held": dig_held_r}
     tiny_results["oracle"] = {"acc_train": acc_train_o, "acc_held": acc_held_o, "dig_held": dig_held_o}
     digests = {m: r["dig_held"] for m, r in tiny_results.items()}
     pairs = [(a, b) for a in digests for b in digests if a < b]
     for a, b in pairs:
         assert digests[a] != digests[b], (
             "META_RULE_AF VIOLATION: arms %r and %r bit-identical (hash=%s)" % (a, b, digests[a]))
-    _log("  PASS tiny: %s tiny_PR(tpr=%.3f flat=%.3f oracle=%.3f)"
+    tiny_discriminator_preview = {
+        "tpr_train_acc": tiny_results["tpr"]["acc_train"], "random_train_acc": acc_train_r,
+        "tpr_beats_random_on_train_tiny_preview": bool(
+            tiny_results["tpr"]["acc_train"] > acc_train_r + DISCRIM_MARGIN)}
+    _log("  PASS tiny: %s tiny_PR(tpr=%.3f flat=%.3f oracle=%.3f) discriminator_preview=%s"
          % ({m: {"acc_train": round(r["acc_train"], 3), "acc_held": round(r["acc_held"], 3)}
              for m, r in tiny_results.items()},
-            tiny_pr["tpr"], tiny_pr["flat"], pr_oracle))
+            tiny_pr["tpr"], tiny_pr["flat"], pr_oracle, tiny_discriminator_preview))
 
     _log("SELF-TEST PASS")
     return {"toy_diag": toy_diag, "compositional_zeroshot_diag": cz_diag, "gradient_flow_diag": grad_diag,
+            "contrastive_loss_diag": loss_diag,
             "n_cached": n_cached, "d_enc": d_enc, "d_key": D_KEY, "pr_oracle_selftest": pr_oracle,
-            "tiny_pr": tiny_pr, "tiny_results": tiny_results, "arms_differ_verified": True}
+            "tiny_pr": tiny_pr, "tiny_results": tiny_results,
+            "tiny_discriminator_preview": tiny_discriminator_preview, "arms_differ_verified": True}
 
 
 def checkpoint_resume_selftest():
@@ -787,10 +904,18 @@ def checkpoint_resume_selftest():
 # ---------------- verdict ----------------
 def decide_verdict(per_seed):
     """per_seed: list of dicts, one per seed, each with keys tpr_held, tpr_train, flat_held, pr_tpr,
-    pr_oracle, random_held, pr_random (all per-seed since the module is re-initialized/re-trained per
-    seed; pr_oracle/pr_random/random_held are near-identical across seeds since the oracle table and
-    random-baseline table are never re-trained -- oracle is fixed globally, random_baseline is fixed
-    globally too, so only the EVAL sample varies by seed; recomputed per-seed for hygiene/logging).
+    pr_oracle, random_held, random_train, pr_random (all per-seed since the module is
+    re-initialized/re-trained per seed; pr_oracle/pr_random/random_held/random_train are near-identical
+    across seeds since the oracle table and random-baseline table are never re-trained -- oracle is
+    fixed globally, random_baseline is fixed globally too, so only the EVAL sample varies by seed;
+    recomputed per-seed for hygiene/logging).
+
+    DISCRIMINATOR-FIRES GATE (checked ABSOLUTE FIRST, per Director's 2026-07-30 bugfix spawn): TPR
+    train-role recall must exceed the untrained random-key baseline's train-role recall by
+    >= DISCRIM_MARGIN on EVERY seed. This is the fairness/sanity check that the contrastive-loss fix
+    (replacing the withheld run's broken reconstruction-cosine loss) actually LEARNS something -- if
+    training can't even beat doing nothing on the roles it trained on, the held-out TPR-vs-flat
+    comparison downstream is meaningless and must NOT be interpreted.
 
     VALIDITY GATE (CONTROL_A fairness floor): in the ORIGINAL classifier/softmax-routing WM cells this
     substrate already ran (exp_oracle_context_invariant_address_wm_v2 / exp_wm_addressing_heldout_role_
@@ -809,11 +934,33 @@ def decide_verdict(per_seed):
     tpr_train = [r["tpr_train"] for r in per_seed]
     flat_held = [r["flat_held"] for r in per_seed]
     random_held = [r["random_held"] for r in per_seed]
+    random_train = [r["random_train"] for r in per_seed]
     gaps = [tr - he for tr, he in zip(tpr_train, tpr_held)]
     beats_a = [th - fh for th, fh in zip(tpr_held, flat_held)]
     pr_tpr = [r["pr_tpr"] for r in per_seed]
     pr_oracle = [r["pr_oracle"] for r in per_seed]
     rank_beats_oracle = [pt > po for pt, po in zip(pr_tpr, pr_oracle)]
+
+    discrim_margins = [tt - rt for tt, rt in zip(tpr_train, random_train)]
+    discriminator_fires = all(dm >= DISCRIM_MARGIN for dm in discrim_margins)
+
+    if not discriminator_fires:
+        verdict = "OBJECTIVE_STILL_BROKEN"
+        msg = ("DISCRIMINATOR-FIRES GATE FAILED: TPR train-role recall=%s did not exceed the untrained "
+               "random-key baseline's train-role recall=%s by the required DISCRIM_MARGIN=%.2f on every "
+               "seed (margins=%s). The contrastive-loss fix still isn't learning to beat doing nothing "
+               "on the roles it trained on -- the mechanism is not learning, so TPR-vs-flat held-out "
+               "generalization is UNINTERPRETABLE and is NOT reported as a verdict. This is an honest "
+               "report of a still-broken training objective/regime, not a forced factorization verdict."
+               % ([round(t, 3) for t in tpr_train], [round(t, 3) for t in random_train], DISCRIM_MARGIN,
+                  [round(m, 3) for m in discrim_margins]))
+        bands = {"chance_recall": CHANCE_RECALL, "random_margin": RANDOM_MARGIN,
+                 "discrim_margin": DISCRIM_MARGIN, "discriminator_fires": False,
+                 "tpr_train": tpr_train, "random_train": random_train,
+                 "discrim_margins_per_seed": discrim_margins,
+                 "tpr_held": tpr_held, "flat_held": flat_held, "random_held": random_held,
+                 "control_a_valid": None}
+        return verdict, msg, bands
 
     control_a_valid = all(fh <= rh + RANDOM_MARGIN for fh, rh in zip(flat_held, random_held))
 
@@ -893,6 +1040,8 @@ def decide_verdict(per_seed):
              "hp_gap_max": HP_GAP_MAX, "hp_beat_control_a_min": HP_BEAT_CONTROL_A_MIN,
              "hf_held_max": HF_HELD_MAX, "hf_gap_max": HF_GAP_MAX,
              "hf_beat_control_a_min": HF_BEAT_CONTROL_A_MIN, "control_a_valid": bool(control_a_valid),
+             "discrim_margin": DISCRIM_MARGIN, "discriminator_fires": True,
+             "discrim_margins_per_seed": discrim_margins, "random_train": random_train,
              "tpr_held": tpr_held, "tpr_train": tpr_train, "flat_held": flat_held,
              "random_held": random_held,
              "gaps_train_minus_held": gaps, "beats_control_a": beats_a,
@@ -1000,8 +1149,14 @@ def main():
 
         acc_held_r, dig_held_r = eval_recall(random_baseline, seed, HELD_OUT_ROLES_V2, TRAIN_ROLES_V2,
                                              N_EVAL_HELD, filler_table, "held")
-        _log("  [random seed=%d] acc_held=%.4f PR=%.4f (untrained-reference floor for CONTROL_A validity)"
-             % (seed, acc_held_r, pr_random_fixed))
+        # DISCRIMINATOR-FIRES evidence (checked FIRST in decide_verdict, per Director's bugfix spawn):
+        # the untrained random-key baseline's accuracy on the SAME TRAIN-role query pool/eval count the
+        # trained arms are scored on -- this is the "did training beat doing nothing" comparison.
+        acc_train_r, dig_train_r = eval_recall(random_baseline, seed, TRAIN_ROLES_V2, TRAIN_ROLES_V2,
+                                               N_EVAL_TRAIN, filler_table, "train")
+        _log("  [random seed=%d] acc_train=%.4f acc_held=%.4f PR=%.4f (untrained-reference: acc_train is "
+             "the discriminator-fires floor, acc_held is the CONTROL_A validity floor)"
+             % (seed, acc_train_r, acc_held_r, pr_random_fixed))
 
         per_seed.append({"seed": seed, "tpr_held": seed_result["tpr"]["acc_held"],
                           "tpr_train": seed_result["tpr"]["acc_train"],
@@ -1009,7 +1164,8 @@ def main():
                           "flat_train": seed_result["flat"]["acc_train"],
                           "pr_tpr": seed_result["tpr"]["pr"], "pr_oracle": pr_oracle_fixed,
                           "oracle_held": acc_held_o, "oracle_train": acc_train_o,
-                          "random_held": acc_held_r, "pr_random": pr_random_fixed,
+                          "random_held": acc_held_r, "random_train": acc_train_r,
+                          "pr_random": pr_random_fixed,
                           "dig_tpr": seed_result["tpr"]["dig_held"], "dig_flat": seed_result["flat"]["dig_held"],
                           "dig_oracle": dig_held_o, "dig_random": dig_held_r})
 

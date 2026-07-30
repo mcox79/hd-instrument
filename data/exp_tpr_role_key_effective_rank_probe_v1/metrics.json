@@ -1,115 +1,224 @@
 {
-  "verdict": "SELFTEST_PASS",
-  "verdict_msg": "SELFTEST_PASS (toy bind/unbind-reconstruct + compositional-reachability + zeroshot-corpus-exclusion + gradient-flows + real encoder + real oracle table + tiny TPR/FLAT/ORACLE arms-differ + checkpoint-resume)",
-  "summary": "SELFTEST_PASS",
-  "run_mode": "self_test",
-  "elapsed_s": 11.373774099862203,
-  "ts_iso": "2026-07-30T22:04:17.813181+00:00",
+  "verdict": "OBJECTIVE_STILL_BROKEN",
+  "verdict_msg": "DISCRIMINATOR-FIRES GATE FAILED: TPR train-role recall=[0.39, 0.352, 0.34] did not exceed the untrained random-key baseline's train-role recall=[0.372, 0.325, 0.35] by the required DISCRIM_MARGIN=0.05 on every seed (margins=[0.018, 0.027, -0.01]). The contrastive-loss fix still isn't learning to beat doing nothing on the roles it trained on -- the mechanism is not learning, so TPR-vs-flat held-out generalization is UNINTERPRETABLE and is NOT reported as a verdict. This is an honest report of a still-broken training objective/regime, not a forced factorization verdict.",
+  "summary": "OBJECTIVE_STILL_BROKEN | chance_recall=0.0500 | DISCRIMINATOR-FIRES GATE FAILED: TPR train-role recall=[0.39, 0.352, 0.34] did not exceed the untrained random-key baseline's train-role recall=[0.372, 0.325, 0.35] by the required DISCRIM_MARGIN=0.05",
+  "run_mode": "full",
+  "elapsed_s": 32.03642789996229,
+  "ts_iso": "2026-07-30T22:16:52.078148+00:00",
   "anchor_name": "tpr_role_key_effective_rank_probe_v1",
   "chance_recall": 0.05,
-  "selftest": {
-    "toy_diag": {
-      "toy_cosine": 1.0,
-      "toy_pred": 3,
-      "toy_pass": true
+  "bands": {
+    "chance_recall": 0.05,
+    "random_margin": 0.1,
+    "discrim_margin": 0.05,
+    "discriminator_fires": false,
+    "tpr_train": [
+      0.39,
+      0.3525,
+      0.34
+    ],
+    "random_train": [
+      0.3725,
+      0.325,
+      0.35
+    ],
+    "discrim_margins_per_seed": [
+      0.017500000000000016,
+      0.02749999999999997,
+      -0.009999999999999953
+    ],
+    "tpr_held": [
+      0.355,
+      0.345,
+      0.36
+    ],
+    "flat_held": [
+      0.43,
+      0.365,
+      0.3225
+    ],
+    "random_held": [
+      0.345,
+      0.3775,
+      0.345
+    ],
+    "control_a_valid": null
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "tpr_held": 0.355,
+      "tpr_train": 0.39,
+      "flat_held": 0.43,
+      "flat_train": 0.3775,
+      "pr_tpr": 5.742829322814941,
+      "pr_oracle": 3.566441774368286,
+      "oracle_held": 0.29,
+      "oracle_train": 0.345,
+      "random_held": 0.345,
+      "random_train": 0.3725,
+      "pr_random": 6.293411731719971,
+      "dig_tpr": "b7b6cd258c16bc0e89c9a8cad1525592749e91c75675d8bba3b58d7cb80c99c2",
+      "dig_flat": "ee5d816c983aea2ed4192e67a7950c7f03e724a7e1a9a4b38842532bded79200",
+      "dig_oracle": "2e4cd786ae7fcfc44a1d2fcc49a034fbef21eef369e4eaddd618a16e7d209cfd",
+      "dig_random": "3479b722931a336a911085c8216c950e2fb1a21a6bf18f852502fa8cbbe2675f"
     },
-    "compositional_zeroshot_diag": {
-      "compositional_reachability_all_ok": true,
-      "per_role": {
-        "3": {
-          "a": 1,
-          "b": 0,
-          "a_in_train": true,
-          "b_in_train": true,
-          "reachable": true
-        },
-        "4": {
-          "a": 1,
-          "b": 1,
-          "a_in_train": true,
-          "b_in_train": true,
-          "reachable": true
-        },
-        "6": {
-          "a": 2,
-          "b": 0,
-          "a_in_train": true,
-          "b_in_train": true,
-          "reachable": true
-        },
-        "7": {
-          "a": 2,
-          "b": 1,
-          "a_in_train": true,
-          "b_in_train": true,
-          "reachable": true
-        },
-        "14": {
-          "a": 4,
-          "b": 2,
-          "a_in_train": true,
-          "b_in_train": true,
-          "reachable": true
-        }
-      },
-      "n_heldout_in_training_corpus_sample": 0,
-      "train_roles": [
-        0,
-        1,
-        2,
-        5,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13
-      ],
-      "held_out_roles": [
-        3,
-        4,
-        6,
-        7,
-        14
-      ]
+    {
+      "seed": 13,
+      "tpr_held": 0.345,
+      "tpr_train": 0.3525,
+      "flat_held": 0.365,
+      "flat_train": 0.2925,
+      "pr_tpr": 5.98940372467041,
+      "pr_oracle": 3.566441774368286,
+      "oracle_held": 0.335,
+      "oracle_train": 0.33,
+      "random_held": 0.3775,
+      "random_train": 0.325,
+      "pr_random": 6.293411731719971,
+      "dig_tpr": "1339f172a4d32eda51233966ddc19ae31033e2c9ba0d6a4aa613a2103cd80863",
+      "dig_flat": "d3ba3a95de5b63391c84b29d9a9984f57e3c16550934015a76190db31ab67f9f",
+      "dig_oracle": "8c7ea10692914b83e142f60e3fbc69995d4aa004b79389cd9eabd8a55458b25d",
+      "dig_random": "dae678f30404239ad5f3b388b68ee131fa39e8355041f18cbfd2523fb34262e8"
     },
-    "gradient_flow_diag": {
-      "params_moved": true
-    },
-    "n_cached": 3015,
-    "d_enc": 512,
-    "d_key": 10,
-    "pr_oracle_selftest": 3.566441774368286,
-    "tiny_pr": {
-      "tpr": 5.817229747772217,
-      "flat": 6.5916242599487305
-    },
-    "tiny_results": {
-      "tpr": {
-        "acc_train": 0.36666666666666664,
-        "acc_held": 0.3333333333333333,
-        "dig_held": "419f223fe8634a0b1685b422e6fe3c013048e554832ad45b2ba1821c73fde326"
+    {
+      "seed": 19,
+      "tpr_held": 0.36,
+      "tpr_train": 0.34,
+      "flat_held": 0.3225,
+      "flat_train": 0.3475,
+      "pr_tpr": 6.6242289543151855,
+      "pr_oracle": 3.566441774368286,
+      "oracle_held": 0.32,
+      "oracle_train": 0.3075,
+      "random_held": 0.345,
+      "random_train": 0.35,
+      "pr_random": 6.293411731719971,
+      "dig_tpr": "3a2339e7dc9e90e026d70bbad99c50291379eefe9e02a9b64c26dd3599b35b22",
+      "dig_flat": "d6a18c27d2e28671b3a7807013386507e5c0355a4a23b8571854ecf131082356",
+      "dig_oracle": "7f4f279cb320287ed4d27170baf3ecd05c941b9ccf13b4e90b582b0304c523ba",
+      "dig_random": "8d29e57e44da2f818da3d008d4cc4594ff83965e01edeb1d563b708394fc1cee"
+    }
+  ],
+  "compositional_zeroshot_diag": {
+    "compositional_reachability_all_ok": true,
+    "per_role": {
+      "3": {
+        "a": 1,
+        "b": 0,
+        "a_in_train": true,
+        "b_in_train": true,
+        "reachable": true
       },
-      "flat": {
-        "acc_train": 0.5166666666666667,
-        "acc_held": 0.3333333333333333,
-        "dig_held": "fde467a33135f18e5309158cb2527f080628fa62388454bd80aacb8cbcb2fe98"
+      "4": {
+        "a": 1,
+        "b": 1,
+        "a_in_train": true,
+        "b_in_train": true,
+        "reachable": true
       },
-      "random": {
-        "acc_train": NaN,
-        "acc_held": 0.36666666666666664,
-        "dig_held": "4a979e147a140bef924a93059e815f7f8c9dbd693d64ef23ccd0cff483ebc558"
+      "6": {
+        "a": 2,
+        "b": 0,
+        "a_in_train": true,
+        "b_in_train": true,
+        "reachable": true
       },
-      "oracle": {
-        "acc_train": 0.43333333333333335,
-        "acc_held": 0.35,
-        "dig_held": "f99464c483fd99c01537db257f331540e48b06a0898394af636bf176b25b662b"
+      "7": {
+        "a": 2,
+        "b": 1,
+        "a_in_train": true,
+        "b_in_train": true,
+        "reachable": true
+      },
+      "14": {
+        "a": 4,
+        "b": 2,
+        "a_in_train": true,
+        "b_in_train": true,
+        "reachable": true
       }
     },
-    "arms_differ_verified": true
+    "n_heldout_in_training_corpus_sample": 0,
+    "train_roles": [
+      0,
+      1,
+      2,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "held_out_roles": [
+      3,
+      4,
+      6,
+      7,
+      14
+    ]
   },
-  "checkpoint_selftest": {
-    "resume_skip_count": 1,
-    "bit_identical_resume": true
-  }
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "n_units_done": 6,
+  "params": {
+    "S_TARGET_TOTAL": 15,
+    "V_FILL": 20,
+    "N_A": 5,
+    "N_B": 3,
+    "H_FACTOR": 12,
+    "N_DISTRACT": 9,
+    "D_KEY": 10,
+    "ANGLE_SCALE": 60.0,
+    "RANDOM_MARGIN": 0.1,
+    "steps_train": 400,
+    "batch": 64,
+    "lr": 0.005,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "n_eval_train": 400,
+    "n_eval_held": 400,
+    "train_roles_v2": [
+      0,
+      1,
+      2,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "held_out_roles_v2": [
+      3,
+      4,
+      6,
+      7,
+      14
+    ],
+    "n_cached_sentences": 3015,
+    "d_enc": 512,
+    "encoder": "real_v2_frozen",
+    "conditioning": "pca_whiten",
+    "binding_flavor": "FHRR_complex64_phase_encoded",
+    "filler_key_seed": 606002,
+    "random_baseline_seed": 606004,
+    "oracle_probe_seed": 20260730,
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true",
+  "progress_cadence_expected_s": 10,
+  "crlb_n_a": "no Cramer-Rao noise floor; discriminator is the pre-registered held-out-recall + effective-rank decision rule (see decide_verdict)",
+  "calibration_check": "default_ok_for_this_regime: all hyperparameters (steps_train/batch/lr/H_FACTOR/N_DISTRACT) fixed BEFORE running per the design plan, not tuned against held-out results"
 }
