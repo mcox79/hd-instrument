@@ -236,7 +236,11 @@ def power_stats(trained_acc, n_eval, ri_accs):
 # ---------------------------------------------------------------------------
 # Helpers (nested balanced subsets; arms-differ; shuffled-KB placebo; gap-B random-init control)
 # ---------------------------------------------------------------------------
-def _arms_must_differ(arms_outputs):
+def _arms_must_differ(arms_outputs, exempt_pairs=frozenset()):
+    """META_RULE_AF hash-test. exempt_pairs: set of frozenset({armX,armY}) legitimately allowed to
+    be bit-identical (e.g. MES A vs B: KB is absent on maintenance, so Arm B's all-zeros KB path ==
+    Arm A's placebo column AND both share the same judge-head init -> intentionally identical, the
+    'Arm B degrades to Arm A on maintenance' NULL per the fairness VET, not an arm-implementation bug)."""
     digests = {}
     for name, out in arms_outputs.items():
         arr = out.detach().cpu().numpy() if torch.is_tensor(out) else np.asarray(out)
@@ -245,6 +249,8 @@ def _arms_must_differ(arms_outputs):
     for i in range(len(names)):
         for j in range(i + 1, len(names)):
             a, b = names[i], names[j]
+            if frozenset({a, b}) in exempt_pairs:
+                continue
             assert digests[a] != digests[b], (
                 "META_RULE_AF VIOLATION: arms %r and %r bit-identical (hash=%s)" % (a, b, digests[a]))
     return digests
@@ -591,14 +597,24 @@ def run_gate(mes_sizes, seeds, ctrl_seeds, target_steps, ctrl_epochs, device_str
         _write_json(output_dir, "bge_recal.json", bge)   # SEPARATE file (hygiene #6)
 
     # ---- arms-must-differ (all arm-pairs per construction/size/seed) ----
+    # MES A vs B is EXEMPT: KB is absent on maintenance -> Arm B degrades to Arm A by design (the
+    # intended null, VET point #5). KD pairs (A/B/B_SHUF) genuinely differ (zeros vs real vs
+    # shuffled KB prior) and keep the check -- that is where a bit-identical bug would matter.
     arm_digests = {}
+    arms_differ_exempted = []
     for cname in ("MES", "KD"):
         keys = sorted({(k[1], k[2]) for k in logits_for_hash if k[0] == cname})
+        exempt = {frozenset({"A", "B"})} if cname == "MES" else set()
         for size, seed in keys:
             arms_here = {k[3]: logits_for_hash[k] for k in logits_for_hash
                          if k[0] == cname and k[1] == size and k[2] == seed}
-            d = _arms_must_differ({a: torch.from_numpy(v) for a, v in arms_here.items()})
-            arm_digests["%s_%s_%d" % (cname, size, seed)] = d
+            d = _arms_must_differ({a: torch.from_numpy(v) for a, v in arms_here.items()},
+                                  exempt_pairs=exempt)
+            arm_digests["%s_%s_%s" % (cname, size, seed)] = d
+            if exempt:
+                arms_differ_exempted.append(dict(construction=cname, size=size, seed=seed,
+                                                 pair=["A", "B"],
+                                                 rationale="MES KB-absent -> Arm B degrades to Arm A (intended null)"))
 
     elapsed = time.perf_counter() - t0
 
@@ -700,7 +716,8 @@ def run_gate(mes_sizes, seeds, ctrl_seeds, target_steps, ctrl_epochs, device_str
         arms_capacity_equalized=True, shuffled_kb_placebo_arm=True,
         gap_b_token_rep_path=True, cuda_generator_safe=True,
         expected_n_units=expected, n_units_done=n_done, cardinality_ok=bool(n_done == expected),
-        arms_differ_verified=True, arm_digests=arm_digests, data_fixed_across_seeds=True,
+        arms_differ_verified=True, arm_digests=arm_digests,
+        arms_differ_exempted=arms_differ_exempted, data_fixed_across_seeds=True,
         start_marker_written=True, crash_diagnostic_present=True, heartbeat_present=True,
         final_metrics_atomicity="tmp_replace", cell_chunked=False,
         defensive_error_checking="passed_all_4_patterns",
