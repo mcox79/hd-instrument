@@ -1,0 +1,505 @@
+{
+  "verdict": "LOCALIZED_WALL",
+  "verdict_msg": "Floors valid. REF_SPAN reproduces the clean loop (span={'a_name_maintenance': 0.98, 'b_competitive_coref': 1.0, 'c_overwrite': 0.9837837837837837}, span_ref_ok=True) while MAIN_ENC drops (main={'a_name_maintenance': 0.4625, 'b_competitive_coref': 0.5825, 'c_overwrite': 0.4507823613086771}); breaks-first=c_overwrite. Per-stage role_attn decode = {'ENT': 0.8388608738542846, 'MARK': 0.8758332966126767, 'S': 0.9599810517748104, 'P': 0.8765000985067886, 'ENT_q': 0.8000333000333, 'MARK_q': 1.0, 'entity_consistency': 0.7949999999999999} (localizes the wall in EXTRACTION, not the loop). This is the informative diagnostic outcome.",
+  "summary": "LOCALIZED_WALL | chance=0.0500 | Floors valid. REF_SPAN reproduces the clean loop (span={'a_name_maintenance': 0.98, 'b_competitive_coref': 1.0, 'c_overwrite': 0.9837837837837837}, span_ref_ok=",
+  "run_mode": "lite",
+  "elapsed_s": 64.70191899989732,
+  "ts_iso": "2026-07-31T03:47:31.882377+00:00",
+  "anchor_name": "situation_model_assembly_encoder_backed_v1",
+  "chance": 0.05,
+  "bands": {
+    "chance": 0.05,
+    "proven_min": 0.8,
+    "gap_max": 0.55,
+    "main_enc_acc": {
+      "a_name_maintenance": [
+        0.49,
+        0.435
+      ],
+      "b_competitive_coref": [
+        0.585,
+        0.58
+      ],
+      "c_overwrite": [
+        0.4594594594594595,
+        0.4421052631578947
+      ]
+    },
+    "ref_span_acc": {
+      "a_name_maintenance": [
+        0.98,
+        0.98
+      ],
+      "b_competitive_coref": [
+        1.0,
+        1.0
+      ],
+      "c_overwrite": [
+        0.9675675675675676,
+        1.0
+      ]
+    },
+    "main_enc_mean": {
+      "a_name_maintenance": 0.4625,
+      "b_competitive_coref": 0.5825,
+      "c_overwrite": 0.4507823613086771
+    },
+    "ref_span_mean": {
+      "a_name_maintenance": 0.98,
+      "b_competitive_coref": 1.0,
+      "c_overwrite": 0.9837837837837837
+    },
+    "stage_role_attn_mean": {
+      "ENT": 0.8388608738542846,
+      "MARK": 0.8758332966126767,
+      "S": 0.9599810517748104,
+      "P": 0.8765000985067886,
+      "ENT_q": 0.8000333000333,
+      "MARK_q": 1.0,
+      "entity_consistency": 0.7949999999999999
+    },
+    "stage_span_mean": {
+      "ENT": 1.0,
+      "MARK": 1.0,
+      "S": 1.0,
+      "P": 1.0,
+      "ENT_q": 0.9805860805860807,
+      "MARK_q": 1.0,
+      "entity_consistency": 1.0
+    },
+    "pooled_acc": {
+      "a_name_maintenance": [
+        0.054999999701976776,
+        0.03999999910593033
+      ],
+      "b_competitive_coref": [
+        0.054999999701976776,
+        0.07000000029802322
+      ],
+      "c_overwrite": [
+        0.037837836891412735,
+        0.02631578966975212
+      ]
+    },
+    "most_recent_acc": {
+      "a_name_maintenance": [
+        0.0,
+        0.01
+      ],
+      "b_competitive_coref": [
+        0.005,
+        0.005
+      ],
+      "c_overwrite": [
+        0.005405405405405406,
+        0.005263157894736842
+      ]
+    },
+    "random_addr_acc": {
+      "a_name_maintenance": [
+        0.02,
+        0.05
+      ],
+      "b_competitive_coref": [
+        0.095,
+        0.065
+      ],
+      "c_overwrite": [
+        0.016216216216216217,
+        0.05263157894736842
+      ]
+    },
+    "no_coref_acc_b": [
+      0.065,
+      0.085
+    ],
+    "wrongrole_acc": {
+      "a_name_maintenance": [
+        0.07,
+        0.085
+      ],
+      "b_competitive_coref": [
+        0.085,
+        0.085
+      ],
+      "c_overwrite": [
+        0.05405405405405406,
+        0.08421052631578947
+      ]
+    },
+    "shuffled_acc": {
+      "a_name_maintenance": [
+        0.095,
+        0.04
+      ],
+      "b_competitive_coref": [
+        0.065,
+        0.095
+      ],
+      "c_overwrite": [
+        0.06486486486486487,
+        0.07894736842105263
+      ]
+    },
+    "floors_ok": true,
+    "floor_notes": [],
+    "pooled_reservoir_decodable": false,
+    "breaks_first_query_type": "c_overwrite"
+  },
+  "encoder_build": {
+    "n_corpus": 1280,
+    "n_uniq": 907,
+    "var_share_top1": 0.1596653427890222,
+    "var_share_top8": 0.5802188600156337
+  },
+  "conditioning": "pca_whiten",
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "train_n": 200,
+      "eval_n": 200,
+      "arms": {
+        "main_enc": {
+          "a_name_maintenance": {
+            "acc": 0.49,
+            "n": 200,
+            "preds_digest": "eba085225b58be504dae01ecd2f284516901c865abde7fca2064ad8a869dae44"
+          },
+          "b_competitive_coref": {
+            "acc": 0.585,
+            "n": 200,
+            "preds_digest": "9fb9b55cb03f0c53743c077701813f867a612ae5f08bf942234d407d09868f6e"
+          },
+          "c_overwrite": {
+            "acc": 0.4594594594594595,
+            "n": 185,
+            "preds_digest": "392e94b7c9509230e1c02e0b54b4085d921447f4cbb833684ef1f173cf6ff59c"
+          }
+        },
+        "ref_span": {
+          "a_name_maintenance": {
+            "acc": 0.98,
+            "n": 200,
+            "preds_digest": "f80231aa579c0d799736829b5d4bce3da734248cbd7fbac030985276433ee7a7"
+          },
+          "b_competitive_coref": {
+            "acc": 1.0,
+            "n": 200,
+            "preds_digest": "f42d9bd681a62ac24188039eb94460d0d31e47d51fb265cc1ff2ed8cd4673810"
+          },
+          "c_overwrite": {
+            "acc": 0.9675675675675676,
+            "n": 185,
+            "preds_digest": "0af18a5303db63c02d351bbb3dacd2d205d4823c0146330815201f653844d7d1"
+          }
+        },
+        "random_addr": {
+          "a_name_maintenance": {
+            "acc": 0.02,
+            "n": 200,
+            "preds_digest": "96113baf6c9225aa5c20d05f652d18bc1680b8c30670dff0b8a3d1092395bf0c"
+          },
+          "b_competitive_coref": {
+            "acc": 0.095,
+            "n": 200,
+            "preds_digest": "7b47b19461b770c36a5eab5291777739a223f6a93884339a4091c658899e2d41"
+          },
+          "c_overwrite": {
+            "acc": 0.016216216216216217,
+            "n": 185,
+            "preds_digest": "f0458546fca8ba5b6c8e7bc9ab318bc26b216ba09237737d85d71cdf390d639e"
+          }
+        },
+        "no_coref": {
+          "a_name_maintenance": {
+            "acc": 0.49,
+            "n": 200,
+            "preds_digest": "eba085225b58be504dae01ecd2f284516901c865abde7fca2064ad8a869dae44"
+          },
+          "b_competitive_coref": {
+            "acc": 0.065,
+            "n": 200,
+            "preds_digest": "bbdcf502cd689f6d39a1c11a2f97c456c42cabb2af25a8e4f96ea18ff28046fc"
+          },
+          "c_overwrite": {
+            "acc": 0.4594594594594595,
+            "n": 185,
+            "preds_digest": "392e94b7c9509230e1c02e0b54b4085d921447f4cbb833684ef1f173cf6ff59c"
+          }
+        },
+        "wrongrole": {
+          "a_name_maintenance": {
+            "acc": 0.07,
+            "n": 200,
+            "preds_digest": "c4214e53c187fd6cf3b7219539de4ac18507a2064f065f9f73d7614220f1b889"
+          },
+          "b_competitive_coref": {
+            "acc": 0.085,
+            "n": 200,
+            "preds_digest": "00f72b0f344bfffa8a49c8d71cda4fe27be316c46ae85cc17ba3cea4a27ba08f"
+          },
+          "c_overwrite": {
+            "acc": 0.05405405405405406,
+            "n": 185,
+            "preds_digest": "d01ed587bc1d302a3360adfcc54d8a1191927f6dabc59b5b4e9644cde9a97dd8"
+          }
+        },
+        "shuffled": {
+          "a_name_maintenance": {
+            "acc": 0.095,
+            "n": 200,
+            "preds_digest": "71bec332f0f78720c7cb1e6fc93e5648fb43726fdae29ae9028d86f39901b472"
+          },
+          "b_competitive_coref": {
+            "acc": 0.065,
+            "n": 200,
+            "preds_digest": "d4f4ee89ca4f06f946b3263d2efd703716686163503329c8b5d56ef4a137ba7a"
+          },
+          "c_overwrite": {
+            "acc": 0.06486486486486487,
+            "n": 185,
+            "preds_digest": "f4de4584cbcbf89bb3ccece602d2c190ee3b50e46cdb00e1f18e663bbd6edf3b"
+          }
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": {
+          "acc": 0.0,
+          "n": 200
+        },
+        "b_competitive_coref": {
+          "acc": 0.005,
+          "n": 200
+        },
+        "c_overwrite": {
+          "acc": 0.005405405405405406,
+          "n": 185
+        }
+      },
+      "pooled": {
+        "a_name_maintenance": {
+          "acc": 0.054999999701976776,
+          "n": 200
+        },
+        "b_competitive_coref": {
+          "acc": 0.054999999701976776,
+          "n": 200
+        },
+        "c_overwrite": {
+          "acc": 0.037837836891412735,
+          "n": 185
+        }
+      },
+      "stage_span": {
+        "ENT": 1.0,
+        "MARK": 1.0,
+        "S": 1.0,
+        "P": 1.0,
+        "ENT_q": 0.9714285714285714,
+        "MARK_q": 1.0,
+        "entity_consistency": 1.0
+      },
+      "stage_role_attn": {
+        "ENT": 0.8376578645235362,
+        "MARK": 0.8731343283582089,
+        "S": 0.9603847034577513,
+        "P": 0.8797801694527135,
+        "ENT_q": 0.8051948051948052,
+        "MARK_q": 1.0,
+        "entity_consistency": 0.7966666666666666
+      }
+    },
+    {
+      "seed": 13,
+      "train_n": 200,
+      "eval_n": 200,
+      "arms": {
+        "main_enc": {
+          "a_name_maintenance": {
+            "acc": 0.435,
+            "n": 200,
+            "preds_digest": "b00c689a30af7427041a8f6b6b26e553d2ce8bce63dd2b99fbbc9163de88782e"
+          },
+          "b_competitive_coref": {
+            "acc": 0.58,
+            "n": 200,
+            "preds_digest": "51ce1fb5aed47203cfa802287aeb5b51fcb349979c1f239fa1ad3927648f1b3b"
+          },
+          "c_overwrite": {
+            "acc": 0.4421052631578947,
+            "n": 190,
+            "preds_digest": "6810b1b2d156ba26d1a804b200968467217b4b8d7b23e6df2cb968d578c92bdf"
+          }
+        },
+        "ref_span": {
+          "a_name_maintenance": {
+            "acc": 0.98,
+            "n": 200,
+            "preds_digest": "2132659582ea55411835b6c929b35a81cc6cd24442c30b07c45f0906f41b2aad"
+          },
+          "b_competitive_coref": {
+            "acc": 1.0,
+            "n": 200,
+            "preds_digest": "58d4532650581358e3eb189e83cd7123181f27ac1908699a3efe18ec27c9b37d"
+          },
+          "c_overwrite": {
+            "acc": 1.0,
+            "n": 190,
+            "preds_digest": "5836e1597d8f5881fbe82c6cc884cc224dccf0f69e4a8391fc72a3b000f2197c"
+          }
+        },
+        "random_addr": {
+          "a_name_maintenance": {
+            "acc": 0.05,
+            "n": 200,
+            "preds_digest": "c9a98f75f308272149f6ea6729c93205625b6c4ad3a2625d0f2d95a542ddd37d"
+          },
+          "b_competitive_coref": {
+            "acc": 0.065,
+            "n": 200,
+            "preds_digest": "4e1c163b9aafcba3c6fd273895b3acb3255842fb8b027f66797aca89f00b5098"
+          },
+          "c_overwrite": {
+            "acc": 0.05263157894736842,
+            "n": 190,
+            "preds_digest": "94f53aeeeb466b26ac29801e44efa92592895eeb00fe5cfdef778e24bc0a9774"
+          }
+        },
+        "no_coref": {
+          "a_name_maintenance": {
+            "acc": 0.435,
+            "n": 200,
+            "preds_digest": "b00c689a30af7427041a8f6b6b26e553d2ce8bce63dd2b99fbbc9163de88782e"
+          },
+          "b_competitive_coref": {
+            "acc": 0.085,
+            "n": 200,
+            "preds_digest": "aa1111f24f280567bb245ee69f2a234f4f89d230c1898a6028a36f19a9475a28"
+          },
+          "c_overwrite": {
+            "acc": 0.4421052631578947,
+            "n": 190,
+            "preds_digest": "6810b1b2d156ba26d1a804b200968467217b4b8d7b23e6df2cb968d578c92bdf"
+          }
+        },
+        "wrongrole": {
+          "a_name_maintenance": {
+            "acc": 0.085,
+            "n": 200,
+            "preds_digest": "4e38beda9bded7fc5ad740ca060ea3417ac19d5edfaa60d26f2a910ccbafd1a7"
+          },
+          "b_competitive_coref": {
+            "acc": 0.085,
+            "n": 200,
+            "preds_digest": "45371e7a1c6a3ee2794735090f243278e3939755a0e93a1d44dd09d6667f3549"
+          },
+          "c_overwrite": {
+            "acc": 0.08421052631578947,
+            "n": 190,
+            "preds_digest": "addb7428874c99dd704564064390a6fa8af867d269f16d19cdf3c6566a9ef7d9"
+          }
+        },
+        "shuffled": {
+          "a_name_maintenance": {
+            "acc": 0.04,
+            "n": 200,
+            "preds_digest": "e41f9cccfe1d1ee88df8622485c6fc56d60ef09e22c9f0e1f3de42567076f962"
+          },
+          "b_competitive_coref": {
+            "acc": 0.095,
+            "n": 200,
+            "preds_digest": "d3ace88454a5e120f1f8c0e75cb6f6001a12ef0f491f8dfc7a312361a3f96b72"
+          },
+          "c_overwrite": {
+            "acc": 0.07894736842105263,
+            "n": 190,
+            "preds_digest": "deb5449a91aa8fbe2a4dd972ffffbeab70e7d291f4efc8f55caf4f185f5c62e5"
+          }
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": {
+          "acc": 0.01,
+          "n": 200
+        },
+        "b_competitive_coref": {
+          "acc": 0.005,
+          "n": 200
+        },
+        "c_overwrite": {
+          "acc": 0.005263157894736842,
+          "n": 190
+        }
+      },
+      "pooled": {
+        "a_name_maintenance": {
+          "acc": 0.03999999910593033,
+          "n": 200
+        },
+        "b_competitive_coref": {
+          "acc": 0.07000000029802322,
+          "n": 200
+        },
+        "c_overwrite": {
+          "acc": 0.02631578966975212,
+          "n": 190
+        }
+      },
+      "stage_span": {
+        "ENT": 1.0,
+        "MARK": 1.0,
+        "S": 1.0,
+        "P": 1.0,
+        "ENT_q": 0.9897435897435898,
+        "MARK_q": 1.0,
+        "entity_consistency": 1.0
+      },
+      "stage_role_attn": {
+        "ENT": 0.8400638831850331,
+        "MARK": 0.8785322648671446,
+        "S": 0.9595774000918695,
+        "P": 0.8732200275608636,
+        "ENT_q": 0.7948717948717948,
+        "MARK_q": 1.0,
+        "entity_consistency": 0.7933333333333333
+      }
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "K_TRACK": 6,
+    "V_FILL": 20,
+    "ATTN_TEMP": 0.1,
+    "ORACLE_CTX_PER_COLOR": 8,
+    "train_n": 200,
+    "eval_n": 200,
+    "seeds": [
+      7,
+      13
+    ],
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}
