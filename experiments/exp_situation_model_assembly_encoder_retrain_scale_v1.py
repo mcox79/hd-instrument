@@ -48,26 +48,28 @@ FOUR BOUNDED AXES (ONE-variable per condition where possible; all vs the SAME he
                    good frozen (so a's residual error is role/state decode, orthogonal to the retrain),
                    while name<->mark was the thing the retrain fixes (so b lifts). Reported as the cause.
 
-PRE-REGISTERED BANDS (fixed BEFORE running; from the Director spawn):
-  CLEAN_PASS : EXISTS a condition where, robust across its seeds, held-out per-type tuned loop acc >= 0.60
-               for ALL THREE query types (incl a) AND held-out within-minus-cross >= 0.30 AND held-out
-               q_agree >= 0.60 AND memorization gap closes (train-minus-held loop acc <= 0.15) AND no
-               collapse. => break the wall -> escalate to scale.
-  PLATEAU    : across ALL conditions the best held-out tuned_loop_mean stays within 0.03 of the lite's
-               0.534 (does NOT move materially with more seeds/diversity/unfreeze) => top-layer fine-tune
-               is near its ceiling; a FULL from-scratch/deeper retrain is the next question (Director+USER),
-               not a quick win.
-  MIDDLE_TRAJECTORY : anything between -- reported WITH the trajectory (how far more diversity/depth/seeds
-               MOVED loop_mean and the per-type minimum toward the bar = the extrapolation signal).
-  INVALID    : a can-fail floor did not collapse OR POOLED_READER is reservoir-decodable (validity gate
-               inherited VERBATIM from the lite).
-  COLLAPSE guarded: within-minus-cross <= 0.10 flags collapse; a collapsed encoder craters loop acc (loop
-               >= 0.60 required for CLEAN_PASS); CLEAN_PASS requires within-minus-cross >= 0.30.
-  REFERENCE POINTS kept visible per condition: FROZEN_MAIN_ENC (wall), ORACLE (~0.65 per type ceiling),
-  REF_SPAN (~0.97 positional ceiling), all on the IDENTICAL held-out eval set.
+PRE-REGISTERED BANDS (RE-REG 2026-07-31; preregs/2026-07-31_encoder_retrain_scale_corrected_guard.md):
+  The original wc>=0.30 collapse gate was VET-confirmed BACKWARDS (anti-correlated with loop: the ONLY config
+  passing it was the degenerate full-unfreeze d6 whose loop CRATERS to 0.292). It is REPLACED here (not
+  discarded post-hoc) by a loop-anchored distinct-not-collapsed guard, and the run is REPEATED.
+  CLEAN_PASS : EXISTS a config (depth,nctx), robust across >=2 seeds, EVERY seed-run with held-out per-type
+               tuned loop acc >= 0.60 for ALL THREE query types AND the CORRECTED collapse guard HOLDS
+               [C1 tuned_loop>=frozen_loop; C2 (wc_held-wc_frozen)<=0.15; C3 entcons>=0.85; C4 q_agree>=0.60]
+               AND memorization gap (train-minus-held loop) <= 0.15 AND tuned_loop <= TUNED-oracle+0.02
+               (correct ceiling, NOT the frozen-arm oracle). => break the wall -> escalate to scale.
+  PLATEAU    : across ALL conditions the best held-out tuned_loop_mean stays within 0.03 of the lite's 0.534.
+  MIDDLE_TRAJECTORY : moved but no config clears CLEAN_PASS across its seeds -- reported WITH the trajectory.
+  INVALID    : a can-fail floor did not collapse OR POOLED_READER reservoir-decodable OR the guard
+               RUBBER-STAMPS the degenerate d6 (must-fail control).
+  MUST-FAIL CONTROL: d6_div40_s7 (full unfreeze, cratered loop) MUST FAIL the corrected guard, else INVALID.
+  TUNED-ORACLE: the oracle fixes only ENT-address; S/P fills read via encoder decode, so a BETTER encoder
+               RAISES the ceiling -> report the TUNED-oracle (built on ext_tn) as the real per-arm ceiling.
+  REFERENCE POINTS per condition: FROZEN_MAIN_ENC (wall), ORACLE_fz (frozen-arm), ORACLE_tn (tuned-arm
+  ceiling), REF_SPAN (positional ceiling), all on the IDENTICAL held-out eval set.
 
 NOT a scale commitment -- smallest budget that gives a decisive held-out read. Director owns the escalate
-gate. Do NOT tune-to-pass; held-out generalization + anti-collapse + all-3-query-types are the honest guards.
+gate. Do NOT tune-to-pass; held-out generalization + loop-anchored anti-collapse + all-3-query-types are the
+honest guards.
 
 Run:  .venv/Scripts/python.exe experiments/exp_situation_model_assembly_encoder_retrain_scale_v1.py --self-test
       .venv/Scripts/python.exe experiments/exp_situation_model_assembly_encoder_retrain_scale_v1.py --smoke
@@ -121,14 +123,22 @@ SPLIT_SEED = lt.SPLIT_SEED
 ANCHOR_NAME = "situation_model_assembly_encoder_retrain_scale_v1"
 OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
 
-# ---- pre-registered bars (fixed BEFORE running; from the Director spawn) ----
+# ---- pre-registered bars (fixed BEFORE running) ----
+# CLEAN_PASS loop + memorization bars INHERITED unchanged from the original spawn.
 LOOP_TYPE_CLEAN_PASS = 0.60    # held-out per-type tuned loop acc floor -- must hold for ALL 3 types
-WITHIN_CROSS_CLEAN_PASS = 0.30 # held-out within-minus-cross floor
-Q_AGREE_CLEAN_PASS = 0.60      # held-out q_agree floor
 MEMORIZE_GAP_MAX = 0.15        # train-minus-held loop acc; > this = memorization not closed
-WITHIN_CROSS_COLLAPSE = 0.10   # <= this = representational collapse
 PLATEAU_BAND = 0.03            # best tuned_loop_mean within this of lite 0.534 across ALL conditions = plateau
 LITE_LOOP_MEAN = 0.534         # MEASURED@data/exp_situation_model_assembly_encoder_retrain_lite_v1/metrics.json:bands.tuned_loop_mean
+# ---- CORRECTED collapse guard (RE-REG 2026-07-31; REPLACES the backwards raw-cosine wc>=0.30 bar) ----
+# See preregs/2026-07-31_encoder_retrain_scale_corrected_guard.md. Loop-anchored distinct-not-collapsed:
+#   (C1) tuned_loop_mean >= frozen_loop_mean          -- loop not cratered below the wall (PRIMARY)
+#   (C2) (wc_held - wc_frozen) <= WC_DRIFT_MAX         -- within-color geometry not drifted far above frozen
+#   (C3) tuned_entity_consistency >= ENTCONS_MIN       -- cross-frame binding genuine (frozen 0.813 = wall)
+#   (C4) tuned_q_agree >= Q_AGREE_GUARD_MIN            -- cross-frame query agreement genuine
+WC_DRIFT_MAX = 0.15            # tuned within-minus-cross may exceed frozen by at most this (drift cap; d6 +0.354 FAILS)
+ENTCONS_MIN = 0.85            # tuned entity_consistency floor (frozen 0.813 below; healthy retrains 0.94-0.98)
+Q_AGREE_GUARD_MIN = 0.60      # tuned q_agree floor
+ORACLE_TOL = 0.02            # CLEAN_PASS requires tuned_loop <= tuned_ORACLE + this (correct ceiling, not frozen-oracle)
 
 # ---- grid config (autonomy: exp_dev owns these) ----
 N_LAYERS_TOTAL = 6             # v2 encoder transformer depth (THEORETICAL@eb v2 arch; asserted at build)
@@ -152,15 +162,16 @@ def _now_iso():
 # BACKWARDS: top-1 (fewer layers) tuned loop 0.715 >> top-3 0.532 >> top-6 0.421 (full unfreeze DEGRADES
 # below frozen -- overfit/representation drift). So the grid pivots to REPLICATE the top-1 standout across
 # seeds + test diversity on it, and keeps a top-6 + top-3 anchor to document the depth curve.
+# RE-REG 2026-07-31: 7 DECISIVE conditions. Re-run under the CORRECTED collapse guard + TUNED-oracle.
+# d1 standout replicated across 3 seeds at BOTH diversity levels; d6 kept as the must-FAIL-guard control.
 CONDITIONS_GRID = [
-    {"name": "d3_div40_s7",  "depth": 3, "nctx": 40, "steps": 220, "seed": 7},   # lite anchor [done phase1]
-    {"name": "d1_div40_s7",  "depth": 1, "nctx": 40, "steps": 220, "seed": 7},   # STANDOUT [done phase1]
+    {"name": "d1_div40_s7",  "depth": 1, "nctx": 40, "steps": 220, "seed": 7},   # STANDOUT
     {"name": "d1_div40_s13", "depth": 1, "nctx": 40, "steps": 220, "seed": 13},  # standout replicate
     {"name": "d1_div40_s19", "depth": 1, "nctx": 40, "steps": 220, "seed": 19},  # standout replicate
     {"name": "d1_div80_s7",  "depth": 1, "nctx": 80, "steps": 320, "seed": 7},   # diversity on standout
     {"name": "d1_div80_s13", "depth": 1, "nctx": 80, "steps": 320, "seed": 13},  # diversity+seed replicate
-    {"name": "d3_div40_s13", "depth": 3, "nctx": 40, "steps": 220, "seed": 13},  # lite anchor replicate
-    {"name": "d6_div40_s7",  "depth": 6, "nctx": 40, "steps": 220, "seed": 7},   # full unfreeze (degrade doc)
+    {"name": "d1_div80_s19", "depth": 1, "nctx": 80, "steps": 320, "seed": 19},  # diversity+seed replicate
+    {"name": "d6_div40_s7",  "depth": 6, "nctx": 40, "steps": 220, "seed": 7},   # MUST-FAIL-guard control (degenerate)
 ]
 CONDITIONS_SMOKE = [
     {"name": "smoke_d3_s7", "depth": 3, "nctx": 12, "steps": 30, "seed": 7},
@@ -287,6 +298,13 @@ def run_condition(cond, run_mode):
     oracle = eb.run_arm_decoded(dec_or, ans_or, tables, "main")
     ref_span = eb.run_arm_decoded(dec_sp, ans_sp, tables, "main")
 
+    # ---- TUNED-oracle ceiling on the TUNED extractor (held-out) ----
+    # The oracle fixes ONLY the ENT-address; S/P fills are still read via the encoder decode
+    # (entity_file_v1.py:359-366) -> a BETTER encoder RAISES the ceiling. The frozen-built oracle is NOT the
+    # ceiling for the tuned arm; the tuned-oracle is. CLEAN_PASS requires tuned_loop <= tuned_oracle + tol.
+    dec_or_tn, ans_or_tn, _ = ef.build_addr_dataset(ev_held, ext_tn, "oracle")
+    oracle_tuned = eb.run_arm_decoded(dec_or_tn, ans_or_tn, tables, "main")
+
     # ---- anti-collapse geometry on held-out (tuned) + frozen reference ----
     wc_held = lt.within_minus_cross(ext_tn, held_colors, seed=seed + 2)
     wc_frozen = lt.within_minus_cross(ext_fz, held_colors, seed=seed + 2)
@@ -305,6 +323,7 @@ def run_condition(cond, run_mode):
     tuned_type = {qt: sc_tn["main_enc"][qt]["acc"] for qt in QUERY_TYPES}
     frozen_type = {qt: sc_fz["main_enc"][qt]["acc"] for qt in QUERY_TYPES}
     oracle_type = {qt: oracle[qt]["acc"] for qt in QUERY_TYPES}
+    oracle_tuned_type = {qt: oracle_tuned[qt]["acc"] for qt in QUERY_TYPES}
     ref_type = {qt: ref_span[qt]["acc"] for qt in QUERY_TYPES}
     train_type = {qt: sc_tn_tr["main_enc"][qt]["acc"] for qt in QUERY_TYPES}
 
@@ -312,11 +331,13 @@ def run_condition(cond, run_mode):
         "name": cond["name"], "depth": depth, "nctx": nctx, "steps": steps, "seed": seed,
         "eval_n": eval_n, "ft_seconds": ft["ft_seconds"], "n_trainable_params": ft["n_trainable_params"],
         "frozen_type": frozen_type, "tuned_type": tuned_type, "oracle_type": oracle_type,
+        "oracle_tuned_type": oracle_tuned_type,
         "ref_type": ref_type, "train_type": train_type,
         "frozen_loop_mean": _loop_mean_arm(sc_fz["main_enc"]),
         "tuned_loop_mean": _loop_mean_arm(sc_tn["main_enc"]),
         "train_loop_mean": _loop_mean_arm(sc_tn_tr["main_enc"]),
         "oracle_loop_mean": _loop_mean_arm(oracle),
+        "oracle_tuned_loop_mean": _loop_mean_arm(oracle_tuned),
         "frozen_q_agree": sc_fz["diag_decoded"]["cross_frame_query_agreement"],
         "tuned_q_agree": sc_tn["diag_decoded"]["cross_frame_query_agreement"],
         "train_q_agree": sc_tn_tr["diag_decoded"]["cross_frame_query_agreement"],
@@ -332,9 +353,12 @@ def run_condition(cond, run_mode):
          % (cond["name"], _fmt(frozen_type), res["frozen_loop_mean"], res["frozen_q_agree"],
             _fmt(tuned_type), res["tuned_loop_mean"], res["tuned_q_agree"],
             res["train_loop_mean"], res["train_q_agree"]))
-    _log("  [%s] ORACLE type=%s | wc_held=%.3f (frozen %.3f) | ATYPE margin q<->stmt fz=%.3f tn=%.3f | q<->tag fz=%.3f tn=%.3f"
-         % (cond["name"], _fmt(oracle_type), res["wc_held"], res["wc_frozen"],
-            atype_fz["q_stmt"]["margin"], atype_tn["q_stmt"]["margin"],
+    _log("  [%s] ORACLE_fz loop=%.3f type=%s | ORACLE_tn loop=%.3f type=%s (tuned_loop=%.3f) | wc_held=%.3f (frozen %.3f)"
+         % (cond["name"], res["oracle_loop_mean"], _fmt(oracle_type),
+            res["oracle_tuned_loop_mean"], _fmt(oracle_tuned_type), res["tuned_loop_mean"],
+            res["wc_held"], res["wc_frozen"]))
+    _log("  [%s] ATYPE margin q<->stmt fz=%.3f tn=%.3f | q<->tag fz=%.3f tn=%.3f"
+         % (cond["name"], atype_fz["q_stmt"]["margin"], atype_tn["q_stmt"]["margin"],
             atype_fz["q_tag"]["margin"], atype_tn["q_tag"]["margin"]))
     return res
 
@@ -373,19 +397,42 @@ def _pooled_reservoir(conds):
     return False
 
 
+def collapse_guard(r):
+    """CORRECTED loop-anchored distinct-not-collapsed guard (RE-REG 2026-07-31). REPLACES the backwards
+    raw-cosine wc>=0.30 bar (VET-confirmed anti-correlated with loop: the only config passing it was the
+    degenerate full-unfreeze d6 whose loop CRATERS). A genuinely-distinct encoder DECODES (loop >= frozen
+    wall) and has NOT drifted (within-color geometry near frozen; cross-frame binding genuine). See
+    preregs/2026-07-31_encoder_retrain_scale_corrected_guard.md."""
+    tl, fl = r["tuned_loop_mean"], r["frozen_loop_mean"]
+    loop_not_cratered = (not math.isnan(tl)) and (not math.isnan(fl)) and tl >= fl               # C1 PRIMARY
+    wc_drift = (r["wc_held"] - r["wc_frozen"]) if (not math.isnan(r["wc_held"])
+                                                   and not math.isnan(r["wc_frozen"])) else float("nan")
+    no_drift = (not math.isnan(wc_drift)) and wc_drift <= WC_DRIFT_MAX                            # C2
+    ec = r.get("tuned_ent_consistency")
+    entcons_ok = (ec is not None) and (not math.isnan(ec)) and ec >= ENTCONS_MIN                 # C3
+    qa = r["tuned_q_agree"]
+    q_ok = (not math.isnan(qa)) and qa >= Q_AGREE_GUARD_MIN                                       # C4
+    return {"loop_not_cratered": loop_not_cratered, "no_drift": no_drift, "wc_drift": wc_drift,
+            "entcons_ok": entcons_ok, "q_ok": q_ok,
+            "pass": loop_not_cratered and no_drift and entcons_ok and q_ok}
+
+
 def _cond_clean_pass(r):
     """Does one condition clear ALL clean-pass bars? (per-seed; robustness handled by requiring the
-    replicate seeds of the same config to also pass.)"""
+    replicate seeds of the same config to also pass.) Uses the CORRECTED collapse guard + TUNED-oracle."""
     type_ok = all((not math.isnan(r["tuned_type"][qt])) and r["tuned_type"][qt] >= LOOP_TYPE_CLEAN_PASS
                   for qt in QUERY_TYPES)
-    wc_ok = (not math.isnan(r["wc_held"])) and r["wc_held"] >= WITHIN_CROSS_CLEAN_PASS
-    q_ok = (not math.isnan(r["tuned_q_agree"])) and r["tuned_q_agree"] >= Q_AGREE_CLEAN_PASS
+    guard = collapse_guard(r)
     gap = (r["train_loop_mean"] - r["tuned_loop_mean"]) if (not math.isnan(r["train_loop_mean"])
                                                             and not math.isnan(r["tuned_loop_mean"])) else float("nan")
     mem_ok = (not math.isnan(gap)) and gap <= MEMORIZE_GAP_MAX
-    collapse = (not math.isnan(r["wc_held"])) and r["wc_held"] <= WITHIN_CROSS_COLLAPSE
-    return {"type_ok": type_ok, "wc_ok": wc_ok, "q_ok": q_ok, "mem_ok": mem_ok, "collapse": collapse,
-            "mem_gap": gap, "pass": type_ok and wc_ok and q_ok and mem_ok and not collapse}
+    to = r.get("oracle_tuned_loop_mean")
+    oracle_ok = (to is not None) and (not math.isnan(to)) and (not math.isnan(r["tuned_loop_mean"])) \
+        and r["tuned_loop_mean"] <= to + ORACLE_TOL
+    return {"type_ok": type_ok, "guard_pass": guard["pass"], "guard": guard, "q_ok": guard["q_ok"],
+            "mem_ok": mem_ok, "mem_gap": gap, "oracle_ok": oracle_ok,
+            "oracle_tuned_loop_mean": to,
+            "pass": type_ok and guard["pass"] and mem_ok and oracle_ok}
 
 
 def _config_key(r):
@@ -401,6 +448,20 @@ def decide_verdict(conds):
         return "INVALID", "can-fail floor did not collapse: " + "; ".join(floor_notes[:6]), {}
 
     per_cond = {r["name"]: _cond_clean_pass(r) for r in conds}
+
+    # MUST-FAIL CONTROL: the degenerate d6 (full unfreeze, cratered loop) MUST FAIL the corrected guard.
+    # If the guard ever passes d6, it is rubber-stamping collapse -> INVALID (not a real gate).
+    d6 = [r for r in conds if r["depth"] == 6]
+    d6_guard_fails = []
+    for r in d6:
+        g = collapse_guard(r)
+        d6_guard_fails.append({"name": r["name"], "guard_pass": g["pass"], "guard": g,
+                               "tuned_loop": r["tuned_loop_mean"], "frozen_loop": r["frozen_loop_mean"]})
+        if g["pass"]:
+            return "INVALID", ("GUARD_RUBBER_STAMP: degenerate full-unfreeze %s (tuned_loop=%.3f < frozen "
+                               "%.3f) PASSED the corrected collapse guard -- the guard is not gating collapse"
+                               % (r["name"], r["tuned_loop_mean"], r["frozen_loop_mean"])), {}
+
     # group by config (depth,nctx) across seeds
     by_config = {}
     for r in conds:
@@ -427,13 +488,20 @@ def decide_verdict(conds):
                      "a_type": lt._mean([r["tuned_type"]["a_name_maintenance"] for r in rs]),
                      "b_type": lt._mean([r["tuned_type"]["b_competitive_coref"] for r in rs]),
                      "c_type": lt._mean([r["tuned_type"]["c_overwrite"] for r in rs]),
-                     "train_loop_mean": lt._mean([r["train_loop_mean"] for r in rs])}
+                     "train_loop_mean": lt._mean([r["train_loop_mean"] for r in rs]),
+                     "oracle_tuned_loop_mean": lt._mean([r.get("oracle_tuned_loop_mean", float("nan")) for r in rs]),
+                     "oracle_frozen_loop_mean": lt._mean([r["oracle_loop_mean"] for r in rs])}
 
     # a-type diagnosis synthesis (frozen name<->name already high & flat vs name<->mark lifts)
     a_diag = _atype_synthesis(conds)
 
-    bands = {"clean_pass_bars": {"loop_type": LOOP_TYPE_CLEAN_PASS, "within_cross": WITHIN_CROSS_CLEAN_PASS,
-                                 "q_agree": Q_AGREE_CLEAN_PASS, "memorize_gap_max": MEMORIZE_GAP_MAX},
+    bands = {"clean_pass_bars": {"loop_type": LOOP_TYPE_CLEAN_PASS, "memorize_gap_max": MEMORIZE_GAP_MAX,
+                                 "oracle_tol": ORACLE_TOL},
+             "corrected_collapse_guard": {"loop_not_cratered": "tuned_loop_mean>=frozen_loop_mean",
+                                          "wc_drift_max": WC_DRIFT_MAX, "entcons_min": ENTCONS_MIN,
+                                          "q_agree_guard_min": Q_AGREE_GUARD_MIN,
+                                          "replaces": "backwards raw-cosine wc>=0.30 (VET anti-correlated with loop)"},
+             "d6_must_fail_control": d6_guard_fails,
              "lite_loop_mean": LITE_LOOP_MEAN, "best_condition": best["name"], "best_tuned_loop_mean": best_loop,
              "clean_pass_configs": clean_configs, "per_condition_clean_pass": per_cond,
              "trajectory_by_config": traj, "atype_diagnosis": a_diag,
@@ -441,10 +509,12 @@ def decide_verdict(conds):
 
     if clean_configs:
         return "CLEAN_PASS", ("Encoder retrain BREAKS the wall on held-out entities in config(s) %s: all 3 "
-                              "query types >= %.2f loop acc across seeds, wc_held>=%.2f, q_agree>=%.2f, "
-                              "memorization gap closed. best_loop=%.3f. ESCALATE TO SCALE. %s"
-                              % (clean_configs, LOOP_TYPE_CLEAN_PASS, WITHIN_CROSS_CLEAN_PASS,
-                                 Q_AGREE_CLEAN_PASS, best_loop, a_diag["summary"])), bands
+                              "query types >= %.2f loop acc across seeds, CORRECTED collapse guard HOLDS "
+                              "(loop>=frozen, wc_drift<=%.2f, entcons>=%.2f, q_agree>=%.2f), memorization gap "
+                              "closed, tuned_loop<=TUNED-oracle. best_loop=%.3f. Degenerate d6 FAILS the guard "
+                              "(control). ESCALATE TO SCALE. %s"
+                              % (clean_configs, LOOP_TYPE_CLEAN_PASS, WC_DRIFT_MAX, ENTCONS_MIN,
+                                 Q_AGREE_GUARD_MIN, best_loop, a_diag["summary"])), bands
     if (not math.isnan(best_loop)) and abs(best_loop - LITE_LOOP_MEAN) <= PLATEAU_BAND:
         return "PLATEAU", ("Top-layer fine-tune PLATEAUS: best tuned_loop_mean=%.3f across ALL conditions "
                            "stays within %.2f of the lite %.3f despite more seeds/diversity/unfreeze. Deeper/"
