@@ -1,0 +1,313 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "Direction moved but did not clear HARD_PASS on the naturalistic construction. [NATURALISTIC-WITHIN-ENCODER-VOCAB, not open-domain] PROOF-OF-HARDNESS frozen loop 0.479(easy)->0.259(nat) degrade=0.221, entcons 0.812->0.678 degrade=0.135; exact-surface token-copy easy=1.000 nat=1.000 (craters). EASY-ANCHOR lift=0.275 (reuse faithful). NAT held-out: frozen=0.259 oracle=0.623 (headroom=0.365). TRANSFER(certified weights)=0.454 (lift 0.195, holds=True). ROBUSTNESS(retrain-on-nat)=0.394 (lift 0.135, capture=0.37, min-seed-lift=0.124). guard=False mem_gap=0.073.",
+  "summary": "MIDDLE | chance=0.0500 | Direction moved but did not clear HARD_PASS on the naturalistic construction. [NATURALISTIC-WITHIN-ENCODER-VOCAB, not open-domain] PROOF-OF-HARDNESS frozen loop",
+  "run_mode": "lite",
+  "elapsed_s": 411.8055922999047,
+  "ts_iso": "2026-07-31T11:05:36.306837+00:00",
+  "anchor_name": "situation_model_naturalistic_firstcut_v1",
+  "chance": 0.05,
+  "bands": {
+    "fairness_finding": "v2 encoder is a ~50-word closed-vocab / SENT_CAP=16 model trained on ~3006 templated sentences; open-domain real text is OOV-confounded on it. This test = NON-TEMPLATED (structural + surface) cross-surface coreference WITHIN the encoder's own vocabulary. NOT open-domain real text (that needs encoder re-pretraining = the full grounding program, USER-strategic).",
+    "bars": {
+      "lift_min": 0.05,
+      "headroom_capture_min": 0.35,
+      "tie_band": 0.02,
+      "memorize_gap_max": 0.15,
+      "q_agree_guard_min": 0.55,
+      "entcons_min": 0.85,
+      "wc_drift_max": 0.15,
+      "frozen_loop_degrade_min": 0.03,
+      "frozen_entcons_degrade_min": 0.05,
+      "construction_headroom_min": 0.05
+    },
+    "proof_of_hardness": {
+      "frozen_easy_loop": 0.4793787629994527,
+      "frozen_nat_loop": 0.25879173508483855,
+      "loop_degrade": 0.22058702791461415,
+      "frozen_easy_entcons": 0.8125,
+      "frozen_nat_entcons": 0.6777777777777778,
+      "entcons_degrade": 0.1347222222222222,
+      "hardness_ok": true
+    },
+    "surface_string_shortcut_proof": {
+      "tokencopy_easy": 1.0,
+      "tokencopy_nat": 1.0,
+      "note": "exact-surface (ENT-span string) cross-frame re-id craters on naturalistic (MOD varies across frames); color substring persists so a substring-matcher is not fully defeated -> deeper hardness proven via frozen-rep degradation"
+    },
+    "nat_heldout": {
+      "frozen_loop": 0.25879173508483855,
+      "transfer_tuned_easy_loop": 0.4536945812807882,
+      "robustness_tuned_nat_loop": 0.3940818281335523,
+      "oracle_loop": 0.6233921729611385,
+      "headroom": 0.3646004378762999,
+      "robust_lift": 0.13529009304871376,
+      "capture": 0.3710639894914619,
+      "min_seed_robust_lift": 0.12375478927203062,
+      "transfer_lift": 0.19490284619594966,
+      "transfer_holds": true
+    },
+    "easy_anchor": {
+      "lift": 0.27514367816091956
+    },
+    "collapse_guard": {
+      "c1_loop_not_cratered": true,
+      "c2_no_drift": true,
+      "wc_drift": 0.0072931020419186865,
+      "c3_entcons_ok": false,
+      "c4_q_agree_ok": true,
+      "pass": false
+    },
+    "memorization": {
+      "train_loop": 0.4668313866427074,
+      "gap": 0.0727495585091551,
+      "ok": true
+    },
+    "geometry": {
+      "wc_nat": 0.1515669699116614,
+      "wc_frozen": 0.14427386786974272
+    },
+    "per_seed_robust_lift": [
+      0.12375478927203062,
+      0.14682539682539686
+    ],
+    "floors_ok": true,
+    "color_split": {
+      "train": [
+        1,
+        2,
+        4,
+        7,
+        9,
+        11,
+        12,
+        13,
+        14,
+        18
+      ],
+      "held": [
+        0,
+        3,
+        5,
+        6,
+        8,
+        10,
+        15,
+        16,
+        17,
+        19
+      ]
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220,
+      "eval_n": 60,
+      "ft_seconds_easy": 123.42180809983984,
+      "ft_seconds_nat": 150.5718884000089,
+      "n_trainable_params": 3153408,
+      "frozen_nat_loop": 0.24655172413793106,
+      "tuned_easy_nat_loop": 0.4264367816091954,
+      "tuned_nat_nat_loop": 0.3703065134099617,
+      "oracle_nat_loop": 0.6233716475095785,
+      "train_nat_loop": 0.49603174603174605,
+      "frozen_type": {
+        "a_name_maintenance": 0.23333333333333334,
+        "b_competitive_coref": 0.31666666666666665,
+        "c_overwrite": 0.1896551724137931
+      },
+      "tuned_easy_type": {
+        "a_name_maintenance": 0.4,
+        "b_competitive_coref": 0.5,
+        "c_overwrite": 0.3793103448275862
+      },
+      "tuned_nat_type": {
+        "a_name_maintenance": 0.35,
+        "b_competitive_coref": 0.43333333333333335,
+        "c_overwrite": 0.3275862068965517
+      },
+      "oracle_type": {
+        "a_name_maintenance": 0.65,
+        "b_competitive_coref": 0.6166666666666667,
+        "c_overwrite": 0.603448275862069
+      },
+      "train_type": {
+        "a_name_maintenance": 0.4666666666666667,
+        "b_competitive_coref": 0.45,
+        "c_overwrite": 0.5714285714285714
+      },
+      "frozen_q_agree": 0.4854368932038835,
+      "tuned_easy_q_agree": 0.6796116504854369,
+      "tuned_nat_q_agree": 0.6213592233009708,
+      "frozen_ent_consistency": 0.6888888888888889,
+      "tuned_nat_ent_consistency": 0.775,
+      "wc_nat": 0.16216039493695922,
+      "wc_frozen": 0.15619477680510183,
+      "anchor_frozen_easy_loop": 0.471455938697318,
+      "anchor_tuned_easy_loop": 0.7134099616858238,
+      "anchor_frozen_easy_entcons": 0.825,
+      "tokencopy_easy": 1.0,
+      "tokencopy_nat": 1.0,
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.06666666666666667,
+          "b_competitive_coref": 0.08333333333333333,
+          "c_overwrite": 0.06896551724137931
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.35,
+          "b_competitive_coref": 0.11666666666666667,
+          "c_overwrite": 0.3275862068965517
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.08333333333333333,
+          "b_competitive_coref": 0.15,
+          "c_overwrite": 0.1206896551724138
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.06666666666666667,
+          "b_competitive_coref": 0.016666666666666666,
+          "c_overwrite": 0.06896551724137931
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.017241379310344827
+      },
+      "pooled_b": 0.01666666753590107,
+      "pooled_c": 0.06896551698446274
+    },
+    {
+      "seed": 13,
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220,
+      "eval_n": 60,
+      "ft_seconds_easy": 124.67071350011975,
+      "ft_seconds_nat": 155.69169069989584,
+      "n_trainable_params": 3153408,
+      "frozen_nat_loop": 0.271031746031746,
+      "tuned_easy_nat_loop": 0.48095238095238096,
+      "tuned_nat_nat_loop": 0.41785714285714287,
+      "oracle_nat_loop": 0.6234126984126984,
+      "train_nat_loop": 0.43763102725366876,
+      "frozen_type": {
+        "a_name_maintenance": 0.25,
+        "b_competitive_coref": 0.36666666666666664,
+        "c_overwrite": 0.19642857142857142
+      },
+      "tuned_easy_type": {
+        "a_name_maintenance": 0.4666666666666667,
+        "b_competitive_coref": 0.5833333333333334,
+        "c_overwrite": 0.39285714285714285
+      },
+      "tuned_nat_type": {
+        "a_name_maintenance": 0.45,
+        "b_competitive_coref": 0.5,
+        "c_overwrite": 0.30357142857142855
+      },
+      "oracle_type": {
+        "a_name_maintenance": 0.65,
+        "b_competitive_coref": 0.6666666666666666,
+        "c_overwrite": 0.5535714285714286
+      },
+      "train_type": {
+        "a_name_maintenance": 0.4666666666666667,
+        "b_competitive_coref": 0.45,
+        "c_overwrite": 0.39622641509433965
+      },
+      "frozen_q_agree": 0.4803921568627451,
+      "tuned_easy_q_agree": 0.6666666666666666,
+      "tuned_nat_q_agree": 0.6568627450980392,
+      "frozen_ent_consistency": 0.6666666666666666,
+      "tuned_nat_ent_consistency": 0.7472222222222222,
+      "wc_nat": 0.1409735448863636,
+      "wc_frozen": 0.1323529589343836,
+      "anchor_frozen_easy_loop": 0.48730158730158735,
+      "anchor_tuned_easy_loop": 0.7956349206349206,
+      "anchor_frozen_easy_entcons": 0.8,
+      "tokencopy_easy": 1.0,
+      "tokencopy_nat": 1.0,
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.08333333333333333,
+          "b_competitive_coref": 0.18333333333333332,
+          "c_overwrite": 0.05357142857142857
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.45,
+          "b_competitive_coref": 0.06666666666666667,
+          "c_overwrite": 0.30357142857142855
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.06666666666666667,
+          "b_competitive_coref": 0.16666666666666666,
+          "c_overwrite": 0.10714285714285714
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.08333333333333333,
+          "b_competitive_coref": 0.13333333333333333,
+          "c_overwrite": 0.08928571428571429
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.03333333333333333,
+        "b_competitive_coref": 0.016666666666666666,
+        "c_overwrite": 0.017857142857142856
+      },
+      "pooled_b": 0.05000000074505806,
+      "pooled_c": 0.0535714291036129
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "V_FILL": 20,
+    "DEPTH": 1,
+    "NCTX": 40,
+    "steps": 220,
+    "eval_n": 60,
+    "seeds": [
+      7,
+      13
+    ],
+    "MODIFIERS": [
+      "big",
+      "small",
+      "new",
+      "old",
+      "odd",
+      "fine",
+      "plain",
+      "tall"
+    ],
+    "N_STRUCT_EVENT": 2,
+    "N_STRUCT_QUERY": 2
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}
