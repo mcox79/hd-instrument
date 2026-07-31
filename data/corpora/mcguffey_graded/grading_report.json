@@ -1,0 +1,245 @@
+{
+  "grades": {
+    "g1": {
+      "metrics": {
+        "n_passages": 293,
+        "n_sentences": 490,
+        "n_words": 4631,
+        "n_types": 667,
+        "mean_sentence_len": 9.45,
+        "type_token_ratio": 0.144,
+        "hapax_frac": 0.0505,
+        "pct_long_words_ge7": 2.31,
+        "mean_syllables_per_word": 1.101,
+        "flesch_kincaid_grade": 1.08
+      },
+      "coverage": {
+        "n_words_scored": 4597,
+        "pieces_per_word": 1.106,
+        "pct_words_fragmented": 9.38,
+        "pct_words_with_unk": 0.0
+      },
+      "source": "g1_first.txt"
+    },
+    "g2": {
+      "metrics": {
+        "n_passages": 523,
+        "n_sentences": 908,
+        "n_words": 12289,
+        "n_types": 1718,
+        "mean_sentence_len": 13.53,
+        "type_token_ratio": 0.1398,
+        "hapax_frac": 0.0614,
+        "pct_long_words_ge7": 6.73,
+        "mean_syllables_per_word": 1.194,
+        "flesch_kincaid_grade": 3.78
+      },
+      "coverage": {
+        "n_words_scored": 12209,
+        "pieces_per_word": 1.125,
+        "pct_words_fragmented": 10.34,
+        "pct_words_with_unk": 0.0
+      },
+      "source": "g2_second.txt"
+    },
+    "g3": {
+      "metrics": {
+        "n_passages": 230,
+        "n_sentences": 423,
+        "n_words": 7438,
+        "n_types": 1644,
+        "mean_sentence_len": 17.58,
+        "type_token_ratio": 0.221,
+        "hapax_frac": 0.1244,
+        "pct_long_words_ge7": 8.83,
+        "mean_syllables_per_word": 1.223,
+        "flesch_kincaid_grade": 5.69
+      },
+      "coverage": {
+        "n_words_scored": 7373,
+        "pieces_per_word": 1.157,
+        "pct_words_fragmented": 12.56,
+        "pct_words_with_unk": 0.0
+      },
+      "source": "g3_third.txt"
+    },
+    "g4": {
+      "metrics": {
+        "n_passages": 1096,
+        "n_sentences": 2498,
+        "n_words": 51277,
+        "n_types": 5862,
+        "mean_sentence_len": 20.53,
+        "type_token_ratio": 0.1143,
+        "hapax_frac": 0.055,
+        "pct_long_words_ge7": 13.06,
+        "mean_syllables_per_word": 1.308,
+        "flesch_kincaid_grade": 7.85
+      },
+      "coverage": {
+        "n_words_scored": 50938,
+        "pieces_per_word": 1.177,
+        "pct_words_fragmented": 13.82,
+        "pct_words_with_unk": 0.0
+      },
+      "source": "g4_fourth.txt"
+    },
+    "g5": {
+      "metrics": {
+        "n_passages": 1576,
+        "n_sentences": 3829,
+        "n_words": 77183,
+        "n_types": 9187,
+        "mean_sentence_len": 20.16,
+        "type_token_ratio": 0.119,
+        "hapax_frac": 0.0575,
+        "pct_long_words_ge7": 15.92,
+        "mean_syllables_per_word": 1.373,
+        "flesch_kincaid_grade": 8.48
+      },
+      "coverage": {
+        "n_words_scored": 76555,
+        "pieces_per_word": 1.217,
+        "pct_words_fragmented": 16.46,
+        "pct_words_with_unk": 0.0
+      },
+      "source": "g5_fifth.txt"
+    },
+    "g6": {
+      "metrics": {
+        "n_passages": 1507,
+        "n_sentences": 4906,
+        "n_words": 108162,
+        "n_types": 12074,
+        "mean_sentence_len": 22.05,
+        "type_token_ratio": 0.1116,
+        "hapax_frac": 0.0525,
+        "pct_long_words_ge7": 18.57,
+        "mean_syllables_per_word": 1.435,
+        "flesch_kincaid_grade": 9.94
+      },
+      "coverage": {
+        "n_words_scored": 107615,
+        "pieces_per_word": 1.248,
+        "pct_words_fragmented": 18.32,
+        "pct_words_with_unk": 0.0
+      },
+      "source": "g6_sixth.txt"
+    }
+  },
+  "difficulty_curve": {
+    "mean_sentence_len": {
+      "series": [
+        9.45,
+        13.53,
+        17.58,
+        20.53,
+        20.16,
+        22.05
+      ],
+      "strictly_nondecreasing": false,
+      "violations_at": [
+        "g5"
+      ]
+    },
+    "pct_long_words_ge7": {
+      "series": [
+        2.31,
+        6.73,
+        8.83,
+        13.06,
+        15.92,
+        18.57
+      ],
+      "strictly_nondecreasing": true,
+      "violations_at": []
+    },
+    "mean_syllables_per_word": {
+      "series": [
+        1.101,
+        1.194,
+        1.223,
+        1.308,
+        1.373,
+        1.435
+      ],
+      "strictly_nondecreasing": true,
+      "violations_at": []
+    },
+    "flesch_kincaid_grade": {
+      "series": [
+        1.08,
+        3.78,
+        5.69,
+        7.85,
+        8.48,
+        9.94
+      ],
+      "strictly_nondecreasing": true,
+      "violations_at": []
+    }
+  },
+  "coverage_curve": {
+    "g1": {
+      "n_words_scored": 4597,
+      "pieces_per_word": 1.106,
+      "pct_words_fragmented": 9.38,
+      "pct_words_with_unk": 0.0
+    },
+    "g2": {
+      "n_words_scored": 12209,
+      "pieces_per_word": 1.125,
+      "pct_words_fragmented": 10.34,
+      "pct_words_with_unk": 0.0
+    },
+    "g3": {
+      "n_words_scored": 7373,
+      "pieces_per_word": 1.157,
+      "pct_words_fragmented": 12.56,
+      "pct_words_with_unk": 0.0
+    },
+    "g4": {
+      "n_words_scored": 50938,
+      "pieces_per_word": 1.177,
+      "pct_words_fragmented": 13.82,
+      "pct_words_with_unk": 0.0
+    },
+    "g5": {
+      "n_words_scored": 76555,
+      "pieces_per_word": 1.217,
+      "pct_words_fragmented": 16.46,
+      "pct_words_with_unk": 0.0
+    },
+    "g6": {
+      "n_words_scored": 107615,
+      "pieces_per_word": 1.248,
+      "pct_words_fragmented": 18.32,
+      "pct_words_with_unk": 0.0
+    }
+  },
+  "grading_confirmation": {
+    "grade1_vocab_reader_coverage_pct": {
+      "series": [
+        100.0,
+        78.6,
+        73.9,
+        69.28,
+        64.19,
+        60.7
+      ],
+      "strictly_nonincreasing": true,
+      "note": "naive grade-1-vocabulary reader; falling series = harder grades genuinely need new vocab"
+    },
+    "new_word_introduction_rate_pct": {
+      "series": [
+        100.0,
+        21.4,
+        13.42,
+        15.72,
+        10.76,
+        7.46
+      ],
+      "note": "pct of tokens whose word is unseen in all lower grades"
+    }
+  }
+}

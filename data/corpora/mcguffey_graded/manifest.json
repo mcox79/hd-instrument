@@ -1,0 +1,43 @@
+{
+  "corpus": "mcguffey_graded",
+  "order": [
+    "g1",
+    "g2",
+    "g3",
+    "g4",
+    "g5",
+    "g6"
+  ],
+  "grades": {
+    "g1": {
+      "clean_file": "data/corpora/mcguffey_graded/clean/g1.txt",
+      "n_passages": 293,
+      "n_words": 4631
+    },
+    "g2": {
+      "clean_file": "data/corpora/mcguffey_graded/clean/g2.txt",
+      "n_passages": 523,
+      "n_words": 12289
+    },
+    "g3": {
+      "clean_file": "data/corpora/mcguffey_graded/clean/g3.txt",
+      "n_passages": 230,
+      "n_words": 7438
+    },
+    "g4": {
+      "clean_file": "data/corpora/mcguffey_graded/clean/g4.txt",
+      "n_passages": 1096,
+      "n_words": 51277
+    },
+    "g5": {
+      "clean_file": "data/corpora/mcguffey_graded/clean/g5.txt",
+      "n_passages": 1576,
+      "n_words": 77183
+    },
+    "g6": {
+      "clean_file": "data/corpora/mcguffey_graded/clean/g6.txt",
+      "n_passages": 1507,
+      "n_words": 108162
+    }
+  }
+}
