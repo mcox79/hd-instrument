@@ -1,5 +1,11 @@
 # WHERE WE ARE NOW — clean current state (REWRITE each session) — updated 2026-07-29 (compaction-prep, brain-alignment focus)
 
+## 🟢🟢 CURRENT STATE BANNER (2026-07-31 ~00:20Z — read THIS first; everything below is layered history, some SUPERSEDED e.g. "encoder DEAD" lines predate tonight's causal-encoder build)
+**AUTHORITATIVE CURRENT DOC = `notes/director_POST_COMPACTION_BACKUP_2026-07-30_NIGHT.md`** (self-contained recovery, updated with tonight's landed verdict).
+**Where we are:** the earned CAUSAL forward-predictive encoder is BUILT (commit 7b21af7a8, death-fixes verified) in `experiments/exp_encoder_latent_pc_arc_v1.py`. Two LITE runs LANDED, BOTH **LITE_COLLAPSE**: 6k rep_std=0.0181, **18k rep_std=0.0128** (metrics `data/exp_encoder_latent_pc_arc_v1_lite_18000steps_metrics.json`). **KEY MEASURED FACT: rep_std WORSENED with training (0.0181->0.0128) => variance-collapse DYNAMIC, NOT undertraining** (the cell's canned "undertrained" label is wrong here). Training-time VICReg var term is active (var=0.1025) yet the mention-POOLED concept reps collapse to near-constant.
+**CORRECTED NEXT ACTION (do NOT run the 15-19h full yet): FIX THE VARIANCE COLLAPSE.** Cheap discriminator FIRST = does the ARM_LPC_BIDIR control ALSO collapse? bidir-fine/causal-collapses => causal-halved-context starves variance (axis reconsider = spec's #1 risk realized); both collapse => cell/pooling bug (fixable, ONE-VAR: VICReg var on the CONCEPT reps not only training latents / raise weight / whiten pooled reps). Only after a NON-collapsed lite (rep_std>=0.020) do the cross-voice probe (`experiments/exp_syntactic_role_agent_patient_voice_probe_v1.py --full --ckpt-path <ckpt>`; MLM baseline 0.16/0.18 inverted) + the full-run decision. TPR path CLOSED (superposition-saturated). INFRA: lite launches via Scheduled-Task-as-SYSTEM (no queue_add --lite passthrough); (seed,arm) checkpoint key ignores --lite-steps -> CLEAR units.jsonl before re-running at a new budget or it silently re-emits stale.
+
+
 ## Direction (read FIRST, in order)
 1. GOAL + invariants + disciplines: `notes/SUBSTRATE_CHARTER_read_first.md`
 2. Plan: `notes/THE_PLAN.md`
