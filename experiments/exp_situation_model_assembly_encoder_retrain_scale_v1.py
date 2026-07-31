@@ -148,17 +148,19 @@ def _now_iso():
 # Phase-1 explores depth + diversity on seed 7; phase-2 replicates the anchor + best mover on seeds 13/19.
 # Each condition = one resumable unit. depth = N unfrozen top transformer layers; nctx = contexts/train
 # color; steps = fine-tune steps (scaled with diversity so more contexts get seen).
+# REVISED 2026-07-31 after phase-1 (seed 7) MEASURED that unfreeze DEPTH is the dominant lever and it runs
+# BACKWARDS: top-1 (fewer layers) tuned loop 0.715 >> top-3 0.532 >> top-6 0.421 (full unfreeze DEGRADES
+# below frozen -- overfit/representation drift). So the grid pivots to REPLICATE the top-1 standout across
+# seeds + test diversity on it, and keeps a top-6 + top-3 anchor to document the depth curve.
 CONDITIONS_GRID = [
-    {"name": "d3_div40_s7",  "depth": 3, "nctx": 40, "steps": 220, "seed": 7},   # lite replicate (anchor)
-    {"name": "d1_div40_s7",  "depth": 1, "nctx": 40, "steps": 220, "seed": 7},   # fewer layers
-    {"name": "d6_div40_s7",  "depth": 6, "nctx": 40, "steps": 220, "seed": 7},   # full unfreeze (capacity)
-    {"name": "d3_div80_s7",  "depth": 3, "nctx": 80, "steps": 320, "seed": 7},   # more diversity
-    {"name": "d6_div80_s7",  "depth": 6, "nctx": 80, "steps": 320, "seed": 7},   # capacity + diversity
-    {"name": "d3_div40_s13", "depth": 3, "nctx": 40, "steps": 220, "seed": 13},  # anchor replicate
-    {"name": "d3_div80_s13", "depth": 3, "nctx": 80, "steps": 320, "seed": 13},  # diversity replicate
-    {"name": "d6_div80_s13", "depth": 6, "nctx": 80, "steps": 320, "seed": 13},  # best-cap replicate
-    {"name": "d3_div80_s19", "depth": 3, "nctx": 80, "steps": 320, "seed": 19},  # 3rd-seed diversity
-    {"name": "d6_div80_s19", "depth": 6, "nctx": 80, "steps": 320, "seed": 19},  # 3rd-seed best-cap
+    {"name": "d3_div40_s7",  "depth": 3, "nctx": 40, "steps": 220, "seed": 7},   # lite anchor [done phase1]
+    {"name": "d1_div40_s7",  "depth": 1, "nctx": 40, "steps": 220, "seed": 7},   # STANDOUT [done phase1]
+    {"name": "d1_div40_s13", "depth": 1, "nctx": 40, "steps": 220, "seed": 13},  # standout replicate
+    {"name": "d1_div40_s19", "depth": 1, "nctx": 40, "steps": 220, "seed": 19},  # standout replicate
+    {"name": "d1_div80_s7",  "depth": 1, "nctx": 80, "steps": 320, "seed": 7},   # diversity on standout
+    {"name": "d1_div80_s13", "depth": 1, "nctx": 80, "steps": 320, "seed": 13},  # diversity+seed replicate
+    {"name": "d3_div40_s13", "depth": 3, "nctx": 40, "steps": 220, "seed": 13},  # lite anchor replicate
+    {"name": "d6_div40_s7",  "depth": 6, "nctx": 40, "steps": 220, "seed": 7},   # full unfreeze (degrade doc)
 ]
 CONDITIONS_SMOKE = [
     {"name": "smoke_d3_s7", "depth": 3, "nctx": 12, "steps": 30, "seed": 7},
