@@ -1,0 +1,639 @@
+{
+  "verdict": "DEEPER_WALL",
+  "verdict_msg": "Even the ORACLE stable address does NOT recover to >= 0.85 on all types (oracle={'a_name_maintenance': 0.73875, 'b_competitive_coref': 0.7375, 'c_overwrite': 0.7316061298789265}; REF_SPAN ceiling={'a_name_maintenance': 0.9725, 'b_competitive_coref': 1.0, 'c_overwrite': 0.9800292100584201}; MAIN={'a_name_maintenance': 0.46875, 'b_competitive_coref': 0.5875, 'c_overwrite': 0.44743247819828974}; commit={'a_name_maintenance': 0.07500000000000001, 'b_competitive_coref': 0.27125, 'c_overwrite': 0.06516171365676066}). Stable-addressing alone is NOT sufficient. LADDER DECOMPOSITION: addr_gap_closed(oracle-main)/(ref-main)={'a_name_maintenance': 0.5359801488833746, 'b_competitive_coref': 0.3636363636363637, 'c_overwrite': 0.5335625149034259} (entity re-id component), filler_residual(ref-oracle)={'a_name_maintenance': 0.23375, 'b_competitive_coref': 0.26249999999999996, 'c_overwrite': 0.24842308017949366} (role_attn filler/role-decode component). If addr_gap_closed is high the entity file fixes the re-id part and the residual is filler/role decode (leans B for that sub-problem); if low the wall is in the loop under real reps. Reconsider both A and B.",
+  "summary": "DEEPER_WALL | chance=0.0500 | Even the ORACLE stable address does NOT recover to >= 0.85 on all types (oracle={'a_name_maintenance': 0.73875, 'b_competitive_coref': 0.7375, 'c_overwrite': 0.",
+  "run_mode": "full",
+  "elapsed_s": 235.30667840014212,
+  "ts_iso": "2026-07-31T04:22:06.775872+00:00",
+  "anchor_name": "situation_model_assembly_entity_file_v1",
+  "chance": 0.05,
+  "bands": {
+    "chance": 0.05,
+    "proven_min": 0.8,
+    "gap_max": 0.55,
+    "oracle_recover_bar": 0.85,
+    "commit_margin": 0.15,
+    "commit_approach_bar": 0.7,
+    "main_enc_mean": {
+      "a_name_maintenance": 0.46875,
+      "b_competitive_coref": 0.5875,
+      "c_overwrite": 0.44743247819828974
+    },
+    "ref_span_mean": {
+      "a_name_maintenance": 0.9725,
+      "b_competitive_coref": 1.0,
+      "c_overwrite": 0.9800292100584201
+    },
+    "oracle_entity_file_mean": {
+      "a_name_maintenance": 0.73875,
+      "b_competitive_coref": 0.7375,
+      "c_overwrite": 0.7316061298789265
+    },
+    "entity_file_commit_mean": {
+      "a_name_maintenance": 0.07500000000000001,
+      "b_competitive_coref": 0.27125,
+      "c_overwrite": 0.06516171365676066
+    },
+    "main_enc_acc": {
+      "a_name_maintenance": [
+        0.46,
+        0.4775
+      ],
+      "b_competitive_coref": [
+        0.5775,
+        0.5975
+      ],
+      "c_overwrite": [
+        0.4381720430107527,
+        0.4566929133858268
+      ]
+    },
+    "oracle_entity_file_acc": {
+      "a_name_maintenance": [
+        0.7275,
+        0.75
+      ],
+      "b_competitive_coref": [
+        0.735,
+        0.74
+      ],
+      "c_overwrite": [
+        0.7204301075268817,
+        0.7427821522309711
+      ]
+    },
+    "entity_file_commit_acc": {
+      "a_name_maintenance": [
+        0.085,
+        0.065
+      ],
+      "b_competitive_coref": [
+        0.25,
+        0.2925
+      ],
+      "c_overwrite": [
+        0.07258064516129033,
+        0.05774278215223097
+      ]
+    },
+    "ref_span_acc": {
+      "a_name_maintenance": [
+        0.9725,
+        0.9725
+      ],
+      "b_competitive_coref": [
+        1.0,
+        1.0
+      ],
+      "c_overwrite": [
+        0.9758064516129032,
+        0.984251968503937
+      ]
+    },
+    "entity_consistency_main": 0.79375,
+    "entity_file_consistency_commit": 0.3425,
+    "cross_frame_query_agreement_commit": 0.03266705411875406,
+    "addr_gap_closed_frac": {
+      "a_name_maintenance": 0.5359801488833746,
+      "b_competitive_coref": 0.3636363636363637,
+      "c_overwrite": 0.5335625149034259
+    },
+    "filler_residual": {
+      "a_name_maintenance": 0.23375,
+      "b_competitive_coref": 0.26249999999999996,
+      "c_overwrite": 0.24842308017949366
+    },
+    "n_files_mean_commit": 11.0075,
+    "pooled_acc_b": [
+      0.03999999910593033,
+      0.05000000074505806
+    ],
+    "pooled_acc_c": [
+      0.05376344174146652,
+      0.036745406687259674
+    ],
+    "random_addr_acc": {
+      "a_name_maintenance": [
+        0.0375,
+        0.055
+      ],
+      "b_competitive_coref": [
+        0.0875,
+        0.055
+      ],
+      "c_overwrite": [
+        0.03763440860215054,
+        0.03937007874015748
+      ]
+    },
+    "no_coref_acc_b": [
+      0.095,
+      0.08
+    ],
+    "wrongrole_acc": {
+      "a_name_maintenance": [
+        0.0725,
+        0.0775
+      ],
+      "b_competitive_coref": [
+        0.0975,
+        0.095
+      ],
+      "c_overwrite": [
+        0.05913978494623656,
+        0.08398950131233596
+      ]
+    },
+    "shuffled_acc": {
+      "a_name_maintenance": [
+        0.085,
+        0.055
+      ],
+      "b_competitive_coref": [
+        0.07,
+        0.0925
+      ],
+      "c_overwrite": [
+        0.06720430107526881,
+        0.08136482939632546
+      ]
+    },
+    "most_recent_acc": {
+      "a_name_maintenance": [
+        0.0075,
+        0.0075
+      ],
+      "b_competitive_coref": [
+        0.01,
+        0.01
+      ],
+      "c_overwrite": [
+        0.002688172043010753,
+        0.005249343832020997
+      ]
+    },
+    "floors_ok": true,
+    "floor_notes": [],
+    "pooled_reservoir_decodable": false,
+    "oracle_recovered": false,
+    "commit_substantial": false,
+    "tau_calib": {
+      "tau": 0.13969154527426275,
+      "within": 0.2144740606788687,
+      "cross": 0.06490902986965681,
+      "n_within": 1320,
+      "n_cross": 380,
+      "n_colors": 20
+    }
+  },
+  "encoder_build": {
+    "n_corpus": 1280,
+    "n_uniq": 907,
+    "var_share_top1": 0.1596653427890222,
+    "var_share_top8": 0.5802188600156337
+  },
+  "tau_calib": {
+    "tau": 0.13969154527426275,
+    "within": 0.2144740606788687,
+    "cross": 0.06490902986965681,
+    "n_within": 1320,
+    "n_cross": 380,
+    "n_colors": 20
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "train_n": 600,
+      "eval_n": 400,
+      "arms": {
+        "main_enc": {
+          "a_name_maintenance": {
+            "acc": 0.46,
+            "n": 400,
+            "preds_digest": "acac443bafba771b1556cbd48d184f2c7a090f80d9f9a880c2a4bf846f082cb1"
+          },
+          "b_competitive_coref": {
+            "acc": 0.5775,
+            "n": 400,
+            "preds_digest": "6ed877aa3f4afa19da736e9ee162e263733561f8ba9512206a7cb77624a8ac00"
+          },
+          "c_overwrite": {
+            "acc": 0.4381720430107527,
+            "n": 372,
+            "preds_digest": "a5b6bfaa11143e97add8d1eabe5cdb715f8f56f7d66fe8a152b2ead857a246a0"
+          }
+        },
+        "ref_span": {
+          "a_name_maintenance": {
+            "acc": 0.9725,
+            "n": 400,
+            "preds_digest": "db637b09c256e29dce5d67fdd055db8d5a882364449efa3c91d0af17e07ddba6"
+          },
+          "b_competitive_coref": {
+            "acc": 1.0,
+            "n": 400,
+            "preds_digest": "7d56a90812f024702db7323c1e13a41a741cd8455280f4a03307bb2616c2dde9"
+          },
+          "c_overwrite": {
+            "acc": 0.9758064516129032,
+            "n": 372,
+            "preds_digest": "b88d77faa0178df5a2f6d04825c275f1c860f0359dc50fdde296377f8781a423"
+          }
+        },
+        "oracle_entity_file": {
+          "a_name_maintenance": {
+            "acc": 0.7275,
+            "n": 400,
+            "preds_digest": "e3fb8d5f5fbd3028d8fd8a82c79baf28879f0381b13397093884a83ff30d3e00"
+          },
+          "b_competitive_coref": {
+            "acc": 0.735,
+            "n": 400,
+            "preds_digest": "c73309199afb4db5b41542076e808842685f328b5f530d04dcb46552010249ea"
+          },
+          "c_overwrite": {
+            "acc": 0.7204301075268817,
+            "n": 372,
+            "preds_digest": "03addc031e2b606673fac1f638bc8a4281af71be14353288a542774762c8b7f0"
+          }
+        },
+        "entity_file_commit": {
+          "a_name_maintenance": {
+            "acc": 0.085,
+            "n": 400,
+            "preds_digest": "dc66e0374c45edb5e0234ce42a10a7d2d64277be5c00d2f88bb0b6a06018b8d0"
+          },
+          "b_competitive_coref": {
+            "acc": 0.25,
+            "n": 400,
+            "preds_digest": "75d76ff1b7c5feb4a52da370a14e1316bb09aa23cb75b89c89687bc4e5842000"
+          },
+          "c_overwrite": {
+            "acc": 0.07258064516129033,
+            "n": 372,
+            "preds_digest": "e4b5201df2df3ba6b614c92a5de28b9654173006bf94aa163d8ac9d3b9a9f567"
+          }
+        },
+        "random_addr": {
+          "a_name_maintenance": {
+            "acc": 0.0375,
+            "n": 400,
+            "preds_digest": "bf97cff1b85d26a3bfa4a1639f0452ed5529be0022e379b817fce9ece4d63106"
+          },
+          "b_competitive_coref": {
+            "acc": 0.0875,
+            "n": 400,
+            "preds_digest": "71b12b673ad156b3beb15a61d8a57507dc82ec18d1ea5dcb333f10799d2255c6"
+          },
+          "c_overwrite": {
+            "acc": 0.03763440860215054,
+            "n": 372,
+            "preds_digest": "3aae3354b30567a018d4c9529689cc3cbc1262621760038817c3878b22ad0e53"
+          }
+        },
+        "no_coref": {
+          "a_name_maintenance": {
+            "acc": 0.46,
+            "n": 400,
+            "preds_digest": "acac443bafba771b1556cbd48d184f2c7a090f80d9f9a880c2a4bf846f082cb1"
+          },
+          "b_competitive_coref": {
+            "acc": 0.095,
+            "n": 400,
+            "preds_digest": "fc475688a08528b2121f92c3bf2b6cdf7ef764b88814bbf665eab524d056ea55"
+          },
+          "c_overwrite": {
+            "acc": 0.4381720430107527,
+            "n": 372,
+            "preds_digest": "a5b6bfaa11143e97add8d1eabe5cdb715f8f56f7d66fe8a152b2ead857a246a0"
+          }
+        },
+        "wrongrole": {
+          "a_name_maintenance": {
+            "acc": 0.0725,
+            "n": 400,
+            "preds_digest": "55f9e1def6b2ff7103834fb1988c502fb022382d2771cc247e6eb9d71e253411"
+          },
+          "b_competitive_coref": {
+            "acc": 0.0975,
+            "n": 400,
+            "preds_digest": "4489dfcd09d75dde7c2febe15712f09b047ce8b98a9af913b909e48664b84ecd"
+          },
+          "c_overwrite": {
+            "acc": 0.05913978494623656,
+            "n": 372,
+            "preds_digest": "ee5468900f6ff64addfc3ce6ff062474f261012b5c60f1aa3f3aa4539987e371"
+          }
+        },
+        "shuffled": {
+          "a_name_maintenance": {
+            "acc": 0.085,
+            "n": 400,
+            "preds_digest": "463a653d1fc266bcefab00ababa99684dd8f527b5428cddfb12950058d12dc52"
+          },
+          "b_competitive_coref": {
+            "acc": 0.07,
+            "n": 400,
+            "preds_digest": "241fc02c12f19efd739c9ba3c4dafe36e071d7bf906bff136a139c3cbf80cf68"
+          },
+          "c_overwrite": {
+            "acc": 0.06720430107526881,
+            "n": 372,
+            "preds_digest": "99dc956255fe16a1967dd4e575410e7c7ee601c7fe37e371188aee12e77434b9"
+          }
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": {
+          "acc": 0.0075,
+          "n": 400
+        },
+        "b_competitive_coref": {
+          "acc": 0.01,
+          "n": 400
+        },
+        "c_overwrite": {
+          "acc": 0.002688172043010753,
+          "n": 372
+        }
+      },
+      "pooled": {
+        "a_name_maintenance": {
+          "acc": 0.04749999940395355,
+          "n": 400
+        },
+        "b_competitive_coref": {
+          "acc": 0.03999999910593033,
+          "n": 400
+        },
+        "c_overwrite": {
+          "acc": 0.05376344174146652,
+          "n": 372
+        }
+      },
+      "stage_role_attn": {
+        "ENT": 0.8400363553737786,
+        "MARK": 0.861904761904762,
+        "S": 0.9616168478260869,
+        "P": 0.8762454710144928,
+        "ENT_q": 0.7862694300518135,
+        "MARK_q": 1.0,
+        "entity_consistency": 0.7929166666666667
+      },
+      "diag_oracle": {
+        "entity_file_consistency": 1.0,
+        "cross_frame_query_agreement": 1.0,
+        "n_files_mean": 9.805,
+        "overflow_total": 0,
+        "n_tracked_ref": 2400
+      },
+      "diag_commit": {
+        "entity_file_consistency": 0.3408333333333333,
+        "cross_frame_query_agreement": 0.035168195718654434,
+        "n_files_mean": 11.0275,
+        "overflow_total": 0,
+        "n_tracked_ref": 2400
+      },
+      "diag_main": {
+        "entity_consistency": 0.7929166666666667
+      }
+    },
+    {
+      "seed": 13,
+      "train_n": 600,
+      "eval_n": 400,
+      "arms": {
+        "main_enc": {
+          "a_name_maintenance": {
+            "acc": 0.4775,
+            "n": 400,
+            "preds_digest": "5caa19b47c5bb80663525b0410a3dceea324c5681f844ddd1854b7dc893faa19"
+          },
+          "b_competitive_coref": {
+            "acc": 0.5975,
+            "n": 400,
+            "preds_digest": "90fa019cb46a5ff7dbd399cc8aa36c01f11f995b1b8c405c1c3f14c32a7913c4"
+          },
+          "c_overwrite": {
+            "acc": 0.4566929133858268,
+            "n": 381,
+            "preds_digest": "3d5fe216c20e6bc9641d5fe339f825d4461064c064f8ace48e3220d41b61bf7c"
+          }
+        },
+        "ref_span": {
+          "a_name_maintenance": {
+            "acc": 0.9725,
+            "n": 400,
+            "preds_digest": "667a5102abe91716b1691359c06ccdd7d3037eed5ac349e8e0fa2c7826309f58"
+          },
+          "b_competitive_coref": {
+            "acc": 1.0,
+            "n": 400,
+            "preds_digest": "71a5d44b2f974cc6f10d89960ebbc4bb1533f03e43cf7ecc813e434ec7c670ab"
+          },
+          "c_overwrite": {
+            "acc": 0.984251968503937,
+            "n": 381,
+            "preds_digest": "a8afa3d832967ff339814fb22823d7d41c7673d63fb06bbec3b066e259ec638f"
+          }
+        },
+        "oracle_entity_file": {
+          "a_name_maintenance": {
+            "acc": 0.75,
+            "n": 400,
+            "preds_digest": "1f8c8a176266c4115b07a487f0a398f399809431b26c14ec2e09d9ae24a6d933"
+          },
+          "b_competitive_coref": {
+            "acc": 0.74,
+            "n": 400,
+            "preds_digest": "ffd2087530e69cb59b4456bb412a9da58cd3ff0ce68c63702a77391d8c9a8f61"
+          },
+          "c_overwrite": {
+            "acc": 0.7427821522309711,
+            "n": 381,
+            "preds_digest": "029ad918c378f1867d239b19dc18b3225677a413765b0f3c12a6e1eb410c68c1"
+          }
+        },
+        "entity_file_commit": {
+          "a_name_maintenance": {
+            "acc": 0.065,
+            "n": 400,
+            "preds_digest": "3919ef15f1ddd3f2aaad69d44ad3b4773192622ce245c13748013037732de4a7"
+          },
+          "b_competitive_coref": {
+            "acc": 0.2925,
+            "n": 400,
+            "preds_digest": "6bebdf8a43cbe87728e405f585130eadb14f9cb74868b00971c625e623bd9f5c"
+          },
+          "c_overwrite": {
+            "acc": 0.05774278215223097,
+            "n": 381,
+            "preds_digest": "7c7fa69b24f37bf681b52a48456980b5e444aff7f32c4c0521eaa8514d96093e"
+          }
+        },
+        "random_addr": {
+          "a_name_maintenance": {
+            "acc": 0.055,
+            "n": 400,
+            "preds_digest": "32b4a09cdf890d3e33398ea126ae50a5c58eb09b5edf45ed5482b449a6cc43b4"
+          },
+          "b_competitive_coref": {
+            "acc": 0.055,
+            "n": 400,
+            "preds_digest": "104804da005bd1eaaad6b68709cffc5a96a475ce6a714734bb88ada7e66d0f2c"
+          },
+          "c_overwrite": {
+            "acc": 0.03937007874015748,
+            "n": 381,
+            "preds_digest": "6d68a813c0f8871d504fbdc75955b8f4ffe0172cf89317682423ab3b0a8d537b"
+          }
+        },
+        "no_coref": {
+          "a_name_maintenance": {
+            "acc": 0.4775,
+            "n": 400,
+            "preds_digest": "5caa19b47c5bb80663525b0410a3dceea324c5681f844ddd1854b7dc893faa19"
+          },
+          "b_competitive_coref": {
+            "acc": 0.08,
+            "n": 400,
+            "preds_digest": "f3e22080402ac615508b79c5f2b1350738ed9033e381bd58f027d0dc4b797978"
+          },
+          "c_overwrite": {
+            "acc": 0.4566929133858268,
+            "n": 381,
+            "preds_digest": "3d5fe216c20e6bc9641d5fe339f825d4461064c064f8ace48e3220d41b61bf7c"
+          }
+        },
+        "wrongrole": {
+          "a_name_maintenance": {
+            "acc": 0.0775,
+            "n": 400,
+            "preds_digest": "1ee58dfcf4547f8dc7250f7fe5aa7c382ad6cf68a6e8c509cc268a9884fdb538"
+          },
+          "b_competitive_coref": {
+            "acc": 0.095,
+            "n": 400,
+            "preds_digest": "2344aeafe1ceaeb79f729108fc47b48b43f8f0d735eeae4f3557264fdfb8c016"
+          },
+          "c_overwrite": {
+            "acc": 0.08398950131233596,
+            "n": 381,
+            "preds_digest": "3071abb84df2a8cc24ce415921c4d25e1dc86e34d18496370329df76ce479e00"
+          }
+        },
+        "shuffled": {
+          "a_name_maintenance": {
+            "acc": 0.055,
+            "n": 400,
+            "preds_digest": "3a83afc61a8fca8807c7151e9926eccce95a018be0b68e858b052d39906daba9"
+          },
+          "b_competitive_coref": {
+            "acc": 0.0925,
+            "n": 400,
+            "preds_digest": "4876378a6c5eb25141d34ee89896ca0702ca1066ec2cd4cdf9c766d207be9016"
+          },
+          "c_overwrite": {
+            "acc": 0.08136482939632546,
+            "n": 381,
+            "preds_digest": "cdac86b8b117fc6c117509620b7df7019f9d734cc36051278f9e049cb2f73157"
+          }
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": {
+          "acc": 0.0075,
+          "n": 400
+        },
+        "b_competitive_coref": {
+          "acc": 0.01,
+          "n": 400
+        },
+        "c_overwrite": {
+          "acc": 0.005249343832020997,
+          "n": 381
+        }
+      },
+      "pooled": {
+        "a_name_maintenance": {
+          "acc": 0.03999999910593033,
+          "n": 400
+        },
+        "b_competitive_coref": {
+          "acc": 0.05000000074505806,
+          "n": 400
+        },
+        "c_overwrite": {
+          "acc": 0.036745406687259674,
+          "n": 381
+        }
+      },
+      "stage_role_attn": {
+        "ENT": 0.8432793568112331,
+        "MARK": 0.8757646066230753,
+        "S": 0.9606703146374829,
+        "P": 0.8760829913360693,
+        "ENT_q": 0.7925736235595391,
+        "MARK_q": 1.0,
+        "entity_consistency": 0.7945833333333333
+      },
+      "diag_oracle": {
+        "entity_file_consistency": 1.0,
+        "cross_frame_query_agreement": 1.0,
+        "n_files_mean": 9.7725,
+        "overflow_total": 0,
+        "n_tracked_ref": 2400
+      },
+      "diag_commit": {
+        "entity_file_consistency": 0.3441666666666667,
+        "cross_frame_query_agreement": 0.030165912518853696,
+        "n_files_mean": 10.9875,
+        "overflow_total": 0,
+        "n_tracked_ref": 2400
+      },
+      "diag_main": {
+        "entity_consistency": 0.7945833333333333
+      }
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "K_TRACK": 6,
+    "V_FILL": 20,
+    "ATTN_TEMP": 0.1,
+    "COMMIT_CAP": 20,
+    "ORACLE_RECOVER_BAR": 0.85,
+    "COMMIT_MARGIN": 0.15,
+    "COMMIT_APPROACH_BAR": 0.7,
+    "train_n": 600,
+    "eval_n": 400,
+    "seeds": [
+      7,
+      13
+    ],
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}
