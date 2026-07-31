@@ -374,7 +374,12 @@ class EncoderExtractor:
 
         uniq_texts = sorted(set(corpus_texts))               # sorted -> deterministic; NOT list(set())
         idx_of = {t: i for i, t in enumerate(uniq_texts)}
-        reps, pad, _ = self._encode_raw(uniq_texts)
+        # PERF (2026-07-31, exp_dev cost-feasibility pass): _encode_raw is deterministic (model.eval(), no
+        # dropout) -- call it ONCE and keep reps/pad/offs together, instead of the prior pattern that called
+        # it a SECOND time later just to recover offs (discarding reps/pad that second call). Halves the
+        # oracle-corpus encode cost in build(), which is redone every eval() call since the encoder's weights
+        # change online -- pure waste removal, zero change to any returned value (bit-identical outputs).
+        reps, pad, uniq_offs = self._encode_raw(uniq_texts)
         self._cond = rc.Conditioner(reps, pad)               # fit conditioner (unsupervised)
         creps = self._condition(reps, pad)
 
@@ -393,8 +398,7 @@ class EncoderExtractor:
         # precompute conditioned reps per unique text: pooled variants
         creps_by_idx = creps
         pad_by_idx = pad
-        # offsets needed for span mode: recompute (cheap) aligned to uniq_texts
-        _, _, uniq_offs = self._encode_raw(uniq_texts)
+        # offsets needed for span mode: already captured in the single _encode_raw call above (uniq_offs).
         for (txt, spans, target_slot, target_color) in corpus_meta:
             i = idx_of[txt]
             ri, pi = creps_by_idx[i], pad_by_idx[i]
