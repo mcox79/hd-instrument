@@ -1,0 +1,429 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "Direction moved but did not clear HARD_PASS on the real-noun vocab expansion. [REAL-NOUN VOCAB EXPANSION, N=120, chance=0.0083] (A) base reading: oracle_noun=0.747 (chance+0.738) frozen_wc=0.209 -> base_reading_ok=True. COLOR-ANCHOR lift=0.275 (recipe faithful). (B) frozen=0.491 tuned=0.564 (lift=0.074 capture=0.29 min-seed=0.063) oracle=0.747 headroom=0.256. guard=False mem_gap=-0.014.",
+  "summary": "MIDDLE | n_noun=120 chance=0.0083 | Direction moved but did not clear HARD_PASS on the real-noun vocab expansion. [REAL-NOUN VOCAB EXPANSION, N=120, chance=0.0083] (A) base reading: orac",
+  "run_mode": "lite",
+  "elapsed_s": 415.06055289995857,
+  "ts_iso": "2026-07-31T13:29:50.186384+00:00",
+  "anchor_name": "grounding_firstcut_real_noun_vocab_v1",
+  "chance": 0.008333333333333333,
+  "bands": {
+    "disk_finding": "v2 ckpt is the AI2-ARC-corpus FULL run (16000 BPE / 240M real tokens / all subword embeddings trained); the encoder is ALREADY a real-vocab model. Real nouns are in-vocab + single-token. Continue-pretrain is unnecessary for reading real nouns (NOT run). ONE variable = harness symbol vocab (20 colors vs 120 real nouns).",
+    "bars": {
+      "lift_min": 0.05,
+      "headroom_capture_min": 0.35,
+      "tie_band": 0.02,
+      "memorize_gap_max": 0.15,
+      "q_agree_guard_min": 0.55,
+      "entcons_min": 0.85,
+      "wc_drift_max": 0.15,
+      "base_reading_margin": 0.2,
+      "construction_headroom_min": 0.05
+    },
+    "A_base_reading": {
+      "chance": 0.008333333333333333,
+      "oracle_noun_loop": 0.7465178096757045,
+      "oracle_above_chance": 0.7381844763423712,
+      "frozen_within_minus_cross": 0.2089387812647117,
+      "base_reading_ok": true
+    },
+    "B_transfer": {
+      "frozen_noun_loop": 0.49056353003721426,
+      "tuned_noun_loop": 0.5644205209994684,
+      "oracle_noun_loop": 0.7465178096757045,
+      "headroom": 0.2559542796384902,
+      "robust_lift": 0.07385699096225412,
+      "capture": 0.28855540554574716,
+      "min_seed_lift": 0.0626262626262627,
+      "per_seed_lift": [
+        0.08508771929824555,
+        0.0626262626262627
+      ]
+    },
+    "color_anchor": {
+      "lift": 0.27514367816091956,
+      "frozen": 0.4793787629994527,
+      "tuned": 0.7545224411603721
+    },
+    "collapse_guard": {
+      "c1_loop_not_cratered": true,
+      "c2_no_drift": true,
+      "wc_drift": 0.008361990986706341,
+      "c3_entcons_ok": false,
+      "c4_q_agree_ok": true,
+      "pass": false
+    },
+    "memorization": {
+      "train_loop": 0.5506841817186645,
+      "gap": -0.013736339280803866,
+      "ok": true
+    },
+    "geometry": {
+      "wc_tuned": 0.21730077225141803,
+      "wc_frozen": 0.2089387812647117
+    },
+    "non_triviality": {
+      "floors_ok": true,
+      "pooled_reservoir": false
+    },
+    "held_nouns_sample": [
+      "bridge",
+      "brother",
+      "temple",
+      "spoon",
+      "leopard",
+      "parrot",
+      "grape",
+      "pepper",
+      "orbit",
+      "oxygen"
+    ]
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "n_units_done": 2,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.0,
+      "global_last|b_competitive_coref": 0.0,
+      "global_last|c_overwrite": 0.0,
+      "most_frequent|a_name_maintenance": 0.04666666666666667,
+      "most_frequent|b_competitive_coref": 0.04666666666666667,
+      "most_frequent|c_overwrite": 0.039285714285714285
+    },
+    "label_max_share_a": 0.023333333333333334,
+    "frac_overwrite_wellposed": 0.9333333333333333,
+    "fails": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_noun": 120,
+      "chance": 0.008333333333333333,
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220,
+      "eval_n": 60,
+      "ft_seconds": 121.24664069991559,
+      "n_trainable_params": 3153408,
+      "frozen_noun_loop": 0.5023391812865498,
+      "tuned_noun_loop": 0.5874269005847953,
+      "oracle_noun_loop": 0.8026315789473685,
+      "train_noun_loop": 0.6005747126436781,
+      "frozen_type": {
+        "a_name_maintenance": 0.55,
+        "b_competitive_coref": 0.48333333333333334,
+        "c_overwrite": 0.47368421052631576
+      },
+      "tuned_type": {
+        "a_name_maintenance": 0.6166666666666667,
+        "b_competitive_coref": 0.5666666666666667,
+        "c_overwrite": 0.5789473684210527
+      },
+      "oracle_type": {
+        "a_name_maintenance": 0.8,
+        "b_competitive_coref": 0.7833333333333333,
+        "c_overwrite": 0.8245614035087719
+      },
+      "train_type": {
+        "a_name_maintenance": 0.5666666666666667,
+        "b_competitive_coref": 0.6833333333333333,
+        "c_overwrite": 0.5517241379310345
+      },
+      "frozen_q_agree": 0.8037383177570093,
+      "tuned_q_agree": 0.8504672897196262,
+      "frozen_ent_consistency": 0.7,
+      "tuned_ent_consistency": 0.7361111111111112,
+      "wc_tuned": 0.231323888519556,
+      "wc_frozen": 0.22561795234576698,
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.016666666666666666,
+          "b_competitive_coref": 0.06666666666666667,
+          "c_overwrite": 0.017543859649122806
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.6166666666666667,
+          "b_competitive_coref": 0.13333333333333333,
+          "c_overwrite": 0.5789473684210527
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.0,
+          "b_competitive_coref": 0.05,
+          "c_overwrite": 0.05263157894736842
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.03333333333333333,
+          "b_competitive_coref": 0.016666666666666666,
+          "c_overwrite": 0.0
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.0
+      },
+      "pooled_b": 0.03333333507180214,
+      "pooled_c": 0.0,
+      "held_nouns": [
+        "bridge",
+        "brother",
+        "temple",
+        "spoon",
+        "leopard",
+        "parrot",
+        "grape",
+        "pepper",
+        "orbit",
+        "oxygen"
+      ],
+      "train_noun_sample": [
+        "dog",
+        "house",
+        "river",
+        "soldier",
+        "music",
+        "planet",
+        "doctor",
+        "engine"
+      ],
+      "anchor_frozen_color_loop": 0.471455938697318,
+      "anchor_tuned_color_loop": 0.7134099616858238
+    },
+    {
+      "seed": 13,
+      "n_noun": 120,
+      "chance": 0.008333333333333333,
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220,
+      "eval_n": 60,
+      "ft_seconds": 121.5947271999903,
+      "n_trainable_params": 3153408,
+      "frozen_noun_loop": 0.47878787878787876,
+      "tuned_noun_loop": 0.5414141414141415,
+      "oracle_noun_loop": 0.6904040404040405,
+      "train_noun_loop": 0.5007936507936508,
+      "frozen_type": {
+        "a_name_maintenance": 0.5,
+        "b_competitive_coref": 0.5,
+        "c_overwrite": 0.43636363636363634
+      },
+      "tuned_type": {
+        "a_name_maintenance": 0.5333333333333333,
+        "b_competitive_coref": 0.6,
+        "c_overwrite": 0.4909090909090909
+      },
+      "oracle_type": {
+        "a_name_maintenance": 0.7333333333333333,
+        "b_competitive_coref": 0.6833333333333333,
+        "c_overwrite": 0.6545454545454545
+      },
+      "train_type": {
+        "a_name_maintenance": 0.48333333333333334,
+        "b_competitive_coref": 0.48333333333333334,
+        "c_overwrite": 0.5357142857142857
+      },
+      "frozen_q_agree": 0.87,
+      "tuned_q_agree": 0.88,
+      "frozen_ent_consistency": 0.7333333333333333,
+      "tuned_ent_consistency": 0.7583333333333333,
+      "wc_tuned": 0.20327765598328007,
+      "wc_frozen": 0.1922596101836564,
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.016666666666666666,
+          "b_competitive_coref": 0.1,
+          "c_overwrite": 0.01818181818181818
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.5333333333333333,
+          "b_competitive_coref": 0.06666666666666667,
+          "c_overwrite": 0.4909090909090909
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.05,
+          "b_competitive_coref": 0.016666666666666666,
+          "c_overwrite": 0.01818181818181818
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.0,
+          "b_competitive_coref": 0.03333333333333333,
+          "c_overwrite": 0.05454545454545454
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.0
+      },
+      "pooled_b": 0.0,
+      "pooled_c": 0.0,
+      "held_nouns": [
+        "bridge",
+        "brother",
+        "temple",
+        "spoon",
+        "leopard",
+        "parrot",
+        "grape",
+        "pepper",
+        "orbit",
+        "oxygen"
+      ],
+      "train_noun_sample": [
+        "dog",
+        "house",
+        "river",
+        "soldier",
+        "music",
+        "planet",
+        "doctor",
+        "engine"
+      ],
+      "anchor_frozen_color_loop": 0.48730158730158735,
+      "anchor_tuned_color_loop": 0.7956349206349206
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "N_NOUN": 120,
+    "DEPTH": 1,
+    "NCTX": 40,
+    "steps": 220,
+    "eval_n": 60,
+    "seeds": [
+      7,
+      13
+    ],
+    "nouns": [
+      "dog",
+      "house",
+      "river",
+      "soldier",
+      "music",
+      "planet",
+      "doctor",
+      "engine",
+      "forest",
+      "window",
+      "mountain",
+      "teacher",
+      "garden",
+      "castle",
+      "island",
+      "farmer",
+      "bridge",
+      "market",
+      "winter",
+      "summer",
+      "morning",
+      "village",
+      "flower",
+      "animal",
+      "machine",
+      "picture",
+      "country",
+      "mother",
+      "father",
+      "brother",
+      "system",
+      "number",
+      "reason",
+      "moment",
+      "friend",
+      "office",
+      "school",
+      "street",
+      "science",
+      "history",
+      "nature",
+      "future",
+      "circle",
+      "square",
+      "corner",
+      "center",
+      "region",
+      "season",
+      "weather",
+      "valley",
+      "desert",
+      "volcano",
+      "tunnel",
+      "temple",
+      "factory",
+      "station",
+      "library",
+      "museum",
+      "theater",
+      "hunter",
+      "singer",
+      "painter",
+      "writer",
+      "reader",
+      "leader",
+      "worker",
+      "lawyer",
+      "nurse",
+      "pilot",
+      "driver",
+      "guard",
+      "judge",
+      "camera",
+      "guitar",
+      "piano",
+      "hammer",
+      "anchor",
+      "basket",
+      "bottle",
+      "pocket",
+      "button",
+      "spoon",
+      "rabbit",
+      "turtle",
+      "monkey",
+      "spider",
+      "beetle",
+      "salmon",
+      "eagle",
+      "cattle",
+      "leopard",
+      "whale",
+      "shark",
+      "lizard",
+      "parrot",
+      "apple",
+      "banana",
+      "grape",
+      "lemon",
+      "melon",
+      "potato",
+      "pepper",
+      "garlic",
+      "ginger",
+      "meteor",
+      "orbit",
+      "rocket",
+      "circuit",
+      "battery",
+      "magnet",
+      "diamond",
+      "copper",
+      "helium",
+      "oxygen",
+      "letter",
+      "package",
+      "message",
+      "signal",
+      "network",
+      "channel"
+    ]
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}
