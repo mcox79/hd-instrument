@@ -80,6 +80,8 @@ Gate, at land-time, for anything genuinely-good (cert / HARD_PASS):
 
 **The durability anchor is the session-start read, not an OS cron.** 11 `hd_*` scheduled tasks silently disabled for ~12 days (2026-07-16 to 2026-07-28) with no one noticing -- OS crons proved fragile and unmonitored. A rule or capability that lives only in a scheduler is one silent disable away from not existing. Cadence crons (`hd_capability_registry_audit`, meta_audit) still run and are useful, but they are a backstop, NOT the enforcement mechanism -- the enforcement is this file + MEMORY.md + WHERE_WE_ARE_NOW getting read every session regardless of what the scheduler is doing.
 
+**Same durability gate applies to the director_kb ingest loop (testbed 2026-08-01):** `hd_director_kb_continuous_ingest` (the 5-min-poll scheduled task keeping the queryable director_kb current) was found silently Disabled for 6 days (2026-07-26 to 2026-08-01), exactly the same failure class as above -- the KB kept answering queries but with stale, week-old content and no one noticed because nothing read the gap. Run `python tools/director_kb_freshness_check.py` at **SESSION START** (alongside `capability_registry_audit.py` above) -- it compares the index's last-scanned mtime against the newest file on disk under `notes/`+`preregs/` and exits 1 with a loud stderr banner if the gap exceeds 30 minutes or the index hasn't ingested in over an hour. Pass `--fix` to also launch a catch-up ingest in the background. This is a READ, not a cron -- it works even if the scheduled task itself is (again) silently disabled.
+
 ## Conventions
 
 - Python 3.11+, PyTorch tensors with explicit dtypes (complex64 for FHRR, float32 for HRR).
