@@ -1,0 +1,869 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "TRANSFER CONFIRMED (promotes atom 29594): stage_ENT lifts 0.724->0.858 (+0.134), absolute Tier-1 0.507->0.652 (+0.145, meaningful lift), delta intact 0.188->0.239 (all 3 seeds > 0.05). The encoder is the binding constraint on absolute comprehension and the certified break RELIEVES it without washing out the compositional wiring. stage_ENT fz=0.724 tn=0.858 (lift=0.134, min=0.03) | Tier1_abs fz=0.507 tn=0.652 (lift=0.145) | Tier1_delta fz=0.188 tn=0.239 (per_seed=[0.222, 0.234, 0.261], min=0.10, washout<0.05)",
+  "summary": "HARD_PASS | TRANSFER CONFIRMED (promotes atom 29594): stage_ENT lifts 0.724->0.858 (+0.134), absolute Tier-1 0.507->0.652 (+0.145, meaningful lift), delta intact ",
+  "run_mode": "lite",
+  "elapsed_s": 515.1339664000552,
+  "ts_iso": "2026-08-01T00:29:08.715092+00:00",
+  "anchor_name": "coref_encoder_transfer_v1",
+  "bands": {
+    "bars": {
+      "stage_ent_lift_min": 0.03,
+      "tier1_abs_hard_pass": 0.7,
+      "tier1_abs_meaningful_lift_min": 0.1,
+      "delta_intact_min": 0.1,
+      "delta_washout_max": 0.05,
+      "delta_perseed_min": 0.05
+    },
+    "stage_ent_frozen": 0.7243811568337283,
+    "stage_ent_tuned": 0.8581407076667068,
+    "stage_ent_lift": 0.13375955083297872,
+    "tier1_abs_frozen": 0.5067804159386028,
+    "tier1_abs_tuned": 0.6517627710967212,
+    "tier1_abs_lift": 0.14498235515811833,
+    "tier1_delta_frozen": 0.18782334601021003,
+    "tier1_delta_tuned": 0.2390447802103676,
+    "per_seed_delta_tuned": [
+      0.2222222222222222,
+      0.23404255319148942,
+      0.26086956521739124
+    ],
+    "all_seeds_delta_ok": true,
+    "floors_ok": {
+      "frozen": true,
+      "tuned": true
+    },
+    "fairness_ok": {
+      "frozen": true,
+      "tuned": true
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units_done": 3,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "units": [
+    {
+      "seed": 7,
+      "frozen": {
+        "kind": "seed_unit",
+        "seed": 7,
+        "arm": "frozen",
+        "hardness": [
+          1,
+          3,
+          8
+        ],
+        "target": 8,
+        "chance": 0.05,
+        "frozen_profile": {
+          "1": 0.482375478927203,
+          "3": 0.41136653895274583,
+          "8": 0.38480204342273305
+        },
+        "frozen_target_loop": 0.38480204342273305,
+        "frozen_easy_loop": 0.482375478927203,
+        "oracle_target_loop": 0.6246487867177523,
+        "wc_frozen": 0.16885099482326568,
+        "profile_decline": 0.09757343550446995,
+        "floors": {
+          "random_addr": {
+            "a_name_maintenance": 0.011111111111111112,
+            "b_competitive_coref": 0.13333333333333333,
+            "c_overwrite": 0.04597701149425287
+          },
+          "no_coref": {
+            "a_name_maintenance": 0.4444444444444444,
+            "b_competitive_coref": 0.05555555555555555,
+            "c_overwrite": 0.2988505747126437
+          },
+          "wrongrole": {
+            "a_name_maintenance": 0.08888888888888889,
+            "b_competitive_coref": 0.1,
+            "c_overwrite": 0.05747126436781609
+          },
+          "shuffled": {
+            "a_name_maintenance": 0.044444444444444446,
+            "b_competitive_coref": 0.044444444444444446,
+            "c_overwrite": 0.04597701149425287
+          }
+        },
+        "most_recent": {
+          "a_name_maintenance": 0.0,
+          "b_competitive_coref": 0.0,
+          "c_overwrite": 0.022988505747126436
+        },
+        "pooled_b": 0.07777778059244156,
+        "pooled_c": 0.05747126415371895,
+        "frozen_per_type_target": {
+          "a_name_maintenance": 0.4444444444444444,
+          "b_competitive_coref": 0.4111111111111111,
+          "c_overwrite": 0.2988505747126437
+        },
+        "frozen_overall_target": 0.38480204342273305,
+        "fairness": {
+          "role_critical_fraction": 0.9111111111111111,
+          "role_critical_n": 90,
+          "oracle_role": 0.7,
+          "frozen_role": 0.4444444444444444,
+          "role_headroom": 0.25555555555555554,
+          "wrongrole_role": 0.08888888888888889,
+          "shuffled_role": 0.044444444444444446
+        },
+        "tier_stats": {
+          "n_total": 90,
+          "n_valid": 90,
+          "n_tier0": 7,
+          "n_tier1": 45,
+          "n_tier2": 38,
+          "median_distance_role_critical": 9.0,
+          "role_critical_fraction": 0.9222222222222223,
+          "shortcut_tier1_acc": 0.4819277108433735
+        },
+        "measure": {
+          "tier0": {
+            "present": 0.0,
+            "ablated": 0.14285714285714285,
+            "rand": 0.0,
+            "n": 7,
+            "n_role_changed_ablated": 4
+          },
+          "tier1": {
+            "present": 0.4888888888888889,
+            "ablated": 0.37777777777777777,
+            "rand": 0.3333333333333333,
+            "n": 45,
+            "n_role_changed_ablated": 21
+          },
+          "tier2": {
+            "present": 0.39473684210526316,
+            "ablated": 0.18421052631578946,
+            "rand": 0.15789473684210525,
+            "n": 38,
+            "n_role_changed_ablated": 22
+          }
+        },
+        "stage_decode": {
+          "ENT": 0.7326582278481013,
+          "MARK": 0.8311926605504587,
+          "S": 0.9581863979848867,
+          "P": 0.819647355163728,
+          "ENT_q": 1.0,
+          "MARK_q": 1.0
+        },
+        "coref_fairness_checks": {
+          "1_role_critical_fraction": {
+            "value": 0.9222222222222223,
+            "bar": 0.55,
+            "ok": true
+          },
+          "2_shortcut_tier1_floor": {
+            "value": 0.4819277108433735,
+            "bar": 0.65,
+            "ok": true
+          },
+          "3_tier1_population": {
+            "n": 45,
+            "min": 20,
+            "ok": true
+          }
+        },
+        "coref_fairness_ok": true
+      },
+      "tuned": {
+        "kind": "seed_unit",
+        "seed": 7,
+        "arm": "frozen",
+        "hardness": [
+          1,
+          3,
+          8
+        ],
+        "target": 8,
+        "chance": 0.05,
+        "frozen_profile": {
+          "1": 0.7485312899106003,
+          "3": 0.6888888888888888,
+          "8": 0.6102171136653896
+        },
+        "frozen_target_loop": 0.6102171136653896,
+        "frozen_easy_loop": 0.7485312899106003,
+        "oracle_target_loop": 0.7899106002554278,
+        "wc_frozen": 0.17560582828916943,
+        "profile_decline": 0.1383141762452107,
+        "floors": {
+          "random_addr": {
+            "a_name_maintenance": 0.044444444444444446,
+            "b_competitive_coref": 0.15555555555555556,
+            "c_overwrite": 0.05747126436781609
+          },
+          "no_coref": {
+            "a_name_maintenance": 0.6555555555555556,
+            "b_competitive_coref": 0.044444444444444446,
+            "c_overwrite": 0.5862068965517241
+          },
+          "wrongrole": {
+            "a_name_maintenance": 0.03333333333333333,
+            "b_competitive_coref": 0.1,
+            "c_overwrite": 0.04597701149425287
+          },
+          "shuffled": {
+            "a_name_maintenance": 0.05555555555555555,
+            "b_competitive_coref": 0.03333333333333333,
+            "c_overwrite": 0.05747126436781609
+          }
+        },
+        "most_recent": {
+          "a_name_maintenance": 0.0,
+          "b_competitive_coref": 0.0,
+          "c_overwrite": 0.022988505747126436
+        },
+        "pooled_b": 0.07777778059244156,
+        "pooled_c": 0.05747126415371895,
+        "frozen_per_type_target": {
+          "a_name_maintenance": 0.6555555555555556,
+          "b_competitive_coref": 0.5888888888888889,
+          "c_overwrite": 0.5862068965517241
+        },
+        "frozen_overall_target": 0.6102171136653896,
+        "fairness": {
+          "role_critical_fraction": 0.9111111111111111,
+          "role_critical_n": 90,
+          "oracle_role": 0.8333333333333334,
+          "frozen_role": 0.6555555555555556,
+          "role_headroom": 0.1777777777777778,
+          "wrongrole_role": 0.03333333333333333,
+          "shuffled_role": 0.05555555555555555
+        },
+        "tier_stats": {
+          "n_total": 90,
+          "n_valid": 90,
+          "n_tier0": 7,
+          "n_tier1": 45,
+          "n_tier2": 38,
+          "median_distance_role_critical": 9.0,
+          "role_critical_fraction": 0.9222222222222223,
+          "shortcut_tier1_acc": 0.4819277108433735
+        },
+        "measure": {
+          "tier0": {
+            "present": 0.2857142857142857,
+            "ablated": 0.42857142857142855,
+            "rand": 0.2857142857142857,
+            "n": 7,
+            "n_role_changed_ablated": 4
+          },
+          "tier1": {
+            "present": 0.6666666666666666,
+            "ablated": 0.4444444444444444,
+            "rand": 0.4,
+            "n": 45,
+            "n_role_changed_ablated": 21
+          },
+          "tier2": {
+            "present": 0.5526315789473685,
+            "ablated": 0.18421052631578946,
+            "rand": 0.3157894736842105,
+            "n": 38,
+            "n_role_changed_ablated": 22
+          }
+        },
+        "stage_decode": {
+          "ENT": 0.8536708860759493,
+          "MARK": 0.8990825688073395,
+          "S": 0.9753148614609571,
+          "P": 0.8977329974811084,
+          "ENT_q": 1.0,
+          "MARK_q": 1.0
+        },
+        "coref_fairness_checks": {
+          "1_role_critical_fraction": {
+            "value": 0.9222222222222223,
+            "bar": 0.55,
+            "ok": true
+          },
+          "2_shortcut_tier1_floor": {
+            "value": 0.4819277108433735,
+            "bar": 0.65,
+            "ok": true
+          },
+          "3_tier1_population": {
+            "n": 45,
+            "min": 20,
+            "ok": true
+          }
+        },
+        "coref_fairness_ok": true
+      },
+      "stage_ent_frozen": 0.7326582278481013,
+      "stage_ent_tuned": 0.8536708860759493,
+      "stage_ent_lift": 0.12101265822784801,
+      "tier1_abs_frozen": 0.4888888888888889,
+      "tier1_abs_tuned": 0.6666666666666666,
+      "tier1_abs_lift": 0.17777777777777776,
+      "tier1_delta_frozen": 0.1111111111111111,
+      "tier1_delta_tuned": 0.2222222222222222,
+      "frozen_fairness_ok": true,
+      "tuned_fairness_ok": true
+    },
+    {
+      "seed": 13,
+      "frozen": {
+        "kind": "seed_unit",
+        "seed": 13,
+        "arm": "frozen",
+        "hardness": [
+          1,
+          3,
+          8
+        ],
+        "target": 8,
+        "chance": 0.05,
+        "frozen_profile": {
+          "1": 0.5316376617581438,
+          "3": 0.42820169567157523,
+          "8": 0.41740294511378845
+        },
+        "frozen_target_loop": 0.41740294511378845,
+        "frozen_easy_loop": 0.5316376617581438,
+        "oracle_target_loop": 0.6801427933958054,
+        "wc_frozen": 0.17936314502527984,
+        "profile_decline": 0.1142347166443553,
+        "floors": {
+          "random_addr": {
+            "a_name_maintenance": 0.06666666666666667,
+            "b_competitive_coref": 0.13333333333333333,
+            "c_overwrite": 0.060240963855421686
+          },
+          "no_coref": {
+            "a_name_maintenance": 0.4,
+            "b_competitive_coref": 0.044444444444444446,
+            "c_overwrite": 0.3855421686746988
+          },
+          "wrongrole": {
+            "a_name_maintenance": 0.06666666666666667,
+            "b_competitive_coref": 0.13333333333333333,
+            "c_overwrite": 0.10843373493975904
+          },
+          "shuffled": {
+            "a_name_maintenance": 0.06666666666666667,
+            "b_competitive_coref": 0.1,
+            "c_overwrite": 0.10843373493975904
+          }
+        },
+        "most_recent": {
+          "a_name_maintenance": 0.022222222222222223,
+          "b_competitive_coref": 0.011111111111111112,
+          "c_overwrite": 0.012048192771084338
+        },
+        "pooled_b": 0.1111111119389534,
+        "pooled_c": 0.048192769289016724,
+        "frozen_per_type_target": {
+          "a_name_maintenance": 0.4,
+          "b_competitive_coref": 0.4666666666666667,
+          "c_overwrite": 0.3855421686746988
+        },
+        "frozen_overall_target": 0.41740294511378845,
+        "fairness": {
+          "role_critical_fraction": 0.9666666666666667,
+          "role_critical_n": 90,
+          "oracle_role": 0.6444444444444445,
+          "frozen_role": 0.4,
+          "role_headroom": 0.24444444444444446,
+          "wrongrole_role": 0.06666666666666667,
+          "shuffled_role": 0.06666666666666667
+        },
+        "tier_stats": {
+          "n_total": 90,
+          "n_valid": 90,
+          "n_tier0": 7,
+          "n_tier1": 47,
+          "n_tier2": 36,
+          "median_distance_role_critical": 10.0,
+          "role_critical_fraction": 0.9222222222222223,
+          "shortcut_tier1_acc": 0.5662650602409639
+        },
+        "measure": {
+          "tier0": {
+            "present": 0.42857142857142855,
+            "ablated": 0.42857142857142855,
+            "rand": 0.42857142857142855,
+            "n": 7,
+            "n_role_changed_ablated": 5
+          },
+          "tier1": {
+            "present": 0.5531914893617021,
+            "ablated": 0.3617021276595745,
+            "rand": 0.2765957446808511,
+            "n": 47,
+            "n_role_changed_ablated": 23
+          },
+          "tier2": {
+            "present": 0.3611111111111111,
+            "ablated": 0.3333333333333333,
+            "rand": 0.19444444444444445,
+            "n": 36,
+            "n_role_changed_ablated": 13
+          }
+        },
+        "stage_decode": {
+          "ENT": 0.7245358755644756,
+          "MARK": 0.8195348837209302,
+          "S": 0.9552313883299799,
+          "P": 0.8128772635814889,
+          "ENT_q": 1.0,
+          "MARK_q": 1.0
+        },
+        "coref_fairness_checks": {
+          "1_role_critical_fraction": {
+            "value": 0.9222222222222223,
+            "bar": 0.55,
+            "ok": true
+          },
+          "2_shortcut_tier1_floor": {
+            "value": 0.5662650602409639,
+            "bar": 0.65,
+            "ok": true
+          },
+          "3_tier1_population": {
+            "n": 47,
+            "min": 20,
+            "ok": true
+          }
+        },
+        "coref_fairness_ok": true
+      },
+      "tuned": {
+        "kind": "seed_unit",
+        "seed": 13,
+        "arm": "frozen",
+        "hardness": [
+          1,
+          3,
+          8
+        ],
+        "target": 8,
+        "chance": 0.05,
+        "frozen_profile": {
+          "1": 0.8101294065149487,
+          "3": 0.7344935296742526,
+          "8": 0.6511378848728246
+        },
+        "frozen_target_loop": 0.6511378848728246,
+        "frozen_easy_loop": 0.8101294065149487,
+        "oracle_target_loop": 0.8403837572512272,
+        "wc_frozen": 0.18894582391270778,
+        "profile_decline": 0.15899152164212405,
+        "floors": {
+          "random_addr": {
+            "a_name_maintenance": 0.06666666666666667,
+            "b_competitive_coref": 0.15555555555555556,
+            "c_overwrite": 0.060240963855421686
+          },
+          "no_coref": {
+            "a_name_maintenance": 0.6333333333333333,
+            "b_competitive_coref": 0.13333333333333333,
+            "c_overwrite": 0.6867469879518072
+          },
+          "wrongrole": {
+            "a_name_maintenance": 0.03333333333333333,
+            "b_competitive_coref": 0.08888888888888889,
+            "c_overwrite": 0.0963855421686747
+          },
+          "shuffled": {
+            "a_name_maintenance": 0.044444444444444446,
+            "b_competitive_coref": 0.08888888888888889,
+            "c_overwrite": 0.14457831325301204
+          }
+        },
+        "most_recent": {
+          "a_name_maintenance": 0.022222222222222223,
+          "b_competitive_coref": 0.011111111111111112,
+          "c_overwrite": 0.012048192771084338
+        },
+        "pooled_b": 0.1111111119389534,
+        "pooled_c": 0.048192769289016724,
+        "frozen_per_type_target": {
+          "a_name_maintenance": 0.6333333333333333,
+          "b_competitive_coref": 0.6333333333333333,
+          "c_overwrite": 0.6867469879518072
+        },
+        "frozen_overall_target": 0.6511378848728246,
+        "fairness": {
+          "role_critical_fraction": 0.9666666666666667,
+          "role_critical_n": 90,
+          "oracle_role": 0.8444444444444444,
+          "frozen_role": 0.6333333333333333,
+          "role_headroom": 0.21111111111111114,
+          "wrongrole_role": 0.03333333333333333,
+          "shuffled_role": 0.044444444444444446
+        },
+        "tier_stats": {
+          "n_total": 90,
+          "n_valid": 90,
+          "n_tier0": 7,
+          "n_tier1": 47,
+          "n_tier2": 36,
+          "median_distance_role_critical": 10.0,
+          "role_critical_fraction": 0.9222222222222223,
+          "shortcut_tier1_acc": 0.5662650602409639
+        },
+        "measure": {
+          "tier0": {
+            "present": 0.42857142857142855,
+            "ablated": 0.42857142857142855,
+            "rand": 0.42857142857142855,
+            "n": 7,
+            "n_role_changed_ablated": 5
+          },
+          "tier1": {
+            "present": 0.723404255319149,
+            "ablated": 0.48936170212765956,
+            "rand": 0.3617021276595745,
+            "n": 47,
+            "n_role_changed_ablated": 23
+          },
+          "tier2": {
+            "present": 0.5555555555555556,
+            "ablated": 0.4166666666666667,
+            "rand": 0.19444444444444445,
+            "n": 36,
+            "n_role_changed_ablated": 13
+          }
+        },
+        "stage_decode": {
+          "ENT": 0.8620170597089815,
+          "MARK": 0.906046511627907,
+          "S": 0.9723340040241448,
+          "P": 0.89738430583501,
+          "ENT_q": 1.0,
+          "MARK_q": 1.0
+        },
+        "coref_fairness_checks": {
+          "1_role_critical_fraction": {
+            "value": 0.9222222222222223,
+            "bar": 0.55,
+            "ok": true
+          },
+          "2_shortcut_tier1_floor": {
+            "value": 0.5662650602409639,
+            "bar": 0.65,
+            "ok": true
+          },
+          "3_tier1_population": {
+            "n": 47,
+            "min": 20,
+            "ok": true
+          }
+        },
+        "coref_fairness_ok": true
+      },
+      "stage_ent_frozen": 0.7245358755644756,
+      "stage_ent_tuned": 0.8620170597089815,
+      "stage_ent_lift": 0.13748118414450583,
+      "tier1_abs_frozen": 0.5531914893617021,
+      "tier1_abs_tuned": 0.723404255319149,
+      "tier1_abs_lift": 0.17021276595744683,
+      "tier1_delta_frozen": 0.19148936170212766,
+      "tier1_delta_tuned": 0.23404255319148942,
+      "frozen_fairness_ok": true,
+      "tuned_fairness_ok": true
+    },
+    {
+      "seed": 19,
+      "frozen": {
+        "kind": "seed_unit",
+        "seed": 19,
+        "arm": "frozen",
+        "hardness": [
+          1,
+          3,
+          8
+        ],
+        "target": 8,
+        "chance": 0.05,
+        "frozen_profile": {
+          "1": 0.5441798941798942,
+          "3": 0.46878306878306875,
+          "8": 0.4878306878306878
+        },
+        "frozen_target_loop": 0.4878306878306878,
+        "frozen_easy_loop": 0.5441798941798942,
+        "oracle_target_loop": 0.7121693121693121,
+        "wc_frozen": 0.1811178255083465,
+        "profile_decline": 0.05634920634920643,
+        "floors": {
+          "random_addr": {
+            "a_name_maintenance": 0.1,
+            "b_competitive_coref": 0.1111111111111111,
+            "c_overwrite": 0.08333333333333333
+          },
+          "no_coref": {
+            "a_name_maintenance": 0.5111111111111111,
+            "b_competitive_coref": 0.1,
+            "c_overwrite": 0.4523809523809524
+          },
+          "wrongrole": {
+            "a_name_maintenance": 0.1,
+            "b_competitive_coref": 0.05555555555555555,
+            "c_overwrite": 0.11904761904761904
+          },
+          "shuffled": {
+            "a_name_maintenance": 0.05555555555555555,
+            "b_competitive_coref": 0.06666666666666667,
+            "c_overwrite": 0.10714285714285714
+          }
+        },
+        "most_recent": {
+          "a_name_maintenance": 0.011111111111111112,
+          "b_competitive_coref": 0.0,
+          "c_overwrite": 0.023809523809523808
+        },
+        "pooled_b": 0.02222222276031971,
+        "pooled_c": 0.02380952425301075,
+        "frozen_per_type_target": {
+          "a_name_maintenance": 0.5111111111111111,
+          "b_competitive_coref": 0.5,
+          "c_overwrite": 0.4523809523809524
+        },
+        "frozen_overall_target": 0.4878306878306878,
+        "fairness": {
+          "role_critical_fraction": 0.8888888888888888,
+          "role_critical_n": 90,
+          "oracle_role": 0.7444444444444445,
+          "frozen_role": 0.5111111111111111,
+          "role_headroom": 0.2333333333333334,
+          "wrongrole_role": 0.1,
+          "shuffled_role": 0.05555555555555555
+        },
+        "tier_stats": {
+          "n_total": 90,
+          "n_valid": 90,
+          "n_tier0": 7,
+          "n_tier1": 46,
+          "n_tier2": 37,
+          "median_distance_role_critical": 10.0,
+          "role_critical_fraction": 0.9222222222222223,
+          "shortcut_tier1_acc": 0.43373493975903615
+        },
+        "measure": {
+          "tier0": {
+            "present": 0.2857142857142857,
+            "ablated": 0.2857142857142857,
+            "rand": 0.2857142857142857,
+            "n": 7,
+            "n_role_changed_ablated": 7
+          },
+          "tier1": {
+            "present": 0.4782608695652174,
+            "ablated": 0.21739130434782608,
+            "rand": 0.2826086956521739,
+            "n": 46,
+            "n_role_changed_ablated": 24
+          },
+          "tier2": {
+            "present": 0.5675675675675675,
+            "ablated": 0.2972972972972973,
+            "rand": 0.3783783783783784,
+            "n": 37,
+            "n_role_changed_ablated": 23
+          }
+        },
+        "stage_decode": {
+          "ENT": 0.7159493670886076,
+          "MARK": 0.8434940855323021,
+          "S": 0.948345035105316,
+          "P": 0.8034102306920762,
+          "ENT_q": 1.0,
+          "MARK_q": 1.0
+        },
+        "coref_fairness_checks": {
+          "1_role_critical_fraction": {
+            "value": 0.9222222222222223,
+            "bar": 0.55,
+            "ok": true
+          },
+          "2_shortcut_tier1_floor": {
+            "value": 0.43373493975903615,
+            "bar": 0.65,
+            "ok": true
+          },
+          "3_tier1_population": {
+            "n": 46,
+            "min": 20,
+            "ok": true
+          }
+        },
+        "coref_fairness_ok": true
+      },
+      "tuned": {
+        "kind": "seed_unit",
+        "seed": 19,
+        "arm": "frozen",
+        "hardness": [
+          1,
+          3,
+          8
+        ],
+        "target": 8,
+        "chance": 0.05,
+        "frozen_profile": {
+          "1": 0.8002645502645502,
+          "3": 0.7854497354497355,
+          "8": 0.6671957671957672
+        },
+        "frozen_target_loop": 0.6671957671957672,
+        "frozen_easy_loop": 0.8002645502645502,
+        "oracle_target_loop": 0.7880952380952381,
+        "wc_frozen": 0.1839814624935488,
+        "profile_decline": 0.133068783068783,
+        "floors": {
+          "random_addr": {
+            "a_name_maintenance": 0.08888888888888889,
+            "b_competitive_coref": 0.07777777777777778,
+            "c_overwrite": 0.03571428571428571
+          },
+          "no_coref": {
+            "a_name_maintenance": 0.7,
+            "b_competitive_coref": 0.13333333333333333,
+            "c_overwrite": 0.6904761904761905
+          },
+          "wrongrole": {
+            "a_name_maintenance": 0.1,
+            "b_competitive_coref": 0.05555555555555555,
+            "c_overwrite": 0.11904761904761904
+          },
+          "shuffled": {
+            "a_name_maintenance": 0.06666666666666667,
+            "b_competitive_coref": 0.06666666666666667,
+            "c_overwrite": 0.10714285714285714
+          }
+        },
+        "most_recent": {
+          "a_name_maintenance": 0.011111111111111112,
+          "b_competitive_coref": 0.0,
+          "c_overwrite": 0.023809523809523808
+        },
+        "pooled_b": 0.02222222276031971,
+        "pooled_c": 0.02380952425301075,
+        "frozen_per_type_target": {
+          "a_name_maintenance": 0.7,
+          "b_competitive_coref": 0.6111111111111112,
+          "c_overwrite": 0.6904761904761905
+        },
+        "frozen_overall_target": 0.6671957671957672,
+        "fairness": {
+          "role_critical_fraction": 0.8888888888888888,
+          "role_critical_n": 90,
+          "oracle_role": 0.8333333333333334,
+          "frozen_role": 0.7,
+          "role_headroom": 0.13333333333333341,
+          "wrongrole_role": 0.1,
+          "shuffled_role": 0.06666666666666667
+        },
+        "tier_stats": {
+          "n_total": 90,
+          "n_valid": 90,
+          "n_tier0": 7,
+          "n_tier1": 46,
+          "n_tier2": 37,
+          "median_distance_role_critical": 10.0,
+          "role_critical_fraction": 0.9222222222222223,
+          "shortcut_tier1_acc": 0.43373493975903615
+        },
+        "measure": {
+          "tier0": {
+            "present": 0.42857142857142855,
+            "ablated": 0.42857142857142855,
+            "rand": 0.42857142857142855,
+            "n": 7,
+            "n_role_changed_ablated": 7
+          },
+          "tier1": {
+            "present": 0.5652173913043478,
+            "ablated": 0.30434782608695654,
+            "rand": 0.3695652173913043,
+            "n": 46,
+            "n_role_changed_ablated": 24
+          },
+          "tier2": {
+            "present": 0.7027027027027027,
+            "ablated": 0.2702702702702703,
+            "rand": 0.4594594594594595,
+            "n": 37,
+            "n_role_changed_ablated": 23
+          }
+        },
+        "stage_decode": {
+          "ENT": 0.8587341772151899,
+          "MARK": 0.9208371246587808,
+          "S": 0.9648946840521565,
+          "P": 0.8836509528585758,
+          "ENT_q": 1.0,
+          "MARK_q": 1.0
+        },
+        "coref_fairness_checks": {
+          "1_role_critical_fraction": {
+            "value": 0.9222222222222223,
+            "bar": 0.55,
+            "ok": true
+          },
+          "2_shortcut_tier1_floor": {
+            "value": 0.43373493975903615,
+            "bar": 0.65,
+            "ok": true
+          },
+          "3_tier1_population": {
+            "n": 46,
+            "min": 20,
+            "ok": true
+          }
+        },
+        "coref_fairness_ok": true
+      },
+      "stage_ent_frozen": 0.7159493670886076,
+      "stage_ent_tuned": 0.8587341772151899,
+      "stage_ent_lift": 0.14278481012658228,
+      "tier1_abs_frozen": 0.4782608695652174,
+      "tier1_abs_tuned": 0.5652173913043478,
+      "tier1_abs_lift": 0.08695652173913038,
+      "tier1_delta_frozen": 0.26086956521739135,
+      "tier1_delta_tuned": 0.26086956521739124,
+      "frozen_fairness_ok": true,
+      "tuned_fairness_ok": true
+    }
+  ],
+  "params": {
+    "hardness": [
+      1,
+      3,
+      8
+    ],
+    "eval_n": 90,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "measurement": "frozen_vs_retrained_encoder_transfer"
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}

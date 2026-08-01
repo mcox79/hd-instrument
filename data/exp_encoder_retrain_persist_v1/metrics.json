@@ -1,0 +1,101 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "RECIPE_PERSISTED: all 3 seed ckpts saved + reload fresh reproduces the cert cell's landed d1_div40 tuned_loop_mean within tol=0.05. per_seed=[{'seed': 7, 'reload_tuned_loop_mean': 0.7147368421052631, 'cert_landed_tuned_loop_mean': 0.7147368421052631, 'deviation': 0.0, 'within_tol': True, 'ckpt_path': 'data\\\\exp_encoder_retrain_persist_v1\\\\ckpt_seed_7.pt'}, {'seed': 13, 'reload_tuned_loop_mean': 0.799068100358423, 'cert_landed_tuned_loop_mean': 0.799068100358423, 'deviation': 0.0, 'within_tol': True, 'ckpt_path': 'data\\\\exp_encoder_retrain_persist_v1\\\\ckpt_seed_13.pt'}, {'seed': 19, 'reload_tuned_loop_mean': 0.7647311827956988, 'cert_landed_tuned_loop_mean': 0.7647311827956988, 'deviation': 0.0, 'within_tol': True, 'ckpt_path': 'data\\\\exp_encoder_retrain_persist_v1\\\\ckpt_seed_19.pt'}]",
+  "summary": "HARD_PASS | RECIPE_PERSISTED: all 3 seed ckpts saved + reload fresh reproduces the cert cell's landed d1_div40 tuned_loop_mean within tol=0.05. per_seed=[{'seed':",
+  "run_mode": "full",
+  "elapsed_s": 858.9798718001693,
+  "ts_iso": "2026-08-01T00:16:44.995287+00:00",
+  "anchor_name": "encoder_retrain_persist_v1",
+  "bands": {
+    "reconstruction_tol": 0.05,
+    "per_seed": [
+      {
+        "seed": 7,
+        "reload_tuned_loop_mean": 0.7147368421052631,
+        "cert_landed_tuned_loop_mean": 0.7147368421052631,
+        "deviation": 0.0,
+        "within_tol": true,
+        "ckpt_path": "data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt"
+      },
+      {
+        "seed": 13,
+        "reload_tuned_loop_mean": 0.799068100358423,
+        "cert_landed_tuned_loop_mean": 0.799068100358423,
+        "deviation": 0.0,
+        "within_tol": true,
+        "ckpt_path": "data\\exp_encoder_retrain_persist_v1\\ckpt_seed_13.pt"
+      },
+      {
+        "seed": 19,
+        "reload_tuned_loop_mean": 0.7647311827956988,
+        "cert_landed_tuned_loop_mean": 0.7647311827956988,
+        "deviation": 0.0,
+        "within_tol": true,
+        "ckpt_path": "data\\exp_encoder_retrain_persist_v1\\ckpt_seed_19.pt"
+      }
+    ],
+    "recipe": {
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units_done": 3,
+  "units": [
+    {
+      "seed": 7,
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220,
+      "eval_n": 100,
+      "ft_seconds": 116.60120739997365,
+      "n_trainable_params": 3153408,
+      "ckpt_path": "data\\exp_encoder_retrain_persist_v1\\ckpt_seed_7.pt",
+      "reload_tuned_loop_mean": 0.7147368421052631,
+      "in_memory_tuned_loop_mean": null
+    },
+    {
+      "seed": 13,
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220,
+      "eval_n": 100,
+      "ft_seconds": 122.70174410007894,
+      "n_trainable_params": 3153408,
+      "ckpt_path": "data\\exp_encoder_retrain_persist_v1\\ckpt_seed_13.pt",
+      "reload_tuned_loop_mean": 0.799068100358423,
+      "in_memory_tuned_loop_mean": null
+    },
+    {
+      "seed": 19,
+      "depth": 1,
+      "nctx": 40,
+      "steps": 220,
+      "eval_n": 100,
+      "ft_seconds": 738.3641235001851,
+      "n_trainable_params": 3153408,
+      "ckpt_path": "data\\exp_encoder_retrain_persist_v1\\ckpt_seed_19.pt",
+      "reload_tuned_loop_mean": 0.7647311827956988,
+      "in_memory_tuned_loop_mean": null
+    }
+  ],
+  "params": {
+    "depth": 1,
+    "nctx": 40,
+    "steps": 220,
+    "eval_n": 100,
+    "seeds": [
+      7,
+      13,
+      19
+    ]
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}
