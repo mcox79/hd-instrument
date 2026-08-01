@@ -1,0 +1,134 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "1/6 units complete; re-run to resume",
+  "summary": "PARTIAL 1/6",
+  "run_mode": "full",
+  "elapsed_s": 2267.329612399917,
+  "ts_iso": "2026-08-01T03:57:04.733461+00:00",
+  "anchor_name": "encoder_addr_lever_maximize_v1",
+  "n_units_done": 1,
+  "expected_n_units": 6,
+  "cardinality_ok": false,
+  "units": [
+    {
+      "name": "lever1_step440_s7",
+      "depth": 1,
+      "nctx": 40,
+      "steps": 440,
+      "seed": 7,
+      "eval_n": 100,
+      "ft_seconds": 1658.5857760000508,
+      "n_trainable_params": 3153408,
+      "frozen_type": {
+        "a_name_maintenance": 0.49,
+        "b_competitive_coref": 0.5,
+        "c_overwrite": 0.42105263157894735
+      },
+      "tuned_type": {
+        "a_name_maintenance": 0.75,
+        "b_competitive_coref": 0.72,
+        "c_overwrite": 0.7684210526315789
+      },
+      "oracle_type": {
+        "a_name_maintenance": 0.67,
+        "b_competitive_coref": 0.65,
+        "c_overwrite": 0.6105263157894737
+      },
+      "oracle_tuned_type": {
+        "a_name_maintenance": 0.76,
+        "b_competitive_coref": 0.75,
+        "c_overwrite": 0.7789473684210526
+      },
+      "ref_type": {
+        "a_name_maintenance": 1.0,
+        "b_competitive_coref": 1.0,
+        "c_overwrite": 1.0
+      },
+      "train_type": {
+        "a_name_maintenance": 0.85,
+        "b_competitive_coref": 0.88,
+        "c_overwrite": 0.8494623655913979
+      },
+      "frozen_loop_mean": 0.47035087719298246,
+      "tuned_loop_mean": 0.746140350877193,
+      "train_loop_mean": 0.859820788530466,
+      "oracle_loop_mean": 0.6435087719298246,
+      "oracle_tuned_loop_mean": 0.7629824561403509,
+      "frozen_q_agree": 0.7393939393939394,
+      "tuned_q_agree": 1.0,
+      "train_q_agree": 0.9570552147239264,
+      "frozen_ent_consistency": 0.8133333333333334,
+      "tuned_ent_consistency": 0.975,
+      "wc_held": 0.23898187847792082,
+      "wc_frozen": 0.19824830226907625,
+      "atype_frozen": {
+        "q_stmt": {
+          "within": 0.030616418515273837,
+          "cross": -0.022717225668882884,
+          "margin": 0.05333364418415672
+        },
+        "q_tag": {
+          "within": 0.04235559591325,
+          "cross": -0.025912301635576618,
+          "margin": 0.06826789754882662
+        },
+        "stmt_tag": {
+          "within": 0.14504426621133462,
+          "cross": -0.03327629271273812,
+          "margin": 0.17832055892407273
+        }
+      },
+      "atype_tuned": {
+        "q_stmt": {
+          "within": 0.05422674292494776,
+          "cross": -0.01421709961982237,
+          "margin": 0.06844384254477012
+        },
+        "q_tag": {
+          "within": 0.07476748071494513,
+          "cross": -0.015109841353087513,
+          "margin": 0.08987732206803264
+        },
+        "stmt_tag": {
+          "within": 0.16998360807046992,
+          "cross": -0.027773793208136877,
+          "margin": 0.1977574012786068
+        }
+      },
+      "floors": {
+        "random_addr": {
+          "a_name_maintenance": 0.02,
+          "b_competitive_coref": 0.15,
+          "c_overwrite": 0.06315789473684211
+        },
+        "no_coref": {
+          "a_name_maintenance": 0.75,
+          "b_competitive_coref": 0.1,
+          "c_overwrite": 0.7684210526315789
+        },
+        "wrongrole": {
+          "a_name_maintenance": 0.08,
+          "b_competitive_coref": 0.12,
+          "c_overwrite": 0.031578947368421054
+        },
+        "shuffled": {
+          "a_name_maintenance": 0.06,
+          "b_competitive_coref": 0.04,
+          "c_overwrite": 0.05263157894736842
+        }
+      },
+      "most_recent": {
+        "a_name_maintenance": 0.0,
+        "b_competitive_coref": 0.0,
+        "c_overwrite": 0.021052631578947368
+      },
+      "pooled_b": 0.029999999329447746,
+      "pooled_c": 0.06315789371728897,
+      "lever": "lever1_scale"
+    }
+  ],
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true"
+}
