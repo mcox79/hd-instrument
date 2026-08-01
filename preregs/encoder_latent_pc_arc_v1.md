@@ -378,3 +378,67 @@ collapse experiment can legitimately produce coincident degenerate arms; record,
 **Dispatch (iteration 4):** remote units.jsonl already holds exactly BIDIR + RANDOM (deduped) so no
 cleanup needed -- the 4 causal arms train, BIDIR/RANDOM resume, data-prep cache HITs.
 `bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 7200 --allow-duplicate`
+
+---
+
+## AMENDMENT 2026-08-01 (iteration 5 -> CORRECTED): run-5 retracted as BROKEN TEST; external-target rebuild
+
+**RUN-5 RETRACTED (disk-confirmed, adversarial VET + brain-fidelity drill converged):** the real_emb arms
+were a BROKEN TEST, not a real negative. MEASURED@ run-5 metrics: ARM_CAUSAL_REAL_BARLOW pred_loss
+init 0.420 -> final 0.419 (FLAT, NEVER LEARNED), rep_std 0.0078 (< RANDOM 0.0121), cos 0.968 (> RANDOM
+0.924) = WORSE THAN RANDOM; REAL_VICREG 0.431->0.440 (worse). Root cause: the "real target" =
+`online.tok_emb(ids).detach()` is the encoder's OWN learned + Barlow-regularized embedding table -> a
+co-adapting, SELF-REFERENTIAL, unlearnable target -> reps drift together. "Collapse-proof by construction"
+was defeated. The EMA arms DID learn (EMA_BARLOW 0.225->0.199), confirming the pipeline works and the
+defect is specifically the self-referential target. Decoupling defect: Barlow regularized raw target-token
+latents (final_train_rep_std 0.998) while the verdict measured L2-normed pooled reps (0.0078) -- different
+tensors. The beat-random check should have blocked the "collapse persists" verdict.
+
+**CORRECTED EXPERIMENT (both diagnoses agree; PRE-REG bands below, BEFORE running):**
+
+AXIS 1 (PRIMARY fix): replace the self-referential regress-to-own-embedding target with an EXTERNAL,
+FIXED-ENTROPY target = TOKEN IDENTITY via SAMPLED SOFTMAX (InfoNCE). Score the causal prediction vector
+zp against the TRUE next-span token id + K=64 SAMPLED NEGATIVES through a SEPARATE output projection W_out
+(nn.Embedding, NOT tied to input tok_emb -> genuinely external, no self-reference). Memory-cheap: only
+[T,K+1] scores + [T,K+1,d] gathered embs; NO [B,L,vocab] logits (asserted). This is cortical predictive
+coding (predict the real external next signal, learn by error) and it is LEARNABLE.
+
+TEST-DESIGN FIXES (the audit's 3 named defects):
+1. COUPLING: the anti-collapse reg is now applied to `online.pooled(ids)` -- the SAME pooled representation
+   the rep-quality battery measures the verdict on -- and train-time rep_std telemetry is measured on that
+   same tensor. (Was: reg on decoupled target-token latents.)
+2. ONE-VARIABLE 2x2: ALL cells run through causal_realtarget_train (incl. EMA+VICReg, no longer the old
+   lpc_train path); reg terms identical across cells (removed the real-only extra _reg(zt_live)).
+3. BEAT-RANDOM BACKSTOP: any trained causal arm with rep_std <= RANDOM OR cos >= RANDOM auto-flags the run
+   LITE_MISSPECIFIED (not "collapse persists"). This is what run-5 should have tripped.
+
+AXIS 2 (structural anti-collapse): ARM_CAUSAL_EXT_BARLOW_TOPK adds a k-WTA (top-k=64) sparse-latent
+nonlinearity on the pooled rep during training (arXiv:1409.2752; a hard sparsity a degenerate constant
+cannot satisfy), applied identically at train time; measured by the standard battery like every arm.
+
+**ARMS (all through ONE function, cheap 6000-step budget, one seed):**
+- ARM_CAUSAL_EXT_BARLOW -- PRIMARY (external sampled-softmax + Barlow).
+- ARM_CAUSAL_EXT_VICREG -- regularizer axis (external + VICReg).
+- ARM_CAUSAL_EMA_BARLOW -- target axis (EMA self-distill + Barlow).
+- ARM_CAUSAL_EMA_VICREG -- 2x2 4th cell (old recipe through the SAME function).
+- ARM_CAUSAL_EXT_BARLOW_TOPK -- AXIS 2 (PRIMARY + k-WTA).
+- ARM_LPC_BIDIR (0.0248) + ARM_RANDOM (0.0121, cos 0.924) -- RESUMED controls.
+
+**PRE-REGISTERED FAIR PRIMARY METRIC (BEFORE running; on ARM_CAUSAL_EXT_BARLOW):**
+- HARD-PASS = LITE_EXTERNAL_TARGET_FIXES_COLLAPSE iff ALL of: (a) LEARNS -- pred_loss drop >= 0.30 from
+  init (init ~ log(K+1) ~ 4.17; unlike run-5's flat 0.42); AND (b) NON-COLLAPSED -- rep_std >= 0.020 AND
+  BEATS RANDOM on BOTH rep_std (>) and cos (<).
+- HARD-FAIL = LITE_COLLAPSE_PERSISTS iff the primary genuinely LEARNS but rep_std < 0.020 (then collapse
+  is scale/data, not the target -- fuller build genuinely needed).
+- LITE_MISSPECIFIED iff the primary does not learn and/or is worse-than-random (broken-test backstop).
+- ATTRIBUTION (reported, not gated): the 2x2 (target x reg) + AXIS-2 topk rep_std/pred_drop table.
+- Voice-role probe: run for RECORD ONLY (proxy-limit finding: role-reading absent at lite budget for any arm).
+
+**If the external target LEARNS + doesn't collapse at lite budget, THAT resolves the whole question**
+(the earlier "needs fuller budget" was an artifact of the broken self-referential target).
+
+Death-fixes carried verbatim; cuda-safety audit EXTENDED to run the new sampled-softmax + k-WTA path
+on-device (remote self-test exercises the GPU/AMP path -> blocks the ship on a new-path GPU bug).
+
+**Dispatch (iteration 5-corrected):** remote units.jsonl holds BIDIR + RANDOM (resume); 5 causal arms train.
+`bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 7200 --allow-duplicate`
