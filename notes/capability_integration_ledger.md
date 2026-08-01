@@ -46,6 +46,39 @@ char_trigram_encoder + kb_encoder_registry (KB ingest/query, 12 hdlab + 59 exp);
 3. **Anything landing genuinely-good (cert/HARD_PASS) goes THROUGH the gate** at land-time: WIRE (target + step) or SHELVE (revival criteria). Recorded here. No capability left in limbo.
 4. **Re-run integration_health.py** on the meta_audit cadence; new island = a gate decision, not a silent park.
 
+## 07-31 INTEGRATION — encoder-retrain-persist generalizing LEVER (atom math seq 29596)
+Chain-grade result (atom 29596): the certified minimal-unfreeze (top-1) entity-consistency
+encoder break (atom 29593) GENERALIZES as a representation-quality LEVER for entity-addressed
+comprehension (all query types, harder difficulty, held-out content, independent harness,
+multi-seed, drift-controlled, independently recomputed). Honest scope: a proven LEVER, not
+solved comprehension (coref abs ~0.65<0.70); no free lunch on untrained orthogonal skills (atom
+29597). hdi_testbed ran the integration gate (USER directive, "fully integrate so it is
+DISCOVERABLE + REUSABLE, not islanded"):
+- **WIRED** `hdlab/encoder_retrain_persist.py` — thin OPT-IN loader (`load_improved_encoder(seed=7|13|19)`,
+  `improved_ckpt_path`, `self_test`) that returns a drop-in `eb.EncoderExtractor` backed by the
+  persisted ckpts `data/exp_encoder_retrain_persist_v1/ckpt_seed_{7,13,19}.pt` (recipe cell
+  `experiments/exp_encoder_retrain_persist_v1.py`, HARD_PASS, reload-verify deviation 0.0 all 3
+  seeds). Does NOT change any existing cell's default encoder — every current caller of
+  `eb.EncoderExtractor()` keeps loading the frozen base v2 ckpt exactly as before; adoption is
+  explicit, one import line.
+- Added a genuine consumer, `experiments/verify_encoder_retrain_persist_loader_v1.py` (a wiring
+  smoke check, not a scored exp cell), so the import-graph audit sees a real reachable path, not
+  just a doc mention. Ran it: all 3 seeds load OK.
+- Registered `data/capability_registry.jsonl` id `encoder_retrain_persist_generalizing_lever_reusable_v1`
+  (kind hdlab-module, gate_decision WIRE, cites atom math seq 29596 + atom 29593). Ran
+  `python tools/capability_registry_audit.py` — confirmed `integration_status: WIRED`
+  (used_by: `experiments/verify_encoder_retrain_persist_loader_v1.py`), registry-wide counts
+  rows=52 WIRED=26 TRAPPED_SHARED=8 ISLAND=16 N_A_SHELVED=1 UNKNOWN=1, no undecided chain-grade
+  families, no stale VET_PENDING rows.
+- Cross-referenced: the original cert row `encoder_retrain_minimal_unfreeze_top1_entity_reid_situation_model`
+  (atom 29593, `gate_decision: WIRE_CANDIDATE`, still `integration_status: ISLAND` by design — its
+  own path list is the cert cell files, which nothing imports) now notes in `revival_criteria`
+  that the reusable asset is separately WIRED under the new id, with the adoption pointer.
+- **Adoption step for future comprehension cells:** `from hdlab.encoder_retrain_persist import
+  load_improved_encoder; ext = load_improved_encoder(seed=7)` — eval-only swap, same pattern
+  already validated in `experiments/exp_coref_encoder_transfer_v1.py` /
+  `experiments/exp_encoder_alltype_transfer_stress_v1.py`. No retraining required.
+
 ## 07-28 BULK TRIAGE PASS — the 24 flagged chain-grade families (gate debt cleared)
 Session-start audit flagged 24 chain-grade `capability_family` buckets with NO gate decision. hdi_skunkworks triaged (AUDIT-ONLY, import graph recomputed via integration_health, not cached), Director-approved + written to `data/capability_registry.jsonl`. Outcome: **15 ALREADY_WIRED** (recorded reality so the gate stops re-flagging: superposition, readout, predictive_coding, pattern_completion, kg_ingest, cleanup_attractor, catastrophic_forgetting, cert_audit, sequence_binding, intent_classification, schema_abstraction, composition, hierarchical_structure, cortex_eTensor, generation), **7 SHELVE** with revival criteria (redundancy_robustness, external_embedding_diag [DIAGNOSTIC-ONLY per invariant 2b], provenance_watermark, lock_in_amplifier, parietal_attention, semantic_concept_learning [superseded_by scale_win encoder], language_prediction_DEPRECATED), **1 WIRE** (capacity_scaling -> k_cliff_scaling.py sizing consult at cell-design). Undecided count 24 -> 0.
 Structural fixes: (1) `pattern_completion`/`cleanup_attractor`/`readout` are ONE mechanism split across 3 aggregator buckets (naming collision, recorded not re-decided); (2) the `other` bucket (4143 untagged tests) now EXCLUDED from `check_undecided_validated` (tooling artifact, not a capability); (3) CAVEAT (skunkworks): `tier=chain-grade` is a peak heuristic (>=1 HARD_PASS ever), NOT a claim the family nets positive — ALREADY_WIRED rows record consumption, they are not re-certifications.
