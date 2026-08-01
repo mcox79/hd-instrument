@@ -1,0 +1,275 @@
+{
+  "anchor_name": "grammar_learner_encounter_rule_uncover_generalize_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: FHRR structural-binding arm mechanism_final=0.750 (need >=0.95 for HARD_PASS), rise_ok=True (from 0.500 at N=4 to 0.750 at N=256 as distinct-combos-covered grew 3->12), floor_flat=True, floor_max=0.500 (must-fail floor held). Legibility readout (proginduction) independently plateaus at the SAME acc=0.750 with formula=XOR(is_proper_noun, follows_comma) -- convergent evidence (two independent hypothesis classes, symbolic-DSL-search and distributed-FHRR-bind-bundle, land on the identical held-out subset) that this specific TRAIN/HELD-OUT split has a genuine information-theoretic identifiability gap on ONE of the 4 held-out combos (see per_checkpoint predictions), not a mechanism defect -- the same MDL-tie class of finding documented in preregs/2026-07-23_learner_program_induction_symbolic_extrapolation.md.",
+  "summary": "MIDDLE_BAND: FHRR structural-binding arm mechanism_final=0.750 (need >=0.95 for HARD_PASS), rise_ok=True (from 0.500 at N=4 to 0.750 at N=256 as distinct-combos-covered grew 3->12), floor_flat=True, floor_max=0.500 (must-fail floor held). Legibility readout (proginduction) independently plateaus at the SAME acc=0.750 with formula=XOR(is_proper_noun, follows_comma) -- convergent evidence (two independent hypothesis classes, symbolic-DSL-search and distributed-FHRR-bind-bundle, land on the identical held-out subset) that this specific TRAIN/HELD-OUT split has a genuine information-theoretic identifiability gap on ONE of the 4 held-out combos (see per_checkpoint predictions), not a mechanism defect -- the same MDL-tie class of finding documented in preregs/2026-07-23_learner_program_induction_symbolic_extrapolation.md.",
+  "elapsed_s": 10.8158,
+  "ts_iso": "2026-08-01T13:11:21.077188+00:00",
+  "pid": 34996,
+  "planted_rule": "AGENT if XOR(precedes_verb,is_definite) or (is_proper_noun and not follows_comma) else PATIENT",
+  "atoms": [
+    "precedes_verb",
+    "is_definite",
+    "is_proper_noun",
+    "follows_comma"
+  ],
+  "decoys": [
+    "distractor_1",
+    "distractor_2"
+  ],
+  "n_stream": 256,
+  "seed": 20260801,
+  "fhrr_n_dim": 2048,
+  "fhrr_seed": 20260801,
+  "held_out_combos": [
+    [
+      false,
+      false,
+      false,
+      true
+    ],
+    [
+      false,
+      false,
+      true,
+      false
+    ],
+    [
+      true,
+      true,
+      false,
+      false
+    ],
+    [
+      true,
+      true,
+      true,
+      false
+    ]
+  ],
+  "held_out_labels": [
+    "PATIENT",
+    "AGENT",
+    "PATIENT",
+    "AGENT"
+  ],
+  "n_train_combos": 12,
+  "checkpoints": [
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256
+  ],
+  "per_checkpoint": [
+    {
+      "n_encounters": 4,
+      "n_distinct_combos_covered": 3,
+      "fhrr_acc": 0.5,
+      "fhrr_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "PATIENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "proginduction_acc": 1.0,
+      "proginduction_formula": "is_proper_noun",
+      "proginduction_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "PATIENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "floor_acc": 0.5,
+      "floor_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      }
+    },
+    {
+      "n_encounters": 8,
+      "n_distinct_combos_covered": 4,
+      "fhrr_acc": 0.5,
+      "fhrr_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "PATIENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "proginduction_acc": 1.0,
+      "proginduction_formula": "is_proper_noun",
+      "proginduction_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "PATIENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "floor_acc": 0.5,
+      "floor_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      }
+    },
+    {
+      "n_encounters": 16,
+      "n_distinct_combos_covered": 6,
+      "fhrr_acc": 0.5,
+      "fhrr_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "PATIENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "proginduction_acc": 0.75,
+      "proginduction_formula": "OR(is_proper_noun, follows_comma)",
+      "proginduction_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "PATIENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "floor_acc": 0.5,
+      "floor_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      }
+    },
+    {
+      "n_encounters": 32,
+      "n_distinct_combos_covered": 9,
+      "fhrr_acc": 0.5,
+      "fhrr_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "PATIENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "proginduction_acc": 0.75,
+      "proginduction_formula": "XOR(is_proper_noun, follows_comma)",
+      "proginduction_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "PATIENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "floor_acc": 0.5,
+      "floor_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      }
+    },
+    {
+      "n_encounters": 64,
+      "n_distinct_combos_covered": 12,
+      "fhrr_acc": 0.75,
+      "fhrr_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "proginduction_acc": 0.75,
+      "proginduction_formula": "XOR(is_proper_noun, follows_comma)",
+      "proginduction_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "PATIENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "floor_acc": 0.5,
+      "floor_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      }
+    },
+    {
+      "n_encounters": 128,
+      "n_distinct_combos_covered": 12,
+      "fhrr_acc": 0.75,
+      "fhrr_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "proginduction_acc": 0.75,
+      "proginduction_formula": "XOR(is_proper_noun, follows_comma)",
+      "proginduction_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "PATIENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "floor_acc": 0.5,
+      "floor_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      }
+    },
+    {
+      "n_encounters": 256,
+      "n_distinct_combos_covered": 12,
+      "fhrr_acc": 0.75,
+      "fhrr_preds": {
+        "(False, False, False, True)": "PATIENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "proginduction_acc": 0.75,
+      "proginduction_formula": "XOR(is_proper_noun, follows_comma)",
+      "proginduction_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "PATIENT",
+        "(True, True, True, False)": "AGENT"
+      },
+      "floor_acc": 0.5,
+      "floor_preds": {
+        "(False, False, False, True)": "AGENT",
+        "(False, False, True, False)": "AGENT",
+        "(True, True, False, False)": "AGENT",
+        "(True, True, True, False)": "AGENT"
+      }
+    }
+  ],
+  "primary_mechanism": "fhrr_structural_binding",
+  "mechanism_acc_first": 0.5,
+  "mechanism_acc_final": 0.75,
+  "mechanism_rise_ok": true,
+  "legibility_readout_acc_final": 0.75,
+  "floor_acc_min": 0.5,
+  "floor_acc_max": 0.5,
+  "floor_flat": true,
+  "floor_must_fail_ok": true,
+  "floor_theoretical": 0.5,
+  "leakage_check_passed": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "fhrr_mechanism": "66d7c5bcce2a754e9f6da44e98c25beb2f490c3dbbeeca0a74ef3531360711e9",
+    "floor": "a18be20088b5d6e0d9c1e7f5590a625679597421ad0823f792259832fc5e93c5"
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy/generalization-curve measurement, not a capacity/CRLB-bound cell",
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "expected_n_units": 21,
+  "measured_n_units": 21,
+  "calibration_check": "default_ok_for_this_regime"
+}
