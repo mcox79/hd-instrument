@@ -1,0 +1,187 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "UNIVERSAL_LEVER: 3/3 types clear lift>=0.05 (incl. non-coref type(s) ['a_name_maintenance', 'c_overwrite']) -- the certified encoder break is a UNIVERSAL absolute-comprehension lever for the growing library, not coref-specific. a_name_maintenance: fz=0.492 tn=0.683 lift=+0.192 | b_competitive_coref: fz=0.492 tn=0.642 lift=+0.150 | c_overwrite: fz=0.403 tn=0.723 lift=+0.320",
+  "summary": "HARD_PASS | UNIVERSAL_LEVER: 3/3 types clear lift>=0.05 (incl. non-coref type(s) ['a_name_maintenance', 'c_overwrite']) -- the certified encoder break is a UNIVER",
+  "run_mode": "lite",
+  "elapsed_s": 80.39557539997622,
+  "ts_iso": "2026-08-01T01:04:09.034270+00:00",
+  "anchor_name": "encoder_alltype_transfer_v1",
+  "bands": {
+    "bars": {
+      "lift_min": 0.05,
+      "n_types_min": 2,
+      "drift_max": 0.01
+    },
+    "per_type_mean": {
+      "a_name_maintenance": {
+        "frozen": 0.49166666666666664,
+        "tuned": 0.6833333333333332,
+        "lift": 0.19166666666666674,
+        "per_seed_lift": [
+          0.17500000000000004,
+          0.3,
+          0.10000000000000009
+        ]
+      },
+      "b_competitive_coref": {
+        "frozen": 0.4916666666666667,
+        "tuned": 0.6416666666666667,
+        "lift": 0.15,
+        "per_seed_lift": [
+          0.125,
+          0.25,
+          0.07499999999999996
+        ]
+      },
+      "c_overwrite": {
+        "frozen": 0.4030214424951268,
+        "tuned": 0.7227095516569202,
+        "lift": 0.3196881091617934,
+        "per_seed_lift": [
+          0.368421052631579,
+          0.3684210526315789,
+          0.2222222222222222
+        ]
+      }
+    },
+    "max_drift": 0.0,
+    "types_clearing_lift": [
+      "a_name_maintenance",
+      "b_competitive_coref",
+      "c_overwrite"
+    ],
+    "non_coref_types_clearing_lift": [
+      "a_name_maintenance",
+      "c_overwrite"
+    ]
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units_done": 3,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "units": [
+    {
+      "seed": 7,
+      "target": 8,
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.475,
+          "frozen2": 0.475,
+          "tuned": 0.65,
+          "lift": 0.17500000000000004,
+          "drift": 0.0
+        },
+        "b_competitive_coref": {
+          "frozen": 0.4,
+          "frozen2": 0.4,
+          "tuned": 0.525,
+          "lift": 0.125,
+          "drift": 0.0
+        },
+        "c_overwrite": {
+          "frozen": 0.2894736842105263,
+          "frozen2": 0.2894736842105263,
+          "tuned": 0.6578947368421053,
+          "lift": 0.368421052631579,
+          "drift": 0.0
+        }
+      },
+      "loop_frozen": 0.3881578947368421,
+      "loop_frozen2": 0.3881578947368421,
+      "loop_tuned": 0.6109649122807018
+    },
+    {
+      "seed": 13,
+      "target": 8,
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.425,
+          "frozen2": 0.425,
+          "tuned": 0.725,
+          "lift": 0.3,
+          "drift": 0.0
+        },
+        "b_competitive_coref": {
+          "frozen": 0.525,
+          "frozen2": 0.525,
+          "tuned": 0.775,
+          "lift": 0.25,
+          "drift": 0.0
+        },
+        "c_overwrite": {
+          "frozen": 0.4473684210526316,
+          "frozen2": 0.4473684210526316,
+          "tuned": 0.8157894736842105,
+          "lift": 0.3684210526315789,
+          "drift": 0.0
+        }
+      },
+      "loop_frozen": 0.46578947368421053,
+      "loop_frozen2": 0.46578947368421053,
+      "loop_tuned": 0.7719298245614036
+    },
+    {
+      "seed": 19,
+      "target": 8,
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.575,
+          "frozen2": 0.575,
+          "tuned": 0.675,
+          "lift": 0.10000000000000009,
+          "drift": 0.0
+        },
+        "b_competitive_coref": {
+          "frozen": 0.55,
+          "frozen2": 0.55,
+          "tuned": 0.625,
+          "lift": 0.07499999999999996,
+          "drift": 0.0
+        },
+        "c_overwrite": {
+          "frozen": 0.4722222222222222,
+          "frozen2": 0.4722222222222222,
+          "tuned": 0.6944444444444444,
+          "lift": 0.2222222222222222,
+          "drift": 0.0
+        }
+      },
+      "loop_frozen": 0.5324074074074074,
+      "loop_frozen2": 0.5324074074074074,
+      "loop_tuned": 0.6648148148148149
+    }
+  ],
+  "params": {
+    "hardness": [
+      1,
+      3,
+      8
+    ],
+    "eval_n": 40,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "measurement": "frozen_vs_retrained_encoder_alltype_transfer"
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}
