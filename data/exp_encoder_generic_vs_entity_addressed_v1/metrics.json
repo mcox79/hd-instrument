@@ -1,0 +1,389 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "ENT_GEOM_TOO_WEAK_TO_INTERPRET: ENT-slot geometry delta=0.0175 < ENT_GEOM_MIN=0.02 -- this run did not replicate the cert-atom entity-geometry sharpening, so the state/ent geometry ratio is uninterpretable. S: fz=0.951 tn=0.971 lift=+0.020 | P: fz=0.808 tn=0.894 lift=+0.086 | ENT_geom_d=+0.0175 STATE_geom_d=-0.0405 ratio=-2.32",
+  "summary": "MIDDLE | ENT_GEOM_TOO_WEAK_TO_INTERPRET: ENT-slot geometry delta=0.0175 < ENT_GEOM_MIN=0.02 -- this run did not replicate the cert-atom entity-geometry sharpen",
+  "run_mode": "lite",
+  "elapsed_s": 91.27521450002678,
+  "ts_iso": "2026-08-01T01:34:54.381377+00:00",
+  "anchor_name": "encoder_generic_vs_entity_addressed_v1",
+  "bands": {
+    "bars": {
+      "lift_min": 0.05,
+      "drift_max": 0.01,
+      "geom_frac_min": 0.4,
+      "geom_frac_flat": 0.15,
+      "ent_geom_min": 0.02
+    },
+    "stage_mean": {
+      "S": {
+        "frozen": 0.9511230829190112,
+        "tuned": 0.9712698639151477,
+        "lift": 0.020146780996136426
+      },
+      "P": {
+        "frozen": 0.8077538771522166,
+        "tuned": 0.8936190013365994,
+        "lift": 0.08586512418438286
+      },
+      "ENT": {
+        "frozen": 0.7247489724413411,
+        "tuned": 0.8570448956334858,
+        "lift": 0.13229592319214487
+      },
+      "MARK": {
+        "frozen": 0.827641115510266,
+        "tuned": 0.9117269927810591,
+        "lift": 0.08408587727079324
+      },
+      "ENT_q": {
+        "frozen": 1.0,
+        "tuned": 1.0,
+        "lift": 0.0
+      },
+      "MARK_q": {
+        "frozen": 1.0,
+        "tuned": 1.0,
+        "lift": 0.0
+      },
+      "entity_consistency": {
+        "frozen": 0.6833333333333332,
+        "tuned": 0.8125,
+        "lift": 0.12916666666666665
+      }
+    },
+    "geom_mean": {
+      "ent_delta": 0.01748618405472496,
+      "state_delta": -0.04048428687144621
+    },
+    "geom_ratio_state_over_ent": -2.3152156436616544,
+    "max_drift": 0.0,
+    "s_lift": 0.020146780996136426,
+    "p_lift": 0.08586512418438286,
+    "ent_geom_interpretable": false
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units_done": 3,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "units": [
+    {
+      "seed": 7,
+      "target": 8,
+      "stages": {
+        "S": {
+          "frozen": 0.954954954954955,
+          "frozen2": 0.954954954954955,
+          "tuned": 0.9740990990990991,
+          "lift": 0.019144144144144115,
+          "drift": 0.0
+        },
+        "P": {
+          "frozen": 0.8085585585585585,
+          "frozen2": 0.8085585585585585,
+          "tuned": 0.8952702702702703,
+          "lift": 0.08671171171171177,
+          "drift": 0.0
+        },
+        "ENT": {
+          "frozen": 0.7256027554535017,
+          "frozen2": 0.7256027554535017,
+          "tuned": 0.8541905855338691,
+          "lift": 0.12858783008036734,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8329979879275654,
+          "frozen2": 0.8329979879275654,
+          "tuned": 0.89738430583501,
+          "lift": 0.06438631790744465,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.7083333333333334,
+          "frozen2": 0.7083333333333334,
+          "tuned": 0.8125,
+          "lift": 0.10416666666666663,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.475,
+          "tuned": 0.65,
+          "lift": 0.17500000000000004
+        },
+        "b_competitive_coref": {
+          "frozen": 0.4,
+          "tuned": 0.525,
+          "lift": 0.125
+        },
+        "c_overwrite": {
+          "frozen": 0.2894736842105263,
+          "tuned": 0.6578947368421053,
+          "lift": 0.368421052631579
+        }
+      },
+      "geom": {
+        "ent": {
+          "frozen": 0.057778936089683125,
+          "tuned": 0.09321920259338287,
+          "delta": 0.03544026650369975,
+          "frozen_within": 0.20304775893392685,
+          "frozen_cross": 0.14526882284424372,
+          "tuned_within": 0.19478666688936452,
+          "tuned_cross": 0.10156746429598165
+        },
+        "state": {
+          "frozen": 0.2750291729365022,
+          "tuned": 0.23567681139636523,
+          "delta": -0.039352361540136965,
+          "frozen_within": 0.29427616436535925,
+          "frozen_cross": 0.01924699142885705,
+          "tuned_within": 0.2494450096909303,
+          "tuned_cross": 0.013768198294565081
+        }
+      },
+      "loop_frozen": 0.3881578947368421,
+      "loop_frozen2": 0.3881578947368421,
+      "loop_tuned": 0.6109649122807018
+    },
+    {
+      "seed": 13,
+      "target": 8,
+      "stages": {
+        "S": {
+          "frozen": 0.9552071668533034,
+          "frozen2": 0.9552071668533034,
+          "tuned": 0.9720044792833147,
+          "lift": 0.016797312430011258,
+          "drift": 0.0
+        },
+        "P": {
+          "frozen": 0.8006718924972005,
+          "frozen2": 0.8006718924972005,
+          "tuned": 0.8913773796192609,
+          "lift": 0.09070548712206039,
+          "drift": 0.0
+        },
+        "ENT": {
+          "frozen": 0.7312775330396476,
+          "frozen2": 0.7312775330396476,
+          "tuned": 0.8656387665198237,
+          "lift": 0.13436123348017615,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8129032258064516,
+          "frozen2": 0.8129032258064516,
+          "tuned": 0.9182795698924732,
+          "lift": 0.10537634408602159,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.6583333333333333,
+          "frozen2": 0.6583333333333333,
+          "tuned": 0.8125,
+          "lift": 0.15416666666666667,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.425,
+          "tuned": 0.725,
+          "lift": 0.3
+        },
+        "b_competitive_coref": {
+          "frozen": 0.525,
+          "tuned": 0.775,
+          "lift": 0.25
+        },
+        "c_overwrite": {
+          "frozen": 0.4473684210526316,
+          "tuned": 0.8157894736842105,
+          "lift": 0.3684210526315789
+        }
+      },
+      "geom": {
+        "ent": {
+          "frozen": 0.11183538264616862,
+          "tuned": 0.13218103386308505,
+          "delta": 0.020345651216916436,
+          "frozen_within": 0.19037443734209936,
+          "frozen_cross": 0.07853905469593074,
+          "tuned_within": 0.1819760719816296,
+          "tuned_cross": 0.04979503811854455
+        },
+        "state": {
+          "frozen": 0.2805451598514516,
+          "tuned": 0.2416603666636695,
+          "delta": -0.038884793187782124,
+          "frozen_within": 0.2950260795838534,
+          "frozen_cross": 0.014480919732401768,
+          "tuned_within": 0.24804208888254392,
+          "tuned_cross": 0.006381722218874428
+        }
+      },
+      "loop_frozen": 0.46578947368421053,
+      "loop_frozen2": 0.46578947368421053,
+      "loop_tuned": 0.7719298245614036
+    },
+    {
+      "seed": 19,
+      "target": 8,
+      "stages": {
+        "S": {
+          "frozen": 0.9432071269487751,
+          "frozen2": 0.9432071269487751,
+          "tuned": 0.967706013363029,
+          "lift": 0.024498886414253906,
+          "drift": 0.0
+        },
+        "P": {
+          "frozen": 0.8140311804008908,
+          "frozen2": 0.8140311804008908,
+          "tuned": 0.8942093541202673,
+          "lift": 0.08017817371937641,
+          "drift": 0.0
+        },
+        "ENT": {
+          "frozen": 0.717366628830874,
+          "frozen2": 0.717366628830874,
+          "tuned": 0.8513053348467651,
+          "lift": 0.13393870601589108,
+          "drift": 0.0
+        },
+        "MARK": {
+          "frozen": 0.8370221327967807,
+          "frozen2": 0.8370221327967807,
+          "tuned": 0.9195171026156942,
+          "lift": 0.08249496981891347,
+          "drift": 0.0
+        },
+        "ENT_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "MARK_q": {
+          "frozen": 1.0,
+          "frozen2": 1.0,
+          "tuned": 1.0,
+          "lift": 0.0,
+          "drift": 0.0
+        },
+        "entity_consistency": {
+          "frozen": 0.6833333333333333,
+          "frozen2": 0.6833333333333333,
+          "tuned": 0.8125,
+          "lift": 0.12916666666666665,
+          "drift": 0.0
+        }
+      },
+      "per_type": {
+        "a_name_maintenance": {
+          "frozen": 0.575,
+          "tuned": 0.675,
+          "lift": 0.10000000000000009
+        },
+        "b_competitive_coref": {
+          "frozen": 0.55,
+          "tuned": 0.625,
+          "lift": 0.07499999999999996
+        },
+        "c_overwrite": {
+          "frozen": 0.4722222222222222,
+          "tuned": 0.6944444444444444,
+          "lift": 0.2222222222222222
+        }
+      },
+      "geom": {
+        "ent": {
+          "frozen": 0.19053454017513394,
+          "tuned": 0.18720717461869263,
+          "delta": -0.0033273655564413085,
+          "frozen_within": 0.19794248633540404,
+          "frozen_cross": 0.007407946160270108,
+          "tuned_within": 0.19084721857150538,
+          "tuned_cross": 0.003640043952812751
+        },
+        "state": {
+          "frozen": 0.2938628079360112,
+          "tuned": 0.2506471020495917,
+          "delta": -0.04321570588641954,
+          "frozen_within": 0.3022255581794068,
+          "frozen_cross": 0.008362750243395566,
+          "tuned_within": 0.25477557791970096,
+          "tuned_cross": 0.004128475870109267
+        }
+      },
+      "loop_frozen": 0.5324074074074074,
+      "loop_frozen2": 0.5324074074074074,
+      "loop_tuned": 0.6648148148148149
+    }
+  ],
+  "params": {
+    "hardness": [
+      1,
+      3,
+      8
+    ],
+    "eval_n": 40,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "geom_n_colors": 10,
+    "measurement": "frozen_vs_retrained_generic_vs_entity_addressed"
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}
