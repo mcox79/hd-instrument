@@ -1,4 +1,25 @@
-# WHERE WE ARE NOW — clean current state (REWRITE each session) — rewritten 2026-07-31 ~18:05Z
+# WHERE WE ARE NOW — clean current state (REWRITE each session)
+
+## 🧭 SESSION LANDING + CURRENT STATE (2026-08-01 ~02:45Z) — AUTHORITATIVE (read this first; older blocks below = history)
+**Arc:** built the USER-steered growing-library engine, then proved + banked three load-bearing results, chain-graded + integrated the encoder lever, and are now running a depth campaign on it (USER redirect: prove UNIVERSAL + MAXIMIZE before breadth).
+
+**PROVEN + BANKED (VET-confirmed):**
+1. **Competencies COMPOSE** — the role competency (#2) CAUSALLY GATES competitive-coref (#3): ablation +0.19, 3/3 seeds, neutral-baseline-verified no confound. Atom **29594**. (First direct evidence the growing-library thesis holds; the additive-blend metric HID it, the AND-gated+ablation metric surfaced it.)
+2. **Encoder = CHAIN-GRADED generalizing representation-quality LEVER for ENTITY-ADDRESSED comprehension** — the certified minimal-unfreeze entity-consistency break lifts stage_ENT 0.72→0.86, competitive-coref abs 0.51→0.65, GENERALIZES across harder-difficulty + held-out + independent harness (drift-controlled, multi-seed, independently recomputed). Atom **29596 (CHAIN_GRADE)**. Honest scope: a proven LEVER, NOT solved comprehension (abs 0.65<0.70).
+3. **NO-FREE-LUNCH boundary** — training one skill (who's-who) does NOT automatically lift an untrained orthogonal skill for free (state decode flat, geometry mild negative-transfer). Atom **29597**. HONESTLY SCOPED: this is no-free-lunch, NOT an intrinsic ceiling (state was untrained + near-ceiling); trainability-if-directly-trained tested separately (see depth campaign).
+4. **FULLY INTEGRATED** (USER directive): `hdlab/encoder_retrain_persist.py` opt-in loader `load_improved_encoder(seed)` (drop-in EncoderExtractor from persisted certified ckpts data/exp_encoder_retrain_persist_v1/), registered in capability_registry (WIRED, cites 29596), import-graph audit confirms WIRED, ledger updated. Commit **367a42729**. Does NOT change any existing default (opt-in).
+
+**DEPTH CAMPAIGN — RUNNING (USER: prove universal + maximize first):**
+- **UNIVERSAL** ("is it just lack of training — train ANY independent skill and it lifts + stacks?"): 1st datapoint (P/placement direct-train) was an UNFAIR/broken null (entity-adjacent confound + underpowered; P lifted MORE from indirect who's-who training +0.086 than its own direct +0.011 = broken) — CORRECTED, NOT banked. CLEAN re-test (hardstate = independent local decode + constructed headroom): at SMOKE reports HYPOTHESIS_REFUTED/NO-TRANSFER with all-5-fairness-gates-claimed-PASS (independence, headroom, verified-optimized training, POSITIVE CONTROL, non-floor metric): hardstate lift +0.010<0.05. ⚠️ PENDING full run + independent VET of the POSITIVE CONTROL (this agent a84b9b3e over-read the null twice tonight — do NOT accept "refuted" until the positive control is VET-confirmed to lift in the SAME full run while hardstate stays flat). IF it holds = the lever is SPECIALIZED (not train-anything-improves); USER hypothesis fairly refuted for this skill.
+- **MAXIMIZE** ("how high can the entity-addressed lever go vs a fair oracle?"): abca8fa8, self-test PASSED, early — establishing oracle/ceiling FIRST (is 0.65 near oracle?), then push training-scale + stacking, held-out-not-overfit.
+
+**NEXT (after universal+maximize resolve):** breadth — McGuffey g1→g4 curriculum-climb on the integrated encoder + the discovery gate (fork B, CRP/MDL match-or-allocate). Cleanup: role-competency stale-citation re-exam (flagged by 2 VETs; does NOT touch 29594).
+
+**PROCESS NOTE (honest):** the depth-test agents have been bug/park-prone (crashes, parking-on-self-test, 2 over-reads of nulls); the load-bearing results (29594/29596/29597 + integration) are all VET-confirmed + banked, the churn is in the exploratory depth tests. Discipline held: every over-read caught + corrected; no unfair null banked.
+
+---
+[HISTORY BELOW — earlier same-session blocks, superseded by the banner above]
+# (older) WHERE WE ARE NOW — rewritten 2026-07-31 ~18:05Z
 
 ## Direction (read in order)
 1. GOAL + invariants: `notes/SUBSTRATE_CHARTER_read_first.md`
