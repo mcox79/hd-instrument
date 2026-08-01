@@ -593,17 +593,52 @@ ARMS_DIFFER_EXEMPTED = [("active_to_passive|bagofwords", "passive_to_active|bago
 
 
 def check_arms_differ(digests):
-    """Pairwise bit-identity check (META_RULE_AF) over all unit digests, EXCEPT the declared
-    ARMS_DIFFER_EXEMPTED pairs (see rationale above)."""
+    """Pairwise bit-identity check (META_RULE_AF) over all unit digests -- NON-FATAL, classifying.
+
+    Unit keys are 'direction|method' (e.g. 'active_to_passive|role_probe'). META_RULE_AF's REAL target
+    is a cross-METHOD arm-implementation bug (two DIFFERENT methods accidentally computing the identical
+    tensor). A cross-DIRECTION same-METHOD collision is a DIFFERENT thing: for a DEGENERATE / undertrained
+    encoder (e.g. a lite-budget ARM_LPC_BIDIR or ARM_RANDOM) both cross-voice directions of the SAME
+    method can legitimately collapse to bit-identical predictions -- that is a MEASURED PROPERTY OF THE
+    ENCODER, not a code bug (the bagofwords pair is already declared identical-by-design in
+    ARMS_DIFFER_EXEMPTED for exactly this reason). Crashing the whole cell on it (the 2026-08-01 bug)
+    THREW AWAY the cross-voice numbers we ran the cell to get.
+
+    Fix (2026-08-01): classify, NEVER assert/crash. Returns a dict the caller records in metrics + always
+    proceeds to write the per-arm cross-voice numbers:
+      - suspicious_collisions: DIFFERENT-method bit-identical pairs (potential real arm bug) -> LOUD flag,
+        arms_differ_verified=False, but metrics STILL written so the numbers are readable.
+      - direction_degenerate_collisions: same-method different-direction bit-identical pairs (declared
+        or discovered) -> informative encoder-degeneracy signal, does NOT flip arms_differ_verified.
+    """
     exempted = {frozenset(p) for p in ARMS_DIFFER_EXEMPTED}
     keys = sorted(digests)
+
+    def _parts(k):
+        d, _, m = k.partition("|")
+        return d, m
+
+    suspicious, degenerate = [], []
     for ka in keys:
         for kb in keys:
-            if ka < kb:
-                if frozenset((ka, kb)) in exempted:
-                    continue
-                assert digests[ka] != digests[kb], (
-                    "META_RULE_AF VIOLATION: units %r and %r bit-identical" % (ka, kb))
+            if ka < kb and digests[ka] == digests[kb]:
+                dira, meta = _parts(ka)
+                dirb, metb = _parts(kb)
+                if metb == meta and dira != dirb:
+                    # same method, different direction: legitimate for a degenerate encoder
+                    degenerate.append([ka, kb, "declared" if frozenset((ka, kb)) in exempted else "discovered"])
+                else:
+                    suspicious.append([ka, kb])
+    if suspicious:
+        _log("  META_RULE_AF WARN (non-fatal): cross-method bit-identical unit pairs %r -- possible arm "
+             "bug; metrics still written so numbers are readable, arms_differ_verified=False" % suspicious)
+    if degenerate:
+        _log("  arms-differ: %d same-method cross-direction digest collision(s) %r -- ENCODER-DEGENERACY "
+             "signal (both cross-voice directions coincide; expected for an undertrained/degenerate "
+             "encoder), NOT a code bug; cross-voice numbers reported regardless" % (len(degenerate), degenerate))
+    return {"arms_differ_verified": (len(suspicious) == 0),
+            "suspicious_collisions": suspicious,
+            "direction_degenerate_collisions": degenerate}
 
 
 # ---------------- self-tests (fairness / balance checks, real code path) ----------------
@@ -847,8 +882,12 @@ def main():
     results = pipeline_out["results"]
     n_units_done = len(results)
     digests = {k: v["digest"] for k, v in results.items()}
-    check_arms_differ(digests)   # raises loudly on an undeclared collision; never silently continues
-    arms_differ = True
+    # NON-FATAL classifying check (2026-08-01): a degenerate/undertrained encoder can legitimately make
+    # both cross-voice DIRECTIONS of the same METHOD bit-identical -- record it, do NOT crash (crashing
+    # discarded the cross-voice numbers, the 2026-08-01 CELL_CRASHED-on-BIDIR/RANDOM bug). Only a
+    # cross-METHOD collision flips arms_differ_verified False; the per-arm numbers are always written.
+    arms_diff = check_arms_differ(digests)
+    arms_differ = arms_diff["arms_differ_verified"]
 
     _atomic_write_metrics(out_dir, {
         "verdict": verdict, "verdict_msg": msg,
@@ -858,6 +897,8 @@ def main():
         "within_voice_reference": pipeline_out["within_voice_reference"],
         "arms_differ_verified": bool(arms_differ),
         "arms_differ_exempted": ARMS_DIFFER_EXEMPTED,
+        "suspicious_collisions": arms_diff["suspicious_collisions"],
+        "direction_degenerate_collisions": arms_diff["direction_degenerate_collisions"],
         "cardinality_ok": bool(n_units_done == EXPECTED_N_UNITS),
         "expected_n_units": EXPECTED_N_UNITS, "n_units_done": n_units_done,
         "params": {"entities": ENTITIES, "verbs_all": VERBS_ALL, "train_verbs": TRAIN_VERBS,

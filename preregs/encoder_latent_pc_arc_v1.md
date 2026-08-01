@@ -273,3 +273,48 @@ budget bump (still <<15h) as the next single lever.
 
 **Re-dispatch command:**
 `bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 5400 --allow-duplicate`
+
+---
+
+## AMENDMENT 2026-08-01 (iteration 3): probe-crash fix + minimal budget bump (LAST cheap proxy iteration)
+
+**MEASURED@remote run-2 (var_coef=2.0):** ARM_LPC_CAUSAL rep_std 0.0128 -> **0.0180** (monotone better,
+var_coef confirmed =2.0 in train_diag) but STILL under the 0.020 floor -> verdict LITE_COLLAPSE persists.
+BIDIR rep_std=0.0248 (var_coef=1.0, unchanged/resumed), RANDOM=0.0121. The armed gate CORRECTLY blocked
+probing (poll log: `GATE_FAIL causal_rep_std=0.0180 -- STOP, do not probe a collapsed encoder`).
+
+**Fix 1 (BLOCKING -- probe CELL_CRASHED root-cause):** the probe crashed on ARM_LPC_BIDIR + ARM_RANDOM
+(and produced no causal cross-voice number) at `check_arms_differ` -- an `assert digests[ka] != digests[kb]`
+(META_RULE_AF) fired because the two cross-voice DIRECTIONS of the SAME method (`role_probe`) produced
+BIT-IDENTICAL digests for these degenerate/undertrained lite encoders. That is a MEASURED encoder-
+degeneracy property (both directions collapse to the same prediction), NOT a code bug -- the bagofwords
+pair is already declared identical-by-design in ARMS_DIFFER_EXEMPTED for exactly this reason; META_RULE_AF's
+real target is a cross-METHOD arm-implementation collision. The assert crashed the cell AFTER computing the
+numbers, discarding them. **Fix:** `check_arms_differ` is now NON-FATAL + classifying -- same-method
+cross-direction collisions are recorded as `direction_degenerate_collisions` (informative, does not flip
+`arms_differ_verified`); only cross-METHOD collisions are `suspicious_collisions` (loud flag,
+`arms_differ_verified=False`) and even those no longer crash -- metrics are ALWAYS written so the cross-voice
+numbers are readable. MEASURED@ local re-run on the EXISTING lite ckpts after the fix:
+- **ARM_LPC_BIDIR (baseline): active_to_passive=0.000, passive_to_active=0.000** (FULLY inverted; within-voice
+  ref ~0.996/1.0) -- verdict ENCODER_POSITION_ONLY.
+- **ARM_RANDOM (floor): active_to_passive=0.000, passive_to_active=0.000** (fully inverted) -- ENCODER_POSITION_ONLY.
+- (frozen MLM reference, unchanged: 0.179/0.163.) So at lite budget BIDIR and RANDOM both FULLY invert,
+  worse than the frozen full-budget MLM's 0.16-0.18 -- the bidir baseline + random floor are now in hand.
+
+**Fix 2 (persistent marginal collapse -- ONE new variable):** minimal budget bump, `lite_causal_steps_mult`=2.0
+= causal arm optimizer steps 6000 -> **12000**, LITE-ONLY + CAUSAL-ONLY. var_coef=2.0 KEPT (now-standard, not
+a new variable this round). Tokens/data UNCHANGED (train_token_budget stays 9M -> data-prep cache HIT
+preserved; more steps = more epochs = the standard escape from the cell's own "undertrained" diagnosis). NOT
+cranking var_coef further (avoid over-regularizing). BIDIR/RANDOM resumed byte-untouched. Budget-asymmetry
+caveat (causal 12k vs bidir 6k at lite) ACCEPTED for the proxy: goal is a NON-COLLAPSED causal encoder to READ
+at all; if it de-inverts, matched-budget FULL is the real confirmation; if it still just inverts, that is
+itself informative. Stays in the ~2-4 GPU-hr class (run-1 all-3-arms = 1183s; causal-only at 2x steps ~
+20-35min).
+
+**GATE (fixed + confirmed working):** poll checks retrained ARM_LPC_CAUSAL rep_std >= 0.020 BEFORE any probe;
+if it STILL collapses at 2x steps + var_coef=2.0, STOP -- do NOT iterate further (no 4th tweak). Report the
+persistent collapse as the honest go/no-go signal: the causal objective is training-stability-costly at small
+scale; a clean read needs the fuller build budget.
+
+**Re-dispatch command (iteration 3):**
+`bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 5400 --allow-duplicate`

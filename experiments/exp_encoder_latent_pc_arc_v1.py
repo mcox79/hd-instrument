@@ -326,7 +326,19 @@ LITE_CFG = dict(
     d_model=512, n_layers=6, n_heads=8, ffn_mult=4,          # SAME architecture as FULL_CFG
     mlm_steps=6000, mlm_batch=64, mlm_mask_frac=0.15, mlm_lr=3e-4,
     encode_batch=256, n_freq_buckets=8,
-    **_LPC_COMMON,
+    # MINIMAL BUDGET BUMP 2026-08-01 iter-3 (LITE-ONLY, CAUSAL-ONLY): var_coef=2.0 alone moved the causal
+    # arm rep_std 0.0128->0.0180 (monotone better) but STILL marginally under the 0.020 collapse floor
+    # (MEASURED@remote run-2). Per the cell's OWN diagnosis (LITE_COLLAPSE = "undertrained collapse, NOT
+    # a refutation"), the prescribed next ONE-variable lever is a MINIMAL budget bump: 2x optimizer steps
+    # for the CAUSAL arm ONLY (6000 -> 12000), keeping var_coef=2.0 as the now-standard config (NOT a new
+    # variable). Tokens/data UNCHANGED (train_token_budget stays 9M -> data-prep bundle cache key
+    # unchanged, still a HIT; more steps = more epochs over the same data pool = the standard escape from
+    # undertraining). LITE-ONLY (NOT in _LPC_COMMON/FULL) so FULL keeps its matched-budget causal-vs-bidir
+    # contract; causal-only so the resumed BIDIR/RANDOM ckpts are byte-untouched. Budget-asymmetry caveat
+    # (causal 12k vs bidir 6k at lite) is ACCEPTED per coordinator: the lite proxy's job is to get a
+    # NON-COLLAPSED causal encoder to READ AT ALL; if causal at 2x steps STILL just inverts like bidir,
+    # that is itself informative; if it de-inverts, the matched-budget FULL run is the real confirmation.
+    lite_causal_steps_mult=2.0,
 )
 
 
@@ -980,7 +992,18 @@ def _build_encoder(arm, cfg, spec, device, seed, stream, out_dir, hb_total):
                          temporal_contiguity=True, causal=False)
         return m, d, None, None
     if arm == ARM_LPC_CAUSAL:
-        m, d = lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total,
+        # MINIMAL BUDGET BUMP 2026-08-01 iter-3 (LITE-only, causal-only): apply lite_causal_steps_mult to
+        # the causal arm's optimizer steps to escape the marginal undertrained collapse. Only present in
+        # LITE_CFG (defaults to 1.0 elsewhere), so FULL's matched-budget causal-vs-bidir contract is
+        # untouched. Shallow-copy cfg so the bumped step count does NOT leak into the recorded matched_budget
+        # of other arms; lpc_train records the actual n_steps used in its diag for landed verification.
+        ccfg = dict(cfg)
+        mult = float(cfg.get("lite_causal_steps_mult", 1.0))
+        if mult != 1.0:
+            ccfg["mlm_steps"] = int(round(cfg["mlm_steps"] * mult))
+            _log("  ARM_LPC_CAUSAL: lite_causal_steps_mult=%.2f -> mlm_steps %d->%d (undertrained-collapse "
+                 "budget bump; var_coef=2.0 kept)" % (mult, cfg["mlm_steps"], ccfg["mlm_steps"]))
+        m, d = lpc_train(stream, spec, ccfg, device, seed, out_dir, hb_total,
                          temporal_contiguity=False, causal=True)
         return m, d, None, None
     raise ValueError("unknown arm %s" % arm)
