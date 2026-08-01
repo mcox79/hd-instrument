@@ -257,6 +257,18 @@ _LPC_COMMON = dict(
     # hdlab/slot_attention_wm.py SlotAttentionWM.write_theta / write_tau_end=0.1, near-bistable) +
     # clause-head loss coefficient (same weight class as lpc_tc_coef).
     role_gate_theta=0.5, role_gate_tau=0.1, lpc_clause_coef=0.5,
+    # ANTI-COLLAPSE 2026-08-01 (Probe 2a de-risking; ONE-VARIABLE fix): the causal arm uniquely
+    # collapsed at the shared lite budget -- MEASURED@data/exp_encoder_latent_pc_arc_v1_lite/metrics.json
+    # (remote): ARM_LPC_CAUSAL rep_std=0.0128 (< 0.020 floor; barely above ARM_RANDOM 0.0121) with a
+    # HEALTHY EMA target (min_target_std=0.966) = the textbook JEPA/BYOL/SimSiam ONLINE-encoder collapse
+    # mode, while ARM_LPC_BIDIR trained clean (rep_std=0.0248) at IDENTICAL LR/warmup/budget/tokens.
+    # Lever chosen (single knob, causal-only): DOUBLE the VICReg variance-term weight for the causal arm
+    # (1.0 -> 2.0). Directly opposes the measured symptom (per-dim std too low); LR/warmup are
+    # demonstrably adequate (bidir is clean at the same LR) so lowering LR would treat a non-cause and
+    # slow useful learning; this is the literature-standard anti-collapse knob (Bardes VICReg 2022).
+    # Causal-only so the causal-vs-bidir contrast stays one-variable-clean AND so a resumed BIDIR/RANDOM
+    # (from ckpt) is untouched. NOT in _DATA_CFG_KEYS -> data-prep bundle cache key unchanged (cache HIT).
+    lpc_var_coef_causal=2.0,
 )
 
 SELFTEST_CFG = dict(
@@ -532,7 +544,13 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
     steps = cfg["mlm_steps"]                     # matched budget: LPC steps == MLM steps
     mask_frac = cfg["lpc_mask_frac"]
     ema_m = cfg["lpc_ema_m"]
-    var_coef, cov_coef = cfg["lpc_var_coef"], cfg["lpc_cov_coef"]
+    # ANTI-COLLAPSE 2026-08-01 (one-variable fix): the causal arm uses a DOUBLED VICReg variance-term
+    # weight (lpc_var_coef_causal, default 2.0) to counter the online-encoder collapse measured at the
+    # lite budget; the bidirectional/TC arms keep the original lpc_var_coef=1.0 (they train clean), so
+    # the causal-vs-bidir contrast changes exactly ONE knob. Falls back to lpc_var_coef if the causal
+    # key is absent (older configs), so no cfg is broken.
+    var_coef = cfg.get("lpc_var_coef_causal", cfg["lpc_var_coef"]) if causal else cfg["lpc_var_coef"]
+    cov_coef = cfg["lpc_cov_coef"]
     tc_coef = cfg["lpc_tc_coef"] if temporal_contiguity else 0.0
     clause_coef = cfg["lpc_clause_coef"] if causal else 0.0
     role_theta, role_tau = cfg["role_gate_theta"], cfg["role_gate_tau"]
@@ -673,6 +691,7 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
         final_clause_loss=float(np.mean(clause_hist[-k:])) if causal else None,
         role_gate_mean_replace_rate=float(np.mean(replace_rate_hist)) if replace_rate_hist else None,
         causal=bool(causal),
+        var_coef=float(var_coef),   # ANTI-COLLAPSE telemetry: effective VICReg variance weight this arm used
         n_steps=steps,
     )
     return online, diag

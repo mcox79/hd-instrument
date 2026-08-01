@@ -227,3 +227,49 @@ retraining it, and (b) hit the existing data-prep bundle cache instead of re-run
 ## Ready-to-launch (2026-08-01 amendment)
 LITE bundle extension, GPU (overnight_queue), 1 seed [7], 3 arms (1 resumed + 2 new):
 `bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 5400`
+
+---
+
+## AMENDMENT 2026-08-01 (iteration 2): one-variable anti-collapse fix for ARM_LPC_CAUSAL
+
+**MEASURED@`data/exp_encoder_latent_pc_arc_v1_lite/metrics.json` (remote, run 1, 2026-08-01, cuda,
+1183s):** verdict LITE_COLLAPSE. Per-arm rep_std -- ARM_LPC_BIDIR=**0.0248** (ABOVE 0.020 floor, trained
+clean), ARM_LPC_CAUSAL=**0.0128** (BELOW floor, barely above ARM_RANDOM=**0.0121**), with a HEALTHY EMA
+target on the causal arm (min_target_std=**0.966**). Causal final_pred_loss=0.182 vs bidir 0.084.
+**Read:** the budget is ADEQUATE (bidir trained clean at it); the causal arm UNIQUELY collapses -- an
+ONLINE-encoder representation collapse (low online rep_std, healthy target) = the textbook JEPA/BYOL/
+SimSiam collapse mode, NOT an encoder-hypothesis refutation. We cannot read causal-de-inversion off a
+collapsed encoder, so the probe on run-1's causal ckpt (active/passive 0.0167/0.0167, further inverted)
+is UNINTERPRETABLE for the hypothesis (it reflects the collapse, not the causal mask's effect).
+
+**One-variable fix (single knob, causal-only):** DOUBLE the VICReg variance-term weight for the causal
+arm, `lpc_var_coef` 1.0 -> `lpc_var_coef_causal`=**2.0** (used in `lpc_train` only when `causal=True`).
+Everything else held IDENTICAL: architecture (d=512/L=6/H=8), budget (6000 steps), tokens (9M), LR
+(3e-4), warmup, mask_frac, EMA m, clause/gate coefficients, seed (7). Why THIS lever, not the other two
+offered:
+- vs lower peak LR / longer warmup: ARM_LPC_BIDIR is CLEAN at the SAME LR/warmup/budget -> LR/warmup are
+  demonstrably adequate for this arch; lowering LR treats a non-cause and would slow useful learning,
+  risking under-training rather than fixing the collapse mechanism.
+- The VICReg variance hinge (`relu(gamma - std).mean()`, gamma=1.0) is the literature-standard
+  anti-collapse term (Bardes VICReg 2022); doubling its weight directly and specifically opposes the
+  measured symptom (per-dim std below floor). Conservative single step (2x, not 5x).
+Causal-only keeps the causal-vs-bidir contrast one-variable-clean AND leaves the resumed BIDIR/RANDOM
+arms byte-for-byte untouched. `lpc_var_coef_causal` is NOT in `_DATA_CFG_KEYS` -> data-prep bundle cache
+key unchanged (cache HIT preserved). Effective var_coef is now recorded per-arm in
+`train_diag.var_coef` for landed verification.
+
+**Retrain mechanics (retrain ONLY causal; reuse BIDIR/RANDOM ckpts + data-prep cache):** on remote
+`C:/dev/hd-instrument/data/exp_encoder_latent_pc_arc_v1_lite/`, backed up `units.jsonl` ->
+`units.jsonl.pre_causal_retrain_bak`, removed the `7|ARM_LPC_CAUSAL` unit line + deleted
+`ckpt_seed_7_ARM_LPC_CAUSAL.pt` (kept `7|ARM_LPC_BIDIR`, `7|ARM_RANDOM`, both `.pt` ckpts, and
+`dataprep_bundle_4a6982f330d29375.pt`). Re-dispatched the SAME entry name via `--allow-duplicate` (resets
+the terminal entry to pending). On the runner: data-prep cache HIT, BIDIR RESUMED, RANDOM RESUMED, CAUSAL
+retrains with var_coef=2.0 -> writes a fresh `ckpt_seed_7_ARM_LPC_CAUSAL.pt`.
+
+**GATE before probing:** confirm the retrained ARM_LPC_CAUSAL rep_std >= 0.020 (clears the collapse
+floor) in the landed metrics BEFORE running the voice-role probe. If it STILL collapses at var_coef=2.0
+(same budget), STOP -- do NOT silently escalate budget or stack knobs; report + recommend the MINIMAL
+budget bump (still <<15h) as the next single lever.
+
+**Re-dispatch command:**
+`bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 5400 --allow-duplicate`
