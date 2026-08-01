@@ -1593,10 +1593,29 @@ def _cuda_safety_audit(device):
     assert dev_ok_c, "device audit: causal-path model params not on run device %s" % device
     assert np.isfinite(diag_c["final_pred_loss"]), "device audit: causal-path non-finite pred loss on %s" % device
     assert np.isfinite(diag_c["final_clause_loss"]), "device audit: causal-path non-finite clause loss on %s" % device
+    # OBJECTIVE PIVOT 2026-08-01: exercise the NEW causal_realtarget_train path ON-DEVICE (real-target +
+    # Barlow) so the queue_add REMOTE self-test (which runs on the GPU box's CUDA) actually EXERCISES the
+    # new GPU/AMP code path before any full dispatch -- closing the "CPU self-test passes, real GPU run
+    # crashes" gap (root-cause hardening after run-4's silent GPU death). All 3 dispatched new combos are
+    # covered (real_emb/ema_latent x barlow/vicreg subset) so any combo-specific GPU/AMP/index bug fails
+    # the self-test (blocks the ship) instead of a full run. cfg already carries lpc_var_coef_causal/
+    # lpc_barlow_lambda_od (audit cfg extended below).
+    rt_diags = {}
+    for _tm, _rm in (("real_emb", "barlow"), ("real_emb", "vicreg"), ("ema_latent", "barlow")):
+        m_rt, d_rt = causal_realtarget_train(stream, spec, cfg, device, seed=0, out_dir=tmp, hb_total=2,
+                                             target_mode=_tm, reg_mode=_rm)
+        assert all(p.device.type == device.type for p in m_rt.parameters()), \
+            "device audit: realtarget[%s+%s] params not on run device %s" % (_tm, _rm, device)
+        assert np.isfinite(d_rt["final_pred_loss"]), \
+            "device audit: realtarget[%s+%s] non-finite pred loss on %s" % (_tm, _rm, device)
+        assert np.isfinite(d_rt["final_train_rep_std"]), \
+            "device audit: realtarget[%s+%s] non-finite rep_std on %s" % (_tm, _rm, device)
+        rt_diags["%s+%s" % (_tm, _rm)] = float(d_rt["final_pred_loss"])
     return dict(device=device.type, cuda_tested=(device.type == "cuda"),
                 final_pred_loss=diag["final_pred_loss"], params_on_device=(dev_ok and dev_ok_c),
                 causal_final_pred_loss=diag_c["final_pred_loss"],
-                causal_final_clause_loss=diag_c["final_clause_loss"])
+                causal_final_clause_loss=diag_c["final_clause_loss"],
+                realtarget_final_pred_loss=rt_diags)
 
 
 def _selftest_assertions(per_seed, summary, verdict, out_dir, audit):
