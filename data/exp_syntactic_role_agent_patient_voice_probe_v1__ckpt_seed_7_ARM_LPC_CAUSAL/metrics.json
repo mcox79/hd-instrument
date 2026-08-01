@@ -1,10 +1,10 @@
 {
   "verdict": "ENCODER_POSITION_ONLY",
-  "verdict_msg": "Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.17916666666666667, 'passive_to_active': 0.1625} <= FAIL_MAX=0.55 on at least one direction (no better than the position-only control / near chance=0.50) -- the frozen encoder only supplies positional cues, not voice-invariant syntactic role; syntax->role is the WALL on this encoder for the richer-NL comprehension direction. Within-voice reference: {'active_to_active_ref': 0.9, 'passive_to_passive_ref': 0.85}.",
-  "summary": "ENCODER_POSITION_ONLY | chance=0.5000 | Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.17916666666666667, 'passive_to_active': 0.1625} <= FAIL_MAX=0.55 on at least one di",
+  "verdict_msg": "Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.016666666666666666, 'passive_to_active': 0.016666666666666666} <= FAIL_MAX=0.55 on at least one direction (no better than the position-only control / near chance=0.50) -- the frozen encoder only supplies positional cues, not voice-invariant syntactic role; syntax->role is the WALL on this encoder for the richer-NL comprehension direction. Within-voice reference: {'active_to_active_ref': 0.9583333333333334, 'passive_to_passive_ref': 1.0}.",
+  "summary": "ENCODER_POSITION_ONLY | chance=0.5000 | Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.016666666666666666, 'passive_to_active': 0.016666666666666666} <= FAIL_MAX=0.55 on ",
   "run_mode": "full",
-  "elapsed_s": 2.4079058000352234,
-  "ts_iso": "2026-08-01T14:28:58.740786+00:00",
+  "elapsed_s": 2.069617300061509,
+  "ts_iso": "2026-08-01T14:29:08.586923+00:00",
   "anchor_name": "syntactic_role_agent_patient_voice_probe_v1",
   "chance": 0.5,
   "bands": {
@@ -21,21 +21,21 @@
       0.65
     ],
     "role_probe_by_direction": {
-      "active_to_passive": 0.1792,
-      "passive_to_active": 0.1625
+      "active_to_passive": 0.0167,
+      "passive_to_active": 0.0167
     },
     "position_only_combined": 0.5,
     "bagofwords_by_direction": {
-      "active_to_passive": 0.3333,
-      "passive_to_active": 0.3333
+      "active_to_passive": 0.2667,
+      "passive_to_active": 0.2667
     },
     "shuffled_control_by_direction": {
-      "active_to_passive": 0.5128,
-      "passive_to_active": 0.5288
+      "active_to_passive": 0.5482,
+      "passive_to_active": 0.5129
     },
     "within_voice_reference": {
-      "active_to_active_ref": 0.9,
-      "passive_to_passive_ref": 0.85
+      "active_to_active_ref": 0.9583333333333334,
+      "passive_to_passive_ref": 1.0
     },
     "posonly_fails_cross_voice": true,
     "bagofwords_floors": true,
@@ -49,35 +49,35 @@
       "digest": "5699d4230b34e1445ada686b19a3d580d79e176966142d6448d11be92c2f4851"
     },
     "active_to_passive|role_probe": {
-      "acc": 0.17916666666666667,
-      "digest": "0d1680b33fb896c75a13ffdb096f9a891609d8c9a6ebfedfb985fafb8f48a201"
+      "acc": 0.016666666666666666,
+      "digest": "d3cb22373e7ad933d0f64fad3e33fe6b7c60088f4e278bf2ef443f94db152b75"
     },
     "active_to_passive|bagofwords": {
-      "acc": 0.3333333333333333,
-      "digest": "306ef2319f9f98c471531309f07984e58941b0ed6b24cc91216259bf4ed725a7"
+      "acc": 0.26666666666666666,
+      "digest": "f54f1c4971e06edeff75b40e916a08a8dcffc10b70128d613c1a7b34e2bd3435"
     },
     "active_to_passive|shuffled_control": {
-      "acc": 0.5127777777777777,
-      "sd": 0.1428501761969728,
-      "digest": "6f5ce3c3aaf2951b53fc3e23e0187ef94e031f02173c94ed14e87fd74f3c2520"
+      "acc": 0.5481944444444444,
+      "sd": 0.37126797769997893,
+      "digest": "7a1ccb058fda759fcc792eda2252776bf43f1481edd157073c81ad3c445a82a9"
     },
     "passive_to_active|role_probe": {
-      "acc": 0.1625,
-      "digest": "aced729e81a09ce2298ff5acbcf7fc053673df4cd9c2676be3fc865994ca46e0"
+      "acc": 0.016666666666666666,
+      "digest": "c1034ea9d609dc89554d5fb6507cc72690341f849debc5bf8aa1b793f1921300"
     },
     "passive_to_active|bagofwords": {
-      "acc": 0.3333333333333333,
-      "digest": "306ef2319f9f98c471531309f07984e58941b0ed6b24cc91216259bf4ed725a7"
+      "acc": 0.26666666666666666,
+      "digest": "f54f1c4971e06edeff75b40e916a08a8dcffc10b70128d613c1a7b34e2bd3435"
     },
     "passive_to_active|shuffled_control": {
-      "acc": 0.52875,
-      "sd": 0.13290882944501636,
-      "digest": "4e402159835e8e7731cefca26626bd02e8ba34ab95925be07260eb96ed1af7ba"
+      "acc": 0.5129166666666667,
+      "sd": 0.35409043297189235,
+      "digest": "79a3237c29a4843a9b17361d73008f4b979c26adcac19c673a6a3e1db6aeed00"
     }
   },
   "within_voice_reference": {
-    "active_to_active_ref": 0.9,
-    "passive_to_passive_ref": 0.85
+    "active_to_active_ref": 0.9583333333333334,
+    "passive_to_passive_ref": 1.0
   },
   "arms_differ_verified": true,
   "arms_differ_exempted": [
@@ -140,7 +140,7 @@
     "encoder": "real_v2_frozen",
     "extraction": "direct_token_position_meanpool (departs from oc.build_role_query_probe single-fixed-attention-pool -- see module docstring rationale)",
     "conditioning": "global_mean_centering (contextualized reps and bag-of-words reps centered SEPARATELY, per module docstring)",
-    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+    "v2_ckpt": "data\\exp_encoder_latent_pc_arc_v1_lite\\ckpt_seed_7_ARM_LPC_CAUSAL.pt",
     "shuffle_seed": 771331,
     "n_shuffle_trials": 30
   },

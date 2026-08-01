@@ -778,6 +778,19 @@ def decide_verdict(pipeline_out):
     return verdict, msg, bands
 
 
+# ---------------- path-swap helpers ----------------
+def _safe_relpath(path, start):
+    """os.path.relpath raises ValueError on Windows when `path` and `start` are on different drive
+    mounts (e.g. a --ckpt-path resolved against a cwd on C: while REPO_ROOT is D:) -- caught in
+    production 2026-07-31 (CELL_CRASHED, ValueError: path is on mount 'C:', start on mount 'D:').
+    This is a LOGGING-ONLY field (params.v2_ckpt), never used for I/O, so a cross-drive path is
+    reported ABSOLUTE rather than raising; never blocks a real run over a cosmetic drive mismatch."""
+    try:
+        return os.path.relpath(path, start)
+    except ValueError:
+        return os.path.abspath(path)
+
+
 # ---------------- main ----------------
 def main():
     ap = argparse.ArgumentParser()
@@ -855,7 +868,7 @@ def main():
                    "module docstring rationale)",
                    "conditioning": "global_mean_centering (contextualized reps and bag-of-words reps "
                                    "centered SEPARATELY, per module docstring)",
-                   "v2_ckpt": os.path.relpath(ckpt_path, REPO_ROOT), "shuffle_seed": SHUFFLE_SEED,
+                   "v2_ckpt": _safe_relpath(ckpt_path, REPO_ROOT), "shuffle_seed": SHUFFLE_SEED,
                    "n_shuffle_trials": N_SHUFFLE_TRIALS},
         "start_marker_written": True, "crash_diagnostic_present": True,
         "final_metrics_atomicity": "tmp_replace", "defensive_error_checking": "passed_all_4_patterns",
@@ -873,6 +886,26 @@ def main():
     _log("DONE full in %.1fs" % elapsed)
 
 
+def _resolve_out_dir_from_argv(argv):
+    """Mirror main()'s out_dir resolution (ckpt-path suffix) WITHOUT re-parsing via argparse, so the
+    top-level crash handler can write to the SAME suffixed dir main() would have used, even when main()
+    dies before it locally computes `out_dir`. Fixes a real bug (2026-07-31): the crash handler used the
+    bare module-level OUTPUT_DIR constant, so every --ckpt-path run's crash diagnostic clobbered the
+    BASE (no-suffix) metrics.json instead of its own `__<ckpt-basename>` dir -- three separate ckpt-path
+    attempts (ARM_LPC_CAUSAL, ckpt_18k, and a plain re-run) all wrote their crash trace to the same base
+    file, and the per-ckpt dirs were left with units.jsonl/heartbeat but no metrics.json at all."""
+    ckpt_arg = None
+    for i, a in enumerate(argv):
+        if a == "--ckpt-path" and i + 1 < len(argv):
+            ckpt_arg = argv[i + 1]
+        elif a.startswith("--ckpt-path="):
+            ckpt_arg = a.split("=", 1)[1]
+    if not ckpt_arg:
+        return OUTPUT_DIR
+    tag = os.path.splitext(os.path.basename(ckpt_arg))[0]
+    return OUTPUT_DIR + "__" + tag
+
+
 if __name__ == "__main__":
     try:
         main()
@@ -881,5 +914,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         raise
     except Exception as e:  # NOT BaseException
-        _write_crash_metrics(OUTPUT_DIR, e)
+        _write_crash_metrics(_resolve_out_dir_from_argv(sys.argv[1:]), e)
         raise

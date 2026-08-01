@@ -126,13 +126,17 @@ CAUSAL-ENCODER AMENDMENT 2026-07-30 (notes/brain_syntax_to_role_mechanism_and_fo
       oversold.
   (d) Glass-box: no change -- same TinyTransformer, same from-scratch tokenizer/BPE, gate operates on
       the encoder's own latents (no bolt-on parser).
-  --lite REPURPOSED (2026-07-30, per Director's explicit spec): now trains ONLY ARM_LPC_CAUSAL, ONE
-  seed, ~10x fewer steps, SAME architecture as FULL -> ckpt_seed_7_ARM_LPC_CAUSAL_lite.pt, for the
-  cross-voice role probe's early directional read. FLAG (breaking change, low risk): this REPLACES the
-  prior --lite semantics (which trained ARM_LPC[now ARM_LPC_BIDIR]+ARM_MLM+ARM_RANDOM for
-  exp_context_invariance_lpc_lite_probe_v1.py) -- verified no data/exp_encoder_latent_pc_arc_v1_lite/
-  artifacts exist yet on disk, so nothing already-landed is broken, but that OTHER probe cell's
-  contract with --lite no longer holds if invoked after this change.
+  --lite REPURPOSED (2026-07-30, per Director's explicit spec; 2026-08-01 EXTENDED): trains
+  ARM_LPC_CAUSAL + ARM_LPC_BIDIR + ARM_RANDOM at ONE seed, ~10x fewer steps, SAME architecture as FULL
+  -> ckpt_seed_7_{ARM_LPC_CAUSAL,ARM_LPC_BIDIR,ARM_RANDOM}.pt, bundling the causal-vs-bidirectional-vs-
+  random small-proxy comparison the cross-voice role probe needs (spec anchor #2). ARM_LPC_CAUSAL was
+  already trained 2026-07-30 (LITE_COLLAPSE, rep_std marginally under floor); (seed,arm) checkpoint
+  resume (Fix 2c) means this run only trains the two NEW arms. ARM_MLM intentionally excluded (the
+  probe's own default V2_CKPT already IS the measured MLM reference, zero extra GPU cost). FLAG
+  (breaking change, low risk, carried from 2026-07-30): this REPLACES the prior --lite semantics
+  (which trained ARM_LPC[now ARM_LPC_BIDIR]+ARM_MLM+ARM_RANDOM for
+  exp_context_invariance_lpc_lite_probe_v1.py) -- that OTHER probe cell's contract with --lite does not
+  hold if invoked after this change.
 
 # CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
 # - arms_differ_verified at run (META_RULE_AF; hash of the 5 arms' held-out rep matrices)
@@ -219,9 +223,16 @@ ARM_RANDOM = "ARM_RANDOM"         # random-init -- floor
 ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC, ARM_MLM, ARM_RANDOM]
 OBJECTIVE_ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC]   # arms carrying training-time collapse telemetry
 # --lite (2026-07-30 REPURPOSED per Director spec for the causal-encoder cross-voice role-probe early
-# read): trains ONLY ARM_LPC_CAUSAL, ONE seed, ~10x fewer steps, SAME architecture as FULL. Supersedes
-# the prior lite semantics (ARM_LPC[now ARM_LPC_BIDIR]+ARM_MLM+ARM_RANDOM) -- see header FLAG.
-LITE_ARMS = [ARM_LPC_CAUSAL]
+# read; 2026-08-01 EXTENDED): trains ARM_LPC_CAUSAL + ARM_LPC_BIDIR at ONE seed, ~10x fewer steps, SAME
+# architecture as FULL, plus ARM_RANDOM (untrained floor control, no training cost). ARM_LPC_CAUSAL was
+# already trained+checkpointed 2026-07-30 (LITE_COLLAPSE verdict, rep_std marginally under floor); the
+# (seed,arm) checkpoint/resume (Fix 2c) means this run resumes it and only trains the two NEW arms --
+# matched-budget causal-vs-bidirectional-vs-random bundle for the syntax-role probe's fair test (spec
+# anchor #2, "bundle a bidirectional-vs-causal control arm"). ARM_MLM intentionally excluded here: the
+# probe's own default ckpt (V2_CKPT) already serves as the already-measured MLM reference (0.16-0.18
+# inverted) at zero extra GPU cost. Supersedes the prior lite semantics (ARM_LPC[now
+# ARM_LPC_BIDIR]+ARM_MLM+ARM_RANDOM, for exp_context_invariance_lpc_lite_probe_v1.py) -- see header FLAG.
+LITE_ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_RANDOM]
 
 # Pre-reg bands (headline = graded_geometry_spearman; deflated per lit-scan calibration)
 HP_GG_OVER_MLM = 0.10            # ARM_LPC - ARM_MLM graded-geometry (break the reference)
@@ -292,8 +303,9 @@ FULL_COSCALED_OVERRIDE = dict(d_model=256, n_layers=4, n_heads=8, ffn_mult=4)
 # causal-encoder question WITHOUT waiting for it. SAME ARCHITECTURE as FULL (d_model/n_layers/n_heads/
 # ffn_mult/vocab/max_len UNCHANGED -- representativeness: an early signal from a smaller/shallower net
 # would not transfer) but ~10x fewer steps (6000 vs 60000) and a much smaller data subset (faster
-# data-prep + faster/seed). Trains ONLY ARM_LPC_CAUSAL (LITE_ARMS = [ARM_LPC_CAUSAL]), ONE seed (7) --
-# saves ckpt_seed_7_ARM_LPC_CAUSAL_lite.pt for the syntax-role probe's path-swap early read.
+# data-prep + faster/seed). Trains ARM_LPC_CAUSAL + ARM_LPC_BIDIR + ARM_RANDOM (LITE_ARMS, 2026-08-01
+# extended), ONE seed (7) -- saves ckpt_seed_7_{ARM_LPC_CAUSAL,ARM_LPC_BIDIR,ARM_RANDOM}.pt for the
+# syntax-role probe's path-swap early read (causal-vs-bidir-vs-random bundle).
 LITE_CFG = dict(
     run_mode="lite", seeds=[7],
     min_deg=2, cap_eval_concepts=3000, heldout_count=150, min_mentions_eval=5,
@@ -829,8 +841,11 @@ def _load_mlm_baseline_encoder(seed, device):
 # ARM_LPC_TC for completeness (ARM_RANDOM skipped -- untrained, nothing to reuse).
 # ---------------------------------------------------------------------------
 def _save_arm_ckpt(out_dir, seed, arm, model, tok, spec, cfg):
-    if arm == ARM_RANDOM:
-        return None
+    # 2026-08-01 AMENDMENT (Probe 2a+3 bundle): ARM_RANDOM used to be skipped ("untrained, nothing to
+    # reuse") but the bundled causal-vs-bidir-vs-MLM-vs-random fair test on
+    # exp_syntactic_role_agent_patient_voice_probe_v1.py needs a real FrozenV2Encoder-shaped ckpt for the
+    # untrained-floor control arm too (path-swap pattern, zero new probe code) -- now saved like every
+    # other arm. No cost: the model already exists in memory (no extra training).
     try:
         ck = dict(
             state_dict={k: v.detach().cpu() for k, v in model.state_dict().items()},
@@ -1414,7 +1429,12 @@ def _selftest_plumbing():
         m2.load_state_dict(ck["state_dict"])            # bit-identical to what FrozenV2Encoder does
         _ = Tokenizer.from_str(ck["tokenizer_json"])
         assert ck["arm"] == ARM_LPC_CAUSAL and int(ck["seed"]) == 7
-        assert _save_arm_ckpt(tmp, 7, ARM_RANDOM, m, tok, spec, cfg) is None, "ARM_RANDOM must save nothing"
+        # 2026-08-01 amendment: ARM_RANDOM now saves a real ckpt too (needed as the untrained-floor
+        # control for the syntax-role probe's bundled fair test) -- verify it round-trips identically.
+        rnd_path = _save_arm_ckpt(tmp, 7, ARM_RANDOM, m, tok, spec, cfg)
+        assert rnd_path is not None, "ARM_RANDOM must now save a real ckpt (2026-08-01 amendment)"
+        rnd_ck = torch.load(os.path.join(_REPO, rnd_path), map_location="cpu", weights_only=False)
+        assert rnd_ck["arm"] == ARM_RANDOM and int(rnd_ck["seed"]) == 7
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
@@ -1504,12 +1524,14 @@ def _parse_args():
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--lite", action="store_true",
-                    help="early-signal cfg (2026-07-30 REPURPOSED for the causal-encoder cross-voice "
-                         "role probe): SAME architecture as FULL, ~10x fewer steps + a smaller data "
-                         "subset; trains ONLY ARM_LPC_CAUSAL, ONE seed (LITE_ARMS=[ARM_LPC_CAUSAL]); "
-                         "writes to data/exp_%s_lite/ (a DISTINCT dir from the FULL run's "
-                         "data/exp_%s/, so it never collides with the in-progress FULL GPU run's "
-                         "checkpoints/units.jsonl)." % (ANCHOR_NAME, ANCHOR_NAME))
+                    help="early-signal cfg (2026-07-30 REPURPOSED, 2026-08-01 EXTENDED for the "
+                         "causal-vs-bidirectional-vs-random bundled small-proxy test): SAME architecture "
+                         "as FULL, ~10x fewer steps + a smaller data subset; trains ARM_LPC_CAUSAL "
+                         "(resumed, already checkpointed 2026-07-30) + ARM_LPC_BIDIR + ARM_RANDOM, ONE "
+                         "seed (LITE_ARMS=[ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_RANDOM]); writes to "
+                         "data/exp_%s_lite/ (a DISTINCT dir from the FULL run's data/exp_%s/, so it "
+                         "never collides with the in-progress FULL GPU run's checkpoints/units.jsonl)."
+                         % (ANCHOR_NAME, ANCHOR_NAME))
     ap.add_argument("--lite-steps", type=int, default=None,
                     help="override LITE_CFG['mlm_steps'] (only applies with --lite). MEASURED CPU cost "
                          "(this repo, 2026-07-30, 6 torch threads): ~14.6s/step for the LPC objective at "
@@ -1519,7 +1541,18 @@ def _parse_args():
     ap.add_argument("--co-scaled", action="store_true",
                     help="capacity-ratio follow-up: smaller encoder (d=256,L=4) over the same tokens")
     ap.add_argument("--device", default=None)
-    return ap.parse_args()
+    args = ap.parse_args()
+    # Runner-dispatch support (2026-08-01): the production queue runner (runner_v2_prod.py) invokes
+    # every cell as `[sys.executable, "-u", script_path]` with NO CLI flags at all -- only
+    # HDLAB_EXP_NAME / HDLAB_RUN_MODE env vars are injected (see run_one()). A CLI-only --lite flag is
+    # therefore UNREACHABLE via the standard queue_add.sh -> runner_v2_prod.py dispatch path (the
+    # 2026-07-30 lite run was launched by a direct manual invocation, not through the queue). Auto-detect
+    # lite mode from HDLAB_EXP_NAME (the queue entry name, set by the runner) so a queue entry literally
+    # named "..._lite" dispatches into lite mode like every other run-mode suffix convention in this repo
+    # (SH-5's own _selftest/_smoke suffix isolation is the same pattern, one layer up).
+    if not args.lite and "_lite" in os.environ.get("HDLAB_EXP_NAME", ""):
+        args.lite = True
+    return args
 
 
 def _anchor_dir_name(args):

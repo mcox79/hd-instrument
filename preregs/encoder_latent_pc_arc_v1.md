@@ -102,3 +102,128 @@ or over-capacity; the training-time min_target_std telemetry is the early-warnin
 ## Ready-to-launch (HELD for GPU; queued behind Track-A WM verdict)
 FULL, GPU (overnight_queue), 2 seeds [7,13], 4 arms:
 `bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1 experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md <timeout_s>`
+
+---
+
+## AMENDMENT 2026-08-01: --lite causal-vs-bidir-vs-random SMALL-PROXY bundle (Probe 2a + Probe 3)
+
+Context: `notes/brain_syntax_to_role_mechanism_and_forward_predictive_encoder_spec_2026-07-30.md` Part 2
+identifies a ONE-axis amendment (masked-bidirectional -> causal next-latent prediction, + hold-then-revise
+gate + clause head) as a candidate fix for the measured cross-voice role-INVERSION on the frozen MLM
+encoder (`exp_syntactic_role_agent_patient_voice_probe_v1.py`, 0.16-0.18, below chance). The FULL GPU build
+is ~15-19 GPU-hrs; this amendment authors a SMALL/SHORT SCALING PROXY (~1-3 GPU-hrs total) to get an early
+directional read BEFORE committing to FULL, per the Director's explicit de-risking-ladder brief.
+
+**Prior-work / KB-check (USER-locked 2026-07-01):** `substrate_query.sh "causal predictive coding encoder
+role-inversion voice probe scaling proxy"` -> top cosine=0.3564 (`notes/research_learning_control_
+neuromodulation_inventory_2026-07-24.md`, general predictive-coding concept), no prior CELL or drill at
+cosine>0.30 running THIS specific causal-vs-bidir-vs-random-vs-MLM bundled small-proxy test. Genuinely new
+build, not a rediscovery -- consistent with the design note's own KB-check (line 10-13 of that note).
+
+**What changed from the FULL-run arms above:** `--lite` (already existed 2026-07-30 for ARM_LPC_CAUSAL
+alone; EXTENDED here) now bundles THREE arms at ONE seed (7), ~10x fewer steps (6000 vs 60000 FULL),
+SAME architecture (d_model=512, n_layers=6, n_heads=8, ffn_mult=4, vocab=16000, max_len=128) as FULL:
+- `ARM_LPC_CAUSAL` -- already trained+checkpointed 2026-07-30 (`data/exp_encoder_latent_pc_arc_v1_lite/
+  ckpt_seed_7_ARM_LPC_CAUSAL.pt`); (seed,arm) checkpoint/resume (Fix 2c) means this dispatch SKIPS
+  retraining it (already in `units.jsonl`).
+- `ARM_LPC_BIDIR` -- NEW at lite budget: isolates causal-mask-vs-bidirectional-objective (Antonello & Huth
+  confound per the design note's "Honest risk read" section).
+- `ARM_RANDOM` -- NEW at lite budget: untrained floor control. Code amendment 2026-08-01: `_save_arm_ckpt`
+  used to skip ARM_RANDOM ("untrained, nothing to reuse"); it is now saved like every other arm (zero extra
+  cost -- the model already exists in memory) because the bundled fair test needs a real FrozenV2Encoder-
+  shaped ckpt for the floor arm too.
+- `ARM_MLM` intentionally EXCLUDED from this lite bundle: the probe cell's own DEFAULT checkpoint (V2_CKPT,
+  the FULL-trained v2 MLM encoder) already IS the measured MLM reference (re-verified fresh this cycle,
+  see Fair-test section below) at zero extra GPU cost; retraining an MLM arm at lite (6000-step) budget
+  would not even be budget-matched to that existing FULL reference.
+
+**Cost estimate (HYPOTHESIZED@ prior lite run + this amendment):** ARM_LPC_CAUSAL's own 2026-07-30 run
+measured 1944s (32.4min) wall for ONE trained arm's train+encode+battery at this config
+(MEASURED@`data/exp_encoder_latent_pc_arc_v1_lite/metrics.json:per_seed.7.elapsed_s`). ARM_LPC_BIDIR is
+architecturally identical (same steps/d_model/data) -> HYPOTHESIZED comparable ~30-35min. ARM_RANDOM has
+NO training loop (untrained model, straight to the rep-battery) -> HYPOTHESIZED faster, ~5-15min (battery
+cost only). Total incremental wall HYPOTHESIZED ~35-50min; combined with the 32min already spent on
+ARM_LPC_CAUSAL, total project cost for this proxy stays ~65-85min, well inside the 1-3 GPU-hr budget this
+amendment is scoped to.
+
+**Timeout:** 5400s (1.5h) on the incremental dispatch -- >3x the HYPOTHESIZED incremental wall, covering
+data-prep-bundle-cache-hit overhead (should be a cache HIT per Fix D, keyed on corpus mtime + cfg subset,
+already produced 2026-07-30) + queue/runner startup + margin. Per-experiment timeout formula
+(`ceil(1.5 * smoke_wall_s * ...)`): smoke_wall_s here = the already-MEASURED 1944s for one arm; two more
+arms at comparable-or-lesser cost -> `ceil(1.5 * 1944 * 2) = 5832`, rounded to 5400 is close enough given
+ARM_RANDOM's expected sub-linear cost; using 5400s.
+
+**"Moves" pre-registration (what the small proxy is asked to answer, per the Director's brief) --
+gated entirely on the SEPARATE, ALREADY-BUILT fair-test cell (`exp_syntactic_role_agent_patient_voice_
+probe_v1.py`, path-swapped per-arm via `--ckpt-path`, ZERO new probe code, same HARD-PASS/HARD-FAIL/
+PARTIAL bands already pre-registered in that cell (ROLE_PROBE_PASS_MIN=0.70, ROLE_PROBE_FAIL_MAX=0.55,
+chance=0.50)):**
+- HARD-PASS-DIRECTIONAL (causal genuinely helps): ARM_LPC_CAUSAL cross-voice accuracy (both directions)
+  clears the shuffled-control/no-longer-inverted band [0.35,0.65] AND is >= +0.15 above ARM_LPC_BIDIR in
+  BOTH directions (isolates causal-mask-specific gain from generic-retrain noise) AND ARM_LPC_BIDIR itself
+  stays inverted/near the MLM wall (control did NOT move, so the causal axis specifically is responsible).
+- PARTIAL (informative, not a refutation): ARM_LPC_CAUSAL moves toward invariance but ARM_LPC_BIDIR moves
+  comparably (confounded -- generic-retrain-at-this-budget effect, not causal-specific) OR ARM_LPC_CAUSAL
+  moves only partway (still below 0.35 or between 0.35-0.65 without a clear BIDIR gap).
+- NULL-AMBIGUOUS (per the design note's own "Honest risk read," 3rd risk -- MANDATORY framing, do not
+  collapse to refutation): if ARM_LPC_CAUSAL's lite training shows COLLAPSE (rep_std < 0.02 or
+  min_target_std < 0.05 -- ALREADY the case for the existing 2026-07-30 causal ckpt, rep_std=0.0181
+  marginally under the 0.020 floor per `data/exp_encoder_latent_pc_arc_v1_lite/metrics.json`), any
+  resulting flat-or-worse cross-voice read is AMBIGUOUS between "causal-mask hypothesis wrong" and
+  "insufficient budget at this proxy size causing near-collapse" -- report BOTH readings, do not force one.
+- Discriminator-reachability check: chance=0.50 exact-by-construction (binary balanced task, per the probe
+  cell's own CRLB-n/a declaration); the wall is measured at 0.16-0.18 (inverted, BELOW chance) so there is
+  headroom in BOTH directions (toward 0.50 = no-longer-inverted, toward 0.70 = passing) -- not saturated.
+
+**Data-prep-headroom gate:** N/A for this incremental dispatch -- the dataprep bundle cache
+(`dataprep_bundle_4a6982f330d29375.pt`) already exists on disk from the 2026-07-30 run and is keyed by
+corpus-mtime + cfg-subset hash (Fix D); this run is expected to HIT the cache (verify in landed metrics
+`data_prep_headroom` stays null / cache-hit log line present) and skip data-prep entirely.
+
+**SCHEMA-VET deltas from the FULL-run declarations above (unchanged otherwise):**
+- `cell_chunked`: unchanged (per-arm x per-seed loop, single seed here).
+- `arms_differ_verified`: re-verified for the 3-arm lite bundle (ARMS-MUST-DIFFER hash check over
+  `arm_digests` for whichever arms ran this dispatch, per `run_one_seed`'s existing generic assertion --
+  no code change needed, it already iterates `arms_to_run` generically).
+- `real_code_path` / self-test: re-run 2026-08-01 after the `_save_arm_ckpt` ARM_RANDOM amendment +
+  LITE_ARMS extension; MEASURED@ local CPU self-test this cycle: `[encoder_latent_pc_arc_v1]
+  PLUMBING SELF-TEST PASS` + `[encoder_latent_pc_arc_v1] SELF-TEST PASS` (arm-ckpt round-trip now
+  covers ARM_RANDOM too).
+- `guard_baseline_valid` / control-vs-floor: N/A here (this amendment doesn't add a POP-vs-RANDOM guard;
+  the existing lite-verdict gates (`lite_no_collapse`, `lite_clause_descended`, `lite_gate_fired`) are
+  UNCHANGED and still apply to ARM_LPC_CAUSAL only, per `build_lite_verdict`'s existing (unmodified)
+  logic -- the two new arms are trained/checkpointed/battery-scored but not separately verdict-gated by
+  this cell; their DECISIVE read is the probe cell above.
+
+**Companion fair-test cell fixes (2026-08-01, both bugs pre-dated this amendment, caught while wiring the
+path-swap):**
+1. `os.path.relpath(ckpt_path, REPO_ROOT)` in `exp_syntactic_role_agent_patient_voice_probe_v1.py` main()
+   raised `ValueError: path is on mount 'C:', start on mount 'D:'` on every one of 3 prior local
+   invocations (cwd resolved to a C: mount at invocation time) -- CELL_CRASHED on a LOGGING-ONLY field.
+   Fixed via `_safe_relpath()` (try/except ValueError -> abspath fallback; never blocks a real run over a
+   cosmetic drive mismatch).
+2. The top-level crash handler wrote to the bare `OUTPUT_DIR` module constant instead of the per-ckpt
+   suffixed `out_dir`, so all 3 prior --ckpt-path crash attempts clobbered the SAME base metrics.json
+   instead of each landing in its own `__<ckpt-basename>` dir. Fixed via `_resolve_out_dir_from_argv()`
+   mirroring main()'s suffix logic from argv, used in the `if __name__ == "__main__"` except-handler.
+   MEASURED@ this cycle: re-ran `--full` (default V2_CKPT) FRESH after the fix -> reproduces the
+   previously-cited wall cleanly: active_to_passive=0.1792, passive_to_active=0.1625 (matches the
+   0.16-0.18 cited in the design note), verdict=ENCODER_POSITION_ONLY, within-voice reference
+   {active=0.90, passive=0.85}.
+
+**Runner-dispatch fix (2026-08-01, discovered while wiring this dispatch):** `runner_v2_prod.py`'s
+`run_one()` invokes every queued cell as `[sys.executable, "-u", script_path]` with ZERO CLI flags --
+only `HDLAB_EXP_NAME`/`HDLAB_RUN_MODE` env vars are injected. A CLI-only `--lite` flag is therefore
+UNREACHABLE through `queue_add.sh` -> the standard queue -> runner path (the 2026-07-30 lite run must
+have been launched by a direct manual invocation, not through the queue). Fix: `_parse_args()` now
+auto-detects lite mode from `HDLAB_EXP_NAME` (`"_lite" in os.environ.get("HDLAB_EXP_NAME","")`) so a
+queue entry literally NAMED `..._lite` dispatches into lite mode without needing a CLI flag the runner
+can never pass -- **the queue entry name MUST be exactly `encoder_latent_pc_arc_v1_lite`** (not a
+distinguishing suffix like `..._lite_bundle_20260801`), because `get_output_dir()` resolves the on-disk
+directory from `HDLAB_EXP_NAME` verbatim (SH-4/SH-5 convention) and this run MUST land in the EXISTING
+`data/exp_encoder_latent_pc_arc_v1_lite/` dir to (a) resume ARM_LPC_CAUSAL from `units.jsonl` instead of
+retraining it, and (b) hit the existing data-prep bundle cache instead of re-running the 2-4h data-prep.
+
+## Ready-to-launch (2026-08-01 amendment)
+LITE bundle extension, GPU (overnight_queue), 1 seed [7], 3 arms (1 resumed + 2 new):
+`bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 5400`
