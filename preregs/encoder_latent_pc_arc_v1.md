@@ -318,3 +318,63 @@ scale; a clean read needs the fuller build budget.
 
 **Re-dispatch command (iteration 3):**
 `bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 5400 --allow-duplicate`
+
+---
+
+## AMENDMENT 2026-08-01 (iteration 4): OBJECTIVE PIVOT -- brain-faithful collapse-free objective (USER-approved)
+
+**iter-3 one-liner (last old-objective datapoint):** the 2x-steps (12000) old-objective run CRASHED on a
+config bug I introduced (an earlier edit accidentally dropped the `**_LPC_COMMON` spread from `LITE_CFG`
+-> `KeyError: lpc_pred_hidden_mult` at predictor init; now fixed + guarded by self-test). So NO clean
+2x-budget-alone rep_std datapoint was obtained. Valid old-objective datapoints stand: EMA+VICReg causal
+rep_std = 0.0128 (var_coef 1.0) and 0.0180 (var_coef 2.0), both at 6000 steps, both < 0.020. Per the
+objective-pivot directive (which SUPERSEDES the budget-bump path) I am NOT separately re-running the 2x
+old objective; the new run retrains ARM_LPC_CAUSAL (EMA+VICReg, var_coef 2.0) at 6000 steps as the
+in-run baseline reference (expected ~0.018).
+
+**Source:** `notes/research_brain_faithful_collapse_free_predictive_encoder_objective_2026-08-01.md`
+(3-way lit-scan drill). ROOT CAUSE of the collapse: the EMA self-distillation target co-adapts with the
+student (degenerate constant fixed point), fragile at small model/batch scale; VICReg's variance HINGE is
+a weak small-batch repulsion. Cortex predicts a REAL externally-grounded next signal (Rao&Ballard 1999;
+Friston) and decorrelates STRUCTURALLY (Barlow redundancy-reduction / lateral inhibition). The more
+brain-faithful choice is also the more collapse-robust one.
+
+**WHAT CHANGED (new causal training path `causal_realtarget_train`, drill RANK 1 + RANK 3):**
+- RANK 1 (target): regress the ACTUAL next-span token's OWN INPUT EMBEDDING (real, data-determined, own
+  entropy). DROP the EMA target encoder + self-distillation loop. Keep the d_model->d_model predictor head
+  (STILL OOM-safe; `_assert_no_vocab_dim` fires on the real call). CITED@ arXiv:1902.11269. A constant
+  output cannot match varying real targets -> collapse cause removed, not fought.
+- RANK 3 (regularizer): replace VICReg variance+covariance with `_barlow_decorrelation` (cross-
+  correlation-to-identity: diagonal->1 = unit variance/anti-collapse, off-diagonal->0 = decorrelation).
+  CITED@ Zbontar 2021 "does not rely on batch size"; most small-batch-robust + most brain-faithful.
+- Regularizer applied to the ENCODER latents zc (the measured representation) for BOTH reg modes (clean
+  attribution); for real_emb ALSO to the live tok_emb targets (guards the "mildly self-referential"
+  learned-embedding weak point the standard regress-to-embedding way).
+
+**ARMS (all trained fresh at the SAME cheap 6000-step budget where EMA+VICReg collapsed; one seed 7):**
+- ARM_CAUSAL_REAL_BARLOW -- PRIMARY (full brain-faithful package: real target + Barlow).
+- ARM_CAUSAL_REAL_VICREG -- attribution (a): isolates the TARGET change (real vs ema), reg held = vicreg.
+- ARM_CAUSAL_EMA_BARLOW  -- attribution (b): isolates the REGULARIZER change (barlow vs vicreg), target held = ema.
+- ARM_LPC_CAUSAL (old EMA+VICReg+clause+gate, var_coef 2.0) -- in-run collapsed baseline reference.
+- ARM_LPC_BIDIR (0.0248) + ARM_RANDOM (0.0121) -- RESUMED from existing ckpts (free controls).
+2x2 attribution: {real,ema} x {barlow,vicreg}; the 4th cell (ema+vicreg) is referenced via the existing
+old baseline (which additionally has clause/gate/reg-locus differences -- caveat flagged, honest).
+
+**PRE-REGISTERED BAND (decisive, collapse axis; BEFORE running):**
+- HARD-PASS = ARM_CAUSAL_REAL_BARLOW rep_std >= 0.020 (COLLAPSE_REP_STD_FLOOR) at 6000 steps
+  -> verdict LITE_COLLAPSE_FIXED (the brain-faithful objective removes the collapse cause at the cheap budget).
+- HARD-FAIL = ARM_CAUSAL_REAL_BARLOW rep_std < 0.020 -> verdict LITE_COLLAPSE_PERSISTS (collapse is
+  scale/data at this proxy budget, not the target framing; the fuller build budget is genuinely required).
+- ATTRIBUTION (reported, not gated): compare the 4 causal arms' rep_std to isolate whether the TARGET
+  change, the REGULARIZER change, or only the FULL package clears the floor.
+- Voice-role probe: run for RECORD ONLY on all arm ckpts (proxy-limit finding: role-reading does not
+  emerge at lite budget for ANY arm -- bidir/random both 0.0/0.0 -- so the go-signal is rep_std, not the probe).
+
+**Death-fixes carried verbatim:** data-prep bundle cache (HIT; key unchanged -- new keys not in
+_DATA_CFG_KEYS), OOM tripwire (`_assert_no_vocab_dim` on the new loss path), (seed,arm) checkpoint/resume,
+start-marker + crash-diagnostic + heartbeat, print-flush. run_one_seed's arms-differ made NON-FATAL (a
+collapse experiment can legitimately produce coincident degenerate arms; record, do not crash the run).
+
+**Dispatch (iteration 4):** remote units.jsonl already holds exactly BIDIR + RANDOM (deduped) so no
+cleanup needed -- the 4 causal arms train, BIDIR/RANDOM resume, data-prep cache HITs.
+`bash tools/orchestrator/queue_add.sh overnight_queue encoder_latent_pc_arc_v1_lite experiments/exp_encoder_latent_pc_arc_v1.py preregs/encoder_latent_pc_arc_v1.md 7200 --allow-duplicate`

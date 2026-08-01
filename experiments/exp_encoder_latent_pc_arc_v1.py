@@ -220,8 +220,15 @@ ARM_LPC_BIDIR = "ARM_LPC_BIDIR"    # UNCHANGED prior bidirectional masked-span l
 ARM_LPC_TC = "ARM_LPC_TC"         # bidirectional latent-PC + temporal-contiguity -- ABLATION (unaffected by causal axis)
 ARM_MLM = "ARM_MLM"               # current MLM baseline (matched budget) -- reference
 ARM_RANDOM = "ARM_RANDOM"         # random-init -- floor
+# OBJECTIVE PIVOT 2026-08-01 (USER-approved; drill RANK 1 real-target + RANK 3 Barlow decorrelation).
+# New causal arms trained via causal_realtarget_train (NO EMA self-distillation for the real-target arms).
+# 2x2 attribution: {target: real_emb|ema_latent} x {reg: barlow|vicreg}. PRIMARY = real_emb+barlow.
+ARM_CAUSAL_REAL_BARLOW = "ARM_CAUSAL_REAL_BARLOW"  # PRIMARY: real next-token-emb target + Barlow decorrelation
+ARM_CAUSAL_REAL_VICREG = "ARM_CAUSAL_REAL_VICREG"  # attribution (a): isolates TARGET change (real vs ema)
+ARM_CAUSAL_EMA_BARLOW = "ARM_CAUSAL_EMA_BARLOW"    # attribution (b): isolates REGULARIZER change (barlow vs vicreg)
+NEW_OBJECTIVE_ARMS = [ARM_CAUSAL_REAL_BARLOW, ARM_CAUSAL_REAL_VICREG, ARM_CAUSAL_EMA_BARLOW]
 ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC, ARM_MLM, ARM_RANDOM]
-OBJECTIVE_ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC]   # arms carrying training-time collapse telemetry
+OBJECTIVE_ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC] + NEW_OBJECTIVE_ARMS   # arms carrying training-time collapse telemetry
 # --lite (2026-07-30 REPURPOSED per Director spec for the causal-encoder cross-voice role-probe early
 # read; 2026-08-01 EXTENDED): trains ARM_LPC_CAUSAL + ARM_LPC_BIDIR at ONE seed, ~10x fewer steps, SAME
 # architecture as FULL, plus ARM_RANDOM (untrained floor control, no training cost). ARM_LPC_CAUSAL was
@@ -232,7 +239,15 @@ OBJECTIVE_ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_LPC_TC]   # arms carrying t
 # probe's own default ckpt (V2_CKPT) already serves as the already-measured MLM reference (0.16-0.18
 # inverted) at zero extra GPU cost. Supersedes the prior lite semantics (ARM_LPC[now
 # ARM_LPC_BIDIR]+ARM_MLM+ARM_RANDOM, for exp_context_invariance_lpc_lite_probe_v1.py) -- see header FLAG.
-LITE_ARMS = [ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_RANDOM]
+# OBJECTIVE-PIVOT COLLAPSE TEST 2026-08-01 (USER-approved): the 3 NEW-objective causal arms (real+barlow
+# PRIMARY, real+vicreg, ema+barlow) + the OLD ARM_LPC_CAUSAL (ema+vicreg) baseline reference, all trained
+# fresh at the SAME cheap 6000-step budget where EMA+VICReg collapsed (rep_std 0.0128/0.0180 < 0.020) --
+# the decisive question is whether the real-target+Barlow objective clears the 0.020 rep_std floor. BIDIR
+# (0.0248) + RANDOM (0.0121) resume from existing ckpts (free controls). Voice-role probe is run for
+# RECORD only -- the proxy-limit finding (bidir+random both 0.0/0.0) means downstream de-inversion does not
+# emerge at lite budget for ANY arm, so the go-signal here is rep_std clearing the floor, not the probe.
+LITE_ARMS = [ARM_CAUSAL_REAL_BARLOW, ARM_CAUSAL_REAL_VICREG, ARM_CAUSAL_EMA_BARLOW,
+             ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_RANDOM]
 
 # Pre-reg bands (headline = graded_geometry_spearman; deflated per lit-scan calibration)
 HP_GG_OVER_MLM = 0.10            # ARM_LPC - ARM_MLM graded-geometry (break the reference)
@@ -257,6 +272,8 @@ _LPC_COMMON = dict(
     # hdlab/slot_attention_wm.py SlotAttentionWM.write_theta / write_tau_end=0.1, near-bistable) +
     # clause-head loss coefficient (same weight class as lpc_tc_coef).
     role_gate_theta=0.5, role_gate_tau=0.1, lpc_clause_coef=0.5,
+    # OBJECTIVE PIVOT 2026-08-01: Barlow off-diagonal decorrelation weight (Zbontar 2021 uses ~0.005).
+    lpc_barlow_lambda_od=0.005,
     # ANTI-COLLAPSE 2026-08-01 (Probe 2a de-risking; ONE-VARIABLE fix): the causal arm uniquely
     # collapsed at the shared lite budget -- MEASURED@data/exp_encoder_latent_pc_arc_v1_lite/metrics.json
     # (remote): ARM_LPC_CAUSAL rep_std=0.0128 (< 0.020 floor; barely above ARM_RANDOM 0.0121) with a
@@ -326,19 +343,20 @@ LITE_CFG = dict(
     d_model=512, n_layers=6, n_heads=8, ffn_mult=4,          # SAME architecture as FULL_CFG
     mlm_steps=6000, mlm_batch=64, mlm_mask_frac=0.15, mlm_lr=3e-4,
     encode_batch=256, n_freq_buckets=8,
+    **_LPC_COMMON,   # RESTORED 2026-08-01 (iter-3 edit accidentally dropped this spread -> KeyError
+                     # lpc_pred_hidden_mult crash on remote run-3; the shared LPC/VICReg/gate keys MUST
+                     # be present in LITE_CFG exactly as in SELFTEST/SMOKE/FULL).
     # MINIMAL BUDGET BUMP 2026-08-01 iter-3 (LITE-ONLY, CAUSAL-ONLY): var_coef=2.0 alone moved the causal
     # arm rep_std 0.0128->0.0180 (monotone better) but STILL marginally under the 0.020 collapse floor
-    # (MEASURED@remote run-2). Per the cell's OWN diagnosis (LITE_COLLAPSE = "undertrained collapse, NOT
-    # a refutation"), the prescribed next ONE-variable lever is a MINIMAL budget bump: 2x optimizer steps
-    # for the CAUSAL arm ONLY (6000 -> 12000), keeping var_coef=2.0 as the now-standard config (NOT a new
-    # variable). Tokens/data UNCHANGED (train_token_budget stays 9M -> data-prep bundle cache key
-    # unchanged, still a HIT; more steps = more epochs over the same data pool = the standard escape from
-    # undertraining). LITE-ONLY (NOT in _LPC_COMMON/FULL) so FULL keeps its matched-budget causal-vs-bidir
-    # contract; causal-only so the resumed BIDIR/RANDOM ckpts are byte-untouched. Budget-asymmetry caveat
-    # (causal 12k vs bidir 6k at lite) is ACCEPTED per coordinator: the lite proxy's job is to get a
-    # NON-COLLAPSED causal encoder to READ AT ALL; if causal at 2x steps STILL just inverts like bidir,
-    # that is itself informative; if it de-inverts, the matched-budget FULL run is the real confirmation.
-    lite_causal_steps_mult=2.0,
+    # (MEASURED@remote run-2). One-variable lever = 2x optimizer steps for the CAUSAL arm ONLY (6000 ->
+    # 12000), var_coef=2.0 kept. LITE-ONLY so FULL keeps its matched-budget contract; causal-only so the
+    # resumed BIDIR/RANDOM ckpts are byte-untouched. NOTE (2026-08-01 objective pivot): set to 1.0 for the
+    # NEW-objective collapse test (the objective must fix collapse at the SAME cheap 6000-step budget, not
+    # via more steps); 2.0 is only for the superseded old-objective 2x-budget datapoint.
+    # SET TO 1.0 for the 2026-08-01 objective-pivot collapse test: ALL causal arms (old + 3 new-objective)
+    # train at the SAME cheap 6000-step budget, so the decisive question is whether the NEW objective clears
+    # the 0.020 rep_std floor at the budget where the OLD EMA+VICReg recipe collapsed (0.0128 / 0.0180).
+    lite_causal_steps_mult=1.0,
 )
 
 
@@ -500,6 +518,30 @@ def _vicreg_covariance(z):
     cov = (zc.T @ zc) / (n - 1)
     off = cov - torch.diag(torch.diag(cov))
     return (off.pow(2).sum()) / d
+
+
+# ---------------------------------------------------------------------------
+# BARLOW-TWINS cross-correlation-to-identity decorrelation (2026-08-01 objective pivot, drill RANK 3).
+# Brain-faithful lateral-inhibition / redundancy-reduction analog (Barlow 1961; Zbontar 2021, CITED
+# "does not rely on batch size"); the drill's method-comparison scan ranks it the MOST small-batch-robust
+# AND most brain-faithful anti-collapse regularizer, replacing VICReg's fragile variance HINGE (weak
+# per-dim-std repulsion at small batch). Single-view auto-correlation form (we have one representation
+# stream, not two augmentations): mean-center, form the covariance, push its DIAGONAL -> 1 (unit variance
+# per dim = structural anti-collapse) and OFF-DIAGONAL -> 0 (decorrelation). Symmetric (penalizes variance
+# above AND below 1), unlike VICReg's one-sided hinge. Computed in float32 (AMP-safe).
+# ---------------------------------------------------------------------------
+def _barlow_decorrelation(z, lambda_od=0.005, eps=1e-4):
+    """z: [N, d] float32. Returns scalar tensor. on-diag=(diag(cov)-1)^2 (variance->1, anti-collapse);
+    off-diag=lambda*sum(cov_ij^2, i!=j) (decorrelation). N>=2 required (else zero)."""
+    n, d = z.shape
+    if n < 2:
+        return z.new_zeros(())
+    zc = z - z.mean(dim=0, keepdim=True)
+    cov = (zc.T @ zc) / (n - 1)                       # [d,d] covariance
+    diag = torch.diagonal(cov)
+    on = ((diag - 1.0) ** 2).mean()                  # per-dim variance -> 1 (structural anti-collapse)
+    off = (cov.pow(2).sum() - diag.pow(2).sum()) / d  # decorrelate off-diagonal
+    return on + lambda_od * off
 
 
 # ---------------------------------------------------------------------------
@@ -705,6 +747,173 @@ def lpc_train(stream, spec, cfg, device, seed, out_dir, hb_total, temporal_conti
         causal=bool(causal),
         var_coef=float(var_coef),   # ANTI-COLLAPSE telemetry: effective VICReg variance weight this arm used
         n_steps=steps,
+    )
+    return online, diag
+
+
+# ---------------------------------------------------------------------------
+# OBJECTIVE PIVOT 2026-08-01 (notes/research_brain_faithful_collapse_free_predictive_encoder_objective_
+# 2026-08-01.md; USER-approved). The EMA-self-distillation + VICReg recipe COLLAPSES the causal arm at the
+# cheap lite budget (rep_std 0.0128; 0.0180 even at var_coef=2.0; both < 0.020 floor) because its
+# anti-collapse rests on a FRAGILE architectural trick (EMA co-adapts with the student -> degenerate
+# constant fixed point at small scale). Cortex does NOT self-distill: it predicts a REAL externally-grounded
+# next signal and learns by error (Rao&Ballard 1999; Friston), and its anti-collapse is STRUCTURAL
+# decorrelation (Barlow redundancy-reduction / lateral inhibition), not a hinge. This function implements
+# the drill's RANK 1 (real target) + RANK 3 (Barlow decorrelation), with the target/regularizer selectable
+# so the 2x2 attribution ablations run through ONE code path:
+#   target_mode: "real_emb"   -> regress the ACTUAL next-span token's own INPUT EMBEDDING (real,
+#                                data-determined, own-entropy target; NO EMA loop). Collapse-proof by
+#                                construction: a constant output cannot match varying real targets. Keeps
+#                                the d_model->d_model head -> STILL OOM-safe (no [B,L,vocab] logits).
+#                "ema_latent" -> regress the EMA/stop-grad target-encoder latent (the OLD self-distillation
+#                                target; kept ONLY as the attribution control that isolates the target axis).
+#   reg_mode:    "barlow"      -> _barlow_decorrelation (RANK 3, brain-faithful, small-batch-robust).
+#                "vicreg"      -> the OLD variance-hinge + covariance terms (attribution control on the
+#                                regularizer axis).
+# Regularizer is applied to the ENCODER latents zc (the representation whose collapse we MEASURE) for both
+# reg modes (clean barlow-vs-vicreg attribution); for real_emb it is ALSO applied to the LIVE target
+# embeddings (keeps the learned tok_emb from degenerating -- the drill's flagged "mildly self-referential"
+# weak point, guarded the standard regress-to-embedding way). CUDA-device-safe (numpy only selects host-side
+# window indices). OOM-free (assert no vocab-dim tensor in the loss path).
+# ---------------------------------------------------------------------------
+def causal_realtarget_train(stream, spec, cfg, device, seed, out_dir, hb_total,
+                            target_mode="real_emb", reg_mode="barlow"):
+    """Returns (online_encoder: TinyTransformer, diag: dict). Causal masked-span prediction of a REAL (or,
+    for the control, EMA) target with a Barlow (or, for the control, VICReg) decorrelation regularizer."""
+    assert target_mode in ("real_emb", "ema_latent"), target_mode
+    assert reg_mode in ("barlow", "vicreg"), reg_mode
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    max_len = cfg["max_len"]
+
+    def _mk():
+        return TinyTransformer(spec["size"], max_len, cfg["d_model"], cfg["n_layers"],
+                               cfg["n_heads"], cfg["ffn_mult"], spec["pad"]).to(device)
+
+    online = _mk()
+    predictor = LatentPredictor(cfg["d_model"], cfg["lpc_pred_hidden_mult"]).to(device)
+    params = list(online.parameters()) + list(predictor.parameters())
+    use_ema = (target_mode == "ema_latent")
+    target = None
+    if use_ema:
+        target = _mk()
+        target.load_state_dict(online.state_dict())
+        for p in target.parameters():
+            p.requires_grad_(False)
+        target.eval()
+    _tag = "CAUSAL[%s+%s]" % (target_mode, reg_mode)
+    _log("  %s online-encoder params=%.2fM predictor=%.3fM device=%s d=%d L=%d"
+         % (_tag, sum(p.numel() for p in online.parameters()) / 1e6,
+            sum(p.numel() for p in predictor.parameters()) / 1e6,
+            device.type, cfg["d_model"], cfg["n_layers"]))
+
+    opt = torch.optim.AdamW(params, lr=cfg["mlm_lr"])
+    use_amp = (device.type == "cuda")
+    scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
+
+    n_win = stream.shape[0] // max_len
+    if n_win < 4:
+        raise RuntimeError("train stream too short: %d tokens, %d windows" % (stream.shape[0], n_win))
+    windows = stream[:n_win * max_len].reshape(n_win, max_len)
+    g = np.random.default_rng(seed + 5)
+    bs = min(cfg["mlm_batch"], n_win)
+    steps = cfg["mlm_steps"]
+    mask_frac = cfg["lpc_mask_frac"]
+    ema_m = cfg["lpc_ema_m"]
+    var_coef = cfg.get("lpc_var_coef_causal", cfg["lpc_var_coef"])   # only used in vicreg reg_mode
+    cov_coef = cfg["lpc_cov_coef"]
+    barlow_od = cfg.get("lpc_barlow_lambda_od", 0.005)
+    mask_id, pad_id = spec["mask"], spec["pad"]
+
+    def _reg(z32):
+        if reg_mode == "barlow":
+            return _barlow_decorrelation(z32, lambda_od=barlow_od)
+        return var_coef * _vicreg_variance(z32) + cov_coef * _vicreg_covariance(z32)
+
+    log_every = max(1, steps // 10)
+    pred_hist, repstd_hist, tgtstd_hist = [], [], []
+    t0 = time.perf_counter()
+    online.train()
+    predictor.train()
+    for step in range(steps):
+        sel = g.integers(0, n_win, size=bs)
+        ids = torch.from_numpy(windows[sel].astype(np.int64)).to(device)
+        B, L = ids.shape
+        pad = (ids == pad_id)
+        span = max(1, int(round(mask_frac * L)))
+        start_lo = 1 if L > 1 else 0                 # causal: always >=1 token of real left context
+        starts = torch.randint(start_lo, max(start_lo + 1, L - span + 1), (B,), device=device)
+        ar = torch.arange(L, device=device).unsqueeze(0)
+        tgt_mask = (ar >= starts.unsqueeze(1)) & (ar < (starts.unsqueeze(1) + span))
+        tgt_mask = tgt_mask & (~pad)
+        none_rows = ~tgt_mask.any(dim=1)
+        if bool(none_rows.any()):
+            first_nonpad = (~pad).float().argmax(dim=1)
+            tgt_mask[none_rows, first_nonpad[none_rows]] = True
+
+        ctx_ids = ids.clone()
+        ctx_ids[tgt_mask] = mask_id
+
+        opt.zero_grad(set_to_none=True)
+        with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_amp):
+            h_ctx, _ = _causal_contextual(online, ctx_ids)   # [B,L,d] causal (left-context only)
+            zc = h_ctx[tgt_mask]                             # [T,d] ENCODER latents at target positions
+            zp = predictor(zc)                              # [T,d] predicted target
+            if target_mode == "real_emb":
+                # REAL target = the actual masked token's OWN input embedding (data-determined, own entropy).
+                zt = online.tok_emb(ids)[tgt_mask].detach()  # [T,d] stop-grad regression target
+                zt_live = online.tok_emb(ids)[tgt_mask]      # [T,d] LIVE (for tok_emb anti-degeneracy reg)
+            else:
+                with torch.no_grad():
+                    h_tgt, _ = _causal_contextual(target, ids)
+                zt = h_tgt[tgt_mask].detach()
+                zt_live = None
+            if step == 0:
+                _assert_no_vocab_dim((zc, zp, zt), cfg["d_model"], spec["size"])
+            pred_loss = torch.nn.functional.smooth_l1_loss(zp, zt)
+            zc32 = zc.float()
+            reg_loss = _reg(zc32)                            # anti-collapse on the MEASURED encoder rep
+            if zt_live is not None:
+                reg_loss = reg_loss + _reg(zt_live.float())  # keep learned tok_emb non-degenerate
+            loss = pred_loss + reg_loss
+
+        if not torch.isfinite(loss):
+            raise FloatingPointError("non-finite loss step=%d seed=%d mode=%s/%s (pred=%.4f)"
+                                     % (step, seed, target_mode, reg_mode, float(pred_loss.detach())))
+        scaler.scale(loss).backward()
+        scaler.step(opt)
+        scaler.update()
+        if use_ema:
+            with torch.no_grad():
+                for pt, po in zip(target.parameters(), online.parameters()):
+                    pt.mul_(ema_m).add_(po.detach(), alpha=1.0 - ema_m)
+                for bt, bo in zip(target.buffers(), online.buffers()):
+                    bt.copy_(bo)
+
+        rep_std = float(zc32.std(dim=0).mean().detach())     # live per-dim rep std (collapse early-warning)
+        tgt_std = float(zt.float().std().detach())
+        pred_hist.append(float(pred_loss.detach()))
+        repstd_hist.append(rep_std)
+        tgtstd_hist.append(tgt_std)
+        if (step % log_every == 0) or (step == steps - 1):
+            el = time.perf_counter() - t0
+            _log("  %s seed=%d step=%d/%d pred=%.4f reg=%.4f rep_std=%.4f tgt_std=%.4f (%.1fs)"
+                 % (_tag, seed, step, steps, float(pred_loss.detach()), float(reg_loss.detach()),
+                    rep_std, tgt_std, el))
+            _heartbeat(out_dir, step, hb_total, el,
+                       extra={"pred_loss": float(pred_loss.detach()), "rep_std": rep_std, "seed": seed})
+
+    online.eval()
+    k = max(1, len(pred_hist) // 5)
+    diag = dict(
+        init_pred_loss=float(np.mean(pred_hist[:k])),
+        final_pred_loss=float(np.mean(pred_hist[-k:])),
+        min_target_std=float(np.min(tgtstd_hist)) if tgtstd_hist else 0.0,
+        final_target_std=float(np.mean(tgtstd_hist[-k:])) if tgtstd_hist else 0.0,
+        min_train_rep_std=float(np.min(repstd_hist)) if repstd_hist else 0.0,
+        final_train_rep_std=float(np.mean(repstd_hist[-k:])) if repstd_hist else 0.0,
+        target_mode=target_mode, reg_mode=reg_mode, uses_ema=bool(use_ema),
+        causal=True, n_steps=steps,
     )
     return online, diag
 
@@ -1006,6 +1215,15 @@ def _build_encoder(arm, cfg, spec, device, seed, stream, out_dir, hb_total):
         m, d = lpc_train(stream, spec, ccfg, device, seed, out_dir, hb_total,
                          temporal_contiguity=False, causal=True)
         return m, d, None, None
+    # OBJECTIVE PIVOT 2026-08-01: the 3 new causal arms train via causal_realtarget_train (no EMA loop for
+    # the real-target arms). Same cheap budget as the OLD causal arm (lite_causal_steps_mult=1.0 for the
+    # collapse test) -- the objective, not more compute, is the lever.
+    if arm in NEW_OBJECTIVE_ARMS:
+        tmode = "real_emb" if arm in (ARM_CAUSAL_REAL_BARLOW, ARM_CAUSAL_REAL_VICREG) else "ema_latent"
+        rmode = "barlow" if arm in (ARM_CAUSAL_REAL_BARLOW, ARM_CAUSAL_EMA_BARLOW) else "vicreg"
+        m, d = causal_realtarget_train(stream, spec, cfg, device, seed, out_dir, hb_total,
+                                       target_mode=tmode, reg_mode=rmode)
+        return m, d, None, None
     raise ValueError("unknown arm %s" % arm)
 
 
@@ -1072,14 +1290,22 @@ def run_one_seed(seed, cfg, device, out_dir, universe, bundle):
         _log("seed=%d ARM=%s: gg=%s probe=%s rel=%s rep_std=%s (gg_nq=%d)"
              % (seed, arm, _fmt(gg), _fmt(probe), _fmt(rel_auc), _fmt(cdiag["rep_std"]), gg_nq))
 
-    # ARMS-MUST-DIFFER (META_RULE_AF) from the recorded per-arm held-rep digests (resume-safe).
+    # ARMS-MUST-DIFFER (META_RULE_AF) -- NON-FATAL (2026-08-01): a COLLAPSE experiment can legitimately
+    # produce two degenerate encoders whose held-rep matrices coincide; asserting here would crash the
+    # whole (expensive) GPU run and DISCARD the rep_std collapse numbers we ran it to get. Record any
+    # bit-identical pair as a flag instead; the decisive per-arm rep_std is written regardless. (Mirrors
+    # the same fix applied to the voice-role probe cell's check_arms_differ.)
     _names = sorted(arm_digests)
+    arm_collisions = []
     for _i in range(len(_names)):
         for _j in range(_i + 1, len(_names)):
-            assert arm_digests[_names[_i]] != arm_digests[_names[_j]], \
-                "META_RULE_AF VIOLATION: %s and %s bit-identical" % (_names[_i], _names[_j])
+            if arm_digests[_names[_i]] == arm_digests[_names[_j]]:
+                arm_collisions.append([_names[_i], _names[_j]])
+    if arm_collisions:
+        _log("  META_RULE_AF WARN (non-fatal): bit-identical held-rep arm pairs %r -- likely mutual "
+             "collapse/degeneracy at this budget; rep_std reported per arm regardless" % arm_collisions)
     return dict(seed=int(seed), run_mode=cfg["run_mode"], elapsed_s=float(time.perf_counter() - t0),
-                ckpt_paths=ckpt_paths,
+                ckpt_paths=ckpt_paths, arm_collisions=arm_collisions,
                 arms=arm_results, arm_digests=arm_digests,
                 matched_budget=dict(steps=cfg["mlm_steps"], batch=cfg["mlm_batch"],
                                     train_token_budget=cfg["train_token_budget"],
@@ -1104,84 +1330,65 @@ def _fmt(x):
 # inconclusive, a positive is encouraging" mandate.
 # ---------------------------------------------------------------------------
 def build_lite_verdict(per_seed, cfg):
-    """2026-07-30 REPURPOSED: --lite now trains ONLY ARM_LPC_CAUSAL, ONE seed (spec Part 2 hand-off).
-    This is UNDERTRAINED BY CONSTRUCTION (6000 steps vs FULL's 60000) -- never judged against
-    build_verdict()'s HARD_PASS/HARD_FAIL bands. Certifies: trained+checkpointed cleanly, no collapse,
-    clause-loss descended, role-gate fired (some REPLACE events, not stuck at 0 or 1). The DECISIVE
-    early read is the syntax-role cross-voice probe (exp_syntactic_role_agent_patient_voice_probe_v1.py)
-    path-swapped onto ckpt_seed_7_ARM_LPC_CAUSAL_lite.pt -- a separate cell, run by the Director."""
+    """OBJECTIVE-PIVOT COLLAPSE TEST 2026-08-01 (USER-approved). PRE-REGISTERED decisive metric = the
+    COLLAPSE axis: does the NEW brain-faithful objective (real next-token-embedding target + Barlow
+    decorrelation, ARM_CAUSAL_REAL_BARLOW) clear rep_std >= COLLAPSE_REP_STD_FLOOR (0.020) at the SAME
+    cheap 6000-step budget where the OLD EMA+VICReg recipe (ARM_LPC_CAUSAL) collapsed (0.0128 / 0.0180)?
+    HARD-PASS = primary arm rep_std >= 0.020. HARD-FAIL = primary arm rep_std < 0.020 (collapse is
+    scale/data, not the target framing -> fuller build budget genuinely required). The verdict reports
+    every causal-family arm's rep_std for the target-vs-regularizer attribution. The voice-role probe is
+    run for RECORD ONLY (proxy-limit finding: role-reading does not emerge at lite budget for ANY arm)."""
     seeds = sorted(per_seed.keys(), key=lambda k: int(k))
-    sk = seeds[0]
-    arm = ARM_LPC_CAUSAL
 
-    def mean(key):
-        vv = [per_seed[k]["arms"].get(arm, {}).get(key) for k in seeds]
+    def arm_repstd(arm):
+        vv = [per_seed[k]["arms"].get(arm, {}).get("rep_std") for k in seeds]
         vv = [x for x in vv if x is not None]
         return float(np.mean(vv)) if vv else None
 
-    all_trained = all(arm in per_seed[k].get("arms", {}) for k in seeds)
-    ckpts_saved = all(per_seed[k].get("ckpt_paths", {}).get(arm) for k in seeds)
+    # Backward-compat: if the new primary arm was not run (an old-style lite dispatch), fall back to the
+    # OLD gating arm so pre-pivot lite runs still produce a sensible verdict.
+    primary = ARM_CAUSAL_REAL_BARLOW if any(
+        ARM_CAUSAL_REAL_BARLOW in per_seed[k].get("arms", {}) for k in seeds) else ARM_LPC_CAUSAL
 
-    m_repstd = mean("rep_std")
-    lpc_train_diags = [per_seed[k]["arms"][arm].get("train_diag") or {}
-                       for k in seeds if arm in per_seed[k].get("arms", {})]
-    min_tgt_stds = [d.get("min_target_std") for d in lpc_train_diags if d.get("min_target_std") is not None]
-    mintgt = float(np.mean(min_tgt_stds)) if min_tgt_stds else None
-    clause_init = [d.get("init_clause_loss") for d in lpc_train_diags if d.get("init_clause_loss") is not None]
-    clause_final = [d.get("final_clause_loss") for d in lpc_train_diags if d.get("final_clause_loss") is not None]
-    clause_descended = (bool(clause_init) and bool(clause_final)
-                        and float(np.mean(clause_final)) < float(np.mean(clause_init)))
-    replace_rates = [d.get("role_gate_mean_replace_rate") for d in lpc_train_diags
-                     if d.get("role_gate_mean_replace_rate") is not None]
-    mean_replace_rate = float(np.mean(replace_rates)) if replace_rates else None
-    # gate FIRES (not stuck at the hold-everything or replace-everything degenerate extremes)
-    gate_fired = (mean_replace_rate is not None and 0.01 < mean_replace_rate < 0.99)
+    # per-arm rep_std table (causal family + controls) for the attribution read
+    causal_family = [ARM_CAUSAL_REAL_BARLOW, ARM_CAUSAL_REAL_VICREG, ARM_CAUSAL_EMA_BARLOW,
+                     ARM_LPC_CAUSAL, ARM_LPC_BIDIR, ARM_RANDOM]
+    repstd_table = {a: arm_repstd(a) for a in causal_family if arm_repstd(a) is not None}
 
-    no_collapse = (m_repstd is not None and m_repstd >= COLLAPSE_REP_STD_FLOOR
-                  and mintgt is not None and mintgt >= COLLAPSE_TARGET_STD_FLOOR)
-
-    m_gg = mean("graded_geometry")
+    primary_repstd = arm_repstd(primary)
+    all_trained = all(primary in per_seed[k].get("arms", {}) for k in seeds)
+    ckpts_saved = all(per_seed[k].get("ckpt_paths", {}).get(primary) for k in seeds)
+    clears_floor = (primary_repstd is not None and primary_repstd >= COLLAPSE_REP_STD_FLOOR)
 
     if not (all_trained and ckpts_saved):
         verdict = "LITE_TRAIN_INCOMPLETE"
-        vmsg = ("LITE_TRAIN_INCOMPLETE: ARM_LPC_CAUSAL not trained+checkpointed for all seeds "
-                "(all_trained=%s ckpts_saved=%s)." % (all_trained, ckpts_saved))
-    elif not no_collapse:
-        verdict = "LITE_COLLAPSE"
-        vmsg = ("LITE_COLLAPSE: ARM_LPC_CAUSAL rep_std=%s (floor %.3f) or min_target_std=%s (floor %.3f) "
-                "below floor -- undertrained collapse, NOT an encoder-quality refutation at this budget."
-                % (_fmt(m_repstd), COLLAPSE_REP_STD_FLOOR, _fmt(mintgt), COLLAPSE_TARGET_STD_FLOOR))
-    elif not clause_descended:
-        verdict = "LITE_CLAUSE_HEAD_NOT_LEARNING"
-        vmsg = ("LITE_CLAUSE_HEAD_NOT_LEARNING: clause-predictor loss did not descend (init=%s final=%s) "
-                "-- hierarchy head may need more steps or a coefficient retune."
-                % (_fmt(float(np.mean(clause_init)) if clause_init else None),
-                   _fmt(float(np.mean(clause_final)) if clause_final else None)))
-    elif not gate_fired:
-        verdict = "LITE_ROLE_GATE_DEGENERATE"
-        vmsg = ("LITE_ROLE_GATE_DEGENERATE: mean_replace_rate=%s not in (0.01,0.99) -- gate stuck at "
-                "always-hold or always-replace; theta/tau may need retuning at this budget."
-                % _fmt(mean_replace_rate))
+        vmsg = ("LITE_TRAIN_INCOMPLETE: primary arm %s not trained+checkpointed (all_trained=%s "
+                "ckpts_saved=%s)." % (primary, all_trained, ckpts_saved))
+    elif clears_floor:
+        verdict = "LITE_COLLAPSE_FIXED"
+        vmsg = ("LITE_COLLAPSE_FIXED: primary %s rep_std=%s CLEARS the %.3f collapse floor at the same "
+                "cheap 6000-step budget where OLD EMA+VICReg collapsed -- the brain-faithful objective "
+                "(real target + Barlow) removes the collapse CAUSE. rep_std table: %s. (Voice-role probe "
+                "run for record only; downstream de-inversion is deferred to the fuller build per the "
+                "proxy-limit finding.)" % (primary, _fmt(primary_repstd), COLLAPSE_REP_STD_FLOOR,
+                                           {a: round(v, 4) for a, v in repstd_table.items()}))
     else:
-        verdict = "LITE_TRAIN_COMPLETE"
-        vmsg = ("LITE_TRAIN_COMPLETE: ARM_LPC_CAUSAL trained (budget-matched reduced steps, SAME "
-                "architecture as FULL), checkpoint saved, no collapse, clause-head loss descended, "
-                "role-gate fires (mean_replace_rate=%s). BONUS/UNGATED graded_geometry=%s (undertrained "
-                "-- never treat as HARD_PASS/HARD_FAIL). DECISIVE early read = path-swap "
-                "exp_syntactic_role_agent_patient_voice_probe_v1.py onto this ckpt (a separate cell)."
-                % (_fmt(mean_replace_rate), _fmt(m_gg)))
+        verdict = "LITE_COLLAPSE_PERSISTS"
+        vmsg = ("LITE_COLLAPSE_PERSISTS: primary %s rep_std=%s still BELOW the %.3f floor even with a real "
+                "target + Barlow -- the collapse is scale/data at this proxy budget, not the target "
+                "framing; the fuller build budget is genuinely required. rep_std table: %s."
+                % (primary, _fmt(primary_repstd), COLLAPSE_REP_STD_FLOOR,
+                   {a: round(v, 4) for a, v in repstd_table.items()}))
 
-    summary = dict(all_trained=all_trained, ckpts_saved=ckpts_saved, no_collapse=no_collapse,
-                  clause_descended=clause_descended, gate_fired=gate_fired,
-                  rep_std=m_repstd, min_target_std=mintgt, mean_replace_rate=mean_replace_rate,
-                  graded_geometry_bonus_ungated=m_gg,
-                  ckpt_paths={k: per_seed[k].get("ckpt_paths", {}).get(arm) for k in seeds})
-    gates = [record_gate("lite_no_collapse", 1.0 if no_collapse else 0.0, 1.0, "==",
-                        note="ARM_LPC_CAUSAL rep_std + min_target_std both above floor at lite budget"),
-             record_gate("lite_clause_descended", 1.0 if clause_descended else 0.0, 1.0, "==",
-                        note="clause-predictor loss descended over training"),
-             record_gate("lite_gate_fired", 1.0 if gate_fired else 0.0, 1.0, "==",
-                        note="hold-then-revise mean_replace_rate in (0.01,0.99), not degenerate")]
+    summary = dict(all_trained=all_trained, ckpts_saved=ckpts_saved,
+                   primary_arm=primary, primary_rep_std=primary_repstd,
+                   clears_collapse_floor=clears_floor, collapse_floor=COLLAPSE_REP_STD_FLOOR,
+                   rep_std_by_arm=repstd_table,
+                   ckpt_paths={a: {k: per_seed[k].get("ckpt_paths", {}).get(a) for k in seeds}
+                               for a in causal_family if any(a in per_seed[k].get("arms", {}) for k in seeds)})
+    gates = [record_gate("lite_primary_clears_collapse_floor", primary_repstd if primary_repstd is not None else 0.0,
+                         COLLAPSE_REP_STD_FLOOR, ">=",
+                         note="PRIMARY %s rep_std >= %.3f (objective-pivot collapse HARD-PASS)" % (primary, COLLAPSE_REP_STD_FLOOR))]
     return verdict, vmsg, summary, gates
 
 
@@ -1206,8 +1413,10 @@ def build_verdict(per_seed, cfg):
     probe = {a: by_seed(a, "heldout_probe") for a in ARMS}
     rel = {a: by_seed(a, "relational_auc") for a in ARMS}
     rep_std = {a: by_seed(a, "rep_std") for a in ARMS}
-    min_tgt_std = {a: [((per_seed[k]["arms"][a].get("train_diag") or {}).get("min_target_std"))
-                       for k in seeds] for a in OBJECTIVE_ARMS}
+    # defensive .get on the arm: OBJECTIVE_ARMS now includes the 2026-08-01 new-objective arms, which are
+    # only run in the LITE collapse-test (LITE_ARMS), NOT in the FULL/selftest ARMS -- skip absent arms.
+    min_tgt_std = {a: [((per_seed[k].get("arms", {}).get(a, {}).get("train_diag") or {}).get("min_target_std"))
+                       for k in seeds] for a in OBJECTIVE_ARMS if any(a in per_seed[k].get("arms", {}) for k in seeds)}
 
     m_gg = {a: mean(gg[a]) for a in ARMS}
     m_probe = {a: mean(probe[a]) for a in ARMS}
@@ -1399,8 +1608,9 @@ def _selftest_assertions(per_seed, summary, verdict, out_dir, audit):
         a = r["arms"][arm]
         assert a["graded_geometry"] is not None, "graded_geometry missing for %s" % arm
         assert a["rep_std"] is not None, "rep_std missing for %s" % arm
-    # loss DESCENDS on the tiny overfit (both LPC arms)
-    for arm in OBJECTIVE_ARMS:
+    # loss DESCENDS on the tiny overfit -- only for OBJECTIVE_ARMS actually run in this selftest (the
+    # 2026-08-01 new-objective arms run in LITE, not the selftest ARMS set; exercised in _selftest_plumbing).
+    for arm in [a for a in OBJECTIVE_ARMS if a in r["arms"]]:
         td = r["arms"][arm]["train_diag"]
         assert td["final_pred_loss"] < td["init_pred_loss"], \
             "%s pred loss did not descend: init=%.4f final=%.4f" % (arm, td["init_pred_loss"], td["final_pred_loss"])
@@ -1550,8 +1760,38 @@ def _selftest_plumbing():
     assert float(btrace[0, 0]) < 0.1, \
         "gate incorrectly fired on a HOLD-case transition (boundary=%.4f)" % float(btrace[0, 0])
 
+    # (f) OBJECTIVE PIVOT 2026-08-01: exercise the REAL causal_realtarget_train code path (F.1 real-code-
+    # path discipline) for BOTH target modes x BOTH reg modes at tiny scale, and the Barlow helper. Asserts
+    # each combo trains without error, returns a trained encoder + diag with the collapse telemetry, and
+    # the loss path stays OOM-safe (the _assert_no_vocab_dim inside fires on a real call).
+    import tempfile as _tf
+    # Barlow helper: a decorrelated unit-variance batch -> near-zero loss; a collapsed (constant) batch ->
+    # large on-diagonal penalty (variance far below 1).
+    zdec = torch.randn(256, 8)
+    zcol = torch.ones(256, 8) * 0.5
+    assert float(_barlow_decorrelation(zdec)) < float(_barlow_decorrelation(zcol)), \
+        "Barlow: collapsed batch must incur a larger loss than a decorrelated one"
+    st_spec = dict(size=64, pad=0, unk=1, mask=2)
+    st_cfg = dict(max_len=12, d_model=16, n_layers=1, n_heads=2, ffn_mult=2, mlm_batch=8, mlm_steps=3,
+                  mlm_lr=3e-3, lpc_mask_frac=0.25, lpc_ema_m=0.99, lpc_var_coef=1.0, lpc_var_coef_causal=2.0,
+                  lpc_cov_coef=0.04, lpc_barlow_lambda_od=0.005, lpc_pred_hidden_mult=2, run_mode="selftest")
+    st_rng = np.random.default_rng(3)
+    st_stream = st_rng.integers(3, 64, size=12 * 40).astype(np.int64)
+    st_tmp = _tf.mkdtemp(prefix="realtarget_selftest_")
+    try:
+        for tmode in ("real_emb", "ema_latent"):
+            for rmode in ("barlow", "vicreg"):
+                enc, diag = causal_realtarget_train(st_stream, st_spec, st_cfg, torch.device("cpu"), 7,
+                                                    st_tmp, 12, target_mode=tmode, reg_mode=rmode)
+                assert isinstance(enc, TinyTransformer), "%s/%s did not return an encoder" % (tmode, rmode)
+                assert diag["target_mode"] == tmode and diag["reg_mode"] == rmode, "diag mode mismatch"
+                assert diag["uses_ema"] == (tmode == "ema_latent"), "uses_ema flag wrong for %s" % tmode
+                assert diag["final_train_rep_std"] is not None and diag["n_steps"] == 3, "diag telemetry missing"
+    finally:
+        shutil.rmtree(st_tmp, ignore_errors=True)
+
     _log("PLUMBING SELF-TEST PASS (headroom projection + arm-ckpt round-trip + (seed,arm) resume + "
-         "causal no-leakage + hold-then-revise gate)")
+         "causal no-leakage + hold-then-revise gate + real-target/Barlow objective 2x2)")
 
 
 # ---------------------------------------------------------------------------
