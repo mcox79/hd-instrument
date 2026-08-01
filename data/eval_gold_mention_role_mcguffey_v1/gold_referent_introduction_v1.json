@@ -1,137 +1,172 @@
 {
- "passage": "It is winter. The cold wind whistles through the branches of the trees. Brown has done his day's work, and his children, Harry and Kate, have come home from school. They learned their lessons well to-day, and Tea is over. Brown has put the little sitting room in order. The fire burns brightly. One lamp gives light enough for all. On the stool is a basket of fine apples. Harry and Kate read a story in a new book. The father reads his newspaper, and the mother mends Harry's stockings.",
- "source": "mcguffey g2",
- "introductions": [
+ "passages": [
   {
-   "entity": "winter",
-   "first_mention": "winter",
-   "intro_type": "BARE_DEF"
+   "source": "mcguffey g2 (Brown/winter)",
+   "passage": "It is winter. The cold wind whistles through the branches of the trees. Brown has done his day work, and his children, Harry and Kate, have come home from school. They learned their lessons well to-day, and Tea is over. Brown has put the little sitting room in order. The fire burns brightly. One lamp gives light enough for all. On the stool is a basket of fine apples. Harry and Kate read a story in a new book. The father reads his newspaper, and the mother mends Harry stockings.",
+   "introductions": [
+    {
+     "entity": "winter",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "wind",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "branches",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "trees",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "Brown",
+     "intro_type": "PROPER"
+    },
+    {
+     "entity": "children",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "Harry",
+     "intro_type": "PROPER"
+    },
+    {
+     "entity": "Kate",
+     "intro_type": "PROPER"
+    },
+    {
+     "entity": "school",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "Tea",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "sitting_room",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "fire",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "lamp",
+     "intro_type": "INDEF"
+    },
+    {
+     "entity": "stool",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "basket",
+     "intro_type": "INDEF"
+    },
+    {
+     "entity": "apples",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "story",
+     "intro_type": "INDEF"
+    },
+    {
+     "entity": "book",
+     "intro_type": "INDEF"
+    },
+    {
+     "entity": "newspaper",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "stockings",
+     "intro_type": "BARE_DEF"
+    }
+   ]
   },
   {
-   "entity": "wind",
-   "first_mention": "The cold wind",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "branches",
-   "first_mention": "the branches",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "trees",
-   "first_mention": "the trees",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "Brown",
-   "first_mention": "Brown",
-   "intro_type": "PROPER"
-  },
-  {
-   "entity": "children",
-   "first_mention": "his children",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "Harry",
-   "first_mention": "Harry",
-   "intro_type": "PROPER"
-  },
-  {
-   "entity": "Kate",
-   "first_mention": "Kate",
-   "intro_type": "PROPER"
-  },
-  {
-   "entity": "school",
-   "first_mention": "school",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "Tea",
-   "first_mention": "Tea",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "sitting_room",
-   "first_mention": "the little sitting room",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "fire",
-   "first_mention": "The fire",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "lamp",
-   "first_mention": "One lamp",
-   "intro_type": "INDEF"
-  },
-  {
-   "entity": "stool",
-   "first_mention": "the stool",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "basket",
-   "first_mention": "a basket",
-   "intro_type": "INDEF"
-  },
-  {
-   "entity": "apples",
-   "first_mention": "fine apples",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "story",
-   "first_mention": "a story",
-   "intro_type": "INDEF"
-  },
-  {
-   "entity": "book",
-   "first_mention": "a new book",
-   "intro_type": "INDEF"
-  },
-  {
-   "entity": "newspaper",
-   "first_mention": "his newspaper",
-   "intro_type": "BARE_DEF"
-  },
-  {
-   "entity": "stockings",
-   "first_mention": "Harry's stockings",
-   "intro_type": "BARE_DEF"
+   "source": "mcguffey g2 (James/Willie/mamma)",
+   "passage": "Everyone likes to see James White with his two dogs. They always seem very happy together. \"Willie, will you run upstairs, and get my needle book from the bureau?\" But Willie did not stir. \"Willie!\" said mamma. She thought he had not heard. \"I am afraid,\" said Willie. \"It is dark up there.\" \"What is the dark?\" asked mamma. \"It is nothing but a shadow.\" And she held her hand between the lamp and the workbasket on the table.",
+   "introductions": [
+    {
+     "entity": "James_White",
+     "intro_type": "PROPER"
+    },
+    {
+     "entity": "dogs",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "Willie",
+     "intro_type": "PROPER"
+    },
+    {
+     "entity": "needle_book",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "bureau",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "mamma",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "dark",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "shadow",
+     "intro_type": "INDEF"
+    },
+    {
+     "entity": "hand",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "lamp",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "workbasket",
+     "intro_type": "BARE_DEF"
+    },
+    {
+     "entity": "table",
+     "intro_type": "BARE_DEF"
+    }
+   ],
+   "rementions": [
+    {
+     "mention": "They(=James+dogs)"
+    },
+    {
+     "mention": "Willie(2nd)"
+    },
+    {
+     "mention": "Willie(3rd,said)"
+    },
+    {
+     "mention": "he(=Willie)"
+    },
+    {
+     "mention": "she(=mamma)"
+    }
+   ]
   }
  ],
- "rementions": [
-  {
-   "entity": "Brown",
-   "mention": "Brown (2nd, put the sitting room)",
-   "note": "re-mention"
-  },
-  {
-   "entity": "Harry+Kate",
-   "mention": "They (learned lessons)",
-   "note": "pronoun re-mention"
-  },
-  {
-   "entity": "Harry+Kate",
-   "mention": "Harry and Kate (read a story)",
-   "note": "re-mention"
-  },
-  {
-   "entity": "Brown",
-   "mention": "The father",
-   "note": "coreferent re-mention (definite, =Brown)"
-  }
- ],
+ "n_passages": 2,
+ "n_intro_total": 32,
  "intro_type_counts": {
-  "BARE_DEF": 13,
-  "PROPER": 3,
-  "INDEF": 4
+  "BARE_DEF": 22,
+  "PROPER": 5,
+  "INDEF": 5
  },
- "n_intro": 20,
- "n_rementions": 4,
- "discriminator_note": "a/an lexical baseline catches only INDEF (4); PROPER(3)+BARE_DEF(13) = 16 intros with NO a/an cue = the discriminating cases Probe 2b PE-spike must catch to beat the lexical baseline",
- "gold_verified": true
+ "n_no_aan_cue": 27,
+ "discriminator_note": "27 of 32 intros have NO a/an cue (PROPER+BARE_DEF) = the cases the PE-spike must catch to beat the lexical baseline; larger n fixes the discrete floor-margin power issue",
+ "gold_verified": true,
+ "version": 2
 }
