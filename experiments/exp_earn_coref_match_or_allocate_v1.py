@@ -98,9 +98,19 @@ def normalize_tokens(text: str) -> Set[str]:
 
 def is_pronoun_mention(text: str) -> bool:
     t = text.lower().strip(".,'\"!?;:()")
-    # handle multi-token surfaces like "you / my young lady" (pick the pronoun-bearing half if any)
-    parts = [p.strip() for p in t.replace("/", " ").split()]
-    return any(p in PRONOUN_SCOPE for p in parts) and len(normalize_tokens(text)) <= 2
+    # "/"-separated ALTERNATE mention forms (e.g. "you / my young lady") -- a mention is a pronoun
+    # mention if ANY alternate form is, BY ITSELF, a bare pronoun surface. A possessive-determiner
+    # + head-noun NP ("his mother") is NOT a pronoun mention even though it contains a pronoun-like
+    # determiner token -- "his" modifies (refers to a different entity than) the head noun "mother";
+    # treating the whole 2-word NP as a pronoun previously misrouted it through the pronoun-gender
+    # path (root cause of the "his mother" -> masc false-merge bug). Require the alternate to
+    # normalize to EXACTLY one token that is itself a PRONOUN_SCOPE surface.
+    for alt in t.split("/"):
+        toks = [p.strip(".,'\"!?;:()") for p in alt.split()]
+        toks = [p for p in toks if p]
+        if len(toks) == 1 and toks[0] in PRONOUN_SCOPE:
+            return True
+    return False
 
 
 def gender_number_for(text: str, is_pron: bool) -> Tuple[Optional[str], Optional[str]]:

@@ -106,6 +106,14 @@ FEM_CUES = {"mrs", "miss", "ms", "madam", "madame", "lady", "mistress", "woman",
             "sister", "aunt", "queen", "princess", "wife", "widow", "niece",
             "grandmother", "maid", "she", "her", "hers", "herself"}
 
+# Possessive DETERMINERS ("his mother", "her father") modify the head noun but refer to a
+# DIFFERENT discourse entity (the possessor) -- their gender must not leak into the head NP's
+# own gender. Excludes plain object/subject pronouns (he/him/she/her-as-object) which are not
+# determiners and are handled by the is_pronoun path upstream, never reaching this function on
+# a multi-token nominal span.
+POSSESSIVE_DETERMINER_CUES = {"his", "her", "hers", "its", "their", "theirs",
+                               "my", "mine", "your", "yours", "our", "ours"}
+
 # Validated salience knobs (longdist 49bb99c24): frequency-primary accumulator, recency as tie-break.
 OVERLAY_BETA = 0.5              # recency tie-break weight (frequency counts dominate)
 OVERLAY_TIEBREAK_LAMBDA = 0.1   # tie-break decay rate
@@ -113,10 +121,20 @@ WINDOW_K_DEFAULT = 5            # recency-window cutoff (the structural-wall ill
 
 
 def infer_nominal_gender(span_toks: List[str]) -> Optional[str]:
-    """Glass-box gender from title / gendered-noun cues; 'masc' / 'fem' / None (unknown -> any)."""
+    """Glass-box gender from title / gendered-noun cues; 'masc' / 'fem' / None (unknown -> any).
+
+    The NP head governs agreement, not a leading possessive-determiner modifier: "his mother" is
+    fem (head "mother"), not ambiguous, because "his" describes the POSSESSOR -- a different
+    discourse entity -- not the head noun itself. Possessive-determiner tokens are therefore
+    excluded from the cue computation; if that leaves no tokens (e.g. a bare possessive with no
+    cue-bearing head, "his friend"), the result is None (unknown), same as any other head with no
+    gender cue -- this is a strict refinement, non-possessive spans are unaffected."""
     toks = {t.lower().strip(".,'") for t in span_toks}
-    m = bool(toks & MASC_CUES)
-    f = bool(toks & FEM_CUES)
+    head_toks = toks - POSSESSIVE_DETERMINER_CUES
+    if not head_toks:
+        head_toks = toks
+    m = bool(head_toks & MASC_CUES)
+    f = bool(head_toks & FEM_CUES)
     if m and not f:
         return "masc"
     if f and not m:

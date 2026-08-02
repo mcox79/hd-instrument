@@ -25,6 +25,7 @@ from hdlab.state_of_mind import (  # noqa: E402
     AdditiveMapKnownBase,
     SetKnownBase,
     WorkingOverlay,
+    infer_nominal_gender,
 )
 
 
@@ -164,6 +165,27 @@ def test_deixis_participant_resolution():
     return "DEIXIS: me/my/we->hen(speaker); i->dog; you->hen(addressee); your->dog(prev-speaker); 3rd-person path untouched"
 
 
+def test_possessive_np_gender_head_governs():
+    """NP gender comes from the HEAD NOUN, not a leading possessive-determiner modifier: the possessive
+    ("his"/"her") refers to a DIFFERENT discourse entity (the possessor), so it must not leak into the
+    head NP's own gender (bug: "his mother" used to return None -> falsely compatible with "Harry").
+    Strict refinement: plain (non-possessive) spans are unaffected."""
+    assert infer_nominal_gender(["his", "mother"]) == "fem", "his mother -> fem (head=mother)"
+    assert infer_nominal_gender(["her", "father"]) == "masc", "her father -> masc (head=father)"
+    assert infer_nominal_gender(["his", "father"]) == "masc", "his father -> masc (unchanged, no conflict)"
+    assert infer_nominal_gender(["her", "mother"]) == "fem", "her mother -> fem (unchanged, no conflict)"
+    assert infer_nominal_gender(["his", "friend"]) is None, "his friend -> None (head has no gender cue)"
+    assert infer_nominal_gender(["their", "sister"]) == "fem", "their sister -> fem (possessive excluded)"
+    # non-possessive spans: identical behavior to before the fix.
+    assert infer_nominal_gender(["the", "man"]) == "masc", "the man -> masc (unchanged)"
+    assert infer_nominal_gender(["the", "woman"]) == "fem", "the woman -> fem (unchanged)"
+    assert infer_nominal_gender(["Alice"]) is None, "bare proper name, no cue -> None (unchanged)"
+    # bare possessive-determiner-only span (no head noun) falls back to the possessive's own cue.
+    assert infer_nominal_gender(["his"]) == "masc", "bare 'his' (no head) -> masc, fallback preserved"
+    assert infer_nominal_gender(["her"]) == "fem", "bare 'her' (no head) -> fem, fallback preserved"
+    return "POSSESSIVE_NP: 'his mother'->fem, 'her father'->masc, head-noun governs, non-possessive spans unchanged"
+
+
 def main():
     tests = [
         test_long_distance_salience_wins,
@@ -173,6 +195,7 @@ def main():
         test_recognize_known_vs_surprise,
         test_active_set_ordering,
         test_deixis_participant_resolution,
+        test_possessive_np_gender_head_governs,
     ]
     for t in tests:
         line = t()
