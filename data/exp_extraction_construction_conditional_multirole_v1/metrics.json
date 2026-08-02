@@ -1,0 +1,266 @@
+{
+  "anchor": "extraction_construction_conditional_multirole_v1",
+  "mode": "full",
+  "verdict": "HARD_FAIL_MULTIROLE_DID_NOT_FIX_CANONICAL",
+  "verdict_msg": "HARD_FAIL_MULTIROLE_DID_NOT_FIX_CANONICAL | OLD canon=0.358 quot=0.623 byagent=0.851063829787234 | NEW canon=0.409 quot=0.852 byagent=0.7872340425531915 | canfail_old_mislocalizes=True | new_clears_canonical=False | non_canon_preserved=True",
+  "summary": {
+    "old_canonical_role_acc": 0.3575757575757576,
+    "new_canonical_role_acc": 0.4090909090909091,
+    "old_quotative_role_acc": 0.6229508196721312,
+    "new_quotative_role_acc": 0.8524590163934426,
+    "old_byagent_role_acc": 0.851063829787234,
+    "new_byagent_role_acc": 0.7872340425531915,
+    "canfail_old_mislocalizes_canonical": true,
+    "new_clears_canonical": false,
+    "non_canonical_preserved": true,
+    "per_arm_per_kind": {
+      "OLD": {
+        "canonical": {
+          "role_acc": 0.3575757575757576,
+          "role_n": 330,
+          "full_acc": 0.15304798962386512,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.6229508196721312,
+          "role_n": 61,
+          "full_acc": 0.21714285714285714,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.851063829787234,
+          "role_n": 47,
+          "full_acc": 0.32786885245901637,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.8333333333333334,
+          "role_n": 12,
+          "full_acc": 0.2857142857142857,
+          "full_n": 35
+        }
+      },
+      "NEW": {
+        "canonical": {
+          "role_acc": 0.4090909090909091,
+          "role_n": 330,
+          "full_acc": 0.5149156939040207,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.8524590163934426,
+          "role_n": 61,
+          "full_acc": 0.5028571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.7872340425531915,
+          "role_n": 47,
+          "full_acc": 0.6065573770491803,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5,
+          "role_n": 12,
+          "full_acc": 0.4,
+          "full_n": 35
+        }
+      },
+      "POSITION": {
+        "canonical": {
+          "role_acc": 0.5363636363636364,
+          "role_n": 330,
+          "full_acc": 0.22957198443579765,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.08196721311475409,
+          "role_n": 61,
+          "full_acc": 0.02857142857142857,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.2127659574468085,
+          "role_n": 47,
+          "full_acc": 0.08196721311475409,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5833333333333334,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        }
+      },
+      "RANDOM": {
+        "canonical": {
+          "role_acc": 0.2696969696969697,
+          "role_n": 330,
+          "full_acc": 0.2619974059662776,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.26229508196721313,
+          "role_n": 61,
+          "full_acc": 0.22857142857142856,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.14893617021276595,
+          "role_n": 47,
+          "full_acc": 0.21311475409836064,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.3333333333333333,
+          "role_n": 12,
+          "full_acc": 0.2571428571428571,
+          "full_n": 35
+        }
+      }
+    }
+  },
+  "bands": {
+    "OLD_CANONICAL_CEIL": 0.4,
+    "NEW_CANONICAL_MIN": 0.6,
+    "NEW_CANONICAL_MARGIN": 0.25,
+    "NON_CANON_REGRESSION_SLACK": 0.1,
+    "RANDOM_CHANCE_4WAY": 0.25,
+    "RANDOM_CHANCE_3WAY": 0.3333333333333333
+  },
+  "per_arm": {
+    "OLD": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.3575757575757576,
+          "role_n": 330,
+          "full_acc": 0.15304798962386512,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.6229508196721312,
+          "role_n": 61,
+          "full_acc": 0.21714285714285714,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.851063829787234,
+          "role_n": 47,
+          "full_acc": 0.32786885245901637,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.8333333333333334,
+          "role_n": 12,
+          "full_acc": 0.2857142857142857,
+          "full_n": 35
+        }
+      },
+      "digest": "b6662c994a45dc8b"
+    },
+    "NEW": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.4090909090909091,
+          "role_n": 330,
+          "full_acc": 0.5149156939040207,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.8524590163934426,
+          "role_n": 61,
+          "full_acc": 0.5028571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.7872340425531915,
+          "role_n": 47,
+          "full_acc": 0.6065573770491803,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5,
+          "role_n": 12,
+          "full_acc": 0.4,
+          "full_n": 35
+        }
+      },
+      "digest": "6cc1f552f65213e3"
+    },
+    "POSITION": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.5363636363636364,
+          "role_n": 330,
+          "full_acc": 0.22957198443579765,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.08196721311475409,
+          "role_n": 61,
+          "full_acc": 0.02857142857142857,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.2127659574468085,
+          "role_n": 47,
+          "full_acc": 0.08196721311475409,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5833333333333334,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        }
+      },
+      "digest": "d434f9e1a0bb7176"
+    },
+    "RANDOM": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.2696969696969697,
+          "role_n": 330,
+          "full_acc": 0.2619974059662776,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.26229508196721313,
+          "role_n": 61,
+          "full_acc": 0.22857142857142856,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.14893617021276595,
+          "role_n": 47,
+          "full_acc": 0.21311475409836064,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.3333333333333333,
+          "role_n": 12,
+          "full_acc": 0.2571428571428571,
+          "full_n": 35
+        }
+      },
+      "digest": "6868d98738de72f9"
+    }
+  },
+  "canonical_pool_diag": {
+    "n_skipped_no_event": 1,
+    "n_skipped_oob": 0,
+    "n_sentences_total_in_gold": 114
+  },
+  "role_vocab": [
+    "agent",
+    "patient",
+    "addressee",
+    "none"
+  ],
+  "n_sentences_pooled": 188,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "elapsed_s": 24.171785099897534,
+  "ts_iso": "2026-08-02T14:53:50Z"
+}
