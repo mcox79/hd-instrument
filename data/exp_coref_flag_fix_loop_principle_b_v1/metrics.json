@@ -1,0 +1,307 @@
+{
+  "anchor_name": "coref_flag_fix_loop_principle_b_v1",
+  "verdict": "PARTIAL_COREF_ONLY",
+  "verdict_msg": "[PARTIAL_COREF_ONLY] Principle B vs strict_cb (powered combined): pronoun-B3 0.7029->0.7047 (lift=+0.0018); identity-demanding query 0.7192982456140351->0.7368421052631579 (lift=0.01754385964912275; oracle=0.9298245614035088); name 0.8369->0.8361 (regr=+0.0008), overall 0.8078->0.8075 (regr=+0.0003). DIRECT corrected/broken: all corrected=1 broken=0 net=1 (changed 2 decisions); flagged-subset corrected=1 broken=0 net=1. Filter actions: {'abstain_no_same_clause_agent': 25, 'abstain_agent_pronoun': 31, 'abstain_multi_same_clause_agent': 3, 'fired': 9, 'allocate_new': 6, 'abstain_no_compat': 1, 'abstain_only_option': 1}.",
+  "summary": "PARTIAL_COREF_ONLY",
+  "elapsed_s": 0.6884771999903023,
+  "ts_iso": "2026-08-02T23:38:13.858969+00:00",
+  "pid": 21172,
+  "fix": "binding_principle_b_same_clause_agent_exclusion",
+  "flag_threshold_for_breakdown": 2,
+  "bands": {
+    "pronoun_b3_margin": 0.02,
+    "iddem_query_margin": 0.03,
+    "regression_tol": 0.01
+  },
+  "headline_combined": {
+    "pronoun_b3_f1": {
+      "strict_cb": 0.7029326700972488,
+      "principle_b": 0.7047160370965815
+    },
+    "name_b3_f1": {
+      "strict_cb": 0.8368718657482174,
+      "principle_b": 0.8361076008764605
+    },
+    "overall_b3_f1": {
+      "strict_cb": 0.8077837819288799,
+      "principle_b": 0.8075265393221392
+    },
+    "identity_demanding_query_acc": {
+      "oracle": 0.9298245614035088,
+      "strict_cb": 0.7192982456140351,
+      "principle_b": 0.7368421052631579
+    },
+    "pronoun_b3_lift": 0.0017833669993326806,
+    "iddem_query_lift": 0.01754385964912275,
+    "name_regression": 0.0007642648717568479,
+    "overall_regression": 0.0002572426067406486
+  },
+  "corrected_broken_combined": {
+    "n_flagged_pronoun_decisions": 52,
+    "n_decisions_changed_by_filter": 2,
+    "corrected_all": 1,
+    "broken_all": 0,
+    "net_all": 1,
+    "corrected_flagged": 1,
+    "broken_flagged": 0,
+    "net_flagged": 1,
+    "sample_changed_decisions": [
+      {
+        "passage_id": "g6v_dying_boy_schoolmaster",
+        "pos": 4,
+        "mention_text": "him",
+        "clause": 3,
+        "role": "theme",
+        "gold_entity": "boy",
+        "outcome": "corrected",
+        "flagged": true
+      }
+    ]
+  },
+  "combined_powered": {
+    "n_passages": 36,
+    "n_pronoun_mentions": 76,
+    "principle_b_flip_passages": 2,
+    "principle_b_action_counts": {
+      "abstain_no_same_clause_agent": 25,
+      "abstain_agent_pronoun": 31,
+      "abstain_multi_same_clause_agent": 3,
+      "fired": 9,
+      "allocate_new": 6,
+      "abstain_no_compat": 1,
+      "abstain_only_option": 1
+    },
+    "b3": {
+      "strict_cb": {
+        "overall": {
+          "precision": 0.8739823532087142,
+          "recall": 0.75090735434575,
+          "f1": 0.8077837819288799,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.9101473922902495,
+          "recall": 0.7745159602302457,
+          "f1": 0.8368718657482174,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.7440737259816207,
+          "recall": 0.6661027568922308,
+          "f1": 0.7029326700972488,
+          "n_mentions": 76
+        }
+      },
+      "principle_b": {
+        "overall": {
+          "precision": 0.8761654614090142,
+          "recall": 0.7488606904079684,
+          "f1": 0.8075265393221392,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.9101473922902495,
+          "recall": 0.7732077446363159,
+          "f1": 0.8361076008764605,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.7540987886382622,
+          "recall": 0.66140350877193,
+          "f1": 0.7047160370965815,
+          "n_mentions": 76
+        }
+      },
+      "recency_floor": {
+        "overall": {
+          "precision": 0.41664249846451096,
+          "recall": 1.0,
+          "f1": 0.5882112091316007,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.3711451402627871,
+          "recall": 1.0,
+          "f1": 0.5413652127179698,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.5800737983207026,
+          "recall": 1.0,
+          "f1": 0.7342363362232868,
+          "n_mentions": 76
+        }
+      }
+    },
+    "query_metric": {
+      "oracle": {
+        "query_accuracy_all": 0.9692307692307692,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.9298245614035088,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.9722222222222222,
+        "q_total_pron": 36
+      },
+      "strict_cb": {
+        "query_accuracy_all": 0.7923076923076923,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.7192982456140351,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.6388888888888888,
+        "q_total_pron": 36
+      },
+      "principle_b": {
+        "query_accuracy_all": 0.8076923076923077,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.7368421052631579,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.5555555555555556,
+        "q_total_pron": 36
+      },
+      "recency_floor": {
+        "query_accuracy_all": 0.8076923076923077,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.5614035087719298,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.8333333333333334,
+        "q_total_pron": 36
+      },
+      "singleton_floor": {
+        "query_accuracy_all": 0.47692307692307695,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.38596491228070173,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.05555555555555555,
+        "q_total_pron": 36
+      }
+    }
+  },
+  "g5g6_only": {
+    "n_passages": 18,
+    "n_pronoun_mentions": 60,
+    "principle_b_flip_passages": 2,
+    "principle_b_action_counts": {
+      "allocate_new": 6,
+      "abstain_agent_pronoun": 24,
+      "abstain_no_same_clause_agent": 22,
+      "abstain_no_compat": 1,
+      "fired": 5,
+      "abstain_only_option": 1,
+      "abstain_multi_same_clause_agent": 1
+    },
+    "b3": {
+      "strict_cb": {
+        "overall": {
+          "precision": 0.8340166088510458,
+          "recall": 0.60242825607064,
+          "f1": 0.6995537155287574,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8655154369440083,
+          "recall": 0.5598116169544746,
+          "f1": 0.6798798843106695,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7862433862433865,
+          "recall": 0.6670634920634924,
+          "f1": 0.7217667055293344,
+          "n_mentions": 60
+        }
+      },
+      "principle_b": {
+        "overall": {
+          "precision": 0.8390623357510772,
+          "recall": 0.5976978871018603,
+          "f1": 0.6981064442741095,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8655154369440083,
+          "recall": 0.5558869701726848,
+          "f1": 0.6769775419987634,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7989417989417992,
+          "recall": 0.6611111111111114,
+          "f1": 0.7235207666445213,
+          "n_mentions": 60
+        }
+      },
+      "recency_floor": {
+        "overall": {
+          "precision": 0.569007482583642,
+          "recall": 1.0,
+          "f1": 0.7253088196197418,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.5233211233211236,
+          "recall": 1.0,
+          "f1": 0.6870791920487337,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.6382984607984609,
+          "recall": 1.0,
+          "f1": 0.7792212177106874,
+          "n_mentions": 60
+        }
+      }
+    },
+    "query_metric": {
+      "oracle": {
+        "query_accuracy_all": 0.9666666666666667,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.96,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 1.0,
+        "q_total_pron": 28
+      },
+      "strict_cb": {
+        "query_accuracy_all": 0.7166666666666667,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.72,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.6428571428571429,
+        "q_total_pron": 28
+      },
+      "principle_b": {
+        "query_accuracy_all": 0.7333333333333333,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.76,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.5714285714285714,
+        "q_total_pron": 28
+      },
+      "recency_floor": {
+        "query_accuracy_all": 0.7833333333333333,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.52,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.9642857142857143,
+        "q_total_pron": 28
+      },
+      "singleton_floor": {
+        "query_accuracy_all": 0.36666666666666664,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.36,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.17857142857142858,
+        "q_total_pron": 28
+      }
+    }
+  },
+  "gold_path_combined": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl",
+  "gold_path_g5g6": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
+  "participial_guard_note": "Principle B abstains unless EXACTLY ONE compatible candidate holds role==agent in the pronoun's OWN clause. Participials/continued-subject (probe case 7): the subject's agent role is tagged at a PRIOR clause index, so 0 same-clause agents -> abstain_no_same_clause_agent. Multi-verb/relative clauses (probe case 15): >=2 same-clause agents -> abstain_multi_same_clause_agent (gold preserved). See principle_b_action_counts for the achieved coverage/abstention breakdown.",
+  "reproducibility_note": "run_learnable_strict_cb (5b266248f) + helpers + query machinery (e6a3a9ee8) + clean label (calibration v1) imported verbatim, NEVER mutated. run_loop_principle_b / _principle_b_filter are NEW opt-in functions in this file. Prior committed cells unaffected.",
+  "prior_commits": {
+    "strict_cb_mechanism": "5b266248f",
+    "loop_cycle1_topic_continuity_null": "82492af76",
+    "probe_fix_tier_redirect": "b839a3176",
+    "query_machinery_iddem_split": "e6a3a9ee8"
+  }
+}
