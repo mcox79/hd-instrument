@@ -101,3 +101,23 @@ probe-misspecification failure mode (3x this week). NET: the oracle-WM probe is 
 run needs (a) current-state query semantics [Finding 1, resolved] + (b) memory-test-optimized gold
 [Finding 2, ~10-15 curated passages]. Both are careful daytime/steered work; the design + starter seed +
 both findings are banked so it is turnkey once engaged.
+
+## 🧠 FINDING 3 (2026-08-02 ~13:1Xz, brain-foundational reframe of "is the overwrite-WM the right organ?")
+Reflecting on the seed-0 result (WM fine on current-state 0.80 but a trivial last-clause reader beats it,
+brain spike-metric flat) surfaced a deeper fidelity point: a situation model INTEGRATES/ACCUMULATES, it does
+NOT pure-overwrite. The overwrite gate (hold-OR-replace) is correct for "an entity's CURRENT state CHANGED"
+(role reversal), but a situation model must ALSO accumulate an entity's EVENT history (Kintsch C-I builds an
+integrated network; Zwaan indexes multiple events to an entity; the hippocampal-entorhinal store binds an
+entity to a GROWING set of events, not a single overwriting register). Pure-overwrite THROWS AWAY history ->
+it cannot answer "what did X do earlier" once a later event overwrites, which is exactly why the current-
+state-only framing is a weak test and why the overwrite gate looked inert. => the overwrite-WM is likely the
+WRONG (too-simple) organ for a situation model; the brain-faithful form ACCUMULATES entity-event bindings
+(substrate-native = FHRR BUNDLE multiple bind(entity,event) onto the entity's slot -- the proven bundling
+organ -- with the overwrite gate reserved for genuine STATE REPLACEMENT like a role reversal, not for every
+new event). CHEAP DECISIVE TEST (brain-foundational, addresses the organ question directly, no USER-framing
+needed): an EVENT-ACCUMULATION task where each entity has MULTIPLE events across clauses and ALL must be
+recalled -> a pure-overwrite WM MUST FAIL (loses all but the last event = the can-fail), an accumulate-via-
+bundle situation-model succeeds (bounded by bundling capacity). This reframes the fork: not "tune the
+overwrite-WM" but "overwrite (state) + accumulate (events) as the situation-model organ." Recommend this as
+the next probe once engaged; still numpy/CPU, no scale. (Recorded, not built -- I've reached the point where
+spinning further probes each 30-min tick is over-engagement; this is the sharpened question for USER steer.)
