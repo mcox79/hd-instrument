@@ -1,0 +1,462 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: accumulate-via-bundle beats pure-overwrite on multi-event recall (accumulate=1.0000 vs overwrite=0.4615, gap=0.5385 >= 0.30; overwrite matches structural prediction 1/n_events=0.4979 exactly, confirming the can-fail; floor at chance=0.2051). Situation-model register is ARCHITECTURALLY an accumulate (bundle) organ, not a pure-overwrite one, bounded by bundling capacity (see accumulate_by_n_events).",
+  "summary": "HARD_PASS: multi-event N=13 entities | overwrite=0.4615 (analytic=0.4979) | accumulate=1.0000 | floor=0.2051 (chance=0.1667) | gap=0.5385 | single_event: overwrite=1.0 accumulate=1.0",
+  "elapsed_s": 0.021407400025054812,
+  "ts_iso": "2026-08-02T13:29:44.935255+00:00",
+  "anchor_name": "situation_model_accumulate_vs_overwrite_v1",
+  "run_mode": "full",
+  "seed": 20260802,
+  "d": 1024,
+  "role_vocab": [
+    "agent",
+    "patient",
+    "theme",
+    "recipient",
+    "addressee",
+    "speaker"
+  ],
+  "gold_path": "D:\\AI\\hd-instrument\\data/eval_gold_mention_role_mcguffey_v1/gold_multiclause_entity_track_v1.jsonl",
+  "n_entities_total": 15,
+  "n_events_total": 36,
+  "multi_event_agg": {
+    "overwrite": {
+      "mean": 0.46153846153846145,
+      "n_entities": 13
+    },
+    "accumulate": {
+      "mean": 1.0,
+      "n_entities": 13
+    },
+    "floor": {
+      "mean": 0.20512820512820512,
+      "n_entities": 13
+    }
+  },
+  "single_event_agg": {
+    "overwrite": {
+      "mean": 1.0,
+      "n_entities": 2
+    },
+    "accumulate": {
+      "mean": 1.0,
+      "n_entities": 2
+    },
+    "floor": {
+      "mean": 0.0,
+      "n_entities": 2
+    }
+  },
+  "accumulate_by_n_events": {
+    "2": {
+      "mean": 1.0,
+      "n_entities": 5
+    },
+    "3": {
+      "mean": 1.0,
+      "n_entities": 8
+    }
+  },
+  "analytic_overwrite_multi_predicted": 0.49786324786324787,
+  "chance": 0.16666666666666666,
+  "gates": {
+    "gate_canfail_overwrite_matches_analytic": true,
+    "gate_canfail_floor_at_chance": true,
+    "gate_single_event_positive_control": true,
+    "gate_mechanism_hard_pass": true,
+    "gate_mechanism_middle_band": false,
+    "canfail_ok": true
+  },
+  "arms_differ_verified": true,
+  "arm_hashes": {
+    "overwrite": "9c66dd7d4f8b4fcb0710da78711dbc8bb284fa40153778eae4cca6f73cc506d7",
+    "accumulate": "41a126cbb74f431e5c00cf4f7fbbe87c2fc0922ac70a9194e3031fe90bf229a9",
+    "floor": "b1b9f97c7a283e27abbb6f09c94e6f6324a8bd726d5fe45c6883fb744e832312"
+  },
+  "per_entity_records": [
+    {
+      "key": "susie_hears_1::Susie",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0,
+          1
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.3333333333333333,
+        "accumulate": 1.0,
+        "floor": 0.3333333333333333
+      }
+    },
+    {
+      "key": "susie_hears_1::poor_girl",
+      "n_events": 2,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          1,
+          1
+        ],
+        "accumulate": [
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 1.0,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "susie_hears_1::children",
+      "n_events": 1,
+      "multi_event": false,
+      "per_arm_correct": {
+        "overwrite": [
+          1
+        ],
+        "accumulate": [
+          1
+        ],
+        "floor": [
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 1.0,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          1,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.3333333333333333,
+        "accumulate": 1.0,
+        "floor": 0.3333333333333333
+      }
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.3333333333333333,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.3333333333333333,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          1,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.6666666666666666,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "harry_carriage::Harry",
+      "n_events": 2,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.5,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "harry_carriage::blind_man",
+      "n_events": 2,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1
+        ],
+        "floor": [
+          1,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.5,
+        "accumulate": 1.0,
+        "floor": 0.5
+      }
+    },
+    {
+      "key": "harry_carriage::mother",
+      "n_events": 2,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.5,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "edgar_thomas_boat::boatman",
+      "n_events": 1,
+      "multi_event": false,
+      "per_arm_correct": {
+        "overwrite": [
+          1
+        ],
+        "accumulate": [
+          1
+        ],
+        "floor": [
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 1.0,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          0,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.3333333333333333,
+        "accumulate": 1.0,
+        "floor": 0.0
+      }
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          1,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.3333333333333333,
+        "accumulate": 1.0,
+        "floor": 0.3333333333333333
+      }
+    },
+    {
+      "key": "james_sport_dog::Sport",
+      "n_events": 3,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1,
+          1
+        ],
+        "floor": [
+          1,
+          1,
+          0
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.3333333333333333,
+        "accumulate": 1.0,
+        "floor": 0.6666666666666666
+      }
+    },
+    {
+      "key": "james_sport_dog::James",
+      "n_events": 2,
+      "multi_event": true,
+      "per_arm_correct": {
+        "overwrite": [
+          0,
+          1
+        ],
+        "accumulate": [
+          1,
+          1
+        ],
+        "floor": [
+          0,
+          1
+        ]
+      },
+      "recall_per_arm": {
+        "overwrite": 0.5,
+        "accumulate": 1.0,
+        "floor": 0.5
+      }
+    }
+  ],
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_lt10s"
+}
