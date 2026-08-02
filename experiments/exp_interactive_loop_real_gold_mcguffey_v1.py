@@ -95,11 +95,21 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _cell_heartbeat import CellHeartbeat  # noqa: E402
 
 ANCHOR_NAME = "interactive_loop_real_gold_mcguffey_v1"
-OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
 GOLD_DIR = os.path.join(REPO_ROOT, "data", "eval_gold_mention_role_mcguffey_v1")
 QUOT_PATH = os.path.join(GOLD_DIR, "gold_quotative_verified_v1.jsonl")
 PASS_PATH = os.path.join(GOLD_DIR, "gold_passive_verified_v1.jsonl")
-BYAGENT_PATH = os.path.join(GOLD_DIR, "gold_passive_byagent_verified_v1.jsonl")
+BYAGENT_PATH_V1 = os.path.join(GOLD_DIR, "gold_passive_byagent_verified_v1.jsonl")
+BYAGENT_PATH_V2 = os.path.join(GOLD_DIR, "gold_passive_byagent_verified_v2.jsonl")
+# BYAGENT_GOLD_VERSION selects which by-agent gold file is loaded (v1 N=5 exploratory kept intact
+# for reproducibility; v2 N=23 = director-hand-verified power-up mined from full McGuffey g1-g6,
+# commit 210be7a1c). Set via --byagent-version {v1,v2} CLI flag (default v2, the powered set).
+BYAGENT_GOLD_VERSION = "v2"
+BYAGENT_PATH = BYAGENT_PATH_V2
+# OUTPUT_DIR is version-suffixed for the powered (v2, N=23) by-agent gold so its checkpoint/metrics
+# never mix with the original N=5 exploratory run's data/exp_interactive_loop_real_gold_mcguffey_v1/
+# (preserves the v1 HARD_PASS reproducibility artifact untouched).
+OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME
+                          + ("" if BYAGENT_GOLD_VERSION == "v1" else "_byagent_" + BYAGENT_GOLD_VERSION))
 TAGGER_PATH = os.path.join(REPO_ROOT, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
 
 MENTION_POS = ("PROPN", "PRON", "NOUN")
@@ -115,6 +125,14 @@ PASS_QUOT_MIN = 0.60       # ON quotative agent-acc HARD-PASS (hard subset)
 PASS_PASS_MIN = 0.55       # ON passive patient-acc HARD-PASS (lower bar, N=7 underpowered)
 PASS_QUOT_MARGIN = 0.40    # ON quotative must also be >= floor + this
 PASS_PASS_MARGIN = 0.35    # ON passive must also be >= floor + this
+
+# BY-AGENT band is version-specific (declared BEFORE this re-run, per director spawn-prompt
+# contract): v1 (N=5, exploratory) kept its original lower/looser bar; v2 (N=23, powered) uses a
+# STRICTER pre-registered bar since the set is no longer underpowered-exploratory.
+PASS_BYAGENT_MIN_V1 = 0.55     # legacy N=5 bar (one mislabel = 0.2 swing; keep for reproducibility)
+PASS_BYAGENT_MARGIN_V1 = 0.35
+PASS_BYAGENT_MIN_V2 = 0.75     # PRE-REGISTERED (spawn-prompt contract): powered N=23 HARD-PASS floor
+PASS_BYAGENT_MARGIN_V2 = 0.40  # PRE-REGISTERED: ON must clearly separate from OFF/placebo base rate
 MIDDLE_MARGIN = 0.15       # ON > floor + this = at least no-longer-inverted
 HARD_FAIL_MARGIN = 0.10    # ON <= floor + this = top-down did not resolve
 PLACEBO_SLACK = 0.15       # placebo must stay within max(floor, OFF) + this
@@ -573,7 +591,9 @@ def decide_verdict(units, diag):
     base_b = max(off_b, notd_b)
     byagent_floor_held = off_b <= FLOOR_PASS_MAX
     byagent_placebo_ok = plac_b <= max(base_b, FLOOR_PASS_MAX) + PLACEBO_SLACK
-    byagent_pass = (on_b >= PASS_PASS_MIN and on_b >= base_b + PASS_PASS_MARGIN)
+    pass_byagent_min = PASS_BYAGENT_MIN_V2 if BYAGENT_GOLD_VERSION == "v2" else PASS_BYAGENT_MIN_V1
+    pass_byagent_margin = PASS_BYAGENT_MARGIN_V2 if BYAGENT_GOLD_VERSION == "v2" else PASS_BYAGENT_MARGIN_V1
+    byagent_pass = (on_b >= pass_byagent_min and on_b >= base_b + pass_byagent_margin)
 
     summary = {
         "off_quot_hard": off_q, "off_pass_hard": off_p,
@@ -586,6 +606,8 @@ def decide_verdict(units, diag):
         "placebo_byagent_hard": plac_b, "no_td_byagent_hard": notd_b,
         "byagent_floor_held": bool(byagent_floor_held), "byagent_placebo_ok": bool(byagent_placebo_ok),
         "byagent_pass": bool(byagent_pass), "n_byagent_hard": on["byagent_hard_n"],
+        "byagent_gold_version": BYAGENT_GOLD_VERSION,
+        "pass_byagent_min_used": pass_byagent_min, "pass_byagent_margin_used": pass_byagent_margin,
         "floor_held": floor_held, "placebo_ok_quot": placebo_ok_q, "placebo_ok_pass": placebo_ok_p,
         "placebo_collapses": bool(placebo_collapses), "not_a_leak": bool(not_a_leak),
         "gold_filler_nominal_rate": diag["gold_filler_nominal_rate"],
@@ -655,7 +677,8 @@ def _write_metrics(verdict, summary, units, diag, sents_q, sents_p, sents_b, ela
         "tagger_diagnostic": diag,
         "glass_box_dump": dump,
         "config": {"L2_LAMBDA": L2_LAMBDA, "LR": LR, "N_ITERS": N_ITERS,
-                   "n_quot": len(sents_q), "n_pass": len(sents_p), "n_byagent": len(sents_b)},
+                   "n_quot": len(sents_q), "n_pass": len(sents_p), "n_byagent": len(sents_b),
+                   "byagent_gold_version": BYAGENT_GOLD_VERSION, "byagent_path": BYAGENT_PATH},
         "elapsed_s": elapsed,
         "ts_iso": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
@@ -668,13 +691,24 @@ def _write_metrics(verdict, summary, units, diag, sents_q, sents_p, sents_b, ela
 
 
 def main():
+    global BYAGENT_GOLD_VERSION, BYAGENT_PATH, OUTPUT_DIR
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--full", action="store_true")
+    ap.add_argument("--byagent-version", choices=["v1", "v2"], default=BYAGENT_GOLD_VERSION,
+                     help="which by-agent-passive gold file to use (v1=N=5 legacy exploratory, "
+                          "v2=N=23 powered set, commit 210be7a1c). Default v2.")
     args = ap.parse_args()
     if not args.self_test and not args.full:
         args.self_test = True
     mode = "self_test" if args.self_test else "full"
+
+    BYAGENT_GOLD_VERSION = args.byagent_version
+    BYAGENT_PATH = BYAGENT_PATH_V2 if BYAGENT_GOLD_VERSION == "v2" else BYAGENT_PATH_V1
+    OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME
+                              + ("" if BYAGENT_GOLD_VERSION == "v1" else "_byagent_" + BYAGENT_GOLD_VERSION))
+    print("[%s] byagent_gold_version=%s byagent_path=%s output_dir=%s"
+          % (mode, BYAGENT_GOLD_VERSION, BYAGENT_PATH, OUTPUT_DIR), flush=True)
 
     print("[%s] starting %s" % (mode, ANCHOR_NAME), flush=True)
     try:
