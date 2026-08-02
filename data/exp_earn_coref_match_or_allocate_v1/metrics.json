@@ -1,0 +1,84 @@
+{
+  "anchor_name": "earn_coref_match_or_allocate_v1",
+  "verdict": "HARD_FAIL_LEARNABLE_DOES_NOT_BEAT_FLOOR",
+  "verdict_msg": "learnable_f1=0.8504 recency_floor_f1=0.8581 random_f1=0.6521 beats_recency=False beats_random=True n_passages=24 n_mentions=150 n_name=98 n_pronoun=52",
+  "summary": "HARD_FAIL_LEARNABLE_DOES_NOT_BEAT_FLOOR",
+  "elapsed_s": 0.005284100072458386,
+  "ts_iso": "2026-08-02T18:36:15.243269+00:00",
+  "pid": 30016,
+  "n_passages": 24,
+  "n_mentions_total": 150,
+  "n_name_mentions": 98,
+  "n_pronoun_mentions": 52,
+  "arms": {
+    "learnable": {
+      "overall": {
+        "precision": 0.8272751322751323,
+        "recall": 0.8748888888888889,
+        "f1": 0.8504160730487628,
+        "n_mentions": 150
+      },
+      "name_only": {
+        "precision": 0.7996396177518623,
+        "recall": 0.8534013605442176,
+        "f1": 0.8256462443392237,
+        "n_mentions": 98
+      },
+      "pronoun_only": {
+        "precision": 0.8793574481074482,
+        "recall": 0.9153846153846152,
+        "f1": 0.8970094319350006,
+        "n_mentions": 52
+      }
+    },
+    "recency_floor": {
+      "overall": {
+        "precision": 0.7515252525252525,
+        "recall": 1.0,
+        "f1": 0.8581380730214935,
+        "n_mentions": 150
+      },
+      "name_only": {
+        "precision": 0.7125971817298344,
+        "recall": 1.0,
+        "f1": 0.8321830601286696,
+        "n_mentions": 98
+      },
+      "pronoun_only": {
+        "precision": 0.8248896936396938,
+        "recall": 1.0,
+        "f1": 0.9040433474030677,
+        "n_mentions": 52
+      }
+    },
+    "random": {
+      "overall": {
+        "precision": 0.8504761904761906,
+        "recall": 0.5286984126984127,
+        "f1": 0.6520500173184088,
+        "n_mentions": 150
+      },
+      "name_only": {
+        "precision": 0.8142128279883379,
+        "recall": 0.5234207968901847,
+        "f1": 0.6372087533349351,
+        "n_mentions": 98
+      },
+      "pronoun_only": {
+        "precision": 0.9188186813186814,
+        "recall": 0.5386446886446885,
+        "f1": 0.6791481868011037,
+        "n_mentions": 52
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "bands": {
+    "hard_pass_margin": 0.05,
+    "baseline_in_band": [
+      0.02,
+      0.98
+    ]
+  },
+  "gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_multiclause_LONG_v1.jsonl"
+}
