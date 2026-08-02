@@ -1,0 +1,288 @@
+{
+  "anchor": "extraction_commit_then_revise_v1",
+  "mode": "full",
+  "verdict": "MIDDLE_BAND_CANONICAL_IMPROVED_BUT_BELOW_POSITION_FLOOR",
+  "verdict_msg": "MIDDLE_BAND_CANONICAL_IMPROVED_BUT_BELOW_POSITION_FLOOR | COMMIT_REVISE canon=0.479 quot=0.770 byagent=0.851063829787234 | POSITION canon=0.536 quot=0.082 | V1_SINGLE_SOFTMAX canon=0.409 quot=0.852 | canonical_match_or_beat=False | quotative_preserved=True | byagent_preserved=True | no_revise_inverts(quot/byagent)=True/True",
+  "summary": {
+    "commit_revise_canonical_role_acc": 0.47878787878787876,
+    "commit_revise_quotative_role_acc": 0.7704918032786885,
+    "commit_revise_byagent_role_acc": 0.851063829787234,
+    "commit_revise_passive_role_acc": 0.6666666666666666,
+    "position_canonical_role_acc": 0.5363636363636364,
+    "position_quotative_role_acc": 0.08196721311475409,
+    "position_byagent_role_acc": 0.2127659574468085,
+    "random_quotative_role_acc": 0.26229508196721313,
+    "random_byagent_role_acc": 0.14893617021276595,
+    "v1_single_softmax_canonical_role_acc": 0.4090909090909091,
+    "v1_single_softmax_quotative_role_acc": 0.8524590163934426,
+    "v1_single_softmax_byagent_role_acc": 0.7872340425531915,
+    "canonical_match_or_beat": false,
+    "quotative_preserved": true,
+    "byagent_preserved": true,
+    "no_revise_reproduces_inversion_quotative": true,
+    "no_revise_reproduces_inversion_byagent": true,
+    "per_arm_per_kind": {
+      "V1_SINGLE_SOFTMAX": {
+        "canonical": {
+          "role_acc": 0.4090909090909091,
+          "role_n": 330,
+          "full_acc": 0.5149156939040207,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.8524590163934426,
+          "role_n": 61,
+          "full_acc": 0.5028571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.7872340425531915,
+          "role_n": 47,
+          "full_acc": 0.6065573770491803,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5,
+          "role_n": 12,
+          "full_acc": 0.4,
+          "full_n": 35
+        }
+      },
+      "COMMIT_REVISE": {
+        "canonical": {
+          "role_acc": 0.47878787878787876,
+          "role_n": 330,
+          "full_acc": 0.29961089494163423,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.7704918032786885,
+          "role_n": 61,
+          "full_acc": 0.6228571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.851063829787234,
+          "role_n": 47,
+          "full_acc": 0.6639344262295082,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.6666666666666666,
+          "role_n": 12,
+          "full_acc": 0.3142857142857143,
+          "full_n": 35
+        }
+      },
+      "POSITION": {
+        "canonical": {
+          "role_acc": 0.5363636363636364,
+          "role_n": 330,
+          "full_acc": 0.22957198443579765,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.08196721311475409,
+          "role_n": 61,
+          "full_acc": 0.02857142857142857,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.2127659574468085,
+          "role_n": 47,
+          "full_acc": 0.08196721311475409,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5833333333333334,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        }
+      },
+      "RANDOM": {
+        "canonical": {
+          "role_acc": 0.2696969696969697,
+          "role_n": 330,
+          "full_acc": 0.2619974059662776,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.26229508196721313,
+          "role_n": 61,
+          "full_acc": 0.22857142857142856,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.14893617021276595,
+          "role_n": 47,
+          "full_acc": 0.21311475409836064,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.3333333333333333,
+          "role_n": 12,
+          "full_acc": 0.2571428571428571,
+          "full_n": 35
+        }
+      }
+    },
+    "gate_rate_by_kind": {
+      "canonical": 0.21238938053097345,
+      "quotative": 0.9555555555555556,
+      "passive_byagent": 1.0,
+      "passive": 0.14285714285714285
+    }
+  },
+  "bands": {
+    "POSITION_CANONICAL_FLOOR": 0.5364,
+    "CANONICAL_SLACK": 0.03,
+    "CANONICAL_MIN": 0.5064,
+    "QUOTATIVE_MIN": 0.75,
+    "BYAGENT_MIN": 0.68,
+    "INVERSION_MARGIN": 0.1,
+    "RANDOM_CHANCE_4WAY": 0.25,
+    "RANDOM_CHANCE_3WAY": 0.3333333333333333
+  },
+  "per_arm": {
+    "V1_SINGLE_SOFTMAX": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.4090909090909091,
+          "role_n": 330,
+          "full_acc": 0.5149156939040207,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.8524590163934426,
+          "role_n": 61,
+          "full_acc": 0.5028571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.7872340425531915,
+          "role_n": 47,
+          "full_acc": 0.6065573770491803,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5,
+          "role_n": 12,
+          "full_acc": 0.4,
+          "full_n": 35
+        }
+      },
+      "digest": "6cc1f552f65213e3"
+    },
+    "COMMIT_REVISE": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.47878787878787876,
+          "role_n": 330,
+          "full_acc": 0.29961089494163423,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.7704918032786885,
+          "role_n": 61,
+          "full_acc": 0.6228571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.851063829787234,
+          "role_n": 47,
+          "full_acc": 0.6639344262295082,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.6666666666666666,
+          "role_n": 12,
+          "full_acc": 0.3142857142857143,
+          "full_n": 35
+        }
+      },
+      "digest": "6bbf9700606616d7",
+      "gate_rate_by_kind": {
+        "canonical": 0.21238938053097345,
+        "quotative": 0.9555555555555556,
+        "passive_byagent": 1.0,
+        "passive": 0.14285714285714285
+      }
+    },
+    "POSITION": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.5363636363636364,
+          "role_n": 330,
+          "full_acc": 0.22957198443579765,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.08196721311475409,
+          "role_n": 61,
+          "full_acc": 0.02857142857142857,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.2127659574468085,
+          "role_n": 47,
+          "full_acc": 0.08196721311475409,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5833333333333334,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        }
+      },
+      "digest": "d434f9e1a0bb7176"
+    },
+    "RANDOM": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.2696969696969697,
+          "role_n": 330,
+          "full_acc": 0.2619974059662776,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.26229508196721313,
+          "role_n": 61,
+          "full_acc": 0.22857142857142856,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.14893617021276595,
+          "role_n": 47,
+          "full_acc": 0.21311475409836064,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.3333333333333333,
+          "role_n": 12,
+          "full_acc": 0.2571428571428571,
+          "full_n": 35
+        }
+      },
+      "digest": "6868d98738de72f9"
+    }
+  },
+  "canonical_pool_diag": {
+    "n_skipped_no_event": 1,
+    "n_skipped_oob": 0,
+    "n_sentences_total_in_gold": 114
+  },
+  "role_vocab": [
+    "agent",
+    "patient",
+    "addressee",
+    "none"
+  ],
+  "n_sentences_pooled": 188,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "elapsed_s": 36.07248209998943,
+  "ts_iso": "2026-08-02T15:16:54Z"
+}

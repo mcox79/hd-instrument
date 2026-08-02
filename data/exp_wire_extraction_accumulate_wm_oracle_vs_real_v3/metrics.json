@@ -1,0 +1,2856 @@
+{
+  "anchor": "wire_extraction_accumulate_wm_oracle_vs_real_v3",
+  "mode": "full",
+  "verdict": "HARD_FAIL_V3_DID_NOT_BEAT_V2_SAME_GOLD",
+  "verdict_msg": "HARD_FAIL_V3_DID_NOT_BEAT_V2_SAME_GOLD | ORACLE recall=1.0000 (n=20) | REAL(v3 commit-revise) recall=0.4333 (n=20) | REAL(v2 single-softmax, same gold) recall=0.4333 (n=20) | REAL(OLD binary, same gold) recall=0.2208 (n=20) | FLOOR recall=0.1833 (n=20) | v1_cited_baseline(smaller gold)=0.2308 | unreachable_role_fraction=0.2931",
+  "summary": {
+    "oracle_multi_event_recall": 1.0,
+    "oracle_n_entities": 20,
+    "real_multi_event_recall": 0.4333333333333333,
+    "real_n_entities": 20,
+    "floor_multi_event_recall": 0.18333333333333332,
+    "floor_n_entities": 20,
+    "real_old_v2gold_multi_event_recall": 0.2208333333333333,
+    "real_old_v2gold_n_entities": 20,
+    "real_v1_multirole_multi_event_recall": 0.4333333333333333,
+    "real_v1_multirole_n_entities": 20,
+    "oracle_reproduces_36ab29a93": true,
+    "floor_at_chance": true,
+    "v1_cited_baseline_smaller_gold": 0.2308,
+    "beats_v1_cited_baseline": true,
+    "v2_real_same_gold": 0.4333,
+    "v3_minus_v2_same_gold": 3.333333333327415e-05,
+    "beats_v2_same_gold": false,
+    "beats_old_same_gold": true,
+    "v3_minus_old_same_gold": 0.2125,
+    "beats_v1_multirole_reproduced_here": false,
+    "v3_minus_v1_multirole_reproduced_here": 0.0,
+    "role_census": {
+      "counts": {
+        "agent": 32,
+        "patient": 9,
+        "recipient": 3,
+        "theme": 10,
+        "addressee": 1,
+        "possessor": 1,
+        "experiencer": 2
+      },
+      "total_events": 58,
+      "reachable_agent_patient_events": 41,
+      "unreachable_events": 17,
+      "unreachable_fraction": 0.29310344827586204
+    }
+  },
+  "bands": {
+    "ORACLE_REPRO_TARGET": 1.0,
+    "ORACLE_REPRO_TOL": 0.08,
+    "FLOOR_MAX": 0.275,
+    "REAL_HARD_PASS_MIN": 0.5,
+    "REAL_MIDDLE_MIN": 0.3,
+    "V1_REAL_BASELINE": 0.2308,
+    "V2_REAL_SAME_GOLD": 0.4333,
+    "V3_MUST_BEAT_V2_MARGIN": 0.03
+  },
+  "per_arm": {
+    "oracle": {
+      "per_entity": [
+        {
+          "key": "susie_hears_1::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_hears_1::poor_girl",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_hears_1::children",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_helps_2::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_helps_2::little_girl",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "mary_dash_doll::Mary",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "mary_dash_doll::Dash",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "harry_carriage::Harry",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "harry_carriage::blind_man",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "harry_carriage::mother",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "edgar_thomas_boat::boatman",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "edgar_thomas_boat::Edgar",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "edgar_thomas_boat::Thomas",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "james_sport_dog::Sport",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "james_sport_dog::James",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "willie_bounce::Willie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "willie_bounce::Bounce",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "fred_knife::Fred",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "john_lamb::John",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "john_lamb::lamb",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "dodger_terrier::Dodger",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "patty_forest::Patty",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "patty_forest::brothers",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            1
+          ],
+          "recall": 1.0
+        }
+      ],
+      "reg_digest": "551d8d75ed2723ad5d2a3054f1c29acfa0b92fe953d9d589ba445720ce6de364"
+    },
+    "real": {
+      "per_entity": [
+        {
+          "key": "susie_hears_1::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_hears_1::poor_girl",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_hears_1::children",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "susie_helps_2::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_helps_2::little_girl",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            0
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "mary_dash_doll::Mary",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "mary_dash_doll::Dash",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "harry_carriage::Harry",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            1
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "harry_carriage::blind_man",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            0
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "harry_carriage::mother",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "edgar_thomas_boat::boatman",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "edgar_thomas_boat::Edgar",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            1,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "edgar_thomas_boat::Thomas",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "james_sport_dog::Sport",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            1
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "james_sport_dog::James",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "willie_bounce::Willie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            1,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "willie_bounce::Bounce",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            1
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "fred_knife::Fred",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            0
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "john_lamb::John",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "john_lamb::lamb",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "dodger_terrier::Dodger",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "patty_forest::Patty",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "patty_forest::brothers",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        }
+      ],
+      "reg_digest": "ea5f34b8fdeeb2a203c980eea9b2487b6c78103cf97b6c87b74d5b72607e638e"
+    },
+    "floor": {
+      "per_entity": [
+        {
+          "key": "susie_hears_1::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "susie_hears_1::poor_girl",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "susie_hears_1::children",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "susie_helps_2::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            1
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "susie_helps_2::little_girl",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "mary_dash_doll::Mary",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "mary_dash_doll::Dash",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            0
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "harry_carriage::Harry",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "harry_carriage::blind_man",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            1
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "harry_carriage::mother",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "edgar_thomas_boat::boatman",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "edgar_thomas_boat::Edgar",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "edgar_thomas_boat::Thomas",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            1
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "james_sport_dog::Sport",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            1,
+            0
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "james_sport_dog::James",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "willie_bounce::Willie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "willie_bounce::Bounce",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "fred_knife::Fred",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            1
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "john_lamb::John",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            1,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "john_lamb::lamb",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            0
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "dodger_terrier::Dodger",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "patty_forest::Patty",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "patty_forest::brothers",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            1
+          ],
+          "recall": 1.0
+        }
+      ],
+      "reg_digest": "3246c81229eecd3ed481d06c6e9a2c4856bf6976faa80e78dfae52677ab10aae"
+    },
+    "real_old_v2gold": {
+      "per_entity": [
+        {
+          "key": "susie_hears_1::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "susie_hears_1::poor_girl",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            0
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "susie_hears_1::children",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "susie_helps_2::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            1
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "susie_helps_2::little_girl",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            0
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "mary_dash_doll::Mary",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "mary_dash_doll::Dash",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            0
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "harry_carriage::Harry",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            1
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "harry_carriage::blind_man",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "harry_carriage::mother",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "edgar_thomas_boat::boatman",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "edgar_thomas_boat::Edgar",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "edgar_thomas_boat::Thomas",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "james_sport_dog::Sport",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            1
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "james_sport_dog::James",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "willie_bounce::Willie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "willie_bounce::Bounce",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            1
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "fred_knife::Fred",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "john_lamb::John",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "john_lamb::lamb",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "dodger_terrier::Dodger",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "recall": 0.25
+        },
+        {
+          "key": "patty_forest::Patty",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "patty_forest::brothers",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        }
+      ],
+      "reg_digest": "4b55719395e5071012fb4337ea5e5d46d3c8f3d80774b48e9cf40f190463983e"
+    },
+    "real_v1_multirole": {
+      "per_entity": [
+        {
+          "key": "susie_hears_1::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_hears_1::poor_girl",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_hears_1::children",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "susie_helps_2::Susie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "susie_helps_2::little_girl",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            0
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "mary_dash_doll::Mary",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "mary_dash_doll::Dash",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "harry_carriage::Harry",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            1
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "harry_carriage::blind_man",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            1,
+            0
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "harry_carriage::mother",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "edgar_thomas_boat::boatman",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            1
+          ],
+          "recall": 1.0
+        },
+        {
+          "key": "edgar_thomas_boat::Edgar",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            1,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "edgar_thomas_boat::Thomas",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "james_sport_dog::Sport",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            1
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "james_sport_dog::James",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "willie_bounce::Willie",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            1,
+            1
+          ],
+          "recall": 0.6666666666666666
+        },
+        {
+          "key": "willie_bounce::Bounce",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            1
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "fred_knife::Fred",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            1,
+            0,
+            0
+          ],
+          "recall": 0.3333333333333333
+        },
+        {
+          "key": "john_lamb::John",
+          "n_events": 3,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "john_lamb::lamb",
+          "n_events": 2,
+          "multi_event": true,
+          "correct": [
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "dodger_terrier::Dodger",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "recall": 0.0
+        },
+        {
+          "key": "patty_forest::Patty",
+          "n_events": 4,
+          "multi_event": true,
+          "correct": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "recall": 0.5
+        },
+        {
+          "key": "patty_forest::brothers",
+          "n_events": 1,
+          "multi_event": false,
+          "correct": [
+            0
+          ],
+          "recall": 0.0
+        }
+      ],
+      "reg_digest": "ea5f34b8fdeeb2a203c980eea9b2487b6c78103cf97b6c87b74d5b72607e638e"
+    }
+  },
+  "extraction_diag": {
+    "n_entity_events_total": 58,
+    "n_mention_matched": 57,
+    "mention_match_rate": 0.9827586206896551,
+    "pred_role_counts": {
+      "agent": 22,
+      "patient": 35
+    },
+    "n_clauses_total": 32,
+    "n_clauses_gate_fired": 5,
+    "clause_gate_fire_rate": 0.15625
+  },
+  "per_entity_dump": [
+    {
+      "key": "susie_hears_1::Susie",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 1.0,
+      "real_correct": [
+        1,
+        1,
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.6666666666666666,
+      "real_old_v2gold_correct": [
+        1,
+        0,
+        1
+      ],
+      "real_v1_multirole_recall": 1.0,
+      "real_v1_multirole_correct": [
+        1,
+        1,
+        1
+      ],
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "pred_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "susie_hears_1::poor_girl",
+      "n_events": 2,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1
+      ],
+      "real_recall": 1.0,
+      "real_correct": [
+        1,
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.5,
+      "real_old_v2gold_correct": [
+        1,
+        0
+      ],
+      "real_v1_multirole_recall": 1.0,
+      "real_v1_multirole_correct": [
+        1,
+        1
+      ],
+      "true_roles": [
+        "patient",
+        "patient"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true
+      ]
+    },
+    {
+      "key": "susie_hears_1::children",
+      "n_events": 1,
+      "multi_event": false,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0
+      ],
+      "true_roles": [
+        "agent"
+      ],
+      "pred_roles": [
+        "patient"
+      ],
+      "match_ok": [
+        true
+      ]
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 1.0,
+      "real_correct": [
+        1,
+        1,
+        1
+      ],
+      "floor_recall": 0.3333333333333333,
+      "floor_correct": [
+        0,
+        0,
+        1
+      ],
+      "real_old_v2gold_recall": 0.3333333333333333,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        1
+      ],
+      "real_v1_multirole_recall": 1.0,
+      "real_v1_multirole_correct": [
+        1,
+        1,
+        1
+      ],
+      "true_roles": [
+        "agent",
+        "agent",
+        "patient"
+      ],
+      "pred_roles": [
+        "agent",
+        "agent",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.3333333333333333,
+      "real_correct": [
+        1,
+        0,
+        0
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.3333333333333333,
+      "real_old_v2gold_correct": [
+        1,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.3333333333333333,
+      "real_v1_multirole_correct": [
+        1,
+        0,
+        0
+      ],
+      "true_roles": [
+        "patient",
+        "recipient",
+        "recipient"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.6666666666666666,
+      "real_correct": [
+        1,
+        0,
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.6666666666666666,
+      "real_v1_multirole_correct": [
+        1,
+        0,
+        1
+      ],
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "pred_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.6666666666666666,
+      "real_correct": [
+        1,
+        0,
+        1
+      ],
+      "floor_recall": 0.6666666666666666,
+      "floor_correct": [
+        1,
+        1,
+        0
+      ],
+      "real_old_v2gold_recall": 0.3333333333333333,
+      "real_old_v2gold_correct": [
+        1,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.6666666666666666,
+      "real_v1_multirole_correct": [
+        1,
+        0,
+        1
+      ],
+      "true_roles": [
+        "patient",
+        "agent",
+        "patient"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "harry_carriage::Harry",
+      "n_events": 2,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1
+      ],
+      "real_recall": 0.5,
+      "real_correct": [
+        0,
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.5,
+      "real_old_v2gold_correct": [
+        0,
+        1
+      ],
+      "real_v1_multirole_recall": 0.5,
+      "real_v1_multirole_correct": [
+        0,
+        1
+      ],
+      "true_roles": [
+        "theme",
+        "agent"
+      ],
+      "pred_roles": [
+        "patient",
+        "agent"
+      ],
+      "match_ok": [
+        true,
+        true
+      ]
+    },
+    {
+      "key": "harry_carriage::blind_man",
+      "n_events": 2,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1
+      ],
+      "real_recall": 0.5,
+      "real_correct": [
+        1,
+        0
+      ],
+      "floor_recall": 0.5,
+      "floor_correct": [
+        0,
+        1
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.5,
+      "real_v1_multirole_correct": [
+        1,
+        0
+      ],
+      "true_roles": [
+        "agent",
+        "recipient"
+      ],
+      "pred_roles": [
+        "agent",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true
+      ]
+    },
+    {
+      "key": "harry_carriage::mother",
+      "n_events": 2,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0,
+        0
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0,
+        0
+      ],
+      "true_roles": [
+        "theme",
+        "addressee"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::boatman",
+      "n_events": 1,
+      "multi_event": false,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1
+      ],
+      "real_recall": 1.0,
+      "real_correct": [
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0
+      ],
+      "real_old_v2gold_recall": 1.0,
+      "real_old_v2gold_correct": [
+        1
+      ],
+      "real_v1_multirole_recall": 1.0,
+      "real_v1_multirole_correct": [
+        1
+      ],
+      "true_roles": [
+        "agent"
+      ],
+      "pred_roles": [
+        "agent"
+      ],
+      "match_ok": [
+        true
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.6666666666666666,
+      "real_correct": [
+        0,
+        1,
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.6666666666666666,
+      "real_v1_multirole_correct": [
+        0,
+        1,
+        1
+      ],
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "pred_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0,
+        0,
+        0
+      ],
+      "floor_recall": 0.3333333333333333,
+      "floor_correct": [
+        0,
+        0,
+        1
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0,
+        0,
+        0
+      ],
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "key": "james_sport_dog::Sport",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.3333333333333333,
+      "real_correct": [
+        0,
+        0,
+        1
+      ],
+      "floor_recall": 0.3333333333333333,
+      "floor_correct": [
+        0,
+        1,
+        0
+      ],
+      "real_old_v2gold_recall": 0.3333333333333333,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        1
+      ],
+      "real_v1_multirole_recall": 0.3333333333333333,
+      "real_v1_multirole_correct": [
+        0,
+        0,
+        1
+      ],
+      "true_roles": [
+        "theme",
+        "agent",
+        "patient"
+      ],
+      "pred_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "james_sport_dog::James",
+      "n_events": 2,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0,
+        0
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0,
+        0
+      ],
+      "true_roles": [
+        "theme",
+        "agent"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true
+      ]
+    },
+    {
+      "key": "willie_bounce::Willie",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.6666666666666666,
+      "real_correct": [
+        0,
+        1,
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.6666666666666666,
+      "real_v1_multirole_correct": [
+        0,
+        1,
+        1
+      ],
+      "true_roles": [
+        "theme",
+        "agent",
+        "agent"
+      ],
+      "pred_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "willie_bounce::Bounce",
+      "n_events": 2,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1
+      ],
+      "real_recall": 0.5,
+      "real_correct": [
+        0,
+        1
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.5,
+      "real_old_v2gold_correct": [
+        0,
+        1
+      ],
+      "real_v1_multirole_recall": 0.5,
+      "real_v1_multirole_correct": [
+        0,
+        1
+      ],
+      "true_roles": [
+        "theme",
+        "patient"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true
+      ]
+    },
+    {
+      "key": "fred_knife::Fred",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.3333333333333333,
+      "real_correct": [
+        1,
+        0,
+        0
+      ],
+      "floor_recall": 0.3333333333333333,
+      "floor_correct": [
+        0,
+        0,
+        1
+      ],
+      "real_old_v2gold_recall": 0.6666666666666666,
+      "real_old_v2gold_correct": [
+        1,
+        0,
+        1
+      ],
+      "real_v1_multirole_recall": 0.3333333333333333,
+      "real_v1_multirole_correct": [
+        1,
+        0,
+        0
+      ],
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "pred_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "john_lamb::John",
+      "n_events": 3,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0,
+        0,
+        0
+      ],
+      "floor_recall": 0.6666666666666666,
+      "floor_correct": [
+        0,
+        1,
+        1
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0,
+        0,
+        0
+      ],
+      "true_roles": [
+        "possessor",
+        "experiencer",
+        "agent"
+      ],
+      "pred_roles": [
+        "patient",
+        "agent",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "john_lamb::lamb",
+      "n_events": 2,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0,
+        0
+      ],
+      "floor_recall": 0.5,
+      "floor_correct": [
+        1,
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0,
+        0
+      ],
+      "true_roles": [
+        "theme",
+        "theme"
+      ],
+      "pred_roles": [
+        "patient",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true
+      ]
+    },
+    {
+      "key": "dodger_terrier::Dodger",
+      "n_events": 4,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.25,
+      "real_old_v2gold_correct": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "true_roles": [
+        "theme",
+        "patient",
+        "agent",
+        "theme"
+      ],
+      "pred_roles": [
+        "patient",
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "patty_forest::Patty",
+      "n_events": 4,
+      "multi_event": true,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "real_recall": 0.5,
+      "real_correct": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "floor_recall": 0.0,
+      "floor_correct": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "real_v1_multirole_recall": 0.5,
+      "real_v1_multirole_correct": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "true_roles": [
+        "agent",
+        "agent",
+        "experiencer",
+        "agent"
+      ],
+      "pred_roles": [
+        "agent",
+        "agent",
+        "agent",
+        "patient"
+      ],
+      "match_ok": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "key": "patty_forest::brothers",
+      "n_events": 1,
+      "multi_event": false,
+      "oracle_recall": 1.0,
+      "oracle_correct": [
+        1
+      ],
+      "real_recall": 0.0,
+      "real_correct": [
+        0
+      ],
+      "floor_recall": 1.0,
+      "floor_correct": [
+        1
+      ],
+      "real_old_v2gold_recall": 0.0,
+      "real_old_v2gold_correct": [
+        0
+      ],
+      "real_v1_multirole_recall": 0.0,
+      "real_v1_multirole_correct": [
+        0
+      ],
+      "true_roles": [
+        "agent"
+      ],
+      "pred_roles": [
+        "patient"
+      ],
+      "match_ok": [
+        true
+      ]
+    }
+  ],
+  "clause_dump": [
+    {
+      "passage_id": "susie_hears_1",
+      "clause_idx": 0,
+      "text": "One day, a poor little girl with a very ragged dress was going by and Susie heard some children teasing her and making fun of her.",
+      "n_mentions": 8,
+      "gate_fired": true,
+      "mention_role_preds": {
+        "day": "patient",
+        "girl": "patient",
+        "dress": "patient",
+        "Susie": "agent",
+        "children": "patient",
+        "her": "none",
+        "fun": "none"
+      }
+    },
+    {
+      "passage_id": "susie_hears_1",
+      "clause_idx": 1,
+      "text": "She at once ran out to the gate, and asked the poor little girl to come in.",
+      "n_mentions": 3,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "She": "agent",
+        "gate": "patient",
+        "girl": "patient"
+      }
+    },
+    {
+      "passage_id": "susie_hears_1",
+      "clause_idx": 2,
+      "text": "\"What are you crying for?\" Susie asked.",
+      "n_mentions": 3,
+      "gate_fired": true,
+      "mention_role_preds": {
+        "What": "addressee",
+        "you": "none",
+        "Susie": "agent"
+      }
+    },
+    {
+      "passage_id": "susie_helps_2",
+      "clause_idx": 0,
+      "text": "Then Susie took the little girl into the house.",
+      "n_mentions": 3,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Susie": "agent",
+        "girl": "patient",
+        "house": "patient"
+      }
+    },
+    {
+      "passage_id": "susie_helps_2",
+      "clause_idx": 1,
+      "text": "She cheered her up with kind words, and gave her a nice dress and a pair of shoes.",
+      "n_mentions": 8,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "She": "agent",
+        "her": "patient",
+        "kind": "patient",
+        "words": "patient",
+        "dress": "patient",
+        "pair": "patient",
+        "shoes": "patient"
+      }
+    },
+    {
+      "passage_id": "susie_helps_2",
+      "clause_idx": 2,
+      "text": "This brought real joy and gladness to the poor child, and she, too, thought that Susie was rightly called Sunbeam.",
+      "n_mentions": 7,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "This": "agent",
+        "joy": "patient",
+        "gladness": "patient",
+        "child": "patient",
+        "she": "patient",
+        "Susie": "patient",
+        "Sunbeam": "patient"
+      }
+    },
+    {
+      "passage_id": "mary_dash_doll",
+      "clause_idx": 0,
+      "text": "Mary ran about and played with Dash, her pet dog, and was having a happy time.",
+      "n_mentions": 6,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Mary": "agent",
+        "Dash": "patient",
+        "her": "patient",
+        "pet": "patient",
+        "dog": "patient",
+        "time": "patient"
+      }
+    },
+    {
+      "passage_id": "mary_dash_doll",
+      "clause_idx": 1,
+      "text": "But in a corner of the yard she found her nicest doll all torn and broken, and its dress covered with mud.",
+      "n_mentions": 8,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "corner": "agent",
+        "yard": "patient",
+        "she": "patient",
+        "her": "patient",
+        "doll": "patient",
+        "its": "patient",
+        "dress": "patient",
+        "mud": "patient"
+      }
+    },
+    {
+      "passage_id": "mary_dash_doll",
+      "clause_idx": 2,
+      "text": "She knew, at once, that Dash had done this, and she scolded him harshly.",
+      "n_mentions": 5,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "She": "agent",
+        "Dash": "patient",
+        "this": "patient",
+        "she": "patient",
+        "him": "patient"
+      }
+    },
+    {
+      "passage_id": "harry_carriage",
+      "clause_idx": 0,
+      "text": "Soon after, a fine carriage came up, and in it were Harry and his mother.",
+      "n_mentions": 5,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "carriage": "agent",
+        "it": "patient",
+        "Harry": "patient",
+        "his": "patient",
+        "mother": "patient"
+      }
+    },
+    {
+      "passage_id": "harry_carriage",
+      "clause_idx": 1,
+      "text": "The blind man stood, and held out his hat.",
+      "n_mentions": 4,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "man": "agent",
+        "stood": "patient",
+        "his": "patient",
+        "hat": "patient"
+      }
+    },
+    {
+      "passage_id": "harry_carriage",
+      "clause_idx": 2,
+      "text": "\"Let us give the poor man something,\" said Harry to his mother.",
+      "n_mentions": 6,
+      "gate_fired": true,
+      "mention_role_preds": {
+        "us": "none",
+        "man": "none",
+        "something": "addressee",
+        "Harry": "agent",
+        "his": "none",
+        "mother": "none"
+      }
+    },
+    {
+      "passage_id": "edgar_thomas_boat",
+      "clause_idx": 0,
+      "text": "\"Keep still, please, young gentlemen,\" said the boatman, when Edgar Rose and Thomas Read began to move from one side to the other.",
+      "n_mentions": 7,
+      "gate_fired": true,
+      "mention_role_preds": {
+        "gentlemen": "addressee",
+        "boatman": "agent",
+        "Edgar": "none",
+        "Rose": "none",
+        "Thomas": "none",
+        "Read": "none",
+        "side": "none"
+      }
+    },
+    {
+      "passage_id": "edgar_thomas_boat",
+      "clause_idx": 1,
+      "text": "They kept quiet for a short time only.",
+      "n_mentions": 2,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "They": "agent",
+        "time": "patient"
+      }
+    },
+    {
+      "passage_id": "edgar_thomas_boat",
+      "clause_idx": 2,
+      "text": "Edgar soon wanted a stick which Thomas held in his hand.",
+      "n_mentions": 6,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Edgar": "agent",
+        "stick": "patient",
+        "which": "patient",
+        "Thomas": "patient",
+        "his": "patient",
+        "hand": "patient"
+      }
+    },
+    {
+      "passage_id": "james_sport_dog",
+      "clause_idx": 0,
+      "text": "Sport is a good watchdog, and a kind playfellow.",
+      "n_mentions": 4,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Sport": "agent",
+        "watchdog": "patient",
+        "kind": "patient",
+        "playfellow": "patient"
+      }
+    },
+    {
+      "passage_id": "james_sport_dog",
+      "clause_idx": 1,
+      "text": "Every night he guards the house while James and his father are asleep.",
+      "n_mentions": 6,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "night": "agent",
+        "he": "patient",
+        "house": "patient",
+        "James": "patient",
+        "his": "patient",
+        "father": "patient"
+      }
+    },
+    {
+      "passage_id": "james_sport_dog",
+      "clause_idx": 2,
+      "text": "In the daytime, James often uses Sport for his horse.",
+      "n_mentions": 5,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "daytime": "agent",
+        "James": "patient",
+        "Sport": "patient",
+        "his": "patient",
+        "horse": "patient"
+      }
+    },
+    {
+      "passage_id": "willie_bounce",
+      "clause_idx": 0,
+      "text": "Two fast friends were Willie Brown and his little dog Bounce.",
+      "n_mentions": 6,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "friends": "agent",
+        "Willie": "patient",
+        "Brown": "patient",
+        "his": "patient",
+        "dog": "patient",
+        "Bounce": "patient"
+      }
+    },
+    {
+      "passage_id": "willie_bounce",
+      "clause_idx": 1,
+      "text": "Willie could never think of taking a walk without Bounce.",
+      "n_mentions": 3,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Willie": "agent",
+        "walk": "patient",
+        "Bounce": "patient"
+      }
+    },
+    {
+      "passage_id": "willie_bounce",
+      "clause_idx": 2,
+      "text": "Willie taught his dog many cunning tricks, and often said that Bounce could do almost anything in the world but talk.",
+      "n_mentions": 7,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Willie": "agent",
+        "his": "patient",
+        "dog": "patient",
+        "tricks": "patient",
+        "Bounce": "patient",
+        "anything": "patient",
+        "world": "patient"
+      }
+    },
+    {
+      "passage_id": "fred_knife",
+      "clause_idx": 0,
+      "text": "\"It isn't Mr. Raymond's,\" said Fred, shooting wide of the mark.",
+      "n_mentions": 7,
+      "gate_fired": true,
+      "mention_role_preds": {
+        "It": "addressee",
+        "t": "none",
+        "Mr": "none",
+        "Raymond": "none",
+        "s": "addressee",
+        "Fred": "agent",
+        "mark": "none"
+      }
+    },
+    {
+      "passage_id": "fred_knife",
+      "clause_idx": 1,
+      "text": "Do you suppose Fred took any comfort in that knife?",
+      "n_mentions": 4,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "you": "agent",
+        "Fred": "patient",
+        "comfort": "patient",
+        "knife": "patient"
+      }
+    },
+    {
+      "passage_id": "fred_knife",
+      "clause_idx": 2,
+      "text": "Not a bit of comfort did he take.",
+      "n_mentions": 3,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "bit": "agent",
+        "comfort": "patient",
+        "he": "patient"
+      }
+    },
+    {
+      "passage_id": "john_lamb",
+      "clause_idx": 0,
+      "text": "Among them was a beautiful lamb, which belonged to John.",
+      "n_mentions": 4,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "them": "agent",
+        "lamb": "patient",
+        "which": "patient",
+        "John": "patient"
+      }
+    },
+    {
+      "passage_id": "john_lamb",
+      "clause_idx": 1,
+      "text": "Then he felt very sorry that he had deceived his friends and neighbors, and grieved over the loss of his pet lamb.",
+      "n_mentions": 9,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "he": "patient",
+        "his": "patient",
+        "friends": "patient",
+        "neighbors": "patient",
+        "loss": "patient",
+        "pet": "patient",
+        "lamb": "patient"
+      }
+    },
+    {
+      "passage_id": "dodger_terrier",
+      "clause_idx": 0,
+      "text": "The name of James's Scotch terrier is Dodger.",
+      "n_mentions": 5,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "name": "agent",
+        "James": "patient",
+        "Scotch": "patient",
+        "terrier": "patient",
+        "Dodger": "patient"
+      }
+    },
+    {
+      "passage_id": "dodger_terrier",
+      "clause_idx": 1,
+      "text": "He is called Dodger because he jumps about so friskily.",
+      "n_mentions": 3,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "He": "agent",
+        "Dodger": "patient",
+        "he": "patient"
+      }
+    },
+    {
+      "passage_id": "dodger_terrier",
+      "clause_idx": 2,
+      "text": "He is up on a chair, under the table, behind the door, down cellar, and out in the yard, all in a minute.",
+      "n_mentions": 7,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "He": "agent",
+        "chair": "patient",
+        "table": "patient",
+        "door": "patient",
+        "cellar": "patient",
+        "yard": "patient",
+        "minute": "patient"
+      }
+    },
+    {
+      "passage_id": "patty_forest",
+      "clause_idx": 0,
+      "text": "Little Patty lives in a log house near a great forest.",
+      "n_mentions": 5,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Patty": "agent",
+        "lives": "patient",
+        "log": "patient",
+        "house": "patient",
+        "forest": "patient"
+      }
+    },
+    {
+      "passage_id": "patty_forest",
+      "clause_idx": 1,
+      "text": "She has no sisters, and her big brothers are away all day helping their father.",
+      "n_mentions": 7,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "She": "agent",
+        "sisters": "patient",
+        "her": "patient",
+        "brothers": "patient",
+        "day": "patient",
+        "their": "patient",
+        "father": "patient"
+      }
+    },
+    {
+      "passage_id": "patty_forest",
+      "clause_idx": 2,
+      "text": "But Patty is never lonely; for the nearest house is miles away, she has many little friends.",
+      "n_mentions": 5,
+      "gate_fired": false,
+      "mention_role_preds": {
+        "Patty": "agent",
+        "house": "patient",
+        "miles": "patient",
+        "she": "patient",
+        "friends": "patient"
+      }
+    }
+  ],
+  "role_vocab": [
+    "agent",
+    "patient",
+    "theme",
+    "recipient",
+    "addressee",
+    "speaker",
+    "possessor",
+    "experiencer"
+  ],
+  "new_extraction_role_vocab": [
+    "agent",
+    "patient",
+    "addressee",
+    "none"
+  ],
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [
+    [
+      "real",
+      "real_v1_multirole"
+    ]
+  ],
+  "arms_differ_exemption_rationale": "real vs real_v1_multirole: MEASURED 0/23 entities differ in pred_roles on this eval set (dedicated probe); only 15.6% of clauses gate-fire in commit-then-revise here so both models effectively agree via the shared position-like default on this small OOD sample; confirmed not an implementation bug (different training data, different gate logic, genuine coincidental tie on this specific narrow eval set).",
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_lt30s",
+  "elapsed_s": 4.521994699956849,
+  "ts_iso": "2026-08-02T15:21:36Z"
+}
