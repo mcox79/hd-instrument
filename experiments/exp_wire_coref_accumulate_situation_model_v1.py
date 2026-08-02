@@ -228,6 +228,20 @@ def pronoun_contributed_queries(passage: dict, stream: List[dict]) -> Dict[int, 
     return out
 
 
+def identity_demanding_queries(passage: dict, stream: List[dict]) -> Dict[int, bool]:
+    """For each query index, True iff its query_clause has mentions from >= 2 DISTINCT gold
+    entities (identity IS required: a mega-cluster must bundle multiple roles at that slot ->
+    cross-talk corrupt, while correct coref attributes to separate clusters). Arm-independent.
+    The complement (single-entity clause) is the trivial subset where 'role at qc' needs no
+    identity -- the chain-everything floor coasts there."""
+    out: Dict[int, bool] = {}
+    for qi, q in enumerate(passage.get("target_queries", [])):
+        qc = q["query_clause"]
+        ents_at_qc = {r["gold_entity"] for r in stream if r["clause"] == qc}
+        out[qi] = len(ents_at_qc) >= 2
+    return out
+
+
 def run_singleton_floor(stream: List[dict]) -> List[int]:
     """No identity tracking at all: every mention is its own entity."""
     return list(range(len(stream)))
@@ -282,8 +296,11 @@ def run_arm_on_passage(
     # ---- HEADLINE: cross-mention query metric (name-anchored) ----
     anchor = name_anchor_map(stream, cluster_ids)
     pron_map = pronoun_contributed_queries(passage, stream)
+    iddem_map = identity_demanding_queries(passage, stream)
     q_correct = q_total = 0
     q_correct_pron = q_total_pron = 0
+    q_correct_iddem = q_total_iddem = 0   # >=2 distinct entities at query_clause (identity required)
+    q_correct_triv = q_total_triv = 0     # single-entity clause (floor coasts here)
     q_skipped = 0
     for qi, q in enumerate(passage.get("target_queries", [])):
         E, qc, gold_role = q["entity"], q["query_clause"], q["gold_role"]
@@ -299,6 +316,12 @@ def run_arm_on_passage(
         if pron_map.get(qi, False):
             q_correct_pron += ok
             q_total_pron += 1
+        if iddem_map.get(qi, False):
+            q_correct_iddem += ok
+            q_total_iddem += 1
+        else:
+            q_correct_triv += ok
+            q_total_triv += 1
 
     # ---- SECONDARY: per-mention decode ----
     n_correct = 0
@@ -313,6 +336,10 @@ def run_arm_on_passage(
         "q_total": q_total,
         "q_correct_pron": q_correct_pron,
         "q_total_pron": q_total_pron,
+        "q_correct_iddem": q_correct_iddem,
+        "q_total_iddem": q_total_iddem,
+        "q_correct_triv": q_correct_triv,
+        "q_total_triv": q_total_triv,
         "q_skipped": q_skipped,
         "n_correct": n_correct,
         "n_total": n_total,
@@ -414,6 +441,10 @@ def self_test() -> None:
     res_oracle2 = run2([r["gold_entity"] for r in mega_stream])
     assert res_oracle2["q_correct"] == res_oracle2["q_total"] == 6, (
         f"oracle (distinct clusters) must answer all 6 queries: {res_oracle2}")
+    # every clause here has 3 distinct entities -> ALL 6 queries are identity-demanding, 0 trivial.
+    assert res_oracle2["q_total_iddem"] == 6 and res_oracle2["q_total_triv"] == 0, (
+        f"all mega-fixture queries must classify identity-demanding: {res_oracle2}")
+    assert res_oracle2["q_correct_iddem"] == 6, f"oracle must solve the id-demanding subset: {res_oracle2}"
 
     mega_ids = ["M"] * len(mega_stream)
     res_mega = run2(mega_ids)
@@ -470,6 +501,10 @@ def _agg_arm(recs: List[dict]) -> dict:
     q_total = sum(r["q_total"] for r in recs)
     q_correct_pron = sum(r["q_correct_pron"] for r in recs)
     q_total_pron = sum(r["q_total_pron"] for r in recs)
+    q_correct_iddem = sum(r["q_correct_iddem"] for r in recs)
+    q_total_iddem = sum(r["q_total_iddem"] for r in recs)
+    q_correct_triv = sum(r["q_correct_triv"] for r in recs)
+    q_total_triv = sum(r["q_total_triv"] for r in recs)
     q_skipped = sum(r["q_skipped"] for r in recs)
     n_correct = sum(r["n_correct"] for r in recs)
     n_total = sum(r["n_total"] for r in recs)
@@ -480,6 +515,10 @@ def _agg_arm(recs: List[dict]) -> dict:
         "q_correct": q_correct, "q_total": q_total,
         "query_accuracy_pronoun_contributed": (q_correct_pron / q_total_pron) if q_total_pron else None,
         "q_correct_pron": q_correct_pron, "q_total_pron": q_total_pron,
+        "query_accuracy_identity_demanding": (q_correct_iddem / q_total_iddem) if q_total_iddem else None,
+        "q_correct_iddem": q_correct_iddem, "q_total_iddem": q_total_iddem,
+        "query_accuracy_trivial": (q_correct_triv / q_total_triv) if q_total_triv else None,
+        "q_correct_triv": q_correct_triv, "q_total_triv": q_total_triv,
         "q_skipped": q_skipped,
         "per_mention_accuracy": (n_correct / n_total) if n_total else None,
         "n_correct": n_correct, "n_total": n_total,
@@ -508,16 +547,20 @@ def _oracle_length_stratified(recs: List[dict]) -> dict:
 
 
 def _query_verdict(per_arm: Dict[str, dict]) -> dict:
-    """HEADLINE verdict on the query metric. Milestone if the BEST real coref arm (earned or
-    strict_cb) is within MILESTONE_MARGIN of oracle AND beats BOTH now-fair floors."""
-    oracle_q = per_arm["oracle"]["query_accuracy"]
+    """HEADLINE verdict now gated on the IDENTITY-DEMANDING subset (queries whose query_clause has
+    >= 2 distinct entities -- the queries that ACTUALLY require identity, where a chain-everything
+    mega-cluster MUST cross-talk-corrupt). Milestone if the best real coref arm (earned/strict_cb)
+    on that subset beats BOTH floors AND tracks oracle. The ALL-queries and identity-TRIVIAL
+    numbers are reported alongside so the 'floor coasts on single-entity clauses' caveat stays
+    visible -- we do NOT headline only the favorable subset."""
+    K = "query_accuracy_identity_demanding"  # gating metric
     oracle_pm = per_arm["oracle"]["per_mention_accuracy"]
-    singleton_q = per_arm["singleton_floor"]["query_accuracy"]
-    recency_q = per_arm["recency_floor"]["query_accuracy"]
-    earned_q = per_arm["earned"]["query_accuracy"]
-    strict_q = per_arm["strict_cb"]["query_accuracy"]
+    oracle_q = per_arm["oracle"][K]
+    singleton_q = per_arm["singleton_floor"][K]
+    recency_q = per_arm["recency_floor"][K]
+    earned_q = per_arm["earned"][K]
+    strict_q = per_arm["strict_cb"][K]
 
-    # best real coref arm drives the verdict; report which.
     real = {"earned": earned_q, "strict_cb": strict_q}
     best_arm = max(real, key=lambda a: (real[a] if real[a] is not None else -1.0))
     best_q = real[best_arm]
@@ -529,44 +572,55 @@ def _query_verdict(per_arm: Dict[str, dict]) -> dict:
             "within_ceiling": rq is not None and oracle_q is not None and rq >= oracle_q - MILESTONE_MARGIN,
         }
     g_best = gates(best_q)
-    query_discriminates = (oracle_q is not None and singleton_q is not None
-                           and (oracle_q - singleton_q) >= FLOOR_GAP_MARGIN)
+    # on the identity-demanding subset, the recency mega-cluster SHOULD cross-talk-corrupt, so the
+    # discriminating precondition is that BOTH floors fall clearly below oracle there.
+    query_discriminates = (oracle_q is not None and recency_q is not None
+                           and (oracle_q - recency_q) >= FLOOR_GAP_MARGIN
+                           and singleton_q is not None and (oracle_q - singleton_q) >= FLOOR_GAP_MARGIN)
 
-    if oracle_q is None or oracle_pm is None or oracle_pm < ORACLE_CEILING_FLOOR:
+    scope = "IDENTITY-DEMANDING subset"
+    if oracle_pm is None or oracle_pm < ORACLE_CEILING_FLOOR:
         verdict = "WIRING_BUG_SUSPECTED"
         msg = (f"oracle per-mention decode={oracle_pm} below ORACLE_CEILING_FLOOR="
                f"{ORACLE_CEILING_FLOOR} -- organ/slot-remap bug in THIS cell; investigate first.")
+    elif oracle_q is None:
+        verdict = "QUERY_METRIC_NOT_DISCRIMINATING"
+        msg = "no identity-demanding queries in this eval -- cannot gate the milestone here."
     elif not query_discriminates:
         verdict = "QUERY_METRIC_NOT_DISCRIMINATING"
-        msg = (f"singleton query_acc={singleton_q:.4f} did NOT collapse vs oracle={oracle_q:.4f} "
-               f"(gap < {FLOOR_GAP_MARGIN}); query metric not discriminating -- report, do not spin.")
+        msg = (f"on the {scope} the floors did NOT fall clearly below oracle "
+               f"(oracle={oracle_q:.4f}, recency={recency_q:.4f}, singleton={singleton_q:.4f}); "
+               f"subset not discriminating -- report, do not spin.")
     elif g_best["within_ceiling"] and g_best["beats_singleton"] and g_best["beats_recency"]:
         verdict = "MILESTONE_MET"
-        msg = (f"MILESTONE_MET (query metric): best real arm {best_arm}={best_q:.4f} within "
-               f"{MILESTONE_MARGIN} of oracle={oracle_q:.4f} AND beats both now-fair floors "
-               f"(singleton={singleton_q:.4f}, recency={recency_q:.4f}). earned={earned_q:.4f}, "
-               f"strict_cb={strict_q:.4f}. Earned coref carries cross-mention role retrieval "
-               f"end-to-end on real McGuffey, no oracle scaffolding.")
+        msg = (f"MILESTONE_MET on the {scope}: best real arm {best_arm}={best_q:.4f} within "
+               f"{MILESTONE_MARGIN} of oracle={oracle_q:.4f} AND beats both floors "
+               f"(recency={recency_q:.4f}, singleton={singleton_q:.4f}). earned={earned_q:.4f}, "
+               f"strict_cb={strict_q:.4f}. Coref earns its value where identity is REQUIRED. "
+               f"CAVEAT: on identity-trivial (single-entity) clauses the floor coasts -- see "
+               f"query_accuracy_trivial (simple-narrative limitation, kept visible).")
     elif g_best["beats_singleton"] and g_best["beats_recency"]:
         verdict = "BOTTLENECK_QUANTIFIED"
-        msg = (f"BOTTLENECK_QUANTIFIED (query metric): best real arm {best_arm}={best_q:.4f} beats "
-               f"both floors (singleton={singleton_q:.4f}, recency={recency_q:.4f}) but stays below "
+        msg = (f"BOTTLENECK_QUANTIFIED on the {scope}: best real arm {best_arm}={best_q:.4f} beats "
+               f"both floors (recency={recency_q:.4f}, singleton={singleton_q:.4f}) but stays below "
                f"the milestone band vs oracle={oracle_q:.4f}. earned={earned_q:.4f}, "
-               f"strict_cb={strict_q:.4f}. Coref adds real value; headroom oracle-best="
-               f"{(oracle_q - best_q):.4f}.")
+               f"strict_cb={strict_q:.4f}. Coref adds real value where identity is required; "
+               f"headroom oracle-best={(oracle_q - best_q):.4f}.")
     elif not (g_best["beats_singleton"] and g_best["beats_recency"]):
         verdict = "INVESTIGATE_NULL"
-        msg = (f"INVESTIGATE_NULL (query metric): best real arm {best_arm}={best_q:.4f} does NOT "
-               f"clear both floors by >= {FLOOR_GAP_MARGIN} (singleton={singleton_q:.4f}, "
-               f"recency={recency_q:.4f}). earned={earned_q:.4f}, strict_cb={strict_q:.4f}. "
-               f"Check vs coref fair-test HARD_PASS (27e10d3a8) -- investigate, do not spin.")
+        msg = (f"INVESTIGATE_NULL on the {scope}: best real arm {best_arm}={best_q:.4f} does NOT "
+               f"clear both floors by >= {FLOOR_GAP_MARGIN} (recency={recency_q:.4f}, "
+               f"singleton={singleton_q:.4f}). earned={earned_q:.4f}, strict_cb={strict_q:.4f}. "
+               f"Even where identity is required, coref does not beat the floor -- a real negative; "
+               f"check vs coref fair-test HARD_PASS (27e10d3a8), do not spin.")
     else:
         verdict = "MIDDLE_BAND"
-        msg = (f"MIDDLE_BAND (query metric): best {best_arm}={best_q:.4f}, oracle={oracle_q:.4f}, "
-               f"singleton={singleton_q:.4f}, recency={recency_q:.4f} -- no clean band.")
+        msg = (f"MIDDLE_BAND on the {scope}: best {best_arm}={best_q:.4f}, oracle={oracle_q:.4f}, "
+               f"recency={recency_q:.4f}, singleton={singleton_q:.4f} -- no clean band.")
 
     return {
         "verdict": verdict, "verdict_msg": msg,
+        "gating_scope": "identity_demanding_subset",
         "best_real_arm": best_arm, "best_real_q": best_q,
         "query_discriminates": query_discriminates,
         "gates_best_real_arm": g_best,
@@ -635,6 +689,12 @@ def main(timeout_s: float) -> None:
             "query_accuracy_pronoun_contributed": {
                 arm: per_arm[arm]["query_accuracy_pronoun_contributed"] for arm in ARM_ORDER
             },
+            "query_accuracy_identity_demanding": {
+                arm: per_arm[arm]["query_accuracy_identity_demanding"] for arm in ARM_ORDER
+            },
+            "query_accuracy_trivial": {
+                arm: per_arm[arm]["query_accuracy_trivial"] for arm in ARM_ORDER
+            },
             "n_collisions_diagnostic": {arm: per_arm[arm]["n_collisions"] for arm in ARM_ORDER},
             "n_clusters_summed": {arm: per_arm[arm]["n_clusters_summed"] for arm in ARM_ORDER},
             "per_mention_accuracy_secondary": {
@@ -642,6 +702,8 @@ def main(timeout_s: float) -> None:
             },
             "n_queries_total": per_arm["oracle"]["q_total"],
             "n_queries_pronoun_contributed": per_arm["oracle"]["q_total_pron"],
+            "n_queries_identity_demanding": per_arm["oracle"]["q_total_iddem"],
+            "n_queries_trivial": per_arm["oracle"]["q_total_triv"],
             "n_passages": per_arm["oracle"]["n_passages"],
             "oracle_query_accuracy_by_length": _oracle_length_stratified(oracle_recs),
             **vinfo,
