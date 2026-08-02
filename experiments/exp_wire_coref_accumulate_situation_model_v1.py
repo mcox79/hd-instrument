@@ -56,12 +56,14 @@ CAN-FAIL BANDS (pre-registered BEFORE running; all on the HEADLINE query metric)
                            the slot-remap has a bug in THIS cell; investigate before trusting arms.
 
 Event-slot mapping: per passage, distinct clause indices are compacted to slots 0..k-1
-(dense-ranked, sorted). Collision policy (documented, not hidden): if the same (cluster_id,
-event_slot) pair recurs for a later mention (either two gold mentions truly share a clause+
-cluster, or -- the interesting case -- a coref MERGE puts two different gold entities' events
-into the same cluster at the same slot), only the FIRST such mention's add_event call binds the
-register; later same-key mentions are still scored against that already-bound slot (this is the
-real end-to-end penalty a merge inflicts) and counted in n_collisions.
+(dense-ranked, sorted). Collision policy (FIXED 2026-08-02, was a metric bug): EVERY mention is
+add_event'd into its cluster's register -- a recurring (cluster_id, event_slot) key is NEVER
+skipped. The AccumulateRegister is designed to bundle multiple events and let FHRR cross-talk
+degrade decode when a cluster is over-merged; that cross-talk IS the intended penalty for a
+wrong merge. The prior code SKIPPED the add on a recurring key, which protected a mega-cluster
+(e.g. recency_floor's single collapse-all cluster) from that penalty and artificially inflated
+its query score -- the artifact that made recency_floor spuriously "beat" earned coref.
+n_collisions is now a DIAGNOSTIC count of recurring keys only; it no longer changes what binds.
 
 Roles are SUPPLIED gold here (the extraction organ is a separate, already-~0.60 layer); this
 cell isolates the identity(coref)+accumulate integration only.
@@ -96,10 +98,24 @@ from exp_earn_coref_match_or_allocate_v1 import (  # noqa: E402
 )
 import exp_checkpoint as ckpt  # noqa: E402 (per-unit checkpoint/resume, MANDATORY per CLAUDE.md)
 
+# strict-Cb powered pronoun lever (commit 5b266248f): imported, NOT reimplemented. LAZY import
+# (inside cluster_ids_for_arm) because that cell imports helpers from THIS module -- a top-level
+# import here would be circular. The lazy import runs after this module is fully initialized.
+def _run_learnable_strict_cb(stream):
+    from exp_earn_coref_pronoun_strict_cb_v1 import run_learnable_strict_cb
+    return run_learnable_strict_cb(stream)
+
 ANCHOR_NAME = "wire_coref_accumulate_situation_model_v1"
-GOLD_PATH = os.path.join(
-    REPO_ROOT, "data", "eval_gold_mention_role_mcguffey_v1", "gold_multientity_dense_v1.jsonl"
-)
+_GOLD_DIR = os.path.join(REPO_ROOT, "data", "eval_gold_mention_role_mcguffey_v1")
+# HEADLINE eval = powered pronoun combined (36 passages, 129 pronoun mentions, 130 queries);
+# SECONDARY = g5g6-only reviewed verbatim subset (18 passages).
+EVALS = {
+    "powered": os.path.join(_GOLD_DIR, "gold_combined_pronoun_powered_v1.jsonl"),
+    "g5g6_reviewed": os.path.join(_GOLD_DIR, "gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl"),
+}
+HEADLINE_EVAL = "powered"
+# Legacy single-file path kept for the --self-test real-gold sanity check.
+GOLD_PATH = os.path.join(_GOLD_DIR, "gold_multientity_dense_v1.jsonl")
 
 # Role vocab = union across dense gold, per the design doc (7 of the 9 actually occur in this
 # eval; the extra 2 are declared for forward-compat with other gold files sharing this vocab).
@@ -111,7 +127,7 @@ D = 1024  # project default N per CLAUDE.md
 MAX_EVENT_SLOTS = 16  # headroom; dense gold max distinct clauses/passage observed = 8
 SEED = 20260802
 
-ARM_ORDER = ["oracle", "earned", "recency_floor", "singleton_floor"]
+ARM_ORDER = ["oracle", "earned", "strict_cb", "recency_floor", "singleton_floor"]
 
 MILESTONE_MARGIN = 0.05
 FLOOR_GAP_MARGIN = 0.05
@@ -222,6 +238,8 @@ def cluster_ids_for_arm(arm: str, stream: List[dict]) -> List[str]:
         return [r["gold_entity"] for r in stream]
     if arm == "earned":
         return [str(c) for c in run_learnable(stream)]
+    if arm == "strict_cb":
+        return [str(c) for c in _run_learnable_strict_cb(stream)]
     if arm == "recency_floor":
         return [str(c) for c in run_recency_floor(stream)]
     if arm == "singleton_floor":
@@ -240,19 +258,25 @@ def run_arm_on_passage(
     generator: torch.Generator,
     max_event_slots: int,
 ) -> dict:
-    """Build one AccumulateRegister for this (passage, arm), add_event per mention (first
-    occurrence of a (cluster_id, event_slot) key only -- collision policy above). Score BOTH:
-      (headline) the cross-mention QUERY metric via name-anchored cluster decode (target_queries);
-      (secondary) the per-mention decode of every mention-event (organ-wiring + crosstalk diag)."""
+    """Build one AccumulateRegister for this (passage, arm), add_event for EVERY mention. Score
+    BOTH: (headline) the cross-mention QUERY metric via name-anchored cluster decode
+    (target_queries); (secondary) the per-mention decode of every mention-event.
+
+    COLLISION POLICY (fixed 2026-08-02): every mention is add_event'd -- NEVER skipped. The
+    accumulate organ is DESIGNED to bundle multiple events into one register and let FHRR
+    cross-talk degrade decode when a cluster is over-merged; that cross-talk IS the intended
+    penalty for a wrong merge. The prior code skipped an add when a (cluster_id, event_slot) key
+    recurred, which PROTECTED a mega-cluster (e.g. recency_floor's single collapse-all cluster)
+    from the penalty it should incur and artificially inflated its query score. n_collisions is
+    now a DIAGNOSTIC count of recurring keys only -- it no longer changes what gets bound."""
     reg = AccumulateRegister(role_vocab, d, generator, max_event_slots=max_event_slots)
-    added_keys = set()
+    seen_keys = set()
     n_collisions = 0
     for rec, cid, slot in zip(stream, cluster_ids, event_slots):
         key = (cid, slot)
-        if key in added_keys:
-            n_collisions += 1
-            continue
-        added_keys.add(key)
+        if key in seen_keys:
+            n_collisions += 1  # diagnostic only: still bundle it (cross-talk is the real penalty)
+        seen_keys.add(key)
         reg.add_event(cid, rec["role"], slot)
 
     # ---- HEADLINE: cross-mention query metric (name-anchored) ----
@@ -355,26 +379,70 @@ def self_test() -> None:
     assert res_single["q_correct"] < res_oracle["q_correct"], (
         f"singleton query score must fall below oracle: single={res_single} oracle={res_oracle}")
 
-    # MERGED: force everything into one cluster -> per-mention decode corrupts via slot collision.
-    merged_ids = ["M", "M", "M"]
-    res_merged = run(merged_ids)
-    assert res_merged["n_collisions"] == 1, f"Bob@c1 collides with she@c1 in one cluster: {res_merged}"
-    assert res_merged["accuracy"] < 1.0, f"merge must corrupt per-mention decode: {res_merged}"
+    # ---- MEGA-CLUSTER CROSS-TALK FIXTURE (the collision-policy fix) ----
+    # 3 distinct entities each appearing in BOTH clauses with DIFFERENT roles. Collapsing them
+    # all into ONE cluster bundles 3 conflicting roles at each event slot. Under the FIXED policy
+    # (add EVERY mention, never skip) the mega-cluster's decode is ambiguous -> it must score
+    # POORLY on the query metric (cross-talk = the intended penalty). Under the OLD buggy skip
+    # policy the mega-cluster would bind only the FIRST role per slot and decode cleanly -> this
+    # is exactly the artifact that let recency_floor "beat" earned coref.
+    d2 = 1024
+    role_vocab2 = ["agent", "theme", "patient", "recipient"]
+    mega_stream = [
+        _mk("A", 0, "agent", "Ann", False),
+        _mk("B", 0, "patient", "Bob", False),
+        _mk("C", 0, "theme", "Cal", False),
+        _mk("A", 1, "theme", "Ann", False),
+        _mk("B", 1, "agent", "Bob", False),
+        _mk("C", 1, "patient", "Cal", False),
+    ]
+    mega_passage = {"target_queries": [
+        {"entity": "A", "query_clause": 0, "gold_role": "agent"},
+        {"entity": "B", "query_clause": 0, "gold_role": "patient"},
+        {"entity": "C", "query_clause": 0, "gold_role": "theme"},
+        {"entity": "A", "query_clause": 1, "gold_role": "theme"},
+        {"entity": "B", "query_clause": 1, "gold_role": "agent"},
+        {"entity": "C", "query_clause": 1, "gold_role": "patient"},
+    ]}
+    m_slots, m_n, m_c2s = event_slots_for(mega_stream)
 
-    # real gold path + real coref mechanism, sanity only (not scored).
-    assert os.path.exists(GOLD_PATH), f"dense gold file missing: {GOLD_PATH}"
-    passages = load_passages(GOLD_PATH)
-    assert len(passages) == 18, f"expected 18 dense passages, got {len(passages)}"
-    real_stream = build_mention_stream_with_role(passages[0])
-    assert len(real_stream) > 0
-    assert all("role" in r for r in real_stream), "role field must survive the local stream builder"
-    _rs, real_n_slots, _c2s = event_slots_for(real_stream)
-    assert real_n_slots <= MAX_EVENT_SLOTS
-    _ = run_learnable(real_stream)
+    def run2(ids, seed=7):
+        gen = torch.Generator().manual_seed(seed)
+        return run_arm_on_passage(mega_passage, mega_stream, ids, m_slots, m_c2s,
+                                  role_vocab2, d2, gen, 4)
 
-    print("[SELF-TEST] PASS: query metric discriminates (singleton MISSES pronoun-contributed "
-          "query while its per-mention decode stays 1.0; oracle hits), collision policy, "
-          "merge-corrupts-decode, and real gold/coref path all verified")
+    res_oracle2 = run2([r["gold_entity"] for r in mega_stream])
+    assert res_oracle2["q_correct"] == res_oracle2["q_total"] == 6, (
+        f"oracle (distinct clusters) must answer all 6 queries: {res_oracle2}")
+
+    mega_ids = ["M"] * len(mega_stream)
+    res_mega = run2(mega_ids)
+    # diagnostic: 2 events per slot recur after the first -> 4 collisions counted, NONE skipped.
+    assert res_mega["n_collisions"] == 4, f"mega-cluster must COUNT 4 recurring keys: {res_mega}"
+    assert res_mega["n_clusters"] == 1, f"mega-cluster is a single cluster: {res_mega}"
+    # the FIX: mega-cluster piles 3 conflicting roles per slot -> cross-talk -> POOR query score.
+    assert res_mega["q_correct"] <= 3, (
+        f"FIXED collision policy: mega-cluster cross-talk must corrupt >= half the queries "
+        f"(<=3/6), NOT decode cleanly as the old skip policy allowed: {res_mega}")
+    assert res_mega["q_correct"] < res_oracle2["q_correct"], (
+        f"mega-cluster query score must fall well below oracle: mega={res_mega} oracle={res_oracle2}")
+
+    # real gold path + real coref mechanism, sanity only (not scored) -- exercise BOTH powered
+    # evals + strict_cb so a missing file / signature drift is caught at self-test.
+    for _ename, _epath in EVALS.items():
+        assert os.path.exists(_epath), f"eval file missing: {_epath}"
+        _ps = load_passages(_epath)
+        assert len(_ps) > 0
+        _rstream = build_mention_stream_with_role(_ps[0])
+        assert _rstream and all("role" in r for r in _rstream), f"role field dropped in {_ename}"
+        _rs, _rn, _rc = event_slots_for(_rstream)
+        assert _rn <= MAX_EVENT_SLOTS, f"{_ename} passage 0 exceeds MAX_EVENT_SLOTS"
+        _ = run_learnable(_rstream)
+        _ = _run_learnable_strict_cb(_rstream)
+
+    print("[SELF-TEST] PASS: FIXED collision policy (mega-cluster cross-talk corrupts query decode "
+          "instead of being skip-protected); query metric discriminates (singleton misses pronoun "
+          "query while per-mention stays 1.0); oracle hits; both powered evals + strict_cb load")
 
 
 # ---------------------------------------------------------------------------
@@ -397,149 +465,198 @@ def _write_crash_metrics(output_dir: str, exc: Exception) -> None:
     os.replace(tmp, final)
 
 
+def _agg_arm(recs: List[dict]) -> dict:
+    q_correct = sum(r["q_correct"] for r in recs)
+    q_total = sum(r["q_total"] for r in recs)
+    q_correct_pron = sum(r["q_correct_pron"] for r in recs)
+    q_total_pron = sum(r["q_total_pron"] for r in recs)
+    q_skipped = sum(r["q_skipped"] for r in recs)
+    n_correct = sum(r["n_correct"] for r in recs)
+    n_total = sum(r["n_total"] for r in recs)
+    n_collisions = sum(r["n_collisions"] for r in recs)
+    n_clusters = sum(r["n_clusters"] for r in recs)
+    return {
+        "query_accuracy": (q_correct / q_total) if q_total else None,
+        "q_correct": q_correct, "q_total": q_total,
+        "query_accuracy_pronoun_contributed": (q_correct_pron / q_total_pron) if q_total_pron else None,
+        "q_correct_pron": q_correct_pron, "q_total_pron": q_total_pron,
+        "q_skipped": q_skipped,
+        "per_mention_accuracy": (n_correct / n_total) if n_total else None,
+        "n_correct": n_correct, "n_total": n_total,
+        "n_collisions": n_collisions, "n_clusters_summed": n_clusters,
+        "n_passages": len(recs),
+    }
+
+
+def _length_bucket(n_slots: int) -> str:
+    return "short_le4" if n_slots <= 4 else ("med_5to7" if n_slots <= 7 else "long_ge8")
+
+
+def _oracle_length_stratified(recs: List[dict]) -> dict:
+    """oracle query accuracy by passage clause-count bucket -- surfaces any FHRR bundling-capacity
+    drop on LONGER multi-event registers (atom 29609 validated only chain-length 2-3)."""
+    buckets: Dict[str, dict] = {}
+    for r in recs:
+        b = _length_bucket(r["n_distinct_clause_slots"])
+        d = buckets.setdefault(b, {"q_correct": 0, "q_total": 0, "n_passages": 0})
+        d["q_correct"] += r["q_correct"]
+        d["q_total"] += r["q_total"]
+        d["n_passages"] += 1
+    for b, d in buckets.items():
+        d["query_accuracy"] = (d["q_correct"] / d["q_total"]) if d["q_total"] else None
+    return buckets
+
+
+def _query_verdict(per_arm: Dict[str, dict]) -> dict:
+    """HEADLINE verdict on the query metric. Milestone if the BEST real coref arm (earned or
+    strict_cb) is within MILESTONE_MARGIN of oracle AND beats BOTH now-fair floors."""
+    oracle_q = per_arm["oracle"]["query_accuracy"]
+    oracle_pm = per_arm["oracle"]["per_mention_accuracy"]
+    singleton_q = per_arm["singleton_floor"]["query_accuracy"]
+    recency_q = per_arm["recency_floor"]["query_accuracy"]
+    earned_q = per_arm["earned"]["query_accuracy"]
+    strict_q = per_arm["strict_cb"]["query_accuracy"]
+
+    # best real coref arm drives the verdict; report which.
+    real = {"earned": earned_q, "strict_cb": strict_q}
+    best_arm = max(real, key=lambda a: (real[a] if real[a] is not None else -1.0))
+    best_q = real[best_arm]
+
+    def gates(rq):
+        return {
+            "beats_singleton": rq is not None and singleton_q is not None and (rq - singleton_q) >= FLOOR_GAP_MARGIN,
+            "beats_recency": rq is not None and recency_q is not None and (rq - recency_q) >= FLOOR_GAP_MARGIN,
+            "within_ceiling": rq is not None and oracle_q is not None and rq >= oracle_q - MILESTONE_MARGIN,
+        }
+    g_best = gates(best_q)
+    query_discriminates = (oracle_q is not None and singleton_q is not None
+                           and (oracle_q - singleton_q) >= FLOOR_GAP_MARGIN)
+
+    if oracle_q is None or oracle_pm is None or oracle_pm < ORACLE_CEILING_FLOOR:
+        verdict = "WIRING_BUG_SUSPECTED"
+        msg = (f"oracle per-mention decode={oracle_pm} below ORACLE_CEILING_FLOOR="
+               f"{ORACLE_CEILING_FLOOR} -- organ/slot-remap bug in THIS cell; investigate first.")
+    elif not query_discriminates:
+        verdict = "QUERY_METRIC_NOT_DISCRIMINATING"
+        msg = (f"singleton query_acc={singleton_q:.4f} did NOT collapse vs oracle={oracle_q:.4f} "
+               f"(gap < {FLOOR_GAP_MARGIN}); query metric not discriminating -- report, do not spin.")
+    elif g_best["within_ceiling"] and g_best["beats_singleton"] and g_best["beats_recency"]:
+        verdict = "MILESTONE_MET"
+        msg = (f"MILESTONE_MET (query metric): best real arm {best_arm}={best_q:.4f} within "
+               f"{MILESTONE_MARGIN} of oracle={oracle_q:.4f} AND beats both now-fair floors "
+               f"(singleton={singleton_q:.4f}, recency={recency_q:.4f}). earned={earned_q:.4f}, "
+               f"strict_cb={strict_q:.4f}. Earned coref carries cross-mention role retrieval "
+               f"end-to-end on real McGuffey, no oracle scaffolding.")
+    elif g_best["beats_singleton"] and g_best["beats_recency"]:
+        verdict = "BOTTLENECK_QUANTIFIED"
+        msg = (f"BOTTLENECK_QUANTIFIED (query metric): best real arm {best_arm}={best_q:.4f} beats "
+               f"both floors (singleton={singleton_q:.4f}, recency={recency_q:.4f}) but stays below "
+               f"the milestone band vs oracle={oracle_q:.4f}. earned={earned_q:.4f}, "
+               f"strict_cb={strict_q:.4f}. Coref adds real value; headroom oracle-best="
+               f"{(oracle_q - best_q):.4f}.")
+    elif not (g_best["beats_singleton"] and g_best["beats_recency"]):
+        verdict = "INVESTIGATE_NULL"
+        msg = (f"INVESTIGATE_NULL (query metric): best real arm {best_arm}={best_q:.4f} does NOT "
+               f"clear both floors by >= {FLOOR_GAP_MARGIN} (singleton={singleton_q:.4f}, "
+               f"recency={recency_q:.4f}). earned={earned_q:.4f}, strict_cb={strict_q:.4f}. "
+               f"Check vs coref fair-test HARD_PASS (27e10d3a8) -- investigate, do not spin.")
+    else:
+        verdict = "MIDDLE_BAND"
+        msg = (f"MIDDLE_BAND (query metric): best {best_arm}={best_q:.4f}, oracle={oracle_q:.4f}, "
+               f"singleton={singleton_q:.4f}, recency={recency_q:.4f} -- no clean band.")
+
+    return {
+        "verdict": verdict, "verdict_msg": msg,
+        "best_real_arm": best_arm, "best_real_q": best_q,
+        "query_discriminates": query_discriminates,
+        "gates_best_real_arm": g_best,
+        "value_ceiling_earned_over_oracle": (earned_q / oracle_q) if oracle_q else None,
+        "value_ceiling_strict_cb_over_oracle": (strict_q / oracle_q) if oracle_q else None,
+    }
+
+
 def main(timeout_s: float) -> None:
     t0 = time.perf_counter()
     output_dir = repo_path(f"data/exp_{ANCHOR_NAME}")
     os.makedirs(output_dir, exist_ok=True)
 
-    passages = sorted(load_passages(GOLD_PATH), key=lambda p: p["passage_id"])
-    streams = {p["passage_id"]: build_mention_stream_with_role(p) for p in passages}
+    # load both evals (deterministic passage order)
+    eval_passages = {
+        ename: sorted(load_passages(epath), key=lambda p: p["passage_id"])
+        for ename, epath in EVALS.items()
+    }
+    total_units = sum(len(ps) * len(ARM_ORDER) for ps in eval_passages.values())
 
     done = ckpt.completed_units(output_dir)
-    total_units = len(passages) * len(ARM_ORDER)
     n_run = 0
-    for p_idx, p in enumerate(passages):
-        pid = p["passage_id"]
-        stream = streams[pid]
-        event_slots, n_slots, clause_to_slot = event_slots_for(stream)
-        assert n_slots <= MAX_EVENT_SLOTS, (
-            f"passage {pid} has {n_slots} distinct clause slots > MAX_EVENT_SLOTS={MAX_EVENT_SLOTS}"
-        )
-        for a_idx, arm in enumerate(ARM_ORDER):
-            key = ckpt.unit_key(pid, arm)
-            if key in done:
-                continue
-            if time.perf_counter() - t0 > timeout_s:
-                raise TimeoutError(
-                    f"exceeded --timeout {timeout_s}s after {n_run}/{total_units} units; "
-                    f"resume by re-running (checkpointed)."
-                )
-            cluster_ids = cluster_ids_for_arm(arm, stream)
-            gen = torch.Generator().manual_seed(SEED + p_idx * 100 + a_idx)
-            res = run_arm_on_passage(p, stream, cluster_ids, event_slots, clause_to_slot,
-                                     ROLE_VOCAB, D, gen, MAX_EVENT_SLOTS)
-            res["passage_id"] = pid
-            res["arm"] = arm
-            res["n_distinct_clause_slots"] = n_slots
-            ckpt.record_unit(output_dir, key, res)
-            n_run += 1
+    for ename in sorted(EVALS):
+        passages = eval_passages[ename]
+        for p_idx, p in enumerate(passages):
+            pid = p["passage_id"]
+            stream = build_mention_stream_with_role(p)
+            event_slots, n_slots, clause_to_slot = event_slots_for(stream)
+            assert n_slots <= MAX_EVENT_SLOTS, (
+                f"{ename}/{pid} has {n_slots} clause slots > MAX_EVENT_SLOTS={MAX_EVENT_SLOTS}"
+            )
+            for a_idx, arm in enumerate(ARM_ORDER):
+                key = ckpt.unit_key(ename, pid, arm)
+                if key in done:
+                    continue
+                if time.perf_counter() - t0 > timeout_s:
+                    raise TimeoutError(
+                        f"exceeded --timeout {timeout_s}s after {n_run} new units; resume by "
+                        f"re-running (checkpointed)."
+                    )
+                cluster_ids = cluster_ids_for_arm(arm, stream)
+                gen = torch.Generator().manual_seed(SEED + p_idx * 100 + a_idx)
+                res = run_arm_on_passage(p, stream, cluster_ids, event_slots, clause_to_slot,
+                                         ROLE_VOCAB, D, gen, MAX_EVENT_SLOTS)
+                res["eval"] = ename
+                res["passage_id"] = pid
+                res["arm"] = arm
+                res["n_distinct_clause_slots"] = n_slots
+                ckpt.record_unit(output_dir, key, res)
+                n_run += 1
 
     units = ckpt.load_units(output_dir)
     assert len(units) == total_units, f"expected {total_units} units, have {len(units)}"
 
-    per_arm: Dict[str, dict] = {}
-    for arm in ARM_ORDER:
-        recs = [u for k, u in units.items() if u["arm"] == arm]
-        # HEADLINE query metric (cross-mention, name-anchored)
-        q_correct = sum(r["q_correct"] for r in recs)
-        q_total = sum(r["q_total"] for r in recs)
-        q_correct_pron = sum(r["q_correct_pron"] for r in recs)
-        q_total_pron = sum(r["q_total_pron"] for r in recs)
-        q_skipped = sum(r["q_skipped"] for r in recs)
-        # SECONDARY per-mention decode metric
-        n_correct = sum(r["n_correct"] for r in recs)
-        n_total = sum(r["n_total"] for r in recs)
-        n_collisions = sum(r["n_collisions"] for r in recs)
-        per_arm[arm] = {
-            "query_accuracy": (q_correct / q_total) if q_total else None,
-            "q_correct": q_correct,
-            "q_total": q_total,
-            "query_accuracy_pronoun_contributed": (q_correct_pron / q_total_pron) if q_total_pron else None,
-            "q_correct_pron": q_correct_pron,
-            "q_total_pron": q_total_pron,
-            "q_skipped": q_skipped,
-            "per_mention_accuracy": (n_correct / n_total) if n_total else None,
-            "n_correct": n_correct,
-            "n_total": n_total,
-            "n_collisions": n_collisions,
-            "n_passages": len(recs),
+    # per-eval aggregation
+    eval_blocks: Dict[str, dict] = {}
+    for ename in EVALS:
+        per_arm = {arm: _agg_arm([u for u in units.values()
+                                  if u["eval"] == ename and u["arm"] == arm])
+                   for arm in ARM_ORDER}
+        vinfo = _query_verdict(per_arm)
+        oracle_recs = [u for u in units.values() if u["eval"] == ename and u["arm"] == "oracle"]
+        eval_blocks[ename] = {
+            "per_arm": per_arm,
+            "query_accuracy": {arm: per_arm[arm]["query_accuracy"] for arm in ARM_ORDER},
+            "query_accuracy_pronoun_contributed": {
+                arm: per_arm[arm]["query_accuracy_pronoun_contributed"] for arm in ARM_ORDER
+            },
+            "n_collisions_diagnostic": {arm: per_arm[arm]["n_collisions"] for arm in ARM_ORDER},
+            "n_clusters_summed": {arm: per_arm[arm]["n_clusters_summed"] for arm in ARM_ORDER},
+            "per_mention_accuracy_secondary": {
+                arm: per_arm[arm]["per_mention_accuracy"] for arm in ARM_ORDER
+            },
+            "n_queries_total": per_arm["oracle"]["q_total"],
+            "n_queries_pronoun_contributed": per_arm["oracle"]["q_total_pron"],
+            "n_passages": per_arm["oracle"]["n_passages"],
+            "oracle_query_accuracy_by_length": _oracle_length_stratified(oracle_recs),
+            **vinfo,
         }
 
-    # HEADLINE metric = cross-mention query accuracy
-    oracle_q = per_arm["oracle"]["query_accuracy"]
-    earned_q = per_arm["earned"]["query_accuracy"]
-    recency_q = per_arm["recency_floor"]["query_accuracy"]
-    singleton_q = per_arm["singleton_floor"]["query_accuracy"]
-    value_ceiling = (earned_q / oracle_q) if oracle_q else None
-    # SECONDARY (per-mention) kept for organ-wiring + crosstalk diagnostics
-    oracle_pm = per_arm["oracle"]["per_mention_accuracy"]
-    earned_pm = per_arm["earned"]["per_mention_accuracy"]
-
-    beats_singleton = (earned_q is not None and singleton_q is not None
-                       and (earned_q - singleton_q) >= FLOOR_GAP_MARGIN)
-    beats_recency = (earned_q is not None and recency_q is not None
-                     and (earned_q - recency_q) >= FLOOR_GAP_MARGIN)
-    within_ceiling = (earned_q is not None and oracle_q is not None
-                      and earned_q >= oracle_q - MILESTONE_MARGIN)
-    # discriminating precondition: singleton must COLLAPSE vs oracle on the query metric, else
-    # the query metric is not discriminating and no milestone can be claimed on it.
-    query_discriminates = (oracle_q is not None and singleton_q is not None
-                           and (oracle_q - singleton_q) >= FLOOR_GAP_MARGIN)
-
-    # ---- can-fail bands (pre-registered, see docstring; HEADLINE = query metric) ----
-    if oracle_q is None or oracle_pm is None or oracle_pm < ORACLE_CEILING_FLOOR:
-        verdict = "WIRING_BUG_SUSPECTED"
-        verdict_msg = (
-            f"oracle per-mention decode={oracle_pm} below ORACLE_CEILING_FLOOR={ORACLE_CEILING_FLOOR} "
-            f"(or query metric empty) -- the accumulate organ or the event-slot remap has a bug in "
-            f"THIS cell; investigate before trusting earned/floor arms."
-        )
-    elif not query_discriminates:
-        verdict = "QUERY_METRIC_NOT_DISCRIMINATING"
-        verdict_msg = (
-            f"singleton query_acc={singleton_q:.4f} did NOT collapse vs oracle={oracle_q:.4f} "
-            f"(gap < {FLOOR_GAP_MARGIN}) -- the query metric is not discriminating on this gold; "
-            f"no milestone can be claimed. Report, do not spin."
-        )
-    elif within_ceiling and beats_singleton and beats_recency:
-        verdict = "MILESTONE_MET"
-        verdict_msg = (
-            f"MILESTONE_MET (query metric): earned={earned_q:.4f} within {MILESTONE_MARGIN} of "
-            f"oracle ceiling={oracle_q:.4f} (value_ceiling={value_ceiling:.4f}) AND beats both "
-            f"floors -- singleton={singleton_q:.4f}, recency={recency_q:.4f} (both by >= "
-            f"{FLOOR_GAP_MARGIN}). Earned coref carries cross-mention role retrieval end-to-end on "
-            f"real McGuffey, no oracle scaffolding."
-        )
-    elif beats_singleton and beats_recency:
-        verdict = "BOTTLENECK_QUANTIFIED"
-        verdict_msg = (
-            f"BOTTLENECK_QUANTIFIED (query metric): earned={earned_q:.4f} beats singleton="
-            f"{singleton_q:.4f} and recency={recency_q:.4f} (both by >= {FLOOR_GAP_MARGIN}) but "
-            f"stays below the milestone band vs oracle={oracle_q:.4f} (value_ceiling="
-            f"{value_ceiling:.4f}). Coref adds value but is the quantified bottleneck; remaining "
-            f"headroom oracle-earned={(oracle_q - earned_q):.4f}."
-        )
-    elif (not beats_singleton) or (not beats_recency):
-        verdict = "INVESTIGATE_NULL"
-        verdict_msg = (
-            f"INVESTIGATE_NULL (query metric): earned={earned_q:.4f} does NOT clear both floors by "
-            f">= {FLOOR_GAP_MARGIN} (singleton={singleton_q:.4f}, recency={recency_q:.4f}). Earned "
-            f"coref adds little at the situation-model level; check against the coref fair-test "
-            f"HARD_PASS (commit 27e10d3a8) -- investigate, do not spin."
-        )
-    else:
-        verdict = "MIDDLE_BAND"
-        verdict_msg = (
-            f"MIDDLE_BAND (query metric): earned={earned_q:.4f}, oracle={oracle_q:.4f}, "
-            f"singleton={singleton_q:.4f}, recency={recency_q:.4f} -- no clean band."
-        )
+    head = eval_blocks[HEADLINE_EVAL]
+    verdict = head["verdict"]
+    verdict_msg = head["verdict_msg"]
 
     elapsed = time.perf_counter() - t0
     metrics = {
         "anchor_name": ANCHOR_NAME,
         "verdict": verdict,
         "verdict_msg": verdict_msg,
-        "summary": verdict,
+        "summary": f"{verdict} (headline eval={HEADLINE_EVAL})",
         "elapsed_s": elapsed,
         "ts_iso": datetime.now(timezone.utc).isoformat(),
         "pid": os.getpid(),
@@ -547,34 +664,17 @@ def main(timeout_s: float) -> None:
         "d": D,
         "max_event_slots": MAX_EVENT_SLOTS,
         "role_vocab": ROLE_VOCAB,
-        "gold_path": GOLD_PATH,
-        "n_passages": len(passages),
-        "arm_order": ARM_ORDER,
-        "per_arm": per_arm,
+        "evals": EVALS,
+        "headline_eval": HEADLINE_EVAL,
         "headline_metric": "cross_mention_query_accuracy_name_anchored",
-        "query_accuracy": {
-            "oracle": oracle_q, "earned": earned_q,
-            "recency_floor": recency_q, "singleton_floor": singleton_q,
-        },
-        "query_accuracy_pronoun_contributed": {
-            arm: per_arm[arm]["query_accuracy_pronoun_contributed"] for arm in ARM_ORDER
-        },
-        "n_queries_total": per_arm["oracle"]["q_total"],
-        "n_queries_pronoun_contributed": per_arm["oracle"]["q_total_pron"],
-        "n_queries_skipped": per_arm["oracle"]["q_skipped"],
-        "value_ceiling_earned_over_oracle_query": value_ceiling,
-        "query_discriminates": query_discriminates,
-        "earned_beats_singleton": beats_singleton,
-        "earned_beats_recency": beats_recency,
-        "earned_within_ceiling": within_ceiling,
-        "secondary_per_mention_accuracy": {
-            arm: per_arm[arm]["per_mention_accuracy"] for arm in ARM_ORDER
-        },
+        "arm_order": ARM_ORDER,
+        "eval_blocks": eval_blocks,
+        "collision_policy": "add_every_mention_never_skip_ncollisions_is_diagnostic_only",
         "secondary_note": (
-            "per_mention decode is a SECONDARY diagnostic only: it validly confirms organ wiring "
-            "(oracle high) + earned-vs-oracle crosstalk, but singleton scores ~1.0 on it (1 event/"
-            "register, no crosstalk) so it CANNOT show coref adds value -- the query metric is the "
-            "headline."
+            "per_mention decode is a SECONDARY diagnostic (organ wiring via oracle + crosstalk); "
+            "singleton scores ~1.0 on it so it cannot show coref adds value -- query metric is "
+            "the headline. Collision-skip metric bug fixed 2026-08-02: every mention is now "
+            "add_event'd so a mega-cluster incurs the FHRR cross-talk penalty it should."
         ),
         "bands": {
             "milestone_margin": MILESTONE_MARGIN,
@@ -589,6 +689,7 @@ def main(timeout_s: float) -> None:
         "prior_commits": {
             "coref_fair_test_hard_pass": "27e10d3a8",
             "possessive_gender_fix": "a0aac7eeb",
+            "strict_cb_pronoun_lever": "5b266248f",
             "accumulate_organ_atom": "29609",
         },
     }
@@ -606,11 +707,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument(
-        "--timeout", type=float, default=120.0,
+        "--timeout", type=float, default=180.0,
         help=(
-            "formula: 18 passages x 4 arms = 72 units, each unit is O(n_mentions^0) FHRR bind/"
-            "unbind on d=1024 vectors (<50ms/unit measured on comparable cells); 120s gives "
-            "~1.6s/unit headroom, generous for a CPU-only run with import overhead."
+            "formula: (36 powered + 18 g5g6) passages x 5 arms = 270 units, each unit is FHRR "
+            "bind/unbind on d=1024 vectors (<50ms/unit on comparable cells); 180s gives generous "
+            "headroom for a CPU-only run with import overhead."
         ),
     )
     args = parser.parse_args()

@@ -1,11 +1,11 @@
 {
   "anchor_name": "wire_coref_accumulate_situation_model_v1",
   "verdict": "INVESTIGATE_NULL",
-  "verdict_msg": "INVESTIGATE_NULL (query metric): earned=0.8571 does NOT clear both floors by >= 0.05 (singleton=0.5857, recency=0.9000). Earned coref adds little at the situation-model level; check against the coref fair-test HARD_PASS (commit 27e10d3a8) -- investigate, do not spin.",
-  "summary": "INVESTIGATE_NULL",
-  "elapsed_s": 1.0867712998297065,
-  "ts_iso": "2026-08-02T20:27:35.434897+00:00",
-  "pid": 29276,
+  "verdict_msg": "INVESTIGATE_NULL (query metric): best real arm strict_cb=0.8000 does NOT clear both floors by >= 0.05 (singleton=0.4769, recency=0.8077). earned=0.7615, strict_cb=0.8000. Check vs coref fair-test HARD_PASS (27e10d3a8) -- investigate, do not spin.",
+  "summary": "INVESTIGATE_NULL (headline eval=powered)",
+  "elapsed_s": 6.889790900051594,
+  "ts_iso": "2026-08-02T21:31:55.355348+00:00",
+  "pid": 38584,
   "seed": 20260802,
   "d": 1024,
   "max_event_slots": 16,
@@ -20,113 +20,335 @@
     "goal",
     "instrument"
   ],
-  "gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_multientity_dense_v1.jsonl",
-  "n_passages": 18,
+  "evals": {
+    "powered": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl",
+    "g5g6_reviewed": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl"
+  },
+  "headline_eval": "powered",
+  "headline_metric": "cross_mention_query_accuracy_name_anchored",
   "arm_order": [
     "oracle",
     "earned",
+    "strict_cb",
     "recency_floor",
     "singleton_floor"
   ],
-  "per_arm": {
-    "oracle": {
-      "query_accuracy": 0.9857142857142858,
-      "q_correct": 69,
-      "q_total": 70,
-      "query_accuracy_pronoun_contributed": 0.875,
-      "q_correct_pron": 7,
-      "q_total_pron": 8,
-      "q_skipped": 0,
-      "per_mention_accuracy": 0.9797979797979798,
-      "n_correct": 194,
-      "n_total": 198,
-      "n_collisions": 4,
-      "n_passages": 18
+  "eval_blocks": {
+    "powered": {
+      "per_arm": {
+        "oracle": {
+          "query_accuracy": 0.9692307692307692,
+          "q_correct": 126,
+          "q_total": 130,
+          "query_accuracy_pronoun_contributed": 0.9722222222222222,
+          "q_correct_pron": 35,
+          "q_total_pron": 36,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.9713467048710601,
+          "n_correct": 339,
+          "n_total": 349,
+          "n_collisions": 12,
+          "n_clusters_summed": 106,
+          "n_passages": 36
+        },
+        "earned": {
+          "query_accuracy": 0.7615384615384615,
+          "q_correct": 99,
+          "q_total": 130,
+          "query_accuracy_pronoun_contributed": 0.5277777777777778,
+          "q_correct_pron": 19,
+          "q_total_pron": 36,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.9570200573065902,
+          "n_correct": 334,
+          "n_total": 349,
+          "n_collisions": 19,
+          "n_clusters_summed": 149,
+          "n_passages": 36
+        },
+        "strict_cb": {
+          "query_accuracy": 0.8,
+          "q_correct": 104,
+          "q_total": 130,
+          "query_accuracy_pronoun_contributed": 0.5833333333333334,
+          "q_correct_pron": 21,
+          "q_total_pron": 36,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.9656160458452722,
+          "n_correct": 337,
+          "n_total": 349,
+          "n_collisions": 14,
+          "n_clusters_summed": 149,
+          "n_passages": 36
+        },
+        "recency_floor": {
+          "query_accuracy": 0.8076923076923077,
+          "q_correct": 105,
+          "q_total": 130,
+          "query_accuracy_pronoun_contributed": 0.8333333333333334,
+          "q_correct_pron": 30,
+          "q_total_pron": 36,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.7679083094555874,
+          "n_correct": 268,
+          "n_total": 349,
+          "n_collisions": 110,
+          "n_clusters_summed": 36,
+          "n_passages": 36
+        },
+        "singleton_floor": {
+          "query_accuracy": 0.47692307692307695,
+          "q_correct": 62,
+          "q_total": 130,
+          "query_accuracy_pronoun_contributed": 0.05555555555555555,
+          "q_correct_pron": 2,
+          "q_total_pron": 36,
+          "q_skipped": 0,
+          "per_mention_accuracy": 1.0,
+          "n_correct": 349,
+          "n_total": 349,
+          "n_collisions": 0,
+          "n_clusters_summed": 349,
+          "n_passages": 36
+        }
+      },
+      "query_accuracy": {
+        "oracle": 0.9692307692307692,
+        "earned": 0.7615384615384615,
+        "strict_cb": 0.8,
+        "recency_floor": 0.8076923076923077,
+        "singleton_floor": 0.47692307692307695
+      },
+      "query_accuracy_pronoun_contributed": {
+        "oracle": 0.9722222222222222,
+        "earned": 0.5277777777777778,
+        "strict_cb": 0.5833333333333334,
+        "recency_floor": 0.8333333333333334,
+        "singleton_floor": 0.05555555555555555
+      },
+      "n_collisions_diagnostic": {
+        "oracle": 12,
+        "earned": 19,
+        "strict_cb": 14,
+        "recency_floor": 110,
+        "singleton_floor": 0
+      },
+      "n_clusters_summed": {
+        "oracle": 106,
+        "earned": 149,
+        "strict_cb": 149,
+        "recency_floor": 36,
+        "singleton_floor": 349
+      },
+      "per_mention_accuracy_secondary": {
+        "oracle": 0.9713467048710601,
+        "earned": 0.9570200573065902,
+        "strict_cb": 0.9656160458452722,
+        "recency_floor": 0.7679083094555874,
+        "singleton_floor": 1.0
+      },
+      "n_queries_total": 130,
+      "n_queries_pronoun_contributed": 36,
+      "n_passages": 36,
+      "oracle_query_accuracy_by_length": {
+        "med_5to7": {
+          "q_correct": 96,
+          "q_total": 100,
+          "n_passages": 28,
+          "query_accuracy": 0.96
+        },
+        "long_ge8": {
+          "q_correct": 27,
+          "q_total": 27,
+          "n_passages": 7,
+          "query_accuracy": 1.0
+        },
+        "short_le4": {
+          "q_correct": 3,
+          "q_total": 3,
+          "n_passages": 1,
+          "query_accuracy": 1.0
+        }
+      },
+      "verdict": "INVESTIGATE_NULL",
+      "verdict_msg": "INVESTIGATE_NULL (query metric): best real arm strict_cb=0.8000 does NOT clear both floors by >= 0.05 (singleton=0.4769, recency=0.8077). earned=0.7615, strict_cb=0.8000. Check vs coref fair-test HARD_PASS (27e10d3a8) -- investigate, do not spin.",
+      "best_real_arm": "strict_cb",
+      "best_real_q": 0.8,
+      "query_discriminates": true,
+      "gates_best_real_arm": {
+        "beats_singleton": true,
+        "beats_recency": false,
+        "within_ceiling": false
+      },
+      "value_ceiling_earned_over_oracle": 0.7857142857142857,
+      "value_ceiling_strict_cb_over_oracle": 0.8253968253968255
     },
-    "earned": {
-      "query_accuracy": 0.8571428571428571,
-      "q_correct": 60,
-      "q_total": 70,
-      "query_accuracy_pronoun_contributed": 0.375,
-      "q_correct_pron": 3,
-      "q_total_pron": 8,
-      "q_skipped": 0,
-      "per_mention_accuracy": 0.9646464646464646,
-      "n_correct": 191,
-      "n_total": 198,
-      "n_collisions": 9,
-      "n_passages": 18
-    },
-    "recency_floor": {
-      "query_accuracy": 0.9,
-      "q_correct": 63,
-      "q_total": 70,
-      "query_accuracy_pronoun_contributed": 0.75,
-      "q_correct_pron": 6,
-      "q_total_pron": 8,
-      "q_skipped": 0,
-      "per_mention_accuracy": 0.7171717171717171,
-      "n_correct": 142,
-      "n_total": 198,
-      "n_collisions": 76,
-      "n_passages": 18
-    },
-    "singleton_floor": {
-      "query_accuracy": 0.5857142857142857,
-      "q_correct": 41,
-      "q_total": 70,
-      "query_accuracy_pronoun_contributed": 0.0,
-      "q_correct_pron": 0,
-      "q_total_pron": 8,
-      "q_skipped": 0,
-      "per_mention_accuracy": 1.0,
-      "n_correct": 198,
-      "n_total": 198,
-      "n_collisions": 0,
-      "n_passages": 18
+    "g5g6_reviewed": {
+      "per_arm": {
+        "oracle": {
+          "query_accuracy": 0.9666666666666667,
+          "q_correct": 58,
+          "q_total": 60,
+          "query_accuracy_pronoun_contributed": 1.0,
+          "q_correct_pron": 28,
+          "q_total_pron": 28,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.9602649006622517,
+          "n_correct": 145,
+          "n_total": 151,
+          "n_collisions": 8,
+          "n_clusters_summed": 40,
+          "n_passages": 18
+        },
+        "earned": {
+          "query_accuracy": 0.6333333333333333,
+          "q_correct": 38,
+          "q_total": 60,
+          "query_accuracy_pronoun_contributed": 0.4642857142857143,
+          "q_correct_pron": 13,
+          "q_total_pron": 28,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.9470198675496688,
+          "n_correct": 143,
+          "n_total": 151,
+          "n_collisions": 10,
+          "n_clusters_summed": 73,
+          "n_passages": 18
+        },
+        "strict_cb": {
+          "query_accuracy": 0.7333333333333333,
+          "q_correct": 44,
+          "q_total": 60,
+          "query_accuracy_pronoun_contributed": 0.6071428571428571,
+          "q_correct_pron": 17,
+          "q_total_pron": 28,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.9536423841059603,
+          "n_correct": 144,
+          "n_total": 151,
+          "n_collisions": 8,
+          "n_clusters_summed": 73,
+          "n_passages": 18
+        },
+        "recency_floor": {
+          "query_accuracy": 0.7833333333333333,
+          "q_correct": 47,
+          "q_total": 60,
+          "query_accuracy_pronoun_contributed": 0.9642857142857143,
+          "q_correct_pron": 27,
+          "q_total_pron": 28,
+          "q_skipped": 0,
+          "per_mention_accuracy": 0.8145695364238411,
+          "n_correct": 123,
+          "n_total": 151,
+          "n_collisions": 34,
+          "n_clusters_summed": 18,
+          "n_passages": 18
+        },
+        "singleton_floor": {
+          "query_accuracy": 0.36666666666666664,
+          "q_correct": 22,
+          "q_total": 60,
+          "query_accuracy_pronoun_contributed": 0.17857142857142858,
+          "q_correct_pron": 5,
+          "q_total_pron": 28,
+          "q_skipped": 0,
+          "per_mention_accuracy": 1.0,
+          "n_correct": 151,
+          "n_total": 151,
+          "n_collisions": 0,
+          "n_clusters_summed": 151,
+          "n_passages": 18
+        }
+      },
+      "query_accuracy": {
+        "oracle": 0.9666666666666667,
+        "earned": 0.6333333333333333,
+        "strict_cb": 0.7333333333333333,
+        "recency_floor": 0.7833333333333333,
+        "singleton_floor": 0.36666666666666664
+      },
+      "query_accuracy_pronoun_contributed": {
+        "oracle": 1.0,
+        "earned": 0.4642857142857143,
+        "strict_cb": 0.6071428571428571,
+        "recency_floor": 0.9642857142857143,
+        "singleton_floor": 0.17857142857142858
+      },
+      "n_collisions_diagnostic": {
+        "oracle": 8,
+        "earned": 10,
+        "strict_cb": 8,
+        "recency_floor": 34,
+        "singleton_floor": 0
+      },
+      "n_clusters_summed": {
+        "oracle": 40,
+        "earned": 73,
+        "strict_cb": 73,
+        "recency_floor": 18,
+        "singleton_floor": 151
+      },
+      "per_mention_accuracy_secondary": {
+        "oracle": 0.9602649006622517,
+        "earned": 0.9470198675496688,
+        "strict_cb": 0.9536423841059603,
+        "recency_floor": 0.8145695364238411,
+        "singleton_floor": 1.0
+      },
+      "n_queries_total": 60,
+      "n_queries_pronoun_contributed": 28,
+      "n_passages": 18,
+      "oracle_query_accuracy_by_length": {
+        "med_5to7": {
+          "q_correct": 44,
+          "q_total": 46,
+          "n_passages": 14,
+          "query_accuracy": 0.9565217391304348
+        },
+        "short_le4": {
+          "q_correct": 3,
+          "q_total": 3,
+          "n_passages": 1,
+          "query_accuracy": 1.0
+        },
+        "long_ge8": {
+          "q_correct": 11,
+          "q_total": 11,
+          "n_passages": 3,
+          "query_accuracy": 1.0
+        }
+      },
+      "verdict": "INVESTIGATE_NULL",
+      "verdict_msg": "INVESTIGATE_NULL (query metric): best real arm strict_cb=0.7333 does NOT clear both floors by >= 0.05 (singleton=0.3667, recency=0.7833). earned=0.6333, strict_cb=0.7333. Check vs coref fair-test HARD_PASS (27e10d3a8) -- investigate, do not spin.",
+      "best_real_arm": "strict_cb",
+      "best_real_q": 0.7333333333333333,
+      "query_discriminates": true,
+      "gates_best_real_arm": {
+        "beats_singleton": true,
+        "beats_recency": false,
+        "within_ceiling": false
+      },
+      "value_ceiling_earned_over_oracle": 0.6551724137931034,
+      "value_ceiling_strict_cb_over_oracle": 0.7586206896551724
     }
   },
-  "headline_metric": "cross_mention_query_accuracy_name_anchored",
-  "query_accuracy": {
-    "oracle": 0.9857142857142858,
-    "earned": 0.8571428571428571,
-    "recency_floor": 0.9,
-    "singleton_floor": 0.5857142857142857
-  },
-  "query_accuracy_pronoun_contributed": {
-    "oracle": 0.875,
-    "earned": 0.375,
-    "recency_floor": 0.75,
-    "singleton_floor": 0.0
-  },
-  "n_queries_total": 70,
-  "n_queries_pronoun_contributed": 8,
-  "n_queries_skipped": 0,
-  "value_ceiling_earned_over_oracle_query": 0.8695652173913042,
-  "query_discriminates": true,
-  "earned_beats_singleton": true,
-  "earned_beats_recency": false,
-  "earned_within_ceiling": false,
-  "secondary_per_mention_accuracy": {
-    "oracle": 0.9797979797979798,
-    "earned": 0.9646464646464646,
-    "recency_floor": 0.7171717171717171,
-    "singleton_floor": 1.0
-  },
-  "secondary_note": "per_mention decode is a SECONDARY diagnostic only: it validly confirms organ wiring (oracle high) + earned-vs-oracle crosstalk, but singleton scores ~1.0 on it (1 event/register, no crosstalk) so it CANNOT show coref adds value -- the query metric is the headline.",
+  "collision_policy": "add_every_mention_never_skip_ncollisions_is_diagnostic_only",
+  "secondary_note": "per_mention decode is a SECONDARY diagnostic (organ wiring via oracle + crosstalk); singleton scores ~1.0 on it so it cannot show coref adds value -- query metric is the headline. Collision-skip metric bug fixed 2026-08-02: every mention is now add_event'd so a mega-cluster incurs the FHRR cross-talk penalty it should.",
   "bands": {
     "milestone_margin": 0.05,
     "floor_gap_margin": 0.05,
     "oracle_ceiling_floor": 0.9
   },
-  "timeout_s": 120.0,
+  "timeout_s": 180.0,
   "final_metrics_atomicity": "tmp_replace",
   "checkpointed": true,
-  "n_units_total": 72,
-  "n_units_ran_this_invocation": 72,
+  "n_units_total": 270,
+  "n_units_ran_this_invocation": 270,
   "prior_commits": {
     "coref_fair_test_hard_pass": "27e10d3a8",
     "possessive_gender_fix": "a0aac7eeb",
+    "strict_cb_pronoun_lever": "5b266248f",
     "accumulate_organ_atom": "29609"
   }
 }
