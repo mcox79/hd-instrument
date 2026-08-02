@@ -1,0 +1,423 @@
+{
+  "anchor": "extraction_commit_then_revise_v3_theme",
+  "mode": "full",
+  "verdict": "HARD_PASS_THEME_ADDED_ROLES_PRESERVED_CANFAIL_OK",
+  "verdict_msg": "HARD_PASS_THEME_ADDED_ROLES_PRESERVED_CANFAIL_OK | V3 canon=0.530 quot=0.770 byagent=0.787 theme=0.941 | POSITION canon=0.536 theme=0.000 | RANDOM theme=0.235 | discriminator_fires=True(14/14) | canon_preserved=True quot_preserved=True byagent_preserved=True | theme_canfail_ok=True theme_beats_position=True theme_beats_random=True",
+  "summary": {
+    "v3_canonical_role_acc": 0.5303030303030303,
+    "v3_quotative_role_acc": 0.7704918032786885,
+    "v3_byagent_role_acc": 0.7872340425531915,
+    "v3_theme_role_acc": 0.9411764705882353,
+    "position_canonical_role_acc": 0.5363636363636364,
+    "position_theme_role_acc": 0.0,
+    "random_theme_role_acc": 0.23529411764705882,
+    "n_copular_true": 14,
+    "n_copular_total": 14,
+    "discriminator_fires": true,
+    "canonical_preserved": true,
+    "quotative_preserved": true,
+    "byagent_preserved": true,
+    "theme_canfail_position_near_floor": true,
+    "theme_beats_position": true,
+    "theme_beats_random": true,
+    "theme_reachable_above_0.30": true,
+    "per_arm_per_kind": {
+      "COMMIT_REVISE_V3_THEME": {
+        "canonical": {
+          "role_acc": 0.5303030303030303,
+          "role_n": 330,
+          "full_acc": 0.2607003891050584,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.7704918032786885,
+          "role_n": 61,
+          "full_acc": 0.4228571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.7872340425531915,
+          "role_n": 47,
+          "full_acc": 0.32786885245901637,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.4166666666666667,
+          "role_n": 12,
+          "full_acc": 0.17142857142857143,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.9411764705882353,
+          "role_n": 17,
+          "full_acc": 0.23880597014925373,
+          "full_n": 67
+        }
+      },
+      "CLAUSE_POSITION": {
+        "canonical": {
+          "role_acc": 0.6727272727272727,
+          "role_n": 330,
+          "full_acc": 0.29571984435797666,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.6557377049180327,
+          "role_n": 61,
+          "full_acc": 0.25142857142857145,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.14893617021276595,
+          "role_n": 47,
+          "full_acc": 0.05737704918032787,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.4166666666666667,
+          "role_n": 12,
+          "full_acc": 0.17142857142857143,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.0,
+          "role_n": 17,
+          "full_acc": 0.0,
+          "full_n": 67
+        }
+      },
+      "POSITION": {
+        "canonical": {
+          "role_acc": 0.5363636363636364,
+          "role_n": 330,
+          "full_acc": 0.22957198443579765,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.08196721311475409,
+          "role_n": 61,
+          "full_acc": 0.02857142857142857,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.2127659574468085,
+          "role_n": 47,
+          "full_acc": 0.08196721311475409,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5833333333333334,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.0,
+          "role_n": 17,
+          "full_acc": 0.0,
+          "full_n": 67
+        }
+      },
+      "RANDOM": {
+        "canonical": {
+          "role_acc": 0.21818181818181817,
+          "role_n": 330,
+          "full_acc": 0.20752269779507135,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.21311475409836064,
+          "role_n": 61,
+          "full_acc": 0.19428571428571428,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.1702127659574468,
+          "role_n": 47,
+          "full_acc": 0.18032786885245902,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.3333333333333333,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.23529411764705882,
+          "role_n": 17,
+          "full_acc": 0.26865671641791045,
+          "full_n": 67
+        }
+      }
+    },
+    "gate_rate_by_kind": {
+      "canonical": 0.40707964601769914,
+      "quotative": 0.9111111111111111,
+      "passive_byagent": 1.0,
+      "passive": 0.0,
+      "copular_theme": 1.0
+    }
+  },
+  "bands": {
+    "THRESH": 0.6,
+    "MARGIN_THRESH_GRID": [
+      0.0,
+      0.03,
+      0.05,
+      0.08,
+      0.1,
+      0.15,
+      0.2,
+      0.3
+    ],
+    "CANONICAL_MIN": 0.5064,
+    "QUOTATIVE_MIN": 0.75,
+    "BYAGENT_MIN": 0.68,
+    "RANDOM_CHANCE_5WAY": 0.2
+  },
+  "selected_margin_thresh": 0.08,
+  "grid_summary": [
+    {
+      "margin_thresh": 0.0,
+      "canonical_role_acc": 0.43636363636363634,
+      "quotative_role_acc": 0.7868852459016393,
+      "byagent_role_acc": 0.7872340425531915,
+      "theme_role_acc": 1.0,
+      "n_preservation_gates_cleared": 2,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    },
+    {
+      "margin_thresh": 0.03,
+      "canonical_role_acc": 0.47575757575757577,
+      "quotative_role_acc": 0.7868852459016393,
+      "byagent_role_acc": 0.7872340425531915,
+      "theme_role_acc": 0.9411764705882353,
+      "n_preservation_gates_cleared": 2,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    },
+    {
+      "margin_thresh": 0.05,
+      "canonical_role_acc": 0.503030303030303,
+      "quotative_role_acc": 0.7868852459016393,
+      "byagent_role_acc": 0.7872340425531915,
+      "theme_role_acc": 0.9411764705882353,
+      "n_preservation_gates_cleared": 2,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    },
+    {
+      "margin_thresh": 0.08,
+      "canonical_role_acc": 0.5303030303030303,
+      "quotative_role_acc": 0.7704918032786885,
+      "byagent_role_acc": 0.7872340425531915,
+      "theme_role_acc": 0.9411764705882353,
+      "n_preservation_gates_cleared": 3,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    },
+    {
+      "margin_thresh": 0.1,
+      "canonical_role_acc": 0.5454545454545454,
+      "quotative_role_acc": 0.7704918032786885,
+      "byagent_role_acc": 0.7872340425531915,
+      "theme_role_acc": 0.6470588235294118,
+      "n_preservation_gates_cleared": 3,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    },
+    {
+      "margin_thresh": 0.15,
+      "canonical_role_acc": 0.5878787878787879,
+      "quotative_role_acc": 0.7704918032786885,
+      "byagent_role_acc": 0.7659574468085106,
+      "theme_role_acc": 0.23529411764705882,
+      "n_preservation_gates_cleared": 3,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    },
+    {
+      "margin_thresh": 0.2,
+      "canonical_role_acc": 0.6242424242424243,
+      "quotative_role_acc": 0.7704918032786885,
+      "byagent_role_acc": 0.8085106382978723,
+      "theme_role_acc": 0.0,
+      "n_preservation_gates_cleared": 3,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    },
+    {
+      "margin_thresh": 0.3,
+      "canonical_role_acc": 0.6545454545454545,
+      "quotative_role_acc": 0.7540983606557377,
+      "byagent_role_acc": 0.7872340425531915,
+      "theme_role_acc": 0.0,
+      "n_preservation_gates_cleared": 3,
+      "canonical_gate_fp_rate": 0.40707964601769914
+    }
+  ],
+  "per_arm": {
+    "COMMIT_REVISE_V3_THEME": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.5303030303030303,
+          "role_n": 330,
+          "full_acc": 0.2607003891050584,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.7704918032786885,
+          "role_n": 61,
+          "full_acc": 0.4228571428571429,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.7872340425531915,
+          "role_n": 47,
+          "full_acc": 0.32786885245901637,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.4166666666666667,
+          "role_n": 12,
+          "full_acc": 0.17142857142857143,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.9411764705882353,
+          "role_n": 17,
+          "full_acc": 0.23880597014925373,
+          "full_n": 67
+        }
+      },
+      "digest": "679ea9eb218df7cd",
+      "gate_rate_by_kind": {
+        "canonical": 0.40707964601769914,
+        "quotative": 0.9111111111111111,
+        "passive_byagent": 1.0,
+        "passive": 0.0,
+        "copular_theme": 1.0
+      },
+      "selected_margin_thresh": 0.08
+    },
+    "CLAUSE_POSITION": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.6727272727272727,
+          "role_n": 330,
+          "full_acc": 0.29571984435797666,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.6557377049180327,
+          "role_n": 61,
+          "full_acc": 0.25142857142857145,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.14893617021276595,
+          "role_n": 47,
+          "full_acc": 0.05737704918032787,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.4166666666666667,
+          "role_n": 12,
+          "full_acc": 0.17142857142857143,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.0,
+          "role_n": 17,
+          "full_acc": 0.0,
+          "full_n": 67
+        }
+      },
+      "digest": "031bb4ca0a7aa95a"
+    },
+    "POSITION": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.5363636363636364,
+          "role_n": 330,
+          "full_acc": 0.22957198443579765,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.08196721311475409,
+          "role_n": 61,
+          "full_acc": 0.02857142857142857,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.2127659574468085,
+          "role_n": 47,
+          "full_acc": 0.08196721311475409,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.5833333333333334,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.0,
+          "role_n": 17,
+          "full_acc": 0.0,
+          "full_n": 67
+        }
+      },
+      "digest": "5f122c68d95cd6fc"
+    },
+    "RANDOM": {
+      "per_kind": {
+        "canonical": {
+          "role_acc": 0.21818181818181817,
+          "role_n": 330,
+          "full_acc": 0.20752269779507135,
+          "full_n": 771
+        },
+        "quotative": {
+          "role_acc": 0.21311475409836064,
+          "role_n": 61,
+          "full_acc": 0.19428571428571428,
+          "full_n": 175
+        },
+        "passive_byagent": {
+          "role_acc": 0.1702127659574468,
+          "role_n": 47,
+          "full_acc": 0.18032786885245902,
+          "full_n": 122
+        },
+        "passive": {
+          "role_acc": 0.3333333333333333,
+          "role_n": 12,
+          "full_acc": 0.2,
+          "full_n": 35
+        },
+        "copular_theme": {
+          "role_acc": 0.23529411764705882,
+          "role_n": 17,
+          "full_acc": 0.26865671641791045,
+          "full_n": 67
+        }
+      },
+      "digest": "bfcbe91c6c34c82f"
+    }
+  },
+  "canonical_pool_diag": {
+    "n_skipped_no_event": 1,
+    "n_skipped_oob": 0,
+    "n_sentences_total_in_gold": 114
+  },
+  "role_vocab": [
+    "agent",
+    "patient",
+    "addressee",
+    "theme",
+    "none"
+  ],
+  "n_sentences_pooled": 202,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "calibration_check": "default_ok_for_this_regime",
+  "elapsed_s": 8.325602000113577,
+  "ts_iso": "2026-08-02T16:17:26Z"
+}
