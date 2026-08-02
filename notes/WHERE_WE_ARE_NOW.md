@@ -1,5 +1,11 @@
 # WHERE WE ARE NOW — clean current state (REWRITE each session)
 
+## ▶️ SESSION RESUME (2026-08-02 ~05:1Xz) — LIVE DISPATCHES IN FLIGHT (read this first; the ~05:00Z block below is the settled state it continues)
+USER: "do it. brain foundational always ... full auto authorized." Executing the post-compaction next step + a lock-clean parallel thread. TWO hdi_exp_dev agents running LOCAL (box CPU-thrashed by peer PID25552, not mine — do NOT kill):
+1. **WM ALLOCATE/RECALL FIX (a09536ec)** — the live thread. Brain-foundational: DG pattern-separation match-or-allocate (novel entity -> distinct empty slot; hdlab/hippocampal_encoder.py DGProjection+CA3) + iterative_cleanup CA3 recall (hdlab/iterative_attractor.py) on the lossy HRR unbind. ONE variable vs the current PEGatedSlotWM; must PRESERVE the brain-faithful overwrite gate (spike_WR>=2.0) + floor + add an allocate-selectivity brain-metric + a no-allocate can-fail control. Target recall 0.34 -> ~0.75. Cell exp_contextual_stream_wm_sor_probe1_v1.py.
+2. **EXTRACTION RE-RUN ON POWERED GOLD (a8229f36)** — hardens the milestone's #1 caveat. Director powered the by-agent-passive gold N=5 -> **23** (gold_passive_byagent_verified_v2.jsonl, 18 hand-verified true by-agent passives mined from full McGuffey g1-g6 incl untapped g5/g6; v1 left intact for atom-29606 reproducibility; commit 210be7a1c). Re-running exp_interactive_loop_real_gold_mcguffey_v1 on v2 to confirm the OFF/ON/placebo dissociation HOLDS at N=23 (a drop from the N=5 1.000 is fine iff ON>>OFF and ON>>placebo still hold). ONE variable = gold set size.
+NEXT after these land: VET both (positives HARDEST); if WM clears -> wire extraction+WM together -> real McGuffey climb. SCALE still HELD for USER. Gates run at resume: capability audit clean; KB freshness was STALE (catch-up ingest launched).
+
 ## 🧭 SESSION LANDING + CURRENT STATE (2026-08-01 ~02:45Z) — AUTHORITATIVE (read this first; older blocks below = history)
 **Arc:** built the USER-steered growing-library engine, then proved + banked three load-bearing results, chain-graded + integrated the encoder lever, and are now running a depth campaign on it (USER redirect: prove UNIVERSAL + MAXIMIZE before breadth).
 
