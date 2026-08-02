@@ -64,3 +64,25 @@ Current gold is per-SENTENCE (quotative/passive), NOT cross-clause. Need NEW gol
    extraction/coref, not the WM (routes to the right next organ). If WM fails even on oracle roles ->
    the overwrite-WM doesn't scale to real discourse structure (a real, honest negative -> redesign).
 All numpy/CPU, no GPU, no scale commitment. SCALE remains USER-steer-held.
+
+## ⚠️ DESIGN SUBTLETY surfaced while seeding the gold (2026-08-02, load-bearing — resolve before building the probe)
+A situation-model WM holds the CURRENT entity state, not a full clause-by-clause HISTORY (Zwaan: the
+situation model IS the current running state; Zacks: it UPDATES at boundaries). So "recall entity E's role
+AT clause k" is the WRONG query when E's role legitimately CHANGED and was overwritten (e.g. Sport:
+theme c0 -> agent c1 -> patient c2; querying c0/c1 after c2 overwrote is a fail BY DESIGN, not a WM
+failure). => the probe must query CURRENT/post-passage role:
+- CONSTANT-role entities (Susie=agent throughout) -> query returns the stable role (clean recall test).
+- ROLE-VARIATION entities (Dash patient->agent; Sport theme->agent->patient) -> query the FINAL/current
+  role = tests correct UPDATE (the overwrite gate's job), NOT stale-history retrieval.
+- A SEPARATE, harder competency = episodic history ("what did E do EARLIER") -> needs an episodic store,
+  NOT the running situation-model WM; keep it out of the first probe (scope it as a later organ).
+The starter gold (gold_multiclause_entity_track_v1.jsonl, 6 passages) records the TRUE role at each clause
+(accurate ground truth); the PROBE decides query semantics = query the current/latest-state role per
+entity, + for role-variation entities score whether the WM correctly UPDATED to the new role. This
+current-state-vs-history distinction is the key spec decision to lock (with USER) before building.
+
+## STATE (2026-08-02 ~09:5Xz): design ready + refined (semantics above); starter gold seeded (6 passages,
+commit 93dd4a5cc); miner proves 283 candidates for powering. HELD FOR USER STEER: lock the query
+semantics (current-state) + confirm the fork, then build the oracle-WM arm (feed gold roles -> PEGatedSlotWM
+no-allocate -> current-state recall + 3 can-fail controls) = the decisive "does the overwrite-WM work on
+real discourse structure" test, cheap/numpy. Then the real-extraction arm.
