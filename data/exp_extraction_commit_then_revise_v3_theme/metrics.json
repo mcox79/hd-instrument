@@ -418,6 +418,6 @@
   "final_metrics_atomicity": "tmp_replace",
   "cell_chunked": false,
   "calibration_check": "default_ok_for_this_regime",
-  "elapsed_s": 8.325602000113577,
-  "ts_iso": "2026-08-02T16:17:26Z"
+  "elapsed_s": 7.423789199907333,
+  "ts_iso": "2026-08-02T17:15:58Z"
 }

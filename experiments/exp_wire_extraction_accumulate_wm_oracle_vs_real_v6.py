@@ -166,7 +166,7 @@ def build_entity_chains_predsdict(passages, predict_fn, gate_fn, restrict_n=None
             for ev in chain:
                 ci = ev["clause"]
                 sent, preds = clause_infer[ci]
-                tok_i = match_mention_to_token(sent, ev["mention"], used_per_clause[ci])
+                tok_i = match_mention_to_token(sent, ev["mention"], used_per_clause[ci], entity_name=name)
                 n_total_events += 1
                 if tok_i is not None:
                     used_per_clause[ci].add(tok_i)

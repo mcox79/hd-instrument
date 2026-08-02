@@ -2,21 +2,21 @@
   "anchor": "wire_extraction_accumulate_wm_oracle_vs_real_v6",
   "mode": "full",
   "verdict": "NULL_RESULT_V6_WITHIN_NOISE_OF_V5_LEXICON_NO_MEASURABLE_ETE_LIFT",
-  "verdict_msg": "NULL_RESULT_V6_WITHIN_NOISE_OF_V5_LEXICON_NO_MEASURABLE_ETE_LIFT | ORACLE recall=1.0000 (n=20) | REAL(v6 +animacy) recall=0.5667 (n=20) | REAL(v5 no-dict, same gold) recall=0.5667 (n=20) | FLOOR recall=0.1833 (n=20) | v5_cited_anchor=0.5667 | beats_v5_same_gold=False | within_noise=True | unreachable_role_fraction=0.1034",
+  "verdict_msg": "NULL_RESULT_V6_WITHIN_NOISE_OF_V5_LEXICON_NO_MEASURABLE_ETE_LIFT | ORACLE recall=1.0000 (n=20) | REAL(v6 +animacy) recall=0.6750 (n=20) | REAL(v5 no-dict, same gold) recall=0.6750 (n=20) | FLOOR recall=0.1833 (n=20) | v5_cited_anchor=0.5667 | beats_v5_same_gold=False | within_noise=True | unreachable_role_fraction=0.1034",
   "summary": {
     "oracle_multi_event_recall": 1.0,
     "oracle_n_entities": 20,
-    "real_multi_event_recall": 0.5666666666666667,
+    "real_multi_event_recall": 0.675,
     "real_n_entities": 20,
     "floor_multi_event_recall": 0.18333333333333332,
     "floor_n_entities": 20,
-    "real_v5_nodict_multi_event_recall": 0.5666666666666667,
+    "real_v5_nodict_multi_event_recall": 0.675,
     "real_v5_nodict_n_entities": 20,
     "oracle_reproduces_target": true,
     "floor_at_chance": true,
     "v5_cited_anchor_same_gold": 0.5667,
-    "v6_minus_v5_cited_anchor": -3.333333333332966e-05,
-    "beats_v5_cited_anchor": false,
+    "v6_minus_v5_cited_anchor": 0.10830000000000006,
+    "beats_v5_cited_anchor": true,
     "beats_v5_same_gold_reproduced_here": false,
     "v6_minus_v5_same_gold_reproduced_here": 0.0,
     "within_noise_of_v5": true,
@@ -359,21 +359,21 @@
           "multi_event": true,
           "correct": [
             1,
-            0,
+            1,
             1
           ],
-          "recall": 0.6666666666666666
+          "recall": 1.0
         },
         {
           "key": "mary_dash_doll::Dash",
           "n_events": 3,
           "multi_event": true,
           "correct": [
-            0,
+            1,
             1,
             1
           ],
-          "recall": 0.6666666666666666
+          "recall": 1.0
         },
         {
           "key": "harry_carriage::Harry",
@@ -419,22 +419,22 @@
           "n_events": 3,
           "multi_event": true,
           "correct": [
-            0,
+            1,
             1,
             1
           ],
-          "recall": 0.6666666666666666
+          "recall": 1.0
         },
         {
           "key": "edgar_thomas_boat::Thomas",
           "n_events": 3,
           "multi_event": true,
           "correct": [
+            1,
             0,
-            0,
-            0
+            1
           ],
-          "recall": 0.0
+          "recall": 0.6666666666666666
         },
         {
           "key": "james_sport_dog::Sport",
@@ -453,9 +453,9 @@
           "multi_event": true,
           "correct": [
             1,
-            0
+            1
           ],
-          "recall": 0.5
+          "recall": 1.0
         },
         {
           "key": "willie_bounce::Willie",
@@ -544,7 +544,7 @@
           "recall": 0.0
         }
       ],
-      "reg_digest": "e70cd8b770c95a3f63f3748bdcf1da8ea2fb10c4171e0ea8c0092b18c6055267"
+      "reg_digest": "05a49b0c5d0fd12f869353609ce6ae1d66c01d5df0279cf8469248324fc78466"
     },
     "floor": {
       "per_entity": [
@@ -853,21 +853,21 @@
           "multi_event": true,
           "correct": [
             1,
-            0,
+            1,
             1
           ],
-          "recall": 0.6666666666666666
+          "recall": 1.0
         },
         {
           "key": "mary_dash_doll::Dash",
           "n_events": 3,
           "multi_event": true,
           "correct": [
-            0,
+            1,
             1,
             1
           ],
-          "recall": 0.6666666666666666
+          "recall": 1.0
         },
         {
           "key": "harry_carriage::Harry",
@@ -913,22 +913,22 @@
           "n_events": 3,
           "multi_event": true,
           "correct": [
-            0,
+            1,
             1,
             1
           ],
-          "recall": 0.6666666666666666
+          "recall": 1.0
         },
         {
           "key": "edgar_thomas_boat::Thomas",
           "n_events": 3,
           "multi_event": true,
           "correct": [
+            1,
             0,
-            0,
-            0
+            1
           ],
-          "recall": 0.0
+          "recall": 0.6666666666666666
         },
         {
           "key": "james_sport_dog::Sport",
@@ -947,9 +947,9 @@
           "multi_event": true,
           "correct": [
             1,
-            0
+            1
           ],
-          "recall": 0.5
+          "recall": 1.0
         },
         {
           "key": "willie_bounce::Willie",
@@ -1038,7 +1038,7 @@
           "recall": 0.0
         }
       ],
-      "reg_digest": "e70cd8b770c95a3f63f3748bdcf1da8ea2fb10c4171e0ea8c0092b18c6055267"
+      "reg_digest": "05a49b0c5d0fd12f869353609ce6ae1d66c01d5df0279cf8469248324fc78466"
     }
   },
   "extraction_diag_v6_animacy": {
@@ -1046,9 +1046,9 @@
     "n_mention_matched": 57,
     "mention_match_rate": 0.9827586206896551,
     "pred_role_counts": {
-      "agent": 24,
+      "agent": 29,
       "theme": 13,
-      "patient": 20
+      "patient": 15
     },
     "n_clauses_total": 32,
     "n_clauses_gate_fired": 13,
@@ -1059,9 +1059,9 @@
     "n_mention_matched": 57,
     "mention_match_rate": 0.9827586206896551,
     "pred_role_counts": {
-      "agent": 24,
+      "agent": 29,
       "theme": 13,
-      "patient": 20
+      "patient": 15
     },
     "n_clauses_total": 32,
     "n_clauses_gate_fired": 13,
@@ -1277,10 +1277,10 @@
         1,
         1
       ],
-      "real_recall": 0.6666666666666666,
+      "real_recall": 1.0,
       "real_correct": [
         1,
-        0,
+        1,
         1
       ],
       "floor_recall": 0.0,
@@ -1289,10 +1289,10 @@
         0,
         0
       ],
-      "real_v5_nodict_recall": 0.6666666666666666,
+      "real_v5_nodict_recall": 1.0,
       "real_v5_nodict_correct": [
         1,
-        0,
+        1,
         1
       ],
       "true_roles": [
@@ -1302,7 +1302,7 @@
       ],
       "pred_roles": [
         "agent",
-        "patient",
+        "agent",
         "agent"
       ],
       "match_ok": [
@@ -1321,9 +1321,9 @@
         1,
         1
       ],
-      "real_recall": 0.6666666666666666,
+      "real_recall": 1.0,
       "real_correct": [
-        0,
+        1,
         1,
         1
       ],
@@ -1333,9 +1333,9 @@
         1,
         0
       ],
-      "real_v5_nodict_recall": 0.6666666666666666,
+      "real_v5_nodict_recall": 1.0,
       "real_v5_nodict_correct": [
-        0,
+        1,
         1,
         1
       ],
@@ -1345,7 +1345,7 @@
         "patient"
       ],
       "pred_roles": [
-        "agent",
+        "patient",
         "agent",
         "patient"
       ],
@@ -1506,9 +1506,9 @@
         1,
         1
       ],
-      "real_recall": 0.6666666666666666,
+      "real_recall": 1.0,
       "real_correct": [
-        0,
+        1,
         1,
         1
       ],
@@ -1518,9 +1518,9 @@
         0,
         0
       ],
-      "real_v5_nodict_recall": 0.6666666666666666,
+      "real_v5_nodict_recall": 1.0,
       "real_v5_nodict_correct": [
-        0,
+        1,
         1,
         1
       ],
@@ -1530,7 +1530,7 @@
         "agent"
       ],
       "pred_roles": [
-        "patient",
+        "agent",
         "agent",
         "agent"
       ],
@@ -1550,11 +1550,11 @@
         1,
         1
       ],
-      "real_recall": 0.0,
+      "real_recall": 0.6666666666666666,
       "real_correct": [
+        1,
         0,
-        0,
-        0
+        1
       ],
       "floor_recall": 0.3333333333333333,
       "floor_correct": [
@@ -1562,11 +1562,11 @@
         0,
         1
       ],
-      "real_v5_nodict_recall": 0.0,
+      "real_v5_nodict_recall": 0.6666666666666666,
       "real_v5_nodict_correct": [
+        1,
         0,
-        0,
-        0
+        1
       ],
       "true_roles": [
         "agent",
@@ -1574,9 +1574,9 @@
         "agent"
       ],
       "pred_roles": [
+        "agent",
         "patient",
-        "patient",
-        "patient"
+        "agent"
       ],
       "match_ok": [
         true,
@@ -1637,20 +1637,20 @@
         1,
         1
       ],
-      "real_recall": 0.5,
+      "real_recall": 1.0,
       "real_correct": [
         1,
-        0
+        1
       ],
       "floor_recall": 0.0,
       "floor_correct": [
         0,
         0
       ],
-      "real_v5_nodict_recall": 0.5,
+      "real_v5_nodict_recall": 1.0,
       "real_v5_nodict_correct": [
         1,
-        0
+        1
       ],
       "true_roles": [
         "theme",
@@ -1658,7 +1658,7 @@
       ],
       "pred_roles": [
         "theme",
-        "patient"
+        "agent"
       ],
       "match_ok": [
         true,
@@ -1824,7 +1824,7 @@
         "agent"
       ],
       "pred_roles": [
-        "patient",
+        "agent",
         "agent",
         "agent"
       ],
@@ -2097,8 +2097,8 @@
       "gate_fired": false,
       "mention_role_preds": {
         "Mary": "agent",
-        "Dash": "agent",
-        "her": "patient",
+        "Dash": "patient",
+        "her": "agent",
         "pet": "patient",
         "dog": "patient",
         "time": "agent"
@@ -2111,9 +2111,9 @@
       "n_mentions": 8,
       "gate_fired": false,
       "mention_role_preds": {
-        "corner": "agent",
+        "corner": "patient",
         "yard": "patient",
-        "she": "patient",
+        "she": "agent",
         "her": "patient",
         "doll": "patient",
         "its": "agent",
@@ -2158,8 +2158,8 @@
       "mention_role_preds": {
         "man": "agent",
         "stood": "patient",
-        "his": "agent",
-        "hat": "patient"
+        "his": "patient",
+        "hat": "agent"
       }
     },
     {
@@ -2213,8 +2213,7 @@
       "mention_role_preds": {
         "Edgar": "agent",
         "stick": "patient",
-        "which": "patient",
-        "Thomas": "patient",
+        "Thomas": "agent",
         "his": "patient",
         "hand": "patient"
       }
@@ -2254,8 +2253,8 @@
       "n_mentions": 5,
       "gate_fired": false,
       "mention_role_preds": {
-        "daytime": "agent",
-        "James": "patient",
+        "daytime": "patient",
+        "James": "agent",
         "Sport": "patient",
         "his": "patient",
         "horse": "patient"
@@ -2355,7 +2354,7 @@
         "them": "theme",
         "lamb": "theme",
         "which": "patient",
-        "John": "patient"
+        "John": "agent"
       }
     },
     {
@@ -2369,8 +2368,8 @@
         "his": "patient",
         "friends": "patient",
         "neighbors": "agent",
-        "loss": "agent",
-        "pet": "patient",
+        "loss": "patient",
+        "pet": "agent",
         "lamb": "patient"
       }
     },
@@ -2498,6 +2497,6 @@
   "crash_diagnostic_present": true,
   "heartbeat_present": false,
   "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_lt30s",
-  "elapsed_s": 3.3843511999584734,
-  "ts_iso": "2026-08-02T16:53:12Z"
+  "elapsed_s": 2.7156352000311017,
+  "ts_iso": "2026-08-02T17:23:26Z"
 }

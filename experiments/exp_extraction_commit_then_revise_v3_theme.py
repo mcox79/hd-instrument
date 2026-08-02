@@ -282,13 +282,74 @@ def gate_fires_v3(sent: dict, thresh: float) -> bool:
     return bool(has_by or quotative_cue or is_copular)
 
 
+# --- ADDITIVE 2026-08-02 fix: clause-level subject->agent was NOT transferring to the end-to-end
+# pipeline on compound/subordinate/multiclause real text (13/26 end-to-end failures were clause-
+# subjects mislabeled patient; MEASURED@data/exp_wire_extraction_accumulate_wm_oracle_vs_real_v6/
+# metrics.json:per_entity_dump). Diagnosed TWO distinct gaps in the ORIGINAL clause_position_predict5
+# (both duplicated here rather than edited into segment_clauses/v2, to keep this an ADDITIVE,
+# isolated change with zero blast radius on v2's own already-HARD_PASS canonical/quotative role_acc
+# and on the sentence-level gate features, which do not call segment_clauses at all):
+#
+# GAP 1 -- fronted PP / adverbial before the true subject ("In the daytime, James often uses
+#   Sport", "in a corner of the yard she found ..."): the OLD rule picked the FIRST mention token
+#   in the clause span, with no regard for whether it is the object of a preceding preposition.
+#   _immediately_follows_prep(): a mention is disqualified as subject if the token immediately
+#   before it (skipping DET/ADJ modifiers only, e.g. "the", "nearest") is ADP-tagged. This is a
+#   narrow, local window check -- it does NOT scan arbitrarily far back (a NOUN head like "yard"
+#   stops the skip-loop so a genuine subject like "she" that merely follows a fronted PP's object
+#   is never wrongly disqualified).
+#
+# GAP 2 -- relative clauses ("a stick WHICH Thomas held in his hand"): segment_clauses (shared with
+#   v2) never splits on "which"/"who"/"whom" (not in BOUNDARY_WORDS, not tagged CCONJ/SCONJ by this
+#   tagger), so the relative clause's own subject ("Thomas") stayed lumped into the matrix clause
+#   and lost the agent slot to whatever came first there. segment_clauses_v3(): a LOCAL wrapper
+#   duplicating segment_clauses verbatim plus one extra boundary-word set (RELATIVE_BOUNDARY_WORDS)
+#   -- NOT edited into the shared segment_clauses/BOUNDARY_WORDS, so v2's own pipeline and the
+#   REVISE softmax's mention_features_multi (which does not use segment_clauses) are untouched.
+RELATIVE_BOUNDARY_WORDS = {"which", "who", "whom"}
+
+
+def segment_clauses_v3(tokens, pos):
+    """LOCAL copy of segment_clauses (exp_extraction_commit_then_revise_v2) plus relative-pronoun
+    boundaries. Used ONLY by clause_position_predict5 (GAP 2 above)."""
+    n = len(tokens)
+    spans = []
+    start = 0
+    for i in range(n):
+        tl = tokens[i].lower()
+        is_boundary = (tl in BOUNDARY_WORDS) or (tl in RELATIVE_BOUNDARY_WORDS) \
+            or (pos[i] in ("CCONJ", "SCONJ")) or (tokens[i] == ";")
+        if is_boundary:
+            if i > start:
+                spans.append((start, i))
+            start = i + 1
+    if start < n:
+        spans.append((start, n))
+    if not spans:
+        spans = [(0, n)]
+    return spans
+
+
+def _immediately_follows_prep(cs, i, tokens, pos):
+    """GAP 1 helper: True iff the nearest non-DET/ADJ token before i (within this clause span,
+    i.e. not before cs) is ADP-tagged -- i.e. i is the (head of the) object of a preposition, not a
+    clause subject."""
+    j = i - 1
+    while j >= cs and pos[j] in ("DET", "ADJ"):
+        j -= 1
+    return j >= cs and pos[j] == "ADP"
+
+
 def clause_position_predict5(sent):
-    """LEVER 2, 5-way copy: identical logic to v2's clause_position_predict, using ROLE_IDX5."""
+    """LEVER 2, 5-way copy: v2's clause_position_predict logic using ROLE_IDX5, PLUS the two
+    additive fixes above (fronted-PP disqualification + relative-clause segmentation) so the
+    clause-level subject->agent default actually transfers to compound/subordinate/multiclause
+    real-text sentences it was falling silently patient-default on before."""
     tokens = sent["tokens"]
     pos = sent["pos"]
     mention_idx = sent["mention_idx"]
     in_quote, _ = quote_spans(tokens)
-    spans = segment_clauses(tokens, pos)
+    spans = segment_clauses_v3(tokens, pos)
     preds = {}
     for (cs, ce) in spans:
         clause_mentions = [i for i in mention_idx if cs <= i < ce]
@@ -296,9 +357,14 @@ def clause_position_predict5(sent):
             continue
         subj = None
         for i in clause_mentions:
-            if not in_quote[i]:
+            if not in_quote[i] and not _immediately_follows_prep(cs, i, tokens, pos):
                 subj = i
                 break
+        if subj is None:
+            for i in clause_mentions:
+                if not in_quote[i]:
+                    subj = i
+                    break
         if subj is None:
             subj = clause_mentions[0]
         for i in clause_mentions:

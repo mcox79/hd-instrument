@@ -294,22 +294,62 @@ def stage1_predict_clause(text, model):
     return sent, scores, argmax_i
 
 
-def match_mention_to_token(sent, mention_text, used):
+def match_mention_to_token(sent, mention_text, used, entity_name=None):
     """Coref/mention-grounding is SUPPLIED (per contract): find which token index in this clause's
     tokenization corresponds to a gold entity's recorded mention string, via last-word normalized
     match (same technique exp_interactive_loop_real_gold_mcguffey_v1 uses for its own gold_target).
     `used` = set of already-claimed token indices this clause (avoid double-assigning ambiguous
-    identical anchors)."""
-    anchor = norm_word(mention_text.split()[-1]) if mention_text else None
-    if anchor is None:
+    identical anchors).
+
+    `entity_name` (optional, ADDITIVE 2026-08-02 fix): the gold entity chain's own canonical key
+    (e.g. "Edgar"), tried as an anchor BEFORE the mention-text-last-word anchor. ROOT CAUSE this
+    fixes: for a two-word proper name mention like "Edgar Rose" / "Thomas Read", the LAST WORD is
+    the surname ("Rose"/"Read"), a token clause_position_predict5's per-clause subject rule
+    correctly does NOT select as subject (the given name "Edgar"/"Thomas" is the actual clause
+    subject and the recurring single-token identity used for this entity elsewhere in the passage)
+    -- so anchoring on the surname silently grades the WRONG token and reports "agent predicted as
+    patient" when the pipeline's clause-subject prediction was already correct. Independently
+    corroborated: exp_extraction_commit_then_revise_v4_animacy.py's own probe already flagged
+    "Thomas Read"/"Patty"/"Dash" as PROPER-NOUN HOMOGRAPH lexicon artifacts on this same eval file.
+    Default None preserves the exact prior behavior for every OTHER caller (v2-v5 wire cells).
+
+    GUARD (MEASURED regression caught this session): the entity_name anchor is used ONLY when the
+    entity's own canonical name literally appears as a WORD inside mention_text (e.g. "Edgar Rose"
+    contains "Edgar"). Without this guard, a DESCRIPTIVE mention that shares no words with the
+    entity name (e.g. gold mention "his dog" for entity "Bounce", in willie_bounce) let the
+    entity_name anchor over-eagerly grab an unrelated same-name token appearing later in the same
+    clause ("... said that Bounce could do ..."), stealing the wrong token and regressing an
+    already-correct prediction. Requiring the name to be a substring-word of the mention itself
+    confines the fix to its intended case (multi-word proper names) and leaves purely-descriptive
+    mentions on the original last-word behavior."""
+    anchors = []
+    mention_words = [norm_word(w) for w in mention_text.split()] if mention_text else []
+    if entity_name:
+        name_words = [norm_word(w) for w in entity_name.split() if norm_word(w)]
+        if name_words and all(w in mention_words for w in name_words):
+            for w in name_words:
+                if w not in anchors:
+                    anchors.append(w)
+    mention_anchor = norm_word(mention_text.split()[-1]) if mention_text else None
+    if mention_anchor and mention_anchor not in anchors:
+        anchors.append(mention_anchor)
+    if not anchors:
         return None
-    candidates = [i for i in sent["mention_idx"]
-                  if i not in used and norm_word(sent["tokens"][i]) == anchor]
+    for anchor in anchors:
+        candidates = [i for i in sent["mention_idx"]
+                      if i not in used and norm_word(sent["tokens"][i]) == anchor]
+        if candidates:
+            break
+    else:
+        candidates = []
     if not candidates:
         # tagger-noise fallback: scan ALL tokens (not just tagged mentions), same forgiveness
         # exp_interactive_loop_real_gold_mcguffey_v1 grants its own gold_target matching
-        candidates = [i for i in range(len(sent["tokens"]))
-                      if i not in used and norm_word(sent["tokens"][i]) == anchor]
+        for anchor in anchors:
+            candidates = [i for i in range(len(sent["tokens"]))
+                          if i not in used and norm_word(sent["tokens"][i]) == anchor]
+            if candidates:
+                break
     return candidates[0] if candidates else None
 
 

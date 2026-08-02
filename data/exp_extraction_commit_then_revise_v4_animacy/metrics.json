@@ -302,7 +302,7 @@
     },
     {
       "margin_thresh": 0.08,
-      "canonical_role_acc": 0.5242424242424243,
+      "canonical_role_acc": 0.5272727272727272,
       "quotative_role_acc": 0.7704918032786885,
       "byagent_role_acc": 0.7872340425531915,
       "theme_role_acc": 0.5882352941176471,
@@ -311,7 +311,7 @@
     },
     {
       "margin_thresh": 0.1,
-      "canonical_role_acc": 0.5454545454545454,
+      "canonical_role_acc": 0.5484848484848485,
       "quotative_role_acc": 0.7704918032786885,
       "byagent_role_acc": 0.7872340425531915,
       "theme_role_acc": 0.5882352941176471,
@@ -320,16 +320,16 @@
     },
     {
       "margin_thresh": 0.15,
-      "canonical_role_acc": 0.5787878787878787,
+      "canonical_role_acc": 0.5848484848484848,
       "quotative_role_acc": 0.7704918032786885,
-      "byagent_role_acc": 0.8297872340425532,
+      "byagent_role_acc": 0.8085106382978723,
       "theme_role_acc": 0.4117647058823529,
       "n_preservation_gates_cleared": 3,
       "canonical_gate_fp_rate": 0.40707964601769914
     },
     {
       "margin_thresh": 0.2,
-      "canonical_role_acc": 0.603030303030303,
+      "canonical_role_acc": 0.6121212121212121,
       "quotative_role_acc": 0.7704918032786885,
       "byagent_role_acc": 0.8085106382978723,
       "theme_role_acc": 0.0,
@@ -338,7 +338,7 @@
     },
     {
       "margin_thresh": 0.3,
-      "canonical_role_acc": 0.6575757575757576,
+      "canonical_role_acc": 0.6666666666666666,
       "quotative_role_acc": 0.7540983606557377,
       "byagent_role_acc": 0.7659574468085106,
       "theme_role_acc": 0.0,
@@ -376,34 +376,34 @@
     },
     {
       "margin_thresh": 0.08,
-      "canonical_role_acc": 0.5363636363636364,
+      "canonical_role_acc": 0.5424242424242425,
       "quotative_role_acc": 0.7704918032786885,
-      "byagent_role_acc": 0.8085106382978723,
+      "byagent_role_acc": 0.7872340425531915,
       "theme_role_acc": 0.7058823529411765,
       "n_preservation_gates_cleared": 3,
       "canonical_gate_fp_rate": 0.40707964601769914
     },
     {
       "margin_thresh": 0.1,
-      "canonical_role_acc": 0.5575757575757576,
+      "canonical_role_acc": 0.5636363636363636,
       "quotative_role_acc": 0.7704918032786885,
-      "byagent_role_acc": 0.8297872340425532,
+      "byagent_role_acc": 0.8085106382978723,
       "theme_role_acc": 0.7058823529411765,
       "n_preservation_gates_cleared": 3,
       "canonical_gate_fp_rate": 0.40707964601769914
     },
     {
       "margin_thresh": 0.15,
-      "canonical_role_acc": 0.5848484848484848,
+      "canonical_role_acc": 0.5909090909090909,
       "quotative_role_acc": 0.7540983606557377,
-      "byagent_role_acc": 0.8085106382978723,
+      "byagent_role_acc": 0.7872340425531915,
       "theme_role_acc": 0.5294117647058824,
       "n_preservation_gates_cleared": 3,
       "canonical_gate_fp_rate": 0.40707964601769914
     },
     {
       "margin_thresh": 0.2,
-      "canonical_role_acc": 0.6060606060606061,
+      "canonical_role_acc": 0.6151515151515151,
       "quotative_role_acc": 0.7540983606557377,
       "byagent_role_acc": 0.7872340425531915,
       "theme_role_acc": 0.0,
@@ -412,7 +412,7 @@
     },
     {
       "margin_thresh": 0.3,
-      "canonical_role_acc": 0.6545454545454545,
+      "canonical_role_acc": 0.6636363636363637,
       "quotative_role_acc": 0.7540983606557377,
       "byagent_role_acc": 0.7659574468085106,
       "theme_role_acc": 0.0,
@@ -703,6 +703,6 @@
   "final_metrics_atomicity": "tmp_replace",
   "cell_chunked": false,
   "calibration_check": "adaptive_with_discriminator_gate: margin_thresh re-selected per v3's own precedent (feature-space change); gate/THRESH/COMMIT default untouched",
-  "elapsed_s": 188.35803929995745,
-  "ts_iso": "2026-08-02T16:51:05Z"
+  "elapsed_s": 141.81375109986402,
+  "ts_iso": "2026-08-02T17:19:27Z"
 }
