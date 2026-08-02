@@ -1,0 +1,81 @@
+{
+  "anchor_name": "wire_coref_accumulate_situation_model_v1",
+  "verdict": "MILESTONE_MET",
+  "verdict_msg": "MILESTONE_MET: earned=0.9646 within 0.05 of oracle ceiling=0.9798 (value_ceiling=0.9845). Earned coref is good enough to carry the situation model end-to-end on real McGuffey, no oracle scaffolding.",
+  "summary": "MILESTONE_MET",
+  "elapsed_s": 1.3035993999801576,
+  "ts_iso": "2026-08-02T20:20:44.365606+00:00",
+  "pid": 19956,
+  "seed": 20260802,
+  "d": 1024,
+  "max_event_slots": 16,
+  "role_vocab": [
+    "agent",
+    "experiencer",
+    "theme",
+    "patient",
+    "recipient",
+    "possessor",
+    "addressee",
+    "goal",
+    "instrument"
+  ],
+  "gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_multientity_dense_v1.jsonl",
+  "n_passages": 18,
+  "arm_order": [
+    "oracle",
+    "earned",
+    "recency_floor",
+    "singleton_floor"
+  ],
+  "per_arm": {
+    "oracle": {
+      "accuracy": 0.9797979797979798,
+      "n_correct": 194,
+      "n_total": 198,
+      "n_collisions": 4,
+      "n_passages": 18
+    },
+    "earned": {
+      "accuracy": 0.9646464646464646,
+      "n_correct": 191,
+      "n_total": 198,
+      "n_collisions": 9,
+      "n_passages": 18
+    },
+    "recency_floor": {
+      "accuracy": 0.7171717171717171,
+      "n_correct": 142,
+      "n_total": 198,
+      "n_collisions": 76,
+      "n_passages": 18
+    },
+    "singleton_floor": {
+      "accuracy": 1.0,
+      "n_correct": 198,
+      "n_total": 198,
+      "n_collisions": 0,
+      "n_passages": 18
+    }
+  },
+  "oracle_accuracy": 0.9797979797979798,
+  "earned_accuracy": 0.9646464646464646,
+  "recency_floor_accuracy": 0.7171717171717171,
+  "singleton_floor_accuracy": 1.0,
+  "value_ceiling_earned_over_oracle": 0.9845360824742269,
+  "bands": {
+    "milestone_margin": 0.05,
+    "floor_gap_margin": 0.05,
+    "oracle_ceiling_floor": 0.9
+  },
+  "timeout_s": 120.0,
+  "final_metrics_atomicity": "tmp_replace",
+  "checkpointed": true,
+  "n_units_total": 72,
+  "n_units_ran_this_invocation": 72,
+  "prior_commits": {
+    "coref_fair_test_hard_pass": "27e10d3a8",
+    "possessive_gender_fix": "a0aac7eeb",
+    "accumulate_organ_atom": "29609"
+  }
+}
