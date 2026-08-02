@@ -86,3 +86,18 @@ commit 93dd4a5cc); miner proves 283 candidates for powering. HELD FOR USER STEER
 semantics (current-state) + confirm the fork, then build the oracle-WM arm (feed gold roles -> PEGatedSlotWM
 no-allocate -> current-state recall + 3 can-fail controls) = the decisive "does the overwrite-WM work on
 real discourse structure" test, cheap/numpy. Then the real-extraction arm.
+
+## ⚠️ FINDING 2 (2026-08-02 ~10:1Xz, surfaced while spec'ing the probe): the gold must be MEMORY-TEST-OPTIMIZED
+For the no-memory can-fail control to genuinely FAIL (and thus for the probe to be FAIR), the target-query
+entities must have their CURRENT role established in an EARLIER clause and NOT restated in the FINAL clause
+-- so a last-clause-only readout provably cannot recover it, but the maintained WM can. In the starter gold
+(6 passages) most entities RECUR in the final clause (e.g. Susie/Sport/Mary all appear in c2), so a
+last-clause baseline would trivially pass -> only ~1-2 clean memory-test cases exist (e.g. edgar_thomas
+boatman: set agent in c0, ABSENT from c1/c2 = a true memory test). => before the probe is a FAIR test, curate
+gold for the memory-test property: passages where the target entity's current role is set early + the final
+clause is about a DIFFERENT entity (so recalling the target requires maintenance). This is spec-able director
+work (not a USER call) but it is CAREFUL curation, not a 5am rush -- doing it hastily reproduces the
+probe-misspecification failure mode (3x this week). NET: the oracle-WM probe is fully designed but a FAIR
+run needs (a) current-state query semantics [Finding 1, resolved] + (b) memory-test-optimized gold
+[Finding 2, ~10-15 curated passages]. Both are careful daytime/steered work; the design + starter seed +
+both findings are banked so it is turnkey once engaged.
