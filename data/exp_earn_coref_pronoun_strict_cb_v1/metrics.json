@@ -1,0 +1,463 @@
+{
+  "anchor_name": "earn_coref_pronoun_strict_cb_v1",
+  "verdict": "PARTIAL_LIFT",
+  "verdict_msg": "strict_cb pronoun-only B3-F1 lift confirmed (0.6660 -> 0.7029, lift=0.0369>=0.03, no regression) but the coref-level gain does NOT propagate to the situation-model query metric: strict_cb=0.5833333333333334 vs recency_floor=0.8333333333333334 (gap=-0.25 < 0.05). Coref-level fix real, query-metric propagation unresolved -- report both, do not spin as HARD_PASS. tiers={'tier1_immediate_cb': 34, 'tier2_farther_subject': 20, 'tier3_pure_recency': 15, 'tier4_no_compat': 7}.",
+  "summary": "PARTIAL_LIFT",
+  "elapsed_s": 0.393362500006333,
+  "ts_iso": "2026-08-02T21:20:14.748970+00:00",
+  "pid": 10696,
+  "gold_path_combined": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl",
+  "gold_path_g5g6": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
+  "n_passages_combined": 36,
+  "n_passages_g5g6": 18,
+  "n_mentions_total": 349,
+  "n_pronoun_mentions": 76,
+  "n_role_flips_baseline_vs_strict_cb": 10,
+  "subject_like_roles": [
+    "agent"
+  ],
+  "recency_boost_factor": 5.0,
+  "b3_combined": {
+    "baseline": {
+      "overall": {
+        "precision": 0.8512029835812073,
+        "recall": 0.7420930549870376,
+        "f1": 0.7929120605452421,
+        "n_mentions": 349
+      },
+      "name_only": {
+        "precision": 0.9047037618466192,
+        "recall": 0.7612942612942609,
+        "f1": 0.8268266498500152,
+        "n_mentions": 273
+      },
+      "pronoun_only": {
+        "precision": 0.6590225563909777,
+        "recall": 0.6731203007518799,
+        "f1": 0.6659968320688842,
+        "n_mentions": 76
+      }
+    },
+    "strict_cb": {
+      "overall": {
+        "precision": 0.8739823532087142,
+        "recall": 0.75090735434575,
+        "f1": 0.8077837819288799,
+        "n_mentions": 349
+      },
+      "name_only": {
+        "precision": 0.9101473922902495,
+        "recall": 0.7745159602302457,
+        "f1": 0.8368718657482174,
+        "n_mentions": 273
+      },
+      "pronoun_only": {
+        "precision": 0.7440737259816207,
+        "recall": 0.6661027568922308,
+        "f1": 0.7029326700972488,
+        "n_mentions": 76
+      }
+    },
+    "recency_boost": {
+      "overall": {
+        "precision": 0.8512029835812073,
+        "recall": 0.7420930549870376,
+        "f1": 0.7929120605452421,
+        "n_mentions": 349
+      },
+      "name_only": {
+        "precision": 0.9047037618466192,
+        "recall": 0.7612942612942609,
+        "f1": 0.8268266498500152,
+        "n_mentions": 273
+      },
+      "pronoun_only": {
+        "precision": 0.6590225563909777,
+        "recall": 0.6731203007518799,
+        "f1": 0.6659968320688842,
+        "n_mentions": 76
+      }
+    },
+    "recency_floor": {
+      "overall": {
+        "precision": 0.41664249846451096,
+        "recall": 1.0,
+        "f1": 0.5882112091316007,
+        "n_mentions": 349
+      },
+      "name_only": {
+        "precision": 0.3711451402627871,
+        "recall": 1.0,
+        "f1": 0.5413652127179698,
+        "n_mentions": 273
+      },
+      "pronoun_only": {
+        "precision": 0.5800737983207026,
+        "recall": 1.0,
+        "f1": 0.7342363362232868,
+        "n_mentions": 76
+      }
+    }
+  },
+  "b3_g5g6_only": {
+    "baseline": {
+      "overall": {
+        "precision": 0.7995795227583306,
+        "recall": 0.5953011668243454,
+        "f1": 0.6824822028460306,
+        "n_mentions": 151
+      },
+      "name_only": {
+        "precision": 0.8606314320600035,
+        "recall": 0.537728937728938,
+        "f1": 0.6618986575078784,
+        "n_mentions": 91
+      },
+      "pronoun_only": {
+        "precision": 0.7069841269841272,
+        "recall": 0.682619047619048,
+        "f1": 0.6945879806031731,
+        "n_mentions": 60
+      }
+    },
+    "strict_cb": {
+      "overall": {
+        "precision": 0.8340166088510458,
+        "recall": 0.60242825607064,
+        "f1": 0.6995537155287574,
+        "n_mentions": 151
+      },
+      "name_only": {
+        "precision": 0.8655154369440083,
+        "recall": 0.5598116169544746,
+        "f1": 0.6798798843106695,
+        "n_mentions": 91
+      },
+      "pronoun_only": {
+        "precision": 0.7862433862433865,
+        "recall": 0.6670634920634924,
+        "f1": 0.7217667055293344,
+        "n_mentions": 60
+      }
+    },
+    "recency_boost": {
+      "overall": {
+        "precision": 0.7995795227583306,
+        "recall": 0.5953011668243454,
+        "f1": 0.6824822028460306,
+        "n_mentions": 151
+      },
+      "name_only": {
+        "precision": 0.8606314320600035,
+        "recall": 0.537728937728938,
+        "f1": 0.6618986575078784,
+        "n_mentions": 91
+      },
+      "pronoun_only": {
+        "precision": 0.7069841269841272,
+        "recall": 0.682619047619048,
+        "f1": 0.6945879806031731,
+        "n_mentions": 60
+      }
+    }
+  },
+  "pronoun_lift": 0.03693583802836464,
+  "name_regression": -0.010045215898202176,
+  "overall_regression": -0.014871721383637793,
+  "lifts_pronoun_b3": true,
+  "no_regression": true,
+  "query_metric": {
+    "oracle": {
+      "authored_query_accuracy": 0.9846153846153847,
+      "authored_query_accuracy_pronoun_subset": 0.9722222222222222,
+      "authored_n_total": 130,
+      "authored_n_total_pron": 36,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.9594594594594594,
+      "derived_n_total": 74,
+      "derived_n_skipped": 0,
+      "n_collisions": 12
+    },
+    "baseline": {
+      "authored_query_accuracy": 0.7769230769230769,
+      "authored_query_accuracy_pronoun_subset": 0.4722222222222222,
+      "authored_n_total": 130,
+      "authored_n_total_pron": 36,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.4864864864864865,
+      "derived_n_total": 74,
+      "derived_n_skipped": 0,
+      "n_collisions": 19
+    },
+    "strict_cb": {
+      "authored_query_accuracy": 0.8076923076923077,
+      "authored_query_accuracy_pronoun_subset": 0.5833333333333334,
+      "authored_n_total": 130,
+      "authored_n_total_pron": 36,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.6216216216216216,
+      "derived_n_total": 74,
+      "derived_n_skipped": 0,
+      "n_collisions": 14
+    },
+    "recency_boost": {
+      "authored_query_accuracy": 0.7538461538461538,
+      "authored_query_accuracy_pronoun_subset": 0.3888888888888889,
+      "authored_n_total": 130,
+      "authored_n_total_pron": 36,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.47297297297297297,
+      "derived_n_total": 74,
+      "derived_n_skipped": 0,
+      "n_collisions": 19
+    },
+    "recency_floor": {
+      "authored_query_accuracy": 0.8846153846153846,
+      "authored_query_accuracy_pronoun_subset": 0.8333333333333334,
+      "authored_n_total": 130,
+      "authored_n_total_pron": 36,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.7837837837837838,
+      "derived_n_total": 74,
+      "derived_n_skipped": 0,
+      "n_collisions": 110
+    },
+    "singleton_floor": {
+      "authored_query_accuracy": 0.46923076923076923,
+      "authored_query_accuracy_pronoun_subset": 0.05555555555555555,
+      "authored_n_total": 130,
+      "authored_n_total_pron": 36,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.10810810810810811,
+      "derived_n_total": 74,
+      "derived_n_skipped": 0,
+      "n_collisions": 0
+    }
+  },
+  "query_metric_note": "authored_* uses each gold passage's committed target_queries (pronoun-contributed subset via pronoun_contributed_queries); derived_* is EVERY entity's pronoun mention at a clause turned into a query -- a better-powered directional read of the same lever, all-pronoun by construction. Both computed on the COMBINED powered gold.",
+  "cb_clears_recency_authored": false,
+  "cb_beats_baseline_authored": true,
+  "cb_clears_recency_derived": false,
+  "cb_beats_baseline_derived": true,
+  "recency_boost_clears_recency_authored": false,
+  "decision_trace_tier_summary": {
+    "tier1_immediate_cb": 34,
+    "tier2_farther_subject": 20,
+    "tier3_pure_recency": 15,
+    "tier4_no_compat": 7
+  },
+  "decision_trace_sample": [
+    {
+      "pos": 8,
+      "mention_text": "He",
+      "clause": 4,
+      "gold_entity": "Edgar",
+      "picked_eid": 0,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 2,
+      "passage_id": "g2_dense_boat_rose_boatman_edgar_thomas"
+    },
+    {
+      "pos": 9,
+      "mention_text": "he",
+      "clause": 5,
+      "gold_entity": "Dodger",
+      "picked_eid": 4,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 5,
+      "passage_id": "g2_dense_james_sport_dodger"
+    },
+    {
+      "pos": 11,
+      "mention_text": "him",
+      "clause": 5,
+      "gold_entity": "Dodger",
+      "picked_eid": 4,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 5,
+      "passage_id": "g2_dense_james_sport_dodger"
+    },
+    {
+      "pos": 8,
+      "mention_text": "He",
+      "clause": 5,
+      "gold_entity": "Harry",
+      "picked_eid": 1,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g2_dense_sam_harry_blindman"
+    },
+    {
+      "pos": 10,
+      "mention_text": "he",
+      "clause": 6,
+      "gold_entity": "Sam",
+      "picked_eid": 1,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g2_dense_sam_harry_blindman"
+    },
+    {
+      "pos": 4,
+      "mention_text": "he",
+      "clause": 3,
+      "gold_entity": "Willie",
+      "picked_eid": 0,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 2,
+      "passage_id": "g2_dense_willie_bounce_brown_river_rescue"
+    },
+    {
+      "pos": 9,
+      "mention_text": "He",
+      "clause": 6,
+      "gold_entity": "Bounce",
+      "picked_eid": 1,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g2_dense_willie_bounce_brown_river_rescue"
+    },
+    {
+      "pos": 12,
+      "mention_text": "him",
+      "clause": 7,
+      "gold_entity": "Willie",
+      "picked_eid": 1,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g2_dense_willie_bounce_brown_river_rescue"
+    },
+    {
+      "pos": 1,
+      "mention_text": "he",
+      "clause": 1,
+      "gold_entity": "Fred",
+      "picked_eid": 0,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 1,
+      "passage_id": "g4_dense_fred_tom_katy_fire"
+    },
+    {
+      "pos": 6,
+      "mention_text": "He",
+      "clause": 5,
+      "gold_entity": "Frisk",
+      "picked_eid": 0,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 2,
+      "passage_id": "g4_dense_harry_frisk_annie"
+    },
+    {
+      "pos": 5,
+      "mention_text": "him",
+      "clause": 3,
+      "gold_entity": "Philip",
+      "picked_eid": 0,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g4_dense_philip_stephen_robinson"
+    },
+    {
+      "pos": 6,
+      "mention_text": "He",
+      "clause": 4,
+      "gold_entity": "Robinson_son",
+      "picked_eid": 1,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g4_dense_philip_stephen_robinson"
+    },
+    {
+      "pos": 8,
+      "mention_text": "him",
+      "clause": 4,
+      "gold_entity": "Robinson_son",
+      "picked_eid": 1,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g4_dense_philip_stephen_robinson"
+    },
+    {
+      "pos": 10,
+      "mention_text": "he",
+      "clause": 5,
+      "gold_entity": "Robinson_son",
+      "picked_eid": 0,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g4_dense_philip_stephen_robinson"
+    },
+    {
+      "pos": 12,
+      "mention_text": "he",
+      "clause": 6,
+      "gold_entity": "Robinson_son",
+      "picked_eid": 1,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 3,
+      "passage_id": "g4_dense_philip_stephen_robinson"
+    },
+    {
+      "pos": 0,
+      "mention_text": "he",
+      "clause": 1,
+      "gold_entity": "debtor",
+      "picked_eid": 0,
+      "tier": "tier4_no_compat",
+      "n_compat": 0,
+      "passage_id": "g5v_benefactor_debtor"
+    },
+    {
+      "pos": 1,
+      "mention_text": "he",
+      "clause": 2,
+      "gold_entity": "debtor",
+      "picked_eid": 0,
+      "tier": "tier3_pure_recency",
+      "n_compat": 1,
+      "passage_id": "g5v_benefactor_debtor"
+    },
+    {
+      "pos": 5,
+      "mention_text": "He",
+      "clause": 6,
+      "gold_entity": "debtor",
+      "picked_eid": 2,
+      "tier": "tier2_farther_subject",
+      "n_compat": 4,
+      "passage_id": "g5v_benefactor_debtor"
+    },
+    {
+      "pos": 1,
+      "mention_text": "he",
+      "clause": 1,
+      "gold_entity": "Flor_Silin",
+      "picked_eid": 0,
+      "tier": "tier3_pure_recency",
+      "n_compat": 1,
+      "passage_id": "g5v_flor_silin_neighbors"
+    },
+    {
+      "pos": 2,
+      "mention_text": "He",
+      "clause": 2,
+      "gold_entity": "Flor_Silin",
+      "picked_eid": 0,
+      "tier": "tier1_immediate_cb",
+      "n_compat": 1,
+      "passage_id": "g5v_flor_silin_neighbors"
+    }
+  ],
+  "bands": {
+    "pronoun_lift_margin": 0.03,
+    "regression_tol": 0.01,
+    "query_floor_gap_margin": 0.05
+  },
+  "reproducibility_note": "run_learnable (exp_earn_coref_match_or_allocate_v1.py) is imported and NEVER mutated; run_learnable_strict_cb and run_learnable_recency_boost are NEW opt-in functions in this file. Prior committed cells (27e10d3a8, a0aac7eeb, 54a0af00d, 5639fe312) are unaffected.",
+  "prior_commits": {
+    "coref_fair_test_hard_pass": "27e10d3a8",
+    "possessive_gender_fix": "a0aac7eeb",
+    "milestone_wire_accumulate": "54a0af00d",
+    "step2_blended_prominence_null": "5639fe312"
+  }
+}
