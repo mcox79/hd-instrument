@@ -1,0 +1,5714 @@
+{
+  "anchor": "cross_clause_feedback_interactive_loop_v1",
+  "mode": "full",
+  "verdict": "NULL_RESULT_ORACLE_CEILING_ZERO_CONTENT_TOO_SHORT_FOR_CROSSCLAUSE_FEEDBACK",
+  "verdict_msg": "NULL_RESULT_ORACLE_CEILING_ZERO_CONTENT_TOO_SHORT_FOR_CROSSCLAUSE_FEEDBACK | BASE=0.6006 REAL=0.5862 ORACLE=0.5632 SCRAMBLED=0.5690 | oracle_lift=-0.0374 real_lift=-0.0144 scrambled_lift=-0.0316 capture_frac=NA | baseline_repro_ok=True | n_multi_event=58/83",
+  "summary": {
+    "base_multi_event_recall": 0.6005747126436781,
+    "real_multi_event_recall": 0.5862068965517241,
+    "oracle_multi_event_recall": 0.5632183908045978,
+    "scrambled_multi_event_recall": 0.5689655172413793,
+    "oracle_lift_over_base": -0.03735632183908033,
+    "real_lift_over_base": -0.014367816091954033,
+    "scrambled_lift_over_base": -0.031609195402298784,
+    "real_capture_fraction_of_oracle_lift": null,
+    "baseline_repro_ok": true,
+    "baseline_repro_target": 0.6005747126436781,
+    "n_multi_event_entities": 58,
+    "n_entities_total": 83
+  },
+  "bands": {
+    "BASELINE_REPRO_TARGET": 0.6005747126436781,
+    "BASELINE_REPRO_TOL": 0.02,
+    "ORACLE_CEILING_MIN": 0.03,
+    "SCRAMBLED_CANFAIL_MAX": 0.02,
+    "REAL_CAPTURE_FRAC_HARDPASS": 0.5,
+    "REAL_CAPTURE_FRAC_MIDDLE": 0.15,
+    "BETA": 1.0
+  },
+  "beta_sensitivity_diagnostic_nongating": {
+    "0.5": {
+      "REAL": 0.6005747126436781,
+      "ORACLE": 0.6005747126436781
+    },
+    "1.0": {
+      "REAL": 0.5862068965517241,
+      "ORACLE": 0.5632183908045978
+    },
+    "2.0": {
+      "REAL": 0.5301724137931034,
+      "ORACLE": 0.5589080459770115
+    }
+  },
+  "per_entity_dump": [
+    {
+      "key": "susie_hears_1::Susie",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "susie_hears_1::poor_girl",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "susie_hears_1::children",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        0
+      ],
+      "BASE_recall": 0.6666666666666666,
+      "REAL_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        0
+      ],
+      "REAL_recall": 0.6666666666666666,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.6666666666666666,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.6666666666666666
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "recipient",
+        "recipient"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "patient",
+        "theme"
+      ],
+      "BASE_correct": [
+        1,
+        0,
+        0
+      ],
+      "BASE_recall": 0.3333333333333333,
+      "REAL_final_roles": [
+        "patient",
+        "patient",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        0
+      ],
+      "REAL_recall": 0.3333333333333333,
+      "ORACLE_final_roles": [
+        "patient",
+        "patient",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.3333333333333333,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "patient",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.3333333333333333
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "agent",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "agent",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "patient",
+        "agent",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "patient",
+        "agent",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "agent",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "harry_carriage::Harry",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "harry_carriage::blind_man",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "recipient"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "harry_carriage::mother",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "addressee"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "edgar_thomas_boat::boatman",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        0,
+        1
+      ],
+      "BASE_recall": 0.6666666666666666,
+      "REAL_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        1
+      ],
+      "REAL_recall": 0.6666666666666666,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.6666666666666666,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.6666666666666666
+    },
+    {
+      "key": "james_sport_dog::Sport",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "agent",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "patient",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0,
+        1
+      ],
+      "BASE_recall": 0.6666666666666666,
+      "REAL_final_roles": [
+        "theme",
+        "theme",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        1
+      ],
+      "REAL_recall": 0.6666666666666666,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.6666666666666666,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "patient",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.6666666666666666
+    },
+    {
+      "key": "james_sport_dog::James",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "willie_bounce::Willie",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "theme",
+        "theme",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        1
+      ],
+      "REAL_recall": 0.6666666666666666,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.6666666666666666,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "willie_bounce::Bounce",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "fred_knife::Fred",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0,
+        0
+      ],
+      "BASE_recall": 0.3333333333333333,
+      "REAL_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        0
+      ],
+      "REAL_recall": 0.3333333333333333,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.3333333333333333,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.3333333333333333
+    },
+    {
+      "key": "john_lamb::John",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "possessor",
+        "experiencer",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        0,
+        1
+      ],
+      "BASE_recall": 0.3333333333333333,
+      "REAL_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        0,
+        1
+      ],
+      "REAL_recall": 0.3333333333333333,
+      "ORACLE_final_roles": [
+        "agent",
+        "possessor",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.3333333333333333,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "theme",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.3333333333333333
+    },
+    {
+      "key": "john_lamb::lamb",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "dodger_terrier::Dodger",
+      "n_events": 4,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "patient",
+        "agent",
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "agent",
+        "agent",
+        "theme"
+      ],
+      "BASE_correct": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "BASE_recall": 0.75,
+      "REAL_final_roles": [
+        "theme",
+        "theme",
+        "agent",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "REAL_recall": 0.75,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme",
+        "agent",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "ORACLE_recall": 0.75,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "agent",
+        "agent",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 0.75
+    },
+    {
+      "key": "patty_forest::Patty",
+      "n_events": 4,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "experiencer",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient",
+        "theme",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "BASE_recall": 0.25,
+      "REAL_final_roles": [
+        "agent",
+        "patient",
+        "theme",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "REAL_recall": 0.25,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient",
+        "theme",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.25,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "theme",
+        "theme",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.25
+    },
+    {
+      "key": "patty_forest::brothers",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "theme"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "theme"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "theme"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Aunt_Annie",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Bessie",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "bessie_toad_afternoon::Bessie",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "agent",
+        "experiencer"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        0
+      ],
+      "BASE_recall": 0.6666666666666666,
+      "REAL_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        0
+      ],
+      "REAL_recall": 0.6666666666666666,
+      "ORACLE_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.6666666666666666,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.6666666666666666
+    },
+    {
+      "key": "bessie_toad_afternoon::toad",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "patient"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "bessie_mother_departure::Bessie",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "patient"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "theme",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "bessie_mother_departure::mother",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "bessie_rain_auntie::Bessie",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "bessie_rain_auntie::aunt",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "recipient"
+      ],
+      "BASE_final_roles": [
+        "addressee",
+        "patient"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "addressee",
+        "patient"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "addressee",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "addressee",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "george_ellet_snowball::George",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "possessor",
+        "agent",
+        "experiencer"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1,
+        0
+      ],
+      "BASE_recall": 0.3333333333333333,
+      "REAL_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1,
+        0
+      ],
+      "REAL_recall": 0.3333333333333333,
+      "ORACLE_final_roles": [
+        "agent",
+        "possessor",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.3333333333333333
+    },
+    {
+      "key": "george_ellet_snowball::James_Mason",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "goal",
+        "goal"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "george_ellet_confession::George",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent",
+        "recipient"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        0,
+        0
+      ],
+      "BASE_recall": 0.3333333333333333,
+      "REAL_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        0,
+        0
+      ],
+      "REAL_recall": 0.3333333333333333,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.3333333333333333,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.3333333333333333
+    },
+    {
+      "key": "george_ellet_confession::gentleman",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "patient",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "mary_beach_story::Father",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "mary_beach_story::Charles",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "mary_beach_story::Lucy",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "robert_henry_courage_1::Robert",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "robert_henry_courage_1::Henry",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "agent",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "robert_henry_rescue_2::Robert",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient",
+        "theme"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        0
+      ],
+      "BASE_recall": 0.6666666666666666,
+      "REAL_final_roles": [
+        "agent",
+        "patient",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        0
+      ],
+      "REAL_recall": 0.6666666666666666,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.6666666666666666,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.6666666666666666
+    },
+    {
+      "key": "robert_henry_rescue_2::Henry",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "herbert_joe_castle_1::Joe",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "herbert_joe_castle_1::Herbert",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "herbert_joe_castle_1::papa",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Herbert",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Hetty",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::pussy",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "patient"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::papa",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Joe",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Herbert",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "patient"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "susan_grandmother_1::Susan",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "susan_grandmother_1::grandmother",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "susan_grandmother_2::Susan",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "experiencer",
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "susan_grandmother_2::girls",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "henry_bond_grammar::Henry",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "experiencer",
+        "experiencer",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        0,
+        1
+      ],
+      "BASE_recall": 0.3333333333333333,
+      "REAL_final_roles": [
+        "theme",
+        "theme",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        0,
+        1
+      ],
+      "REAL_recall": 0.3333333333333333,
+      "ORACLE_final_roles": [
+        "theme",
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.3333333333333333,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.3333333333333333
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Harry",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Uncle_Ben",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Uncle_Ben",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "addressee"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient",
+        "addressee"
+      ],
+      "REAL_correct": [
+        0,
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient",
+        "addressee"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "addressee"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Harry",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "addressee"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "addressee"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "addressee"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "addressee"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "addressee"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Hugh",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "experiencer",
+        "patient",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "BASE_correct": [
+        0,
+        1,
+        0
+      ],
+      "BASE_recall": 0.3333333333333333,
+      "REAL_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "REAL_correct": [
+        0,
+        1,
+        0
+      ],
+      "REAL_recall": 0.3333333333333333,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0,
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.3333333333333333,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.3333333333333333
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Mr_Toil",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Jenny",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Andrew",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Donald_McKensie",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Jenny",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "experiencer",
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1,
+        1
+      ],
+      "BASE_recall": 0.6666666666666666,
+      "REAL_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1,
+        1
+      ],
+      "REAL_recall": 0.6666666666666666,
+      "ORACLE_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        1,
+        1
+      ],
+      "ORACLE_recall": 0.6666666666666666,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 0.6666666666666666
+    },
+    {
+      "key": "preston_soldiers_byagent::Preston",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "preston_soldiers_byagent::soldiers",
+      "n_events": 3,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "patient",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "patient",
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "patient",
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "theme",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.6666666666666666
+    },
+    {
+      "key": "king_ernestine_order::Ernestine",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "king_ernestine_order::King",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "BASE_correct": [
+        1,
+        0
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "warren_langford_quotative::Langford",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "warren_langford_quotative::Warren",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "hugh_idle_stranger_2::Hugh",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "experiencer",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        1
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "hugh_idle_stranger_2::stranger",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "hugh_idle_farmer_resemblance::Hugh",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "hugh_idle_farmer_resemblance::Mr_Toil",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "theme",
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "addressee"
+      ],
+      "BASE_correct": [
+        1,
+        0
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "addressee"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    },
+    {
+      "key": "hugh_idle_farmer_resemblance::stranger",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent"
+      ],
+      "BASE_correct": [
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent"
+      ],
+      "REAL_correct": [
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "john_tom_horse_1::John",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "experiencer",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        1
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        1
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "john_tom_horse_1::Tom",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "experiencer"
+      ],
+      "BASE_final_roles": [
+        "theme"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "theme"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "theme"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "theme"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "john_tom_horse_2::Tom",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        1
+      ],
+      "BASE_recall": 1.0,
+      "REAL_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        1
+      ],
+      "REAL_recall": 1.0,
+      "ORACLE_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        1
+      ],
+      "ORACLE_recall": 1.0,
+      "SCRAMBLED_final_roles": [
+        "agent",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        1
+      ],
+      "SCRAMBLED_recall": 1.0
+    },
+    {
+      "key": "john_tom_horse_2::John",
+      "n_events": 1,
+      "multi_event": false,
+      "true_roles": [
+        "agent"
+      ],
+      "BASE_final_roles": [
+        "patient"
+      ],
+      "BASE_correct": [
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "patient"
+      ],
+      "REAL_correct": [
+        0
+      ],
+      "REAL_recall": 0.0,
+      "ORACLE_final_roles": [
+        "patient"
+      ],
+      "ORACLE_correct": [
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "patient"
+      ],
+      "SCRAMBLED_correct": [
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "robert_henry_aftermath::Henry",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "agent",
+        "theme"
+      ],
+      "BASE_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "BASE_correct": [
+        0,
+        0
+      ],
+      "BASE_recall": 0.0,
+      "REAL_final_roles": [
+        "theme",
+        "theme"
+      ],
+      "REAL_correct": [
+        0,
+        1
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        0,
+        0
+      ],
+      "ORACLE_recall": 0.0,
+      "SCRAMBLED_final_roles": [
+        "theme",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        0,
+        0
+      ],
+      "SCRAMBLED_recall": 0.0
+    },
+    {
+      "key": "robert_henry_aftermath::Robert",
+      "n_events": 2,
+      "multi_event": true,
+      "true_roles": [
+        "patient",
+        "experiencer"
+      ],
+      "BASE_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "BASE_correct": [
+        1,
+        0
+      ],
+      "BASE_recall": 0.5,
+      "REAL_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "REAL_correct": [
+        1,
+        0
+      ],
+      "REAL_recall": 0.5,
+      "ORACLE_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "ORACLE_correct": [
+        1,
+        0
+      ],
+      "ORACLE_recall": 0.5,
+      "SCRAMBLED_final_roles": [
+        "patient",
+        "agent"
+      ],
+      "SCRAMBLED_correct": [
+        1,
+        0
+      ],
+      "SCRAMBLED_recall": 0.5
+    }
+  ],
+  "measured_multi_event_arm_ties": [
+    {
+      "key": "susie_hears_1::Susie",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "susie_hears_1::Susie",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susie_hears_1::Susie",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_hears_1::Susie",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susie_hears_1::Susie",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_hears_1::Susie",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_hears_1::poor_girl",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susie_hears_1::poor_girl",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_hears_1::poor_girl",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_helps_2::Susie",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susie_helps_2::little_girl",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Mary",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_dash_doll::Dash",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "harry_carriage::Harry",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "harry_carriage::Harry",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "harry_carriage::blind_man",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "harry_carriage::blind_man",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "harry_carriage::blind_man",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "harry_carriage::mother",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "harry_carriage::mother",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "harry_carriage::mother",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Edgar",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "edgar_thomas_boat::Thomas",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "james_sport_dog::Sport",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "james_sport_dog::Sport",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "james_sport_dog::James",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "james_sport_dog::James",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "james_sport_dog::James",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "willie_bounce::Willie",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "willie_bounce::Willie",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "willie_bounce::Bounce",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "willie_bounce::Bounce",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "willie_bounce::Bounce",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "fred_knife::Fred",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "fred_knife::Fred",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "fred_knife::Fred",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "fred_knife::Fred",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "fred_knife::Fred",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "fred_knife::Fred",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "john_lamb::John",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "john_lamb::lamb",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "john_lamb::lamb",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "dodger_terrier::Dodger",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "dodger_terrier::Dodger",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "patty_forest::Patty",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "patty_forest::Patty",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "patty_forest::Patty",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Aunt_Annie",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Aunt_Annie",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Aunt_Annie",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Aunt_Annie",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Aunt_Annie",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_auntannie_quotative_1::Aunt_Annie",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_toad_afternoon::Bessie",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "bessie_toad_afternoon::Bessie",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_toad_afternoon::Bessie",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_toad_afternoon::Bessie",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_toad_afternoon::Bessie",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_toad_afternoon::Bessie",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::Bessie",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::Bessie",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::Bessie",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::mother",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::mother",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::mother",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::mother",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::mother",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_mother_departure::mother",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::Bessie",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::Bessie",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::Bessie",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::Bessie",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::Bessie",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::Bessie",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::aunt",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::aunt",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::aunt",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::aunt",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::aunt",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "bessie_rain_auntie::aunt",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "george_ellet_snowball::George",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "george_ellet_snowball::George",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "george_ellet_snowball::George",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "george_ellet_snowball::James_Mason",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "george_ellet_snowball::James_Mason",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "george_ellet_snowball::James_Mason",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::George",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::George",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::George",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::George",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::George",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::George",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::gentleman",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::gentleman",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "george_ellet_confession::gentleman",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_beach_story::Lucy",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "mary_beach_story::Lucy",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "mary_beach_story::Lucy",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_beach_story::Lucy",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "mary_beach_story::Lucy",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "mary_beach_story::Lucy",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Robert",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Robert",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Robert",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Robert",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Robert",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Robert",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Henry",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Henry",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_courage_1::Henry",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Robert",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Robert",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Robert",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Robert",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Robert",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Robert",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Henry",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Henry",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Henry",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Henry",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Henry",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_rescue_2::Henry",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Herbert",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Herbert",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Herbert",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Herbert",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Herbert",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Herbert",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Hetty",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Hetty",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Hetty",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Hetty",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Hetty",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::Hetty",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::pussy",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::pussy",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::pussy",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::pussy",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::pussy",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_hetty_papa_castle_2::pussy",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Joe",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Joe",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Joe",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Joe",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Joe",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "herbert_papa_castlebuilding_3::Joe",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_1::Susan",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "susan_grandmother_1::Susan",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susan_grandmother_1::Susan",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_1::Susan",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susan_grandmother_1::Susan",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_1::Susan",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::Susan",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::Susan",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::Susan",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::Susan",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::Susan",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::Susan",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::girls",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::girls",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::girls",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::girls",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::girls",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "susan_grandmother_2::girls",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "henry_bond_grammar::Henry",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "henry_bond_grammar::Henry",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "henry_bond_grammar::Henry",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Harry",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Harry",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Harry",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Harry",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Harry",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_1::Harry",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Uncle_Ben",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Uncle_Ben",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Uncle_Ben",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Uncle_Ben",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Uncle_Ben",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Uncle_Ben",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Harry",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Harry",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Harry",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Harry",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Harry",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "uncle_ben_harry_eyes_2::Harry",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Hugh",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Hugh",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Hugh",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Hugh",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Hugh",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_mr_toil_1::Hugh",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Jenny",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Jenny",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Jenny",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Jenny",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Jenny",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "jenny_andrew_quotative_1::Jenny",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Jenny",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Jenny",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Jenny",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Jenny",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Jenny",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "jenny_andrew_bridge_byagent::Jenny",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "preston_soldiers_byagent::soldiers",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "preston_soldiers_byagent::soldiers",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "preston_soldiers_byagent::soldiers",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::Ernestine",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::Ernestine",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::Ernestine",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::Ernestine",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::Ernestine",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::Ernestine",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::King",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::King",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::King",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::King",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::King",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "king_ernestine_order::King",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_stranger_2::Hugh",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "hugh_idle_stranger_2::Hugh",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "hugh_idle_stranger_2::Hugh",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_stranger_2::Hugh",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "hugh_idle_stranger_2::Hugh",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_stranger_2::Hugh",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_farmer_resemblance::Mr_Toil",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "hugh_idle_farmer_resemblance::Mr_Toil",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "john_tom_horse_1::John",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "john_tom_horse_1::John",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "john_tom_horse_1::John",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "john_tom_horse_2::Tom",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "john_tom_horse_2::Tom",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "john_tom_horse_2::Tom",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "john_tom_horse_2::Tom",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "john_tom_horse_2::Tom",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "john_tom_horse_2::Tom",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Henry",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Henry",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Henry",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Robert",
+      "pair": [
+        "BASE",
+        "REAL"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Robert",
+      "pair": [
+        "BASE",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Robert",
+      "pair": [
+        "BASE",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Robert",
+      "pair": [
+        "REAL",
+        "ORACLE"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Robert",
+      "pair": [
+        "REAL",
+        "SCRAMBLED"
+      ]
+    },
+    {
+      "key": "robert_henry_aftermath::Robert",
+      "pair": [
+        "ORACLE",
+        "SCRAMBLED"
+      ]
+    }
+  ],
+  "role_vocab": [
+    "agent",
+    "patient",
+    "theme",
+    "recipient",
+    "addressee",
+    "speaker",
+    "possessor",
+    "experiencer",
+    "goal"
+  ],
+  "arms_differ_verified": "measured_not_asserted_see_measured_multi_event_arm_ties",
+  "arms_differ_exempted": "single-event chains (k=0 never receives feedback in any arm by construction; excluded from the tie-measurement above already)",
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_lt30s",
+  "n_clauses": 115,
+  "gold_file": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_multiclause_entity_track_v3.jsonl",
+  "elapsed_s": 2.700694900006056,
+  "ts_iso": "2026-08-02T18:20:52Z"
+}
