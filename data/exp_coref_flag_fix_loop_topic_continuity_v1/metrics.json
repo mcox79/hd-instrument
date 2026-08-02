@@ -1,0 +1,477 @@
+{
+  "anchor_name": "coref_flag_fix_loop_topic_continuity_v1",
+  "verdict": "NULL_FIX_MECHANISM",
+  "verdict_msg": "LOOP DECOMPOSED: the FLAG is earned + localizes (flagged pronoun error rate concentrates where n_compatible>=2; base_pron_err=0.263), but the topic-continuity (Centering Continue) FIX does NOT help the flagged high-ambiguity cases: pronoun-B3 0.7029->0.6767 (lift=-0.0262 < 0.02); identity-demanding query 0.7192982456140351->0.6842105263157895 (lift=-0.03508771929824561). On flagged decisions the fix corrected strict_cb 0x but BROKE it 3x (differs on 6/52 flagged). Robust to decay (see decay_sensitivity: selective errors >= strict_cb at every decay). MECHANISM REASON: the flagged same-gender pronouns refer to a NON-topic entity (a Shift), so preferring the ongoing topic (Continue) hurts -- these cases need verb-semantics / world-knowledge not available glass-box yet. Flag earned; fix is the open frontier (a clean, powered, trustworthy decomposition of the loop).",
+  "summary": "NULL_FIX_MECHANISM",
+  "elapsed_s": 1.0606964000035077,
+  "ts_iso": "2026-08-02T22:29:50.770905+00:00",
+  "pid": 34552,
+  "topic_decay": 0.7,
+  "flag_selection": {
+    "chosen_threshold": 2,
+    "base_pronoun_error_rate": 0.2631578947368421,
+    "n_pronoun_decisions": 76,
+    "error_rate_by_n_compatible": {
+      "0": {
+        "n_wrong": 0,
+        "n_total": 7,
+        "error_rate": 0.0
+      },
+      "1": {
+        "n_wrong": 3,
+        "n_total": 17,
+        "error_rate": 0.17647058823529413
+      },
+      "2": {
+        "n_wrong": 3,
+        "n_total": 11,
+        "error_rate": 0.2727272727272727
+      },
+      "3": {
+        "n_wrong": 13,
+        "n_total": 29,
+        "error_rate": 0.4482758620689655
+      },
+      "4": {
+        "n_wrong": 1,
+        "n_total": 10,
+        "error_rate": 0.1
+      },
+      "5": {
+        "n_wrong": 0,
+        "n_total": 2,
+        "error_rate": 0.0
+      }
+    },
+    "per_candidate_threshold": {
+      "2": {
+        "n_flagged": 52,
+        "flag_recall_of_errors": 0.85,
+        "flag_fpr": 0.625,
+        "youden_j": 0.22499999999999998,
+        "flag_precision": 0.3269230769230769
+      },
+      "3": {
+        "n_flagged": 41,
+        "flag_recall_of_errors": 0.7,
+        "flag_fpr": 0.48214285714285715,
+        "youden_j": 0.2178571428571428,
+        "flag_precision": 0.34146341463414637
+      }
+    }
+  },
+  "flag_threshold_used": 2,
+  "bands": {
+    "pronoun_b3_margin": 0.02,
+    "iddem_query_margin": 0.03,
+    "regression_tol": 0.01,
+    "localize_tol": 0.005
+  },
+  "headline_combined": {
+    "pronoun_b3_f1": {
+      "strict_cb": 0.7029326700972488,
+      "loop_selective": 0.676721094529708,
+      "loop_uniform": 0.676721094529708
+    },
+    "name_b3_f1": {
+      "strict_cb": 0.8368718657482174,
+      "loop_selective": 0.8323048182937318
+    },
+    "overall_b3_f1": {
+      "strict_cb": 0.8077837819288799,
+      "loop_selective": 0.7987803266092862
+    },
+    "identity_demanding_query_acc": {
+      "oracle": 0.9298245614035088,
+      "strict_cb": 0.7192982456140351,
+      "loop_selective": 0.6842105263157895,
+      "loop_uniform": 0.6842105263157895
+    },
+    "pronoun_b3_lift_selective_vs_strict_cb": -0.026211575567540835,
+    "iddem_query_lift_selective_vs_strict_cb": -0.03508771929824561,
+    "name_regression": 0.004567047454485551,
+    "overall_regression": 0.009003455319593678,
+    "flag_localized_b3": true,
+    "flag_localized_iddem": true
+  },
+  "combined_powered": {
+    "n_passages": 36,
+    "n_pronoun_mentions": 76,
+    "selective_flip_passages": 1,
+    "uniform_flip_passages": 1,
+    "b3": {
+      "strict_cb": {
+        "overall": {
+          "precision": 0.8739823532087142,
+          "recall": 0.75090735434575,
+          "f1": 0.8077837819288799,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.9101473922902495,
+          "recall": 0.7745159602302457,
+          "f1": 0.8368718657482174,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.7440737259816207,
+          "recall": 0.6661027568922308,
+          "f1": 0.7029326700972488,
+          "n_mentions": 76
+        }
+      },
+      "loop_selective": {
+        "overall": {
+          "precision": 0.8625210351571383,
+          "recall": 0.7438122526947744,
+          "f1": 0.7987803266092862,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.908519390662248,
+          "recall": 0.7678876678876676,
+          "f1": 0.8323048182937318,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.6972901002506268,
+          "recall": 0.6573308270676695,
+          "f1": 0.676721094529708,
+          "n_mentions": 76
+        }
+      },
+      "loop_uniform": {
+        "overall": {
+          "precision": 0.8625210351571383,
+          "recall": 0.7438122526947744,
+          "f1": 0.7987803266092862,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.908519390662248,
+          "recall": 0.7678876678876676,
+          "f1": 0.8323048182937318,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.6972901002506268,
+          "recall": 0.6573308270676695,
+          "f1": 0.676721094529708,
+          "n_mentions": 76
+        }
+      },
+      "recency_floor": {
+        "overall": {
+          "precision": 0.41664249846451096,
+          "recall": 1.0,
+          "f1": 0.5882112091316007,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.3711451402627871,
+          "recall": 1.0,
+          "f1": 0.5413652127179698,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.5800737983207026,
+          "recall": 1.0,
+          "f1": 0.7342363362232868,
+          "n_mentions": 76
+        }
+      }
+    },
+    "query_metric": {
+      "oracle": {
+        "query_accuracy_all": 0.9692307692307692,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.9298245614035088,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.9722222222222222,
+        "q_total_pron": 36
+      },
+      "strict_cb": {
+        "query_accuracy_all": 0.7923076923076923,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.7192982456140351,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.6388888888888888,
+        "q_total_pron": 36
+      },
+      "loop_selective": {
+        "query_accuracy_all": 0.7769230769230769,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.6842105263157895,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.5,
+        "q_total_pron": 36
+      },
+      "loop_uniform": {
+        "query_accuracy_all": 0.7846153846153846,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.6842105263157895,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.5555555555555556,
+        "q_total_pron": 36
+      },
+      "recency_floor": {
+        "query_accuracy_all": 0.7846153846153846,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.5087719298245614,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.8333333333333334,
+        "q_total_pron": 36
+      },
+      "singleton_floor": {
+        "query_accuracy_all": 0.46923076923076923,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.3508771929824561,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.08333333333333333,
+        "q_total_pron": 36
+      }
+    }
+  },
+  "g5g6_only": {
+    "n_passages": 18,
+    "n_pronoun_mentions": 60,
+    "selective_flip_passages": 1,
+    "uniform_flip_passages": 1,
+    "b3": {
+      "strict_cb": {
+        "overall": {
+          "precision": 0.8340166088510458,
+          "recall": 0.60242825607064,
+          "f1": 0.6995537155287574,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8655154369440083,
+          "recall": 0.5598116169544746,
+          "f1": 0.6798798843106695,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7862433862433865,
+          "recall": 0.6670634920634924,
+          "f1": 0.7217667055293344,
+          "n_mentions": 60
+        }
+      },
+      "loop_selective": {
+        "overall": {
+          "precision": 0.8075265426258803,
+          "recall": 0.5860296436455376,
+          "f1": 0.6791753309574666,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8606314320600035,
+          "recall": 0.5399267399267401,
+          "f1": 0.663561046852451,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7269841269841273,
+          "recall": 0.6559523809523813,
+          "f1": 0.6896440527430487,
+          "n_mentions": 60
+        }
+      },
+      "loop_uniform": {
+        "overall": {
+          "precision": 0.8075265426258803,
+          "recall": 0.5860296436455376,
+          "f1": 0.6791753309574666,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8606314320600035,
+          "recall": 0.5399267399267401,
+          "f1": 0.663561046852451,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7269841269841273,
+          "recall": 0.6559523809523813,
+          "f1": 0.6896440527430487,
+          "n_mentions": 60
+        }
+      },
+      "recency_floor": {
+        "overall": {
+          "precision": 0.569007482583642,
+          "recall": 1.0,
+          "f1": 0.7253088196197418,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.5233211233211236,
+          "recall": 1.0,
+          "f1": 0.6870791920487337,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.6382984607984609,
+          "recall": 1.0,
+          "f1": 0.7792212177106874,
+          "n_mentions": 60
+        }
+      }
+    },
+    "query_metric": {
+      "oracle": {
+        "query_accuracy_all": 0.9666666666666667,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.96,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 1.0,
+        "q_total_pron": 28
+      },
+      "strict_cb": {
+        "query_accuracy_all": 0.7166666666666667,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.72,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.6428571428571429,
+        "q_total_pron": 28
+      },
+      "loop_selective": {
+        "query_accuracy_all": 0.7,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.68,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.5357142857142857,
+        "q_total_pron": 28
+      },
+      "loop_uniform": {
+        "query_accuracy_all": 0.7333333333333333,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.76,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.6428571428571429,
+        "q_total_pron": 28
+      },
+      "recency_floor": {
+        "query_accuracy_all": 0.7833333333333333,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.48,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.8928571428571429,
+        "q_total_pron": 28
+      },
+      "singleton_floor": {
+        "query_accuracy_all": 0.4,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.36,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.17857142857142858,
+        "q_total_pron": 28
+      }
+    }
+  },
+  "flag_fix_trace_combined": {
+    "n_flagged": 52,
+    "n_fix_differs_from_strict_cb": 6,
+    "strict_cb_errors_on_flagged": 17,
+    "fix_errors_on_flagged": 20,
+    "fix_corrected_strict_cb": 0,
+    "fix_broke_strict_cb": 3,
+    "sample_differing_decisions": [
+      {
+        "passage_id": "g5v_sherman_child_mother_bible",
+        "pos": 4,
+        "mention_text": "he",
+        "clause": 3,
+        "gold_entity": "Sherman",
+        "n_compatible": 2,
+        "strict_cb_wrong": false,
+        "fix_wrong": true
+      },
+      {
+        "passage_id": "g5v_sherman_child_mother_bible",
+        "pos": 5,
+        "mention_text": "he",
+        "clause": 4,
+        "gold_entity": "Sherman",
+        "n_compatible": 2,
+        "strict_cb_wrong": false,
+        "fix_wrong": false
+      },
+      {
+        "passage_id": "g5v_sherman_child_mother_bible",
+        "pos": 7,
+        "mention_text": "he",
+        "clause": 5,
+        "gold_entity": "Sherman",
+        "n_compatible": 3,
+        "strict_cb_wrong": false,
+        "fix_wrong": false
+      },
+      {
+        "passage_id": "g5v_sherman_child_mother_bible",
+        "pos": 10,
+        "mention_text": "she",
+        "clause": 7,
+        "gold_entity": "mother",
+        "n_compatible": 4,
+        "strict_cb_wrong": false,
+        "fix_wrong": true
+      },
+      {
+        "passage_id": "g5v_sherman_child_mother_bible",
+        "pos": 12,
+        "mention_text": "she",
+        "clause": 8,
+        "gold_entity": "mother",
+        "n_compatible": 4,
+        "strict_cb_wrong": false,
+        "fix_wrong": false
+      },
+      {
+        "passage_id": "g5v_sherman_child_mother_bible",
+        "pos": 13,
+        "mention_text": "him",
+        "clause": 8,
+        "gold_entity": "Sherman",
+        "n_compatible": 4,
+        "strict_cb_wrong": false,
+        "fix_wrong": true
+      }
+    ]
+  },
+  "decay_sensitivity_combined": {
+    "0.5": {
+      "strict_cb_pron_errors": 20,
+      "selective_pron_errors": 20,
+      "uniform_pron_errors": 20,
+      "n_pronoun": 76
+    },
+    "0.7": {
+      "strict_cb_pron_errors": 20,
+      "selective_pron_errors": 23,
+      "uniform_pron_errors": 23,
+      "n_pronoun": 76
+    },
+    "0.9": {
+      "strict_cb_pron_errors": 20,
+      "selective_pron_errors": 24,
+      "uniform_pron_errors": 24,
+      "n_pronoun": 76
+    },
+    "1.0": {
+      "strict_cb_pron_errors": 20,
+      "selective_pron_errors": 27,
+      "uniform_pron_errors": 27,
+      "n_pronoun": 76
+    }
+  },
+  "gold_path_combined": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl",
+  "gold_path_g5g6": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
+  "reproducibility_note": "run_learnable_strict_cb (5b266248f) and all imported machinery are used verbatim, NEVER mutated. run_loop / _pick_topic_continuity are NEW opt-in functions in this file. Prior committed cells unaffected.",
+  "prior_commits": {
+    "strict_cb_mechanism": "5b266248f",
+    "calibration_v2_flag_signal": "150058b03",
+    "query_machinery_iddem_split": "e6a3a9ee8"
+  }
+}
