@@ -99,6 +99,7 @@ OUTPUT_DIR = os.path.join(REPO_ROOT, "data", "exp_" + ANCHOR_NAME)
 GOLD_DIR = os.path.join(REPO_ROOT, "data", "eval_gold_mention_role_mcguffey_v1")
 QUOT_PATH = os.path.join(GOLD_DIR, "gold_quotative_verified_v1.jsonl")
 PASS_PATH = os.path.join(GOLD_DIR, "gold_passive_verified_v1.jsonl")
+BYAGENT_PATH = os.path.join(GOLD_DIR, "gold_passive_byagent_verified_v1.jsonl")
 TAGGER_PATH = os.path.join(REPO_ROOT, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
 
 MENTION_POS = ("PROPN", "PRON", "NOUN")
@@ -181,7 +182,8 @@ def build_sentence(rec, kind):
 
     verb_idx = [i for i, p in enumerate(pos) if p in VERB_POS]
     has_be = any(tokens[i].lower() in BE_FORMS for i in range(n))
-    has_by = any(tokens[i].lower() == "by" and pos[i] == "ADP" for i in range(n))
+    by_idx = [i for i in range(n) if tokens[i].lower() == "by" and pos[i] == "ADP"]
+    has_by = len(by_idx) > 0
     # postposed-speech signature (structural): a VERB token that occurs AFTER a closing quote
     verb_after_close = any((p in ("VERB",)) and after_close[i] and not in_quote[i]
                            for i, p in enumerate(pos))
@@ -190,18 +192,30 @@ def build_sentence(rec, kind):
     # mentions = nominal tokens; ALWAYS include the gold target token index so the task is well posed
     mention_idx = [i for i, p in enumerate(pos) if p in MENTION_POS and tokens[i] != '"']
 
+    def last_word(s):
+        return norm_word(s.split()[-1]) if s else None
+
+    # gold TARGET differs by construction: quotative -> speaker (agent); passive_byagent -> by-phrase
+    # head (agent); passive (degenerate) -> surface subject (patient). Match on the phrase HEAD word.
     gold_tok = None
     if kind == "quotative":
-        gold_tok = norm_word(rec["gold_agent_speaker"]) if rec.get("gold_agent_speaker") else None
+        gold_tok = last_word(rec.get("gold_agent_speaker"))
+    elif kind == "passive_byagent":
+        gold_tok = last_word(rec.get("gold_agent_by_phrase"))
     else:
-        gold_tok = norm_word(rec["gold_patient_surface_subj"]) if rec.get("gold_patient_surface_subj") else None
+        gold_tok = last_word(rec.get("gold_patient_surface_subj"))
 
-    # locate the gold target token index (first matching mention-eligible token)
+    # locate the gold target token index. For passive_byagent PREFER the match that FOLLOWS a 'by'
+    # (the agent NP head), else fall back to the first matching token.
+    matches = [i for i in range(n) if norm_word(tokens[i]) and norm_word(tokens[i]) == gold_tok]
     gold_target = None
-    for i in range(n):
-        if norm_word(tokens[i]) and norm_word(tokens[i]) == gold_tok:
-            gold_target = i
-            break
+    if kind == "passive_byagent" and matches:
+        for i in matches:
+            if any(0 < i - j <= 3 for j in by_idx):
+                gold_target = i
+                break
+    if gold_target is None and matches:
+        gold_target = matches[0]
     gold_in_mentions = gold_target is not None and gold_target in mention_idx
     if gold_target is not None and gold_target not in mention_idx:
         mention_idx.append(gold_target)          # force-include (tagger-noise robustness)
@@ -225,6 +239,7 @@ def build_sentence(rec, kind):
         is_subject = (i == subj_idx)
         in_passive_ctx = has_be and any(j in verb_idx and pos[j] == "VERB" and j > i - 3
                                         for j in range(max(0, i - 2), min(n, i + 3)))
+        follows_by = any(0 < i - j <= 3 for j in by_idx)   # in a 'by' phrase (glass-box by-marker)
         base = np.array([
             i / max(1, n - 1),                 # normalized position (the ONLY cue OFF/NO_TD get)
             1.0 if i == first_ment else 0.0,   # is-first-mention (linear-order subject cue)
@@ -235,6 +250,7 @@ def build_sentence(rec, kind):
             1.0 if follows_verb else 0.0,
             1.0 if is_subject else 0.0,
             1.0 if in_passive_ctx else 0.0,
+            1.0 if follows_by else 0.0,        # by-phrase membership (agent marker for by-passives)
             1.0,                               # bias
         ], dtype=np.float64)
         feats[i] = (base, constr)
@@ -250,11 +266,11 @@ def build_sentence(rec, kind):
     # per-mention is_agent labels (pooled training target)
     labels = {}
     for i in mention_idx:
-        if kind == "quotative":
+        if kind in ("quotative", "passive_byagent"):
+            # AGENT selection: gold agent mention -> 1, all others (incl. surface-subj patient) -> 0
             labels[i] = 1.0 if i == gold_target else 0.0
         else:
-            # passive: surface subject is PATIENT (is_agent=0); an explicit 'by X' agent would be 1
-            # (none present in this gold set -> all non-agent). subject is the target for eval.
+            # degenerate passive: surface subject is PATIENT (is_agent=0); no explicit agent present.
             labels[i] = 0.0
     return {
         "text": text,
@@ -294,7 +310,7 @@ def mention_features(sent, i, arm, constr_override=None):
         return base.copy()
     c = constr if constr_override is None else constr_override
     ss = sent["sent_summary"]
-    inter = np.outer(c[:5], ss[:4]).reshape(-1)   # 20-d construction x sentence interaction
+    inter = np.outer(c[:6], ss[:4]).reshape(-1)   # 24-d construction x sentence interaction
     return np.concatenate([base, inter])
 
 
@@ -375,41 +391,44 @@ def loocv_scores(sents, arm, scramble_constr=False):
 # EVALUATION per arm
 # ---------------------------------------------------------------------------
 def off_predict(sent):
-    """Deterministic linear-order reader. quotative: agent = FIRST mention. passive: subject = agent."""
+    """Deterministic linear-order reader. AGENT-selection: quotative -> FIRST mention; passive_byagent
+    -> surface subject (WRONG, gold agent = by-phrase); degenerate passive -> subject is agent."""
     if sent["kind"] == "quotative":
-        return sent["first_ment"]              # predicted agent mention index
-    return sent["subj_idx"]                    # predicted agent = surface subject (=> patient wrong)
+        return sent["first_ment"]
+    return sent["subj_idx"]                    # linear-order agent guess = surface subject
 
 
-def eval_arm(sents_q, sents_p, arm, scores_q=None, scores_p=None):
-    """Return per-construction accuracy on the HARD subset (parser_correct=False) + already-correct."""
-    def quot_correct(sent, pred_agent):
+def _argmax_pred(sc):
+    return max(sc, key=sc.get) if sc else None
+
+
+def eval_arm(sents_q, sents_p, sents_b, arm, scores_q=None, scores_p=None, scores_b=None):
+    """Per-construction accuracy on the HARD subset (parser_correct=False) + already-correct.
+    quotative + passive_byagent = AGENT selection (argmax over mentions == gold agent). degenerate
+    passive = surface-subject-is-patient (sigmoid(subj) < 0.5)."""
+    def sel_correct(sent, pred_agent):
         return pred_agent is not None and sent["gold_target"] is not None and pred_agent == sent["gold_target"]
 
-    def pass_correct(sent, pred_is_agent_of_subject):
-        # gold = subject is PATIENT; correct iff predicted NOT agent
-        return not pred_is_agent_of_subject
+    def agent_sel_track(sents, scores):
+        hard, easy = [], []
+        for sid, sent in enumerate(sents):
+            pred = off_predict(sent) if arm == "OFF" else _argmax_pred(scores[sid])
+            ok = 1.0 if sel_correct(sent, pred) else 0.0
+            (easy if sent["parser_correct"] else hard).append(ok)
+        return hard, easy
 
-    q_hard, q_easy = [], []
-    for sid, sent in enumerate(sents_q):
-        if arm == "OFF":
-            pred = off_predict(sent)
-        else:
-            sc = scores_q[sid]
-            pred = max(sc, key=sc.get) if sc else None
-        ok = quot_correct(sent, pred)
-        (q_easy if sent["parser_correct"] else q_hard).append(1.0 if ok else 0.0)
+    q_hard, q_easy = agent_sel_track(sents_q, scores_q)
+    b_hard, b_easy = agent_sel_track(sents_b, scores_b)
 
     p_hard, p_easy = [], []
     for sid, sent in enumerate(sents_p):
         subj = sent["subj_idx"]
         if arm == "OFF":
-            pred_is_agent = True               # OFF calls the subject the agent
+            pred_is_agent = True
         else:
-            sc = scores_p[sid]
-            pred_is_agent = (sc.get(subj, 0.0) >= 0.5) if sc else True
-        ok = pass_correct(sent, pred_is_agent)
-        (p_easy if sent["parser_correct"] else p_hard).append(1.0 if ok else 0.0)
+            pred_is_agent = (scores_p[sid].get(subj, 0.0) >= 0.5) if scores_p[sid] else True
+        ok = 1.0 if not pred_is_agent else 0.0
+        (p_easy if sent["parser_correct"] else p_hard).append(ok)
 
     def m(a):
         return float(np.mean(a)) if a else None
@@ -418,6 +437,8 @@ def eval_arm(sents_q, sents_p, arm, scores_q=None, scores_p=None):
         "quot_easy_acc": m(q_easy), "quot_easy_n": len(q_easy),
         "pass_hard_acc": m(p_hard), "pass_hard_n": len(p_hard),
         "pass_easy_acc": m(p_easy), "pass_easy_n": len(p_easy),
+        "byagent_hard_acc": m(b_hard), "byagent_hard_n": len(b_hard),
+        "byagent_easy_acc": m(b_easy), "byagent_easy_n": len(b_easy),
     }
 
 
@@ -428,13 +449,13 @@ def _digest(obj):
 # ---------------------------------------------------------------------------
 # TAGGER DIAGNOSTIC + glass-box dump
 # ---------------------------------------------------------------------------
-def tagger_diagnostic(sents_q, sents_p):
+def tagger_diagnostic(sents_q, sents_p, sents_b):
     """No POS gold exists for these McGuffey sentences, so true tag-accuracy is uncomputable. Report
     the actionable proxy: does the tagger tag the GOLD ROLE-FILLER token as a nominal mention? (If not,
     domain shift hid the answer token from the mechanism.) This is the feature-quality diagnostic."""
     hits, tot = 0, 0
     misses = []
-    for sent in list(sents_q) + list(sents_p):
+    for sent in list(sents_q) + list(sents_p) + list(sents_b):
         if sent["gold_target"] is None:
             continue
         tot += 1
@@ -466,66 +487,51 @@ def run_all(mode):
     t0 = time.perf_counter()
     quot_recs = load_gold(QUOT_PATH)
     pass_recs = load_gold(PASS_PATH)
+    byagent_recs = load_gold(BYAGENT_PATH)
     if mode == "self_test":
         quot_recs = quot_recs[:6]
         pass_recs = pass_recs[:4]
+        byagent_recs = byagent_recs[:3]
 
     print("[%s] building sentences (tagger load + tag) ..." % mode, flush=True)
     sents_q = [build_sentence(r, "quotative") for r in quot_recs]
     sents_p = [build_sentence(r, "passive") for r in pass_recs]
-    pooled = sents_q + sents_p
-    n_pool = len(pooled)
-    n_units = 4  # OFF, ON, PLACEBO, NO_TD
+    sents_b = [build_sentence(r, "passive_byagent") for r in byagent_recs]
+    pooled = sents_q + sents_p + sents_b
+    nq, npv = len(sents_q), len(sents_p)
 
-    with CellHeartbeat(OUTPUT_DIR, total_units=n_units, interval_s=15) as hb:
-        # --- ARM_OFF (deterministic) ---
-        key = ckpt.unit_key(mode, "OFF")
+    def split_scores(ps):
+        return ({sid: ps[sid] for sid in range(nq)},
+                {sid: ps[nq + sid] for sid in range(npv)},
+                {sid: ps[nq + npv + sid] for sid in range(len(sents_b))})
+
+    def run_arm(arm, tick, scramble=False):
+        key = ckpt.unit_key(mode, arm)
         if key not in ckpt.completed_units(OUTPUT_DIR):
-            r = eval_arm(sents_q, sents_p, "OFF")
+            if arm == "OFF":
+                r = eval_arm(sents_q, sents_p, sents_b, "OFF")
+            else:
+                ps = loocv_scores(pooled, "NO_TD" if arm == "NO_TD" else "ON",
+                                  scramble_constr=scramble)
+                sc_q, sc_p, sc_b = split_scores(ps)
+                r = eval_arm(sents_q, sents_p, sents_b, arm, sc_q, sc_p, sc_b)
             ckpt.record_unit(OUTPUT_DIR, key, r)
-            print("[OFF] quot_hard=%.3f pass_hard=%.3f" % (r["quot_hard_acc"] or -1, r["pass_hard_acc"] or -1), flush=True)
-        hb.tick(1)
+            print("[%s] quot_hard=%.3f byagent_hard=%.3f pass_hard=%.3f"
+                  % (arm, r["quot_hard_acc"] if r["quot_hard_acc"] is not None else -1,
+                     r["byagent_hard_acc"] if r["byagent_hard_acc"] is not None else -1,
+                     r["pass_hard_acc"] if r["pass_hard_acc"] is not None else -1), flush=True)
 
-        # --- ARM_ON (LOOCV logreg over pooled q+p) ---
-        key = ckpt.unit_key(mode, "ON")
-        if key not in ckpt.completed_units(OUTPUT_DIR):
-            pooled_scores = loocv_scores(pooled, "ON")
-            sc_q = {sid: pooled_scores[sid] for sid in range(len(sents_q))}
-            sc_p = {sid: pooled_scores[len(sents_q) + sid] for sid in range(len(sents_p))}
-            r = eval_arm(sents_q, sents_p, "ON", sc_q, sc_p)
-            ckpt.record_unit(OUTPUT_DIR, key, r)
-            print("[ON] quot_hard=%.3f pass_hard=%.3f" % (r["quot_hard_acc"] or -1, r["pass_hard_acc"] or -1), flush=True)
-        hb.tick(2)
+    with CellHeartbeat(OUTPUT_DIR, total_units=4, interval_s=15) as hb:
+        run_arm("OFF", 1); hb.tick(1)
+        run_arm("ON", 2); hb.tick(2)
+        run_arm("PLACEBO", 3, scramble=True); hb.tick(3)
+        run_arm("NO_TD", 4); hb.tick(4, force=True)
 
-        # --- ARM_PLACEBO (shuffled sentence summary) ---
-        key = ckpt.unit_key(mode, "PLACEBO")
-        if key not in ckpt.completed_units(OUTPUT_DIR):
-            pooled_scores = loocv_scores(pooled, "ON", scramble_constr=True)
-            sc_q = {sid: pooled_scores[sid] for sid in range(len(sents_q))}
-            sc_p = {sid: pooled_scores[len(sents_q) + sid] for sid in range(len(sents_p))}
-            r = eval_arm(sents_q, sents_p, "PLACEBO", sc_q, sc_p)
-            ckpt.record_unit(OUTPUT_DIR, key, r)
-            print("[PLACEBO] quot_hard=%.3f pass_hard=%.3f" % (r["quot_hard_acc"] or -1, r["pass_hard_acc"] or -1), flush=True)
-        hb.tick(3)
-
-        # --- NO_TD (base only) ---
-        key = ckpt.unit_key(mode, "NO_TD")
-        if key not in ckpt.completed_units(OUTPUT_DIR):
-            pooled_scores = loocv_scores(pooled, "NO_TD")
-            sc_q = {sid: pooled_scores[sid] for sid in range(len(sents_q))}
-            sc_p = {sid: pooled_scores[len(sents_q) + sid] for sid in range(len(sents_p))}
-            r = eval_arm(sents_q, sents_p, "NO_TD", sc_q, sc_p)
-            ckpt.record_unit(OUTPUT_DIR, key, r)
-            print("[NO_TD] quot_hard=%.3f pass_hard=%.3f" % (r["quot_hard_acc"] or -1, r["pass_hard_acc"] or -1), flush=True)
-        hb.tick(4, force=True)
-
-    # unit keys are mode-prefixed on disk (self_test|OFF vs full|OFF) to avoid cross-mode collision;
-    # remap to bare arm names for this mode so decide_verdict/_write_metrics look up OFF/ON/PLACEBO/NO_TD.
     units = {k.split("|")[-1]: v for k, v in ckpt.load_units(OUTPUT_DIR).items()
              if k.startswith(mode + "|")}
-    diag = tagger_diagnostic(sents_q, sents_p)
+    diag = tagger_diagnostic(sents_q, sents_p, sents_b)
     elapsed = time.perf_counter() - t0
-    return units, diag, sents_q, sents_p, elapsed
+    return units, diag, sents_q, sents_p, sents_b, elapsed
 
 
 def _arms_must_differ(units):
@@ -559,6 +565,16 @@ def decide_verdict(units, diag):
     placebo_collapses = (on_q - plac_q) >= 0.30 and plac_q <= notd_q + 0.10
     not_a_leak = placebo_collapses and notd_q <= 0.45
 
+    # by-agent passives (real 2-way agent selection: gold agent = by-phrase head)
+    off_b = off["byagent_hard_acc"] or 0.0
+    on_b = on["byagent_hard_acc"] or 0.0
+    plac_b = plac["byagent_hard_acc"] or 0.0
+    notd_b = notd["byagent_hard_acc"] or 0.0
+    base_b = max(off_b, notd_b)
+    byagent_floor_held = off_b <= FLOOR_PASS_MAX
+    byagent_placebo_ok = plac_b <= max(base_b, FLOOR_PASS_MAX) + PLACEBO_SLACK
+    byagent_pass = (on_b >= PASS_PASS_MIN and on_b >= base_b + PASS_PASS_MARGIN)
+
     summary = {
         "off_quot_hard": off_q, "off_pass_hard": off_p,
         "on_quot_hard": on_q, "on_pass_hard": on_p,
@@ -566,6 +582,10 @@ def decide_verdict(units, diag):
         "no_td_quot_hard": notd["quot_hard_acc"], "no_td_pass_hard": notd["pass_hard_acc"],
         "on_quot_easy": on["quot_easy_acc"], "on_pass_easy": on["pass_easy_acc"],
         "off_quot_easy": off["quot_easy_acc"], "off_pass_easy": off["pass_easy_acc"],
+        "off_byagent_hard": off_b, "on_byagent_hard": on_b,
+        "placebo_byagent_hard": plac_b, "no_td_byagent_hard": notd_b,
+        "byagent_floor_held": bool(byagent_floor_held), "byagent_placebo_ok": bool(byagent_placebo_ok),
+        "byagent_pass": bool(byagent_pass), "n_byagent_hard": on["byagent_hard_n"],
         "floor_held": floor_held, "placebo_ok_quot": placebo_ok_q, "placebo_ok_pass": placebo_ok_p,
         "placebo_collapses": bool(placebo_collapses), "not_a_leak": bool(not_a_leak),
         "gold_filler_nominal_rate": diag["gold_filler_nominal_rate"],
@@ -582,21 +602,23 @@ def decide_verdict(units, diag):
     # ORDER baseline (max of deterministic OFF and learned position-only NO_TD) so the lift is credited
     # to construction content, not to out-failing a too-weak baseline.
     base_q = max(off_q, notd_q)
-    base_p = max(off_p, notd_p)
     quot_pass = (on_q >= PASS_QUOT_MIN and on_q >= base_q + PASS_QUOT_MARGIN)
-    pass_pass = (on_p >= PASS_PASS_MIN and on_p >= base_p + PASS_PASS_MARGIN)
+    # PRIMARY = quotative (N=20). REAL passive = by-agent (N=5, agent = by-phrase), exploratory. The
+    # degenerate all-negative passive is no longer a pass/fail gate (it was base-rate-solved).
     floor_tag = "" if floor_held else "_FLOOR_MARGINAL_POSITION_BASELINE_NOT_LEAK"
-    if quot_pass and pass_pass:
-        return "HARD_PASS_INTERACTIVE_RESOLVES_REAL_CONSTRUCTIONS" + floor_tag, summary
+    if quot_pass and byagent_pass and byagent_placebo_ok:
+        return "HARD_PASS_INTERACTIVE_RESOLVES_QUOTATIVE_AND_BYAGENT" + floor_tag, summary
+    if quot_pass and byagent_pass:
+        return "PASS_BUT_BYAGENT_PLACEBO_LEAK_CHECK" + floor_tag, summary
     if quot_pass:
-        return "PARTIAL_QUOTATIVE_PASS_PASSIVE_UNDERPOWERED" + floor_tag, summary
-    if on_q <= base_q + HARD_FAIL_MARGIN and on_p <= base_p + HARD_FAIL_MARGIN:
+        return "PARTIAL_QUOTATIVE_PASS_BYAGENT_UNDERPOWERED_N5" + floor_tag, summary
+    if on_q <= base_q + HARD_FAIL_MARGIN:
         return "HARD_FAIL_TOP_DOWN_DID_NOT_RESOLVE" + floor_tag, summary
     return "MIDDLE_PARTIAL_SIGNAL" + floor_tag, summary
 
 
-def _write_metrics(verdict, summary, units, diag, sents_q, sents_p, elapsed, mode):
-    # glass-box per-sentence dump (quotative + passive, hard subset first few)
+def _write_metrics(verdict, summary, units, diag, sents_q, sents_p, sents_b, elapsed, mode):
+    # glass-box per-sentence dump (quotative + degenerate passive + by-agent passive)
     dump = []
     for sid, sent in enumerate(sents_q):
         dump.append({"kind": "quotative", "text": sent["text"],
@@ -609,15 +631,21 @@ def _write_metrics(verdict, summary, units, diag, sents_q, sents_p, elapsed, mod
                      "gold_patient_tok": sent["tokens"][sent["gold_target"]] if sent["gold_target"] is not None else None,
                      "subject_tok": sent["tokens"][sent["subj_idx"]] if sent["subj_idx"] is not None else None,
                      "parser_correct": sent["parser_correct"]})
+    for sid, sent in enumerate(sents_b):
+        dump.append({"kind": "passive_byagent", "text": sent["text"],
+                     "gold_agent_byphrase_tok": sent["tokens"][sent["gold_target"]] if sent["gold_target"] is not None else None,
+                     "surface_subj_tok": sent["tokens"][sent["subj_idx"]] if sent["subj_idx"] is not None else None,
+                     "mentions": [sent["tokens"][i] for i in sent["mention_idx"]]})
     metrics = {
         "anchor": ANCHOR_NAME, "mode": mode, "verdict": verdict,
-        "verdict_msg": ("%s | OFF quot=%.3f pass=%.3f | ON quot=%.3f pass=%.3f | "
-                        "PLACEBO quot=%.3f pass=%.3f | floor_held=%s placebo_ok=%s/%s | "
+        "verdict_msg": ("%s | OFF quot=%.3f byagent=%.3f | ON quot=%.3f byagent=%.3f | "
+                        "PLACEBO quot=%.3f byagent=%.3f | NO_TD byagent=%.3f | floor_held=%s/%s | "
                         "tagger_gold_nominal=%.3f"
-                        % (verdict, summary["off_quot_hard"], summary["off_pass_hard"],
-                           summary["on_quot_hard"], summary["on_pass_hard"],
-                           summary["placebo_quot_hard"], summary["placebo_pass_hard"],
-                           summary["floor_held"], summary["placebo_ok_quot"], summary["placebo_ok_pass"],
+                        % (verdict, summary["off_quot_hard"], summary["off_byagent_hard"],
+                           summary["on_quot_hard"], summary["on_byagent_hard"],
+                           summary["placebo_quot_hard"], summary["placebo_byagent_hard"],
+                           summary["no_td_byagent_hard"],
+                           summary["floor_held"], summary["byagent_floor_held"],
                            summary["gold_filler_nominal_rate"] or -1)),
         "summary": summary,
         "bands": {"FLOOR_QUOT_MAX": FLOOR_QUOT_MAX, "FLOOR_PASS_MAX": FLOOR_PASS_MAX,
@@ -627,7 +655,7 @@ def _write_metrics(verdict, summary, units, diag, sents_q, sents_p, elapsed, mod
         "tagger_diagnostic": diag,
         "glass_box_dump": dump,
         "config": {"L2_LAMBDA": L2_LAMBDA, "LR": LR, "N_ITERS": N_ITERS,
-                   "n_quot": len(sents_q), "n_pass": len(sents_p)},
+                   "n_quot": len(sents_q), "n_pass": len(sents_p), "n_byagent": len(sents_b)},
         "elapsed_s": elapsed,
         "ts_iso": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
@@ -650,7 +678,7 @@ def main():
 
     print("[%s] starting %s" % (mode, ANCHOR_NAME), flush=True)
     try:
-        units, diag, sents_q, sents_p, elapsed = run_all(mode)
+        units, diag, sents_q, sents_p, sents_b, elapsed = run_all(mode)
     except SystemExit:
         raise
     except KeyboardInterrupt:
@@ -661,7 +689,7 @@ def main():
 
     _arms_must_differ(units)
     verdict, summary = decide_verdict(units, diag)
-    metrics = _write_metrics(verdict, summary, units, diag, sents_q, sents_p, elapsed, mode)
+    metrics = _write_metrics(verdict, summary, units, diag, sents_q, sents_p, sents_b, elapsed, mode)
     print("[%s] VERDICT: %s" % (mode, verdict), flush=True)
     print("[%s] %s" % (mode, metrics["verdict_msg"]), flush=True)
     print("[%s] elapsed=%.1fs" % (mode, elapsed), flush=True)
