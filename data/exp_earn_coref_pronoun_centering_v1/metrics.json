@@ -1,0 +1,168 @@
+{
+  "anchor_name": "earn_coref_pronoun_centering_v1",
+  "verdict": "NULL_INVESTIGATE",
+  "verdict_msg": "pronoun-only B3-F1: baseline=0.5471 -> centering=0.5437 (lift=-0.0034 < 0.03); NOT a ceiling by default -- n_role_flips=1/18 passages (did the role signal actually fire?). If n_role_flips==0, the role-prominence term never changed an argmax pick (same-gender residual cases may be decided by other salience terms already, or need a wider window / different prominence weights / verb-based cues, not this lever as-is).",
+  "summary": "NULL_INVESTIGATE",
+  "elapsed_s": 0.1267115999944508,
+  "ts_iso": "2026-08-02T20:38:53.780240+00:00",
+  "pid": 39696,
+  "gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_multientity_dense_v1.jsonl",
+  "n_passages": 18,
+  "n_mentions_total": 198,
+  "n_pronoun_mentions": 16,
+  "n_role_flips_baseline_vs_centering": 1,
+  "role_prominence_table": {
+    "agent": 1.0,
+    "experiencer": 0.7,
+    "theme": 0.3,
+    "patient": 0.3,
+    "recipient": 0.3,
+    "possessor": 0.2,
+    "addressee": 0.3,
+    "goal": 0.2,
+    "instrument": 0.2,
+    "null": 0.0
+  },
+  "role_prominence_weight": 0.3,
+  "parallelism_bonus": 0.15,
+  "b3": {
+    "baseline": {
+      "overall": {
+        "precision": 0.8905723905723908,
+        "recall": 0.8540404040404042,
+        "f1": 0.8719239095577995,
+        "n_mentions": 198
+      },
+      "name_only": {
+        "precision": 0.9267399267399269,
+        "recall": 0.8730769230769233,
+        "f1": 0.899108421851884,
+        "n_mentions": 182
+      },
+      "pronoun_only": {
+        "precision": 0.4791666666666667,
+        "recall": 0.6375000000000002,
+        "f1": 0.5471082089552239,
+        "n_mentions": 16
+      }
+    },
+    "centering": {
+      "overall": {
+        "precision": 0.8897306397306401,
+        "recall": 0.8540404040404042,
+        "f1": 0.8715202810105304,
+        "n_mentions": 198
+      },
+      "name_only": {
+        "precision": 0.9262820512820517,
+        "recall": 0.8730769230769233,
+        "f1": 0.8988928776958705,
+        "n_mentions": 182
+      },
+      "pronoun_only": {
+        "precision": 0.47395833333333337,
+        "recall": 0.6375000000000002,
+        "f1": 0.543697282099344,
+        "n_mentions": 16
+      }
+    },
+    "recency_floor": {
+      "overall": {
+        "precision": 0.3004449600706288,
+        "recall": 1.0,
+        "f1": 0.46206486132917346,
+        "n_mentions": 198
+      },
+      "name_only": {
+        "precision": 0.29505714873361966,
+        "recall": 1.0,
+        "f1": 0.4556666074885472,
+        "n_mentions": 182
+      },
+      "pronoun_only": {
+        "precision": 0.3617313140291083,
+        "recall": 1.0,
+        "f1": 0.5312814801310737,
+        "n_mentions": 16
+      }
+    }
+  },
+  "pronoun_lift": -0.003410926855879959,
+  "name_regression": 0.00021554415601354737,
+  "overall_regression": 0.00040362854726916364,
+  "lifts_pronoun_b3": false,
+  "no_regression": true,
+  "query_metric": {
+    "oracle": {
+      "authored_query_accuracy": 0.9857142857142858,
+      "authored_query_accuracy_pronoun_subset": 0.875,
+      "authored_n_total": 70,
+      "authored_n_total_pron": 8,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 1.0,
+      "derived_n_total": 14,
+      "derived_n_skipped": 0,
+      "n_collisions": 4
+    },
+    "baseline": {
+      "authored_query_accuracy": 0.8571428571428571,
+      "authored_query_accuracy_pronoun_subset": 0.375,
+      "authored_n_total": 70,
+      "authored_n_total_pron": 8,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.35714285714285715,
+      "derived_n_total": 14,
+      "derived_n_skipped": 0,
+      "n_collisions": 9
+    },
+    "centering": {
+      "authored_query_accuracy": 0.8857142857142857,
+      "authored_query_accuracy_pronoun_subset": 0.625,
+      "authored_n_total": 70,
+      "authored_n_total_pron": 8,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.5,
+      "derived_n_total": 14,
+      "derived_n_skipped": 0,
+      "n_collisions": 9
+    },
+    "recency_floor": {
+      "authored_query_accuracy": 0.9,
+      "authored_query_accuracy_pronoun_subset": 0.75,
+      "authored_n_total": 70,
+      "authored_n_total_pron": 8,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.7142857142857143,
+      "derived_n_total": 14,
+      "derived_n_skipped": 0,
+      "n_collisions": 76
+    },
+    "singleton_floor": {
+      "authored_query_accuracy": 0.5857142857142857,
+      "authored_query_accuracy_pronoun_subset": 0.0,
+      "authored_n_total": 70,
+      "authored_n_total_pron": 8,
+      "authored_n_skipped": 0,
+      "derived_query_accuracy": 0.14285714285714285,
+      "derived_n_total": 14,
+      "derived_n_skipped": 0,
+      "n_collisions": 0
+    }
+  },
+  "query_metric_note": "authored_* uses the milestone cell's committed target_queries (pronoun-contributed subset via pronoun_contributed_queries, ~8); derived_* is EVERY entity's pronoun mention at a clause turned into a query (~17 in this dense gold) -- a better-powered directional read of the same lever, all-pronoun by construction.",
+  "cent_clears_recency_authored": false,
+  "cent_beats_baseline_authored": true,
+  "cent_clears_recency_derived": false,
+  "cent_beats_baseline_derived": true,
+  "bands": {
+    "pronoun_lift_margin": 0.03,
+    "regression_tol": 0.01,
+    "query_floor_gap_margin": 0.05
+  },
+  "reproducibility_note": "run_learnable (exp_earn_coref_match_or_allocate_v1.py) is imported and NEVER mutated; run_learnable_centering is a NEW opt-in function in this file. Prior committed cells (27e10d3a8, a0aac7eeb, 54a0af00d) are unaffected.",
+  "prior_commits": {
+    "coref_fair_test_hard_pass": "27e10d3a8",
+    "possessive_gender_fix": "a0aac7eeb",
+    "milestone_wire_accumulate": "54a0af00d"
+  }
+}
