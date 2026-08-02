@@ -1,0 +1,162 @@
+{
+  "anchor_name": "coref_self_confidence_calibration_v1",
+  "verdict": "HARD_FAIL_UNCALIBRATED",
+  "verdict_msg": "overall_auc=0.46220335515548283 pronoun_auc=0.7333333333333333 name_auc=0.48030687447142684 pronoun_flag_recall_at_best_thr=0.7333333333333333 n_decisions=198 n_repro_mismatches=0 repro_exact=True",
+  "summary": "HARD_FAIL_UNCALIBRATED",
+  "elapsed_s": 0.005574800074100494,
+  "ts_iso": "2026-08-02T20:35:01.470929+00:00",
+  "pid": 29812,
+  "n_passages": 18,
+  "n_decisions_total": 198,
+  "instrumented_copy_reproduces_run_learnable_exactly": true,
+  "n_repro_mismatches": 0,
+  "overall": {
+    "n": 198,
+    "n_errors": 104,
+    "base_error_rate": 0.5252525252525253,
+    "auc_margin_predicts_error": 0.46220335515548283,
+    "calibration_curve": [
+      {
+        "n": 40,
+        "margin_lo": 0.0,
+        "margin_hi": 0.0,
+        "margin_mean": 0.0,
+        "empirical_error_rate": 0.45
+      },
+      {
+        "n": 40,
+        "margin_lo": 0.0,
+        "margin_hi": 0.5,
+        "margin_mean": 0.19170290659087746,
+        "empirical_error_rate": 0.575
+      },
+      {
+        "n": 40,
+        "margin_lo": 0.5,
+        "margin_hi": 1.0,
+        "margin_mean": 0.9199158662260466,
+        "empirical_error_rate": 0.45
+      },
+      {
+        "n": 40,
+        "margin_lo": 1.0,
+        "margin_hi": 1.0,
+        "margin_mean": 1.0,
+        "empirical_error_rate": 0.6
+      },
+      {
+        "n": 38,
+        "margin_lo": 1.0,
+        "margin_hi": 10.0,
+        "margin_mean": 5.522859372391167,
+        "empirical_error_rate": 0.5526315789473685
+      }
+    ],
+    "best_threshold": {
+      "threshold": 10.0,
+      "youden_j": 0.0,
+      "flag_recall": 1.0,
+      "flag_precision": 0.5252525252525253,
+      "n_flagged": 198
+    }
+  },
+  "name_subset": {
+    "n": 182,
+    "n_errors": 89,
+    "base_error_rate": 0.489010989010989,
+    "auc_margin_predicts_error": 0.48030687447142684,
+    "calibration_curve": [
+      {
+        "n": 37,
+        "margin_lo": 0.0,
+        "margin_hi": 0.0,
+        "margin_mean": 0.0,
+        "empirical_error_rate": 0.4864864864864865
+      },
+      {
+        "n": 37,
+        "margin_lo": 0.0,
+        "margin_hi": 0.5,
+        "margin_mean": 0.17567567567567569,
+        "empirical_error_rate": 0.4594594594594595
+      },
+      {
+        "n": 37,
+        "margin_lo": 0.5,
+        "margin_hi": 1.0,
+        "margin_mean": 0.8918918918918919,
+        "empirical_error_rate": 0.4594594594594595
+      },
+      {
+        "n": 37,
+        "margin_lo": 1.0,
+        "margin_hi": 1.0,
+        "margin_mean": 1.0,
+        "empirical_error_rate": 0.5135135135135135
+      },
+      {
+        "n": 34,
+        "margin_lo": 1.0,
+        "margin_hi": 10.0,
+        "margin_mean": 5.764705882352941,
+        "empirical_error_rate": 0.5294117647058824
+      }
+    ],
+    "best_threshold": {
+      "threshold": 0.25,
+      "youden_j": 0.0037453183520599342,
+      "flag_recall": 0.33707865168539325,
+      "flag_precision": 0.4918032786885246,
+      "n_flagged": 61
+    }
+  },
+  "pronoun_subset": {
+    "n": 16,
+    "n_errors": 15,
+    "base_error_rate": 0.9375,
+    "auc_margin_predicts_error": 0.7333333333333333,
+    "calibration_curve": [
+      {
+        "n": 4,
+        "margin_lo": 0.03895626619813264,
+        "margin_hi": 0.04305333247898879,
+        "margin_mean": 0.042029065908774754,
+        "empirical_error_rate": 1.0
+      },
+      {
+        "n": 4,
+        "margin_lo": 0.8827413139998401,
+        "margin_hi": 1.0430533324789888,
+        "margin_mean": 0.9599219953802131,
+        "empirical_error_rate": 1.0
+      },
+      {
+        "n": 4,
+        "margin_lo": 1.0820095986771205,
+        "margin_hi": 1.4524187090179796,
+        "margin_mean": 1.1869225714972764,
+        "empirical_error_rate": 0.75
+      },
+      {
+        "n": 4,
+        "margin_lo": 2.956946667521011,
+        "margin_hi": 3.9569466675210117,
+        "margin_mean": 3.2694781330990663,
+        "empirical_error_rate": 1.0
+      }
+    ],
+    "best_threshold": {
+      "threshold": 1.1172586860001599,
+      "youden_j": 0.7333333333333333,
+      "flag_recall": 0.7333333333333333,
+      "flag_precision": 1.0,
+      "n_flagged": 11
+    }
+  },
+  "bands": {
+    "auc_hard_fail_ceiling": 0.55,
+    "auc_hard_pass_pronoun_floor": 0.65,
+    "flag_recall_hard_pass_floor": 0.3
+  },
+  "gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_multientity_dense_v1.jsonl"
+}
