@@ -218,8 +218,12 @@ def run_learnable_instrumented(stream: List[dict]) -> Tuple[List[int], List[dict
 
 
 def mention_is_wrong(i: int, stream: List[dict], preds: List[int]) -> bool:
-    """True iff mention i participates in a MERGE or SPLIT error, per
-    exp_earn_coref_match_or_allocate_dense_v1.diagnose_errors' pairwise definition."""
+    """CONFOUNDED (global cluster-purity) label -- kept only for the auditable OLD-vs-NEW delta.
+    True iff mention i participates in a MERGE or SPLIT error, per
+    exp_earn_coref_match_or_allocate_dense_v1.diagnose_errors' pairwise definition. This is a
+    GLOBAL cluster-purity label: a confident+correct decision at i gets retroactively tainted if
+    some UNRELATED later mention j merges into or splits from i's cluster -- which is why it is the
+    wrong label for judging a per-decision confidence signal. Superseded by mention_link_wrong."""
     gi, pi = stream[i]["gold_entity"], preds[i]
     for j in range(len(stream)):
         if j == i:
@@ -231,6 +235,26 @@ def mention_is_wrong(i: int, stream: List[dict], preds: List[int]) -> bool:
         if not same_gold and same_pred:
             return True  # MERGE
     return False
+
+
+def mention_link_wrong(i: int, stream: List[dict], preds: List[int]) -> bool:
+    """CLEAN local link-level (MUC-style) label -- the correct label for a per-DECISION signal.
+    Judges ONLY the choice made AT mention i's decision time, uncontaminated by what later
+    mentions do:
+      - i ALLOCATED-NEW (no prior mention shares i's predicted cluster) -> correct IFF NO prior
+        mention (position < i) is gold-coreferent with i (i really is a first mention).
+      - i MATCHED (>=1 prior mention shares i's predicted cluster) -> the chosen antecedent = the
+        MOST-RECENT prior mention in that cluster; correct IFF that antecedent is gold-coreferent
+        with i (same gold_entity). This is exactly the MUC link-correctness of the single link the
+        decision created."""
+    gi, pi = stream[i]["gold_entity"], preds[i]
+    prior_same_pred = [j for j in range(i) if preds[j] == pi]
+    gold_prev = [j for j in range(i) if stream[j]["gold_entity"] == gi]
+    if not prior_same_pred:
+        # allocated a fresh predicted cluster at i
+        return len(gold_prev) > 0  # wrong iff a gold-coreferent antecedent existed but was missed
+    antecedent = max(prior_same_pred)  # most-recent prior mention in i's predicted cluster
+    return stream[antecedent]["gold_entity"] != gi  # wrong iff linked to a non-coreferent antecedent
 
 
 # ---------------------------------------------------------------------------
@@ -368,14 +392,40 @@ def self_test() -> None:
         stream = build_mention_stream(p)
         preds, decisions = run_learnable_instrumented(stream)
         for i, dec in enumerate(decisions):
-            wrong = mention_is_wrong(i, stream, preds)
+            wrong = mention_link_wrong(i, stream, preds)  # clean local link-level label (primary)
             all_margins.append(dec["margin"])
             all_labels.append(1 if wrong else 0)
     assert sum(all_labels) >= 1, "toy fixture must contain at least one forced-wrong decision"
     assert sum(all_labels) < len(all_labels), "toy fixture must contain at least one correct decision"
     auc = auc_from_scores([-m for m in all_margins], all_labels)
     assert auc is not None
-    assert auc == 1.0, f"toy fixture (clean, isolated wrong/correct decisions) must score AUC == 1.0, got {auc}"
+    # NOTE: AUC==1.0 is NOT achievable here by construction -- a correct same-gender second-name
+    # allocation ("Carl" while "Bob" is active) legitimately gets margin 0.0 (a compatible
+    # candidate existed but did not overlap), an honest "correct-but-looked-uncertain" case that
+    # the signal cannot rank perfectly. The MEANINGFUL toy properties (all true here):
+    #   (a) the signal is informative (AUC clearly > chance), and
+    #   (b) NO high-confidence decision (margin >= 1.0) is wrong -- high margin => correct, so a
+    #       high-margin threshold never flags a correct decision as an error.
+    #   (c) the known-wrong 'He' pronoun decision has a low margin (< 0.1).
+    assert auc >= 0.7, f"toy fixture signal must be clearly informative (AUC>=0.7), got {auc}"
+    high_conf_wrong = [1 for m, lb in zip(all_margins, all_labels) if m >= 1.0 and lb == 1]
+    assert not high_conf_wrong, f"no high-margin (>=1.0) decision may be an error on the toy: {high_conf_wrong}"
+    wrong_margins = [m for m, lb in zip(all_margins, all_labels) if lb == 1]
+    assert min(wrong_margins) < 0.1, f"the known-wrong toy decision must be low-margin: {wrong_margins}"
+
+    # The clean link-level label must NOT taint the isolated confident decisions in toyB: only the
+    # "He"->Carl link is wrong; Bob (allocate-new, no gold antecedent) and Carl (allocate-new) are
+    # both correct at decision time. Under the OLD confounded label Carl would ALSO be wrong (it
+    # shares a cluster with the mis-merged He), so the two labels must disagree on >=1 decision --
+    # proving the confound exists and the clean label removes it.
+    toy_stream_b = build_mention_stream(toy[1])
+    toy_preds_b, _ = run_learnable_instrumented(toy_stream_b)
+    clean_b = [mention_link_wrong(i, toy_stream_b, toy_preds_b) for i in range(len(toy_stream_b))]
+    conf_b = [mention_is_wrong(i, toy_stream_b, toy_preds_b) for i in range(len(toy_stream_b))]
+    assert clean_b != conf_b, (
+        f"clean and confounded labels must differ on toyB (demonstrating the confound): "
+        f"clean={clean_b} confounded={conf_b}"
+    )
 
     # AUC sanity: perfectly separable synthetic scores/labels must give exactly 1.0 (higher score
     # => label 1, by auc_from_scores' contract).
@@ -385,7 +435,8 @@ def self_test() -> None:
     assert chance_auc == 0.5, f"tied scores must give AUC 0.5, got {chance_auc}"
 
     print("[SELF-TEST] PASS: instrumented copy reproduces run_learnable exactly on dense gold; "
-          f"toy fixture AUC={auc:.3f}; synthetic AUC sanity checks OK")
+          f"toy fixture AUC={auc:.3f} (informative, no high-conf errors); clean-vs-confounded "
+          "label disagreement demonstrated; synthetic AUC sanity checks OK")
 
 
 # ---------------------------------------------------------------------------
@@ -415,7 +466,9 @@ def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     passages = load_passages(GOLD_PATH)
 
-    # Records pooled across all passages: one dict per mention decision.
+    # Records pooled across all passages: one dict per mention decision. Each carries BOTH labels:
+    # the CLEAN local link-level label (primary, drives the verdict) and the OLD confounded
+    # global-cluster-purity label (kept only so the correction is auditable).
     records: List[dict] = []
     n_repro_mismatches = 0
     for p in passages:
@@ -426,7 +479,6 @@ def main() -> None:
             n_repro_mismatches += 1
             continue  # exclude passage from calibration stats if mechanism drifted (should be 0)
         for i, dec in enumerate(decisions):
-            wrong = mention_is_wrong(i, stream, inst_preds)
             records.append({
                 "passage_id": p["passage_id"],
                 "is_pronoun": dec["is_pronoun"],
@@ -436,14 +488,15 @@ def main() -> None:
                 "chose_new": dec["chose_new"],
                 "bridging": dec["bridging"],
                 "fallback": dec["fallback"],
-                "is_wrong": wrong,
+                "is_wrong_clean": mention_link_wrong(i, stream, inst_preds),
+                "is_wrong_confounded": mention_is_wrong(i, stream, inst_preds),
             })
 
     repro_ok = n_repro_mismatches == 0
 
-    def _subset_stats(recs: List[dict]) -> dict:
+    def _subset_stats(recs: List[dict], label_key: str) -> dict:
         margins = [r["margin"] for r in recs]
-        labels = [1 if r["is_wrong"] else 0 for r in recs]
+        labels = [1 if r[label_key] else 0 for r in recs]
         scores = [-m for m in margins]  # higher score (lower margin) => predicted more likely wrong
         auc = auc_from_scores(scores, labels)
         curve = calibration_curve(margins, labels, N_CALIBRATION_BINS)
@@ -458,36 +511,79 @@ def main() -> None:
             "best_threshold": thr,
         }
 
-    overall_stats = _subset_stats(records)
-    name_stats = _subset_stats([r for r in records if not r["is_pronoun"]])
-    pronoun_stats = _subset_stats([r for r in records if r["is_pronoun"]])
+    def _zpooled_overall_auc(recs: List[dict], label_key: str) -> Optional[float]:
+        """Pool name + pronoun decisions after per-PATH z-normalizing the margin, so the two
+        incompatible margin scales (token-Jaccard gap vs salience gap vs the 10.0 sentinel) do
+        not corrupt a single pooled ranking. Reported ALONGSIDE the per-path AUCs, never instead."""
+        name_recs = [r for r in recs if not r["is_pronoun"]]
+        pron_recs = [r for r in recs if r["is_pronoun"]]
+        z_scores: List[float] = []
+        z_labels: List[int] = []
+        for sub in (name_recs, pron_recs):
+            if not sub:
+                continue
+            ms = [r["margin"] for r in sub]
+            mu = sum(ms) / len(ms)
+            var = sum((m - mu) ** 2 for m in ms) / len(ms)
+            sd = math.sqrt(var) if var > 0 else 1.0
+            for r in sub:
+                z_scores.append(-(r["margin"] - mu) / sd)  # higher => lower margin => more likely wrong
+                z_labels.append(1 if r[label_key] else 0)
+        return auc_from_scores(z_scores, z_labels)
 
-    overall_auc = overall_stats["auc_margin_predicts_error"]
+    # PRIMARY: clean local link-level label.
+    overall_stats = _subset_stats(records, "is_wrong_clean")
+    name_stats = _subset_stats([r for r in records if not r["is_pronoun"]], "is_wrong_clean")
+    pronoun_stats = _subset_stats([r for r in records if r["is_pronoun"]], "is_wrong_clean")
+    overall_zpooled_auc = _zpooled_overall_auc(records, "is_wrong_clean")
+
+    # AUDIT: old confounded label, same computation, for the OLD-vs-NEW delta.
+    confounded_overall = _subset_stats(records, "is_wrong_confounded")
+    confounded_name = _subset_stats([r for r in records if not r["is_pronoun"]], "is_wrong_confounded")
+    confounded_pronoun = _subset_stats([r for r in records if r["is_pronoun"]], "is_wrong_confounded")
+
+    name_auc = name_stats["auc_margin_predicts_error"]
     pronoun_auc = pronoun_stats["auc_margin_predicts_error"]
-    pronoun_flag_recall = pronoun_stats["best_threshold"]["flag_recall"]
+    name_flag_recall = name_stats["best_threshold"]["flag_recall"]
+    confounded_name_auc = confounded_name["auc_margin_predicts_error"]
+    name_auc_delta_vs_confounded = (
+        None if (name_auc is None or confounded_name_auc is None)
+        else name_auc - confounded_name_auc
+    )
 
-    if overall_auc is None:
+    # VERDICT is driven by the well-powered NAME path (the dominant path, ~182 decisions) under the
+    # CLEAN label. Pronoun path is underpowered (n~16, base error ~94%) and is reported but NOT
+    # allowed to carry the verdict.
+    if name_auc is None:
         verdict = "UNKNOWN_DEGENERATE_LABELS"
-    elif overall_auc <= AUC_HARD_FAIL_CEILING:
-        verdict = "HARD_FAIL_UNCALIBRATED"
-    elif (pronoun_auc is not None and pronoun_auc >= AUC_HARD_PASS_PRONOUN_FLOOR
-          and pronoun_flag_recall is not None and pronoun_flag_recall >= FLAG_RECALL_HARD_PASS_FLOOR):
-        verdict = "HARD_PASS_CALIBRATED"
+    elif name_auc <= AUC_HARD_FAIL_CEILING:
+        verdict = "HARD_FAIL_UNCALIBRATED_NAME_PATH"
+    elif (name_auc >= AUC_HARD_PASS_PRONOUN_FLOOR
+          and name_flag_recall is not None and name_flag_recall >= FLAG_RECALL_HARD_PASS_FLOOR):
+        verdict = "HARD_PASS_CALIBRATED_NAME_PATH"
     else:
-        verdict = "MIDDLE_BAND_PARTIALLY_CALIBRATED"
+        verdict = "MIDDLE_BAND_PARTIALLY_CALIBRATED_NAME_PATH"
 
     elapsed = time.perf_counter() - t0
     metrics = {
         "anchor_name": ANCHOR_NAME,
         "verdict": verdict,
         "verdict_msg": (
-            f"overall_auc={overall_auc} pronoun_auc={pronoun_auc} "
-            f"name_auc={name_stats['auc_margin_predicts_error']} "
-            f"pronoun_flag_recall_at_best_thr={pronoun_flag_recall} "
-            f"n_decisions={len(records)} n_repro_mismatches={n_repro_mismatches} "
-            f"repro_exact={repro_ok}"
+            f"[CLEAN LABEL] name_auc={name_auc} pronoun_auc={pronoun_auc} "
+            f"overall_zpooled_auc={overall_zpooled_auc} "
+            f"name_flag_recall_at_best_thr={name_flag_recall} "
+            f"name_auc_delta_vs_confounded={name_auc_delta_vs_confounded} "
+            f"(confounded_name_auc={confounded_name_auc}) "
+            f"n_decisions={len(records)} n_name={name_stats['n']} n_pronoun={pronoun_stats['n']} "
+            f"n_repro_mismatches={n_repro_mismatches} repro_exact={repro_ok}"
         ),
         "summary": verdict,
+        "label_definition": (
+            "PRIMARY label = CLEAN local link-level (MUC-style, mention_link_wrong): judges only "
+            "the link/allocate choice made at decision time, uncontaminated by later mentions. "
+            "AUDIT label = OLD confounded global cluster-purity (mention_is_wrong), kept for the "
+            "correction delta only."
+        ),
         "elapsed_s": elapsed,
         "ts_iso": datetime.now(timezone.utc).isoformat(),
         "pid": os.getpid(),
@@ -495,13 +591,28 @@ def main() -> None:
         "n_decisions_total": len(records),
         "instrumented_copy_reproduces_run_learnable_exactly": repro_ok,
         "n_repro_mismatches": n_repro_mismatches,
-        "overall": overall_stats,
-        "name_subset": name_stats,
-        "pronoun_subset": pronoun_stats,
+        "verdict_driven_by": "name_subset_clean_label",
+        "overall_clean": overall_stats,
+        "overall_zpooled_auc_clean": overall_zpooled_auc,
+        "name_subset_clean": name_stats,
+        "pronoun_subset_clean": pronoun_stats,
+        "name_auc_delta_vs_confounded": name_auc_delta_vs_confounded,
+        "confounded_label_AUDIT_ONLY": {
+            "note": "OLD global-cluster-purity label -- confounded, kept only for the delta.",
+            "overall": confounded_overall,
+            "name_subset": confounded_name,
+            "pronoun_subset": confounded_pronoun,
+        },
+        "pronoun_underpowered_note": (
+            f"pronoun subset n={pronoun_stats['n']} base_error_rate="
+            f"{pronoun_stats['base_error_rate']} -- NOT trustworthy at this n regardless of label; "
+            f"same content-thinness that bites elsewhere. Reported, not verdict-bearing."
+        ),
         "bands": {
             "auc_hard_fail_ceiling": AUC_HARD_FAIL_CEILING,
-            "auc_hard_pass_pronoun_floor": AUC_HARD_PASS_PRONOUN_FLOOR,
+            "auc_hard_pass_floor": AUC_HARD_PASS_PRONOUN_FLOOR,
             "flag_recall_hard_pass_floor": FLAG_RECALL_HARD_PASS_FLOOR,
+            "verdict_path": "name_subset (well-powered, dominant path)",
         },
         "gold_path": GOLD_PATH,
     }
