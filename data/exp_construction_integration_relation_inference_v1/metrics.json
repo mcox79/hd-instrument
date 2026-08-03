@@ -1,0 +1,82 @@
+{
+  "verdict": "MECHANISM_WORKS",
+  "verdict_msg": "MECHANISM_WORKS: combined mech_acc=0.474 lex_acc=0.316 rand_acc=0.263 int_only_acc=0.421 mech-lex=0.158 mech-rand=0.211 mech-int_only=0.053 refuse_bottomQ=1.000 refuse_topQ=0.000",
+  "summary": "MECHANISM_WORKS on 19-item clean-axis gold (unstated_goal n=12, satisfy_restate n=7)",
+  "elapsed_s": 0.05635430011898279,
+  "ts_iso": "2026-08-03T19:01:53.173214+00:00",
+  "pid": 15428,
+  "anchor_name": "construction_integration_relation_inference_v1",
+  "run_mode": "full",
+  "expected_n_units": 76,
+  "measured_n_units": 19,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "MECHANISM": "6f109f1c8ce23464bf72f53da6248fd009f5394bc4a92467340f3d41d47d2a46",
+    "BASELINE_INTEGRATION_ONLY": "9d8ff16f70458526e44ceb17dfd37002a0acc6cfa66b00096a436a3f866fc118",
+    "BASELINE_LEXICAL": "d0433a25e99a85b3d7603bbdb3ca64370eab1022a2e2351576212e6ef554f79c",
+    "BASELINE_RANDOM": "cb62c063ee948310c59e5b7c432fdc4d2f3872cde5a954fa8361870ec6539d17"
+  },
+  "per_axis": {
+    "unstated_goal": {
+      "n": 12,
+      "construction_topk_recall": 0.8333333333333334,
+      "MECHANISM_accuracy": 0.25,
+      "BASELINE_INTEGRATION_ONLY_accuracy": 0.16666666666666666,
+      "BASELINE_LEXICAL_accuracy": 0.3333333333333333,
+      "BASELINE_RANDOM_accuracy": 0.16666666666666666,
+      "refuse_rate": 1.0
+    },
+    "satisfy_restate": {
+      "n": 7,
+      "construction_topk_recall": 1.0,
+      "MECHANISM_accuracy": 0.8571428571428571,
+      "BASELINE_INTEGRATION_ONLY_accuracy": 0.8571428571428571,
+      "BASELINE_LEXICAL_accuracy": 0.2857142857142857,
+      "BASELINE_RANDOM_accuracy": 0.42857142857142855,
+      "refuse_rate": 0.0
+    }
+  },
+  "combined": {
+    "n": 19,
+    "construction_topk_recall": 0.8947368421052632,
+    "MECHANISM_accuracy": 0.47368421052631576,
+    "BASELINE_INTEGRATION_ONLY_accuracy": 0.42105263157894735,
+    "BASELINE_LEXICAL_accuracy": 0.3157894736842105,
+    "BASELINE_RANDOM_accuracy": 0.2631578947368421
+  },
+  "mech_beats_lexical": 0.15789473684210525,
+  "mech_beats_random": 0.21052631578947367,
+  "mech_beats_integration_only": 0.05263157894736842,
+  "refuse_bottom_quartile": 1.0,
+  "refuse_top_quartile": 0.0,
+  "prereg_bands": {
+    "MECHANISM_WORKS_requires": "mech-lex>=0.15 AND mech-rand>=0.20 AND refuse_bottomQ>refuse_topQ"
+  },
+  "paraphrase_robustness_measured": false,
+  "paraphrase_robustness_note": "NOT measured this pass; no paraphrase gold subset exists and fabricating one ad hoc would violate the MEASURED-not-hallucinated discipline. Explicit follow-up, not a silent skip.",
+  "scope_note": "Reuses the FHRR primitive SHAPE (bind/bundle/cleanup/refuse-gate) and the Kintsch construction->integration ARCHITECTURE PATTERN, freshly instantiated for this eval's isolated-snippet shape -- does NOT literally import CausalLinkRegister / situation_model_accumulate / sally_anne classes, which operate over a single narrative's accumulated register that this 25-item cross-novel eval does not provide. See pre-reg Scope decision section.",
+  "goal_item_ids": [
+    "relinf_unstated_001",
+    "relinf_unstated_002",
+    "relinf_unstated_003",
+    "relinf_unstated_004",
+    "relinf_unstated_005",
+    "relinf_unstated_006",
+    "relinf_unstated_007",
+    "relinf_unstated_008",
+    "relinf_unstated_009",
+    "relinf_unstated_010",
+    "relinf_unstated_011",
+    "relinf_unstated_012"
+  ],
+  "satrest_item_ids": [
+    "relinf_satrest_001",
+    "relinf_satrest_002",
+    "relinf_satrest_003",
+    "relinf_satrest_004",
+    "relinf_satrest_005",
+    "relinf_satrest_006",
+    "relinf_satrest_007"
+  ]
+}
