@@ -1,0 +1,157 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "hardening_worked=True; length_only unstated_goal before=0.7500 after=0.2500 (target<=0.42); pure_structure unstated_goal before=0.3333 after=0.0833; resistant_items=['relinf_unstated_005', 'relinf_unstated_007', 'relinf_unstated_011']",
+  "summary": "gold hardening recheck v1: hardening_worked=True",
+  "elapsed_s": 228.08548889984377,
+  "ts_iso": "2026-08-03T15:53:40.187300+00:00",
+  "pid": 36712,
+  "anchor_name": "relation_inference_gold_hardening_recheck_v1",
+  "summary_fields": {
+    "mechanism": "reuses v6b's score_arm_length_only / score_arm_v6 / CATEGORY_PROTOTYPES verbatim; only the gold file's unstated_goal distractor_categories changed between before/after",
+    "length_only": {
+      "before_unstated_goal_accuracy": 0.75,
+      "after_unstated_goal_accuracy": 0.25,
+      "before_correct_count": 9,
+      "after_correct_count": 3,
+      "satisfy_restate_accuracy_unchanged_check": {
+        "before": 0.5714285714285714,
+        "after": 0.5714285714285714
+      },
+      "thwart_cause_accuracy_unchanged_check": {
+        "before": 0.3333333333333333,
+        "after": 0.3333333333333333
+      }
+    },
+    "pure_structure_no_content": {
+      "before_unstated_goal_accuracy": 0.3333333333333333,
+      "after_unstated_goal_accuracy": 0.08333333333333333,
+      "before_correct_count": 4,
+      "after_correct_count": 1,
+      "floors_at_chance_after": false
+    },
+    "chance_unstated_goal": 0.25,
+    "unstated_hardened_target_max": 0.42,
+    "verdict_logic": {
+      "length_only_ok": true,
+      "pure_structure_ok": true,
+      "hardening_worked": true
+    },
+    "resistant_item_ids_still_correct_under_length_only_after_hardening": [
+      "relinf_unstated_005",
+      "relinf_unstated_007",
+      "relinf_unstated_011"
+    ],
+    "per_item_before_after_length_only": [
+      {
+        "id": "relinf_unstated_001",
+        "correct_category": "MANIPULATE_AVOID_WORK",
+        "before_predicted": "MANIPULATE_AVOID_WORK",
+        "before_correct": true,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_002",
+        "correct_category": "SELF_PRESERVATION_ESCAPE",
+        "before_predicted": "PROTECT_OTHERS",
+        "before_correct": false,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_003",
+        "correct_category": "SELF_PRESERVATION_ESCAPE",
+        "before_predicted": "SELF_PRESERVATION_ESCAPE",
+        "before_correct": true,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_004",
+        "correct_category": "CURIOSITY_EXPLORATION",
+        "before_predicted": "COMPLY_AVOID_TROUBLE",
+        "before_correct": false,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_005",
+        "correct_category": "COMPLY_AVOID_TROUBLE",
+        "before_predicted": "COMPLY_AVOID_TROUBLE",
+        "before_correct": true,
+        "after_predicted": "COMPLY_AVOID_TROUBLE",
+        "after_correct": true
+      },
+      {
+        "id": "relinf_unstated_006",
+        "correct_category": "CARE_FOR_OTHERS",
+        "before_predicted": "CARE_FOR_OTHERS",
+        "before_correct": true,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_007",
+        "correct_category": "REVENGE_PUNISH",
+        "before_predicted": "REVENGE_PUNISH",
+        "before_correct": true,
+        "after_predicted": "REVENGE_PUNISH",
+        "after_correct": true
+      },
+      {
+        "id": "relinf_unstated_008",
+        "correct_category": "REVENGE_PUNISH",
+        "before_predicted": "REVENGE_PUNISH",
+        "before_correct": true,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_009",
+        "correct_category": "ESCAPE_BLAME_DECEPTION",
+        "before_predicted": "ESCAPE_BLAME_DECEPTION",
+        "before_correct": true,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_010",
+        "correct_category": "CARE_FOR_OTHERS",
+        "before_predicted": "CARE_FOR_OTHERS",
+        "before_correct": true,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": false
+      },
+      {
+        "id": "relinf_unstated_011",
+        "correct_category": "PROTECT_OTHERS",
+        "before_predicted": "PROTECT_OTHERS",
+        "before_correct": true,
+        "after_predicted": "PROTECT_OTHERS",
+        "after_correct": true
+      },
+      {
+        "id": "relinf_unstated_012",
+        "correct_category": "SELF_DISCIPLINE",
+        "before_predicted": "CURIOSITY_EXPLORATION",
+        "before_correct": false,
+        "after_predicted": "SELF_PRESERVATION_ESCAPE",
+        "after_correct": false
+      }
+    ],
+    "eval_caveat": "N=12 unstated_goal items; small-N gold-hardening recheck. Verdict is about whether content-free baselines are defeated on THIS eval slice post-hardening, not a new capability claim about any encoder.",
+    "elapsed_s": 228.08548889984377
+  },
+  "gold_hardened_flag": "UNVERIFIED_pending_director_review",
+  "hardened_gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_relation_inference_v1_hardened_UNVERIFIED.jsonl",
+  "original_gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_relation_inference_v1.jsonl",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_reused_v6b_v6_patterns",
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "no fixed-capacity argmax-noise floor; discrete-tier accuracy-count over N=12 unstated_goal items is the analogue, per v6b's own convention"
+}
