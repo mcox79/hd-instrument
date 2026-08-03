@@ -1,0 +1,612 @@
+{
+  "verdict": "RANKING=RANKING_RUNS_BUT_EQUALS_RECENCY_FALSIFIED | VALENCE=VALENCE_PARTIAL_SINGLE_RETALIATION_FLIP",
+  "verdict_msg": "MULTI(n=4): faithful_acc=0.000 steelman_acc=0.000 recency_acc=0.000 ranking_ran_steel=4/4 ranking_ran_faithful=0/4 -> RANKING_RUNS_BUT_EQUALS_RECENCY_FALSIFIED. IRONY(n=3): surface=0.000 intent_raw=0.667 intent_genuine=0.333 (legit_fires=1 spurious_fires=1); SINCERE(n=3): surface=1.000 intent_genuine=1.000 -> VALENCE_PARTIAL_SINGLE_RETALIATION_FLIP. BENEFICIARY(n=5): AUTO resolver absent (oracle-only) -- capability GAP.",
+  "summary": "RANKING=RANKING_RUNS_BUT_EQUALS_RECENCY_FALSIFIED | VALENCE=VALENCE_PARTIAL_SINGLE_RETALIATION_FLIP",
+  "elapsed_s": 0.006407799897715449,
+  "ts_iso": "2026-08-03T22:11:49.230291+00:00",
+  "pid": 33668,
+  "anchor_name": "grounded_appraisal_richer_eval_v1",
+  "run_mode": "full",
+  "expected_n_units": 15,
+  "measured_n_units": 15,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "multi_faithful": "421ad04fd270b2abb6eb5ccf72537f4d68d008b10fc50ece0937e24cbc68cb23",
+    "multi_steelman": "68c52896de40924acb163f01fbf72d832fcb435f4900ea443dadceb8e1548e80",
+    "multi_recency": "68c52896de40924acb163f01fbf72d832fcb435f4900ea443dadceb8e1548e80",
+    "irony_surface": "374902dfa74014501b45a4dcc194a67e2bdb6628400d64770787be0e783525f4",
+    "irony_intent": "36838ac8770f660223f8bd10628f6e8d530ac6f843bd581867374285e701f591"
+  },
+  "ranking_verdict": "RANKING_RUNS_BUT_EQUALS_RECENCY_FALSIFIED",
+  "valence_verdict": "VALENCE_PARTIAL_SINGLE_RETALIATION_FLIP",
+  "metrics_multi_candidate": {
+    "n": 4,
+    "faithful_accuracy": 0.0,
+    "steelman_accuracy": 0.0,
+    "recency_accuracy": 0.0,
+    "n_ranking_ran_steelman": 4,
+    "n_ranking_ran_faithful": 0
+  },
+  "metrics_irony": {
+    "n_irony": 3,
+    "n_sincere": 3,
+    "surface_irony_accuracy": 0.0,
+    "intent_irony_accuracy_RAW": 0.6666666666666666,
+    "intent_irony_accuracy_GENUINE_spurious_discarded": 0.3333333333333333,
+    "surface_sincere_accuracy": 1.0,
+    "intent_sincere_accuracy_GENUINE": 1.0,
+    "n_legit_tom_fires": 1,
+    "n_spurious_tom_fires": 1
+  },
+  "per_item_multi_candidate": [
+    {
+      "id": "grapp_mcca_001",
+      "item_type": "multi_candidate_causal_attribution",
+      "victim": "the young man",
+      "true_agent": "Injun Joe",
+      "distractor_agent": "Muff Potter",
+      "gold_recency_prediction": "Muff Potter",
+      "blind_valence_true_span": "NA",
+      "blind_valence_distractor_span": "NA",
+      "faithful_n_candidates": 0,
+      "faithful_candidates": [],
+      "faithful_ranking_ran": false,
+      "faithful_attributed": null,
+      "faithful_correct": false,
+      "steelman_n_candidates": 2,
+      "steelman_candidates": [
+        "injun+joe",
+        "muff+potter"
+      ],
+      "steelman_ranking_ran": true,
+      "steelman_attributed": "Muff Potter",
+      "steelman_margin": 100.0,
+      "steelman_correct": false,
+      "recency_attributed": "Muff Potter",
+      "recency_correct": false,
+      "used_contamination": {
+        "reads_true_blocker_agent_label": false,
+        "given_facts": [
+          "candidate agent NAMES (both real, present)",
+          "victim identity",
+          "distractor=recency-favored structure (from recency_baseline_prediction, the setup)"
+        ],
+        "mechanism_decided": "which candidate is attributed (via bridge_causal_antecedent + _pick_strict_cb)",
+        "faithful_used": {
+          "candidates_considered": [
+            {
+              "agent": "Injun Joe",
+              "patient": "the young man",
+              "valence": "NA",
+              "position": 100
+            },
+            {
+              "agent": "Muff Potter",
+              "patient": "the young man",
+              "valence": "NA",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        },
+        "steelman_used": {
+          "candidates_considered": [
+            {
+              "agent": "Injun Joe",
+              "patient": "the young man",
+              "valence": "HARM",
+              "position": 100
+            },
+            {
+              "agent": "Muff Potter",
+              "patient": "the young man",
+              "valence": "HARM",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        }
+      },
+      "prediction_vector_multi": [
+        "None",
+        "Muff Potter",
+        "Muff Potter"
+      ]
+    },
+    {
+      "id": "grapp_mcca_003",
+      "item_type": "multi_candidate_causal_attribution",
+      "victim": "Meg",
+      "true_agent": "Laurie",
+      "distractor_agent": "Jo",
+      "gold_recency_prediction": "Jo",
+      "blind_valence_true_span": "NA",
+      "blind_valence_distractor_span": "NA",
+      "faithful_n_candidates": 0,
+      "faithful_candidates": [],
+      "faithful_ranking_ran": false,
+      "faithful_attributed": null,
+      "faithful_correct": false,
+      "steelman_n_candidates": 2,
+      "steelman_candidates": [
+        "jo",
+        "laurie"
+      ],
+      "steelman_ranking_ran": true,
+      "steelman_attributed": "Jo",
+      "steelman_margin": 100.0,
+      "steelman_correct": false,
+      "recency_attributed": "Jo",
+      "recency_correct": false,
+      "used_contamination": {
+        "reads_true_blocker_agent_label": false,
+        "given_facts": [
+          "candidate agent NAMES (both real, present)",
+          "victim identity",
+          "distractor=recency-favored structure (from recency_baseline_prediction, the setup)"
+        ],
+        "mechanism_decided": "which candidate is attributed (via bridge_causal_antecedent + _pick_strict_cb)",
+        "faithful_used": {
+          "candidates_considered": [
+            {
+              "agent": "Laurie",
+              "patient": "Meg",
+              "valence": "NA",
+              "position": 100
+            },
+            {
+              "agent": "Jo",
+              "patient": "Meg",
+              "valence": "NA",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        },
+        "steelman_used": {
+          "candidates_considered": [
+            {
+              "agent": "Laurie",
+              "patient": "Meg",
+              "valence": "HARM",
+              "position": 100
+            },
+            {
+              "agent": "Jo",
+              "patient": "Meg",
+              "valence": "HARM",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        }
+      },
+      "prediction_vector_multi": [
+        "None",
+        "Jo",
+        "Jo"
+      ]
+    },
+    {
+      "id": "grapp_mcca_004",
+      "item_type": "multi_candidate_causal_attribution",
+      "victim": "Amy",
+      "true_agent": "Jo",
+      "distractor_agent": "Laurie",
+      "gold_recency_prediction": "Laurie",
+      "blind_valence_true_span": "HELP",
+      "blind_valence_distractor_span": "HELP",
+      "faithful_n_candidates": 0,
+      "faithful_candidates": [],
+      "faithful_ranking_ran": false,
+      "faithful_attributed": null,
+      "faithful_correct": false,
+      "steelman_n_candidates": 2,
+      "steelman_candidates": [
+        "jo",
+        "laurie"
+      ],
+      "steelman_ranking_ran": true,
+      "steelman_attributed": "Laurie",
+      "steelman_margin": 100.0,
+      "steelman_correct": false,
+      "recency_attributed": "Laurie",
+      "recency_correct": false,
+      "used_contamination": {
+        "reads_true_blocker_agent_label": false,
+        "given_facts": [
+          "candidate agent NAMES (both real, present)",
+          "victim identity",
+          "distractor=recency-favored structure (from recency_baseline_prediction, the setup)"
+        ],
+        "mechanism_decided": "which candidate is attributed (via bridge_causal_antecedent + _pick_strict_cb)",
+        "faithful_used": {
+          "candidates_considered": [
+            {
+              "agent": "Jo",
+              "patient": "Amy",
+              "valence": "HELP",
+              "position": 100
+            },
+            {
+              "agent": "Laurie",
+              "patient": "Amy",
+              "valence": "HELP",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        },
+        "steelman_used": {
+          "candidates_considered": [
+            {
+              "agent": "Jo",
+              "patient": "Amy",
+              "valence": "HARM",
+              "position": 100
+            },
+            {
+              "agent": "Laurie",
+              "patient": "Amy",
+              "valence": "HARM",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        }
+      },
+      "prediction_vector_multi": [
+        "None",
+        "Laurie",
+        "Laurie"
+      ]
+    },
+    {
+      "id": "grapp_mcca_005",
+      "item_type": "multi_candidate_causal_attribution",
+      "victim": "Aunt Polly",
+      "true_agent": "Sid",
+      "distractor_agent": "Tom",
+      "gold_recency_prediction": "Tom",
+      "blind_valence_true_span": "NA",
+      "blind_valence_distractor_span": "HARM",
+      "faithful_n_candidates": 1,
+      "faithful_candidates": [
+        "tom"
+      ],
+      "faithful_ranking_ran": false,
+      "faithful_attributed": "Tom",
+      "faithful_correct": false,
+      "steelman_n_candidates": 2,
+      "steelman_candidates": [
+        "sid",
+        "tom"
+      ],
+      "steelman_ranking_ran": true,
+      "steelman_attributed": "Tom",
+      "steelman_margin": 100.0,
+      "steelman_correct": false,
+      "recency_attributed": "Tom",
+      "recency_correct": false,
+      "used_contamination": {
+        "reads_true_blocker_agent_label": false,
+        "given_facts": [
+          "candidate agent NAMES (both real, present)",
+          "victim identity",
+          "distractor=recency-favored structure (from recency_baseline_prediction, the setup)"
+        ],
+        "mechanism_decided": "which candidate is attributed (via bridge_causal_antecedent + _pick_strict_cb)",
+        "faithful_used": {
+          "candidates_considered": [
+            {
+              "agent": "Sid",
+              "patient": "Aunt Polly",
+              "valence": "NA",
+              "position": 100
+            },
+            {
+              "agent": "Tom",
+              "patient": "Aunt Polly",
+              "valence": "HARM",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        },
+        "steelman_used": {
+          "candidates_considered": [
+            {
+              "agent": "Sid",
+              "patient": "Aunt Polly",
+              "valence": "HARM",
+              "position": 100
+            },
+            {
+              "agent": "Tom",
+              "patient": "Aunt Polly",
+              "valence": "HARM",
+              "position": 200
+            }
+          ],
+          "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+          "reads_category_label": false,
+          "reads_prior_block_flag": false
+        }
+      },
+      "prediction_vector_multi": [
+        "Tom",
+        "Tom",
+        "Tom"
+      ]
+    }
+  ],
+  "per_item_irony": [
+    {
+      "id": "grapp_irony_001",
+      "item_type": "irony_vs_sincere_valence",
+      "valence_type": "irony",
+      "agent": "Jo",
+      "target": "Amy",
+      "surface_pred": "POS",
+      "intent_pred": "NEG",
+      "intent_source": "TOM_RETALIATION_REGISTER",
+      "genuine_intent_pred": "NEG",
+      "genuine_intent_source": "TOM_RETALIATION_REGISTER_LEGIT",
+      "tom_fire_legitimate": true,
+      "true_pred": "NEG",
+      "SURFACE_correct": false,
+      "INTENT_correct": true,
+      "GENUINE_INTENT_correct": true,
+      "tom_fired": true,
+      "tom_scores": {
+        "HARM": 1.0,
+        "HELP": 0.012959916144609451
+      },
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "given_facts": [
+          "speaker/addressee identity",
+          "documented prior received-affect events (IRONY_PRIOR_AFFECT), where they genuinely exist"
+        ],
+        "mechanism_decided": "intent valence via query_affect or surface fallback"
+      },
+      "prediction_vector_irony": [
+        "POS",
+        "NEG"
+      ]
+    },
+    {
+      "id": "grapp_irony_002",
+      "item_type": "irony_vs_sincere_valence",
+      "valence_type": "irony",
+      "agent": "Mr Phillips",
+      "target": "Anne",
+      "surface_pred": "POS",
+      "intent_pred": "POS",
+      "intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "genuine_intent_pred": "POS",
+      "genuine_intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "tom_fire_legitimate": false,
+      "true_pred": "NEG",
+      "SURFACE_correct": false,
+      "INTENT_correct": false,
+      "GENUINE_INTENT_correct": false,
+      "tom_fired": false,
+      "tom_scores": {},
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "given_facts": [
+          "speaker/addressee identity",
+          "documented prior received-affect events (IRONY_PRIOR_AFFECT), where they genuinely exist"
+        ],
+        "mechanism_decided": "intent valence via query_affect or surface fallback"
+      },
+      "prediction_vector_irony": [
+        "POS",
+        "POS"
+      ]
+    },
+    {
+      "id": "grapp_irony_003",
+      "item_type": "irony_vs_sincere_valence",
+      "valence_type": "irony",
+      "agent": "Jo",
+      "target": "Meg",
+      "surface_pred": "POS",
+      "intent_pred": "NEG",
+      "intent_source": "TOM_RETALIATION_REGISTER",
+      "genuine_intent_pred": "POS",
+      "genuine_intent_source": "SPURIOUS_FIRE_DISCARDED",
+      "tom_fire_legitimate": false,
+      "true_pred": "NEG",
+      "SURFACE_correct": false,
+      "INTENT_correct": true,
+      "GENUINE_INTENT_correct": false,
+      "tom_fired": true,
+      "tom_scores": {
+        "HARM": 0.03168731927871704,
+        "HELP": -0.01831860840320587
+      },
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "given_facts": [
+          "speaker/addressee identity",
+          "documented prior received-affect events (IRONY_PRIOR_AFFECT), where they genuinely exist"
+        ],
+        "mechanism_decided": "intent valence via query_affect or surface fallback"
+      },
+      "prediction_vector_irony": [
+        "POS",
+        "NEG"
+      ]
+    },
+    {
+      "id": "grapp_sincere_001",
+      "item_type": "irony_vs_sincere_valence",
+      "valence_type": "sincere",
+      "agent": "Meg",
+      "target": "John",
+      "surface_pred": "POS",
+      "intent_pred": "POS",
+      "intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "genuine_intent_pred": "POS",
+      "genuine_intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "tom_fire_legitimate": false,
+      "true_pred": "POS",
+      "SURFACE_correct": true,
+      "INTENT_correct": true,
+      "GENUINE_INTENT_correct": true,
+      "tom_fired": false,
+      "tom_scores": {},
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "given_facts": [
+          "speaker/addressee identity",
+          "documented prior received-affect events (IRONY_PRIOR_AFFECT), where they genuinely exist"
+        ],
+        "mechanism_decided": "intent valence via query_affect or surface fallback"
+      },
+      "prediction_vector_irony": [
+        "POS",
+        "POS"
+      ]
+    },
+    {
+      "id": "grapp_sincere_002",
+      "item_type": "irony_vs_sincere_valence",
+      "valence_type": "sincere",
+      "agent": "Marilla",
+      "target": "Anne",
+      "surface_pred": "POS",
+      "intent_pred": "POS",
+      "intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "genuine_intent_pred": "POS",
+      "genuine_intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "tom_fire_legitimate": false,
+      "true_pred": "POS",
+      "SURFACE_correct": true,
+      "INTENT_correct": true,
+      "GENUINE_INTENT_correct": true,
+      "tom_fired": false,
+      "tom_scores": {},
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "given_facts": [
+          "speaker/addressee identity",
+          "documented prior received-affect events (IRONY_PRIOR_AFFECT), where they genuinely exist"
+        ],
+        "mechanism_decided": "intent valence via query_affect or surface fallback"
+      },
+      "prediction_vector_irony": [
+        "POS",
+        "POS"
+      ]
+    },
+    {
+      "id": "grapp_sincere_003",
+      "item_type": "irony_vs_sincere_valence",
+      "valence_type": "sincere",
+      "agent": "Aunt Polly",
+      "target": "Tom",
+      "surface_pred": "POS",
+      "intent_pred": "POS",
+      "intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "genuine_intent_pred": "POS",
+      "genuine_intent_source": "SURFACE_FALLBACK_NO_TOM_SIGNAL",
+      "tom_fire_legitimate": false,
+      "true_pred": "POS",
+      "SURFACE_correct": true,
+      "INTENT_correct": true,
+      "GENUINE_INTENT_correct": true,
+      "tom_fired": false,
+      "tom_scores": {},
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "given_facts": [
+          "speaker/addressee identity",
+          "documented prior received-affect events (IRONY_PRIOR_AFFECT), where they genuinely exist"
+        ],
+        "mechanism_decided": "intent valence via query_affect or surface fallback"
+      },
+      "prediction_vector_irony": [
+        "POS",
+        "POS"
+      ]
+    }
+  ],
+  "per_item_beneficiary": [
+    {
+      "id": "grapp_benpat_001",
+      "item_type": "beneficiary_vs_patient",
+      "grammatical_patient": "the Lion",
+      "true_beneficiary_GOLD_scoring_only": "Toto",
+      "AUTO_beneficiary_resolver_exists": false,
+      "auto_prediction": null,
+      "note": "No existing mechanism resolves beneficiary!=patient automatically. The mentalizing cell's beneficiary path is BENEFICIARY_ORACLE -- an item-scoped hardcode for one prior item (relinf_unstated_011), not a general resolver. On these 5 items there is no auto beneficiary signal to run; reported as a capability GAP, not a measured win."
+    },
+    {
+      "id": "grapp_benpat_002",
+      "item_type": "beneficiary_vs_patient",
+      "grammatical_patient": "Jo herself / Jo's hair",
+      "true_beneficiary_GOLD_scoring_only": "Father (Mr. March)",
+      "AUTO_beneficiary_resolver_exists": false,
+      "auto_prediction": null,
+      "note": "No existing mechanism resolves beneficiary!=patient automatically. The mentalizing cell's beneficiary path is BENEFICIARY_ORACLE -- an item-scoped hardcode for one prior item (relinf_unstated_011), not a general resolver. On these 5 items there is no auto beneficiary signal to run; reported as a capability GAP, not a measured win."
+    },
+    {
+      "id": "grapp_benpat_003",
+      "item_type": "beneficiary_vs_patient",
+      "grammatical_patient": "Anne herself (the striving targets her own performance)",
+      "true_beneficiary_GOLD_scoring_only": "Matthew",
+      "AUTO_beneficiary_resolver_exists": false,
+      "auto_prediction": null,
+      "note": "No existing mechanism resolves beneficiary!=patient automatically. The mentalizing cell's beneficiary path is BENEFICIARY_ORACLE -- an item-scoped hardcode for one prior item (relinf_unstated_011), not a general resolver. On these 5 items there is no auto beneficiary signal to run; reported as a capability GAP, not a measured win."
+    },
+    {
+      "id": "grapp_benpat_004",
+      "item_type": "beneficiary_vs_patient",
+      "grammatical_patient": "Muff Potter (recipient of the planted knife)",
+      "true_beneficiary_GOLD_scoring_only": "Injun Joe",
+      "AUTO_beneficiary_resolver_exists": false,
+      "auto_prediction": null,
+      "note": "No existing mechanism resolves beneficiary!=patient automatically. The mentalizing cell's beneficiary path is BENEFICIARY_ORACLE -- an item-scoped hardcode for one prior item (relinf_unstated_011), not a general resolver. On these 5 items there is no auto beneficiary signal to run; reported as a capability GAP, not a measured win."
+    },
+    {
+      "id": "grapp_benpat_005",
+      "item_type": "beneficiary_vs_patient",
+      "grammatical_patient": "the Hummel baby (direct object of 'took')",
+      "true_beneficiary_GOLD_scoring_only": "the Hummel family (Lotty, Mrs. Hummel)",
+      "AUTO_beneficiary_resolver_exists": false,
+      "auto_prediction": null,
+      "note": "No existing mechanism resolves beneficiary!=patient automatically. The mentalizing cell's beneficiary path is BENEFICIARY_ORACLE -- an item-scoped hardcode for one prior item (relinf_unstated_011), not a general resolver. On these 5 items there is no auto beneficiary signal to run; reported as a capability GAP, not a measured win."
+    }
+  ],
+  "irony_register_writes": [
+    {
+      "for_item": "grapp_irony_001",
+      "owner": "Jo",
+      "source": "Amy",
+      "valence": "HARM",
+      "cite": "Little Women ch8: Amy burned Jo's manuscript (documented plot fact)"
+    }
+  ],
+  "note_ranking": "STEELMAN arm forces both candidates to HARM/patient=victim so the entity-linking filter admits >=2 and _pick_strict_cb (the coherence-ranked backward search) is GENUINELY exercised -- the exact test the trustworthy-gate (2026-08-03) said was missing. _pick_strict_cb picks the MOST-RECENT subject-clause / last_pos; positions encode the documented fact that the distractor is the recency-favored candidate. If steelman==recency, the coherence-ranking is recency, not a distinct capability -- reported honestly.",
+  "note_valence": "INTENT arm is the ToM retaliation register (query_affect) -- a reciprocity predictor, NOT a general irony detector. It can flip surface only where a documented prior received-affect event exists (IRONY_PRIOR_AFFECT). Items without that structure fall back to surface and are measured as misses, honestly.",
+  "note_beneficiary": "No existing mechanism resolves beneficiary!=patient automatically; the mentalizing cell's path is an item-scoped BENEFICIARY_ORACLE hardcode. Reported as a capability GAP.",
+  "gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_grounded_appraisal_richer_v1.jsonl"
+}
