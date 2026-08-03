@@ -1,0 +1,456 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "WORKS-pilot: organ beats both baselines on the require-integration subset (organ=0.9167 vs best_baseline=0.0000, gap=0.9167 >= 0.30; most_recent collapses to 0.0000 on non-adjacent items as expected, chance=0.0014); can-fail gates held (most_recent clears control=0.5714, random stays near chance both subsets). FULLER (N=18 require-integration items, up from pilot's N=10); mined per pilot's own scale-up recommendation (25-40 total items) via the same plot-level cause/effect method, NOT lexical-connective mining. This is now large enough to treat as a scored capability claim if HARD_PASS, not just a directional pilot.",
+  "summary": "HARD_PASS | FULLER N_integration=18 N_control=7 | organ_integration=0.9167 organ_control=0.9286 | most_recent_integration=0.0000 most_recent_control=0.5714 | random_integration=0.0000 random_control=0.0000 | chance=0.0014 n_unique_events=697 | max_bundle_load_per_entity=2 distance_median_lines=119",
+  "elapsed_s": 0.4396506999619305,
+  "ts_iso": "2026-08-03T04:12:50.310536+00:00",
+  "anchor_name": "causal_link_comprehension_fuller_v2",
+  "run_mode": "full",
+  "seed": 20260802,
+  "d": 1024,
+  "gold_path": "D:\\AI\\hd-instrument\\data/eval_gold_mention_role_mcguffey_v1/gold_anne_comprehension_v2.jsonl",
+  "n_items_total": 25,
+  "n_unique_events": 697,
+  "n_real_gold_events": 45,
+  "n_distractor_events_mined": 652,
+  "distractor_stride_lines": 15,
+  "distractor_min_dist_lines": 10,
+  "max_event_slots_used": 697,
+  "chance": 0.0014367816091954023,
+  "organ_accuracy_integration": 0.9166666666666666,
+  "organ_accuracy_control": 0.9285714285714286,
+  "most_recent_accuracy_integration": 0.0,
+  "most_recent_accuracy_control": 0.5714285714285714,
+  "random_accuracy_integration": 0.0,
+  "random_accuracy_control": 0.0,
+  "gap_organ_vs_best_baseline_integration": 0.9166666666666666,
+  "gates": {
+    "gate_mr_near_floor_integration": true,
+    "gate_mr_clears_control": true,
+    "gate_random_near_chance_integration": true,
+    "gate_random_near_chance_control": true,
+    "canfail_ok": true,
+    "gate_hard_pass": true,
+    "gate_middle_band": false
+  },
+  "per_item_records": [
+    {
+      "id": "anne_causal_001",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 23,
+      "cause_idx": 256,
+      "effect_idx": 694,
+      "organ_effect_of_correct": 0,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_002",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 13,
+      "cause_idx": 256,
+      "effect_idx": 514,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_003",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 4,
+      "cause_idx": 21,
+      "effect_idx": 104,
+      "organ_effect_of_correct": 0,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_004",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 2,
+      "cause_idx": 301,
+      "effect_idx": 335,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_005",
+      "item_type": "same_chapter_multi_fact_integration",
+      "chapter_gap": 0,
+      "cause_idx": 679,
+      "effect_idx": 683,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_006",
+      "item_type": "same_chapter_multi_fact_integration",
+      "chapter_gap": 0,
+      "cause_idx": 684,
+      "effect_idx": 690,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_007",
+      "item_type": "local_adjacent_control",
+      "chapter_gap": 0,
+      "cause_idx": 424,
+      "effect_idx": 428,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_008",
+      "item_type": "local_adjacent_control",
+      "chapter_gap": 0,
+      "cause_idx": 491,
+      "effect_idx": 496,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_009",
+      "item_type": "local_adjacent_control",
+      "chapter_gap": 0,
+      "cause_idx": 402,
+      "effect_idx": 403,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 1,
+      "most_recent_cause_of_correct": 1,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_010",
+      "item_type": "local_adjacent_control",
+      "chapter_gap": 0,
+      "cause_idx": 663,
+      "effect_idx": 665,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 0,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_011",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 1,
+      "cause_idx": 659,
+      "effect_idx": 665,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_012",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 4,
+      "cause_idx": 549,
+      "effect_idx": 636,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_013",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 2,
+      "cause_idx": 658,
+      "effect_idx": 679,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_014",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 1,
+      "cause_idx": 146,
+      "effect_idx": 169,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_015",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 1,
+      "cause_idx": 182,
+      "effect_idx": 190,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_016",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 14,
+      "cause_idx": 179,
+      "effect_idx": 453,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_017",
+      "item_type": "same_chapter_multi_fact_integration",
+      "chapter_gap": 0,
+      "cause_idx": 227,
+      "effect_idx": 236,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_018",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 1,
+      "cause_idx": 301,
+      "effect_idx": 304,
+      "organ_effect_of_correct": 0,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_019",
+      "item_type": "local_adjacent_control",
+      "chapter_gap": 0,
+      "cause_idx": 326,
+      "effect_idx": 327,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 1,
+      "most_recent_cause_of_correct": 1,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_020",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 2,
+      "cause_idx": 21,
+      "effect_idx": 83,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_021",
+      "item_type": "same_chapter_multi_fact_integration",
+      "chapter_gap": 0,
+      "cause_idx": 355,
+      "effect_idx": 364,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_022",
+      "item_type": "cross_chapter_multi_event",
+      "chapter_gap": 10,
+      "cause_idx": 367,
+      "effect_idx": 523,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_023",
+      "item_type": "same_chapter_multi_fact_integration",
+      "chapter_gap": 0,
+      "cause_idx": 378,
+      "effect_idx": 380,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 0,
+      "most_recent_cause_of_correct": 0,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_024",
+      "item_type": "local_adjacent_control",
+      "chapter_gap": 0,
+      "cause_idx": 51,
+      "effect_idx": 52,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 1,
+      "most_recent_cause_of_correct": 1,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    },
+    {
+      "id": "anne_causal_025",
+      "item_type": "local_adjacent_control",
+      "chapter_gap": 0,
+      "cause_idx": 445,
+      "effect_idx": 446,
+      "organ_effect_of_correct": 1,
+      "organ_cause_of_correct": 1,
+      "most_recent_effect_of_correct": 1,
+      "most_recent_cause_of_correct": 1,
+      "random_effect_of_correct": 0,
+      "random_cause_of_correct": 0
+    }
+  ],
+  "arms_differ_verified": true,
+  "max_bundle_load_per_entity": 2,
+  "bundle_load_multibank_threshold": 4,
+  "use_multibank_flagged": false,
+  "bundling_collision_entities": [
+    {
+      "event_idx": "256",
+      "bundle_load": 2,
+      "sharing_items": [
+        [
+          "anne_causal_001",
+          "CAUSE"
+        ],
+        [
+          "anne_causal_002",
+          "CAUSE"
+        ]
+      ]
+    },
+    {
+      "event_idx": "21",
+      "bundle_load": 2,
+      "sharing_items": [
+        [
+          "anne_causal_003",
+          "CAUSE"
+        ],
+        [
+          "anne_causal_020",
+          "CAUSE"
+        ]
+      ]
+    },
+    {
+      "event_idx": "301",
+      "bundle_load": 2,
+      "sharing_items": [
+        [
+          "anne_causal_004",
+          "CAUSE"
+        ],
+        [
+          "anne_causal_018",
+          "CAUSE"
+        ]
+      ]
+    },
+    {
+      "event_idx": "679",
+      "bundle_load": 2,
+      "sharing_items": [
+        [
+          "anne_causal_005",
+          "CAUSE"
+        ],
+        [
+          "anne_causal_013",
+          "EFFECT"
+        ]
+      ]
+    },
+    {
+      "event_idx": "665",
+      "bundle_load": 2,
+      "sharing_items": [
+        [
+          "anne_causal_010",
+          "EFFECT"
+        ],
+        [
+          "anne_causal_011",
+          "EFFECT"
+        ]
+      ]
+    }
+  ],
+  "supporting_event_line_distance_distribution": {
+    "min": 7,
+    "p25": 46,
+    "median": 119,
+    "p75": 947,
+    "max": 6655,
+    "n_items": 25,
+    "n_within_50_lines": 7,
+    "n_over_500_lines": 8
+  },
+  "capacity_note": "max_event_slots raised from AccumulateRegister default (8) to n_unique_events=697 (45 real gold events + 652 mined raw-text distractor events, densifying the adjacency-baseline candidate pool) to span the whole-book chronological event vocabulary. MEASURED max_bundle_load_per_entity=2 across 5 entities with >1 bundled fact (collision detail in bundling_collision_entities; see per-item id lists). Threshold for flagging the multi-bank swap-in is bundle_load>4 (pilot's capacity note: prior organ evidence still showed strong 0.66+ recall AT bundle load 4, so exceeding that is the honest trigger to reconsider single-bank capacity). use_multibank_flagged=False. At d=1024 and n_unique=697 vocabulary (far below typical d=1024 sqrt(d)-class headroom), single-bank CausalLinkRegister is expected to suffice for this scale; a full-scale multi-book build (hundreds-thousands of events) would plausibly need the multi-bank hdlab.situation_model_multibank backend for capacity -- forward note, only exercised here if use_multibank_flagged is True.",
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_lt10s"
+}
