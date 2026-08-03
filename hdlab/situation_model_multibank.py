@@ -120,6 +120,20 @@ class MultiBankAccumulateRegister:
         readback = binding.unbind(reg, self.idx_vecs[event_idx])
         return cleanup_argmax(readback, self.role_vecs)
 
+    def register(self, entity: str) -> torch.Tensor:
+        """Full API-parity with AccumulateRegister.register(): bundle of ALL of the entity's
+        events across ALL banks. NOT used by decode() (which routes to the single relevant
+        bank for capacity reasons) -- provided only so callers that read .register(entity)
+        directly (e.g. a whole-entity gist query) see the same surface as the flat register."""
+        if entity not in self._events:
+            raise KeyError(f"no events recorded for entity {entity!r}")
+        all_events: List[torch.Tensor] = []
+        for bank_events in self._events[entity].values():
+            all_events.extend(bank_events)
+        if len(all_events) == 1:
+            return all_events[0]
+        return bundling.bundle(torch.stack(all_events, dim=0))
+
     def entities(self) -> List[str]:
         """Entity ids with at least one recorded event."""
         return list(self._events.keys())

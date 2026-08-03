@@ -48,7 +48,7 @@ from typing import Callable, Dict, List, Optional, Sequence
 
 import torch
 
-from hdlab.situation_model_accumulate import AccumulateRegister
+from hdlab.situation_model_accumulate import make_situation_register
 
 ABSTAIN_BAND_DEFAULT = 0.02
 
@@ -61,14 +61,24 @@ def decode_coherence_margins(
     d: int,
     generator: torch.Generator,
     max_event_slots: int,
+    backend: str = "multibank",
 ) -> List[float]:
-    """Gold-free per-position coherence-margin signal: build a fresh AccumulateRegister from
+    """Gold-free per-position coherence-margin signal: build a fresh situation-model register from
     (role, event_slot) bound into whatever entity cluster_ids assigns each position to, then for
     every position decode that position's own (cluster, event_slot) and return the top1-vs-
-    runner-up role-score margin. No gold label is read. Byte-identical construction to the
-    validated exp_coref_autonomous_fix_router_v1.decode_margins_for_arm and
-    probe_loop_autonomy_self_signal_v1.decode_margins_for_arm."""
-    reg = AccumulateRegister(role_vocab, d, generator, max_event_slots=max_event_slots)
+    runner-up role-score margin. No gold label is read.
+
+    backend="multibank" (default, 2026-08-03): routes through make_situation_register, which
+    defaults to MultiBankAccumulateRegister (n_banks=8) instead of the flat AccumulateRegister
+    this used to construct directly -- capacity-headroom future-proofing (see that factory's
+    docstring); at this controller's validated dense-content scale the margins are numerically
+    unchanged from the flat backend (drop-in, see verification/verify_situation_model_multibank_
+    dropin.py). Pass backend="flat" for byte-identical behavior to the pre-2026-08-03 construction
+    (AccumulateRegister(role_vocab, d, generator, max_event_slots=max_event_slots)), which is
+    still the construction exp_coref_autonomous_fix_router_v1.decode_margins_for_arm and
+    probe_loop_autonomy_self_signal_v1.decode_margins_for_arm use directly (those experiment
+    cells are left untouched; this is the reusable hdlab wire-point only)."""
+    reg = make_situation_register(role_vocab, d, generator, max_event_slots=max_event_slots, backend=backend)
     for role, cid, slot in zip(role_seq, cluster_ids, event_slots):
         reg.add_event(cid, role, slot)
     margins: List[float] = []

@@ -118,7 +118,7 @@ from hdlab.coreference_resolver import (
     _pronoun_strict_cb_margin,
     _resolve_name_branch,
 )
-from hdlab.situation_model_accumulate import AccumulateRegister
+from hdlab.situation_model_accumulate import make_situation_register
 
 # Reuse v1's extraction machinery verbatim (gazetteer mining, person-context filter, gender passes,
 # tokenizer clitic-stripping) -- only the chapter selection + resolver + ledger logic differ.
@@ -412,11 +412,21 @@ def resolve_honest(stream, pick_mode="salience"):
     return assigned, rows
 
 
-def build_situation_model_consolidated_only(stream, assigned, d=256):
+def build_situation_model_consolidated_only(stream, assigned, d=256, backend="multibank"):
     """Same algebra as v1.build_situation_model, but skips any mention with assigned eid None (the
-    honesty fix's flagged/unconsolidated mentions never touch the register)."""
+    honesty fix's flagged/unconsolidated mentions never touch the register).
+
+    backend="multibank" (default, 2026-08-03): routes through
+    hdlab.situation_model_accumulate.make_situation_register, which defaults to
+    MultiBankAccumulateRegister (n_banks=8, validated capacity headroom -- see that factory's
+    docstring). At this reader's pilot scale (few mentions/entity per chapter) multibank and
+    flat decode identically; this is capacity-headroom future-proofing, not a claimed accuracy
+    lift at current scale. Pass backend="flat" to reproduce the prior AccumulateRegister-only
+    behavior exactly."""
     gen = torch.Generator().manual_seed(SEED)
-    reg = AccumulateRegister(role_vocab=["agent", "mentioned"], d=d, generator=gen, max_event_slots=8)
+    reg = make_situation_register(
+        role_vocab=["agent", "mentioned"], d=d, generator=gen, max_event_slots=8, backend=backend
+    )
     per_entity_events = defaultdict(list)
     counts = defaultdict(int)
     n_skipped = 0

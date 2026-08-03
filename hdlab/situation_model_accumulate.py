@@ -107,6 +107,57 @@ class AccumulateRegister:
         return list(self._events.keys())
 
 
+def make_situation_register(
+    role_vocab: List[str],
+    d: int,
+    generator: torch.Generator,
+    max_event_slots: int = 8,
+    backend: str = "multibank",
+    n_banks: int = 8,
+):
+    """Backend-selectable factory for the situation-model entity-event register.
+
+    WIRE-DON'T-ISLAND wire-point (2026-08-03, closing the WIRED_BUT_NOT_PIPELINE_REACHABLE
+    gap on hdlab.situation_model_multibank.MultiBankAccumulateRegister, capability_registry
+    id situation_model_multibank / working_memory_multibank_K_capacity): every active-pipeline
+    caller that used to construct AccumulateRegister directly (tools/read_anne_glassbox_v2_
+    honest_ledger.py, hdlab/self_improving_loop.py) should call this factory instead so the
+    memory backend is chosen in ONE place.
+
+    backend="multibank" (DEFAULT): returns MultiBankAccumulateRegister with n_banks=8 -- the
+    validated config from experiments/exp_situation_model_multibank_capacity_v1.py
+    (data/exp_situation_model_multibank_capacity_v1/metrics.json), which holds decode
+    self-consistency >=0.999 at n_events=256/entity (multibank_8=0.9992) where the flat
+    register degrades to 0.6547 at the same load. Strictly >= flat at every swept load in that
+    cell (n_events in {64,96,128,192,256}: multibank_8 in [1.0000, 0.9992], flat in
+    [0.9781, 0.6547]) -- there is no regime in the measured sweep where flat beats multibank_8,
+    so multibank is a safe default, not a scale-vs-small-scale tradeoff.
+
+    HONEST SCOPE: at current pilot scale (few events/entity, e.g. the Anne consolidated-only
+    situation model, bundle-load ~2) multibank and flat decode IDENTICALLY (both saturate near
+    1.0 -- see verification/verify_situation_model_multibank_dropin.py). Switching the default
+    here is NOT claimed to lift current comprehension-pipeline accuracy; it is capacity-
+    headroom future-proofing (book-scale event counts will hit the flat-bundle wall this fixes)
+    PLUS making the validated-but-previously-unreachable multibank module actually pipeline-USED
+    per the capability registry's WIRED_AND_PIPELINE_USED gate.
+
+    backend="flat": returns the original AccumulateRegister(overwrite=False) -- kept available
+    as an explicit opt-out so no caller is forced onto multibank; pass backend="flat" to
+    reproduce prior behavior exactly (bit-identical to constructing AccumulateRegister directly
+    with the same args, since this branch does exactly that).
+    """
+    if backend == "flat":
+        return AccumulateRegister(role_vocab, d, generator, max_event_slots=max_event_slots)
+    if backend == "multibank":
+        # Deferred import: situation_model_multibank imports FROM this module
+        # (cleanup_argmax/unit_phase_vec), so a module-level import here would be circular.
+        from .situation_model_multibank import MultiBankAccumulateRegister
+        return MultiBankAccumulateRegister(
+            role_vocab, d, generator, max_event_slots=max_event_slots, n_banks=n_banks
+        )
+    raise ValueError(f"unknown backend {backend!r}; expected 'multibank' or 'flat'")
+
+
 class CausalLinkRegister(AccumulateRegister):
     """Passage-level CAUSE/EFFECT link register (2026-08-02 comprehension-arc extension).
 
