@@ -1,0 +1,4522 @@
+{
+  "chapters_read": [
+    {
+      "num": 6,
+      "title": "Marilla Makes Up Her Mind"
+    },
+    {
+      "num": 9,
+      "title": "Mrs. Rachel Lynde Is Properly Horrified"
+    },
+    {
+      "num": 16,
+      "title": "Diana Is Invited to Tea with Tragic Results"
+    }
+  ],
+  "honesty_fix": {
+    "description": "pronoun with 0 gn_compatible candidates: flagged UNRESOLVED, not bound (was: force-attach to most-recent entity). >=2 compatible candidates within a near-tie salience margin: also flagged, not bound.",
+    "confidence_margin_threshold": 0.1,
+    "n_pronoun_mentions_total": 514,
+    "n_force_attach_would_have_fired_under_baseline": 161,
+    "n_low_confidence_ambiguous_flagged": 0,
+    "n_flagged_total_all_mention_types": 161,
+    "n_consolidated_mentions": 640,
+    "n_mentions_total": 801
+  },
+  "extraction_description": {
+    "gazetteer_size": 15,
+    "n_clauses_total": 1247,
+    "n_mentions_total": 801,
+    "n_pronoun_mentions": 514,
+    "n_name_mentions": 287,
+    "gender_unknown_dropped_count": 9,
+    "missed_capitalized_tokens_recurring": {
+      "Spencer": 10,
+      "White": 3,
+      "Matthew": 27,
+      "Robert": 2,
+      "Nancy": 2,
+      "Flora": 4,
+      "Anyhow": 2,
+      "Can": 2,
+      "Peter": 5,
+      "Providence": 2,
+      "Take": 2,
+      "Let": 5,
+      "Shirley": 2,
+      "To": 2,
+      "Green": 10,
+      "Gables": 10,
+      "Did": 3,
+      "Only": 2,
+      "Avonlea": 3,
+      "Come": 2,
+      "Thomas": 2,
+      "Stamp": 2,
+      "Saturday": 2,
+      "Don": 3,
+      "Carmody": 3,
+      "Jerry": 2,
+      "Orchard": 2,
+      "Slope": 2,
+      "Barry": 18,
+      "Andrews": 2,
+      "Gertie": 2,
+      "Em": 2,
+      "Sam": 2,
+      "Phillips": 3,
+      "Lizzie": 2,
+      "Wright": 2,
+      "Mamie": 2,
+      "Wilson": 2,
+      "Gilbert": 2,
+      "Blythe": 2,
+      "Chester": 5,
+      "Ross": 5,
+      "Where": 2,
+      "My": 3
+    },
+    "generic_np_referent_count_closed_word_list": 31,
+    "generic_np_referent_by_noun": {
+      "boy": 3,
+      "girl": 2,
+      "child": 13,
+      "thing": 5,
+      "woman": 2,
+      "lady": 2,
+      "stranger": 3,
+      "orphan": 1
+    }
+  },
+  "consolidation": {
+    "n_entities_tracked": 9,
+    "n_consolidated_ge3_mentions": 8,
+    "n_singleton_1_mention": 1,
+    "situation_model_decode_self_consistency": 0.7704918032786885,
+    "n_mentions_skipped_from_situation_model_because_flagged": 161
+  },
+  "false_consolidation_vs_gold": {
+    "note": "gold_verified=false on all 6 scenes (pending Director spot-check); this rate is PENDING, not certified.",
+    "overall_false_consolidation_rate": 0.2,
+    "total_consolidated_matched_mentions": 55,
+    "total_false_consolidations": 11,
+    "per_scene": [
+      {
+        "passage_id": "anne_ch9_rachel_marilla_discuss_anne",
+        "window_located": true,
+        "window_similarity": 0.7123,
+        "n_gold_mentions": 15,
+        "n_matched": 12,
+        "n_consolidated_matched": 12,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 0,
+        "false_consolidation_rate": 0.0,
+        "unmatched_gold_mentions": [
+          "She's",
+          "that lady",
+          "Her"
+        ],
+        "disagreements": []
+      },
+      {
+        "passage_id": "anne_ch9_rachel_insults_anne_outburst",
+        "window_located": true,
+        "window_similarity": 0.6875,
+        "n_gold_mentions": 14,
+        "n_matched": 6,
+        "n_consolidated_matched": 6,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 0,
+        "false_consolidation_rate": 0.0,
+        "unmatched_gold_mentions": [
+          "She's",
+          "she",
+          "she"
+        ],
+        "disagreements": []
+      },
+      {
+        "passage_id": "anne_ch6_spencer_marilla_blewett_anne",
+        "window_located": true,
+        "window_similarity": 0.6563,
+        "n_gold_mentions": 20,
+        "n_matched": 14,
+        "n_consolidated_matched": 14,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 6,
+        "false_consolidation_rate": 0.42857142857142855,
+        "unmatched_gold_mentions": [
+          "Mrs. Spencer",
+          "Mrs. Peter",
+          "Mrs. Peter"
+        ],
+        "disagreements": [
+          {
+            "reader_eid": 1,
+            "gold_mention": "her",
+            "gold_entity_this_mention": "Anne",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "she",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "she",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "Anne",
+            "gold_entity_this_mention": "Anne",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "her",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "her",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          }
+        ]
+      },
+      {
+        "passage_id": "anne_ch6_anne_awaits_blewett_verdict",
+        "window_located": true,
+        "window_similarity": 0.6105,
+        "n_gold_mentions": 13,
+        "n_matched": 7,
+        "n_consolidated_matched": 7,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 1,
+        "false_consolidation_rate": 0.14285714285714285,
+        "unmatched_gold_mentions": [
+          "Anne",
+          "Mrs. Spencer",
+          "Anne"
+        ],
+        "disagreements": [
+          {
+            "reader_eid": 1,
+            "gold_mention": "she",
+            "gold_entity_this_mention": "Spencer",
+            "reader_cluster_majority_gold_entity": "Anne"
+          }
+        ]
+      },
+      {
+        "passage_id": "anne_ch16_diana_anne_marilla_lynde_cordial",
+        "window_located": true,
+        "window_similarity": 0.6934,
+        "n_gold_mentions": 11,
+        "n_matched": 11,
+        "n_consolidated_matched": 11,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 4,
+        "false_consolidation_rate": 0.36363636363636365,
+        "unmatched_gold_mentions": [],
+        "disagreements": [
+          {
+            "reader_eid": 1,
+            "gold_mention": "Marilla's",
+            "gold_entity_this_mention": "Marilla",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "Anne",
+            "gold_entity_this_mention": "Anne",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "Marilla",
+            "gold_entity_this_mention": "Marilla",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "She",
+            "gold_entity_this_mention": "Marilla",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          }
+        ]
+      },
+      {
+        "passage_id": "anne_ch16_pudding_sauce_chester_ross",
+        "window_located": true,
+        "window_similarity": 0.7926,
+        "n_gold_mentions": 11,
+        "n_matched": 5,
+        "n_consolidated_matched": 5,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 0,
+        "false_consolidation_rate": 0.0,
+        "unmatched_gold_mentions": [
+          "Mrs. Chester Ross",
+          "Mrs. Chester Ross",
+          "Mrs. Chester Ross",
+          "Mrs. Chester Ross",
+          "She",
+          "she"
+        ],
+        "disagreements": []
+      }
+    ]
+  },
+  "entities": [
+    {
+      "eid": 1,
+      "canonical_name_guess": "Anne",
+      "mention_count": 456,
+      "n_distinct_name_forms": 3,
+      "first_clause": 14,
+      "last_clause": 1245,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 14,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 16,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 17,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 36,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 36,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 37,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 38,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 51,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 51,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 59,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 64,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 67,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 67,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 67,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 67,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 71,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 72,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 72,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 73,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 74,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 75,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 76,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 78,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 79,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 79,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 84,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 86,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 88,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 88,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 92,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 96,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 103,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 122,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 124,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 124,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 127,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 129,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 129,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 130,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 131,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 131,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 144,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 150,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 151,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 151,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 153,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 154,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 171,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 175,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 175,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 178,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 179,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 179,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 181,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 186,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 189,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 191,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 193,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 195,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 198,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 198,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 199,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 205,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 208,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 216,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 220,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 225,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 235,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 235,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 236,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 237,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 237,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 240,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 247,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 248,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 252,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 252,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 252,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 252,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 252,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 253,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 257,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 257,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 262,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 265,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 268,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 278,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 283,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 283,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 286,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 291,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 292,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 299,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 299,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 300,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 300,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 301,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 303,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 303,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 304,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 305,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 306,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 306,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 317,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 320,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 323,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 323,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 328,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 331,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 331,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 331,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 331,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 336,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 337,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 339,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 341,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 348,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 353,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 366,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 367,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 368,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 372,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 373,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 373,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 373,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 374,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 376,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 378,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 382,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 389,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 391,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 392,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 392,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 392,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 394,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 394,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 394,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 395,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 400,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 400,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 407,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 408,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 408,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 409,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 409,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 411,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 412,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 412,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 413,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 414,
+          "role_bucket": "agent",
+          "mention_text": "Her"
+        },
+        {
+          "clause": 416,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 427,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 438,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 442,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 445,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 446,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 447,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 449,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 450,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 458,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 459,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 464,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 465,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 480,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 483,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 484,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 496,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 496,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 497,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 499,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 499,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 501,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 505,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 506,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 507,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 508,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 509,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 510,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 512,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 530,
+          "role_bucket": "agent",
+          "mention_text": "Her"
+        },
+        {
+          "clause": 530,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 542,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 542,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 543,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 544,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 548,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 548,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 549,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 549,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 552,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 552,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 554,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 554,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 555,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 555,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 558,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 559,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 561,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 564,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 566,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 568,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 570,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 571,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 573,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 577,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 578,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 589,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 594,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 596,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 600,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 603,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 605,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 607,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 607,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 607,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 608,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 611,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 612,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 613,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 616,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 618,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 621,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 622,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 623,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 624,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 642,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 644,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 648,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 658,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 662,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 662,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 664,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 665,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 666,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 673,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 673,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 676,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 677,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 687,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 695,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 700,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 715,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 723,
+          "role_bucket": "agent",
+          "mention_text": "Marilla Anne"
+        },
+        {
+          "clause": 723,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 730,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 744,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 745,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 746,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 747,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 748,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 749,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 752,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 754,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 754,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 754,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 763,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 767,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 769,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 771,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 772,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 773,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 774,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 777,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 780,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 781,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 784,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 797,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 802,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 803,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 804,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 807,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 820,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 821,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 822,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 823,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 824,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 825,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 827,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 842,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 843,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 844,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 845,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 846,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 847,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 850,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 853,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 858,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 864,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 865,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 871,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 871,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 872,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 873,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 880,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 880,
+          "role_bucket": "mentioned",
+          "mention_text": "hers"
+        },
+        {
+          "clause": 881,
+          "role_bucket": "mentioned",
+          "mention_text": "hers"
+        },
+        {
+          "clause": 881,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 883,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 884,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 885,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 905,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 914,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 916,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 917,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 921,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 936,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 937,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 937,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 938,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 942,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 950,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 956,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 963,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 972,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 973,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 974,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 975,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 976,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 979,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 984,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 988,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 989,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 989,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 991,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 995,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1002,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1009,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1010,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1012,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1024,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1025,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1026,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1028,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1029,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1030,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1035,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1036,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1036,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1038,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1038,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1039,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1042,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1042,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1046,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1048,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1051,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1058,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1059,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 1060,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1061,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1063,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1066,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1067,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1068,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1068,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1068,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1069,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1071,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1073,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1075,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1079,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1079,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1081,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1081,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1081,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1086,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1086,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1086,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1086,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1087,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 1087,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1088,
+          "role_bucket": "agent",
+          "mention_text": "Her"
+        },
+        {
+          "clause": 1089,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1094,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1101,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1102,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 1102,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1102,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1105,
+          "role_bucket": "agent",
+          "mention_text": "Her"
+        },
+        {
+          "clause": 1105,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1106,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1107,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 1110,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 1111,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1112,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1114,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1124,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1127,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1131,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1133,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1135,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1136,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1138,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1139,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1141,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1143,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1145,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1148,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1149,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1149,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1149,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1150,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1150,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1151,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1153,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1155,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1158,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1159,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1160,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1162,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1163,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1165,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1166,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1166,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1168,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1169,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1171,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1171,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1178,
+          "role_bucket": "agent",
+          "mention_text": "Her"
+        },
+        {
+          "clause": 1182,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1184,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1185,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1185,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1186,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1186,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1187,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1188,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1188,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1197,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1205,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1206,
+          "role_bucket": "agent",
+          "mention_text": "She"
+        },
+        {
+          "clause": 1206,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1208,
+          "role_bucket": "agent",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1209,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1214,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1215,
+          "role_bucket": "mentioned",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1216,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1221,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1223,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1223,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1227,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1228,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1229,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1232,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1234,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1235,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 1236,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1236,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1238,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1239,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1239,
+          "role_bucket": "mentioned",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1240,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1241,
+          "role_bucket": "agent",
+          "mention_text": "Anne"
+        },
+        {
+          "clause": 1241,
+          "role_bucket": "mentioned",
+          "mention_text": "her"
+        },
+        {
+          "clause": 1243,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        },
+        {
+          "clause": 1245,
+          "role_bucket": "agent",
+          "mention_text": "she"
+        }
+      ]
+    },
+    {
+      "eid": 2,
+      "canonical_name_guess": "Marilla",
+      "mention_count": 58,
+      "n_distinct_name_forms": 3,
+      "first_clause": 19,
+      "last_clause": 787,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 19,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 31,
+          "role_bucket": "agent",
+          "mention_text": "Marilla Cuthbert"
+        },
+        {
+          "clause": 39,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 47,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 52,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 73,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 88,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 102,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 117,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 146,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 172,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 175,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 177,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 205,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 217,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 219,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 228,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 237,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 250,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 263,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 281,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 284,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 295,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 300,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 307,
+          "role_bucket": "agent",
+          "mention_text": "Marilla Cuthbert"
+        },
+        {
+          "clause": 333,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 368,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 372,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 380,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 385,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 394,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 404,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 405,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 429,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 458,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 482,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 493,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 496,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 500,
+          "role_bucket": "mentioned",
+          "mention_text": "Cuthbert"
+        },
+        {
+          "clause": 504,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 517,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 533,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 541,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 547,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 551,
+          "role_bucket": "mentioned",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 555,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 606,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 609,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 621,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 627,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 636,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 653,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 659,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 675,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 684,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 690,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 711,
+          "role_bucket": "agent",
+          "mention_text": "Marilla"
+        },
+        {
+          "clause": 787,
+          "role_bucket": "agent",
+          "mention_text": "Cuthbert"
+        }
+      ]
+    },
+    {
+      "eid": 7,
+      "canonical_name_guess": "Diana",
+      "mention_count": 43,
+      "n_distinct_name_forms": 1,
+      "first_clause": 720,
+      "last_clause": 1216,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 720,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 746,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 761,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 766,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 768,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 777,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 788,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 801,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 820,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 824,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 857,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 860,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 871,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 877,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 887,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 894,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 908,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 925,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 931,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 959,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 967,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 986,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 987,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 998,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1008,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1014,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1022,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1027,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1059,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1064,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1068,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1075,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1092,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1097,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1111,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1128,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1138,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1185,
+          "role_bucket": "mentioned",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1193,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1201,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1212,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1215,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        },
+        {
+          "clause": 1216,
+          "role_bucket": "agent",
+          "mention_text": "Diana"
+        }
+      ]
+    },
+    {
+      "eid": 0,
+      "canonical_name_guess": "PRON-only-entity-0",
+      "mention_count": 28,
+      "n_distinct_name_forms": 0,
+      "first_clause": 0,
+      "last_clause": 1126,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 0,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 59,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 60,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 97,
+          "role_bucket": "agent",
+          "mention_text": "them"
+        },
+        {
+          "clause": 148,
+          "role_bucket": "mentioned",
+          "mention_text": "they"
+        },
+        {
+          "clause": 249,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 249,
+          "role_bucket": "mentioned",
+          "mention_text": "them"
+        },
+        {
+          "clause": 256,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 419,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 426,
+          "role_bucket": "agent",
+          "mention_text": "their"
+        },
+        {
+          "clause": 471,
+          "role_bucket": "agent",
+          "mention_text": "them"
+        },
+        {
+          "clause": 472,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 637,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 682,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 683,
+          "role_bucket": "agent",
+          "mention_text": "them"
+        },
+        {
+          "clause": 693,
+          "role_bucket": "agent",
+          "mention_text": "them"
+        },
+        {
+          "clause": 698,
+          "role_bucket": "agent",
+          "mention_text": "their"
+        },
+        {
+          "clause": 776,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 806,
+          "role_bucket": "mentioned",
+          "mention_text": "them"
+        },
+        {
+          "clause": 813,
+          "role_bucket": "agent",
+          "mention_text": "They"
+        },
+        {
+          "clause": 819,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 848,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 870,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 940,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 947,
+          "role_bucket": "agent",
+          "mention_text": "they"
+        },
+        {
+          "clause": 1075,
+          "role_bucket": "mentioned",
+          "mention_text": "they"
+        },
+        {
+          "clause": 1084,
+          "role_bucket": "agent",
+          "mention_text": "them"
+        },
+        {
+          "clause": 1126,
+          "role_bucket": "agent",
+          "mention_text": "their"
+        }
+      ]
+    },
+    {
+      "eid": 5,
+      "canonical_name_guess": "Lynde",
+      "mention_count": 23,
+      "n_distinct_name_forms": 3,
+      "first_clause": 317,
+      "last_clause": 1203,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 317,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 423,
+          "role_bucket": "agent",
+          "mention_text": "Rachel Lynde"
+        },
+        {
+          "clause": 502,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 514,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 539,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 545,
+          "role_bucket": "agent",
+          "mention_text": "Rachel Lynde"
+        },
+        {
+          "clause": 551,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 581,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 584,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 599,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 611,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 614,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 635,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 639,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 644,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 665,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 879,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 882,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 1037,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 1046,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 1054,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 1101,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        },
+        {
+          "clause": 1203,
+          "role_bucket": "agent",
+          "mention_text": "Lynde"
+        }
+      ]
+    },
+    {
+      "eid": 6,
+      "canonical_name_guess": "Rachel",
+      "mention_count": 14,
+      "n_distinct_name_forms": 2,
+      "first_clause": 319,
+      "last_clause": 511,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 319,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 325,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 375,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 382,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 388,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 396,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 425,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 441,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 444,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 460,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 479,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 495,
+          "role_bucket": "agent",
+          "mention_text": "Rachel"
+        },
+        {
+          "clause": 500,
+          "role_bucket": "agent",
+          "mention_text": "Rachel Marilla"
+        },
+        {
+          "clause": 511,
+          "role_bucket": "agent",
+          "mention_text": "Rachel Marilla"
+        }
+      ]
+    },
+    {
+      "eid": 4,
+      "canonical_name_guess": "Blewett",
+      "mention_count": 13,
+      "n_distinct_name_forms": 1,
+      "first_clause": 66,
+      "last_clause": 260,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 66,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 77,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 112,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 116,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 126,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 143,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 151,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 182,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 202,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 204,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 215,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 234,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        },
+        {
+          "clause": 260,
+          "role_bucket": "agent",
+          "mention_text": "Blewett"
+        }
+      ]
+    },
+    {
+      "eid": 3,
+      "canonical_name_guess": "Jane",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "first_clause": 37,
+      "last_clause": 119,
+      "consolidated": true,
+      "event_trajectory": [
+        {
+          "clause": 37,
+          "role_bucket": "agent",
+          "mention_text": "Jane"
+        },
+        {
+          "clause": 40,
+          "role_bucket": "agent",
+          "mention_text": "Jane"
+        },
+        {
+          "clause": 107,
+          "role_bucket": "agent",
+          "mention_text": "Jane"
+        },
+        {
+          "clause": 119,
+          "role_bucket": "agent",
+          "mention_text": "Jane"
+        }
+      ]
+    },
+    {
+      "eid": 8,
+      "canonical_name_guess": "Ruby",
+      "mention_count": 1,
+      "n_distinct_name_forms": 1,
+      "first_clause": 825,
+      "last_clause": 825,
+      "consolidated": false,
+      "event_trajectory": [
+        {
+          "clause": 825,
+          "role_bucket": "agent",
+          "mention_text": "Ruby"
+        }
+      ]
+    }
+  ],
+  "mention_ledger_sample": [
+    {
+      "pos": 0,
+      "clause": 0,
+      "mention_text": "they",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "no tracked entities yet; seeded new entity carrying the pronoun's own gender/number (WILDCARD-SEED fix; unavoidable first-mention case otherwise unchanged from baseline)",
+      "n_compatible": 0,
+      "margin": null,
+      "assigned_eid": 0
+    },
+    {
+      "pos": 1,
+      "clause": 5,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 1 tracked entities found 0 compatible (gender=fem, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 2,
+      "clause": 6,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 1 tracked entities found 0 compatible (gender=fem, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 3,
+      "clause": 9,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 1 tracked entities found 0 compatible (gender=fem, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 4,
+      "clause": 14,
+      "mention_text": "Anne",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (0 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 0,
+      "margin": null,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 5,
+      "clause": 16,
+      "mention_text": "Anne",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (1 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 1,
+      "margin": null,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 6,
+      "clause": 17,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 1 candidates; resolved via salience pick, margin=1.0000",
+      "n_compatible": 1,
+      "margin": 1.0,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 7,
+      "clause": 19,
+      "mention_text": "Marilla",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (1 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 1,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 8,
+      "clause": 26,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 3 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 9,
+      "clause": 31,
+      "mention_text": "Marilla Cuthbert",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (2 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 2,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 10,
+      "clause": 35,
+      "mention_text": "his",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 3 tracked entities found 0 compatible (gender=masc, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 11,
+      "clause": 36,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 2 candidates; resolved via salience pick, margin=0.2706",
+      "n_compatible": 2,
+      "margin": 0.2706110057941389,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 12,
+      "clause": 36,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 2 candidates; resolved via salience pick, margin=0.4676",
+      "n_compatible": 2,
+      "margin": 0.46761316370812,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 13,
+      "clause": 37,
+      "mention_text": "Jane",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (2 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 2,
+      "margin": null,
+      "assigned_eid": 3
+    },
+    {
+      "pos": 14,
+      "clause": 37,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 3 candidates; resolved via salience pick, margin=0.5742",
+      "n_compatible": 3,
+      "margin": 0.5742078470339922,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 15,
+      "clause": 38,
+      "mention_text": "She",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 3 candidates; resolved via salience pick, margin=0.6475",
+      "n_compatible": 3,
+      "margin": 0.647511124027293,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 16,
+      "clause": 39,
+      "mention_text": "Cuthbert",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (3 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 3,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 17,
+      "clause": 40,
+      "mention_text": "Jane",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (3 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 3,
+      "margin": null,
+      "assigned_eid": 3
+    },
+    {
+      "pos": 18,
+      "clause": 44,
+      "mention_text": "It",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 4 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 19,
+      "clause": 45,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 4 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 20,
+      "clause": 47,
+      "mention_text": "Cuthbert",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (3 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 3,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 21,
+      "clause": 51,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 3 candidates; resolved via salience pick, margin=0.3879",
+      "n_compatible": 3,
+      "margin": 0.38793369240247616,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 22,
+      "clause": 51,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 3 candidates; resolved via salience pick, margin=0.4783",
+      "n_compatible": 3,
+      "margin": 0.4783309336255917,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 23,
+      "clause": 51,
+      "mention_text": "It",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 4 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 24,
+      "clause": 52,
+      "mention_text": "Marilla",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (3 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 3,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 25,
+      "clause": 57,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 4 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 26,
+      "clause": 59,
+      "mention_text": "they",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 1 candidates; resolved via salience pick, margin=1.0000",
+      "n_compatible": 1,
+      "margin": 1.0,
+      "assigned_eid": 0
+    },
+    {
+      "pos": 27,
+      "clause": 59,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 3 candidates; resolved via salience pick, margin=0.4227",
+      "n_compatible": 3,
+      "margin": 0.4227393372189459,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 28,
+      "clause": 60,
+      "mention_text": "they",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 1 candidates; resolved via salience pick, margin=1.0000",
+      "n_compatible": 1,
+      "margin": 1.0,
+      "assigned_eid": 0
+    },
+    {
+      "pos": 29,
+      "clause": 64,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 4 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 30,
+      "clause": 64,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 3 candidates; resolved via salience pick, margin=0.4914",
+      "n_compatible": 3,
+      "margin": 0.4913984817833622,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 31,
+      "clause": 66,
+      "mention_text": "Blewett",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (3 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 3,
+      "margin": null,
+      "assigned_eid": 4
+    },
+    {
+      "pos": 32,
+      "clause": 67,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.5421",
+      "n_compatible": 4,
+      "margin": 0.5420722967815497,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 33,
+      "clause": 67,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.5821",
+      "n_compatible": 4,
+      "margin": 0.5821466534768779,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 34,
+      "clause": 67,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.6146",
+      "n_compatible": 4,
+      "margin": 0.6146462704799243,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 35,
+      "clause": 67,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.6425",
+      "n_compatible": 4,
+      "margin": 0.6425210446867761,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 36,
+      "clause": 71,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.6667",
+      "n_compatible": 4,
+      "margin": 0.66668020049507,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 37,
+      "clause": 71,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 5 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 38,
+      "clause": 72,
+      "mention_text": "Anne",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 39,
+      "clause": 72,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7071",
+      "n_compatible": 4,
+      "margin": 0.7071142306806462,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 40,
+      "clause": 73,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 5 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 41,
+      "clause": 73,
+      "mention_text": "Marilla",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 42,
+      "clause": 73,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.6488",
+      "n_compatible": 4,
+      "margin": 0.6487602061411981,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 43,
+      "clause": 74,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.6705",
+      "n_compatible": 4,
+      "margin": 0.6705106201745666,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 44,
+      "clause": 75,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.6885",
+      "n_compatible": 4,
+      "margin": 0.6885253914965086,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 45,
+      "clause": 75,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 5 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 46,
+      "clause": 76,
+      "mention_text": "She",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7056",
+      "n_compatible": 4,
+      "margin": 0.705583737817674,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 47,
+      "clause": 77,
+      "mention_text": "Blewett",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 4
+    },
+    {
+      "pos": 48,
+      "clause": 78,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7212",
+      "n_compatible": 4,
+      "margin": 0.7211749397224241,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 49,
+      "clause": 79,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7346",
+      "n_compatible": 4,
+      "margin": 0.734583261569303,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 50,
+      "clause": 79,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7463",
+      "n_compatible": 4,
+      "margin": 0.7463120150325847,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 51,
+      "clause": 84,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7570",
+      "n_compatible": 4,
+      "margin": 0.7570392114288648,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 52,
+      "clause": 86,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7669",
+      "n_compatible": 4,
+      "margin": 0.7668857577947373,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 53,
+      "clause": 88,
+      "mention_text": "Marilla",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 54,
+      "clause": 88,
+      "mention_text": "Anne",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 55,
+      "clause": 88,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7396",
+      "n_compatible": 4,
+      "margin": 0.7395875038844907,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 56,
+      "clause": 92,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7498",
+      "n_compatible": 4,
+      "margin": 0.7497519920805646,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 57,
+      "clause": 96,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7591",
+      "n_compatible": 4,
+      "margin": 0.7591271782675957,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 58,
+      "clause": 97,
+      "mention_text": "them",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 1 candidates; resolved via salience pick, margin=1.0000",
+      "n_compatible": 1,
+      "margin": 1.0,
+      "assigned_eid": 0
+    },
+    {
+      "pos": 59,
+      "clause": 98,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 5 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 60,
+      "clause": 98,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 5 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 61,
+      "clause": 102,
+      "mention_text": "Cuthbert",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 62,
+      "clause": 103,
+      "mention_text": "Anne",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 63,
+      "clause": 107,
+      "mention_text": "Jane",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 3
+    },
+    {
+      "pos": 64,
+      "clause": 112,
+      "mention_text": "Blewett",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 4
+    },
+    {
+      "pos": 65,
+      "clause": 113,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 5 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    },
+    {
+      "pos": 66,
+      "clause": 116,
+      "mention_text": "Blewett",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 4
+    },
+    {
+      "pos": 67,
+      "clause": 117,
+      "mention_text": "Cuthbert",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 2
+    },
+    {
+      "pos": 68,
+      "clause": 119,
+      "mention_text": "Jane",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 3
+    },
+    {
+      "pos": 69,
+      "clause": 122,
+      "mention_text": "Anne",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 70,
+      "clause": 124,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7199",
+      "n_compatible": 4,
+      "margin": 0.7198884423919153,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 71,
+      "clause": 124,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7290",
+      "n_compatible": 4,
+      "margin": 0.7290419548809696,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 72,
+      "clause": 126,
+      "mention_text": "Blewett",
+      "is_pronoun": false,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "name/nominal token-overlap branch (4 gender-compatible entities); always resolves (match or allocate new)",
+      "n_compatible": 4,
+      "margin": null,
+      "assigned_eid": 4
+    },
+    {
+      "pos": 73,
+      "clause": 127,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7381",
+      "n_compatible": 4,
+      "margin": 0.7380804281741826,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 74,
+      "clause": 129,
+      "mention_text": "She",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7463",
+      "n_compatible": 4,
+      "margin": 0.7462913853338417,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 75,
+      "clause": 129,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7537",
+      "n_compatible": 4,
+      "margin": 0.7536964286945385,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 76,
+      "clause": 130,
+      "mention_text": "her",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7607",
+      "n_compatible": 4,
+      "margin": 0.7606578431511796,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 77,
+      "clause": 131,
+      "mention_text": "She",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7672",
+      "n_compatible": 4,
+      "margin": 0.7672147862892252,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 78,
+      "clause": 131,
+      "mention_text": "she",
+      "is_pronoun": true,
+      "flagged": null,
+      "outcome": "CONSOLIDATED",
+      "learn_attempt": "gn_compatible search found 4 candidates; resolved via salience pick, margin=0.7734",
+      "n_compatible": 4,
+      "margin": 0.773402040362902,
+      "assigned_eid": 1
+    },
+    {
+      "pos": 79,
+      "clause": 140,
+      "mention_text": "it",
+      "is_pronoun": true,
+      "flagged": "unresolved_pronoun_no_compatible_candidate",
+      "outcome": "NOT_CONSOLIDATED",
+      "learn_attempt": "gn_compatible search over 5 tracked entities found 0 compatible (gender=neuter, number=singular); HONESTY FIX: no force-attach, flagged instead",
+      "n_compatible": 0,
+      "margin": null
+    }
+  ]
+}
