@@ -1,0 +1,563 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "PROBE-TO-AIM, link-PROPOSAL (not the accumulate organ). SIGNAL1 coherence-gain: recall_integration=0.5555555555555556 (n=18), fp_rate=0.31 (n_neg=200), attackable=False. SIGNAL2 ConceptNet-Causes/CausesDesire: recall_integration=0.05555555555555555 (n=18), fp_rate=0.03 (n_neg=200), attackable=False. generic-commonsense-matchable=1/18, story-specific=17/18. SIGNAL3 goal/intention (qualitative, no FP scored): 9/18 integration gold_answers contain goal/intention language. VERDICT=DEEP_INFERENCE_REQUIRED.",
+  "summary": "DEEP_INFERENCE_REQUIRED | s1_recall=0.5555555555555556 s1_fp=0.31 | s2_recall=0.05555555555555555 s2_fp=0.03 | generic_vs_story_specific=1/17 | s3_goal_mediated=9/18",
+  "elapsed_s": 0.5927492000628263,
+  "ts_iso": "2026-08-03T04:47:51.491898+00:00",
+  "anchor_name": "causal_link_proposal_signal_probe_v1",
+  "run_mode": "full",
+  "seed": 20260803,
+  "gold_path": "D:\\AI\\hd-instrument\\data/eval_gold_mention_role_mcguffey_v1/gold_anne_comprehension_v2.jsonl",
+  "conceptnet_path": "D:\\AI\\hd-instrument\\data/datasets/conceptnet5_en_100k.jsonl",
+  "n_items_total": 25,
+  "n_unique_events": 45,
+  "n_gazetteer_admitted": 108,
+  "gazetteer_elapsed_s": 0.2154115999583155,
+  "n_conceptnet_causal_edges": 21484,
+  "conceptnet_load_elapsed_s": 0.14043199992738664,
+  "n_negative_pairs_sampled": 200,
+  "signal1_coherence_overlap": {
+    "recall_integration": {
+      "n": 18,
+      "n_flagged": 10,
+      "recall": 0.5555555555555556
+    },
+    "recall_all": {
+      "n": 25,
+      "n_flagged": 15,
+      "recall": 0.6
+    },
+    "false_positive_rate": 0.31,
+    "attackable": false,
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.9534883720930233,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_002",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.9534883720930233,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_003",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.8372093023255813,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_004",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.813953488372093,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_005",
+        "item_type": "same_chapter_multi_fact_integration",
+        "gain": 0.34883720930232553,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_006",
+        "item_type": "same_chapter_multi_fact_integration",
+        "gain": -0.2558139534883721,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_007",
+        "item_type": "local_adjacent_control",
+        "gain": 0.0,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_008",
+        "item_type": "local_adjacent_control",
+        "gain": 0.5348837209302326,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_009",
+        "item_type": "local_adjacent_control",
+        "gain": 0.5348837209302326,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_010",
+        "item_type": "local_adjacent_control",
+        "gain": 0.8372093023255813,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_011",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.8372093023255813,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_012",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.5348837209302326,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_013",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.5348837209302326,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_014",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.0,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_015",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.4883720930232558,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_016",
+        "item_type": "cross_chapter_multi_event",
+        "gain": -0.20930232558139536,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_017",
+        "item_type": "same_chapter_multi_fact_integration",
+        "gain": 0.5348837209302326,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_018",
+        "item_type": "cross_chapter_multi_event",
+        "gain": -0.4883720930232558,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_019",
+        "item_type": "local_adjacent_control",
+        "gain": 0.5116279069767442,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_020",
+        "item_type": "cross_chapter_multi_event",
+        "gain": 0.0,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_021",
+        "item_type": "same_chapter_multi_fact_integration",
+        "gain": -0.7209302325581395,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_022",
+        "item_type": "cross_chapter_multi_event",
+        "gain": -0.023255813953488372,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_023",
+        "item_type": "same_chapter_multi_fact_integration",
+        "gain": -0.06976744186046512,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_024",
+        "item_type": "local_adjacent_control",
+        "gain": 0.0,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_025",
+        "item_type": "local_adjacent_control",
+        "gain": 0.8372093023255813,
+        "flagged": true
+      }
+    ]
+  },
+  "signal2_conceptnet_commonsense": {
+    "recall_integration": {
+      "n": 18,
+      "n_flagged": 1,
+      "recall": 0.05555555555555555
+    },
+    "recall_all": {
+      "n": 25,
+      "n_flagged": 1,
+      "recall": 0.04
+    },
+    "false_positive_rate": 0.03,
+    "attackable": false,
+    "generic_commonsense_matchable_n": 1,
+    "story_specific_n": 17,
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_002",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_003",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_004",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_005",
+        "item_type": "same_chapter_multi_fact_integration",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_006",
+        "item_type": "same_chapter_multi_fact_integration",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_007",
+        "item_type": "local_adjacent_control",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_008",
+        "item_type": "local_adjacent_control",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_009",
+        "item_type": "local_adjacent_control",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_010",
+        "item_type": "local_adjacent_control",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_011",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_012",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_013",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": true,
+        "matched_pair": [
+          "work",
+          "work"
+        ]
+      },
+      {
+        "id": "anne_causal_014",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_015",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_016",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_017",
+        "item_type": "same_chapter_multi_fact_integration",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_018",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_019",
+        "item_type": "local_adjacent_control",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_020",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_021",
+        "item_type": "same_chapter_multi_fact_integration",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_022",
+        "item_type": "cross_chapter_multi_event",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_023",
+        "item_type": "same_chapter_multi_fact_integration",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_024",
+        "item_type": "local_adjacent_control",
+        "flagged": false,
+        "matched_pair": null
+      },
+      {
+        "id": "anne_causal_025",
+        "item_type": "local_adjacent_control",
+        "flagged": false,
+        "matched_pair": null
+      }
+    ]
+  },
+  "signal3_goal_intention_qualitative": {
+    "n_goal_mediated_integration": 9,
+    "n_integration_total": 18,
+    "fraction_goal_mediated": 0.5,
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [
+          "resolve",
+          "withdrawn"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_002",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_003",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [
+          "decide",
+          "decides"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_004",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [
+          "forgive",
+          "forgives"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_005",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_markers_found": [
+          "gives up"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_006",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_markers_found": [
+          "withdrew",
+          "promised",
+          "promise"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_007",
+        "item_type": "local_adjacent_control",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_008",
+        "item_type": "local_adjacent_control",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_009",
+        "item_type": "local_adjacent_control",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_010",
+        "item_type": "local_adjacent_control",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_011",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_012",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_013",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_014",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [
+          "forgive",
+          "forgives"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_015",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_016",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [
+          "resolved",
+          "resolve"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_017",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_markers_found": [
+          "forgive",
+          "forgives"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_018",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_019",
+        "item_type": "local_adjacent_control",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_020",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_021",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_markers_found": [
+          "forgive",
+          "forgiven",
+          "promised",
+          "promise"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_022",
+        "item_type": "cross_chapter_multi_event",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_023",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_markers_found": [],
+        "goal_mediated": false
+      },
+      {
+        "id": "anne_causal_024",
+        "item_type": "local_adjacent_control",
+        "goal_markers_found": [
+          "want to"
+        ],
+        "goal_mediated": true
+      },
+      {
+        "id": "anne_causal_025",
+        "item_type": "local_adjacent_control",
+        "goal_markers_found": [
+          "decide",
+          "decided",
+          "determined"
+        ],
+        "goal_mediated": true
+      }
+    ],
+    "note": "QUALITATIVE keyword scan of the human-written gold_answer explanation text; not a computed discriminator (no goal-tracking module exists yet), no FP rate."
+  },
+  "overall_verdict_summary": "DEEP_INFERENCE_REQUIRED",
+  "arms_differ_verified": true,
+  "arms_digest": {
+    "signal1": "428f83fc926ab2160f528632a3d18f038224240c37cf690d2a313183d8033184",
+    "signal2": "c9159e2dfcae794e0e3e902fe2900c048433a829cd9f6e66e8fade06a3abb0f9"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_single_pass",
+  "dispatched": false,
+  "dispatch_note": "measurement-only per task instruction; not queued, not shipped remote."
+}

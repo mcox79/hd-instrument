@@ -1,0 +1,10 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "Gazetteer real-code-path PASS; ConceptNet Causes-edge loader finds known edge + rejects nonsense pair; coherence-overlap gain sign check PASS.",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.18095189984887838,
+  "ts_iso": "2026-08-03T04:47:45.818176+00:00",
+  "anchor_name": "causal_link_proposal_signal_probe_v1",
+  "run_mode": "smoke",
+  "seed": 20260803
+}
