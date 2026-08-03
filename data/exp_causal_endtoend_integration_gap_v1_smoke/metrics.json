@@ -1,0 +1,10 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "CausalLinkRegister fixture PASS; real-code-path extract_stream + run_match_or_allocate_instrumented resolves a name-pronoun chain on a 2-sentence synthetic chapter.",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.0847306998912245,
+  "ts_iso": "2026-08-03T04:34:59.808546+00:00",
+  "anchor_name": "causal_endtoend_integration_gap_v1",
+  "run_mode": "smoke",
+  "seed": 20260802
+}

@@ -1,0 +1,1533 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "HONEST END-TO-END DECOMPOSITION (not a capability claim). Gold-isolated organ ceiling (arm a) = 0.9167 integration (reproduces fuller_v2's 0.9167 HARD_PASS). Reader-events+gold-links (arm b) = 0.9167 (event-extraction coverage=1.0000, agent-accuracy=0.625). Gold-events+detected-links (arm c) = 0.5556 (link-detectability fraction=0.6800 of 25 items). Full end-to-end (arm d, reader events + detected links) = 0.5556 -- survival fraction of gold-isolated ceiling = 0.6060606060606061. LOCALIZATION: arm (a to b) delta = 0.0000 (event-extraction damage); arm (a to c) delta = 0.3611 (link-detection damage). The larger delta localizes the bottleneck. Small-N (25 items) localization study, not a powered claim.",
+  "summary": "MEASURED_MECHANISM | arm_a_gold_gold_integration=0.9167 | arm_b_reader_gold_integration=0.9167 | arm_c_gold_detected_integration=0.5556 | arm_d_reader_detected_integration=0.5556 | stage1_coverage=1.0 stage1_agent_acc=0.625 | stage2_detectable_fraction=0.68",
+  "elapsed_s": 4.235862999921665,
+  "ts_iso": "2026-08-03T04:35:09.112429+00:00",
+  "anchor_name": "causal_endtoend_integration_gap_v1",
+  "run_mode": "full",
+  "seed": 20260802,
+  "d": 1024,
+  "gold_path": "D:\\AI\\hd-instrument\\data/eval_gold_mention_role_mcguffey_v1/gold_anne_comprehension_v2.jsonl",
+  "n_items_total": 25,
+  "n_unique_events": 697,
+  "n_real_gold_events": 45,
+  "extraction_elapsed_s": 2.4026768999174237,
+  "n_chapters_extracted": 38,
+  "n_mentions_extracted": 10941,
+  "stage1_event_extraction": {
+    "n_unique_real_events": 45,
+    "n_events_extraction_covered": 45,
+    "extraction_coverage_recall": 1.0,
+    "n_events_scored_for_agent": 40,
+    "n_events_no_explicit_name_groundtruth": 5,
+    "agent_extraction_accuracy": 0.625,
+    "per_event": [
+      {
+        "key": "(15, 3867, 3870)",
+        "chapter": 15,
+        "line_start": 3867,
+        "verbatim_preview": "\u201cYou mean, hateful boy!\u201d she exclaimed passionately. \u201cHow dare you!\u201d  And then--",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 9,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(38, 10522, 10525)",
+        "chapter": 38,
+        "line_start": 10522,
+        "verbatim_preview": " \u201cGilbert,\u201d she said, with scarlet cheeks, \u201cI want to thank you for giving up th",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 5,
+        "gt_agent_proxy": "Gilbert",
+        "extracted_agent": "Gilbert",
+        "agent_correct": true
+      },
+      {
+        "key": "(28, 7799, 7809)",
+        "chapter": 28,
+        "line_start": 7799,
+        "verbatim_preview": "very good to see. Her heart gave a quick, queer little beat. But the bitterness ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 17,
+        "gt_agent_proxy": "Gilbert",
+        "extracted_agent": "Lynde",
+        "agent_correct": false
+      },
+      {
+        "key": "(2, 322, 331)",
+        "chapter": 2,
+        "line_start": 322,
+        "verbatim_preview": "\u201cI\u2019m not expecting a girl,\u201d said Matthew blankly. \u201cIt\u2019s a boy I\u2019ve come for. He ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 27,
+        "gt_agent_proxy": "Matthew",
+        "extracted_agent": "Matthew",
+        "agent_correct": true
+      },
+      {
+        "key": "(6, 1586, 1593)",
+        "chapter": 6,
+        "line_start": 1586,
+        "verbatim_preview": "\u201cWell, I don\u2019t know,\u201d she said slowly. \u201cI didn\u2019t say that Matthew and I had abso",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 32,
+        "gt_agent_proxy": "Matthew",
+        "extracted_agent": "Matthew",
+        "agent_correct": true
+      },
+      {
+        "key": "(16, 4555, 4556)",
+        "chapter": 16,
+        "line_start": 4555,
+        "verbatim_preview": "\u201cI don\u2019t think you are a fit little girl for Diana to associate with. You\u2019d bett",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 11,
+        "gt_agent_proxy": "Diana",
+        "extracted_agent": "Diana",
+        "agent_correct": true
+      },
+      {
+        "key": "(18, 5081, 5084)",
+        "chapter": 18,
+        "line_start": 5081,
+        "verbatim_preview": "wouldn\u2019t wake you up. She says you saved Minnie May\u2019s life, and she is very sorr",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 7,
+        "gt_agent_proxy": "Minnie",
+        "extracted_agent": "Minnie",
+        "agent_correct": true
+      },
+      {
+        "key": "(38, 10284, 10289)",
+        "chapter": 38,
+        "line_start": 10284,
+        "verbatim_preview": "\u201cYes, I saw him. He examined my eyes. He says that if I give up all reading and ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 15,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Gilbert",
+        "agent_correct": false
+      },
+      {
+        "key": "(38, 10355, 10361)",
+        "chapter": 38,
+        "line_start": 10355,
+        "verbatim_preview": "\u201cYou won\u2019t have to stay here alone, Marilla. I\u2019ll be with you. I\u2019m not going to ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 24,
+        "gt_agent_proxy": "Marilla",
+        "extracted_agent": "Anne",
+        "agent_correct": false
+      },
+      {
+        "key": "(38, 10360, 10361)",
+        "chapter": 38,
+        "line_start": 10360,
+        "verbatim_preview": " \u201cJust what I say. I\u2019m not going to take the scholarship. I decided so",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 1,
+        "gt_agent_proxy": null,
+        "extracted_agent": null,
+        "agent_correct": null
+      },
+      {
+        "key": "(38, 10460, 10467)",
+        "chapter": 38,
+        "line_start": 10460,
+        "verbatim_preview": "\u201cSo they did. But as soon as Gilbert heard that you had applied for it he went t",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 16,
+        "gt_agent_proxy": "Gilbert",
+        "extracted_agent": "Marilla",
+        "agent_correct": false
+      },
+      {
+        "key": "(23, 6453, 6455)",
+        "chapter": 23,
+        "line_start": 6453,
+        "verbatim_preview": "\u201cMy ankle,\u201d gasped Anne. \u201cOh, Diana, please find your father and ask him to take",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 14,
+        "gt_agent_proxy": "My",
+        "extracted_agent": "Anne",
+        "agent_correct": false
+      },
+      {
+        "key": "(23, 6512, 6514)",
+        "chapter": 23,
+        "line_start": 6512,
+        "verbatim_preview": "And the doctor hurt me dreadfully when he was setting my ankle. I won\u2019t be able ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 4,
+        "gt_agent_proxy": null,
+        "extracted_agent": "Matthew",
+        "agent_correct": null
+      },
+      {
+        "key": "(27, 7454, 7456)",
+        "chapter": 27,
+        "line_start": 7454,
+        "verbatim_preview": "\u201cI dyed it.\u201d  \u201cDyed it! Dyed your hair! Anne Shirley, didn\u2019t you know it was a w",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 2,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(27, 7530, 7532)",
+        "chapter": 27,
+        "line_start": 7530,
+        "verbatim_preview": "\u201cIt\u2019s no use, Anne. That is fast dye if ever there was any. Your hair must be cu",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 6,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(21, 6122, 6124)",
+        "chapter": 21,
+        "line_start": 6122,
+        "verbatim_preview": "\u201cVanilla,\u201d said Anne, her face scarlet with mortification after tasting the cake",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 21,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Marilla",
+        "agent_correct": false
+      },
+      {
+        "key": "(21, 6134, 6137)",
+        "chapter": 21,
+        "line_start": 6134,
+        "verbatim_preview": "\u201cMercy on us, Anne, you\u2019ve flavored that cake with _Anodyne Liniment_. I broke t",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 10,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(37, 10038, 10042)",
+        "chapter": 37,
+        "line_start": 10038,
+        "verbatim_preview": "her and to see Matthew standing in the porch doorway, a folded paper in his hand",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 15,
+        "gt_agent_proxy": "Matthew",
+        "extracted_agent": "Matthew",
+        "agent_correct": true
+      },
+      {
+        "key": "(37, 10069, 10073)",
+        "chapter": 37,
+        "line_start": 10069,
+        "verbatim_preview": "When the doctor came he said that death had been instantaneous and probably pain",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 8,
+        "gt_agent_proxy": "Matthew",
+        "extracted_agent": "Matthew",
+        "agent_correct": true
+      },
+      {
+        "key": "(36, 9978, 9983)",
+        "chapter": 36,
+        "line_start": 9978,
+        "verbatim_preview": "\u201cThat is what Rachel said. She was up here one day last week and said there was ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 10,
+        "gt_agent_proxy": "Rachel",
+        "extracted_agent": "Matthew",
+        "agent_correct": false
+      },
+      {
+        "key": "(30, 8329, 8334)",
+        "chapter": 30,
+        "line_start": 8329,
+        "verbatim_preview": "\u201cWell, Miss Stacy wants to organize a class among her advanced students who mean",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 10,
+        "gt_agent_proxy": "Stacy",
+        "extracted_agent": "Anne",
+        "agent_correct": false
+      },
+      {
+        "key": "(34, 9632, 9640)",
+        "chapter": 34,
+        "line_start": 9632,
+        "verbatim_preview": "An Avery scholarship! Anne felt her heart beat more quickly, and the horizons of",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 19,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(36, 9964, 9968)",
+        "chapter": 36,
+        "line_start": 9964,
+        "verbatim_preview": "\u201cIt\u2019s not the work--it\u2019s my head. I\u2019ve got a pain so often now--behind my eyes. ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 19,
+        "gt_agent_proxy": "Spencer",
+        "extracted_agent": "Anne",
+        "agent_correct": false
+      },
+      {
+        "key": "(9, 2219, 2225)",
+        "chapter": 9,
+        "line_start": 2219,
+        "verbatim_preview": "\u201cWell, they didn\u2019t pick you for your looks, that\u2019s sure and certain,\u201d  was Mrs. ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 35,
+        "gt_agent_proxy": "Rachel",
+        "extracted_agent": "Lynde",
+        "agent_correct": false
+      },
+      {
+        "key": "(10, 2565, 2567)",
+        "chapter": 10,
+        "line_start": 2565,
+        "verbatim_preview": "\u201cThere, there, get up, child,\u201d she said heartily. \u201cOf course I forgive you. I gu",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 15,
+        "gt_agent_proxy": null,
+        "extracted_agent": "Lynde",
+        "agent_correct": null
+      },
+      {
+        "key": "(11, 2757, 2762)",
+        "chapter": 11,
+        "line_start": 2757,
+        "verbatim_preview": "confronted halfway down the lane with a golden frenzy of wind-stirred buttercups",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 10,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(12, 2876, 2878)",
+        "chapter": 12,
+        "line_start": 2876,
+        "verbatim_preview": "\u201cAnne, Mrs. Rachel says you went to church last Sunday with your hat rigged out ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 8,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(11, 2714, 2717)",
+        "chapter": 11,
+        "line_start": 2714,
+        "verbatim_preview": "\u201cOh, I _am_ grateful,\u201d protested Anne. \u201cBut I\u2019d be ever so much gratefuller if--",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 11,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(25, 6884, 6889)",
+        "chapter": 25,
+        "line_start": 6884,
+        "verbatim_preview": "like--I think they make the sleeves different nowadays to what they used to be. ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 14,
+        "gt_agent_proxy": "Matthew",
+        "extracted_agent": "Matthew",
+        "agent_correct": true
+      },
+      {
+        "key": "(14, 3436, 3451)",
+        "chapter": 14,
+        "line_start": 3436,
+        "verbatim_preview": "\u201cI took the amethyst brooch,\u201d said Anne, as if repeating a lesson she had learne",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 46,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(14, 3574, 3579)",
+        "chapter": 14,
+        "line_start": 3574,
+        "verbatim_preview": "\u201cAnne, you do beat all! But I was wrong--I see that now. I shouldn\u2019t have doubte",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 15,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(17, 4601, 4605)",
+        "chapter": 17,
+        "line_start": 4601,
+        "verbatim_preview": "\u201cNo; and oh, Anne, she says I\u2019m never to play with you again. I\u2019ve cried and cri",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 11,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(18, 4944, 4948)",
+        "chapter": 18,
+        "line_start": 4944,
+        "verbatim_preview": "\u201cOh, Anne, do come quick,\u201d implored Diana nervously. \u201cMinnie May is awful sick--",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 22,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(18, 4963, 4967)",
+        "chapter": 18,
+        "line_start": 4963,
+        "verbatim_preview": "\u201cDon\u2019t cry, Di,\u201d said Anne cheerily. \u201cI know exactly what to do for croup. You f",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 25,
+        "gt_agent_proxy": "Don",
+        "extracted_agent": "Anne",
+        "agent_correct": false
+      },
+      {
+        "key": "(4, 1269, 1270)",
+        "chapter": 4,
+        "line_start": 1269,
+        "verbatim_preview": "\u201cLittle Jerry Buote from the Creek was here this morning, and I told him I guess",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 1,
+        "gt_agent_proxy": "Little",
+        "extracted_agent": "Jerry",
+        "agent_correct": false
+      },
+      {
+        "key": "(19, 5395, 5398)",
+        "chapter": 19,
+        "line_start": 5395,
+        "verbatim_preview": "at the same moment. And then--something--moved beneath them, there was a gasp an",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 5,
+        "gt_agent_proxy": null,
+        "extracted_agent": "Diana",
+        "agent_correct": null
+      },
+      {
+        "key": "(19, 5537, 5543)",
+        "chapter": 19,
+        "line_start": 5537,
+        "verbatim_preview": "\u201cBut we were only in fun,\u201d persisted Anne. \u201cI think you ought to forgive us, Mis",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 26,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Anne",
+        "agent_correct": true
+      },
+      {
+        "key": "(19, 5581, 5582)",
+        "chapter": 19,
+        "line_start": 5581,
+        "verbatim_preview": "\u201cI think perhaps I will if you will come over and talk to me occasionally,\u201d said",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 7,
+        "gt_agent_proxy": "Barry",
+        "extracted_agent": "Barry",
+        "agent_correct": true
+      },
+      {
+        "key": "(29, 7938, 7940)",
+        "chapter": 29,
+        "line_start": 7938,
+        "verbatim_preview": "it. Mother had a letter from Aunt Josephine today, and Aunt Josephine wants you ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 5,
+        "gt_agent_proxy": "Mother",
+        "extracted_agent": "Mother",
+        "agent_correct": true
+      },
+      {
+        "key": "(20, 5754, 5758)",
+        "chapter": 20,
+        "line_start": 5754,
+        "verbatim_preview": "\u201cNobody,\u201d confessed Anne. \u201cDiana and I just imagined the wood was haunted. All t",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 23,
+        "gt_agent_proxy": "Anne",
+        "extracted_agent": "Marilla",
+        "agent_correct": false
+      },
+      {
+        "key": "(20, 5793, 5796)",
+        "chapter": 20,
+        "line_start": 5793,
+        "verbatim_preview": "won\u2019t countenance any such doings. You\u2019ll go right over to Barry\u2019s, and you\u2019ll g",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 4,
+        "gt_agent_proxy": "Barry",
+        "extracted_agent": "Barry",
+        "agent_correct": true
+      },
+      {
+        "key": "(3, 778, 783)",
+        "chapter": 3,
+        "line_start": 778,
+        "verbatim_preview": "\u201cNo boy! But there _must_ have been a boy,\u201d insisted Marilla. \u201cWe sent word to M",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 21,
+        "gt_agent_proxy": "Marilla",
+        "extracted_agent": "Diana",
+        "agent_correct": false
+      },
+      {
+        "key": "(3, 792, 795)",
+        "chapter": 3,
+        "line_start": 792,
+        "verbatim_preview": "\u201cYou don\u2019t want me!\u201d she cried. \u201cYou don\u2019t want me because I\u2019m not a boy! I migh",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 7,
+        "gt_agent_proxy": null,
+        "extracted_agent": "Lynde",
+        "agent_correct": null
+      },
+      {
+        "key": "(25, 6774, 6776)",
+        "chapter": 25,
+        "line_start": 6774,
+        "verbatim_preview": "dress--something like Diana Barry always wore. Matthew decided that he would giv",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 7,
+        "gt_agent_proxy": "Diana",
+        "extracted_agent": "Matthew",
+        "agent_correct": false
+      },
+      {
+        "key": "(25, 6781, 6785)",
+        "chapter": 25,
+        "line_start": 6781,
+        "verbatim_preview": "The very next evening Matthew betook himself to Carmody to buy the dress, determ",
+        "extraction_covered": true,
+        "n_overlapping_clauses": 13,
+        "gt_agent_proxy": "Matthew",
+        "extracted_agent": "Matthew",
+        "agent_correct": true
+      }
+    ]
+  },
+  "stage2_link_detectability": {
+    "n_items": 25,
+    "n_with_connective_cue": 3,
+    "n_with_shared_keyword_cue": 14,
+    "n_with_any_detectable_cue": 17,
+    "fraction_with_any_detectable_cue": 0.68,
+    "fraction_with_connective_cue": 0.12,
+    "fraction_with_shared_keyword_cue": 0.56,
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 23,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_002",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 13,
+        "connective_cue": null,
+        "shared_keywords": [
+          "brought"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_003",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 4,
+        "connective_cue": null,
+        "shared_keywords": [
+          "bring",
+          "mistake"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_004",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 2,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_005",
+        "item_type": "same_chapter_multi_fact_integration",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_006",
+        "item_type": "same_chapter_multi_fact_integration",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_007",
+        "item_type": "local_adjacent_control",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [
+          "ankle"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_008",
+        "item_type": "local_adjacent_control",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [
+          "hair"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_009",
+        "item_type": "local_adjacent_control",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [
+          "cake",
+          "vanilla"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_010",
+        "item_type": "local_adjacent_control",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [
+          "paper"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_011",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 1,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_012",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 4,
+        "connective_cue": null,
+        "shared_keywords": [
+          "teacher"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_013",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 2,
+        "connective_cue": null,
+        "shared_keywords": [
+          "eyes",
+          "glasses",
+          "work"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_014",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 1,
+        "connective_cue": null,
+        "shared_keywords": [
+          "child",
+          "mind"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_015",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 1,
+        "connective_cue": null,
+        "shared_keywords": [
+          "buttercups",
+          "roses"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_016",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 14,
+        "connective_cue": null,
+        "shared_keywords": [
+          "sleeves"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_017",
+        "item_type": "same_chapter_multi_fact_integration",
+        "chapter_gap": 0,
+        "connective_cue": "because",
+        "shared_keywords": [],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_018",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 1,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_019",
+        "item_type": "local_adjacent_control",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [
+          "croup"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_020",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 2,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_021",
+        "item_type": "same_chapter_multi_fact_integration",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [],
+        "any_detectable_cue": false
+      },
+      {
+        "id": "anne_causal_022",
+        "item_type": "cross_chapter_multi_event",
+        "chapter_gap": 10,
+        "connective_cue": "because",
+        "shared_keywords": [],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_023",
+        "item_type": "same_chapter_multi_fact_integration",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [
+          "grove",
+          "haunted",
+          "spruce"
+        ],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_024",
+        "item_type": "local_adjacent_control",
+        "chapter_gap": 0,
+        "connective_cue": "because",
+        "shared_keywords": [],
+        "any_detectable_cue": true
+      },
+      {
+        "id": "anne_causal_025",
+        "item_type": "local_adjacent_control",
+        "chapter_gap": 0,
+        "connective_cue": null,
+        "shared_keywords": [
+          "dress"
+        ],
+        "any_detectable_cue": true
+      }
+    ]
+  },
+  "reader_event_index_availability": {
+    "n_available": 45,
+    "n_total": 45,
+    "fraction_available": 1.0
+  },
+  "ablation": {
+    "a_gold_events_gold_links": {
+      "organ_accuracy_integration": 0.9166666666666666,
+      "organ_accuracy_control": 0.9285714285714286,
+      "organ_accuracy_all": 0.92,
+      "n_links_added": 25,
+      "n_items": 25,
+      "per_item": [
+        {
+          "id": "anne_causal_001",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_002",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_003",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_004",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_005",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_006",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_007",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_008",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_009",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_010",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 0,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_011",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_012",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_013",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_014",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_015",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_016",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_017",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_018",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_019",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_020",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_021",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_022",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_023",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_024",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_025",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        }
+      ]
+    },
+    "b_reader_events_gold_links": {
+      "organ_accuracy_integration": 0.9166666666666666,
+      "organ_accuracy_control": 0.9285714285714286,
+      "organ_accuracy_all": 0.92,
+      "n_links_added": 25,
+      "n_items": 25,
+      "per_item": [
+        {
+          "id": "anne_causal_001",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_002",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_003",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_004",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_005",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_006",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_007",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_008",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_009",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_010",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 0,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_011",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_012",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_013",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_014",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_015",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_016",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_017",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_018",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_019",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_020",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_021",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_022",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_023",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_024",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_025",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        }
+      ]
+    },
+    "c_gold_events_detected_links": {
+      "organ_accuracy_integration": 0.5555555555555556,
+      "organ_accuracy_control": 1.0,
+      "organ_accuracy_all": 0.68,
+      "n_links_added": 17,
+      "n_items": 25,
+      "per_item": [
+        {
+          "id": "anne_causal_001",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_002",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_003",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_004",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_005",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_006",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_007",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_008",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_009",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_010",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_011",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_012",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_013",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_014",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_015",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_016",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_017",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_018",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_019",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_020",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_021",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_022",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_023",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_024",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_025",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        }
+      ]
+    },
+    "d_reader_events_detected_links": {
+      "organ_accuracy_integration": 0.5555555555555556,
+      "organ_accuracy_control": 1.0,
+      "organ_accuracy_all": 0.68,
+      "n_links_added": 17,
+      "n_items": 25,
+      "per_item": [
+        {
+          "id": "anne_causal_001",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_002",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_003",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_004",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_005",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_006",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_007",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_008",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_009",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_010",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_011",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_012",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_013",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_014",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_015",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_016",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_017",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_018",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_019",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_020",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_021",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 0,
+          "organ_cause_of_correct": 0,
+          "link_added": false
+        },
+        {
+          "id": "anne_causal_022",
+          "item_type": "cross_chapter_multi_event",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_023",
+          "item_type": "same_chapter_multi_fact_integration",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_024",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        },
+        {
+          "id": "anne_causal_025",
+          "item_type": "local_adjacent_control",
+          "organ_effect_of_correct": 1,
+          "organ_cause_of_correct": 1,
+          "link_added": true
+        }
+      ]
+    }
+  },
+  "survival_fraction_vs_gold_isolated_ceiling": 0.6060606060606061,
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [
+    [
+      "c_gold_detected",
+      "d_reader_detected"
+    ]
+  ],
+  "arms_digest": {
+    "a_gold_gold": "57bc8883662dee47981ee91928ef5357358a3737b9bc73de0cf872f6787ddd08",
+    "b_reader_gold": "57bc8883662dee47981ee91928ef5357358a3737b9bc73de0cf872f6787ddd08",
+    "c_gold_detected": "f318b1bab464c7ddba4d30bbab1081f629d0017f8f7687320bb8dccf3c7d673b",
+    "d_reader_detected": "f318b1bab464c7ddba4d30bbab1081f629d0017f8f7687320bb8dccf3c7d673b"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_single_pass"
+}
