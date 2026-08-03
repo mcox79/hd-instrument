@@ -1,0 +1,160 @@
+{
+  "schema_version": "v1",
+  "authored_ts": "2026-08-03",
+  "authoring_note": "Supplied-DATA event-schema / relation-frame library, authored from GENERAL Schank-Abelson script knowledge (script theory: application of a known event schema with expected roles/preconditions/outcomes) and Trabasso-style goal-plan story-grammar categories (goal / attempt / outcome, satisfy / thwart / enable-cause links). Authored BEFORE reverse-engineering from the specific gold link text -- each schema names a GENERAL narrative situation type (prohibition-reconciliation, rescue-gratitude, sacrifice-for-other, confession-under-confinement, illness-caretaking, financial-shock, diagnosis-life-decision, mistaken-identity-adoption, etc.) that recurs across many stories, not a paraphrase of a specific Anne-of-Green-Gables sentence. Two CONTROL schemas (GET_DRESSED_SCRIPT, RESTAURANT_SCRIPT) are canonical Schank illustrations included specifically to demonstrate general-script authorship discipline; they are NOT expected to fire on this text and any fire on them is a genuine false positive.",
+  "schemas": [
+    {
+      "id": "PROHIBITION_RECONCILIATION",
+      "category": "goal_and_relation",
+      "note": "An authority figure forbids an association/behavior (the unstated goal behind the prohibition speech act is 'stop/prevent the behavior'); later a reconciliation event restores it.",
+      "goal_trigger": ["not a fit", "forbid", "must not", "won.t countenance", "not to associate", "never.{0,15}play with", "shan.t", "not fit little"],
+      "satisfy_trigger": ["forgive", "sorry\\b", "friends again", "sorry she", "forgives"]
+    },
+    {
+      "id": "RESCUE_GRATITUDE",
+      "category": "goal_and_relation",
+      "note": "A character rescues/saves another from danger or illness (unstated goal: save/help); the rescued party's family later expresses gratitude, which may unlock a prior prohibition.",
+      "goal_trigger": ["save.{0,20}life", "rescue", "know exactly what to do", "a lot of experience", "croup"],
+      "satisfy_trigger": ["thank", "grateful", "saved.{0,15}life", "forgive"]
+    },
+    {
+      "id": "SACRIFICE_FOR_OTHER",
+      "category": "goal_and_relation",
+      "note": "An agent withdraws/gives up something valuable so a DIFFERENT agent can have it instead (satisfy = the other agent completes the desire the sacrifice was FOR).",
+      "goal_trigger": ["withdr(e[wn]|awn)", "gave up", "give up", "self-sacrific", "giving up"],
+      "satisfy_trigger": ["thank you for", "appreciate", "kind and thoughtful", "good of you"]
+    },
+    {
+      "id": "CONFESSION_UNDER_CONFINEMENT",
+      "category": "goal_and_relation",
+      "note": "A confined/punished character confesses (unstated goal: end the confinement/be freed); satisfy = release or forgiveness restoring freedom.",
+      "goal_trigger": ["confin", "shut.{0,10}(up|in)", "stay.{0,10}(in your room|there)", "as if repeating a lesson", "i took"],
+      "satisfy_trigger": ["forgive.{0,10}me", "start square", "get yourself ready", "you may go", "wrong.{0,10}i see"]
+    },
+    {
+      "id": "THIRD_PARTY_ADVOCACY",
+      "category": "goal_and_relation",
+      "note": "A character pleads on behalf of a third party who is at risk of losing a privilege (unstated goal: spare the third party); satisfy = privilege restored.",
+      "goal_trigger": ["blame me", "cross with me", "forgive.{0,20}(her|him|them|diana)", "plead", "if you must be cross"],
+      "satisfy_trigger": ["music lessons", "after all", "won.{0,5}over", "perhaps i will"]
+    },
+    {
+      "id": "ILLNESS_CARETAKING",
+      "category": "goal_and_relation",
+      "note": "Someone falls ill with no adult present; a competent bystander acts (unstated goal: cure/help); satisfy = recovery followed by gratitude.",
+      "goal_trigger": ["awful (bad|sick)", "no.{0,10}doctor", "nobody.{0,10}(home|there)", "sick.{0,10}croup"],
+      "satisfy_trigger": ["thank", "sorry.{0,20}(acted|drunk)", "forgive"]
+    },
+    {
+      "id": "WARNING_PRECEDES_CALAMITY",
+      "category": "relation",
+      "note": "An enabling-precondition CAUSE frame: an early warning/worry about a risk precedes a later calamity that realizes it -- no goal mediation, pure enabling cause.",
+      "cause_trigger": ["worried", "shaky", "warn", "some talk about it", "fussing"],
+      "effect_trigger": ["fail(ure|ed)", "shock", "fell", "dead|death|blind"]
+    },
+    {
+      "id": "DIAGNOSIS_TRIGGERS_LIFE_DECISION",
+      "category": "relation",
+      "note": "A medical diagnosis/prognosis is the enabling precondition for a subsequent major life-course decision.",
+      "cause_trigger": ["examin(e|ed).{0,20}eyes", "oculist", "blind", "glasses.{0,10}given"],
+      "effect_trigger": ["not going to", "give up.{0,15}scholarship", "stay with", "won.t have to stay.{0,10}alone"]
+    },
+    {
+      "id": "FINANCIAL_RUIN_SHOCK",
+      "category": "relation",
+      "note": "News of financial ruin is the enabling precondition for a physiological shock reaction.",
+      "cause_trigger": ["every penny", "savings", "all we have"],
+      "effect_trigger": ["fail(ure|ed)", "shock", "fell", "dead"]
+    },
+    {
+      "id": "GRUDGE_OVERRIDES_KINDNESS",
+      "category": "relation",
+      "note": "A THWART frame: a persisting grudge/resentment is the cause that overrides/thwarts what would otherwise be a gratitude-satisfy response.",
+      "cause_trigger": ["never forgive", "hated", "resentment", "old grievance"],
+      "effect_trigger": ["never be friends", "won.t forgive", "coldly", "don.t want to be"]
+    },
+    {
+      "id": "APOLOGY_DEMANDED_THEN_GIVEN",
+      "category": "goal_and_relation",
+      "note": "An authority demands an apology (unstated/explicit goal: compliance); satisfy = the apology is accepted / forgiveness granted.",
+      "goal_trigger": ["apologiz.{0,10}you must", "must and shall", "apologize.{0,15}shall"],
+      "satisfy_trigger": ["forgive", "of course i forgive", "too hard on you"]
+    },
+    {
+      "id": "ACCIDENTAL_MISTAKE_CONSEQUENCE",
+      "category": "relation",
+      "note": "An accidental substitution/mixup is the enabling cause of an embarrassing or punitive consequence.",
+      "cause_trigger": ["by mistake", "accidentally", "partly my fault", "must have been", "suppose it.s"],
+      "effect_trigger": ["cut off", "punish", "disgrace", "mortifi", "must be cut"]
+    },
+    {
+      "id": "SECRET_GIFT_FOR_LOVED_ONE",
+      "category": "goal_and_relation",
+      "note": "A character secretly decides to buy/make something for a loved one (unstated goal: please/surprise them); satisfy = the gift is delivered as requested.",
+      "goal_trigger": ["decided.{0,10}(he|she) would give", "secretly", "without.{0,10}objected", "determined to get"],
+      "satisfy_trigger": ["made.{0,10}latest fashion", "puffs?.{0,15}of course", "needn.t worry"]
+    },
+    {
+      "id": "PUNISHMENT_AS_LESSON",
+      "category": "goal",
+      "note": "An authority deliberately imposes a frightening/unpleasant experience as a corrective lesson (unstated goal: correct the child's behavior/belief) -- a CONTROL-leaning schema, no expected reconciliation satisfy event.",
+      "goal_trigger": ["just for a lesson", "teach.{0,10}a lesson", "won.t countenance any such doings", "lesson and a warning"]
+    },
+    {
+      "id": "OPPORTUNITY_ENABLES_ACHIEVEMENT",
+      "category": "relation",
+      "note": "An enabling-precondition CAUSE frame: an offered opportunity/extra instruction enables a later competitive achievement.",
+      "cause_trigger": ["organiz.{0,15}class", "extra lessons", "asked.{0,15}(to )?join", "entrance examination"],
+      "effect_trigger": ["scholarship", "won\\b", "highest mark", "avery"]
+    },
+    {
+      "id": "PERSISTING_REQUEST_LATER_GRANTED",
+      "category": "goal_and_relation",
+      "note": "A character states a standing wish/request; much later, unprompted by any intervening event, the request is finally granted (persisting-state cause, not proximate re-trigger).",
+      "goal_trigger": ["i.d be.{0,10}gratefuller if", "i wish", "come.{0,10}talk to me", "made up (my|her) mind"],
+      "satisfy_trigger": ["puffs?", "invit", "wants you and me", "i think perhaps i will"]
+    },
+    {
+      "id": "MISTAKEN_IDENTITY_ADOPTION",
+      "category": "relation",
+      "note": "An enabling-precondition CAUSE frame: a mix-up in who was sent/expected leads to a downstream adoption/practical-arrangement decision.",
+      "cause_trigger": ["not expecting a (girl|boy)", "some mistake", "gave her into my charge", "sent word.{0,10}bring a boy"],
+      "effect_trigger": ["keep her", "hire.{0,15}for the summer", "we.ll keep", "disposed to keep"]
+    },
+    {
+      "id": "IMAGINATIVE_GAME_TAKEN_SERIOUSLY",
+      "category": "relation",
+      "note": "An enabling-precondition CAUSE frame: an invented imaginative game/story is taken seriously enough by its author to require a corrective real-world intervention.",
+      "cause_trigger": ["imagined", "harrowing", "haunted", "just got this up for our own amusement"],
+      "effect_trigger": ["lesson and a warning", "never let me hear", "cure.{0,10}imagination"]
+    },
+    {
+      "id": "GRIEVANCE_PERSISTS_DESPITE_TIME",
+      "category": "relation",
+      "note": "A THWART frame variant: an old, specific grievance persists unresolved across a long time-gap and is the direct (non-superseded) cause of a much-later refusal.",
+      "cause_trigger": ["cracked it", "brought.{0,10}down.{0,10}head", "called her.{0,10}carrots"],
+      "effect_trigger": ["never be friends", "flashed back", "vividly as if"]
+    },
+    {
+      "id": "IRREVERSIBLE_PHYSICAL_CHANGE_FORCES_REMEDY",
+      "category": "relation",
+      "note": "An enabling-precondition CAUSE frame: an irreversible physical mishap (a color/substance that will not wash out or undo) forces a specific remedial action.",
+      "cause_trigger": ["dyed it", "wicked", "wouldn.t wash out", "fast dye"],
+      "effect_trigger": ["must be cut off", "no other way", "can.t go out"]
+    },
+    {
+      "id": "GET_DRESSED_SCRIPT",
+      "category": "control",
+      "note": "CANONICAL Schank-illustration CONTROL schema (a mundane routine script), included to demonstrate general-script authorship discipline and detect spurious over-firing. NOT expected to fire on this text.",
+      "goal_trigger": ["put on.{0,10}(shirt|shoes|coat)", "got dressed"],
+      "satisfy_trigger": ["ready to (leave|go)"]
+    },
+    {
+      "id": "RESTAURANT_SCRIPT",
+      "category": "control",
+      "note": "CANONICAL Schank-illustration CONTROL schema (restaurant script), included to demonstrate general-script authorship discipline and detect spurious over-firing. NOT expected to fire on this text.",
+      "goal_trigger": ["order(ed)?.{0,10}(meal|food|waiter)", "\\bmenu\\b"],
+      "satisfy_trigger": ["paid the bill", "\\bcheck\\b"]
+    }
+  ]
+}
