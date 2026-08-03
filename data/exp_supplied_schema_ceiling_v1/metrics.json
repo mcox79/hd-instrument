@@ -1,0 +1,554 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "Q1_UNSTATED_GOAL: recall=0.6666666666666666 (n_inferred=3) precision_goal_trigger=0.5789473684210527 fp_rate_goal_trigger=0.25 (n_negatives=32). Q2_PAIRING_GOAL_MEDIATED: recall=0.5555555555555556 (n=9) Q3_END_TO_END: recall_all_25=0.52 recall_non_goal_mediated_16=0.5 fp_rate=0.04 (n_negatives=200) vs content_overlap_cap=0.11 vs disk_baseline_recall_goal_mediated=0.1111111111111111 disk_baseline_fp=0.0 vs random_uniform_control_recall=0.012077294685990338. Q4_OVERFIT_GUARD: split_all_1=0.25/0.7692307692307693 split_all_2=0.5833333333333334/0.46153846153846156 max_gap_all_25=0.5192307692307693 split_gm_1=0.75/0.4 split_gm_2=0.75/0.4 max_gap_gm_9=0.35 honest_ceiling_recall_all_25=0.25. VERDICT=OVERFIT_DETECTED_HONEST_CEILING_IS_HOLDOUT. LANDSCAPE_FINDING=SCHEMAS_RECOVER_MOST_UNSTATED_GOALS: recall_unstated_goal=0.667 on this small (N=4) inferred-goal gold set -- caveat small N heavily before generalizing.",
+  "summary": "OVERFIT_DETECTED_HONEST_CEILING_IS_HOLDOUT | recall_unstated_goal=0.6666666666666666 | recall_goal_mediated_pairing=0.5555555555555556 | recall_end_to_end_all_25=0.52 fp=0.04 | honest_ceiling(out-of-sample)=0.25 | SCHEMAS_RECOVER_MOST_UNSTATED_GOALS: recall_unstated_goal=0.667 on this small (N=4) inferred-goal gold set -- caveat small N heavily before generalizing.",
+  "elapsed_s": 0.2535095000639558,
+  "ts_iso": "2026-08-03T09:33:29.159127+00:00",
+  "anchor_name": "supplied_schema_ceiling_v1",
+  "run_mode": "full",
+  "seed": 20260803,
+  "n_schemas": 22,
+  "schema_lib_source": "data/schemas/event_schema_library_v1.json",
+  "unstated_goal_recovery": {
+    "n_inferred_gold": 3,
+    "n_explicit_gold": 18,
+    "recall_unstated_goal": 0.6666666666666666,
+    "precision_goal_trigger": 0.5789473684210527,
+    "fp_rate_goal_trigger": 0.25,
+    "n_negative_spans": 32,
+    "inferred_hits": [
+      {
+        "id": "anne_goal_014",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_016",
+        "fired": true,
+        "schema_ids": [
+          "RESCUE_GRATITUDE"
+        ]
+      },
+      {
+        "id": "anne_goal_019",
+        "fired": true,
+        "schema_ids": [
+          "CONFESSION_UNDER_CONFINEMENT"
+        ]
+      }
+    ],
+    "explicit_hits": [
+      {
+        "id": "anne_goal_001",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_002",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_003",
+        "fired": true,
+        "schema_ids": [
+          "SECRET_GIFT_FOR_LOVED_ONE"
+        ]
+      },
+      {
+        "id": "anne_goal_004",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_005",
+        "fired": true,
+        "schema_ids": [
+          "PERSISTING_REQUEST_LATER_GRANTED"
+        ]
+      },
+      {
+        "id": "anne_goal_006",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_007",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_008",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_009",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_010",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_011",
+        "fired": false,
+        "schema_ids": []
+      },
+      {
+        "id": "anne_goal_012",
+        "fired": true,
+        "schema_ids": [
+          "SACRIFICE_FOR_OTHER"
+        ]
+      },
+      {
+        "id": "anne_goal_013",
+        "fired": true,
+        "schema_ids": [
+          "SACRIFICE_FOR_OTHER"
+        ]
+      },
+      {
+        "id": "anne_goal_015",
+        "fired": true,
+        "schema_ids": [
+          "RESCUE_GRATITUDE"
+        ]
+      },
+      {
+        "id": "anne_goal_017",
+        "fired": true,
+        "schema_ids": [
+          "PERSISTING_REQUEST_LATER_GRANTED"
+        ]
+      },
+      {
+        "id": "anne_goal_018",
+        "fired": true,
+        "schema_ids": [
+          "PROHIBITION_RECONCILIATION",
+          "PUNISHMENT_AS_LESSON"
+        ]
+      },
+      {
+        "id": "anne_goal_020",
+        "fired": true,
+        "schema_ids": [
+          "THIRD_PARTY_ADVOCACY"
+        ]
+      },
+      {
+        "id": "anne_goal_021",
+        "fired": true,
+        "schema_ids": [
+          "APOLOGY_DEMANDED_THEN_GIVEN",
+          "CONFESSION_UNDER_CONFINEMENT"
+        ]
+      }
+    ]
+  },
+  "pairing_recovery_goal_mediated_9": {
+    "recall": 0.5555555555555556,
+    "n": 9,
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "SACRIFICE_FOR_OTHER"
+        ]
+      },
+      {
+        "id": "anne_causal_003",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "MISTAKEN_IDENTITY_ADOPTION"
+        ]
+      },
+      {
+        "id": "anne_causal_004",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "RESCUE_GRATITUDE"
+        ]
+      },
+      {
+        "id": "anne_causal_005",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "DIAGNOSIS_TRIGGERS_LIFE_DECISION"
+        ]
+      },
+      {
+        "id": "anne_causal_006",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_014",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_016",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_017",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "CONFESSION_UNDER_CONFINEMENT"
+        ]
+      },
+      {
+        "id": "anne_causal_021",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      }
+    ]
+  },
+  "end_to_end": {
+    "recall_all_25": 0.52,
+    "recall_goal_mediated_9": 0.5555555555555556,
+    "recall_non_goal_mediated_16": 0.5,
+    "fp_rate": 0.04,
+    "n_negative_sampled": 200,
+    "flagged_ids": [
+      "anne_causal_001",
+      "anne_causal_002",
+      "anne_causal_003",
+      "anne_causal_004",
+      "anne_causal_005",
+      "anne_causal_008",
+      "anne_causal_011",
+      "anne_causal_012",
+      "anne_causal_013",
+      "anne_causal_017",
+      "anne_causal_020",
+      "anne_causal_022",
+      "anne_causal_023"
+    ],
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "SACRIFICE_FOR_OTHER"
+        ]
+      },
+      {
+        "id": "anne_causal_002",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "GRIEVANCE_PERSISTS_DESPITE_TIME"
+        ]
+      },
+      {
+        "id": "anne_causal_003",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "MISTAKEN_IDENTITY_ADOPTION"
+        ]
+      },
+      {
+        "id": "anne_causal_004",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "RESCUE_GRATITUDE"
+        ]
+      },
+      {
+        "id": "anne_causal_005",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "DIAGNOSIS_TRIGGERS_LIFE_DECISION"
+        ]
+      },
+      {
+        "id": "anne_causal_006",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_007",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_008",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "IRREVERSIBLE_PHYSICAL_CHANGE_FORCES_REMEDY"
+        ]
+      },
+      {
+        "id": "anne_causal_009",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_010",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_011",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "FINANCIAL_RUIN_SHOCK",
+          "WARNING_PRECEDES_CALAMITY"
+        ]
+      },
+      {
+        "id": "anne_causal_012",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "OPPORTUNITY_ENABLES_ACHIEVEMENT"
+        ]
+      },
+      {
+        "id": "anne_causal_013",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "WARNING_PRECEDES_CALAMITY"
+        ]
+      },
+      {
+        "id": "anne_causal_014",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_015",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_016",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_017",
+        "goal_mediated": true,
+        "flagged": true,
+        "shared_schemas": [
+          "CONFESSION_UNDER_CONFINEMENT"
+        ]
+      },
+      {
+        "id": "anne_causal_018",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_019",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_020",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "MISTAKEN_IDENTITY_ADOPTION"
+        ]
+      },
+      {
+        "id": "anne_causal_021",
+        "goal_mediated": true,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_022",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "PERSISTING_REQUEST_LATER_GRANTED"
+        ]
+      },
+      {
+        "id": "anne_causal_023",
+        "goal_mediated": false,
+        "flagged": true,
+        "shared_schemas": [
+          "IMAGINATIVE_GAME_TAKEN_SERIOUSLY"
+        ]
+      },
+      {
+        "id": "anne_causal_024",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      },
+      {
+        "id": "anne_causal_025",
+        "goal_mediated": false,
+        "flagged": false,
+        "shared_schemas": []
+      }
+    ]
+  },
+  "comparison": {
+    "content_overlap_cap": 0.11,
+    "disk_baseline_1400331cc_recall_goal_mediated": 0.1111111111111111,
+    "disk_baseline_fp": 0.0,
+    "random_uniform_control_recall": 0.012077294685990338,
+    "source": "data/exp_goal_register_causal_link_v1/metrics.json"
+  },
+  "overfit_guard": {
+    "split_all_25_seed_offset_1": {
+      "half_a_ids": [
+        "anne_causal_006",
+        "anne_causal_007",
+        "anne_causal_009",
+        "anne_causal_010",
+        "anne_causal_013",
+        "anne_causal_015",
+        "anne_causal_016",
+        "anne_causal_017",
+        "anne_causal_020",
+        "anne_causal_021",
+        "anne_causal_024",
+        "anne_causal_025"
+      ],
+      "half_b_ids": [
+        "anne_causal_001",
+        "anne_causal_002",
+        "anne_causal_003",
+        "anne_causal_004",
+        "anne_causal_005",
+        "anne_causal_008",
+        "anne_causal_011",
+        "anne_causal_012",
+        "anne_causal_014",
+        "anne_causal_018",
+        "anne_causal_019",
+        "anne_causal_022",
+        "anne_causal_023"
+      ],
+      "recall_half_a": 0.25,
+      "recall_half_b": 0.7692307692307693
+    },
+    "split_all_25_seed_offset_2": {
+      "half_a_ids": [
+        "anne_causal_001",
+        "anne_causal_002",
+        "anne_causal_004",
+        "anne_causal_007",
+        "anne_causal_008",
+        "anne_causal_009",
+        "anne_causal_011",
+        "anne_causal_012",
+        "anne_causal_014",
+        "anne_causal_016",
+        "anne_causal_023",
+        "anne_causal_025"
+      ],
+      "half_b_ids": [
+        "anne_causal_003",
+        "anne_causal_005",
+        "anne_causal_006",
+        "anne_causal_010",
+        "anne_causal_013",
+        "anne_causal_015",
+        "anne_causal_017",
+        "anne_causal_018",
+        "anne_causal_019",
+        "anne_causal_020",
+        "anne_causal_021",
+        "anne_causal_022",
+        "anne_causal_024"
+      ],
+      "recall_half_a": 0.5833333333333334,
+      "recall_half_b": 0.46153846153846156
+    },
+    "max_gap_all_25": 0.5192307692307693,
+    "split_goal_mediated_9_seed_offset_11": {
+      "half_a_ids": [
+        "anne_causal_003",
+        "anne_causal_005",
+        "anne_causal_016",
+        "anne_causal_017"
+      ],
+      "half_b_ids": [
+        "anne_causal_001",
+        "anne_causal_004",
+        "anne_causal_006",
+        "anne_causal_014",
+        "anne_causal_021"
+      ],
+      "recall_half_a": 0.75,
+      "recall_half_b": 0.4
+    },
+    "split_goal_mediated_9_seed_offset_12": {
+      "half_a_ids": [
+        "anne_causal_004",
+        "anne_causal_005",
+        "anne_causal_017",
+        "anne_causal_021"
+      ],
+      "half_b_ids": [
+        "anne_causal_001",
+        "anne_causal_003",
+        "anne_causal_006",
+        "anne_causal_014",
+        "anne_causal_016"
+      ],
+      "recall_half_a": 0.75,
+      "recall_half_b": 0.4
+    },
+    "max_gap_goal_mediated_9": 0.35,
+    "overfit_detected": true,
+    "honest_ceiling_recall_all_25_worst_of_4_halves": 0.25,
+    "caveat": "goal_mediated_9 split halves are N=4-5 items each -- inherently noisy, reported but not load-bearing on its own; all_25 split (N=12-13/half) is the primary overfit signal."
+  },
+  "verdict_summary": "OVERFIT_DETECTED_HONEST_CEILING_IS_HOLDOUT",
+  "landscape_finding": "SCHEMAS_RECOVER_MOST_UNSTATED_GOALS: recall_unstated_goal=0.667 on this small (N=4) inferred-goal gold set -- caveat small N heavily before generalizing.",
+  "arms_differ_verified": true,
+  "arms_digest": {
+    "schema_library": "aca73edb631d6877e6178ab1b8112b897a62284364d1152ffe3c85c493b6138e",
+    "baseline_1400331cc": "9be787533194cffbfbd55f44c3b95182d9c4059e0c0b2d55ffad4556e5d5c6e9"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_single_pass",
+  "deterministic_seeding": true,
+  "dispatched": false,
+  "dispatch_note": "measurement-only per task instruction; not queued, not shipped remote."
+}

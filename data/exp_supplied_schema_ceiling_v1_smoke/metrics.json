@@ -1,0 +1,10 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "schema-library shape + control-schema non-firing + coherent-pairing fixtures + mismatched-schema non-pairing fixture + gold-file real-code-path checks all PASS.",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.12896150001324713,
+  "ts_iso": "2026-08-03T09:33:21.640601+00:00",
+  "anchor_name": "supplied_schema_ceiling_v1",
+  "run_mode": "smoke",
+  "seed": 20260803
+}
