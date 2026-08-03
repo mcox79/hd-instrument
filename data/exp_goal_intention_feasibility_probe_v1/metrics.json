@@ -1,0 +1,43 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "anchor_name": "goal_intention_feasibility_probe_v1",
+  "n_goal_items": 21,
+  "substring_guard_pass": 21,
+  "substring_guard_pct": 1.0,
+  "explicit_vs_inferred": {
+    "n_explicit": 18,
+    "n_inferred": 3,
+    "explicit_fraction": 0.8571428571428571,
+    "inferred_fraction": 0.14285714285714285,
+    "n_explicit_confirmed_by_lexical_marker": 13
+  },
+  "lexical_marker_extractability": {
+    "n_items_with_goal_marker_in_verbatim": 13,
+    "fraction": 0.6190476190476191,
+    "note": "GOAL_MARKERS lexicon reused unchanged from exp_causal_link_proposal_signal_probe_v1.py -- fraction of mined goal spans a lexical scan would flag as goal-bearing at all (necessary but not sufficient for goal-verb+coref'd-subject+complement extraction)."
+  },
+  "causal_link_coverage_if_tracked": {
+    "n_goal_mediated_causal_links_total": 9,
+    "goal_mediated_causal_ids": [
+      "anne_causal_001",
+      "anne_causal_003",
+      "anne_causal_004",
+      "anne_causal_005",
+      "anne_causal_006",
+      "anne_causal_014",
+      "anne_causal_016",
+      "anne_causal_017",
+      "anne_causal_021"
+    ],
+    "n_recoverable_if_any_goal_tracked": 9,
+    "n_recoverable_if_only_explicit_goals_tracked": 8,
+    "recoverable_any_fraction": 1.0,
+    "recoverable_explicit_only_fraction": 0.8888888888888888,
+    "uncovered_ids": []
+  },
+  "gold_path": "D:\\AI\\hd-instrument\\data/eval_gold_mention_role_mcguffey_v1/gold_anne_goal_intention_v1.jsonl",
+  "source_causal_gold_path": "D:\\AI\\hd-instrument\\data/eval_gold_mention_role_mcguffey_v1/gold_anne_comprehension_v2.jsonl",
+  "source_causal_link_probe_commit": "912077b81",
+  "dispatched": false,
+  "dispatch_note": "measurement-only per task instruction; not queued, not shipped remote."
+}
