@@ -354,6 +354,92 @@ def test_quote_spans_curly_and_straight_and_mixed():
     return "quote_spans: straight pairs unchanged, curly pairs directionally, mixed does not cross-pair"
 
 
+def test_honest_mode_flags_zero_compatible_pronoun_instead_of_force_attaching():
+    """HONEST-MODE promotion witness, part (1) (source: tools/read_anne_glassbox_v2_honest_ledger.py
+    resolve_honest(), commits 2944a14f4/9a0734bf4). A masculine pronoun ("He") with NO tracked entity
+    of compatible gender/number in scope: default (flag_unresolved=False) force-attaches it to the
+    only tracked entity (Alice, feminine) regardless of the gender mismatch; honest mode
+    (flag_unresolved=True) must instead FLAG it (assigned entry is None) and must NOT let it be
+    observed by / bound into Alice's chain. Checked on both run_match_or_allocate and run_strict_cb."""
+    fixture = {
+        "passage_id": "honest_zero_compat",
+        # "Mrs. Alice" (not bare "Alice") so infer_nominal_gender's title cue resolves the entity's
+        # gender to fem at NAME-mention time -- a bare first name carries no built-in gender cue,
+        # which would leave the entity gender=None (an unrelated wildcard confound this fixture must
+        # avoid; the pronoun-seed-specific version of that wildcard bug is covered separately below).
+        "clauses": ["Mrs. Alice went outside.", "She looked around.", "He was nowhere to be seen."],
+        "entities": {
+            "Alice": [
+                {"clause": 0, "mention": "Mrs. Alice", "role": "agent"},
+                {"clause": 1, "mention": "She", "role": "agent"},
+            ],
+            "Bob": [{"clause": 2, "mention": "He", "role": "agent"}],
+        },
+    }
+    stream = build_mention_stream(fixture)
+    assert stream[0]["gender"] == "fem", f"precondition: 'Mrs. Alice' must resolve fem: {stream[0]}"
+    he_idx = [i for i, r in enumerate(stream) if r["mention_text"] == "He"][0]
+    alice_idxs = _stream_ids(stream, "Alice")
+
+    for runner in (run_match_or_allocate, run_strict_cb):
+        default_pred = runner(stream)
+        assert default_pred[he_idx] in {default_pred[i] for i in alice_idxs}, (
+            f"precondition: default mode must force-attach the gender-incompatible 'He' to Alice "
+            f"(the fabrication the honest fix targets): runner={runner.__name__} pred={default_pred}")
+        honest_pred = runner(stream, flag_unresolved=True)
+        assert honest_pred[he_idx] is None, (
+            f"honest mode must FLAG (None), not bind, a zero-compatible-candidate pronoun: "
+            f"runner={runner.__name__} pred={honest_pred}")
+        # the flagged mention must not have been observed into Alice's chain: her mention_count-driven
+        # identity is unaffected, i.e. the rest of the assignment (Alice/She) is unchanged.
+        for i in alice_idxs:
+            assert honest_pred[i] == default_pred[i], (
+                f"honest mode must not perturb unrelated compatible mentions: runner={runner.__name__}")
+    return ("honest_mode: default force-attaches gender-incompatible 'He' to Alice; "
+            "flag_unresolved=True flags it (None) on both run_match_or_allocate and run_strict_cb")
+
+
+def test_pronoun_seed_gender_fix_prevents_wildcard_absorption():
+    """HONEST-MODE promotion witness, part (2), the PRONOUN-SEED GENDER FIX (same source as above).
+    A passage that opens with a pronoun (no name mention precedes it) seeds the first tracked entity.
+    Baseline never records that seeding pronoun's gender/number on the entity it creates, so the
+    entity stays a None/None wildcard and gn_compatible then silently treats it as compatible with a
+    LATER incompatible-gender pronoun too -- masking honest mode's own zero-compatible-candidate flag.
+    Honest mode's pronoun-seed-gender fix must make the entity record its gender immediately, so a
+    later opposite-gender pronoun is correctly seen as zero-compatible and flagged rather than
+    silently absorbed into the first entity's chain."""
+    fixture = {
+        "passage_id": "honest_seed_gender",
+        "clauses": ["She walked in.", "He waited outside."],
+        "entities": {
+            "Unnamed1": [{"clause": 0, "mention": "She", "role": "agent"}],
+            "Unnamed2": [{"clause": 1, "mention": "He", "role": "agent"}],
+        },
+    }
+    stream = build_mention_stream(fixture)
+    she_idx = [i for i, r in enumerate(stream) if r["mention_text"] == "She"][0]
+    he_idx = [i for i, r in enumerate(stream) if r["mention_text"] == "He"][0]
+
+    for runner in (run_match_or_allocate, run_strict_cb):
+        default_pred = runner(stream)
+        assert default_pred[he_idx] == default_pred[she_idx], (
+            f"precondition: baseline's pronoun-seeded entity is a None/None wildcard that silently "
+            f"absorbs the later opposite-gender pronoun too: runner={runner.__name__} "
+            f"pred={default_pred}")
+        honest_pred = runner(stream, flag_unresolved=True)
+        assert honest_pred[she_idx] is not None, (
+            f"the seeding pronoun 'She' must still resolve (seeds its own entity): "
+            f"runner={runner.__name__} pred={honest_pred}")
+        assert honest_pred[he_idx] is None, (
+            f"pronoun-seed-gender fix: 'She'-seeded entity now carries gender=fem, so the "
+            f"gender-incompatible 'He' finds 0 compatible candidates and must be flagged (None), not "
+            f"silently absorbed into the wildcard entity: runner={runner.__name__} "
+            f"pred={honest_pred}")
+    return ("pronoun_seed_gender_fix: baseline's pronoun-seeded entity wildcard-absorbs an "
+            "opposite-gender pronoun; honest mode records the seed's own gender and correctly flags "
+            "the incompatible later pronoun instead, on both run_match_or_allocate and run_strict_cb")
+
+
 def main():
     tests = [
         test_match_or_allocate_chains_and_beats_floors,
@@ -362,13 +448,16 @@ def main():
         test_confidence_signal_and_link_label,
         test_speaker_deixis_excludes_speaker_and_addressee,
         test_quote_spans_curly_and_straight_and_mixed,
+        test_honest_mode_flags_zero_compatible_pronoun_instead_of_force_attaching,
+        test_pronoun_seed_gender_fix_prevents_wildcard_absorption,
     ]
     for t in tests:
         line = t()
         print("PASS %-42s %s" % (t.__name__, line))
     print("\nALL PASS: hdlab.coreference_resolver reproduces the banked earn-coref gains "
           "(atoms 29613/29614/29616/29618, plus the 2026-08-02 speaker/addressee deixis promotion, "
-          "commit 0c4285f52) -- promoted module matches source-cell behavior.")
+          "commit 0c4285f52, and the 2026-08-02 honest-mode flag_unresolved promotion, commits "
+          "2944a14f4/9a0734bf4) -- promoted module matches source-cell behavior.")
     return 0
 
 

@@ -41,6 +41,22 @@ confidence in the mechanism's own selection criterion) and n_compatible (raw can
 Both were VET'd (AUC 0.65-0.75) to predict the resolver's own errors -- the signal a metacognitive
 "flag unknowns" layer consumes, per hdlab.state_of_mind's surprise-flag precedent.
 
+HONEST MODE (flag_unresolved=True, 2026-08-02 promotion, source: tools/
+read_anne_glassbox_v2_honest_ledger.py resolve_honest(), commits 2944a14f4/9a0734bf4): OPT-IN param on
+run_match_or_allocate and run_strict_cb. Default (flag_unresolved=False) is unchanged from prior
+behavior (every previously-committed result reproduces exactly). When True: (1) a pronoun with zero
+gn_compatible candidates, or a near-tie (<0.10 relative salience margin for salience mode / criterion
+tie for strict_cb mode) among >=2 compatible candidates, is FLAGGED unresolved (assigned None) instead
+of force-attached to the most-salient/most-recent entity -- this stops false-consolidation and the
+situation-model AccumulateRegister overflow that false-consolidation causes; (2) a pronoun that seeds
+the first tracked entity records its OWN gender/number (the pronoun-seed-gender fix), so that entity
+does not stay a None/None wildcard silently compatible with every later pronoun regardless of gender
+(the bug that masked (1)'s own discriminator on first measurement, 0/514 force-attaches). Validated on
+Anne of Green Gables ch.6/9/16 (136/136 "it"/"its" mentions correctly flagged, no force-attach
+fabrication). NOTE: the masculine surname-bridge gender inference in the same source tool
+(guess_gender_v2 / build_surname_bigrams) is DATA/gazetteer-level, not a resolver-mechanism change --
+it is left in the tool, not promoted here.
+
 GLASS-BOX: pure symbolic; no torch, no external LLM, no network. ASCII-only, no em-dashes.
 """
 from __future__ import annotations
@@ -65,6 +81,13 @@ SUBJECT_LIKE_ROLES = frozenset({"agent"})
 # Sentinel margin for an unambiguous decision (0 or 1 compatible candidates -> nothing to confuse
 # with). Matches the value used by the calibration probe so downstream AUC code is unit-consistent.
 NO_COMPETITION_MARGIN = 1.0
+
+# HONEST-MODE (2026-08-02 promotion, source: tools/read_anne_glassbox_v2_honest_ledger.py commits
+# 2944a14f4/9a0734bf4, resolve_honest()). Relative top-2 salience margin below this threshold, among
+# >=2 gender/number-compatible pronoun candidates, counts as a genuine same-gender near-tie -> flagged
+# NOT-CONSOLIDATED rather than silently guessed. Matches the value validated on Anne of Green Gables
+# ch.6/9/16 (136/136 "it"/"its" correctly flagged, 0 false-consolidation regression).
+HONEST_MODE_CONFIDENCE_MARGIN_THRESHOLD = 0.10
 
 
 # ---------------------------------------------------------------------------
@@ -270,27 +293,72 @@ def _mention_geometry(rec: dict) -> Tuple[Set[str], bool]:
 # ---------------------------------------------------------------------------
 # Resolvers.
 # ---------------------------------------------------------------------------
-def run_match_or_allocate(stream: List[dict]) -> List[int]:
+def run_match_or_allocate(
+    stream: List[dict], flag_unresolved: bool = False,
+) -> List[Optional[int]]:
     """MATCH-OR-ALLOCATE baseline: pronoun branch picks by Centering salience (frequency+recency);
     name/nominal branch by token overlap + determiner bridging. Faithful port of
     experiments/exp_earn_coref_match_or_allocate_v1.run_learnable (atom 29613, fair-test HARD_PASS
-    vs recency-floor and random on real cross-clause gold). Returns predicted entity-id per mention."""
+    vs recency-floor and random on real cross-clause gold). Returns predicted entity-id per mention.
+
+    flag_unresolved (default False, OPT-IN; 2026-08-02 promotion from tools/
+    read_anne_glassbox_v2_honest_ledger.py resolve_honest(), commits 2944a14f4/9a0734bf4) = HONEST
+    MODE: reuses this exact function's own mechanism unchanged except for two behaviors, both aimed
+    at not silently fabricating an antecedent:
+      (1) a pronoun with ZERO gn_compatible candidates is FLAGGED (assigned None, never bound / never
+          observed by the entity it would otherwise have force-attached to) instead of force-attached
+          to the most-recent entity regardless of gender/number. Validated on Anne of Green Gables
+          ch.6/9/16: 136/136 "it"/"its" mentions (which have no gender-marked antecedent in that
+          extraction) correctly flagged instead of fabricated.
+      (2) a pronoun with >=2 gn_compatible candidates whose top-2 relative salience margin is below
+          HONEST_MODE_CONFIDENCE_MARGIN_THRESHOLD (a genuine same-gender near-tie) is likewise flagged
+          rather than silently guessed.
+      (3) PRONOUN-SEED GENDER FIX: when a pronoun seeds the very first tracked entity (no entities yet
+          tracked), that entity now records the seeding pronoun's own gender/number immediately
+          (matching how a name-seeded entity already records the name's inferred gender via
+          _observe_nominal). Baseline (flag_unresolved=False) never does this, so a pronoun-seeded
+          entity stays a None/None wildcard that gn_compatible treats as compatible with every later
+          pronoun of every gender -- masking case (1)'s own discriminator (measured 0/514 force-
+          attaches on the unfixed version, an untested discriminator per DISCRIMINATOR-MUST-SURVIVE-
+          SCALE).
+    Default (flag_unresolved=False) is byte-identical to the pre-2026-08-02 behavior (every prior
+    committed result reproduces); assigned entries are never None in that mode."""
     entities: List[TrackedEntity] = []
     next_id = 0
-    assigned: List[int] = []
+    assigned: List[Optional[int]] = []
     for pos, rec in enumerate(stream):
         gender, number = rec["gender"], rec["number"]
         cur_clause, cur_role = rec["clause"], rec.get("role")
         if rec["is_pronoun"]:
             compat = [e for e in entities if gn_compatible(gender, number, e.gender, e.number)]
             if compat:
-                best = max(compat, key=lambda e: e.salience(pos))
+                if flag_unresolved:
+                    scored = sorted(((e.salience(pos), e) for e in compat), key=lambda t: -t[0])
+                    top_sal = scored[0][0]
+                    second_sal = scored[1][0] if len(scored) > 1 else None
+                    margin = 1.0 if second_sal is None else (
+                        (top_sal - second_sal) / top_sal if top_sal > 0 else 0.0)
+                    if len(compat) >= 2 and margin < HONEST_MODE_CONFIDENCE_MARGIN_THRESHOLD:
+                        assigned.append(None)
+                        continue
+                    best = scored[0][1]
+                else:
+                    best = max(compat, key=lambda e: e.salience(pos))
             elif entities:
+                if flag_unresolved:
+                    # HONEST FIX: no force-attach to the most-recent entity; flag and leave unbound.
+                    assigned.append(None)
+                    continue
                 best = max(entities, key=lambda e: e.last_pos)
             else:
                 best = TrackedEntity(next_id)
                 next_id += 1
                 entities.append(best)
+                if flag_unresolved:
+                    # PRONOUN-SEED GENDER FIX: record the seeding pronoun's own gender/number so this
+                    # entity is not a None/None wildcard forever (see docstring case (3)).
+                    best.gender = gender
+                    best.number = number
             _observe_pronoun(best, pos, cur_clause, cur_role)
             assigned.append(best.eid)
             continue
@@ -301,29 +369,53 @@ def run_match_or_allocate(stream: List[dict]) -> List[int]:
     return assigned
 
 
-def run_strict_cb(stream: List[dict]) -> List[int]:
+def run_strict_cb(
+    stream: List[dict], flag_unresolved: bool = False,
+) -> List[Optional[int]]:
     """MATCH-OR-ALLOCATE with literal-Centering strict-Cb pronoun pick (hard tiered antecedent
     selection: most-recent-subject-clause, not an additive salience blend). Name/nominal branch
     unchanged. Faithful port of experiments/exp_earn_coref_pronoun_strict_cb_v1.run_learnable_strict_cb
     (atom 29614; corrects agent-vs-agent turn-taking mispicks the salience pick makes). Requires
     stream records to carry 'role' (build_mention_stream); records without a role degrade gracefully
-    to the pure-recency fallback tier for that mention."""
+    to the pure-recency fallback tier for that mention.
+
+    flag_unresolved (default False, OPT-IN honest mode; same 2026-08-02 promotion and semantics as
+    run_match_or_allocate's flag_unresolved -- see that docstring for the full rationale): a pronoun
+    with 0 gn_compatible candidates is flagged (None, not force-attached); a near-tie among >=2
+    compatible candidates is flagged using strict-Cb's OWN mode-native ambiguity signal (criterion tie,
+    _pronoun_strict_cb_margin(...) == 0.0 -- no distinguishing most-recent-subject-clause evidence)
+    rather than the salience-mode relative-margin threshold; a pronoun that seeds the first tracked
+    entity records its own gender/number (the pronoun-seed-gender fix). Default is byte-identical to
+    prior behavior; assigned entries are never None in that mode."""
     entities: List[TrackedEntity] = []
     next_id = 0
-    assigned: List[int] = []
+    assigned: List[Optional[int]] = []
     for pos, rec in enumerate(stream):
         gender, number = rec["gender"], rec["number"]
         cur_clause, cur_role = rec["clause"], rec.get("role")
         if rec["is_pronoun"]:
             compat = [e for e in entities if gn_compatible(gender, number, e.gender, e.number)]
             if compat:
+                if flag_unresolved:
+                    margin = _pronoun_strict_cb_margin(compat, cur_clause)
+                    if len(compat) >= 2 and margin == 0.0:
+                        assigned.append(None)
+                        continue
                 best = _pick_strict_cb(compat, cur_clause)
             elif entities:
+                if flag_unresolved:
+                    # HONEST FIX: no force-attach to the most-recent entity; flag and leave unbound.
+                    assigned.append(None)
+                    continue
                 best = max(entities, key=lambda e: e.last_pos)
             else:
                 best = TrackedEntity(next_id)
                 next_id += 1
                 entities.append(best)
+                if flag_unresolved:
+                    # PRONOUN-SEED GENDER FIX: see run_match_or_allocate's docstring case (3).
+                    best.gender = gender
+                    best.number = number
             _observe_pronoun(best, pos, cur_clause, cur_role)
             assigned.append(best.eid)
             continue
