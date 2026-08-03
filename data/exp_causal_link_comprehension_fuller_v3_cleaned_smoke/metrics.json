@@ -1,0 +1,10 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "CausalLinkRegister fixture: planted link decodes both directions; non-linked event returns None (no hallucinated guess).",
+  "summary": "SELF_TEST_PASS: real CausalLinkRegister object exercised, correctness verified.",
+  "elapsed_s": 0.16066469997167587,
+  "ts_iso": "2026-08-03T06:40:56.391154+00:00",
+  "anchor_name": "causal_link_comprehension_fuller_v3_cleaned",
+  "run_mode": "smoke",
+  "seed": 20260802
+}
