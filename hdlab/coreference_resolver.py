@@ -24,8 +24,16 @@ MECHANISM (glass-box, no borrowed embeddings, no external coref tool):
     bridging default ("the girl" -> the one active gender/number-compatible entity) when overlap is
     zero. Both pronoun pick rules share this identical name/nominal branch.
   - run_principle_b additionally layers Binding Principle B (a non-reflexive pronoun cannot corefer
-    with the AGENT of its own clause) as a candidate-pool filter before the strict-Cb pick -- this is
-    the RECOMMENDED canonical resolver (the best-banked mechanism, atom 29618).
+    with the AGENT of its own clause) as a candidate-pool filter before the strict-Cb pick (atom
+    29618).
+  - run_principle_b_deixis (2026-08-02 promotion, source: experiments/exp_coref_loop_cross_clause_
+    discourse_v1.py commit 0c4285f52) additionally layers speaker/addressee deixis: a 3rd-person
+    pronoun INSIDE a quote span cannot corefer with the current speaker or the addressee (Walker-
+    Joshi-Prince dialogue Centering). Requires the stream to be pre-enriched by enrich_dialogue()
+    with in_quote/clause_speaker/clause_addressee. This is the NEW RECOMMENDED CANONICAL resolver --
+    it won cleanly on the powered combined+g5g6 eval (identity-demanding query +0.035, g5g6 +0.08,
+    +2 corrected/0 broke) and degrades gracefully to run_principle_b on any un-enriched stream or any
+    mention the deixis filter abstains on.
 
 CONFIDENCE / FLAG SIGNALS (atom 29616, the metacognitive layer's error-estimate input): each
 resolver has an *_instrumented variant that additionally returns, per decision, a MARGIN (decision
@@ -38,6 +46,7 @@ GLASS-BOX: pure symbolic; no torch, no external LLM, no network. ASCII-only, no 
 from __future__ import annotations
 
 import math
+import re
 from typing import Dict, List, Optional, Set, Tuple
 
 from hdlab.state_of_mind import (
@@ -345,6 +354,156 @@ def run_principle_b(stream: List[dict]) -> Tuple[List[int], Dict[str, int]]:
                 filtered, action = _principle_b_filter(compat, cur_clause, cur_role)
                 actions[action] = actions.get(action, 0) + 1
                 best = _pick_strict_cb(filtered, cur_clause)
+            elif entities:
+                best = max(entities, key=lambda e: e.last_pos)
+                actions["abstain_no_compat"] = actions.get("abstain_no_compat", 0) + 1
+            else:
+                best = TrackedEntity(next_id)
+                next_id += 1
+                entities.append(best)
+                actions["allocate_new"] = actions.get("allocate_new", 0) + 1
+            _observe_pronoun(best, pos, cur_clause, cur_role)
+            assigned.append(best.eid)
+            continue
+        toks, has_determiner = _mention_geometry(rec)
+        best, next_id = _resolve_name_branch(entities, next_id, gender, number, toks, has_determiner)
+        _observe_nominal(best, pos, cur_clause, cur_role, gender, number, toks)
+        assigned.append(best.eid)
+    return assigned, actions
+
+
+# ---------------------------------------------------------------------------
+# Speaker/addressee deixis lever (2026-08-02 promotion). Source: experiments/
+# exp_coref_loop_cross_clause_discourse_v1.py (commit 0c4285f52), lever 2 ("SPEAKER/ADDRESSEE
+# DEIXIS", audit B1 / Walker-Joshi-Prince dialogue Centering). A 3rd-person pronoun INSIDE a quote
+# span cannot corefer with the CURRENT SPEAKER or the ADDRESSEE (the most-recent prior different
+# speaker, alternating-turn model) -- it must refer to the absent third party being talked about.
+# Detected via quotative attribution ("said/replied/asked NAME") per clause + real double-quote span
+# membership per mention, so it fires on quoted dialogue and ABSTAINS on unquoted narration frames
+# (a post-quote 3rd-person pronoun there legitimately refers back to the speaker). Won cleanly on the
+# powered combined+g5g6 eval (identity-demanding query +0.035, g5g6 +0.08, +2 corrected/0 broke).
+#
+# NOTE the SAME source cell also ablated a "decay-window" lever (a recency-weighted salience window
+# over the last few clauses, replacing strict_cb's hard most-recent-subject-clause pointer). That
+# lever is a CONFIRMED NEGATIVE (net -3 on the combined+probe eval -- reproduces the cycle-1
+# topic-continuity null; McGuffey pronoun errors are not recency-shaped) and is DELIBERATELY NOT
+# promoted here. Do not re-add it without new evidence; see data/exp_coref_loop_cross_clause_
+# discourse_v1/metrics.json ("decay_window" arm) before reconsidering.
+# ---------------------------------------------------------------------------
+_SPEECH_VERBS = (r"said|says|replied|reply|asked|answered|cried|exclaimed|whispered|shouted|"
+                 r"added|continued|remarked|returned|says|responded|inquired")
+_SPK_AFTER = re.compile(r"\b(?:" + _SPEECH_VERBS + r")\s+([A-Z][a-z]+(?:'s)?)")
+_SPK_BEFORE = re.compile(r"\b([A-Z][a-z]+)\s+(?:" + _SPEECH_VERBS + r")\b")
+SPEAKER_WINDOW = 4  # look back this many clauses for the alternating addressee
+
+
+def _detect_speaker(clause_text: str) -> Optional[str]:
+    """Quotative-attribution speaker name for one clause ("said NAME" or "NAME said"), else None."""
+    m = _SPK_AFTER.search(clause_text)
+    if m:
+        return m.group(1)
+    m = _SPK_BEFORE.search(clause_text)
+    if m:
+        return m.group(1)
+    return None
+
+
+def _quote_spans(clause_lower: str) -> List[Tuple[int, int]]:
+    """Char-offset spans between paired double quotes (offsets in the lowercased clause, matching
+    build_mention_stream's text_pos convention)."""
+    positions = [i for i, ch in enumerate(clause_lower) if ch == '"']
+    spans = []
+    for k in range(0, len(positions) - 1, 2):
+        spans.append((positions[k], positions[k + 1]))
+    return spans
+
+
+def enrich_dialogue(passage: dict, stream: List[dict]) -> List[dict]:
+    """Augment (copy) each stream record with in_quote / clause_speaker / clause_addressee. Does not
+    mutate the input records or change any other resolver's behavior -- only adds inert dialogue-frame
+    fields that run_principle_b_deixis's pronoun branch consumes and every other resolver ignores.
+    Faithful port of exp_coref_loop_cross_clause_discourse_v1.enrich_dialogue."""
+    clauses = passage["clauses"]
+    speakers = [_detect_speaker(c) for c in clauses]
+    # addressee = most-recent prior clause (within SPEAKER_WINDOW) whose speaker is not None and
+    # differs from this clause's speaker (alternating-turn model).
+    addressees: List[Optional[str]] = [None] * len(clauses)
+    for i in range(len(clauses)):
+        if speakers[i] is None:
+            continue
+        for j in range(i - 1, max(-1, i - 1 - SPEAKER_WINDOW), -1):
+            if speakers[j] is not None and speakers[j] != speakers[i]:
+                addressees[i] = speakers[j]
+                break
+    spans_by_clause = [_quote_spans(c.lower()) for c in clauses]
+    out = []
+    for rec in stream:
+        r = dict(rec)
+        ci = rec["clause"]
+        tp = rec["text_pos"]
+        in_q = any(s < tp < e for (s, e) in spans_by_clause[ci]) if 0 <= ci < len(clauses) else False
+        r["in_quote"] = in_q
+        r["clause_speaker"] = speakers[ci] if 0 <= ci < len(clauses) else None
+        r["clause_addressee"] = addressees[ci] if 0 <= ci < len(clauses) else None
+        out.append(r)
+    return out
+
+
+def _name_matches_entity(name: str, e: TrackedEntity) -> bool:
+    tok = name.lower().rstrip("'s")
+    return tok in e.tokens or name.lower() in e.tokens
+
+
+def _deixis_filter(compat: List[TrackedEntity], rec: dict) -> Tuple[List[TrackedEntity], bool]:
+    """Exclude the speaker + addressee entities for an in-quote 3rd-person pronoun. Returns
+    (filtered, fired). Abstains (returns compat, False) unless the mention is in_quote, a
+    clause_speaker is known, and excluding still leaves >=1 candidate -- so an un-enriched stream
+    (missing in_quote/clause_speaker fields) or an out-of-quote mention always abstains cleanly."""
+    if not rec.get("in_quote") or not rec.get("clause_speaker"):
+        return compat, False
+    excl_names = [rec["clause_speaker"]]
+    if rec.get("clause_addressee"):
+        excl_names.append(rec["clause_addressee"])
+    filtered = [e for e in compat if not any(_name_matches_entity(n, e) for n in excl_names)]
+    if filtered and len(filtered) < len(compat):
+        return filtered, True
+    return compat, False
+
+
+def run_principle_b_deixis(stream: List[dict]) -> Tuple[List[int], Dict[str, int]]:
+    """NEW RECOMMENDED CANONICAL resolver (2026-08-02): run_principle_b's pronoun branch (Binding
+    Principle B same-clause-agent exclusion, then strict-Cb pick) with the speaker/addressee deixis
+    filter additionally layered in between (name/nominal branch byte-identical to every other
+    resolver in this module). Call enrich_dialogue(passage, stream) before this function so records
+    carry in_quote/clause_speaker/clause_addressee; on a stream without those fields the deixis
+    filter always abstains and this reduces exactly to run_principle_b.
+
+    The source cell (exp_coref_loop_cross_clause_discourse_v1.py, commit 0c4285f52) ran the deixis
+    filter on top of plain strict_cb (no Principle B); this compose additionally layers it onto
+    run_principle_b's Principle-B-filtered pool so both banked wins are captured together in one
+    canonical resolver. Behavior on the deixis lever's own fixtures (in-quote exclusion fires and
+    forces the absent third party; out-of-quote narration is unchanged) is reproduced exactly in
+    verification/verify_coreference_resolver.py -- the Principle B layering does not change either
+    outcome on those fixtures (their same-clause-agent guards do not trigger there).
+
+    Returns (assigned, action_counts) where action_counts additionally tallies deixis_fired /
+    deixis_abstain alongside run_principle_b's existing action keys (audit trail)."""
+    entities: List[TrackedEntity] = []
+    next_id = 0
+    assigned: List[int] = []
+    actions: Dict[str, int] = {}
+    for pos, rec in enumerate(stream):
+        gender, number = rec["gender"], rec["number"]
+        cur_clause, cur_role = rec["clause"], rec.get("role")
+        if rec["is_pronoun"]:
+            compat = [e for e in entities if gn_compatible(gender, number, e.gender, e.number)]
+            if compat:
+                filtered, pb_action = _principle_b_filter(compat, cur_clause, cur_role)
+                actions[pb_action] = actions.get(pb_action, 0) + 1
+                pool, deixis_fired = _deixis_filter(filtered, rec)
+                dx_action = "deixis_fired" if deixis_fired else "deixis_abstain"
+                actions[dx_action] = actions.get(dx_action, 0) + 1
+                best = _pick_strict_cb(pool, cur_clause)
             elif entities:
                 best = max(entities, key=lambda e: e.last_pos)
                 actions["abstain_no_compat"] = actions.get("abstain_no_compat", 0) + 1

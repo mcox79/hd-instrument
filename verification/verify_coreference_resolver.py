@@ -1,8 +1,9 @@
 """Scaffold-free witness: hdlab.coreference_resolver reproduces the banked earn-coref gains.
 
-Proves the promoted module (atoms 29613/29614/29616/29618/29621) matches the VET-confirmed behavior
-of the source experiment cells on small constructed fixtures (the same fixture shapes the source
-cells' own self-tests used, replayed here against the hdlab port):
+Proves the promoted module (atoms 29613/29614/29616/29618/29621, plus the 2026-08-02 speaker/
+addressee deixis promotion) matches the VET-confirmed behavior of the source experiment cells on
+small constructed fixtures (the same fixture shapes the source cells' own self-tests used, replayed
+here against the hdlab port):
   (1) match-or-allocate chains name+pronoun mentions of one entity, keeps a second entity disjoint,
       and beats the recency-floor / random fair-test discriminators (atom 29613).
   (2) strict-Cb corrects an agent-vs-agent turn-taking mispick the salience pick makes (atom 29614).
@@ -10,6 +11,10 @@ cells' own self-tests used, replayed here against the hdlab port):
       and abstains on the participial / multi-agent guard cases (atom 29618).
   (4) the confidence/flag signal (margin, n_compatible) is computed, is 0.0 on a genuine criterion
       tie, and >0 on an unambiguous pick (atom 29616); mention_link_wrong labels correctly.
+  (5) NEW RECOMMENDED CANONICAL run_principle_b_deixis: an in-quote 3rd-person pronoun excludes the
+      current speaker + addressee, forcing the absent third party that run_principle_b mispicks; and
+      ABSTAINS (byte-identical decisions to run_principle_b) on an out-of-quote narration pronoun
+      (source: experiments/exp_coref_loop_cross_clause_discourse_v1.py, commit 0c4285f52).
 
 No corpus, no network, no torch, no tracing (module emits none).
 Run: python verification/verify_coreference_resolver.py (exit 0 = PASS)
@@ -28,9 +33,11 @@ from hdlab.coreference_resolver import (  # noqa: E402
     NO_COMPETITION_MARGIN,
     bcubed,
     build_mention_stream,
+    enrich_dialogue,
     mention_link_wrong,
     run_match_or_allocate,
     run_principle_b,
+    run_principle_b_deixis,
     run_random,
     run_recency_floor,
     run_strict_cb,
@@ -232,18 +239,90 @@ def test_confidence_signal_and_link_label():
     return "confidence signal: margin=1.0 clear pick, NO_COMPETITION_MARGIN single-candidate, wrong-link label correct"
 
 
+def test_speaker_deixis_excludes_speaker_and_addressee():
+    """Scaffold-free witness for the 2026-08-02 speaker/addressee deixis promotion (source:
+    experiments/exp_coref_loop_cross_clause_discourse_v1.py commit 0c4285f52, self_test() fixture
+    (A)). Dialogue-turn: Stephen asks, Philip replies "He broke my cane" -- the in-quote 'He' must
+    exclude the current speaker (Philip) and addressee (Stephen), forcing the absent third party
+    (Robertson). run_principle_b's own Principle-B filter abstains here (the pronoun's own role is
+    agent, the own-clause-agent guard), so run_principle_b alone still mispicks the addressee same as
+    run_strict_cb -- deixis is the mechanism that fixes it. A second fixture proves the filter
+    ABSTAINS on an out-of-quote narration pronoun (byte-identical decisions to run_principle_b)."""
+    dlg = {
+        "passage_id": "dlg1",
+        "clauses": [
+            "Farmer Robertson broke the cane.",
+            '"Who did it," asked Stephen.',
+            '"He broke my cane," replied Philip.',
+        ],
+        "entities": {
+            "Robertson": [{"clause": 0, "mention": "Farmer Robertson", "role": "agent"},
+                          {"clause": 2, "mention": "He", "role": "agent"}],
+            "Stephen": [{"clause": 1, "mention": "Stephen", "role": "agent"}],
+            "Philip": [{"clause": 2, "mention": "Philip", "role": "agent"}],
+        },
+    }
+    s = enrich_dialogue(dlg, build_mention_stream(dlg))
+    he_idx = [i for i, r in enumerate(s) if r["mention_text"] == "He"][0]
+    assert s[he_idx]["in_quote"], f"'He' must be detected inside a quote: {s[he_idx]}"
+    assert s[he_idx]["clause_speaker"] == "Philip", s[he_idx]
+    assert s[he_idx]["clause_addressee"] == "Stephen", s[he_idx]  # alternating: prev diff speaker
+    robertson_idxs = _stream_ids(s, "Robertson")
+    stephen_idxs = _stream_ids(s, "Stephen")
+
+    pb, _ = run_principle_b(s)
+    pbd, acts = run_principle_b_deixis(s)
+    assert pb[he_idx] in {pb[i] for i in stephen_idxs}, (
+        f"precondition: run_principle_b must still mispick the addressee Stephen for in-quote 'He' "
+        f"(its own-clause-agent guard abstains here): pb={pb}")
+    assert pbd[he_idx] in {pbd[i] for i in robertson_idxs}, (
+        f"speaker-deixis must exclude speaker+addressee and force Robertson: pbd={pbd}")
+    assert acts.get("deixis_fired", 0) >= 1, f"deixis must have fired: {acts}"
+    assert pb != pbd, "run_principle_b_deixis must differ from run_principle_b on the dialogue fixture"
+
+    # deixis must NOT fire on an OUT-OF-QUOTE pronoun (narration frame): "said Joab, and he took the
+    # darts" -- 'he' outside the quote refers to the speaker; excluding the speaker would break it.
+    narr = {
+        "passage_id": "narr1",
+        "clauses": ["Amasa stood there.", "Then said Joab, and he took the darts."],
+        "entities": {
+            "Amasa": [{"clause": 0, "mention": "Amasa", "role": "agent"}],
+            "Joab": [{"clause": 1, "mention": "Joab", "role": "agent"},
+                     {"clause": 1, "mention": "he", "role": "agent"}],
+        },
+    }
+    sn = enrich_dialogue(narr, build_mention_stream(narr))
+    he2 = [i for i, r in enumerate(sn) if r["mention_text"] == "he"][0]
+    assert not sn[he2]["in_quote"], "narration 'he' must NOT be flagged in-quote"
+    pbn, _ = run_principle_b(sn)
+    pbdn, actsn = run_principle_b_deixis(sn)
+    assert pbdn == pbn, f"deixis must not change out-of-quote decisions: pb={pbn} pbd={pbdn}"
+    assert actsn.get("deixis_fired", 0) == 0, actsn
+
+    # un-enriched stream (no in_quote/clause_speaker fields) must degrade to abstain -> identical to
+    # run_principle_b, proving the graceful-degradation contract documented on the function.
+    s_raw = build_mention_stream(dlg)
+    pbd_raw, acts_raw = run_principle_b_deixis(s_raw)
+    assert pbd_raw == pb, "un-enriched stream must reduce exactly to run_principle_b"
+    assert acts_raw.get("deixis_fired", 0) == 0, acts_raw
+    return ("speaker_deixis: excludes speaker+addressee for in-quote 'He' (Philip/Stephen->Robertson), "
+            "abstains on out-of-quote narration and on an un-enriched stream")
+
+
 def main():
     tests = [
         test_match_or_allocate_chains_and_beats_floors,
         test_strict_cb_corrects_turn_taking_mispick,
         test_principle_b_excludes_same_clause_agent,
         test_confidence_signal_and_link_label,
+        test_speaker_deixis_excludes_speaker_and_addressee,
     ]
     for t in tests:
         line = t()
         print("PASS %-42s %s" % (t.__name__, line))
     print("\nALL PASS: hdlab.coreference_resolver reproduces the banked earn-coref gains "
-          "(atoms 29613/29614/29616/29618) -- promoted module matches source-cell behavior.")
+          "(atoms 29613/29614/29616/29618, plus the 2026-08-02 speaker/addressee deixis promotion, "
+          "commit 0c4285f52) -- promoted module matches source-cell behavior.")
     return 0
 
 
