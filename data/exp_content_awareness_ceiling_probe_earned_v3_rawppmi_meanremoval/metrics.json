@@ -1,0 +1,417 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "verdict_regime=CHEAP_EXHAUSTED (N=6 probe, directional); arm_a(raw_ppmi_multicorpus): ceiling=0.333 unstated_goal=0.000 collapse_broken=False; arm_b(meanremoval_multicorpus): ceiling=0.667 unstated_goal=0.333 collapse_broken=True; vs step1_single_novel ceiling=0.5 unstated_goal=0.3333333333333333; vs step2_svd_confounded ceiling=0.3333333333333333 unstated_goal=0.0; vs bge_borrowed ceiling=0.8333333333333334",
+  "summary": "DEEP-EARN STEP 3 (raw-ppmi-multicorpus vs mean-removal-anisotropy-fix) verdict_regime=CHEAP_EXHAUSTED",
+  "elapsed_s": 7.8874223998282105,
+  "ts_iso": "2026-08-03T13:36:00.969655+00:00",
+  "pid": 32032,
+  "anchor_name": "content_awareness_ceiling_probe_earned_v3_rawppmi_meanremoval",
+  "results_arm_a_satisfy_restate": [
+    {
+      "goal_id": "anne_goal_001",
+      "sim_goal_to_restate": 0.5918689858744431,
+      "sim_goal_to_satisfy": 0.4896349939988328,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "9/9",
+      "restate_content_word_coverage": "10/10",
+      "satisfy_content_word_coverage": "10/11",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.102234,
+        "content_plus_structure_gap": 0.897766,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_002",
+      "sim_goal_to_restate": 0.5918689858744431,
+      "sim_goal_to_satisfy": 0.5896589650062002,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "10/10",
+      "restate_content_word_coverage": "9/9",
+      "satisfy_content_word_coverage": "9/9",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": false,
+      "struct_score_satisfy": 1,
+      "struct_score_restate": 1,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.00221,
+        "content_plus_structure_gap": -0.00221,
+        "structure_only_gap": 0.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_012",
+      "sim_goal_to_restate": 0.6250962067200981,
+      "sim_goal_to_satisfy": 0.4871603690794865,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "9/11",
+      "restate_content_word_coverage": "15/16",
+      "satisfy_content_word_coverage": "13/13",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.137936,
+        "content_plus_structure_gap": 0.862064,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    }
+  ],
+  "results_arm_a_unstated_goal": [
+    {
+      "goal_id": "anne_goal_014",
+      "correct_schema": "prohibition",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.17323012058751944,
+        "escape_punishment": 0.15047323885350744,
+        "material_want": 0.25858831288619344,
+        "prohibition": 0.23633079777343152
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "6/7",
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_016",
+      "correct_schema": "aid_rescue",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.22322419186571132,
+        "escape_punishment": 0.18801845973422202,
+        "material_want": 0.29618393833257156,
+        "prohibition": 0.2776602731889834
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "15/15",
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_019",
+      "correct_schema": "escape_punishment",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.24145249774639113,
+        "escape_punishment": 0.21760651058128072,
+        "material_want": 0.3192928179982488,
+        "prohibition": 0.3044344129534379
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "14/14",
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    }
+  ],
+  "results_arm_b_satisfy_restate": [
+    {
+      "goal_id": "anne_goal_001",
+      "sim_goal_to_restate": 0.4193853954392453,
+      "sim_goal_to_satisfy": 0.2315567010100003,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "9/9",
+      "restate_content_word_coverage": "10/10",
+      "satisfy_content_word_coverage": "10/11",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.187829,
+        "content_plus_structure_gap": 0.812171,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_002",
+      "sim_goal_to_restate": 0.4193853954392453,
+      "sim_goal_to_satisfy": 0.4204415605110712,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "10/10",
+      "restate_content_word_coverage": "9/9",
+      "satisfy_content_word_coverage": "9/9",
+      "content_alone_misranks": false,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 1,
+      "struct_score_restate": 1,
+      "arm_decisions": {
+        "content_only_sim_gap": 0.001056,
+        "content_plus_structure_gap": 0.001056,
+        "structure_only_gap": 0.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_012",
+      "sim_goal_to_restate": 0.4267443988666307,
+      "sim_goal_to_satisfy": 0.2316549192930168,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "9/11",
+      "restate_content_word_coverage": "15/16",
+      "satisfy_content_word_coverage": "13/13",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.195089,
+        "content_plus_structure_gap": 0.804911,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    }
+  ],
+  "results_arm_b_unstated_goal": [
+    {
+      "goal_id": "anne_goal_014",
+      "correct_schema": "prohibition",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": -0.025628778246030492,
+        "escape_punishment": -0.021147131996819876,
+        "material_want": 0.007224063642605628,
+        "prohibition": -0.02080937735147792
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "6/7",
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_016",
+      "correct_schema": "aid_rescue",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": -0.01751807667188737,
+        "escape_punishment": -0.018634346285668874,
+        "material_want": 0.003914526529036875,
+        "prohibition": -0.005644615275843854
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "15/15",
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_019",
+      "correct_schema": "escape_punishment",
+      "predicted_schema": "escape_punishment",
+      "correct": true,
+      "sims": {
+        "aid_rescue": -0.009858541078419086,
+        "escape_punishment": 0.004852675562491227,
+        "material_want": -0.009432267433164889,
+        "prohibition": -0.029457890869941706
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "14/14",
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    }
+  ],
+  "summary_fields": {
+    "embedding_source_arm_a": "EARNED_RAW_PPMI_MULTICORPUS_v3 (window=5, min_count=3, no_svd, glass_box, n_tokens=439872, vocab_size=7641, ppmi_nnz=905895)",
+    "embedding_source_arm_b": "EARNED_RAW_PPMI_MEANREMOVAL_MULTICORPUS_v3 (same PPMI as arm_a, then all-but-the-top mean-centering + top-1-direction removal via power iteration, no_svd_reconstruction, glass_box)",
+    "corpus_paths": [
+      "D:\\AI\\hd-instrument\\data\\corpora\\anne_of_green_gables\\cleaned\\anne_of_green_gables.clean.txt",
+      "D:\\AI\\hd-instrument\\data\\corpora\\wizard_of_oz\\cleaned\\wizard_of_oz.clean.txt",
+      "D:\\AI\\hd-instrument\\data\\corpora\\tom_sawyer\\cleaned\\tom_sawyer.clean.txt",
+      "D:\\AI\\hd-instrument\\data\\corpora\\little_women\\cleaned\\little_women.clean.txt",
+      "D:\\AI\\hd-instrument\\data\\corpora\\alice_in_wonderland\\cleaned\\alice_in_wonderland.clean.txt"
+    ],
+    "corpus_word_counts_per_book": {
+      "anne_of_green_gables.clean.txt": 106826,
+      "wizard_of_oz.clean.txt": 39999,
+      "tom_sawyer.clean.txt": 74383,
+      "little_women.clean.txt": 191238,
+      "alice_in_wonderland.clean.txt": 27426
+    },
+    "corpus_n_tokens_combined": 439872,
+    "corpus_vocab_size_after_min_count_filter": 7641,
+    "ppmi_nnz": 905895,
+    "mean_removal_n_top_directions": 1,
+    "mean_removal_power_iter_counts": [
+      8
+    ],
+    "mean_removal_dominant_eigenvalue_estimates": [
+      96282.72787011198
+    ],
+    "arm_vectors_differ_verified": true,
+    "arm_vector_digests": {
+      "arm_a_raw_ppmi_multicorpus": "6c9b853076ad1ae5e4f8c1d33826bfe79ac7d7f0ad88bc8b3fcbfa6fb0dffd0d",
+      "arm_b_meanremoval_multicorpus": "92568396ad168c5142a3ccb5f9c1e3bb705423baf8a92bef6a5d2607e09f8dda"
+    },
+    "arm_a": {
+      "arm_name": "ARM_A_RAW_PPMI_MULTICORPUS",
+      "predicted_schemas_unstated_goal": [
+        "material_want",
+        "material_want",
+        "material_want"
+      ],
+      "material_want_collapse": true,
+      "collapse_broken": false,
+      "content_alone_misrank_count": 3,
+      "content_alone_misrank_rate": 1.0,
+      "content_plus_structure_correct_count": 2,
+      "content_plus_structure_accuracy": 0.6666666666666666,
+      "unstated_goal_recovery_correct_count": 0,
+      "unstated_goal_recovery_rate": 0.0,
+      "ceiling_correct_of_probe_items": 2,
+      "ceiling_total_probe_items": 6,
+      "ceiling_recall_all_probe_items": 0.3333333333333333,
+      "goal_018_borderline_sims": {
+        "aid_rescue": 0.16254800060749292,
+        "escape_punishment": 0.14917714496920514,
+        "material_want": 0.2134360586210793,
+        "prohibition": 0.20351514020316852
+      },
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "schema_content_word_coverage_fraction": {
+        "aid_rescue": 1.0,
+        "escape_punishment": 0.7142857142857143,
+        "material_want": 1.0,
+        "prohibition": 0.42857142857142855
+      },
+      "schema_coverage_spread_max_minus_min": 0.5714285714285714
+    },
+    "arm_b": {
+      "arm_name": "ARM_B_RAW_PPMI_MEANREMOVAL_MULTICORPUS",
+      "predicted_schemas_unstated_goal": [
+        "material_want",
+        "material_want",
+        "escape_punishment"
+      ],
+      "material_want_collapse": false,
+      "collapse_broken": true,
+      "content_alone_misrank_count": 2,
+      "content_alone_misrank_rate": 0.6666666666666666,
+      "content_plus_structure_correct_count": 3,
+      "content_plus_structure_accuracy": 1.0,
+      "unstated_goal_recovery_correct_count": 1,
+      "unstated_goal_recovery_rate": 0.3333333333333333,
+      "ceiling_correct_of_probe_items": 4,
+      "ceiling_total_probe_items": 6,
+      "ceiling_recall_all_probe_items": 0.6666666666666666,
+      "goal_018_borderline_sims": {
+        "aid_rescue": -0.020222995929652283,
+        "escape_punishment": -0.005196690829834163,
+        "material_want": -0.01580810348328016,
+        "prohibition": -0.01917929993697978
+      },
+      "schema_content_word_coverage": {
+        "aid_rescue": "8/8",
+        "escape_punishment": "5/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "schema_content_word_coverage_fraction": {
+        "aid_rescue": 1.0,
+        "escape_punishment": 0.7142857142857143,
+        "material_want": 1.0,
+        "prohibition": 0.42857142857142855
+      },
+      "schema_coverage_spread_max_minus_min": 0.5714285714285714
+    },
+    "delta_arm_b_minus_arm_a_ceiling": 0.3333333333333333,
+    "delta_arm_b_minus_arm_a_unstated_goal": 0.3333333333333333,
+    "trajectory_three_point_MEASURED": {
+      "step1_raw_single_novel": {
+        "ceiling": 0.5,
+        "unstated_goal_recovery": 0.3333333333333333
+      },
+      "step2_svd_multicorpus_CONFOUNDED": {
+        "ceiling": 0.3333333333333333,
+        "unstated_goal_recovery": 0.0
+      },
+      "step3_arm_a_raw_multicorpus": {
+        "ceiling": 0.3333333333333333,
+        "unstated_goal_recovery": 0.0
+      },
+      "step3_arm_b_meanremoval_multicorpus": {
+        "ceiling": 0.6666666666666666,
+        "unstated_goal_recovery": 0.3333333333333333
+      },
+      "reference_borrowed_bge": {
+        "ceiling": 0.8333333333333334
+      }
+    },
+    "step1_single_novel_ceiling_MEASURED_from_prior_cell": 0.5,
+    "step1_single_novel_unstated_goal_MEASURED_from_prior_cell": 0.3333333333333333,
+    "step2_svd_multicorpus_ceiling_MEASURED_from_prior_cell": 0.3333333333333333,
+    "step2_svd_multicorpus_unstated_goal_MEASURED_from_prior_cell": 0.0,
+    "bge_borrowed_ceiling_MEASURED_from_prior_cell": 0.8333333333333334,
+    "arm_a_clears_earned_viable_gate": false,
+    "arm_b_clears_earned_viable_gate": false,
+    "both_arms_below_single_novel_reference": true,
+    "earned_viable_threshold": 0.6,
+    "unstated_recovery_threshold": 0.6666666666666666,
+    "verdict_regime": "CHEAP_EXHAUSTED",
+    "n_probe_items_caveat": "N=6 hand-selected probe items; directional signal only, not a statistically powered claim",
+    "elapsed_s": 7.8874223998282105
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_scaled_to_diagnostic_n6x2arms",
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_exempted": [],
+  "deterministic_seeding": true,
+  "progress_logging": "n/a_elapsed_under_1800s"
+}
