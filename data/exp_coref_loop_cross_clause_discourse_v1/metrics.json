@@ -1,0 +1,659 @@
+{
+  "anchor_name": "coref_loop_cross_clause_discourse_v1",
+  "verdict": "PARTIAL_QUERY_ONLY",
+  "verdict_msg": "[PARTIAL_QUERY_ONLY] cross-clause discourse (combined) vs strict_cb (powered): pron-B3 0.7029->0.7031 (lift=+0.0001); iddem-query 0.7192982456140351->0.7543859649122807 (lift=0.03508771929824561; oracle=0.9298245614035088); name regr=-0.0013, overall regr=-0.0012. Ablation net corrected-broken: decay_window=-3 (corr=3/broke=6), speaker_deixis=2 (corr=2/broke=0), combined=0. Driver=speaker_deixis. Probe B2 cases resolved (of 8): strict_cb=0, combined=4. deixis actions: fired=3.",
+  "summary": "PARTIAL_QUERY_ONLY",
+  "elapsed_s": 1.034923000028357,
+  "ts_iso": "2026-08-03T00:03:03.442420+00:00",
+  "pid": 33872,
+  "levers": {
+    "decay_window": {
+      "decay": 0.7,
+      "window": 4,
+      "audit_ref": "A2 / B1 lever 1"
+    },
+    "speaker_deixis": {
+      "speaker_window": 4,
+      "audit_ref": "B1 dialogue Centering (Walker-Joshi-Prince)"
+    },
+    "definite_description_bridging": "DEFERRED this cycle (see docstring)"
+  },
+  "bands": {
+    "pronoun_b3_margin": 0.02,
+    "iddem_query_margin": 0.03,
+    "regression_tol": 0.01
+  },
+  "headline_combined": {
+    "strict_cb": {
+      "pron_b3": 0.7029326700972488,
+      "name_b3": 0.8368718657482174,
+      "overall_b3": 0.8077837819288799,
+      "iddem_query": 0.7192982456140351
+    },
+    "oracle_iddem_query": 0.9298245614035088,
+    "arms": {
+      "decay_window": {
+        "pron_b3": 0.6972349336658558,
+        "name_b3": 0.835200221773306,
+        "overall_b3": 0.805594406516917,
+        "iddem_query": 0.6842105263157895,
+        "pron_lift": -0.005697736431393041,
+        "iddem_lift": -0.03508771929824561,
+        "name_regr": 0.0016716439749113743,
+        "overall_regr": 0.002189375411962846
+      },
+      "speaker_deixis": {
+        "pron_b3": 0.7160989317673909,
+        "name_b3": 0.8404754156413284,
+        "overall_b3": 0.8134393334206124,
+        "iddem_query": 0.7543859649122807,
+        "pron_lift": 0.013166261670142121,
+        "iddem_lift": 0.03508771929824561,
+        "name_regr": -0.0036035498931110688,
+        "overall_regr": -0.005655551491732469
+      },
+      "combined": {
+        "pron_b3": 0.7030691861268671,
+        "name_b3": 0.8381915908379455,
+        "overall_b3": 0.8089608983942457,
+        "iddem_query": 0.7543859649122807,
+        "pron_lift": 0.00013651602961828324,
+        "iddem_lift": 0.03508771929824561,
+        "name_regr": -0.0013197250897281076,
+        "overall_regr": -0.0011771164653657795
+      }
+    },
+    "corrected_broken_all_pronouns": {
+      "decay_window": {
+        "corrected": 3,
+        "broken": 6,
+        "net": -3,
+        "changed": 26
+      },
+      "speaker_deixis": {
+        "corrected": 2,
+        "broken": 0,
+        "net": 2,
+        "changed": 3
+      },
+      "combined": {
+        "corrected": 5,
+        "broken": 5,
+        "net": 0,
+        "changed": 26
+      }
+    }
+  },
+  "combined_powered": {
+    "n_passages": 36,
+    "n_pronoun_mentions": 76,
+    "combined_action_counts": {
+      "deixis_abstain": 66,
+      "decay_window_used": 69,
+      "deixis_fired": 3,
+      "allocate_new": 6,
+      "no_compat_fallback": 1
+    },
+    "b3": {
+      "strict_cb": {
+        "overall": {
+          "precision": 0.8739823532087142,
+          "recall": 0.75090735434575,
+          "f1": 0.8077837819288799,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.9101473922902495,
+          "recall": 0.7745159602302457,
+          "f1": 0.8368718657482174,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.7440737259816207,
+          "recall": 0.6661027568922308,
+          "f1": 0.7029326700972488,
+          "n_mentions": 76
+        }
+      },
+      "decay_window": {
+        "overall": {
+          "precision": 0.8737458498203482,
+          "recall": 0.7473052258152544,
+          "f1": 0.805594406516917,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.9169646491075065,
+          "recall": 0.7668236525379379,
+          "f1": 0.835200221773306,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.7184993734335843,
+          "recall": 0.6771929824561403,
+          "f1": 0.6972349336658558,
+          "n_mentions": 76
+        }
+      },
+      "speaker_deixis": {
+        "overall": {
+          "precision": 0.882578341747396,
+          "recall": 0.7543457497612227,
+          "f1": 0.8134393334206124,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.915641897784755,
+          "recall": 0.776713762428048,
+          "f1": 0.8404754156413284,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.7638105680868839,
+          "recall": 0.673997493734336,
+          "f1": 0.7160989317673909,
+          "n_mentions": 76
+        }
+      },
+      "combined": {
+        "overall": {
+          "precision": 0.8817050984672757,
+          "recall": 0.7473052258152544,
+          "f1": 0.8089608983942457,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.9210346531775104,
+          "recall": 0.7690214547357401,
+          "f1": 0.8381915908379455,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.7404291979949876,
+          "recall": 0.6692982456140352,
+          "f1": 0.7030691861268671,
+          "n_mentions": 76
+        }
+      },
+      "recency_floor": {
+        "overall": {
+          "precision": 0.41664249846451096,
+          "recall": 1.0,
+          "f1": 0.5882112091316007,
+          "n_mentions": 349
+        },
+        "name_only": {
+          "precision": 0.3711451402627871,
+          "recall": 1.0,
+          "f1": 0.5413652127179698,
+          "n_mentions": 273
+        },
+        "pronoun_only": {
+          "precision": 0.5800737983207026,
+          "recall": 1.0,
+          "f1": 0.7342363362232868,
+          "n_mentions": 76
+        }
+      }
+    },
+    "query_metric": {
+      "oracle": {
+        "query_accuracy_all": 0.9692307692307692,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.9298245614035088,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.9722222222222222,
+        "q_total_pron": 36
+      },
+      "strict_cb": {
+        "query_accuracy_all": 0.7923076923076923,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.7192982456140351,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.6388888888888888,
+        "q_total_pron": 36
+      },
+      "decay_window": {
+        "query_accuracy_all": 0.7692307692307693,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.6842105263157895,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.4166666666666667,
+        "q_total_pron": 36
+      },
+      "speaker_deixis": {
+        "query_accuracy_all": 0.823076923076923,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.7543859649122807,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.6944444444444444,
+        "q_total_pron": 36
+      },
+      "combined": {
+        "query_accuracy_all": 0.7846153846153846,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.7543859649122807,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.5,
+        "q_total_pron": 36
+      },
+      "recency_floor": {
+        "query_accuracy_all": 0.7538461538461538,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.43859649122807015,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.8055555555555556,
+        "q_total_pron": 36
+      },
+      "singleton_floor": {
+        "query_accuracy_all": 0.5076923076923077,
+        "q_total": 130,
+        "query_accuracy_identity_demanding": 0.3684210526315789,
+        "q_total_iddem": 57,
+        "query_accuracy_pronoun_contributed": 0.1388888888888889,
+        "q_total_pron": 36
+      }
+    }
+  },
+  "g5g6_only": {
+    "n_passages": 18,
+    "n_pronoun_mentions": 60,
+    "combined_action_counts": {
+      "allocate_new": 6,
+      "deixis_abstain": 53,
+      "decay_window_used": 53,
+      "no_compat_fallback": 1
+    },
+    "b3": {
+      "strict_cb": {
+        "overall": {
+          "precision": 0.8340166088510458,
+          "recall": 0.60242825607064,
+          "f1": 0.6995537155287574,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8655154369440083,
+          "recall": 0.5598116169544746,
+          "f1": 0.6798798843106695,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7862433862433865,
+          "recall": 0.6670634920634924,
+          "f1": 0.7217667055293344,
+          "n_mentions": 60
+        }
+      },
+      "decay_window": {
+        "overall": {
+          "precision": 0.8319983180910332,
+          "recall": 0.5861557868180384,
+          "f1": 0.6877681728435331,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8816937031222742,
+          "recall": 0.5367346938775512,
+          "f1": 0.6672675206447614,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7566269841269845,
+          "recall": 0.6611111111111112,
+          "f1": 0.7056514991774042,
+          "n_mentions": 60
+        }
+      },
+      "speaker_deixis": {
+        "overall": {
+          "precision": 0.8340166088510458,
+          "recall": 0.60242825607064,
+          "f1": 0.6995537155287574,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8655154369440083,
+          "recall": 0.5598116169544746,
+          "f1": 0.6798798843106695,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7862433862433865,
+          "recall": 0.6670634920634924,
+          "f1": 0.7217667055293344,
+          "n_mentions": 60
+        }
+      },
+      "combined": {
+        "overall": {
+          "precision": 0.8319983180910332,
+          "recall": 0.5861557868180384,
+          "f1": 0.6877681728435331,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.8816937031222742,
+          "recall": 0.5367346938775512,
+          "f1": 0.6672675206447614,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.7566269841269845,
+          "recall": 0.6611111111111112,
+          "f1": 0.7056514991774042,
+          "n_mentions": 60
+        }
+      },
+      "recency_floor": {
+        "overall": {
+          "precision": 0.569007482583642,
+          "recall": 1.0,
+          "f1": 0.7253088196197418,
+          "n_mentions": 151
+        },
+        "name_only": {
+          "precision": 0.5233211233211236,
+          "recall": 1.0,
+          "f1": 0.6870791920487337,
+          "n_mentions": 91
+        },
+        "pronoun_only": {
+          "precision": 0.6382984607984609,
+          "recall": 1.0,
+          "f1": 0.7792212177106874,
+          "n_mentions": 60
+        }
+      }
+    },
+    "query_metric": {
+      "oracle": {
+        "query_accuracy_all": 0.9666666666666667,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.96,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 1.0,
+        "q_total_pron": 28
+      },
+      "strict_cb": {
+        "query_accuracy_all": 0.7166666666666667,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.72,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.6428571428571429,
+        "q_total_pron": 28
+      },
+      "decay_window": {
+        "query_accuracy_all": 0.6666666666666666,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.64,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.42857142857142855,
+        "q_total_pron": 28
+      },
+      "speaker_deixis": {
+        "query_accuracy_all": 0.7666666666666667,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.8,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.7142857142857143,
+        "q_total_pron": 28
+      },
+      "combined": {
+        "query_accuracy_all": 0.7,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.68,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.6071428571428571,
+        "q_total_pron": 28
+      },
+      "recency_floor": {
+        "query_accuracy_all": 0.75,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.4,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.8571428571428571,
+        "q_total_pron": 28
+      },
+      "singleton_floor": {
+        "query_accuracy_all": 0.36666666666666664,
+        "q_total": 60,
+        "query_accuracy_identity_demanding": 0.4,
+        "q_total_iddem": 25,
+        "query_accuracy_pronoun_contributed": 0.10714285714285714,
+        "q_total_pron": 28
+      }
+    }
+  },
+  "probe_b2_direct": {
+    "n_probe_cases": 17,
+    "n_b2_cases": 8,
+    "per_arm": {
+      "strict_cb": {
+        "resolved_all": 0,
+        "resolved_b2": 0
+      },
+      "decay_window": {
+        "resolved_all": 4,
+        "resolved_b2": 3
+      },
+      "speaker_deixis": {
+        "resolved_all": 2,
+        "resolved_b2": 2
+      },
+      "combined": {
+        "resolved_all": 5,
+        "resolved_b2": 4
+      }
+    },
+    "details": [
+      {
+        "case": 1,
+        "passage_id": "g2_dense_sam_harry_blindman",
+        "pron": "he",
+        "gold": "Sam",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 2,
+        "passage_id": "g2_dense_willie_bounce_brown_river_rescue",
+        "pron": "him",
+        "gold": "Willie",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 3,
+        "passage_id": "g4_dense_harry_frisk_annie",
+        "pron": "He",
+        "gold": "Frisk",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 4,
+        "passage_id": "g4_dense_philip_stephen_robinson",
+        "pron": "He",
+        "gold": "Robinson_son",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": true,
+        "combined": true
+      },
+      {
+        "case": 5,
+        "passage_id": "g4_dense_philip_stephen_robinson",
+        "pron": "he",
+        "gold": "Robinson_son",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": true,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 6,
+        "passage_id": "g4_dense_philip_stephen_robinson",
+        "pron": "he",
+        "gold": "Robinson_son",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": true,
+        "combined": true
+      },
+      {
+        "case": 7,
+        "passage_id": "g5v_gentlehand_lad_dick_pony",
+        "pron": "him",
+        "gold": "Dick",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 8,
+        "passage_id": "g5v_sherman_roguish_student",
+        "pron": "He",
+        "gold": "Sherman",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 9,
+        "passage_id": "g5v_sherman_roguish_student",
+        "pron": "He",
+        "gold": "Sherman",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 10,
+        "passage_id": "g5v_tonish_colt",
+        "pron": "him",
+        "gold": "Tonish",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": true,
+        "speaker_deixis": false,
+        "combined": true
+      },
+      {
+        "case": 11,
+        "passage_id": "g5v_tonish_colt",
+        "pron": "him",
+        "gold": "colt",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 12,
+        "passage_id": "g6_dense_joab_ahimaaz_cushi_absalom_king",
+        "pron": "him",
+        "gold": "Absalom",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 13,
+        "passage_id": "g6v_duke_porter_voter",
+        "pron": "him",
+        "gold": "Duke",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 14,
+        "passage_id": "g6v_dying_boy_schoolmaster",
+        "pron": "him",
+        "gold": "boy",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": true,
+        "speaker_deixis": false,
+        "combined": true
+      },
+      {
+        "case": 15,
+        "passage_id": "g6v_joab_man_absalom",
+        "pron": "him",
+        "gold": "Joab",
+        "b2": false,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 16,
+        "passage_id": "g6v_joab_man_absalom",
+        "pron": "him",
+        "gold": "Absalom",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": false,
+        "speaker_deixis": false,
+        "combined": false
+      },
+      {
+        "case": 17,
+        "passage_id": "g6v_rip_van_bummel",
+        "pron": "him",
+        "gold": "Rip",
+        "b2": true,
+        "strict_cb": false,
+        "decay_window": true,
+        "speaker_deixis": false,
+        "combined": true
+      }
+    ]
+  },
+  "decay_sensitivity_combined": {
+    "strict_cb_pron_errors": 20,
+    "decay0.5_win3_pron_errors": 19,
+    "decay0.5_win4_pron_errors": 19,
+    "decay0.7_win3_pron_errors": 22,
+    "decay0.7_win4_pron_errors": 22,
+    "decay0.9_win3_pron_errors": 22,
+    "decay0.9_win4_pron_errors": 25
+  },
+  "driver_lever": "speaker_deixis",
+  "gold_path_combined": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl",
+  "gold_path_g5g6": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
+  "reproducibility_note": "strict_cb (5b266248f) + helpers + query machinery (e6a3a9ee8) + clean label + principle_b cell all imported verbatim, NEVER mutated. run_loop_discourse / enrich_dialogue / _deixis_filter / _pick_decay_window are NEW opt-in functions here.",
+  "prior_commits": {
+    "strict_cb_mechanism": "5b266248f",
+    "loop_cycle1_topic_continuity_null": "82492af76",
+    "loop_cycle2_principle_b_partial": "4cc041fcd",
+    "brain_fidelity_audit": "bd0faab3c",
+    "query_machinery_iddem_split": "e6a3a9ee8"
+  }
+}
