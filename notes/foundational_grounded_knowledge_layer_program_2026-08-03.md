@@ -29,7 +29,11 @@ seed + transfer) is already the vetted theory (Harnad/Cangelosi). The genuinely-
 to the DYNAMIC structure static grounding cannot give: the blocked-goal -> anger -> retaliate-
 toward-the-blocker temporal/causal mapping, which is what the minimal experiential simulation
 earns. This program therefore = REUSE the static grounded core + Harnad transfer + Sally-Anne ToM
-+ Spelke citations, and BUILD only the dynamic experiential layer on top.
++ Spelke citations, BUILD the dynamic experiential layer (2b), and MAKE THE FOUNDATION LIVING —
+a self-extending grounded STORE (3.5, USER first-class requirement) whose write-back qualification
+gate REUSES the already-certified `self_improving_loop` consolidation + false-consolidation
+detection, so the foundation is the self-improving reader whose improving target is its OWN
+grounded knowledge.
 
 ---
 
@@ -134,14 +138,27 @@ Every item below was DISK-VERIFIED (2026-08-03) before being cited. This is the 
 turns "design from scratch" into "build on what exists." Credit to the prior arcs (2026-07-10
 through 2026-08-02).
 
-**(A) BINDER brain-based experiential semantics — THE supplied grounded core for the affective/
-agentive layer. VERIFIED ON DISK: `data/corpora/binder/binder2016_ratings.csv`, 534 concepts ×
-65 experiential attributes** (Binder et al. 2016; attributes chosen for KNOWN NEURAL CORRELATES).
-Confirmed the emotion/drive/social block is present and exactly the right grounding type for this
-program — columns include `Angry, Fearful, Happy, Sad, Disgusted, Surprised, Benefit, Harm,
-Pleasant, Unpleasant, Social, Human, Self, Communication, Cognition, Caused, Consequential, Drive,
-Needs, Arousal`. Confirmed the rated ROWS include the very concepts the ~6yo affective foundation
-needs (`angry, happy, joy, love` all present as human-rated 0-6 vectors). This is Barsalou/
+**(A) BINDER brain-based experiential semantics — THE supplied grounded DIMENSION SPACE for the
+affective/agentive layer. VERIFIED ON DISK: `data/corpora/binder/binder2016_ratings.csv`, 535
+rated concepts × 85 columns (65 experiential attributes + metadata)** (Binder et al. 2016;
+attributes chosen for KNOWN NEURAL CORRELATES). Confirmed the emotion/drive/social/agency
+DIMENSIONS are present as COLUMNS and are exactly the right grounding type for this program:
+`Angry, Fearful, Happy, Sad, Disgusted, Surprised, Benefit, Harm, Pleasant, Unpleasant, Social,
+Human, Self, Communication, Cognition, Caused, Consequential, Drive, Needs, Arousal`.
+**CORRECTED REUSE CLAIM (disk-verified 2026-08-03, correcting the prior draft):** the load-bearing
+abstract emotion/social CONCEPTS are NOT rated ROWS and CANNOT be looked up. Verified: rows FOUND
+= `angry, happy, joy, love, awe, animosity, apology`; rows ABSENT = `anger, fear, afraid, sad,
+sadness, hate, hatred, REVENGE, PUNISH, HURT, HARM, HELP, kind, cruel`. The rated rows are
+dominated by CONCRETE nouns (`accordion, alligator, ambulance, apricot, asparagus, axe, banana`) —
+Binder's 2016 set is a mostly-concrete-vocabulary norming study, NOT an emotion-lexicon. Therefore:
+**Binder supplies the affect/agency DIMENSIONS (the grounded feature axes), and grounding the
+abstract concepts the foundation needs — anger, fear, revenge, harm, help — happens via
+GROUNDING-TRANSFER / COMPOSITION over those dimensions (1.5-B), NOT by table lookup.** This is not
+a limitation to apologize for — it is exactly on-theory (Harnad: a small directly-grounded base +
+transfer), and it is the RIGHT architecture: "revenge" SHOULD be a composed structure
+(Harm-dimension toward-other after-being-harmed-by-that-other), not a memorized rating vector.
+The Binder rows that DO exist (concrete objects + a handful of affect adjectives) seed the
+directly-grounded base; the abstract affect concepts compose over it. This is Barsalou/
 grounded-cognition operationalized (meaning = which brain systems a concept engages), and it is
 LOCK-CLEAN: human RATINGS are grounded axioms/data, NOT a borrowed distributional encoder — same
 status as supplying a dictionary. Prior MEASURED outcome (atom 29571, commit cc0045e42, per the
@@ -234,11 +251,13 @@ learned from a modest experience corpus; supplying it is the brain-faithful choi
 "route errors: missing-PRIMITIVE -> BUILD" rule, NOT a shortcut around earning:
 - The **agent/object distinction** and **agent-capable** signal — REUSE `hdlab/animacy_lexicon.py`
   (1.5-C), already built and glass-box. Not re-supplied.
-- The **grounded emotion/social/self-other/harm-benefit FEATURES** (what anger/fear/joy/care/
-  self/other/harm/help ARE) — REUSE the Binder emotion/drive/social/benefit/harm/self attributes
-  (1.5-A), human-rated grounded vectors, lock-clean. This REPLACES the first draft's "supply a
-  valence primitive by hand": Binder's `Harm`/`Benefit`/`Pleasant`/`Unpleasant`/`Angry`/`Fearful`
-  axes ARE the grounded valence, brain-derived, not invented.
+- The **grounded emotion/social/self-other/harm-benefit DIMENSIONS** (the axes along which
+  anger/fear/joy/care/self/other/harm/help are DEFINED) — REUSE the Binder emotion/drive/social/
+  benefit/harm/self ATTRIBUTE COLUMNS (1.5-A), brain-derived, lock-clean. This REPLACES the first
+  draft's "supply a valence primitive by hand": Binder's `Harm`/`Benefit`/`Pleasant`/`Unpleasant`/
+  `Angry`/`Fearful` axes ARE the grounded valence-space, brain-derived, not invented. NOTE (per the
+  corrected 1.5-A): abstract concepts like `anger`/`revenge`/`harm`/`help` are NOT Binder rows and
+  are grounded by COMPOSITION over these dimensions (next bullet), not by lookup.
 - The **who-is-affected / causal-role affectedness** (harm/help TOWARD a target) — REUSE the
   verb-affectedness lexicon (1.5-D). Not re-supplied.
 - The **appraisal DIMENSIONS as a computational schema** (goal-relevance, congruence, causal-
@@ -414,6 +433,89 @@ situated-structure machinery already does at a validated level.
 
 ---
 
+## 3.5 The grounded foundation is a LIVING, SELF-EXTENDING STORE (first-class architecture, USER)
+
+The foundation is NOT a static supplied table that is built once and frozen. It is a living store
+that ADDS to its own grounded knowledge whenever it grounds something NEW that QUALIFIES — i.e.
+the foundation IS the self-improving reader, and its improving target is its OWN grounded
+knowledge. All three pieces already exist in-project; this is composition, not invention.
+
+### Architecture (compose 3 existing pieces)
+1. **Supplied grounded CORE** = the Binder affect/agency DIMENSION space (1.5-A) + the reused
+   core primitives (animacy/agency 1.5-C, verb-affectedness 1.5-D) + the appraisal schema (2a) +
+   the earned dynamic mapping (2b). This is the seed the store starts from.
+2. **`hdlab/self_improving_loop.py` consolidation = THE QUALIFICATION GATE.** The already-built,
+   already-certified coherence-gated keep/revert controller (3 cycles, 4 fix-levers, 2 falsified;
+   atoms 29613-29625) is repurposed: instead of gating a coref fix, it gates a WRITE-BACK to the
+   grounded store. Its consolidation ledger + FALSE-CONSOLIDATION detection
+   ([[feedback_verify_self_improving_loop_via_consolidation_observability_false_consolidation_USER_2026-08-02]])
+   is exactly the mechanism that must guard the store from poison.
+3. **Harnad grounding-TRANSFER (1.5-B) = the GROWTH OPERATOR.** New concepts become grounded by
+   composition over already-grounded primitives; the store records the composition (provenance),
+   not a distributional guess.
+
+### What QUALIFIES to be written into the store (the gate — guard HARD; false-consolidation here
+poisons the foundation itself, which is worse than a transient reading error)
+- **(a) GROUNDING-TRANSFER**: composable from ALREADY-grounded primitives (inherits grounding, no
+  new experience needed) — e.g. "revenge" = Harm-toward-other-after-being-harmed-by-that-other,
+  every term of which is already grounded. WRITE (with the composition recorded as provenance).
+- **(b) EXPERIENTIAL**: grounded via the 2b simulation (the earned dynamic mapping). WRITE.
+- **(c) VERIFIED-RELATIONAL**: earned by error-driven differentiation over VERIFIED relations,
+  past a confidence/coherence gate. WRITE.
+- **NOT written**: distributional guesses (the exact failure mode of tonight's arc); low-confidence
+  entries below the coherence gate; anything the false-consolidation ledger flags as inconsistent
+  with the existing grounded store. REFUSE.
+
+### The grounded-store data structure (glass-box, inspectable, append-only-with-provenance)
+Each entry (one JSONL record per grounded concept, mirroring the substrate's existing
+append-only-with-provenance store convention):
+```
+{ concept, grounding_TYPE: {supplied_core | transfer | experiential | verified_relational},
+  grounding_VALUE: <dimension-vector for core, OR composition-expression for transfer,
+                    OR earned-mapping-ref for experiential>,
+  provenance: <source primitives + composition, OR simulation-episode-refs, OR relation-refs>,
+  confidence, consolidation_cycle, coherence_at_write, superseded_by }
+```
+Append-only (never overwrite; supersede-with-provenance, matching the store-write discipline);
+every entry is a small READABLE record (glass-box — no hidden embedding is ever written; the
+grounding VALUE for a composed concept is a symbolic composition expression, not an opaque vector).
+Inspectable: any concept's grounding can be traced back through its provenance chain to supplied
+core primitives (the transfer closure) or to simulation episodes / verified relations.
+
+### The write-back gate (mechanism)
+On a candidate new grounding: (1) classify its TYPE (a/b/c above); (2) compute coherence of the
+candidate against the existing store via the self_improving_loop coherence check; (3) run
+false-consolidation detection (does adding this entry make the store internally inconsistent, or
+contradict a higher-confidence existing grounding?); (4) KEEP (write, record consolidation_cycle
++ coherence_at_write) or REVERT (refuse, log to the false-consolidation ledger with reason). This
+is the SAME keep/revert controller already certified, pointed at the store instead of at a reading
+fix.
+
+### Can-fail (the headline safety metric = FALSE-CONSOLIDATION RATE)
+Pre-registration-shape: feed the store a stream of candidate groundings, a KNOWN fraction of which
+are CORRECT (valid transfer compositions / valid experiential groundings) and a KNOWN fraction
+INCORRECT (distributional guesses, contradictory compositions, low-confidence noise) — held-out,
+adversarially constructed.
+- **Discriminator**: does the store GROW with the correct groundings (write-acceptance rate on
+  correct candidates high) while REFUSING the incorrect ones (false-consolidation rate = fraction
+  of INCORRECT candidates wrongly written — LOW)?
+- **Envelope-fail bands**: PASS = high correct-acceptance AND false-consolidation rate below a
+  pre-set safety threshold, with the ledger correctly logging every refusal reason. PARTIAL =
+  refuses incorrect but also refuses too many correct (over-conservative gate — informative, tune
+  the coherence threshold). FAIL = false-consolidation rate not below the random/ungated floor
+  (the gate isn't discriminating — the store would self-poison; block the whole living-store
+  feature until fixed, because a poisoned foundation corrupts all downstream reading).
+- **Brain-fidelity note**: consolidation-gated write-back is the memory-systems analog of
+  systems consolidation (hippocampal->neocortical), where only coherent, schema-consistent
+  memories get consolidated and schema-INconsistent ones are gated/flagged — the false-
+  consolidation gate is the substrate's version of that schema-consistency check.
+
+This makes the foundation self-extending WITHOUT reintroducing the distributional-guessing failure
+the whole program exists to fix: the store only grows by grounded, provenance-carrying, coherence-
+gated additions, and its safety is a measured, headline metric.
+
+---
+
 ## 4. Lock-compatibility
 
 - **Supply-by-hand primitives**: explicitly authorized by the "route errors by flavor" rule
@@ -431,6 +533,12 @@ situated-structure machinery already does at a validated level.
   "appraisal-grounded goal/affect/social competency" as one MORE competency in the library
   (alongside coref, causal, ToM), not a replacement objective — composes rather than collapses
   the existing stack.
+- **Living self-extending store (3.5)**: lock-clean because every write is (a) transfer-composed
+  from grounded primitives, (b) experiential from the simulation, or (c) verified-relational past
+  a coherence gate — NEVER a distributional guess or a borrowed vector; the store holds symbolic
+  composition expressions + provenance, no hidden embeddings; the write-back gate REUSES the
+  already-certified self_improving_loop consolidation controller. Directly honors the USER
+  false-consolidation-observability directive.
 
 ## 5. Scope-note update (honest correction to a prior framing)
 
@@ -446,7 +554,7 @@ tracking, adjacency-causal inference) — this is a scoped correction, not a bla
 
 | Component | Status |
 |---|---|
-| **Binder experiential features** (emotion/drive/social/harm/benefit/self) `data/corpora/binder/binder2016_ratings.csv` (534×65, disk-verified) | **REUSED** — the SUPPLIED grounded valence/affect/self-other core (right grounding TYPE for affect, unlike the capped science-tie use) |
+| **Binder experiential DIMENSIONS** (emotion/drive/social/harm/benefit/self as COLUMNS) `data/corpora/binder/binder2016_ratings.csv` (535 rows × 85 cols, disk-verified) | **REUSED as the grounded DIMENSION SPACE** — right grounding TYPE for affect (unlike the capped science-tie use). Abstract concepts (anger/revenge/harm/help) are NOT rows → grounded by COMPOSITION over the dimensions, not lookup |
 | **animacy_lexicon.py** (agent/object, agent_capable) | **REUSED AS-IS** — Spelke agent-vs-object core knowledge, already glass-box |
 | **Verb-affectedness lexicon** (328 verbs, who-is-affected) | **REUSED** — harm/help causal-role + target-affectedness grounding |
 | **Harnad/Cangelosi grounding-transfer** (`notes/research_word_grounding_lexicon_..._2026-07-16.md`) | **REUSED** — the extension mechanism: grounded base + composition, no new experience |
@@ -457,6 +565,8 @@ tracking, adjacency-causal inference) — this is a scoped correction, not a bla
 | Appraisal-dimension SCHEMA (goal-relevance/congruence/causal-attribution/coping-potential, reading the reused grounded features) | NEW (small) — supplied by hand per Scherer CPM; a check-sequence over reused lexicons, not new grounding |
 | **Minimal grounding-simulation + earned DYNAMIC appraisal-outcome -> action-tendency mapping** (blocked-goal->anger->retaliate over time, held-out generalization) | **NEW — the ONLY substantial new build**; the temporal-causal structure no lexicon contains; first buildable artifact, spec in 2b |
 | Intentional-vs-accidental causal attribution label on CausalLinkRegister edges | NEW (small extension) |
+| **Living self-extending grounded STORE** (append-only-with-provenance, glass-box) | **NEW STRUCTURE, REUSED GATE** — data structure is new; the qualification gate = `hdlab/self_improving_loop.py` consolidation + false-consolidation detection REUSED (3.5); growth operator = Harnad transfer REUSED |
+| `hdlab/self_improving_loop.py` consolidation / false-consolidation ledger | REUSED as the store WRITE-BACK gate (was: reading-fix keep/revert controller) |
 
 ## 7. Recommended next step (not authorized by this doc)
 
