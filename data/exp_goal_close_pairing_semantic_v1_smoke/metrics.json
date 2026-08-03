@@ -1,0 +1,10 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "same-agent-preserved fixture PASS; mechanical-reachability irrelevant-grab fixture PASS; semantic-content-overlap correct-skip fixture PASS; real anne_causal_016 alignment-still-works fixture PASS; baseline module self-test (organ + lexical branch) PASS.",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.008038499858230352,
+  "ts_iso": "2026-08-03T05:52:44.502181+00:00",
+  "anchor_name": "goal_close_pairing_semantic_v1",
+  "run_mode": "smoke",
+  "seed": 20260803
+}

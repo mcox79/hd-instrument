@@ -1,0 +1,597 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "SAME_AGENT(baseline) recall=0.1111111111111111 fp=0.0. MECHANICAL_REACHABILITY recall=0.1111111111111111 fp=0.0 (gain=+0.000). SEMANTIC_CONTENT_PAIRING recall=0.1111111111111111 fp=0.0 (gain_over_mechanical=+0.000, total_gain=+0.000). vs coherence_recall=0.5555555555555556 coherence_fp=0.31 vs hand_matched_upper_bound_explicit=0.8888888888888888. RESIDUAL: extraction_bound=6 pairing_bound=3 recovered=0 (of 9). VERDICT=CAP_SEMANTIC_RESOLUTION_STILL_DEEP_FRONTIER. DIAGNOSIS=SEMANTIC_NEAREST_MATCH_BIAS: 3/9 goal-mediated items remain unpaired even under content-overlap gating because the nearest qualifying same-chapter clause is often a RESTATEMENT of the goal (same topic words recur when a character re-mentions their wish) rather than the true distal resolving event -- content overlap alone cannot discriminate SATISFY from RESTATE; this is the genuine semantic-inference residual (needs a satisfy-vs-thwart/discourse-final classifier, not more lexical overlap). 6/9 goal-mediated items have NO feeding goal-open extracted at all (upstream of pairing) -- these cannot be recovered by any pairing improvement; extraction breadth is the bottleneck for them.",
+  "summary": "CAP_SEMANTIC_RESOLUTION_STILL_DEEP_FRONTIER | same_agent_recall=0.1111111111111111 | mechanical_recall=0.1111111111111111 fp=0.0 | semantic_recall=0.1111111111111111 fp=0.0 | mechanical_gain=+0.000 semantic_gain=+0.000 | residual extraction_bound=6 pairing_bound=3",
+  "elapsed_s": 2.4578237999230623,
+  "ts_iso": "2026-08-03T05:52:48.756547+00:00",
+  "anchor_name": "goal_close_pairing_semantic_v1",
+  "run_mode": "full",
+  "seed": 20260803,
+  "n_chapters": 38,
+  "n_clauses": 14839,
+  "pipeline_elapsed_s": 1.9884234999772161,
+  "n_opens_broad_extractor": 471,
+  "close_marker_reachability_universe": {
+    "n_clauses_with_marker": 1136,
+    "n_clauses_total": 14839,
+    "build_elapsed_s": 0.05271079996600747
+  },
+  "arms": {
+    "same_agent_baseline": {
+      "n_proposed_links": 440,
+      "recall_goal_mediated": 0.1111111111111111,
+      "n_goal_mediated_total": 9,
+      "fp_rate": 0.0,
+      "n_negative_sampled": 200,
+      "n_flagged_total_pairs": 6,
+      "flagged_ids": [
+        "anne_causal_017"
+      ],
+      "per_item": [
+        {
+          "id": "anne_causal_001",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_002",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_003",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_004",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_005",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_006",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_007",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_008",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_009",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_010",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_011",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_012",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_013",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_014",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_015",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_016",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_017",
+          "goal_mediated": true,
+          "flagged": true
+        },
+        {
+          "id": "anne_causal_018",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_019",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_020",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_021",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_022",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_023",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_024",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_025",
+          "goal_mediated": false,
+          "flagged": false
+        }
+      ],
+      "organ_self_consistency_rate": 1.0
+    },
+    "mechanical_reachability": {
+      "n_proposed_links": 469,
+      "recall_goal_mediated": 0.1111111111111111,
+      "n_goal_mediated_total": 9,
+      "fp_rate": 0.0,
+      "n_negative_sampled": 200,
+      "n_flagged_total_pairs": 6,
+      "flagged_ids": [
+        "anne_causal_017"
+      ],
+      "per_item": [
+        {
+          "id": "anne_causal_001",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_002",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_003",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_004",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_005",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_006",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_007",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_008",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_009",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_010",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_011",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_012",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_013",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_014",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_015",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_016",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_017",
+          "goal_mediated": true,
+          "flagged": true
+        },
+        {
+          "id": "anne_causal_018",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_019",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_020",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_021",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_022",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_023",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_024",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_025",
+          "goal_mediated": false,
+          "flagged": false
+        }
+      ],
+      "organ_self_consistency_rate": 1.0
+    },
+    "semantic_content_pairing": {
+      "n_proposed_links": 469,
+      "recall_goal_mediated": 0.1111111111111111,
+      "n_goal_mediated_total": 9,
+      "fp_rate": 0.0,
+      "n_negative_sampled": 200,
+      "n_flagged_total_pairs": 7,
+      "flagged_ids": [
+        "anne_causal_017"
+      ],
+      "per_item": [
+        {
+          "id": "anne_causal_001",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_002",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_003",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_004",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_005",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_006",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_007",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_008",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_009",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_010",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_011",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_012",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_013",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_014",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_015",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_016",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_017",
+          "goal_mediated": true,
+          "flagged": true
+        },
+        {
+          "id": "anne_causal_018",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_019",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_020",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_021",
+          "goal_mediated": true,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_022",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_023",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_024",
+          "goal_mediated": false,
+          "flagged": false
+        },
+        {
+          "id": "anne_causal_025",
+          "goal_mediated": false,
+          "flagged": false
+        }
+      ],
+      "organ_self_consistency_rate": 1.0
+    }
+  },
+  "decomposition": {
+    "mechanical_gain_over_same_agent": 0.0,
+    "semantic_gain_over_mechanical": 0.0,
+    "total_gain_over_baseline": 0.0,
+    "n_goal_mediated_total": 9,
+    "n_extraction_bound": 6,
+    "n_pairing_bound": 3,
+    "n_recovered": 0,
+    "per_goal_mediated_item": [
+      {
+        "causal_id": "anne_causal_001",
+        "feeding_goal_ids": [
+          "anne_goal_012",
+          "anne_goal_013"
+        ],
+        "any_feeding_open_extracted": true,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "PAIRING_BOUND: open extracted but no arm paired it to this event"
+      },
+      {
+        "causal_id": "anne_causal_003",
+        "feeding_goal_ids": [
+          "anne_goal_004"
+        ],
+        "any_feeding_open_extracted": false,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "EXTRACTION_BOUND: no feeding goal-open was extracted at all"
+      },
+      {
+        "causal_id": "anne_causal_004",
+        "feeding_goal_ids": [
+          "anne_goal_014",
+          "anne_goal_015"
+        ],
+        "any_feeding_open_extracted": false,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "EXTRACTION_BOUND: no feeding goal-open was extracted at all"
+      },
+      {
+        "causal_id": "anne_causal_005",
+        "feeding_goal_ids": [
+          "anne_goal_011"
+        ],
+        "any_feeding_open_extracted": false,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "EXTRACTION_BOUND: no feeding goal-open was extracted at all"
+      },
+      {
+        "causal_id": "anne_causal_006",
+        "feeding_goal_ids": [
+          "anne_goal_012"
+        ],
+        "any_feeding_open_extracted": true,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "PAIRING_BOUND: open extracted but no arm paired it to this event"
+      },
+      {
+        "causal_id": "anne_causal_014",
+        "feeding_goal_ids": [
+          "anne_goal_021"
+        ],
+        "any_feeding_open_extracted": false,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "EXTRACTION_BOUND: no feeding goal-open was extracted at all"
+      },
+      {
+        "causal_id": "anne_causal_016",
+        "feeding_goal_ids": [
+          "anne_goal_001",
+          "anne_goal_002"
+        ],
+        "any_feeding_open_extracted": true,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "PAIRING_BOUND: open extracted but no arm paired it to this event"
+      },
+      {
+        "causal_id": "anne_causal_017",
+        "feeding_goal_ids": [
+          "anne_goal_019"
+        ],
+        "any_feeding_open_extracted": false,
+        "flagged_same_agent": true,
+        "flagged_mechanical_reachability": true,
+        "flagged_semantic_content": true,
+        "residual_class": "EXTRACTION_BOUND: no feeding goal-open was extracted at all"
+      },
+      {
+        "causal_id": "anne_causal_021",
+        "feeding_goal_ids": [
+          "anne_goal_020"
+        ],
+        "any_feeding_open_extracted": false,
+        "flagged_same_agent": false,
+        "flagged_mechanical_reachability": false,
+        "flagged_semantic_content": false,
+        "residual_class": "EXTRACTION_BOUND: no feeding goal-open was extracted at all"
+      }
+    ]
+  },
+  "comparison": {
+    "broad_extractor_1400331cc_6a25dd91d": {
+      "extraction_recall_explicit": 0.16666666666666666,
+      "recall_goal_mediated": 0.1111111111111111,
+      "fp_rate": 0.0,
+      "source": "data/exp_goal_extractor_broad_v1/metrics.json"
+    },
+    "coherence_baseline": {
+      "recall_integration": 0.5555555555555556,
+      "fp_rate": 0.31,
+      "source_commit": "912077b81"
+    },
+    "hand_matched_upper_bound_explicit": 0.8888888888888888
+  },
+  "hard_pass_gate": {
+    "recall_threshold": 0.4,
+    "fp_rate_threshold": 0.155,
+    "hard_pass": false,
+    "lifted_materially_vs_baseline": false,
+    "diagnosis_if_not_hard_pass": "SEMANTIC_NEAREST_MATCH_BIAS: 3/9 goal-mediated items remain unpaired even under content-overlap gating because the nearest qualifying same-chapter clause is often a RESTATEMENT of the goal (same topic words recur when a character re-mentions their wish) rather than the true distal resolving event -- content overlap alone cannot discriminate SATISFY from RESTATE; this is the genuine semantic-inference residual (needs a satisfy-vs-thwart/discourse-final classifier, not more lexical overlap). 6/9 goal-mediated items have NO feeding goal-open extracted at all (upstream of pairing) -- these cannot be recovered by any pairing improvement; extraction breadth is the bottleneck for them."
+  },
+  "arms_differ_verified": true,
+  "arms_differ_mechanism_level": true,
+  "arms_differ_outcome_level": false,
+  "arms_differ_exempted_note": "OUTCOME-level (flagged 9-item causal-gold ids) TIES across all 3 arms despite MECHANISM-level (proposed open->close link sets) differing (n_proposed_links 440/469/469, distinct close_clause_idx sets) -- a genuine finding (broadened reachability + content-gating changed WHICH clauses get proposed as closes, but not enough to flip any of the 9 narrow gold items from unflagged to flagged), not a digest-compare bug.",
+  "arms_digest": {
+    "mechanism_level": {
+      "same_agent": "b8e8244f842c0d9ec428446e45fde9beec4adc648bd77c6d2b243813a5cd3da9",
+      "mechanical_reachability": "1c683e2780750e424bcf60b0e293b01f363f31733dcd56543d4b019fd2120443",
+      "semantic_content_pairing": "2587cf542988796e12b145287d4f98263392a211e4099f4749cb19ad089518f4"
+    },
+    "outcome_level": {
+      "same_agent": "9be787533194cffbfbd55f44c3b95182d9c4059e0c0b2d55ffad4556e5d5c6e9",
+      "mechanical_reachability": "9be787533194cffbfbd55f44c3b95182d9c4059e0c0b2d55ffad4556e5d5c6e9",
+      "semantic_content_pairing": "9be787533194cffbfbd55f44c3b95182d9c4059e0c0b2d55ffad4556e5d5c6e9"
+    }
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_single_pass",
+  "deterministic_seeding": true,
+  "dispatched": false,
+  "dispatch_note": "measurement-only per task instruction; not queued, not shipped remote."
+}
