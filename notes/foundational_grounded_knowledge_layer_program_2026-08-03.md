@@ -19,17 +19,17 @@ anger actually *are*. This program builds that ground, once, non-textually, so r
 map words onto it instead of trying to originate it from word co-occurrence.
 
 KB-check (bash tools/substrate_query.sh, tau 0.15, k5, v2 schema, 2026-08-03): no existing
-grounding-simulation or emotion-appraisal prior art in the substrate. Top hits are dictionary-level
-concept-node entries (`appraisal`, `false belief`, `retaliation`, `simulation` — WordNet/definitional,
-not a grounding mechanism) plus the ALREADY-BANKED `theory_of_mind_sally_anne_nested_hrr_v1`
-cell (HARD_PASS, `preregs/2026-06-27_theory_of_mind_sally_anne_nested_hrr_v1.md`,
-`data/exp_theory_of_mind_sally_anne_nested_hrr_v1/metrics.json`) and a language/world-model
-framing note (`notes/drill_language_world_model_framing.md`) that already carries the Spelke
-core-knowledge citations verbatim (Spelke & Kinzler 2007 *Developmental Science*; Spelke 2000
-*American Psychologist*; Revencu 2023 *Mind & Language* review of Spelke's *What Babies Know*).
-**This program is genuinely new** (no grounding-simulation exists) but **builds on, does not
-duplicate**: the Sally-Anne ToM organ (cite, extend to appraisal-driven false-belief, don't
-re-derive) and the Spelke citation chain already vetted in `drill_language_world_model_framing.md`.
+grounding-SIMULATION or dynamic-appraisal-earning prior art. BUT — and this is the load-bearing
+correction to the first draft of this doc — we have already done SUBSTANTIAL STATIC grounding
+work that this program must build on, not reinvent. See section 1.5 for the disk-verified
+inventory. The one-line version: the SUPPLIED grounded core the developmental science calls for
+(section 2a) is already largely ON DISK (Binder experiential features incl. emotion/drive/social;
+animacy/agency lexicon; verb-affectedness/who-is-affected), and the EXTENSION mechanism (grounded
+seed + transfer) is already the vetted theory (Harnad/Cangelosi). The genuinely-new part shrinks
+to the DYNAMIC structure static grounding cannot give: the blocked-goal -> anger -> retaliate-
+toward-the-blocker temporal/causal mapping, which is what the minimal experiential simulation
+earns. This program therefore = REUSE the static grounded core + Harnad transfer + Sally-Anne ToM
++ Spelke citations, and BUILD only the dynamic experiential layer on top.
 
 ---
 
@@ -128,6 +128,92 @@ goal/affect/social content actually calls on, in build order):
 
 ---
 
+## 1.5 Prior grounding work already done — disk-verified inventory + reuse plan
+
+Every item below was DISK-VERIFIED (2026-08-03) before being cited. This is the correction that
+turns "design from scratch" into "build on what exists." Credit to the prior arcs (2026-07-10
+through 2026-08-02).
+
+**(A) BINDER brain-based experiential semantics — THE supplied grounded core for the affective/
+agentive layer. VERIFIED ON DISK: `data/corpora/binder/binder2016_ratings.csv`, 534 concepts ×
+65 experiential attributes** (Binder et al. 2016; attributes chosen for KNOWN NEURAL CORRELATES).
+Confirmed the emotion/drive/social block is present and exactly the right grounding type for this
+program — columns include `Angry, Fearful, Happy, Sad, Disgusted, Surprised, Benefit, Harm,
+Pleasant, Unpleasant, Social, Human, Self, Communication, Cognition, Caused, Consequential, Drive,
+Needs, Arousal`. Confirmed the rated ROWS include the very concepts the ~6yo affective foundation
+needs (`angry, happy, joy, love` all present as human-rated 0-6 vectors). This is Barsalou/
+grounded-cognition operationalized (meaning = which brain systems a concept engages), and it is
+LOCK-CLEAN: human RATINGS are grounded axioms/data, NOT a borrowed distributional encoder — same
+status as supplying a dictionary. Prior MEASURED outcome (atom 29571, commit cc0045e42, per the
+coordinator; the on-disk cell I verified is `data/exp_wave14_binder_ratio_v1/metrics.json` =
+BINDER_RS_CONFIRMED, a representational-saturation/self-averaging result, a separate use): direct-
+supply CAPPED for ABSTRACT SCIENCE reasoning-ties (~5% vocab coverage; science terms are
+definitional/propositional = WRONG grounding TYPE for Binder's experiential axes). **The key
+insight this program acts on: that cap was for SCIENCE, not for EMOTION/AFFECT/AGENCY. Binder's
+Emotion/Drive/Social/Benefit/Harm/Self/Human attributes are EXACTLY the right grounding type for
+anger/fear/joy/care/revenge/self-other.** REUSE: Binder emotion/drive/social/benefit/harm/self
+attributes = the SUPPLIED grounded feature-vectors for affective/social concepts, replacing the
+"supply a valence primitive by hand" placeholder in the first draft (2a). (Optional sourcing: the
+786-concept AI-extended set, arXiv 2505.10718, if obtainable — extends coverage the same lock-
+clean way; NOT required for the first build.)
+
+**(B) SYMBOL-GROUNDING THEORY = the extension mechanism. VERIFIED: `notes/research_word_grounding_
+lexicon_structure_content_unification_2026-07-16.md`** (+ `notes/exp_dev_handoff_research_word_
+grounding_lexicon_2026-07-16.md`). Harnad (1990): a small directly-grounded base (iconic +
+categorical) + GROUNDING TRANSFER supports a much larger abstract vocabulary via linguistic
+composition, with NO further sensorimotor experience. Cangelosi & Riga (2006): simulated-agent
+grounding transfer. The note explicitly frames this as "small measured/relational foundation
+grounds the rest via composition" and pairs it with role-filler binding (TPR/HRR/SPA) as the
+published mechanism uniting compositional STRUCTURE with grounded CONTENT. REUSE: this is the
+supply-a-small-grounded-core-then-transfer architecture for section 2a — the Binder-rated concepts
+are the directly-grounded base; abstract goal/affect words the corpus introduces that AREN'T Binder-
+rated get grounded by COMPOSITION over the base + situated structure, not by new experience. This
+IS the "supply grounded core primitives + earn/transfer the extension" theory, already vetted.
+
+**(C) AGENCY / core-knowledge lexicon — ALREADY BUILT. VERIFIED: `hdlab/animacy_lexicon.py`**
+(2026-08-02, glass-box WordNet lookup word/lemma -> {animacy, category, agent_capable}, with a
+scrambled-lexicon can-fail control, and documented WordNet failure-mode guards). REUSE AS-IS: this
+IS the Spelke agent-vs-object core-knowledge distinction (1a/1b), already grounded and glass-box —
+it supplies the `agent_capable` signal that fills the agent slot the appraisal computation runs
+over. No need to build agent/object grounding; it exists.
+
+**(D) VERB-AFFECTEDNESS "who is affected" lexicon — ALREADY BUILT (credit; number per coordinator/
+atom 2026-07-21, not re-measured here).** 328 verbs, Levin/VerbNet/Dowty/Beavers/Tsunoda;
+reported to lift McGuffey semantic 0.529 -> 0.912 (with a definitional-agreement-ceiling caveat —
+the lift is partly agreement-with-a-definitional-standard, treat as a strong tool not a pure
+capability win). Related on-disk artifacts confirmed present (`notes/research_brain_patienthood_
+affectedness_grounding_2026-07-20.md`, `notes/research_cheapest_glassbox_grounding_for_perinstance_
+affectedness_2026-07-20.md`). REUSE: this grounds the HARM/HELP causal-role dimension (1c/1f) —
+who is affected by an action, and how — which feeds directly into the appraisal congruence +
+target-valence dimensions. The situated-structure parse (agent->target->action) gets its
+target-AFFECTEDNESS from this lexicon rather than a hand rule.
+
+**(E) Prior grounding-scoping / convergence work (context, cited not duplicated):**
+`notes/convergence_architecture_grounding_is_the_verifier_2026-07-10.md`,
+`notes/exp_dev_handoff_research_math_social_abstract_grounding_core_expansion_2026-07-10.md`,
+`notes/drill_grounding_scoping_is_it_subsumed_by_foundation_hub_or_separate_2026-07-15.md`,
+`notes/grounding_work_lookback_synthesis_2026-07-26.md`. These establish the "grounding is the
+verifier" + "abstract concepts ground by relay from anchors" framing this program inherits.
+
+**(F) Sally-Anne false-belief ToM organ — HARD_PASS, REUSE AS-IS** (`data/exp_theory_of_mind_
+sally_anne_nested_hrr_v1/metrics.json`; `preregs/2026-06-27_...`). Cite, extend to feed appraisal
+(appraisal runs over the agent's REPRESENTED state), do not re-derive nested-belief representation.
+
+**(G) Spelke core-knowledge citation chain — REUSE** (already verbatim in `notes/drill_language_
+world_model_framing.md`: Spelke & Kinzler 2007 *Dev. Sci.*; Spelke 2000 *Am. Psychologist*;
+Revencu 2023 *Mind & Language*). Section 1's science leads with these; not re-sourced.
+
+**What this leaves as GENUINELY NEW** (the only thing the simulation must build): the DYNAMIC
+appraisal-outcome -> action-tendency mapping over TIME (blocked-goal-event -> anger-appraisal ->
+retaliate-toward-the-identified-blocker), and its generalization to held-out agents/goals. Static
+grounding (A-D) gives the FEATURES (what anger/harm/help/self-other/agent ARE, as grounded vectors);
+it does NOT give the DYNAMICS (that a goal-block BY an agent PRODUCES anger which MOTIVATES targeted
+retaliation over subsequent timesteps). That temporal-causal structure is not in any lexicon or
+rating table — it is exactly the pre-literate experiential regularity a child acquires by living
+through goal-blocking episodes, and it is what section 2b's minimal simulation earns.
+
+---
+
 ## 2. How to ground it brain-faithfully, no borrow, not from text
 
 The crux constraint: an LLM/embedding-borrow is forbidden (it would just be re-importing text
@@ -142,26 +228,40 @@ described one.
 
 ### 2a. The supply-vs-earn split
 
-**SUPPLY BY HAND** (innate/near-innate core knowledge — developmental evidence places these too
-early, too fast, and too cross-species-general to be plausibly LEARNED from any modest amount of
-experience; this matches the "build-primitive-by-hand" error-routing rule
-[[feedback route errors: missing-PRIMITIVE -> BUILD]] and is consistent with "capability dev is
-goal, cert-grade is instrument" — bootstrapping a primitive by hand is a legitimate build step,
-not a shortcut around earning):
-- The **agent/object distinction** and the representational slot for **goal** (an agent has an
-  outcome it is directed toward, with a preference ordering) — Spelke-core, present at 3-6mo,
-  not learned from any experience corpus a substrate could run.
-- The **appraisal DIMENSIONS** themselves (goal-relevance, congruence, causal-attribution-to-agent,
-  coping-potential) as a fixed small computational schema (Scherer's Component Process Model is
-  explicitly a SEQUENCE OF CHECKS, not a learned classifier) — the *architecture* of appraisal is
-  supplied, the same way object-permanence's continuity/cohesion checks are supplied.
-- The **self/other distinction** and a **valence primitive** (help/harm as a signed scalar on an
-  action's effect on another agent's goal-state) — already partially present via the 2026-08-03
-  situated-structure reframe (bind agent->target->action); this program adds the valence slot.
-- The **false-belief/nested-belief machinery** — already built (Sally-Anne organ), reuse as-is.
+**SUPPLY (mostly ALREADY ON DISK — see 1.5; supply-by-hand only where nothing exists yet)** —
+innate/near-innate core knowledge, developmentally too early/fast/cross-species-general to be
+learned from a modest experience corpus; supplying it is the brain-faithful choice per the
+"route errors: missing-PRIMITIVE -> BUILD" rule, NOT a shortcut around earning:
+- The **agent/object distinction** and **agent-capable** signal — REUSE `hdlab/animacy_lexicon.py`
+  (1.5-C), already built and glass-box. Not re-supplied.
+- The **grounded emotion/social/self-other/harm-benefit FEATURES** (what anger/fear/joy/care/
+  self/other/harm/help ARE) — REUSE the Binder emotion/drive/social/benefit/harm/self attributes
+  (1.5-A), human-rated grounded vectors, lock-clean. This REPLACES the first draft's "supply a
+  valence primitive by hand": Binder's `Harm`/`Benefit`/`Pleasant`/`Unpleasant`/`Angry`/`Fearful`
+  axes ARE the grounded valence, brain-derived, not invented.
+- The **who-is-affected / causal-role affectedness** (harm/help TOWARD a target) — REUSE the
+  verb-affectedness lexicon (1.5-D). Not re-supplied.
+- The **appraisal DIMENSIONS as a computational schema** (goal-relevance, congruence, causal-
+  attribution-to-agent, coping-potential) — SUPPLY BY HAND (genuinely not on disk): a fixed small
+  sequence-of-checks per Scherer's Component Process Model (explicitly a check-sequence, not a
+  learned classifier), the same status as object-permanence's continuity/cohesion checks. This
+  schema READS its inputs from the reused grounded features above (Binder valence, animacy agent-
+  capability, verb-affectedness target-role) rather than from hand-invented scalars.
+- The **goal representational slot** (an agent directed at an outcome with a preference) — SUPPLY
+  minimally as the simulation's state type (2b); the Trabasso goal->causal organ already consumes
+  goal states, so this is a slot, not a new grounding.
+- The **false-belief/nested-belief machinery** — REUSE the Sally-Anne organ (1.5-F), as-is.
 
-**EARN VIA A MINIMAL GROUNDING SIMULATION** (the genuinely experiential, error-driven part —
-this is where "you can't learn it from a book" gets its buildable answer):
+**EXTENSION beyond the directly-grounded base** — REUSE the Harnad/Cangelosi grounding-transfer
+mechanism (1.5-B): affective/goal words the corpus introduces that are NOT Binder-rated get
+grounded by COMPOSITION over the Binder base + situated structure (e.g. "revenge" is not a Binder
+row, but composes as harm-valence [Binder Harm] toward-other [self/other from binding] after-being-
+harmed-by-that-other [the dynamic mapping earned in 2b]). No new sensorimotor/experiential data
+needed for the extension — that is the whole point of grounding transfer.
+
+**EARN VIA A MINIMAL GROUNDING SIMULATION** (the ONLY genuinely-new build — the dynamic/temporal
+structure that no lexicon or rating table contains, per 1.5's "what's genuinely new"; this is
+where "you can't learn it from a book" gets its buildable answer):
 - The MAPPING from (goal-blocked, agent-caused, high coping-potential) -> retaliation-toward-
   the-blocker is NOT supplied as a hand rule. It is EARNED by having the substrate accumulate
   many simulated episodes, each with a concrete outcome (did retaliating vs. not-retaliating
@@ -210,12 +310,15 @@ prevents reaching true), across many (goal, blocker-identity, world-configuratio
 Held-out slices: novel blocker identities, novel goal-types, novel world configurations — the
 can-fail test below requires generalization, not memorization of specific (agent,goal) pairs.
 
-**Appraisal computation** (SUPPLIED architecture, per 2a): after each event, compute the fixed
-dimension-vector (goal-relevance: does this event touch MY goal; congruence: did it help or hurt;
-causal-attribution: was there an identifiable AGENT cause vs. accidental/environmental;
-coping-potential: do I have an available action that could address the blocker). This is a
-deterministic function of the world-state + action-log, NOT a learned component — it is the
-architecture, same status as the object-permanence continuity check.
+**Appraisal computation** (SUPPLIED architecture, per 2a; reads REUSED grounded features): after
+each event, compute the fixed dimension-vector (goal-relevance: does this event touch MY goal;
+congruence: did it help or hurt — sourced from Binder Harm/Benefit valence [1.5-A] + verb-
+affectedness target-role [1.5-D]; causal-attribution: was there an identifiable AGENT cause
+[animacy_lexicon agent_capable, 1.5-C] vs. accidental/environmental; coping-potential: do I have
+an available action that could address the blocker). This is a deterministic function of world-
+state + action-log + the reused grounded lexicons, NOT a learned component — same status as the
+object-permanence continuity check. Note it consumes the STATIC grounded core rather than
+re-inventing valence/agency inline.
 
 **What is EARNED** (the actual learning target, glass-box/error-driven, FHRR-native): given the
 appraisal-vector for an episode's outcome, learn the ACTION-TENDENCY mapping
@@ -343,18 +446,24 @@ tracking, adjacency-causal inference) — this is a scoped correction, not a bla
 
 | Component | Status |
 |---|---|
-| Spelke core-knowledge citations | REUSED (already in `notes/drill_language_world_model_framing.md`, verbatim, disk-verified) |
+| **Binder experiential features** (emotion/drive/social/harm/benefit/self) `data/corpora/binder/binder2016_ratings.csv` (534×65, disk-verified) | **REUSED** — the SUPPLIED grounded valence/affect/self-other core (right grounding TYPE for affect, unlike the capped science-tie use) |
+| **animacy_lexicon.py** (agent/object, agent_capable) | **REUSED AS-IS** — Spelke agent-vs-object core knowledge, already glass-box |
+| **Verb-affectedness lexicon** (328 verbs, who-is-affected) | **REUSED** — harm/help causal-role + target-affectedness grounding |
+| **Harnad/Cangelosi grounding-transfer** (`notes/research_word_grounding_lexicon_..._2026-07-16.md`) | **REUSED** — the extension mechanism: grounded base + composition, no new experience |
+| Spelke core-knowledge citations | REUSED (`notes/drill_language_world_model_framing.md`, verbatim, disk-verified) |
 | Sally-Anne false-belief ToM organ | REUSED AS-IS (HARD_PASS, `data/exp_theory_of_mind_sally_anne_nested_hrr_v1/metrics.json`) |
 | Situated-structure agent->target->action->valence parse | REUSED, in-flight test a7a370e2 becomes the reading-side FEEDER into the grounded function |
 | Coref / situation_model_accumulate / CausalLinkRegister / Trabasso goal->causal | REUSED AS-IS, become CONSUMERS of the grounded appraisal function |
-| Appraisal-dimension architecture (goal-relevance/congruence/causal-attribution/coping-potential) | NEW — supplied by hand per Scherer CPM |
-| Minimal grounding-simulation (agents/goals/block/retaliate/help/withdraw, held-out generalization) | NEW — first buildable artifact, spec in section 2b |
-| Earned appraisal-outcome -> action-tendency mapping | NEW — the genuinely-earned, error-driven, glass-box learning target |
+| Appraisal-dimension SCHEMA (goal-relevance/congruence/causal-attribution/coping-potential, reading the reused grounded features) | NEW (small) — supplied by hand per Scherer CPM; a check-sequence over reused lexicons, not new grounding |
+| **Minimal grounding-simulation + earned DYNAMIC appraisal-outcome -> action-tendency mapping** (blocked-goal->anger->retaliate over time, held-out generalization) | **NEW — the ONLY substantial new build**; the temporal-causal structure no lexicon contains; first buildable artifact, spec in 2b |
 | Intentional-vs-accidental causal attribution label on CausalLinkRegister edges | NEW (small extension) |
 
 ## 7. Recommended next step (not authorized by this doc)
 
-Design research is complete. The next step is a pre-reg for the 2b simulation cell (small,
+Design research is complete, and the revision confirms the buildable surface is SMALL because the
+static grounded core already exists (1.5). The next step is a pre-reg for the 2b simulation cell
+— which now only has to earn the DYNAMIC mapping, reading grounded features from the reused
+Binder/animacy/affectedness lexicons rather than inventing them (small,
 CPU-cheap, discrete-world, no text) with the 2c can-fail bands — that is an exp_dev-shaped
 build, not a design task, and is intentionally NOT dispatched from this doc per the task
 constraint (design research only, no cell authoring). Flagging it as the concrete next action
