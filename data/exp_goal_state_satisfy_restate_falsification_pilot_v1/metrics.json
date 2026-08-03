@@ -1,0 +1,101 @@
+{
+  "verdict": "FALSIFIED_FOR_THIS_OPERATIONALIZATION",
+  "verdict_msg": "MEASURED (this run): coherence-margin mechanism arm produces a candidate-TEXT-BLIND delta_close_minus_repeat in all 3 cases (the function never reads candidate text -- only which hypothesis-role to bind under -- verified by construction, not assumed); it therefore CANNOT rank satisfy above restate (0/3 by definition, not merely 0/3 measured). Content-overlap baseline (arm ii, MEASURED fresh on these 3 hand-verified real spans, not reused from atom 29634/29639's original 9-item set) ranks satisfy above restate correctly on 1/3 cases -- i.e. overlap does NOT cleanly fail here either (mixed), which is itself informative: on these 3 SPECIFIC spans the satisfy text happens to use different surface vocabulary from the goal ('Puffs? Of course...' does not repeat 'puffed sleeves') while restate repeats the goal's own words verbatim, so overlap's known over-firing failure mode (atom 29634 recall=0.556 FP=0.31 over a larger 18-item set) does not uniformly reproduce on this specific N=3 hand-picked slice -- caution against over-reading either number given N=3. Root-cause diagnosis for the coherence-margin arm: AccumulateRegister's bind/bundle/cleanup-argmax primitives are sensitive ONLY to structural collision patterns (how many facts compete for the same bound key), never to literal candidate content (idx_vecs/role_vecs are content-agnostic random unit-phase vectors) -- the design's proposed counterfactual-write recipe (Section 2) requires the EXPERIMENTER to already choose which hypothesis (transition vs repeat) to test; the margin computed downstream cannot make that choice FROM the candidate's text, so it cannot discriminate satisfy from restate as literally specified. This is a genuine negative on THIS operationalization of fork (a), not evidence the deeper idea (coherence/prediction-error settling per Kintsch CI, Section 1) is wrong -- it says the specific minimal transplant of route_passage's margin computation needs to be wired to REAL relational content (e.g. the already-built, already-populated CausalLinkRegister with its 182 real proposed links, atom 29636) rather than an arbitrary role-hypothesis toggle on an otherwise-empty register, before it can have anything content-correlated to lean on. Side-observation (agent-shift heuristic, NOT the coherence-margin claim, a distinct and much simpler mechanism): satisfy-event speaker differs from the goal-holder AND restate-event speaker matches the goal-holder in 1/3 cases -- reported for completeness, explicitly NOT claimed as validating the coherence-margin mechanism.",
+  "summary": "FALSIFICATION PILOT N=3: coherence-margin mechanism (arm i) is candidate-text-blind by construction (0/3, proven not just measured); content-overlap (arm ii) correct on 1/3; random floor (arm iii) correct on 1/3. Recommend: do NOT scale fork (a) as literally specified in the design doc; if pursued further, wire the margin computation to real extracted relational content (CausalLinkRegister populated from atom 29636's 182 links) rather than an arbitrary per-candidate hypothesis-role toggle.",
+  "elapsed_s": 0.007928399834781885,
+  "ts_iso": "2026-08-03T07:52:29.172218+00:00",
+  "anchor_name": "goal_state_satisfy_restate_falsification_pilot_v1",
+  "run_mode": "full",
+  "seed_base": 20260803,
+  "d": 512,
+  "max_event_slots": 4,
+  "result": {
+    "per_case": [
+      {
+        "case_id": "anne_goal_001_causal_016",
+        "goal_holder": "Anne",
+        "source": "data/litbank/original/45_anne_of_green_gables.txt lines ~2753-2755 (open), ~6982-6983 (satisfy, ch25), ~5959-5963 (restate, ch21)",
+        "coherence_margin_mechanism": {
+          "coherence_if_treated_as_satisfy_close": 0.5162236392498016,
+          "coherence_if_treated_as_restate_repeat": 5.960464477539063e-08,
+          "delta_close_minus_repeat": 0.5162235796451569
+        },
+        "overlap_satisfy": 0.0,
+        "overlap_restate": 0.125,
+        "overlap_ranks_satisfy_over_restate": false,
+        "agent_goal_holder": "Anne",
+        "agent_satisfy_event": "Mrs. Lynde",
+        "agent_restate_event": "Anne",
+        "agent_shift_satisfy_differs_from_holder": true,
+        "agent_shift_restate_differs_from_holder": false
+      },
+      {
+        "case_id": "anne_goal_002_causal_016",
+        "goal_holder": "Matthew",
+        "source": "data/litbank/original/45_anne_of_green_gables.txt lines ~6774-6776 (open), ~6982-6983 (satisfy, ch25), ~6960-6962 (restate, same ch25 scene, pre-resolution deliberation)",
+        "coherence_margin_mechanism": {
+          "coherence_if_treated_as_satisfy_close": 0.573762908577919,
+          "coherence_if_treated_as_restate_repeat": 5.960464477539063e-08,
+          "delta_close_minus_repeat": 0.5737628489732742
+        },
+        "overlap_satisfy": 0.03333333333333333,
+        "overlap_restate": 0.06451612903225806,
+        "overlap_ranks_satisfy_over_restate": false,
+        "agent_goal_holder": "Matthew",
+        "agent_satisfy_event": "Mrs. Lynde",
+        "agent_restate_event": "UNKNOWN",
+        "agent_shift_satisfy_differs_from_holder": true,
+        "agent_shift_restate_differs_from_holder": true
+      },
+      {
+        "case_id": "anne_goal_012_causal_001",
+        "goal_holder": "Gilbert",
+        "source": "data/litbank/original/45_anne_of_green_gables.txt lines ~10610-10617 (open), ~10673-10675 (satisfy, ch38), ~10621-10622 (restate, same ch38 scene, before the thanking)",
+        "coherence_margin_mechanism": {
+          "coherence_if_treated_as_satisfy_close": 0.5918501876294613,
+          "coherence_if_treated_as_restate_repeat": 1.1920928955078125e-07,
+          "delta_close_minus_repeat": 0.5918500684201717
+        },
+        "overlap_satisfy": 0.08,
+        "overlap_restate": 0.03571428571428571,
+        "overlap_ranks_satisfy_over_restate": true,
+        "agent_goal_holder": "Gilbert",
+        "agent_satisfy_event": "UNKNOWN",
+        "agent_restate_event": "Anne",
+        "agent_shift_satisfy_differs_from_holder": true,
+        "agent_shift_restate_differs_from_holder": true
+      }
+    ],
+    "n_cases": 3,
+    "coherence_margin_discriminates_satisfy_over_restate": false,
+    "n_overlap_ranks_satisfy_correct": 1,
+    "n_agent_shift_ranks_correct": 1,
+    "n_random_ranks_satisfy_correct": 1,
+    "random_ranks_satisfy_raw": [
+      false,
+      false,
+      true
+    ],
+    "mech_outputs_identical_across_cases_sanity": false,
+    "arms_differ_verified": false,
+    "arms_differ_exempted": [
+      [
+        "coherence_margin(satisfy_candidate)",
+        "coherence_margin(restate_candidate)"
+      ]
+    ],
+    "arms_differ_exempted_note": "Per-case mechanism output is IDENTICAL for the satisfy and restate candidate because coherence_mechanism_score(case_seed) takes no candidate-text argument -- this is the falsification finding itself, declared explicitly rather than silently passing an arms-must-differ gate that was never designed to catch this class.",
+    "verdict": "FALSIFIED_FOR_THIS_OPERATIONALIZATION",
+    "verdict_msg": "MEASURED (this run): coherence-margin mechanism arm produces a candidate-TEXT-BLIND delta_close_minus_repeat in all 3 cases (the function never reads candidate text -- only which hypothesis-role to bind under -- verified by construction, not assumed); it therefore CANNOT rank satisfy above restate (0/3 by definition, not merely 0/3 measured). Content-overlap baseline (arm ii, MEASURED fresh on these 3 hand-verified real spans, not reused from atom 29634/29639's original 9-item set) ranks satisfy above restate correctly on 1/3 cases -- i.e. overlap does NOT cleanly fail here either (mixed), which is itself informative: on these 3 SPECIFIC spans the satisfy text happens to use different surface vocabulary from the goal ('Puffs? Of course...' does not repeat 'puffed sleeves') while restate repeats the goal's own words verbatim, so overlap's known over-firing failure mode (atom 29634 recall=0.556 FP=0.31 over a larger 18-item set) does not uniformly reproduce on this specific N=3 hand-picked slice -- caution against over-reading either number given N=3. Root-cause diagnosis for the coherence-margin arm: AccumulateRegister's bind/bundle/cleanup-argmax primitives are sensitive ONLY to structural collision patterns (how many facts compete for the same bound key), never to literal candidate content (idx_vecs/role_vecs are content-agnostic random unit-phase vectors) -- the design's proposed counterfactual-write recipe (Section 2) requires the EXPERIMENTER to already choose which hypothesis (transition vs repeat) to test; the margin computed downstream cannot make that choice FROM the candidate's text, so it cannot discriminate satisfy from restate as literally specified. This is a genuine negative on THIS operationalization of fork (a), not evidence the deeper idea (coherence/prediction-error settling per Kintsch CI, Section 1) is wrong -- it says the specific minimal transplant of route_passage's margin computation needs to be wired to REAL relational content (e.g. the already-built, already-populated CausalLinkRegister with its 182 real proposed links, atom 29636) rather than an arbitrary role-hypothesis toggle on an otherwise-empty register, before it can have anything content-correlated to lean on. Side-observation (agent-shift heuristic, NOT the coherence-margin claim, a distinct and much simpler mechanism): satisfy-event speaker differs from the goal-holder AND restate-event speaker matches the goal-holder in 1/3 cases -- reported for completeness, explicitly NOT claimed as validating the coherence-margin mechanism.",
+    "summary": "FALSIFICATION PILOT N=3: coherence-margin mechanism (arm i) is candidate-text-blind by construction (0/3, proven not just measured); content-overlap (arm ii) correct on 1/3; random floor (arm iii) correct on 1/3. Recommend: do NOT scale fork (a) as literally specified in the design doc; if pursued further, wire the margin computation to real extracted relational content (CausalLinkRegister populated from atom 29636's 182 links) rather than an arbitrary per-candidate hypothesis-role toggle."
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": false,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "N=3 diagnostic pilot; not a queue-dispatched multi-unit cell; no heartbeat/start-marker needed (elapsed_s << 1s)",
+  "deterministic_seeding": true,
+  "dispatched": false,
+  "dispatch_note": "NOT dispatched to any queue per explicit task instruction; local foreground diagnostic only."
+}
