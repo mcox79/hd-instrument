@@ -1,0 +1,113 @@
+{
+  "verdict": "CONTENT_NEEDED",
+  "verdict_msg": "CONTENT_NEEDED: context-available subset n=3 isolated_acc=0.000 accumulated_acc=0.000 n_flipped=0 (full n=4 isolated_acc=0.000 accumulated_acc=0.000 lexical_acc_isolated=0.250)",
+  "summary": "CONTENT_NEEDED on n=4 near-synonym-confused unstated_goal subset (3 with context available)",
+  "elapsed_s": 0.016250800108537078,
+  "ts_iso": "2026-08-03T19:27:10.405392+00:00",
+  "pid": 24376,
+  "anchor_name": "context_accumulation_goal_disambiguation_v1",
+  "run_mode": "full",
+  "expected_n_units": 8,
+  "measured_n_units": 8,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "ISOLATED": "52488aca77f0ef16dd0caf9b69ddb8162fb2e04b7aadd174eb5a9b67627dbea3",
+    "ACCUMULATED": "0912ff021be30f25e38f235f71ae24396924b992ea4a6697c407c51272188162"
+  },
+  "arms_differ_exempted": [
+    [
+      "ISOLATED",
+      "ACCUMULATED",
+      "relinf_unstated_012: no context_available, declared bit-identical fallback per pre-reg"
+    ]
+  ],
+  "n_items": 4,
+  "n_items_context_available": 3,
+  "isolated_accuracy_full": 0.0,
+  "accumulated_accuracy_full": 0.0,
+  "lexical_accuracy_isolated_full": 0.25,
+  "isolated_accuracy_context_subset": 0.0,
+  "accumulated_accuracy_context_subset": 0.0,
+  "delta_context_subset": 0.0,
+  "n_flipped_to_correct_context_subset": 0,
+  "prereg_bands": {
+    "CONTEXT_HELPS_requires": "n_flipped_ctx_subset>=2 of 3 AND delta_ctx_subset>=0.33"
+  },
+  "per_item": [
+    {
+      "id": "relinf_unstated_007",
+      "novel": "little_women",
+      "correct_category": "REVENGE_PUNISH",
+      "context_available": true,
+      "context_source": "relinf_thwart_002.event_b_text (ch8 line 3161-3162, gold_verified=true)",
+      "isolated_pick": "CARE_FOR_OTHERS",
+      "isolated_correct": false,
+      "isolated_margin": 0.02872985601425171,
+      "accumulated_pick": "CARE_FOR_OTHERS",
+      "accumulated_correct": false,
+      "accumulated_margin": 0.006345301866531372,
+      "lexical_pick_isolated": "CARE_FOR_OTHERS",
+      "lexical_correct_isolated": false,
+      "lexical_pick_accumulated": "CARE_FOR_OTHERS",
+      "lexical_correct_accumulated": false,
+      "flipped_to_correct": false
+    },
+    {
+      "id": "relinf_unstated_010",
+      "novel": "little_women",
+      "correct_category": "CARE_FOR_OTHERS",
+      "context_available": true,
+      "context_source": "relinf_thwart_003.distractor_text (ch8 line 3274, gold_verified=true)",
+      "isolated_pick": "REVENGE_PUNISH",
+      "isolated_correct": false,
+      "isolated_margin": 0.007393240928649902,
+      "accumulated_pick": "REVENGE_PUNISH",
+      "accumulated_correct": false,
+      "accumulated_margin": 0.004338592290878296,
+      "lexical_pick_isolated": "REVENGE_PUNISH",
+      "lexical_correct_isolated": false,
+      "lexical_pick_accumulated": "CURIOSITY_EXPLORATION",
+      "lexical_correct_accumulated": false,
+      "flipped_to_correct": false
+    },
+    {
+      "id": "relinf_unstated_011",
+      "novel": "wizard_of_oz",
+      "correct_category": "PROTECT_OTHERS",
+      "context_available": true,
+      "context_source": "relinf_unstated_011.why_inferred redacted same-sentence clause (gold_verified=true record, quoted verbatim in its own metadata)",
+      "isolated_pick": "SELF_DISCIPLINE",
+      "isolated_correct": false,
+      "isolated_margin": 0.0149078369140625,
+      "accumulated_pick": "SELF_DISCIPLINE",
+      "accumulated_correct": false,
+      "accumulated_margin": 0.01672816276550293,
+      "lexical_pick_isolated": "SELF_DISCIPLINE",
+      "lexical_correct_isolated": false,
+      "lexical_pick_accumulated": "SELF_DISCIPLINE",
+      "lexical_correct_accumulated": false,
+      "flipped_to_correct": false
+    },
+    {
+      "id": "relinf_unstated_012",
+      "novel": "alice_in_wonderland",
+      "correct_category": "SELF_DISCIPLINE",
+      "context_available": false,
+      "context_source": "NONE FOUND (checked UNVERIFIED + hardened_UNVERIFIED gold variants; no sibling alice_in_wonderland ch1 record near line 207-208)",
+      "isolated_pick": "CURIOSITY_EXPLORATION",
+      "isolated_correct": false,
+      "isolated_margin": 0.0013214647769927979,
+      "accumulated_pick": "CURIOSITY_EXPLORATION",
+      "accumulated_correct": false,
+      "accumulated_margin": 0.0013214647769927979,
+      "lexical_pick_isolated": "SELF_DISCIPLINE",
+      "lexical_correct_isolated": true,
+      "lexical_pick_accumulated": "SELF_DISCIPLINE",
+      "lexical_correct_accumulated": true,
+      "flipped_to_correct": false
+    }
+  ],
+  "note_small_n": "n=3-4 is directional-on-mechanism-direction only, NOT a magnitude claim -- a single item flipping changes reported accuracy by 25-33 percentage points.",
+  "note_item_012": "relinf_unstated_012 has no surrounding gold context available; its ACCUMULATED arm is bit-identical to ISOLATED (declared fallback, not a result). Its disambiguating signal ('cheated HERSELF ... against HERSELF') is already present in the isolated action_text, so even if context existed this item primarily probes construction/lexical-weighting, not context-availability -- excluded from the context_subset headline numbers, reported alone."
+}
