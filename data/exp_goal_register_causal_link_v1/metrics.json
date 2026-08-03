@@ -1,0 +1,2391 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "AUTOMATED extraction_recall_explicit=0.1111111111111111 (n=18), chapter_precision_proxy=0.48743718592964824 (n_opens=199). CAUSAL-LINK recall_goal_mediated=0.1111111111111111 (n=9) fp_rate=0.0 (n_neg=200) vs COHERENCE recall=0.5555555555555556 fp=0.31 vs RANDOM(base-rate) recall_expected=0.00202020202020202 fp_expected=0.00202020202020202 vs HAND-MATCHED UPPER BOUND explicit_only=0.8888888888888888 any=1.0. VERDICT=MIDDLE_BAND_SOME_SIGNAL_BELOW_BAR. DIAGNOSIS=EXTRACTION_TOO_NOISY: automated goal-verb+subject extraction recovers only 0.11 of explicit gold goals; the open/close proposal cannot exceed what the extractor finds.",
+  "summary": "MIDDLE_BAND_SOME_SIGNAL_BELOW_BAR | extraction_recall_explicit=0.1111111111111111 | link_recall_goal_mediated=0.1111111111111111 fp=0.0 | coherence_recall=0.5555555555555556 coherence_fp=0.31 | upper_bound_explicit=0.8888888888888888",
+  "elapsed_s": 2.6287245999556035,
+  "ts_iso": "2026-08-03T05:11:45.464375+00:00",
+  "anchor_name": "goal_register_causal_link_v1",
+  "run_mode": "full",
+  "seed": 20260803,
+  "n_chapters": 38,
+  "n_clauses": 14839,
+  "n_gazetteer_admitted": 109,
+  "pipeline_elapsed_s": 2.206021700054407,
+  "automated_goal_extraction": {
+    "n_explicit_gold": 18,
+    "n_inferred_gold": 3,
+    "n_automated_opens_total": 199,
+    "n_matched_to_explicit_gold": 2,
+    "extraction_recall_explicit": 0.1111111111111111,
+    "chapter_precision_proxy": 0.48743718592964824,
+    "chapter_precision_proxy_note": "fraction of automated opens landing in a chapter that also contains >=1 explicit gold goal item; the 21-item gold is a SAMPLE not exhaustive, so item-level precision against it is not a valid denominator -- this is a weaker honest proxy, not a precision claim.",
+    "per_gold_item": [
+      {
+        "id": "anne_goal_001",
+        "character": "Anne",
+        "chapter": 11,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_002",
+        "character": "Matthew",
+        "chapter": 25,
+        "matched": true,
+        "matched_extracted_name": "Matthew",
+        "matched_marker": "decide"
+      },
+      {
+        "id": "anne_goal_003",
+        "character": "Matthew",
+        "chapter": 25,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_004",
+        "character": "Marilla",
+        "chapter": 6,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_005",
+        "character": "Anne",
+        "chapter": 5,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_006",
+        "character": "Anne",
+        "chapter": 8,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_007",
+        "character": "Anne",
+        "chapter": 15,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_008",
+        "character": "Anne",
+        "chapter": 17,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_009",
+        "character": "Anne",
+        "chapter": 30,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_010",
+        "character": "Anne",
+        "chapter": 34,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_011",
+        "character": "Anne",
+        "chapter": 38,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_012",
+        "character": "Gilbert",
+        "chapter": 38,
+        "matched": true,
+        "matched_extracted_name": "Gilbert",
+        "matched_marker": "withdrew"
+      },
+      {
+        "id": "anne_goal_013",
+        "character": "Anne",
+        "chapter": 38,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_015",
+        "character": "Mrs. Barry",
+        "chapter": 18,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_017",
+        "character": "Miss Josephine Barry",
+        "chapter": 19,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_018",
+        "character": "Marilla",
+        "chapter": 20,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_020",
+        "character": "Anne",
+        "chapter": 19,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      },
+      {
+        "id": "anne_goal_021",
+        "character": "Marilla",
+        "chapter": 9,
+        "matched": false,
+        "matched_extracted_name": null,
+        "matched_marker": null
+      }
+    ]
+  },
+  "open_close_register": {
+    "n_proposed_links": 182,
+    "organ_self_consistency_rate": 1.0,
+    "mechanism": "hdlab.situation_model_accumulate.CausalLinkRegister reused per-link (bind/bundle/unbind/cleanup-argmax, atom 29609 organ); open/close ENDPOINT search is symbolic Python over the automated clause+coref stream.",
+    "proposed_links": [
+      {
+        "open_clause_idx": 178,
+        "close_clause_idx": 1233,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "so that",
+        "close_marker": "won",
+        "open_chapter": 1,
+        "close_chapter": 3,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 258,
+        "close_clause_idx": 455,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "gave",
+        "open_chapter": 1,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 287,
+        "close_clause_idx": 6904,
+        "eid": 14,
+        "character_name": "Canadian",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 1,
+        "close_chapter": 18,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 337,
+        "close_clause_idx": 394,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "hope",
+        "close_marker": "gain",
+        "open_chapter": 1,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 468,
+        "close_clause_idx": 483,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "wore",
+        "open_chapter": 2,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 532,
+        "close_clause_idx": 692,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 2,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 614,
+        "close_clause_idx": 648,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "want to",
+        "close_marker": "did",
+        "open_chapter": 2,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 691,
+        "close_clause_idx": 692,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "willing to",
+        "close_marker": "did",
+        "open_chapter": 2,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 708,
+        "close_clause_idx": 756,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "wants",
+        "close_marker": "did",
+        "open_chapter": 2,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 730,
+        "close_clause_idx": 756,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "want to",
+        "close_marker": "did",
+        "open_chapter": 2,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 974,
+        "close_clause_idx": 1000,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "want to",
+        "close_marker": "gain",
+        "open_chapter": 2,
+        "close_chapter": 2,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1170,
+        "close_clause_idx": 12912,
+        "eid": 12,
+        "character_name": "Spencer",
+        "open_marker": "wanted",
+        "close_marker": "won",
+        "open_chapter": 3,
+        "close_chapter": 33,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1346,
+        "close_clause_idx": 1356,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "want to",
+        "close_marker": "did",
+        "open_chapter": 3,
+        "close_chapter": 3,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1484,
+        "close_clause_idx": 1509,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 4,
+        "close_chapter": 4,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1542,
+        "close_clause_idx": 2497,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 4,
+        "close_chapter": 8,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1554,
+        "close_clause_idx": 1559,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 4,
+        "close_chapter": 4,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1728,
+        "close_clause_idx": 6166,
+        "eid": 16,
+        "character_name": "My",
+        "open_marker": "hopes",
+        "close_marker": "gain",
+        "open_chapter": 5,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1788,
+        "close_clause_idx": 1814,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "gave up",
+        "close_marker": "did",
+        "open_chapter": 5,
+        "close_chapter": 5,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 1891,
+        "close_clause_idx": 1946,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "won",
+        "open_chapter": 5,
+        "close_chapter": 5,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2030,
+        "close_clause_idx": 2199,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "promised",
+        "close_marker": "did",
+        "open_chapter": 6,
+        "close_chapter": 6,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2040,
+        "close_clause_idx": 2497,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 6,
+        "close_chapter": 8,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2045,
+        "close_clause_idx": 2047,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 6,
+        "close_chapter": 6,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2155,
+        "close_clause_idx": 2199,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 6,
+        "close_chapter": 6,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2157,
+        "close_clause_idx": 2183,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "wanted",
+        "close_marker": "worn",
+        "open_chapter": 6,
+        "close_chapter": 6,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2200,
+        "close_clause_idx": 2204,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "decide",
+        "close_marker": "gain",
+        "open_chapter": 6,
+        "close_chapter": 6,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2206,
+        "close_clause_idx": 2279,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "decide",
+        "close_marker": "got",
+        "open_chapter": 6,
+        "close_chapter": 6,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2241,
+        "close_clause_idx": 2279,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "decide",
+        "close_marker": "got",
+        "open_chapter": 6,
+        "close_chapter": 6,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2354,
+        "close_clause_idx": 2524,
+        "eid": 28,
+        "character_name": "Anne",
+        "open_marker": "wants",
+        "close_marker": "went",
+        "open_chapter": 7,
+        "close_chapter": 8,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2397,
+        "close_clause_idx": 2468,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "decide",
+        "close_marker": "got",
+        "open_chapter": 7,
+        "close_chapter": 7,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2421,
+        "close_clause_idx": 2458,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "intended",
+        "close_marker": "did",
+        "open_chapter": 7,
+        "close_chapter": 7,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2436,
+        "close_clause_idx": 2524,
+        "eid": 28,
+        "character_name": "Anne",
+        "open_marker": "promised",
+        "close_marker": "went",
+        "open_chapter": 7,
+        "close_chapter": 8,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2648,
+        "close_clause_idx": 2654,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "got",
+        "open_chapter": 8,
+        "close_chapter": 8,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2839,
+        "close_clause_idx": 2842,
+        "eid": 28,
+        "character_name": "Anne",
+        "open_marker": "want to",
+        "close_marker": "did",
+        "open_chapter": 8,
+        "close_chapter": 8,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2847,
+        "close_clause_idx": 3317,
+        "eid": 28,
+        "character_name": "Anne",
+        "open_marker": "so that",
+        "close_marker": "gain",
+        "open_chapter": 8,
+        "close_chapter": 10,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2892,
+        "close_clause_idx": 2936,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "won",
+        "open_chapter": 8,
+        "close_chapter": 9,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2966,
+        "close_clause_idx": 3000,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "so that",
+        "close_marker": "worn",
+        "open_chapter": 9,
+        "close_chapter": 9,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 2982,
+        "close_clause_idx": 3000,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "intended",
+        "close_marker": "worn",
+        "open_chapter": 9,
+        "close_chapter": 9,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3059,
+        "close_clause_idx": 3085,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 9,
+        "close_chapter": 9,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3062,
+        "close_clause_idx": 3259,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "forgive",
+        "close_marker": "got",
+        "open_chapter": 9,
+        "close_chapter": 10,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3211,
+        "close_clause_idx": 3236,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "forgive",
+        "close_marker": "did",
+        "open_chapter": 9,
+        "close_chapter": 9,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3212,
+        "close_clause_idx": 3317,
+        "eid": 28,
+        "character_name": "Anne",
+        "open_marker": "determined",
+        "close_marker": "gain",
+        "open_chapter": 9,
+        "close_chapter": 10,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3223,
+        "close_clause_idx": 3236,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "forgive",
+        "close_marker": "did",
+        "open_chapter": 9,
+        "close_chapter": 9,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3229,
+        "close_clause_idx": 3259,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "willing to",
+        "close_marker": "got",
+        "open_chapter": 9,
+        "close_chapter": 10,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3276,
+        "close_clause_idx": 3332,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "willing to",
+        "close_marker": "apologiz",
+        "open_chapter": 10,
+        "close_chapter": 10,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3327,
+        "close_clause_idx": 3780,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "determined",
+        "close_marker": "did",
+        "open_chapter": 10,
+        "close_chapter": 11,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3365,
+        "close_clause_idx": 3412,
+        "eid": 28,
+        "character_name": "Anne",
+        "open_marker": "promised",
+        "close_marker": "went",
+        "open_chapter": 10,
+        "close_chapter": 10,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3550,
+        "close_clause_idx": 3633,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "promised",
+        "close_marker": "gain",
+        "open_chapter": 10,
+        "close_chapter": 11,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3780,
+        "close_clause_idx": 4110,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "wanted",
+        "close_marker": "agree",
+        "open_chapter": 11,
+        "close_chapter": 12,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3844,
+        "close_clause_idx": 3863,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 11,
+        "close_chapter": 11,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 3849,
+        "close_clause_idx": 3850,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 11,
+        "close_chapter": 11,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 4131,
+        "close_clause_idx": 4133,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "promise",
+        "close_marker": "did",
+        "open_chapter": 12,
+        "close_chapter": 12,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 4168,
+        "close_clause_idx": 4384,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "hope",
+        "close_marker": "got",
+        "open_chapter": 12,
+        "close_chapter": 13,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 4405,
+        "close_clause_idx": 4409,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "hope",
+        "close_marker": "got",
+        "open_chapter": 13,
+        "close_chapter": 13,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 4547,
+        "close_clause_idx": 4587,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "intended",
+        "close_marker": "went",
+        "open_chapter": 14,
+        "close_chapter": 14,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 4862,
+        "close_clause_idx": 4871,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "so that",
+        "close_marker": "confess",
+        "open_chapter": 14,
+        "close_chapter": 14,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5008,
+        "close_clause_idx": 5067,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "got",
+        "open_chapter": 15,
+        "close_chapter": 15,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5086,
+        "close_clause_idx": 11170,
+        "eid": 51,
+        "character_name": "Indeed",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 15,
+        "close_chapter": 29,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5111,
+        "close_clause_idx": 5127,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "so that",
+        "close_marker": "gave",
+        "open_chapter": 15,
+        "close_chapter": 15,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5318,
+        "close_clause_idx": 5360,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "so that",
+        "close_marker": "apologiz",
+        "open_chapter": 15,
+        "close_chapter": 15,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5346,
+        "close_clause_idx": 5739,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "forgive",
+        "close_marker": "did",
+        "open_chapter": 15,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5500,
+        "close_clause_idx": 8754,
+        "eid": 23,
+        "character_name": "Anne",
+        "open_marker": "wanted",
+        "close_marker": "gave",
+        "open_chapter": 15,
+        "close_chapter": 23,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5560,
+        "close_clause_idx": 5590,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "resolved",
+        "close_marker": "won",
+        "open_chapter": 15,
+        "close_chapter": 15,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5657,
+        "close_clause_idx": 6075,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "made up her mind",
+        "close_marker": "did",
+        "open_chapter": 15,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5833,
+        "close_clause_idx": 5886,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 16,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5886,
+        "close_clause_idx": 5906,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "want to",
+        "close_marker": "did",
+        "open_chapter": 16,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5900,
+        "close_clause_idx": 6067,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "wanted",
+        "close_marker": "got",
+        "open_chapter": 16,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5945,
+        "close_clause_idx": 5978,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "sacrifice",
+        "close_marker": "did",
+        "open_chapter": 16,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5977,
+        "close_clause_idx": 5978,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "intended",
+        "close_marker": "did",
+        "open_chapter": 16,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 5980,
+        "close_clause_idx": 6028,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "gain",
+        "open_chapter": 16,
+        "close_chapter": 16,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6197,
+        "close_clause_idx": 7420,
+        "eid": 22,
+        "character_name": "Barry",
+        "open_marker": "forgive",
+        "close_marker": "got",
+        "open_chapter": 16,
+        "close_chapter": 19,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6294,
+        "close_clause_idx": 6301,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "gain",
+        "open_chapter": 17,
+        "close_chapter": 17,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6295,
+        "close_clause_idx": 6301,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "gain",
+        "open_chapter": 17,
+        "close_chapter": 17,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6496,
+        "close_clause_idx": 6858,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "determined",
+        "close_marker": "got",
+        "open_chapter": 17,
+        "close_chapter": 18,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6526,
+        "close_clause_idx": 6796,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "determined",
+        "close_marker": "went",
+        "open_chapter": 17,
+        "close_chapter": 18,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6557,
+        "close_clause_idx": 6905,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "chose",
+        "close_marker": "did",
+        "open_chapter": 18,
+        "close_chapter": 18,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6638,
+        "close_clause_idx": 6796,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "decide",
+        "close_marker": "went",
+        "open_chapter": 18,
+        "close_chapter": 18,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6840,
+        "close_clause_idx": 6858,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "got",
+        "open_chapter": 18,
+        "close_chapter": 18,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6932,
+        "close_clause_idx": 6935,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 18,
+        "close_chapter": 18,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 6937,
+        "close_clause_idx": 7059,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hopes",
+        "close_marker": "gain",
+        "open_chapter": 18,
+        "close_chapter": 19,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7027,
+        "close_clause_idx": 7085,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 18,
+        "close_chapter": 19,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7059,
+        "close_clause_idx": 7299,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wants",
+        "close_marker": "receive",
+        "open_chapter": 19,
+        "close_chapter": 19,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7439,
+        "close_clause_idx": 7495,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "promised",
+        "close_marker": "won",
+        "open_chapter": 19,
+        "close_chapter": 19,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7440,
+        "close_clause_idx": 7495,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "determined",
+        "close_marker": "won",
+        "open_chapter": 19,
+        "close_chapter": 19,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7559,
+        "close_clause_idx": 11242,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "forgive",
+        "close_marker": "got",
+        "open_chapter": 19,
+        "close_chapter": 29,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7609,
+        "close_clause_idx": 11242,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "forgive",
+        "close_marker": "got",
+        "open_chapter": 19,
+        "close_chapter": 29,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7615,
+        "close_clause_idx": 7623,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "made up my mind",
+        "close_marker": "kept",
+        "open_chapter": 19,
+        "close_chapter": 19,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7792,
+        "close_clause_idx": 8060,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wanted",
+        "close_marker": "gain",
+        "open_chapter": 20,
+        "close_chapter": 21,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7855,
+        "close_clause_idx": 8060,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "chose",
+        "close_marker": "gain",
+        "open_chapter": 20,
+        "close_chapter": 21,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 7947,
+        "close_clause_idx": 11242,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "so that",
+        "close_marker": "got",
+        "open_chapter": 20,
+        "close_chapter": 29,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 8143,
+        "close_clause_idx": 8217,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "chose",
+        "close_marker": "got",
+        "open_chapter": 21,
+        "close_chapter": 21,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 8228,
+        "close_clause_idx": 8940,
+        "eid": 20,
+        "character_name": "Marilla",
+        "open_marker": "promised",
+        "close_marker": "went",
+        "open_chapter": 21,
+        "close_chapter": 23,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 8234,
+        "close_clause_idx": 8940,
+        "eid": 20,
+        "character_name": "Marilla",
+        "open_marker": "determined",
+        "close_marker": "went",
+        "open_chapter": 21,
+        "close_chapter": 23,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 8297,
+        "close_clause_idx": 8299,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 21,
+        "close_chapter": 21,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 8503,
+        "close_clause_idx": 8554,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "want to",
+        "close_marker": "gave",
+        "open_chapter": 21,
+        "close_chapter": 22,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 8577,
+        "close_clause_idx": 8581,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "hope",
+        "close_marker": "went",
+        "open_chapter": 22,
+        "close_chapter": 22,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 8616,
+        "close_clause_idx": 8743,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 22,
+        "close_chapter": 22,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9037,
+        "close_clause_idx": 9043,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hopes",
+        "close_marker": "receive",
+        "open_chapter": 23,
+        "close_chapter": 23,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9040,
+        "close_clause_idx": 9043,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "receive",
+        "open_chapter": 23,
+        "close_chapter": 23,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9141,
+        "close_clause_idx": 9866,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "wanted",
+        "close_marker": "went",
+        "open_chapter": 24,
+        "close_chapter": 26,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9161,
+        "close_clause_idx": 9866,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "choose",
+        "close_marker": "went",
+        "open_chapter": 24,
+        "close_chapter": 26,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9163,
+        "close_clause_idx": 9164,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "choose",
+        "close_marker": "did",
+        "open_chapter": 24,
+        "close_chapter": 24,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9233,
+        "close_clause_idx": 9853,
+        "eid": 58,
+        "character_name": "Josie",
+        "open_marker": "wanted",
+        "close_marker": "got",
+        "open_chapter": 24,
+        "close_chapter": 26,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9234,
+        "close_clause_idx": 9300,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 24,
+        "close_chapter": 25,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9256,
+        "close_clause_idx": 9330,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 24,
+        "close_chapter": 25,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9358,
+        "close_clause_idx": 9393,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 25,
+        "close_chapter": 25,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9377,
+        "close_clause_idx": 13664,
+        "eid": 32,
+        "character_name": "After",
+        "open_marker": "resolved",
+        "close_marker": "gave",
+        "open_chapter": 25,
+        "close_chapter": 35,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9384,
+        "close_clause_idx": 9393,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 25,
+        "close_chapter": 25,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9473,
+        "close_clause_idx": 9637,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "decide",
+        "close_marker": "got",
+        "open_chapter": 25,
+        "close_chapter": 25,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9565,
+        "close_clause_idx": 9780,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 25,
+        "close_chapter": 25,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 9927,
+        "close_clause_idx": 10237,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "decide",
+        "close_marker": "got",
+        "open_chapter": 26,
+        "close_chapter": 27,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10301,
+        "close_clause_idx": 11039,
+        "eid": 21,
+        "character_name": "Did",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 27,
+        "close_chapter": 29,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10358,
+        "close_clause_idx": 10359,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 27,
+        "close_chapter": 27,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10387,
+        "close_clause_idx": 10468,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wanted",
+        "close_marker": "won",
+        "open_chapter": 27,
+        "close_chapter": 27,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10445,
+        "close_clause_idx": 10447,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "promised",
+        "close_marker": "kept",
+        "open_chapter": 27,
+        "close_chapter": 27,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10448,
+        "close_clause_idx": 10980,
+        "eid": 20,
+        "character_name": "Marilla",
+        "open_marker": "decide",
+        "close_marker": "kept",
+        "open_chapter": 27,
+        "close_chapter": 28,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10514,
+        "close_clause_idx": 10540,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "forgive",
+        "close_marker": "got",
+        "open_chapter": 27,
+        "close_chapter": 27,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10873,
+        "close_clause_idx": 10958,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "forgive",
+        "close_marker": "won",
+        "open_chapter": 28,
+        "close_chapter": 28,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 10979,
+        "close_clause_idx": 10980,
+        "eid": 20,
+        "character_name": "Marilla",
+        "open_marker": "hope",
+        "close_marker": "kept",
+        "open_chapter": 28,
+        "close_chapter": 28,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11026,
+        "close_clause_idx": 11041,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wants",
+        "close_marker": "did",
+        "open_chapter": 29,
+        "close_chapter": 29,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11279,
+        "close_clause_idx": 11313,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wanted",
+        "close_marker": "went",
+        "open_chapter": 29,
+        "close_chapter": 29,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11498,
+        "close_clause_idx": 14189,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "made up her mind",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11529,
+        "close_clause_idx": 12363,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "want to",
+        "close_marker": "won",
+        "open_chapter": 30,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11572,
+        "close_clause_idx": 12363,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "forgive",
+        "close_marker": "won",
+        "open_chapter": 30,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11590,
+        "close_clause_idx": 12363,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "promise",
+        "close_marker": "won",
+        "open_chapter": 30,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11612,
+        "close_clause_idx": 12363,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "want to",
+        "close_marker": "won",
+        "open_chapter": 30,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11616,
+        "close_clause_idx": 11641,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "want to",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11627,
+        "close_clause_idx": 12363,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "wants",
+        "close_marker": "won",
+        "open_chapter": 30,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11628,
+        "close_clause_idx": 11696,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "intends",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11684,
+        "close_clause_idx": 11719,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "want to",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11732,
+        "close_clause_idx": 11745,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "intends",
+        "close_marker": "won",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11750,
+        "close_clause_idx": 11786,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11769,
+        "close_clause_idx": 11786,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "determined",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11773,
+        "close_clause_idx": 11788,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "forgive",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11798,
+        "close_clause_idx": 11884,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "forgive",
+        "close_marker": "got",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 11806,
+        "close_clause_idx": 11809,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "determined",
+        "close_marker": "did",
+        "open_chapter": 30,
+        "close_chapter": 30,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12078,
+        "close_clause_idx": 12116,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hoped",
+        "close_marker": "did",
+        "open_chapter": 31,
+        "close_chapter": 31,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12124,
+        "close_clause_idx": 12413,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "decide",
+        "close_marker": "went",
+        "open_chapter": 31,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12245,
+        "close_clause_idx": 12297,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "determined",
+        "close_marker": "won",
+        "open_chapter": 31,
+        "close_chapter": 31,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12273,
+        "close_clause_idx": 12287,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "want to",
+        "close_marker": "got",
+        "open_chapter": 31,
+        "close_chapter": 31,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12394,
+        "close_clause_idx": 12657,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "promise",
+        "close_marker": "won",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12406,
+        "close_clause_idx": 12416,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "determined",
+        "close_marker": "got",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12410,
+        "close_clause_idx": 12413,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "promised",
+        "close_marker": "went",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12422,
+        "close_clause_idx": 12657,
+        "eid": 66,
+        "character_name": "Stacy",
+        "open_marker": "promised",
+        "close_marker": "won",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12549,
+        "close_clause_idx": 12592,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "determined",
+        "close_marker": "won",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12557,
+        "close_clause_idx": 12562,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12561,
+        "close_clause_idx": 12592,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "won",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12562,
+        "close_clause_idx": 12563,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "achieve",
+        "open_chapter": 32,
+        "close_chapter": 32,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12563,
+        "close_clause_idx": 12741,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "so that",
+        "close_marker": "kept",
+        "open_chapter": 32,
+        "close_chapter": 33,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12587,
+        "close_clause_idx": 12741,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "wanted",
+        "close_marker": "kept",
+        "open_chapter": 32,
+        "close_chapter": 33,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12720,
+        "close_clause_idx": 14189,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 33,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12903,
+        "close_clause_idx": 13137,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "want to",
+        "close_marker": "gain",
+        "open_chapter": 33,
+        "close_chapter": 33,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12910,
+        "close_clause_idx": 13137,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "decide",
+        "close_marker": "gain",
+        "open_chapter": 33,
+        "close_chapter": 33,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 12914,
+        "close_clause_idx": 12965,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hopes",
+        "close_marker": "wore",
+        "open_chapter": 33,
+        "close_chapter": 33,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13038,
+        "close_clause_idx": 13047,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 33,
+        "close_chapter": 33,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13358,
+        "close_clause_idx": 13472,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "intended",
+        "close_marker": "got",
+        "open_chapter": 34,
+        "close_chapter": 34,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13383,
+        "close_clause_idx": 13388,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "determined",
+        "close_marker": "did",
+        "open_chapter": 34,
+        "close_chapter": 34,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13397,
+        "close_clause_idx": 14189,
+        "eid": 5,
+        "character_name": "Diana",
+        "open_marker": "promised",
+        "close_marker": "did",
+        "open_chapter": 34,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13532,
+        "close_clause_idx": 13566,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "wanted",
+        "close_marker": "won",
+        "open_chapter": 34,
+        "close_chapter": 34,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13568,
+        "close_clause_idx": 13590,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "resolved",
+        "close_marker": "wore",
+        "open_chapter": 34,
+        "close_chapter": 35,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13633,
+        "close_clause_idx": 13641,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hopes",
+        "close_marker": "did",
+        "open_chapter": 35,
+        "close_chapter": 35,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13646,
+        "close_clause_idx": 13697,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "decide",
+        "close_marker": "did",
+        "open_chapter": 35,
+        "close_chapter": 35,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 13951,
+        "close_clause_idx": 13966,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "decide",
+        "close_marker": "won",
+        "open_chapter": 36,
+        "close_chapter": 36,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14011,
+        "close_clause_idx": 14250,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 36,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14020,
+        "close_clause_idx": 14250,
+        "eid": 1,
+        "character_name": "Matthew",
+        "open_marker": "wanted",
+        "close_marker": "did",
+        "open_chapter": 36,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14196,
+        "close_clause_idx": 14321,
+        "eid": 7,
+        "character_name": "Anne",
+        "open_marker": "hoped",
+        "close_marker": "did",
+        "open_chapter": 37,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14312,
+        "close_clause_idx": 14391,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "did",
+        "open_chapter": 37,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14370,
+        "close_clause_idx": 14372,
+        "eid": 58,
+        "character_name": "Josie",
+        "open_marker": "decide",
+        "close_marker": "won",
+        "open_chapter": 37,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14400,
+        "close_clause_idx": 14408,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "forgive",
+        "close_marker": "forgiven",
+        "open_chapter": 37,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14405,
+        "close_clause_idx": 14408,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wanted",
+        "close_marker": "forgiven",
+        "open_chapter": 37,
+        "close_chapter": 37,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14408,
+        "close_clause_idx": 14433,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "forgive",
+        "close_marker": "did",
+        "open_chapter": 37,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14438,
+        "close_clause_idx": 14517,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "give up",
+        "close_marker": "won",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14455,
+        "close_clause_idx": 14517,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "won",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14457,
+        "close_clause_idx": 14517,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "won",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14476,
+        "close_clause_idx": 14480,
+        "eid": 0,
+        "character_name": "Lynde",
+        "open_marker": "hope",
+        "close_marker": "went",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14493,
+        "close_clause_idx": 14517,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wants",
+        "close_marker": "won",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14511,
+        "close_clause_idx": 14517,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "want to",
+        "close_marker": "won",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14555,
+        "close_clause_idx": 14612,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "promised",
+        "close_marker": "won",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14566,
+        "close_clause_idx": 14612,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "planned",
+        "close_marker": "won",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14671,
+        "close_clause_idx": 14706,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "hope",
+        "close_marker": "went",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14708,
+        "close_clause_idx": 14709,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "withdrew",
+        "close_marker": "accept",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14711,
+        "close_clause_idx": 14718,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "wanted",
+        "close_marker": "got",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      },
+      {
+        "open_clause_idx": 14723,
+        "close_clause_idx": 14796,
+        "eid": 56,
+        "character_name": "Gilbert",
+        "open_marker": "sacrifice",
+        "close_marker": "did",
+        "open_chapter": 38,
+        "close_chapter": 38,
+        "register_self_consistent": true
+      }
+    ]
+  },
+  "causal_link_proposal": {
+    "n_goal_mediated_total": 9,
+    "n_flagged_goal_mediated": 1,
+    "recall_goal_mediated": 0.1111111111111111,
+    "n_all_integration_total": 18,
+    "n_flagged_all_integration": 1,
+    "recall_all_integration": 0.05555555555555555,
+    "fp_rate": 0.0,
+    "n_negative_sampled": 200,
+    "n_flagged_total_pairs": 4,
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_002",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_003",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_004",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_005",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_006",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_007",
+        "item_type": "local_adjacent_control",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_008",
+        "item_type": "local_adjacent_control",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_009",
+        "item_type": "local_adjacent_control",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_010",
+        "item_type": "local_adjacent_control",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_011",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_012",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_013",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_014",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_015",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_016",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_017",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_mediated": true,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_018",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_019",
+        "item_type": "local_adjacent_control",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_020",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_021",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_022",
+        "item_type": "cross_chapter_multi_event",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_023",
+        "item_type": "same_chapter_multi_fact_integration",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_024",
+        "item_type": "local_adjacent_control",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_025",
+        "item_type": "local_adjacent_control",
+        "goal_mediated": false,
+        "flagged": false
+      }
+    ]
+  },
+  "comparison": {
+    "coherence_baseline": {
+      "recall_integration": 0.5555555555555556,
+      "fp_rate": 0.31,
+      "source": "data/exp_causal_link_proposal_signal_probe_v1/metrics.json",
+      "source_commit": "912077b81"
+    },
+    "goal_based_this_cell": {
+      "recall_goal_mediated": 0.1111111111111111,
+      "fp_rate": 0.0
+    },
+    "random_base_rate": {
+      "recall_expected": 0.00202020202020202,
+      "fp_expected": 0.00202020202020202,
+      "base_rate": 0.00202020202020202
+    },
+    "hand_matched_upper_bound": {
+      "explicit_only_fraction": 0.8888888888888888,
+      "any_fraction": 1.0,
+      "source": "data/exp_goal_intention_feasibility_probe_v1/metrics.json",
+      "source_commit": "6f721a85a",
+      "note": "HAND-VERIFIED, not measured extraction recall."
+    }
+  },
+  "inferred_subset_ceiling": {
+    "n_inferred_gold_items": 3,
+    "n_additional_goal_mediated_links_if_inferred_tracked": 1,
+    "note": "out-of-scope per task (NEEDS-DEEPER-TOM); ceiling MEASURED@ feasibility probe's recoverable_any minus recoverable_explicit_only counts."
+  },
+  "hard_pass_gate": {
+    "recall_goal_mediated_threshold": 0.4,
+    "fp_rate_absolute_threshold": 0.15,
+    "fp_rate_relative_to_coherence_threshold": 0.5,
+    "hard_pass": false,
+    "diagnosis_if_not_hard_pass": "EXTRACTION_TOO_NOISY: automated goal-verb+subject extraction recovers only 0.11 of explicit gold goals; the open/close proposal cannot exceed what the extractor finds."
+  },
+  "arms_differ_verified": true,
+  "arms_digest": {
+    "goal_based": "9be787533194cffbfbd55f44c3b95182d9c4059e0c0b2d55ffad4556e5d5c6e9",
+    "coherence_baseline": "ae682d6c8afa36ae6dd9b9e83e8b2c57439b05a0ab9a82ee9e576752bd9e90e8"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_single_pass",
+  "deterministic_seeding": true,
+  "dispatched": false,
+  "dispatch_note": "measurement-only per task instruction; not queued, not shipped remote."
+}

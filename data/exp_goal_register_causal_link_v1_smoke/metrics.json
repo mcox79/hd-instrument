@@ -1,0 +1,10 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "goal-open/close fixture PASS; cross-entity false-close guard PASS; CausalLinkRegister self-consistency (bind/bundle/unbind/cleanup-argmax) PASS; fuzzy clause<->event matcher PASS.",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.18537650001235306,
+  "ts_iso": "2026-08-03T05:11:28.870490+00:00",
+  "anchor_name": "goal_register_causal_link_v1",
+  "run_mode": "smoke",
+  "seed": 20260803
+}
