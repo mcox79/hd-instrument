@@ -1,0 +1,741 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "verdict_regime=REPRESENTATION_STILL_BROKEN_GATE2_CONTROL_FIRES (N=6 probe, directional, can-fail smoke); gate1_non_saturation=True (ed_spread=0.4654 vs ref=0.0598, widening=0.4055); gate2_control_fires=False (margin=-0.1667); gate3_content_discrimination=True (ed_beats_old=True ppmi_beats_old=False)",
+  "summary": "DEEP-EARN STEP 5 (bound role-filler FHRR representation, first relation-inference can-fail cell) verdict_regime=REPRESENTATION_STILL_BROKEN_GATE2_CONTROL_FIRES",
+  "elapsed_s": 83.2205735000316,
+  "ts_iso": "2026-08-03T14:18:35.369392+00:00",
+  "pid": 14940,
+  "anchor_name": "content_awareness_earned_v5_bound_role_filler_representation",
+  "results_arm_error_driven_satisfy_restate": [
+    {
+      "goal_id": "anne_goal_001",
+      "sim_goal_to_restate": 0.7085209488868713,
+      "sim_goal_to_satisfy": 0.7614940404891968,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "restate_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      },
+      "content_alone_misranks": false,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.7614940404891968,
+          "ACTION": 0.7614940404891968,
+          "OBJECT": 0.7614940404891968
+        },
+        "restate": {
+          "AGENT": 0.7085210084915161,
+          "ACTION": 0.7085210084915161,
+          "OBJECT": 0.7085210084915161
+        }
+      }
+    },
+    {
+      "goal_id": "anne_goal_002",
+      "sim_goal_to_restate": 0.7085209488868713,
+      "sim_goal_to_satisfy": 0.5916985273361206,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "restate_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "satisfy_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "content_alone_misranks": true,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.5916985273361206,
+          "ACTION": 0.5916985273361206,
+          "OBJECT": 0.5916985273361206
+        },
+        "restate": {
+          "AGENT": 0.7085210084915161,
+          "ACTION": 0.7085210084915161,
+          "OBJECT": 0.7085210084915161
+        }
+      }
+    },
+    {
+      "goal_id": "anne_goal_012",
+      "sim_goal_to_restate": 0.505368173122406,
+      "sim_goal_to_satisfy": 0.4159729778766632,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 11,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": false,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      },
+      "restate_coverage": {
+        "n_content_words": 16,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 14
+      },
+      "satisfy_coverage": {
+        "n_content_words": 13,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 11
+      },
+      "content_alone_misranks": true,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.4159730076789856,
+          "ACTION": 0.4159730076789856,
+          "OBJECT": 0.4159729778766632
+        },
+        "restate": {
+          "AGENT": 0.505368173122406,
+          "ACTION": 0.505368173122406,
+          "OBJECT": 0.505368173122406
+        }
+      }
+    }
+  ],
+  "results_arm_error_driven_unstated_goal": [
+    {
+      "goal_id": "anne_goal_014",
+      "correct_schema": "prohibition",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.45640087127685547,
+        "escape_punishment": 0.5063983798027039,
+        "material_want": 0.7104513645172119,
+        "prohibition": 0.4249729514122009
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 7,
+        "n_covered": 6,
+        "agent_covered": false,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      }
+    },
+    {
+      "goal_id": "anne_goal_016",
+      "correct_schema": "aid_rescue",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.3520309031009674,
+        "escape_punishment": 0.4059382975101471,
+        "material_want": 0.4272330701351166,
+        "prohibition": 0.29612621665000916
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 15,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 13
+      }
+    },
+    {
+      "goal_id": "anne_goal_019",
+      "correct_schema": "escape_punishment",
+      "predicted_schema": "escape_punishment",
+      "correct": true,
+      "sims": {
+        "aid_rescue": 0.6046024560928345,
+        "escape_punishment": 0.6869325637817383,
+        "material_want": 0.5764334201812744,
+        "prohibition": 0.40713393688201904
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 14,
+        "n_covered": 14,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 12,
+        "object_total_count": 12
+      }
+    }
+  ],
+  "results_arm_random_init_satisfy_restate": [
+    {
+      "goal_id": "anne_goal_001",
+      "sim_goal_to_restate": 0.032453130930662155,
+      "sim_goal_to_satisfy": 0.06801572442054749,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "restate_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      },
+      "content_alone_misranks": false,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.06801572442054749,
+          "ACTION": 0.06801571696996689,
+          "OBJECT": 0.06801571696996689
+        },
+        "restate": {
+          "AGENT": 0.032453130930662155,
+          "ACTION": 0.032453130930662155,
+          "OBJECT": 0.03245313838124275
+        }
+      }
+    },
+    {
+      "goal_id": "anne_goal_002",
+      "sim_goal_to_restate": 0.032453130930662155,
+      "sim_goal_to_satisfy": 0.14683106541633606,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "restate_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "satisfy_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "content_alone_misranks": false,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.14683106541633606,
+          "ACTION": 0.14683105051517487,
+          "OBJECT": 0.14683105051517487
+        },
+        "restate": {
+          "AGENT": 0.032453130930662155,
+          "ACTION": 0.032453130930662155,
+          "OBJECT": 0.03245313838124275
+        }
+      }
+    },
+    {
+      "goal_id": "anne_goal_012",
+      "sim_goal_to_restate": 0.04509112238883972,
+      "sim_goal_to_satisfy": 0.5487624406814575,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 11,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": false,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      },
+      "restate_coverage": {
+        "n_content_words": 16,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 14
+      },
+      "satisfy_coverage": {
+        "n_content_words": 13,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 11
+      },
+      "content_alone_misranks": false,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.5487623810768127,
+          "ACTION": 0.5487624406814575,
+          "OBJECT": 0.5487624406814575
+        },
+        "restate": {
+          "AGENT": 0.04509110376238823,
+          "ACTION": 0.04509111866354942,
+          "OBJECT": 0.045091092586517334
+        }
+      }
+    }
+  ],
+  "results_arm_random_init_unstated_goal": [
+    {
+      "goal_id": "anne_goal_014",
+      "correct_schema": "prohibition",
+      "predicted_schema": "escape_punishment",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.04742797464132309,
+        "escape_punishment": 0.19322971999645233,
+        "material_want": 0.03455888852477074,
+        "prohibition": -0.19774647057056427
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 7,
+        "n_covered": 6,
+        "agent_covered": false,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      }
+    },
+    {
+      "goal_id": "anne_goal_016",
+      "correct_schema": "aid_rescue",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.06405562162399292,
+        "escape_punishment": -0.06955096870660782,
+        "material_want": 0.07550837099552155,
+        "prohibition": 0.02009996585547924
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 15,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 13
+      }
+    },
+    {
+      "goal_id": "anne_goal_019",
+      "correct_schema": "escape_punishment",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": -0.02483956888318062,
+        "escape_punishment": 0.00964781641960144,
+        "material_want": 0.08604523539543152,
+        "prohibition": -0.01131516508758068
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 14,
+        "n_covered": 14,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 12,
+        "object_total_count": 12
+      }
+    }
+  ],
+  "results_arm_ppmi_ref_satisfy_restate": [
+    {
+      "goal_id": "anne_goal_001",
+      "sim_goal_to_restate": 0.5112137581693332,
+      "sim_goal_to_satisfy": 0.4226555406789851,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "restate_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      },
+      "content_alone_misranks": true,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.4226555406789851,
+          "ACTION": 0.42265557263038217,
+          "OBJECT": 0.42265557263038217
+        },
+        "restate": {
+          "AGENT": 0.5112137262179361,
+          "ACTION": 0.5112137262179361,
+          "OBJECT": 0.5112137262179361
+        }
+      }
+    },
+    {
+      "goal_id": "anne_goal_002",
+      "sim_goal_to_restate": 0.5112137581693332,
+      "sim_goal_to_satisfy": 0.454685058913264,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "restate_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "satisfy_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "content_alone_misranks": true,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.454685058913264,
+          "ACTION": 0.454685058913264,
+          "OBJECT": 0.454685058913264
+        },
+        "restate": {
+          "AGENT": 0.5112137262179361,
+          "ACTION": 0.5112137262179361,
+          "OBJECT": 0.5112137262179361
+        }
+      }
+    },
+    {
+      "goal_id": "anne_goal_012",
+      "sim_goal_to_restate": 0.4140800093655935,
+      "sim_goal_to_satisfy": 0.23801253875065437,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_coverage": {
+        "n_content_words": 11,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": false,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      },
+      "restate_coverage": {
+        "n_content_words": 16,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 14
+      },
+      "satisfy_coverage": {
+        "n_content_words": 13,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 11
+      },
+      "content_alone_misranks": true,
+      "role_decoded_overlap_diagnostic": {
+        "satisfy": {
+          "AGENT": 0.23801253875065437,
+          "ACTION": 0.23801253875065437,
+          "OBJECT": 0.23801253875065437
+        },
+        "restate": {
+          "AGENT": 0.4140800093655935,
+          "ACTION": 0.41408004131699055,
+          "OBJECT": 0.41408004131699055
+        }
+      }
+    }
+  ],
+  "results_arm_ppmi_ref_unstated_goal": [
+    {
+      "goal_id": "anne_goal_014",
+      "correct_schema": "prohibition",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.17014735600911202,
+        "escape_punishment": 0.27304203755848383,
+        "material_want": 0.4024435661644418,
+        "prohibition": 0.13147092473989005
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 7,
+        "n_covered": 6,
+        "agent_covered": false,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      }
+    },
+    {
+      "goal_id": "anne_goal_016",
+      "correct_schema": "aid_rescue",
+      "predicted_schema": "escape_punishment",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.14895984143927496,
+        "escape_punishment": 0.47834465307428675,
+        "material_want": 0.32311150628599006,
+        "prohibition": 0.08268354575900161
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 15,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 13
+      }
+    },
+    {
+      "goal_id": "anne_goal_019",
+      "correct_schema": "escape_punishment",
+      "predicted_schema": "escape_punishment",
+      "correct": true,
+      "sims": {
+        "aid_rescue": 0.062085666264590285,
+        "escape_punishment": 0.3642673340163264,
+        "material_want": 0.16225293262702853,
+        "prohibition": -0.017475115692813646
+      },
+      "any_zero_coverage": false,
+      "action_coverage": {
+        "n_content_words": 14,
+        "n_covered": 14,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 12,
+        "object_total_count": 12
+      }
+    }
+  ],
+  "summary_fields": {
+    "mechanism": "bound role-filler FHRR event structure (AGENT/ACTION/OBJECT position-heuristic role split, bind+bundle via hdlab.binding/hdlab.bundling, structure_overlap similarity via the situation_model_accumulate overlap convention), NOT cosine-of-mean",
+    "arms": {
+      "ARM_ERROR_DRIVEN_SGNS": {
+        "arm_name": "ARM_ERROR_DRIVEN_SGNS",
+        "predicted_schemas_unstated_goal": [
+          "material_want",
+          "material_want",
+          "escape_punishment"
+        ],
+        "material_want_collapse": false,
+        "collapse_broken": true,
+        "content_alone_misrank_count": 2,
+        "content_alone_misrank_rate": 0.6666666666666666,
+        "content_alone_correct_count": 1,
+        "unstated_goal_recovery_correct_count": 1,
+        "unstated_goal_recovery_rate": 0.3333333333333333,
+        "content_only_ceiling": 0.3333333333333333,
+        "sim_min": 0.29612621665000916,
+        "sim_median": 0.5058832764625549,
+        "sim_max": 0.7614940404891968,
+        "sim_spread": 0.4653678238391876,
+        "cardinality_ok": true
+      },
+      "ARM_RANDOM_INIT_CONTROL": {
+        "arm_name": "ARM_RANDOM_INIT_CONTROL",
+        "predicted_schemas_unstated_goal": [
+          "escape_punishment",
+          "material_want",
+          "material_want"
+        ],
+        "material_want_collapse": false,
+        "collapse_broken": true,
+        "content_alone_misrank_count": 0,
+        "content_alone_misrank_rate": 0.0,
+        "content_alone_correct_count": 3,
+        "unstated_goal_recovery_correct_count": 0,
+        "unstated_goal_recovery_rate": 0.0,
+        "content_only_ceiling": 0.5,
+        "sim_min": -0.19774647057056427,
+        "sim_median": 0.03982500545680523,
+        "sim_max": 0.5487624406814575,
+        "sim_spread": 0.7465089112520218,
+        "cardinality_ok": true
+      },
+      "ARM_PPMI_MEANREMOVAL": {
+        "arm_name": "ARM_PPMI_MEANREMOVAL",
+        "predicted_schemas_unstated_goal": [
+          "material_want",
+          "escape_punishment",
+          "escape_punishment"
+        ],
+        "material_want_collapse": false,
+        "collapse_broken": true,
+        "content_alone_misrank_count": 3,
+        "content_alone_misrank_rate": 1.0,
+        "content_alone_correct_count": 0,
+        "unstated_goal_recovery_correct_count": 1,
+        "unstated_goal_recovery_rate": 0.3333333333333333,
+        "content_only_ceiling": 0.16666666666666666,
+        "sim_min": -0.017475115692813646,
+        "sim_median": 0.2980767719222369,
+        "sim_max": 0.5112137581693332,
+        "sim_spread": 0.5286888738621469,
+        "cardinality_ok": true
+      }
+    },
+    "v4_mean_pool_reference_MEASURED": {
+      "error_driven": {
+        "sim_min": 0.9345586990828426,
+        "sim_max": 0.9943983852099497,
+        "sim_spread": 0.059839686127107106,
+        "content_only_ceiling": 0.16666666666666666,
+        "n_sim_values": 18
+      },
+      "random_init": {
+        "sim_min": -0.2586886610146162,
+        "sim_max": 0.5001274446108228,
+        "sim_spread": 0.758816105625439,
+        "content_only_ceiling": 0.3333333333333333,
+        "n_sim_values": 18
+      },
+      "ppmi_ref": {
+        "sim_min": -0.029457890869941706,
+        "sim_max": 0.4267443988666307,
+        "sim_spread": 0.4562022897365724,
+        "content_only_ceiling": 0.3333333333333333,
+        "n_sim_values": 18
+      }
+    },
+    "gate1_non_saturation": {
+      "new_error_driven_spread": 0.4653678238391876,
+      "ref_error_driven_spread_MEASURED": 0.059839686127107106,
+      "widening": 0.4055281377120805,
+      "threshold_min_widening": 0.1,
+      "fires": true
+    },
+    "gate2_control_fires": {
+      "error_driven_content_only_ceiling": 0.3333333333333333,
+      "random_init_content_only_ceiling": 0.5,
+      "control_margin": -0.16666666666666669,
+      "threshold_min_margin": 0.16666666666666666,
+      "fires": false,
+      "note": "under mean-pool these were TIED/near-tied (MEASURED ref ceilings: error_driven=0.1667 random_init=0.3333)"
+    },
+    "gate3_content_discrimination": {
+      "error_driven_new_ceiling": 0.3333333333333333,
+      "error_driven_old_ceiling_MEASURED": 0.16666666666666666,
+      "error_driven_beats_old": true,
+      "ppmi_new_ceiling": 0.16666666666666666,
+      "ppmi_old_ceiling_MEASURED": 0.3333333333333333,
+      "ppmi_beats_old": false,
+      "fires": true
+    },
+    "verdict_regime": "REPRESENTATION_STILL_BROKEN_GATE2_CONTROL_FIRES",
+    "corpus_n_tokens_combined": 439872,
+    "corpus_vocab_size_after_min_count_filter": 7641,
+    "sgns_n_pairs_trained": 1140679,
+    "role_vec_dims": {
+      "d64_arms": 64,
+      "ppmi_arm": 7641
+    },
+    "n_probe_items_caveat": "N=6 hand-selected probe items; this is a CAN-FAIL SMOKE for whether the bound role-filler REPRESENTATION avoids saturation and tests content, explicitly NOT the architecture-accept decision or a claim of solved relation-inference.",
+    "elapsed_s": 83.2205735000316
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_scaled_to_diagnostic_n6x3arms",
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_exempted": [],
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "no fixed-capacity argmax-noise-floor threshold in this cell; discrete k/6 tier feasibility (Gate-B analogue) documented in module docstring; bind/bundle capacity (3 roles into 1 composite, well within validated FHRR bundle capacity) is not the tested limit at this scale"
+}
