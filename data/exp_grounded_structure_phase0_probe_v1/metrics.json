@@ -1,0 +1,244 @@
+{
+  "verdict": "PREMISE_PAYS_ORACLE_ONLY",
+  "verdict_msg": "PREMISE_PAYS_ORACLE_ONLY: confused_4 AUTO_BLIND=0.500 ORACLE_NARRATIVE=0.750 SCRAMBLED_control=0.750 strongest_text_only=0.500 (lexical=0.250, prior_situated_structure=0.500) scramble_collapsed=True",
+  "summary": "PREMISE_PAYS_ORACLE_ONLY on n=4 confused subset; fairness+brain-foundational gates reported",
+  "elapsed_s": 0.06336920009925961,
+  "ts_iso": "2026-08-03T20:34:37.004107+00:00",
+  "pid": 26712,
+  "anchor_name": "grounded_structure_phase0_probe_v1",
+  "run_mode": "full",
+  "expected_n_units": 60,
+  "measured_n_units": 60,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "GROUNDED_AUTO_BLIND": "c45e63d9b35383ead6649c696c48c07be303cd330b0aa8e596de62817fa86b5c",
+    "GROUNDED_ORACLE_NARRATIVE": "7447ae871b82261a47834696f9fab35c6bf5085d7a5c1366e5da9038ac89cc1d",
+    "GROUNDED_ORACLE_SCRAMBLED_VALENCE": "78609f1f6c3a3092643c9bdeef2e65dc9d59ac6fbfec4e69e758e9e2428e3e48",
+    "TEXT_ONLY_LEXICAL": "782021270453611a96d80099f371b590bf186bec548bb00e544579b69f29dbe6",
+    "RANDOM": "5713828b10d371417243d759fe879ec534b9392b62c64cd374322efd38bc3293"
+  },
+  "metrics_by_scope": {
+    "confused_4": {
+      "n": 4,
+      "GROUNDED_AUTO_BLIND_accuracy": 0.5,
+      "GROUNDED_ORACLE_NARRATIVE_accuracy": 0.75,
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_accuracy": 0.75,
+      "TEXT_ONLY_LEXICAL_accuracy": 0.25,
+      "RANDOM_accuracy": 0.25
+    },
+    "full_12": {
+      "n": 12,
+      "GROUNDED_AUTO_BLIND_accuracy": 0.3333333333333333,
+      "GROUNDED_ORACLE_NARRATIVE_accuracy": 0.4166666666666667,
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_accuracy": 0.3333333333333333,
+      "TEXT_ONLY_LEXICAL_accuracy": 0.3333333333333333,
+      "RANDOM_accuracy": 0.16666666666666666
+    }
+  },
+  "gates": {
+    "fairness_scramble_collapsed": true,
+    "oracle_pays": true,
+    "auto_pays_today": false,
+    "strongest_text_only_confused4": 0.5
+  },
+  "valence_table_harm_words": [
+    "angry",
+    "bitter",
+    "blame",
+    "cheat",
+    "cheated",
+    "cross",
+    "deceive",
+    "fault",
+    "hard",
+    "harm",
+    "hurt",
+    "pay",
+    "punish",
+    "revenge",
+    "scold",
+    "scolding",
+    "slap",
+    "slapped",
+    "spite",
+    "spiteful",
+    "trick",
+    "vindictive",
+    "wrong"
+  ],
+  "valence_table_help_words": [
+    "care",
+    "careful",
+    "carefully",
+    "comfort",
+    "defend",
+    "gentle",
+    "guard",
+    "help",
+    "helped",
+    "kind",
+    "nurse",
+    "protect",
+    "protective",
+    "rescue",
+    "safe",
+    "safety",
+    "shield",
+    "softly",
+    "soothe",
+    "warm"
+  ],
+  "oracle_prior_block_declared": {
+    "relinf_unstated_007": true
+  },
+  "category_structure_appraisal_table": {
+    "MANIPULATE_AVOID_WORK": [
+      "SELF",
+      "NA",
+      null
+    ],
+    "SELF_PRESERVATION_ESCAPE": [
+      "SELF",
+      "NA",
+      null
+    ],
+    "CURIOSITY_EXPLORATION": [
+      "SELF",
+      "NA",
+      null
+    ],
+    "COMPLY_AVOID_TROUBLE": [
+      "SELF",
+      "NA",
+      null
+    ],
+    "ESCAPE_BLAME_DECEPTION": [
+      "SELF",
+      "NA",
+      null
+    ],
+    "SELF_DISCIPLINE": [
+      "SELF",
+      "NA",
+      null
+    ],
+    "CARE_FOR_OTHERS": [
+      "OTHER",
+      "HELP",
+      false
+    ],
+    "PROTECT_OTHERS": [
+      "OTHER",
+      "HELP",
+      false
+    ],
+    "REVENGE_PUNISH": [
+      "OTHER",
+      "HARM",
+      true
+    ]
+  },
+  "per_item_ablation_confused_4": [
+    {
+      "id": "relinf_unstated_007",
+      "correct_category": "REVENGE_PUNISH",
+      "gold_target": "OTHER",
+      "gold_valence": "HARM",
+      "gold_prior_block": true,
+      "pred_target": "OTHER",
+      "pred_valence": "HELP",
+      "pred_prior_block_auto_blind": true,
+      "pred_prior_block_oracle": true,
+      "GROUNDED_AUTO_BLIND_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_AUTO_BLIND_correct": false,
+      "GROUNDED_ORACLE_NARRATIVE_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_ORACLE_NARRATIVE_correct": false,
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_pick": "REVENGE_PUNISH",
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_correct": true,
+      "TEXT_ONLY_LEXICAL_pick": "CARE_FOR_OTHERS",
+      "TEXT_ONLY_LEXICAL_correct": false,
+      "RANDOM_pick": "SELF_DISCIPLINE",
+      "RANDOM_correct": false,
+      "brain_fidelity_auto_blind": "BRAIN_LIKE_MISS_IRONY_FOOLED",
+      "brain_fidelity_oracle": "BRAIN_LIKE_MISS_IRONY_FOOLED",
+      "solved_by": "UNSOLVED"
+    },
+    {
+      "id": "relinf_unstated_010",
+      "correct_category": "CARE_FOR_OTHERS",
+      "gold_target": "OTHER",
+      "gold_valence": "HELP",
+      "gold_prior_block": false,
+      "pred_target": "OTHER",
+      "pred_valence": "HELP",
+      "pred_prior_block_auto_blind": true,
+      "pred_prior_block_oracle": false,
+      "GROUNDED_AUTO_BLIND_pick": "REVENGE_PUNISH",
+      "GROUNDED_AUTO_BLIND_correct": false,
+      "GROUNDED_ORACLE_NARRATIVE_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_ORACLE_NARRATIVE_correct": true,
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_pick": "REVENGE_PUNISH",
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_correct": false,
+      "TEXT_ONLY_LEXICAL_pick": "REVENGE_PUNISH",
+      "TEXT_ONLY_LEXICAL_correct": false,
+      "RANDOM_pick": "CARE_FOR_OTHERS",
+      "RANDOM_correct": true,
+      "brain_fidelity_auto_blind": "OTHER_MISS_UNCLASSIFIED",
+      "brain_fidelity_oracle": "CORRECT",
+      "solved_by": "ORACLE_ONLY"
+    },
+    {
+      "id": "relinf_unstated_011",
+      "correct_category": "PROTECT_OTHERS",
+      "gold_target": "OTHER",
+      "gold_valence": "HELP",
+      "gold_prior_block": false,
+      "pred_target": "OTHER",
+      "pred_valence": "HARM",
+      "pred_prior_block_auto_blind": false,
+      "pred_prior_block_oracle": false,
+      "GROUNDED_AUTO_BLIND_pick": "PROTECT_OTHERS",
+      "GROUNDED_AUTO_BLIND_correct": true,
+      "GROUNDED_ORACLE_NARRATIVE_pick": "PROTECT_OTHERS",
+      "GROUNDED_ORACLE_NARRATIVE_correct": true,
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_pick": "PROTECT_OTHERS",
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_correct": true,
+      "TEXT_ONLY_LEXICAL_pick": "SELF_DISCIPLINE",
+      "TEXT_ONLY_LEXICAL_correct": false,
+      "RANDOM_pick": "REVENGE_PUNISH",
+      "RANDOM_correct": false,
+      "brain_fidelity_auto_blind": "CORRECT",
+      "brain_fidelity_oracle": "CORRECT",
+      "solved_by": "BLIND"
+    },
+    {
+      "id": "relinf_unstated_012",
+      "correct_category": "SELF_DISCIPLINE",
+      "gold_target": "SELF",
+      "gold_valence": "NA",
+      "gold_prior_block": null,
+      "pred_target": "SELF",
+      "pred_valence": "HARM",
+      "pred_prior_block_auto_blind": false,
+      "pred_prior_block_oracle": false,
+      "GROUNDED_AUTO_BLIND_pick": "SELF_DISCIPLINE",
+      "GROUNDED_AUTO_BLIND_correct": true,
+      "GROUNDED_ORACLE_NARRATIVE_pick": "SELF_DISCIPLINE",
+      "GROUNDED_ORACLE_NARRATIVE_correct": true,
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_pick": "SELF_DISCIPLINE",
+      "GROUNDED_ORACLE_SCRAMBLED_VALENCE_correct": true,
+      "TEXT_ONLY_LEXICAL_pick": "SELF_DISCIPLINE",
+      "TEXT_ONLY_LEXICAL_correct": true,
+      "RANDOM_pick": "CURIOSITY_EXPLORATION",
+      "RANDOM_correct": false,
+      "brain_fidelity_auto_blind": "CORRECT",
+      "brain_fidelity_oracle": "CORRECT",
+      "solved_by": "BLIND"
+    }
+  ],
+  "note_appraisal_framing": "Composition = Lazarus/Scherer-CPM appraisal (TARGET=ToM, VALENCE=goal-congruence, PRIOR_BLOCK=causal-attribution); goal-relevance held constant (all items goal-directed by construction), coping-potential out of scope for this cheap pass.",
+  "note_supply_vs_earn": "VALENCE table and classification RULE are SUPPLIED (fixed, hand-built) -- a diagnostic ceiling, NOT brain-faithful earning. What is tested is the STRUCTURE/HYPOTHESIS (appraisal composition over target+valence+causal-attribution is the right shape), not the earning.",
+  "note_oracle_declaration": "GROUNDED_ORACLE_NARRATIVE's prior_block for relinf_unstated_007 is an explicitly declared ORACLE CEILING (sourced from relinf_unstated_008's action_text, same gold file, earlier line_range -- an independent textual fact, not the category label). NOT claimed as today's automatic capability; GROUNDED_AUTO_BLIND is the fully-automatic variant.",
+  "note_scramble_control": "GROUNDED_ORACLE_SCRAMBLED_VALENCE swaps the HARM_WORDS/HELP_WORDS classes wholesale (fixed permutation, still category-blind) as a contamination check; its lift over strongest-text-only MUST collapse for the result to be non-contaminated."
+}
