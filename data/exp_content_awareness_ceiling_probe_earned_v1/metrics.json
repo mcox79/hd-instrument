@@ -1,0 +1,179 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "verdict_regime=EARNED_INSUFFICIENT; ceiling_recall=0.500 vs BGE_ceiling=0.8333333333333334; content_regime=CONTENT_ALONE_MISRANKS_NEEDS_STRUCTURE; content_alone_misrank_rate=1.000 (3/3); content_plus_structure_accuracy=0.667; unstated_goal_recovery_rate=0.333 (1/3); gap_vs_borrowed=0.33333333333333337; embedding_source=EARNED_PPMI_ANNE_CORPUS_v1 (window=5, min_count=3, no_SVD_raw_PPMI_rows, glass_box, n_tokens=106826, vocab_size=2871)",
+  "summary": "EARNED-CONTENT CEILING PROBE verdict_regime=EARNED_INSUFFICIENT",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-08-03T13:15:56.555269+00:00",
+  "pid": 42696,
+  "anchor_name": "content_awareness_ceiling_probe_earned_v1",
+  "results_satisfy_restate": [
+    {
+      "goal_id": "anne_goal_001",
+      "sim_goal_to_restate": 0.622217995099645,
+      "sim_goal_to_satisfy": 0.49385426009592115,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "9/9",
+      "restate_content_word_coverage": "9/10",
+      "satisfy_content_word_coverage": "9/11",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.128364,
+        "content_plus_structure_gap": 0.871636,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_002",
+      "sim_goal_to_restate": 0.622217995099645,
+      "sim_goal_to_satisfy": 0.593701091828222,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "9/10",
+      "restate_content_word_coverage": "9/9",
+      "satisfy_content_word_coverage": "9/9",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": false,
+      "struct_score_satisfy": 1,
+      "struct_score_restate": 1,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.028517,
+        "content_plus_structure_gap": -0.028517,
+        "structure_only_gap": 0.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_012",
+      "sim_goal_to_restate": 0.7056890145178244,
+      "sim_goal_to_satisfy": 0.5323200243271414,
+      "restate_zero_coverage": false,
+      "satisfy_zero_coverage": false,
+      "goal_content_word_coverage": "8/11",
+      "restate_content_word_coverage": "14/16",
+      "satisfy_content_word_coverage": "13/13",
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.173369,
+        "content_plus_structure_gap": 0.826631,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    }
+  ],
+  "results_unstated_goal": [
+    {
+      "goal_id": "anne_goal_014",
+      "correct_schema": "prohibition",
+      "predicted_schema": "prohibition",
+      "correct": true,
+      "sims": {
+        "aid_rescue": 0.14704848683737992,
+        "escape_punishment": 0.13180519084470912,
+        "material_want": 0.2180731095368277,
+        "prohibition": 0.2469488162511772
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "5/7",
+      "schema_content_word_coverage": {
+        "aid_rescue": "3/8",
+        "escape_punishment": "4/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_016",
+      "correct_schema": "aid_rescue",
+      "predicted_schema": "material_want",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.1930834667845657,
+        "escape_punishment": 0.16571437158608948,
+        "material_want": 0.26513656594049534,
+        "prohibition": 0.26021105890065377
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "15/15",
+      "schema_content_word_coverage": {
+        "aid_rescue": "3/8",
+        "escape_punishment": "4/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_019",
+      "correct_schema": "escape_punishment",
+      "predicted_schema": "prohibition",
+      "correct": false,
+      "sims": {
+        "aid_rescue": 0.20312271892920164,
+        "escape_punishment": 0.20449090463839636,
+        "material_want": 0.2610973254136827,
+        "prohibition": 0.28628544038988213
+      },
+      "any_zero_coverage": false,
+      "action_content_word_coverage": "14/14",
+      "schema_content_word_coverage": {
+        "aid_rescue": "3/8",
+        "escape_punishment": "4/7",
+        "material_want": "7/7",
+        "prohibition": "3/7"
+      },
+      "regex_schema_missed_per_task_framing": true
+    }
+  ],
+  "summary_fields": {
+    "embedding_source": "EARNED_PPMI_ANNE_CORPUS_v1 (window=5, min_count=3, no_SVD_raw_PPMI_rows, glass_box, n_tokens=106826, vocab_size=2871)",
+    "content_representation_class": "EARNED_FROM_CORPUS (co-occurrence -> PPMI, no SVD, no borrowed model)",
+    "corpus_path": "D:\\AI\\hd-instrument\\data\\corpora\\anne_of_green_gables\\cleaned\\anne_of_green_gables.clean.txt",
+    "corpus_n_tokens": 106826,
+    "corpus_vocab_size_after_min_count_filter": 2871,
+    "n_satisfy_restate_items": 3,
+    "n_unstated_goal_items": 3,
+    "content_alone_misrank_count": 3,
+    "content_alone_misrank_rate": 1.0,
+    "content_plus_structure_correct_count": 2,
+    "content_plus_structure_accuracy": 0.6666666666666666,
+    "unstated_goal_recovery_correct_count": 1,
+    "unstated_goal_recovery_rate": 0.3333333333333333,
+    "chance_floor_4way_schema_THEORETICAL": 0.25,
+    "ceiling_correct_of_probe_items": 3,
+    "ceiling_total_probe_items": 6,
+    "ceiling_recall_all_probe_items": 0.5,
+    "content_regime": "CONTENT_ALONE_MISRANKS_NEEDS_STRUCTURE",
+    "goal_018_borderline_sims": {
+      "aid_rescue": 0.11891139380525712,
+      "escape_punishment": 0.14424416117628347,
+      "material_want": 0.20054120442060172,
+      "prohibition": 0.1790761108498015
+    },
+    "bge_diagnostic_ceiling_MEASURED_from_prior_cell": 0.8333333333333334,
+    "bge_diagnostic_misrank_rate_MEASURED_from_prior_cell": 1.0,
+    "bge_diagnostic_structure_accuracy_MEASURED_from_prior_cell": 0.6666666666666666,
+    "bge_diagnostic_unstated_recovery_MEASURED_from_prior_cell": 1.0,
+    "earned_vs_borrowed_ceiling_gap": 0.33333333333333337,
+    "earned_viable_threshold": 0.6,
+    "verdict_regime": "EARNED_INSUFFICIENT",
+    "note_oov_limitation": "Schema descriptions (prohibition/material_want/aid_rescue/escape_punishment) are hand-authored generic English; several of their content words (e.g. 'prohibition', 'possession', 'confinement', 'deception') are RARE or ABSENT in a single ~107k-token children's novel and get zero PPMI coverage under min_count=3 -- see per-item *_content_word_coverage fields. This is the expected cost of the from-scratch-single-novel constraint, not a bug."
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_scaled_to_diagnostic_n6",
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_exempted": [],
+  "deterministic_seeding": true,
+  "progress_logging": "n/a_elapsed_under_1800s"
+}
