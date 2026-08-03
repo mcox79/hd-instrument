@@ -1,0 +1,1297 @@
+{
+  "anchor_name": "consolidation_ledger_v1",
+  "verdict": "BROKEN_OR_UNDER_INSTRUMENTED",
+  "verdict_msg": "[BROKEN_OR_UNDER_INSTRUMENTED] n_passages=36 n_flagged_items=59 outcomes={'CONSOLIDATED': 2, 'NOT_CONSOLIDATED': 57}. FALSE-CONSOLIDATION rate=0.5 (1/2 consolidated items wrong vs gold) [band <= 0.2]. NOT-CONSOLIDATED hardness: genuinely_hard=15 instrumentation_gap=2 flag_calibration_miss=40 genuinely_hard_frac=0.8823529411764706 [band >= 0.5]. coherence_tracks_signal=False (wrong_rate delta+=0.6666666666666666 vs delta<=0=0.5). FAILING_GATES: false_consolidation_rate=0.500 > band 0.2; coherence signal does NOT track correctness (delta-positive items are LESS accurate than delta-nonpositive items). N is modest (McGuffey scope only, 36 passages); see reproducibility_note.",
+  "summary": "BROKEN_OR_UNDER_INSTRUMENTED",
+  "elapsed_s": 0.7145899999886751,
+  "ts_iso": "2026-08-03T01:36:08.660615+00:00",
+  "pid": 41084,
+  "seed": 20260802,
+  "d": 1024,
+  "max_event_slots": 16,
+  "candidate_name": "principle_b_deixis",
+  "abstain_band": 0.02,
+  "false_consolidation_band": 0.2,
+  "genuine_hard_band": 0.5,
+  "low_coherence_percentile": 25.0,
+  "ledger_summary": {
+    "n_passages": 36,
+    "n_flagged_items_total": 59,
+    "outcome_counts": {
+      "CONSOLIDATED": 2,
+      "NOT_CONSOLIDATED": 57
+    },
+    "consolidated_correctness": {
+      "n_consolidated": 2,
+      "n_correct": 1,
+      "n_false_consolidation": 1,
+      "false_consolidation_rate": 0.5
+    },
+    "not_consolidated_hardness": {
+      "counts_by_category": {
+        "no_fix_needed_baseline_correct": 39,
+        "no_fix_available_baseline_wrong": 15,
+        "instrumentation_gap_missed_good_fix": 1,
+        "no_fix_needed_baseline_correct_candidate_agrees": 1,
+        "instrumentation_gap_diluted_by_passage_aggregate": 1
+      },
+      "n_genuinely_hard": 15,
+      "n_instrumentation_gap": 2,
+      "n_flag_calibration_miss": 40,
+      "genuinely_hard_frac_of_scored": 0.8823529411764706
+    },
+    "coherence_tracking": {
+      "n_candidate_changed": 5,
+      "n_item_delta_positive": 3,
+      "n_item_delta_nonpositive": 2,
+      "final_wrong_rate_delta_positive": 0.6666666666666666,
+      "final_wrong_rate_delta_nonpositive": 0.5,
+      "tracks_signal": false
+    },
+    "flag_inventory": {
+      "n_flagged_items_total": 59,
+      "counts_by_flag_type": {
+        "high_n_compatible": 52,
+        "low_coherence": 20,
+        "low_margin_tie": 9
+      },
+      "n_multi_flag_items": 20,
+      "role_construction_confidence_flag": "NOT_DETECTABLE_role_is_gold_supplied_in_this_eval",
+      "calibration_by_flag_type": {
+        "high_n_compatible": {
+          "n_items": 52,
+          "not_consolidated_rate": 0.9615384615384616,
+          "not_consolidated_rate_without_flag": 1.0,
+          "false_consolidation_rate": 0.5
+        },
+        "low_margin_tie": {
+          "n_items": 9,
+          "not_consolidated_rate": 0.8888888888888888,
+          "not_consolidated_rate_without_flag": 0.98,
+          "false_consolidation_rate": 0.0
+        },
+        "low_coherence": {
+          "n_items": 20,
+          "not_consolidated_rate": 0.9,
+          "not_consolidated_rate_without_flag": 1.0,
+          "false_consolidation_rate": 0.5
+        }
+      }
+    },
+    "low_coherence_threshold": 0.29623219929635525
+  },
+  "ledger_items": [
+    {
+      "passage_id": "g2_dense_boat_rose_boatman_edgar_thomas",
+      "pos": 8,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 4.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.26552432402968407
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g2_dense_james_sport_dodger",
+      "pos": 9,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 5,
+        "base_coherence_margin": 0.015419244766235352
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g2_dense_james_sport_dodger",
+      "pos": 11,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 5,
+        "base_coherence_margin": 0.015419244766235352
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g2_dense_sam_harry_blindman",
+      "pos": 8,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.3111373856663704
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g2_dense_sam_harry_blindman",
+      "pos": 10,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 3.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.012200683355331421
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g2_dense_willie_bounce_brown_river_rescue",
+      "pos": 4,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.43456826359033585
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g2_dense_willie_bounce_brown_river_rescue",
+      "pos": 9,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 3.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.31647253781557083
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g2_dense_willie_bounce_brown_river_rescue",
+      "pos": 12,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 4.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.3349974527955055
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g4_dense_harry_frisk_annie",
+      "pos": 6,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.41610976308584213
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g4_dense_philip_stephen_robinson",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.334944948554039
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": 0.019056516389052074,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g4_dense_philip_stephen_robinson",
+      "pos": 6,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.03651246428489685
+      },
+      "candidate_changed": true,
+      "item_coherence_delta": -0.005113512277603149,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": 0.019056516389052074,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "instrumentation_gap_missed_good_fix",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g4_dense_philip_stephen_robinson",
+      "pos": 8,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.03651246428489685
+      },
+      "candidate_changed": true,
+      "item_coherence_delta": -0.005113512277603149,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": 0.019056516389052074,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct_candidate_agrees",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g4_dense_philip_stephen_robinson",
+      "pos": 10,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.33235633186995983
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": 0.019056516389052074,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g4_dense_philip_stephen_robinson",
+      "pos": 12,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.33819713070988655
+      },
+      "candidate_changed": true,
+      "item_coherence_delta": 0.06739657372236252,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": 0.019056516389052074,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "instrumentation_gap_diluted_by_passage_aggregate",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g5v_benefactor_debtor",
+      "pos": 5,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.6270310916006565
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_flor_silin_neighbors",
+      "pos": 6,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 6.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.39108020812273026
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_flor_silin_neighbors",
+      "pos": 8,
+      "mention_text": "them",
+      "flags": [
+        "low_margin_tie",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 0,
+        "base_coherence_margin": 0.0
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_flor_silin_wife",
+      "pos": 4,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.4670374467968941
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_flor_silin_wife",
+      "pos": 6,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.512650391086936
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_gentlehand_lad_dick_pony",
+      "pos": 2,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.5898102782666683
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g5v_harry_gordon_master",
+      "pos": 1,
+      "mention_text": "he",
+      "flags": [
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 1,
+        "base_coherence_margin": 0.23237238824367523
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_harry_gordon_master",
+      "pos": 3,
+      "mention_text": "he",
+      "flags": [
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 1,
+        "base_coherence_margin": 0.1964042168110609
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_harry_gordon_master",
+      "pos": 4,
+      "mention_text": "him",
+      "flags": [
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 1,
+        "base_coherence_margin": 0.24052248895168304
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_harry_gordon_master",
+      "pos": 7,
+      "mention_text": "He",
+      "flags": [
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 1,
+        "base_coherence_margin": 0.0013809651136398315
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g5v_henry_wilkins_cherries",
+      "pos": 4,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.5142131838947535
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_henry_wilkins_cherries",
+      "pos": 6,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.5316954599693418
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_henry_wilkins_cherries",
+      "pos": 8,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.5673936158418655
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_child_mother_bible",
+      "pos": 4,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.37993007712066174
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_child_mother_bible",
+      "pos": 5,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.3747894298285246
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_child_mother_bible",
+      "pos": 7,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 3.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.3492228612303734
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_child_mother_bible",
+      "pos": 10,
+      "mention_text": "she",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 5.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.5100768841803074
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_child_mother_bible",
+      "pos": 12,
+      "mention_text": "she",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 6.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.45632834173738956
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_child_mother_bible",
+      "pos": 13,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 4.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.3322573807090521
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_roguish_student",
+      "pos": 3,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.3254083916544914
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g5v_sherman_roguish_student",
+      "pos": 5,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 3.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.34205613285303116
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g5v_sherman_roguish_student",
+      "pos": 7,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 5.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.3159705102443695
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g5v_tonish_colt",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.29623219929635525
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": true,
+      "passage_agg_coherence_delta": 0.5832363590598106,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g5v_tonish_colt",
+      "pos": 8,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 7.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.01695731282234192
+      },
+      "candidate_changed": true,
+      "item_coherence_delta": 0.5832363590598106,
+      "passage_adopted_candidate": true,
+      "passage_agg_coherence_delta": 0.5832363590598106,
+      "outcome": "CONSOLIDATED",
+      "category": "false_consolidation",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g6_dense_joab_ahimaaz_cushi_absalom_king",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.039080649614334106
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g6v_beethoven_hugh",
+      "pos": 2,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.49295816011726856
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_beethoven_hugh",
+      "pos": 3,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.5350324586033821
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_beethoven_hugh",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 1.1920928955078125e-07
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_duke_porter_voter",
+      "pos": 3,
+      "mention_text": "him",
+      "flags": [
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 1,
+        "base_coherence_margin": 0.006092458963394165
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g6v_duke_porter_voter",
+      "pos": 7,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.3241804726421833
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g6v_dying_boy_schoolmaster",
+      "pos": 4,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.0
+      },
+      "candidate_changed": true,
+      "item_coherence_delta": 0.612736415117979,
+      "passage_adopted_candidate": true,
+      "passage_agg_coherence_delta": 0.612736415117979,
+      "outcome": "CONSOLIDATED",
+      "category": "consolidated_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_joab_man_absalom",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.05609974265098572
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g6v_joab_man_absalom",
+      "pos": 6,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.44665043242275715
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g6v_rip_cocked_hat",
+      "pos": 3,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.5080050677061081
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_cocked_hat",
+      "pos": 5,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.49734773114323616
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_daughter_mother",
+      "pos": 1,
+      "mention_text": "he",
+      "flags": [
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 1.0,
+        "n_compatible": 1,
+        "base_coherence_margin": 0.29257628321647644
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_daughter_mother",
+      "pos": 8,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 6.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.3247019462287426
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_judith_child",
+      "pos": 2,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 2,
+        "base_coherence_margin": 0.39605200476944447
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_judith_child",
+      "pos": 4,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.35456470772624016
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_judith_child",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 4.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.38975877314805984
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_judith_child",
+      "pos": 6,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 4.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.35310837626457214
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_old_woman",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_margin_tie"
+      ],
+      "error_estimates": {
+        "margin": 0.0,
+        "n_compatible": 4,
+        "base_coherence_margin": 0.6149926222860813
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_van_bummel",
+      "pos": 5,
+      "mention_text": "him",
+      "flags": [
+        "high_n_compatible",
+        "low_coherence"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.2870390936732292
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_available_baseline_wrong",
+      "final_wrong": true
+    },
+    {
+      "passage_id": "g6v_rip_van_bummel",
+      "pos": 6,
+      "mention_text": "he",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.33533957228064537
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    },
+    {
+      "passage_id": "g6v_rip_van_bummel",
+      "pos": 7,
+      "mention_text": "He",
+      "flags": [
+        "high_n_compatible"
+      ],
+      "error_estimates": {
+        "margin": 2.0,
+        "n_compatible": 3,
+        "base_coherence_margin": 0.3440355099737644
+      },
+      "candidate_changed": false,
+      "item_coherence_delta": null,
+      "passage_adopted_candidate": false,
+      "passage_agg_coherence_delta": null,
+      "outcome": "NOT_CONSOLIDATED",
+      "category": "no_fix_needed_baseline_correct",
+      "final_wrong": false
+    }
+  ],
+  "failing_gates": [
+    "false_consolidation_rate=0.500 > band 0.2",
+    "coherence signal does NOT track correctness (delta-positive items are LESS accurate than delta-nonpositive items)"
+  ],
+  "timeout_s": 100.0,
+  "final_metrics_atomicity": "tmp_replace",
+  "checkpointed": true,
+  "n_units_total": 36,
+  "n_units_ran_this_invocation": 36,
+  "reproducibility_note": "hdlab.coreference_resolver (build_mention_stream, enrich_dialogue, run_strict_cb_instrumented, run_principle_b_deixis, mention_link_wrong) and hdlab.self_improving_loop (route_passage, decode_coherence_margins, decide_keep_or_revert via route_passage) imported verbatim, never mutated. ROLE_VOCAB/D/MAX_EVENT_SLOTS/SEED/event_slots_for imported from exp_wire_coref_accumulate_situation_model_v1 for consistency with the rest of the wired stack. Not dispatched: single local diagnostic run, no pre-reg/queue_add, per director task contract."
+}
