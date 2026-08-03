@@ -1,6 +1,17 @@
 # WHERE WE ARE NOW — clean current state (REWRITE each session)
 
-## 🧭 CURRENT STATE (2026-08-02 ~18:30Z) — AUTHORITATIVE. THE COMPREHENSION-PIPELINE ARC.
+## 🧭 CURRENT STATE (2026-08-03 ~05:30Z) — AUTHORITATIVE. COMPREHENSION STACK BUILT; WALL = RELATIONAL EXTRACTION.
+(Branch = `dataprep/mcguffey-graded-corpus`, all local, NO push. Atoms 29613-29637. Full blow-by-blow in git history + atoms.)
+
+**THE SESSION'S ARC (coref-on-toy -> a real reader-comprehender on a novel):** built + WIRED + USED + banked the full comprehension stack, all VALIDATED **given correct structure**: coref (hdlab/coreference_resolver: match-or-allocate + strict_cb + Principle B + speaker-deixis + honest-mode flag-don't-fabricate; dense B3 ~0.87); situation model (hdlab/situation_model_accumulate accumulate organ) on DURABLE MULTI-BANK memory (hdlab/situation_model_multibank, holds decode >=0.999 where flat degrades to 0.655; now WIRED_AND_PIPELINE_USED); self-improving loop (hdlab/self_improving_loop: calibrated flag [name-margin AUC 0.80, pronoun n_compatible], coherence-gated autonomous keep/revert, demonstrated gold-free on dense content); CAUSAL comprehension organ (CausalLinkRegister: 0.9167 vs baselines 0.0 on cross-chapter integration, GIVEN links); GOAL->causal organ (Trabasso open/close: FP 0.0, precise GIVEN goals). CURRICULUM pivot: McGuffey -> Anne of Green Gables (PD, difficulty-by-construction). INTEGRATION GATE FIXED (USED-by-pipeline check + unregistered-scan; the wire-don't-island hole closed).
+
+**THE PRECISELY-LOCALIZED WALL (atom 29637, VET-corrected from my over-broad 'extraction' framing): RELATIONAL / DISCOURSE-STRUCTURE EXTRACTION** -- detecting the GOALS + CAUSAL LINKS + discourse relations comprehension consumes, from varied real prose. Every MECHANISM works given structure; every END-TO-END path bottoms out here. NOT bare mention/entity extraction (62.5% agent-ID, does NOT propagate to the organs). Measured: causal-link detection ~0.12 (only 12% have connectives; 17/18 story-specific, DEEP_INFERENCE_REQUIRED); goal extraction 0.11 (keyword lexicon misses varied phrasing); goal->causal end-to-end blocked there.
+
+**STRATEGIC FORK (USER's locked no-bolt-on-parser territory; recommend (c)):** (a) EARN relational extraction brain-faithfully [deep multi-session arc] vs (b) broaden supplied-DATA relational extraction [allowed, brittle] vs (c) HYBRID: supplied-data glass-box relational extraction as scaffolding NOW + earn as the deep frontier. IN FLIGHT (ace9666d): a principled GLASS-BOX goal extractor (syntactic goal/desiderative/purpose constructions + supplied frames, NOT a keyword lexicon) -> does it lift goal-recall + end-to-end causal-link recall at good precision, or cap at the inferential residual? = the hybrid's first real test. NEXT after: if it lifts -> wire; if it caps -> the inferential residual is the earned-extraction deep frontier (USER re-engage on the investment). Also pending: Director spot-verify comprehension+goal gold.
+
+---
+[HISTORY BELOW -- superseded by the consolidated banner above; kept for context.]
+## 🧭 CURRENT STATE (2026-08-02 ~18:30Z) — THE COMPREHENSION-PIPELINE ARC.
 (Full session blow-by-blow is in git history + atoms; this is the consolidated truth. Branch = `dataprep/mcguffey-graded-corpus`, all local, NO push.)
 
 ### THE GOAL
