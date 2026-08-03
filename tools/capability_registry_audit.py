@@ -65,6 +65,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -97,6 +98,134 @@ COMPOSED_ENTRY_PATHS = [
     # tools/*.py capabilities that are genuinely load-bearing but CLI-only.
     ROOT / "CLAUDE.md",
 ]
+
+# ---------------------------------------------------------------------------
+# THIRD INTEGRATION STATE (2026-08-02/03, notes/integration_audit_built_vs_wired_
+# vs_used_2026-08-02.md): "WIRED" (an import-graph consumer exists ANYWHERE --
+# even a single throwaway verify_*_v1 smoke-consumer) is not the same claim as
+# "reachable from the code that actually runs today." hdlab/working_memory.py was
+# WIRED-eligible (context_retention.py imports it) yet invisible to the real Anne
+# reader -- the gap the audit named "the working_memory failure class." This
+# section adds a STRICTER check: compute the import closure from the small,
+# explicit, active-pipeline entry-point list below, and classify every WIRED
+# hdlab-module row as WIRED_AND_PIPELINE_USED (its path is in that closure) or
+# WIRED_BUT_NOT_PIPELINE_REACHABLE (WIRED per the old check, but not reachable
+# from anything that actually runs). Declared explicitly here (not derived) so it
+# can't silently drift; extend this list as the active reading pipeline grows.
+# Mirrors notes/integration_audit_built_vs_wired_vs_used_2026-08-02.md Method
+# section verbatim (5 entry points, exact-8-file reachable set at time of audit).
+# ---------------------------------------------------------------------------
+ACTIVE_PIPELINE_ENTRY_POINTS = [
+    "tools/read_anne_glassbox_v2_honest_ledger.py",  # also pulls in tools/read_anne_glassbox_v1.py
+    "hdlab/coreference_resolver.py",
+    "hdlab/situation_model_accumulate.py",
+    "hdlab/self_improving_loop.py",
+    "hdlab/state_of_mind.py",
+]
+
+_RE_FROM_HDLAB = ih.RE_FROM_HDLAB
+_RE_FROM_HDLAB_BARE = ih.RE_FROM_HDLAB_BARE
+_RE_REL = ih.RE_REL
+_RE_REL_BARE = ih.RE_REL_BARE
+# Deliberately NOT reusing ih.RE_HDLAB_ATTR (bare `hdlab.foo` text match) here --
+# that regex matches inside docstrings/comments too, which is exactly the false-
+# positive this stricter check exists to avoid (state_of_mind.py's docstring
+# *mentions* "hdlab.working_memory" as a design note without importing it; a
+# text-match closure would wrongly call working_memory.py pipeline-reachable).
+# Real import statements only.
+_RE_LOCAL_FROM = re.compile(r"^\s*from\s+([A-Za-z0-9_]+)\s+import", re.M)
+_RE_LOCAL_IMPORT = re.compile(r"^\s*import\s+([A-Za-z0-9_]+)(?:\s+as\s+\w+)?", re.M)
+
+
+def _parse_import_names(chunk: str) -> list[str]:
+    out = []
+    for part in chunk.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        out.append(part.split(" as ")[0].split("#")[0].strip().strip("()"))
+    return [n for n in out if n and n.isidentifier()]
+
+
+def compute_pipeline_reachable_modules(entry_points: list[str] | None = None) -> set[str]:
+    """BFS import closure from ACTIVE_PIPELINE_ENTRY_POINTS, restricted to real
+    `import`/`from` statements resolving to files under hdlab/ or tools/ (mirrors
+    integration_health.py's regex approach but seeded from explicit production
+    entry points instead of scanning every file in the repo -- answers "is X
+    reachable from what actually runs" not "is X imported by *something*").
+
+    No dynamic-import handling: grepped `importlib|__import__` across the entry
+    points (2026-08-02 audit) with zero hits, so this closure is exact for the
+    current pipeline, not an approximation.
+
+    Returns a set of repo-relative paths (both hdlab/ and tools/ members of the
+    closure); callers filtering for the registry check should keep only the
+    'hdlab/' subset.
+    """
+    entries = entry_points or ACTIVE_PIPELINE_ENTRY_POINTS
+    seen: set[str] = set()
+    queue: list[str] = list(entries)
+    while queue:
+        rel = queue.pop()
+        if rel in seen:
+            continue
+        full = ROOT / rel
+        if not full.exists():
+            continue
+        seen.add(rel)
+        src = ih._read(full)
+        cur_dir = str(Path(rel).parent).replace("\\", "/")
+        found: set[str] = set()
+        for m in _RE_FROM_HDLAB.finditer(src):
+            found.add(f"hdlab/{m.group(1)}.py")
+        for m in _RE_FROM_HDLAB_BARE.finditer(src):
+            for n in _parse_import_names(m.group(1)):
+                found.add(f"hdlab/{n}.py")
+        if cur_dir == "hdlab":
+            for m in _RE_REL.finditer(src):
+                found.add(f"hdlab/{m.group(1)}.py")
+            for m in _RE_REL_BARE.finditer(src):
+                for n in _parse_import_names(m.group(1)):
+                    found.add(f"hdlab/{n}.py")
+        # local-directory bare imports (e.g. tools/read_anne_glassbox_v2 importing
+        # tools/read_anne_glassbox_v1 as a sibling module, not a package import)
+        for m in _RE_LOCAL_FROM.finditer(src):
+            cand = f"{cur_dir}/{m.group(1)}.py"
+            if (ROOT / cand).exists():
+                found.add(cand)
+        for m in _RE_LOCAL_IMPORT.finditer(src):
+            cand = f"{cur_dir}/{m.group(1)}.py"
+            if (ROOT / cand).exists():
+                found.add(cand)
+        for f in found:
+            if f not in seen:
+                queue.append(f)
+    return seen
+
+
+def scan_unregistered_hdlab_modules(rows: list[dict]) -> list[str]:
+    """Disk-scan glob(hdlab/*.py) diffed against every registry row's `path` field.
+
+    Catches the OTHER half of the working_memory failure mode: it wasn't just
+    unreachable from the pipeline, it had NO registry row at all, so it never even
+    hit the wire-or-shelve gate. Fails loud (returned list is non-empty) rather
+    than silently passing -- run alongside the reachability check at session start.
+    """
+    registered_paths: set[str] = set()
+    for r in rows:
+        for p in (r.get("path") or []):
+            registered_paths.add(p)
+    hdlab_dir = ROOT / "hdlab"
+    if not hdlab_dir.is_dir():
+        return []
+    unregistered = []
+    for f in sorted(os.listdir(hdlab_dir)):
+        if not f.endswith(".py") or f == "__init__.py":
+            continue
+        rel = f"hdlab/{f}"
+        if rel not in registered_paths:
+            unregistered.append(rel)
+    return unregistered
 
 
 def _utc_now_iso() -> str:
@@ -279,14 +408,32 @@ def run_audit(stale_days: int, dry_run: bool) -> dict:
     rows = load_registry()
     graph = ih.compute_import_graph()
     composed_sources = _composed_entry_sources()
+    pipeline_reachable = compute_pipeline_reachable_modules()
+    pipeline_reachable_hdlab = sorted(p for p in pipeline_reachable if p.startswith("hdlab/"))
 
     n_wired = n_trapped = n_island = n_na = n_unknown = 0
+    n_pipeline_used = n_wired_not_pipeline = 0
     path_missing_flags = []
     for r in rows:
         status, used_by = compute_integration_status(r, graph, composed_sources)
         r["integration_status"] = status
         r["used_by"] = used_by
         r["last_audit_utc"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        # THIRD STATE: only meaningful for hdlab-module rows the old check already
+        # calls WIRED -- refines "some consumer exists" into "reachable from what
+        # actually runs" vs "importable but not on the active pipeline's path."
+        if status == "WIRED" and r.get("kind") == "hdlab-module":
+            paths = r.get("path") or []
+            if any(p in pipeline_reachable_hdlab for p in paths):
+                r["pipeline_status"] = "WIRED_AND_PIPELINE_USED"
+                n_pipeline_used += 1
+            else:
+                r["pipeline_status"] = "WIRED_BUT_NOT_PIPELINE_REACHABLE"
+                n_wired_not_pipeline += 1
+        else:
+            r["pipeline_status"] = "N_A"
+
         if status == "WIRED":
             n_wired += 1
         elif status == "TRAPPED_SHARED":
@@ -303,6 +450,7 @@ def run_audit(stale_days: int, dry_run: bool) -> dict:
 
     undecided = check_undecided_validated(rows)
     stale = check_stale_decisions(rows, stale_days, now)
+    unregistered_hdlab = scan_unregistered_hdlab_modules(rows)
 
     if not dry_run:
         write_registry(rows)
@@ -314,6 +462,12 @@ def run_audit(stale_days: int, dry_run: bool) -> dict:
             "WIRED": n_wired, "TRAPPED_SHARED": n_trapped, "ISLAND": n_island,
             "N_A_SHELVED": n_na, "UNKNOWN": n_unknown,
         },
+        "pipeline_status_counts": {
+            "WIRED_AND_PIPELINE_USED": n_pipeline_used,
+            "WIRED_BUT_NOT_PIPELINE_REACHABLE": n_wired_not_pipeline,
+        },
+        "pipeline_reachable_hdlab_modules": pipeline_reachable_hdlab,
+        "unregistered_hdlab_modules": unregistered_hdlab,
         "path_missing_flags": path_missing_flags,
         "undecided_validated_capabilities": undecided,
         "stale_vet_pending": stale,
@@ -341,6 +495,20 @@ def print_report(summary: dict) -> None:
     print(f"[status] rows={summary['n_rows']}  WIRED={c['WIRED']}  "
           f"TRAPPED_SHARED={c['TRAPPED_SHARED']}  ISLAND={c['ISLAND']}  "
           f"N_A_SHELVED={c['N_A_SHELVED']}  UNKNOWN={c['UNKNOWN']}")
+    pc = summary.get("pipeline_status_counts", {})
+    print(f"[pipeline] of the {c['WIRED']} WIRED hdlab-module rows: "
+          f"WIRED_AND_PIPELINE_USED={pc.get('WIRED_AND_PIPELINE_USED', 0)}  "
+          f"WIRED_BUT_NOT_PIPELINE_REACHABLE={pc.get('WIRED_BUT_NOT_PIPELINE_REACHABLE', 0)}")
+    print(f"[pipeline] active-pipeline-reachable hdlab modules "
+          f"({len(summary.get('pipeline_reachable_hdlab_modules', []))}): "
+          f"{', '.join(summary.get('pipeline_reachable_hdlab_modules', []))}")
+    unreg = summary.get("unregistered_hdlab_modules", [])
+    if unreg:
+        print(f"\n[FLAG] {len(unreg)} hdlab/*.py module(s) with NO capability_registry.jsonl row:")
+        for m in unreg:
+            print(f"    {m}")
+    else:
+        print("\n[ok] every hdlab/*.py module has a registry row")
     if summary["path_missing_flags"]:
         print(f"\n[FLAG] {len(summary['path_missing_flags'])} declared path(s) missing on disk:")
         for f in summary["path_missing_flags"][:20]:
@@ -414,7 +582,8 @@ def main() -> int:
                + (len(summary["undecided_validated_capabilities"])
                   if summary["undecided_validated_capabilities"]
                   and "note" not in summary["undecided_validated_capabilities"][0] else 0)
-               + len(summary["stale_vet_pending"]))
+               + len(summary["stale_vet_pending"])
+               + len(summary.get("unregistered_hdlab_modules", [])))
     return 5 if n_flags else 0
 
 
