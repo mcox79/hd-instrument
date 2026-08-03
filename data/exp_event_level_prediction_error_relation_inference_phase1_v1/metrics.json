@@ -1,0 +1,1597 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "PHASE1_MECHANISM_WORKS=False; stage_b_pass=True (mse_trained=0.33236 vs mse_random=0.64922, rel_improvement=+0.4881); unstated_goal trained=0.4167 random=0.1667; satisfy_restate trained=0.4286 random=0.1429; thwart_cause trained=0.5000 random=0.0000; word_level_baseline_cited=0.5200; insufficiency_reason=STAGE_C_READOUT_DID_NOT_BEAT_RANDOM_AND_WORD_LEVEL_BASELINE_ON_A_CLEAN_AXIS",
+  "summary": "PHASE1 event-level prediction-error mechanism: WORKS=False",
+  "elapsed_s": 179.89827440003864,
+  "ts_iso": "2026-08-03T16:32:53.600704+00:00",
+  "pid": 26196,
+  "anchor_name": "event_level_prediction_error_relation_inference_phase1_v1",
+  "results_trained_unstated_goal": [
+    {
+      "id": "relinf_unstated_001",
+      "correct_category": "MANIPULATE_AVOID_WORK",
+      "predicted_category": "CARE_FOR_OTHERS",
+      "correct": false,
+      "sims": {
+        "MANIPULATE_AVOID_WORK": 0.5733462572097778,
+        "CURIOSITY_EXPLORATION": 0.556522786617279,
+        "CARE_FOR_OTHERS": 0.6303377151489258,
+        "SELF_DISCIPLINE": 0.42247775197029114
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CARE_FOR_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 14,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 12
+      }
+    },
+    {
+      "id": "relinf_unstated_002",
+      "correct_category": "SELF_PRESERVATION_ESCAPE",
+      "predicted_category": "SELF_PRESERVATION_ESCAPE",
+      "correct": true,
+      "sims": {
+        "SELF_PRESERVATION_ESCAPE": 0.6687400341033936,
+        "CURIOSITY_EXPLORATION": 0.4954846501350403,
+        "MANIPULATE_AVOID_WORK": 0.5054028630256653,
+        "PROTECT_OTHERS": 0.5797436833381653
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_PRESERVATION_ESCAPE"
+      ],
+      "action_coverage": {
+        "n_content_words": 17,
+        "n_covered": 16,
+        "agent_covered": false,
+        "action_covered": true,
+        "object_covered_count": 15,
+        "object_total_count": 15
+      }
+    },
+    {
+      "id": "relinf_unstated_003",
+      "correct_category": "SELF_PRESERVATION_ESCAPE",
+      "predicted_category": "SELF_PRESERVATION_ESCAPE",
+      "correct": true,
+      "sims": {
+        "SELF_PRESERVATION_ESCAPE": 0.6855372190475464,
+        "CURIOSITY_EXPLORATION": 0.5078264474868774,
+        "CARE_FOR_OTHERS": 0.6012282371520996,
+        "ESCAPE_BLAME_DECEPTION": 0.5560330152511597
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_PRESERVATION_ESCAPE"
+      ],
+      "action_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      }
+    },
+    {
+      "id": "relinf_unstated_004",
+      "correct_category": "CURIOSITY_EXPLORATION",
+      "predicted_category": "SELF_PRESERVATION_ESCAPE",
+      "correct": false,
+      "sims": {
+        "CURIOSITY_EXPLORATION": 0.4556576907634735,
+        "COMPLY_AVOID_TROUBLE": 0.5597429275512695,
+        "SELF_DISCIPLINE": 0.5171866416931152,
+        "SELF_PRESERVATION_ESCAPE": 0.6837509870529175
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_PRESERVATION_ESCAPE"
+      ],
+      "action_coverage": {
+        "n_content_words": 13,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 11
+      }
+    },
+    {
+      "id": "relinf_unstated_005",
+      "correct_category": "COMPLY_AVOID_TROUBLE",
+      "predicted_category": "CARE_FOR_OTHERS",
+      "correct": false,
+      "sims": {
+        "COMPLY_AVOID_TROUBLE": 0.5897979140281677,
+        "CURIOSITY_EXPLORATION": 0.48852118849754333,
+        "CARE_FOR_OTHERS": 0.6355934739112854,
+        "MANIPULATE_AVOID_WORK": 0.6227368116378784
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CARE_FOR_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_unstated_006",
+      "correct_category": "CARE_FOR_OTHERS",
+      "predicted_category": "CARE_FOR_OTHERS",
+      "correct": true,
+      "sims": {
+        "CARE_FOR_OTHERS": 0.6096649169921875,
+        "SELF_DISCIPLINE": 0.5386829972267151,
+        "ESCAPE_BLAME_DECEPTION": 0.5161147713661194,
+        "MANIPULATE_AVOID_WORK": 0.594512939453125
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CARE_FOR_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_unstated_007",
+      "correct_category": "REVENGE_PUNISH",
+      "predicted_category": "CARE_FOR_OTHERS",
+      "correct": false,
+      "sims": {
+        "REVENGE_PUNISH": 0.4820365309715271,
+        "CARE_FOR_OTHERS": 0.5638521313667297,
+        "SELF_DISCIPLINE": 0.42406779527664185,
+        "PROTECT_OTHERS": 0.5259782075881958
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CARE_FOR_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      }
+    },
+    {
+      "id": "relinf_unstated_008",
+      "correct_category": "REVENGE_PUNISH",
+      "predicted_category": "SELF_PRESERVATION_ESCAPE",
+      "correct": false,
+      "sims": {
+        "REVENGE_PUNISH": 0.48577597737312317,
+        "CARE_FOR_OTHERS": 0.5741419792175293,
+        "SELF_PRESERVATION_ESCAPE": 0.6595744490623474,
+        "CURIOSITY_EXPLORATION": 0.520148515701294
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_PRESERVATION_ESCAPE"
+      ],
+      "action_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      }
+    },
+    {
+      "id": "relinf_unstated_009",
+      "correct_category": "ESCAPE_BLAME_DECEPTION",
+      "predicted_category": "SELF_PRESERVATION_ESCAPE",
+      "correct": false,
+      "sims": {
+        "ESCAPE_BLAME_DECEPTION": 0.4708898067474365,
+        "SELF_PRESERVATION_ESCAPE": 0.6718515157699585,
+        "MANIPULATE_AVOID_WORK": 0.6493061184883118,
+        "CARE_FOR_OTHERS": 0.6109994053840637
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_PRESERVATION_ESCAPE"
+      ],
+      "action_coverage": {
+        "n_content_words": 14,
+        "n_covered": 14,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 12,
+        "object_total_count": 12
+      }
+    },
+    {
+      "id": "relinf_unstated_010",
+      "correct_category": "CARE_FOR_OTHERS",
+      "predicted_category": "CARE_FOR_OTHERS",
+      "correct": true,
+      "sims": {
+        "CARE_FOR_OTHERS": 0.5917744636535645,
+        "CURIOSITY_EXPLORATION": 0.5024537444114685,
+        "REVENGE_PUNISH": 0.5069043636322021,
+        "SELF_DISCIPLINE": 0.46168699860572815
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CARE_FOR_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_unstated_011",
+      "correct_category": "PROTECT_OTHERS",
+      "predicted_category": "PROTECT_OTHERS",
+      "correct": true,
+      "sims": {
+        "PROTECT_OTHERS": 0.5732982754707336,
+        "REVENGE_PUNISH": 0.5655750036239624,
+        "ESCAPE_BLAME_DECEPTION": 0.45126813650131226,
+        "SELF_DISCIPLINE": 0.459708034992218
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "PROTECT_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      }
+    },
+    {
+      "id": "relinf_unstated_012",
+      "correct_category": "SELF_DISCIPLINE",
+      "predicted_category": "CARE_FOR_OTHERS",
+      "correct": false,
+      "sims": {
+        "SELF_DISCIPLINE": 0.4943562150001526,
+        "CURIOSITY_EXPLORATION": 0.47011423110961914,
+        "CARE_FOR_OTHERS": 0.5661887526512146,
+        "REVENGE_PUNISH": 0.4678083658218384
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CARE_FOR_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 13,
+        "n_covered": 12,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 10,
+        "object_total_count": 11
+      }
+    }
+  ],
+  "results_trained_satisfy_restate": [
+    {
+      "id": "relinf_satrest_001",
+      "sim_predicted_to_restate": 0.6634826064109802,
+      "sim_predicted_to_satisfy": 0.5619434118270874,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "restate_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "satisfy_coverage": {
+        "n_content_words": 15,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 13
+      }
+    },
+    {
+      "id": "relinf_satrest_002",
+      "sim_predicted_to_restate": 0.43413349986076355,
+      "sim_predicted_to_satisfy": 0.5635578632354736,
+      "correct": true,
+      "goal_coverage": {
+        "n_content_words": 15,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 13
+      },
+      "restate_coverage": {
+        "n_content_words": 5,
+        "n_covered": 5,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 3,
+        "object_total_count": 3
+      },
+      "satisfy_coverage": {
+        "n_content_words": 10,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 8
+      }
+    },
+    {
+      "id": "relinf_satrest_003",
+      "sim_predicted_to_restate": 0.5798158049583435,
+      "sim_predicted_to_satisfy": 0.4581235647201538,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      },
+      "restate_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      },
+      "satisfy_coverage": {
+        "n_content_words": 5,
+        "n_covered": 5,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 3,
+        "object_total_count": 3
+      }
+    },
+    {
+      "id": "relinf_satrest_004",
+      "sim_predicted_to_restate": 0.6273373365402222,
+      "sim_predicted_to_satisfy": 0.5038238763809204,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 7,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 5
+      },
+      "restate_coverage": {
+        "n_content_words": 16,
+        "n_covered": 16,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 14,
+        "object_total_count": 14
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_satrest_005",
+      "sim_predicted_to_restate": 0.6838017702102661,
+      "sim_predicted_to_satisfy": 0.8058264255523682,
+      "correct": true,
+      "goal_coverage": {
+        "n_content_words": 12,
+        "n_covered": 12,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 10,
+        "object_total_count": 10
+      },
+      "restate_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_satrest_006",
+      "sim_predicted_to_restate": 0.6582276225090027,
+      "sim_predicted_to_satisfy": 0.6602547764778137,
+      "correct": true,
+      "goal_coverage": {
+        "n_content_words": 16,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 14
+      },
+      "restate_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_satrest_007",
+      "sim_predicted_to_restate": 0.5512997508049011,
+      "sim_predicted_to_satisfy": 0.5396556854248047,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      },
+      "restate_coverage": {
+        "n_content_words": 6,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 4
+      },
+      "satisfy_coverage": {
+        "n_content_words": 12,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 10
+      }
+    }
+  ],
+  "results_trained_thwart_cause": [
+    {
+      "id": "relinf_thwart_002",
+      "sim_predicted_to_b": 0.6114217042922974,
+      "sim_predicted_to_distractor": 0.46751028299331665,
+      "correct": true,
+      "event_a_coverage": {
+        "n_content_words": 10,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 8
+      },
+      "event_b_coverage": {
+        "n_content_words": 6,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 4
+      },
+      "distractor_coverage": {
+        "n_content_words": 12,
+        "n_covered": 12,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 10,
+        "object_total_count": 10
+      }
+    },
+    {
+      "id": "relinf_thwart_003",
+      "sim_predicted_to_b": 0.49021920561790466,
+      "sim_predicted_to_distractor": 0.6064499616622925,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      },
+      "event_b_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "distractor_coverage": {
+        "n_content_words": 6,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 4
+      }
+    },
+    {
+      "id": "relinf_thwart_004",
+      "sim_predicted_to_b": 0.5876094102859497,
+      "sim_predicted_to_distractor": 0.5192853212356567,
+      "correct": true,
+      "event_a_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      },
+      "event_b_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "distractor_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_thwart_005",
+      "sim_predicted_to_b": 0.5579319596290588,
+      "sim_predicted_to_distractor": 0.5852444171905518,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "event_b_coverage": {
+        "n_content_words": 9,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 7
+      },
+      "distractor_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_thwart_006",
+      "sim_predicted_to_b": 0.7095484733581543,
+      "sim_predicted_to_distractor": 0.5239354372024536,
+      "correct": true,
+      "event_a_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": false,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "event_b_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "distractor_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      }
+    },
+    {
+      "id": "relinf_thwart_008",
+      "sim_predicted_to_b": 0.4994875192642212,
+      "sim_predicted_to_distractor": 0.6537456512451172,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 13,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 11
+      },
+      "event_b_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "distractor_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      }
+    }
+  ],
+  "results_random_unstated_goal": [
+    {
+      "id": "relinf_unstated_001",
+      "correct_category": "MANIPULATE_AVOID_WORK",
+      "predicted_category": "SELF_DISCIPLINE",
+      "correct": false,
+      "sims": {
+        "MANIPULATE_AVOID_WORK": 0.10545375943183899,
+        "CURIOSITY_EXPLORATION": 0.1162339448928833,
+        "CARE_FOR_OTHERS": 0.082632876932621,
+        "SELF_DISCIPLINE": 0.14680331945419312
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_DISCIPLINE"
+      ],
+      "action_coverage": {
+        "n_content_words": 14,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 12
+      }
+    },
+    {
+      "id": "relinf_unstated_002",
+      "correct_category": "SELF_PRESERVATION_ESCAPE",
+      "predicted_category": "PROTECT_OTHERS",
+      "correct": false,
+      "sims": {
+        "SELF_PRESERVATION_ESCAPE": 0.04657416790723801,
+        "CURIOSITY_EXPLORATION": 0.06476693600416183,
+        "MANIPULATE_AVOID_WORK": -0.019343536347150803,
+        "PROTECT_OTHERS": 0.09782826900482178
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "PROTECT_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 17,
+        "n_covered": 16,
+        "agent_covered": false,
+        "action_covered": true,
+        "object_covered_count": 15,
+        "object_total_count": 15
+      }
+    },
+    {
+      "id": "relinf_unstated_003",
+      "correct_category": "SELF_PRESERVATION_ESCAPE",
+      "predicted_category": "SELF_PRESERVATION_ESCAPE",
+      "correct": true,
+      "sims": {
+        "SELF_PRESERVATION_ESCAPE": 0.23054814338684082,
+        "CURIOSITY_EXPLORATION": 0.11378765106201172,
+        "CARE_FOR_OTHERS": 0.04980834573507309,
+        "ESCAPE_BLAME_DECEPTION": 0.13340133428573608
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_PRESERVATION_ESCAPE"
+      ],
+      "action_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      }
+    },
+    {
+      "id": "relinf_unstated_004",
+      "correct_category": "CURIOSITY_EXPLORATION",
+      "predicted_category": "CURIOSITY_EXPLORATION",
+      "correct": true,
+      "sims": {
+        "CURIOSITY_EXPLORATION": 0.09305917471647263,
+        "COMPLY_AVOID_TROUBLE": -0.0555434450507164,
+        "SELF_DISCIPLINE": 0.009737767279148102,
+        "SELF_PRESERVATION_ESCAPE": -0.007079191505908966
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CURIOSITY_EXPLORATION"
+      ],
+      "action_coverage": {
+        "n_content_words": 13,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 11
+      }
+    },
+    {
+      "id": "relinf_unstated_005",
+      "correct_category": "COMPLY_AVOID_TROUBLE",
+      "predicted_category": "CARE_FOR_OTHERS",
+      "correct": false,
+      "sims": {
+        "COMPLY_AVOID_TROUBLE": 0.05016845837235451,
+        "CURIOSITY_EXPLORATION": -0.030135877430438995,
+        "CARE_FOR_OTHERS": 0.07135235518217087,
+        "MANIPULATE_AVOID_WORK": -0.044397737830877304
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CARE_FOR_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_unstated_006",
+      "correct_category": "CARE_FOR_OTHERS",
+      "predicted_category": "SELF_DISCIPLINE",
+      "correct": false,
+      "sims": {
+        "CARE_FOR_OTHERS": -0.0648091733455658,
+        "SELF_DISCIPLINE": 0.133816659450531,
+        "ESCAPE_BLAME_DECEPTION": 0.019357800483703613,
+        "MANIPULATE_AVOID_WORK": -0.04613814875483513
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "SELF_DISCIPLINE"
+      ],
+      "action_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_unstated_007",
+      "correct_category": "REVENGE_PUNISH",
+      "predicted_category": "PROTECT_OTHERS",
+      "correct": false,
+      "sims": {
+        "REVENGE_PUNISH": -0.06631545722484589,
+        "CARE_FOR_OTHERS": 0.02336513064801693,
+        "SELF_DISCIPLINE": -0.015488071367144585,
+        "PROTECT_OTHERS": 0.05446689575910568
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "PROTECT_OTHERS"
+      ],
+      "action_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      }
+    },
+    {
+      "id": "relinf_unstated_008",
+      "correct_category": "REVENGE_PUNISH",
+      "predicted_category": "CURIOSITY_EXPLORATION",
+      "correct": false,
+      "sims": {
+        "REVENGE_PUNISH": -0.06059125065803528,
+        "CARE_FOR_OTHERS": -0.037093184888362885,
+        "SELF_PRESERVATION_ESCAPE": -0.01289418525993824,
+        "CURIOSITY_EXPLORATION": 0.020154573023319244
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CURIOSITY_EXPLORATION"
+      ],
+      "action_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      }
+    },
+    {
+      "id": "relinf_unstated_009",
+      "correct_category": "ESCAPE_BLAME_DECEPTION",
+      "predicted_category": "MANIPULATE_AVOID_WORK",
+      "correct": false,
+      "sims": {
+        "ESCAPE_BLAME_DECEPTION": -0.03277180343866348,
+        "SELF_PRESERVATION_ESCAPE": 0.04613510146737099,
+        "MANIPULATE_AVOID_WORK": 0.08452439308166504,
+        "CARE_FOR_OTHERS": 0.05743229761719704
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "MANIPULATE_AVOID_WORK"
+      ],
+      "action_coverage": {
+        "n_content_words": 14,
+        "n_covered": 14,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 12,
+        "object_total_count": 12
+      }
+    },
+    {
+      "id": "relinf_unstated_010",
+      "correct_category": "CARE_FOR_OTHERS",
+      "predicted_category": "CURIOSITY_EXPLORATION",
+      "correct": false,
+      "sims": {
+        "CARE_FOR_OTHERS": 0.02101811207830906,
+        "CURIOSITY_EXPLORATION": 0.08353465795516968,
+        "REVENGE_PUNISH": -0.00728125125169754,
+        "SELF_DISCIPLINE": -0.03748932480812073
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CURIOSITY_EXPLORATION"
+      ],
+      "action_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_unstated_011",
+      "correct_category": "PROTECT_OTHERS",
+      "predicted_category": "ESCAPE_BLAME_DECEPTION",
+      "correct": false,
+      "sims": {
+        "PROTECT_OTHERS": 0.010366912931203842,
+        "REVENGE_PUNISH": -0.01564112678170204,
+        "ESCAPE_BLAME_DECEPTION": 0.06282895803451538,
+        "SELF_DISCIPLINE": 0.036983296275138855
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "ESCAPE_BLAME_DECEPTION"
+      ],
+      "action_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      }
+    },
+    {
+      "id": "relinf_unstated_012",
+      "correct_category": "SELF_DISCIPLINE",
+      "predicted_category": "CURIOSITY_EXPLORATION",
+      "correct": false,
+      "sims": {
+        "SELF_DISCIPLINE": 0.016442827880382538,
+        "CURIOSITY_EXPLORATION": 0.08221708983182907,
+        "CARE_FOR_OTHERS": 0.01710427552461624,
+        "REVENGE_PUNISH": -0.06990475952625275
+      },
+      "was_tie": false,
+      "tied_candidates": [
+        "CURIOSITY_EXPLORATION"
+      ],
+      "action_coverage": {
+        "n_content_words": 13,
+        "n_covered": 12,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 10,
+        "object_total_count": 11
+      }
+    }
+  ],
+  "results_random_satisfy_restate": [
+    {
+      "id": "relinf_satrest_001",
+      "sim_predicted_to_restate": -0.08951403945684433,
+      "sim_predicted_to_satisfy": -0.11315174400806427,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "restate_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "satisfy_coverage": {
+        "n_content_words": 15,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 13
+      }
+    },
+    {
+      "id": "relinf_satrest_002",
+      "sim_predicted_to_restate": 0.019188985228538513,
+      "sim_predicted_to_satisfy": -0.04675121232867241,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 15,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 13
+      },
+      "restate_coverage": {
+        "n_content_words": 5,
+        "n_covered": 5,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 3,
+        "object_total_count": 3
+      },
+      "satisfy_coverage": {
+        "n_content_words": 10,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 8
+      }
+    },
+    {
+      "id": "relinf_satrest_003",
+      "sim_predicted_to_restate": 0.08594192564487457,
+      "sim_predicted_to_satisfy": -0.06788903474807739,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      },
+      "restate_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      },
+      "satisfy_coverage": {
+        "n_content_words": 5,
+        "n_covered": 5,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 3,
+        "object_total_count": 3
+      }
+    },
+    {
+      "id": "relinf_satrest_004",
+      "sim_predicted_to_restate": -0.03313082829117775,
+      "sim_predicted_to_satisfy": -0.056429266929626465,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 7,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 5
+      },
+      "restate_coverage": {
+        "n_content_words": 16,
+        "n_covered": 16,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 14,
+        "object_total_count": 14
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_satrest_005",
+      "sim_predicted_to_restate": 0.005335040390491486,
+      "sim_predicted_to_satisfy": 0.08370151370763779,
+      "correct": true,
+      "goal_coverage": {
+        "n_content_words": 12,
+        "n_covered": 12,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 10,
+        "object_total_count": 10
+      },
+      "restate_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_satrest_006",
+      "sim_predicted_to_restate": 0.1086035892367363,
+      "sim_predicted_to_satisfy": 0.08751251548528671,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 16,
+        "n_covered": 15,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 13,
+        "object_total_count": 14
+      },
+      "restate_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "satisfy_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 9
+      }
+    },
+    {
+      "id": "relinf_satrest_007",
+      "sim_predicted_to_restate": 0.03449980914592743,
+      "sim_predicted_to_satisfy": -0.014898527413606644,
+      "correct": false,
+      "goal_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      },
+      "restate_coverage": {
+        "n_content_words": 6,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 4
+      },
+      "satisfy_coverage": {
+        "n_content_words": 12,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 10
+      }
+    }
+  ],
+  "results_random_thwart_cause": [
+    {
+      "id": "relinf_thwart_002",
+      "sim_predicted_to_b": -0.15248095989227295,
+      "sim_predicted_to_distractor": 0.003932133316993713,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 10,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 8
+      },
+      "event_b_coverage": {
+        "n_content_words": 6,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 4
+      },
+      "distractor_coverage": {
+        "n_content_words": 12,
+        "n_covered": 12,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 10,
+        "object_total_count": 10
+      }
+    },
+    {
+      "id": "relinf_thwart_003",
+      "sim_predicted_to_b": 0.1288244128227234,
+      "sim_predicted_to_distractor": 0.16820985078811646,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      },
+      "event_b_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "distractor_coverage": {
+        "n_content_words": 6,
+        "n_covered": 6,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 4,
+        "object_total_count": 4
+      }
+    },
+    {
+      "id": "relinf_thwart_004",
+      "sim_predicted_to_b": 0.005323127843439579,
+      "sim_predicted_to_distractor": 0.021595019847154617,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      },
+      "event_b_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "distractor_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_thwart_005",
+      "sim_predicted_to_b": 0.03859430551528931,
+      "sim_predicted_to_distractor": 0.08290167152881622,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 10,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 8,
+        "object_total_count": 8
+      },
+      "event_b_coverage": {
+        "n_content_words": 9,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 7
+      },
+      "distractor_coverage": {
+        "n_content_words": 8,
+        "n_covered": 8,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 6,
+        "object_total_count": 6
+      }
+    },
+    {
+      "id": "relinf_thwart_006",
+      "sim_predicted_to_b": -0.06686203181743622,
+      "sim_predicted_to_distractor": 0.027457168325781822,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 11,
+        "n_covered": 10,
+        "agent_covered": true,
+        "action_covered": false,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "event_b_coverage": {
+        "n_content_words": 9,
+        "n_covered": 9,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 7,
+        "object_total_count": 7
+      },
+      "distractor_coverage": {
+        "n_content_words": 7,
+        "n_covered": 7,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 5,
+        "object_total_count": 5
+      }
+    },
+    {
+      "id": "relinf_thwart_008",
+      "sim_predicted_to_b": -0.11257634311914444,
+      "sim_predicted_to_distractor": 0.0716160386800766,
+      "correct": false,
+      "event_a_coverage": {
+        "n_content_words": 13,
+        "n_covered": 13,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 11,
+        "object_total_count": 11
+      },
+      "event_b_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      },
+      "distractor_coverage": {
+        "n_content_words": 11,
+        "n_covered": 11,
+        "agent_covered": true,
+        "action_covered": true,
+        "object_covered_count": 9,
+        "object_total_count": 9
+      }
+    }
+  ],
+  "summary_fields": {
+    "mechanism": "Event-level next-event-state predictor (linear, delta-rule/error-driven-trained) over bound AGENT/ACTION/OBJECT FHRR event structs (build_event_struct_v6, reused verbatim), read out THROUGH the predictor's one-step forward roll (structure_overlap of predicted_next vs each relation-inference candidate).",
+    "stage_a_segmentation": {
+      "method": "naive sentence-split regex (rough, fixed, NOT the variable)",
+      "per_novel_counts": {
+        "anne_of_green_gables": {
+          "n_total_sentences": 5000,
+          "n_dropped_no_coverage": 5,
+          "n_valid_events": 4995
+        },
+        "wizard_of_oz": {
+          "n_total_sentences": 1617,
+          "n_dropped_no_coverage": 1,
+          "n_valid_events": 1616
+        },
+        "tom_sawyer": {
+          "n_total_sentences": 3608,
+          "n_dropped_no_coverage": 10,
+          "n_valid_events": 3598
+        },
+        "little_women": {
+          "n_total_sentences": 5000,
+          "n_dropped_no_coverage": 4,
+          "n_valid_events": 4996
+        },
+        "alice_in_wonderland": {
+          "n_total_sentences": 932,
+          "n_dropped_no_coverage": 0,
+          "n_valid_events": 932
+        }
+      },
+      "total_valid_events": 16137,
+      "stage_a_sane": true
+    },
+    "stage_b_predictor": {
+      "event_context_window": 2,
+      "held_out_frac": 0.2,
+      "per_novel_pair_counts": {
+        "anne_of_green_gables": {
+          "n_events": 4995,
+          "split_idx": 3996,
+          "n_train_pairs": 3994,
+          "n_test_pairs": 997
+        },
+        "wizard_of_oz": {
+          "n_events": 1616,
+          "split_idx": 1293,
+          "n_train_pairs": 1291,
+          "n_test_pairs": 321
+        },
+        "tom_sawyer": {
+          "n_events": 3598,
+          "split_idx": 2878,
+          "n_train_pairs": 2876,
+          "n_test_pairs": 718
+        },
+        "little_women": {
+          "n_events": 4996,
+          "split_idx": 3997,
+          "n_train_pairs": 3995,
+          "n_test_pairs": 997
+        },
+        "alice_in_wonderland": {
+          "n_events": 932,
+          "split_idx": 746,
+          "n_train_pairs": 744,
+          "n_test_pairs": 184
+        }
+      },
+      "n_pooled_train_pairs": 12900,
+      "n_pooled_test_pairs": 3217,
+      "predictor_epochs": 300,
+      "train_curve_sampled": [
+        {
+          "epoch": 0,
+          "train_mse": 0.6514208316802979
+        },
+        {
+          "epoch": 20,
+          "train_mse": 0.36258161067962646
+        },
+        {
+          "epoch": 40,
+          "train_mse": 0.3469666838645935
+        },
+        {
+          "epoch": 60,
+          "train_mse": 0.33952704071998596
+        },
+        {
+          "epoch": 80,
+          "train_mse": 0.33533307909965515
+        },
+        {
+          "epoch": 100,
+          "train_mse": 0.3327353298664093
+        },
+        {
+          "epoch": 120,
+          "train_mse": 0.3310181200504303
+        },
+        {
+          "epoch": 140,
+          "train_mse": 0.32982584834098816
+        },
+        {
+          "epoch": 160,
+          "train_mse": 0.3289650082588196
+        },
+        {
+          "epoch": 180,
+          "train_mse": 0.32832297682762146
+        },
+        {
+          "epoch": 200,
+          "train_mse": 0.32783085107803345
+        },
+        {
+          "epoch": 220,
+          "train_mse": 0.3274446129798889
+        },
+        {
+          "epoch": 240,
+          "train_mse": 0.32713523507118225
+        },
+        {
+          "epoch": 260,
+          "train_mse": 0.32688286900520325
+        },
+        {
+          "epoch": 280,
+          "train_mse": 0.3266736567020416
+        },
+        {
+          "epoch": 299,
+          "train_mse": 0.3265058994293213
+        }
+      ],
+      "mse_train_final": 0.32649776339530945,
+      "mse_test_trained": 0.33235687017440796,
+      "mse_test_random_init": 0.649217963218689,
+      "mse_test_random_init_started": 0.649217963218689,
+      "cosine_test_trained": 0.5796129703521729,
+      "cosine_test_random_init": 0.03047187812626362,
+      "rel_improvement_over_random": 0.4880658130180948,
+      "stage_b_min_rel_improvement_required": 0.02,
+      "stage_b_pass": true
+    },
+    "stage_c_readout": {
+      "arms": {
+        "TRAINED_EVENT_PREDICTOR": {
+          "arm_name": "TRAINED_EVENT_PREDICTOR",
+          "unstated_goal_accuracy": 0.4166666666666667,
+          "unstated_goal_correct_count": 5,
+          "unstated_goal_n_ties": 0,
+          "satisfy_restate_accuracy": 0.42857142857142855,
+          "satisfy_restate_correct_count": 3,
+          "thwart_cause_accuracy": 0.5,
+          "thwart_cause_correct_count": 3,
+          "overall_accuracy": 0.44,
+          "overall_correct_count": 11,
+          "n_total_items": 25,
+          "n_scored_units": 74,
+          "cardinality_ok": true
+        },
+        "RANDOM_INIT_EVENT_PREDICTOR": {
+          "arm_name": "RANDOM_INIT_EVENT_PREDICTOR",
+          "unstated_goal_accuracy": 0.16666666666666666,
+          "unstated_goal_correct_count": 2,
+          "unstated_goal_n_ties": 0,
+          "satisfy_restate_accuracy": 0.14285714285714285,
+          "satisfy_restate_correct_count": 1,
+          "thwart_cause_accuracy": 0.0,
+          "thwart_cause_correct_count": 0,
+          "overall_accuracy": 0.12,
+          "overall_correct_count": 3,
+          "n_total_items": 25,
+          "n_scored_units": 74,
+          "cardinality_ok": true
+        }
+      },
+      "word_level_lexical_baseline_acc_cited": 0.52,
+      "word_level_trained_sgns_acc_cited": 0.4,
+      "unstated_goal": {
+        "trained_acc": 0.4166666666666667,
+        "random_acc": 0.16666666666666666,
+        "beats_random": true,
+        "beats_word_level_baseline": false,
+        "axis_pass": false
+      },
+      "satisfy_restate": {
+        "trained_acc": 0.42857142857142855,
+        "random_acc": 0.14285714285714285,
+        "beats_random": true,
+        "beats_word_level_baseline": false,
+        "axis_pass": false
+      },
+      "thwart_cause": {
+        "trained_acc": 0.5,
+        "random_acc": 0.0,
+        "beats_random": true,
+        "beats_word_level_baseline": false,
+        "axis_pass_diagnostic_only_excluded_from_greenlight": false
+      }
+    },
+    "PHASE1_MECHANISM_WORKS": false,
+    "insufficiency_reason": "STAGE_C_READOUT_DID_NOT_BEAT_RANDOM_AND_WORD_LEVEL_BASELINE_ON_A_CLEAN_AXIS",
+    "eval_caveat": "N=25 Director-VERIFIED balanced eval; small-N diagnostic by ML standards -- report per-item-type counts alongside fractions, do not overclaim precision beyond ~1/25=0.04 (unstated_goal ~1/12=0.083, satisfy_restate ~1/7=0.143) resolution.",
+    "elapsed_s": 179.89827440003864
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_scaled_to_diagnostic_n25x2arms",
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_exempted": [],
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "no fixed-capacity argmax-noise-floor threshold in this cell; discrete-tier accuracy-count feasibility over N=25 items is the analogue, per this arc's own convention"
+}
