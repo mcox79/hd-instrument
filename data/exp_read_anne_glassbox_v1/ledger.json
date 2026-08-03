@@ -1,0 +1,824 @@
+{
+  "chapters_read": [
+    {
+      "num": 1,
+      "title": "Mrs. Rachel Lynde Is Surprised"
+    },
+    {
+      "num": 2,
+      "title": "Matthew Cuthbert Is Surprised"
+    },
+    {
+      "num": 3,
+      "title": "Marilla Cuthbert Is Surprised"
+    }
+  ],
+  "extraction_description": {
+    "gazetteer_size": 52,
+    "gazetteer_female_supplied": [
+      "Anne",
+      "Cordelia",
+      "Diana",
+      "Jane",
+      "Josephine",
+      "Josie",
+      "Marilla",
+      "Minnie",
+      "Prissy",
+      "Rachel",
+      "Ruby",
+      "Stacy"
+    ],
+    "gazetteer_mined_candidates": [
+      "Anne",
+      "Anne’s",
+      "Avenue",
+      "Avonlea",
+      "Barry’s",
+      "Bright",
+      "Carmody",
+      "Cordelia",
+      "Cuthbert",
+      "Delight",
+      "Diana",
+      "E",
+      "Edward",
+      "French",
+      "Gables",
+      "Green",
+      "Hollow",
+      "Hopeton",
+      "Island",
+      "I’d",
+      "I’ll",
+      "I’m",
+      "I’ve",
+      "June",
+      "Lake",
+      "Lynde",
+      "Lynde’s",
+      "Marilla",
+      "Marilla’s",
+      "Matthew",
+      "Matthew’s",
+      "Newbridge",
+      "Nova",
+      "Prince",
+      "Rachel",
+      "River",
+      "Scotia",
+      "Shining",
+      "Spencer",
+      "Spencer’s",
+      "States",
+      "Waters",
+      "Way",
+      "White",
+      "With"
+    ],
+    "gender_assigned": {
+      "Spencer": "fem",
+      "Anne": "fem",
+      "Josephine": "fem",
+      "Cuthbert": "masc",
+      "Prissy": "fem",
+      "Matthew": "masc",
+      "Stacy": "fem",
+      "Ruby": "fem",
+      "Josie": "fem",
+      "Diana": "fem",
+      "Rachel": "fem",
+      "Minnie": "fem",
+      "Marilla": "fem",
+      "Jane": "fem",
+      "Cordelia": "fem"
+    },
+    "gender_unknown_count": 37,
+    "n_clauses_total": 1380,
+    "n_mentions_total": 1031,
+    "n_pronoun_mentions": 639,
+    "n_name_mentions": 392,
+    "missed_capitalized_tokens_recurring": {
+      "Yet": 3,
+      "Rachel’s": 2,
+      "Peter": 2,
+      "Had": 2,
+      "To": 4,
+      "It’s": 17,
+      "Very": 2,
+      "One": 2,
+      "Good": 3,
+      "We’re": 4,
+      "From": 3,
+      "Alexander": 4,
+      "There’s": 4,
+      "Give": 2,
+      "Richard": 2,
+      "You’re": 2,
+      "Only": 2,
+      "She’s": 2,
+      "That’s": 4,
+      "Isn’t": 4,
+      "All": 2,
+      "Neither": 3,
+      "Is": 2,
+      "Can": 2,
+      "Have": 3,
+      "Below": 3,
+      "Did": 2,
+      "Above": 2,
+      "Do": 3,
+      "Barry": 2,
+      "Lily": 2
+    }
+  },
+  "flagged_gaps": {
+    "role_unassigned_count": 324,
+    "role_unassigned_fraction": 0.3142580019398642,
+    "ambiguous_pronoun_resolutions": 555,
+    "fallback_no_compatible_candidate": 80
+  },
+  "consolidation": {
+    "n_entities_tracked": 37,
+    "n_consolidated_ge3_mentions": 29,
+    "n_singleton_1_mention": 1,
+    "situation_model_decode_self_consistency": 0.8978494623655914
+  },
+  "entities": [
+    {
+      "eid": 1,
+      "canonical_name_guess": "Avonlea",
+      "mention_count": 615,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Avonlea": 11
+      },
+      "first_clause": 1,
+      "last_clause": 1372,
+      "consolidated": true
+    },
+    {
+      "eid": 2,
+      "canonical_name_guess": "Matthew",
+      "mention_count": 86,
+      "n_distinct_name_forms": 3,
+      "name_forms": {
+        "Cuthbert": 7,
+        "Matthew Cuthbert": 11,
+        "Matthew": 64
+      },
+      "first_clause": 4,
+      "last_clause": 1370,
+      "consolidated": true
+    },
+    {
+      "eid": 8,
+      "canonical_name_guess": "Marilla",
+      "mention_count": 55,
+      "n_distinct_name_forms": 3,
+      "name_forms": {
+        "Marilla": 44,
+        "Marilla Cuthbert": 3,
+        "Marilla Marilla": 1
+      },
+      "first_clause": 94,
+      "last_clause": 1373,
+      "consolidated": true
+    },
+    {
+      "eid": 9,
+      "canonical_name_guess": "I’m",
+      "mention_count": 39,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "I’m": 36
+      },
+      "first_clause": 103,
+      "last_clause": 1370,
+      "consolidated": true
+    },
+    {
+      "eid": 0,
+      "canonical_name_guess": "Rachel",
+      "mention_count": 36,
+      "n_distinct_name_forms": 4,
+      "name_forms": {
+        "Rachel Lynde": 3,
+        "Rachel Lynde’s": 2,
+        "Rachel": 27,
+        "Lynde": 1
+      },
+      "first_clause": 1,
+      "last_clause": 1044,
+      "consolidated": true
+    },
+    {
+      "eid": 16,
+      "canonical_name_guess": "Spencer",
+      "mention_count": 26,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Spencer": 23
+      },
+      "first_clause": 257,
+      "last_clause": 1323,
+      "consolidated": true
+    },
+    {
+      "eid": 34,
+      "canonical_name_guess": "Anne",
+      "mention_count": 19,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Anne": 17
+      },
+      "first_clause": 1134,
+      "last_clause": 1273,
+      "consolidated": true
+    },
+    {
+      "eid": 5,
+      "canonical_name_guess": "Green Gables",
+      "mention_count": 16,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Green Gables": 15
+      },
+      "first_clause": 53,
+      "last_clause": 1047,
+      "consolidated": true
+    },
+    {
+      "eid": 23,
+      "canonical_name_guess": "I’ve",
+      "mention_count": 16,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "I’ve": 15
+      },
+      "first_clause": 326,
+      "last_clause": 1305,
+      "consolidated": true
+    },
+    {
+      "eid": 10,
+      "canonical_name_guess": "I’d",
+      "mention_count": 14,
+      "n_distinct_name_forms": 2,
+      "name_forms": {
+        "I’d": 12,
+        "Marilla I’d": 1
+      },
+      "first_clause": 131,
+      "last_clause": 1356,
+      "consolidated": true
+    },
+    {
+      "eid": 7,
+      "canonical_name_guess": "I’ll",
+      "mention_count": 10,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "I’ll": 10
+      },
+      "first_clause": 93,
+      "last_clause": 1266,
+      "consolidated": true
+    },
+    {
+      "eid": 33,
+      "canonical_name_guess": "Cordelia",
+      "mention_count": 9,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Cordelia": 9
+      },
+      "first_clause": 1127,
+      "last_clause": 1160,
+      "consolidated": true
+    },
+    {
+      "eid": 14,
+      "canonical_name_guess": "Bright River",
+      "mention_count": 8,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Bright River": 8
+      },
+      "first_clause": 225,
+      "last_clause": 536,
+      "consolidated": true
+    },
+    {
+      "eid": 22,
+      "canonical_name_guess": "Island",
+      "mention_count": 7,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Island": 6
+      },
+      "first_clause": 315,
+      "last_clause": 657,
+      "consolidated": true
+    },
+    {
+      "eid": 25,
+      "canonical_name_guess": "Avenue",
+      "mention_count": 6,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Avenue": 5
+      },
+      "first_clause": 821,
+      "last_clause": 885,
+      "consolidated": true
+    },
+    {
+      "eid": 26,
+      "canonical_name_guess": "Newbridge",
+      "mention_count": 6,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Newbridge": 3
+      },
+      "first_clause": 822,
+      "last_clause": 844,
+      "consolidated": true
+    },
+    {
+      "eid": 4,
+      "canonical_name_guess": "June",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "June": 3
+      },
+      "first_clause": 47,
+      "last_clause": 743,
+      "consolidated": true
+    },
+    {
+      "eid": 11,
+      "canonical_name_guess": "With",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "With": 4
+      },
+      "first_clause": 139,
+      "last_clause": 1288,
+      "consolidated": true
+    },
+    {
+      "eid": 13,
+      "canonical_name_guess": "Marilla’s",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Marilla’s": 4
+      },
+      "first_clause": 217,
+      "last_clause": 1333,
+      "consolidated": true
+    },
+    {
+      "eid": 15,
+      "canonical_name_guess": "Nova Scotia",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Nova Scotia": 4
+      },
+      "first_clause": 226,
+      "last_clause": 450,
+      "consolidated": true
+    },
+    {
+      "eid": 21,
+      "canonical_name_guess": "White Way",
+      "mention_count": 4,
+      "n_distinct_name_forms": 2,
+      "name_forms": {
+        "White": 1,
+        "White Way": 3
+      },
+      "first_clause": 301,
+      "last_clause": 1179,
+      "consolidated": true
+    },
+    {
+      "eid": 27,
+      "canonical_name_guess": "Delight",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Delight": 3
+      },
+      "first_clause": 879,
+      "last_clause": 1179,
+      "consolidated": true
+    },
+    {
+      "eid": 30,
+      "canonical_name_guess": "Shining Waters",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Shining Waters": 3
+      },
+      "first_clause": 927,
+      "last_clause": 1180,
+      "consolidated": true
+    },
+    {
+      "eid": 31,
+      "canonical_name_guess": "Diana",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Diana": 3
+      },
+      "first_clause": 952,
+      "last_clause": 960,
+      "consolidated": true
+    },
+    {
+      "eid": 36,
+      "canonical_name_guess": "Anne’s",
+      "mention_count": 4,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Anne’s": 3
+      },
+      "first_clause": 1287,
+      "last_clause": 1303,
+      "consolidated": true
+    },
+    {
+      "eid": 3,
+      "canonical_name_guess": "Lynde’s Hollow",
+      "mention_count": 3,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Lynde’s Hollow": 3
+      },
+      "first_clause": 9,
+      "last_clause": 1041,
+      "consolidated": true
+    },
+    {
+      "eid": 12,
+      "canonical_name_guess": "Matthew’s",
+      "mention_count": 3,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Matthew’s": 3
+      },
+      "first_clause": 183,
+      "last_clause": 760,
+      "consolidated": true
+    },
+    {
+      "eid": 29,
+      "canonical_name_guess": "Lake",
+      "mention_count": 3,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Lake": 3
+      },
+      "first_clause": 927,
+      "last_clause": 1180,
+      "consolidated": true
+    },
+    {
+      "eid": 35,
+      "canonical_name_guess": "E",
+      "mention_count": 3,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "E": 3
+      },
+      "first_clause": 1151,
+      "last_clause": 1162,
+      "consolidated": true
+    },
+    {
+      "eid": 6,
+      "canonical_name_guess": "Carmody",
+      "mention_count": 2,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Carmody": 2
+      },
+      "first_clause": 56,
+      "last_clause": 290,
+      "consolidated": false
+    },
+    {
+      "eid": 17,
+      "canonical_name_guess": "Hopeton",
+      "mention_count": 2,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Hopeton": 2
+      },
+      "first_clause": 258,
+      "last_clause": 626,
+      "consolidated": false
+    },
+    {
+      "eid": 18,
+      "canonical_name_guess": "French",
+      "mention_count": 2,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "French": 2
+      },
+      "first_clause": 274,
+      "last_clause": 1359,
+      "consolidated": false
+    },
+    {
+      "eid": 19,
+      "canonical_name_guess": "States",
+      "mention_count": 2,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "States": 2
+      },
+      "first_clause": 277,
+      "last_clause": 335,
+      "consolidated": false
+    },
+    {
+      "eid": 20,
+      "canonical_name_guess": "Spencer’s",
+      "mention_count": 2,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Spencer’s": 2
+      },
+      "first_clause": 290,
+      "last_clause": 1320,
+      "consolidated": false
+    },
+    {
+      "eid": 24,
+      "canonical_name_guess": "Prince Edward",
+      "mention_count": 2,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Prince Edward": 2
+      },
+      "first_clause": 400,
+      "last_clause": 657,
+      "consolidated": false
+    },
+    {
+      "eid": 28,
+      "canonical_name_guess": "Barry’s",
+      "mention_count": 2,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Barry’s": 2
+      },
+      "first_clause": 922,
+      "last_clause": 942,
+      "consolidated": false
+    },
+    {
+      "eid": 32,
+      "canonical_name_guess": "Jane",
+      "mention_count": 1,
+      "n_distinct_name_forms": 1,
+      "name_forms": {
+        "Jane": 1
+      },
+      "first_clause": 957,
+      "last_clause": 957,
+      "consolidated": false
+    }
+  ],
+  "per_chapter": {
+    "1": {
+      "n_clauses": 389,
+      "n_mentions": 316,
+      "n_distinct_entities_touched": 24
+    },
+    "2": {
+      "n_clauses": 670,
+      "n_mentions": 487,
+      "n_distinct_entities_touched": 28
+    },
+    "3": {
+      "n_clauses": 321,
+      "n_mentions": 228,
+      "n_distinct_entities_touched": 20
+    }
+  },
+  "deixis_diagnosis": {
+    "n_mentions_flagged_in_quote": 0,
+    "n_clauses_with_quotative_speaker_cue": 39,
+    "n_clauses_total": 1380,
+    "straight_ascii_quote_char_count_in_slice": 0,
+    "curly_unicode_quote_char_count_in_slice": 326
+  },
+  "situation_model_decode_detail_sample": {
+    "0": [
+      {
+        "event_idx": 0,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 1,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 2,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 3,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 4,
+        "written": "mentioned",
+        "decoded": "mentioned",
+        "match": true
+      },
+      {
+        "event_idx": 5,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 6,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 7,
+        "written": "mentioned",
+        "decoded": "agent",
+        "match": false
+      }
+    ],
+    "1": [
+      {
+        "event_idx": 0,
+        "written": "mentioned",
+        "decoded": "mentioned",
+        "match": true
+      },
+      {
+        "event_idx": 1,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 2,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 3,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 4,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 5,
+        "written": "mentioned",
+        "decoded": "agent",
+        "match": false
+      },
+      {
+        "event_idx": 6,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 7,
+        "written": "mentioned",
+        "decoded": "agent",
+        "match": false
+      }
+    ],
+    "2": [
+      {
+        "event_idx": 0,
+        "written": "mentioned",
+        "decoded": "mentioned",
+        "match": true
+      },
+      {
+        "event_idx": 1,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 2,
+        "written": "agent",
+        "decoded": "mentioned",
+        "match": false
+      },
+      {
+        "event_idx": 3,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 4,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 5,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 6,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 7,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      }
+    ],
+    "3": [
+      {
+        "event_idx": 0,
+        "written": "mentioned",
+        "decoded": "mentioned",
+        "match": true
+      },
+      {
+        "event_idx": 1,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 2,
+        "written": "mentioned",
+        "decoded": "mentioned",
+        "match": true
+      }
+    ],
+    "4": [
+      {
+        "event_idx": 0,
+        "written": "mentioned",
+        "decoded": "mentioned",
+        "match": true
+      },
+      {
+        "event_idx": 1,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 2,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      },
+      {
+        "event_idx": 3,
+        "written": "agent",
+        "decoded": "agent",
+        "match": true
+      }
+    ]
+  }
+}

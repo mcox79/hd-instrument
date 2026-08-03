@@ -1,0 +1,59 @@
+GLASS-BOX READING LEDGER -- Anne of Green Gables ch.1-3
+============================================================
+
+Chapters: [1, 2, 3]
+Clauses: 1380  Mentions: 1031 (pron=639, name=392)
+Entities tracked: 37 (consolidated>=3mentions=29, singleton=1)
+
+TOP TRACKED ENTITIES:
+  eid=  1  Avonlea              mentions=615  clauses[1-1372] consolidated=True
+  eid=  2  Matthew              mentions=86   clauses[4-1370] consolidated=True
+  eid=  8  Marilla              mentions=55   clauses[94-1373] consolidated=True
+  eid=  9  I’m                  mentions=39   clauses[103-1370] consolidated=True
+  eid=  0  Rachel               mentions=36   clauses[1-1044] consolidated=True
+  eid= 16  Spencer              mentions=26   clauses[257-1323] consolidated=True
+  eid= 34  Anne                 mentions=19   clauses[1134-1273] consolidated=True
+  eid=  5  Green Gables         mentions=16   clauses[53-1047] consolidated=True
+  eid= 23  I’ve                 mentions=16   clauses[326-1305] consolidated=True
+  eid= 10  I’d                  mentions=14   clauses[131-1356] consolidated=True
+  eid=  7  I’ll                 mentions=10   clauses[93-1266] consolidated=True
+  eid= 33  Cordelia             mentions=9    clauses[1127-1160] consolidated=True
+  eid= 14  Bright River         mentions=8    clauses[225-536] consolidated=True
+  eid= 22  Island               mentions=7    clauses[315-657] consolidated=True
+  eid= 25  Avenue               mentions=6    clauses[821-885] consolidated=True
+
+FLAGGED GAPS:
+{
+  "role_unassigned_count": 324,
+  "role_unassigned_fraction": 0.3142580019398642,
+  "ambiguous_pronoun_resolutions": 555,
+  "fallback_no_compatible_candidate": 80
+}
+
+DEIXIS DIAGNOSIS:
+{
+  "n_mentions_flagged_in_quote": 0,
+  "n_clauses_with_quotative_speaker_cue": 39,
+  "n_clauses_total": 1380,
+  "straight_ascii_quote_char_count_in_slice": 0,
+  "curly_unicode_quote_char_count_in_slice": 326
+}
+
+PER-CHAPTER:
+{
+  "1": {
+    "n_clauses": 389,
+    "n_mentions": 316,
+    "n_distinct_entities_touched": 24
+  },
+  "2": {
+    "n_clauses": 670,
+    "n_mentions": 487,
+    "n_distinct_entities_touched": 28
+  },
+  "3": {
+    "n_clauses": 321,
+    "n_mentions": 228,
+    "n_distinct_entities_touched": 20
+  }
+}
