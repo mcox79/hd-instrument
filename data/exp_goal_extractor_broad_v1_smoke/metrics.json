@@ -1,0 +1,10 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "construction-fire fixtures PASS (lexical/purpose_clause/modal_volition); negative fixtures PASS; residual-ceiling probe fixtures PASS; baseline module self-test (organ + lexical branch) PASS.",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.015828399918973446,
+  "ts_iso": "2026-08-03T05:37:52.455637+00:00",
+  "anchor_name": "goal_extractor_broad_v1",
+  "run_mode": "smoke",
+  "seed": 20260803
+}

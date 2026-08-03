@@ -1,0 +1,579 @@
+{
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "EXTRACTION: broad_recall_explicit=0.16666666666666666 vs baseline_lexicon_recall=0.1111111111111111 (n=18); broad_chapter_precision_proxy=0.42462845010615713 broad_chapter_and_char_precision_proxy=0.1040339702760085. CAUSAL-LINK: broad_recall_goal_mediated=0.1111111111111111 broad_fp=0.0 vs baseline_recall=0.1111111111111111 baseline_fp=0.0 vs coherence_recall=0.5555555555555556 coherence_fp=0.31 vs hand_matched_upper_bound_explicit=0.8888888888888888. RESIDUAL: unreachable_fraction_explicit=0.05555555555555555 (1/18), unreachable_fraction_all_21=0.14285714285714285. VERDICT=MIDDLE_BAND_LIFTS_BUT_BELOW_TARGET. DIAGNOSIS=LIFTED_BUT_BELOW_TARGET: broadening helped measurably but pipeline noise or open/close pairing looseness still caps recall below the HARD_PASS bar.",
+  "summary": "MIDDLE_BAND_LIFTS_BUT_BELOW_TARGET | broad_extraction_recall=0.16666666666666666 (baseline=0.1111111111111111) | broad_link_recall=0.1111111111111111 fp=0.0 (baseline_recall=0.1111111111111111 baseline_fp=0.0) | residual_unreachable_explicit=0.05555555555555555",
+  "elapsed_s": 2.2007255000062287,
+  "ts_iso": "2026-08-03T05:37:56.121313+00:00",
+  "anchor_name": "goal_extractor_broad_v1",
+  "run_mode": "full",
+  "seed": 20260803,
+  "n_chapters": 38,
+  "n_clauses": 14839,
+  "n_gazetteer_admitted": 109,
+  "pipeline_elapsed_s": 1.9924450998660177,
+  "construction_counts_broad_extractor": {
+    "modal_volition": 79,
+    "lexical": 358,
+    "purpose_clause": 34
+  },
+  "extraction": {
+    "broad": {
+      "label": "broad_construction",
+      "n_opens_total": 471,
+      "n_matched_explicit_gold": 3,
+      "extraction_recall_explicit": 0.16666666666666666,
+      "chapter_precision_proxy": 0.42462845010615713,
+      "chapter_and_character_precision_proxy": 0.1040339702760085,
+      "per_item": [
+        {
+          "id": "anne_goal_001",
+          "matched": true,
+          "construction_type": "modal_volition"
+        },
+        {
+          "id": "anne_goal_002",
+          "matched": true,
+          "construction_type": "lexical"
+        },
+        {
+          "id": "anne_goal_003",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_004",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_005",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_006",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_007",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_008",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_009",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_010",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_011",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_012",
+          "matched": true,
+          "construction_type": "lexical"
+        },
+        {
+          "id": "anne_goal_013",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_015",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_017",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_018",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_020",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_021",
+          "matched": false,
+          "construction_type": null
+        }
+      ]
+    },
+    "lexical_only_rebuilt_this_run": {
+      "label": "lexical_only_rebuilt_this_run",
+      "n_opens_total": 199,
+      "n_matched_explicit_gold": 2,
+      "extraction_recall_explicit": 0.1111111111111111,
+      "chapter_precision_proxy": 0.48743718592964824,
+      "chapter_and_character_precision_proxy": 0.1457286432160804,
+      "per_item": [
+        {
+          "id": "anne_goal_001",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_002",
+          "matched": true,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_003",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_004",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_005",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_006",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_007",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_008",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_009",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_010",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_011",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_012",
+          "matched": true,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_013",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_015",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_017",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_018",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_020",
+          "matched": false,
+          "construction_type": null
+        },
+        {
+          "id": "anne_goal_021",
+          "matched": false,
+          "construction_type": null
+        }
+      ]
+    },
+    "baseline_1400331cc_recall_explicit": 0.1111111111111111
+  },
+  "residual_ceiling": {
+    "n_total_gold_items": 21,
+    "n_explicit_gold": 18,
+    "n_inferred_gold": 3,
+    "n_reachable_broad_construction": 18,
+    "n_reachable_lexical_only": 13,
+    "unreachable_fraction_explicit": 0.05555555555555555,
+    "unreachable_fraction_all": 0.14285714285714285,
+    "unreachable_explicit_ids": [
+      "anne_goal_018"
+    ],
+    "per_item": [
+      {
+        "id": "anne_goal_001",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "modal_volition",
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_002",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_003",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_004",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_005",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_006",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_007",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_008",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_009",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_010",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_011",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_012",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_013",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_014",
+        "explicit_vs_inferred": "inferred",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": false,
+        "broad_construction_type": null,
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_015",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_016",
+        "explicit_vs_inferred": "inferred",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": false,
+        "broad_construction_type": null,
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_017",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_018",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": false,
+        "broad_construction_type": null,
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_019",
+        "explicit_vs_inferred": "inferred",
+        "lexical_goal_marker_present_gold_field": false,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": false
+      },
+      {
+        "id": "anne_goal_020",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      },
+      {
+        "id": "anne_goal_021",
+        "explicit_vs_inferred": "explicit",
+        "lexical_goal_marker_present_gold_field": true,
+        "broad_pattern_reachable": true,
+        "broad_construction_type": "lexical",
+        "lexical_only_baseline_reachable": true
+      }
+    ]
+  },
+  "causal_link_proposal": {
+    "label": "broad_construction",
+    "n_proposed_links": 440,
+    "organ_self_consistency_rate": 1.0,
+    "recall_goal_mediated": 0.1111111111111111,
+    "n_goal_mediated_total": 9,
+    "fp_rate": 0.0,
+    "n_negative_sampled": 200,
+    "flagged_ids": [
+      "anne_causal_017"
+    ],
+    "per_item": [
+      {
+        "id": "anne_causal_001",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_002",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_003",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_004",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_005",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_006",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_007",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_008",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_009",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_010",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_011",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_012",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_013",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_014",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_015",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_016",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_017",
+        "goal_mediated": true,
+        "flagged": true
+      },
+      {
+        "id": "anne_causal_018",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_019",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_020",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_021",
+        "goal_mediated": true,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_022",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_023",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_024",
+        "goal_mediated": false,
+        "flagged": false
+      },
+      {
+        "id": "anne_causal_025",
+        "goal_mediated": false,
+        "flagged": false
+      }
+    ]
+  },
+  "comparison": {
+    "baseline_1400331cc": {
+      "extraction_recall_explicit": 0.1111111111111111,
+      "recall_goal_mediated": 0.1111111111111111,
+      "fp_rate": 0.0,
+      "source": "data/exp_goal_register_causal_link_v1/metrics.json"
+    },
+    "coherence_baseline": {
+      "recall_integration": 0.5555555555555556,
+      "fp_rate": 0.31,
+      "source_commit": "912077b81"
+    },
+    "hand_matched_upper_bound_explicit": 0.8888888888888888
+  },
+  "hard_pass_gate": {
+    "extraction_recall_threshold": 0.5,
+    "link_recall_threshold": 0.4,
+    "fp_rate_threshold": 0.155,
+    "hard_pass": false,
+    "lifted_materially_vs_baseline": true,
+    "diagnosis_if_not_hard_pass": "LIFTED_BUT_BELOW_TARGET: broadening helped measurably but pipeline noise or open/close pairing looseness still caps recall below the HARD_PASS bar."
+  },
+  "arms_differ_verified": false,
+  "arms_digest": {
+    "broad_construction": "9be787533194cffbfbd55f44c3b95182d9c4059e0c0b2d55ffad4556e5d5c6e9",
+    "baseline_1400331cc": "9be787533194cffbfbd55f44c3b95182d9c4059e0c0b2d55ffad4556e5d5c6e9"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_heartbeat_exempt_single_pass",
+  "deterministic_seeding": true,
+  "dispatched": false,
+  "dispatch_note": "measurement-only per task instruction; not queued, not shipped remote."
+}
