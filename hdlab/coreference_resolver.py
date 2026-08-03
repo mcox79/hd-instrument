@@ -408,13 +408,31 @@ def _detect_speaker(clause_text: str) -> Optional[str]:
     return None
 
 
+# Straight ASCII '"' is treated as BOTH an opener and a closer (toggle, matching the original
+# pairing-by-parity behavior on straight-quote-only text). Curly quotes are directional: U+201C
+# (left double quotation mark) only opens, U+201D (right double quotation mark) only closes. Fixed
+# 2026-08-02: the original straight-quote-only version silently found zero spans on curly-quoted
+# prose (Anne of Green Gables uses U+201C/U+201D exclusively, 326 curly vs 0 straight quote chars in
+# the ch.1-3 slice), so enrich_dialogue/run_principle_b_deixis's speaker/addressee deixis filter never
+# fired on real narrative text.
+_QUOTE_OPENERS = frozenset({'"', "“"})
+_QUOTE_CLOSERS = frozenset({'"', "”"})
+
+
 def _quote_spans(clause_lower: str) -> List[Tuple[int, int]]:
-    """Char-offset spans between paired double quotes (offsets in the lowercased clause, matching
-    build_mention_stream's text_pos convention)."""
-    positions = [i for i, ch in enumerate(clause_lower) if ch == '"']
-    spans = []
-    for k in range(0, len(positions) - 1, 2):
-        spans.append((positions[k], positions[k + 1]))
+    """Char-offset spans between paired quotes, straight ASCII '"' or curly U+201C/U+201D (offsets
+    in the lowercased clause, matching build_mention_stream's text_pos convention). Robust to mixed
+    straight/curly text: a straight quote toggles open/close; a curly quote is directional."""
+    spans: List[Tuple[int, int]] = []
+    start: Optional[int] = None
+    for i, ch in enumerate(clause_lower):
+        if start is None:
+            if ch in _QUOTE_OPENERS:
+                start = i
+        else:
+            if ch in _QUOTE_CLOSERS:
+                spans.append((start, i))
+                start = None
     return spans
 
 

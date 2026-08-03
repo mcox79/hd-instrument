@@ -56,6 +56,7 @@ from hdlab.coreference_resolver import (
     _mention_geometry,
     enrich_dialogue,
     run_match_or_allocate,
+    run_principle_b_deixis,
 )
 from hdlab.situation_model_accumulate import AccumulateRegister
 
@@ -82,6 +83,25 @@ STOP_CAPS = frozenset({
     "Mr", "Miss", "Master", "Chapter", "Perhaps", "Of", "In", "On", "At", "Not", "Just", "Nothing",
     "Something", "Anything", "Everything", "Everybody", "Nobody", "Somebody", "God", "Home",
 })
+
+# 2026-08-02 FIX (tokenizer/contraction bug diagnosed in the first reading pass, ba1136f1e): a raw
+# apostrophe-inclusive token like "I've" / "Marilla's" was being mined/matched as ONE capitalized
+# token, so curly-apostrophe contractions ("I'm", "It's", "We're", ...) polluted the gazetteer as
+# spurious "recurring capitalized proper nouns" (17x "It's", 4x "We're", etc in the ch.1-3 slice) and
+# a possessive like "Marilla's" silently failed to match the bare-name gazetteer entry "Marilla".
+# _base_token strips a trailing apostrophe-clitic (possessive 's or a contraction suffix: 're/'ve/'d/
+# 'll/'m/'t/'s), handling BOTH straight (') and curly (U+2019) apostrophes, so every downstream check
+# (STOP_CAPS / gazetteer membership / missed-caps accounting) operates on the base word. This is a
+# tokenizer-level DATA fix, not a parser: it never inspects syntax, only strips a fixed clitic suffix
+# pattern. "I've"/"It's"/"We're" all base to "I"/"It"/"We" (already in STOP_CAPS -> excluded);
+# "Marilla's"/"Barry's" base to "Marilla"/"Barry" (now correctly match the bare-name gazetteer entry).
+_CLITIC_RE = re.compile(r"([A-Za-z]+)(?:['’][A-Za-z]*)?")
+
+
+def _base_token(tok: str) -> str:
+    """Strip a trailing apostrophe-clitic (straight ' or curly U+2019) from a raw findall token."""
+    m = _CLITIC_RE.fullmatch(tok)
+    return m.group(1) if m else tok
 
 
 def load_chapters(n: int):
@@ -119,9 +139,9 @@ def mine_gazetteer(chapters):
     noninitial_count = Counter()
     for ch in chapters:
         for sent in sentence_split(ch["text"]):
-            toks = re.findall(r"[A-Za-z’']+", sent)
+            toks = [_base_token(t) for t in re.findall(r"[A-Za-z’']+", sent)]
             for i, t in enumerate(toks):
-                if not t[0].isupper():
+                if not t or not t[0].isupper():
                     continue
                 if t in STOP_CAPS:
                     continue
@@ -130,6 +150,74 @@ def mine_gazetteer(chapters):
                     noninitial_count[t] += 1
     candidates = {t for t, c in noninitial_count.items() if c >= 2}
     return candidates, any_count, noninitial_count
+
+
+# 2026-08-02 FIX (gazetteer person-filtering): the mined candidate set alone absorbed place/common
+# nouns wholesale -- "Avonlea" (615 mentions, 604 pronouns merged into it via gender=None wildcard
+# compatibility) was the dominant contamination case diagnosed in ba1136f1e. Admission now requires a
+# PERSON-CONTEXT cue -- lexical/contextual DATA, not a parser (no POS tags, no dependency parse; just
+# adjacent-word membership tests against small closed word lists):
+#   STRONG person cues (admit regardless of place-context count):
+#     - TITLE cue: preceded by Mr./Mrs./Miss/Master
+#     - SPEECH-VERB cue: immediately before/after a quotative verb (said/asked/replied/...)
+#   WEAK person cue: clause-initial position (crude subject-of-a-clause proxy)
+#   PLACE/common-noun cue: immediately preceded by a preposition (in/at/to/from/...) or "the"
+# A candidate with no strong cue is admitted only if its weak (subject-initial) cue count exceeds its
+# place-cue count -- this is the majority-place exclusion the task asks for ("exclude tokens that
+# appear predominantly after prepositions ... or as 'the X'").
+_PREP_BEFORE = frozenset({
+    "in", "at", "to", "from", "of", "near", "through", "across", "toward", "towards",
+    "into", "onto", "around", "beyond", "along", "over", "up", "down", "on", "by",
+})
+_TITLE_BEFORE = frozenset({"mr", "mrs", "miss", "master"})
+_SPEECH_VERBS = frozenset({
+    "said", "says", "replied", "reply", "asked", "answered", "cried", "exclaimed",
+    "whispered", "shouted", "added", "continued", "remarked", "returned", "responded", "inquired",
+})
+
+
+def classify_gazetteer_candidates(chapters, candidates):
+    """Person-context filter over the mined candidate set (Fix 3). Returns (admitted: set[str],
+    rejected: dict[str, dict]) where rejected values report the person/place cue tallies that led to
+    exclusion (audit trail -- what the filter admits/rejects, not a silent drop)."""
+    title_cnt = Counter()
+    speech_cnt = Counter()
+    subj_cnt = Counter()
+    place_cnt = Counter()
+    total_cnt = Counter()
+    for ch in chapters:
+        for sent in sentence_split(ch["text"]):
+            for clause in clause_split(sent):
+                bases = [_base_token(t) for t in re.findall(r"[A-Za-z’']+", clause)]
+                lowers = [b.lower() for b in bases]
+                for i, b in enumerate(bases):
+                    if b not in candidates:
+                        continue
+                    total_cnt[b] += 1
+                    prev_low = lowers[i - 1] if i > 0 else None
+                    next_low = lowers[i + 1] if i + 1 < len(bases) else None
+                    if prev_low in _TITLE_BEFORE:
+                        title_cnt[b] += 1
+                    if prev_low in _SPEECH_VERBS or next_low in _SPEECH_VERBS:
+                        speech_cnt[b] += 1
+                    if i == 0:
+                        subj_cnt[b] += 1
+                    if prev_low in _PREP_BEFORE or prev_low == "the":
+                        place_cnt[b] += 1
+    admitted = set()
+    rejected = {}
+    for tok in candidates:
+        strong = title_cnt[tok] + speech_cnt[tok]
+        weak, place = subj_cnt[tok], place_cnt[tok]
+        if strong > 0 or weak > place:
+            admitted.add(tok)
+        else:
+            rejected[tok] = {
+                "title_cues": title_cnt[tok], "speech_cues": speech_cnt[tok],
+                "subject_initial_cues": weak, "place_cues": place,
+                "total_occurrences": total_cnt[tok],
+            }
+    return admitted, rejected
 
 
 def load_female_names():
@@ -152,6 +240,46 @@ def guess_gender(name: str, chapters, female_names):
     return None
 
 
+def infer_gender_from_pronoun_feedback(stream, assigned, gender_of):
+    """2026-08-02 FIX (gender resolution, Fix 4c): pronoun-coreference feedback. For entities whose
+    name-derived gender is still unknown after title-cue + supplied-name-list resolution (was 37/52
+    unknown), infer gender from the gender of PRONOUNS that resolved to the same entity in a first
+    resolve pass, then backfill gender_of for every name token that entity used. Fires only when the
+    entity's observed pronoun-gender history is CONSISTENT (masc-only or fem-only; no conflicting
+    masc+fem pronouns resolved to the same entity) -- a noisy or genuinely-mixed-reference entity is
+    left unknown rather than guessed. Caller re-runs extract_stream + resolve with the updated
+    gender_of as a second pass; this narrows the gn_compatible candidate pool for later mentions of
+    that same name, it does not change the first pass's own resolution (which already ran without the
+    inferred gender). Returns (updated gender_of, backfilled: dict[name_token, inferred_gender]) --
+    audit trail, not a silent mutation of the caller's dict."""
+    pron_genders_by_eid = defaultdict(Counter)
+    name_tokens_by_eid = defaultdict(set)
+    for rec, eid in zip(stream, assigned):
+        if rec["is_pronoun"]:
+            if rec["gender"] in ("masc", "fem"):
+                pron_genders_by_eid[eid][rec["gender"]] += 1
+        else:
+            name_tokens_by_eid[eid].add(rec["mention_text"].split()[0])
+
+    updated = dict(gender_of)
+    backfilled = {}
+    for eid, toks in name_tokens_by_eid.items():
+        unknown_toks = [t for t in toks if updated.get(t) is None]
+        if not unknown_toks:
+            continue
+        genders_seen = pron_genders_by_eid.get(eid)
+        if not genders_seen:
+            continue
+        distinct = sorted(g for g, c in genders_seen.items() if c > 0)
+        if len(distinct) != 1:
+            continue  # conflicting pronoun genders observed for this entity -- do not guess
+        inferred = distinct[0]
+        for t in unknown_toks:
+            updated[t] = inferred
+            backfilled[t] = inferred
+    return updated, backfilled
+
+
 def extract_stream(chapters, gazetteer, gender_of):
     """Build the flat mention stream (clause + text_pos ordered) across the whole read slice, plus
     the raw clause-text list, plus per-clause chapter-index map (for per-chapter ledger sections).
@@ -167,7 +295,7 @@ def extract_stream(chapters, gazetteer, gender_of):
                 cidx = len(clauses_text)
                 clauses_text.append(clause)
                 clause_chapter.append(ch["num"])
-                toks = re.findall(r"[A-Za-z’']+", clause)
+                toks = [_base_token(t) for t in re.findall(r"[A-Za-z’']+", clause)]
                 clause_lower = clause.lower()
                 first_role_assigned = False
                 pos_cursor = 0
@@ -295,7 +423,7 @@ def diagnose_deixis(chapters, stream, clauses_text):
     n_speaker_detected_clauses = sum(1 for c in clauses_text if _speaker_probe(c))
     straight_quote_count = sum(c.count('"') for c in clauses_text)
     curly_quote_count = sum(c.count("“") + c.count("”") for c in clauses_text)
-    return {
+    return enriched, {
         "n_mentions_flagged_in_quote": n_in_quote,
         "n_clauses_with_quotative_speaker_cue": n_speaker_detected_clauses,
         "n_clauses_total": len(clauses_text),
@@ -309,15 +437,74 @@ def _speaker_probe(clause_text):
     return _detect_speaker(clause_text) is not None
 
 
+def compare_deixis_resolver(enriched_stream):
+    """Structural (not correctness-graded -- Anne has no gold coref labels) comparison of
+    run_principle_b_deixis against run_principle_b + run_match_or_allocate on the same enriched
+    stream, once enrich_dialogue can actually see quote spans (Fix 1). Reports how often the deixis
+    filter fires and how many assignment decisions it changes relative to each baseline resolver --
+    the honest ceiling of what's measurable without a gold-annotated Anne coref set."""
+    from hdlab.coreference_resolver import run_principle_b as _rpb
+    mo_a = run_match_or_allocate(enriched_stream)
+    pb, _pb_actions = _rpb(enriched_stream)
+    pbd, pbd_actions = run_principle_b_deixis(enriched_stream)
+    n_differs_from_pb = sum(1 for a, b in zip(pb, pbd) if a != b)
+    n_differs_from_moa = sum(1 for a, b in zip(mo_a, pbd) if a != b)
+    return {
+        "deixis_action_counts": pbd_actions,
+        "n_mentions": len(enriched_stream),
+        "n_assignments_differ_from_run_principle_b": n_differs_from_pb,
+        "n_assignments_differ_from_run_match_or_allocate": n_differs_from_moa,
+        "note": ("structural firing/divergence counts only -- Anne ch.1-3 has no gold coreference "
+                 "annotation, so whether the divergences are CORRECTIONS or new errors is not "
+                 "measurable here; deixis_fired>0 confirms the mechanism now activates on real "
+                 "curly-quoted prose (Fix 1), which it could not before (0 spans found)."),
+    }
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     chapters = load_chapters(N_CHAPTERS_TO_READ)
     female_names = load_female_names()
-    gaz_candidates, any_count, noninitial_count = mine_gazetteer(chapters)
-    gazetteer = gaz_candidates | female_names
-    gender_of = {n: guess_gender(n, chapters, female_names) for n in gazetteer}
+    gaz_candidates_raw, any_count, noninitial_count = mine_gazetteer(chapters)
 
-    stream, clauses_text, clause_chapter, missed_caps = extract_stream(chapters, gazetteer, gender_of)
+    # Fix 3: person-context filter over the mined candidates (place/common-noun names like "Avonlea"
+    # never get a person cue and are rejected).
+    gaz_admitted, gaz_rejected = classify_gazetteer_candidates(chapters, gaz_candidates_raw)
+
+    gazetteer = gaz_admitted | female_names
+    gender_of_pass1 = {n: guess_gender(n, chapters, female_names) for n in gazetteer}
+
+    # ---- Pass 1: title-cue + supplied-name-list gender only ----
+    stream1, clauses_text, clause_chapter, missed_caps = extract_stream(
+        chapters, gazetteer, gender_of_pass1)
+    assigned1 = run_match_or_allocate(stream1)
+
+    # Fix 4: pronoun-coreference feedback -- backfill gender_of for entities whose pronoun history is
+    # gender-consistent, then re-extract + re-resolve with the enriched gender map (Pass 2).
+    gender_of, gender_backfilled = infer_gender_from_pronoun_feedback(stream1, assigned1, gender_of_pass1)
+    if gender_backfilled:
+        stream2, clauses_text, clause_chapter, missed_caps = extract_stream(
+            chapters, gazetteer, gender_of)
+    else:
+        stream2 = stream1
+
+    # Pass 3 (safety gate, discovered empirically re-running this script after Fixes 3+4: a MINED
+    # candidate that clears the person-context filter -- Fix 3 -- but never resolves a gender via
+    # EITHER title-cue OR pronoun feedback is structurally the same wildcard-magnet failure mode that
+    # made "Avonlea" absorb 604 pronouns: gn_compatible treats gender=None as compatible with every
+    # entity, so an unresolved-gender mined token silently magnetizes any nearby compatible pronoun
+    # ("June" -- a calendar-month common noun that slipped past the person-context filter via a
+    # clause-initial false-positive subject cue -- absorbed 232 pronoun mentions under only Fixes 3+4).
+    # Supplied female_names are NEVER dropped here (trusted DATA, not subject to this gate) -- only
+    # mined candidates. Re-extract + re-resolve one final time with the reduced gazetteer.
+    assigned2 = run_match_or_allocate(stream2)
+    unresolved_mined = {t for t in gaz_admitted if gender_of.get(t) is None}
+    if unresolved_mined:
+        gazetteer = gazetteer - unresolved_mined
+        stream, clauses_text, clause_chapter, missed_caps = extract_stream(
+            chapters, gazetteer, gender_of)
+    else:
+        stream = stream2
 
     # sanity: the instrumented resolver must reproduce run_match_or_allocate bit-for-bit before the
     # ledger's assignment ids can be trusted as "the canonical reader's output".
@@ -326,7 +513,8 @@ def main():
     assert assigned == canonical_assigned, "instrumented wrapper diverged from run_match_or_allocate"
 
     per_entity_events, decode_check, decode_acc = build_situation_model(stream, assigned)
-    deixis_diag = diagnose_deixis(chapters, stream, clauses_text)
+    enriched_stream, deixis_diag = diagnose_deixis(chapters, stream, clauses_text)
+    deixis_resolver_comparison = compare_deixis_resolver(enriched_stream)
 
     # per-entity summary: canonical name = most frequent NAME-type mention text, else "PRON-only-<eid>"
     name_mentions_by_eid = defaultdict(Counter)
@@ -379,15 +567,20 @@ def main():
         "extraction_description": {
             "gazetteer_size": len(gazetteer),
             "gazetteer_female_supplied": sorted(female_names),
-            "gazetteer_mined_candidates": sorted(gaz_candidates),
+            "gazetteer_mined_candidates_raw": sorted(gaz_candidates_raw),
+            "gazetteer_mined_candidates_admitted": sorted(gaz_admitted),
+            "gazetteer_person_filter_rejected": gaz_rejected,
             "gender_assigned": {k: v for k, v in gender_of.items() if v is not None},
             "gender_unknown_count": sum(1 for v in gender_of.values() if v is None),
+            "gender_backfilled_via_pronoun_feedback": gender_backfilled,
+            "gazetteer_dropped_unresolved_gender_mined_tokens": sorted(unresolved_mined),
             "n_clauses_total": len(clauses_text),
             "n_mentions_total": len(stream),
             "n_pronoun_mentions": n_pron,
             "n_name_mentions": n_name,
             "missed_capitalized_tokens_recurring": {k: v for k, v in missed_caps.items() if v >= 2},
         },
+        "deixis_resolver_comparison": deixis_resolver_comparison,
         "flagged_gaps": {
             "role_unassigned_count": n_role_unassigned,
             "role_unassigned_fraction": n_role_unassigned / len(stream) if stream else None,
@@ -443,9 +636,20 @@ def main():
         "n_consolidated": n_consolidated, "n_singleton": n_singleton,
         "role_unassigned_fraction": round(n_role_unassigned / len(stream), 4) if stream else None,
         "ambiguous_pronoun_resolutions": n_ambiguous,
+        "ambiguous_pronoun_rate": round(n_ambiguous / n_pron, 4) if n_pron else None,
         "fallback_no_compatible": n_fallback,
         "situation_model_decode_self_consistency": decode_acc,
         "deixis_diagnosis": deixis_diag,
+        "deixis_resolver_comparison": deixis_resolver_comparison,
+        "gazetteer_mined_raw_count": len(gaz_candidates_raw),
+        "gazetteer_mined_admitted_count": len(gaz_admitted),
+        "gazetteer_person_filter_rejected_count": len(gaz_rejected),
+        "gender_unknown_count": sum(1 for v in gender_of.values() if v is None),
+        "gender_backfilled_count": len(gender_backfilled),
+        "top_entity_by_mentions": {
+            "canonical_name_guess": entity_ledger[0]["canonical_name_guess"],
+            "mention_count": entity_ledger[0]["mention_count"],
+        } if entity_ledger else None,
         "ledger_path": ledger_path,
         "readable_path": readable_path,
     }, indent=2))

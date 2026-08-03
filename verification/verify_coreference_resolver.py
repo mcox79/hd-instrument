@@ -31,6 +31,7 @@ if _REPO not in sys.path:
 
 from hdlab.coreference_resolver import (  # noqa: E402
     NO_COMPETITION_MARGIN,
+    _quote_spans,
     bcubed,
     build_mention_stream,
     enrich_dialogue,
@@ -309,6 +310,50 @@ def test_speaker_deixis_excludes_speaker_and_addressee():
             "abstains on out-of-quote narration and on an un-enriched stream")
 
 
+def test_quote_spans_curly_and_straight_and_mixed():
+    """Regression test for the 2026-08-02 curly-quote fix (root cause found in the Anne of Green
+    Gables first-reading-pass ledger: ba1136f1e, data/exp_read_anne_glassbox_v1/ledger.json --
+    326 curly U+201C/U+201D quote chars, 0 straight '"' in the ch.1-3 slice, so the original
+    straight-quote-only _quote_spans found zero spans and enrich_dialogue's in_quote flag never fired
+    on real narrative text). Straight quotes must still pair exactly as before (toggle-by-parity);
+    curly quotes must pair via directional open/close; a mixed straight+curly clause must not
+    cross-pair a straight quote with a curly one."""
+    straight = 'he said "hello there" to her.'
+    curly = "he said “hello there” to her."
+    sp_s = _quote_spans(straight)
+    sp_c = _quote_spans(curly)
+    assert sp_s == [(8, 20)], sp_s
+    assert sp_c == [(8, 20)], sp_c
+    assert straight[sp_s[0][0] + 1:sp_s[0][1]] == "hello there"
+    assert curly[sp_c[0][0] + 1:sp_c[0][1]] == "hello there"
+
+    mixed = "he said “hello” then \"bye\" to her."
+    sp_m = _quote_spans(mixed)
+    assert len(sp_m) == 2, f"straight and curly pairs must not cross-pair: {sp_m}"
+    assert mixed[sp_m[0][0] + 1:sp_m[0][1]] == "hello"
+    assert mixed[sp_m[1][0] + 1:sp_m[1][1]] == "bye"
+
+    dlg_curly = {
+        "passage_id": "dlg_curly",
+        "clauses": [
+            "Farmer Robertson broke the cane.",
+            "“Who did it,” asked Stephen.",
+            "“He broke my cane,” replied Philip.",
+        ],
+        "entities": {
+            "Robertson": [{"clause": 0, "mention": "Farmer Robertson", "role": "agent"},
+                          {"clause": 2, "mention": "He", "role": "agent"}],
+            "Stephen": [{"clause": 1, "mention": "Stephen", "role": "agent"}],
+            "Philip": [{"clause": 2, "mention": "Philip", "role": "agent"}],
+        },
+    }
+    s = enrich_dialogue(dlg_curly, build_mention_stream(dlg_curly))
+    he_idx = [i for i, r in enumerate(s) if r["mention_text"] == "He"][0]
+    assert s[he_idx]["in_quote"], f"curly-quoted 'He' must be detected in_quote: {s[he_idx]}"
+    assert s[he_idx]["clause_speaker"] == "Philip", s[he_idx]
+    return "quote_spans: straight pairs unchanged, curly pairs directionally, mixed does not cross-pair"
+
+
 def main():
     tests = [
         test_match_or_allocate_chains_and_beats_floors,
@@ -316,6 +361,7 @@ def main():
         test_principle_b_excludes_same_clause_agent,
         test_confidence_signal_and_link_label,
         test_speaker_deixis_excludes_speaker_and_addressee,
+        test_quote_spans_curly_and_straight_and_mixed,
     ]
     for t in tests:
         line = t()
