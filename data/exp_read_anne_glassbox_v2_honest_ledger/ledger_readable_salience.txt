@@ -1,0 +1,298 @@
+HONEST CONSOLIDATION LEDGER (mode=salience) -- Anne of Green Gables ch.6/9/16
+============================================================
+
+{
+  "resolver_mode": "salience",
+  "chapters_read": [
+    {
+      "num": 6,
+      "title": "Marilla Makes Up Her Mind"
+    },
+    {
+      "num": 9,
+      "title": "Mrs. Rachel Lynde Is Properly Horrified"
+    },
+    {
+      "num": 16,
+      "title": "Diana Is Invited to Tea with Tragic Results"
+    }
+  ],
+  "honesty_fix": {
+    "description": "pronoun with 0 gn_compatible candidates: flagged UNRESOLVED, not bound (was: force-attach to most-recent entity). Mode-native near-tie: also flagged, not bound.",
+    "pick_mode": "salience",
+    "confidence_margin_threshold": 0.1,
+    "n_pronoun_mentions_total": 514,
+    "n_force_attach_would_have_fired_under_baseline": 139,
+    "n_low_confidence_ambiguous_flagged": 3,
+    "n_flagged_total_all_mention_types": 142,
+    "n_consolidated_mentions": 692,
+    "n_mentions_total": 834
+  },
+  "extraction_description": {
+    "gazetteer_size": 19,
+    "n_clauses_total": 1247,
+    "n_mentions_total": 834,
+    "n_pronoun_mentions": 514,
+    "n_name_mentions": 320,
+    "gender_unknown_dropped_count": 5,
+    "missed_capitalized_tokens_recurring": {
+      "Spencer": 10,
+      "White": 3,
+      "Nancy": 2,
+      "Flora": 4,
+      "Anyhow": 2,
+      "Can": 2,
+      "Peter": 5,
+      "Providence": 2,
+      "Take": 2,
+      "Let": 5,
+      "Shirley": 2,
+      "To": 2,
+      "Green": 10,
+      "Gables": 10,
+      "Did": 3,
+      "Only": 2,
+      "Avonlea": 3,
+      "Come": 2,
+      "Thomas": 2,
+      "Stamp": 2,
+      "Saturday": 2,
+      "Don": 3,
+      "Carmody": 3,
+      "Jerry": 2,
+      "Orchard": 2,
+      "Slope": 2,
+      "Barry": 18,
+      "Andrews": 2,
+      "Gertie": 2,
+      "Em": 2,
+      "Phillips": 3,
+      "Wright": 2,
+      "Mamie": 2,
+      "Wilson": 2,
+      "Gilbert": 2,
+      "Blythe": 2,
+      "Chester": 5,
+      "Ross": 5,
+      "Where": 2,
+      "My": 3
+    },
+    "generic_np_referent_count_closed_word_list": 31,
+    "generic_np_referent_by_noun": {
+      "boy": 3,
+      "girl": 2,
+      "child": 13,
+      "thing": 5,
+      "woman": 2,
+      "lady": 2,
+      "stranger": 3,
+      "orphan": 1
+    }
+  },
+  "consolidation": {
+    "n_entities_tracked": 14,
+    "n_consolidated_ge3_mentions": 10,
+    "n_singleton_1_mention": 1,
+    "situation_model_decode_self_consistency": 0.8192771084337349,
+    "n_mentions_skipped_from_situation_model_because_flagged": 142
+  },
+  "he_him_his_binding": {
+    "n_he_him_his_mentions": 22,
+    "n_bound_consolidated": 19,
+    "n_flagged_unresolved": 3
+  },
+  "false_consolidation_vs_gold": {
+    "note": "gold_verified=false on all 6 scenes (pending Director spot-check); this rate is PENDING, not certified.",
+    "overall_false_consolidation_rate": 0.2,
+    "total_consolidated_matched_mentions": 55,
+    "total_false_consolidations": 11,
+    "per_scene": [
+      {
+        "passage_id": "anne_ch9_rachel_marilla_discuss_anne",
+        "window_located": true,
+        "window_similarity": 0.7123,
+        "n_gold_mentions": 15,
+        "n_matched": 12,
+        "n_consolidated_matched": 12,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 0,
+        "false_consolidation_rate": 0.0,
+        "unmatched_gold_mentions": [
+          "She's",
+          "that lady",
+          "Her"
+        ],
+        "disagreements": []
+      },
+      {
+        "passage_id": "anne_ch9_rachel_insults_anne_outburst",
+        "window_located": true,
+        "window_similarity": 0.6875,
+        "n_gold_mentions": 14,
+        "n_matched": 6,
+        "n_consolidated_matched": 6,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 0,
+        "false_consolidation_rate": 0.0,
+        "unmatched_gold_mentions": [
+          "She's",
+          "she",
+          "she"
+        ],
+        "disagreements": []
+      },
+      {
+        "passage_id": "anne_ch6_spencer_marilla_blewett_anne",
+        "window_located": true,
+        "window_similarity": 0.6563,
+        "n_gold_mentions": 20,
+        "n_matched": 14,
+        "n_consolidated_matched": 14,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 6,
+        "false_consolidation_rate": 0.42857142857142855,
+        "unmatched_gold_mentions": [
+          "Mrs. Spencer",
+          "Mrs. Peter",
+          "Mrs. Peter"
+        ],
+        "disagreements": [
+          {
+            "reader_eid": 1,
+            "gold_mention": "her",
+            "gold_entity_this_mention": "Anne",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "she",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "she",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "Anne",
+            "gold_entity_this_mention": "Anne",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "her",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "her",
+            "gold_entity_this_mention": "Blewett",
+            "reader_cluster_majority_gold_entity": "Marilla"
+          }
+        ]
+      },
+      {
+        "passage_id": "anne_ch6_anne_awaits_blewett_verdict",
+        "window_located": true,
+        "window_similarity": 0.6105,
+        "n_gold_mentions": 13,
+        "n_matched": 7,
+        "n_consolidated_matched": 7,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 1,
+        "false_consolidation_rate": 0.14285714285714285,
+        "unmatched_gold_mentions": [
+          "Anne",
+          "Mrs. Spencer",
+          "Anne"
+        ],
+        "disagreements": [
+          {
+            "reader_eid": 1,
+            "gold_mention": "she",
+            "gold_entity_this_mention": "Spencer",
+            "reader_cluster_majority_gold_entity": "Anne"
+          }
+        ]
+      },
+      {
+        "passage_id": "anne_ch16_diana_anne_marilla_lynde_cordial",
+        "window_located": true,
+        "window_similarity": 0.6934,
+        "n_gold_mentions": 11,
+        "n_matched": 11,
+        "n_consolidated_matched": 11,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 4,
+        "false_consolidation_rate": 0.36363636363636365,
+        "unmatched_gold_mentions": [],
+        "disagreements": [
+          {
+            "reader_eid": 1,
+            "gold_mention": "Marilla's",
+            "gold_entity_this_mention": "Marilla",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "Anne",
+            "gold_entity_this_mention": "Anne",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "Marilla",
+            "gold_entity_this_mention": "Marilla",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          },
+          {
+            "reader_eid": 1,
+            "gold_mention": "She",
+            "gold_entity_this_mention": "Marilla",
+            "reader_cluster_majority_gold_entity": "Lynde"
+          }
+        ]
+      },
+      {
+        "passage_id": "anne_ch16_pudding_sauce_chester_ross",
+        "window_located": true,
+        "window_similarity": 0.7926,
+        "n_gold_mentions": 11,
+        "n_matched": 5,
+        "n_consolidated_matched": 5,
+        "n_flagged_matched": 0,
+        "n_false_consolidation": 0,
+        "false_consolidation_rate": 0.0,
+        "unmatched_gold_mentions": [
+          "Mrs. Chester Ross",
+          "Mrs. Chester Ross",
+          "Mrs. Chester Ross",
+          "Mrs. Chester Ross",
+          "She",
+          "she"
+        ],
+        "disagreements": []
+      }
+    ]
+  }
+}
+
+TOP TRACKED ENTITIES:
+  eid=  1  Anne                 mentions=456  clauses[14-1245] consolidated=True
+  eid=  2  Marilla              mentions=49   clauses[19-711] consolidated=True
+  eid= 10  Diana                mentions=43   clauses[720-1216] consolidated=True
+  eid=  3  Matthew              mentions=36   clauses[21-1238] consolidated=True
+  eid=  0  PRON-only-entity-0   mentions=28   clauses[0-1126] consolidated=True
+  eid=  8  Lynde                mentions=23   clauses[317-1203] consolidated=True
+  eid=  6  Cuthbert             mentions=19   clauses[39-787] consolidated=True
+  eid=  9  Rachel               mentions=14   clauses[319-511] consolidated=True
+  eid=  7  Blewett              mentions=13   clauses[66-260] consolidated=True
+  eid=  5  Jane                 mentions=4    clauses[37-119] consolidated=True
+  eid=  4  Robert               mentions=2    clauses[31-35] consolidated=False
+  eid= 12  Sam                  mentions=2    clauses[833-837] consolidated=False
+  eid= 13  Lizzie               mentions=2    clauses[843-843] consolidated=False
+  eid= 11  Ruby                 mentions=1    clauses[825-825] consolidated=False

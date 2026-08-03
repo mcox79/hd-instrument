@@ -36,6 +36,34 @@ honesty fix's own discriminator (measured 0/514 force-attaches on the first run 
 discriminator per DISCRIMINATOR-MUST-SURVIVE-SCALE). Fixed by recording the seeding pronoun's own
 gender/number on entity creation, same as a name-seeded entity already records the name's gender.
 
+RESOLVER SWAP + MASCULINE-GENDER FIX (2026-08-02, attacking the same-gender false-consolidation
+residual from commit 2944a14f4): adjudication of the first honest ledger found ALL 11 false
+consolidations were female->female (e.g. Blewett's "she" absorbed by far-more-frequent Marilla) --
+the base resolver's frequency-dominant Centering salience (hdlab.coreference_resolver.
+run_match_or_allocate) lets the protagonist's raw mention-count absorb a just-introduced same-gender
+character. Two changes, run BEFORE/AFTER on the identical extraction stream so the delta isolates the
+resolver's effect (any sentence-alignment artifact in score_scene_against_gold cancels in the
+comparison):
+  (1) RESOLVER: `resolve_honest(stream, pick_mode=...)` now supports pick_mode="strict_cb", which
+      swaps the pronoun pick from salience (frequency+recency blend) to hdlab.coreference_resolver's
+      literal-Centering `_pick_strict_cb` (a HARD most-recent-subject-clause preference, i.e. recency
+      among grammatically-prominent antecedents) -- imported unchanged, not reimplemented. The near-
+      tie ambiguity flag uses the mode-native margin: relative salience gap (<0.10) for salience mode,
+      `_pronoun_strict_cb_margin`'s criterion tie (==0.0) for strict_cb mode. Both modes share the
+      identical honesty fix (0-compatible -> flag, never force-attach) and identical name/nominal
+      branch.
+  (2) MASCULINE GENDER: `guess_gender_v2` extends v1.guess_gender's direct Mr./Master/Mrs./Miss
+      title-cue scan with a SURNAME-BRIDGE cue (`build_surname_bigrams`): a first name that is never
+      itself directly titled (e.g. "Matthew" -- Anne of Green Gables never writes "Mr. Matthew", only
+      "Mr. Cuthbert") inherits masculine/feminine gender from a co-occurring "Firstname Surname"
+      bigram (e.g. "Matthew Cuthbert") whose SURNAME does carry a direct title cue elsewhere in the
+      text ("Mr. Cuthbert" -> masc). Guards: direct title/name-list cue always takes priority (this
+      branch only fires on v1.guess_gender's None); a name already in female_names is never
+      overridden; disagreeing surname cues abstain (None) rather than guess. This targets the
+      diagnosed root cause of the 22 unresolved he/him/his mentions: without it, "Matthew" never
+      resolves a gender, gets DROPPED from the gazetteer entirely (gender_of.get(t) is None ->
+      excluded), and the 22 masculine pronouns have no masculine-or-wildcard entity left to bind to.
+
 THE CONSOLIDATION LEDGER: every mention gets a FLAGGED/OUTCOME record. FLAGGED categories:
   - unresolved_pronoun_no_compatible_candidate (the fix's primary target)
   - low_confidence_ambiguous_pronoun (near-tie among >=2 compatible candidates)
@@ -86,6 +114,8 @@ from hdlab.coreference_resolver import (
     _mention_geometry,
     _observe_nominal,
     _observe_pronoun,
+    _pick_strict_cb,
+    _pronoun_strict_cb_margin,
     _resolve_name_branch,
 )
 from hdlab.situation_model_accumulate import AccumulateRegister
@@ -133,6 +163,25 @@ def load_chapters_by_number(nums):
             end = markers[i + 1].start() if i + 1 < len(markers) else len(txt)
             by_num[n] = {"num": n, "title": m.group(2).strip(), "text": txt[start:end].strip()}
     return [by_num[n] for n in nums if n in by_num]
+
+
+def load_all_chapters():
+    """Every chapter in the corpus (38 total), for whole-book gender-cue scans only (build_
+    surname_bigrams / guess_gender_v2's title-cue lookups) -- NOT for extraction/resolution, which
+    stays scoped to CHAPTERS_TO_READ. Same precedent as the supplied female_names list (loaded from a
+    whole-corpus gender_coref_density_report.json): a name/title dictionary is allowed DATA scope
+    even when the read/resolve window is 3 chapters (Matthew's only "Firstname Surname" bigram,
+    "Matthew Cuthbert", occurs in ch.1-3, outside the ch.6/9/16 read slice -- restricting the cue scan
+    to the read slice silently starved the surname-bridge of the one bigram it needs)."""
+    with open(v1.CORPUS_PATH, encoding="utf-8") as f:
+        txt = f.read()
+    markers = list(re.finditer(r"# CHAPTER (\d+)\s+(.*)", txt))
+    out = []
+    for i, m in enumerate(markers):
+        start = m.end()
+        end = markers[i + 1].start() if i + 1 < len(markers) else len(txt)
+        out.append({"num": int(m.group(1)), "title": m.group(2).strip(), "text": txt[start:end].strip()})
+    return out
 
 
 def extract_stream_with_sentence_idx(chapters, gazetteer, gender_of):
@@ -198,14 +247,61 @@ def extract_stream_with_sentence_idx(chapters, gazetteer, gender_of):
     return stream, clauses_text, clause_chapter, clause_sentence_idx, missed_caps
 
 
-def resolve_honest(stream):
-    """MATCH-OR-ALLOCATE with the honesty fix. Identical mechanism to
-    hdlab.coreference_resolver.run_match_or_allocate for every branch EXCEPT the pronoun
-    no-compatible-candidate fallback: instead of force-attaching to the most recent entity, the
-    mention is flagged UNRESOLVED and never bound (no _observe_pronoun call). A second flag fires
-    when >=2 compatible candidates are within CONFIDENCE_MARGIN_THRESHOLD of each other (genuine
-    same-gender competition) -- also left unbound. Returns (assigned: list[Optional[int]],
+def build_surname_bigrams(chapters):
+    """Firstname -> set(surnames) DATA-only distributional cue (not parsing): scans every adjacent
+    capitalized-capitalized token pair ("Matthew Cuthbert") in sentence order, both tokens outside
+    STOP_CAPS. Feeds guess_gender_v2's surname-bridge title-cue inference."""
+    pairs: dict[str, set] = defaultdict(set)
+    for ch in chapters:
+        for sent in v1.sentence_split(ch["text"]):
+            toks = [v1._base_token(t) for t in re.findall(r"[A-Za-z’']+", sent)]
+            for i in range(len(toks) - 1):
+                a, b = toks[i], toks[i + 1]
+                if (a and b and a[0].isupper() and b[0].isupper()
+                        and a not in v1.STOP_CAPS and b not in v1.STOP_CAPS):
+                    pairs[a].add(b)
+    return pairs
+
+
+def guess_gender_v2(name, chapters, female_names, surname_bigrams):
+    """v1.guess_gender's direct Mr./Mrs./Miss/Master title-cue scan, extended with a SURNAME-BRIDGE
+    cue for first names that are never themselves directly titled (Anne of Green Gables never writes
+    "Mr. Matthew", only "Mr. Cuthbert"): if `name` co-occurs as the first token of a "Firstname
+    Surname" bigram whose SURNAME does carry a direct masc (Mr./Master) or fem (Mrs./Miss) title cue
+    elsewhere in the text, inherit that gender. Guards: direct cue (incl. supplied female_names list,
+    checked first inside v1.guess_gender) always takes priority -- this branch only fires when
+    v1.guess_gender returns None; a name in female_names is never overridden even if v1.guess_gender's
+    ordering somehow missed it; disagreeing surname cues (one masc-titled, another fem-titled) abstain
+    (None) rather than guess."""
+    direct = v1.guess_gender(name, chapters, female_names)
+    if direct is not None:
+        return direct
+    if name in female_names:
+        return "fem"
+    found = set()
+    for surname in surname_bigrams.get(name, ()):
+        masc_pat = re.compile(r"\b(?:Mr\.|Master)\s+" + re.escape(surname) + r"\b")
+        fem_pat = re.compile(r"\b(?:Mrs\.|Miss)\s+" + re.escape(surname) + r"\b")
+        for ch in chapters:
+            if masc_pat.search(ch["text"]):
+                found.add("masc")
+            if fem_pat.search(ch["text"]):
+                found.add("fem")
+    return next(iter(found)) if len(found) == 1 else None
+
+
+def resolve_honest(stream, pick_mode="salience"):
+    """MATCH-OR-ALLOCATE with the honesty fix, plus a swappable pronoun pick rule (pick_mode in
+    {"salience", "strict_cb"}). Identical mechanism to hdlab.coreference_resolver.run_match_or_allocate
+    (pick_mode="salience") or run_strict_cb (pick_mode="strict_cb") for every branch EXCEPT the
+    pronoun no-compatible-candidate fallback: instead of force-attaching to the most recent entity,
+    the mention is flagged UNRESOLVED and never bound (no _observe_pronoun call). A second flag fires
+    on a genuine same-candidate-pool near-tie -- the mode-native ambiguity signal: relative salience
+    margin < CONFIDENCE_MARGIN_THRESHOLD for "salience" mode, hdlab.coreference_resolver.
+    _pronoun_strict_cb_margin's criterion tie (==0.0, i.e. no distinguishing most-recent-subject-clause
+    evidence) for "strict_cb" mode -- also left unbound. Returns (assigned: list[Optional[int]],
     ledger_rows: list[dict]) where assigned[i] is None for any flagged/unconsolidated mention."""
+    assert pick_mode in ("salience", "strict_cb"), pick_mode
     entities: list[TrackedEntity] = []
     next_id = 0
     assigned: list[int | None] = []
@@ -217,31 +313,41 @@ def resolve_honest(stream):
             compat = [e for e in entities if gn_compatible(gender, number, e.gender, e.number)]
             n_compat = len(compat)
             if compat:
-                scored = sorted(((e.salience(pos), e) for e in compat), key=lambda t: -t[0])
-                top_sal = scored[0][0]
-                second_sal = scored[1][0] if len(scored) > 1 else None
-                margin = 1.0 if second_sal is None else (
-                    (top_sal - second_sal) / top_sal if top_sal > 0 else 0.0)
-                if n_compat >= 2 and margin < CONFIDENCE_MARGIN_THRESHOLD:
+                if pick_mode == "strict_cb":
+                    picked = _pick_strict_cb(compat, cur_clause)
+                    margin = _pronoun_strict_cb_margin(compat, cur_clause)
+                    is_near_tie = n_compat >= 2 and margin == 0.0
+                    learn_pick = (f"strict_cb pick (literal-Centering most-recent-subject-clause) "
+                                  f"over {n_compat} candidates; criterion margin={margin}")
+                else:
+                    scored = sorted(((e.salience(pos), e) for e in compat), key=lambda t: -t[0])
+                    top_sal = scored[0][0]
+                    second_sal = scored[1][0] if len(scored) > 1 else None
+                    margin = 1.0 if second_sal is None else (
+                        (top_sal - second_sal) / top_sal if top_sal > 0 else 0.0)
+                    is_near_tie = n_compat >= 2 and margin < CONFIDENCE_MARGIN_THRESHOLD
+                    picked = scored[0][1]
+                    learn_pick = (f"salience pick over {n_compat} candidates; "
+                                  f"top-2 margin={margin:.4f}")
+                if is_near_tie:
                     assigned.append(None)
                     rows.append({
                         "pos": pos, "clause": cur_clause, "mention_text": rec["mention_text"],
                         "is_pronoun": True, "flagged": "low_confidence_ambiguous_pronoun",
                         "outcome": "NOT_CONSOLIDATED",
                         "learn_attempt": f"gn_compatible search found {n_compat} candidates; "
-                                         f"top-2 salience margin={margin:.4f} < threshold "
-                                         f"{CONFIDENCE_MARGIN_THRESHOLD}",
+                                         f"{learn_pick} < mode-native ambiguity threshold",
                         "n_compatible": n_compat, "margin": margin,
                     })
                     continue
-                best = scored[0][1]
+                best = picked
                 _observe_pronoun(best, pos, cur_clause, cur_role)
                 assigned.append(best.eid)
                 rows.append({
                     "pos": pos, "clause": cur_clause, "mention_text": rec["mention_text"],
                     "is_pronoun": True, "flagged": None, "outcome": "CONSOLIDATED",
                     "learn_attempt": f"gn_compatible search found {n_compat} candidates; "
-                                     f"resolved via salience pick, margin={margin:.4f}",
+                                     f"resolved via {learn_pick}",
                     "n_compatible": n_compat, "margin": margin, "assigned_eid": best.eid,
                 })
             elif entities:
@@ -473,39 +579,12 @@ def count_generic_np_referents(chapters):
     return total, dict(per_noun)
 
 
-def main():
-    os.makedirs(OUT_DIR, exist_ok=True)
-    chapters = load_chapters_by_number(CHAPTERS_TO_READ)
-    n_sentences_by_chapter = {ch["num"]: len(v1.sentence_split(ch["text"])) for ch in chapters}
-    female_names = v1.load_female_names()
-    gaz_candidates_raw, _, noninitial_count = v1.mine_gazetteer(chapters)
-    gaz_admitted, gaz_rejected = v1.classify_gazetteer_candidates(chapters, gaz_candidates_raw)
-    gazetteer = gaz_admitted | female_names
-    gender_of_pass1 = {n: v1.guess_gender(n, chapters, female_names) for n in gazetteer}
-
-    stream1, _, _, _, _ = extract_stream_with_sentence_idx(chapters, gazetteer, gender_of_pass1)
-    assigned1 = run_match_or_allocate(stream1)  # baseline canonical resolver, pass-1 gender only
-    gender_of, gender_backfilled = v1.infer_gender_from_pronoun_feedback(
-        stream1, assigned1, gender_of_pass1)
-
-    if gender_backfilled:
-        stream2, _, _, _, _ = extract_stream_with_sentence_idx(chapters, gazetteer, gender_of)
-    else:
-        stream2 = stream1
-    assigned2 = run_match_or_allocate(stream2)
-    unresolved_mined = {t for t in gaz_admitted if gender_of.get(t) is None}
-    if unresolved_mined:
-        gazetteer = gazetteer - unresolved_mined
-    (stream, clauses_text, clause_chapter, clause_sentence_idx, missed_caps
-     ) = extract_stream_with_sentence_idx(chapters, gazetteer, gender_of)
-
-    # baseline (v1/hdlab canonical) resolver, for the force-attach-count comparison only.
-    baseline_assigned = run_match_or_allocate(stream)
-    n_pron = sum(1 for r in stream if r["is_pronoun"])
-    n_name = len(stream) - n_pron
-
-    # THE HONESTY FIX.
-    assigned, ledger_rows = resolve_honest(stream)
+def build_ledger_for_mode(mode, stream, clauses_text, clause_chapter, clause_sentence_idx,
+                           n_sentences_by_chapter, chapters, gazetteer, n_pron, n_name, missed_caps,
+                           n_gender_unknown_dropped, n_generic_np, generic_np_by_noun, gold_scenes):
+    """Run resolve_honest(stream, pick_mode=mode) to completion + score vs gold + write
+    mode-suffixed output files. Returns (ledger dict, ledger_rows, assigned) for the comparison pass."""
+    assigned, ledger_rows = resolve_honest(stream, pick_mode=mode)
 
     n_force_attach_would_have_fired = sum(
         1 for row in ledger_rows if row["flagged"] == "unresolved_pronoun_no_compatible_candidate")
@@ -516,9 +595,6 @@ def main():
 
     per_entity_events, decode_check, decode_acc, n_skipped = \
         build_situation_model_consolidated_only(stream, assigned)
-
-    n_gender_unknown_dropped = len(unresolved_mined)
-    n_generic_np, generic_np_by_noun = count_generic_np_referents(chapters)
 
     # entity ledger (skip None).
     name_mentions_by_eid = defaultdict(Counter)
@@ -547,9 +623,6 @@ def main():
         })
     entity_ledger.sort(key=lambda r: -r["mention_count"])
 
-    # gold scoring.
-    with open(GOLD_PATH, encoding="utf-8") as f:
-        gold_scenes = [json.loads(line) for line in f if line.strip()]
     scene_scores = []
     for scene in gold_scenes:
         if scene["source_chapter"] not in CHAPTERS_TO_READ:
@@ -562,13 +635,19 @@ def main():
     total_false = sum(s["n_false_consolidation"] for s in scene_scores)
     overall_false_rate = (total_false / total_consolidated_matched) if total_consolidated_matched else None
 
+    # he/him/his binding: how many of those specific pronoun surfaces ended CONSOLIDATED vs flagged.
+    he_him_rows = [row for row in ledger_rows if row["mention_text"].lower() in ("he", "him", "his")]
+    he_him_bound = sum(1 for row in he_him_rows if row["outcome"] == "CONSOLIDATED")
+
     ledger = {
+        "resolver_mode": mode,
         "chapters_read": [{"num": c["num"], "title": c["title"]} for c in chapters],
         "honesty_fix": {
             "description": "pronoun with 0 gn_compatible candidates: flagged UNRESOLVED, not bound "
-                            "(was: force-attach to most-recent entity). >=2 compatible candidates "
-                            "within a near-tie salience margin: also flagged, not bound.",
-            "confidence_margin_threshold": CONFIDENCE_MARGIN_THRESHOLD,
+                            "(was: force-attach to most-recent entity). Mode-native near-tie: also "
+                            "flagged, not bound.",
+            "pick_mode": mode,
+            "confidence_margin_threshold": CONFIDENCE_MARGIN_THRESHOLD if mode == "salience" else None,
             "n_pronoun_mentions_total": n_pron,
             "n_force_attach_would_have_fired_under_baseline": n_force_attach_would_have_fired,
             "n_low_confidence_ambiguous_flagged": n_low_confidence_ambiguous,
@@ -591,6 +670,11 @@ def main():
             "situation_model_decode_self_consistency": decode_acc,
             "n_mentions_skipped_from_situation_model_because_flagged": n_skipped,
         },
+        "he_him_his_binding": {
+            "n_he_him_his_mentions": len(he_him_rows),
+            "n_bound_consolidated": he_him_bound,
+            "n_flagged_unresolved": len(he_him_rows) - he_him_bound,
+        },
         "false_consolidation_vs_gold": {
             "note": "gold_verified=false on all 6 scenes (pending Director spot-check); this rate "
                      "is PENDING, not certified.",
@@ -603,22 +687,22 @@ def main():
         "mention_ledger_sample": ledger_rows[:80],
     }
 
-    ledger_path = os.path.join(OUT_DIR, "ledger.json")
+    ledger_path = os.path.join(OUT_DIR, f"ledger_{mode}.json")
     tmp = ledger_path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(ledger, f, indent=2, ensure_ascii=False)
     os.replace(tmp, ledger_path)
 
-    full_rows_path = os.path.join(OUT_DIR, "mention_ledger_full.jsonl")
+    full_rows_path = os.path.join(OUT_DIR, f"mention_ledger_full_{mode}.jsonl")
     tmp2 = full_rows_path + ".tmp"
     with open(tmp2, "w", encoding="utf-8") as f:
         for row in ledger_rows:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
     os.replace(tmp2, full_rows_path)
 
-    readable_path = os.path.join(OUT_DIR, "ledger_readable.txt")
+    readable_path = os.path.join(OUT_DIR, f"ledger_readable_{mode}.txt")
     with open(readable_path, "w", encoding="utf-8") as f:
-        f.write("HONEST CONSOLIDATION LEDGER -- Anne of Green Gables ch.6/9/16\n")
+        f.write(f"HONEST CONSOLIDATION LEDGER (mode={mode}) -- Anne of Green Gables ch.6/9/16\n")
         f.write("=" * 60 + "\n\n")
         f.write(json.dumps({k: v for k, v in ledger.items()
                              if k not in ("entities", "mention_ledger_sample")}, indent=2) + "\n\n")
@@ -628,24 +712,149 @@ def main():
                      f"mentions={e['mention_count']:<4} clauses[{e['first_clause']}-{e['last_clause']}] "
                      f"consolidated={e['consolidated']}\n")
 
+    ledger["_paths"] = {"ledger_path": ledger_path, "readable_path": readable_path,
+                         "full_rows_path": full_rows_path}
+    return ledger, ledger_rows, assigned
+
+
+def main():
+    os.makedirs(OUT_DIR, exist_ok=True)
+    chapters = load_chapters_by_number(CHAPTERS_TO_READ)
+    n_sentences_by_chapter = {ch["num"]: len(v1.sentence_split(ch["text"])) for ch in chapters}
+    female_names = v1.load_female_names()
+    gaz_candidates_raw, _, noninitial_count = v1.mine_gazetteer(chapters)
+    gaz_admitted, gaz_rejected = v1.classify_gazetteer_candidates(chapters, gaz_candidates_raw)
+    gazetteer = gaz_admitted | female_names
+    # whole-corpus scope for the gender-cue dictionaries only (same precedent as female_names, itself
+    # whole-corpus derived) -- extraction/resolution below stays scoped to the ch.6/9/16 read slice.
+    all_chapters = load_all_chapters()
+    surname_bigrams = build_surname_bigrams(all_chapters)
+    # THE MASCULINE-GENDER FIX: guess_gender_v2 (direct title cue, then surname-bridge title cue)
+    # replaces v1.guess_gender for pass-1 gender resolution.
+    gender_of_pass1 = {n: guess_gender_v2(n, all_chapters, female_names, surname_bigrams)
+                        for n in gazetteer}
+
+    stream1, _, _, _, _ = extract_stream_with_sentence_idx(chapters, gazetteer, gender_of_pass1)
+    assigned1 = run_match_or_allocate(stream1)  # baseline canonical resolver, pass-1 gender only
+    gender_of, gender_backfilled = v1.infer_gender_from_pronoun_feedback(
+        stream1, assigned1, gender_of_pass1)
+
+    if gender_backfilled:
+        stream2, _, _, _, _ = extract_stream_with_sentence_idx(chapters, gazetteer, gender_of)
+    else:
+        stream2 = stream1
+    assigned2 = run_match_or_allocate(stream2)
+    unresolved_mined = {t for t in gaz_admitted if gender_of.get(t) is None}
+    if unresolved_mined:
+        gazetteer = gazetteer - unresolved_mined
+    (stream, clauses_text, clause_chapter, clause_sentence_idx, missed_caps
+     ) = extract_stream_with_sentence_idx(chapters, gazetteer, gender_of)
+
+    n_pron = sum(1 for r in stream if r["is_pronoun"])
+    n_name = len(stream) - n_pron
+    n_gender_unknown_dropped = len(unresolved_mined)
+    n_generic_np, generic_np_by_noun = count_generic_np_referents(chapters)
+
+    with open(GOLD_PATH, encoding="utf-8") as f:
+        gold_scenes = [json.loads(line) for line in f if line.strip()]
+
+    # THE RESOLVER-SWAP EXPERIMENT: run BOTH pick modes on the IDENTICAL stream (same extraction,
+    # same gender resolution) so the delta isolates the resolver's effect. (resolve_honest's own
+    # 0-compatible-candidate branch is mode-independent, so "would force-attach fire" is measured
+    # directly off each mode's own ledger_rows -- no separate uninstrumented baseline resolver call
+    # is needed here.)
+    results = {}
+    for mode in ("salience", "strict_cb"):
+        ledger, ledger_rows, assigned = build_ledger_for_mode(
+            mode, stream, clauses_text, clause_chapter, clause_sentence_idx, n_sentences_by_chapter,
+            chapters, gazetteer, n_pron, n_name, missed_caps, n_gender_unknown_dropped, n_generic_np,
+            generic_np_by_noun, gold_scenes)
+        results[mode] = ledger
+
+    # comparison: disagreements that flip between modes, PER-SCENE MULTISET diff (not a global text
+    # set -- the same mention text, e.g. "she", recurs across scenes/positions, so a plain set would
+    # silently collapse distinct occurrences and misreport the flip count; total_false counts above
+    # are exact regardless, this is the human-readable "which specific disagreements changed" detail).
+    def _scene_disagree_counter(ledger):
+        by_scene = {}
+        for s in ledger["false_consolidation_vs_gold"]["per_scene"]:
+            by_scene[s["passage_id"]] = Counter(
+                (d["gold_mention"], d["gold_entity_this_mention"]) for d in s["disagreements"])
+        return by_scene
+
+    sal_by_scene = _scene_disagree_counter(results["salience"])
+    cb_by_scene = _scene_disagree_counter(results["strict_cb"])
+    flipped_to_correct, newly_broken = [], []
+    for pid in sorted(set(sal_by_scene) | set(cb_by_scene)):
+        sal_c, cb_c = sal_by_scene.get(pid, Counter()), cb_by_scene.get(pid, Counter())
+        for key, n in (sal_c - cb_c).items():
+            flipped_to_correct.extend([f"{pid}:{key[0]}(was {key[1]})"] * n)
+        for key, n in (cb_c - sal_c).items():
+            newly_broken.extend([f"{pid}:{key[0]}(was {key[1]})"] * n)
+
+    comparison = {
+        "note": "before=salience (frequency-dominant Centering, hdlab.coreference_resolver."
+                "run_match_or_allocate pick rule); after=strict_cb (literal-Centering "
+                "most-recent-subject-clause pick, hdlab.coreference_resolver._pick_strict_cb). Both "
+                "modes share the identical honesty fix, identical extraction stream, identical "
+                "masculine-gender-fixed gender_of -- the ONLY variable is the pronoun pick rule.",
+        "false_consolidation_rate": {
+            "salience_before": results["salience"]["false_consolidation_vs_gold"][
+                "overall_false_consolidation_rate"],
+            "strict_cb_after": results["strict_cb"]["false_consolidation_vs_gold"][
+                "overall_false_consolidation_rate"],
+            "total_false_before": results["salience"]["false_consolidation_vs_gold"][
+                "total_false_consolidations"],
+            "total_false_after": results["strict_cb"]["false_consolidation_vs_gold"][
+                "total_false_consolidations"],
+            "total_consolidated_matched_before": results["salience"]["false_consolidation_vs_gold"][
+                "total_consolidated_matched_mentions"],
+            "total_consolidated_matched_after": results["strict_cb"]["false_consolidation_vs_gold"][
+                "total_consolidated_matched_mentions"],
+        },
+        "disagreements_flipped_to_correct_under_strict_cb": flipped_to_correct,
+        "disagreements_newly_broken_under_strict_cb": newly_broken,
+        "he_him_his_binding": {
+            "salience": results["salience"]["he_him_his_binding"],
+            "strict_cb": results["strict_cb"]["he_him_his_binding"],
+        },
+        "consolidation_intact_check": {
+            "salience": results["salience"]["consolidation"],
+            "strict_cb": results["strict_cb"]["consolidation"],
+        },
+        "flag_pile_still_honest_check": {},  # filled below from the FULL per-mode mention ledger
+    }
+
+    # honest recompute of the it/its flag count from the FULL per-mode mention ledger (not the
+    # 80-row sample) -- the flag-pile-still-honest check the task asks for.
+    for mode in ("salience", "strict_cb"):
+        full_path = results[mode]["_paths"]["full_rows_path"]
+        with open(full_path, encoding="utf-8") as f:
+            rows = [json.loads(line) for line in f]
+        it_its_flagged = sum(1 for r in rows if r["mention_text"].lower() in ("it", "its")
+                              and r["flagged"] == "unresolved_pronoun_no_compatible_candidate")
+        comparison["flag_pile_still_honest_check"][mode] = {"it_its_flagged_count": it_its_flagged}
+
+    comparison_path = os.path.join(OUT_DIR, "comparison_salience_vs_strict_cb.json")
+    tmp = comparison_path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(comparison, f, indent=2, ensure_ascii=False)
+    os.replace(tmp, comparison_path)
+
     print(json.dumps({
         "chapters_read": CHAPTERS_TO_READ,
         "n_clauses": len(clauses_text), "n_mentions": len(stream),
         "n_pronoun_mentions": n_pron, "n_name_mentions": n_name,
-        "n_entities_tracked": len(entity_ledger),
-        "n_force_attach_would_have_fired_under_baseline": n_force_attach_would_have_fired,
-        "n_low_confidence_ambiguous_flagged": n_low_confidence_ambiguous,
-        "n_flagged_total": n_flagged_total,
-        "n_consolidated_mentions": n_consolidated_mentions,
-        "situation_model_decode_self_consistency": decode_acc,
-        "n_mentions_skipped_from_situation_model": n_skipped,
-        "overall_false_consolidation_rate": overall_false_rate,
-        "total_consolidated_matched_mentions": total_consolidated_matched,
-        "total_false_consolidations": total_false,
-        "generic_np_referent_count": n_generic_np,
         "gender_unknown_dropped_count": n_gender_unknown_dropped,
-        "ledger_path": ledger_path,
-        "readable_path": readable_path,
+        "generic_np_referent_count": n_generic_np,
+        "false_consolidation_rate": comparison["false_consolidation_rate"],
+        "he_him_his_binding": comparison["he_him_his_binding"],
+        "disagreements_flipped_to_correct_under_strict_cb": flipped_to_correct,
+        "disagreements_newly_broken_under_strict_cb": newly_broken,
+        "flag_pile_still_honest_check": comparison["flag_pile_still_honest_check"],
+        "salience_ledger_path": results["salience"]["_paths"]["ledger_path"],
+        "strict_cb_ledger_path": results["strict_cb"]["_paths"]["ledger_path"],
+        "comparison_path": comparison_path,
     }, indent=2))
 
 

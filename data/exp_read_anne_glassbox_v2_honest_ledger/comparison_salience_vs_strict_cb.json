@@ -1,0 +1,64 @@
+{
+  "note": "before=salience (frequency-dominant Centering, hdlab.coreference_resolver.run_match_or_allocate pick rule); after=strict_cb (literal-Centering most-recent-subject-clause pick, hdlab.coreference_resolver._pick_strict_cb). Both modes share the identical honesty fix, identical extraction stream, identical masculine-gender-fixed gender_of -- the ONLY variable is the pronoun pick rule.",
+  "false_consolidation_rate": {
+    "salience_before": 0.2,
+    "strict_cb_after": 0.14545454545454545,
+    "total_false_before": 11,
+    "total_false_after": 8,
+    "total_consolidated_matched_before": 55,
+    "total_consolidated_matched_after": 55
+  },
+  "disagreements_flipped_to_correct_under_strict_cb": [
+    "anne_ch16_diana_anne_marilla_lynde_cordial:Marilla's(was Marilla)",
+    "anne_ch16_diana_anne_marilla_lynde_cordial:Marilla(was Marilla)",
+    "anne_ch16_diana_anne_marilla_lynde_cordial:She(was Marilla)",
+    "anne_ch6_spencer_marilla_blewett_anne:her(was Anne)",
+    "anne_ch6_spencer_marilla_blewett_anne:she(was Blewett)",
+    "anne_ch6_spencer_marilla_blewett_anne:she(was Blewett)",
+    "anne_ch6_spencer_marilla_blewett_anne:her(was Blewett)",
+    "anne_ch6_spencer_marilla_blewett_anne:her(was Blewett)"
+  ],
+  "disagreements_newly_broken_under_strict_cb": [
+    "anne_ch6_anne_awaits_blewett_verdict:Mrs. Blewett(was Blewett)",
+    "anne_ch6_spencer_marilla_blewett_anne:Marilla(was Marilla)",
+    "anne_ch6_spencer_marilla_blewett_anne:she(was Marilla)",
+    "anne_ch9_rachel_insults_anne_outburst:her(was Anne)",
+    "anne_ch9_rachel_marilla_discuss_anne:Mrs. Rachel's(was Rachel)"
+  ],
+  "he_him_his_binding": {
+    "salience": {
+      "n_he_him_his_mentions": 22,
+      "n_bound_consolidated": 19,
+      "n_flagged_unresolved": 3
+    },
+    "strict_cb": {
+      "n_he_him_his_mentions": 22,
+      "n_bound_consolidated": 22,
+      "n_flagged_unresolved": 0
+    }
+  },
+  "consolidation_intact_check": {
+    "salience": {
+      "n_entities_tracked": 14,
+      "n_consolidated_ge3_mentions": 10,
+      "n_singleton_1_mention": 1,
+      "situation_model_decode_self_consistency": 0.8192771084337349,
+      "n_mentions_skipped_from_situation_model_because_flagged": 142
+    },
+    "strict_cb": {
+      "n_entities_tracked": 14,
+      "n_consolidated_ge3_mentions": 12,
+      "n_singleton_1_mention": 0,
+      "situation_model_decode_self_consistency": 0.7666666666666667,
+      "n_mentions_skipped_from_situation_model_because_flagged": 139
+    }
+  },
+  "flag_pile_still_honest_check": {
+    "salience": {
+      "it_its_flagged_count": 136
+    },
+    "strict_cb": {
+      "it_its_flagged_count": 136
+    }
+  }
+}
