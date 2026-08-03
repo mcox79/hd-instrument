@@ -1,0 +1,571 @@
+{
+  "anchor_name": "coref_autonomous_fix_router_v1",
+  "verdict": "REDIRECT_TRACKS_ALWAYS_APPLY_CANNOT_REJECT_TRAP",
+  "verdict_msg": "[REDIRECT_TRACKS_ALWAYS_APPLY_CANNOT_REJECT_TRAP] headline=combined_powered n_passages=36 n_flagged_total=52. corrected-broken NET vs baseline: always_apply_all=1, autonomous_router=1, oracle_router=5. recover_frac(auto/oracle)=0.2. Autonomous-vs-oracle confusion: {'both_keep': 2, 'auto_keep_oracle_revert_FALSE_KEEP': 4, 'auto_revert_oracle_keep_FALSE_REJECT': 2, 'both_revert': 6}. decay_window breaks: 2/3 correctly rejected by the autonomous router. iddem-query: baseline=0.7543859649122807, always_apply_all=0.7017543859649122, autonomous_router=0.7368421052631579, oracle_router=0.7719298245614035. pron-B3: baseline=0.7029, always_apply_all=0.6986, autonomous_router=0.7402, oracle_router=0.7276. N is modest (McGuffey scope only) -- see reproducibility_note.",
+  "summary": "REDIRECT_TRACKS_ALWAYS_APPLY_CANNOT_REJECT_TRAP",
+  "elapsed_s": 1.5404347002040595,
+  "ts_iso": "2026-08-03T00:51:59.511659+00:00",
+  "pid": 42408,
+  "seed": 20260802,
+  "d": 1024,
+  "max_event_slots": 16,
+  "role_vocab": [
+    "agent",
+    "experiencer",
+    "theme",
+    "patient",
+    "recipient",
+    "possessor",
+    "addressee",
+    "goal",
+    "instrument"
+  ],
+  "flag_min_n_compatible": 2,
+  "abstain_band": 0.02,
+  "recover_frac_band": 0.5,
+  "candidate_order": [
+    "principle_b_deixis",
+    "decay_window"
+  ],
+  "arm_order": [
+    "baseline",
+    "always_apply_all",
+    "autonomous_router",
+    "oracle_router"
+  ],
+  "headline_eval": "combined_powered",
+  "eval_blocks": {
+    "combined_powered": {
+      "n_passages": 36,
+      "n_flagged_total": 52,
+      "b3": {
+        "baseline": {
+          "overall": {
+            "precision": 0.8739823532087142,
+            "recall": 0.75090735434575,
+            "f1": 0.8077837819288799,
+            "n_mentions": 349
+          },
+          "pronoun_only": {
+            "precision": 0.7440737259816207,
+            "recall": 0.6661027568922308,
+            "f1": 0.7029326700972488,
+            "n_mentions": 76
+          },
+          "name_only": {
+            "precision": 0.9101473922902495,
+            "recall": 0.7745159602302457,
+            "f1": 0.8368718657482174,
+            "n_mentions": 273
+          }
+        },
+        "always_apply_all": {
+          "overall": {
+            "precision": 0.8826602083049072,
+            "recall": 0.7456678946650291,
+            "f1": 0.8084014247876282,
+            "n_mentions": 349
+          },
+          "pronoun_only": {
+            "precision": 0.7444496658312448,
+            "recall": 0.6580200501253133,
+            "f1": 0.6985716708926386,
+            "n_mentions": 76
+          },
+          "name_only": {
+            "precision": 0.9211364032792605,
+            "recall": 0.7700680272108841,
+            "f1": 0.8388550551039053,
+            "n_mentions": 273
+          }
+        },
+        "autonomous_router": {
+          "overall": {
+            "precision": 0.8896961841087916,
+            "recall": 0.7605130304270703,
+            "f1": 0.8200481916788782,
+            "n_mentions": 349
+          },
+          "pronoun_only": {
+            "precision": 0.7848005430242272,
+            "recall": 0.7004385964912279,
+            "f1": 0.7402236801553438,
+            "n_mentions": 76
+          },
+          "name_only": {
+            "precision": 0.9188979010407584,
+            "recall": 0.7772370486656198,
+            "f1": 0.8421517317989218,
+            "n_mentions": 273
+          }
+        },
+        "oracle_router": {
+          "overall": {
+            "precision": 0.8931664165188519,
+            "recall": 0.7534452176285987,
+            "f1": 0.8173778820906116,
+            "n_mentions": 349
+          },
+          "pronoun_only": {
+            "precision": 0.7970812447786132,
+            "recall": 0.6692982456140352,
+            "f1": 0.7276221227007578,
+            "n_mentions": 76
+          },
+          "name_only": {
+            "precision": 0.9199154020582593,
+            "recall": 0.7768707482993197,
+            "f1": 0.8423635077625589,
+            "n_mentions": 273
+          }
+        }
+      },
+      "query": {
+        "baseline": {
+          "query_accuracy_all": 0.823076923076923,
+          "q_total": 130,
+          "query_accuracy_identity_demanding": 0.7543859649122807,
+          "q_total_iddem": 57
+        },
+        "always_apply_all": {
+          "query_accuracy_all": 0.7923076923076923,
+          "q_total": 130,
+          "query_accuracy_identity_demanding": 0.7017543859649122,
+          "q_total_iddem": 57
+        },
+        "autonomous_router": {
+          "query_accuracy_all": 0.8153846153846154,
+          "q_total": 130,
+          "query_accuracy_identity_demanding": 0.7368421052631579,
+          "q_total_iddem": 57
+        },
+        "oracle_router": {
+          "query_accuracy_all": 0.8307692307692308,
+          "q_total": 130,
+          "query_accuracy_identity_demanding": 0.7719298245614035,
+          "q_total_iddem": 57
+        }
+      },
+      "corrected_broken_vs_baseline": {
+        "always_apply_all": {
+          "corrected": 5,
+          "broken": 4,
+          "net": 1,
+          "changed": 25
+        },
+        "autonomous_router": {
+          "corrected": 2,
+          "broken": 1,
+          "net": 1,
+          "changed": 11
+        },
+        "oracle_router": {
+          "corrected": 5,
+          "broken": 0,
+          "net": 5,
+          "changed": 9
+        }
+      },
+      "confusion": {
+        "counts": {
+          "both_keep": 2,
+          "auto_keep_oracle_revert_FALSE_KEEP": 4,
+          "auto_revert_oracle_keep_FALSE_REJECT": 2,
+          "both_revert": 6
+        },
+        "decay_breaks_total": 3,
+        "decay_breaks_rejected": 2,
+        "rows": [
+          {
+            "passage_id": "g4_dense_philip_stephen_robinson",
+            "candidate": "principle_b_deixis",
+            "auto_keep": false,
+            "oracle_keep": true,
+            "agg_coherence_delta": 0.019056516389052074,
+            "net_gold": 2
+          },
+          {
+            "passage_id": "g4_dense_philip_stephen_robinson",
+            "candidate": "decay_window",
+            "auto_keep": true,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.17289892956614494,
+            "net_gold": -1
+          },
+          {
+            "passage_id": "g5v_benefactor_debtor",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": -0.02756594680249691,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g5v_flor_silin_wife",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.012549332343041897,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g5v_henry_wilkins_cherries",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": -0.1124617528791229,
+            "net_gold": -2
+          },
+          {
+            "passage_id": "g5v_sherman_child_mother_bible",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": -0.209239162504673,
+            "net_gold": -3
+          },
+          {
+            "passage_id": "g5v_tonish_colt",
+            "candidate": "principle_b_deixis",
+            "auto_keep": true,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.5832363590598106,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g5v_tonish_colt",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": true,
+            "agg_coherence_delta": 0.33921982254832983,
+            "net_gold": 1
+          },
+          {
+            "passage_id": "g6v_beethoven_hugh",
+            "candidate": "decay_window",
+            "auto_keep": true,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.4322139471769333,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g6v_dying_boy_schoolmaster",
+            "candidate": "principle_b_deixis",
+            "auto_keep": true,
+            "oracle_keep": true,
+            "agg_coherence_delta": 0.612736415117979,
+            "net_gold": 1
+          },
+          {
+            "passage_id": "g6v_dying_boy_schoolmaster",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.612736415117979,
+            "net_gold": 1
+          },
+          {
+            "passage_id": "g6v_joab_man_absalom",
+            "candidate": "decay_window",
+            "auto_keep": true,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.17584459017962217,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g6v_rip_cocked_hat",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": -0.0017240950837731361,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g6v_rip_van_bummel",
+            "candidate": "decay_window",
+            "auto_keep": true,
+            "oracle_keep": true,
+            "agg_coherence_delta": 0.1027109536031882,
+            "net_gold": 1
+          }
+        ]
+      },
+      "adoption_counts": {
+        "autonomous": {
+          "none": 30,
+          "decay_window": 4,
+          "principle_b_deixis": 2
+        },
+        "oracle": {
+          "none": 32,
+          "principle_b_deixis": 2,
+          "decay_window": 2
+        }
+      }
+    },
+    "g5g6_reviewed": {
+      "n_passages": 18,
+      "n_flagged_total": 37,
+      "b3": {
+        "baseline": {
+          "overall": {
+            "precision": 0.8340166088510458,
+            "recall": 0.60242825607064,
+            "f1": 0.6995537155287574,
+            "n_mentions": 151
+          },
+          "pronoun_only": {
+            "precision": 0.7862433862433865,
+            "recall": 0.6670634920634924,
+            "f1": 0.7217667055293344,
+            "n_mentions": 60
+          },
+          "name_only": {
+            "precision": 0.8655154369440083,
+            "recall": 0.5598116169544746,
+            "f1": 0.6798798843106695,
+            "n_mentions": 91
+          }
+        },
+        "always_apply_all": {
+          "overall": {
+            "precision": 0.8342058236097969,
+            "recall": 0.5823714916430147,
+            "f1": 0.6859035290230168,
+            "n_mentions": 151
+          },
+          "pronoun_only": {
+            "precision": 0.7617195767195768,
+            "recall": 0.6468253968253969,
+            "f1": 0.6995865616435458,
+            "n_mentions": 60
+          },
+          "name_only": {
+            "precision": 0.8819989534275247,
+            "recall": 0.539874411302983,
+            "f1": 0.6697764759687749,
+            "n_mentions": 91
+          }
+        },
+        "autonomous_router": {
+          "overall": {
+            "precision": 0.8688636602543884,
+            "recall": 0.616682434563229,
+            "f1": 0.7213683360999673,
+            "n_mentions": 151
+          },
+          "pronoun_only": {
+            "precision": 0.8406084656084658,
+            "recall": 0.6905555555555557,
+            "f1": 0.7582294750260127,
+            "n_mentions": 60
+          },
+          "name_only": {
+            "precision": 0.8874934589220304,
+            "recall": 0.5679748822605969,
+            "f1": 0.6926622566433969,
+            "n_mentions": 91
+          }
+        },
+        "oracle_router": {
+          "overall": {
+            "precision": 0.8584883843161986,
+            "recall": 0.6003468937243771,
+            "f1": 0.7065785186041466,
+            "n_mentions": 151
+          },
+          "pronoun_only": {
+            "precision": 0.8283862433862436,
+            "recall": 0.6611111111111111,
+            "f1": 0.73535592143304,
+            "n_mentions": 60
+          },
+          "name_only": {
+            "precision": 0.878335949764521,
+            "recall": 0.5602825745682892,
+            "f1": 0.6841512450260971,
+            "n_mentions": 91
+          }
+        }
+      },
+      "query": {
+        "baseline": {
+          "query_accuracy_all": 0.7833333333333333,
+          "q_total": 60,
+          "query_accuracy_identity_demanding": 0.72,
+          "q_total_iddem": 25
+        },
+        "always_apply_all": {
+          "query_accuracy_all": 0.6833333333333333,
+          "q_total": 60,
+          "query_accuracy_identity_demanding": 0.64,
+          "q_total_iddem": 25
+        },
+        "autonomous_router": {
+          "query_accuracy_all": 0.7333333333333333,
+          "q_total": 60,
+          "query_accuracy_identity_demanding": 0.72,
+          "q_total_iddem": 25
+        },
+        "oracle_router": {
+          "query_accuracy_all": 0.7666666666666667,
+          "q_total": 60,
+          "query_accuracy_identity_demanding": 0.72,
+          "q_total_iddem": 25
+        }
+      },
+      "corrected_broken_vs_baseline": {
+        "always_apply_all": {
+          "corrected": 3,
+          "broken": 4,
+          "net": -1,
+          "changed": 22
+        },
+        "autonomous_router": {
+          "corrected": 2,
+          "broken": 0,
+          "net": 2,
+          "changed": 8
+        },
+        "oracle_router": {
+          "corrected": 3,
+          "broken": 0,
+          "net": 3,
+          "changed": 6
+        }
+      },
+      "confusion": {
+        "counts": {
+          "both_keep": 2,
+          "auto_keep_oracle_revert_FALSE_KEEP": 3,
+          "auto_revert_oracle_keep_FALSE_REJECT": 1,
+          "both_revert": 6
+        },
+        "decay_breaks_total": 2,
+        "decay_breaks_rejected": 2,
+        "rows": [
+          {
+            "passage_id": "g5v_benefactor_debtor",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.018469620496034622,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g5v_flor_silin_wife",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": -0.0023399842903017998,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g5v_henry_wilkins_cherries",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": -0.09697233357777198,
+            "net_gold": -2
+          },
+          {
+            "passage_id": "g5v_sherman_child_mother_bible",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": -0.20599811788027486,
+            "net_gold": -3
+          },
+          {
+            "passage_id": "g5v_tonish_colt",
+            "candidate": "principle_b_deixis",
+            "auto_keep": true,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.5143789947032928,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g5v_tonish_colt",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": true,
+            "agg_coherence_delta": 0.3261033874005079,
+            "net_gold": 1
+          },
+          {
+            "passage_id": "g6v_beethoven_hugh",
+            "candidate": "decay_window",
+            "auto_keep": true,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.4294341392815113,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g6v_dying_boy_schoolmaster",
+            "candidate": "principle_b_deixis",
+            "auto_keep": true,
+            "oracle_keep": true,
+            "agg_coherence_delta": 0.6041399091482162,
+            "net_gold": 1
+          },
+          {
+            "passage_id": "g6v_dying_boy_schoolmaster",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.6041399091482162,
+            "net_gold": 1
+          },
+          {
+            "passage_id": "g6v_joab_man_absalom",
+            "candidate": "decay_window",
+            "auto_keep": true,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.18177596479654312,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g6v_rip_cocked_hat",
+            "candidate": "decay_window",
+            "auto_keep": false,
+            "oracle_keep": false,
+            "agg_coherence_delta": 0.014048194512724876,
+            "net_gold": 0
+          },
+          {
+            "passage_id": "g6v_rip_van_bummel",
+            "candidate": "decay_window",
+            "auto_keep": true,
+            "oracle_keep": true,
+            "agg_coherence_delta": 0.07187880141039689,
+            "net_gold": 1
+          }
+        ]
+      },
+      "adoption_counts": {
+        "autonomous": {
+          "none": 13,
+          "principle_b_deixis": 2,
+          "decay_window": 3
+        },
+        "oracle": {
+          "none": 15,
+          "decay_window": 2,
+          "principle_b_deixis": 1
+        }
+      }
+    }
+  },
+  "timeout_s": 240.0,
+  "final_metrics_atomicity": "tmp_replace",
+  "checkpointed": true,
+  "n_units_total": 54,
+  "n_units_ran_this_invocation": 54,
+  "adoption_unit_note": "adoption is per (passage, candidate mechanism) -- NOT per individual pronoun decision -- to keep every scored arm's cluster-id namespace self-consistent (see module docstring ADOPTION UNIT). Per-decision coherence deltas are still logged in each passage's checkpointed unit (per_candidate / instances) and drive the confusion table.",
+  "reproducibility_note": "hdlab.coreference_resolver (build_mention_stream, enrich_dialogue, gn_compatible, TrackedEntity, _resolve_name_branch, _pick_strict_cb, _principle_b_filter, _deixis_filter, run_strict_cb_instrumented, run_principle_b_deixis, mention_link_wrong, bcubed) and hdlab.situation_model_accumulate.AccumulateRegister imported verbatim, never mutated. decay-window pick is a formula-identical PORT from exp_coref_loop_cross_clause_discourse_v1.py (_pick_decay_window, commit 0c4285f52), kept deliberately unpromoted (confirmed negative). Not dispatched: single local run, no pre-reg/queue_add, per director task contract.",
+  "prior_commits": {
+    "coreference_resolver_promotion": "hdlab/coreference_resolver.py (2026-08-02)",
+    "situation_model_accumulate_organ": "atom 29609",
+    "autonomy_self_signal_probe": "54dea6f12"
+  }
+}
