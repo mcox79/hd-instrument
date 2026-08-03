@@ -105,3 +105,78 @@ class AccumulateRegister:
     def entities(self) -> List[str]:
         """Entity ids with at least one recorded event."""
         return list(self._events.keys())
+
+
+class CausalLinkRegister(AccumulateRegister):
+    """Passage-level CAUSE/EFFECT link register (2026-08-02 comprehension-arc extension).
+
+    Extends AccumulateRegister VERBATIM (same bind/unbind/bundle/cleanup_argmax chain,
+    same ACCUMULATE-via-bundle organ validated at atom 29609) to bind EVENT-to-EVENT
+    causal links instead of ENTITY-to-role links. The "entity" key becomes an event-slot
+    index (as str); the "role_vocab" becomes the fixed 2-symbol meta-role set
+    {CAUSE, EFFECT}; the thing bound as "event_idx" is the OTHER linked event's own
+    idx_vec (reusing the existing idx_vecs vocabulary, no new vector class).
+
+    add_causal_link(cause_idx, effect_idx) writes BOTH directions in one call:
+      - entity=str(cause_idx) accumulates bind(CAUSE_vec, idx_vecs[effect_idx])
+        ("this event's effect is <effect_idx>")
+      - entity=str(effect_idx) accumulates bind(EFFECT_vec, idx_vecs[cause_idx])
+        ("this event's cause is <cause_idx>")
+    Multiple links sharing an entity (an event that causes >1 effect, or is caused by
+    >1 event) bundle into that entity's register exactly as multi-event entity chains do
+    in the base class -- this is the SAME capacity-bounded accumulate organ, not a new one.
+
+    query_effect_of(cause_idx) / query_cause_of(effect_idx) decode by unbinding the
+    entity's register with the ROLE vector (mirror of the base class's decode(), which
+    unbinds by the EVENT key and cleanup-argmaxes the role; here we unbind by the ROLE
+    key and cleanup-argmax the EVENT vocabulary) -- same primitives, reversed which side
+    is treated as "key" vs "vocabulary to search," which is a valid symmetry of FHRR
+    bind (elementwise complex multiply is commutative).
+    """
+
+    CAUSE_ROLE = "CAUSE"
+    EFFECT_ROLE = "EFFECT"
+
+    def __init__(self, d: int, generator: torch.Generator, max_event_slots: int) -> None:
+        super().__init__(
+            role_vocab=[self.CAUSE_ROLE, self.EFFECT_ROLE],
+            d=d,
+            generator=generator,
+            max_event_slots=max_event_slots,
+            overwrite=False,
+        )
+        # per-entity set of roles actually bound (an entity can be present in self._events
+        # with ONLY an EFFECT fact and no CAUSE fact, or vice versa -- decode must not guess
+        # against an unbound role; base class has no per-role bookkeeping, so track it here).
+        self._roles_present: Dict[str, set] = {}
+
+    def add_causal_link(self, cause_idx: int, effect_idx: int) -> None:
+        """Bind event cause_idx -> has-effect -> effect_idx, and the reverse, in one write."""
+        self.add_event(str(cause_idx), self.CAUSE_ROLE, effect_idx)
+        self._roles_present.setdefault(str(cause_idx), set()).add(self.CAUSE_ROLE)
+        self.add_event(str(effect_idx), self.EFFECT_ROLE, cause_idx)
+        self._roles_present.setdefault(str(effect_idx), set()).add(self.EFFECT_ROLE)
+
+    def _decode_linked_event(self, event_idx: int, role: str) -> Tuple[object, Dict[str, float]]:
+        """Unbind event_idx's register by role_vecs[role]; cleanup-argmax over idx_vecs vocab.
+
+        Returns (None, {}) if event_idx has no accumulated fact of this SPECIFIC role
+        (honest "no link known" rather than a spurious chance-level guess against a role
+        that was never bound at all).
+        """
+        entity = str(event_idx)
+        if role not in self._roles_present.get(entity, set()):
+            return None, {}
+        reg = self.register(entity)
+        readback = binding.unbind(reg, self.role_vecs[role])
+        vocab = {str(i): v for i, v in enumerate(self.idx_vecs)}
+        best, scores = cleanup_argmax(readback, vocab)
+        return int(best), scores
+
+    def query_effect_of(self, cause_idx: int) -> Tuple[object, Dict[str, float]]:
+        """Decode the effect event linked to cause_idx (or (None, {}) if none recorded)."""
+        return self._decode_linked_event(cause_idx, self.CAUSE_ROLE)
+
+    def query_cause_of(self, effect_idx: int) -> Tuple[object, Dict[str, float]]:
+        """Decode the cause event linked to effect_idx (or (None, {}) if none recorded)."""
+        return self._decode_linked_event(effect_idx, self.EFFECT_ROLE)
