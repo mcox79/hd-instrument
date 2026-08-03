@@ -1,0 +1,342 @@
+{
+  "anchor_name": "situation_model_multibank_capacity_v1",
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "CAPACITY_FIXED_MEASURED_MECHANISM: flat degrades to 0.6547 at n_events=256 (below 0.85) while multibank(n_banks=16) holds 1.0000 (above 0.95). NOT chain-grade (see REGIME-DISCRIMINATING-REGIME HONESTY; d=512 below the BSC-anchor N_DIM=8192) -- capacity-headroom result, empirically fair one-variable (memory backend) test. | n_events=64 {'flat': 0.9781, 'multibank_4': 1.0, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=96 {'flat': 0.9042, 'multibank_4': 1.0, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=128 {'flat': 0.8391, 'multibank_4': 0.9984, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=192 {'flat': 0.724, 'multibank_4': 0.9854, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=256 {'flat': 0.6547, 'multibank_4': 0.9594, 'multibank_8': 0.9992, 'multibank_16': 1.0}",
+  "run_mode": "full",
+  "n_units": 25,
+  "config_version": "situationModelMultibankCapacity-v1: D_DIM=512 N_EVENTS_SWEEP=[64, 96, 128, 192, 256] SEEDS=[0, 1, 2, 3, 4] N_BANKS_ARMS=[4, 8, 16] HP_flat_degrade_below=0.85 HP_multibank_hold_above=0.95",
+  "per_unit": [
+    {
+      "n_events": 64,
+      "seed": 0,
+      "scores": {
+        "flat": 0.984375,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 64,
+      "seed": 1,
+      "scores": {
+        "flat": 0.953125,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 64,
+      "seed": 2,
+      "scores": {
+        "flat": 0.96875,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 64,
+      "seed": 3,
+      "scores": {
+        "flat": 0.984375,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 64,
+      "seed": 4,
+      "scores": {
+        "flat": 1.0,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 96,
+      "seed": 0,
+      "scores": {
+        "flat": 0.9166666666666666,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 96,
+      "seed": 1,
+      "scores": {
+        "flat": 0.875,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 96,
+      "seed": 2,
+      "scores": {
+        "flat": 0.8958333333333334,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 96,
+      "seed": 3,
+      "scores": {
+        "flat": 0.8958333333333334,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 96,
+      "seed": 4,
+      "scores": {
+        "flat": 0.9375,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 128,
+      "seed": 0,
+      "scores": {
+        "flat": 0.828125,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 128,
+      "seed": 1,
+      "scores": {
+        "flat": 0.8203125,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 128,
+      "seed": 2,
+      "scores": {
+        "flat": 0.859375,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 128,
+      "seed": 3,
+      "scores": {
+        "flat": 0.859375,
+        "multibank_4": 1.0,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 128,
+      "seed": 4,
+      "scores": {
+        "flat": 0.828125,
+        "multibank_4": 0.9921875,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 192,
+      "seed": 0,
+      "scores": {
+        "flat": 0.7239583333333334,
+        "multibank_4": 0.9947916666666666,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 192,
+      "seed": 1,
+      "scores": {
+        "flat": 0.734375,
+        "multibank_4": 0.984375,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 192,
+      "seed": 2,
+      "scores": {
+        "flat": 0.7239583333333334,
+        "multibank_4": 0.984375,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 192,
+      "seed": 3,
+      "scores": {
+        "flat": 0.765625,
+        "multibank_4": 0.9791666666666666,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 192,
+      "seed": 4,
+      "scores": {
+        "flat": 0.671875,
+        "multibank_4": 0.984375,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 256,
+      "seed": 0,
+      "scores": {
+        "flat": 0.6484375,
+        "multibank_4": 0.96875,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 256,
+      "seed": 1,
+      "scores": {
+        "flat": 0.640625,
+        "multibank_4": 0.96484375,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 256,
+      "seed": 2,
+      "scores": {
+        "flat": 0.66796875,
+        "multibank_4": 0.9453125,
+        "multibank_8": 0.99609375,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 256,
+      "seed": 3,
+      "scores": {
+        "flat": 0.671875,
+        "multibank_4": 0.94921875,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    },
+    {
+      "n_events": 256,
+      "seed": 4,
+      "scores": {
+        "flat": 0.64453125,
+        "multibank_4": 0.96875,
+        "multibank_8": 1.0,
+        "multibank_16": 1.0
+      },
+      "d": 512
+    }
+  ],
+  "elapsed_s": 6.5,
+  "summary": "CAPACITY_FIXED_MEASURED_MECHANISM: flat degrades to 0.6547 at n_events=256 (below 0.85) while multibank(n_banks=16) holds 1.0000 (above 0.95). NOT chain-grade (see REGIME-DISCRIMINATING-REGIME HONESTY; d=512 below the BSC-anchor N_DIM=8192) -- capacity-headroom result, empirically fair one-variable (memory backend) test. | n_events=64 {'flat': 0.9781, 'multibank_4': 1.0, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=96 {'flat': 0.9042, 'multibank_4': 1.0, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=128 {'flat': 0.8391, 'multibank_4': 0.9984, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=192 {'flat': 0.724, 'multibank_4': 0.9854, 'multibank_8': 1.0, 'multibank_16': 1.0} | n_events=256 {'flat': 0.6547, 'multibank_4': 0.9594, 'multibank_8': 0.9992, 'multibank_16': 1.0}",
+  "D_DIM": 512,
+  "N_EVENTS_SWEEP": [
+    64,
+    96,
+    128,
+    192,
+    256
+  ],
+  "SEEDS": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "N_BANKS_ARMS": [
+    4,
+    8,
+    16
+  ],
+  "summary_table_by_n_events": {
+    "64": {
+      "flat": 0.9781,
+      "multibank_4": 1.0,
+      "multibank_8": 1.0,
+      "multibank_16": 1.0
+    },
+    "96": {
+      "flat": 0.9042,
+      "multibank_4": 1.0,
+      "multibank_8": 1.0,
+      "multibank_16": 1.0
+    },
+    "128": {
+      "flat": 0.8391,
+      "multibank_4": 0.9984,
+      "multibank_8": 1.0,
+      "multibank_16": 1.0
+    },
+    "192": {
+      "flat": 0.724,
+      "multibank_4": 0.9854,
+      "multibank_8": 1.0,
+      "multibank_16": 1.0
+    },
+    "256": {
+      "flat": 0.6547,
+      "multibank_4": 0.9594,
+      "multibank_8": 0.9992,
+      "multibank_16": 1.0
+    }
+  },
+  "crlb_n_a": "no closed-form CRLB used; discriminator is an empirical flat-vs-multibank gap at fixed (d, n_events, seed) -- see REGIME-DISCRIMINATING-REGIME HONESTY docstring section",
+  "anne_ledger_rerun": "NOT_FOUND: no 'Anne'/'consolidation_ledger'/ch6-9-16 match in repo; skipped honestly",
+  "DESIGN_NOTE": "Fair one-variable test (memory backend: flat AccumulateRegister vs MultiBankAccumulateRegister) at matched (d, n_events, seed, role_vocab). See module docstring REGIME-DISCRIMINATING-REGIME HONESTY for why this is tiered MEASURED_MECHANISM (capacity-headroom) not chain-grade."
+}
