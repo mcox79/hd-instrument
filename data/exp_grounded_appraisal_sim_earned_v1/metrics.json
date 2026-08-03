@@ -1,0 +1,324 @@
+{
+  "verdict": "MECHANISM_EARNS",
+  "verdict_msg": "MECHANISM_EARNS: FULL_heldout=1.000 FULL_train=1.000 RANDOM=0.168 MEMORIZED=0.206 NO_APPRAISAL=0.239 | revenge=1.000 specificity=1.000 bystander=0.000 | earned_restore=1.000 recency_restore=0.303 | coh-rec_readout=1.146",
+  "summary": "FULL_heldout=1.000 FULL_train=1.000 RANDOM=0.168 MEMORIZED=0.206 NO_APPRAISAL=0.239 | revenge=1.000 specificity=1.000 bystander=0.000 | earned_restore=1.000 recency_restore=0.303 | coh-rec_readout=1.146",
+  "n_seeds": 5,
+  "means": {
+    "FULL_heldout_acc": 1.0,
+    "FULL_train_acc": 1.0,
+    "RANDOM_acc": 0.16773333333333335,
+    "MEMORIZED_heldout_acc": 0.2058666666666667,
+    "NO_APPRAISAL_heldout_acc": 0.2389333333333333,
+    "revenge_emergence_rate": 1.0,
+    "targeting_specificity": 1.0,
+    "bystander_harm_rate": 0.0,
+    "earned_restoration": 1.0,
+    "recency_restoration": 0.3034250605747323,
+    "coh_minus_rec_readout": 1.1463783651590347
+  },
+  "bands": {
+    "random_failed": true,
+    "memorized_failed": true,
+    "appraisal_nonvacuous": true,
+    "beats_recency": true,
+    "generalizes": true,
+    "revenge_emerged": true,
+    "construction_determined": false,
+    "cannot_earn": false
+  },
+  "run_mode": "full",
+  "elapsed_s": 164.41730799991637,
+  "ts_iso": "2026-08-03T23:18:08.935713+00:00",
+  "anchor_name": "grounded_appraisal_sim_earned_v1",
+  "config": {
+    "N_DIM": 256,
+    "N_CAND": 3,
+    "N_ACTIONS": 8,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_train": 10000,
+    "n_eval": 1500
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "n_bh": 470,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.2978723404255319
+      },
+      "RANDOM_heldout": {
+        "acc": 0.16,
+        "n_bh": 464,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.34913793103448276
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.18533333333333332,
+        "n_bh": 470,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3553191489361702
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.246,
+        "n_bh": 445,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.35280898876404493
+      },
+      "FULL_train": {
+        "acc": 1.0,
+        "n_bh": 432,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.3425925925925926
+      },
+      "coh_minus_rec_readout": 1.284786880016327,
+      "arms_theta_digests": {
+        "FULL": "f52b435fc62d1388",
+        "RANDOM": "65be7418828bc64c",
+        "MEMORIZED": "0583c603c6f663e6",
+        "NO_APPRAISAL": "c8f4e2436b77ee59"
+      }
+    },
+    "1": {
+      "seed": 1,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "n_bh": 447,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.319910514541387
+      },
+      "RANDOM_heldout": {
+        "acc": 0.08466666666666667,
+        "n_bh": 445,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3303370786516854
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.208,
+        "n_bh": 435,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.28045977011494255
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.24466666666666667,
+        "n_bh": 450,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3488888888888889
+      },
+      "FULL_train": {
+        "acc": 1.0,
+        "n_bh": 448,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.3013392857142857
+      },
+      "coh_minus_rec_readout": 0.9823696613311768,
+      "arms_theta_digests": {
+        "FULL": "513e6bec11fad1da",
+        "RANDOM": "8e5e24967f0da90e",
+        "MEMORIZED": "902c4f5681185778",
+        "NO_APPRAISAL": "946c18fad16a161a"
+      }
+    },
+    "2": {
+      "seed": 2,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "n_bh": 455,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.2813186813186813
+      },
+      "RANDOM_heldout": {
+        "acc": 0.104,
+        "n_bh": 468,
+        "revenge_emergence_rate": 0.3333333333333333,
+        "targeting_specificity": 0.3333333333333333,
+        "bystander_harm_rate": 0.6666666666666666,
+        "earned_restoration": 0.3333333333333333,
+        "recency_restoration": 0.3333333333333333
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.196,
+        "n_bh": 456,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.36403508771929827
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.26066666666666666,
+        "n_bh": 419,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3747016706443914
+      },
+      "FULL_train": {
+        "acc": 1.0,
+        "n_bh": 439,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.2824601366742597
+      },
+      "coh_minus_rec_readout": 1.1340499818325043,
+      "arms_theta_digests": {
+        "FULL": "54c59c33be70d8cf",
+        "RANDOM": "34a58d55116ead3e",
+        "MEMORIZED": "a1d416450209f922",
+        "NO_APPRAISAL": "e12c38ae2cca4157"
+      }
+    },
+    "3": {
+      "seed": 3,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "n_bh": 445,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.3258426966292135
+      },
+      "RANDOM_heldout": {
+        "acc": 0.296,
+        "n_bh": 511,
+        "revenge_emergence_rate": 0.6594911937377691,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.6594911937377691,
+        "recency_restoration": 0.3405088062622309
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.18866666666666668,
+        "n_bh": 457,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.3041575492341357
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.242,
+        "n_bh": 444,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.36036036036036034
+      },
+      "FULL_train": {
+        "acc": 1.0,
+        "n_bh": 427,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.3231850117096019
+      },
+      "coh_minus_rec_readout": 1.1210454553365707,
+      "arms_theta_digests": {
+        "FULL": "6297a56302f4264e",
+        "RANDOM": "8471ac088a610579",
+        "MEMORIZED": "b00d0296346bd585",
+        "NO_APPRAISAL": "7e9df295d4057f77"
+      }
+    },
+    "4": {
+      "seed": 4,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "n_bh": 486,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.29218106995884774
+      },
+      "RANDOM_heldout": {
+        "acc": 0.194,
+        "n_bh": 418,
+        "revenge_emergence_rate": 0.6961722488038278,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.6961722488038278,
+        "recency_restoration": 0.3038277511961722
+      },
+      "MEMORIZED_heldout": {
+        "acc": 0.25133333333333335,
+        "n_bh": 427,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.34660421545667447
+      },
+      "NO_APPRAISAL_heldout": {
+        "acc": 0.20133333333333334,
+        "n_bh": 441,
+        "revenge_emergence_rate": 0.0,
+        "targeting_specificity": 0.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 0.0,
+        "recency_restoration": 0.2811791383219955
+      },
+      "FULL_train": {
+        "acc": 1.0,
+        "n_bh": 418,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.34688995215311
+      },
+      "coh_minus_rec_readout": 1.209639847278595,
+      "arms_theta_digests": {
+        "FULL": "d23064ae9dd37c43",
+        "RANDOM": "b6c6eefbcd42e28c",
+        "MEMORIZED": "fda72532b078bec7",
+        "NO_APPRAISAL": "5c67ac8cf70c00a3"
+      }
+    }
+  }
+}
