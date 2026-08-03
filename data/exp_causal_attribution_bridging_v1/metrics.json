@@ -1,0 +1,276 @@
+{
+  "verdict": "BRIDGING_WORKS",
+  "verdict_msg": "BRIDGING_WORKS: confused_4 BRIDGING=0.750 ORACLE=0.750 RECENCY=0.500 TEXT_ONLY=0.250 strongest_text_only=0.500 per_item_matches_oracle=True beats_recency_on_010=True shuffle_degrades=True future_distractor_ok=True",
+  "summary": "BRIDGING_WORKS on n=4 confused subset; bridging vs oracle/recency/text-only + fairness controls",
+  "elapsed_s": 0.04003910021856427,
+  "ts_iso": "2026-08-03T21:18:56.039565+00:00",
+  "pid": 5428,
+  "anchor_name": "causal_attribution_bridging_v1",
+  "run_mode": "full",
+  "expected_n_units": 60,
+  "measured_n_units": 60,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "GROUNDED_BRIDGING": "7447ae871b82261a47834696f9fab35c6bf5085d7a5c1366e5da9038ac89cc1d",
+    "GROUNDED_ORACLE": "7447ae871b82261a47834696f9fab35c6bf5085d7a5c1366e5da9038ac89cc1d",
+    "GROUNDED_RECENCY": "c45e63d9b35383ead6649c696c48c07be303cd330b0aa8e596de62817fa86b5c",
+    "GROUNDED_AUTO_OLD": "c45e63d9b35383ead6649c696c48c07be303cd330b0aa8e596de62817fa86b5c",
+    "TEXT_ONLY_LEXICAL": "782021270453611a96d80099f371b590bf186bec548bb00e544579b69f29dbe6"
+  },
+  "arms_differ_exempted": [
+    [
+      "GROUNDED_BRIDGING",
+      "GROUNDED_ORACLE"
+    ],
+    [
+      "GROUNDED_RECENCY",
+      "GROUNDED_AUTO_OLD"
+    ]
+  ],
+  "metrics_by_scope": {
+    "confused_4": {
+      "n": 4,
+      "GROUNDED_BRIDGING_accuracy": 0.75,
+      "GROUNDED_ORACLE_accuracy": 0.75,
+      "GROUNDED_RECENCY_accuracy": 0.5,
+      "GROUNDED_AUTO_OLD_accuracy": 0.5,
+      "TEXT_ONLY_LEXICAL_accuracy": 0.25
+    },
+    "full_12": {
+      "n": 12,
+      "GROUNDED_BRIDGING_accuracy": 0.4166666666666667,
+      "GROUNDED_ORACLE_accuracy": 0.4166666666666667,
+      "GROUNDED_RECENCY_accuracy": 0.3333333333333333,
+      "GROUNDED_AUTO_OLD_accuracy": 0.3333333333333333,
+      "TEXT_ONLY_LEXICAL_accuracy": 0.3333333333333333
+    }
+  },
+  "gates": {
+    "per_item_matches_oracle_confused4": true,
+    "beats_recency_on_010": true,
+    "shuffle_control_degrades": true,
+    "future_distractor_control_ok": true,
+    "bridge_beats_text_only_numeric": true,
+    "bridge_matches_oracle_numeric": true
+  },
+  "per_item_report_confused_4": [
+    {
+      "id": "relinf_unstated_007",
+      "correct_category": "REVENGE_PUNISH",
+      "query_agent": "Jo",
+      "gold_prior_block": true,
+      "prior_block_bridge": true,
+      "attributed_agent_bridge": "Amy",
+      "bridge_margin": 1.0,
+      "prior_block_recency": true,
+      "attributed_agent_recency": "Amy",
+      "prior_block_oracle": true,
+      "prior_block_auto_old": true,
+      "bridge_matches_oracle": true,
+      "bridge_beats_recency_on_this_item": false,
+      "shuffle_survival_rate": 0.7,
+      "future_distractor_correctly_ignored": true,
+      "used": {
+        "candidates_considered": [
+          {
+            "agent": "Amy",
+            "patient": "Jo",
+            "valence": "HARM",
+            "position": 3149
+          },
+          {
+            "agent": "Laurie",
+            "patient": null,
+            "valence": "HELP",
+            "position": 3258
+          }
+        ],
+        "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+        "reads_category_label": false,
+        "reads_prior_block_flag": false
+      },
+      "link_store_roundtrip": {
+        "cause_idx": 7,
+        "effect_idx": 6,
+        "decoded_cause_of_effect": 7,
+        "decoded_effect_of_cause": 6,
+        "round_trip_ok": true
+      },
+      "GROUNDED_BRIDGING_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_BRIDGING_correct": false,
+      "GROUNDED_ORACLE_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_ORACLE_correct": false,
+      "GROUNDED_RECENCY_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_RECENCY_correct": false,
+      "GROUNDED_AUTO_OLD_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_AUTO_OLD_correct": false,
+      "brain_fidelity_bridge": "BRAIN_LIKE_MISS_IRONY_FOOLED"
+    },
+    {
+      "id": "relinf_unstated_010",
+      "correct_category": "CARE_FOR_OTHERS",
+      "query_agent": "Laurie",
+      "gold_prior_block": false,
+      "prior_block_bridge": false,
+      "attributed_agent_bridge": null,
+      "bridge_margin": 1.0,
+      "prior_block_recency": true,
+      "attributed_agent_recency": "Amy",
+      "prior_block_oracle": false,
+      "prior_block_auto_old": true,
+      "bridge_matches_oracle": true,
+      "bridge_beats_recency_on_this_item": true,
+      "shuffle_survival_rate": null,
+      "future_distractor_correctly_ignored": true,
+      "used": {
+        "candidates_considered": [
+          {
+            "agent": "Amy",
+            "patient": "Jo",
+            "valence": "HARM",
+            "position": 3149
+          }
+        ],
+        "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+        "reads_category_label": false,
+        "reads_prior_block_flag": false
+      },
+      "link_store_roundtrip": null,
+      "GROUNDED_BRIDGING_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_BRIDGING_correct": true,
+      "GROUNDED_ORACLE_pick": "CARE_FOR_OTHERS",
+      "GROUNDED_ORACLE_correct": true,
+      "GROUNDED_RECENCY_pick": "REVENGE_PUNISH",
+      "GROUNDED_RECENCY_correct": false,
+      "GROUNDED_AUTO_OLD_pick": "REVENGE_PUNISH",
+      "GROUNDED_AUTO_OLD_correct": false,
+      "brain_fidelity_bridge": "CORRECT"
+    },
+    {
+      "id": "relinf_unstated_011",
+      "correct_category": "PROTECT_OTHERS",
+      "query_agent": "Dorothy",
+      "gold_prior_block": false,
+      "prior_block_bridge": false,
+      "attributed_agent_bridge": null,
+      "bridge_margin": 1.0,
+      "prior_block_recency": false,
+      "attributed_agent_recency": null,
+      "prior_block_oracle": false,
+      "prior_block_auto_old": false,
+      "bridge_matches_oracle": true,
+      "bridge_beats_recency_on_this_item": false,
+      "shuffle_survival_rate": null,
+      "future_distractor_correctly_ignored": true,
+      "used": {
+        "candidates_considered": [],
+        "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+        "reads_category_label": false,
+        "reads_prior_block_flag": false
+      },
+      "link_store_roundtrip": null,
+      "GROUNDED_BRIDGING_pick": "PROTECT_OTHERS",
+      "GROUNDED_BRIDGING_correct": true,
+      "GROUNDED_ORACLE_pick": "PROTECT_OTHERS",
+      "GROUNDED_ORACLE_correct": true,
+      "GROUNDED_RECENCY_pick": "PROTECT_OTHERS",
+      "GROUNDED_RECENCY_correct": true,
+      "GROUNDED_AUTO_OLD_pick": "PROTECT_OTHERS",
+      "GROUNDED_AUTO_OLD_correct": true,
+      "brain_fidelity_bridge": "CORRECT"
+    },
+    {
+      "id": "relinf_unstated_012",
+      "correct_category": "SELF_DISCIPLINE",
+      "query_agent": "Alice",
+      "gold_prior_block": null,
+      "prior_block_bridge": false,
+      "attributed_agent_bridge": null,
+      "bridge_margin": 1.0,
+      "prior_block_recency": false,
+      "attributed_agent_recency": null,
+      "prior_block_oracle": false,
+      "prior_block_auto_old": false,
+      "bridge_matches_oracle": true,
+      "bridge_beats_recency_on_this_item": false,
+      "shuffle_survival_rate": null,
+      "future_distractor_correctly_ignored": true,
+      "used": {
+        "candidates_considered": [
+          {
+            "agent": "Alice",
+            "patient": null,
+            "valence": "NA",
+            "position": 49
+          }
+        ],
+        "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+        "reads_category_label": false,
+        "reads_prior_block_flag": false
+      },
+      "link_store_roundtrip": null,
+      "GROUNDED_BRIDGING_pick": "SELF_DISCIPLINE",
+      "GROUNDED_BRIDGING_correct": true,
+      "GROUNDED_ORACLE_pick": "SELF_DISCIPLINE",
+      "GROUNDED_ORACLE_correct": true,
+      "GROUNDED_RECENCY_pick": "SELF_DISCIPLINE",
+      "GROUNDED_RECENCY_correct": true,
+      "GROUNDED_AUTO_OLD_pick": "SELF_DISCIPLINE",
+      "GROUNDED_AUTO_OLD_correct": true,
+      "brain_fidelity_bridge": "CORRECT"
+    }
+  ],
+  "event_entities_declared": {
+    "relinf_unstated_001": [
+      "Tom",
+      null
+    ],
+    "relinf_unstated_002": [
+      "Tom",
+      null
+    ],
+    "relinf_unstated_003": [
+      "Dorothy",
+      null
+    ],
+    "relinf_unstated_004": [
+      "Alice",
+      null
+    ],
+    "relinf_unstated_005": [
+      "Alice",
+      null
+    ],
+    "relinf_unstated_006": [
+      "Beth",
+      null
+    ],
+    "relinf_unstated_007": [
+      "Jo",
+      "Amy"
+    ],
+    "relinf_unstated_008": [
+      "Amy",
+      "Jo"
+    ],
+    "relinf_unstated_009": [
+      "Injun_Joe",
+      "Muff_Potter"
+    ],
+    "relinf_unstated_010": [
+      "Laurie",
+      null
+    ],
+    "relinf_unstated_011": [
+      "Dorothy",
+      "Lion"
+    ],
+    "relinf_unstated_012": [
+      "Alice",
+      "Alice"
+    ]
+  },
+  "note_mechanism": "BRIDGING reuses hdlab.coreference_resolver.TrackedEntity/_pick_strict_cb/_pronoun_strict_cb_margin UNCHANGED, retargeted from entity-antecedent to event-antecedent search (same hippocampal relational-retrieval circuit per Kintsch/Trabasso/Zwaan). Discovered links stored/read via hdlab.situation_model_accumulate.CausalLinkRegister (genuine FHRR round-trip).",
+  "note_given_vs_inferred": "GIVEN (event-extraction stand-in, not the mechanism under test): per-item AGENT/PATIENT names (EVENT_ENTITIES table), sourced from each novel's own plot facts. INFERRED (the mechanism): which prior event is HARM-valenced, whether its patient corefers with the query agent, and which qualifying event is the coherence-ranked (most-recent-agent-role) antecedent."
+}
