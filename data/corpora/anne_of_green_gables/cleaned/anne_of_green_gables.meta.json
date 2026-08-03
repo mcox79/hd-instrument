@@ -1,0 +1,20 @@
+{
+  "title": "Anne of Green Gables",
+  "author": "L. M. Montgomery",
+  "source": "Project Gutenberg eBook #45 (https://www.gutenberg.org/ebooks/45)",
+  "license": "Public domain (US) -- Project Gutenberg; PG trademark applies only to the packaged header/footer, which we strip",
+  "reading_level": "Natural narrative novel (curriculum rung 2, mid-hard); dense same-gender cast + sustained single-arc plot, per notes/curriculum_selection_for_self_improving_reader_2026-08-02.md",
+  "n_words": 105601,
+  "n_word_types": 8057,
+  "n_chapters": 38,
+  "n_sentences_approx": 6208,
+  "mean_sentence_len": 17.17,
+  "median_sentence_len": 14,
+  "max_sentence_len": 127,
+  "pct_sentences_le15w": 54.9,
+  "pct_sentences_simple_le1connector": 44.9,
+  "proper_noun_density_per100w": 5.89,
+  "pronoun_density_per100w": 6.17,
+  "n_recurring_names": 307,
+  "composition_density_est": 0.509
+}

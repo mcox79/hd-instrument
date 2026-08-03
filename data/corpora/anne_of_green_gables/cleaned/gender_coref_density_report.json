@@ -1,0 +1,1068 @@
+{
+  "summary": {
+    "n_chapters": 38,
+    "distinct_female_named_distribution": {
+      "2": 4,
+      "4": 6,
+      "3": 5,
+      "5": 2,
+      "6": 5,
+      "9": 3,
+      "8": 5,
+      "7": 7,
+      "10": 1
+    },
+    "mean_distinct_female_named_per_chapter": 5.61,
+    "max_distinct_female_named_in_a_chapter": 10,
+    "chapters_with_ge2_female_named": 38,
+    "ge2_chapter_list": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "chapters_with_ge3_female_named": 34,
+    "ge3_chapter_list": [
+      2,
+      3,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "chapters_with_multi_female_coref_risk_ge2named_ge5pron": 38,
+    "risk_chapter_list": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "female_names_ever_appearing": [
+      "Anne",
+      "Cordelia",
+      "Diana",
+      "Jane",
+      "Josephine",
+      "Josie",
+      "Marilla",
+      "Minnie",
+      "Prissy",
+      "Rachel",
+      "Ruby",
+      "Stacy"
+    ],
+    "note": "distinct_female_named counts NAMED-CHARACTER PRESENCE per chapter from a curated first-name list; it does NOT verify pronoun-to-referent ambiguity (that requires the coref mechanism itself). ge2/ge3 chapter counts are the density proxy for the literary claim of 6-8 co-present female characters ACROSS THE BOOK (not all-at-once in one chapter -- see max_distinct_female_named_in_a_chapter for the single-chapter peak)."
+  },
+  "per_chapter": [
+    {
+      "chapter": 1,
+      "title": "Mrs. Rachel Lynde Is Surprised",
+      "n_words": 2958,
+      "distinct_female_named": 2,
+      "female_named_present": [
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 54,
+      "n_male_name_mentions": 26,
+      "n_she_her_pronouns": 67,
+      "n_he_him_pronouns": 60,
+      "she_pron_per1kw": 22.65,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 2,
+      "title": "Matthew Cuthbert Is Surprised",
+      "n_words": 5122,
+      "distinct_female_named": 4,
+      "female_named_present": [
+        "Diana",
+        "Jane",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 12,
+      "n_male_name_mentions": 33,
+      "n_she_her_pronouns": 111,
+      "n_he_him_pronouns": 78,
+      "she_pron_per1kw": 21.67,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 3,
+      "title": "Marilla Cuthbert Is Surprised",
+      "n_words": 2267,
+      "distinct_female_named": 3,
+      "female_named_present": [
+        "Anne",
+        "Cordelia",
+        "Marilla"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 55,
+      "n_male_name_mentions": 20,
+      "n_she_her_pronouns": 79,
+      "n_he_him_pronouns": 9,
+      "she_pron_per1kw": 34.85,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 4,
+      "title": "Morning at Green Gables",
+      "n_words": 2482,
+      "distinct_female_named": 2,
+      "female_named_present": [
+        "Anne",
+        "Marilla"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 46,
+      "n_male_name_mentions": 12,
+      "n_she_her_pronouns": 63,
+      "n_he_him_pronouns": 20,
+      "she_pron_per1kw": 25.38,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 5,
+      "title": "Anne\u2019s History",
+      "n_words": 2165,
+      "distinct_female_named": 2,
+      "female_named_present": [
+        "Anne",
+        "Marilla"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 25,
+      "n_male_name_mentions": 3,
+      "n_she_her_pronouns": 48,
+      "n_he_him_pronouns": 6,
+      "she_pron_per1kw": 22.17,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 6,
+      "title": "Marilla Makes Up Her Mind",
+      "n_words": 2038,
+      "distinct_female_named": 3,
+      "female_named_present": [
+        "Anne",
+        "Jane",
+        "Marilla"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 44,
+      "n_male_name_mentions": 12,
+      "n_she_her_pronouns": 88,
+      "n_he_him_pronouns": 11,
+      "she_pron_per1kw": 43.18,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 7,
+      "title": "Anne Says Her Prayers",
+      "n_words": 1323,
+      "distinct_female_named": 2,
+      "female_named_present": [
+        "Anne",
+        "Marilla"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 33,
+      "n_male_name_mentions": 2,
+      "n_she_her_pronouns": 35,
+      "n_he_him_pronouns": 3,
+      "she_pron_per1kw": 26.46,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 8,
+      "title": "Anne\u2019s Bringing-up Is Begun",
+      "n_words": 3079,
+      "distinct_female_named": 5,
+      "female_named_present": [
+        "Anne",
+        "Cordelia",
+        "Diana",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 59,
+      "n_male_name_mentions": 2,
+      "n_she_her_pronouns": 86,
+      "n_he_him_pronouns": 17,
+      "she_pron_per1kw": 27.93,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 9,
+      "title": "Mrs. Rachel Lynde Is Properly Horrified",
+      "n_words": 2476,
+      "distinct_female_named": 3,
+      "female_named_present": [
+        "Anne",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 88,
+      "n_male_name_mentions": 13,
+      "n_she_her_pronouns": 108,
+      "n_he_him_pronouns": 5,
+      "she_pron_per1kw": 43.62,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 10,
+      "title": "Anne\u2019s Apology",
+      "n_words": 2556,
+      "distinct_female_named": 3,
+      "female_named_present": [
+        "Anne",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 77,
+      "n_male_name_mentions": 6,
+      "n_she_her_pronouns": 71,
+      "n_he_him_pronouns": 15,
+      "she_pron_per1kw": 27.78,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 11,
+      "title": "Anne\u2019s Impressions of Sunday-school",
+      "n_words": 1932,
+      "distinct_female_named": 4,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 0,
+      "male_named_present": [],
+      "n_female_name_mentions": 44,
+      "n_male_name_mentions": 0,
+      "n_she_her_pronouns": 50,
+      "n_he_him_pronouns": 10,
+      "she_pron_per1kw": 25.88,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 12,
+      "title": "A Solemn Vow and Promise",
+      "n_words": 2123,
+      "distinct_female_named": 4,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 77,
+      "n_male_name_mentions": 7,
+      "n_she_her_pronouns": 65,
+      "n_he_him_pronouns": 7,
+      "she_pron_per1kw": 30.62,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 13,
+      "title": "The Delights of Anticipation",
+      "n_words": 1948,
+      "distinct_female_named": 3,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Marilla"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 59,
+      "n_male_name_mentions": 1,
+      "n_she_her_pronouns": 38,
+      "n_he_him_pronouns": 0,
+      "she_pron_per1kw": 19.51,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 14,
+      "title": "Anne\u2019s Confession",
+      "n_words": 3297,
+      "distinct_female_named": 6,
+      "female_named_present": [
+        "Anne",
+        "Cordelia",
+        "Diana",
+        "Jane",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 110,
+      "n_male_name_mentions": 11,
+      "n_she_her_pronouns": 105,
+      "n_he_him_pronouns": 14,
+      "she_pron_per1kw": 31.85,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 15,
+      "title": "A Tempest in the School Teapot",
+      "n_words": 5461,
+      "distinct_female_named": 9,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Minnie",
+        "Prissy",
+        "Rachel",
+        "Ruby"
+      ],
+      "distinct_male_named": 2,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew"
+      ],
+      "n_female_name_mentions": 183,
+      "n_male_name_mentions": 36,
+      "n_she_her_pronouns": 168,
+      "n_he_him_pronouns": 90,
+      "she_pron_per1kw": 30.76,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 16,
+      "title": "Diana Is Invited to Tea with Tragic Results",
+      "n_words": 4035,
+      "distinct_female_named": 4,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Marilla",
+        "Ruby"
+      ],
+      "distinct_male_named": 2,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew"
+      ],
+      "n_female_name_mentions": 144,
+      "n_male_name_mentions": 6,
+      "n_she_her_pronouns": 150,
+      "n_he_him_pronouns": 5,
+      "she_pron_per1kw": 37.17,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 17,
+      "title": "A New Interest in Life",
+      "n_words": 2230,
+      "distinct_female_named": 8,
+      "female_named_present": [
+        "Anne",
+        "Cordelia",
+        "Diana",
+        "Jane",
+        "Marilla",
+        "Minnie",
+        "Rachel",
+        "Ruby"
+      ],
+      "distinct_male_named": 2,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew"
+      ],
+      "n_female_name_mentions": 70,
+      "n_male_name_mentions": 21,
+      "n_she_her_pronouns": 67,
+      "n_he_him_pronouns": 21,
+      "she_pron_per1kw": 30.04,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 18,
+      "title": "Anne to the Rescue",
+      "n_words": 3541,
+      "distinct_female_named": 8,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Marilla",
+        "Minnie",
+        "Prissy",
+        "Rachel",
+        "Ruby"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 119,
+      "n_male_name_mentions": 19,
+      "n_she_her_pronouns": 87,
+      "n_he_him_pronouns": 21,
+      "she_pron_per1kw": 24.57,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 19,
+      "title": "A Concert, a Catastrophe, and a Confession",
+      "n_words": 4345,
+      "distinct_female_named": 6,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Josephine",
+        "Marilla",
+        "Minnie",
+        "Prissy"
+      ],
+      "distinct_male_named": 2,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew"
+      ],
+      "n_female_name_mentions": 144,
+      "n_male_name_mentions": 15,
+      "n_she_her_pronouns": 117,
+      "n_he_him_pronouns": 14,
+      "she_pron_per1kw": 26.93,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 20,
+      "title": "A Good Imagination Gone Wrong",
+      "n_words": 2396,
+      "distinct_female_named": 7,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Marilla",
+        "Minnie",
+        "Prissy",
+        "Ruby"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 68,
+      "n_male_name_mentions": 3,
+      "n_she_her_pronouns": 49,
+      "n_he_him_pronouns": 35,
+      "she_pron_per1kw": 20.45,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 21,
+      "title": "A New Departure in Flavorings",
+      "n_words": 3734,
+      "distinct_female_named": 4,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Marilla",
+        "Ruby"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 107,
+      "n_male_name_mentions": 6,
+      "n_she_her_pronouns": 92,
+      "n_he_him_pronouns": 41,
+      "she_pron_per1kw": 24.64,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 22,
+      "title": "Anne Is Invited Out to Tea",
+      "n_words": 1446,
+      "distinct_female_named": 7,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 35,
+      "n_male_name_mentions": 1,
+      "n_she_her_pronouns": 37,
+      "n_he_him_pronouns": 1,
+      "she_pron_per1kw": 25.59,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 23,
+      "title": "Anne Comes to Grief in an Affair of Honor",
+      "n_words": 2499,
+      "distinct_female_named": 7,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 86,
+      "n_male_name_mentions": 3,
+      "n_she_her_pronouns": 72,
+      "n_he_him_pronouns": 24,
+      "she_pron_per1kw": 28.81,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 24,
+      "title": "Miss Stacy and Her Pupils Get Up a Concert",
+      "n_words": 1631,
+      "distinct_female_named": 6,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Ruby"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 36,
+      "n_male_name_mentions": 24,
+      "n_she_her_pronouns": 30,
+      "n_he_him_pronouns": 46,
+      "she_pron_per1kw": 18.39,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 25,
+      "title": "Matthew Insists on Puffed Sleeves",
+      "n_words": 3703,
+      "distinct_female_named": 7,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Josephine",
+        "Josie",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 3,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 93,
+      "n_male_name_mentions": 35,
+      "n_she_her_pronouns": 68,
+      "n_he_him_pronouns": 26,
+      "she_pron_per1kw": 18.36,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 26,
+      "title": "The Story Club Is Formed",
+      "n_words": 2682,
+      "distinct_female_named": 9,
+      "female_named_present": [
+        "Anne",
+        "Cordelia",
+        "Diana",
+        "Jane",
+        "Josephine",
+        "Marilla",
+        "Rachel",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 83,
+      "n_male_name_mentions": 6,
+      "n_she_her_pronouns": 102,
+      "n_he_him_pronouns": 22,
+      "she_pron_per1kw": 38.03,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 27,
+      "title": "Vanity and Vexation of Spirit",
+      "n_words": 2645,
+      "distinct_female_named": 7,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 0,
+      "male_named_present": [],
+      "n_female_name_mentions": 87,
+      "n_male_name_mentions": 0,
+      "n_she_her_pronouns": 40,
+      "n_he_him_pronouns": 22,
+      "she_pron_per1kw": 15.12,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 28,
+      "title": "An Unfortunate Lily Maid",
+      "n_words": 3041,
+      "distinct_female_named": 7,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josephine",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 3,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 91,
+      "n_male_name_mentions": 20,
+      "n_she_her_pronouns": 75,
+      "n_he_him_pronouns": 19,
+      "she_pron_per1kw": 24.66,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 29,
+      "title": "An Epoch in Anne\u2019s Life",
+      "n_words": 3435,
+      "distinct_female_named": 8,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josephine",
+        "Josie",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 92,
+      "n_male_name_mentions": 2,
+      "n_she_her_pronouns": 104,
+      "n_he_him_pronouns": 6,
+      "she_pron_per1kw": 30.28,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 30,
+      "title": "The Queen\u2019s Class Is Organized",
+      "n_words": 4415,
+      "distinct_female_named": 10,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Minnie",
+        "Prissy",
+        "Rachel",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 3,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 139,
+      "n_male_name_mentions": 24,
+      "n_she_her_pronouns": 124,
+      "n_he_him_pronouns": 38,
+      "she_pron_per1kw": 28.09,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 31,
+      "title": "Where the Brook and River Meet",
+      "n_words": 2305,
+      "distinct_female_named": 9,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josephine",
+        "Josie",
+        "Marilla",
+        "Prissy",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 2,
+      "male_named_present": [
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 75,
+      "n_male_name_mentions": 6,
+      "n_she_her_pronouns": 47,
+      "n_he_him_pronouns": 25,
+      "she_pron_per1kw": 20.39,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 32,
+      "title": "The Pass List Is Out",
+      "n_words": 2766,
+      "distinct_female_named": 8,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Rachel",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 3,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 86,
+      "n_male_name_mentions": 24,
+      "n_she_her_pronouns": 81,
+      "n_he_him_pronouns": 16,
+      "she_pron_per1kw": 29.28,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 33,
+      "title": "The Hotel Concert",
+      "n_words": 3608,
+      "distinct_female_named": 8,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josephine",
+        "Josie",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 3,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 105,
+      "n_male_name_mentions": 17,
+      "n_she_her_pronouns": 151,
+      "n_he_him_pronouns": 22,
+      "she_pron_per1kw": 41.85,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 34,
+      "title": "A Queen\u2019s Girl",
+      "n_words": 2565,
+      "distinct_female_named": 7,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Ruby",
+        "Stacy"
+      ],
+      "distinct_male_named": 2,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew"
+      ],
+      "n_female_name_mentions": 68,
+      "n_male_name_mentions": 15,
+      "n_she_her_pronouns": 72,
+      "n_he_him_pronouns": 13,
+      "she_pron_per1kw": 28.07,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 35,
+      "title": "The Winter at Queen\u2019s",
+      "n_words": 1454,
+      "distinct_female_named": 6,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Ruby"
+      ],
+      "distinct_male_named": 3,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 54,
+      "n_male_name_mentions": 13,
+      "n_she_her_pronouns": 36,
+      "n_he_him_pronouns": 21,
+      "she_pron_per1kw": 24.76,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 36,
+      "title": "The Glory and the Dream",
+      "n_words": 2239,
+      "distinct_female_named": 4,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 1,
+      "male_named_present": [
+        "Matthew"
+      ],
+      "n_female_name_mentions": 50,
+      "n_male_name_mentions": 27,
+      "n_she_her_pronouns": 65,
+      "n_he_him_pronouns": 54,
+      "she_pron_per1kw": 29.03,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 37,
+      "title": "The Reaper Whose Name Is Death",
+      "n_words": 2441,
+      "distinct_female_named": 6,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Jane",
+        "Josie",
+        "Marilla",
+        "Ruby"
+      ],
+      "distinct_male_named": 3,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew",
+        "Moody"
+      ],
+      "n_female_name_mentions": 72,
+      "n_male_name_mentions": 7,
+      "n_she_her_pronouns": 47,
+      "n_he_him_pronouns": 34,
+      "she_pron_per1kw": 19.25,
+      "multi_female_coref_risk": true
+    },
+    {
+      "chapter": 38,
+      "title": "The Bend in the Road",
+      "n_words": 1450,
+      "distinct_female_named": 5,
+      "female_named_present": [
+        "Anne",
+        "Diana",
+        "Josie",
+        "Marilla",
+        "Rachel"
+      ],
+      "distinct_male_named": 2,
+      "male_named_present": [
+        "Gilbert",
+        "Matthew"
+      ],
+      "n_female_name_mentions": 35,
+      "n_male_name_mentions": 10,
+      "n_she_her_pronouns": 32,
+      "n_he_him_pronouns": 22,
+      "she_pron_per1kw": 22.07,
+      "multi_female_coref_risk": true
+    }
+  ]
+}
