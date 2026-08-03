@@ -1,0 +1,131 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "regime=CONTENT_ALONE_MISRANKS_NEEDS_STRUCTURE; content_alone_misrank_rate=1.000 (3/3); content_plus_structure_accuracy=0.667; unstated_goal_recovery_rate=1.000 (3/3); embedding_source=BAAI/bge-small-en-v1.5 (sentence-transformers, CPU, diagnostic-only)",
+  "summary": "CEILING PROBE regime=CONTENT_ALONE_MISRANKS_NEEDS_STRUCTURE",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-08-03T11:00:15.348582+00:00",
+  "pid": 26888,
+  "anchor_name": "content_awareness_ceiling_probe_v1",
+  "results_satisfy_restate": [
+    {
+      "goal_id": "anne_goal_001",
+      "sim_goal_to_restate": 0.7029082497096357,
+      "sim_goal_to_satisfy": 0.7016817648347521,
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.001226,
+        "content_plus_structure_gap": 0.998774,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_002",
+      "sim_goal_to_restate": 0.7029082973617861,
+      "sim_goal_to_satisfy": 0.6982861132963557,
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": false,
+      "struct_score_satisfy": 1,
+      "struct_score_restate": 1,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.004622,
+        "content_plus_structure_gap": -0.004622,
+        "structure_only_gap": 0.0
+      },
+      "arms_differ_verified": true
+    },
+    {
+      "goal_id": "anne_goal_012",
+      "sim_goal_to_restate": 0.7279916823127183,
+      "sim_goal_to_satisfy": 0.5602721512225362,
+      "content_alone_misranks": true,
+      "content_plus_structure_ranks_correctly": true,
+      "struct_score_satisfy": 2,
+      "struct_score_restate": 0,
+      "arm_decisions": {
+        "content_only_sim_gap": -0.16772,
+        "content_plus_structure_gap": 0.83228,
+        "structure_only_gap": 2.0
+      },
+      "arms_differ_verified": true
+    }
+  ],
+  "results_unstated_goal": [
+    {
+      "goal_id": "anne_goal_014",
+      "correct_schema": "prohibition",
+      "predicted_schema": "prohibition",
+      "correct": true,
+      "sims": {
+        "prohibition": 0.480416316469513,
+        "material_want": 0.3747103014924033,
+        "aid_rescue": 0.3574444404011755,
+        "escape_punishment": 0.4374997121675709
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_016",
+      "correct_schema": "aid_rescue",
+      "predicted_schema": "aid_rescue",
+      "correct": true,
+      "sims": {
+        "prohibition": 0.4483946172207515,
+        "material_want": 0.4468344684160496,
+        "aid_rescue": 0.484079812650855,
+        "escape_punishment": 0.4310586848724786
+      },
+      "regex_schema_missed_per_task_framing": true
+    },
+    {
+      "goal_id": "anne_goal_019",
+      "correct_schema": "escape_punishment",
+      "predicted_schema": "escape_punishment",
+      "correct": true,
+      "sims": {
+        "prohibition": 0.38201891566462115,
+        "material_want": 0.4766079672090517,
+        "aid_rescue": 0.4254756537711116,
+        "escape_punishment": 0.47895009109162184
+      },
+      "regex_schema_missed_per_task_framing": true
+    }
+  ],
+  "summary_fields": {
+    "embedding_source": "BAAI/bge-small-en-v1.5 (sentence-transformers, CPU, diagnostic-only)",
+    "embedding_discarded_after_run": true,
+    "n_satisfy_restate_items": 3,
+    "n_unstated_goal_items": 3,
+    "content_alone_misrank_count": 3,
+    "content_alone_misrank_rate": 1.0,
+    "content_plus_structure_correct_count": 2,
+    "content_plus_structure_accuracy": 0.6666666666666666,
+    "unstated_goal_recovery_correct_count": 3,
+    "unstated_goal_recovery_rate": 1.0,
+    "chance_floor_4way_schema_THEORETICAL": 0.25,
+    "task_cited_0p25_supply_schema_ceiling": "NOT independently verified against a prior repo cell (grep found no exact prior artifact); interpreted as director-HYPOTHESIZED, likely referring to a 4-way chance baseline (matches this script's own independently-derived 0.25 THEORETICAL floor by coincidence of N_SCHEMAS=4, not confirmed identity)",
+    "ceiling_correct_of_probe_items": 5,
+    "ceiling_total_probe_items": 6,
+    "ceiling_recall_all_probe_items": 0.8333333333333334,
+    "regime": "CONTENT_ALONE_MISRANKS_NEEDS_STRUCTURE",
+    "goal_018_borderline_sims": {
+      "prohibition": 0.36322038655843913,
+      "material_want": 0.353271779947829,
+      "aid_rescue": 0.460354531532641,
+      "escape_punishment": 0.4383067842226331
+    },
+    "n_gold_goal_intention_total_items": 21,
+    "n_gold_goal_intention_nonempty_links": 20,
+    "note_on_9_links": "task prompt cites '9 goal-mediated links'; this script could not independently reconstruct that exact partition from the gold file (counted 20 total goal->causal edges across 17 nonempty items instead); reporting own measured N=6 probe-item ceiling rather than forcing a match to an unverified count"
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns_scaled_to_diagnostic_n6",
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_exempted": []
+}
