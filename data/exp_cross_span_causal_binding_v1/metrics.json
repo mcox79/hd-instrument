@@ -1,0 +1,3939 @@
+{
+  "verdict": "CROSS_SPAN_BINDING_LIFTS_RECALL_AND_SELECTION",
+  "verdict_msg": "CROSS_SPAN_BINDING_LIFTS_RECALL_AND_SELECTION: RECALL_TRUE det_items within=0 cross=3 random=0 | RECALL_DISTR rate within=0.000 cross=0.750 random=0.000 | END_TO_END det_items within=0 cross=1 random=0 | positive_control_ok=True negative_control_ok=True theta_reuse_digest_match=True",
+  "summary": "RECALL_TRUE det_items within=0 cross=3 random=0 | RECALL_DISTR rate within=0.000 cross=0.750 random=0.000 | END_TO_END det_items within=0 cross=1 random=0 | positive_control_ok=True negative_control_ok=True theta_reuse_digest_match=True",
+  "contamination_check": {
+    "all_theta_digests_match_earned_run": true,
+    "per_seed_digest_match": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true
+    },
+    "allowed_gold_fields": [
+      "distractor_span",
+      "id",
+      "item_type",
+      "novel",
+      "query_span",
+      "true_blocker_span"
+    ],
+    "forbidden_gold_fields_never_read": [
+      "distractor_agent",
+      "goal_owner",
+      "recency_baseline_correct",
+      "recency_baseline_prediction",
+      "recency_note",
+      "true_blocker_agent"
+    ]
+  },
+  "means": {
+    "recall_true_rate_within": 0.0,
+    "recall_true_rate_cross": 0.75,
+    "recall_true_rate_random": 0.0,
+    "recall_distr_rate_within": 0.0,
+    "recall_distr_rate_cross": 0.75,
+    "recall_distr_rate_random": 0.0,
+    "end_to_end_correct_rate_within": 0.0,
+    "end_to_end_correct_rate_cross": 0.25,
+    "end_to_end_correct_rate_random": 0.0,
+    "deterministic_recall_true_items": {
+      "WITHIN_SPAN_FLOOR": 0,
+      "CROSS_SPAN_BOUND": 3,
+      "RANDOM_DEGENERATE": 0
+    },
+    "deterministic_end_to_end_items": {
+      "WITHIN_SPAN_FLOOR": 0,
+      "CROSS_SPAN_BOUND": 1,
+      "RANDOM_DEGENERATE": 0
+    },
+    "per_item_recall_true_counts": {
+      "WITHIN_SPAN_FLOOR": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 0,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      },
+      "CROSS_SPAN_BOUND": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 5,
+        "grapp_mcca_004": 5,
+        "grapp_mcca_005": 5
+      },
+      "RANDOM_DEGENERATE": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 0,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      }
+    },
+    "per_item_end_to_end_counts": {
+      "WITHIN_SPAN_FLOOR": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 0,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      },
+      "CROSS_SPAN_BOUND": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 5,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      },
+      "RANDOM_DEGENERATE": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 0,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      }
+    },
+    "arm_a_positive_control_rate": {
+      "WITHIN_SPAN_FLOOR": 1.0,
+      "CROSS_SPAN_BOUND": 1.0,
+      "RANDOM_DEGENERATE": 1.0
+    }
+  },
+  "gates": {
+    "positive_control_ok": true,
+    "negative_control_ok": true,
+    "within_span_floor_stays_low": true,
+    "recall_lift_present": true,
+    "end_to_end_lift_present": true
+  },
+  "per_item_seed0_examples": {
+    "CROSS_SPAN_BOUND": {
+      "grapp_mcca_001": {
+        "recall_true": false,
+        "recall_distr": false,
+        "attributed": null,
+        "end_to_end_correct": false,
+        "n_window_sentences_true": 103,
+        "n_matched_true": 0,
+        "fidelity_margin_true": null,
+        "true_matches_preview": []
+      },
+      "grapp_mcca_003": {
+        "recall_true": true,
+        "recall_distr": true,
+        "attributed": "TRUE_CAND",
+        "end_to_end_correct": true,
+        "n_window_sentences_true": 101,
+        "n_matched_true": 1,
+        "fidelity_margin_true": 0.9494103044271469,
+        "true_matches_preview": [
+          {
+            "sent": "I came here to moralize, not to hear things that make me skip to think of.\u201d \u201cI know Meg would wet-blanket such a proposa",
+            "patient_set": [
+              "blanket",
+              "laurie",
+              "me",
+              "meg",
+              "proposal",
+              "things",
+              "you"
+            ]
+          }
+        ]
+      },
+      "grapp_mcca_004": {
+        "recall_true": true,
+        "recall_distr": true,
+        "attributed": null,
+        "end_to_end_correct": false,
+        "n_window_sentences_true": 85,
+        "n_matched_true": 5,
+        "fidelity_margin_true": 0.5461003296077251,
+        "true_matches_preview": [
+          {
+            "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+            "patient_set": [
+              "amy",
+              "answer",
+              "jo",
+              "stern",
+              "you"
+            ]
+          },
+          {
+            "sent": "Don\u2019t say anything till Jo has got good-natured with Laurie, than take a quiet minute and just kiss her, or do some kind",
+            "patient_set": [
+              "amy",
+              "anything",
+              "don",
+              "heart",
+              "jo",
+              "laurie",
+              "minute",
+              "quiet",
+              "try"
+            ]
+          },
+          {
+            "sent": "Jo heard Amy panting after her run, stamping her feet and blowing on her fingers as she tried to put her skates on, but ",
+            "patient_set": [
+              "amy",
+              "feet",
+              "fingers",
+              "panting",
+              "run",
+              "skates"
+            ]
+          }
+        ]
+      },
+      "grapp_mcca_005": {
+        "recall_true": true,
+        "recall_distr": true,
+        "attributed": "DISTR_CAND",
+        "end_to_end_correct": false,
+        "n_window_sentences_true": 82,
+        "n_matched_true": 1,
+        "fidelity_margin_true": 0.9146828800439835,
+        "true_matches_preview": [
+          {
+            "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+            "patient_set": [
+              "bowl",
+              "fingers"
+            ]
+          }
+        ]
+      }
+    },
+    "WITHIN_SPAN_FLOOR": {
+      "grapp_mcca_001": {
+        "recall_true": false,
+        "recall_distr": false,
+        "attributed": null,
+        "end_to_end_correct": false
+      },
+      "grapp_mcca_003": {
+        "recall_true": false,
+        "recall_distr": false,
+        "attributed": null,
+        "end_to_end_correct": false
+      },
+      "grapp_mcca_004": {
+        "recall_true": false,
+        "recall_distr": false,
+        "attributed": null,
+        "end_to_end_correct": false
+      },
+      "grapp_mcca_005": {
+        "recall_true": false,
+        "recall_distr": false,
+        "attributed": null,
+        "end_to_end_correct": false
+      }
+    }
+  },
+  "honest_caveats": [
+    "n=4 causal items, all cross-span by construction (the only real gold slice available for this phenomenon) -- a tiny-n pilot, not a powered eval; a binomial test at n=4 cannot reject random at conventional alpha even at 4/4.",
+    "WINDOW_LINES=100 was chosen once a priori from a design-time probe over the reused extraction+coref primitives only (no scoring/selector code exercised in that probe) and applied uniformly; it has not been validated on independent cross-span gold -- flagged as a construction-risk parameter, not a landed one.",
+    "The windowed-accumulation ingredient (this cell's only new code) has no independent gold of its own; only its two REUSED sub-primitives (per-sentence extraction, victim coreference) carry the parent cell's n=100 anti-overfit validation. Recommend growing the multi_candidate_causal_attribution eval before treating any positive verdict here as more than a pilot.",
+    "This cell tests RECALL/reachability only; the coherence-SELECTOR (M_backward, Gap 1 in the 2026-08-03 causal-coherence research drill) is deliberately not built here -- the existing _pick_strict_cb-backed selector is reused UNCHANGED and is recency-biased by construction (DISTR_CAND is always encoded at the higher synthetic position 200 > TRUE_CAND's 100), so an end-to-end lift was NOT expected even if recall lifts; see verdict band definitions."
+  ],
+  "run_mode": "full",
+  "elapsed_s": 145.42390560009517,
+  "ts_iso": "2026-08-04T01:48:53.651390+00:00",
+  "anchor_name": "cross_span_causal_binding_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "train_cfg": {
+      "n_train": 10000,
+      "n_eval": 1500
+    },
+    "arms": [
+      "WITHIN_SPAN_FLOOR",
+      "CROSS_SPAN_BOUND",
+      "RANDOM_DEGENERATE"
+    ],
+    "window_lines": {
+      "WITHIN_SPAN_FLOOR": 0,
+      "CROSS_SPAN_BOUND": 100,
+      "RANDOM_DEGENERATE": 100
+    },
+    "victim_entity_aliases": {
+      "grapp_mcca_001": [
+        "young man",
+        "doctor robinson",
+        "robinson"
+      ],
+      "grapp_mcca_003": [
+        "meg"
+      ],
+      "grapp_mcca_004": [
+        "amy"
+      ],
+      "grapp_mcca_005": [
+        "bowl",
+        "sugar bowl"
+      ]
+    },
+    "random_vocab": [
+      "lantern",
+      "fence",
+      "turnip",
+      "kettle",
+      "wagon",
+      "cloud",
+      "river",
+      "ribbon"
+    ]
+  },
+  "expected_n_units": 15,
+  "measured_n_units": 15,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "WITHIN_SPAN_FLOOR": "081c8a4f2eb7356543e7592ebfc68d09cba04c15b135b274cfe76378e978c2fd",
+    "CROSS_SPAN_BOUND": "133d9f32cb6e59a0658ba676692524c896121a1776ab83e5714eae1f919cce63",
+    "RANDOM_DEGENERATE": "081c8a4f2eb7356543e7592ebfc68d09cba04c15b135b274cfe76378e978c2fd"
+  },
+  "arms_differ_exempted": [
+    [
+      "WITHIN_SPAN_FLOOR",
+      "RANDOM_DEGENERATE"
+    ]
+  ],
+  "arms_differ_note": "WITHIN_SPAN_FLOOR==RANDOM_DEGENERATE bit-identical is the disclosed, expected floor collapse (both reach zero victim-coref on all 4 cross-span items); the arm under test CROSS_SPAN_BOUND is hard-required to differ from both and does.",
+  "per_arm_seed_causal": {
+    "WITHIN_SPAN_FLOOR|0": {
+      "arm": "WITHIN_SPAN_FLOOR",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "WITHIN_SPAN_FLOOR|1": {
+      "arm": "WITHIN_SPAN_FLOOR",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "WITHIN_SPAN_FLOOR|2": {
+      "arm": "WITHIN_SPAN_FLOOR",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "WITHIN_SPAN_FLOOR|3": {
+      "arm": "WITHIN_SPAN_FLOOR",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "WITHIN_SPAN_FLOOR|4": {
+      "arm": "WITHIN_SPAN_FLOOR",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "WITHIN_SPAN_FLOOR",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 1,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 1,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 0,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "CROSS_SPAN_BOUND|0": {
+      "arm": "CROSS_SPAN_BOUND",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 8,
+          "fidelity_margin_true": 0.9494103044271469,
+          "fidelity_margin_distr": 0.6375953108072281,
+          "true_matches_preview": [
+            {
+              "sent": "I came here to moralize, not to hear things that make me skip to think of.\u201d \u201cI know Meg would wet-blanket such a proposa",
+              "patient_set": [
+                "blanket",
+                "laurie",
+                "me",
+                "meg",
+                "proposal",
+                "things",
+                "you"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "He wheedled, bribed, ridiculed, threatened, and scolded; affected indifference, that he might surprise the truth from he",
+              "patient_set": [
+                "bribed",
+                "meg",
+                "mr",
+                "perseverance",
+                "truth"
+              ]
+            },
+            {
+              "sent": "\u201cIt\u2019s like his writing,\u201d faltered Meg, comparing it with the note in her hand.",
+              "patient_set": [
+                "comparing",
+                "hand",
+                "meg",
+                "note",
+                "writing"
+              ]
+            },
+            {
+              "sent": "\u201cI received the first letter from Laurie, who didn\u2019t look as if he knew anything about it,\u201d began Meg, without looking u",
+              "patient_set": [
+                "anything",
+                "as",
+                "first",
+                "laurie",
+                "letter",
+                "meg"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": "TRUE_CAND",
+          "end_to_end_correct": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 5,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 7,
+          "fidelity_margin_true": 0.5461003296077251,
+          "fidelity_margin_distr": 0.42753338627517223,
+          "true_matches_preview": [
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            },
+            {
+              "sent": "Don\u2019t say anything till Jo has got good-natured with Laurie, than take a quiet minute and just kiss her, or do some kind",
+              "patient_set": [
+                "amy",
+                "anything",
+                "don",
+                "heart",
+                "jo",
+                "laurie",
+                "minute",
+                "quiet",
+                "try"
+              ]
+            },
+            {
+              "sent": "Jo heard Amy panting after her run, stamping her feet and blowing on her fingers as she tried to put her skates on, but ",
+              "patient_set": [
+                "amy",
+                "feet",
+                "fingers",
+                "panting",
+                "run",
+                "skates"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "I told you I\u2019d make you pay for being so cross yesterday, and I have, so...\u201d Amy got no farther, for Jo\u2019s hot temper mas",
+              "patient_set": [
+                "amy",
+                "anger",
+                "cross",
+                "crying",
+                "farther",
+                "grief",
+                "head",
+                "teeth",
+                "yesterday",
+                "you"
+              ]
+            },
+            {
+              "sent": "I never can write it again, and I\u2019ll never forgive you as long as I live.\u201d Meg flew to rescue Amy, and Beth to pacify Jo",
+              "patient_set": [
+                "amy",
+                "can",
+                "fight",
+                "you"
+              ]
+            },
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 1,
+          "fidelity_margin_true": 0.9146828800439835,
+          "fidelity_margin_distr": 1.053993783891201,
+          "true_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": "DISTR_CAND",
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "CROSS_SPAN_BOUND|1": {
+      "arm": "CROSS_SPAN_BOUND",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 8,
+          "fidelity_margin_true": 0.9494103044271469,
+          "fidelity_margin_distr": 0.6375953108072281,
+          "true_matches_preview": [
+            {
+              "sent": "I came here to moralize, not to hear things that make me skip to think of.\u201d \u201cI know Meg would wet-blanket such a proposa",
+              "patient_set": [
+                "blanket",
+                "laurie",
+                "me",
+                "meg",
+                "proposal",
+                "things",
+                "you"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "He wheedled, bribed, ridiculed, threatened, and scolded; affected indifference, that he might surprise the truth from he",
+              "patient_set": [
+                "bribed",
+                "meg",
+                "mr",
+                "perseverance",
+                "truth"
+              ]
+            },
+            {
+              "sent": "\u201cIt\u2019s like his writing,\u201d faltered Meg, comparing it with the note in her hand.",
+              "patient_set": [
+                "comparing",
+                "hand",
+                "meg",
+                "note",
+                "writing"
+              ]
+            },
+            {
+              "sent": "\u201cI received the first letter from Laurie, who didn\u2019t look as if he knew anything about it,\u201d began Meg, without looking u",
+              "patient_set": [
+                "anything",
+                "as",
+                "first",
+                "laurie",
+                "letter",
+                "meg"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": "TRUE_CAND",
+          "end_to_end_correct": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 5,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 7,
+          "fidelity_margin_true": 0.5461003296077251,
+          "fidelity_margin_distr": 0.42753338627517223,
+          "true_matches_preview": [
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            },
+            {
+              "sent": "Don\u2019t say anything till Jo has got good-natured with Laurie, than take a quiet minute and just kiss her, or do some kind",
+              "patient_set": [
+                "amy",
+                "anything",
+                "don",
+                "heart",
+                "jo",
+                "laurie",
+                "minute",
+                "quiet",
+                "try"
+              ]
+            },
+            {
+              "sent": "Jo heard Amy panting after her run, stamping her feet and blowing on her fingers as she tried to put her skates on, but ",
+              "patient_set": [
+                "amy",
+                "feet",
+                "fingers",
+                "panting",
+                "run",
+                "skates"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "I told you I\u2019d make you pay for being so cross yesterday, and I have, so...\u201d Amy got no farther, for Jo\u2019s hot temper mas",
+              "patient_set": [
+                "amy",
+                "anger",
+                "cross",
+                "crying",
+                "farther",
+                "grief",
+                "head",
+                "teeth",
+                "yesterday",
+                "you"
+              ]
+            },
+            {
+              "sent": "I never can write it again, and I\u2019ll never forgive you as long as I live.\u201d Meg flew to rescue Amy, and Beth to pacify Jo",
+              "patient_set": [
+                "amy",
+                "can",
+                "fight",
+                "you"
+              ]
+            },
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 1,
+          "fidelity_margin_true": 0.9146828800439835,
+          "fidelity_margin_distr": 1.053993783891201,
+          "true_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": "DISTR_CAND",
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "CROSS_SPAN_BOUND|2": {
+      "arm": "CROSS_SPAN_BOUND",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 8,
+          "fidelity_margin_true": 0.9494103044271469,
+          "fidelity_margin_distr": 0.6375953108072281,
+          "true_matches_preview": [
+            {
+              "sent": "I came here to moralize, not to hear things that make me skip to think of.\u201d \u201cI know Meg would wet-blanket such a proposa",
+              "patient_set": [
+                "blanket",
+                "laurie",
+                "me",
+                "meg",
+                "proposal",
+                "things",
+                "you"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "He wheedled, bribed, ridiculed, threatened, and scolded; affected indifference, that he might surprise the truth from he",
+              "patient_set": [
+                "bribed",
+                "meg",
+                "mr",
+                "perseverance",
+                "truth"
+              ]
+            },
+            {
+              "sent": "\u201cIt\u2019s like his writing,\u201d faltered Meg, comparing it with the note in her hand.",
+              "patient_set": [
+                "comparing",
+                "hand",
+                "meg",
+                "note",
+                "writing"
+              ]
+            },
+            {
+              "sent": "\u201cI received the first letter from Laurie, who didn\u2019t look as if he knew anything about it,\u201d began Meg, without looking u",
+              "patient_set": [
+                "anything",
+                "as",
+                "first",
+                "laurie",
+                "letter",
+                "meg"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": "TRUE_CAND",
+          "end_to_end_correct": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 5,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 7,
+          "fidelity_margin_true": 0.5461003296077251,
+          "fidelity_margin_distr": 0.42753338627517223,
+          "true_matches_preview": [
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            },
+            {
+              "sent": "Don\u2019t say anything till Jo has got good-natured with Laurie, than take a quiet minute and just kiss her, or do some kind",
+              "patient_set": [
+                "amy",
+                "anything",
+                "don",
+                "heart",
+                "jo",
+                "laurie",
+                "minute",
+                "quiet",
+                "try"
+              ]
+            },
+            {
+              "sent": "Jo heard Amy panting after her run, stamping her feet and blowing on her fingers as she tried to put her skates on, but ",
+              "patient_set": [
+                "amy",
+                "feet",
+                "fingers",
+                "panting",
+                "run",
+                "skates"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "I told you I\u2019d make you pay for being so cross yesterday, and I have, so...\u201d Amy got no farther, for Jo\u2019s hot temper mas",
+              "patient_set": [
+                "amy",
+                "anger",
+                "cross",
+                "crying",
+                "farther",
+                "grief",
+                "head",
+                "teeth",
+                "yesterday",
+                "you"
+              ]
+            },
+            {
+              "sent": "I never can write it again, and I\u2019ll never forgive you as long as I live.\u201d Meg flew to rescue Amy, and Beth to pacify Jo",
+              "patient_set": [
+                "amy",
+                "can",
+                "fight",
+                "you"
+              ]
+            },
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 1,
+          "fidelity_margin_true": 0.9146828800439835,
+          "fidelity_margin_distr": 1.053993783891201,
+          "true_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": "DISTR_CAND",
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "CROSS_SPAN_BOUND|3": {
+      "arm": "CROSS_SPAN_BOUND",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 8,
+          "fidelity_margin_true": 0.9494103044271469,
+          "fidelity_margin_distr": 0.6375953108072281,
+          "true_matches_preview": [
+            {
+              "sent": "I came here to moralize, not to hear things that make me skip to think of.\u201d \u201cI know Meg would wet-blanket such a proposa",
+              "patient_set": [
+                "blanket",
+                "laurie",
+                "me",
+                "meg",
+                "proposal",
+                "things",
+                "you"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "He wheedled, bribed, ridiculed, threatened, and scolded; affected indifference, that he might surprise the truth from he",
+              "patient_set": [
+                "bribed",
+                "meg",
+                "mr",
+                "perseverance",
+                "truth"
+              ]
+            },
+            {
+              "sent": "\u201cIt\u2019s like his writing,\u201d faltered Meg, comparing it with the note in her hand.",
+              "patient_set": [
+                "comparing",
+                "hand",
+                "meg",
+                "note",
+                "writing"
+              ]
+            },
+            {
+              "sent": "\u201cI received the first letter from Laurie, who didn\u2019t look as if he knew anything about it,\u201d began Meg, without looking u",
+              "patient_set": [
+                "anything",
+                "as",
+                "first",
+                "laurie",
+                "letter",
+                "meg"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": "TRUE_CAND",
+          "end_to_end_correct": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 5,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 7,
+          "fidelity_margin_true": 0.5461003296077251,
+          "fidelity_margin_distr": 0.42753338627517223,
+          "true_matches_preview": [
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            },
+            {
+              "sent": "Don\u2019t say anything till Jo has got good-natured with Laurie, than take a quiet minute and just kiss her, or do some kind",
+              "patient_set": [
+                "amy",
+                "anything",
+                "don",
+                "heart",
+                "jo",
+                "laurie",
+                "minute",
+                "quiet",
+                "try"
+              ]
+            },
+            {
+              "sent": "Jo heard Amy panting after her run, stamping her feet and blowing on her fingers as she tried to put her skates on, but ",
+              "patient_set": [
+                "amy",
+                "feet",
+                "fingers",
+                "panting",
+                "run",
+                "skates"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "I told you I\u2019d make you pay for being so cross yesterday, and I have, so...\u201d Amy got no farther, for Jo\u2019s hot temper mas",
+              "patient_set": [
+                "amy",
+                "anger",
+                "cross",
+                "crying",
+                "farther",
+                "grief",
+                "head",
+                "teeth",
+                "yesterday",
+                "you"
+              ]
+            },
+            {
+              "sent": "I never can write it again, and I\u2019ll never forgive you as long as I live.\u201d Meg flew to rescue Amy, and Beth to pacify Jo",
+              "patient_set": [
+                "amy",
+                "can",
+                "fight",
+                "you"
+              ]
+            },
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 1,
+          "fidelity_margin_true": 0.9146828800439835,
+          "fidelity_margin_distr": 1.053993783891201,
+          "true_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": "DISTR_CAND",
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "CROSS_SPAN_BOUND|4": {
+      "arm": "CROSS_SPAN_BOUND",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 8,
+          "fidelity_margin_true": 0.9494103044271469,
+          "fidelity_margin_distr": 0.6375953108072281,
+          "true_matches_preview": [
+            {
+              "sent": "I came here to moralize, not to hear things that make me skip to think of.\u201d \u201cI know Meg would wet-blanket such a proposa",
+              "patient_set": [
+                "blanket",
+                "laurie",
+                "me",
+                "meg",
+                "proposal",
+                "things",
+                "you"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "He wheedled, bribed, ridiculed, threatened, and scolded; affected indifference, that he might surprise the truth from he",
+              "patient_set": [
+                "bribed",
+                "meg",
+                "mr",
+                "perseverance",
+                "truth"
+              ]
+            },
+            {
+              "sent": "\u201cIt\u2019s like his writing,\u201d faltered Meg, comparing it with the note in her hand.",
+              "patient_set": [
+                "comparing",
+                "hand",
+                "meg",
+                "note",
+                "writing"
+              ]
+            },
+            {
+              "sent": "\u201cI received the first letter from Laurie, who didn\u2019t look as if he knew anything about it,\u201d began Meg, without looking u",
+              "patient_set": [
+                "anything",
+                "as",
+                "first",
+                "laurie",
+                "letter",
+                "meg"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": "TRUE_CAND",
+          "end_to_end_correct": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 5,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 7,
+          "fidelity_margin_true": 0.5461003296077251,
+          "fidelity_margin_distr": 0.42753338627517223,
+          "true_matches_preview": [
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            },
+            {
+              "sent": "Don\u2019t say anything till Jo has got good-natured with Laurie, than take a quiet minute and just kiss her, or do some kind",
+              "patient_set": [
+                "amy",
+                "anything",
+                "don",
+                "heart",
+                "jo",
+                "laurie",
+                "minute",
+                "quiet",
+                "try"
+              ]
+            },
+            {
+              "sent": "Jo heard Amy panting after her run, stamping her feet and blowing on her fingers as she tried to put her skates on, but ",
+              "patient_set": [
+                "amy",
+                "feet",
+                "fingers",
+                "panting",
+                "run",
+                "skates"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "I told you I\u2019d make you pay for being so cross yesterday, and I have, so...\u201d Amy got no farther, for Jo\u2019s hot temper mas",
+              "patient_set": [
+                "amy",
+                "anger",
+                "cross",
+                "crying",
+                "farther",
+                "grief",
+                "head",
+                "teeth",
+                "yesterday",
+                "you"
+              ]
+            },
+            {
+              "sent": "I never can write it again, and I\u2019ll never forgive you as long as I live.\u201d Meg flew to rescue Amy, and Beth to pacify Jo",
+              "patient_set": [
+                "amy",
+                "can",
+                "fight",
+                "you"
+              ]
+            },
+            {
+              "sent": "I\u2019m very, very sorry.\u201d \u201cI never shall forgive you,\u201d was Jo\u2019s stern answer, and from that moment she ignored Amy entirely",
+              "patient_set": [
+                "amy",
+                "answer",
+                "jo",
+                "stern",
+                "you"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "CROSS_SPAN_BOUND",
+          "recall_true": true,
+          "recall_distr": true,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 1,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 1,
+          "fidelity_margin_true": 0.9146828800439835,
+          "fidelity_margin_distr": 1.053993783891201,
+          "true_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "distr_matches_preview": [
+            {
+              "sent": "But Sid\u2019s fingers slipped and the bowl dropped and broke.",
+              "patient_set": [
+                "bowl",
+                "fingers"
+              ]
+            }
+          ],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": "DISTR_CAND",
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|0": {
+      "arm": "RANDOM_DEGENERATE",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|1": {
+      "arm": "RANDOM_DEGENERATE",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|2": {
+      "arm": "RANDOM_DEGENERATE",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|3": {
+      "arm": "RANDOM_DEGENERATE",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|4": {
+      "arm": "RANDOM_DEGENERATE",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 103,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 87,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 101,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 102,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 85,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 85,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "arm": "RANDOM_DEGENERATE",
+          "recall_true": false,
+          "recall_distr": false,
+          "n_window_sentences_true": 82,
+          "n_matched_true": 0,
+          "n_window_sentences_distr": 81,
+          "n_matched_distr": 0,
+          "fidelity_margin_true": null,
+          "fidelity_margin_distr": null,
+          "true_matches_preview": [],
+          "distr_matches_preview": [],
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_attributed": null,
+          "end_to_end_correct": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "reads_recency_fields": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "window_lines": 100,
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    }
+  }
+}
