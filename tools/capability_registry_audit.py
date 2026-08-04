@@ -228,6 +228,211 @@ def scan_unregistered_hdlab_modules(rows: list[dict]) -> list[str]:
     return unregistered
 
 
+# ---------------------------------------------------------------------------
+# INVISIBLE-ISLAND DETECTOR (2026-08-04, notes/capability_reconciliation_
+# invisible_islands_audit.md "Systemic fix"): the two checks above only ever
+# ask "is every REGISTERED capability wired." Neither ever asks "did every
+# disk-verified PASS result get a registry row in the first place." That blind
+# spot is how exp_theory_of_mind_sally_anne_nested_hrr_v1 (HARD_PASS, oracle
+# 1.0, 5 seeds) sat with zero registry rows and zero hdlab promotion --
+# invisible to both existing scans because scan_unregistered_hdlab_modules
+# only globs hdlab/*.py and never looks at experiments/-only organs at all.
+# This section adds the missing direction: scan data/exp_*/metrics.json for
+# pass-shaped verdicts, collapse lineage/seed/smoke noise to one base anchor
+# per experiment family, and flag any anchor whose core name has no match
+# anywhere in the registry.
+# ---------------------------------------------------------------------------
+
+HARD_PASS_CACHE_PATH = REPORT_DIR / "hard_pass_anchor_index.json"
+
+# Known-negative/pending verdict-name substrings (uppercased match). Anything
+# NOT containing one of these is treated as a "candidate positive" -- a
+# denylist is the safer proxy here because pass-verdicts are NOT a fixed
+# vocabulary (VAMP-EP alone uses VAMPNOISE_ROBUST / K_STRESS_AGENT_READY /
+# DEPTH_CEILING_HIGH / MECHANISM_EARNS -- none contain "HARD_PASS" literally).
+# Deliberately does NOT include bare "CEILING": DEPTH_CEILING_HIGH is a PASS.
+NEGATIVE_VERDICT_TOKENS = [
+    "FAIL", "HONEST_NEG", "PENDING", "INCONCLUSIVE", "MIDDLE_BAND",
+    "KILLED", "ABANDONED", "SMOKE",
+]
+
+# Trailing-suffix patterns stripped iteratively to collapse a raw exp_*
+# directory name to one base anchor per experiment family (lineage/seed/smoke
+# noise only -- deliberately conservative, does NOT strip config-sweep
+# suffixes like _n4096/_K16/_s13 since those can denote genuinely distinct
+# cells within a family; suffix conventions across ~7000 dirs are too
+# inconsistent to fully normalize, and over-collapsing risks merging distinct
+# capabilities into one anchor).
+_ANCHOR_SUFFIX_PATTERNS = [
+    re.compile(r"_smoke$"),
+    re.compile(r"_localsmoke\d*$"),
+    re.compile(r"_local\d+$"),
+    re.compile(r"_selftest$"),
+    re.compile(r"_seed_?\d+$"),
+    re.compile(r"_v\d+[a-z]*$"),
+]
+
+
+def collapse_base_anchor(dirname: str) -> str:
+    """Strip trailing seed/version/smoke suffixes iteratively (order-independent:
+    e.g. `..._v1_seed_7` and `..._seed_7_v1` both collapse the same way) to get
+    one base anchor per experiment family. Conservative by design -- see module
+    comment above for what it deliberately does NOT strip."""
+    name = dirname
+    changed = True
+    while changed:
+        changed = False
+        for pat in _ANCHOR_SUFFIX_PATTERNS:
+            new = pat.sub("", name)
+            if new and new != name:
+                name = new
+                changed = True
+    return name
+
+
+def anchor_core_name(base_anchor: str) -> str:
+    """Base anchor with the leading `exp_` stripped -- the string used for
+    registry substring matching (registry paths/ids rarely include the bare
+    `exp_` prefix consistently, so stripping it avoids spurious mismatches)."""
+    return base_anchor[4:] if base_anchor.startswith("exp_") else base_anchor
+
+
+def classify_verdict(verdict) -> bool:
+    """Return True if `verdict` looks like a pass-shaped result (candidate
+    positive needing human triage), False if it matches a known negative/
+    pending token or is missing/unparseable. Denylist, not allowlist -- see
+    NEGATIVE_VERDICT_TOKENS comment for why."""
+    if not verdict or not isinstance(verdict, str):
+        return False
+    v = verdict.upper()
+    return not any(tok in v for tok in NEGATIVE_VERDICT_TOKENS)
+
+
+def _build_registry_blob(rows: list[dict]) -> list[str]:
+    """One lowercased string per registry row: every path-list entry + id +
+    name, space-joined. Substring-membership target for anchor matching --
+    NOT a single mega-blob (that would let an anchor spuriously "match" by
+    straddling two unrelated rows' boundary text) and NOT token-overlap
+    (Step 4 of the source audit found token-overlap gives false-registered
+    positives on short/common words like "mind"/"nested"/"sally")."""
+    out = []
+    for r in rows:
+        parts = list(r.get("path") or [])
+        parts.append(str(r.get("id") or ""))
+        parts.append(str(r.get("name") or ""))
+        out.append(" ".join(parts).lower())
+    return out
+
+
+def _anchor_registered(core: str, registry_blob: list[str]) -> bool:
+    if not core or len(core) < 4:
+        return False
+    core_lower = core.lower()
+    return any(core_lower in entry for entry in registry_blob)
+
+
+def _load_hard_pass_cache() -> dict:
+    if not HARD_PASS_CACHE_PATH.exists():
+        return {}
+    try:
+        return json.loads(HARD_PASS_CACHE_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _save_hard_pass_cache(cache: dict) -> None:
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
+    tmp = HARD_PASS_CACHE_PATH.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(cache, indent=2, sort_keys=True), encoding="utf-8")
+    os.replace(tmp, HARD_PASS_CACHE_PATH)
+
+
+def scan_unregistered_hard_pass_anchors(rows: list[dict], use_cache: bool = True) -> dict:
+    """Scan data/exp_*/metrics.json for pass-shaped verdicts with no registry
+    match anywhere. Returns {candidates: [...], n_dirs_scanned, n_dirs_cached,
+    n_base_anchors, n_candidates}.
+
+    Per-directory cache (keyed by repo-relative metrics.json path) stores
+    (verdict, verdict_msg snippet, mtime); a dir is only re-read if its
+    metrics.json mtime changed since the cached entry, so routine re-runs
+    after the first full scan stay cheap regardless of how large data/ grows.
+    """
+    exp_dir = DATA
+    cache = _load_hard_pass_cache() if use_cache else {}
+    new_cache: dict = {}
+    n_scanned = 0
+    n_cached = 0
+    # anchor_core -> {"verdict", "verdict_msg", "base_anchor", "dirs": [...]}
+    anchors: dict[str, dict] = {}
+
+    for mp in sorted(DATA.glob("exp_*/metrics.json")):
+        try:
+            rel = _rel(mp)
+            st_mtime = mp.stat().st_mtime
+        except OSError:
+            continue
+        cached_entry = cache.get(rel)
+        if cached_entry and abs(cached_entry.get("mtime", -1) - st_mtime) < 1e-6:
+            verdict = cached_entry.get("verdict")
+            verdict_msg = cached_entry.get("verdict_msg", "")
+            n_cached += 1
+        else:
+            try:
+                j = json.loads(mp.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            verdict = j.get("verdict")
+            verdict_msg = str(j.get("verdict_msg") or "")[:200]
+            n_scanned += 1
+        new_cache[rel] = {"verdict": verdict, "verdict_msg": verdict_msg, "mtime": st_mtime}
+
+        if not classify_verdict(verdict):
+            continue
+        dirname = mp.parent.name
+        base = collapse_base_anchor(dirname)
+        core = anchor_core_name(base)
+        entry = anchors.setdefault(core, {
+            "base_anchor": base, "verdict": verdict, "verdict_msg": verdict_msg, "dirs": [],
+        })
+        entry["dirs"].append(dirname)
+
+    if use_cache:
+        _save_hard_pass_cache(new_cache)
+
+    registry_blob = _build_registry_blob(rows)
+    hdlab_dir = ROOT / "hdlab"
+    hdlab_stems = set()
+    if hdlab_dir.is_dir():
+        hdlab_stems = {Path(f).stem for f in os.listdir(hdlab_dir) if f.endswith(".py")}
+
+    candidates = []
+    for core, entry in sorted(anchors.items()):
+        if _anchor_registered(core, registry_blob):
+            continue
+        core_lower = core.lower()
+        related_hdlab = sorted(
+            stem for stem in hdlab_stems
+            if len(stem) >= 5 and (stem.lower() in core_lower or core_lower in stem.lower())
+        )
+        candidates.append({
+            "anchor": entry["base_anchor"],
+            "verdict": entry["verdict"],
+            "verdict_msg": entry["verdict_msg"],
+            "n_dirs": len(entry["dirs"]),
+            "sample_dirs": sorted(entry["dirs"])[:5],
+            "related_hdlab_module": related_hdlab[0] if related_hdlab else None,
+        })
+
+    return {
+        "candidates": candidates,
+        "n_dirs_scanned_fresh": n_scanned,
+        "n_dirs_cached": n_cached,
+        "n_base_anchors_pass_shaped": len(anchors),
+        "n_candidates": len(candidates),
+        "cache_path": _rel(HARD_PASS_CACHE_PATH),
+    }
+
+
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -403,7 +608,7 @@ def check_stale_decisions(rows: list[dict], stale_days: int, now: datetime) -> l
     return stale
 
 
-def run_audit(stale_days: int, dry_run: bool) -> dict:
+def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     rows = load_registry()
     graph = ih.compute_import_graph()
@@ -451,6 +656,10 @@ def run_audit(stale_days: int, dry_run: bool) -> dict:
     undecided = check_undecided_validated(rows)
     stale = check_stale_decisions(rows, stale_days, now)
     unregistered_hdlab = scan_unregistered_hdlab_modules(rows)
+    if skip_hard_pass_scan:
+        island_scan = {"candidates": [], "skipped": True}
+    else:
+        island_scan = scan_unregistered_hard_pass_anchors(rows)
 
     if not dry_run:
         write_registry(rows)
@@ -471,6 +680,10 @@ def run_audit(stale_days: int, dry_run: bool) -> dict:
         "path_missing_flags": path_missing_flags,
         "undecided_validated_capabilities": undecided,
         "stale_vet_pending": stale,
+        "invisible_island_candidates": island_scan.get("candidates", []),
+        "invisible_island_scan_stats": {
+            k: v for k, v in island_scan.items() if k != "candidates"
+        },
         "dry_run": dry_run,
         "registry_path": _rel(REGISTRY),
     }
@@ -529,6 +742,21 @@ def print_report(summary: dict) -> None:
             print(f"    {s}")
     else:
         print("\n[ok] no stale VET_PENDING rows")
+    isl = summary.get("invisible_island_candidates", [])
+    stats = summary.get("invisible_island_scan_stats", {})
+    if stats.get("skipped"):
+        print("\n[note] invisible-island hard-pass scan skipped (--skip-hard-pass-scan)")
+    elif isl:
+        print(f"\n[FLAG] {len(isl)} invisible-island candidate(s) -- pass-shaped verdict, "
+              f"NO registry match found (scanned {stats.get('n_dirs_scanned_fresh', 0)} fresh + "
+              f"{stats.get('n_dirs_cached', 0)} cached dirs, {stats.get('n_base_anchors_pass_shaped', 0)} "
+              f"pass-shaped base anchors):")
+        for c in isl[:30]:
+            hdlab_note = f" [related hdlab: {c['related_hdlab_module']}]" if c.get("related_hdlab_module") else ""
+            print(f"    {c['anchor']}  verdict={c['verdict']}{hdlab_note}")
+    else:
+        print(f"\n[ok] no invisible-island candidates (scanned {stats.get('n_dirs_scanned_fresh', 0)} fresh + "
+              f"{stats.get('n_dirs_cached', 0)} cached dirs)")
     print("-" * 72)
 
 
@@ -557,7 +785,43 @@ def self_test() -> int:
     ok = len(stale) == 1 and stale[0]["id"] == "a"
     print(f"[selftest] capability_registry_audit stale-decision logic: "
           f"{'OK' if ok else 'FAIL'} (expected 1 stale row id=a, got {stale})")
-    return 0 if ok else 1
+
+    # invisible-island classify + match logic (synthetic fixture, no disk scan)
+    ok2 = True
+    cases = [
+        ("HARD_PASS", True), ("DEPTH_CEILING_HIGH", True), ("K_STRESS_AGENT_READY", True),
+        ("MECHANISM_EARNS", True), ("VAMPNOISE_ROBUST", True),
+        ("HARD_FAIL", False), ("HONEST_NEG", False), ("VET_PENDING", False),
+        ("INCONCLUSIVE", False), ("MIDDLE_BAND", False), ("KILLED", False),
+        ("ABANDONED", False), ("SMOKE_PASS", False), (None, False), ("", False),
+    ]
+    for verdict, expected in cases:
+        got = classify_verdict(verdict)
+        if got != expected:
+            ok2 = False
+            print(f"[selftest] classify_verdict({verdict!r}) = {got}, expected {expected}")
+
+    fixture_rows = [
+        {"id": "predictive_coding", "name": "predictive_coding (triaged 07-28)",
+         "path": ["hdlab/predictive_coding.py"]},
+        {"id": "working_memory_multibank_K_capacity", "name": "hdlab/working_memory.py -- multi-bank",
+         "path": ["hdlab/working_memory.py",
+                  "experiments/exp_substrate_working_memory_multi_bank_K_extension_adversarial_v1.py"]},
+    ]
+    blob = _build_registry_blob(fixture_rows)
+    # registered: anchor's core name is a genuine substring of a registered path
+    reg_core = anchor_core_name(collapse_base_anchor(
+        "exp_substrate_working_memory_multi_bank_K_extension_adversarial_v1"))
+    # unregistered: ToM anchor, not present anywhere in the fixture registry
+    unreg_core = anchor_core_name(collapse_base_anchor("exp_theory_of_mind_sally_anne_nested_hrr_v1"))
+    ok3 = _anchor_registered(reg_core, blob) and not _anchor_registered(unreg_core, blob)
+    if not ok3:
+        print(f"[selftest] anchor-match FAIL: registered-case={_anchor_registered(reg_core, blob)} "
+              f"(expect True), unregistered-case={_anchor_registered(unreg_core, blob)} (expect False)")
+
+    ok_all = ok and ok2 and ok3
+    print(f"[selftest] invisible-island classify+match logic: {'OK' if ok2 and ok3 else 'FAIL'}")
+    return 0 if ok_all else 1
 
 
 def main() -> int:
@@ -566,11 +830,15 @@ def main() -> int:
     ap.add_argument("--stale-days", type=int, default=7, help="VET_PENDING staleness threshold (default 7)")
     ap.add_argument("--json", action="store_true", help="print the summary as JSON instead of the human report")
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--skip-hard-pass-scan", action="store_true",
+                     help="skip the invisible-island (data/exp_*/metrics.json) scan; "
+                          "keeps the rest of the audit on its fast path")
     args = ap.parse_args()
     if args.self_test:
         return self_test()
 
-    summary = run_audit(stale_days=args.stale_days, dry_run=args.dry_run)
+    summary = run_audit(stale_days=args.stale_days, dry_run=args.dry_run,
+                         skip_hard_pass_scan=args.skip_hard_pass_scan)
     report_path = write_report(summary)
     summary["report_path"] = report_path
     if args.json:
@@ -583,7 +851,8 @@ def main() -> int:
                   if summary["undecided_validated_capabilities"]
                   and "note" not in summary["undecided_validated_capabilities"][0] else 0)
                + len(summary["stale_vet_pending"])
-               + len(summary.get("unregistered_hdlab_modules", [])))
+               + len(summary.get("unregistered_hdlab_modules", []))
+               + len(summary.get("invisible_island_candidates", [])))
     return 5 if n_flags else 0
 
 
