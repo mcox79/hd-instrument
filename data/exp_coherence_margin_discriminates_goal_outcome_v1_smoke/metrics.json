@@ -1,0 +1,446 @@
+{
+  "verdict": "HARD_FAIL_CARDINALITY_BREACH",
+  "verdict_msg": "HARD_FAIL_CARDINALITY_BREACH: [flat] coref_matched=0.0 causal_matched=0.0 go_matched=0.0 | ARTIFACT PROBE coref(foilheavy=1.0 trueheavy=0.0 flips=True) go(foilheavy=0.875 trueheavy=0.0 flips=True) | [multibank robustness] coref_matched=0.0 causal_matched=0.0 go_matched=0.0",
+  "summary": "[flat] coref_matched=0.0 causal_matched=0.0 go_matched=0.0 | ARTIFACT PROBE coref(foilheavy=1.0 trueheavy=0.0 flips=True) go(foilheavy=0.875 trueheavy=0.0 flips=True) | [multibank robustness] coref_matched=0.0 causal_matched=0.0 go_matched=0.0",
+  "n_seeds": 2,
+  "means": {
+    "coref_matched_rate_flat": 0.0,
+    "causal_matched_rate_flat": 0.0,
+    "go_matched_rate_flat": 0.0,
+    "coref_asym_foilheavy_rate_flat": 1.0,
+    "coref_asym_trueheavy_rate_flat": 0.0,
+    "go_asym_foilheavy_rate_flat": 0.875,
+    "go_asym_trueheavy_rate_flat": 0.0,
+    "coref_matched_rate_multibank": 0.0,
+    "causal_matched_rate_multibank": 0.0,
+    "go_matched_rate_multibank": 0.0
+  },
+  "bands": {
+    "harness_sane": true,
+    "load_matched_all_tie": true,
+    "coref_load_artifact_flips": true,
+    "go_load_artifact_flips": true
+  },
+  "per_seed_rows_seed0": {
+    "coref_matched_rows_flat": [
+      {
+        "id": "coref_matched_0_n1",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "coref_matched_1_n2",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "coref_matched_2_n3",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "coref_matched_3_n4",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "coref_matched_4_n5",
+        "true_adopted": false,
+        "delta": 0.0
+      }
+    ],
+    "causal_matched_rows_flat": [
+      {
+        "id": "grapp_mcca_001",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "grapp_mcca_003",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "grapp_mcca_004",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "grapp_mcca_005",
+        "true_adopted": false,
+        "delta": 0.0
+      }
+    ],
+    "go_matched_rows_flat": [
+      {
+        "id": "go_matched_0_amy_vs_jo",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "go_matched_1_tom_vs_sid",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "go_matched_2_beth_vs_meg",
+        "true_adopted": false,
+        "delta": 0.0
+      },
+      {
+        "id": "go_matched_3_ruth_vs_ann",
+        "true_adopted": false,
+        "delta": 0.0
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "brain_fidelity_caveat": "decode_coherence_margins is a ONE-SHOT single-pass read, a brain-COMPATIBLE approximation of Kintsch construction-integration / CA3 attractor settling, where 'coherent-but-distant beats recent-but-connected' fully lives. This cell's finding (single-position margin carries no identity information, only relative register-load artifact) is about the ONE-SHOT organ as built; it does NOT rule out that a settling mechanism, or a route_passage-style MANY-POSITION aggregate over real text, carries real identity information -- it may, and that is the production-validated coref case. This diagnostic isolates the atomic single-decision granularity specifically.",
+  "run_mode": "smoke",
+  "elapsed_s": 0.2156217999981891,
+  "ts_iso": "2026-08-04T19:57:28.554884+00:00",
+  "anchor_name": "coherence_margin_discriminates_goal_outcome_v1",
+  "config": {
+    "d_dim": 512,
+    "seeds": [
+      0,
+      1
+    ],
+    "abstain_band": 0.02,
+    "backends": [
+      "flat",
+      "multibank"
+    ],
+    "n_coref": 5,
+    "n_causal": 4,
+    "n_goal_outcome": 4
+  },
+  "prereg": "preregs/2026-08-04_coherence_margin_discriminates_goal_outcome_v1.md",
+  "cites": [
+    "notes/research_coherence_based_binding_selector_build_spec_2026-08-04.md",
+    "notes/research_drill_biology_led_causal_coherence_credit_assignment_2026-08-03.md",
+    "hdlab/self_improving_loop.py",
+    "experiments/exp_situation_model_goal_outcome_dimension_v1.py (role vocab, sourced)",
+    "data/eval_gold_mention_role_mcguffey_v1/gold_grounded_appraisal_richer_v1.jsonl (real causal items)"
+  ],
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "coref_matched_rate_flat": 0.0,
+      "coref_matched_rows_flat": [
+        {
+          "id": "coref_matched_0_n1",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_1_n2",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_2_n3",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_3_n4",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_4_n5",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "causal_matched_rate_flat": 0.0,
+      "causal_matched_rows_flat": [
+        {
+          "id": "grapp_mcca_001",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "go_matched_rate_flat": 0.0,
+      "go_matched_rows_flat": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "coref_asym_foilheavy_rate_flat": 1.0,
+      "coref_asym_trueheavy_rate_flat": 0.0,
+      "go_asym_foilheavy_rate_flat": 1.0,
+      "go_asym_trueheavy_rate_flat": 0.0,
+      "coref_matched_rate_multibank": 0.0,
+      "coref_matched_rows_multibank": [
+        {
+          "id": "coref_matched_0_n1",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_1_n2",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_2_n3",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_3_n4",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_4_n5",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "causal_matched_rate_multibank": 0.0,
+      "causal_matched_rows_multibank": [
+        {
+          "id": "grapp_mcca_001",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "go_matched_rate_multibank": 0.0,
+      "go_matched_rows_multibank": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "coref_asym_foilheavy_rate_multibank": 0.4,
+      "coref_asym_trueheavy_rate_multibank": 0.0,
+      "go_asym_foilheavy_rate_multibank": 0.75,
+      "go_asym_trueheavy_rate_multibank": 0.0
+    },
+    "1": {
+      "seed": 1,
+      "coref_matched_rate_flat": 0.0,
+      "coref_matched_rows_flat": [
+        {
+          "id": "coref_matched_0_n1",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_1_n2",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_2_n3",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_3_n4",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_4_n5",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "causal_matched_rate_flat": 0.0,
+      "causal_matched_rows_flat": [
+        {
+          "id": "grapp_mcca_001",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "go_matched_rate_flat": 0.0,
+      "go_matched_rows_flat": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "coref_asym_foilheavy_rate_flat": 1.0,
+      "coref_asym_trueheavy_rate_flat": 0.0,
+      "go_asym_foilheavy_rate_flat": 0.75,
+      "go_asym_trueheavy_rate_flat": 0.0,
+      "coref_matched_rate_multibank": 0.0,
+      "coref_matched_rows_multibank": [
+        {
+          "id": "coref_matched_0_n1",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_1_n2",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_2_n3",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_3_n4",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "coref_matched_4_n5",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "causal_matched_rate_multibank": 0.0,
+      "causal_matched_rows_multibank": [
+        {
+          "id": "grapp_mcca_001",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "go_matched_rate_multibank": 0.0,
+      "go_matched_rows_multibank": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "true_adopted": false,
+          "delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "true_adopted": false,
+          "delta": 0.0
+        }
+      ],
+      "coref_asym_foilheavy_rate_multibank": 0.4,
+      "coref_asym_trueheavy_rate_multibank": 0.0,
+      "go_asym_foilheavy_rate_multibank": 0.75,
+      "go_asym_trueheavy_rate_multibank": 0.0
+    }
+  }
+}
