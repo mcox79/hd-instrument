@@ -1,0 +1,4352 @@
+{
+  "verdict": "AFFECT_CAP_HIT_ROUTE_TO_FOLD_IN",
+  "verdict_msg": "AFFECT_CAP_HIT_ROUTE_TO_FOLD_IN: recall@10=0.38 (3/8 targets) FP_noise@10=0 | gate: targets_kept=0 noise_dropped=0/0 | loop_mints_induced=1.00",
+  "summary": "recall@10=0.38 (3/8 targets) FP_noise@10=0 | gate: targets_kept=0 noise_dropped=0/0 | loop_mints_induced=1.00",
+  "mechanism_vet": {
+    "letter_band": "HARD_PASS",
+    "induced_feeds_loop": false,
+    "recovered_target_count": 0,
+    "affect_gate_degenerate": true,
+    "affect_max_over_pool": 0.0533,
+    "sel_weights_degenerate": true,
+    "genuine_pass": false,
+    "note": "Letter-band and mechanism VET DISAGREE => report the MECHANISM reading. loop_still_mints here is carried by the SEED verb + the unpatched OMISSION lexicon, not by any newly-induced target (recovered_target_lemmas). The affect gate did not fire discriminatively on raw corpus contexts (Andrews/Vigliocco affect cap). The selectional score is dominated by a negative agent-animacy weight (windowing artifact)."
+  },
+  "recall_at_k": 0.375,
+  "fp_noise_at_k": 0,
+  "n_targets_rankable": 8,
+  "top_k": 10,
+  "targets_in_top": [
+    "decline",
+    "forbid",
+    "prevent"
+  ],
+  "noise_in_top": [],
+  "target_lemmas_ranked": [
+    "decline",
+    "forbid",
+    "prevent",
+    "hide",
+    "neglect",
+    "resist",
+    "withdraw",
+    "ignore"
+  ],
+  "affect_gate_tau": 0.0,
+  "gated_lemmas": [],
+  "gated_targets": [],
+  "gated_noise": [],
+  "induced_surfaces": [
+    "conceal",
+    "concealed",
+    "concealing",
+    "conceals",
+    "denied",
+    "denies",
+    "deny",
+    "denying",
+    "refuse",
+    "refused",
+    "refuses",
+    "refusing"
+  ],
+  "recovered_target_lemmas": [],
+  "loop_still_mints": true,
+  "loop": {
+    "mints_goal_blocker_frac": 1.0,
+    "real_withhold_enters_frac": 1.0,
+    "C1_noise_no_mint_frac": 1.0,
+    "goal_block_item_typed": {
+      "gb_syn_00": true,
+      "gb_syn_01": true,
+      "gb_syn_02": true,
+      "gb_syn_03": true,
+      "gb_syn_04": true,
+      "gb_syn_05": true,
+      "gb_syn_06": true,
+      "gb_syn_07": true,
+      "mcca_004_amy_warning": true,
+      "theatre_refusal": true,
+      "book_burning_spite": false,
+      "mcca_003_forger": false
+    }
+  },
+  "ranked_top20": [
+    {
+      "lemma": "occurr",
+      "kind": "distractor",
+      "score": 0.0118,
+      "n": 9,
+      "frac": [
+        0.111,
+        0.889,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "decline",
+      "kind": "target",
+      "score": -0.016,
+      "n": 8,
+      "frac": [
+        0.125,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sound",
+      "kind": "distractor",
+      "score": -0.0279,
+      "n": 18,
+      "frac": [
+        0.167,
+        0.167,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "yet",
+      "kind": "distractor",
+      "score": -0.0321,
+      "n": 8,
+      "frac": [
+        0.25,
+        0.5,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "conceal",
+      "kind": "seed",
+      "score": -0.0398,
+      "n": 11,
+      "frac": [
+        0.273,
+        0.364,
+        0.091
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "forbid",
+      "kind": "target",
+      "score": -0.0418,
+      "n": 12,
+      "frac": [
+        0.25,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "myself",
+      "kind": "distractor",
+      "score": -0.0418,
+      "n": 8,
+      "frac": [
+        0.25,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "cost",
+      "kind": "distractor",
+      "score": -0.0427,
+      "n": 9,
+      "frac": [
+        0.333,
+        0.667,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "till",
+      "kind": "distractor",
+      "score": -0.0465,
+      "n": 16,
+      "frac": [
+        0.375,
+        0.75,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "prevent",
+      "kind": "target",
+      "score": -0.0486,
+      "n": 14,
+      "frac": [
+        0.357,
+        0.643,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hide",
+      "kind": "target",
+      "score": -0.0521,
+      "n": 99,
+      "frac": [
+        0.333,
+        0.394,
+        0.051
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "isn",
+      "kind": "distractor",
+      "score": -0.0551,
+      "n": 87,
+      "frac": [
+        0.31,
+        0.207,
+        0.034
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "neglect",
+      "kind": "target",
+      "score": -0.0555,
+      "n": 29,
+      "frac": [
+        0.345,
+        0.379,
+        0.034
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hurt",
+      "kind": "distractor",
+      "score": -0.0585,
+      "n": 9,
+      "frac": [
+        0.444,
+        0.778,
+        0.111
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "show",
+      "kind": "noise",
+      "score": -0.0589,
+      "n": 182,
+      "frac": [
+        0.396,
+        0.555,
+        0.044
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "thi",
+      "kind": "distractor",
+      "score": -0.0589,
+      "n": 14,
+      "frac": [
+        0.357,
+        0.286,
+        0.143
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "mak",
+      "kind": "distractor",
+      "score": -0.0591,
+      "n": 40,
+      "frac": [
+        0.425,
+        0.7,
+        0.05
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "away",
+      "kind": "distractor",
+      "score": -0.0614,
+      "n": 21,
+      "frac": [
+        0.333,
+        0.19,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "bring",
+      "kind": "noise",
+      "score": -0.0659,
+      "n": 248,
+      "frac": [
+        0.415,
+        0.472,
+        0.056
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "though",
+      "kind": "distractor",
+      "score": -0.0692,
+      "n": 16,
+      "frac": [
+        0.438,
+        0.5,
+        0.062
+      ],
+      "affect": 0.0
+    }
+  ],
+  "full_ranking": [
+    {
+      "lemma": "occurr",
+      "kind": "distractor",
+      "score": 0.0118,
+      "n": 9,
+      "frac": [
+        0.111,
+        0.889,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "decline",
+      "kind": "target",
+      "score": -0.016,
+      "n": 8,
+      "frac": [
+        0.125,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sound",
+      "kind": "distractor",
+      "score": -0.0279,
+      "n": 18,
+      "frac": [
+        0.167,
+        0.167,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "yet",
+      "kind": "distractor",
+      "score": -0.0321,
+      "n": 8,
+      "frac": [
+        0.25,
+        0.5,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "conceal",
+      "kind": "seed",
+      "score": -0.0398,
+      "n": 11,
+      "frac": [
+        0.273,
+        0.364,
+        0.091
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "forbid",
+      "kind": "target",
+      "score": -0.0418,
+      "n": 12,
+      "frac": [
+        0.25,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "myself",
+      "kind": "distractor",
+      "score": -0.0418,
+      "n": 8,
+      "frac": [
+        0.25,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "cost",
+      "kind": "distractor",
+      "score": -0.0427,
+      "n": 9,
+      "frac": [
+        0.333,
+        0.667,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "till",
+      "kind": "distractor",
+      "score": -0.0465,
+      "n": 16,
+      "frac": [
+        0.375,
+        0.75,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "prevent",
+      "kind": "target",
+      "score": -0.0486,
+      "n": 14,
+      "frac": [
+        0.357,
+        0.643,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hide",
+      "kind": "target",
+      "score": -0.0521,
+      "n": 99,
+      "frac": [
+        0.333,
+        0.394,
+        0.051
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "isn",
+      "kind": "distractor",
+      "score": -0.0551,
+      "n": 87,
+      "frac": [
+        0.31,
+        0.207,
+        0.034
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "neglect",
+      "kind": "target",
+      "score": -0.0555,
+      "n": 29,
+      "frac": [
+        0.345,
+        0.379,
+        0.034
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hurt",
+      "kind": "distractor",
+      "score": -0.0585,
+      "n": 9,
+      "frac": [
+        0.444,
+        0.778,
+        0.111
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "show",
+      "kind": "noise",
+      "score": -0.0589,
+      "n": 182,
+      "frac": [
+        0.396,
+        0.555,
+        0.044
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "thi",
+      "kind": "distractor",
+      "score": -0.0589,
+      "n": 14,
+      "frac": [
+        0.357,
+        0.286,
+        0.143
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "mak",
+      "kind": "distractor",
+      "score": -0.0591,
+      "n": 40,
+      "frac": [
+        0.425,
+        0.7,
+        0.05
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "away",
+      "kind": "distractor",
+      "score": -0.0614,
+      "n": 21,
+      "frac": [
+        0.333,
+        0.19,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "bring",
+      "kind": "noise",
+      "score": -0.0659,
+      "n": 248,
+      "frac": [
+        0.415,
+        0.472,
+        0.056
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "though",
+      "kind": "distractor",
+      "score": -0.0692,
+      "n": 16,
+      "frac": [
+        0.438,
+        0.5,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "carry",
+      "kind": "noise",
+      "score": -0.0693,
+      "n": 154,
+      "frac": [
+        0.442,
+        0.513,
+        0.071
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "over",
+      "kind": "distractor",
+      "score": -0.0699,
+      "n": 50,
+      "frac": [
+        0.4,
+        0.26,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "but",
+      "kind": "distractor",
+      "score": -0.0707,
+      "n": 101,
+      "frac": [
+        0.455,
+        0.545,
+        0.079
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "seem",
+      "kind": "distractor",
+      "score": -0.0708,
+      "n": 142,
+      "frac": [
+        0.415,
+        0.373,
+        0.014
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "send",
+      "kind": "noise",
+      "score": -0.076,
+      "n": 183,
+      "frac": [
+        0.497,
+        0.601,
+        0.126
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "right",
+      "kind": "distractor",
+      "score": -0.0761,
+      "n": 11,
+      "frac": [
+        0.455,
+        0.455,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hard",
+      "kind": "distractor",
+      "score": -0.0761,
+      "n": 10,
+      "frac": [
+        0.4,
+        0.1,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "off",
+      "kind": "distractor",
+      "score": -0.0783,
+      "n": 15,
+      "frac": [
+        0.4,
+        0.067,
+        0.067
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "with",
+      "kind": "distractor",
+      "score": -0.0801,
+      "n": 75,
+      "frac": [
+        0.44,
+        0.213,
+        0.093
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "into",
+      "kind": "distractor",
+      "score": -0.0803,
+      "n": 21,
+      "frac": [
+        0.476,
+        0.429,
+        0.048
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "give",
+      "kind": "noise",
+      "score": -0.0815,
+      "n": 677,
+      "frac": [
+        0.513,
+        0.555,
+        0.102
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "there",
+      "kind": "distractor",
+      "score": -0.0833,
+      "n": 13,
+      "frac": [
+        0.462,
+        0.308,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "resist",
+      "kind": "target",
+      "score": -0.0833,
+      "n": 15,
+      "frac": [
+        0.467,
+        0.333,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "take",
+      "kind": "noise",
+      "score": -0.0846,
+      "n": 945,
+      "frac": [
+        0.485,
+        0.325,
+        0.11
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "withdraw",
+      "kind": "target",
+      "score": -0.086,
+      "n": 6,
+      "frac": [
+        0.5,
+        0.333,
+        0.167
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "last",
+      "kind": "distractor",
+      "score": -0.0867,
+      "n": 11,
+      "frac": [
+        0.455,
+        0.182,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hand",
+      "kind": "noise",
+      "score": -0.0872,
+      "n": 546,
+      "frac": [
+        0.476,
+        0.264,
+        0.033
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "for",
+      "kind": "distractor",
+      "score": -0.0888,
+      "n": 125,
+      "frac": [
+        0.528,
+        0.48,
+        0.056
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "when",
+      "kind": "distractor",
+      "score": -0.0897,
+      "n": 32,
+      "frac": [
+        0.562,
+        0.656,
+        0.031
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "tell",
+      "kind": "noise",
+      "score": -0.091,
+      "n": 836,
+      "frac": [
+        0.59,
+        0.722,
+        0.099
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "again",
+      "kind": "distractor",
+      "score": -0.0921,
+      "n": 36,
+      "frac": [
+        0.5,
+        0.25,
+        0.056
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "huck",
+      "kind": "distractor",
+      "score": -0.0949,
+      "n": 17,
+      "frac": [
+        0.471,
+        0.059,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "became",
+      "kind": "distractor",
+      "score": -0.0959,
+      "n": 16,
+      "frac": [
+        0.5,
+        0.188,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "out",
+      "kind": "distractor",
+      "score": -0.0966,
+      "n": 79,
+      "frac": [
+        0.519,
+        0.253,
+        0.025
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "because",
+      "kind": "distractor",
+      "score": -0.0994,
+      "n": 11,
+      "frac": [
+        0.636,
+        0.818,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "down",
+      "kind": "distractor",
+      "score": -0.1003,
+      "n": 18,
+      "frac": [
+        0.556,
+        0.333,
+        0.056
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "and",
+      "kind": "distractor",
+      "score": -0.1009,
+      "n": 200,
+      "frac": [
+        0.595,
+        0.515,
+        0.07
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "now",
+      "kind": "distractor",
+      "score": -0.101,
+      "n": 36,
+      "frac": [
+        0.556,
+        0.333,
+        0.028
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "from",
+      "kind": "distractor",
+      "score": -0.1026,
+      "n": 26,
+      "frac": [
+        0.577,
+        0.423,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "almost",
+      "kind": "distractor",
+      "score": -0.104,
+      "n": 13,
+      "frac": [
+        0.615,
+        0.538,
+        0.077
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "ignore",
+      "kind": "target",
+      "score": -0.1068,
+      "n": 7,
+      "frac": [
+        0.571,
+        0.286,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "before",
+      "kind": "distractor",
+      "score": -0.1071,
+      "n": 19,
+      "frac": [
+        0.632,
+        0.526,
+        0.105
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "deny",
+      "kind": "seed",
+      "score": -0.1074,
+      "n": 12,
+      "frac": [
+        0.583,
+        0.333,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wasn",
+      "kind": "distractor",
+      "score": -0.1101,
+      "n": 73,
+      "frac": [
+        0.575,
+        0.178,
+        0.068
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "refuse",
+      "kind": "seed",
+      "score": -0.1102,
+      "n": 38,
+      "frac": [
+        0.632,
+        0.447,
+        0.105
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "after",
+      "kind": "distractor",
+      "score": -0.1109,
+      "n": 15,
+      "frac": [
+        0.6,
+        0.333,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "quite",
+      "kind": "distractor",
+      "score": -0.1112,
+      "n": 8,
+      "frac": [
+        0.625,
+        0.375,
+        0.125
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "happen",
+      "kind": "distractor",
+      "score": -0.1113,
+      "n": 19,
+      "frac": [
+        0.579,
+        0.211,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "marilla",
+      "kind": "distractor",
+      "score": -0.1138,
+      "n": 23,
+      "frac": [
+        0.609,
+        0.304,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "belong",
+      "kind": "distractor",
+      "score": -0.1144,
+      "n": 8,
+      "frac": [
+        0.625,
+        0.375,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "her",
+      "kind": "distractor",
+      "score": -0.1144,
+      "n": 8,
+      "frac": [
+        0.625,
+        0.375,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "then",
+      "kind": "distractor",
+      "score": -0.1154,
+      "n": 17,
+      "frac": [
+        0.588,
+        0.118,
+        0.059
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "even",
+      "kind": "distractor",
+      "score": -0.116,
+      "n": 14,
+      "frac": [
+        0.643,
+        0.429,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "suddenly",
+      "kind": "distractor",
+      "score": -0.1172,
+      "n": 11,
+      "frac": [
+        0.636,
+        0.364,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "good",
+      "kind": "distractor",
+      "score": -0.1181,
+      "n": 12,
+      "frac": [
+        0.667,
+        0.5,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "once",
+      "kind": "distractor",
+      "score": -0.1234,
+      "n": 23,
+      "frac": [
+        0.652,
+        0.261,
+        0.043
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "doe",
+      "kind": "distractor",
+      "score": -0.1235,
+      "n": 57,
+      "frac": [
+        0.649,
+        0.246,
+        0.035
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "died",
+      "kind": "distractor",
+      "score": -0.1242,
+      "n": 8,
+      "frac": [
+        0.625,
+        0.125,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "goe",
+      "kind": "distractor",
+      "score": -0.1242,
+      "n": 8,
+      "frac": [
+        0.625,
+        0.125,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "worri",
+      "kind": "distractor",
+      "score": -0.1255,
+      "n": 8,
+      "frac": [
+        0.75,
+        0.75,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "was",
+      "kind": "distractor",
+      "score": -0.1273,
+      "n": 200,
+      "frac": [
+        0.665,
+        0.22,
+        0.055
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "more",
+      "kind": "distractor",
+      "score": -0.1288,
+      "n": 11,
+      "frac": [
+        0.727,
+        0.545,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "all",
+      "kind": "distractor",
+      "score": -0.1293,
+      "n": 186,
+      "frac": [
+        0.677,
+        0.237,
+        0.054
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "ain",
+      "kind": "distractor",
+      "score": -0.1298,
+      "n": 77,
+      "frac": [
+        0.675,
+        0.195,
+        0.078
+      ],
+      "affect": 0.013
+    },
+    {
+      "lemma": "certainly",
+      "kind": "distractor",
+      "score": -0.1328,
+      "n": 20,
+      "frac": [
+        0.7,
+        0.3,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "that",
+      "kind": "distractor",
+      "score": -0.134,
+      "n": 43,
+      "frac": [
+        0.744,
+        0.488,
+        0.023
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "the",
+      "kind": "distractor",
+      "score": -0.1372,
+      "n": 36,
+      "frac": [
+        0.722,
+        0.25,
+        0.083
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "dear",
+      "kind": "distractor",
+      "score": -0.14,
+      "n": 13,
+      "frac": [
+        0.692,
+        0.077,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sometim",
+      "kind": "distractor",
+      "score": -0.14,
+      "n": 14,
+      "frac": [
+        0.786,
+        0.429,
+        0.214
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "too",
+      "kind": "distractor",
+      "score": -0.1409,
+      "n": 26,
+      "frac": [
+        0.731,
+        0.231,
+        0.038
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "well",
+      "kind": "distractor",
+      "score": -0.1412,
+      "n": 20,
+      "frac": [
+        0.75,
+        0.35,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "doesn",
+      "kind": "distractor",
+      "score": -0.1417,
+      "n": 54,
+      "frac": [
+        0.741,
+        0.241,
+        0.074
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "back",
+      "kind": "distractor",
+      "score": -0.1451,
+      "n": 28,
+      "frac": [
+        0.75,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "any",
+      "kind": "distractor",
+      "score": -0.1465,
+      "n": 14,
+      "frac": [
+        0.786,
+        0.357,
+        0.071
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "com",
+      "kind": "distractor",
+      "score": -0.1468,
+      "n": 21,
+      "frac": [
+        0.762,
+        0.238,
+        0.048
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "warn",
+      "kind": "distractor",
+      "score": -0.1468,
+      "n": 13,
+      "frac": [
+        0.769,
+        0.308,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "will",
+      "kind": "distractor",
+      "score": -0.1496,
+      "n": 200,
+      "frac": [
+        0.805,
+        0.385,
+        0.06
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "very",
+      "kind": "distractor",
+      "score": -0.1501,
+      "n": 36,
+      "frac": [
+        0.778,
+        0.25,
+        0.028
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "tom",
+      "kind": "distractor",
+      "score": -0.1508,
+      "n": 26,
+      "frac": [
+        0.808,
+        0.385,
+        0.038
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "lay",
+      "kind": "distractor",
+      "score": -0.151,
+      "n": 31,
+      "frac": [
+        0.774,
+        0.226,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "caught",
+      "kind": "distractor",
+      "score": -0.1512,
+      "n": 11,
+      "frac": [
+        0.818,
+        0.455,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "cri",
+      "kind": "distractor",
+      "score": -0.1519,
+      "n": 23,
+      "frac": [
+        0.826,
+        0.478,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sir",
+      "kind": "distractor",
+      "score": -0.1519,
+      "n": 9,
+      "frac": [
+        0.778,
+        0.222,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "struck",
+      "kind": "distractor",
+      "score": -0.1519,
+      "n": 9,
+      "frac": [
+        0.778,
+        0.222,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "threw",
+      "kind": "distractor",
+      "score": -0.1519,
+      "n": 9,
+      "frac": [
+        0.778,
+        0.222,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "smil",
+      "kind": "distractor",
+      "score": -0.1531,
+      "n": 15,
+      "frac": [
+        0.8,
+        0.267,
+        0.067
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "open",
+      "kind": "distractor",
+      "score": -0.154,
+      "n": 16,
+      "frac": [
+        0.812,
+        0.312,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "just",
+      "kind": "distractor",
+      "score": -0.1553,
+      "n": 140,
+      "frac": [
+        0.843,
+        0.386,
+        0.143
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "also",
+      "kind": "distractor",
+      "score": -0.1558,
+      "n": 25,
+      "frac": [
+        0.8,
+        0.24,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "been",
+      "kind": "distractor",
+      "score": -0.1561,
+      "n": 20,
+      "frac": [
+        0.8,
+        0.2,
+        0.05
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "one",
+      "kind": "distractor",
+      "score": -0.1567,
+      "n": 13,
+      "frac": [
+        0.846,
+        0.462,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "would",
+      "kind": "distractor",
+      "score": -0.157,
+      "n": 200,
+      "frac": [
+        0.83,
+        0.305,
+        0.095
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hung",
+      "kind": "distractor",
+      "score": -0.1574,
+      "n": 10,
+      "frac": [
+        0.8,
+        0.2,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "repli",
+      "kind": "distractor",
+      "score": -0.1574,
+      "n": 20,
+      "frac": [
+        0.8,
+        0.2,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "run",
+      "kind": "distractor",
+      "score": -0.1574,
+      "n": 10,
+      "frac": [
+        0.8,
+        0.2,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "what",
+      "kind": "distractor",
+      "score": -0.1575,
+      "n": 18,
+      "frac": [
+        0.889,
+        0.667,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "keep",
+      "kind": "distractor",
+      "score": -0.1587,
+      "n": 33,
+      "frac": [
+        0.848,
+        0.364,
+        0.091
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "better",
+      "kind": "distractor",
+      "score": -0.1606,
+      "n": 20,
+      "frac": [
+        0.85,
+        0.35,
+        0.05
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "join",
+      "kind": "distractor",
+      "score": -0.1611,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.5,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "weren",
+      "kind": "distractor",
+      "score": -0.1611,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.5,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "begin",
+      "kind": "distractor",
+      "score": -0.1613,
+      "n": 16,
+      "frac": [
+        0.812,
+        0.125,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "might",
+      "kind": "distractor",
+      "score": -0.1615,
+      "n": 170,
+      "frac": [
+        0.835,
+        0.247,
+        0.053
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "long",
+      "kind": "distractor",
+      "score": -0.1618,
+      "n": 20,
+      "frac": [
+        0.85,
+        0.35,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "rather",
+      "kind": "distractor",
+      "score": -0.1632,
+      "n": 32,
+      "frac": [
+        0.875,
+        0.406,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "some",
+      "kind": "distractor",
+      "score": -0.1634,
+      "n": 12,
+      "frac": [
+        0.833,
+        0.167,
+        0.083
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "anne",
+      "kind": "distractor",
+      "score": -0.1638,
+      "n": 20,
+      "frac": [
+        0.85,
+        0.3,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "help",
+      "kind": "distractor",
+      "score": -0.1649,
+      "n": 15,
+      "frac": [
+        0.933,
+        0.667,
+        0.067
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "roll",
+      "kind": "distractor",
+      "score": -0.1654,
+      "n": 11,
+      "frac": [
+        0.818,
+        0.091,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "done",
+      "kind": "distractor",
+      "score": -0.1655,
+      "n": 17,
+      "frac": [
+        0.824,
+        0.118,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "still",
+      "kind": "distractor",
+      "score": -0.1655,
+      "n": 12,
+      "frac": [
+        0.917,
+        0.5,
+        0.167
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "assure",
+      "kind": "distractor",
+      "score": -0.1674,
+      "n": 15,
+      "frac": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "push",
+      "kind": "distractor",
+      "score": -0.1677,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.25,
+        0.125
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "made",
+      "kind": "distractor",
+      "score": -0.1678,
+      "n": 99,
+      "frac": [
+        0.899,
+        0.424,
+        0.051
+      ],
+      "affect": 0.0202
+    },
+    {
+      "lemma": "may",
+      "kind": "distractor",
+      "score": -0.169,
+      "n": 127,
+      "frac": [
+        0.882,
+        0.268,
+        0.102
+      ],
+      "affect": 0.0333
+    },
+    {
+      "lemma": "lift",
+      "kind": "distractor",
+      "score": -0.1699,
+      "n": 11,
+      "frac": [
+        0.909,
+        0.455,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "forgive",
+      "kind": "distractor",
+      "score": -0.1701,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.8,
+        0.2
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "won",
+      "kind": "distractor",
+      "score": -0.1709,
+      "n": 200,
+      "frac": [
+        0.875,
+        0.225,
+        0.04
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "explain",
+      "kind": "distractor",
+      "score": -0.1709,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "order",
+      "kind": "distractor",
+      "score": -0.1709,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "not",
+      "kind": "distractor",
+      "score": -0.1713,
+      "n": 25,
+      "frac": [
+        0.88,
+        0.24,
+        0.04
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wouldn",
+      "kind": "distractor",
+      "score": -0.1717,
+      "n": 137,
+      "frac": [
+        0.891,
+        0.255,
+        0.088
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "often",
+      "kind": "distractor",
+      "score": -0.1719,
+      "n": 15,
+      "frac": [
+        0.933,
+        0.533,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "look",
+      "kind": "distractor",
+      "score": -0.172,
+      "n": 200,
+      "frac": [
+        0.895,
+        0.305,
+        0.035
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "let",
+      "kind": "distractor",
+      "score": -0.1721,
+      "n": 36,
+      "frac": [
+        1.0,
+        0.861,
+        0.028
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "fanci",
+      "kind": "distractor",
+      "score": -0.1722,
+      "n": 11,
+      "frac": [
+        1.0,
+        0.818,
+        0.091
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "said",
+      "kind": "distractor",
+      "score": -0.1724,
+      "n": 200,
+      "frac": [
+        0.93,
+        0.47,
+        0.05
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "return",
+      "kind": "distractor",
+      "score": -0.1726,
+      "n": 21,
+      "frac": [
+        0.905,
+        0.333,
+        0.048
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "meant",
+      "kind": "distractor",
+      "score": -0.1726,
+      "n": 52,
+      "frac": [
+        0.904,
+        0.346,
+        0.019
+      ],
+      "affect": 0.0192
+    },
+    {
+      "lemma": "remain",
+      "kind": "distractor",
+      "score": -0.1726,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.125,
+        0.125
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "believ",
+      "kind": "distractor",
+      "score": -0.1729,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.75,
+        0.167
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "thank",
+      "kind": "distractor",
+      "score": -0.173,
+      "n": 14,
+      "frac": [
+        1.0,
+        0.857,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "flew",
+      "kind": "distractor",
+      "score": -0.173,
+      "n": 12,
+      "frac": [
+        0.917,
+        0.417,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hadn",
+      "kind": "distractor",
+      "score": -0.1732,
+      "n": 59,
+      "frac": [
+        0.898,
+        0.237,
+        0.119
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "really",
+      "kind": "distractor",
+      "score": -0.1733,
+      "n": 76,
+      "frac": [
+        0.908,
+        0.303,
+        0.092
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "has",
+      "kind": "distractor",
+      "score": -0.1738,
+      "n": 107,
+      "frac": [
+        0.897,
+        0.262,
+        0.047
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "love",
+      "kind": "distractor",
+      "score": -0.174,
+      "n": 56,
+      "frac": [
+        0.964,
+        0.607,
+        0.054
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "fail",
+      "kind": "distractor",
+      "score": -0.1742,
+      "n": 14,
+      "frac": [
+        0.857,
+        0.071,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "came",
+      "kind": "distractor",
+      "score": -0.1748,
+      "n": 177,
+      "frac": [
+        0.893,
+        0.237,
+        0.011
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "kept",
+      "kind": "distractor",
+      "score": -0.1748,
+      "n": 43,
+      "frac": [
+        0.93,
+        0.395,
+        0.07
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "bet",
+      "kind": "distractor",
+      "score": -0.1752,
+      "n": 20,
+      "frac": [
+        1.0,
+        0.8,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "make",
+      "kind": "distractor",
+      "score": -0.1753,
+      "n": 29,
+      "frac": [
+        0.931,
+        0.345,
+        0.138
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "home",
+      "kind": "distractor",
+      "score": -0.1758,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.125,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "how",
+      "kind": "distractor",
+      "score": -0.1764,
+      "n": 22,
+      "frac": [
+        0.955,
+        0.5,
+        0.045
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "gues",
+      "kind": "distractor",
+      "score": -0.1767,
+      "n": 52,
+      "frac": [
+        1.0,
+        0.712,
+        0.077
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wonder",
+      "kind": "distractor",
+      "score": -0.1768,
+      "n": 39,
+      "frac": [
+        0.974,
+        0.59,
+        0.051
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "must",
+      "kind": "distractor",
+      "score": -0.1771,
+      "n": 200,
+      "frac": [
+        0.91,
+        0.23,
+        0.07
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "declar",
+      "kind": "distractor",
+      "score": -0.1771,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.75,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "began",
+      "kind": "distractor",
+      "score": -0.1775,
+      "n": 63,
+      "frac": [
+        0.921,
+        0.27,
+        0.079
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wish",
+      "kind": "distractor",
+      "score": -0.1777,
+      "n": 156,
+      "frac": [
+        1.0,
+        0.712,
+        0.038
+      ],
+      "affect": 0.025
+    },
+    {
+      "lemma": "drove",
+      "kind": "distractor",
+      "score": -0.1778,
+      "n": 14,
+      "frac": [
+        0.929,
+        0.357,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sang",
+      "kind": "distractor",
+      "score": -0.178,
+      "n": 10,
+      "frac": [
+        0.9,
+        0.2,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "pray",
+      "kind": "distractor",
+      "score": -0.178,
+      "n": 11,
+      "frac": [
+        1.0,
+        0.727,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "grow",
+      "kind": "distractor",
+      "score": -0.1786,
+      "n": 13,
+      "frac": [
+        0.923,
+        0.308,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hop",
+      "kind": "distractor",
+      "score": -0.1787,
+      "n": 22,
+      "frac": [
+        1.0,
+        0.682,
+        0.045
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "cross",
+      "kind": "distractor",
+      "score": -0.1792,
+      "n": 9,
+      "frac": [
+        0.889,
+        0.111,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "kiss",
+      "kind": "distractor",
+      "score": -0.1794,
+      "n": 13,
+      "frac": [
+        1.0,
+        0.692,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "laid",
+      "kind": "distractor",
+      "score": -0.1794,
+      "n": 13,
+      "frac": [
+        1.0,
+        0.692,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wait",
+      "kind": "distractor",
+      "score": -0.1796,
+      "n": 13,
+      "frac": [
+        0.923,
+        0.231,
+        0.077
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "turn",
+      "kind": "distractor",
+      "score": -0.1799,
+      "n": 50,
+      "frac": [
+        0.9,
+        0.14,
+        0.02
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "say",
+      "kind": "distractor",
+      "score": -0.1799,
+      "n": 140,
+      "frac": [
+        0.979,
+        0.543,
+        0.036
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "used",
+      "kind": "distractor",
+      "score": -0.1802,
+      "n": 72,
+      "frac": [
+        0.931,
+        0.306,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "dress",
+      "kind": "distractor",
+      "score": -0.1804,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.667,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "bore",
+      "kind": "distractor",
+      "score": -0.1807,
+      "n": 8,
+      "frac": [
+        0.875,
+        0.0,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "left",
+      "kind": "distractor",
+      "score": -0.1809,
+      "n": 33,
+      "frac": [
+        0.97,
+        0.455,
+        0.061
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "alway",
+      "kind": "distractor",
+      "score": -0.181,
+      "n": 91,
+      "frac": [
+        0.956,
+        0.385,
+        0.055
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "grew",
+      "kind": "distractor",
+      "score": -0.1811,
+      "n": 24,
+      "frac": [
+        0.917,
+        0.208,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "only",
+      "kind": "distractor",
+      "score": -0.1815,
+      "n": 95,
+      "frac": [
+        0.958,
+        0.326,
+        0.137
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "think",
+      "kind": "distractor",
+      "score": -0.1816,
+      "n": 200,
+      "frac": [
+        0.99,
+        0.55,
+        0.05
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "lov",
+      "kind": "distractor",
+      "score": -0.1817,
+      "n": 30,
+      "frac": [
+        1.0,
+        0.633,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "reach",
+      "kind": "distractor",
+      "score": -0.1818,
+      "n": 33,
+      "frac": [
+        0.909,
+        0.152,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "answer",
+      "kind": "distractor",
+      "score": -0.1822,
+      "n": 40,
+      "frac": [
+        0.925,
+        0.225,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "both",
+      "kind": "distractor",
+      "score": -0.1822,
+      "n": 16,
+      "frac": [
+        0.938,
+        0.25,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "did",
+      "kind": "distractor",
+      "score": -0.1824,
+      "n": 200,
+      "frac": [
+        0.955,
+        0.34,
+        0.06
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hear",
+      "kind": "distractor",
+      "score": -0.1826,
+      "n": 30,
+      "frac": [
+        1.0,
+        0.567,
+        0.067
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "find",
+      "kind": "distractor",
+      "score": -0.1827,
+      "n": 24,
+      "frac": [
+        0.958,
+        0.333,
+        0.083
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "ran",
+      "kind": "distractor",
+      "score": -0.1832,
+      "n": 29,
+      "frac": [
+        0.966,
+        0.414,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "thought",
+      "kind": "distractor",
+      "score": -0.1832,
+      "n": 200,
+      "frac": [
+        1.0,
+        0.565,
+        0.045
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "had",
+      "kind": "distractor",
+      "score": -0.1834,
+      "n": 200,
+      "frac": [
+        0.955,
+        0.295,
+        0.09
+      ],
+      "affect": 0.0083
+    },
+    {
+      "lemma": "hope",
+      "kind": "distractor",
+      "score": -0.1835,
+      "n": 75,
+      "frac": [
+        1.0,
+        0.587,
+        0.0
+      ],
+      "affect": 0.0533
+    },
+    {
+      "lemma": "mean",
+      "kind": "distractor",
+      "score": -0.1836,
+      "n": 81,
+      "frac": [
+        0.963,
+        0.383,
+        0.012
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "first",
+      "kind": "distractor",
+      "score": -0.1837,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.5,
+        0.125
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "pass",
+      "kind": "distractor",
+      "score": -0.1838,
+      "n": 24,
+      "frac": [
+        0.958,
+        0.333,
+        0.042
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "stood",
+      "kind": "distractor",
+      "score": -0.184,
+      "n": 52,
+      "frac": [
+        0.962,
+        0.346,
+        0.038
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "suppose",
+      "kind": "distractor",
+      "score": -0.1842,
+      "n": 118,
+      "frac": [
+        1.0,
+        0.559,
+        0.017
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "knew",
+      "kind": "distractor",
+      "score": -0.1842,
+      "n": 156,
+      "frac": [
+        0.994,
+        0.494,
+        0.064
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "imagin",
+      "kind": "distractor",
+      "score": -0.1844,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.5,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "shook",
+      "kind": "distractor",
+      "score": -0.1844,
+      "n": 20,
+      "frac": [
+        0.95,
+        0.3,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "someth",
+      "kind": "distractor",
+      "score": -0.1847,
+      "n": 16,
+      "frac": [
+        0.938,
+        0.188,
+        0.062
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "decid",
+      "kind": "distractor",
+      "score": -0.1848,
+      "n": 18,
+      "frac": [
+        1.0,
+        0.556,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "found",
+      "kind": "distractor",
+      "score": -0.1849,
+      "n": 127,
+      "frac": [
+        0.984,
+        0.433,
+        0.055
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "see",
+      "kind": "distractor",
+      "score": -0.1849,
+      "n": 133,
+      "frac": [
+        1.0,
+        0.541,
+        0.015
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "remember",
+      "kind": "distractor",
+      "score": -0.1851,
+      "n": 51,
+      "frac": [
+        0.98,
+        0.431,
+        0.02
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "work",
+      "kind": "distractor",
+      "score": -0.1851,
+      "n": 17,
+      "frac": [
+        0.941,
+        0.235,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "promis",
+      "kind": "distractor",
+      "score": -0.1852,
+      "n": 22,
+      "frac": [
+        1.0,
+        0.545,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "never",
+      "kind": "distractor",
+      "score": -0.1852,
+      "n": 200,
+      "frac": [
+        0.97,
+        0.31,
+        0.115
+      ],
+      "affect": 0.05
+    },
+    {
+      "lemma": "add",
+      "kind": "distractor",
+      "score": -0.1855,
+      "n": 34,
+      "frac": [
+        0.971,
+        0.382,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "know",
+      "kind": "distractor",
+      "score": -0.1859,
+      "n": 200,
+      "frac": [
+        1.0,
+        0.5,
+        0.04
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "seldom",
+      "kind": "distractor",
+      "score": -0.186,
+      "n": 12,
+      "frac": [
+        0.917,
+        0.083,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "cannot",
+      "kind": "distractor",
+      "score": -0.1862,
+      "n": 45,
+      "frac": [
+        1.0,
+        0.489,
+        0.044
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "dare",
+      "kind": "distractor",
+      "score": -0.1863,
+      "n": 40,
+      "frac": [
+        1.0,
+        0.5,
+        0.025
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "try",
+      "kind": "distractor",
+      "score": -0.1864,
+      "n": 22,
+      "frac": [
+        1.0,
+        0.455,
+        0.091
+      ],
+      "affect": 0.0455
+    },
+    {
+      "lemma": "couldn",
+      "kind": "distractor",
+      "score": -0.1865,
+      "n": 130,
+      "frac": [
+        0.977,
+        0.269,
+        0.185
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "met",
+      "kind": "distractor",
+      "score": -0.1866,
+      "n": 17,
+      "frac": [
+        1.0,
+        0.471,
+        0.059
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "like",
+      "kind": "distractor",
+      "score": -0.1866,
+      "n": 186,
+      "frac": [
+        0.962,
+        0.285,
+        0.038
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "ask",
+      "kind": "distractor",
+      "score": -0.1867,
+      "n": 111,
+      "frac": [
+        0.991,
+        0.423,
+        0.054
+      ],
+      "affect": 0.009
+    },
+    {
+      "lemma": "believe",
+      "kind": "distractor",
+      "score": -0.1868,
+      "n": 45,
+      "frac": [
+        1.0,
+        0.489,
+        0.022
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "fear",
+      "kind": "distractor",
+      "score": -0.1869,
+      "n": 16,
+      "frac": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "notic",
+      "kind": "distractor",
+      "score": -0.1869,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "didn",
+      "kind": "distractor",
+      "score": -0.187,
+      "n": 200,
+      "frac": [
+        0.975,
+        0.3,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "reckon",
+      "kind": "distractor",
+      "score": -0.1873,
+      "n": 82,
+      "frac": [
+        1.0,
+        0.476,
+        0.024
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "feel",
+      "kind": "distractor",
+      "score": -0.1873,
+      "n": 90,
+      "frac": [
+        0.978,
+        0.367,
+        0.011
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "need",
+      "kind": "distractor",
+      "score": -0.1873,
+      "n": 44,
+      "frac": [
+        0.977,
+        0.295,
+        0.114
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "stay",
+      "kind": "distractor",
+      "score": -0.1874,
+      "n": 17,
+      "frac": [
+        0.941,
+        0.176,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "expect",
+      "kind": "distractor",
+      "score": -0.1875,
+      "n": 33,
+      "frac": [
+        1.0,
+        0.485,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "shan",
+      "kind": "distractor",
+      "score": -0.1875,
+      "n": 13,
+      "frac": [
+        1.0,
+        0.385,
+        0.154
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "should",
+      "kind": "distractor",
+      "score": -0.1875,
+      "n": 200,
+      "frac": [
+        0.975,
+        0.33,
+        0.035
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "leave",
+      "kind": "distractor",
+      "score": -0.1877,
+      "n": 18,
+      "frac": [
+        1.0,
+        0.444,
+        0.056
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "spoke",
+      "kind": "distractor",
+      "score": -0.1877,
+      "n": 47,
+      "frac": [
+        0.979,
+        0.34,
+        0.043
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "get",
+      "kind": "distractor",
+      "score": -0.1877,
+      "n": 103,
+      "frac": [
+        0.961,
+        0.243,
+        0.049
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hate",
+      "kind": "distractor",
+      "score": -0.1878,
+      "n": 39,
+      "frac": [
+        1.0,
+        0.462,
+        0.026
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "ever",
+      "kind": "distractor",
+      "score": -0.1879,
+      "n": 102,
+      "frac": [
+        0.971,
+        0.294,
+        0.039
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "went",
+      "kind": "distractor",
+      "score": -0.188,
+      "n": 200,
+      "frac": [
+        0.965,
+        0.26,
+        0.045
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wrote",
+      "kind": "distractor",
+      "score": -0.1882,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.25,
+        0.333
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "held",
+      "kind": "distractor",
+      "score": -0.1885,
+      "n": 18,
+      "frac": [
+        0.944,
+        0.167,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "read",
+      "kind": "distractor",
+      "score": -0.1885,
+      "n": 46,
+      "frac": [
+        0.978,
+        0.217,
+        0.196
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "can",
+      "kind": "distractor",
+      "score": -0.1887,
+      "n": 200,
+      "frac": [
+        0.975,
+        0.275,
+        0.075
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "want",
+      "kind": "distractor",
+      "score": -0.189,
+      "n": 200,
+      "frac": [
+        0.995,
+        0.405,
+        0.025
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "care",
+      "kind": "distractor",
+      "score": -0.1891,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.444,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "declare",
+      "kind": "distractor",
+      "score": -0.1891,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.444,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "gather",
+      "kind": "distractor",
+      "score": -0.1891,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.444,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hat",
+      "kind": "distractor",
+      "score": -0.1891,
+      "n": 18,
+      "frac": [
+        1.0,
+        0.444,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "forgot",
+      "kind": "distractor",
+      "score": -0.1891,
+      "n": 42,
+      "frac": [
+        1.0,
+        0.429,
+        0.024
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "call",
+      "kind": "distractor",
+      "score": -0.1891,
+      "n": 90,
+      "frac": [
+        1.0,
+        0.422,
+        0.033
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "liv",
+      "kind": "distractor",
+      "score": -0.1894,
+      "n": 16,
+      "frac": [
+        1.0,
+        0.438,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "fell",
+      "kind": "distractor",
+      "score": -0.1899,
+      "n": 25,
+      "frac": [
+        0.96,
+        0.16,
+        0.08
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "set",
+      "kind": "distractor",
+      "score": -0.1899,
+      "n": 25,
+      "frac": [
+        0.96,
+        0.16,
+        0.08
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "lik",
+      "kind": "distractor",
+      "score": -0.19,
+      "n": 86,
+      "frac": [
+        1.0,
+        0.407,
+        0.023
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "exclaim",
+      "kind": "distractor",
+      "score": -0.1902,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.417,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "presently",
+      "kind": "distractor",
+      "score": -0.1902,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.417,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "saw",
+      "kind": "distractor",
+      "score": -0.1902,
+      "n": 160,
+      "frac": [
+        1.0,
+        0.412,
+        0.006
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "were",
+      "kind": "distractor",
+      "score": -0.1902,
+      "n": 200,
+      "frac": [
+        0.965,
+        0.225,
+        0.01
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "watch",
+      "kind": "distractor",
+      "score": -0.1902,
+      "n": 28,
+      "frac": [
+        1.0,
+        0.393,
+        0.036
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "shouldn",
+      "kind": "distractor",
+      "score": -0.1906,
+      "n": 40,
+      "frac": [
+        0.975,
+        0.225,
+        0.075
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "dunno",
+      "kind": "distractor",
+      "score": -0.1908,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.4,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "rose",
+      "kind": "distractor",
+      "score": -0.1908,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.4,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "heard",
+      "kind": "distractor",
+      "score": -0.1909,
+      "n": 57,
+      "frac": [
+        1.0,
+        0.386,
+        0.018
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "about",
+      "kind": "distractor",
+      "score": -0.191,
+      "n": 15,
+      "frac": [
+        1.0,
+        0.267,
+        0.2
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "don",
+      "kind": "distractor",
+      "score": -0.191,
+      "n": 200,
+      "frac": [
+        0.995,
+        0.285,
+        0.13
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "lost",
+      "kind": "distractor",
+      "score": -0.1911,
+      "n": 16,
+      "frac": [
+        1.0,
+        0.312,
+        0.125
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "understand",
+      "kind": "distractor",
+      "score": -0.1914,
+      "n": 13,
+      "frac": [
+        1.0,
+        0.385,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "haf",
+      "kind": "distractor",
+      "score": -0.1916,
+      "n": 19,
+      "frac": [
+        1.0,
+        0.211,
+        0.263
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "felt",
+      "kind": "distractor",
+      "score": -0.1916,
+      "n": 157,
+      "frac": [
+        1.0,
+        0.357,
+        0.038
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "ought",
+      "kind": "distractor",
+      "score": -0.1918,
+      "n": 84,
+      "frac": [
+        0.976,
+        0.226,
+        0.036
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "agre",
+      "kind": "distractor",
+      "score": -0.1918,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.375,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "forget",
+      "kind": "distractor",
+      "score": -0.1918,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.375,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hit",
+      "kind": "distractor",
+      "score": -0.1921,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.222,
+        0.222
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "danc",
+      "kind": "distractor",
+      "score": -0.1922,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.3,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "receiv",
+      "kind": "distractor",
+      "score": -0.1922,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.3,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "could",
+      "kind": "distractor",
+      "score": -0.1923,
+      "n": 200,
+      "frac": [
+        0.995,
+        0.275,
+        0.095
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "put",
+      "kind": "distractor",
+      "score": -0.1925,
+      "n": 87,
+      "frac": [
+        0.989,
+        0.276,
+        0.034
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "beg",
+      "kind": "distractor",
+      "score": -0.1925,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.25,
+        0.167
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "drew",
+      "kind": "distractor",
+      "score": -0.1925,
+      "n": 14,
+      "frac": [
+        1.0,
+        0.357,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "resolv",
+      "kind": "distractor",
+      "score": -0.1925,
+      "n": 14,
+      "frac": [
+        1.0,
+        0.357,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "most",
+      "kind": "distractor",
+      "score": -0.1927,
+      "n": 15,
+      "frac": [
+        1.0,
+        0.267,
+        0.133
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "enjoy",
+      "kind": "distractor",
+      "score": -0.1927,
+      "n": 17,
+      "frac": [
+        1.0,
+        0.353,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "stopp",
+      "kind": "distractor",
+      "score": -0.193,
+      "n": 27,
+      "frac": [
+        1.0,
+        0.296,
+        0.074
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "laugh",
+      "kind": "distractor",
+      "score": -0.1931,
+      "n": 33,
+      "frac": [
+        1.0,
+        0.303,
+        0.061
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "continu",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.333,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "lean",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.333,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "offer",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.333,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "glanc",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 17,
+      "frac": [
+        1.0,
+        0.294,
+        0.059
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "tri",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 79,
+      "frac": [
+        0.987,
+        0.241,
+        0.038
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "soon",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 22,
+      "frac": [
+        1.0,
+        0.273,
+        0.091
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "please",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 19,
+      "frac": [
+        1.0,
+        0.263,
+        0.105
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "shall",
+      "kind": "distractor",
+      "score": -0.1935,
+      "n": 200,
+      "frac": [
+        0.99,
+        0.22,
+        0.09
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "needn",
+      "kind": "distractor",
+      "score": -0.1936,
+      "n": 40,
+      "frac": [
+        0.975,
+        0.15,
+        0.075
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "have",
+      "kind": "distractor",
+      "score": -0.1938,
+      "n": 200,
+      "frac": [
+        1.0,
+        0.255,
+        0.105
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "going",
+      "kind": "distractor",
+      "score": -0.1939,
+      "n": 39,
+      "frac": [
+        0.974,
+        0.154,
+        0.051
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "whisper",
+      "kind": "distractor",
+      "score": -0.1941,
+      "n": 19,
+      "frac": [
+        1.0,
+        0.316,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "dropp",
+      "kind": "distractor",
+      "score": -0.1944,
+      "n": 15,
+      "frac": [
+        1.0,
+        0.267,
+        0.067
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "come",
+      "kind": "distractor",
+      "score": -0.1944,
+      "n": 58,
+      "frac": [
+        0.983,
+        0.207,
+        0.017
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "follow",
+      "kind": "distractor",
+      "score": -0.1948,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.3,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "paus",
+      "kind": "distractor",
+      "score": -0.1948,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.3,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "are",
+      "kind": "distractor",
+      "score": -0.1955,
+      "n": 200,
+      "frac": [
+        1.0,
+        0.245,
+        0.055
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "fancy",
+      "kind": "distractor",
+      "score": -0.1958,
+      "n": 11,
+      "frac": [
+        1.0,
+        0.273,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "intend",
+      "kind": "distractor",
+      "score": -0.1961,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "mustn",
+      "kind": "distractor",
+      "score": -0.1961,
+      "n": 20,
+      "frac": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "learn",
+      "kind": "distractor",
+      "score": -0.1962,
+      "n": 19,
+      "frac": [
+        1.0,
+        0.263,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "pick",
+      "kind": "distractor",
+      "score": -0.1962,
+      "n": 19,
+      "frac": [
+        1.0,
+        0.263,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hasn",
+      "kind": "distractor",
+      "score": -0.1967,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "plann",
+      "kind": "distractor",
+      "score": -0.1967,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "possess",
+      "kind": "distractor",
+      "score": -0.1967,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.25,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "got",
+      "kind": "distractor",
+      "score": -0.1968,
+      "n": 160,
+      "frac": [
+        0.994,
+        0.188,
+        0.044
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "haven",
+      "kind": "distractor",
+      "score": -0.1973,
+      "n": 70,
+      "frac": [
+        1.0,
+        0.143,
+        0.143
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wore",
+      "kind": "distractor",
+      "score": -0.1973,
+      "n": 17,
+      "frac": [
+        1.0,
+        0.235,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "hurri",
+      "kind": "distractor",
+      "score": -0.1978,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.222,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "slipp",
+      "kind": "distractor",
+      "score": -0.1978,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.222,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wear",
+      "kind": "distractor",
+      "score": -0.1978,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.222,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sat",
+      "kind": "distractor",
+      "score": -0.1981,
+      "n": 94,
+      "frac": [
+        0.989,
+        0.16,
+        0.0
+      ],
+      "affect": 0.0106
+    },
+    {
+      "lemma": "play",
+      "kind": "distractor",
+      "score": -0.1981,
+      "n": 14,
+      "frac": [
+        1.0,
+        0.214,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sprang",
+      "kind": "distractor",
+      "score": -0.1981,
+      "n": 14,
+      "frac": [
+        1.0,
+        0.214,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "wash",
+      "kind": "distractor",
+      "score": -0.1984,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.125,
+        0.125
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "slept",
+      "kind": "distractor",
+      "score": -0.1987,
+      "n": 10,
+      "frac": [
+        1.0,
+        0.2,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "talk",
+      "kind": "distractor",
+      "score": -0.1989,
+      "n": 51,
+      "frac": [
+        1.0,
+        0.118,
+        0.118
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "listen",
+      "kind": "distractor",
+      "score": -0.1991,
+      "n": 14,
+      "frac": [
+        1.0,
+        0.143,
+        0.071
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "walk",
+      "kind": "distractor",
+      "score": -0.1992,
+      "n": 55,
+      "frac": [
+        1.0,
+        0.164,
+        0.036
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "chose",
+      "kind": "distractor",
+      "score": -0.1994,
+      "n": 11,
+      "frac": [
+        1.0,
+        0.182,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "discover",
+      "kind": "distractor",
+      "score": -0.1994,
+      "n": 11,
+      "frac": [
+        1.0,
+        0.182,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sit",
+      "kind": "distractor",
+      "score": -0.2,
+      "n": 12,
+      "frac": [
+        1.0,
+        0.167,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "start",
+      "kind": "distractor",
+      "score": -0.2006,
+      "n": 33,
+      "frac": [
+        1.0,
+        0.091,
+        0.091
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "enter",
+      "kind": "distractor",
+      "score": -0.2009,
+      "n": 14,
+      "frac": [
+        1.0,
+        0.143,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "sew",
+      "kind": "distractor",
+      "score": -0.2016,
+      "n": 8,
+      "frac": [
+        1.0,
+        0.125,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "climb",
+      "kind": "distractor",
+      "score": -0.2022,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.111,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "crept",
+      "kind": "distractor",
+      "score": -0.2022,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.111,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "dono",
+      "kind": "distractor",
+      "score": -0.2022,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.111,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "mov",
+      "kind": "distractor",
+      "score": -0.2022,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.111,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "part",
+      "kind": "distractor",
+      "score": -0.2022,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.111,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "speak",
+      "kind": "distractor",
+      "score": -0.2022,
+      "n": 9,
+      "frac": [
+        1.0,
+        0.111,
+        0.0
+      ],
+      "affect": 0.0
+    },
+    {
+      "lemma": "live",
+      "kind": "distractor",
+      "score": -0.2024,
+      "n": 19,
+      "frac": [
+        1.0,
+        0.105,
+        0.0
+      ],
+      "affect": 0.0
+    }
+  ],
+  "selectional_meta": {
+    "prior": [
+      0.8073,
+      0.3725,
+      0.0601
+    ],
+    "seed_frac": [
+      0.5574,
+      0.4098,
+      0.082
+    ],
+    "seed_n": 61,
+    "weights": [
+      -0.2065,
+      0.0391,
+      0.0255
+    ],
+    "n_ranked": 329,
+    "n_distractors": 310
+  },
+  "brain_structures": {
+    "selectional_preference": "left pMTG/IFG argument-structure typing (meaning-independent) -- Resnik selectional association by pure corpus counting",
+    "affect_gate": "OFC/vmPFC interoceptive-affective appraisal over the situation model (Andrews/Vigliocco/Vinson 2009 non-distributional 2nd channel) -- reused hdlab.situation_model_accumulate view2_goal_outcome bit-identical",
+    "mint_operator": "Harnad 1990 / Cangelosi 2000 symbolic-theft composition of already-grounded atoms (the validated self-extension mint)"
+  },
+  "caveats": [
+    "TINY seed (3 verbs); recovery targets held out disjoint from seeds (fairness).",
+    "Argument roles via ordered token windows (W=4) -- normalize_tokens returns a bag-of-words SET (no position), so ordered tokenization supplements it; still pure glass-box counting, NO dependency parser / embedding / LLM.",
+    "Animate/abstract lexicons are small general glass-box assets (pronouns+person-nouns / informational nouns), proper-noun-free, NOT tuned to test items.",
+    "Low-frequency targets (spurn~1, withdraw~4) may fall below MIN_OCC=4 and drop from the rankable set -- recall@K is over RANKABLE targets; n_targets_rankable reported.",
+    "Corpus counting only; n (verb occurrences) modest; DIRECTIONAL, not a powered benchmark.",
+    "view2 / predictive_coding / self_improving_loop reused bit-identical from the validated loop; the loop re-run monkey-patches ONLY V1_WITHHOLD (restored after)."
+  ],
+  "elapsed_s": 5.281077100000402,
+  "ts_iso": "2026-08-04T17:00:26.992475+00:00",
+  "anchor_name": "lexicon_induction_selectional_association_v1",
+  "config": {
+    "corpora": [
+      "little_women",
+      "anne_of_green_gables",
+      "tom_sawyer",
+      "wizard_of_oz"
+    ],
+    "window": 4,
+    "min_occ": 4,
+    "top_k": 10,
+    "affect_seeds": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "seed_lemmas": [
+      "conceal",
+      "deny",
+      "refuse"
+    ],
+    "target_lemmas": [
+      "decline",
+      "forbid",
+      "hide",
+      "ignore",
+      "neglect",
+      "prevent",
+      "resist",
+      "spurn",
+      "withdraw"
+    ],
+    "noise_lemmas": [
+      "bring",
+      "carry",
+      "give",
+      "hand",
+      "send",
+      "show",
+      "take",
+      "tell"
+    ]
+  },
+  "prereg": "preregs/2026-08-04_lexicon_induction_selectional_association_v1.md",
+  "cites": [
+    "notes/research_autonomous_grounded_knowledge_induction_prior_art_2026-08-04.md",
+    "experiments/exp_self_extension_grounded_realprose_v1.py",
+    "Resnik 1996 selectional association",
+    "Andrews/Vigliocco/Vinson 2009 distributional-affect cap"
+  ]
+}
