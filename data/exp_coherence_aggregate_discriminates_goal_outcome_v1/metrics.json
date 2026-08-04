@@ -1,0 +1,1864 @@
+{
+  "verdict": "HARD_FAIL_GOAL_OUTCOME_DOES_NOT_EXTEND",
+  "verdict_msg": "HARD_FAIL_GOAL_OUTCOME_DOES_NOT_EXTEND: ARM_A(coref pos-control) fires_all_seeds=True net_auto_mean=1.0 recover_frac_mean=1.0 | ARM_B(goal_outcome) matched=0.0 foilheavy=1.0 ownerheavy=0.0 load_range=1.0 load_artifact_ruled_out=n | ARM_C(shuffled) adopt_rate=0.0 collapses=True | aggregate_decodability_extends_to_goal_outcome=n",
+  "summary": "ARM_A(coref pos-control) fires_all_seeds=True net_auto_mean=1.0 recover_frac_mean=1.0 | ARM_B(goal_outcome) matched=0.0 foilheavy=1.0 ownerheavy=0.0 load_range=1.0 load_artifact_ruled_out=n | ARM_C(shuffled) adopt_rate=0.0 collapses=True | aggregate_decodability_extends_to_goal_outcome=n",
+  "n_seeds": 5,
+  "means": {
+    "coref_net_auto": 1.0,
+    "coref_recover_frac": 1.0,
+    "coref_agreement_rate": 0.5,
+    "go_matched_adopt_rate": 0.0,
+    "go_foilheavy_adopt_rate": 1.0,
+    "go_ownerheavy_adopt_rate": 0.0,
+    "go_shuffled_adopt_rate": 0.0
+  },
+  "bands": {
+    "coref_fires_all_seeds": true,
+    "load_artifact_ruled_out": false,
+    "load_range": 1.0,
+    "shuffled_collapses": true,
+    "shuffled_survives": false
+  },
+  "aggregate_decodability_extends_to_goal_outcome": "n",
+  "load_artifact_ruled_out_flag": "n",
+  "per_seed_coref_rows_seed0": [
+    {
+      "passage_id": "g5v_benefactor_debtor",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_flor_silin_neighbors",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_flor_silin_wife",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_gentlehand_lad_dick_pony",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_harry_gordon_master",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_henry_wilkins_cherries",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_sherman_child_mother_bible",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_sherman_roguish_student",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g5v_tonish_colt",
+      "applicable": true,
+      "agg_coherence_delta": 0.5572284758090973,
+      "n_changed_flagged": 1,
+      "net_gold": 0,
+      "auto_adopt": true,
+      "oracle_adopt": false,
+      "matches_oracle": false
+    },
+    {
+      "passage_id": "g6v_beethoven_hugh",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g6v_duke_porter_voter",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g6v_dying_boy_schoolmaster",
+      "applicable": true,
+      "agg_coherence_delta": 0.9597923047840595,
+      "n_changed_flagged": 1,
+      "net_gold": 1,
+      "auto_adopt": true,
+      "oracle_adopt": true,
+      "matches_oracle": true
+    },
+    {
+      "passage_id": "g6v_joab_man_absalom",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g6v_rip_cocked_hat",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g6v_rip_daughter_mother",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g6v_rip_judith_child",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g6v_rip_old_woman",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    },
+    {
+      "passage_id": "g6v_rip_van_bummel",
+      "applicable": false,
+      "agg_coherence_delta": null,
+      "n_changed_flagged": 0,
+      "net_gold": null,
+      "auto_adopt": false,
+      "oracle_adopt": false,
+      "matches_oracle": null
+    }
+  ],
+  "per_seed_go_rows_seed0": {
+    "matched": [
+      {
+        "id": "go_matched_0_amy_vs_jo",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      },
+      {
+        "id": "go_matched_1_tom_vs_sid",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      },
+      {
+        "id": "go_matched_2_beth_vs_meg",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      },
+      {
+        "id": "go_matched_3_ruth_vs_ann",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      }
+    ],
+    "foilheavy": [
+      {
+        "id": "go_asym_foilheavy_0_amy_vs_jo",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.3746159840375185
+      },
+      {
+        "id": "go_asym_foilheavy_1_tom_vs_sid",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.1962905926629901
+      },
+      {
+        "id": "go_asym_foilheavy_2_beth_vs_meg",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.20187847781926394
+      },
+      {
+        "id": "go_asym_foilheavy_3_ruth_vs_ann",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.37129757879301906
+      }
+    ],
+    "ownerheavy": [
+      {
+        "id": "go_asym_ownerheavy_0_amy_vs_jo",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": -0.34467468317598104
+      },
+      {
+        "id": "go_asym_ownerheavy_1_tom_vs_sid",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": -0.16781043075025082
+      },
+      {
+        "id": "go_asym_ownerheavy_2_beth_vs_meg",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": -0.1714359000325203
+      },
+      {
+        "id": "go_asym_ownerheavy_3_ruth_vs_ann",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": -0.346583123318851
+      }
+    ],
+    "shuffled": [
+      {
+        "id": "go_matched_0_amy_vs_jo_SHUFFLED",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      },
+      {
+        "id": "go_matched_1_tom_vs_sid_SHUFFLED",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      },
+      {
+        "id": "go_matched_2_beth_vs_meg_SHUFFLED",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      },
+      {
+        "id": "go_matched_3_ruth_vs_ann_SHUFFLED",
+        "adopt_coherent": false,
+        "applicable": true,
+        "agg_coherence_delta": 0.0
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "brain_fidelity_caveat": "route_passage's aggregate is a SINGLE-PASS integration over the whole passage/item -- a brain-COMPATIBLE approximation of Kintsch construction-integration / CA3 recurrent attractor settling, not the full recurrent fixed-point. A HARD_PASS here shows the discrimination is ALREADY carried by the one-shot aggregate (no settling needed to see it in THIS mechanism); a HARD_FAIL_GOAL_OUTCOME_DOES_NOT_EXTEND leaves open whether a settling mechanism (not yet built) would recover it -- this cell only rules out the one-shot decodability-aggregate, not every possible mechanism.",
+  "run_mode": "full",
+  "elapsed_s": 0.9217724999980419,
+  "ts_iso": "2026-08-04T20:17:59.346578+00:00",
+  "anchor_name": "coherence_aggregate_discriminates_goal_outcome_v1",
+  "config": {
+    "coref_d": 1024,
+    "coref_role_vocab": [
+      "agent",
+      "experiencer",
+      "theme",
+      "patient",
+      "recipient",
+      "possessor",
+      "addressee",
+      "goal",
+      "instrument"
+    ],
+    "coref_max_event_slots": 16,
+    "go_d": 1024,
+    "go_role_vocab": [
+      "GOAL",
+      "ACTION_AGAINST",
+      "OUTCOME_UNMET",
+      "OUTCOME_MET"
+    ],
+    "go_max_event_slots": 8,
+    "abstain_band": 0.02,
+    "flag_min_n_compatible": 2,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_coref_passages": 18,
+    "n_go_matched": 4,
+    "n_go_foilheavy": 4,
+    "n_go_ownerheavy": 4,
+    "n_go_shuffled": 4
+  },
+  "prereg": "preregs/2026-08-04_coherence_aggregate_discriminates_goal_outcome_v1.md",
+  "cites": [
+    "hdlab/self_improving_loop.py (route_passage, reused verbatim)",
+    "experiments/exp_coref_autonomous_fix_router_v1.py (atom 29609 config)",
+    "experiments/exp_situation_model_goal_outcome_dimension_v1.py (GO role vocab, sourced)",
+    "experiments/exp_coherence_margin_discriminates_goal_outcome_v1.py (atomic-grain HARD_FAIL this builds on)"
+  ],
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "coref_n_passages": 18,
+      "coref_n_applicable": 2,
+      "coref_net_auto": 1,
+      "coref_net_oracle": 1,
+      "coref_recover_frac": 1.0,
+      "coref_agreement_rate": 0.5,
+      "coref_fires": true,
+      "coref_rows": [
+        {
+          "passage_id": "g5v_benefactor_debtor",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_neighbors",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_wife",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_gentlehand_lad_dick_pony",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_harry_gordon_master",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_henry_wilkins_cherries",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_child_mother_bible",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_roguish_student",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_tonish_colt",
+          "applicable": true,
+          "agg_coherence_delta": 0.5572284758090973,
+          "n_changed_flagged": 1,
+          "net_gold": 0,
+          "auto_adopt": true,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "passage_id": "g6v_beethoven_hugh",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_duke_porter_voter",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "applicable": true,
+          "agg_coherence_delta": 0.9597923047840595,
+          "n_changed_flagged": 1,
+          "net_gold": 1,
+          "auto_adopt": true,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "passage_id": "g6v_joab_man_absalom",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_cocked_hat",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_daughter_mother",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_judith_child",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_old_woman",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_van_bummel",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        }
+      ],
+      "go_matched_adopt_rate": 0.0,
+      "go_foilheavy_adopt_rate": 1.0,
+      "go_ownerheavy_adopt_rate": 0.0,
+      "go_shuffled_adopt_rate": 0.0,
+      "go_matched_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ],
+      "go_foilheavy_rows": [
+        {
+          "id": "go_asym_foilheavy_0_amy_vs_jo",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.3746159840375185
+        },
+        {
+          "id": "go_asym_foilheavy_1_tom_vs_sid",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.1962905926629901
+        },
+        {
+          "id": "go_asym_foilheavy_2_beth_vs_meg",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.20187847781926394
+        },
+        {
+          "id": "go_asym_foilheavy_3_ruth_vs_ann",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.37129757879301906
+        }
+      ],
+      "go_ownerheavy_rows": [
+        {
+          "id": "go_asym_ownerheavy_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.34467468317598104
+        },
+        {
+          "id": "go_asym_ownerheavy_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.16781043075025082
+        },
+        {
+          "id": "go_asym_ownerheavy_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.1714359000325203
+        },
+        {
+          "id": "go_asym_ownerheavy_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.346583123318851
+        }
+      ],
+      "go_shuffled_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ]
+    },
+    "1": {
+      "seed": 1,
+      "coref_n_passages": 18,
+      "coref_n_applicable": 2,
+      "coref_net_auto": 1,
+      "coref_net_oracle": 1,
+      "coref_recover_frac": 1.0,
+      "coref_agreement_rate": 0.5,
+      "coref_fires": true,
+      "coref_rows": [
+        {
+          "passage_id": "g5v_benefactor_debtor",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_neighbors",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_wife",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_gentlehand_lad_dick_pony",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_harry_gordon_master",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_henry_wilkins_cherries",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_child_mother_bible",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_roguish_student",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_tonish_colt",
+          "applicable": true,
+          "agg_coherence_delta": 0.5980841796845198,
+          "n_changed_flagged": 1,
+          "net_gold": 0,
+          "auto_adopt": true,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "passage_id": "g6v_beethoven_hugh",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_duke_porter_voter",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "applicable": true,
+          "agg_coherence_delta": 0.9871313907206059,
+          "n_changed_flagged": 1,
+          "net_gold": 1,
+          "auto_adopt": true,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "passage_id": "g6v_joab_man_absalom",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_cocked_hat",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_daughter_mother",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_judith_child",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_old_woman",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_van_bummel",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        }
+      ],
+      "go_matched_adopt_rate": 0.0,
+      "go_foilheavy_adopt_rate": 1.0,
+      "go_ownerheavy_adopt_rate": 0.0,
+      "go_shuffled_adopt_rate": 0.0,
+      "go_matched_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ],
+      "go_foilheavy_rows": [
+        {
+          "id": "go_asym_foilheavy_0_amy_vs_jo",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.34981334139592946
+        },
+        {
+          "id": "go_asym_foilheavy_1_tom_vs_sid",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.16741344053298235
+        },
+        {
+          "id": "go_asym_foilheavy_2_beth_vs_meg",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.187306790612638
+        },
+        {
+          "id": "go_asym_foilheavy_3_ruth_vs_ann",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.3875955701805651
+        }
+      ],
+      "go_ownerheavy_rows": [
+        {
+          "id": "go_asym_ownerheavy_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.3424124540761113
+        },
+        {
+          "id": "go_asym_ownerheavy_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.17712422460317612
+        },
+        {
+          "id": "go_asym_ownerheavy_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.1981524475850165
+        },
+        {
+          "id": "go_asym_ownerheavy_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.34093878604471684
+        }
+      ],
+      "go_shuffled_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ]
+    },
+    "2": {
+      "seed": 2,
+      "coref_n_passages": 18,
+      "coref_n_applicable": 2,
+      "coref_net_auto": 1,
+      "coref_net_oracle": 1,
+      "coref_recover_frac": 1.0,
+      "coref_agreement_rate": 0.5,
+      "coref_fires": true,
+      "coref_rows": [
+        {
+          "passage_id": "g5v_benefactor_debtor",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_neighbors",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_wife",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_gentlehand_lad_dick_pony",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_harry_gordon_master",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_henry_wilkins_cherries",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_child_mother_bible",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_roguish_student",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_tonish_colt",
+          "applicable": true,
+          "agg_coherence_delta": 0.6181351933628321,
+          "n_changed_flagged": 1,
+          "net_gold": 0,
+          "auto_adopt": true,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "passage_id": "g6v_beethoven_hugh",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_duke_porter_voter",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "applicable": true,
+          "agg_coherence_delta": 0.954438216984272,
+          "n_changed_flagged": 1,
+          "net_gold": 1,
+          "auto_adopt": true,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "passage_id": "g6v_joab_man_absalom",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_cocked_hat",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_daughter_mother",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_judith_child",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_old_woman",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_van_bummel",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        }
+      ],
+      "go_matched_adopt_rate": 0.0,
+      "go_foilheavy_adopt_rate": 1.0,
+      "go_ownerheavy_adopt_rate": 0.0,
+      "go_shuffled_adopt_rate": 0.0,
+      "go_matched_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ],
+      "go_foilheavy_rows": [
+        {
+          "id": "go_asym_foilheavy_0_amy_vs_jo",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.3790582427754998
+        },
+        {
+          "id": "go_asym_foilheavy_1_tom_vs_sid",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.1738309282809496
+        },
+        {
+          "id": "go_asym_foilheavy_2_beth_vs_meg",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.18730432633310556
+        },
+        {
+          "id": "go_asym_foilheavy_3_ruth_vs_ann",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.3554433879908174
+        }
+      ],
+      "go_ownerheavy_rows": [
+        {
+          "id": "go_asym_ownerheavy_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.3730785227380693
+        },
+        {
+          "id": "go_asym_ownerheavy_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.1817419696599245
+        },
+        {
+          "id": "go_asym_ownerheavy_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.17624728940427303
+        },
+        {
+          "id": "go_asym_ownerheavy_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.35166479693725705
+        }
+      ],
+      "go_shuffled_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ]
+    },
+    "3": {
+      "seed": 3,
+      "coref_n_passages": 18,
+      "coref_n_applicable": 2,
+      "coref_net_auto": 1,
+      "coref_net_oracle": 1,
+      "coref_recover_frac": 1.0,
+      "coref_agreement_rate": 0.5,
+      "coref_fires": true,
+      "coref_rows": [
+        {
+          "passage_id": "g5v_benefactor_debtor",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_neighbors",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_wife",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_gentlehand_lad_dick_pony",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_harry_gordon_master",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_henry_wilkins_cherries",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_child_mother_bible",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_roguish_student",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_tonish_colt",
+          "applicable": true,
+          "agg_coherence_delta": 0.5823890212923288,
+          "n_changed_flagged": 1,
+          "net_gold": 0,
+          "auto_adopt": true,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "passage_id": "g6v_beethoven_hugh",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_duke_porter_voter",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "applicable": true,
+          "agg_coherence_delta": 0.963174469769001,
+          "n_changed_flagged": 1,
+          "net_gold": 1,
+          "auto_adopt": true,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "passage_id": "g6v_joab_man_absalom",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_cocked_hat",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_daughter_mother",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_judith_child",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_old_woman",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_van_bummel",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        }
+      ],
+      "go_matched_adopt_rate": 0.0,
+      "go_foilheavy_adopt_rate": 1.0,
+      "go_ownerheavy_adopt_rate": 0.0,
+      "go_shuffled_adopt_rate": 0.0,
+      "go_matched_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ],
+      "go_foilheavy_rows": [
+        {
+          "id": "go_asym_foilheavy_0_amy_vs_jo",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.33289710059762
+        },
+        {
+          "id": "go_asym_foilheavy_1_tom_vs_sid",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.16835801023989916
+        },
+        {
+          "id": "go_asym_foilheavy_2_beth_vs_meg",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.1727129016071558
+        },
+        {
+          "id": "go_asym_foilheavy_3_ruth_vs_ann",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.3592534624040127
+        }
+      ],
+      "go_ownerheavy_rows": [
+        {
+          "id": "go_asym_ownerheavy_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.3585866540670395
+        },
+        {
+          "id": "go_asym_ownerheavy_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.18241576594300568
+        },
+        {
+          "id": "go_asym_ownerheavy_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.18843833729624748
+        },
+        {
+          "id": "go_asym_ownerheavy_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.3518919935449958
+        }
+      ],
+      "go_shuffled_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ]
+    },
+    "4": {
+      "seed": 4,
+      "coref_n_passages": 18,
+      "coref_n_applicable": 2,
+      "coref_net_auto": 1,
+      "coref_net_oracle": 1,
+      "coref_recover_frac": 1.0,
+      "coref_agreement_rate": 0.5,
+      "coref_fires": true,
+      "coref_rows": [
+        {
+          "passage_id": "g5v_benefactor_debtor",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_neighbors",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_flor_silin_wife",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_gentlehand_lad_dick_pony",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_harry_gordon_master",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_henry_wilkins_cherries",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_child_mother_bible",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_sherman_roguish_student",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g5v_tonish_colt",
+          "applicable": true,
+          "agg_coherence_delta": 0.5510304756462574,
+          "n_changed_flagged": 1,
+          "net_gold": 0,
+          "auto_adopt": true,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "passage_id": "g6v_beethoven_hugh",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_duke_porter_voter",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "applicable": true,
+          "agg_coherence_delta": 0.9766274653375149,
+          "n_changed_flagged": 1,
+          "net_gold": 1,
+          "auto_adopt": true,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "passage_id": "g6v_joab_man_absalom",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_cocked_hat",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_daughter_mother",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_judith_child",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_old_woman",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        },
+        {
+          "passage_id": "g6v_rip_van_bummel",
+          "applicable": false,
+          "agg_coherence_delta": null,
+          "n_changed_flagged": 0,
+          "net_gold": null,
+          "auto_adopt": false,
+          "oracle_adopt": false,
+          "matches_oracle": null
+        }
+      ],
+      "go_matched_adopt_rate": 0.0,
+      "go_foilheavy_adopt_rate": 1.0,
+      "go_ownerheavy_adopt_rate": 0.0,
+      "go_shuffled_adopt_rate": 0.0,
+      "go_matched_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ],
+      "go_foilheavy_rows": [
+        {
+          "id": "go_asym_foilheavy_0_amy_vs_jo",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.37368723563849926
+        },
+        {
+          "id": "go_asym_foilheavy_1_tom_vs_sid",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.17400552239269018
+        },
+        {
+          "id": "go_asym_foilheavy_2_beth_vs_meg",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.18057798640802503
+        },
+        {
+          "id": "go_asym_foilheavy_3_ruth_vs_ann",
+          "adopt_coherent": true,
+          "applicable": true,
+          "agg_coherence_delta": 0.3654600619338453
+        }
+      ],
+      "go_ownerheavy_rows": [
+        {
+          "id": "go_asym_ownerheavy_0_amy_vs_jo",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.37402571574784815
+        },
+        {
+          "id": "go_asym_ownerheavy_1_tom_vs_sid",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.18077641818672419
+        },
+        {
+          "id": "go_asym_ownerheavy_2_beth_vs_meg",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.1778608886525035
+        },
+        {
+          "id": "go_asym_ownerheavy_3_ruth_vs_ann",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": -0.37922083865851164
+        }
+      ],
+      "go_shuffled_rows": [
+        {
+          "id": "go_matched_0_amy_vs_jo_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_1_tom_vs_sid_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_2_beth_vs_meg_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        },
+        {
+          "id": "go_matched_3_ruth_vs_ann_SHUFFLED",
+          "adopt_coherent": false,
+          "applicable": true,
+          "agg_coherence_delta": 0.0
+        }
+      ]
+    }
+  }
+}
