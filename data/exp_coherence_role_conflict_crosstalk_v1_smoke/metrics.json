@@ -1,0 +1,113 @@
+{
+  "verdict": "HARD_FAIL_CARDINALITY_BREACH",
+  "verdict_msg": "HARD_FAIL_CARDINALITY_BREACH: SCOPE=[stated/single-world role-conflict-embedded goal-owner discrimination -- NOT general goal-owner attribution, NOT general role-content coherence. A HARD-PASS is a single-item (N=1 real passage, 2-direction identity-flip-tested) existence proof that crosstalk-based coherence generalizes from identity-merge collisions (coref) to role-conflict collisions (foil independently busy elsewhere in the register); it is NOT a general role-content-coherence capability.] || POSITIVE_CONTROL reproduces=True (fires_all_seeds=True net_auto_mean=1.0) | ORIG(conflict on foil old_gentleman, true owner Henry) delta_mean=0.964393 survives_all_seeds=True | FLIP(identity/load-direction-flip: conflict on Henry, true owner old_gentleman) delta_mean=0.971748 survives_all_seeds=True | SHUFFLED(role_seq reversed on ORIG) delta_mean=0.9642 reproduces=True collapses=False | artifact_signature_fired=False (orig_delta_exact_zero_any=False flip_sign_flips_any=False)",
+  "summary": "SCOPE=[stated/single-world role-conflict-embedded goal-owner discrimination -- NOT general goal-owner attribution, NOT general role-content coherence. A HARD-PASS is a single-item (N=1 real passage, 2-direction identity-flip-tested) existence proof that crosstalk-based coherence generalizes from identity-merge collisions (coref) to role-conflict collisions (foil independently busy elsewhere in the register); it is NOT a general role-content-coherence capability.] || POSITIVE_CONTROL reproduces=True (fires_all_seeds=True net_auto_mean=1.0) | ORIG(conflict on foil old_gentleman, true owner Henry) delta_mean=0.964393 survives_all_seeds=True | FLIP(identity/load-direction-flip: conflict on Henry, true owner old_gentleman) delta_mean=0.971748 survives_all_seeds=True | SHUFFLED(role_seq reversed on ORIG) delta_mean=0.9642 reproduces=True collapses=False | artifact_signature_fired=False (orig_delta_exact_zero_any=False flip_sign_flips_any=False)",
+  "n_seeds": 2,
+  "scope_label": "stated/single-world role-conflict-embedded goal-owner discrimination -- NOT general goal-owner attribution, NOT general role-content coherence. A HARD-PASS is a single-item (N=1 real passage, 2-direction identity-flip-tested) existence proof that crosstalk-based coherence generalizes from identity-merge collisions (coref) to role-conflict collisions (foil independently busy elsewhere in the register); it is NOT a general role-content-coherence capability.",
+  "means": {
+    "pc_net_auto": 1.0,
+    "orig_delta": 0.964393,
+    "flip_delta": 0.971748,
+    "shuffled_delta": 0.9642
+  },
+  "bands": {
+    "positive_control_reproduces": true,
+    "orig_survives_all_seeds": true,
+    "flip_survives_all_seeds": true,
+    "shuffled_collapses": false,
+    "shuffled_reproduces": true,
+    "artifact_signature_fired": false,
+    "orig_delta_exact_zero_any": false,
+    "flip_sign_flips_any": false
+  },
+  "load_match_assertion_held": true,
+  "brain_fidelity_caveat": "route_passage's aggregate is a single-pass integration over the whole passage/item -- a brain-COMPATIBLE approximation of Kintsch construction-integration / CA3 recurrent attractor settling, not full recurrent relaxation. A HARD_PASS here licenses the one-shot crosstalk-collision test as sufficient for THIS role-conflict-embedded item, not as fully brain-faithful settling, and NOT as a general role-content-coherence capability (see scope_label).",
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "pc_net_auto": 1,
+      "pc_fires": true,
+      "orig_delta": 0.9656781740486622,
+      "orig_adopt": true,
+      "orig_applicable": true,
+      "flip_delta": 0.9664759784936905,
+      "flip_adopt": true,
+      "flip_applicable": true,
+      "shuffled_delta": 0.9780988413840532,
+      "shuffled_adopt": true,
+      "shuffled_applicable": true,
+      "reuse_slot_orig": 0,
+      "reuse_role_orig": "agent",
+      "reuse_slot_flip": 1,
+      "reuse_role_flip": "agent"
+    },
+    "1": {
+      "seed": 1,
+      "pc_net_auto": 1,
+      "pc_fires": true,
+      "orig_delta": 0.9631077460944653,
+      "orig_adopt": true,
+      "orig_applicable": true,
+      "flip_delta": 0.977019215002656,
+      "flip_adopt": true,
+      "flip_applicable": true,
+      "shuffled_delta": 0.9503004029393196,
+      "shuffled_adopt": true,
+      "shuffled_applicable": true,
+      "reuse_slot_orig": 0,
+      "reuse_role_orig": "agent",
+      "reuse_slot_flip": 1,
+      "reuse_role_flip": "agent"
+    }
+  },
+  "run_mode": "smoke",
+  "elapsed_s": 0.5075205999964965,
+  "ts_iso": "2026-08-04T21:14:24.236966+00:00",
+  "anchor_name": "coherence_role_conflict_crosstalk_v1",
+  "config": {
+    "coref_d": 1024,
+    "coref_role_vocab": [
+      "agent",
+      "experiencer",
+      "theme",
+      "patient",
+      "recipient",
+      "possessor",
+      "addressee",
+      "goal",
+      "instrument"
+    ],
+    "coref_max_event_slots": 16,
+    "go_role_vocab_ext": [
+      "agent",
+      "experiencer",
+      "theme",
+      "patient",
+      "recipient",
+      "possessor",
+      "addressee",
+      "goal",
+      "instrument",
+      "GOAL",
+      "ACTION_AGAINST",
+      "OUTCOME_MET",
+      "OUTCOME_UNMET"
+    ],
+    "abstain_band": 0.02,
+    "seeds": [
+      0,
+      1
+    ],
+    "n_g5g6_passages": 18,
+    "n_items_per_seed": 3
+  },
+  "prereg": "notes/prereg_coherence_role_conflict_crosstalk_v1_2026-08-04.md",
+  "endorsement_note": "notes/research_goal_owner_coherence_vs_mentalizing_framing_audit.md",
+  "cites": [
+    "hdlab/self_improving_loop.py (route_passage, reused verbatim)",
+    "hdlab/situation_model_accumulate.py (AccumulateRegister.register/decode -- the crosstalk mechanism under test: register() bundles ALL (role,slot) bindings for an entity; decode() unbinds by slot then cleanup-argmaxes role)",
+    "exp_coherence_fair_load_matched_retest_v1.py (load_passages, _passage_bundle, GOLD_PATH_G5G6, ROLE_VOCAB/COREF_D/MAX_EVENT_SLOTS/COREF_SEED/GO_ROLE_VOCAB_EXT/ABSTAIN_BAND, sourced verbatim; item-construction PATTERN reused, role-conflict slot reuse is this cell's own addition)",
+    "exp_coherence_aggregate_discriminates_goal_outcome_v1.py (_coref_arm positive-control, _shuffle_role_seq, _arms_must_differ_check, hash_stable, reused verbatim)",
+    "notes/research_goal_owner_coherence_vs_mentalizing_framing_audit.md (the endorsing framing drill, 3 mandatory scope corrections applied verbatim)"
+  ]
+}
