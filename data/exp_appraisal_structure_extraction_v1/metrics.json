@@ -1,0 +1,1067 @@
+{
+  "verdict": "NEGATIVE_CONTROL_FAILED",
+  "verdict_msg": "NEGATIVE_CONTROL_FAILED: differentiation 0.250->0.500 (n=20->20) | causal_arm_b_acc 0.450->0.500 vs arm_a_ceiling=1.000 chance=0.500 | random_degenerate_acc=0.600 beats_chance=True | anti_overfit_n12_acc 0.600->0.600 | theta_reuse_digest_match=True",
+  "summary": "differentiation 0.250->0.500 (n=20->20) | causal_arm_b_acc 0.450->0.500 vs arm_a_ceiling=1.000 chance=0.500 | random_degenerate_acc=0.600 beats_chance=True | anti_overfit_n12_acc 0.600->0.600 | theta_reuse_digest_match=True",
+  "contamination_check": {
+    "all_theta_digests_match_earned_run": true,
+    "per_seed_digest_match": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true
+    }
+  },
+  "means": {
+    "differentiation_rate_before": 0.25,
+    "differentiation_rate_after": 0.5,
+    "causal_arm_b_acc_before": 0.45,
+    "causal_arm_b_acc_after": 0.5,
+    "causal_arm_a_ceiling": 1.0,
+    "causal_chance": 0.5,
+    "random_degenerate_acc": 0.6,
+    "anti_overfit_n12_acc_before": 0.6,
+    "anti_overfit_n12_acc_after": 0.6
+  },
+  "negative_control_diagnosis": {
+    "n_random_degenerate_not_differentiated": 12,
+    "n_of_those_still_correct": 9,
+    "rec_leak_rate_when_not_differentiated": 0.75,
+    "note": "RANDOM_DEGENERATE extraction beats chance (0.600 > 0.5) NOT because random guessing carries signal, but because when it fails to differentiate (coh_real=[0,0]), the REUSED 'rec' appraisal feature (built from the real gold true_blocker_span vs distractor_span line positions, unchanged from the parent transfer cell) still correlates with the correct answer for 3 of the 4 causal items, leaking signal through a channel this fix does not touch and was never asked to control. This means causal_arm_b_acc is NOT a clean measure of extraction quality in either the BASELINE or FIXED condition -- the differentiation-rate metric (which depends only on coh/valence, not rec) is the trustworthy signal for this fix specifically."
+  },
+  "gates": {
+    "random_degenerate_beats_chance": true,
+    "fixed_beats_baseline_causal": true,
+    "fixed_beats_chance_causal": false,
+    "anti_overfit_helps_or_neutral": true
+  },
+  "run_mode": "full",
+  "elapsed_s": 134.41008289996535,
+  "ts_iso": "2026-08-04T00:14:12.416080+00:00",
+  "anchor_name": "appraisal_structure_extraction_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "train_cfg": {
+      "n_train": 10000,
+      "n_eval": 1500
+    },
+    "conditions": [
+      "BASELINE",
+      "FIXED",
+      "RANDOM_DEGENERATE"
+    ]
+  },
+  "expected_n_units": 17,
+  "measured_n_units": 17,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "BASELINE": "99fb0fce5237c101d199928f447638c66d0d5b1be598209de71cf63999ab2e8f",
+    "FIXED": "9ed26eff5719d5149a9aa893db64e160260177597ebef1d3da77087b3bee7a3b",
+    "RANDOM_DEGENERATE": "0ca82a7c3f5635b84f5a736ccc3c24d3515e6a4b750857aa60984abb2c0a1cf7"
+  },
+  "harm_stems_table": [
+    "angry",
+    "bitter",
+    "blame",
+    "cheat",
+    "cros",
+    "deceive",
+    "fault",
+    "hard",
+    "harm",
+    "hurt",
+    "pay",
+    "punish",
+    "revenge",
+    "scold",
+    "slap",
+    "slapp",
+    "spite",
+    "spiteful",
+    "trick",
+    "vindictive",
+    "wrong"
+  ],
+  "help_stems_table": [
+    "care",
+    "careful",
+    "carefully",
+    "comfort",
+    "defend",
+    "gentle",
+    "guard",
+    "help",
+    "kind",
+    "nurse",
+    "protect",
+    "protective",
+    "rescue",
+    "safe",
+    "safety",
+    "shield",
+    "softly",
+    "soothe",
+    "warm"
+  ],
+  "per_condition_seed_causal": {
+    "BASELINE|0": {
+      "condition": "BASELINE",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "BASELINE|1": {
+      "condition": "BASELINE",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "BASELINE|2": {
+      "condition": "BASELINE",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "BASELINE|3": {
+      "condition": "BASELINE",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "BASELINE|4": {
+      "condition": "BASELINE",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "FIXED|0": {
+      "condition": "FIXED",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "FIXED|1": {
+      "condition": "FIXED",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "FIXED|2": {
+      "condition": "FIXED",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "FIXED|3": {
+      "condition": "FIXED",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "FIXED|4": {
+      "condition": "FIXED",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|0": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|1": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|2": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|3": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "HELP",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|4": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "true_valence_extracted": "HARM",
+          "distr_valence_extracted": "HARM",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true
+        },
+        {
+          "id": "grapp_mcca_003",
+          "true_valence_extracted": "HELP",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_004",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        },
+        {
+          "id": "grapp_mcca_005",
+          "true_valence_extracted": "NA",
+          "distr_valence_extracted": "NA",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false
+        }
+      ]
+    }
+  },
+  "anti_overfit_by_condition": {
+    "BASELINE": {
+      "condition": "BASELINE",
+      "rows": [
+        {
+          "id": "relinf_unstated_001",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_002",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_003",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_004",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_005",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_006",
+          "gold_valence": "HELP",
+          "pred_valence": "HELP",
+          "scorable": true,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_007",
+          "gold_valence": "HARM",
+          "pred_valence": "HELP",
+          "scorable": true,
+          "correct": false
+        },
+        {
+          "id": "relinf_unstated_008",
+          "gold_valence": "HARM",
+          "pred_valence": "HARM",
+          "scorable": true,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_009",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_010",
+          "gold_valence": "HELP",
+          "pred_valence": "HELP",
+          "scorable": true,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_011",
+          "gold_valence": "HELP",
+          "pred_valence": "HARM",
+          "scorable": true,
+          "correct": false
+        },
+        {
+          "id": "relinf_unstated_012",
+          "gold_valence": "NA",
+          "pred_valence": "HARM",
+          "scorable": false,
+          "correct": true
+        }
+      ],
+      "n_total": 12,
+      "n_scorable": 5,
+      "acc_on_scorable_subset": 0.6
+    },
+    "FIXED": {
+      "condition": "FIXED",
+      "rows": [
+        {
+          "id": "relinf_unstated_001",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_002",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_003",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_004",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_005",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_006",
+          "gold_valence": "HELP",
+          "pred_valence": "HELP",
+          "scorable": true,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_007",
+          "gold_valence": "HARM",
+          "pred_valence": "HELP",
+          "scorable": true,
+          "correct": false
+        },
+        {
+          "id": "relinf_unstated_008",
+          "gold_valence": "HARM",
+          "pred_valence": "HARM",
+          "scorable": true,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_009",
+          "gold_valence": "NA",
+          "pred_valence": "NA",
+          "scorable": false,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_010",
+          "gold_valence": "HELP",
+          "pred_valence": "HELP",
+          "scorable": true,
+          "correct": true
+        },
+        {
+          "id": "relinf_unstated_011",
+          "gold_valence": "HELP",
+          "pred_valence": "HARM",
+          "scorable": true,
+          "correct": false
+        },
+        {
+          "id": "relinf_unstated_012",
+          "gold_valence": "NA",
+          "pred_valence": "HARM",
+          "scorable": false,
+          "correct": true
+        }
+      ],
+      "n_total": 12,
+      "n_scorable": 5,
+      "acc_on_scorable_subset": 0.6
+    }
+  },
+  "note_not_fixed_this_cycle": "grapp_mcca_001 (zero lexicon coverage, MISSING-FACT, e.g. 'drove the knife to the hilt' has no violent-verb lexicon entry) and grapp_mcca_004/grapp_mcca_005 (MISSING-PRIMITIVE: omission/irony-valence and clause-scoped action targeting respectively) are diagnosed but deliberately NOT fixed this cycle -- both would require a new mechanism, not a bounded reuse/supply fix, per the error-flavor routing discipline."
+}
