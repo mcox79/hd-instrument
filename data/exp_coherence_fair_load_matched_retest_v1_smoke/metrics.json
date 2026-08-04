@@ -1,0 +1,578 @@
+{
+  "verdict": "HARD_FAIL_CARDINALITY_BREACH",
+  "verdict_msg": "HARD_FAIL_CARDINALITY_BREACH: POSITIVE_CONTROL reproduces_net_auto_1.0=True (fires_all_seeds=True net_auto_mean=1.0) | ARM1(coref load-matched, n_items=6) net_auto_mean=2.0 agreement_mean=0.6667 survives=True | ARM1_SHUFFLED adopt_rate_mean=0.6667 collapses=False | ARM2(goal-outcome fair, N=1 DIRECTIONAL ONLY) adopt_true_owner_all_seeds=True shuffled_adopts_any=True survives_directional=False",
+  "summary": "POSITIVE_CONTROL reproduces_net_auto_1.0=True (fires_all_seeds=True net_auto_mean=1.0) | ARM1(coref load-matched, n_items=6) net_auto_mean=2.0 agreement_mean=0.6667 survives=True | ARM1_SHUFFLED adopt_rate_mean=0.6667 collapses=False | ARM2(goal-outcome fair, N=1 DIRECTIONAL ONLY) adopt_true_owner_all_seeds=True shuffled_adopts_any=True survives_directional=False",
+  "n_seeds": 2,
+  "means": {
+    "pc_net_auto": 1.0,
+    "arm1_net_auto": 2.0,
+    "arm1_agreement_rate": 0.6667,
+    "arm1_shuffled_adopt_rate": 0.6667
+  },
+  "bands": {
+    "positive_control_reproduces": true,
+    "arm1_n_items": 6,
+    "arm1_survives": true,
+    "arm1_shuffled_collapses": false,
+    "arm2_adopt_all_seeds": true,
+    "arm2_shuffled_adopt_any": true,
+    "arm2_survives_directional": false
+  },
+  "arm1_item_ids": [
+    "g5v_benefactor_debtor_decay_window_matched",
+    "g5v_flor_silin_wife_decay_window_matched",
+    "g6v_dying_boy_schoolmaster_principle_b_deixis_matched",
+    "g6v_dying_boy_schoolmaster_decay_window_matched",
+    "g6v_joab_man_absalom_decay_window_matched",
+    "g6v_rip_cocked_hat_decay_window_matched"
+  ],
+  "arm2_data_availability_note": "Only 1 real g5g6 passage (henry_wilkins_cherries) had a clean-enough goal narrative AND non-coref-mis-resolved entity boundaries; g5v_tonish_colt has a goal narrative (catch/tame colt) but strict_cb badly mis-resolves the colt entity (merges into Tonish's cluster at 3/4 mentions) so was EXCLUDED, not patched. N=1 is far below the drill's own N>=10 threshold -- directional only, never used alone for a verdict band.",
+  "per_seed_arm1_rows_seed0": [
+    {
+      "id": "g5v_benefactor_debtor_decay_window_matched",
+      "passage_id": "g5v_benefactor_debtor",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.3399898763746023,
+      "auto_adopt": true,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": false
+    },
+    {
+      "id": "g5v_flor_silin_wife_decay_window_matched",
+      "passage_id": "g5v_flor_silin_wife",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.0,
+      "auto_adopt": false,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": true
+    },
+    {
+      "id": "g6v_dying_boy_schoolmaster_principle_b_deixis_matched",
+      "passage_id": "g6v_dying_boy_schoolmaster",
+      "cand_name": "principle_b_deixis",
+      "applicable": true,
+      "agg_coherence_delta": 0.954635102301836,
+      "auto_adopt": true,
+      "net_gold": 1,
+      "oracle_adopt": true,
+      "matches_oracle": true
+    },
+    {
+      "id": "g6v_dying_boy_schoolmaster_decay_window_matched",
+      "passage_id": "g6v_dying_boy_schoolmaster",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.9760994911193848,
+      "auto_adopt": true,
+      "net_gold": 1,
+      "oracle_adopt": true,
+      "matches_oracle": true
+    },
+    {
+      "id": "g6v_joab_man_absalom_decay_window_matched",
+      "passage_id": "g6v_joab_man_absalom",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.470926433801651,
+      "auto_adopt": true,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": false
+    },
+    {
+      "id": "g6v_rip_cocked_hat_decay_window_matched",
+      "passage_id": "g6v_rip_cocked_hat",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.0,
+      "auto_adopt": false,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": true
+    }
+  ],
+  "per_seed_arm1_shuffled_rows_seed0": [
+    {
+      "id": "g5v_benefactor_debtor_decay_window_matched_SHUFFLED",
+      "passage_id": "g5v_benefactor_debtor",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.36567410081624985,
+      "auto_adopt": true,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": false
+    },
+    {
+      "id": "g5v_flor_silin_wife_decay_window_matched_SHUFFLED",
+      "passage_id": "g5v_flor_silin_wife",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.0,
+      "auto_adopt": false,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": true
+    },
+    {
+      "id": "g6v_dying_boy_schoolmaster_principle_b_deixis_matched_SHUFFLED",
+      "passage_id": "g6v_dying_boy_schoolmaster",
+      "cand_name": "principle_b_deixis",
+      "applicable": true,
+      "agg_coherence_delta": 0.9521120563149452,
+      "auto_adopt": true,
+      "net_gold": 1,
+      "oracle_adopt": true,
+      "matches_oracle": true
+    },
+    {
+      "id": "g6v_dying_boy_schoolmaster_decay_window_matched_SHUFFLED",
+      "passage_id": "g6v_dying_boy_schoolmaster",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.9902065498754382,
+      "auto_adopt": true,
+      "net_gold": 1,
+      "oracle_adopt": true,
+      "matches_oracle": true
+    },
+    {
+      "id": "g6v_joab_man_absalom_decay_window_matched_SHUFFLED",
+      "passage_id": "g6v_joab_man_absalom",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.4868328180164099,
+      "auto_adopt": true,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": false
+    },
+    {
+      "id": "g6v_rip_cocked_hat_decay_window_matched_SHUFFLED",
+      "passage_id": "g6v_rip_cocked_hat",
+      "cand_name": "decay_window",
+      "applicable": true,
+      "agg_coherence_delta": 0.0,
+      "auto_adopt": false,
+      "net_gold": 0,
+      "oracle_adopt": false,
+      "matches_oracle": true
+    }
+  ],
+  "per_seed_arm2_row_seed0": {
+    "id": "go_henry_wilkins_matched",
+    "adopt_coherent": true,
+    "applicable": true,
+    "agg_coherence_delta": 0.11434273608028889
+  },
+  "per_seed_arm2_row_shuffled_seed0": {
+    "id": "go_henry_wilkins_matched_SHUFFLED",
+    "adopt_coherent": true,
+    "applicable": true,
+    "agg_coherence_delta": 0.08496581949293613
+  },
+  "load_match_assertion_held": true,
+  "brain_fidelity_caveat": "route_passage's aggregate is a single-pass integration over the whole passage/item -- a brain-COMPATIBLE approximation of Kintsch construction-integration / CA3 recurrent attractor settling, not full recurrent relaxation (per the design drill Section 2/3f). A HARD_PASS here licenses the one-shot approximation as sufficient for THIS item difficulty, not as fully brain-faithful.",
+  "run_mode": "smoke",
+  "elapsed_s": 0.5669111999995948,
+  "ts_iso": "2026-08-04T20:39:03.293833+00:00",
+  "anchor_name": "coherence_fair_load_matched_retest_v1",
+  "config": {
+    "coref_d": 1024,
+    "coref_role_vocab": [
+      "agent",
+      "experiencer",
+      "theme",
+      "patient",
+      "recipient",
+      "possessor",
+      "addressee",
+      "goal",
+      "instrument"
+    ],
+    "coref_max_event_slots": 16,
+    "go_role_vocab_ext": [
+      "agent",
+      "experiencer",
+      "theme",
+      "patient",
+      "recipient",
+      "possessor",
+      "addressee",
+      "goal",
+      "instrument",
+      "GOAL",
+      "ACTION_AGAINST",
+      "OUTCOME_MET",
+      "OUTCOME_UNMET"
+    ],
+    "load_match_tol": 0,
+    "cand_mechanisms": [
+      "principle_b_deixis",
+      "decay_window"
+    ],
+    "abstain_band": 0.02,
+    "seeds": [
+      0,
+      1
+    ],
+    "n_g5g6_passages": 18,
+    "n_arm2_real_passages": 1
+  },
+  "prereg": "notes/research_relational_backward_reach_coherence_selector.md (Sections 3, 6, 7)",
+  "cites": [
+    "hdlab/self_improving_loop.py (route_passage, reused verbatim)",
+    "exp_coherence_aggregate_discriminates_goal_outcome_v1.py (_coref_arm positive-control, _shuffle_role_seq, _arms_must_differ_check, hash_stable, reused verbatim)",
+    "experiments/exp_coref_autonomous_fix_router_v1.py (run_decay_window trap, reused verbatim)",
+    "experiments/exp_wire_coref_accumulate_situation_model_v1.py (ROLE_VOCAB/D/MAX_EVENT_SLOTS/SEED/event_slots_for/name_anchor_map, sourced)",
+    "notes/research_relational_backward_reach_coherence_selector.md (the design drill)"
+  ],
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "pc_net_auto": 1,
+      "pc_fires": true,
+      "pc_n_applicable": 2,
+      "arm1_n_items": 6,
+      "arm1_n_applicable": 6,
+      "arm1_net_auto": 2,
+      "arm1_net_oracle": 2,
+      "arm1_agreement_rate": 0.6666666666666666,
+      "arm1_item_ids": [
+        "g5v_benefactor_debtor_decay_window_matched",
+        "g5v_flor_silin_wife_decay_window_matched",
+        "g6v_dying_boy_schoolmaster_principle_b_deixis_matched",
+        "g6v_dying_boy_schoolmaster_decay_window_matched",
+        "g6v_joab_man_absalom_decay_window_matched",
+        "g6v_rip_cocked_hat_decay_window_matched"
+      ],
+      "arm1_rows": [
+        {
+          "id": "g5v_benefactor_debtor_decay_window_matched",
+          "passage_id": "g5v_benefactor_debtor",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.3399898763746023,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g5v_flor_silin_wife_decay_window_matched",
+          "passage_id": "g5v_flor_silin_wife",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_principle_b_deixis_matched",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "principle_b_deixis",
+          "applicable": true,
+          "agg_coherence_delta": 0.954635102301836,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_decay_window_matched",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.9760994911193848,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_joab_man_absalom_decay_window_matched",
+          "passage_id": "g6v_joab_man_absalom",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.470926433801651,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g6v_rip_cocked_hat_decay_window_matched",
+          "passage_id": "g6v_rip_cocked_hat",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        }
+      ],
+      "arm1_shuffled_adopt_rate": 0.6666666666666666,
+      "arm1_shuffled_rows": [
+        {
+          "id": "g5v_benefactor_debtor_decay_window_matched_SHUFFLED",
+          "passage_id": "g5v_benefactor_debtor",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.36567410081624985,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g5v_flor_silin_wife_decay_window_matched_SHUFFLED",
+          "passage_id": "g5v_flor_silin_wife",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_principle_b_deixis_matched_SHUFFLED",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "principle_b_deixis",
+          "applicable": true,
+          "agg_coherence_delta": 0.9521120563149452,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_decay_window_matched_SHUFFLED",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.9902065498754382,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_joab_man_absalom_decay_window_matched_SHUFFLED",
+          "passage_id": "g6v_joab_man_absalom",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.4868328180164099,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g6v_rip_cocked_hat_decay_window_matched_SHUFFLED",
+          "passage_id": "g6v_rip_cocked_hat",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        }
+      ],
+      "arm2_adopt_coherent": true,
+      "arm2_adopt_coherent_shuffled": true,
+      "arm2_row": {
+        "id": "go_henry_wilkins_matched",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.11434273608028889
+      },
+      "arm2_row_shuffled": {
+        "id": "go_henry_wilkins_matched_SHUFFLED",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.08496581949293613
+      },
+      "arm2_data_availability_note": "Only 1 real g5g6 passage (henry_wilkins_cherries) had a clean-enough goal narrative AND non-coref-mis-resolved entity boundaries; g5v_tonish_colt has a goal narrative (catch/tame colt) but strict_cb badly mis-resolves the colt entity (merges into Tonish's cluster at 3/4 mentions) so was EXCLUDED, not patched. N=1 is far below the drill's own N>=10 threshold -- directional only, never used alone for a verdict band."
+    },
+    "1": {
+      "seed": 1,
+      "pc_net_auto": 1,
+      "pc_fires": true,
+      "pc_n_applicable": 2,
+      "arm1_n_items": 6,
+      "arm1_n_applicable": 6,
+      "arm1_net_auto": 2,
+      "arm1_net_oracle": 2,
+      "arm1_agreement_rate": 0.6666666666666666,
+      "arm1_item_ids": [
+        "g5v_benefactor_debtor_decay_window_matched",
+        "g5v_flor_silin_wife_decay_window_matched",
+        "g6v_dying_boy_schoolmaster_principle_b_deixis_matched",
+        "g6v_dying_boy_schoolmaster_decay_window_matched",
+        "g6v_joab_man_absalom_decay_window_matched",
+        "g6v_rip_cocked_hat_decay_window_matched"
+      ],
+      "arm1_rows": [
+        {
+          "id": "g5v_benefactor_debtor_decay_window_matched",
+          "passage_id": "g5v_benefactor_debtor",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.37625721748918295,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g5v_flor_silin_wife_decay_window_matched",
+          "passage_id": "g5v_flor_silin_wife",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_principle_b_deixis_matched",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "principle_b_deixis",
+          "applicable": true,
+          "agg_coherence_delta": 0.9725329577922821,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_decay_window_matched",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.9615896716713905,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_joab_man_absalom_decay_window_matched",
+          "passage_id": "g6v_joab_man_absalom",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.4804844819009304,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g6v_rip_cocked_hat_decay_window_matched",
+          "passage_id": "g6v_rip_cocked_hat",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        }
+      ],
+      "arm1_shuffled_adopt_rate": 0.6666666666666666,
+      "arm1_shuffled_rows": [
+        {
+          "id": "g5v_benefactor_debtor_decay_window_matched_SHUFFLED",
+          "passage_id": "g5v_benefactor_debtor",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.3401711257174611,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g5v_flor_silin_wife_decay_window_matched_SHUFFLED",
+          "passage_id": "g5v_flor_silin_wife",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_principle_b_deixis_matched_SHUFFLED",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "principle_b_deixis",
+          "applicable": true,
+          "agg_coherence_delta": 0.9545564912259579,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_dying_boy_schoolmaster_decay_window_matched_SHUFFLED",
+          "passage_id": "g6v_dying_boy_schoolmaster",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.9685723334550858,
+          "auto_adopt": true,
+          "net_gold": 1,
+          "oracle_adopt": true,
+          "matches_oracle": true
+        },
+        {
+          "id": "g6v_joab_man_absalom_decay_window_matched_SHUFFLED",
+          "passage_id": "g6v_joab_man_absalom",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.4682133328169584,
+          "auto_adopt": true,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": false
+        },
+        {
+          "id": "g6v_rip_cocked_hat_decay_window_matched_SHUFFLED",
+          "passage_id": "g6v_rip_cocked_hat",
+          "cand_name": "decay_window",
+          "applicable": true,
+          "agg_coherence_delta": 0.0,
+          "auto_adopt": false,
+          "net_gold": 0,
+          "oracle_adopt": false,
+          "matches_oracle": true
+        }
+      ],
+      "arm2_adopt_coherent": true,
+      "arm2_adopt_coherent_shuffled": true,
+      "arm2_row": {
+        "id": "go_henry_wilkins_matched",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.10874792980030179
+      },
+      "arm2_row_shuffled": {
+        "id": "go_henry_wilkins_matched_SHUFFLED",
+        "adopt_coherent": true,
+        "applicable": true,
+        "agg_coherence_delta": 0.10690569691359997
+      },
+      "arm2_data_availability_note": "Only 1 real g5g6 passage (henry_wilkins_cherries) had a clean-enough goal narrative AND non-coref-mis-resolved entity boundaries; g5v_tonish_colt has a goal narrative (catch/tame colt) but strict_cb badly mis-resolves the colt entity (merges into Tonish's cluster at 3/4 mentions) so was EXCLUDED, not patched. N=1 is far below the drill's own N>=10 threshold -- directional only, never used alone for a verdict band."
+    }
+  }
+}
