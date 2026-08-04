@@ -1,0 +1,3999 @@
+{
+  "verdict": "PATIENT_FIX_REJECTED_REGRESSES_CAUSAL",
+  "verdict_msg": "PATIENT_FIX_REJECTED_REGRESSES_CAUSAL: correct_diff HARDCODED=0.250 EXTRACTED_REAL=0.000 RANDOM_DEGENERATE=0.000 | det_correct_diff_items hard=1 real=0 random=0 | any_diff hard=0.500 real=0.000 | patients_differ_rate=0.750 (n=20) | anti_overfit_recall real=0.600 shuffled=0.030 (n=100) | theta_reuse_digest_match=True",
+  "summary": "correct_diff HARDCODED=0.250 EXTRACTED_REAL=0.000 RANDOM_DEGENERATE=0.000 | det_correct_diff_items hard=1 real=0 random=0 | any_diff hard=0.500 real=0.000 | patients_differ_rate=0.750 (n=20) | anti_overfit_recall real=0.600 shuffled=0.030 (n=100) | theta_reuse_digest_match=True",
+  "contamination_check": {
+    "all_theta_digests_match_earned_run": true,
+    "per_seed_digest_match": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true
+    }
+  },
+  "means": {
+    "correct_differentiation_rate_hardcoded": 0.25,
+    "correct_differentiation_rate_extracted_real": 0.0,
+    "correct_differentiation_rate_random_degenerate": 0.0,
+    "deterministic_correct_diff_items_hardcoded": 1,
+    "deterministic_correct_diff_items_extracted_real": 0,
+    "deterministic_correct_diff_items_random_degenerate": 0,
+    "per_item_correct_diff_counts": {
+      "HARDCODED": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 5,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      },
+      "EXTRACTED_REAL": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 0,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      },
+      "RANDOM_DEGENERATE": {
+        "grapp_mcca_001": 0,
+        "grapp_mcca_003": 0,
+        "grapp_mcca_004": 0,
+        "grapp_mcca_005": 0
+      }
+    },
+    "any_differentiation_rate_hardcoded": 0.5,
+    "any_differentiation_rate_extracted_real": 0.0,
+    "patients_differ_rate": 0.75,
+    "anti_overfit_recall_real": 0.6,
+    "anti_overfit_recall_shuffled": 0.03,
+    "anti_overfit_n_scored": 100
+  },
+  "gates": {
+    "negative_control_ok": true,
+    "fix_lifts_correct_differentiation": false,
+    "fix_regresses_correct_differentiation": true,
+    "structural_fix_present_patients_genuinely_differ": true,
+    "anti_overfit_beats_shuffled_control": true
+  },
+  "per_item_patient_examples_seed0": {
+    "grapp_mcca_001": {
+      "true_patient_set": [],
+      "distr_patient_set": [],
+      "patients_differ": false,
+      "attributed": null
+    },
+    "grapp_mcca_003": {
+      "true_patient_set": [],
+      "distr_patient_set": [
+        "hand",
+        "i",
+        "pranks"
+      ],
+      "patients_differ": true,
+      "attributed": null
+    },
+    "grapp_mcca_004": {
+      "true_patient_set": [
+        "care",
+        "herself"
+      ],
+      "distr_patient_set": [
+        "ice",
+        "shore"
+      ],
+      "patients_differ": true,
+      "attributed": null
+    },
+    "grapp_mcca_005": {
+      "true_patient_set": [],
+      "distr_patient_set": [
+        "good",
+        "scolding",
+        "sid"
+      ],
+      "patients_differ": true,
+      "attributed": null
+    }
+  },
+  "run_mode": "full",
+  "elapsed_s": 324.4602714998182,
+  "ts_iso": "2026-08-04T01:11:38.758108+00:00",
+  "anchor_name": "argument_structure_patient_extraction_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "train_cfg": {
+      "n_train": 10000,
+      "n_eval": 1500
+    },
+    "conditions": [
+      "HARDCODED",
+      "EXTRACTED_REAL",
+      "RANDOM_DEGENERATE"
+    ],
+    "victim_entity_aliases": {
+      "grapp_mcca_001": [
+        "young man",
+        "doctor robinson",
+        "robinson"
+      ],
+      "grapp_mcca_003": [
+        "meg"
+      ],
+      "grapp_mcca_004": [
+        "amy"
+      ],
+      "grapp_mcca_005": [
+        "bowl",
+        "sugar bowl"
+      ]
+    },
+    "random_vocab": [
+      "lantern",
+      "fence",
+      "turnip",
+      "kettle",
+      "wagon",
+      "cloud",
+      "river",
+      "ribbon"
+    ]
+  },
+  "expected_n_units": 16,
+  "measured_n_units": 16,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "HARDCODED": "96a93d303c8d7f7fa72b06d87c1fc7fdf22782ac3a14ce96c33fa973ad331fa3",
+    "EXTRACTED_REAL": "a9a8a4c89a4b3063df7551b4816d1de26bc28901dc2aa84fa8b9826d9fdeb9d9",
+    "RANDOM_DEGENERATE": "a9a8a4c89a4b3063df7551b4816d1de26bc28901dc2aa84fa8b9826d9fdeb9d9"
+  },
+  "arms_differ_exempted": [
+    [
+      "EXTRACTED_REAL",
+      "RANDOM_DEGENERATE"
+    ]
+  ],
+  "per_condition_seed_causal": {
+    "HARDCODED|0": {
+      "condition": "HARDCODED",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "HARDCODED|1": {
+      "condition": "HARDCODED",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "HARDCODED|2": {
+      "condition": "HARDCODED",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "HARDCODED|3": {
+      "condition": "HARDCODED",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "HARDCODED|4": {
+      "condition": "HARDCODED",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "HARDCODED",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "VICTIM_TARGET",
+          "distr_patient_field": "VICTIM_TARGET",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM_TARGET",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "EXTRACTED_REAL|0": {
+      "condition": "EXTRACTED_REAL",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "hand",
+            "i",
+            "pranks"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [
+            "care",
+            "herself"
+          ],
+          "distr_patient_set": [
+            "ice",
+            "shore"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "good",
+            "scolding",
+            "sid"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "EXTRACTED_REAL|1": {
+      "condition": "EXTRACTED_REAL",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "hand",
+            "i",
+            "pranks"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [
+            "care",
+            "herself"
+          ],
+          "distr_patient_set": [
+            "ice",
+            "shore"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "good",
+            "scolding",
+            "sid"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "EXTRACTED_REAL|2": {
+      "condition": "EXTRACTED_REAL",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "hand",
+            "i",
+            "pranks"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [
+            "care",
+            "herself"
+          ],
+          "distr_patient_set": [
+            "ice",
+            "shore"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "good",
+            "scolding",
+            "sid"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "EXTRACTED_REAL|3": {
+      "condition": "EXTRACTED_REAL",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "hand",
+            "i",
+            "pranks"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [
+            "care",
+            "herself"
+          ],
+          "distr_patient_set": [
+            "ice",
+            "shore"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "good",
+            "scolding",
+            "sid"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "EXTRACTED_REAL|4": {
+      "condition": "EXTRACTED_REAL",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "hand",
+            "i",
+            "pranks"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [
+            "care",
+            "herself"
+          ],
+          "distr_patient_set": [
+            "ice",
+            "shore"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "EXTRACTED_REAL",
+          "true_patient_set": [],
+          "distr_patient_set": [
+            "good",
+            "scolding",
+            "sid"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|0": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "turnip"
+          ],
+          "distr_patient_set": [
+            "lantern"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "turnip"
+          ],
+          "distr_patient_set": [
+            "lantern"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "river"
+          ],
+          "distr_patient_set": [
+            "turnip"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "wagon"
+          ],
+          "distr_patient_set": [
+            "fence"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|1": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "lantern"
+          ],
+          "distr_patient_set": [
+            "wagon"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "river"
+          ],
+          "distr_patient_set": [
+            "turnip"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "river"
+          ],
+          "distr_patient_set": [
+            "fence"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "lantern"
+          ],
+          "distr_patient_set": [
+            "lantern"
+          ],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|2": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "turnip"
+          ],
+          "distr_patient_set": [
+            "river"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "lantern"
+          ],
+          "distr_patient_set": [
+            "kettle"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "kettle"
+          ],
+          "distr_patient_set": [
+            "fence"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "kettle"
+          ],
+          "distr_patient_set": [
+            "lantern"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|3": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "ribbon"
+          ],
+          "distr_patient_set": [
+            "turnip"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "wagon"
+          ],
+          "distr_patient_set": [
+            "wagon"
+          ],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "lantern"
+          ],
+          "distr_patient_set": [
+            "river"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "fence"
+          ],
+          "distr_patient_set": [
+            "turnip"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    },
+    "RANDOM_DEGENERATE|4": {
+      "condition": "RANDOM_DEGENERATE",
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "rows": [
+        {
+          "id": "grapp_mcca_001",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "fence"
+          ],
+          "distr_patient_set": [
+            "river"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "young man",
+              "doctor robinson",
+              "robinson"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_003",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "lantern"
+          ],
+          "distr_patient_set": [
+            "lantern"
+          ],
+          "patients_differ": false,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "meg"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_004",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "kettle"
+          ],
+          "distr_patient_set": [
+            "turnip"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "amy"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        },
+        {
+          "id": "grapp_mcca_005",
+          "condition": "RANDOM_DEGENERATE",
+          "true_patient_set": [
+            "fence"
+          ],
+          "distr_patient_set": [
+            "wagon"
+          ],
+          "patients_differ": true,
+          "true_patient_field": "NOMATCH_TRUE_CAND",
+          "distr_patient_field": "NOMATCH_DISTR_CAND",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "victim_aliases_declared": [
+              "bowl",
+              "sugar bowl"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "NOMATCH_TRUE_CAND",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "NOMATCH_DISTR_CAND",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "anti_overfit": {
+    "n_pos_total": 100,
+    "n_scored": 100,
+    "recall_real": 0.6,
+    "recall_shuffled": 0.03,
+    "rows": [
+      {
+        "sid": "L04_01",
+        "v": "build",
+        "gold_patient": "blockhouse",
+        "real_extracted_set": [
+          "ruin"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_02",
+        "v": "rub",
+        "gold_patient": "castle",
+        "real_extracted_set": [
+          "castle"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_03",
+        "v": "take",
+        "gold_patient": "blocks",
+        "real_extracted_set": [
+          "blocks",
+          "one"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_03",
+        "v": "throw",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "blocks",
+          "one"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_05",
+        "v": "catch",
+        "gold_patient": "her",
+        "real_extracted_set": [],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_06",
+        "v": "hurt",
+        "gold_patient": "pussy",
+        "real_extracted_set": [],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_07",
+        "v": "do",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "do"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_07",
+        "v": "cover",
+        "gold_patient": "face",
+        "real_extracted_set": [
+          "do"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_10",
+        "v": "build",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "herbert"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_11",
+        "v": "open",
+        "gold_patient": "door",
+        "real_extracted_set": [
+          "door"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_12",
+        "v": "rub",
+        "gold_patient": "castle",
+        "real_extracted_set": [
+          "hetty"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_13",
+        "v": "do",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "do"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_14",
+        "v": "hold",
+        "gold_patient": "hands",
+        "real_extracted_set": [
+          "hands",
+          "out"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_17",
+        "v": "take",
+        "gold_patient": "way",
+        "real_extracted_set": [
+          "heart",
+          "way"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_18",
+        "v": "hear",
+        "gold_patient": "you",
+        "real_extracted_set": [
+          "blocks",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": true
+      },
+      {
+        "sid": "L04_19",
+        "v": "show",
+        "gold_patient": "way",
+        "real_extracted_set": [
+          "blocks",
+          "head",
+          "side",
+          "son",
+          "way",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_19",
+        "v": "nod",
+        "gold_patient": "head",
+        "real_extracted_set": [
+          "blocks",
+          "head",
+          "side",
+          "son",
+          "way",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L04_19",
+        "v": "lay",
+        "gold_patient": "foundation",
+        "real_extracted_set": [
+          "blocks",
+          "head",
+          "side",
+          "son",
+          "way",
+          "you"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_05",
+        "v": "forget",
+        "gold_patient": "grief",
+        "real_extracted_set": [],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_06",
+        "v": "knock",
+        "gold_patient": "castle",
+        "real_extracted_set": [
+          "castle",
+          "face"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_11",
+        "v": "make",
+        "gold_patient": "kite",
+        "real_extracted_set": [
+          "book",
+          "down",
+          "kite"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_13",
+        "v": "knock",
+        "gold_patient": "one",
+        "real_extracted_set": [
+          "hetty"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_15",
+        "v": "knock",
+        "gold_patient": "that",
+        "real_extracted_set": [
+          "sentence"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_15",
+        "v": "build",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "sentence"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_15",
+        "v": "finish",
+        "gold_patient": "sentence",
+        "real_extracted_set": [
+          "sentence"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_16",
+        "v": "knock",
+        "gold_patient": "castles",
+        "real_extracted_set": [],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_17",
+        "v": "have",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "forehead",
+          "have",
+          "out"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_17",
+        "v": "knit",
+        "gold_patient": "forehead",
+        "real_extracted_set": [
+          "forehead",
+          "have",
+          "out"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_18",
+        "v": "watch",
+        "gold_patient": "her",
+        "real_extracted_set": [],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_22",
+        "v": "see",
+        "gold_patient": "child",
+        "real_extracted_set": [
+          "a",
+          "child",
+          "dash",
+          "dishes",
+          "hands",
+          "servant",
+          "tray"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_22",
+        "v": "leave",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "a",
+          "child",
+          "dash",
+          "dishes",
+          "hands",
+          "servant",
+          "tray"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_24",
+        "v": "leave",
+        "gold_patient": "room",
+        "real_extracted_set": [
+          "crying",
+          "milk",
+          "room"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_24",
+        "v": "want",
+        "gold_patient": "more",
+        "real_extracted_set": [
+          "crying",
+          "milk",
+          "room"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L05_25",
+        "v": "build",
+        "gold_patient": "them",
+        "real_extracted_set": [
+          "down"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_01",
+        "v": "send",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "james"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_02",
+        "v": "send",
+        "gold_patient": "him",
+        "real_extracted_set": [],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_04",
+        "v": "spend",
+        "gold_patient": "time",
+        "real_extracted_set": [
+          "boys",
+          "fields",
+          "time"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_06",
+        "v": "say",
+        "gold_patient": "lessons",
+        "real_extracted_set": [
+          "home",
+          "lessons",
+          "tell"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_07",
+        "v": "take",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "aunt's",
+          "haste",
+          "home",
+          "james",
+          "school"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_09",
+        "v": "meet",
+        "gold_patient": "boys",
+        "real_extracted_set": [
+          "boys",
+          "plenty"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_10",
+        "v": "have",
+        "gold_patient": "money",
+        "real_extracted_set": [
+          "boat",
+          "james",
+          "money"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_10",
+        "v": "give",
+        "gold_patient": "money",
+        "real_extracted_set": [
+          "boat",
+          "james",
+          "money"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_10",
+        "v": "hire",
+        "gold_patient": "boat",
+        "real_extracted_set": [
+          "boat",
+          "james",
+          "money"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_20",
+        "v": "see",
+        "gold_patient": "boys",
+        "real_extracted_set": [
+          "boys",
+          "out"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_21",
+        "v": "reach",
+        "gold_patient": "them",
+        "real_extracted_set": [
+          "grave",
+          "them",
+          "watery"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_21",
+        "v": "save",
+        "gold_patient": "them",
+        "real_extracted_set": [
+          "grave",
+          "them",
+          "watery"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L07_25",
+        "v": "obey",
+        "gold_patient": "parents",
+        "real_extracted_set": [
+          "books",
+          "parents"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L08_01",
+        "v": "stroke",
+        "gold_patient": "fur",
+        "real_extracted_set": [
+          "fur",
+          "pur"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L08_02",
+        "v": "choose",
+        "gold_patient": "places",
+        "real_extracted_set": [
+          "door",
+          "hour",
+          "mew",
+          "places",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L08_02",
+        "v": "hear",
+        "gold_patient": "mew",
+        "real_extracted_set": [
+          "door",
+          "hour",
+          "mew",
+          "places",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L08_02",
+        "v": "open",
+        "gold_patient": "door",
+        "real_extracted_set": [
+          "door",
+          "hour",
+          "mew",
+          "places",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L08_04",
+        "v": "see",
+        "gold_patient": "cat",
+        "real_extracted_set": [
+          "beggar",
+          "cat",
+          "i"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L08_08",
+        "v": "choose",
+        "gold_patient": "places",
+        "real_extracted_set": [
+          "kittens",
+          "little",
+          "obey",
+          "places"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_04",
+        "v": "build",
+        "gold_patient": "huts",
+        "real_extracted_set": [
+          "huts"
+        ],
+        "real_hit": true,
+        "shuffled_hit": true
+      },
+      {
+        "sid": "L09_05",
+        "v": "build",
+        "gold_patient": "huts",
+        "real_extracted_set": [
+          "banks",
+          "huts",
+          "lakes",
+          "rivers"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_06",
+        "v": "make",
+        "gold_patient": "dam",
+        "real_extracted_set": [
+          "dam",
+          "purpose",
+          "stream",
+          "water"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_11",
+        "v": "build",
+        "gold_patient": "houses",
+        "real_extracted_set": [
+          "houses"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_12",
+        "v": "make",
+        "gold_patient": "them",
+        "real_extracted_set": [
+          "them"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_13",
+        "v": "obtain",
+        "gold_patient": "wood",
+        "real_extracted_set": [
+          "branches",
+          "dams",
+          "huts",
+          "trees",
+          "wood"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_14",
+        "v": "peel",
+        "gold_patient": "bark",
+        "real_extracted_set": [
+          "bark"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_14",
+        "v": "lay",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "bark"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_16",
+        "v": "hunt",
+        "gold_patient": "animals",
+        "real_extracted_set": [
+          "animals",
+          "trappers"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_17",
+        "v": "see",
+        "gold_patient": "beavers",
+        "real_extracted_set": [
+          "beavers"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_18",
+        "v": "push",
+        "gold_patient": "another",
+        "real_extracted_set": [
+          "dam",
+          "tree"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_19",
+        "v": "remind",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "children",
+          "little"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L09_20",
+        "v": "leave",
+        "gold_patient": "them",
+        "real_extracted_set": [
+          "play",
+          "them"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_01",
+        "v": "teach",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "father"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_03",
+        "v": "amuse",
+        "gold_patient": "himself",
+        "real_extracted_set": [
+          "hour",
+          "son"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_05",
+        "v": "sell",
+        "gold_patient": "fish",
+        "real_extracted_set": [
+          "fisherman",
+          "hut",
+          "poor"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_06",
+        "v": "keep",
+        "gold_patient": "wheel",
+        "real_extracted_set": [
+          "wheel"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_09",
+        "v": "teach",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "teach"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_09",
+        "v": "send",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "teach"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_11",
+        "v": "find",
+        "gold_patient": "boy",
+        "real_extracted_set": [
+          "boy",
+          "joe",
+          "marks",
+          "name"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_11",
+        "v": "make",
+        "gold_patient": "marks",
+        "real_extracted_set": [
+          "boy",
+          "joe",
+          "marks",
+          "name"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_12",
+        "v": "draw",
+        "gold_patient": "pictures",
+        "real_extracted_set": [
+          "pictures"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_13",
+        "v": "know",
+        "gold_patient": "words",
+        "real_extracted_set": [
+          "words"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_14",
+        "v": "see",
+        "gold_patient": "those",
+        "real_extracted_set": [
+          "sign",
+          "them",
+          "you"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_14",
+        "v": "write",
+        "gold_patient": "them",
+        "real_extracted_set": [
+          "sign",
+          "them",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_14",
+        "v": "make",
+        "gold_patient": "you",
+        "real_extracted_set": [
+          "sign",
+          "them",
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": true
+      },
+      {
+        "sid": "L10_15",
+        "v": "teach",
+        "gold_patient": "you",
+        "real_extracted_set": [
+          "you"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_16",
+        "v": "give",
+        "gold_patient": "hour",
+        "real_extracted_set": [
+          "day",
+          "hour",
+          "me",
+          "myself"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_19",
+        "v": "put",
+        "gold_patient": "book",
+        "real_extracted_set": [
+          "book",
+          "charles",
+          "pocket"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_26",
+        "v": "see",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "house"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_36",
+        "v": "put",
+        "gold_patient": "head",
+        "real_extracted_set": [
+          "head"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_38",
+        "v": "rule",
+        "gold_patient": "copybook",
+        "real_extracted_set": [
+          "copybook",
+          "joe"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_41",
+        "v": "take",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "books",
+          "joe",
+          "paper",
+          "pens"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L10_41",
+        "v": "give",
+        "gold_patient": "books",
+        "real_extracted_set": [
+          "books",
+          "joe",
+          "paper",
+          "pens"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_04",
+        "v": "open",
+        "gold_patient": "gate",
+        "real_extracted_set": [
+          "gate",
+          "mother"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_04",
+        "v": "invite",
+        "gold_patient": "him",
+        "real_extracted_set": [
+          "gate",
+          "mother"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_05",
+        "v": "thank",
+        "gold_patient": "man",
+        "real_extracted_set": [
+          "man"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_07",
+        "v": "brush",
+        "gold_patient": "tops",
+        "real_extracted_set": [
+          "borders"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_09",
+        "v": "show",
+        "gold_patient": "seeds",
+        "real_extracted_set": [
+          "him",
+          "seeds"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_09",
+        "v": "tell",
+        "gold_patient": "name",
+        "real_extracted_set": [
+          "him",
+          "seeds"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_10",
+        "v": "admire",
+        "gold_patient": "beauty",
+        "real_extracted_set": [
+          "beauty",
+          "boy",
+          "flower",
+          "gate"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_10",
+        "v": "find",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "beauty",
+          "boy",
+          "flower",
+          "gate"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_10",
+        "v": "shake",
+        "gold_patient": "it",
+        "real_extracted_set": [
+          "beauty",
+          "boy",
+          "flower",
+          "gate"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_12",
+        "v": "pull",
+        "gold_patient": "fruit",
+        "real_extracted_set": [
+          "flowers",
+          "he"
+        ],
+        "real_hit": false,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_15",
+        "v": "continue",
+        "gold_patient": "walk",
+        "real_extracted_set": [
+          "day",
+          "walk"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_15",
+        "v": "enjoy",
+        "gold_patient": "day",
+        "real_extracted_set": [
+          "day",
+          "walk"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      },
+      {
+        "sid": "L12_16",
+        "v": "give",
+        "gold_patient": "flowers",
+        "real_extracted_set": [
+          "flowers",
+          "gardener",
+          "them"
+        ],
+        "real_hit": true,
+        "shuffled_hit": false
+      }
+    ]
+  }
+}
