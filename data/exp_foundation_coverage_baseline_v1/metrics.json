@@ -1,0 +1,5629 @@
+{
+  "verdict": "COVERAGE_MAP_MEASURED",
+  "verdict_msg": "COVERAGE_MAP_MEASURED: COVERAGE MAP (EARNED_GROUNDED acc, n=14, TINY per-cat): counterfactual_cause[n=1]=1.000 goal_blocking[n=2]=0.000 multi_candidate_attribution[n=4]=0.250 out_of_span_cause[n=4]=0.000 physical_harm[n=3]=0.333 | overall EARNED=0.214 SURFACE=0.143 RECENCY=0.286 RANDOM=0.443 | direct-harm-act-cause coverage=3/3 (true span sole harm-bearer) | highest=counterfactual_cause floor=['goal_blocking', 'out_of_span_cause', 'multi_candidate_attribution', 'physical_harm'] route_next=out_of_span_cause | abstain_rate=0.714",
+  "summary": "COVERAGE MAP (EARNED_GROUNDED acc, n=14, TINY per-cat): counterfactual_cause[n=1]=1.000 goal_blocking[n=2]=0.000 multi_candidate_attribution[n=4]=0.250 out_of_span_cause[n=4]=0.000 physical_harm[n=3]=0.333 | overall EARNED=0.214 SURFACE=0.143 RECENCY=0.286 RANDOM=0.443 | direct-harm-act-cause coverage=3/3 (true span sole harm-bearer) | highest=counterfactual_cause floor=['goal_blocking', 'out_of_span_cause', 'multi_candidate_attribution', 'physical_harm'] route_next=out_of_span_cause | abstain_rate=0.714",
+  "n_seeds": 5,
+  "n_items": 14,
+  "categories": [
+    "counterfactual_cause",
+    "goal_blocking",
+    "multi_candidate_attribution",
+    "out_of_span_cause",
+    "physical_harm"
+  ],
+  "overall_accuracy_by_arm": {
+    "EARNED_GROUNDED": 0.21428571428571427,
+    "SURFACE_VALENCE": 0.14285714285714285,
+    "RECENCY": 0.2857142857142857,
+    "RANDOM": 0.4428571428571429
+  },
+  "per_category_coverage_map": {
+    "counterfactual_cause": {
+      "n": 1,
+      "item_ids": [
+        "grapp_v4_006"
+      ],
+      "accuracy": {
+        "EARNED_GROUNDED": 1.0,
+        "SURFACE_VALENCE": 0.0,
+        "RECENCY": 1.0,
+        "RANDOM": 0.4
+      }
+    },
+    "goal_blocking": {
+      "n": 2,
+      "item_ids": [
+        "grapp_v4_009",
+        "grapp_mcca_004"
+      ],
+      "accuracy": {
+        "EARNED_GROUNDED": 0.0,
+        "SURFACE_VALENCE": 0.5,
+        "RECENCY": 0.5,
+        "RANDOM": 0.4
+      }
+    },
+    "multi_candidate_attribution": {
+      "n": 4,
+      "item_ids": [
+        "grapp_v4_003",
+        "grapp_mcca_003",
+        "grapp_mcca_005",
+        "grapp_mcca_009"
+      ],
+      "accuracy": {
+        "EARNED_GROUNDED": 0.25,
+        "SURFACE_VALENCE": 0.25,
+        "RECENCY": 0.25,
+        "RANDOM": 0.4
+      }
+    },
+    "out_of_span_cause": {
+      "n": 4,
+      "item_ids": [
+        "grapp_v4_005",
+        "grapp_v4_013",
+        "grapp_mcca_007",
+        "grapp_mcca_008"
+      ],
+      "accuracy": {
+        "EARNED_GROUNDED": 0.0,
+        "SURFACE_VALENCE": 0.0,
+        "RECENCY": 0.25,
+        "RANDOM": 0.5
+      }
+    },
+    "physical_harm": {
+      "n": 3,
+      "item_ids": [
+        "grapp_v4_001",
+        "grapp_v4_011",
+        "grapp_mcca_001"
+      ],
+      "accuracy": {
+        "EARNED_GROUNDED": 0.3333333333333333,
+        "SURFACE_VALENCE": 0.0,
+        "RECENCY": 0.0,
+        "RANDOM": 0.4666666666666666
+      }
+    }
+  },
+  "earned_grounded_accuracy_by_category": {
+    "counterfactual_cause": 1.0,
+    "goal_blocking": 0.0,
+    "multi_candidate_attribution": 0.25,
+    "out_of_span_cause": 0.0,
+    "physical_harm": 0.3333333333333333
+  },
+  "highest_category": "counterfactual_cause",
+  "floor_categories": [
+    "goal_blocking",
+    "out_of_span_cause",
+    "multi_candidate_attribution",
+    "physical_harm"
+  ],
+  "routed_next_grounding_target": "out_of_span_cause",
+  "earned_grounded_abstain_rate": 0.7142857142857143,
+  "physical_harm_beats_floors_diagnostic": false,
+  "mechanism_internally_consistent": true,
+  "direct_harm_act_cause_coverage": {
+    "coverage": 1.0,
+    "separable_item_ids": [
+      "grapp_v4_006",
+      "grapp_mcca_001",
+      "grapp_mcca_005"
+    ],
+    "hits": [
+      "grapp_v4_006",
+      "grapp_mcca_001",
+      "grapp_mcca_005"
+    ],
+    "misses": [],
+    "definition": "items the grounded read DECODES as HARM-dominant true span AND non-HARM distractor; select_from_valences must attribute these to the true cause -- a miss would be a mechanism wiring/consistency artifact."
+  },
+  "per_item": {
+    "grapp_v4_001": {
+      "category": "physical_harm",
+      "true_span_preview": "Gilbert reached across the aisle, picked up the end of Anne\u2019s long red braid, held it out at arm\u2019s length and said in a ",
+      "dist_span_preview": "And then--thwack! Anne had brought her slate down on Gilbert\u2019s head and cracked it--slate not head--clear across.",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "HARM"
+      ],
+      "earned_grounded_pick": 1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 0,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 1,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": false,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 0,
+        "help_units": 0
+      }
+    },
+    "grapp_v4_003": {
+      "category": "multi_candidate_attribution",
+      "true_span_preview": "\u201cThen I dare you to do it,\u201d said Josie defiantly. \u201cI dare you to climb up there and walk the ridgepole of Mr. Barry\u2019s ki",
+      "dist_span_preview": "Anne climbed the ladder amid breathless silence, gained the ridgepole, balanced herself uprightly on that precarious foo",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 0,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": false,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 0,
+        "help_units": 0
+      }
+    },
+    "grapp_v4_005": {
+      "category": "out_of_span_cause",
+      "true_span_preview": "\u201cIf I was wicked I meant to be wicked to some purpose. He said it would turn my hair a beautiful raven black--he positiv",
+      "dist_span_preview": "\u201cI dyed it.\u201d",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 0,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": false,
+        "instrument_present": false,
+        "hypothetical": true,
+        "harm_units": 0,
+        "help_units": 0
+      }
+    },
+    "grapp_v4_006": {
+      "category": "counterfactual_cause",
+      "true_span_preview": "broken heart in cloistered seclusion; and I forgot all about covering the pudding sauce. I thought of it next morning an",
+      "dist_span_preview": "went right until I saw Marilla coming with the plum pudding in one hand and the pitcher of pudding sauce _warmed up_, in",
+      "earned_grounded_valences": [
+        "HARM",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": 0,
+      "earned_grounded_correct": true,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 0,
+      "recency_correct": true,
+      "true_span_harm_units": 1,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": true,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "broken"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 1,
+        "help_units": 0
+      }
+    },
+    "grapp_v4_009": {
+      "category": "goal_blocking",
+      "true_span_preview": "\u201cI\u2019m afraid it\u2019s partly your own fault, dear. When Aunt spoke to me the other day, she regretted your blunt manners and ",
+      "dist_span_preview": "\u201cNo, dear, not you. It\u2019s Amy.\u201d",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": 0,
+      "surface_valence_correct": true,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 0,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 0,
+        "help_units": 0
+      }
+    },
+    "grapp_v4_011": {
+      "category": "physical_harm",
+      "true_span_preview": "housework. So the old woman went to the Wicked Witch of the East, and promised her two sheep and a cow if she would prev",
+      "dist_span_preview": "away at my best one day, for I was anxious to get the new house and my",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 0,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": false,
+        "hypothetical": true,
+        "harm_units": 0,
+        "help_units": 0
+      }
+    },
+    "grapp_v4_013": {
+      "category": "out_of_span_cause",
+      "true_span_preview": "\u201cIf he\u2019s as much stunned with the lick and fuddled with the rum as he had the look of being, he won\u2019t think of the knife",
+      "dist_span_preview": "\u201cWhy, you two was scuffling, and he fetched you one with the headboard and you fell flat; and then up you come, all reel",
+      "earned_grounded_valences": [
+        "HARM",
+        "HARM"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 1,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 2,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "knife"
+        ],
+        "help_hits": [],
+        "patient_present": false,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 1,
+        "help_units": 0
+      }
+    },
+    "grapp_mcca_001": {
+      "category": "physical_harm",
+      "true_span_preview": "the half-breed saw his chance and drove the knife to the hilt in the young man\u2019s breast.",
+      "dist_span_preview": "\u201cMuff Potter\u2019ll hang for this if they catch him!\u201d",
+      "earned_grounded_valences": [
+        "HARM",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": 0,
+      "earned_grounded_correct": true,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 2,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": true,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "drove",
+          "knife"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 2,
+        "help_units": 0
+      }
+    },
+    "grapp_mcca_003": {
+      "category": "multi_candidate_attribution",
+      "true_span_preview": "Laurie has confessed, asked pardon, and been punished quite enough.",
+      "dist_span_preview": "\u201cStop, Jo, you must clear yourself first. You have played so many pranks that I am afraid you have had a hand in this.\u201d",
+      "earned_grounded_valences": [
+        "HELP",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 1,
+      "true_span_help_units": 2,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "punished"
+        ],
+        "help_hits": [
+          "confessed",
+          "pardon"
+        ],
+        "patient_present": false,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 1,
+        "help_units": 2
+      }
+    },
+    "grapp_mcca_004": {
+      "category": "goal_blocking",
+      "true_span_preview": "\u201cNo matter whether she heard or not, let her take care of herself.\u201d",
+      "dist_span_preview": "he was carefully skating along the shore, sounding the ice, for a warm spell had preceded the cold snap.",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "HELP"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 0,
+      "recency_correct": true,
+      "true_span_harm_units": 0,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 0,
+        "help_units": 0
+      }
+    },
+    "grapp_mcca_005": {
+      "category": "multi_candidate_attribution",
+      "true_span_preview": "Sid\u2019s fingers slipped and the bowl dropped and broke.",
+      "dist_span_preview": "He took a good scolding about clodding Sid, and did not seem to mind it in the least.",
+      "earned_grounded_valences": [
+        "HARM",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": 0,
+      "earned_grounded_correct": true,
+      "surface_valence_pick": 1,
+      "surface_valence_correct": false,
+      "recency_pick": 0,
+      "recency_correct": true,
+      "true_span_harm_units": 3,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": true,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "broke",
+          "dropped",
+          "slipped"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 3,
+        "help_units": 0
+      }
+    },
+    "grapp_mcca_007": {
+      "category": "out_of_span_cause",
+      "true_span_preview": "same time Marilla recollected that she had put the bottle of raspberry cordial down in the cellar instead of in the pant",
+      "dist_span_preview": "awful state,\u201d she wailed. \u201cShe says that I set Diana _drunk_ Saturday and sent her home in a disgraceful condition.",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 0,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 0,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 0,
+        "help_units": 0
+      }
+    },
+    "grapp_mcca_008": {
+      "category": "out_of_span_cause",
+      "true_span_preview": "risk to himself. Tom\u2019s spelling-book fell under his eye. Here was his opportunity. He gratefully opened to the lesson fo",
+      "dist_span_preview": "Tom took his whipping and went back to his seat not at all broken-hearted, for he thought it was possible that he had un",
+      "earned_grounded_valences": [
+        "HARM",
+        "HARM"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": -1,
+      "surface_valence_correct": false,
+      "recency_pick": 0,
+      "recency_correct": true,
+      "true_span_harm_units": 1,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 1,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "poured"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 1,
+        "help_units": 0
+      }
+    },
+    "grapp_mcca_009": {
+      "category": "multi_candidate_attribution",
+      "true_span_preview": "stepped in at the door and caught a glimpse of the picture. Becky snatched at the book to close it, and had the hard luc",
+      "dist_span_preview": "Tom took his whipping and went back to his seat not at all broken-hearted, for he thought it was possible that he had un",
+      "earned_grounded_valences": [
+        "HARM",
+        "HARM"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "surface_valence_pick": 0,
+      "surface_valence_correct": true,
+      "recency_pick": 1,
+      "recency_correct": false,
+      "true_span_harm_units": 2,
+      "true_span_help_units": 0,
+      "distractor_span_harm_units": 1,
+      "true_cause_reads_harm_dominant_distractor_not": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "snatched",
+          "tear"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 2,
+        "help_units": 0
+      }
+    }
+  },
+  "category_assignment_note": "v4 items use their own grounded_knowledge_category field. grapp_mcca_* items carry no category field; category is Director-ASSIGNED by dominant phenomenon: mcca_001=physical_harm (knife/breast harm in the true span), mcca_003/005/009=multi_candidate_attribution (reputation/recency traps over who did it), mcca_004=goal_blocking (spiteful withholding of a warning), mcca_007/008=out_of_span_cause (true cause revealed out of the local query span). TINY per-category n (1-4) -- directional coverage map, not a powered per-category claim.",
+  "contamination_check": {
+    "mechanism_reads_only": [
+      "candidate span texts (cand_text)",
+      "candidate + query line positions (RECENCY only)"
+    ],
+    "goal_or_query_text_read_by_valence_mechanism": false,
+    "forbidden_gold_fields_never_read": [
+      "_forbidden_true_blocker_agent",
+      "coherence_justification",
+      "distractor_agent",
+      "goal_description_leaksafe",
+      "goal_owner",
+      "gold_verified",
+      "needs_director_review",
+      "recency_baseline_correct",
+      "recency_baseline_prediction",
+      "recency_note",
+      "surface_harm_score_distractor",
+      "surface_harm_score_true",
+      "true_blocker_agent"
+    ],
+    "primitive_tables_contain_proper_nouns": false,
+    "frozen_lexicon_or_borrowed_embedding_or_llm_as_grounded_mechanism": false,
+    "grounded_read_retrained_or_new_knowledge_added": false,
+    "note": "grounded valence read consumes ONLY candidate span text -> leak-safe on goal, immune to outcome-overlap; bit-identical reuse of exp_grounded_valence_read_from_text_v1 (no retrain)."
+  },
+  "reused_mechanisms": [
+    "exp_grounded_valence_read_from_text_v1.read_valences/select_from_valences (earned grounded HARM-VALENCE read + harm-consistency selection, bit-identical)",
+    "hdlab.situation_model_accumulate (FHRR accumulate organ, atom 29609) via the above",
+    "exp_grounded_valence_read_from_text_v1.grounded_valence_evidence (harm/help primitives + patient/hypothetical guards)"
+  ],
+  "honest_caveats": [
+    "BASELINE MEASUREMENT, not a capability claim. Per-category n is TINY (1-4); the map is DIRECTIONAL routing, not a powered per-category accuracy.",
+    "Single uniform mechanism (grounded valence read) across all items for a fair per-category comparison; the cross-span binding + effect-match selector organs (same family) were NOT separately combined this pass (cross-span victim aliases exist only for the mcca_001-005 slice, not applicable uniformly).",
+    "grapp_mcca_* categories are Director-ASSIGNED (see category_assignment_note), not field-tagged like the v4 items."
+  ],
+  "run_mode": "full",
+  "elapsed_s": 0.0075072000008731266,
+  "ts_iso": "2026-08-04T13:21:14.637000+00:00",
+  "anchor_name": "foundation_coverage_baseline_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arms": [
+      "EARNED_GROUNDED",
+      "SURFACE_VALENCE",
+      "RECENCY",
+      "RANDOM"
+    ],
+    "true_slot": 0
+  },
+  "prereg": "preregs/2026-08-04_foundation_coverage_baseline_v1.md",
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "arms": {
+        "EARNED_GROUNDED": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "cracked"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broken"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "knife",
+                    "snatched"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          }
+        ],
+        "SURFACE_VALENCE": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "HELP"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          }
+        ],
+        "RECENCY": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3856,
+                3870
+              ],
+              "query_pos": 3882
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                6398,
+                6414
+              ],
+              "query_pos": 6470
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                7470,
+                7455
+              ],
+              "query_pos": 7438
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4360,
+                4375
+              ],
+              "query_pos": 4371
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                12942,
+                12930
+              ],
+              "query_pos": 12932
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                972,
+                975
+              ],
+              "query_pos": 976
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2984,
+                2956
+              ],
+              "query_pos": 2951
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2919,
+                3300
+              ],
+              "query_pos": 3329
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                9129,
+                8824
+              ],
+              "query_pos": 8834
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3278,
+                3259
+              ],
+              "query_pos": 3284
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                1136,
+                1125
+              ],
+              "query_pos": 1144
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4462,
+                4442
+              ],
+              "query_pos": 4449
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5081,
+                5299
+              ],
+              "query_pos": 5287
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5244,
+                5299
+              ],
+              "query_pos": 5323
+            }
+          }
+        ],
+        "RANDOM": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          }
+        ]
+      },
+      "arm_pick_digests": {
+        "EARNED_GROUNDED": "3d7d6aacdf74",
+        "SURFACE_VALENCE": "ec647f746292",
+        "RECENCY": "9a42bfe31532",
+        "RANDOM": "e1f4ebce040c"
+      }
+    },
+    "1": {
+      "seed": 1,
+      "arms": {
+        "EARNED_GROUNDED": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "cracked"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broken"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "knife",
+                    "snatched"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          }
+        ],
+        "SURFACE_VALENCE": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "HELP"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          }
+        ],
+        "RECENCY": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3856,
+                3870
+              ],
+              "query_pos": 3882
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                6398,
+                6414
+              ],
+              "query_pos": 6470
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                7470,
+                7455
+              ],
+              "query_pos": 7438
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4360,
+                4375
+              ],
+              "query_pos": 4371
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                12942,
+                12930
+              ],
+              "query_pos": 12932
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                972,
+                975
+              ],
+              "query_pos": 976
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2984,
+                2956
+              ],
+              "query_pos": 2951
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2919,
+                3300
+              ],
+              "query_pos": 3329
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                9129,
+                8824
+              ],
+              "query_pos": 8834
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3278,
+                3259
+              ],
+              "query_pos": 3284
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                1136,
+                1125
+              ],
+              "query_pos": 1144
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4462,
+                4442
+              ],
+              "query_pos": 4449
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5081,
+                5299
+              ],
+              "query_pos": 5287
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5244,
+                5299
+              ],
+              "query_pos": 5323
+            }
+          }
+        ],
+        "RANDOM": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          }
+        ]
+      },
+      "arm_pick_digests": {
+        "EARNED_GROUNDED": "3d7d6aacdf74",
+        "SURFACE_VALENCE": "ec647f746292",
+        "RECENCY": "9a42bfe31532",
+        "RANDOM": "2d4a16a1cbf3"
+      }
+    },
+    "2": {
+      "seed": 2,
+      "arms": {
+        "EARNED_GROUNDED": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "cracked"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broken"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "knife",
+                    "snatched"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          }
+        ],
+        "SURFACE_VALENCE": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "HELP"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          }
+        ],
+        "RECENCY": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3856,
+                3870
+              ],
+              "query_pos": 3882
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                6398,
+                6414
+              ],
+              "query_pos": 6470
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                7470,
+                7455
+              ],
+              "query_pos": 7438
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4360,
+                4375
+              ],
+              "query_pos": 4371
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                12942,
+                12930
+              ],
+              "query_pos": 12932
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                972,
+                975
+              ],
+              "query_pos": 976
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2984,
+                2956
+              ],
+              "query_pos": 2951
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2919,
+                3300
+              ],
+              "query_pos": 3329
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                9129,
+                8824
+              ],
+              "query_pos": 8834
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3278,
+                3259
+              ],
+              "query_pos": 3284
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                1136,
+                1125
+              ],
+              "query_pos": 1144
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4462,
+                4442
+              ],
+              "query_pos": 4449
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5081,
+                5299
+              ],
+              "query_pos": 5287
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5244,
+                5299
+              ],
+              "query_pos": 5323
+            }
+          }
+        ],
+        "RANDOM": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          }
+        ]
+      },
+      "arm_pick_digests": {
+        "EARNED_GROUNDED": "3d7d6aacdf74",
+        "SURFACE_VALENCE": "ec647f746292",
+        "RECENCY": "9a42bfe31532",
+        "RANDOM": "36470e22e3d5"
+      }
+    },
+    "3": {
+      "seed": 3,
+      "arms": {
+        "EARNED_GROUNDED": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "cracked"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broken"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "knife",
+                    "snatched"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          }
+        ],
+        "SURFACE_VALENCE": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "HELP"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          }
+        ],
+        "RECENCY": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3856,
+                3870
+              ],
+              "query_pos": 3882
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                6398,
+                6414
+              ],
+              "query_pos": 6470
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                7470,
+                7455
+              ],
+              "query_pos": 7438
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4360,
+                4375
+              ],
+              "query_pos": 4371
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                12942,
+                12930
+              ],
+              "query_pos": 12932
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                972,
+                975
+              ],
+              "query_pos": 976
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2984,
+                2956
+              ],
+              "query_pos": 2951
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2919,
+                3300
+              ],
+              "query_pos": 3329
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                9129,
+                8824
+              ],
+              "query_pos": 8834
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3278,
+                3259
+              ],
+              "query_pos": 3284
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                1136,
+                1125
+              ],
+              "query_pos": 1144
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4462,
+                4442
+              ],
+              "query_pos": 4449
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5081,
+                5299
+              ],
+              "query_pos": 5287
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5244,
+                5299
+              ],
+              "query_pos": 5323
+            }
+          }
+        ],
+        "RANDOM": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          }
+        ]
+      },
+      "arm_pick_digests": {
+        "EARNED_GROUNDED": "3d7d6aacdf74",
+        "SURFACE_VALENCE": "ec647f746292",
+        "RECENCY": "9a42bfe31532",
+        "RANDOM": "a7209594691e"
+      }
+    },
+    "4": {
+      "seed": 4,
+      "arms": {
+        "EARNED_GROUNDED": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "cracked"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broken"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "knife",
+                    "snatched"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          }
+        ],
+        "SURFACE_VALENCE": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "HELP",
+                "HELP"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": -1,
+            "correct": false,
+            "abstain": true,
+            "detail": {
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ]
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ]
+            }
+          }
+        ],
+        "RECENCY": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3856,
+                3870
+              ],
+              "query_pos": 3882
+            }
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                6398,
+                6414
+              ],
+              "query_pos": 6470
+            }
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                7470,
+                7455
+              ],
+              "query_pos": 7438
+            }
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4360,
+                4375
+              ],
+              "query_pos": 4371
+            }
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                12942,
+                12930
+              ],
+              "query_pos": 12932
+            }
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                972,
+                975
+              ],
+              "query_pos": 976
+            }
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2984,
+                2956
+              ],
+              "query_pos": 2951
+            }
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                2919,
+                3300
+              ],
+              "query_pos": 3329
+            }
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                9129,
+                8824
+              ],
+              "query_pos": 8834
+            }
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                3278,
+                3259
+              ],
+              "query_pos": 3284
+            }
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                1136,
+                1125
+              ],
+              "query_pos": 1144
+            }
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                4462,
+                4442
+              ],
+              "query_pos": 4449
+            }
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5081,
+                5299
+              ],
+              "query_pos": 5287
+            }
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {
+              "cand_pos": [
+                5244,
+                5299
+              ],
+              "query_pos": 5323
+            }
+          }
+        ],
+        "RANDOM": [
+          {
+            "id": "grapp_v4_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_005",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_006",
+            "category": "counterfactual_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_009",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_011",
+            "category": "physical_harm",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_v4_013",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_001",
+            "category": "physical_harm",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_003",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_004",
+            "category": "goal_blocking",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_005",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_007",
+            "category": "out_of_span_cause",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_008",
+            "category": "out_of_span_cause",
+            "pick_slot": 1,
+            "correct": false,
+            "abstain": false,
+            "detail": {}
+          },
+          {
+            "id": "grapp_mcca_009",
+            "category": "multi_candidate_attribution",
+            "pick_slot": 0,
+            "correct": true,
+            "abstain": false,
+            "detail": {}
+          }
+        ]
+      },
+      "arm_pick_digests": {
+        "EARNED_GROUNDED": "3d7d6aacdf74",
+        "SURFACE_VALENCE": "ec647f746292",
+        "RECENCY": "9a42bfe31532",
+        "RANDOM": "3be5c8d16c10"
+      }
+    }
+  }
+}
