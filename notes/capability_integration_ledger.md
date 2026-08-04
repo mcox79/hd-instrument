@@ -97,3 +97,12 @@ The causal-attribution comprehension pipeline is mid-build; per the gate, provis
 - **Local argument-structure/patient extraction** (exp_argument_structure_patient_extraction_v1, sound 0.60 vs 0.03 but wrong SHAPE for cross-span) = KEEP as a false-positive GATE within the pipeline, not a standalone capability.
 - Learning machinery = REUSE certified pfc_gate_cfrpe_trained_v2 (already ALREADY_WIRED family) — no new organ.
 DECISION RULE at loop-close: WIRE the assembled causal-attribution pipeline (extraction-gate -> cross-span binding -> coherence-selector -> grounded appraisal) as ONE promoted capability into hdlab/ with a verification witness, per the every-gain-wired mandate. Data hygiene owed: drop grapp_mcca_006; fix detective-probe position confound; orthogonalize the transfer cell rec-leak.
+
+## 08-04 MULTI-HOP ISLANDING (USER-prompted scour, disk-verified) — recover-don't-reinvent
+Prior multi-hop work directly relevant to the current coherence-selector 2-hop degradation, found islanded:
+- **VAMP-on-chain forward-backward EP** (belief propagation): acc 1.000 to depth ~200, K=5000/30%-noise robust (experiments/exp_wave14_*vamp_chain*.py). ISLANDED — NOT in hdlab/, NO registry row. ACTION: create a registry row + WIRE (port into an hdlab organ pointed at the situation-model substrate) when multi-hop is addressed. This is the repo's best deep-chain mechanism.
+- **exp_multihop_reverse_replay_backward_sweep_v1** (MIDDLE_BAND): DIAGNOSIS — reverse-replay alone collapses (B=0.016), bidirectional/meet-in-middle is the only lift (D=0.690, +0.184). Informs the selector fix (add a forward pass). Keep as the diagnostic witness.
+- **hdlab/multi_hop.py** (MIDDLE_BAND K=2 iter-cleanup): wired-but-orphaned, NO registry row, superseded-in-comment by reasoner.py. ACTION: register + SHELVE (superseded) or delete-decision.
+- **hdlab/reasoner.py** (meet-in-middle, 'supersedes K=2 multi_hop'): imported by NOTHING = islanded. ACTION: register; it is the meet-in-middle prescription the diagnosis points to — evaluate for reuse in the selector's forward pass.
+- **sr_routing_multihop (+0.253)**: registry status orphaned_source_not_locatable_retired_2026-08-03 (SHELVE). SR-based = directly on-topic. ACTION: git-recover the source cell (`git log --all -- '*sr_routing*multihop*'`) before re-inventing.
+HONEST: all prior wins are synthetic KG chains, not NL causal chains over a situation model — bidirectional-EP transfer to the causal setting is untested (the real frontier).
