@@ -1,0 +1,130 @@
+{
+  "verdict": "HARD_PASS_ROLE_COMPAT_SCORE_MECHANISM_CAPACITY_EXISTENCE_PROOF_N1",
+  "verdict_msg": "HARD_PASS_ROLE_COMPAT_SCORE_MECHANISM_CAPACITY_EXISTENCE_PROOF_N1: SCOPE=[MECHANISM-CAPACITY proof over SUPPLIED role-structure: the substrate can USE a supplied symbolic role-compatibility table to discriminate GOAL_OWNER role-content where decode_coherence_margins gave EXACTLY 0.0 (data/exp_coherence_role_conflict_crosstalk_v1/metrics.json). Does NOT prove iterative settling is needed (single-pass sufficed here), NOR that role-structure can be EARNED from raw text (supplied here, not learned). N=1 existence proof (one candidate-pair item family, 4 controlled variants, 5 seeds for determinism-robustness of the register-construction plumbing, not for statistical variance -- the score itself is deterministic given the supplied structure).] || ORIG(load-matched) picks_true_owner_all_seeds=True margin_mean=2.0 | ANTI_RECENCY picks_true_owner_all_seeds=True margin_mean=2.0 | CONTROL2_SCRAMBLE collapses_all_seeds=True reproduces_any=False margin_mean=-2.0 | POSITIVE_CONTROL fires_all_seeds=True margin_mean=2.0",
+  "summary": "SCOPE=[MECHANISM-CAPACITY proof over SUPPLIED role-structure: the substrate can USE a supplied symbolic role-compatibility table to discriminate GOAL_OWNER role-content where decode_coherence_margins gave EXACTLY 0.0 (data/exp_coherence_role_conflict_crosstalk_v1/metrics.json). Does NOT prove iterative settling is needed (single-pass sufficed here), NOR that role-structure can be EARNED from raw text (supplied here, not learned). N=1 existence proof (one candidate-pair item family, 4 controlled variants, 5 seeds for determinism-robustness of the register-construction plumbing, not for statistical variance -- the score itself is deterministic given the supplied structure).] || ORIG(load-matched) picks_true_owner_all_seeds=True margin_mean=2.0 | ANTI_RECENCY picks_true_owner_all_seeds=True margin_mean=2.0 | CONTROL2_SCRAMBLE collapses_all_seeds=True reproduces_any=False margin_mean=-2.0 | POSITIVE_CONTROL fires_all_seeds=True margin_mean=2.0",
+  "n_seeds": 5,
+  "scope_label": "MECHANISM-CAPACITY proof over SUPPLIED role-structure: the substrate can USE a supplied symbolic role-compatibility table to discriminate GOAL_OWNER role-content where decode_coherence_margins gave EXACTLY 0.0 (data/exp_coherence_role_conflict_crosstalk_v1/metrics.json). Does NOT prove iterative settling is needed (single-pass sufficed here), NOR that role-structure can be EARNED from raw text (supplied here, not learned). N=1 existence proof (one candidate-pair item family, 4 controlled variants, 5 seeds for determinism-robustness of the register-construction plumbing, not for statistical variance -- the score itself is deterministic given the supplied structure).",
+  "means": {
+    "orig_margin": 2.0,
+    "anti_recency_margin": 2.0,
+    "scramble_margin": -2.0,
+    "positive_control_margin": 2.0
+  },
+  "bands": {
+    "orig_picks_true_owner_all_seeds": true,
+    "anti_recency_picks_true_owner_all_seeds": true,
+    "scramble_collapses_all_seeds": true,
+    "scramble_reproduces_any": false,
+    "positive_control_fires_all_seeds": true
+  },
+  "load_match_assertion_held": true,
+  "settling_deferred_note": "Iterative constraint-satisfaction settling explicitly NOT built -- Director refinement: this item is single-pass-solvable (one score application separates true owner from foil); the spec's relaxation loop only adds winner-take-all sharpening, already provided by decide_keep_or_revert's abstain gate. A future globally-coherent-but-locally-ambiguous case that single-pass cannot solve would justify building the loop next -- not testable at this N=1 scope.",
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "orig_margin": 2.0,
+      "orig_picks_true_owner": true,
+      "anti_recency_margin": 2.0,
+      "anti_recency_picks_true_owner": true,
+      "scramble_margin": -2.0,
+      "scramble_picks_true_owner": false,
+      "positive_control_margin": 2.0,
+      "positive_control_picks_true_owner": true,
+      "load_match_assertion_held": true,
+      "recency_baseline_wrong_on_anti_recency": true
+    },
+    "1": {
+      "seed": 1,
+      "orig_margin": 2.0,
+      "orig_picks_true_owner": true,
+      "anti_recency_margin": 2.0,
+      "anti_recency_picks_true_owner": true,
+      "scramble_margin": -2.0,
+      "scramble_picks_true_owner": false,
+      "positive_control_margin": 2.0,
+      "positive_control_picks_true_owner": true,
+      "load_match_assertion_held": true,
+      "recency_baseline_wrong_on_anti_recency": true
+    },
+    "2": {
+      "seed": 2,
+      "orig_margin": 2.0,
+      "orig_picks_true_owner": true,
+      "anti_recency_margin": 2.0,
+      "anti_recency_picks_true_owner": true,
+      "scramble_margin": -2.0,
+      "scramble_picks_true_owner": false,
+      "positive_control_margin": 2.0,
+      "positive_control_picks_true_owner": true,
+      "load_match_assertion_held": true,
+      "recency_baseline_wrong_on_anti_recency": true
+    },
+    "3": {
+      "seed": 3,
+      "orig_margin": 2.0,
+      "orig_picks_true_owner": true,
+      "anti_recency_margin": 2.0,
+      "anti_recency_picks_true_owner": true,
+      "scramble_margin": -2.0,
+      "scramble_picks_true_owner": false,
+      "positive_control_margin": 2.0,
+      "positive_control_picks_true_owner": true,
+      "load_match_assertion_held": true,
+      "recency_baseline_wrong_on_anti_recency": true
+    },
+    "4": {
+      "seed": 4,
+      "orig_margin": 2.0,
+      "orig_picks_true_owner": true,
+      "anti_recency_margin": 2.0,
+      "anti_recency_picks_true_owner": true,
+      "scramble_margin": -2.0,
+      "scramble_picks_true_owner": false,
+      "positive_control_margin": 2.0,
+      "positive_control_picks_true_owner": true,
+      "load_match_assertion_held": true,
+      "recency_baseline_wrong_on_anti_recency": true
+    }
+  },
+  "run_mode": "full",
+  "elapsed_s": 0.8302742000014405,
+  "ts_iso": "2026-08-04T22:11:39.245245+00:00",
+  "anchor_name": "coherence_role_compat_score_selector_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "abstain_band": 0.02,
+    "role_types": [
+      "AGENT_OF_ATTEMPT",
+      "EXPERIENCER_OF_OUTCOME",
+      "AGENT_OF_UNRELATED",
+      "EXPERIENCER_OF_UNRELATED"
+    ],
+    "w_goal_owner": {
+      "AGENT_OF_ATTEMPT": 1.0,
+      "EXPERIENCER_OF_OUTCOME": 1.0,
+      "AGENT_OF_UNRELATED": 0.0,
+      "EXPERIENCER_OF_UNRELATED": 0.0
+    },
+    "w_scrambled": {
+      "AGENT_OF_ATTEMPT": 0.0,
+      "EXPERIENCER_OF_OUTCOME": 0.0,
+      "AGENT_OF_UNRELATED": 1.0,
+      "EXPERIENCER_OF_UNRELATED": 1.0
+    },
+    "reg_d": 64
+  },
+  "prereg": "notes/prereg_coherence_role_compat_score_selector_v1_2026-08-04.md",
+  "design_spec": "notes/research_coherence_constraint_satisfaction_settling_selector_design_spec.md (commit 70eb5d817) WITH Director single-pass refinement (minimal score, no settling loop)",
+  "cites": [
+    "hdlab/self_improving_loop.py (decide_keep_or_revert, reused verbatim)",
+    "hdlab/situation_model_accumulate.py (AccumulateRegister, constructed+populated for real -- node provenance; role labels read symbolically for scoring, NOT via decode())",
+    "experiments/exp_coherence_role_conflict_crosstalk_v1.py (load-match assertion pattern reused; the shuffled_reproduces=True artifact signature this cell's Control 2 is designed to catch)",
+    "notes/research_coherence_constraint_satisfaction_settling_selector_design_spec.md (commit 70eb5d817, the w-table design + 3 mandatory controls)"
+  ]
+}
