@@ -1,0 +1,4878 @@
+{
+  "verdict": "ROUTES_TO_GROUNDED_HARM_KNOWLEDGE",
+  "verdict_msg": "ROUTES_TO_GROUNDED_HARM_KNOWLEDGE: valence_only selection acc (n=7): FROZEN_LEXICON=0.1429 (baseline 0.5143) EARNED_GROUNDED=0.2857 EARNED_NO_GUARD=0.1429 EARNED_NO_KNOWLEDGE=0.0000 | floors RANDOM=0.2857 SHUFFLED=0.3143 (chance=0.5) | 003_earned_correct=False 007_earned_correct=False",
+  "summary": "valence_only selection acc (n=7): FROZEN_LEXICON=0.1429 (baseline 0.5143) EARNED_GROUNDED=0.2857 EARNED_NO_GUARD=0.1429 EARNED_NO_KNOWLEDGE=0.0000 | floors RANDOM=0.2857 SHUFFLED=0.3143 (chance=0.5) | 003_earned_correct=False 007_earned_correct=False",
+  "n_seeds": 5,
+  "n_items": 7,
+  "means_valence_only_acc": {
+    "FROZEN_LEXICON": 0.14285714285714285,
+    "EARNED_GROUNDED": 0.2857142857142857,
+    "EARNED_GROUNDED_NO_GUARD": 0.14285714285714285,
+    "EARNED_NO_KNOWLEDGE": 0.0,
+    "RANDOM_VALENCE": 0.2857142857142857,
+    "SHUFFLED_VALENCE": 0.3142857142857143
+  },
+  "extraction_level_metrics": {
+    "EARNED_GROUNDED": {
+      "true_span_harm_recall": 0.5714285714285714,
+      "distractor_span_harm_rate": 0.2857142857142857
+    },
+    "FROZEN_LEXICON": {
+      "true_span_harm_recall": 0.14285714285714285,
+      "distractor_span_harm_rate": 0.14285714285714285
+    }
+  },
+  "bands": {
+    "floors_fail": true,
+    "no_knowledge_at_chance": true,
+    "earned_beats_lexicon": true,
+    "earned_clears_chance": false,
+    "both_trap_not_surface_won": true
+  },
+  "adversarial_recency_trap_003_007": {
+    "grapp_mcca_003": {
+      "earned_correct": false,
+      "valences": [
+        "HELP",
+        "NEUTRAL"
+      ],
+      "pick": -1
+    },
+    "grapp_mcca_007": {
+      "earned_correct": false,
+      "valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "pick": -1
+    },
+    "not_gamed_by_surface": true
+  },
+  "per_item": {
+    "grapp_mcca_001": {
+      "true_span": "the half-breed saw his chance and drove the knife to the hilt in the young man\u2019s breast.",
+      "dist_span": "\u201cMuff Potter\u2019ll hang for this if they catch him!\u201d",
+      "earned_grounded_valences": [
+        "HARM",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": 0,
+      "earned_grounded_correct": true,
+      "frozen_lexicon_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "frozen_lexicon_correct": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "drove",
+          "knife"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 2,
+        "help_units": 0
+      },
+      "needs_supplied_harm_knowledge": true
+    },
+    "grapp_mcca_003": {
+      "true_span": "Laurie has confessed, asked pardon, and been punished quite enough.",
+      "dist_span": "\u201cStop, Jo, you must clear yourself first. You have played so many pranks that I am afraid you have had a hand in this.\u201d",
+      "earned_grounded_valences": [
+        "HELP",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "frozen_lexicon_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "frozen_lexicon_correct": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "punished"
+        ],
+        "help_hits": [
+          "confessed",
+          "pardon"
+        ],
+        "patient_present": false,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 1,
+        "help_units": 2
+      },
+      "needs_supplied_harm_knowledge": true
+    },
+    "grapp_mcca_004": {
+      "true_span": "\u201cNo matter whether she heard or not, let her take care of herself.\u201d",
+      "dist_span": "he was carefully skating along the shore, sounding the ice, for a warm spell had preceded the cold snap.",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "HELP"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "frozen_lexicon_valences": [
+        "HELP",
+        "HELP"
+      ],
+      "frozen_lexicon_correct": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 0,
+        "help_units": 0
+      },
+      "needs_supplied_harm_knowledge": true
+    },
+    "grapp_mcca_005": {
+      "true_span": "Sid\u2019s fingers slipped and the bowl dropped and broke.",
+      "dist_span": "He took a good scolding about clodding Sid, and did not seem to mind it in the least.",
+      "earned_grounded_valences": [
+        "HARM",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": 0,
+      "earned_grounded_correct": true,
+      "frozen_lexicon_valences": [
+        "NEUTRAL",
+        "HARM"
+      ],
+      "frozen_lexicon_correct": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "broke",
+          "dropped",
+          "slipped"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 3,
+        "help_units": 0
+      },
+      "needs_supplied_harm_knowledge": true
+    },
+    "grapp_mcca_007": {
+      "true_span": "same time Marilla recollected that she had put the bottle of raspberry cordial down in the cellar instead of in the pantry as she had told Anne.",
+      "dist_span": "awful state,\u201d she wailed. \u201cShe says that I set Diana _drunk_ Saturday and sent her home in a disgraceful condition.",
+      "earned_grounded_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "frozen_lexicon_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "frozen_lexicon_correct": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": false,
+        "hypothetical": false,
+        "harm_units": 0,
+        "help_units": 0
+      },
+      "needs_supplied_harm_knowledge": true
+    },
+    "grapp_mcca_008": {
+      "true_span": "risk to himself. Tom\u2019s spelling-book fell under his eye. Here was his opportunity. He gratefully opened to the lesson for the afternoon and poured ink upon the ",
+      "dist_span": "Tom took his whipping and went back to his seat not at all broken-hearted, for he thought it was possible that he had unknowingly upset the ink on the spelling-",
+      "earned_grounded_valences": [
+        "HARM",
+        "HARM"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "frozen_lexicon_valences": [
+        "NEUTRAL",
+        "NEUTRAL"
+      ],
+      "frozen_lexicon_correct": false,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "poured"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 1,
+        "help_units": 0
+      },
+      "needs_supplied_harm_knowledge": true
+    },
+    "grapp_mcca_009": {
+      "true_span": "stepped in at the door and caught a glimpse of the picture. Becky snatched at the book to close it, and had the hard luck to tear the pictured page half down th",
+      "dist_span": "Tom took his whipping and went back to his seat not at all broken-hearted, for he thought it was possible that he had unknowingly upset the ink on the spelling-",
+      "earned_grounded_valences": [
+        "HARM",
+        "HARM"
+      ],
+      "earned_grounded_pick": -1,
+      "earned_grounded_correct": false,
+      "frozen_lexicon_valences": [
+        "HARM",
+        "NEUTRAL"
+      ],
+      "frozen_lexicon_correct": true,
+      "true_span_grounded_diag": {
+        "harm_hits": [
+          "snatched",
+          "tear"
+        ],
+        "help_hits": [],
+        "patient_present": true,
+        "instrument_present": true,
+        "hypothetical": false,
+        "harm_units": 2,
+        "help_units": 0
+      },
+      "needs_supplied_harm_knowledge": true
+    }
+  },
+  "baseline_reference": "frozen_lexicon valence_only=0.5143 MEASURED@ data/exp_grounded_coherence_selector_v1/metrics.json means.text_valence_only_acc",
+  "contamination_check": {
+    "valence_mechanism_reads_only": [
+      "candidate span texts (cand_text)"
+    ],
+    "outcome_or_goal_text_read_by_valence_mechanism": false,
+    "primitive_tables_contain_proper_nouns": false,
+    "frozen_lexicon_or_borrowed_embedding_or_llm_as_mechanism": false,
+    "note": "valence reads ONLY the candidate span -> structurally immune to outcome-overlap gaming"
+  },
+  "supplied_knowledge_note": "GROUNDED HARM/HELP PRIMITIVES are SUPPLIED general world-knowledge (the ~6yo grounded foundation) -- allowed; the READING mechanism (situation-model accumulate + coref tokenizer) is the substrate's own. EARNED_NO_KNOWLEDGE = the substrate with the primitive store emptied.",
+  "run_mode": "full",
+  "elapsed_s": 0.027674900135025382,
+  "ts_iso": "2026-08-04T11:51:01.153198+00:00",
+  "anchor_name": "grounded_valence_read_from_text_v1",
+  "config": {
+    "N_DIM": 256,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "prereg": "preregs/2026-08-04_grounded_valence_read_from_text_v1.md",
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "arms": {
+        "FROZEN_LEXICON": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                null,
+                null
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_GROUNDED": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.2857142857142857
+        },
+        "EARNED_GROUNDED_NO_GUARD": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_NO_KNOWLEDGE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.0
+        },
+        "RANDOM_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "SHUFFLED_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HELP",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            }
+          ],
+          "acc": 0.2857142857142857
+        }
+      },
+      "arm_label_digests": {
+        "FROZEN_LEXICON": "46e6e2118d140333",
+        "EARNED_GROUNDED": "8cf1922dbaf69738",
+        "EARNED_GROUNDED_NO_GUARD": "93c7fb9f7c1e7f7f",
+        "EARNED_NO_KNOWLEDGE": "c3891491f0f2f6d8",
+        "RANDOM_VALENCE": "90a336244da86803",
+        "SHUFFLED_VALENCE": "032771e6ba2214b2"
+      }
+    },
+    "1": {
+      "seed": 1,
+      "arms": {
+        "FROZEN_LEXICON": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                null,
+                null
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_GROUNDED": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.2857142857142857
+        },
+        "EARNED_GROUNDED_NO_GUARD": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_NO_KNOWLEDGE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.0
+        },
+        "RANDOM_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            }
+          ],
+          "acc": 0.42857142857142855
+        },
+        "SHUFFLED_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            }
+          ],
+          "acc": 0.42857142857142855
+        }
+      },
+      "arm_label_digests": {
+        "FROZEN_LEXICON": "46e6e2118d140333",
+        "EARNED_GROUNDED": "8cf1922dbaf69738",
+        "EARNED_GROUNDED_NO_GUARD": "93c7fb9f7c1e7f7f",
+        "EARNED_NO_KNOWLEDGE": "c3891491f0f2f6d8",
+        "RANDOM_VALENCE": "c827b8348461c085",
+        "SHUFFLED_VALENCE": "f82590d3fe416ad5"
+      }
+    },
+    "2": {
+      "seed": 2,
+      "arms": {
+        "FROZEN_LEXICON": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                null,
+                null
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_GROUNDED": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.2857142857142857
+        },
+        "EARNED_GROUNDED_NO_GUARD": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_NO_KNOWLEDGE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.0
+        },
+        "RANDOM_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            }
+          ],
+          "acc": 0.42857142857142855
+        },
+        "SHUFFLED_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            }
+          ],
+          "acc": 0.14285714285714285
+        }
+      },
+      "arm_label_digests": {
+        "FROZEN_LEXICON": "46e6e2118d140333",
+        "EARNED_GROUNDED": "8cf1922dbaf69738",
+        "EARNED_GROUNDED_NO_GUARD": "93c7fb9f7c1e7f7f",
+        "EARNED_NO_KNOWLEDGE": "c3891491f0f2f6d8",
+        "RANDOM_VALENCE": "314ca785b022cd01",
+        "SHUFFLED_VALENCE": "cf6dadc316ebdb53"
+      }
+    },
+    "3": {
+      "seed": 3,
+      "arms": {
+        "FROZEN_LEXICON": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                null,
+                null
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_GROUNDED": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.2857142857142857
+        },
+        "EARNED_GROUNDED_NO_GUARD": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_NO_KNOWLEDGE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.0
+        },
+        "RANDOM_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HELP",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            }
+          ],
+          "acc": 0.2857142857142857
+        },
+        "SHUFFLED_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HELP",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            }
+          ],
+          "acc": 0.42857142857142855
+        }
+      },
+      "arm_label_digests": {
+        "FROZEN_LEXICON": "46e6e2118d140333",
+        "EARNED_GROUNDED": "8cf1922dbaf69738",
+        "EARNED_GROUNDED_NO_GUARD": "93c7fb9f7c1e7f7f",
+        "EARNED_NO_KNOWLEDGE": "c3891491f0f2f6d8",
+        "RANDOM_VALENCE": "ae1e7657c264b49c",
+        "SHUFFLED_VALENCE": "a551fade9967e7cf"
+      }
+    },
+    "4": {
+      "seed": 4,
+      "arms": {
+        "FROZEN_LEXICON": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                null,
+                null
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                null,
+                null
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_GROUNDED": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.2857142857142857
+        },
+        "EARNED_GROUNDED_NO_GUARD": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "drove",
+                    "knife"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "hang"
+                  ],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "punished"
+                  ],
+                  "help_hits": [
+                    "confessed",
+                    "pardon"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 2
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [
+                    "carefully",
+                    "sounding"
+                  ],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 2
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "broke",
+                    "dropped",
+                    "slipped"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 3,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "poured"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [
+                    "snatched",
+                    "tear"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 2,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [
+                    "upset"
+                  ],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 1,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "EARNED_NO_KNOWLEDGE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": true,
+                  "hypothetical": true,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": false,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": false,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false,
+              "diags": [
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                },
+                {
+                  "harm_hits": [],
+                  "help_hits": [],
+                  "patient_present": true,
+                  "instrument_present": true,
+                  "hypothetical": false,
+                  "harm_units": 0,
+                  "help_units": 0
+                }
+              ]
+            }
+          ],
+          "acc": 0.0
+        },
+        "RANDOM_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "HELP",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HELP",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            }
+          ],
+          "acc": 0.14285714285714285
+        },
+        "SHUFFLED_VALENCE": {
+          "rows": [
+            {
+              "id": "grapp_mcca_001",
+              "valences": [
+                "NEUTRAL",
+                "HELP"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_003",
+              "valences": [
+                "NEUTRAL",
+                "NEUTRAL"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_004",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_005",
+              "valences": [
+                "NEUTRAL",
+                "HARM"
+              ],
+              "pick_slot": 1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_007",
+              "valences": [
+                "HARM",
+                "HARM"
+              ],
+              "pick_slot": -1,
+              "correct": false
+            },
+            {
+              "id": "grapp_mcca_008",
+              "valences": [
+                "HARM",
+                "HELP"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            },
+            {
+              "id": "grapp_mcca_009",
+              "valences": [
+                "HARM",
+                "NEUTRAL"
+              ],
+              "pick_slot": 0,
+              "correct": true
+            }
+          ],
+          "acc": 0.2857142857142857
+        }
+      },
+      "arm_label_digests": {
+        "FROZEN_LEXICON": "46e6e2118d140333",
+        "EARNED_GROUNDED": "8cf1922dbaf69738",
+        "EARNED_GROUNDED_NO_GUARD": "93c7fb9f7c1e7f7f",
+        "EARNED_NO_KNOWLEDGE": "c3891491f0f2f6d8",
+        "RANDOM_VALENCE": "e9df13dba05f3674",
+        "SHUFFLED_VALENCE": "1ce88d1fd0b8303b"
+      }
+    }
+  }
+}
