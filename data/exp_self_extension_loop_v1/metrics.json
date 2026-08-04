@@ -1,0 +1,4781 @@
+{
+  "verdict": "SELF_EXTENSION_WORKS",
+  "verdict_msg": "SELF_EXTENSION_WORKS: mints_goal_blocker=1.00 | C1_noise_no_mint=1.00 C2_redundant_no_mint=1.00 C3_utility_lift=1.00(no_reg=1.00) C4_ronly_drifts=1.00/full_no_drift=1.00 | gb_attrib 0.00->1.00 gb_residual 0.369->0.200",
+  "summary": "mints_goal_blocker=1.00 | C1_noise_no_mint=1.00 C2_redundant_no_mint=1.00 C3_utility_lift=1.00(no_reg=1.00) C4_ronly_drifts=1.00/full_no_drift=1.00 | gb_attrib 0.00->1.00 gb_residual 0.369->0.200",
+  "n_seeds": 8,
+  "fractions": {
+    "mints_goal_blocker": 1.0,
+    "C1_noise_no_mint_full": 1.0,
+    "C2_redundant_no_mint_full": 1.0,
+    "C3_utility_lift": 1.0,
+    "C3_no_harm_regression": 1.0,
+    "C4_residual_only_drifts": 1.0,
+    "C4_full_no_drift": 1.0
+  },
+  "means": {
+    "gb_attrib_before": 0.0,
+    "gb_attrib_after": 1.0,
+    "harm_attrib_before": 0.5694444444444444,
+    "harm_attrib_after": 0.5694444444444444,
+    "gb_residual_before": 0.3691625,
+    "gb_residual_after": 0.19951249999999998
+  },
+  "minted_goal_blocker_signature_seed0": {
+    "signature": [
+      "BLOCK_ACT",
+      "GOAL_OBJECT",
+      "GOAL_OWNER",
+      "GOAL_UNMET"
+    ],
+    "n_confirmations": 8,
+    "confirming_ids": [
+      "gb_syn_00",
+      "gb_syn_01",
+      "gb_syn_02",
+      "gb_syn_03",
+      "gb_syn_04",
+      "gb_syn_05",
+      "gb_syn_06",
+      "gb_syn_07"
+    ],
+    "agg_residual_margin": 0.3635
+  },
+  "real_items_transfer_seed0": [
+    {
+      "id": "grapp_mcca_004_real",
+      "cls": "goal_block",
+      "residual": 0.373,
+      "residual_fires": true,
+      "second_view_cue": false,
+      "enters_minting": false
+    },
+    {
+      "id": "grapp_mcca_001_real",
+      "cls": "redundant_harm",
+      "residual": 0.1426,
+      "residual_fires": false,
+      "second_view_cue": false,
+      "enters_minting": false
+    }
+  ],
+  "real_items_transfer_note": "HONEST LIMITATION surfaced by VET: the connective-cue second view has a RECALL GAP on naturalistic prose -- the real goal-block ruler item grapp_mcca_004 trips the residual gate (novel) but its goal-blocking is expressed WITHOUT an explicit connective cue ('let her take care of herself'), so the second view does NOT fire and the real item would NOT mint. The milestone holds on the controlled synthetic set (goal cues by construction); real-text transfer is bounded by the second view's recall -> routes the next step (a naturalistic-prose-robust independent second view).",
+  "example_view_agreement_seed0": {
+    "goal_block": {
+      "residual_fire_rate": 1.0,
+      "second_view_cue_rate": 0.889,
+      "both_fire_rate": 0.889,
+      "n": 9
+    },
+    "noise": {
+      "residual_fire_rate": 1.0,
+      "second_view_cue_rate": 0.0,
+      "both_fire_rate": 0.0,
+      "n": 8
+    },
+    "redundant_harm": {
+      "residual_fire_rate": 0.0,
+      "second_view_cue_rate": 0.0,
+      "both_fire_rate": 0.0,
+      "n": 9
+    }
+  },
+  "residual_only_spurious_types_seed0": [
+    "minted_type_2"
+  ],
+  "full_spurious_types_seed0": [],
+  "brain_structures": {
+    "novelty_mint_trigger": "VTA-dopamine RPE + cortical predictive coding (Rao-Ballard/Friston); hippocampal-mPFC schema-incongruity (van Kesteren 2012); MINT = hippocampal fast pattern-separated binding (CLS McClelland 1995)",
+    "second_independent_view": "left IFG/pMTG discourse-connective/purpose processing (Do/Chan/Roth 2011); coupling = NELL CPL promotion-requires-independent-view (WSDM 2010)",
+    "consolidation_gate": "ACC/PFC conflict-monitoring control (self_improving_loop) + neocortical slow interleaved consolidation (>=2 cross-confirmations)"
+  },
+  "caveats": [
+    "Feature typing is a supplied glass-box lexical map (same accepted construction caveat as exp_disequilibrium_novelty_signal_test_v1) -- the loop SCORES/MINTS given a faithful typing; it does not induce the typer itself.",
+    "The two views are mechanically independent (HD prediction-error residual vs a DISJOINT connective/purpose function-word cue), but on the synthetic set goal-block passages carry goal cues by construction (as real goal-directed prose does).",
+    "Real ruler items n=2 (DIRECTIONAL garnish); statistical power is the synthetic controlled set.",
+    "predictive_coding / self_improving_loop / normalize_tokens reused bit-identical; no borrowed embedding/LLM/parser as mechanism; minted type NAME is an arbitrary placeholder."
+  ],
+  "run_mode": "full",
+  "elapsed_s": 0.011599200001001009,
+  "ts_iso": "2026-08-04T16:03:33.740979+00:00",
+  "anchor_name": "self_extension_loop_v1",
+  "config": {
+    "N": 1024,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "residual_threshold": 0.25,
+    "min_confirm": 2,
+    "k_synth": 8
+  },
+  "prereg": "preregs/2026-08-04_self_extension_loop_v1.md",
+  "cites": [
+    "notes/brain_component_functional_map_2026-08-04.md",
+    "notes/research_self_extending_grounded_knowledge_prior_art_2026-08-04.md",
+    "exp_disequilibrium_novelty_signal_test_v1"
+  ],
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3635
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3635
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.4482
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4668
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.2222222222222222,
+      "harm_attrib_after": 0.2222222222222222,
+      "gb_residual_before": 0.3646,
+      "gb_residual_after": 0.1882,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3564,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4668,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1602,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3564,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4668,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1572,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3564,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4482,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0352,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3564,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4668,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1602,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3564,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4668,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1572,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3564,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4482,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0352,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.4131,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4668,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1602,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3564,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4668,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1572,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.373,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1426,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    },
+    "1": {
+      "seed": 1,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3693
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3693
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.4189
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4658
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.2222222222222222,
+      "harm_attrib_after": 0.2222222222222222,
+      "gb_residual_before": 0.3727,
+      "gb_residual_after": 0.2222,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3613,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4658,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1562,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3613,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4658,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1357,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3613,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4189,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0527,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3613,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4658,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1562,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3613,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4658,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1357,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3613,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4189,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0527,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.4248,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4658,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1562,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3613,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4658,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1357,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.4004,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1387,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    },
+    "2": {
+      "seed": 2,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3663
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3663
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.417
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4766
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.5555555555555556,
+      "harm_attrib_after": 0.5555555555555556,
+      "gb_residual_before": 0.369,
+      "gb_residual_after": 0.2065,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3594,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4766,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1533,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3594,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4766,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1455,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3594,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.417,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0566,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3594,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4766,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1533,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3594,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4766,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1455,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3594,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.417,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0566,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.415,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4766,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1533,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3594,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4766,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1455,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.3906,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1465,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    },
+    "3": {
+      "seed": 3,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.379
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.379
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.3965
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4785
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.5555555555555556,
+      "harm_attrib_after": 0.5555555555555556,
+      "gb_residual_before": 0.3804,
+      "gb_residual_after": 0.2042,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.376,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4785,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1299,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.376,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4785,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1377,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.376,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.3965,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0508,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.376,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4785,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1299,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.376,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4785,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1377,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.376,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.3965,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0508,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.4004,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4785,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1299,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.376,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4785,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1377,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.3916,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1318,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    },
+    "4": {
+      "seed": 4,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3776
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3776
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.3945
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4736
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.8888888888888888,
+      "harm_attrib_after": 0.8888888888888888,
+      "gb_residual_before": 0.3784,
+      "gb_residual_after": 0.1923,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3711,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1416,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3711,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1426,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3711,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.3945,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0518,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3711,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1416,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3711,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1426,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3711,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.3945,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0518,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.4229,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1416,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3711,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1426,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.3848,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1523,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    },
+    "5": {
+      "seed": 5,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3484
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3484
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.4189
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4756
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.5555555555555556,
+      "harm_attrib_after": 0.5555555555555556,
+      "gb_residual_before": 0.3494,
+      "gb_residual_after": 0.1987,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3447,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4756,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1318,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3447,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4756,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1299,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3447,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4189,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0469,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3447,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4756,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1318,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3447,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4756,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1299,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3447,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4189,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0469,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.374,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4756,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1318,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3447,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4756,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1299,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.3574,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1455,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    },
+    "6": {
+      "seed": 6,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3613
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3613
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.3975
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4736
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.6666666666666666,
+      "harm_attrib_after": 0.6666666666666666,
+      "gb_residual_before": 0.3655,
+      "gb_residual_after": 0.1912,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3525,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1416,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3525,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1572,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3525,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.3975,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0391,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3525,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1416,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3525,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1572,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3525,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.3975,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0391,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.4229,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1416,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3525,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4736,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1572,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.3984,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1514,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    },
+    "7": {
+      "seed": 7,
+      "full_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3712
+        }
+      },
+      "residual_only_minted": {
+        "minted_type_0": {
+          "signature": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "n_confirmations": 8,
+          "confirming_ids": [
+            "gb_syn_00",
+            "gb_syn_01",
+            "gb_syn_02",
+            "gb_syn_03",
+            "gb_syn_04",
+            "gb_syn_05",
+            "gb_syn_06",
+            "gb_syn_07"
+          ],
+          "agg_residual_margin": 0.3712
+        },
+        "minted_type_1": {
+          "signature": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 2,
+          "confirming_ids": [
+            "nz_syn_02",
+            "nz_syn_05"
+          ],
+          "agg_residual_margin": 0.4121
+        },
+        "minted_type_2": {
+          "signature": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "n_confirmations": 6,
+          "confirming_ids": [
+            "nz_syn_00",
+            "nz_syn_01",
+            "nz_syn_03",
+            "nz_syn_04",
+            "nz_syn_06",
+            "nz_syn_07"
+          ],
+          "agg_residual_margin": 0.4746
+        }
+      },
+      "full_goal_types": [
+        "minted_type_0"
+      ],
+      "full_spurious_types": [],
+      "residual_only_goal_types": [
+        "minted_type_0"
+      ],
+      "residual_only_spurious_types": [
+        "minted_type_2"
+      ],
+      "mints_goal_blocker": true,
+      "C1_noise_no_mint_full": true,
+      "C2_redundant_no_mint_full": true,
+      "C3_utility_lift": true,
+      "C3_no_harm_regression": true,
+      "C4_residual_only_drifts": true,
+      "C4_full_no_drift": true,
+      "gb_attrib_before": 0.0,
+      "gb_attrib_after": 1.0,
+      "harm_attrib_before": 0.8888888888888888,
+      "harm_attrib_after": 0.8888888888888888,
+      "gb_residual_before": 0.3733,
+      "gb_residual_after": 0.1928,
+      "view_agreement": {
+        "goal_block": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.889,
+          "both_fire_rate": 0.889,
+          "n": 9
+        },
+        "noise": {
+          "residual_fire_rate": 1.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 8
+        },
+        "redundant_harm": {
+          "residual_fire_rate": 0.0,
+          "second_view_cue_rate": 0.0,
+          "both_fire_rate": 0.0,
+          "n": 9
+        }
+      },
+      "per_passage": [
+        {
+          "id": "gb_syn_00",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3672,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_00",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4746,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_00",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1553,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_01",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3672,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_01",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4746,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_01",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1523,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_02",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3672,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_02",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4121,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_02",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0537,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_03",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3672,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_03",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4746,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_03",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1553,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_04",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3672,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_04",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4746,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_04",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1523,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_05",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3672,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_05",
+          "cls": "noise",
+          "feats": [
+            "GOAL_UNMET",
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4121,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_05",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.0537,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_06",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ],
+          "residual": 0.3994,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_06",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4746,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_06",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1553,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "gb_syn_07",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "PATIENT"
+          ],
+          "residual": 0.3672,
+          "residual_fires": true,
+          "second_view_cue": true,
+          "enters_minting": true,
+          "proposed_sig": [
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET"
+          ]
+        },
+        {
+          "id": "nz_syn_07",
+          "cls": "noise",
+          "feats": [
+            "MOTION",
+            "SCENERY",
+            "WEATHER"
+          ],
+          "residual": 0.4746,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "hm_syn_07",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "HARM_OUTCOME",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT",
+            "TRANSFER"
+          ],
+          "residual": 0.1523,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_004_real",
+          "cls": "goal_block",
+          "feats": [
+            "AGENT",
+            "BLOCK_ACT",
+            "GOAL_OBJECT",
+            "GOAL_OWNER",
+            "GOAL_UNMET",
+            "SCENERY"
+          ],
+          "residual": 0.3896,
+          "residual_fires": true,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        },
+        {
+          "id": "grapp_mcca_001_real",
+          "cls": "redundant_harm",
+          "feats": [
+            "AGENT",
+            "DIRECT_CAUSATION",
+            "INSTRUMENT",
+            "PATIENT",
+            "PHYSICAL_ACT"
+          ],
+          "residual": 0.1465,
+          "residual_fires": false,
+          "second_view_cue": false,
+          "enters_minting": false,
+          "proposed_sig": null
+        }
+      ]
+    }
+  }
+}
