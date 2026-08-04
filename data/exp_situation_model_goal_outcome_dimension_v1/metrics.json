@@ -1,0 +1,1898 @@
+{
+  "verdict": "MIDDLE_BAND_FIRES_BUT_RECENCY_CONFOUND_ROUTES_BINDING_SELECTOR",
+  "verdict_msg": "MIDDLE_BAND_FIRES_BUT_RECENCY_CONFOUND_ROUTES_BINDING_SELECTOR: TREATMENT goal_block=0.8333 control=0.0 (met=0.0 noise=0.0 harm=0.0) | BASELINE goal_block=0.0 control=0.0 | recency_binding_acc=0.3333 | decode_faithful=True | vs ~1.4% flat naturalistic baseline",
+  "summary": "TREATMENT goal_block=0.8333 control=0.0 (met=0.0 noise=0.0 harm=0.0) | BASELINE goal_block=0.0 control=0.0 | recency_binding_acc=0.3333 | decode_faithful=True | vs ~1.4% flat naturalistic baseline",
+  "n_seeds": 5,
+  "means": {
+    "treatment_goal_block_fire": 0.8333,
+    "treatment_control_fire": 0.0,
+    "treatment_control_met_fire": 0.0,
+    "treatment_control_noise_fire": 0.0,
+    "treatment_control_harm_fire": 0.0,
+    "baseline_goal_block_fire": 0.0,
+    "baseline_control_fire": 0.0,
+    "recency_binding_accuracy": 0.3333
+  },
+  "bands": {
+    "fires_discriminative": true,
+    "beats_baseline": true,
+    "recency_binds_right_event": false,
+    "all_decode_faithful": true
+  },
+  "naturalistic_flat_baseline_ref": 0.014,
+  "per_seed_rows_seed0": [
+    {
+      "id": "mcca_004_amy_warning",
+      "cls": "goal_block",
+      "subtype": "withholding",
+      "owner": "amy",
+      "treatment_fires": true,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 1,
+        "n_met": 0,
+        "goal_blocked": true,
+        "n_events": 4,
+        "decode_faithful": true
+      },
+      "n_owner_events": 4,
+      "decode_faithful": true
+    },
+    {
+      "id": "theatre_refusal",
+      "cls": "goal_block",
+      "subtype": "withholding",
+      "owner": "amy",
+      "treatment_fires": true,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 1,
+        "n_met": 0,
+        "goal_blocked": true,
+        "n_events": 5,
+        "decode_faithful": true
+      },
+      "n_owner_events": 5,
+      "decode_faithful": true
+    },
+    {
+      "id": "beth_fair",
+      "cls": "goal_block",
+      "subtype": "withholding",
+      "owner": "beth",
+      "treatment_fires": true,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 1,
+        "n_met": 0,
+        "goal_blocked": true,
+        "n_events": 4,
+        "decode_faithful": true
+      },
+      "n_owner_events": 4,
+      "decode_faithful": true
+    },
+    {
+      "id": "tom_shore",
+      "cls": "goal_block",
+      "subtype": "withholding",
+      "owner": "tom",
+      "treatment_fires": true,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 1,
+        "n_met": 0,
+        "goal_blocked": true,
+        "n_events": 4,
+        "decode_faithful": true
+      },
+      "n_owner_events": 4,
+      "decode_faithful": true
+    },
+    {
+      "id": "book_burning_spite",
+      "cls": "goal_block",
+      "subtype": "spite_destruction",
+      "owner": "jo",
+      "treatment_fires": true,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 1,
+        "n_met": 0,
+        "goal_blocked": true,
+        "n_events": 2,
+        "decode_faithful": true
+      },
+      "n_owner_events": 2,
+      "decode_faithful": true
+    },
+    {
+      "id": "mcca_003_forger",
+      "cls": "goal_block",
+      "subtype": "borderline",
+      "owner": "meg",
+      "treatment_fires": false,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      },
+      "n_owner_events": 2,
+      "decode_faithful": true
+    },
+    {
+      "id": "amy_met",
+      "cls": "control_goal_met",
+      "subtype": "met",
+      "owner": "amy",
+      "treatment_fires": false,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 2,
+        "goal_blocked": false,
+        "n_events": 4,
+        "decode_faithful": true
+      },
+      "n_owner_events": 4,
+      "decode_faithful": true
+    },
+    {
+      "id": "beth_met",
+      "cls": "control_goal_met",
+      "subtype": "met",
+      "owner": "beth",
+      "treatment_fires": false,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 2,
+        "goal_blocked": false,
+        "n_events": 3,
+        "decode_faithful": true
+      },
+      "n_owner_events": 3,
+      "decode_faithful": true
+    },
+    {
+      "id": "noise_frost",
+      "cls": "control_noise",
+      "subtype": "outcome_trap",
+      "owner": null,
+      "treatment_fires": false,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": false,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 0,
+        "decode_faithful": true
+      },
+      "n_owner_events": 0,
+      "decode_faithful": true
+    },
+    {
+      "id": "noise_mist",
+      "cls": "control_noise",
+      "subtype": "outcome_trap",
+      "owner": null,
+      "treatment_fires": false,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": false,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 0,
+        "decode_faithful": true
+      },
+      "n_owner_events": 0,
+      "decode_faithful": true
+    },
+    {
+      "id": "harm_knife",
+      "cls": "control_harm",
+      "subtype": "physical",
+      "owner": null,
+      "treatment_fires": false,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": false,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 0,
+        "decode_faithful": true
+      },
+      "n_owner_events": 0,
+      "decode_faithful": true
+    },
+    {
+      "id": "harm_poker",
+      "cls": "control_harm",
+      "subtype": "physical",
+      "owner": null,
+      "treatment_fires": false,
+      "baseline_fires": false,
+      "appraise": {
+        "has_goal": false,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 1,
+        "decode_faithful": true
+      },
+      "n_owner_events": 1,
+      "decode_faithful": true
+    }
+  ],
+  "recency_rows_seed0": [
+    {
+      "id": "recency_amy_blocked_pronoun_foil_jo",
+      "owner": "amy",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "amy",
+      "resolver_outcome_subjects": [
+        "jo"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_tom_blocked_pronoun_foil_sid",
+      "owner": "tom",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "tom",
+      "resolver_outcome_subjects": [
+        "sid"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 1,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_beth_blocked_antecedent_is_recent",
+      "owner": "beth",
+      "trap": "antecedent_is_recent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": true,
+      "matches_gold": true,
+      "gold_outcome_owner": "beth",
+      "resolver_outcome_subjects": [
+        "beth"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 1,
+        "n_met": 0,
+        "goal_blocked": true,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    }
+  ],
+  "register_extension": {
+    "organ": "hdlab.situation_model_accumulate.AccumulateRegister (atom 29609), reused bit-identical",
+    "pattern": "GoalOutcomeRegister(AccumulateRegister) mirrors CausalLinkRegister: extends role_vocab ['agent','mentioned'] -> ['GOAL','ACTION_AGAINST','OUTCOME_UNMET','OUTCOME_MET'] + per-entity role bookkeeping + appraise(); same bind/bundle/unbind/cleanup_argmax chain, no new binding/cleanup mechanism",
+    "read": "appraise(owner) decodes each accumulated slot OFF the register (not a local window)"
+  },
+  "brain_structures": {
+    "goal_outcome_dimension": "Zwaan event-indexing (intentionality/causation/outcome) over the DMN situation model (Zwaan & Radvansky 1998; Lerner 2011 DMN paragraph-scale integration)",
+    "binding": "hippocampal relational binding (Ranganath & Ritchey 2012 PMAT) reused as one substrate across dimension types -- mirrors CausalLinkRegister CAUSE/EFFECT reuse",
+    "appraisal": "OFC/vmPFC outcome-value appraisal over the represented situation (Moors/Scherer/Frijda 2013; Kintsch C-I)",
+    "entity_attribution": "coreference / hippocampal antecedent retrieval; the recency-shaped resolver is the KNOWN FALSIFIED failure mode (coref recency-trap 0/4, MEMORY 2026-08-03), probed by the recency control"
+  },
+  "caveats": [
+    "n small + DIRECTIONAL: 6 goal-block (incl mcca_004 + theatre_refusal gold rulers woven into full discourse, 1 spite-destruction boundary, 1 borderline) + 6 controls (2 goal-met, 2 outcome-trap noise, 2 physical-harm) + 3 recency-trap probes.",
+    "The ~1.4% flat naturalistic baseline is the reported reference figure (0.014) for the local-window read; this cell's BASELINE arm reproduces the local-window read on THESE items (small n) as the matched on-item comparator -- not a re-measurement of the 1.4%.",
+    "Supplied goal-schema KNOWLEDGE (V2_DESIRE / V2_OUTCOME_* / V1_WITHHOLD lexicons, proper-noun-free, reused bit-identical from the grounded VIEW-2) is ALLOWED (supply knowledge, not the reading mechanism); attribution + appraisal never read the class label.",
+    "Entity attribution uses a deterministic RECENCY-shaped pronoun resolver -- named as the known-falsified coref failure mode; the goal-block items mostly use explicit names so the DISCRIMINATION test isolates dispersal/accumulation, while the recency probe isolates right-event-vs-most-recent binding.",
+    "AccumulateRegister / normalize_tokens / view2_goal_outcome / V1/V2 lexicons reused bit-identical; no borrowed embedding/LLM/parser as mechanism; deterministic; multi-seed."
+  ],
+  "run_mode": "full",
+  "elapsed_s": 0.3599294999985432,
+  "ts_iso": "2026-08-04T19:12:21.207945+00:00",
+  "anchor_name": "situation_model_goal_outcome_dimension_v1",
+  "config": {
+    "D2": 1024,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "max_events": 8,
+    "baseline_window": 2,
+    "n_goal_block": 6,
+    "n_control": 6,
+    "n_recency": 3
+  },
+  "prereg": "preregs/2026-08-04_situation_model_goal_outcome_dimension_v1.md",
+  "cites": [
+    "notes/research_discourse_scale_grounded_integration_brain_drill_2026-08-04.md",
+    "hdlab/situation_model_accumulate.py (CausalLinkRegister CAUSE/EFFECT, atom 29609)",
+    "experiments/exp_self_extension_grounded_realprose_v1.py (VIEW-2 grounded read)"
+  ],
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "treatment_goal_block_fire": 0.8333,
+      "treatment_control_fire": 0.0,
+      "baseline_goal_block_fire": 0.0,
+      "baseline_control_fire": 0.0,
+      "treatment_control_met_fire": 0.0,
+      "treatment_control_noise_fire": 0.0,
+      "treatment_control_harm_fire": 0.0,
+      "recency_binding_accuracy": 0.3333,
+      "all_decode_faithful": true,
+      "rows": [
+        {
+          "id": "mcca_004_amy_warning",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "theatre_refusal",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 5,
+            "decode_faithful": true
+          },
+          "n_owner_events": 5,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_fair",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "beth",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "tom_shore",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "tom",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "book_burning_spite",
+          "cls": "goal_block",
+          "subtype": "spite_destruction",
+          "owner": "jo",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "mcca_003_forger",
+          "cls": "goal_block",
+          "subtype": "borderline",
+          "owner": "meg",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "amy_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "amy",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "beth",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 3,
+            "decode_faithful": true
+          },
+          "n_owner_events": 3,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_frost",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_mist",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_knife",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_poker",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          },
+          "n_owner_events": 1,
+          "decode_faithful": true
+        }
+      ],
+      "recency_rows": [
+        {
+          "id": "recency_amy_blocked_pronoun_foil_jo",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_antecedent_is_recent",
+          "owner": "beth",
+          "trap": "antecedent_is_recent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": true,
+          "matches_gold": true,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        }
+      ]
+    },
+    "1": {
+      "seed": 1,
+      "treatment_goal_block_fire": 0.8333,
+      "treatment_control_fire": 0.0,
+      "baseline_goal_block_fire": 0.0,
+      "baseline_control_fire": 0.0,
+      "treatment_control_met_fire": 0.0,
+      "treatment_control_noise_fire": 0.0,
+      "treatment_control_harm_fire": 0.0,
+      "recency_binding_accuracy": 0.3333,
+      "all_decode_faithful": true,
+      "rows": [
+        {
+          "id": "mcca_004_amy_warning",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "theatre_refusal",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 5,
+            "decode_faithful": true
+          },
+          "n_owner_events": 5,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_fair",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "beth",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "tom_shore",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "tom",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "book_burning_spite",
+          "cls": "goal_block",
+          "subtype": "spite_destruction",
+          "owner": "jo",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "mcca_003_forger",
+          "cls": "goal_block",
+          "subtype": "borderline",
+          "owner": "meg",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "amy_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "amy",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "beth",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 3,
+            "decode_faithful": true
+          },
+          "n_owner_events": 3,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_frost",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_mist",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_knife",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_poker",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          },
+          "n_owner_events": 1,
+          "decode_faithful": true
+        }
+      ],
+      "recency_rows": [
+        {
+          "id": "recency_amy_blocked_pronoun_foil_jo",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_antecedent_is_recent",
+          "owner": "beth",
+          "trap": "antecedent_is_recent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": true,
+          "matches_gold": true,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        }
+      ]
+    },
+    "2": {
+      "seed": 2,
+      "treatment_goal_block_fire": 0.8333,
+      "treatment_control_fire": 0.0,
+      "baseline_goal_block_fire": 0.0,
+      "baseline_control_fire": 0.0,
+      "treatment_control_met_fire": 0.0,
+      "treatment_control_noise_fire": 0.0,
+      "treatment_control_harm_fire": 0.0,
+      "recency_binding_accuracy": 0.3333,
+      "all_decode_faithful": true,
+      "rows": [
+        {
+          "id": "mcca_004_amy_warning",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "theatre_refusal",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 5,
+            "decode_faithful": true
+          },
+          "n_owner_events": 5,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_fair",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "beth",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "tom_shore",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "tom",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "book_burning_spite",
+          "cls": "goal_block",
+          "subtype": "spite_destruction",
+          "owner": "jo",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "mcca_003_forger",
+          "cls": "goal_block",
+          "subtype": "borderline",
+          "owner": "meg",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "amy_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "amy",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "beth",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 3,
+            "decode_faithful": true
+          },
+          "n_owner_events": 3,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_frost",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_mist",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_knife",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_poker",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          },
+          "n_owner_events": 1,
+          "decode_faithful": true
+        }
+      ],
+      "recency_rows": [
+        {
+          "id": "recency_amy_blocked_pronoun_foil_jo",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_antecedent_is_recent",
+          "owner": "beth",
+          "trap": "antecedent_is_recent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": true,
+          "matches_gold": true,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        }
+      ]
+    },
+    "3": {
+      "seed": 3,
+      "treatment_goal_block_fire": 0.8333,
+      "treatment_control_fire": 0.0,
+      "baseline_goal_block_fire": 0.0,
+      "baseline_control_fire": 0.0,
+      "treatment_control_met_fire": 0.0,
+      "treatment_control_noise_fire": 0.0,
+      "treatment_control_harm_fire": 0.0,
+      "recency_binding_accuracy": 0.3333,
+      "all_decode_faithful": true,
+      "rows": [
+        {
+          "id": "mcca_004_amy_warning",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "theatre_refusal",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 5,
+            "decode_faithful": true
+          },
+          "n_owner_events": 5,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_fair",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "beth",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "tom_shore",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "tom",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "book_burning_spite",
+          "cls": "goal_block",
+          "subtype": "spite_destruction",
+          "owner": "jo",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "mcca_003_forger",
+          "cls": "goal_block",
+          "subtype": "borderline",
+          "owner": "meg",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "amy_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "amy",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "beth",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 3,
+            "decode_faithful": true
+          },
+          "n_owner_events": 3,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_frost",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_mist",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_knife",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_poker",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          },
+          "n_owner_events": 1,
+          "decode_faithful": true
+        }
+      ],
+      "recency_rows": [
+        {
+          "id": "recency_amy_blocked_pronoun_foil_jo",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_antecedent_is_recent",
+          "owner": "beth",
+          "trap": "antecedent_is_recent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": true,
+          "matches_gold": true,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        }
+      ]
+    },
+    "4": {
+      "seed": 4,
+      "treatment_goal_block_fire": 0.8333,
+      "treatment_control_fire": 0.0,
+      "baseline_goal_block_fire": 0.0,
+      "baseline_control_fire": 0.0,
+      "treatment_control_met_fire": 0.0,
+      "treatment_control_noise_fire": 0.0,
+      "treatment_control_harm_fire": 0.0,
+      "recency_binding_accuracy": 0.3333,
+      "all_decode_faithful": true,
+      "rows": [
+        {
+          "id": "mcca_004_amy_warning",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "theatre_refusal",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "amy",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 5,
+            "decode_faithful": true
+          },
+          "n_owner_events": 5,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_fair",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "beth",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "tom_shore",
+          "cls": "goal_block",
+          "subtype": "withholding",
+          "owner": "tom",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "book_burning_spite",
+          "cls": "goal_block",
+          "subtype": "spite_destruction",
+          "owner": "jo",
+          "treatment_fires": true,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "mcca_003_forger",
+          "cls": "goal_block",
+          "subtype": "borderline",
+          "owner": "meg",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          },
+          "n_owner_events": 2,
+          "decode_faithful": true
+        },
+        {
+          "id": "amy_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "amy",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 4,
+            "decode_faithful": true
+          },
+          "n_owner_events": 4,
+          "decode_faithful": true
+        },
+        {
+          "id": "beth_met",
+          "cls": "control_goal_met",
+          "subtype": "met",
+          "owner": "beth",
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 2,
+            "goal_blocked": false,
+            "n_events": 3,
+            "decode_faithful": true
+          },
+          "n_owner_events": 3,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_frost",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "noise_mist",
+          "cls": "control_noise",
+          "subtype": "outcome_trap",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_knife",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 0,
+            "decode_faithful": true
+          },
+          "n_owner_events": 0,
+          "decode_faithful": true
+        },
+        {
+          "id": "harm_poker",
+          "cls": "control_harm",
+          "subtype": "physical",
+          "owner": null,
+          "treatment_fires": false,
+          "baseline_fires": false,
+          "appraise": {
+            "has_goal": false,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          },
+          "n_owner_events": 1,
+          "decode_faithful": true
+        }
+      ],
+      "recency_rows": [
+        {
+          "id": "recency_amy_blocked_pronoun_foil_jo",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_antecedent_is_recent",
+          "owner": "beth",
+          "trap": "antecedent_is_recent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": true,
+          "matches_gold": true,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 1,
+            "n_met": 0,
+            "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        }
+      ]
+    }
+  }
+}
