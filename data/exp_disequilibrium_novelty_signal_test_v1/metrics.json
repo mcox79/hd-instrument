@@ -1,0 +1,441 @@
+{
+  "experiment": "exp_disequilibrium_novelty_signal_test_v1",
+  "cites": "notes/research_self_extending_grounded_knowledge_prior_art_2026-08-04.md (b)/(c)/(h)",
+  "n_items": 18,
+  "N": 1024,
+  "n_seeds": 30,
+  "n_fits": 7,
+  "n_needs": 11,
+  "current_role_vocabulary": {
+    "situation_model_semantic": [
+      "agent",
+      "patient",
+      "theme",
+      "recipient",
+      "addressee",
+      "speaker"
+    ],
+    "causal_meta": [
+      "CAUSE",
+      "EFFECT"
+    ],
+    "anne_read": [
+      "agent",
+      "mentioned"
+    ],
+    "note": "no distinct causal-role TYPE for bribe/omission/deception/counterfactual/social"
+  },
+  "native_schema_templates": {
+    "physical_harm": [
+      "AGENT",
+      "PHYSICAL_ACT",
+      "DIRECT_CAUSATION",
+      "HARM_OUTCOME"
+    ],
+    "physical_help": [
+      "AGENT",
+      "PHYSICAL_ACT",
+      "DIRECT_CAUSATION",
+      "HELP_OUTCOME"
+    ],
+    "theft": [
+      "AGENT",
+      "TRANSFER",
+      "DIRECT_CAUSATION"
+    ],
+    "instrument": [
+      "AGENT",
+      "INSTRUMENT",
+      "PHYSICAL_ACT",
+      "DIRECT_CAUSATION",
+      "HARM_OUTCOME"
+    ],
+    "accident": [
+      "AGENT",
+      "PHYSICAL_ACT",
+      "DIRECT_CAUSATION"
+    ]
+  },
+  "bands": {
+    "HARD_PASS": "mean_gap>=0.05 AND non-overlapping IQR",
+    "HARD_FAIL": "MW two-sided p>0.10",
+    "MIDDLE": "otherwise"
+  },
+  "verdicts": {
+    "residual": {
+      "signal": "predictive_coding_residual",
+      "mean_fits": 0.08874162946428572,
+      "mean_needs": 0.36118607954545456,
+      "mean_gap": 0.27244445008116885,
+      "iqr_fits": [
+        0.07950846354166666,
+        0.08790690104166667
+      ],
+      "iqr_needs": [
+        0.3154622395833333,
+        0.4382649739583333
+      ],
+      "iqr_overlap_frac": 0.0,
+      "mann_whitney_U": 77.0,
+      "p_directional": 0.00027982896875673345,
+      "p_two_sided": 0.0005596579375134669,
+      "n_fits": 7,
+      "n_needs": 11,
+      "verdict": "HARD_PASS"
+    },
+    "coherence_margin_fixed": {
+      "signal": "coherence_margin_fixed_vocab",
+      "mean_fits": 0.613117489668851,
+      "mean_needs": 1.7881393432617184e-08,
+      "mean_gap": 0.6131174717874576,
+      "iqr_fits": [
+        0.613117489668851,
+        0.613117489668851
+      ],
+      "iqr_needs": [
+        1.7881393432617187e-08,
+        1.7881393432617187e-08
+      ],
+      "iqr_overlap_frac": 0.0,
+      "mann_whitney_U": 0.0,
+      "p_directional": 2.3551125657923847e-05,
+      "p_two_sided": 4.7102251315847694e-05,
+      "n_fits": 7,
+      "n_needs": 11,
+      "verdict": "HARD_PASS"
+    },
+    "coherence_margin_delta": {
+      "signal": "coherence_margin_delta_ext_minus_fixed",
+      "mean_fits": 0.0,
+      "mean_needs": 0.6144487383281528,
+      "mean_gap": 0.6144487383281528,
+      "iqr_fits": [
+        0.0,
+        0.0
+      ],
+      "iqr_needs": [
+        0.6127409182178477,
+        0.6173586313457539
+      ],
+      "iqr_overlap_frac": 0.0,
+      "mann_whitney_U": 77.0,
+      "p_directional": 0.0001737867457972085,
+      "p_two_sided": 0.000347573491594417,
+      "n_fits": 7,
+      "n_needs": 11,
+      "verdict": "HARD_PASS"
+    }
+  },
+  "two_signal_summary": {
+    "primary_brain_faithful_residual": "HARD_PASS",
+    "secondary_coherence_margin_fixed": "HARD_PASS",
+    "secondary_coherence_margin_delta": "HARD_PASS"
+  },
+  "per_item": [
+    {
+      "id": "grapp_mcca_001",
+      "label": "fits_existing",
+      "fine_type": "direct_physical",
+      "features": [
+        "AGENT",
+        "PHYSICAL_ACT",
+        "DIRECT_CAUSATION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Injun Joe drove the knife into the victim's breast -- direct agentive physical killing; representable as agent-CAUSE-EFFECT.",
+      "residual_mean": 0.08134765625,
+      "residual_std": 0.018647230156376652,
+      "coh_margin_fixed_mean": 0.613117489668851,
+      "coh_margin_ext_mean": 0.613117489668851,
+      "coh_margin_delta_mean": 0.0
+    },
+    {
+      "id": "grapp_mcca_003",
+      "label": "needs_new",
+      "fine_type": "deception",
+      "features": [
+        "AGENT",
+        "DECEPTION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Laurie FORGED the mock love-letter -- the cause is a misrepresentation/deception act, no distinct role in the current vocab.",
+      "residual_mean": 0.3355794270833333,
+      "residual_std": 0.013372093130398192,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6138655444141478,
+      "coh_margin_delta_mean": 0.6138655265327543
+    },
+    {
+      "id": "grapp_mcca_004",
+      "label": "needs_new",
+      "fine_type": "omission",
+      "features": [
+        "AGENT",
+        "OMISSION",
+        "NO_PHYSICAL_ACT",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Jo deliberately WITHHELD Laurie's warning from Amy -- a failure-to-act (omission) is the cause; no physical act; vocab has no omission role.",
+      "residual_mean": 0.3146158854166667,
+      "residual_std": 0.012879481781406183,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6112116079777479,
+      "coh_margin_delta_mean": 0.6112115900963544
+    },
+    {
+      "id": "grapp_mcca_005",
+      "label": "fits_existing",
+      "fine_type": "direct_physical",
+      "features": [
+        "AGENT",
+        "PHYSICAL_ACT",
+        "DIRECT_CAUSATION"
+      ],
+      "causal_justification": "Sid's fingers slipped and the bowl dropped and broke -- direct physical causation (accidental agentive act).",
+      "residual_mean": 0.07766927083333333,
+      "residual_std": 0.00728497879680363,
+      "coh_margin_fixed_mean": 0.613117489668851,
+      "coh_margin_ext_mean": 0.613117489668851,
+      "coh_margin_delta_mean": 0.0
+    },
+    {
+      "id": "grapp_mcca_006",
+      "label": "needs_new",
+      "fine_type": "omission_inadvertent",
+      "features": [
+        "OMISSION",
+        "NO_PHYSICAL_ACT",
+        "COUNTERFACTUAL"
+      ],
+      "causal_justification": "Marilla's own forgetfulness -- brooch caught unnoticed in her shawl; inadvertent non-act, no agentive physical cause of the 'loss'.",
+      "residual_mean": 0.47763671875,
+      "residual_std": 0.008926692946691862,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6112116079777479,
+      "coh_margin_delta_mean": 0.6112115900963544
+    },
+    {
+      "id": "grapp_mcca_007",
+      "label": "needs_new",
+      "fine_type": "social_indirect",
+      "features": [
+        "AGENT",
+        "SOCIAL_INSTIGATION",
+        "OMISSION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Marilla mis-stored the cordial so Anne UNKNOWINGLY served wine -- harm via an unwitting intermediary + a storage mistake; indirect/omission causation.",
+      "residual_mean": 0.31630859375,
+      "residual_std": 0.016104598354987176,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6127409360992412,
+      "coh_margin_delta_mean": 0.6127409182178477
+    },
+    {
+      "id": "grapp_mcca_008",
+      "label": "fits_existing",
+      "fine_type": "direct_physical",
+      "features": [
+        "AGENT",
+        "PHYSICAL_ACT",
+        "DIRECT_CAUSATION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Alfred Temple poured ink on Tom's spelling-book -- direct agentive physical act (property harm).",
+      "residual_mean": 0.08134765625,
+      "residual_std": 0.018647230156376652,
+      "coh_margin_fixed_mean": 0.613117489668851,
+      "coh_margin_ext_mean": 0.613117489668851,
+      "coh_margin_delta_mean": 0.0
+    },
+    {
+      "id": "grapp_mcca_009",
+      "label": "fits_existing",
+      "fine_type": "direct_physical",
+      "features": [
+        "AGENT",
+        "PHYSICAL_ACT",
+        "DIRECT_CAUSATION"
+      ],
+      "causal_justification": "Becky accidentally tore the page while startled -- direct physical causation.",
+      "residual_mean": 0.07766927083333333,
+      "residual_std": 0.00728497879680363,
+      "coh_margin_fixed_mean": 0.613117489668851,
+      "coh_margin_ext_mean": 0.613117489668851,
+      "coh_margin_delta_mean": 0.0
+    },
+    {
+      "id": "crossspan_det_001",
+      "label": "fits_existing",
+      "fine_type": "direct_physical",
+      "features": [
+        "AGENT",
+        "PHYSICAL_ACT",
+        "DIRECT_CAUSATION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "John Turner killed McCarthy to silence blackmail -- direct agentive physical killing (motive complex, act direct).",
+      "residual_mean": 0.08134765625,
+      "residual_std": 0.018647230156376652,
+      "coh_margin_fixed_mean": 0.613117489668851,
+      "coh_margin_ext_mean": 0.613117489668851,
+      "coh_margin_delta_mean": 0.0
+    },
+    {
+      "id": "crossspan_det_002",
+      "label": "needs_new",
+      "fine_type": "deception_framing",
+      "features": [
+        "AGENT",
+        "TRANSFER",
+        "DECEPTION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "James Ryder stole the gem AND FRAMED Horner -- identifying the true cause hinges on the deliberate framing (misrepresentation), not just the theft.",
+      "residual_mean": 0.33011067708333336,
+      "residual_std": 0.009714983712915282,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6138655444141478,
+      "coh_margin_delta_mean": 0.6138655265327543
+    },
+    {
+      "id": "crossspan_det_003",
+      "label": "needs_new",
+      "fine_type": "social_collusion",
+      "features": [
+        "AGENT",
+        "TRANSFER",
+        "SOCIAL_INSTIGATION",
+        "COUNTERFACTUAL"
+      ],
+      "causal_justification": "Mary + secret lover Burnwell colluded to steal; Arthur broke the coronet FIGHTING to stop them -- social instigation + counterfactual (damage arose from prevention).",
+      "residual_mean": 0.34466145833333334,
+      "residual_std": 0.010517698519667105,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6127409360992412,
+      "coh_margin_delta_mean": 0.6127409182178477
+    },
+    {
+      "id": "crossspan_det_004",
+      "label": "fits_existing",
+      "fine_type": "instrument",
+      "features": [
+        "AGENT",
+        "INSTRUMENT",
+        "PHYSICAL_ACT",
+        "DIRECT_CAUSATION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Dr. Roylott killed Julia via a trained swamp adder through the ventilator -- agentive killing via an instrument (instrument-mediated, native).",
+      "residual_mean": 0.09446614583333333,
+      "residual_std": 0.00993963885798524,
+      "coh_margin_fixed_mean": 0.613117489668851,
+      "coh_margin_ext_mean": 0.613117489668851,
+      "coh_margin_delta_mean": 0.0
+    },
+    {
+      "id": "crossspan_det_005",
+      "label": "needs_new",
+      "fine_type": "counterfactual_disguise",
+      "features": [
+        "DECEPTION",
+        "COUNTERFACTUAL",
+        "NO_PHYSICAL_ACT"
+      ],
+      "causal_justification": "Neville St. Clair disguised himself as beggar Boone -- NO crime occurred; counterfactual (feared murder never happened) + disguise/deception.",
+      "residual_mean": 0.4771809895833333,
+      "residual_std": 0.00793957257516573,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6173586492271473,
+      "coh_margin_delta_mean": 0.6173586313457539
+    },
+    {
+      "id": "crossspan_det_006",
+      "label": "needs_new",
+      "fine_type": "counterfactual_selfcaused",
+      "features": [
+        "COUNTERFACTUAL",
+        "SOCIAL_INSTIGATION",
+        "PHYSICAL_ACT",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Silver Blaze kicked Straker in fright during Straker's OWN attempt to lame it -- non-agentive animal reaction, self-provoked; counterfactual (victim's own scheme killed him).",
+      "residual_mean": 0.31171875,
+      "residual_std": 0.016853179009934164,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6173586492271473,
+      "coh_margin_delta_mean": 0.6173586313457539
+    },
+    {
+      "id": "crossspan_det_007",
+      "label": "needs_new",
+      "fine_type": "counterfactual_natural",
+      "features": [
+        "COUNTERFACTUAL",
+        "NO_PHYSICAL_ACT",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "Colonel Barclay died of apoplexy from guilt/shock on being confronted -- no one struck him; non-agentive/counterfactual death.",
+      "residual_mean": 0.40094401041666666,
+      "residual_std": 0.02507653706383367,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6173586492271473,
+      "coh_margin_delta_mean": 0.6173586313457539
+    },
+    {
+      "id": "crossspan_det_008",
+      "label": "fits_existing",
+      "fine_type": "theft",
+      "features": [
+        "AGENT",
+        "TRANSFER",
+        "DIRECT_CAUSATION"
+      ],
+      "causal_justification": "Joseph Harrison impulsively pocketed the treaty from an empty office -- direct theft (agent takes theme), representable.",
+      "residual_mean": 0.12734375,
+      "residual_std": 0.010954924736234498,
+      "coh_margin_fixed_mean": 0.613117489668851,
+      "coh_margin_ext_mean": 0.613117489668851,
+      "coh_margin_delta_mean": 0.0
+    },
+    {
+      "id": "crossspan_det_009",
+      "label": "needs_new",
+      "fine_type": "deception_staging",
+      "features": [
+        "AGENT",
+        "PHYSICAL_ACT",
+        "DIRECT_CAUSATION",
+        "DECEPTION",
+        "HARM_OUTCOME"
+      ],
+      "causal_justification": "The gang strangled Blessington then STAGED a suicide -- defeating the salient suicide reading requires representing the staging (misrepresentation); physical+deception mix.",
+      "residual_mean": 0.18870442708333332,
+      "residual_std": 0.007642533174763814,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6138655444141478,
+      "coh_margin_delta_mean": 0.6138655265327543
+    },
+    {
+      "id": "crossspan_det_010",
+      "label": "needs_new",
+      "fine_type": "counterfactual_freewill",
+      "features": [
+        "COUNTERFACTUAL",
+        "NO_PHYSICAL_ACT",
+        "SOCIAL_INSTIGATION"
+      ],
+      "causal_justification": "Hatty Doran left of her own free will on seeing her secret first husband -- no abduction (counterfactual); the Flora-Millar kidnapping theory is false.",
+      "residual_mean": 0.4755859375,
+      "residual_std": 0.011864330116005812,
+      "coh_margin_fixed_mean": 1.7881393432617187e-08,
+      "coh_margin_ext_mean": 0.6173586492271473,
+      "coh_margin_delta_mean": 0.6173586313457539
+    }
+  ],
+  "caveats": [
+    "n=18 tiny + underpowered -- decisive-DIRECTION only, not a powered claim.",
+    "CONSTRUCTION CAVEAT: item->feature-set / native-vs-non-native typing is Director-supplied; a separation shows the organ can SCORE novelty GIVEN a faithful typing, not that it produces the typing autonomously (that gap is itself decision-relevant).",
+    "Labels BLIND to both signals (assigned from causal structure before any signal computed)."
+  ]
+}
