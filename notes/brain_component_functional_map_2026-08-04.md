@@ -130,7 +130,7 @@ field alone (that field only answers "imported by *something*", not "imported by
 | novelty / prediction-error | **ISLANDED (HARD_PASS)** — the self-extension trigger, unwired | predictive_coding |
 | appraisal / valence (grounded) | **ISLANDED (earned, WIRE-gated)** — blocked on extraction | grounded appraisal fn; reuse pfc_gate_cfrpe |
 | goal representation | **PARTIAL** — goal_register / goal_close cells on CausalLinkRegister; no standing organ | exp_goal_* |
-| ToM / mentalizing | **GAP (thin)** — intent_valence_via_mentalizing probe only; no wired organ; retaliation≠general irony (per MEMORY) | — |
+| ToM / mentalizing | **ISLANDED (HARD_PASS organ exists, UNWIRED)** — corrected 2026-08-04 (framing audit, was mis-listed "GAP thin"): exp_theory_of_mind_sally_anne_nested_hrr_v1 is disk-verified HARD_PASS (per-agent multibank + refuse-gate; Q2 false-belief 0.806 vs 0.138 no-partition, gap 0.668, oracle 1.0, 5 seeds). WIRE-TARGET: goal-owner inference under UNSTATED/abductive intent or DIVERGENT belief (route OFF the coherence-selector arc to this organ; adapt per 2026-08-03 audit Correction 1 = partition by narrative protagonist). retaliation≠general irony (per MEMORY) | exp_theory_of_mind_sally_anne_nested_hrr_v1 (islanded); refuse_gate (hdlab) |
 | consolidation / schema-learning | **COVERED (wired, other track)** | continual + schema_exemplar_bayes + additive_map |
 | retrieval / pattern-completion | **COVERED (wired)** | cleanup_family / iterative_attractor / hd_fact_store |
 | action selection / RL credit | **ISLANDED** — certified, not wired to comprehension | action_selection / pfc_gate_cfrpe |
