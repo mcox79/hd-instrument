@@ -1,0 +1,1181 @@
+{
+  "verdict": "GROUNDED_PARTIAL_LEXICAL_PROXY",
+  "verdict_msg": "GROUNDED_PARTIAL_LEXICAL_PROXY: SIM: FULL=1.000 RANDOM=0.291(chance=0.333) NO_EFF=0.500 NO_VAL=0.506 SHUFFLED=0.302 recency=0.337 | TEXT(n=7): full=0.714 valence_only=0.514 eff_only=0.657 vs gold_recency=0.000 random=0.500 char_trigram=0.429",
+  "summary": "SIM: FULL=1.000 RANDOM=0.291(chance=0.333) NO_EFF=0.500 NO_VAL=0.506 SHUFFLED=0.302 recency=0.337 | TEXT(n=7): full=0.714 valence_only=0.514 eff_only=0.657 vs gold_recency=0.000 random=0.500 char_trigram=0.429",
+  "n_seeds": 5,
+  "means": {
+    "FULL_heldout_acc": 1.0,
+    "RANDOM_heldout_acc": 0.29133333333333333,
+    "NO_EFF_heldout_acc": 0.5004,
+    "NO_VAL_heldout_acc": 0.5057333333333334,
+    "SHUFFLED_heldout_acc": 0.3021333333333333,
+    "sim_recency_acc": 0.3370666666666667,
+    "sim_randompick_acc": 0.33599999999999997,
+    "sim_chance": 0.3333333333333333,
+    "text_full_acc": 0.7142857142857142,
+    "text_valence_only_acc": 0.5142857142857142,
+    "text_eff_only_acc": 0.6571428571428571,
+    "text_gold_recency_acc": 0.0,
+    "text_random_chance": 0.5,
+    "text_char_trigram_baseline": 0.4286
+  },
+  "bands": {
+    "random_failed": true,
+    "shuffled_failed": true,
+    "full_learns": true,
+    "ablations_degrade": true,
+    "sim_mechanism_ok": true,
+    "text_beats_all": true,
+    "text_near_chance": false,
+    "valence_dim_transfers": false,
+    "lift_carried_by_eff": true
+  },
+  "per_item_text": {
+    "grapp_mcca_001": {
+      "full_correct_frac_over_seeds": 0.6,
+      "features_seed0": [
+        {
+          "val": "NEUTRAL",
+          "eff": 0,
+          "rec": 0
+        },
+        {
+          "val": "NEUTRAL",
+          "eff": 0,
+          "rec": 1
+        }
+      ],
+      "scores_seed0": [
+        -0.7428416013717651,
+        -0.8234490156173706
+      ]
+    },
+    "grapp_mcca_003": {
+      "full_correct_frac_over_seeds": 0.4,
+      "features_seed0": [
+        {
+          "val": "NEUTRAL",
+          "eff": 0,
+          "rec": 0
+        },
+        {
+          "val": "NEUTRAL",
+          "eff": 1,
+          "rec": 1
+        }
+      ],
+      "scores_seed0": [
+        -0.7428416013717651,
+        -0.7994681596755981
+      ]
+    },
+    "grapp_mcca_004": {
+      "full_correct_frac_over_seeds": 0.8,
+      "features_seed0": [
+        {
+          "val": "HELP",
+          "eff": 0,
+          "rec": 1
+        },
+        {
+          "val": "HELP",
+          "eff": 1,
+          "rec": 0
+        }
+      ],
+      "scores_seed0": [
+        -1.335279941558838,
+        -1.335723876953125
+      ]
+    },
+    "grapp_mcca_005": {
+      "full_correct_frac_over_seeds": 1.0,
+      "features_seed0": [
+        {
+          "val": "NEUTRAL",
+          "eff": 2,
+          "rec": 1
+        },
+        {
+          "val": "HARM",
+          "eff": 0,
+          "rec": 0
+        }
+      ],
+      "scores_seed0": [
+        -0.3171630799770355,
+        -0.4963451325893402
+      ]
+    },
+    "grapp_mcca_007": {
+      "full_correct_frac_over_seeds": 0.4,
+      "features_seed0": [
+        {
+          "val": "NEUTRAL",
+          "eff": 0,
+          "rec": 0
+        },
+        {
+          "val": "NEUTRAL",
+          "eff": 1,
+          "rec": 1
+        }
+      ],
+      "scores_seed0": [
+        -0.7428416013717651,
+        -0.7994681596755981
+      ]
+    },
+    "grapp_mcca_008": {
+      "full_correct_frac_over_seeds": 0.8,
+      "features_seed0": [
+        {
+          "val": "NEUTRAL",
+          "eff": 2,
+          "rec": 1
+        },
+        {
+          "val": "NEUTRAL",
+          "eff": 2,
+          "rec": 0
+        }
+      ],
+      "scores_seed0": [
+        -0.3171630799770355,
+        -0.344625860452652
+      ]
+    },
+    "grapp_mcca_009": {
+      "full_correct_frac_over_seeds": 1.0,
+      "features_seed0": [
+        {
+          "val": "HARM",
+          "eff": 2,
+          "rec": 0
+        },
+        {
+          "val": "NEUTRAL",
+          "eff": 0,
+          "rec": 1
+        }
+      ],
+      "scores_seed0": [
+        0.1388501524925232,
+        -0.8234490156173706
+      ]
+    }
+  },
+  "contamination_check": {
+    "mechanism_reads_only": [
+      "goal_desc(parenthetical, leak-safe)",
+      "query_span.text",
+      "candidate span texts",
+      "line positions"
+    ],
+    "gold_recency_read_for_reporting_only": true,
+    "char_trigram_encoder_used": false,
+    "borrowed_embedding_or_llm_used": false
+  },
+  "baseline_reference": "char_trigram selector_text_acc=0.4286 MEASURED@ data/exp_coherence_selector_text_transfer_v1/metrics.json",
+  "run_mode": "full",
+  "elapsed_s": 0.3311265001539141,
+  "ts_iso": "2026-08-04T11:19:26.737705+00:00",
+  "anchor_name": "grounded_coherence_selector_v1",
+  "config": {
+    "N_DIM": 256,
+    "N_CAND": 3,
+    "K_EFF": 4,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_train": 8000,
+    "n_eval": 1500
+  },
+  "prereg": "preregs/2026-08-04_grounded_coherence_selector_v1.md",
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "recency_acc": 0.33,
+        "random_acc": 0.3373333333333333
+      },
+      "RANDOM_heldout": {
+        "acc": 0.0,
+        "recency_acc": 0.334,
+        "random_acc": 0.3293333333333333
+      },
+      "NO_EFF_heldout": {
+        "acc": 0.5173333333333333,
+        "recency_acc": 0.314,
+        "random_acc": 0.314
+      },
+      "NO_VAL_heldout": {
+        "acc": 0.528,
+        "recency_acc": 0.306,
+        "random_acc": 0.336
+      },
+      "SHUFFLED_heldout": {
+        "acc": 0.33,
+        "recency_acc": 0.3413333333333333,
+        "random_acc": 0.33866666666666667
+      },
+      "arms_theta_digests": {
+        "FULL": "82c00c191818a47e",
+        "RANDOM": "65be7418828bc64c",
+        "NO_EFF": "23ac13adf4d0b832",
+        "NO_VAL": "dbbcf9f221051dcf",
+        "SHUFFLED": "a8e476bb049209ca"
+      },
+      "text": {
+        "full_rows": [
+          {
+            "id": "grapp_mcca_001",
+            "scores": [
+              -0.7428416013717651,
+              -0.8234490156173706
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_003",
+            "scores": [
+              -0.7428416013717651,
+              -0.7994681596755981
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_004",
+            "scores": [
+              -1.335279941558838,
+              -1.335723876953125
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HELP",
+                "eff": 0,
+                "rec": 1
+              },
+              {
+                "val": "HELP",
+                "eff": 1,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_005",
+            "scores": [
+              -0.3171630799770355,
+              -0.4963451325893402
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "HARM",
+                "eff": 0,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_007",
+            "scores": [
+              -0.7428416013717651,
+              -0.7994681596755981
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_008",
+            "scores": [
+              -0.3171630799770355,
+              -0.344625860452652
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_009",
+            "scores": [
+              0.1388501524925232,
+              -0.8234490156173706
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HARM",
+                "eff": 2,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          }
+        ],
+        "full_acc": 1.0,
+        "valence_only_acc": 0.42857142857142855,
+        "eff_only_acc": 0.7142857142857143
+      }
+    },
+    "1": {
+      "seed": 1,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "recency_acc": 0.326,
+        "random_acc": 0.342
+      },
+      "RANDOM_heldout": {
+        "acc": 0.0,
+        "recency_acc": 0.32133333333333336,
+        "random_acc": 0.33866666666666667
+      },
+      "NO_EFF_heldout": {
+        "acc": 0.5,
+        "recency_acc": 0.35933333333333334,
+        "random_acc": 0.3586666666666667
+      },
+      "NO_VAL_heldout": {
+        "acc": 0.486,
+        "recency_acc": 0.33066666666666666,
+        "random_acc": 0.32666666666666666
+      },
+      "SHUFFLED_heldout": {
+        "acc": 0.18266666666666667,
+        "recency_acc": 0.35133333333333333,
+        "random_acc": 0.3393333333333333
+      },
+      "arms_theta_digests": {
+        "FULL": "4f1b42098c972828",
+        "RANDOM": "8e5e24967f0da90e",
+        "NO_EFF": "04bb19c6ea299385",
+        "NO_VAL": "c23c8b35261be9f8",
+        "SHUFFLED": "ca5f0b596ba51485"
+      },
+      "text": {
+        "full_rows": [
+          {
+            "id": "grapp_mcca_001",
+            "scores": [
+              -0.7554606199264526,
+              -0.7475094795227051
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_003",
+            "scores": [
+              -0.7554606199264526,
+              -0.7410979866981506
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_004",
+            "scores": [
+              -1.437362790107727,
+              -1.4397339820861816
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HELP",
+                "eff": 0,
+                "rec": 1
+              },
+              {
+                "val": "HELP",
+                "eff": 1,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_005",
+            "scores": [
+              -0.23032262921333313,
+              -0.48818325996398926
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "HARM",
+                "eff": 0,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_007",
+            "scores": [
+              -0.7554606199264526,
+              -0.7410979866981506
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_008",
+            "scores": [
+              -0.23032262921333313,
+              -0.35856354236602783
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_009",
+            "scores": [
+              0.20148780941963196,
+              -0.7475094795227051
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HARM",
+                "eff": 2,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          }
+        ],
+        "full_acc": 0.5714285714285714,
+        "valence_only_acc": 0.5714285714285714,
+        "eff_only_acc": 0.7142857142857143
+      }
+    },
+    "2": {
+      "seed": 2,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "recency_acc": 0.34933333333333333,
+        "random_acc": 0.3273333333333333
+      },
+      "RANDOM_heldout": {
+        "acc": 0.556,
+        "recency_acc": 0.352,
+        "random_acc": 0.3406666666666667
+      },
+      "NO_EFF_heldout": {
+        "acc": 0.49733333333333335,
+        "recency_acc": 0.3473333333333333,
+        "random_acc": 0.3353333333333333
+      },
+      "NO_VAL_heldout": {
+        "acc": 0.5266666666666666,
+        "recency_acc": 0.3586666666666667,
+        "random_acc": 0.322
+      },
+      "SHUFFLED_heldout": {
+        "acc": 0.0,
+        "recency_acc": 0.3426666666666667,
+        "random_acc": 0.3333333333333333
+      },
+      "arms_theta_digests": {
+        "FULL": "537ea6c048d92607",
+        "RANDOM": "34a58d55116ead3e",
+        "NO_EFF": "127f057f1a5a3c0d",
+        "NO_VAL": "6d9f9d646f43aa6b",
+        "SHUFFLED": "c17e06ea68a7c574"
+      },
+      "text": {
+        "full_rows": [
+          {
+            "id": "grapp_mcca_001",
+            "scores": [
+              -0.7273687720298767,
+              -0.7275416254997253
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_003",
+            "scores": [
+              -0.7273687720298767,
+              -0.7772197723388672
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_004",
+            "scores": [
+              -1.4827582836151123,
+              -1.5642362833023071
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HELP",
+                "eff": 0,
+                "rec": 1
+              },
+              {
+                "val": "HELP",
+                "eff": 1,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_005",
+            "scores": [
+              -0.025971567258238792,
+              -0.48006516695022583
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "HARM",
+                "eff": 0,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_007",
+            "scores": [
+              -0.7273687720298767,
+              -0.7772197723388672
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_008",
+            "scores": [
+              -0.025971567258238792,
+              -0.1361968219280243
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_009",
+            "scores": [
+              0.07402679324150085,
+              -0.7275416254997253
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HARM",
+                "eff": 2,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          }
+        ],
+        "full_acc": 1.0,
+        "valence_only_acc": 0.5714285714285714,
+        "eff_only_acc": 0.5714285714285714
+      }
+    },
+    "3": {
+      "seed": 3,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "recency_acc": 0.3353333333333333,
+        "random_acc": 0.3293333333333333
+      },
+      "RANDOM_heldout": {
+        "acc": 0.4,
+        "recency_acc": 0.3233333333333333,
+        "random_acc": 0.3406666666666667
+      },
+      "NO_EFF_heldout": {
+        "acc": 0.49066666666666664,
+        "recency_acc": 0.3333333333333333,
+        "random_acc": 0.33066666666666666
+      },
+      "NO_VAL_heldout": {
+        "acc": 0.5046666666666667,
+        "recency_acc": 0.3293333333333333,
+        "random_acc": 0.3373333333333333
+      },
+      "SHUFFLED_heldout": {
+        "acc": 0.6713333333333333,
+        "recency_acc": 0.3446666666666667,
+        "random_acc": 0.33466666666666667
+      },
+      "arms_theta_digests": {
+        "FULL": "81448b92d1c67812",
+        "RANDOM": "8471ac088a610579",
+        "NO_EFF": "c112b0b760770097",
+        "NO_VAL": "021a7a5f75d238f1",
+        "SHUFFLED": "b7e695819070f5c0"
+      },
+      "text": {
+        "full_rows": [
+          {
+            "id": "grapp_mcca_001",
+            "scores": [
+              -0.9511667490005493,
+              -0.7976390719413757
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_003",
+            "scores": [
+              -0.9511667490005493,
+              -0.8474531769752502
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_004",
+            "scores": [
+              -1.5144273042678833,
+              -1.5007014274597168
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "HELP",
+                "eff": 0,
+                "rec": 1
+              },
+              {
+                "val": "HELP",
+                "eff": 1,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_005",
+            "scores": [
+              -0.3348831534385681,
+              -0.5288164615631104
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "HARM",
+                "eff": 0,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_007",
+            "scores": [
+              -0.9511667490005493,
+              -0.8474531769752502
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_008",
+            "scores": [
+              -0.3348831534385681,
+              -0.41398707032203674
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_009",
+            "scores": [
+              0.054462969303131104,
+              -0.7976390719413757
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HARM",
+                "eff": 2,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          }
+        ],
+        "full_acc": 0.42857142857142855,
+        "valence_only_acc": 0.5714285714285714,
+        "eff_only_acc": 0.5714285714285714
+      }
+    },
+    "4": {
+      "seed": 4,
+      "FULL_heldout": {
+        "acc": 1.0,
+        "recency_acc": 0.3446666666666667,
+        "random_acc": 0.344
+      },
+      "RANDOM_heldout": {
+        "acc": 0.5006666666666667,
+        "recency_acc": 0.3353333333333333,
+        "random_acc": 0.3233333333333333
+      },
+      "NO_EFF_heldout": {
+        "acc": 0.49666666666666665,
+        "recency_acc": 0.3373333333333333,
+        "random_acc": 0.33066666666666666
+      },
+      "NO_VAL_heldout": {
+        "acc": 0.48333333333333334,
+        "recency_acc": 0.34,
+        "random_acc": 0.3293333333333333
+      },
+      "SHUFFLED_heldout": {
+        "acc": 0.32666666666666666,
+        "recency_acc": 0.32666666666666666,
+        "random_acc": 0.32133333333333336
+      },
+      "arms_theta_digests": {
+        "FULL": "3f9cf75c6c4db940",
+        "RANDOM": "b6c6eefbcd42e28c",
+        "NO_EFF": "aa342f5065ed17ad",
+        "NO_VAL": "ee1bcf44d057f2dc",
+        "SHUFFLED": "5ea39352da3a6917"
+      },
+      "text": {
+        "full_rows": [
+          {
+            "id": "grapp_mcca_001",
+            "scores": [
+              -0.6515293121337891,
+              -0.6694660186767578
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_003",
+            "scores": [
+              -0.6515293121337891,
+              -0.6474475860595703
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_004",
+            "scores": [
+              -1.4526864290237427,
+              -1.4754679203033447
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HELP",
+                "eff": 0,
+                "rec": 1
+              },
+              {
+                "val": "HELP",
+                "eff": 1,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_005",
+            "scores": [
+              -0.2668616771697998,
+              -0.5044922828674316
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "HARM",
+                "eff": 0,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_007",
+            "scores": [
+              -0.6515293121337891,
+              -0.6474475860595703
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 1,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          },
+          {
+            "id": "grapp_mcca_008",
+            "scores": [
+              -0.2668616771697998,
+              -0.2230605036020279
+            ],
+            "pick_slot": 1,
+            "correct": false,
+            "features": [
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 1
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 2,
+                "rec": 0
+              }
+            ],
+            "rec_pick": 0
+          },
+          {
+            "id": "grapp_mcca_009",
+            "scores": [
+              -0.09304831176996231,
+              -0.6694660186767578
+            ],
+            "pick_slot": 0,
+            "correct": true,
+            "features": [
+              {
+                "val": "HARM",
+                "eff": 2,
+                "rec": 0
+              },
+              {
+                "val": "NEUTRAL",
+                "eff": 0,
+                "rec": 1
+              }
+            ],
+            "rec_pick": 1
+          }
+        ],
+        "full_acc": 0.5714285714285714,
+        "valence_only_acc": 0.42857142857142855,
+        "eff_only_acc": 0.7142857142857143
+      }
+    }
+  }
+}
