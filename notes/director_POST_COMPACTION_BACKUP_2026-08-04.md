@@ -1,0 +1,47 @@
+# DIRECTOR POST-COMPACTION BACKUP — 2026-08-04 (self-contained; READ FIRST)
+
+Branch `dataprep/mcguffey-graded-corpus`, all LOCAL, NO push. Supersedes the 2026-08-03_NIGHT backup. Live blow-by-blow = `notes/WHERE_WE_ARE_NOW.md` TOP BANNER (authoritative; read after this). Permissions were fixed this session (project + global `.claude/settings.json` broad allow + deny backstop) — compound commands run prompt-free; if a settings prompt recurs, reload.
+
+## THE GOAL (unchanged)
+A glass-box HDC/VSA (FHRR) substrate that genuinely COMPREHENDS narrative + you can CONVERSE with — earning meaning the brain's way. Invariants: glass-box always; NO borrowed embedding / NO external LLM at inference / NO bolt-on reader-parser; supplying DATA/knowledge/a lexicon is fine; store LOCAL-ONLY, git-commit after every bank, NO origin push without in-session auth. Brain = existence-proof + reference standard.
+
+## USER BARS (locked, govern everything)
+- EARNED understanding not supplied-assignment; brain-foundational in EVERY aspect; supply only genuine innate seed, EARN the rest.
+- FORMALIZE before building: map the brain (SHAPE+POSITION+METRIC) -> per-component compare vs our organs -> name the gap -> brain-accurate build. For EVERY mechanism: which BRAIN STRUCTURE + does it SHARE a built process -> REUSE the organ.
+- VET every negative HARD (incl. whether each component is brain-foundational); VET positives AS HARD AS negatives (this session an agent caught its OWN false-pass — keep that bar). Report MEASURED not READ; disk-verify agent claims.
+- Full-auto: drive, do what's RIGHT not easy; select by brain-foundational-right not cheap. Keep docs current. WIRE gains, don't island.
+
+## THE BIG PICTURE — WHAT THIS SESSION ESTABLISHED (the arc)
+1. THESIS VALIDATED: the recurring wall was never the MECHANISMS (brain-faithful, work given structure) — it is the missing grounded ~6yo FOUNDATION. Measured: grounded-harm read 4/7 vs frozen-lexicon 1/7, NO_KNOWLEDGE=0.0 (supply grounded knowledge -> the brain-faithful mechanism reads text). "You can't learn revenge from a book."
+2. SELF-EXTENSION MACHINERY BUILT + VALIDATED (the mechanism that GROWS the foundation, so we don't hand-build every competency): read -> TYPE causal structure -> predictive_coding residual flags "my schema library can't explain this" (NOVELTY organ, HARD_PASS, WE ALREADY OWNED IT) -> MINT a new causal-role type -> gate through an INDEPENDENT 2nd view (NELL anti-drift) -> consolidate -> re-read. Validated on controlled data (exp_self_extension_loop_v1: anti-drift ABLATION proves the 2nd view load-bearing) AND real prose with an INDEPENDENT GROUNDED 2nd view (exp_self_extension_grounded_realprose_v1: co-fire-on-noise=0.0 disk-verified, mcca_004 mints).
+3. INDUCTION FRONTIER SPLIT (prior-art, vindicates the pivot at literature level): AFFECT = earned/grounded SEED (NOT text-inducible, distributional-affect cap, field-wide unresolved); STRUCTURE/lexicon = text-inducible via glass-box selectional-association; MINT = validated grounding-transfer (Harnad "symbolic theft"). Lexicon-induction from text HARD_FAILED this attempt (exp_lexicon_induction_selectional_association_v1: false-pass CAUGHT+rejected; the deeper finding = grounded reads INERT at DISCOURSE scale).
+4. DISCOURSE-SCALE grounded reading: deep brain drill adjudicated the wall = REPRESENTATION GAP (disk-verified: live situation-model role_vocab=["agent","mentioned"], no goal/outcome dims). FIX validated: extended the register with GOAL/OUTCOME dims mirroring CausalLinkRegister (exp_situation_model_goal_outcome_dimension_v1: TREATMENT fires 0.833 on naturalistic dispersed goal-block vs BASELINE 0.0 local-window, controls clean).
+
+## 🎯 CURRENT STATE + THE ONE REMAINING GAP (authoritative)
+The foundation-growing machinery WORKS end-to-end (novelty/mint/anti-drift/consolidate/re-read) AND grounded reading now works at discourse scale for REPRESENTATION. The SINGLE remaining structural gap, hit 3 TIMES: **the substrate needs ONE general COHERENCE-BASED relational binding/selection organ — select the antecedent by explanatory/goal COHERENCE, NOT recency.** Instances: (1) coreference `_pick_strict_cb` IS recency (falsified 0/4, recency-trap); (2) causal explanatory-antecedent selection (M_backward coherence-selector arc v1-v4); (3) goal-outcome discourse binding (recency-binding 0.333 — grabs the recent foil). We keep approximating with RECENCY-shaped selectors that fail. Build ONE coherence selector -> serves all three.
+
+## ➡️ NEXT STEP (start here after compaction)
+Build the ONE COHERENCE-BASED relational binding/selection organ (glass-box VSA, select by coherence not recency), building on the v2/v3 coherence-selector arc (which generalized via STRUCTURAL features, not entity-identity), tested on ALL 3 instances with an anti-recency control (coherent antecedent NOT the recent one -> MUST pick coherent). The 2 IN-FLIGHT DRILLS spec exactly how (biology mechanism + glass-box build spec).
+
+## 🟢 IN FLIGHT ACROSS COMPACTION (check results ON DISK — subagents drop reports)
+- **ac7204bdb973e6b5f** = BIOLOGY drill: the neural mechanism of coherence-over-recency relational selection (recollection-vs-familiarity, PFC control of retrieval, Kintsch C-I settling, Mattar-Daw need×gain). Result -> `notes/research_coherence_over_recency_selection_biology_2026-08-04.md`.
+- **a4d64704c556dd82c** = BUILD-SPEC drill: concrete glass-box coherence-selector spec building on v2/v3 + the 3 instances, per-component reuse map, unified 3-instance test + anti-recency control, pre-registered bands. Result -> `notes/research_coherence_based_binding_selector_build_spec_2026-08-04.md`.
+- Recovery step-0: check both notes docs on disk; synthesize HONESTLY (VET); then build the coherence selector per the spec.
+
+## KEY VERIFIED RESULTS + COMMITS (load-bearing, disk-verified)
+- Grounded valence read: `ae6be1955` (harm 4/7 vs 1/7, NO_KNOWLEDGE=0.0).
+- Self-extension loop: `d3f5c3b65` (controlled, anti-drift ablation) + `7f534b7f3` (real prose, co-fire-noise=0).
+- Novelty organ: `hdlab/predictive_coding.py` HARD_PASS as mint-trigger (`a8dbf47`, exp_disequilibrium_novelty_signal_test_v1, residual gap 0.27 p=3e-4). ISLANDED — wire it.
+- Goal/outcome dim extension: `fb5b2a188` (0.833 vs 0.0 baseline; recency-binding 0.333 = MIDDLE, routes the coherence selector).
+- Lexicon-induction HARD_FAIL: `a8b65b4cd` (false-pass caught).
+- Brain-functional component map: `notes/brain_component_functional_map_2026-08-04.md` (b77ddecbe) — every organ, cognitive process, grade, WIRED/ISLANDED. USE IT before building (avoid re-inventing islanded organs). ~12 islanded-validated; genuine gaps = ToM + coherence-selection-as-a-standing-organ.
+
+## KEY ORGANS (reuse map — from the component map)
+WIRED reader spine: situation_model_accumulate (DMN hub; now + GoalOutcomeRegister), coreference_resolver (hippocampal; its SELECTION signal is the recency-falsified part = the gap), self_improving_loop (coherence-gate/abstain), candidate_generator (extraction). ISLANDED to wire: predictive_coding (novelty), working_memory multibank (K=4096, WM capacity), action_selection/pfc_gate_cfrpe (appraisal->action), VAMP-EP (deep chain). The coherence-selector is exp-trapped (v1-v4), NOT a standing hdlab organ yet.
+
+## RECOVERY PROCEDURE
+0. Check the 2 in-flight drills ON DISK (above); VET; synthesize the coherence-selector build plan.
+1. Heartbeat: `date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp`.
+2. Read `notes/WHERE_WE_ARE_NOW.md` TOP BANNER (authoritative live state) + the brain-functional map + the 2 drill outputs.
+3. Build the ONE coherence-based relational selector per the drills' spec; VET on disk (anti-recency control is the make-or-break); test on all 3 instances.
+4. Ops: heartbeat turn-end; commit-after-bank local-only; NO push w/o in-session auth; only kill what THIS session spawned; subagents keep backgrounding runs -> verify results ON DISK + VET positives as hard as negatives. Legacy watchdog pings (notes/watchdog_ping_to_research_*.md) = liveness noise, archive to notes/processed_watchdog_pings/, no work.
