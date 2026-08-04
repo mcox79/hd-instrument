@@ -270,7 +270,78 @@ _ANCHOR_SUFFIX_PATTERNS = [
     re.compile(r"_selftest$"),
     re.compile(r"_seed_?\d+$"),
     re.compile(r"_v\d+[a-z]*$"),
+    # harder lineage-collapse (2026-08-04 precision-tier ask): diagnostic/arm/
+    # partial-run suffixes that denote the same experiment family run in a
+    # different mode, not a distinct capability -- so a lineage counts once.
+    re.compile(r"_diag$"),
+    re.compile(r"_wholesent$"),
+    re.compile(r"_frozen$"),
+    re.compile(r"_gatecheck$"),
+    re.compile(r"_arm_?[A-Za-z0-9]{1,3}$"),
 ]
+
+# HIGH-SIGNAL precision tier (2026-08-04): the raw pass-shaped-unregistered set
+# is ~3042 -- an alarm that fires 3042 times catches nothing (the same alarm-
+# fatigue that hid ToM in the first place). The session-start FLAG must fire
+# only on a TRIAGEABLE, high-signal subset (order of dozens); the raw count
+# stays as an informational metric. An anchor is HIGH iff pass AND unregistered
+# AND (map-named (b))  OR  (comprehension-ORGAN keyword (a) AND a real authored
+# non-smoke cell (c)).
+#
+# marker (a) -- ORGAN vocabulary, NOT the full comprehension keyword list. The
+# broader terms (causal/coref/binding/goal/memory/attention/retrieval/temporal/
+# reason/hop/hopfield/wm/consolidat) were measured to flood the alarm to
+# 113-342 -- they hit (i) low-level VSA/storage substrate primitives that are
+# not comprehension organs and (ii) active, already-tracked research frontiers
+# with dozens of exploratory cells each. Restricting to the ISLANDED-ORGAN
+# vocabulary below yields a ~dozens alarm that still contains every manually-
+# confirmed island (ToM, VAMP-EP chain family, grounded-appraisal, coherence-
+# selector, situation-model, schema). hdlab-module islands like
+# action_selection.py / slot_attention_wm.py are separately caught by
+# scan_unregistered_hdlab_modules(), so they are not lost by this narrowing.
+#
+# All keywords are matched at token edges (underscore/start/end/digit as a
+# boundary) so e.g. "valence" does NOT fire inside "equivalence" and "tom"
+# does NOT fire inside "atom"/"custom"/"symptom".
+_COMPREHENSION_ORGAN_KEYWORDS = [
+    "theory_of_mind", "tom", "mentaliz", "appraisal", "valence", "coherence",
+    "situation", "schema", "narrative", "vamp",
+]
+_RE_ORGAN_KW = {
+    kw: re.compile(r"(?<![a-z])" + re.escape(kw) + r"(?![a-z])")
+    for kw in _COMPREHENSION_ORGAN_KEYWORDS
+}
+# Degenerate/over-collapsed anchor cores (e.g. a dir named "exp_v1" collapses to
+# core "") must never qualify -- an empty/short core is a substring of the map
+# text and would spuriously map-match. Require a substantive core.
+_MIN_CORE_LEN = 6
+FUNCTIONAL_MAP_PATH = ROOT / "notes" / "brain_component_functional_map_2026-08-04.md"
+
+
+def _load_functional_map_text() -> str:
+    try:
+        return FUNCTIONAL_MAP_PATH.read_text(encoding="utf-8", errors="ignore").lower()
+    except OSError:
+        return ""
+
+
+def high_signal_markers(core: str, map_text: str) -> list[str]:
+    """Return the list of high-signal markers an anchor core name hits (empty =
+    not high-signal). (a) ORGAN keyword (token-edge match), (b) named in the
+    brain functional map (core is a substring of the map -- catches a full
+    anchor name the map cites, e.g. theory_of_mind_sally_anne_nested_hrr).
+    Real-authored-cell existence (c) is combined with (a) at the CALL SITE, not
+    here -- this fn reports the raw markers; the alarm gate is (b) OR (a AND c)."""
+    core_l = core.lower()
+    if len(core_l) < _MIN_CORE_LEN:
+        return []
+    markers = []
+    kw_hit = next((kw for kw, rx in _RE_ORGAN_KW.items() if rx.search(core_l)), None)
+    if kw_hit is not None:
+        markers.append(f"keyword:{kw_hit}")
+    if map_text and (core_l in map_text):
+        markers.append("map:core-in-map")
+    return markers
 
 
 def collapse_base_anchor(dirname: str) -> str:
@@ -404,31 +475,58 @@ def scan_unregistered_hard_pass_anchors(rows: list[dict], use_cache: bool = True
     hdlab_stems = set()
     if hdlab_dir.is_dir():
         hdlab_stems = {Path(f).stem for f in os.listdir(hdlab_dir) if f.endswith(".py")}
+    map_text = _load_functional_map_text()
 
-    candidates = []
+    def _real_cell_exists(dirs: list[str]) -> bool:
+        # (c): a distinct NON-SMOKE authored experiments/<dir>.py cell exists.
+        # Checks the ACTUAL dir names (which retain version/config suffixes,
+        # e.g. exp_..._depth_ceiling_v1.py) -- NOT the collapsed base anchor,
+        # whose stripped name (..._depth_ceiling.py) would not exist on disk.
+        for d in dirs:
+            if d.endswith("_smoke") or d.endswith("_selftest") or d.endswith("_localsmoke"):
+                continue
+            if (ROOT / "experiments" / f"{d}.py").exists():
+                return True
+        return False
+
+    candidates_all = 0
+    candidates_high = []
     for core, entry in sorted(anchors.items()):
         if _anchor_registered(core, registry_blob):
             continue
+        candidates_all += 1
         core_lower = core.lower()
+        markers = high_signal_markers(core, map_text)
+        if not markers:
+            continue
+        has_kw = any(m.startswith("keyword:") for m in markers)
+        has_map = any(m.startswith("map:") for m in markers)
+        has_real = _real_cell_exists(entry["dirs"])
+        # alarm gate: map-named, OR (organ keyword AND a real authored cell).
+        if not (has_map or (has_kw and has_real)):
+            continue
         related_hdlab = sorted(
             stem for stem in hdlab_stems
             if len(stem) >= 5 and (stem.lower() in core_lower or core_lower in stem.lower())
         )
-        candidates.append({
+        candidates_high.append({
             "anchor": entry["base_anchor"],
             "verdict": entry["verdict"],
             "verdict_msg": entry["verdict_msg"],
             "n_dirs": len(entry["dirs"]),
             "sample_dirs": sorted(entry["dirs"])[:5],
+            "high_signal_markers": markers,
+            "has_real_cell": has_real,
             "related_hdlab_module": related_hdlab[0] if related_hdlab else None,
         })
 
     return {
-        "candidates": candidates,
+        "candidates_high": candidates_high,
+        "n_candidates_high": len(candidates_high),
+        "n_candidates_all": candidates_all,
         "n_dirs_scanned_fresh": n_scanned,
         "n_dirs_cached": n_cached,
         "n_base_anchors_pass_shaped": len(anchors),
-        "n_candidates": len(candidates),
         "cache_path": _rel(HARD_PASS_CACHE_PATH),
     }
 
@@ -657,7 +755,7 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False)
     stale = check_stale_decisions(rows, stale_days, now)
     unregistered_hdlab = scan_unregistered_hdlab_modules(rows)
     if skip_hard_pass_scan:
-        island_scan = {"candidates": [], "skipped": True}
+        island_scan = {"candidates_high": [], "skipped": True}
     else:
         island_scan = scan_unregistered_hard_pass_anchors(rows)
 
@@ -680,9 +778,10 @@ def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False)
         "path_missing_flags": path_missing_flags,
         "undecided_validated_capabilities": undecided,
         "stale_vet_pending": stale,
-        "invisible_island_candidates": island_scan.get("candidates", []),
+        "invisible_island_candidates_HIGH": island_scan.get("candidates_high", []),
+        "invisible_island_candidates_ALL_count": island_scan.get("n_candidates_all", 0),
         "invisible_island_scan_stats": {
-            k: v for k, v in island_scan.items() if k != "candidates"
+            k: v for k, v in island_scan.items() if k != "candidates_high"
         },
         "dry_run": dry_run,
         "registry_path": _rel(REGISTRY),
@@ -742,21 +841,23 @@ def print_report(summary: dict) -> None:
             print(f"    {s}")
     else:
         print("\n[ok] no stale VET_PENDING rows")
-    isl = summary.get("invisible_island_candidates", [])
+    isl = summary.get("invisible_island_candidates_HIGH", [])
+    n_all = summary.get("invisible_island_candidates_ALL_count", 0)
     stats = summary.get("invisible_island_scan_stats", {})
     if stats.get("skipped"):
         print("\n[note] invisible-island hard-pass scan skipped (--skip-hard-pass-scan)")
-    elif isl:
-        print(f"\n[FLAG] {len(isl)} invisible-island candidate(s) -- pass-shaped verdict, "
-              f"NO registry match found (scanned {stats.get('n_dirs_scanned_fresh', 0)} fresh + "
-              f"{stats.get('n_dirs_cached', 0)} cached dirs, {stats.get('n_base_anchors_pass_shaped', 0)} "
-              f"pass-shaped base anchors):")
-        for c in isl[:30]:
-            hdlab_note = f" [related hdlab: {c['related_hdlab_module']}]" if c.get("related_hdlab_module") else ""
-            print(f"    {c['anchor']}  verdict={c['verdict']}{hdlab_note}")
     else:
-        print(f"\n[ok] no invisible-island candidates (scanned {stats.get('n_dirs_scanned_fresh', 0)} fresh + "
-              f"{stats.get('n_dirs_cached', 0)} cached dirs)")
+        print(f"\n[info] total pass-shaped unregistered anchors: {n_all} (informational, NOT the alarm; "
+              f"scanned {stats.get('n_dirs_scanned_fresh', 0)} fresh + {stats.get('n_dirs_cached', 0)} cached dirs)")
+        if isl:
+            print(f"[FLAG] HIGH-signal invisible islands: {len(isl)} (pass-shaped, unregistered, map-named OR "
+                  f"organ-keyword+real-cell -- the triageable alarm set):")
+            for c in isl[:60]:
+                hdlab_note = f" [related hdlab: {c['related_hdlab_module']}]" if c.get("related_hdlab_module") else ""
+                mk = ",".join(c.get("high_signal_markers", []))
+                print(f"    {c['anchor']}  verdict={c['verdict']}  ({mk}){hdlab_note}")
+        else:
+            print("[ok] no HIGH-signal invisible-island candidates")
     print("-" * 72)
 
 
@@ -819,8 +920,35 @@ def self_test() -> int:
         print(f"[selftest] anchor-match FAIL: registered-case={_anchor_registered(reg_core, blob)} "
               f"(expect True), unregistered-case={_anchor_registered(unreg_core, blob)} (expect False)")
 
-    ok_all = ok and ok2 and ok3
+    # high-signal marker logic (synthetic, no disk): ORGAN keyword (token-edge
+    # match) + map reference; degenerate/short cores + boundary false-positives
+    # excluded.
+    ok4 = True
+    map_fixture = "the theory_of_mind_sally_anne_nested_hrr_v1 organ and vamp_chain solver"
+    hi_cases = [
+        ("theory_of_mind_sally_anne_nested_hrr", True),   # keyword tom + map
+        ("wave14_vamp_chain_depth_ceiling", True),        # keyword vamp
+        ("grounded_appraisal_sim_earned", True),          # keyword appraisal
+        ("situation_model_multibank_capacity", True),     # keyword situation
+        ("coherence_selector_text_transfer", True),       # keyword coherence
+        ("cortex_schema_instantiation_context_prior", True),  # keyword schema
+        ("substrate_distill_verify_operator_equivalence", False),  # 'valence' must NOT fire in 'equivalence'
+        ("atom_custom_bottom_symptom_reason", False),     # 'tom' must NOT fire inside atom/custom/symptom
+        ("saad_solla_n4096_m_sweep", False),              # no organ keyword
+        ("multi_hop_caching_baseline", False),            # substrate primitive, not an organ
+        ("x", False),                                     # degenerate short core -> no map false-match
+        ("", False),
+    ]
+    for core, expected in hi_cases:
+        got = bool(high_signal_markers(core, map_fixture))
+        if got != expected:
+            ok4 = False
+            print(f"[selftest] high_signal_markers({core!r}) -> {got}, expected {expected} "
+                  f"(markers={high_signal_markers(core, map_fixture)})")
+
+    ok_all = ok and ok2 and ok3 and ok4
     print(f"[selftest] invisible-island classify+match logic: {'OK' if ok2 and ok3 else 'FAIL'}")
+    print(f"[selftest] high-signal precision-tier logic: {'OK' if ok4 else 'FAIL'}")
     return 0 if ok_all else 1
 
 
@@ -852,7 +980,7 @@ def main() -> int:
                   and "note" not in summary["undecided_validated_capabilities"][0] else 0)
                + len(summary["stale_vet_pending"])
                + len(summary.get("unregistered_hdlab_modules", []))
-               + len(summary.get("invisible_island_candidates", [])))
+               + len(summary.get("invisible_island_candidates_HIGH", [])))
     return 5 if n_flags else 0
 
 
