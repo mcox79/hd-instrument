@@ -1,0 +1,723 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "ARM_NOVEL_1HOP beats floors partially but below HARD-PASS bar (acc=0.8733, min_lift=0.3667, shuffled_ok=True) -- right-mechanism-class/underpowered, not a refutation. sr_td_converged=True (err_first=0.0221 err_last=0.0077).",
+  "summary": "ARM_NOVEL_1HOP beats floors partially but below HARD-PASS bar (acc=0.8733, min_lift=0.3667, shuffled_ok=True) -- right-mechanism-class/underpowered, not a refutation. sr_td_converged=True (err_first=0.0221 err_last=0.0077).",
+  "structured_gate_claims": [
+    {
+      "gate_name": "positive_control_oracle_train",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "chain sanity"
+    },
+    {
+      "gate_name": "positive_control_oracle_novel1hop",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "chain sanity"
+    },
+    {
+      "gate_name": "positive_control_oracle_novel2hop",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "chain sanity"
+    },
+    {
+      "gate_name": "positive_control_oracle_scale",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "chain sanity"
+    },
+    {
+      "gate_name": "no_entity_overlap",
+      "measured": 0,
+      "threshold": 0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "TRAIN/EVAL entity ids disjoint"
+    },
+    {
+      "gate_name": "no_type_overlap_novel",
+      "measured": 0.0,
+      "threshold": 0.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "novel types NEVER seen in TRAIN"
+    },
+    {
+      "gate_name": "no_type_overlap_scale",
+      "measured": 0.0,
+      "threshold": 0.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "scale types NEVER seen in TRAIN"
+    },
+    {
+      "gate_name": "novel1hop_acc_floor",
+      "measured": 0.8733333333333333,
+      "threshold": 0.75,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "ARM_NOVEL_1HOP: HARD-PASS accuracy floor"
+    },
+    {
+      "gate_name": "novel1hop_min_lift_over_floors",
+      "measured": 0.3666666666666667,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "ARM_NOVEL_1HOP: must beat all 3 floors by >=0.15"
+    },
+    {
+      "gate_name": "novel1hop_margin_min_over_seeds",
+      "measured": -0.04459016025066376,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": false,
+      "note": "ARM_NOVEL_1HOP: true-vs-distractor reach margin positive every seed"
+    },
+    {
+      "gate_name": "novel1hop_shuffled_structure_ceiling",
+      "measured": 0.25,
+      "threshold": 0.65,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "ARM_NOVEL_1HOP: ANTI-MEMORIZATION shuffled-structure control"
+    },
+    {
+      "gate_name": "novel1hop_structural_lift_min",
+      "measured": 0.6233333333333333,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "ARM_NOVEL_1HOP: coherence must show real structural dependence"
+    },
+    {
+      "gate_name": "novel2hop_acc_floor",
+      "measured": 0.5566666666666666,
+      "threshold": 0.75,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "ARM_NOVEL_2HOP: HARD-PASS accuracy floor"
+    },
+    {
+      "gate_name": "novel2hop_min_lift_over_floors",
+      "measured": 0.020000000000000018,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "ARM_NOVEL_2HOP: must beat all 3 floors by >=0.15"
+    },
+    {
+      "gate_name": "novel2hop_margin_min_over_seeds",
+      "measured": -0.05975935235619545,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": false,
+      "note": "ARM_NOVEL_2HOP: true-vs-distractor reach margin positive every seed"
+    },
+    {
+      "gate_name": "novelscale_acc_floor",
+      "measured": 0.8,
+      "threshold": 0.75,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "ARM_NOVEL_SCALE: HARD-PASS accuracy floor"
+    },
+    {
+      "gate_name": "novelscale_min_lift_over_floors",
+      "measured": 0.25,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "ARM_NOVEL_SCALE: must beat all 3 floors by >=0.15"
+    },
+    {
+      "gate_name": "novelscale_margin_min_over_seeds",
+      "measured": -0.04509759694337845,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": false,
+      "note": "ARM_NOVEL_SCALE: true-vs-distractor reach margin positive every seed"
+    }
+  ],
+  "train_partition_summary": {
+    "recency_acc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "random_acc": {
+      "mean": 0.5599999999999999,
+      "std": 0.06548960901462833,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.6833333333333333,
+        "17": 0.5666666666666667,
+        "23": 0.5,
+        "31": 0.5166666666666667,
+        "41": 0.5333333333333333
+      }
+    },
+    "no_replay_local_acc": {
+      "mean": 0.52,
+      "std": 0.11518101695447328,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.38333333333333336,
+        "17": 0.43333333333333335,
+        "23": 0.48333333333333334,
+        "31": 0.7,
+        "41": 0.6
+      }
+    },
+    "oracle_acc": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_acc_conservative": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_abstain_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "glassbox_margin_mean": {
+      "mean": 0.9394926238059996,
+      "std": 0.006790714612653068,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.926766480008761,
+        "17": 0.9426267802715301,
+        "23": 0.9468555162350337,
+        "31": 0.9416305810213089,
+        "41": 0.939583761493365
+      }
+    },
+    "glassbox_margin_positive_frac": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "glassbox_margin_min_over_seeds": 0.8500239253044128
+  },
+  "arm_novel_1hop_summary": {
+    "recency_acc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "random_acc": {
+      "mean": 0.5066666666666666,
+      "std": 0.09580071908799943,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5166666666666667,
+        "17": 0.4666666666666667,
+        "23": 0.4666666666666667,
+        "31": 0.4,
+        "41": 0.6833333333333333
+      }
+    },
+    "no_replay_local_acc": {
+      "mean": 0.49333333333333335,
+      "std": 0.06548960901462834,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5833333333333334,
+        "17": 0.55,
+        "23": 0.4666666666666667,
+        "31": 0.4,
+        "41": 0.4666666666666667
+      }
+    },
+    "oracle_acc": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_acc_conservative": {
+      "mean": 0.8733333333333333,
+      "std": 0.07859884081701064,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.85,
+        "17": 0.95,
+        "23": 0.85,
+        "31": 0.75,
+        "41": 0.9666666666666667
+      }
+    },
+    "coherence_abstain_rate": {
+      "mean": 0.12666666666666665,
+      "std": 0.07859884081701064,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.15,
+        "17": 0.05,
+        "23": 0.15,
+        "31": 0.25,
+        "41": 0.03333333333333333
+      }
+    },
+    "glassbox_margin_mean": {
+      "mean": 0.05542029358912259,
+      "std": 0.007817626828149139,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.053123746944280965,
+        "17": 0.06308947363868356,
+        "23": 0.054772420118873316,
+        "31": 0.04233633307740092,
+        "41": 0.06377949416637421
+      }
+    },
+    "glassbox_margin_positive_frac": {
+      "mean": 0.9733333333333334,
+      "std": 0.030912061651652355,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.9833333333333333,
+        "17": 1.0,
+        "23": 0.9666666666666667,
+        "31": 0.9166666666666666,
+        "41": 1.0
+      }
+    },
+    "glassbox_margin_min_over_seeds": -0.04459016025066376
+  },
+  "arm_novel_2hop_summary": {
+    "recency_acc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "random_acc": {
+      "mean": 0.5366666666666666,
+      "std": 0.054160256030906385,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5333333333333333,
+        "17": 0.5333333333333333,
+        "23": 0.4666666666666667,
+        "31": 0.6333333333333333,
+        "41": 0.5166666666666667
+      }
+    },
+    "no_replay_local_acc": {
+      "mean": 0.4766666666666667,
+      "std": 0.04294699575575042,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.4666666666666667,
+        "17": 0.4666666666666667,
+        "23": 0.55,
+        "31": 0.4166666666666667,
+        "41": 0.48333333333333334
+      }
+    },
+    "oracle_acc": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_acc_conservative": {
+      "mean": 0.5566666666666666,
+      "std": 0.05011098792790968,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5666666666666667,
+        "17": 0.5166666666666667,
+        "23": 0.5166666666666667,
+        "31": 0.5333333333333333,
+        "41": 0.65
+      }
+    },
+    "coherence_abstain_rate": {
+      "mean": 0.44333333333333336,
+      "std": 0.0501109879279097,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.43333333333333335,
+        "17": 0.48333333333333334,
+        "23": 0.48333333333333334,
+        "31": 0.4666666666666667,
+        "41": 0.35
+      }
+    },
+    "glassbox_margin_mean": {
+      "mean": 0.022858746954395125,
+      "std": 0.0042529835579437495,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.019318154264086236,
+        "17": 0.019746487347098687,
+        "23": 0.026490174947927395,
+        "31": 0.01934623217675835,
+        "41": 0.029392686036104957
+      }
+    },
+    "glassbox_margin_positive_frac": {
+      "mean": 0.7699999999999999,
+      "std": 0.07102425250887506,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.7,
+        "17": 0.7,
+        "23": 0.8833333333333333,
+        "31": 0.75,
+        "41": 0.8166666666666667
+      }
+    },
+    "glassbox_margin_min_over_seeds": -0.05975935235619545
+  },
+  "arm_novel_scale_summary": {
+    "recency_acc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "random_acc": {
+      "mean": 0.53,
+      "std": 0.03559026084010439,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5833333333333334,
+        "17": 0.5333333333333333,
+        "23": 0.48333333333333334,
+        "31": 0.55,
+        "41": 0.5
+      }
+    },
+    "no_replay_local_acc": {
+      "mean": 0.55,
+      "std": 0.06912147117775906,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5333333333333333,
+        "17": 0.55,
+        "23": 0.55,
+        "31": 0.6666666666666666,
+        "41": 0.45
+      }
+    },
+    "oracle_acc": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_acc_conservative": {
+      "mean": 0.8,
+      "std": 0.027888667551135834,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.8,
+        "17": 0.7833333333333333,
+        "23": 0.85,
+        "31": 0.8,
+        "41": 0.7666666666666667
+      }
+    },
+    "coherence_abstain_rate": {
+      "mean": 0.2,
+      "std": 0.027888667551135858,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.2,
+        "17": 0.21666666666666667,
+        "23": 0.15,
+        "31": 0.2,
+        "41": 0.23333333333333334
+      }
+    },
+    "glassbox_margin_mean": {
+      "mean": 0.04915991274407133,
+      "std": 0.0025268676919527567,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.049359367551126826,
+        "17": 0.04612727248265098,
+        "23": 0.05368646516775091,
+        "31": 0.04893177181947976,
+        "41": 0.04769468669934819
+      }
+    },
+    "glassbox_margin_positive_frac": {
+      "mean": 0.9399999999999998,
+      "std": 0.03265986323710903,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.95,
+        "17": 0.95,
+        "23": 0.9833333333333333,
+        "31": 0.9333333333333333,
+        "41": 0.8833333333333333
+      }
+    },
+    "glassbox_margin_min_over_seeds": -0.04509759694337845
+  },
+  "arm_novel_1hop_shuffled_structure_summary": {
+    "recency_acc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "random_acc": {
+      "mean": 0.48,
+      "std": 0.06699917080747261,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5166666666666667,
+        "17": 0.5833333333333334,
+        "23": 0.4,
+        "31": 0.48333333333333334,
+        "41": 0.4166666666666667
+      }
+    },
+    "no_replay_local_acc": {
+      "mean": 0.5166666666666667,
+      "std": 0.06055300708194984,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.43333333333333335,
+        "17": 0.5166666666666667,
+        "23": 0.4666666666666667,
+        "31": 0.5833333333333334,
+        "41": 0.5833333333333334
+      }
+    },
+    "oracle_acc": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_acc_conservative": {
+      "mean": 0.25,
+      "std": 0.0557773351022717,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.26666666666666666,
+        "17": 0.15,
+        "23": 0.3,
+        "31": 0.23333333333333334,
+        "41": 0.3
+      }
+    },
+    "coherence_abstain_rate": {
+      "mean": 0.75,
+      "std": 0.055777335102271716,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.7333333333333333,
+        "17": 0.85,
+        "23": 0.7,
+        "31": 0.7666666666666667,
+        "41": 0.7
+      }
+    },
+    "glassbox_margin_mean": {
+      "mean": -0.0029707385320216417,
+      "std": 0.0037688050340541923,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": -0.004770482804936667,
+        "17": -0.008289186066637437,
+        "23": 0.002628301021953424,
+        "31": -0.004080833176461359,
+        "41": -0.00034149163402616976
+      }
+    },
+    "glassbox_margin_positive_frac": {
+      "mean": 0.47333333333333333,
+      "std": 0.0402768199119819,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5,
+        "17": 0.45,
+        "23": 0.4166666666666667,
+        "31": 0.5333333333333333,
+        "41": 0.4666666666666667
+      }
+    },
+    "glassbox_margin_min_over_seeds": -0.08871366083621979
+  },
+  "arm_novel_1hop_block": {
+    "coherence_eval_acc": 0.8733333333333333,
+    "recency_acc": 0.0,
+    "random_acc": 0.5066666666666666,
+    "no_replay_local_acc": 0.49333333333333335,
+    "lift_over_recency": 0.8733333333333333,
+    "lift_over_random": 0.3666666666666667,
+    "lift_over_no_replay_local": 0.37999999999999995,
+    "min_lift_over_floors": 0.3666666666666667,
+    "margin_min_over_seeds": -0.04459016025066376,
+    "margin_all_positive": false,
+    "beats_all_floors": false,
+    "coherence_eval_shuffled_structure_acc": 0.25,
+    "structural_lift_minus_shuffled": 0.6233333333333333,
+    "shuffled_control_ok": true,
+    "arm_pass": false
+  },
+  "arm_novel_2hop_block": {
+    "coherence_eval_acc": 0.5566666666666666,
+    "recency_acc": 0.0,
+    "random_acc": 0.5366666666666666,
+    "no_replay_local_acc": 0.4766666666666667,
+    "lift_over_recency": 0.5566666666666666,
+    "lift_over_random": 0.020000000000000018,
+    "lift_over_no_replay_local": 0.07999999999999996,
+    "min_lift_over_floors": 0.020000000000000018,
+    "margin_min_over_seeds": -0.05975935235619545,
+    "margin_all_positive": false,
+    "beats_all_floors": false,
+    "coherence_eval_shuffled_structure_acc": null,
+    "structural_lift_minus_shuffled": null,
+    "shuffled_control_ok": null,
+    "arm_pass": false
+  },
+  "arm_novel_scale_block": {
+    "coherence_eval_acc": 0.8,
+    "recency_acc": 0.0,
+    "random_acc": 0.53,
+    "no_replay_local_acc": 0.55,
+    "lift_over_recency": 0.8,
+    "lift_over_random": 0.27,
+    "lift_over_no_replay_local": 0.25,
+    "min_lift_over_floors": 0.25,
+    "margin_min_over_seeds": -0.04509759694337845,
+    "margin_all_positive": false,
+    "beats_all_floors": false,
+    "coherence_eval_shuffled_structure_acc": null,
+    "structural_lift_minus_shuffled": null,
+    "shuffled_control_ok": null,
+    "arm_pass": false
+  },
+  "stress_all_pass": false,
+  "situation_buffer_decode_fidelity_train_mean": 1.0,
+  "sr_td_err_first_mean": 0.022097,
+  "sr_td_err_last_mean": 0.007692599999999999,
+  "sr_td_converged": true,
+  "max_train_eval_entity_overlap": 0,
+  "max_train_eval_type_overlap_novel": 0.0,
+  "max_train_eval_type_overlap_scale": 0.0,
+  "abstain_band_used": 0.02,
+  "n_seeds_completed": 5,
+  "seeds": [
+    "7",
+    "17",
+    "23",
+    "31",
+    "41"
+  ],
+  "v2_known_types_reference": "MEASURED@data/exp_coherence_selector_insim_v2/metrics.json (HARD_PASS, eval_acc for the SAME-types/novel-entity regime; compare against this cell's arm_novel_1hop for the known-vs-novel-types gap)",
+  "anchor_name": "coherence_selector_novel_types_v3",
+  "elapsed_s": 247.4,
+  "ts_iso": "2026-08-04T03:19:09.920655+00:00",
+  "pid": 3096,
+  "run_mode": "full",
+  "config_version": "ANCHOR=coherence_selector_novel_types_v3,N_DIM=2048,N_TYPES_SEEN=10,N_TYPES_NOVEL=10,N_TYPES_SCALE=40,noise_frac=0.05,chain_hops=2,n_chains_train=26,n_chains_novel=26,n_chains_scale=10,n_ep_train=60,n_ep_eval=60,sr_steps=2000,sr_batch=128,gamma=0.85,seeds=[7, 17, 23, 31, 41],abstain_band=0.020",
+  "device": "cpu",
+  "prereg": "preregs/2026-08-04_coherence_selector_novel_types_v3.md"
+}
