@@ -1,0 +1,271 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "COHERENCE_REVERSE_REPLAY does NOT beat the RECENCY/RANDOM/NO_REPLAY_LOCAL floors on held-out EVAL (eval_acc=0.2633, recency=0.0000 random=0.5067 no_replay_local=0.5033, min_lift=-0.2433, margin_positive_frac=0.5100). Per brain-faithful-losing=presumed-impl-bug: inspect sr_diag err_first/err_last for TD convergence before concluding structural.",
+  "summary": "COHERENCE_REVERSE_REPLAY does NOT beat the RECENCY/RANDOM/NO_REPLAY_LOCAL floors on held-out EVAL (eval_acc=0.2633, recency=0.0000 random=0.5067 no_replay_local=0.5033, min_lift=-0.2433, margin_positive_frac=0.5100). Per brain-faithful-losing=presumed-impl-bug: inspect sr_diag err_first/err_last for TD convergence before concluding structural.",
+  "structured_gate_claims": [
+    {
+      "gate_name": "positive_control_oracle_train",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "episode construction must be internally consistent"
+    },
+    {
+      "gate_name": "positive_control_oracle_eval",
+      "measured": 1.0,
+      "threshold": 0.999,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "episode construction must be internally consistent"
+    },
+    {
+      "gate_name": "coherence_eval_acc_floor",
+      "measured": 0.2633333333333333,
+      "threshold": 0.75,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "HARD-PASS accuracy floor on held-out EVAL partition"
+    },
+    {
+      "gate_name": "min_lift_over_floors",
+      "measured": -0.2433333333333333,
+      "threshold": 0.15,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "coherence must beat ALL 3 floors by >=0.15 absolute on EVAL"
+    },
+    {
+      "gate_name": "glassbox_margin_min_over_seeds",
+      "measured": -0.10059675574302673,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": false,
+      "note": "true-vs-distractor reach margin must be positive in every seed"
+    }
+  ],
+  "train_partition_summary": {
+    "recency_acc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "random_acc": {
+      "mean": 0.5599999999999999,
+      "std": 0.06548960901462833,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.6833333333333333,
+        "17": 0.5666666666666667,
+        "23": 0.5,
+        "31": 0.5166666666666667,
+        "41": 0.5333333333333333
+      }
+    },
+    "no_replay_local_acc": {
+      "mean": 0.52,
+      "std": 0.08259674462242579,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.6,
+        "17": 0.36666666666666664,
+        "23": 0.5166666666666667,
+        "31": 0.5833333333333334,
+        "41": 0.5333333333333333
+      }
+    },
+    "oracle_acc": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_acc_conservative": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_abstain_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "glassbox_margin_mean": {
+      "mean": 0.9158189784487089,
+      "std": 0.024611165362944085,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.9451348130901654,
+        "17": 0.9430083324511845,
+        "23": 0.9118358423312505,
+        "31": 0.8937244733174642,
+        "41": 0.8853914310534795
+      }
+    },
+    "glassbox_margin_positive_frac": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "glassbox_margin_min_over_seeds": 0.43521755933761597
+  },
+  "eval_partition_summary": {
+    "recency_acc": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.0,
+        "17": 0.0,
+        "23": 0.0,
+        "31": 0.0,
+        "41": 0.0
+      }
+    },
+    "random_acc": {
+      "mean": 0.5066666666666666,
+      "std": 0.09580071908799943,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5166666666666667,
+        "17": 0.4666666666666667,
+        "23": 0.4666666666666667,
+        "31": 0.4,
+        "41": 0.6833333333333333
+      }
+    },
+    "no_replay_local_acc": {
+      "mean": 0.5033333333333333,
+      "std": 0.030550504633038926,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.5,
+        "17": 0.5,
+        "23": 0.5333333333333333,
+        "31": 0.45,
+        "41": 0.5333333333333333
+      }
+    },
+    "oracle_acc": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 1.0,
+        "17": 1.0,
+        "23": 1.0,
+        "31": 1.0,
+        "41": 1.0
+      }
+    },
+    "coherence_acc_conservative": {
+      "mean": 0.2633333333333333,
+      "std": 0.06446359868604573,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.25,
+        "17": 0.26666666666666666,
+        "23": 0.38333333333333336,
+        "31": 0.21666666666666667,
+        "41": 0.2
+      }
+    },
+    "coherence_abstain_rate": {
+      "mean": 0.7366666666666667,
+      "std": 0.06446359868604572,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.75,
+        "17": 0.7333333333333333,
+        "23": 0.6166666666666667,
+        "31": 0.7833333333333333,
+        "41": 0.8
+      }
+    },
+    "glassbox_margin_mean": {
+      "mean": -0.0006223006554258367,
+      "std": 0.0032125362189242062,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.001129038860866179,
+        "17": 0.0021862443536520004,
+        "23": 0.001641518025038143,
+        "31": -0.006508065341040492,
+        "41": -0.0015602391756450137
+      }
+    },
+    "glassbox_margin_positive_frac": {
+      "mean": 0.51,
+      "std": 0.06018490028422596,
+      "n_seeds": 5,
+      "per_seed": {
+        "7": 0.48333333333333334,
+        "17": 0.5833333333333334,
+        "23": 0.5666666666666667,
+        "31": 0.4166666666666667,
+        "41": 0.5
+      }
+    },
+    "glassbox_margin_min_over_seeds": -0.10059675574302673
+  },
+  "situation_buffer_decode_fidelity_train_mean": 1.0,
+  "situation_buffer_decode_fidelity_eval_mean": 1.0,
+  "sr_td_err_first_mean": 0.022097,
+  "sr_td_err_last_mean": 0.001955,
+  "sr_td_converged": true,
+  "lift_over_recency_eval": 0.2633333333333333,
+  "lift_over_random_eval": -0.2433333333333333,
+  "lift_over_no_replay_local_eval": -0.24,
+  "min_lift_over_floors_eval": -0.2433333333333333,
+  "abstain_band_used": 0.02,
+  "n_seeds_completed": 5,
+  "seeds": [
+    "7",
+    "17",
+    "23",
+    "31",
+    "41"
+  ],
+  "anchor_name": "coherence_selector_insim_v1",
+  "elapsed_s": 169.8,
+  "ts_iso": "2026-08-04T02:37:41.275164+00:00",
+  "pid": 34440,
+  "run_mode": "full",
+  "config_version": "ANCHOR=coherence_selector_insim_v1,N_DIM=2048,V_TRAIN=260,V_EVAL=260,density=0.22,n_ep_train=60,n_ep_eval=60,sr_steps=1500,sr_batch=128,gamma=0.85,rollout_per_V=40,seeds=[7, 17, 23, 31, 41],abstain_band=0.020",
+  "device": "cpu",
+  "prereg": "preregs/2026-08-04_coherence_selector_insim_v1.md"
+}
