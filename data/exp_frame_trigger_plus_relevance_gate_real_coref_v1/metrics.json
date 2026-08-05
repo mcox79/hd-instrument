@@ -1,0 +1,328 @@
+{
+  "anchor_name": "frame_trigger_plus_relevance_gate_real_coref_v1",
+  "run_mode": "full",
+  "verdict": "PARTIAL_BEATS_WEAK_COMBINE_RECALL_STILL_ERODED",
+  "verdict_msg": "PARTIAL_BEATS_WEAK_COMBINE_RECALL_STILL_ERODED | slice=L04+L05 | BASELINE P=0.1803 R=0.3235 F1=0.2316 n_pred=61 | FRAME_TRIGGER P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | WEAK_COMBINE(frozen ref) P=0.1961 R=0.2941 F1=0.2353 | REAL_COREF_COMBINED P=0.2041 R=0.2941 F1=0.2410 n_pred=49 | dP(combined-frame)=+0.0448 | TRIPLE base=0.2105 frame=0.1769 combined=0.1205 | gate_dropped=64/113 | tp_dropped=8 coref_overmerge_attributable=0 frac=0.0 | G1=True G2=True(ft=True gate=True coref=True) G3=True | beats_frame_f1=False beats_weak_combine_f1=True precision_material_gain=False recall_kept=False",
+  "summary": "PARTIAL_BEATS_WEAK_COMBINE_RECALL_STILL_ERODED | slice=L04+L05 | BASELINE P=0.1803 R=0.3235 F1=0.2316 n_pred=61 | FRAME_TRIGGER P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | WEAK_COMBINE(frozen ref) P=0.1961 R=0.2941 F1=0.2353 | REAL_COREF_COMBINED P=0.2041 R=0.2941 F1=0.2410 n_pred=49 | dP(combined-frame)=+0.0448 | TRIPLE base=0.2105 frame=0.1769 combined=0.1205 | gate_dropped=64/113 | tp_dropped=8 coref_overmerge_attributable=0 frac=0.0 | G1=True G2=True(ft=True gate=True coref=True) G3=True | beats_frame_f1=False beats_weak_combine_f1=True precision_material_gain=False recall_kept=False",
+  "elapsed_s": 105.19218330000876,
+  "ts_iso": "2026-08-05T23:35:44.463994+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04",
+      "L05"
+    ]
+  },
+  "arms": {
+    "baseline": {
+      "primary": {
+        "precision": 0.18032786885245902,
+        "recall": 0.3235294117647059,
+        "f1": 0.23157894736842105,
+        "n_pred": 61,
+        "tp": 11,
+        "n_gold_covered": 11,
+        "n_gold": 34
+      },
+      "triple": {
+        "precision": 0.16393442622950818,
+        "recall": 0.29411764705882354,
+        "f1": 0.21052631578947367,
+        "n_pred": 61,
+        "tp": 10,
+        "n_gold_covered": 10,
+        "n_gold": 34
+      }
+    },
+    "frame_trigger": {
+      "primary": {
+        "precision": 0.1592920353982301,
+        "recall": 0.5294117647058824,
+        "f1": 0.24489795918367346,
+        "n_pred": 113,
+        "tp": 18,
+        "n_gold_covered": 18,
+        "n_gold": 34
+      },
+      "triple": {
+        "precision": 0.11504424778761062,
+        "recall": 0.38235294117647056,
+        "f1": 0.17687074829931973,
+        "n_pred": 113,
+        "tp": 13,
+        "n_gold_covered": 13,
+        "n_gold": 34
+      }
+    },
+    "real_coref_combined": {
+      "primary": {
+        "precision": 0.20408163265306123,
+        "recall": 0.29411764705882354,
+        "f1": 0.24096385542168677,
+        "n_pred": 49,
+        "tp": 10,
+        "n_gold_covered": 10,
+        "n_gold": 34
+      },
+      "triple": {
+        "precision": 0.10204081632653061,
+        "recall": 0.14705882352941177,
+        "f1": 0.12048192771084339,
+        "n_pred": 49,
+        "tp": 5,
+        "n_gold_covered": 5,
+        "n_gold": 34
+      }
+    }
+  },
+  "frozen_reference": {
+    "baseline": {
+      "precision": 0.18032786885245902,
+      "recall": 0.3235294117647059,
+      "f1": 0.23157894736842105
+    },
+    "frame_trigger": {
+      "precision": 0.1592920353982301,
+      "recall": 0.5294117647058824,
+      "f1": 0.24489795918367346
+    },
+    "weak_combine": {
+      "precision": 0.19607843137254902,
+      "recall": 0.29411764705882354,
+      "f1": 0.23529411764705882
+    }
+  },
+  "design_gate": {
+    "G1_baseline_reproduction": true,
+    "G1_checked": true,
+    "G2_no_regression": true,
+    "G2_frame_trigger_selftest": {
+      "ok": true,
+      "tail": "[frame_trigger_predicate_recall_fix_v1] self-test PASS: base_pick=took frame_verbs=['took', 'throw']"
+    },
+    "G2_relevance_gate_selftest": {
+      "ok": true,
+      "tail": "{\n  \"selftest\": \"pass\",\n  \"n_events\": 4\n}"
+    },
+    "G2_coref_resolver_verify": {
+      "ok": true,
+      "tail": "ompatible later pronoun instead, on both run_match_or_allocate and run_strict_cb\n\nALL PASS: hdlab.coreference_resolver reproduces the banked earn-coref gains (atoms 29613/29614/29616/29618, plus the 2026-08-02 speaker/addressee deixis promotion, commit 0c4285f52, and the 2026-08-02 honest-mode flag_unresolved promotion, commits 2944a14f4/9a0734bf4) -- promoted module matches source-cell behavior."
+    },
+    "G3_arms_differ": true,
+    "G3_gate_drops_something": true,
+    "G3_combined_differs_from_baseline": true
+  },
+  "delta_precision_combined_vs_frame": 0.04478959725483114,
+  "beats_frame_f1": false,
+  "beats_weak_combine_f1": true,
+  "precision_material_gain_ge_0.05": false,
+  "recall_kept_ge_0.45": false,
+  "coref_overmerge_diagnostic": {
+    "n_tp_dropped": 8,
+    "n_coref_overmerge_attributable": 0,
+    "n_other_reason": 8,
+    "frac_coref_attributable": 0.0,
+    "coref_overmerge_examples": []
+  },
+  "gate_dropped_examples": [
+    [
+      "L04_01",
+      [
+        "fall",
+        "herbert",
+        "ruin"
+      ],
+      []
+    ],
+    [
+      "L04_02",
+      [
+        "rubbed",
+        "cat",
+        "castle"
+      ],
+      []
+    ],
+    [
+      "L04_03",
+      [
+        "took",
+        "herbert",
+        "blocks"
+      ],
+      []
+    ],
+    [
+      "L04_03",
+      [
+        "took",
+        "herbert",
+        "one"
+      ],
+      []
+    ],
+    [
+      "L04_04",
+      [
+        "do",
+        "it",
+        "harm"
+      ],
+      []
+    ],
+    [
+      "L04_04",
+      [
+        "passed",
+        "it",
+        "harm"
+      ],
+      []
+    ],
+    [
+      "L04_07",
+      [
+        "cover",
+        "down",
+        "hands"
+      ],
+      []
+    ],
+    [
+      "L04_07",
+      [
+        "mean",
+        "she",
+        "do"
+      ],
+      []
+    ],
+    [
+      "L04_12",
+      [
+        "fell",
+        "castle",
+        "hetty"
+      ],
+      []
+    ],
+    [
+      "L04_14",
+      [
+        "held",
+        "herbert",
+        "out"
+      ],
+      []
+    ],
+    [
+      "L04_15",
+      [
+        "came",
+        "boy",
+        "tears"
+      ],
+      []
+    ],
+    [
+      "L04_15",
+      [
+        "got",
+        "boy",
+        "floor"
+      ],
+      []
+    ],
+    [
+      "L04_16",
+      [
+        "said",
+        "boy",
+        "papa"
+      ],
+      []
+    ],
+    [
+      "L04_17",
+      [
+        "have",
+        "you",
+        "way"
+      ],
+      []
+    ],
+    [
+      "L04_17",
+      [
+        "taken",
+        "you",
+        "heart"
+      ],
+      []
+    ],
+    [
+      "L04_17",
+      [
+        "taken",
+        "you",
+        "way"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "have",
+        "i",
+        "you"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "heard",
+        "i",
+        "blocks"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "heard",
+        "i",
+        "you"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "sing",
+        "i",
+        "blocks"
+      ],
+      []
+    ]
+  ],
+  "n_gate_dropped": 64,
+  "n_frame_flat": 113,
+  "secondary_pred_role_residual": {
+    "baseline_triple_f1": 0.21052631578947367,
+    "frame_trigger_triple_f1": 0.17687074829931973,
+    "combined_triple_f1": 0.12048192771084339,
+    "triple_still_worse_than_baseline_after_combine": true,
+    "note": "Secondary-predicate role-assignment errors are a SEPARATE component from event/predicate detection (frame-trigger's scope) and from situation-boundary filtering (this gate's scope); not folded into this cell's verdict."
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arms",
+    "design_gate",
+    "coref_overmerge_diagnostic",
+    "secondary_pred_role_residual",
+    "delta_precision_combined_vs_frame",
+    "beats_frame_f1",
+    "beats_weak_combine_f1"
+  ],
+  "notes": "Re-attempts exp_frame_trigger_plus_relevance_gate_combined_v1's composition with REAL signals: protagonist via hdlab.coreference_resolver.run_match_or_allocate (canonical promoted cross-sentence coref, unmodified) instead of raw-string identity-map; causation via the SAME connective/bridge causal-net check hdlab/situation_reader.py._read_causation uses, instead of a naive connective-token-presence flag. is_boundary_gate() itself is unmodified. See module docstring for the full pre-registration, the coref-over-merge diagnostic design, and why routing through SituationReader.read() literally is not possible on McGuffey text (no coref-annotated CoNLL exists for this corpus)."
+}
