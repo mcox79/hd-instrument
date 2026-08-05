@@ -1,0 +1,1495 @@
+{
+  "anchor_name": "c5_realtext_c3mined_wired_payoff_v1",
+  "n_items": 38,
+  "n_owner_correct": 31,
+  "n_owner_wrong": 7,
+  "old_baseline": {
+    "failure_decomposition": {
+      "OWNER_ID_ERROR": 7,
+      "TYPING_MISS": 14,
+      "BINDING_ERROR": 5,
+      "CORRECT": 12
+    },
+    "end_to_end_accuracy": 0.3158,
+    "n_correct": 12,
+    "cites": "data/exp_c5_realtext_c3mined_v2_38item_v1/metrics.json commit dfabbde26"
+  },
+  "wired_run": {
+    "failure_decomposition": {
+      "OWNER_ID_ERROR": 7,
+      "TYPING_MISS": 14,
+      "BINDING_ERROR": 5,
+      "CORRECT": 12
+    },
+    "end_to_end_accuracy": 0.3158,
+    "n_correct": 12
+  },
+  "typing_miss_delta": 0,
+  "old_typing_miss_ids": [
+    "c3_95_the_prisoner_of_zenda__s7",
+    "c3_502_desert_gold__s24",
+    "c3_4217_a_portrait_of_the_artist_as_a_young_man__s87",
+    "c3_208_daisy_miller_a_study__s53",
+    "c3_27_far_from_the_madding_crowd__s24",
+    "c3_45_anne_of_green_gables__s99",
+    "c3_160_the_awakening_and_selected_short_stories__s103",
+    "c3_432_the_ambassadors__s32",
+    "c3_217_sons_and_lovers__s64",
+    "c3_145_middlemarch__s12",
+    "c3_155_the_moonstone__s20",
+    "c3_434_the_circular_staircase__s45",
+    "c3_434_the_circular_staircase__s63",
+    "c3_472_the_house_behind_the_cedars__s20"
+  ],
+  "cause_attribution_of_old_typing_miss": {
+    "c3_95_the_prisoner_of_zenda__s7": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_502_desert_gold__s24": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_4217_a_portrait_of_the_artist_as_a_young_man__s87": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_208_daisy_miller_a_study__s53": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_27_far_from_the_madding_crowd__s24": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_45_anne_of_green_gables__s99": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_160_the_awakening_and_selected_short_stories__s103": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_432_the_ambassadors__s32": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_217_sons_and_lovers__s64": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_145_middlemarch__s12": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_155_the_moonstone__s20": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_434_the_circular_staircase__s45": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_434_the_circular_staircase__s63": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure",
+    "c3_472_the_house_behind_the_cedars__s20": "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure"
+  },
+  "cause_attribution_counts": {
+    "IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure": 14
+  },
+  "typing_miss_shrinks_hard_pass_band": false,
+  "beats_old_end_to_end": false,
+  "attributable_to_wires": false,
+  "verdict": "HARD_FAIL_TYPING_MISS_UNCHANGED_OR_WORSE",
+  "verdict_msg": "MEASURED payoff (38 items): OLD end-to-end=0.3158 (12/38) decomp={'OWNER_ID_ERROR': 7, 'TYPING_MISS': 14, 'BINDING_ERROR': 5, 'CORRECT': 12} | WIRED end-to-end=0.3158 (12/38) decomp={'OWNER_ID_ERROR': 7, 'TYPING_MISS': 14, 'BINDING_ERROR': 5, 'CORRECT': 12} | TYPING_MISS delta=0 (14 -> 14) | cause_attribution_of_14_old_typing_miss={'IN_VOCAB_PSYCH_STILL_MISSED_subject_or_window_failure': 14} | verdict=HARD_FAIL_TYPING_MISS_UNCHANGED_OR_WORSE",
+  "per_item_old": {
+    "c3_541_the_age_of_innocence__s3": {
+      "id": "c3_541_the_age_of_innocence__s3",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "structure_type": "aversive_desire_achieved_dispersed_foil"
+    },
+    "c3_1342_pride_and_prejudice__s30": {
+      "id": "c3_1342_pride_and_prejudice__s30",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "bingley",
+      "baseline_owner": "bingley",
+      "content_owner": "bingley",
+      "gold": "bingley",
+      "foil": "bennet",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_238_dear_enemy__s35": {
+      "id": "c3_238_dear_enemy__s35",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "judy",
+      "baseline_owner": "judy",
+      "content_owner": "judy",
+      "gold": "judy",
+      "foil": "jane",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_achieved_near_foil"
+    },
+    "c3_351_of_human_bondage__s80": {
+      "id": "c3_351_of_human_bondage__s80",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "watkin",
+      "baseline_owner": "watkin",
+      "content_owner": "watkin",
+      "gold": "william",
+      "foil": "watkin",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_adjacent_foil"
+    },
+    "c3_113_the_secret_garden__s32": {
+      "id": "c3_113_the_secret_garden__s32",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": false,
+      "final_owner": "mary",
+      "baseline_owner": "sahib",
+      "content_owner": "mary",
+      "gold": "mary",
+      "foil": "sahib",
+      "adopt": "content_match",
+      "score_b": 0.0,
+      "score_c": 1.0,
+      "delta": 1.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_74_the_adventures_of_tom_sawyer__s44": {
+      "id": "c3_74_the_adventures_of_tom_sawyer__s44",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "polly",
+      "baseline_owner": "polly",
+      "content_owner": "polly",
+      "gold": "tom",
+      "foil": "polly",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_95_the_prisoner_of_zenda__s7": {
+      "id": "c3_95_the_prisoner_of_zenda__s7",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_mixed_dispersed_foil"
+    },
+    "c3_541_the_age_of_innocence__s23": {
+      "id": "c3_541_the_age_of_innocence__s23",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "archer",
+      "baseline_owner": "archer",
+      "content_owner": "archer",
+      "gold": "archer",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_achieved_adjacent_nofoil"
+    },
+    "c3_502_desert_gold__s83": {
+      "id": "c3_502_desert_gold__s83",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "cameron",
+      "baseline_owner": "cameron",
+      "content_owner": "cameron",
+      "gold": "cameron",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_502_desert_gold__s24": {
+      "id": "c3_502_desert_gold__s24",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_nofoil"
+    },
+    "c3_472_the_house_behind_the_cedars__s22": {
+      "id": "c3_472_the_house_behind_the_cedars__s22",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "warwick",
+      "baseline_owner": "warwick",
+      "content_owner": "warwick",
+      "gold": "warwick",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_near_nofoil"
+    },
+    "c3_9830_the_beautiful_and_damned__s99": {
+      "id": "c3_9830_the_beautiful_and_damned__s99",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "anthony",
+      "baseline_owner": "anthony",
+      "content_owner": "anthony",
+      "gold": "anthony",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_mixed_near_nofoil"
+    },
+    "c3_145_middlemarch__s34": {
+      "id": "c3_145_middlemarch__s34",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "dorothea",
+      "baseline_owner": "dorothea",
+      "content_owner": "celia",
+      "gold": "celia",
+      "foil": "dorothea",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_805_this_side_of_paradise__s9": {
+      "id": "c3_805_this_side_of_paradise__s9",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 1,
+      "role_seq": [
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_adjacent_foil"
+    },
+    "c3_4217_a_portrait_of_the_artist_as_a_young_man__s87": {
+      "id": "c3_4217_a_portrait_of_the_artist_as_a_young_man__s87",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_45_anne_of_green_gables__s18": {
+      "id": "c3_45_anne_of_green_gables__s18",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "cuthbert",
+      "baseline_owner": "cuthbert",
+      "content_owner": "cuthbert",
+      "gold": "rachel",
+      "foil": "cuthbert",
+      "adopt": null,
+      "score_b": 0.0,
+      "score_c": 0.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_208_daisy_miller_a_study__s53": {
+      "id": "c3_208_daisy_miller_a_study__s53",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_171_charlotte_temple__s18": {
+      "id": "c3_171_charlotte_temple__s18",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "temple",
+      "baseline_owner": "temple",
+      "content_owner": "temple",
+      "gold": "portsmouth",
+      "foil": "temple",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_238_dear_enemy__s8": {
+      "id": "c3_238_dear_enemy__s8",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "hallock",
+      "baseline_owner": "hallock",
+      "content_owner": "hallock",
+      "gold": "judy",
+      "foil": "hallock",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_27_far_from_the_madding_crowd__s24": {
+      "id": "c3_27_far_from_the_madding_crowd__s24",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_367_country_of_the_pointed_firs__s57": {
+      "id": "c3_367_country_of_the_pointed_firs__s57",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "todd",
+      "baseline_owner": "todd",
+      "content_owner": "todd",
+      "gold": "todd",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_3457_the_man_of_the_forest__s14": {
+      "id": "c3_3457_the_man_of_the_forest__s14",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "dale",
+      "baseline_owner": "dale",
+      "content_owner": "dale",
+      "gold": "dale",
+      "foil": "baldy",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_45_anne_of_green_gables__s99": {
+      "id": "c3_45_anne_of_green_gables__s99",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_11_alices_adventures_in_wonderland__s2": {
+      "id": "c3_11_alices_adventures_in_wonderland__s2",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "alice",
+      "baseline_owner": "alice",
+      "content_owner": "alice",
+      "gold": "alice",
+      "foil": "rabbit",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world__s43": {
+      "id": "c3_6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world__s43",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "evelyn",
+      "baseline_owner": "evelyn",
+      "content_owner": "evelyn",
+      "gold": "evelyn",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET",
+        "OUTCOME_MET",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_4276_north_and_south__s5": {
+      "id": "c3_4276_north_and_south__s5",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "edith",
+      "baseline_owner": "edith",
+      "content_owner": "edith",
+      "gold": "edith",
+      "foil": "helstone",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_160_the_awakening_and_selected_short_stories__s103": {
+      "id": "c3_160_the_awakening_and_selected_short_stories__s103",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_711_allan_quatermain__s17": {
+      "id": "c3_711_allan_quatermain__s17",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "curtis",
+      "baseline_owner": "curtis",
+      "content_owner": "curtis",
+      "gold": "curtis",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET",
+        "OUTCOME_MET"
+      ],
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_432_the_ambassadors__s32": {
+      "id": "c3_432_the_ambassadors__s32",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_217_sons_and_lovers__s64": {
+      "id": "c3_217_sons_and_lovers__s64",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_74_the_adventures_of_tom_sawyer__s37": {
+      "id": "c3_74_the_adventures_of_tom_sawyer__s37",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_1342_pride_and_prejudice__s22": {
+      "id": "c3_1342_pride_and_prejudice__s22",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "lucas",
+      "baseline_owner": "lucas",
+      "content_owner": "lucas",
+      "gold": "bingley",
+      "foil": "lucas",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_4276_north_and_south__s0": {
+      "id": "c3_4276_north_and_south__s0",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "edith",
+      "baseline_owner": "edith",
+      "content_owner": "edith",
+      "gold": "margaret",
+      "foil": "edith",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_145_middlemarch__s12": {
+      "id": "c3_145_middlemarch__s12",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_155_the_moonstone__s20": {
+      "id": "c3_155_the_moonstone__s20",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_434_the_circular_staircase__s45": {
+      "id": "c3_434_the_circular_staircase__s45",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_434_the_circular_staircase__s63": {
+      "id": "c3_434_the_circular_staircase__s63",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_472_the_house_behind_the_cedars__s20": {
+      "id": "c3_472_the_house_behind_the_cedars__s20",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    }
+  },
+  "per_item_wired": {
+    "c3_541_the_age_of_innocence__s3": {
+      "id": "c3_541_the_age_of_innocence__s3",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "outcome_via_affect": false,
+      "structure_type": "aversive_desire_achieved_dispersed_foil"
+    },
+    "c3_1342_pride_and_prejudice__s30": {
+      "id": "c3_1342_pride_and_prejudice__s30",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "bingley",
+      "baseline_owner": "bingley",
+      "content_owner": "bingley",
+      "gold": "bingley",
+      "foil": "bennet",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_238_dear_enemy__s35": {
+      "id": "c3_238_dear_enemy__s35",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "judy",
+      "baseline_owner": "judy",
+      "content_owner": "judy",
+      "gold": "judy",
+      "foil": "jane",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_near_foil"
+    },
+    "c3_351_of_human_bondage__s80": {
+      "id": "c3_351_of_human_bondage__s80",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "watkin",
+      "baseline_owner": "watkin",
+      "content_owner": "watkin",
+      "gold": "william",
+      "foil": "watkin",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_adjacent_foil"
+    },
+    "c3_113_the_secret_garden__s32": {
+      "id": "c3_113_the_secret_garden__s32",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": false,
+      "final_owner": "mary",
+      "baseline_owner": "sahib",
+      "content_owner": "mary",
+      "gold": "mary",
+      "foil": "sahib",
+      "adopt": "content_match",
+      "score_b": 0.0,
+      "score_c": 1.0,
+      "delta": 1.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_74_the_adventures_of_tom_sawyer__s44": {
+      "id": "c3_74_the_adventures_of_tom_sawyer__s44",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "polly",
+      "baseline_owner": "polly",
+      "content_owner": "polly",
+      "gold": "tom",
+      "foil": "polly",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_95_the_prisoner_of_zenda__s7": {
+      "id": "c3_95_the_prisoner_of_zenda__s7",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_mixed_dispersed_foil"
+    },
+    "c3_541_the_age_of_innocence__s23": {
+      "id": "c3_541_the_age_of_innocence__s23",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "archer",
+      "baseline_owner": "archer",
+      "content_owner": "archer",
+      "gold": "archer",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_adjacent_nofoil"
+    },
+    "c3_502_desert_gold__s83": {
+      "id": "c3_502_desert_gold__s83",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "cameron",
+      "baseline_owner": "cameron",
+      "content_owner": "cameron",
+      "gold": "cameron",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_502_desert_gold__s24": {
+      "id": "c3_502_desert_gold__s24",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 3,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_nofoil"
+    },
+    "c3_472_the_house_behind_the_cedars__s22": {
+      "id": "c3_472_the_house_behind_the_cedars__s22",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "warwick",
+      "baseline_owner": "warwick",
+      "content_owner": "warwick",
+      "gold": "warwick",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_near_nofoil"
+    },
+    "c3_9830_the_beautiful_and_damned__s99": {
+      "id": "c3_9830_the_beautiful_and_damned__s99",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "anthony",
+      "baseline_owner": "anthony",
+      "content_owner": "anthony",
+      "gold": "anthony",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET",
+        "OUTCOME_MET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_mixed_near_nofoil"
+    },
+    "c3_145_middlemarch__s34": {
+      "id": "c3_145_middlemarch__s34",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "dorothea",
+      "baseline_owner": "dorothea",
+      "content_owner": "celia",
+      "gold": "celia",
+      "foil": "dorothea",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_805_this_side_of_paradise__s9": {
+      "id": "c3_805_this_side_of_paradise__s9",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "beatrice",
+      "baseline_owner": "beatrice",
+      "content_owner": "beatrice",
+      "gold": "england",
+      "foil": "beatrice",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_adjacent_foil"
+    },
+    "c3_4217_a_portrait_of_the_artist_as_a_young_man__s87": {
+      "id": "c3_4217_a_portrait_of_the_artist_as_a_young_man__s87",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 4,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_45_anne_of_green_gables__s18": {
+      "id": "c3_45_anne_of_green_gables__s18",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "cuthbert",
+      "baseline_owner": "cuthbert",
+      "content_owner": "cuthbert",
+      "gold": "rachel",
+      "foil": "cuthbert",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_208_daisy_miller_a_study__s53": {
+      "id": "c3_208_daisy_miller_a_study__s53",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_171_charlotte_temple__s18": {
+      "id": "c3_171_charlotte_temple__s18",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "temple",
+      "baseline_owner": "temple",
+      "content_owner": "temple",
+      "gold": "portsmouth",
+      "foil": "temple",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_238_dear_enemy__s8": {
+      "id": "c3_238_dear_enemy__s8",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "hallock",
+      "baseline_owner": "hallock",
+      "content_owner": "hallock",
+      "gold": "judy",
+      "foil": "hallock",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_27_far_from_the_madding_crowd__s24": {
+      "id": "c3_27_far_from_the_madding_crowd__s24",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_367_country_of_the_pointed_firs__s57": {
+      "id": "c3_367_country_of_the_pointed_firs__s57",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "todd",
+      "baseline_owner": "todd",
+      "content_owner": "todd",
+      "gold": "todd",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_3457_the_man_of_the_forest__s14": {
+      "id": "c3_3457_the_man_of_the_forest__s14",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "dale",
+      "baseline_owner": "dale",
+      "content_owner": "dale",
+      "gold": "dale",
+      "foil": "baldy",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_MET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_45_anne_of_green_gables__s99": {
+      "id": "c3_45_anne_of_green_gables__s99",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_11_alices_adventures_in_wonderland__s2": {
+      "id": "c3_11_alices_adventures_in_wonderland__s2",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "alice",
+      "baseline_owner": "alice",
+      "content_owner": "alice",
+      "gold": "alice",
+      "foil": "rabbit",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_near_foil"
+    },
+    "c3_6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world__s43": {
+      "id": "c3_6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world__s43",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "evelyn",
+      "baseline_owner": "evelyn",
+      "content_owner": "evelyn",
+      "gold": "evelyn",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET",
+        "OUTCOME_MET",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_4276_north_and_south__s5": {
+      "id": "c3_4276_north_and_south__s5",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "edith",
+      "baseline_owner": "edith",
+      "content_owner": "edith",
+      "gold": "edith",
+      "foil": "helstone",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_MET",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_160_the_awakening_and_selected_short_stories__s103": {
+      "id": "c3_160_the_awakening_and_selected_short_stories__s103",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 1,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_711_allan_quatermain__s17": {
+      "id": "c3_711_allan_quatermain__s17",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": true,
+      "recency_alone_matches_gold": true,
+      "final_owner": "curtis",
+      "baseline_owner": "curtis",
+      "content_owner": "curtis",
+      "gold": "curtis",
+      "foil": null,
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "OUTCOME_UNMET",
+        "OUTCOME_MET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_adjacent_nofoil"
+    },
+    "c3_432_the_ambassadors__s32": {
+      "id": "c3_432_the_ambassadors__s32",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 3,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_217_sons_and_lovers__s64": {
+      "id": "c3_217_sons_and_lovers__s64",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 3,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_74_the_adventures_of_tom_sawyer__s37": {
+      "id": "c3_74_the_adventures_of_tom_sawyer__s37",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 4,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_achieved_dispersed_foil"
+    },
+    "c3_1342_pride_and_prejudice__s22": {
+      "id": "c3_1342_pride_and_prejudice__s22",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "lucas",
+      "baseline_owner": "lucas",
+      "content_owner": "lucas",
+      "gold": "bingley",
+      "foil": "lucas",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_4276_north_and_south__s0": {
+      "id": "c3_4276_north_and_south__s0",
+      "scrambled": false,
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "edith",
+      "baseline_owner": "edith",
+      "content_owner": "edith",
+      "gold": "margaret",
+      "foil": "edith",
+      "adopt": null,
+      "score_b": 1.0,
+      "score_c": 1.0,
+      "delta": 0.0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "OUTCOME_UNMET"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_145_middlemarch__s12": {
+      "id": "c3_145_middlemarch__s12",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 4,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_155_the_moonstone__s20": {
+      "id": "c3_155_the_moonstone__s20",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_434_the_circular_staircase__s45": {
+      "id": "c3_434_the_circular_staircase__s45",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 3,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_434_the_circular_staircase__s63": {
+      "id": "c3_434_the_circular_staircase__s63",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 4,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    },
+    "c3_472_the_house_behind_the_cedars__s20": {
+      "id": "c3_472_the_house_behind_the_cedars__s20",
+      "scrambled": false,
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 3,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL",
+        "GOAL"
+      ],
+      "outcome_via_affect": false,
+      "structure_type": "positive_desire_blocked_dispersed_foil"
+    }
+  },
+  "n": 38,
+  "small_n": true,
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-08-05T17:14:10.768434+00:00",
+  "induced_hypothesis_available": true,
+  "induced_hypothesis_name": "ruleind",
+  "prereg_note": "MEASUREMENT cell per task brief; bands: HARD-PASS=TYPING_MISS<=8 AND e2e>0.316 AND attributable to wires; PARTIAL=TYPING_MISS shrinks but another bucket gates; HARD-FAIL=TYPING_MISS unchanged/worse. Pre-flight finding (see module docstring): all 38 items' mined goal_verb_lemma are already in-vocab PSYCH_VERBS by construction of the C3-syntax miner's own selection filter, so the OOV wire's effect (if any) comes only from a DIFFERENT token in the sentence being genuinely OOV, not the mined verb itself -- measured via cause_attribution_counts, not assumed.",
+  "source_mined_path": "D:\\AI\\hd-instrument\\experiments\\data\\goal_outcome_c3mined_v1.jsonl"
+}
