@@ -1,0 +1,1046 @@
+{
+  "verdict": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS",
+  "verdict_msg": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS: GOLD-ROLE C5 (reproduced, commit 6911a28a6): outcome_binding_accuracy=1.0 scramble_collapse=True. REAL-C3-ROLE end-to-end: outcome_binding_accuracy=1.0 (recency floor=0.3333, beats_recency=True) scramble_collapse=True control_false_fire_rate=0.0 gold_vs_real_delta=0.0 where_breaks=none verdict=MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS",
+  "summary": "GOLD-ROLE C5 (reproduced, commit 6911a28a6): outcome_binding_accuracy=1.0 scramble_collapse=True. REAL-C3-ROLE end-to-end: outcome_binding_accuracy=1.0 (recency floor=0.3333, beats_recency=True) scramble_collapse=True control_false_fire_rate=0.0 gold_vs_real_delta=0.0 where_breaks=none verdict=MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS",
+  "n_seeds": 3,
+  "gold_role_c5": {
+    "verdict": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS",
+    "verdict_msg": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS: N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=1.0 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=False) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=True coherence_delta_sign_positive=True formal_hard_pass=True formal_hard_fail=False",
+    "summary": "N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=1.0 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=False) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=True coherence_delta_sign_positive=True formal_hard_pass=True formal_hard_fail=False",
+    "n_seeds": 3,
+    "outcome_binding_accuracy": 1.0,
+    "recency_baseline": 0.3333,
+    "beats_recency": true,
+    "scrambled_outcome_binding_accuracy": 0.0,
+    "role_scramble_collapse": true,
+    "role_scramble_collapse_vacuous": false,
+    "goal_owner_binding_accuracy": 1.0,
+    "control_false_fire_rate": 0.0,
+    "anti_recency_holds": true,
+    "coherence_margin_delta_sign_positive": true,
+    "is_route_passage_role_content_blind_at_c5": false,
+    "diag_route_passage_still_blind": true,
+    "formal_hard_pass": true,
+    "formal_hard_fail": false,
+    "per_seed": {
+      "0": {
+        "seed": 0,
+        "outcome_binding_accuracy": 1.0,
+        "scrambled_outcome_binding_accuracy": 0.0,
+        "goal_owner_binding_accuracy": 1.0,
+        "control_false_fire_rate": 0.0,
+        "anti_recency_holds": true,
+        "coherence_margin_delta_sign_positive": true,
+        "recency_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": false,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "content_owner": "amy",
+            "final_owner": "amy",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": false,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "content_owner": "tom",
+            "final_owner": "tom",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_beth_blocked_antecedent_is_recent",
+            "scrambled": false,
+            "gold_outcome_owner": "beth",
+            "baseline_owner": "beth",
+            "content_owner": "beth",
+            "final_owner": "beth",
+            "matches_gold": true,
+            "recency_alone_matches_gold": true,
+            "overrode_recency": false,
+            "adopt": null,
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 1.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 0.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "scramble_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": true,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "content_owner": "jo",
+            "final_owner": "jo",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": false,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": true,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "content_owner": "sid",
+            "final_owner": "sid",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": false,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "goal_owner_rows": [
+          {
+            "id": "mcca_004_amy_warning",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "theatre_refusal",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "beth_fair",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "tom_shore",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "book_burning_spite",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "mcca_003_forger",
+            "has_goal_event": true,
+            "matches_owner": true
+          }
+        ],
+        "control_rows": [
+          {
+            "id": "amy_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "beth_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "noise_frost",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "noise_mist",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "harm_knife",
+            "cls": "control_harm",
+            "fired": false
+          },
+          {
+            "id": "harm_poker",
+            "cls": "control_harm",
+            "fired": false
+          }
+        ]
+      },
+      "1": {
+        "seed": 1,
+        "outcome_binding_accuracy": 1.0,
+        "scrambled_outcome_binding_accuracy": 0.0,
+        "goal_owner_binding_accuracy": 1.0,
+        "control_false_fire_rate": 0.0,
+        "anti_recency_holds": true,
+        "coherence_margin_delta_sign_positive": true,
+        "recency_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": false,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "content_owner": "amy",
+            "final_owner": "amy",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": false,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "content_owner": "tom",
+            "final_owner": "tom",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_beth_blocked_antecedent_is_recent",
+            "scrambled": false,
+            "gold_outcome_owner": "beth",
+            "baseline_owner": "beth",
+            "content_owner": "beth",
+            "final_owner": "beth",
+            "matches_gold": true,
+            "recency_alone_matches_gold": true,
+            "overrode_recency": false,
+            "adopt": null,
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 1.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 0.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "scramble_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": true,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "content_owner": "jo",
+            "final_owner": "jo",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": false,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": true,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "content_owner": "sid",
+            "final_owner": "sid",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": false,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "goal_owner_rows": [
+          {
+            "id": "mcca_004_amy_warning",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "theatre_refusal",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "beth_fair",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "tom_shore",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "book_burning_spite",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "mcca_003_forger",
+            "has_goal_event": true,
+            "matches_owner": true
+          }
+        ],
+        "control_rows": [
+          {
+            "id": "amy_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "beth_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "noise_frost",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "noise_mist",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "harm_knife",
+            "cls": "control_harm",
+            "fired": false
+          },
+          {
+            "id": "harm_poker",
+            "cls": "control_harm",
+            "fired": false
+          }
+        ]
+      },
+      "2": {
+        "seed": 2,
+        "outcome_binding_accuracy": 1.0,
+        "scrambled_outcome_binding_accuracy": 0.0,
+        "goal_owner_binding_accuracy": 1.0,
+        "control_false_fire_rate": 0.0,
+        "anti_recency_holds": true,
+        "coherence_margin_delta_sign_positive": true,
+        "recency_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": false,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "content_owner": "amy",
+            "final_owner": "amy",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": false,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "content_owner": "tom",
+            "final_owner": "tom",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_beth_blocked_antecedent_is_recent",
+            "scrambled": false,
+            "gold_outcome_owner": "beth",
+            "baseline_owner": "beth",
+            "content_owner": "beth",
+            "final_owner": "beth",
+            "matches_gold": true,
+            "recency_alone_matches_gold": true,
+            "overrode_recency": false,
+            "adopt": null,
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 1.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 0.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "scramble_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": true,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "content_owner": "jo",
+            "final_owner": "jo",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": false,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": true,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "content_owner": "sid",
+            "final_owner": "sid",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "overrode_recency": false,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "goal_owner_rows": [
+          {
+            "id": "mcca_004_amy_warning",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "theatre_refusal",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "beth_fair",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "tom_shore",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "book_burning_spite",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "mcca_003_forger",
+            "has_goal_event": true,
+            "matches_owner": true
+          }
+        ],
+        "control_rows": [
+          {
+            "id": "amy_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "beth_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "noise_frost",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "noise_mist",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "harm_knife",
+            "cls": "control_harm",
+            "fired": false
+          },
+          {
+            "id": "harm_poker",
+            "cls": "control_harm",
+            "fired": false
+          }
+        ]
+      }
+    }
+  },
+  "real_c3_role_endtoend": {
+    "verdict": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS",
+    "verdict_msg": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS: N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=1.0 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=False) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=True coherence_delta_sign_positive=True formal_hard_pass=True formal_hard_fail=False",
+    "summary": "N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=1.0 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=False) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=True coherence_delta_sign_positive=True formal_hard_pass=True formal_hard_fail=False",
+    "n_seeds": 3,
+    "outcome_binding_accuracy": 1.0,
+    "recency_baseline": 0.3333,
+    "beats_recency": true,
+    "scrambled_outcome_binding_accuracy": 0.0,
+    "role_scramble_collapse": true,
+    "role_scramble_collapse_vacuous": false,
+    "goal_owner_binding_accuracy": 1.0,
+    "control_false_fire_rate": 0.0,
+    "anti_recency_holds": true,
+    "coherence_margin_delta_sign_positive": true,
+    "is_route_passage_role_content_blind_at_c5": false,
+    "diag_route_passage_still_blind": true,
+    "formal_hard_pass": true,
+    "formal_hard_fail": false,
+    "per_seed": {
+      "0": {
+        "seed": 0,
+        "outcome_binding_accuracy": 1.0,
+        "scrambled_outcome_binding_accuracy": 0.0,
+        "goal_owner_binding_accuracy": 1.0,
+        "control_false_fire_rate": 0.0,
+        "anti_recency_holds": true,
+        "coherence_margin_delta_sign_positive": true,
+        "c3_goal_missed_on_trap": [],
+        "recency_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": false,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "final_owner": "amy",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": false,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "final_owner": "tom",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_beth_blocked_antecedent_is_recent",
+            "scrambled": false,
+            "gold_outcome_owner": "beth",
+            "baseline_owner": "beth",
+            "final_owner": "beth",
+            "matches_gold": true,
+            "recency_alone_matches_gold": true,
+            "goal_present_c3": true,
+            "adopt": null,
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 1.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 0.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "scramble_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": true,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "final_owner": "jo",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": true,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "final_owner": "sid",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "goal_owner_rows": [
+          {
+            "id": "mcca_004_amy_warning",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "theatre_refusal",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "beth_fair",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "tom_shore",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "book_burning_spite",
+            "has_goal_event": false,
+            "matches_owner": null
+          },
+          {
+            "id": "mcca_003_forger",
+            "has_goal_event": true,
+            "matches_owner": true
+          }
+        ],
+        "control_rows": [
+          {
+            "id": "amy_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "beth_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "noise_frost",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "noise_mist",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "harm_knife",
+            "cls": "control_harm",
+            "fired": false
+          },
+          {
+            "id": "harm_poker",
+            "cls": "control_harm",
+            "fired": false
+          }
+        ]
+      },
+      "1": {
+        "seed": 1,
+        "outcome_binding_accuracy": 1.0,
+        "scrambled_outcome_binding_accuracy": 0.0,
+        "goal_owner_binding_accuracy": 1.0,
+        "control_false_fire_rate": 0.0,
+        "anti_recency_holds": true,
+        "coherence_margin_delta_sign_positive": true,
+        "c3_goal_missed_on_trap": [],
+        "recency_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": false,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "final_owner": "amy",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": false,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "final_owner": "tom",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_beth_blocked_antecedent_is_recent",
+            "scrambled": false,
+            "gold_outcome_owner": "beth",
+            "baseline_owner": "beth",
+            "final_owner": "beth",
+            "matches_gold": true,
+            "recency_alone_matches_gold": true,
+            "goal_present_c3": true,
+            "adopt": null,
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 1.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 0.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "scramble_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": true,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "final_owner": "jo",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": true,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "final_owner": "sid",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "goal_owner_rows": [
+          {
+            "id": "mcca_004_amy_warning",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "theatre_refusal",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "beth_fair",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "tom_shore",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "book_burning_spite",
+            "has_goal_event": false,
+            "matches_owner": null
+          },
+          {
+            "id": "mcca_003_forger",
+            "has_goal_event": true,
+            "matches_owner": true
+          }
+        ],
+        "control_rows": [
+          {
+            "id": "amy_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "beth_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "noise_frost",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "noise_mist",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "harm_knife",
+            "cls": "control_harm",
+            "fired": false
+          },
+          {
+            "id": "harm_poker",
+            "cls": "control_harm",
+            "fired": false
+          }
+        ]
+      },
+      "2": {
+        "seed": 2,
+        "outcome_binding_accuracy": 1.0,
+        "scrambled_outcome_binding_accuracy": 0.0,
+        "goal_owner_binding_accuracy": 1.0,
+        "control_false_fire_rate": 0.0,
+        "anti_recency_holds": true,
+        "coherence_margin_delta_sign_positive": true,
+        "c3_goal_missed_on_trap": [],
+        "recency_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": false,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "final_owner": "amy",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": false,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "final_owner": "tom",
+            "matches_gold": true,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": 0.0
+          },
+          {
+            "id": "recency_beth_blocked_antecedent_is_recent",
+            "scrambled": false,
+            "gold_outcome_owner": "beth",
+            "baseline_owner": "beth",
+            "final_owner": "beth",
+            "matches_gold": true,
+            "recency_alone_matches_gold": true,
+            "goal_present_c3": true,
+            "adopt": null,
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 1.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 0.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "scramble_rows": [
+          {
+            "id": "recency_amy_blocked_pronoun_foil_jo",
+            "scrambled": true,
+            "gold_outcome_owner": "amy",
+            "baseline_owner": "jo",
+            "final_owner": "jo",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          },
+          {
+            "id": "recency_tom_blocked_pronoun_foil_sid",
+            "scrambled": true,
+            "gold_outcome_owner": "tom",
+            "baseline_owner": "sid",
+            "final_owner": "sid",
+            "matches_gold": false,
+            "recency_alone_matches_gold": false,
+            "goal_present_c3": true,
+            "adopt": "content_match",
+            "n_changed_flagged": 1,
+            "directed_score_baseline": 0.0,
+            "directed_score_content": 1.0,
+            "agg_coherence_delta": 1.0,
+            "diagnostic_route_passage_blind_delta": null
+          }
+        ],
+        "goal_owner_rows": [
+          {
+            "id": "mcca_004_amy_warning",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "theatre_refusal",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "beth_fair",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "tom_shore",
+            "has_goal_event": true,
+            "matches_owner": true
+          },
+          {
+            "id": "book_burning_spite",
+            "has_goal_event": false,
+            "matches_owner": null
+          },
+          {
+            "id": "mcca_003_forger",
+            "has_goal_event": true,
+            "matches_owner": true
+          }
+        ],
+        "control_rows": [
+          {
+            "id": "amy_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "beth_met",
+            "cls": "control_goal_met",
+            "fired": false
+          },
+          {
+            "id": "noise_frost",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "noise_mist",
+            "cls": "control_noise",
+            "fired": false
+          },
+          {
+            "id": "harm_knife",
+            "cls": "control_harm",
+            "fired": false
+          },
+          {
+            "id": "harm_poker",
+            "cls": "control_harm",
+            "fired": false
+          }
+        ]
+      }
+    }
+  },
+  "gold_vs_real_delta": 0.0,
+  "where_breaks": "none",
+  "beats_recency_real": true,
+  "non_vacuous_scramble_holds_real": true,
+  "no_regression_selftests": "see 'no_regression' key, populated by --self-test caller path",
+  "run_mode": "full",
+  "elapsed_s": 0.43445799999608425,
+  "ts_iso": "2026-08-05T04:10:22.077241+00:00",
+  "anchor_name": "component5_wired_endtoend_v1",
+  "config": {
+    "D2": 1024,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "role_vocab": [
+      "GOAL",
+      "ACTION_AGAINST",
+      "OUTCOME_UNMET",
+      "OUTCOME_MET"
+    ],
+    "abstain_band": 0.02,
+    "n_recency": 3,
+    "n_scramble": 2,
+    "n_goal_block": 6,
+    "n_controls": 6
+  },
+  "prereg": "inline (docstring, per LOCAL-ONLY task brief; no separate preregs/ file required for an in-process foreground integration step)",
+  "cites": [
+    "experiments/exp_component5_gold_role_isolated_v1.py (commit 6911a28a6, gold-role reproduction re-runs this cell's own functions unchanged)",
+    "hdlab/goal_owner_select.py (this session's promotion)",
+    "hdlab/frame_induction.py::frame_primary_role (Component-3, commit 8db4876eb wire)",
+    "hdlab/situation_reader.py (production wire this cell's typing path reproduces)"
+  ],
+  "dispatch": "LOCAL-ONLY, in-process foreground, not queue-dispatched (per task brief)"
+}
