@@ -101,10 +101,16 @@ import torch  # noqa: E402
 from exp_situation_model_goal_outcome_dimension_v1 import (  # noqa: E402
     GOAL_BLOCK, CONTROLS, RECENCY, GO_ROLES, R_GOAL, R_UNMET, R_MET,
     RecencyEntityResolver, type_sentence_events, treatment_fires, _sentences, _ordered_tokens,
-    GENDER, ANIMATE_NAMES, PRON_F, PRON_M,
+    GENDER, ANIMATE_NAMES, PRON_F, PRON_M, GoalOutcomeRegister,
 )
 # ---- REUSED BIT-IDENTICAL: the gold-free coherence-margin selector (2026-08-02 promotion) -------
-from hdlab.self_improving_loop import route_passage, ABSTAIN_BAND_DEFAULT  # noqa: E402
+# route_passage / decode_coherence_margins kept ONLY for the DIAGNOSTIC field below (proves the
+# fix was necessary: this signal is 0.0-blind for Component-5, per commit 60aa9f060 disk-verified
+# diagnosis). decide_keep_or_revert is reused VERBATIM as the actual adoption gate -- only the
+# SCORE fed to it changes (see directed_goal_outcome_score below).
+from hdlab.self_improving_loop import (  # noqa: E402
+    route_passage, decide_keep_or_revert, ABSTAIN_BAND_DEFAULT,
+)
 
 D2 = 1024
 SEEDS = [0, 1, 2]
@@ -187,6 +193,34 @@ def build_positions(item: dict, resolver, scramble_owner_to_foil: str | None = N
     return role_seq, cluster_ids, event_slots
 
 
+# ============================================================================ THE FIX
+def directed_goal_outcome_score(role_seq, cluster_ids, seed: int, outcome_pos: int) -> float:
+    """DIRECTED GOAL->OUTCOME relational-coherence score (Zwaan intentionality: the outcome
+    coheres with the entity who HOLDS the relevant goal), fed to the adoption gate INSTEAD of
+    decode_coherence_margins (disk-verified 2026-08-04, commit 60aa9f060: that signal returns
+    EXACTLY 0.0 for Component-5 -- it scores per-position write-fidelity, symmetric between
+    entities when events don't collide, so the correct pick is computed by the candidate
+    generator but never adopted).
+
+    Reuses GoalOutcomeRegister (hdlab-mirrored organ, exp_situation_model_goal_outcome_dimension_
+    v1.py, the same organ that fires goal_blocked=0.833 at fb5b2a188) VERBATIM: accumulate THIS
+    candidate's own (role, entity) assignment into a fresh register, then appraise whether the
+    ENTITY THIS CANDIDATE ASSIGNED to the outcome slot also carries an earlier GOAL event under
+    the SAME assignment. This is directed and NOT symmetric write-then-read: appraise(entity) is
+    keyed on the candidate's own cluster_ids, so a candidate that binds the outcome to an entity
+    with no GOAL event scores 0.0, while a candidate that binds it to the true goal-holder scores
+    1.0 -- the two candidates in this eval get DIFFERENT registers (different cluster_ids), unlike
+    decode_coherence_margins which decodes each candidate's OWN slot in isolation and finds no
+    conflict to distinguish (the CausalLinkRegister-class symmetric-write blindness)."""
+    gen = torch.Generator().manual_seed(4000 + int(seed))
+    reg = GoalOutcomeRegister(d=D2, generator=gen, max_event_slots=max(len(role_seq) + 1, 4))
+    for role, cid in zip(role_seq, cluster_ids):
+        reg.add_typed_event(cid, role)
+    owner = cluster_ids[outcome_pos]
+    ap = reg.appraise(owner)
+    return 1.0 if ap["has_goal"] else 0.0
+
+
 # ============================================================================ per-item eval
 def run_recency_item(item: dict, seed: int, scrambled: bool):
     """Run the selector on one RECENCY item. If scrambled, the CONTENT candidate's GOAL label is
@@ -207,17 +241,31 @@ def run_recency_item(item: dict, seed: int, scrambled: bool):
     if not flagged:
         flagged = list(outcome_positions)  # no disagreement (e.g. the sanity item); route trivially
 
+    # DIAGNOSTIC ONLY (not the adoption decision): route_passage's own decode_coherence_margins
+    # signal, kept and logged to substantiate the diagnosed blindness on every unit.
     gen_factory = (lambda: torch.Generator().manual_seed(3000 + int(seed)))
-    result = route_passage(
+    diag = route_passage(
         role_seq=role_seq_b, event_slots=event_slots_b, baseline_cluster_ids=cluster_ids_b,
         candidate_cluster_ids={"content_match": cluster_ids_c}, flagged_positions=flagged,
         role_vocab=list(GO_ROLES), d=D2, generator_factory=gen_factory,
         max_event_slots=len(role_seq_b) + 1, abstain_band=ABSTAIN_BAND_DEFAULT,
     )
-    adopted = result["adopted_cluster_ids"]
-    final_owner = adopted[outcome_positions[-1]] if outcome_positions else None
-    baseline_owner = cluster_ids_b[outcome_positions[-1]] if outcome_positions else None
-    content_owner = cluster_ids_c[outcome_positions[-1]] if outcome_positions else None
+    diag_delta = diag["per_candidate"].get("content_match", {}).get("agg_coherence_delta")
+
+    # THE FIX: directed GOAL->OUTCOME score feeds decide_keep_or_revert (verbatim gate) instead.
+    outcome_pos = outcome_positions[-1] if outcome_positions else None
+    agg_deltas = {}
+    score_b = score_c = None
+    if flagged and outcome_pos is not None:
+        score_b = directed_goal_outcome_score(role_seq_b, cluster_ids_b, seed, outcome_pos)
+        score_c = directed_goal_outcome_score(role_seq_c, cluster_ids_c, seed, outcome_pos)
+        agg_deltas["content_match"] = score_c - score_b
+    adopt = decide_keep_or_revert(agg_deltas, ABSTAIN_BAND_DEFAULT)
+    adopted_cluster_ids = cluster_ids_c if adopt == "content_match" else cluster_ids_b
+
+    final_owner = adopted_cluster_ids[outcome_pos] if outcome_pos is not None else None
+    baseline_owner = cluster_ids_b[outcome_pos] if outcome_pos is not None else None
+    content_owner = cluster_ids_c[outcome_pos] if outcome_pos is not None else None
     gold = item["gold_outcome_owner"]
     return dict(
         id=item["id"], scrambled=scrambled, gold_outcome_owner=gold,
@@ -225,9 +273,10 @@ def run_recency_item(item: dict, seed: int, scrambled: bool):
         matches_gold=(final_owner == gold),
         recency_alone_matches_gold=(baseline_owner == gold),
         overrode_recency=(final_owner != baseline_owner),
-        adopt=result["adopt"], per_candidate=result["per_candidate"],
-        agg_coherence_delta=result["per_candidate"].get("content_match", {}).get("agg_coherence_delta"),
-        n_changed_flagged=result["per_candidate"].get("content_match", {}).get("n_changed_flagged"),
+        adopt=adopt, n_changed_flagged=len(flagged),
+        directed_score_baseline=score_b, directed_score_content=score_c,
+        agg_coherence_delta=agg_deltas.get("content_match"),
+        diagnostic_route_passage_blind_delta=diag_delta,
     )
 
 
@@ -317,6 +366,15 @@ def aggregate(per_seed: dict):
     role_scramble_collapse_vacuous = (
         role_scramble_collapse and coherence_margin_delta_sign_positive is not True)
 
+    # Independent confirmation the ORIGINAL diagnosis still holds (diagnostic-only, not adopted):
+    # route_passage's decode_coherence_margins delta on the genuine trap items, across all seeds.
+    diag_vals = [
+        r["diagnostic_route_passage_blind_delta"]
+        for s in seeds for r in per_seed[s]["recency_rows"]
+        if r["id"] in FOILS and not r["scrambled"] and r["diagnostic_route_passage_blind_delta"] is not None
+    ]
+    diag_route_passage_still_blind = (all(v == 0.0 for v in diag_vals) if diag_vals else None)
+
     formal_hard_pass = (
         outcome_binding_accuracy >= 0.67 and role_scramble_collapse and
         control_false_fire_rate == 0 and
@@ -355,9 +413,14 @@ def aggregate(per_seed: dict):
         # role_scramble_collapse: if the mechanism never produces a positive delta even when fed
         # the TRUE roles, scrambling trivially "collapses" it too (nothing to break) -- that would
         # be a false-negative for blindness if role_scramble_collapse were used as the sole test.
-        # Disk-verified this session: delta==0.0 exactly on both genuine traps (not just below the
-        # abstain band) -- the same symmetric-write-then-read signature that sank CausalLinkRegister.
+        # After THE FIX (2026-08-04): this field now tracks the FIXED directed-score gate, and is
+        # expected FALSE (the gate is no longer blind). `diag_route_passage_still_blind` (below)
+        # independently confirms the ORIGINAL diagnosis still holds for decode_coherence_margins
+        # (kept as a diagnostic-only side channel, no longer wired to adoption) -- disk-verified:
+        # delta==0.0 exactly on both genuine traps, the same symmetric-write-then-read signature
+        # that sank CausalLinkRegister; that signal is NOT fed to decide_keep_or_revert anymore.
         is_route_passage_role_content_blind_at_c5=(coherence_margin_delta_sign_positive is not True),
+        diag_route_passage_still_blind=diag_route_passage_still_blind,
         formal_hard_pass=formal_hard_pass, formal_hard_fail=formal_hard_fail,
         per_seed=per_seed,
     )
@@ -437,6 +500,23 @@ def self_test():
     rs_s, cid_s, es_s = build_positions(item, ContentMatchResolver(), scramble_owner_to_foil="jo")
     assert cid_s[unmet_pos] == "jo", f"scrambled content-match expected foil jo, got {cid_s[unmet_pos]}"
 
+    # (2b) THE FIX: directed_goal_outcome_score must be directed (not symmetric) -- the entity
+    # this candidate assigns to the outcome slot decides the score, not a fixed identity.
+    unmet_pos = [i for i, r_ in enumerate(rs_b) if r_ in (R_UNMET, R_MET)][-1]
+    score_recency_jo = directed_goal_outcome_score(rs_b, cid_b, 0, unmet_pos)   # jo has no GOAL
+    score_content_amy = directed_goal_outcome_score(rs_c, cid_c, 0, unmet_pos)  # amy has the GOAL
+    assert score_recency_jo == 0.0, f"recency binds outcome to goal-less jo, expected score 0.0, got {score_recency_jo}"
+    assert score_content_amy == 1.0, f"content-match binds outcome to goal-holder amy, expected score 1.0, got {score_content_amy}"
+
+    # (2c) THE GATE (decide_keep_or_revert, verbatim) must ADOPT content on this genuine trap when
+    # fed the FIXED directed delta (proves the diagnosed bug -- correct answer computed but never
+    # adopted via decode_coherence_margins -- is actually fixed, not just diagnosed).
+    from hdlab.self_improving_loop import decide_keep_or_revert as _dkr
+    fixed_adopt = _dkr({"content_match": score_content_amy - score_recency_jo}, ABSTAIN_BAND_DEFAULT)
+    assert fixed_adopt == "content_match", (
+        f"decide_keep_or_revert must ADOPT content_match on this trap under the fixed directed "
+        f"score (delta={score_content_amy - score_recency_jo}); got {fixed_adopt!r}")
+
     # (3) one full seed sanity + arms-must-differ (recency vs content-match resolutions differ)
     res = run_seed(0)
     assert res["outcome_binding_accuracy"] is not None
@@ -444,6 +524,24 @@ def self_test():
     rec_trap_row = next(r_ for r_ in res["recency_rows"] if r_["id"] == item["id"])
     assert rec_trap_row["baseline_owner"] != rec_trap_row["content_owner"], (
         "META_RULE_AF-style check: baseline and content candidates must differ on a genuine trap")
+    # (3b) END-TO-END: the FIX means this trap's FINAL adopted owner must now be the gold owner
+    # (amy), not the recency foil (jo) -- this is the exact bug the task diagnosed: correct answer
+    # computed by the candidate generator but discarded by a blind gate.
+    assert rec_trap_row["adopt"] == "content_match", (
+        f"gate must adopt content_match on this genuine trap post-fix; got {rec_trap_row['adopt']!r} "
+        f"(agg_coherence_delta={rec_trap_row['agg_coherence_delta']}, "
+        f"diagnostic_route_passage_blind_delta={rec_trap_row['diagnostic_route_passage_blind_delta']})")
+    assert rec_trap_row["matches_gold"] is True, f"post-fix trap row must match gold: {rec_trap_row}"
+    assert rec_trap_row["diagnostic_route_passage_blind_delta"] == 0.0, (
+        "diagnostic route_passage delta expected exactly 0.0 (confirms original diagnosis still "
+        f"holds for the unwired signal); got {rec_trap_row['diagnostic_route_passage_blind_delta']}")
+
+    # (3c) role-scramble must COLLAPSE the FULL pipeline's decision (not just the raw pick) --
+    # scrambled final_owner must NOT match gold (the make-or-break non-vacuous-scramble guard).
+    scr_row = run_recency_item(item, 0, scrambled=True)
+    assert scr_row["matches_gold"] is False, (
+        f"role-scramble must collapse the full pipeline (candidate+gate) to a wrong answer; "
+        f"got final_owner={scr_row['final_owner']} gold={scr_row['gold_outcome_owner']}")
 
     print(f"[SELFTEST PASS] ContentMatchResolver prefers open-goal over recency; role/slot sequence "
           f"resolver-independent; role-scramble flips the pick; seed0 "

@@ -1,30 +1,31 @@
 {
-  "verdict": "HARD_FAIL_NO_LIFT_OR_ROLE_CONTENT_BLIND",
-  "verdict_msg": "HARD_FAIL_NO_LIFT_OR_ROLE_CONTENT_BLIND: N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=0.3333 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=True) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=False coherence_delta_sign_positive=False formal_hard_pass=False formal_hard_fail=True",
-  "summary": "N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=0.3333 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=True) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=False coherence_delta_sign_positive=False formal_hard_pass=False formal_hard_fail=True",
+  "verdict": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS",
+  "verdict_msg": "MIDDLE_BAND_SMALL_N_WOULD_BE_HARD_PASS: N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=1.0 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=False) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=True coherence_delta_sign_positive=True formal_hard_pass=True formal_hard_fail=False",
+  "summary": "N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy=1.0 (recency floor=0.3333) scrambled=0.0 role_scramble_collapse=True (vacuous=False) goal_owner_binding_accuracy=1.0 (GIVEN not EARNED) control_false_fire_rate=0.0 anti_recency_holds=True coherence_delta_sign_positive=True formal_hard_pass=True formal_hard_fail=False",
   "n_seeds": 3,
-  "outcome_binding_accuracy": 0.3333,
+  "outcome_binding_accuracy": 1.0,
   "recency_baseline": 0.3333,
-  "beats_recency": false,
+  "beats_recency": true,
   "scrambled_outcome_binding_accuracy": 0.0,
   "role_scramble_collapse": true,
-  "role_scramble_collapse_vacuous": true,
+  "role_scramble_collapse_vacuous": false,
   "goal_owner_binding_accuracy": 1.0,
   "control_false_fire_rate": 0.0,
-  "anti_recency_holds": false,
-  "coherence_margin_delta_sign_positive": false,
-  "is_route_passage_role_content_blind_at_c5": true,
-  "formal_hard_pass": false,
-  "formal_hard_fail": true,
+  "anti_recency_holds": true,
+  "coherence_margin_delta_sign_positive": true,
+  "is_route_passage_role_content_blind_at_c5": false,
+  "diag_route_passage_still_blind": true,
+  "formal_hard_pass": true,
+  "formal_hard_fail": false,
   "per_seed": {
     "0": {
       "seed": 0,
-      "outcome_binding_accuracy": 0.3333,
+      "outcome_binding_accuracy": 1.0,
       "scrambled_outcome_binding_accuracy": 0.0,
       "goal_owner_binding_accuracy": 1.0,
       "control_false_fire_rate": 0.0,
-      "anti_recency_holds": false,
-      "coherence_margin_delta_sign_positive": false,
+      "anti_recency_holds": true,
+      "coherence_margin_delta_sign_positive": true,
       "recency_rows": [
         {
           "id": "recency_amy_blocked_pronoun_foil_jo",
@@ -32,20 +33,16 @@
           "gold_outcome_owner": "amy",
           "baseline_owner": "jo",
           "content_owner": "amy",
-          "final_owner": "jo",
-          "matches_gold": false,
+          "final_owner": "amy",
+          "matches_gold": true,
           "recency_alone_matches_gold": false,
-          "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": true,
-              "n_changed_flagged": 1,
-              "agg_coherence_delta": 0.0
-            }
-          },
-          "agg_coherence_delta": 0.0,
-          "n_changed_flagged": 1
+          "overrode_recency": true,
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": 0.0
         },
         {
           "id": "recency_tom_blocked_pronoun_foil_sid",
@@ -53,20 +50,16 @@
           "gold_outcome_owner": "tom",
           "baseline_owner": "sid",
           "content_owner": "tom",
-          "final_owner": "sid",
-          "matches_gold": false,
+          "final_owner": "tom",
+          "matches_gold": true,
           "recency_alone_matches_gold": false,
-          "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": true,
-              "n_changed_flagged": 1,
-              "agg_coherence_delta": 0.0
-            }
-          },
-          "agg_coherence_delta": 0.0,
-          "n_changed_flagged": 1
+          "overrode_recency": true,
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": 0.0
         },
         {
           "id": "recency_beth_blocked_antecedent_is_recent",
@@ -79,15 +72,11 @@
           "recency_alone_matches_gold": true,
           "overrode_recency": false,
           "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 1.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 0.0,
+          "diagnostic_route_passage_blind_delta": null
         }
       ],
       "scramble_rows": [
@@ -101,16 +90,12 @@
           "matches_gold": false,
           "recency_alone_matches_gold": false,
           "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": null
         },
         {
           "id": "recency_tom_blocked_pronoun_foil_sid",
@@ -122,16 +107,12 @@
           "matches_gold": false,
           "recency_alone_matches_gold": false,
           "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": null
         }
       ],
       "goal_owner_rows": [
@@ -201,12 +182,12 @@
     },
     "1": {
       "seed": 1,
-      "outcome_binding_accuracy": 0.3333,
+      "outcome_binding_accuracy": 1.0,
       "scrambled_outcome_binding_accuracy": 0.0,
       "goal_owner_binding_accuracy": 1.0,
       "control_false_fire_rate": 0.0,
-      "anti_recency_holds": false,
-      "coherence_margin_delta_sign_positive": false,
+      "anti_recency_holds": true,
+      "coherence_margin_delta_sign_positive": true,
       "recency_rows": [
         {
           "id": "recency_amy_blocked_pronoun_foil_jo",
@@ -214,20 +195,16 @@
           "gold_outcome_owner": "amy",
           "baseline_owner": "jo",
           "content_owner": "amy",
-          "final_owner": "jo",
-          "matches_gold": false,
+          "final_owner": "amy",
+          "matches_gold": true,
           "recency_alone_matches_gold": false,
-          "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": true,
-              "n_changed_flagged": 1,
-              "agg_coherence_delta": 0.0
-            }
-          },
-          "agg_coherence_delta": 0.0,
-          "n_changed_flagged": 1
+          "overrode_recency": true,
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": 0.0
         },
         {
           "id": "recency_tom_blocked_pronoun_foil_sid",
@@ -235,20 +212,16 @@
           "gold_outcome_owner": "tom",
           "baseline_owner": "sid",
           "content_owner": "tom",
-          "final_owner": "sid",
-          "matches_gold": false,
+          "final_owner": "tom",
+          "matches_gold": true,
           "recency_alone_matches_gold": false,
-          "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": true,
-              "n_changed_flagged": 1,
-              "agg_coherence_delta": 0.0
-            }
-          },
-          "agg_coherence_delta": 0.0,
-          "n_changed_flagged": 1
+          "overrode_recency": true,
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": 0.0
         },
         {
           "id": "recency_beth_blocked_antecedent_is_recent",
@@ -261,15 +234,11 @@
           "recency_alone_matches_gold": true,
           "overrode_recency": false,
           "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 1.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 0.0,
+          "diagnostic_route_passage_blind_delta": null
         }
       ],
       "scramble_rows": [
@@ -283,16 +252,12 @@
           "matches_gold": false,
           "recency_alone_matches_gold": false,
           "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": null
         },
         {
           "id": "recency_tom_blocked_pronoun_foil_sid",
@@ -304,16 +269,12 @@
           "matches_gold": false,
           "recency_alone_matches_gold": false,
           "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": null
         }
       ],
       "goal_owner_rows": [
@@ -383,12 +344,12 @@
     },
     "2": {
       "seed": 2,
-      "outcome_binding_accuracy": 0.3333,
+      "outcome_binding_accuracy": 1.0,
       "scrambled_outcome_binding_accuracy": 0.0,
       "goal_owner_binding_accuracy": 1.0,
       "control_false_fire_rate": 0.0,
-      "anti_recency_holds": false,
-      "coherence_margin_delta_sign_positive": false,
+      "anti_recency_holds": true,
+      "coherence_margin_delta_sign_positive": true,
       "recency_rows": [
         {
           "id": "recency_amy_blocked_pronoun_foil_jo",
@@ -396,20 +357,16 @@
           "gold_outcome_owner": "amy",
           "baseline_owner": "jo",
           "content_owner": "amy",
-          "final_owner": "jo",
-          "matches_gold": false,
+          "final_owner": "amy",
+          "matches_gold": true,
           "recency_alone_matches_gold": false,
-          "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": true,
-              "n_changed_flagged": 1,
-              "agg_coherence_delta": 0.0
-            }
-          },
-          "agg_coherence_delta": 0.0,
-          "n_changed_flagged": 1
+          "overrode_recency": true,
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": 0.0
         },
         {
           "id": "recency_tom_blocked_pronoun_foil_sid",
@@ -417,20 +374,16 @@
           "gold_outcome_owner": "tom",
           "baseline_owner": "sid",
           "content_owner": "tom",
-          "final_owner": "sid",
-          "matches_gold": false,
+          "final_owner": "tom",
+          "matches_gold": true,
           "recency_alone_matches_gold": false,
-          "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": true,
-              "n_changed_flagged": 1,
-              "agg_coherence_delta": 0.0
-            }
-          },
-          "agg_coherence_delta": 0.0,
-          "n_changed_flagged": 1
+          "overrode_recency": true,
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": 0.0
         },
         {
           "id": "recency_beth_blocked_antecedent_is_recent",
@@ -443,15 +396,11 @@
           "recency_alone_matches_gold": true,
           "overrode_recency": false,
           "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 1.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 0.0,
+          "diagnostic_route_passage_blind_delta": null
         }
       ],
       "scramble_rows": [
@@ -465,16 +414,12 @@
           "matches_gold": false,
           "recency_alone_matches_gold": false,
           "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": null
         },
         {
           "id": "recency_tom_blocked_pronoun_foil_sid",
@@ -486,16 +431,12 @@
           "matches_gold": false,
           "recency_alone_matches_gold": false,
           "overrode_recency": false,
-          "adopt": null,
-          "per_candidate": {
-            "content_match": {
-              "applicable": false,
-              "n_changed_flagged": 0,
-              "agg_coherence_delta": null
-            }
-          },
-          "agg_coherence_delta": null,
-          "n_changed_flagged": 0
+          "adopt": "content_match",
+          "n_changed_flagged": 1,
+          "directed_score_baseline": 0.0,
+          "directed_score_content": 1.0,
+          "agg_coherence_delta": 1.0,
+          "diagnostic_route_passage_blind_delta": null
         }
       ],
       "goal_owner_rows": [
@@ -565,8 +506,8 @@
     }
   },
   "run_mode": "full",
-  "elapsed_s": 0.030339199998707045,
-  "ts_iso": "2026-08-05T03:42:41.030926+00:00",
+  "elapsed_s": 0.04351880000467645,
+  "ts_iso": "2026-08-05T03:51:36.068708+00:00",
   "anchor_name": "component5_gold_role_isolated_v1",
   "config": {
     "D2": 1024,
