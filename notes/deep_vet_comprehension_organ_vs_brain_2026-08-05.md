@@ -84,3 +84,16 @@ toy resolvers for the REAL production coref organ (recency vs event_role arms) +
 explicit_psych subset. DISPATCHED (hdi_exp_dev, this cycle) as exactly that cell. This is why VET-the-VET is a
 standing rule: a single grep-based "no wire" claim missed a landed green partial-wire cited in the promoted
 module's own docstring.
+
+## STEP-1c CAVEAT RESOLVED (Director, disk-verified same cycle)
+VET-C flagged: maybe the situation-bias 3rd arg (context_grounded_valence.py:141 = None) was left off because
+it UNDERPERFORMED. RESOLVED = NO, it's a PROVEN win. exp_bridge1_twostage_event_situation_v2 is HARD_PASS:
+discourse-decisive subset C_two_stage=1.000 vs C_governor=0.500 (chance) vs C_scrambled_discourse=0.650
+(lift_C=0.350, scramble collapses); event-differing B_two_stage=1.000 vs B_governor=0.500 (lift_B=0.417);
+generalizes Bgen/Cgen=1.000; NO regression on local-sufficient (A 0.962=0.962). The mechanism
+(situation_type_for_prior -> combine_biased_competition 3rd arg, _v2 lines 207-222) works and has real
+anti-artifact controls. It is `None` in production ONLY because the promotion (commit 4cd8b4f24) was scoped to
+the ANIMACY axis and did not carry the discourse stage over -- a scope decision, not underperformance. So step
+1c is GREEN; the real work is SOURCING situation_type from the running situation model at runtime (in _v2 it's
+a threat/benign lexicon over prior text; production must derive it from the accumulated situation-model
+affect/goal state) -- an integration, not a new mechanism.
