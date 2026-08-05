@@ -1,0 +1,1802 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "held_out_sense_discrimination_accuracy=0.5667 (34/60) vs floor(sense_collapse_floor_v1)=0.5625; single_prototype_control_accuracy=0.6000 (36/60); same_sense_agreement=0.5000 (30/60); n_forms_with_ge2_prototypes=8/10; senses_induced_not_hand_listed=True; threshold_T=0.4416; verdict=HARD_FAIL",
+  "summary": "C-A sense_structured_hub_ca_v1 held-out measurement complete",
+  "elapsed_s": 3.60238229999959,
+  "ts_iso": "2026-08-05T11:57:07.544231+00:00",
+  "pid": 4664,
+  "anchor_name": "sense_structured_hub_ca_v1",
+  "seed": 4242,
+  "expected_n_units": 10,
+  "n_forms": 10,
+  "forms": [
+    "bank",
+    "bat",
+    "bear",
+    "bright",
+    "cross",
+    "hard",
+    "light",
+    "pay",
+    "sound",
+    "trick"
+  ],
+  "held_out_sense_discrimination_accuracy": 0.5666666666666667,
+  "held_out_n_correct": 34,
+  "held_out_n_trials": 60,
+  "held_out_p_value_vs_chance": 0.30169958247834805,
+  "floor_reference_honest_floor_accuracy": 0.5625,
+  "floor_reference_path": "data/exp_sense_collapse_floor_v1/metrics.json",
+  "single_prototype_control_accuracy": 0.6,
+  "single_prototype_control_n_correct": 36,
+  "single_prototype_control_n_trials": 60,
+  "same_sense_agreement": 0.5,
+  "same_sense_pair_agree": 30,
+  "same_sense_pair_total": 60,
+  "n_forms_with_ge2_prototypes": 8,
+  "discriminator_fires": true,
+  "senses_induced_not_hand_listed": true,
+  "threshold_calibration": {
+    "mean_fit_same_sense_residual": 0.4357801297848807,
+    "mean_fit_diff_sense_residual": 0.4474174699850044,
+    "n_same_sense_pairs": 60,
+    "n_diff_sense_pairs": 90,
+    "threshold_T": 0.44159879988494255,
+    "formula": "T = 0.5 * (mean_fit_same_sense_residual + mean_fit_diff_sense_residual)"
+  },
+  "total_arms_disagree_items": 24,
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "disjoint_vocab_check": {
+    "bank": {
+      "fit_vocab_size": 19,
+      "test_vocab_size": 19,
+      "overlap": []
+    },
+    "bat": {
+      "fit_vocab_size": 22,
+      "test_vocab_size": 22,
+      "overlap": []
+    },
+    "bear": {
+      "fit_vocab_size": 14,
+      "test_vocab_size": 18,
+      "overlap": []
+    },
+    "bright": {
+      "fit_vocab_size": 17,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "cross": {
+      "fit_vocab_size": 15,
+      "test_vocab_size": 22,
+      "overlap": []
+    },
+    "hard": {
+      "fit_vocab_size": 18,
+      "test_vocab_size": 22,
+      "overlap": []
+    },
+    "light": {
+      "fit_vocab_size": 16,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "pay": {
+      "fit_vocab_size": 18,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "sound": {
+      "fit_vocab_size": 16,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "trick": {
+      "fit_vocab_size": 18,
+      "test_vocab_size": 20,
+      "overlap": []
+    }
+  },
+  "per_form": {
+    "bank": {
+      "n_prototypes_induced": 3,
+      "cluster_label_map": {
+        "0": "B",
+        "1": "A",
+        "2": "A"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|B|2",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.4818565066239208
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "spawn_new_prototype",
+          "proto_id": 2,
+          "residual": 0.44219964030617037
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.3956783782360334
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.36682321454098565
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.4204163476083973
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.3138960408843752,
+            0.6389153048984666,
+            0.27729994557513876
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.21263248558413197,
+            0.7016152672470874,
+            0.15926920216505655
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.14847698270845658,
+            0.28902711720449853,
+            0.1452292686950156
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.13887572995357275,
+            0.4211697068720365,
+            0.13530577132486113
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.19098868472962047,
+            0.5263811860632905,
+            0.108142919383793
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.28323091406991174,
+            0.19845000072196603,
+            0.04805810432925908
+          ]
+        }
+      ],
+      "held_out_n_correct": 4,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 4,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        }
+      ],
+      "single_prototype_control_n_correct": 4,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 2,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 19,
+        "test_vocab_size": 19,
+        "overlap": []
+      }
+    },
+    "bat": {
+      "n_prototypes_induced": 4,
+      "cluster_label_map": {
+        "0": "B",
+        "1": "A",
+        "2": "A",
+        "3": "A"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|B|2",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.48109673725131497
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "spawn_new_prototype",
+          "proto_id": 2,
+          "residual": 0.477261344214786
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "merge",
+          "proto_id": 2,
+          "residual": 0.43203266487773445
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "spawn_new_prototype",
+          "proto_id": 3,
+          "residual": 0.4455502189531776
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.40778924949021284
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.12118240101401115,
+            0.23288618196117508,
+            0.17031065300970966,
+            0.07557273889660476
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 2,
+          "sims": [
+            0.07229157655590024,
+            0.2500050516596732,
+            0.2822709896641166,
+            0.08637803954335864
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.08183264880022133,
+            0.24192987329417667,
+            0.1656354589409113,
+            0.2102401115269723
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.09761568684802308,
+            0.36515619159373625,
+            0.3005388143501499,
+            0.11207323081952818
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.31102095981184086,
+            0.26835411270067583,
+            0.24353457466713324,
+            0.21299874321104265
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.09750642174166067,
+            0.3826717422544312,
+            0.219268591196652,
+            0.11167091532125298
+          ]
+        }
+      ],
+      "held_out_n_correct": 4,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 2,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        }
+      ],
+      "single_prototype_control_n_correct": 3,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 3,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 22,
+        "test_vocab_size": 22,
+        "overlap": []
+      }
+    },
+    "bear": {
+      "n_prototypes_induced": 2,
+      "cluster_label_map": {
+        "0": "A",
+        "1": "B"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|A|2",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.46660786987938696
+        },
+        {
+          "item": "FIT|B|2",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.22275731630005324
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.4315030132360032
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.4082290790349949
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.43418533766137646
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.4269788163688526,
+            0.25860780576046394
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.3023798562981733,
+            0.31193464560779277
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.4572486819585292,
+            0.12533511427353136
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.27213910463916247,
+            0.6299530303611225
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.4631236093339673,
+            0.4204549464085617
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.5606415971273496,
+            0.282785378193239
+          ]
+        }
+      ],
+      "held_out_n_correct": 3,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 2,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        }
+      ],
+      "single_prototype_control_n_correct": 3,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 4,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 14,
+        "test_vocab_size": 18,
+        "overlap": []
+      }
+    },
+    "bright": {
+      "n_prototypes_induced": 4,
+      "cluster_label_map": {
+        "0": "B",
+        "1": "B",
+        "2": "A",
+        "3": "A"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|B|0",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.46625933236218764
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "spawn_new_prototype",
+          "proto_id": 2,
+          "residual": 0.4561598577016788
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 3,
+          "residual": 0.44348201118525293
+        },
+        {
+          "item": "FIT|B|2",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.37477279791611473
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "merge_cap_reached",
+          "proto_id": 1,
+          "residual": 0.45910140168024743
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.09092558581299517,
+            0.22865462399467348,
+            0.12562879280197678,
+            0.11735044577418856
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.15445064513323406,
+            0.2816544599121434,
+            0.19031617136968385,
+            0.20403882503276038
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.17359433009400224,
+            0.25641604974370164,
+            0.17883762916037843,
+            0.1476768036393365
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.260301834020853,
+            0.2980053432354378,
+            0.18870737568429238,
+            0.1568285523238877
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 2,
+          "sims": [
+            0.16511664072510576,
+            0.24587279290994096,
+            0.25169288540939,
+            0.12993867912911958
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.22555195644559606,
+            0.4314254997312104,
+            0.16739382216839457,
+            0.21364423709962332
+          ]
+        }
+      ],
+      "held_out_n_correct": 2,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 4,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        }
+      ],
+      "single_prototype_control_n_correct": 3,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 1,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 17,
+        "test_vocab_size": 21,
+        "overlap": []
+      }
+    },
+    "cross": {
+      "n_prototypes_induced": 3,
+      "cluster_label_map": {
+        "0": "A",
+        "1": "A",
+        "2": "A"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|B|2",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.47575737237154475
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "spawn_new_prototype",
+          "proto_id": 2,
+          "residual": 0.4566479323040674
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.3919054913986494
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.44149896573417513
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "merge",
+          "proto_id": 2,
+          "residual": 0.4222916309286536
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.4009266491377171,
+            0.35580875868927325,
+            0.16514000644706742
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 2,
+          "sims": [
+            0.2222248970379251,
+            0.224409718754295,
+            0.5163823076254506
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.36912347448158545,
+            0.38600446082438244,
+            0.36217753129179703
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.30279038185465135,
+            0.44482257042789036,
+            0.3832330915066196
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.19533288695972126,
+            0.15318853835131485,
+            0.10868240064714389
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 2,
+          "sims": [
+            0.29188421512435964,
+            0.1567684247276643,
+            0.5765469628052852
+          ]
+        }
+      ],
+      "held_out_n_correct": 3,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 0,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        }
+      ],
+      "single_prototype_control_n_correct": 3,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 0,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 15,
+        "test_vocab_size": 22,
+        "overlap": []
+      }
+    },
+    "hard": {
+      "n_prototypes_induced": 4,
+      "cluster_label_map": {
+        "0": "A",
+        "1": "A",
+        "2": "B",
+        "3": "A"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|A|2",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.46983082886967126
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "spawn_new_prototype",
+          "proto_id": 2,
+          "residual": 0.4637533752528899
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 3,
+          "residual": 0.46942527240708826
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "merge",
+          "proto_id": 2,
+          "residual": 0.4002373258984813
+        },
+        {
+          "item": "FIT|B|2",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.3709049957991386
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.26626058461468927,
+            0.2018658926561922,
+            0.20203352257338347,
+            0.11796786712758307
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.21062715152363695,
+            0.3121814736668163,
+            0.29288554519642346,
+            0.2812327849132965
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.37582550701176887,
+            0.2985711470762558,
+            0.22615733262693072,
+            0.28744729180607426
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 2,
+          "sims": [
+            0.10628335474506954,
+            0.16173991908010213,
+            0.627748902715407,
+            0.13919015131218596
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 2,
+          "sims": [
+            0.14771509216135997,
+            0.30425660724876563,
+            0.3512401070900481,
+            0.2692429193599899
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 3,
+          "sims": [
+            0.1359017686019717,
+            0.224058328848288,
+            0.2278078293839107,
+            0.34710864754267434
+          ]
+        }
+      ],
+      "held_out_n_correct": 5,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 2,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        }
+      ],
+      "single_prototype_control_n_correct": 4,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 3,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 18,
+        "test_vocab_size": 22,
+        "overlap": []
+      }
+    },
+    "light": {
+      "n_prototypes_induced": 1,
+      "cluster_label_map": {
+        "0": "A"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|B|1",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.4295746088715293
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.4339003301037377
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.42149620114184344
+        },
+        {
+          "item": "FIT|B|2",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.41082742361282937
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.29681422908656924
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.3537671152162886
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.2774607047992345
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.6728734869998506
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.6132675523908362
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.45000145497636274
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.4780106444777622
+          ]
+        }
+      ],
+      "held_out_n_correct": 3,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 6,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        }
+      ],
+      "single_prototype_control_n_correct": 4,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 3,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 16,
+        "test_vocab_size": 21,
+        "overlap": []
+      }
+    },
+    "pay": {
+      "n_prototypes_induced": 1,
+      "cluster_label_map": {
+        "0": "A"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|A|0",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.28293793126552547
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.4236259193545467
+        },
+        {
+          "item": "FIT|B|2",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.4136085577729309
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.2744118931983651
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.32311922776073
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.5939865943219726
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.460386441529068
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.5967123663310652
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.38896294895484534
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.36180019054765794
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.5013801889098769
+          ]
+        }
+      ],
+      "held_out_n_correct": 3,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 6,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        }
+      ],
+      "single_prototype_control_n_correct": 5,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 2,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 18,
+        "test_vocab_size": 21,
+        "overlap": []
+      }
+    },
+    "sound": {
+      "n_prototypes_induced": 2,
+      "cluster_label_map": {
+        "0": "A",
+        "1": "B"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|B|2",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.47293906639815475
+        },
+        {
+          "item": "FIT|A|0",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.43610376802304307
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.36152570215233104
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.4139701403528453
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "merge",
+          "proto_id": 1,
+          "residual": 0.43981361596519075
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false,
+          "nearest_proto": 1,
+          "sims": [
+            0.23746630441123165,
+            0.37935434928945033
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.21680996300757457,
+            0.17556358653408613
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.43181766014499556,
+            0.1599644040141058
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.36704614618432524,
+            0.21918032117361827
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.2935708577631763,
+            0.3615985563499232
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 1,
+          "sims": [
+            0.225087064853395,
+            0.229436125976308
+          ]
+        }
+      ],
+      "held_out_n_correct": 4,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 2,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true
+        }
+      ],
+      "single_prototype_control_n_correct": 5,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 3,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 16,
+        "test_vocab_size": 21,
+        "overlap": []
+      }
+    },
+    "trick": {
+      "n_prototypes_induced": 3,
+      "cluster_label_map": {
+        "0": "A",
+        "1": "A",
+        "2": "B"
+      },
+      "induction_trace": [
+        {
+          "item": "FIT|A|0",
+          "action": "seed_first_prototype",
+          "proto_id": 0,
+          "residual": null
+        },
+        {
+          "item": "FIT|A|2",
+          "action": "spawn_new_prototype",
+          "proto_id": 1,
+          "residual": 0.450785375737854
+        },
+        {
+          "item": "FIT|A|1",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.40046925912054915
+        },
+        {
+          "item": "FIT|B|0",
+          "action": "spawn_new_prototype",
+          "proto_id": 2,
+          "residual": 0.4537757291936909
+        },
+        {
+          "item": "FIT|B|2",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.3502608399210554
+        },
+        {
+          "item": "FIT|B|1",
+          "action": "merge",
+          "proto_id": 0,
+          "residual": 0.3950747558778539
+        }
+      ],
+      "held_out_test_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.41048415037901936,
+            0.22009960608063722,
+            0.10357402833895911
+          ]
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false,
+          "nearest_proto": 2,
+          "sims": [
+            0.21458559602509214,
+            0.07752505562171425,
+            0.34819143177713235
+          ]
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true,
+          "nearest_proto": 0,
+          "sims": [
+            0.6573098030239227,
+            0.46070009542413304,
+            0.1257973205868069
+          ]
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.23025844632532325,
+            0.14099604868156917,
+            0.11526826675856651
+          ]
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "B",
+          "correct": true,
+          "nearest_proto": 2,
+          "sims": [
+            0.2690132625287818,
+            0.17307160198295882,
+            0.6838893667414925
+          ]
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false,
+          "nearest_proto": 0,
+          "sims": [
+            0.5564304995604162,
+            0.3226647751830792,
+            0.3617403236433662
+          ]
+        }
+      ],
+      "held_out_n_correct": 3,
+      "held_out_n_trials": 6,
+      "same_sense_pair_agree": 2,
+      "same_sense_pair_total": 6,
+      "single_prototype_control_results": [
+        {
+          "test_id": "TEST|A|0",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|1",
+          "gold_sense": "A",
+          "pred_sense": "A",
+          "correct": true
+        },
+        {
+          "test_id": "TEST|A|2",
+          "gold_sense": "A",
+          "pred_sense": "B",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|0",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|1",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        },
+        {
+          "test_id": "TEST|B|2",
+          "gold_sense": "B",
+          "pred_sense": "A",
+          "correct": false
+        }
+      ],
+      "single_prototype_control_n_correct": 2,
+      "single_prototype_control_n_trials": 6,
+      "n_items_where_arms_disagree": 3,
+      "disjoint_vocab_check": {
+        "fit_vocab_size": 18,
+        "test_vocab_size": 20,
+        "overlap": []
+      }
+    }
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "exempt_short_singleshot_cell_start_marker_and_crash_diagnostic_present",
+  "crlb_n_a": "representational sense-induction measurement; no quantitative noise-floor formula applies",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "hard_pass_band": {
+    "held_out_sense_discrimination_accuracy": ">=0.80",
+    "single_prototype_control_accuracy": "<=0.65",
+    "same_sense_agreement": ">=0.75",
+    "senses_induced_not_hand_listed": true
+  },
+  "hard_fail_band": {
+    "held_out_sense_discrimination_accuracy": "<0.65",
+    "single_prototype_control_accuracy": ">=0.80 (leak)",
+    "same_sense_agreement": "<0.50 (over-split)"
+  }
+}
