@@ -77,6 +77,10 @@ from hdlab.situation_focus import ChunkedFocus
 from hdlab.frame_induction import frame_primary_role
 from hdlab.thematic_role_labeler import lemma_verb
 
+# ---- grounded-affect dimension (reuse, 2026-08-05 wire; CERTIFIED SCOPE =
+# notes/landed_vet_bridge1_foundation.md, animacy-axis event override, Bopen=1.000) ----
+from hdlab.context_grounded_valence import score_context_grounded_valence, to_ternary
+
 # ---- banked TIME + CAUSATION mechanisms (reuse) ----
 from experiments import _temporal_ordering as T
 from experiments import _temporal_ordering_multiframe as M
@@ -122,6 +126,11 @@ class EventRecord:
     # was available to label (mirrors agent=="?" / patient=="?"). Backward-compatible default.
     subj_role: Optional[str] = None
     obj_role: Optional[str] = None
+    # grounded-organ valence (2026-08-05 wire), ADDITIVE metadata only -- populated only for events
+    # whose patient falls in the CERTIFIED animacy-axis scope (hdlab/context_grounded_valence.py,
+    # Bopen=1.000 open-vocab); every other event (no patient, animacy lookup miss, tokenizer miss)
+    # ABSTAINS (None) rather than guessing off an uncertified path. Backward-compatible default.
+    affect: Optional[str] = None
 
 
 @dataclass
@@ -319,6 +328,34 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
     return subj_role, obj_role
 
 
+def _assign_affect(patient: str, sentence_text: str) -> Optional[str]:
+    """Grounded-affect wire (2026-08-05): calls the promoted hdlab organ
+    (score_context_grounded_valence) on the event's PATIENT head against the sentence text, and
+    reports its predicted valence ONLY when the CERTIFIED animacy-axis event override actually
+    fired for this item (result["stage"] == "event" -- the open-vocab Bopen=1.000 axis; see
+    notes/landed_vet_bridge1_foundation.md). Every other case ABSTAINS (returns None):
+      - no patient mention (patient == "?"),
+      - the organ's own tokenizer can't locate the patient token in its re-tokenization of the
+        sentence (ValueError from score_context_grounded_valence -- ASCII/punctuation edge cases),
+      - the animacy-axis override did NOT fire (stage == "governor"): the governor-only fallback
+        is a DIFFERENT, narrower certification (COLLISION_PAIRS only, not open-vocab) and is
+        deliberately not exposed here to keep the production wire conservative (mirrors the
+        Component-3 wire's OOV-abstain discipline just above).
+    Uses the organ's DEFAULT seed=0 / FULL_N_TRAIN_THETA on every call -- the organ's own
+    module-level caches (_GOV_PERCEPTRON_CACHE / _THETA_CACHE) train the perceptron/theta once
+    per process and reuse it across every event/passage, so this is O(1) trainings, O(events)
+    cheap scoring calls."""
+    if patient in (None, "?"):
+        return None
+    try:
+        result = score_context_grounded_valence(patient, sentence_text)
+    except ValueError:
+        return None  # patient head not found by the organ's own tokenizer -- abstain, not guess
+    if result["stage"] != "event":
+        return None  # certified animacy-axis override did not fire for this item -- abstain
+    return to_ternary(result["predicted_type"])
+
+
 # ===========================================================================
 # the reader
 # ===========================================================================
@@ -390,9 +427,12 @@ class SituationReader:
                 # Component-3 wire: frame-primary thematic labels for the same agent/patient heads
                 # (additive metadata; does not change codec encoding or head selection above).
                 subj_role, obj_role = _assign_frame_primary_roles(e.lemma, toks, e.idx, noms)
+                # grounded-affect wire: certified animacy-axis valence for the same patient head
+                # (additive metadata; does not change codec encoding or head selection above).
+                affect = _assign_affect(patient, text)
                 events.append(EventRecord(global_idx=gidx, sent_idx=si, predicate=e.lemma,
                                           agent=agent, patient=patient, tense=str(e.tense),
-                                          subj_role=subj_role, obj_role=obj_role))
+                                          subj_role=subj_role, obj_role=obj_role, affect=affect))
                 role_fillers.append(rf)
                 gidx += 1
         return events, focus, codec, role_fillers, suppressed
@@ -601,6 +641,45 @@ def _selftest_frame_primary_wiring() -> dict:
             "kick_subj_role": by_pred["kicked"].subj_role}
 
 
+def _selftest_affect_wiring() -> dict:
+    """Grounded-affect wire self-test (2026-08-05): situation_reader now emits certified
+    animacy-axis valence end-to-end through the REAL read() pipeline. IN-SCOPE animate-patient
+    force event ('battered' + 'nephew', a certified Bopen item -- see
+    experiments/exp_bridge1_event_assembly_open_vocab_v1.SUBSET_B_OPEN_PAIRS) -> affect='HARM'.
+    OUT-OF-SCOPE event (animate patient, non-force verb 'saw') -> affect=None (honest abstain, NOT
+    a guess). Also proves NON-REGRESSION: this passage's coref/event counts are cross-checked
+    against the SAME numbers the pre-wire _selftest_read_end_to_end has asserted for years (affect
+    is additive metadata only -- it must not perturb entity/coref/event/timeline/causal counts)."""
+    rows = [
+        (0, 0, "John", "(0)"), (0, 1, "saw", "_"), (0, 2, "Mary", "(1)"), (0, 3, ".", "_"),
+        (1, 0, "She", "(1)"), (1, 1, "battered", "_"), (1, 2, "her", "(1)"),
+        (1, 3, "nephew", "(2)"), (1, 4, ".", "_"),
+    ]
+    path = _write_temp_conll(rows)
+    try:
+        reader = SituationReader(gaz={"john": "masc", "mary": "fem", "nephew": "masc"})
+        sm = reader.read(path)
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+    by_pred = {ev.predicate: ev for ev in sm.events}
+    assert "saw" in by_pred, f"non-force event missing: {[e.predicate for e in sm.events]}"
+    assert by_pred["saw"].affect is None, (
+        f"out-of-scope event should abstain (None), got {by_pred['saw'].affect}")
+    assert "battered" in by_pred, f"in-scope force event missing: {[e.predicate for e in sm.events]}"
+    assert by_pred["battered"].affect == "HARM", (
+        f"in-scope animate-patient force event should be HARM, got {by_pred['battered'].affect}")
+    # non-regression: agent/patient positional selection and event count untouched by the wire.
+    assert by_pred["saw"].agent.lower() == "john", by_pred["saw"]
+    assert by_pred["battered"].patient.lower() == "nephew", by_pred["battered"]
+    assert len(sm.events) == 2, f"events={len(sm.events)}"
+    assert sm.n_sentences == 2, f"n_sentences={sm.n_sentences}"
+    return {"saw_affect": by_pred["saw"].affect, "battered_affect": by_pred["battered"].affect,
+            "n_events": len(sm.events)}
+
+
 def _selftest_role_assignment() -> dict:
     """_assign_roles picks subject as agent, post-predicate nominal as patient."""
     noms = [
@@ -633,6 +712,7 @@ def _run_all_selftests() -> dict:
     out["read_end_to_end"] = _selftest_read_end_to_end()
     out["pred_gate"] = _selftest_pred_gate()
     out["frame_primary_wiring"] = _selftest_frame_primary_wiring()
+    out["affect_wiring"] = _selftest_affect_wiring()
     return out
 
 
