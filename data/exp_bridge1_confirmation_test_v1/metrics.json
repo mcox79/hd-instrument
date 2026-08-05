@@ -1,0 +1,133 @@
+{
+  "verdict": "RULING_CONFIRMED",
+  "verdict_msg": "RULING_CONFIRMED: acc_A_local_governor=0.962 acc_B_event_differing=0.500 acc_C_discourse_decisive=0.500 acc_C_scrambled_gold=0.500 majority_baseline=0.500 (all subsets exactly balanced by construction)",
+  "summary": "acc_A_local_governor=0.962 acc_B_event_differing=0.500 acc_C_discourse_decisive=0.500 acc_C_scrambled_gold=0.500 majority_baseline=0.500 (all subsets exactly balanced by construction)",
+  "n_seeds": 5,
+  "n_ok": 5,
+  "failed_seeds": [],
+  "means": {
+    "acc_A_local_governor": 0.9619047619047618,
+    "acc_B_event_differing": 0.5,
+    "acc_C_discourse_decisive": 0.5,
+    "acc_C_scrambled_gold": 0.5
+  },
+  "bands": {
+    "ruling_confirmed_criteria_met": true,
+    "ruling_relaxed_criteria_met": false,
+    "hard_pass_local_governor_ge_0.85": true,
+    "hard_pass_event_differing_le_0.60": true,
+    "hard_pass_discourse_decisive_le_0.60": true
+  },
+  "run_mode": "full",
+  "elapsed_s": 27.96904279998853,
+  "ts_iso": "2026-08-05T13:52:27.551736+00:00",
+  "anchor_name": "bridge1_confirmation_test_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_train_theta": 8000,
+    "n_subset_A": 21,
+    "n_subset_B": 12,
+    "n_subset_C": 12,
+    "n_subset_B_pairs": 6,
+    "n_subset_C_pairs": 6,
+    "system_under_test": "experiments/exp_bridge1_governor_grounding_v1.py (unmodified, imported)"
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "acc_A_local_governor": 1.0,
+      "acc_B_event_differing": 0.5,
+      "acc_C_discourse_decisive": 0.5,
+      "acc_C_scrambled_gold": 0.5,
+      "n_A": 21,
+      "n_B": 12,
+      "n_C": 12,
+      "preds_C_invariant_to_prior_field": true,
+      "arms_digests": {
+        "preds_A": "e91649cd5866c81a",
+        "preds_B": "a983f415e8c2b384",
+        "preds_C": "0600770fabfb4b0c",
+        "theta_full": "02efccb6e2b8287f"
+      },
+      "failure_class": null
+    },
+    "1": {
+      "seed": 1,
+      "acc_A_local_governor": 1.0,
+      "acc_B_event_differing": 0.5,
+      "acc_C_discourse_decisive": 0.5,
+      "acc_C_scrambled_gold": 0.5,
+      "n_A": 21,
+      "n_B": 12,
+      "n_C": 12,
+      "preds_C_invariant_to_prior_field": true,
+      "arms_digests": {
+        "preds_A": "e91649cd5866c81a",
+        "preds_B": "a983f415e8c2b384",
+        "preds_C": "0600770fabfb4b0c",
+        "theta_full": "e747781f04c035d8"
+      },
+      "failure_class": null
+    },
+    "2": {
+      "seed": 2,
+      "acc_A_local_governor": 0.8095238095238095,
+      "acc_B_event_differing": 0.5,
+      "acc_C_discourse_decisive": 0.5,
+      "acc_C_scrambled_gold": 0.5,
+      "n_A": 21,
+      "n_B": 12,
+      "n_C": 12,
+      "preds_C_invariant_to_prior_field": true,
+      "arms_digests": {
+        "preds_A": "790fd9a32d5cb302",
+        "preds_B": "a983f415e8c2b384",
+        "preds_C": "0600770fabfb4b0c",
+        "theta_full": "84a4f6282d0f4163"
+      },
+      "failure_class": null
+    },
+    "3": {
+      "seed": 3,
+      "acc_A_local_governor": 1.0,
+      "acc_B_event_differing": 0.5,
+      "acc_C_discourse_decisive": 0.5,
+      "acc_C_scrambled_gold": 0.5,
+      "n_A": 21,
+      "n_B": 12,
+      "n_C": 12,
+      "preds_C_invariant_to_prior_field": true,
+      "arms_digests": {
+        "preds_A": "e91649cd5866c81a",
+        "preds_B": "a983f415e8c2b384",
+        "preds_C": "0600770fabfb4b0c",
+        "theta_full": "bfd34123475d766b"
+      },
+      "failure_class": null
+    },
+    "4": {
+      "seed": 4,
+      "acc_A_local_governor": 1.0,
+      "acc_B_event_differing": 0.5,
+      "acc_C_discourse_decisive": 0.5,
+      "acc_C_scrambled_gold": 0.5,
+      "n_A": 21,
+      "n_B": 12,
+      "n_C": 12,
+      "preds_C_invariant_to_prior_field": true,
+      "arms_digests": {
+        "preds_A": "e91649cd5866c81a",
+        "preds_B": "a983f415e8c2b384",
+        "preds_C": "0600770fabfb4b0c",
+        "theta_full": "acfcf35e91f8cbbf"
+      },
+      "failure_class": null
+    }
+  }
+}
