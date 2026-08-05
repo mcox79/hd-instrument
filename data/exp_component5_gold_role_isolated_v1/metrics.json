@@ -2546,8 +2546,8 @@
     }
   },
   "run_mode": "full",
-  "elapsed_s": 0.21935440000379458,
-  "ts_iso": "2026-08-05T05:05:48.602978+00:00",
+  "elapsed_s": 0.2120091999968281,
+  "ts_iso": "2026-08-05T06:02:59.231612+00:00",
   "anchor_name": "component5_gold_role_isolated_v1",
   "config": {
     "D2": 1024,

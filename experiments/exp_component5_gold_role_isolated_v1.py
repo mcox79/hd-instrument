@@ -111,6 +111,14 @@ from exp_situation_model_goal_outcome_dimension_v1 import (  # noqa: E402
 from hdlab.self_improving_loop import (  # noqa: E402
     route_passage, decide_keep_or_revert, ABSTAIN_BAND_DEFAULT,
 )
+# ---- REUSED BIT-IDENTICAL: PRODUCTION coref's gender machinery (2026-08-05, this generalization) --
+# hdlab/coreference_resolver.py's own docstring: bare first-name gender inference (e.g.
+# guess_gender_v2) is "DATA/gazetteer-level, not a resolver-mechanism change" -- so the GENERAL,
+# reusable MECHANISM pieces are (a) PRONOUN_SCOPE (pronoun -> gender/number agreement, works for
+# ANY pronoun regardless of which names it corefers with) and (b) infer_nominal_gender
+# (title/kinship-cue nominal gender inference, works for ANY nominal span). Both are wired in
+# below (read-only reuse; hdlab/coreference_resolver.py and hdlab/state_of_mind.py are untouched).
+from hdlab.state_of_mind import PRONOUN_SCOPE, infer_nominal_gender  # noqa: E402
 
 D2 = 1024
 SEEDS = [0, 1, 2]
@@ -146,6 +154,81 @@ FOILS = {
 }
 
 
+# ============================================================================ GENERALIZED entity/gender resolution
+# UNBLOCK (2026-08-05, USER task): generalize entity/gender resolution off the hardcoded 12-name
+# toy cast (GENDER/ANIMATE_NAMES/PRON_F/PRON_M, imported bit-identical above for GOAL_BLOCK / the
+# unchanged run_goal_owner_binding path only) so the RECENCY pipeline runs on ARBITRARY names --
+# reusing PRODUCTION coref's gender MECHANISM (PRONOUN_SCOPE + infer_nominal_gender) plus a
+# PER-ITEM roster (name -> gender) supplied by the item, instead of re-deriving name/gender from a
+# fixed lexicon baked into the resolver code. DEFAULT_ROSTER = the original 12-name gazetteer
+# (unchanged VALUES, now DATA an item can override, not hardwired resolver logic) -- this keeps the
+# authored 23-item RECENCY bank bit-identical (no-regression) while any NEW item can supply its own
+# roster of arbitrary names.
+DEFAULT_ROSTER = dict(GENDER)  # {"amy": "f", ..., "tom": "m", ...} -- same 12 names, now pluggable data
+
+# PRONOUN_SCOPE (production, hdlab.state_of_mind) does not carry reflexives (herself/himself); the
+# toy PRON_F/PRON_M sets did. Extend the PRODUCTION table locally (reuse-then-augment, not
+# reinvent) so no coverage is lost vs the original hardcoded sets.
+_PRON_SCOPE_EXT = dict(PRONOUN_SCOPE)
+_PRON_SCOPE_EXT.setdefault("herself", {"number": "singular", "gender": "fem"})
+_PRON_SCOPE_EXT.setdefault("himself", {"number": "singular", "gender": "masc"})
+_GENDER_MAP = {"masc": "m", "fem": "f"}  # production's masc/fem -> this eval's f/m scheme
+
+
+def _is_pron_general(token: str) -> bool:
+    """True iff token is a gendered singular pronoun (production PRONOUN_SCOPE, reflexive-extended)."""
+    scope = _PRON_SCOPE_EXT.get(token)
+    return scope is not None and scope["gender"] in ("masc", "fem")
+
+
+def _gender_of_general(token: str, roster: dict):
+    """f / m / None gender for a lowercase token -- works on ARBITRARY names, not just the toy
+    cast. Order: (1) PRONOUN_SCOPE (production, general, any pronoun) -> (2) the per-item roster's
+    explicit gender (item-supplied cast data, e.g. {"elizabeth": "f", "darcy": "m"}) -> (3)
+    infer_nominal_gender (production, general, title/kinship nominal cues) as an honest fallback
+    for a name absent from the roster. Returns None (unknown) if none resolve -- matches the
+    original GENDER.get(e) == want semantics (None never satisfies a gendered want)."""
+    scope = _PRON_SCOPE_EXT.get(token)
+    if scope is not None:
+        return _GENDER_MAP.get(scope["gender"])
+    if token in roster:
+        return roster[token]
+    return _GENDER_MAP.get(infer_nominal_gender([token]))
+
+
+class GeneralRecencyEntityResolver:
+    """Generalized RecencyEntityResolver: IDENTICAL mechanism (backward-search recency pick over
+    gender/number-compatible candidates) to the toy RecencyEntityResolver above, but name/gender
+    resolution is GENERALIZED (per-item roster + production gender machinery, see
+    _gender_of_general) instead of the hardcoded ANIMATE_NAMES/PRON_F/PRON_M/GENDER lexicon --
+    this is the unblocked baseline candidate used by run_recency_item (the RECENCY pipeline);
+    run_goal_owner_binding keeps using the original RecencyEntityResolver import UNCHANGED (per
+    task brief scope). Default roster = DEFAULT_ROSTER (bit-identical to the toy cast, so the
+    authored 23-item bank is unaffected); any item may supply its own roster of arbitrary names."""
+
+    def __init__(self, roster: dict | None = None):
+        self._recent = []  # entity names in order of mention (most recent last)
+        self._roster = roster if roster is not None else DEFAULT_ROSTER
+
+    def subject_entity(self, sentence: str):
+        toks = _ordered_tokens(sentence)
+        for t in toks:                                   # first explicit roster NAME = subject
+            if t in self._roster:
+                self._note(t)
+                return t
+        for t in toks:                                   # else first pronoun -> recency-resolved
+            if _is_pron_general(t):
+                want = _gender_of_general(t, self._roster)
+                for e in reversed(self._recent):          # BACKWARD search == recency
+                    if _gender_of_general(e, self._roster) == want:
+                        return e
+                return None
+        return None
+
+    def _note(self, entity: str):
+        self._recent.append(entity)
+
+
 # ============================================================================ NEW candidate generator
 class ContentMatchResolver:
     """The ONE genuinely new piece (per both design docs): tracks entities carrying an OPEN GOAL
@@ -155,20 +238,23 @@ class ContentMatchResolver:
     this resolver does NOT force a non-recency answer, it only makes one constructible when
     content supports it, per design drill (d).2)."""
 
-    def __init__(self):
+    def __init__(self, roster: dict | None = None):
         self._recent = []       # entity names in mention order (mirrors RecencyEntityResolver)
         self._open_goal = set()  # entities with an unresolved (no-outcome-yet) GOAL event
+        # GENERALIZED (2026-08-05): per-item roster instead of the hardcoded ANIMATE_NAMES lexicon;
+        # default = DEFAULT_ROSTER (bit-identical to the toy cast) -- see GeneralRecencyEntityResolver.
+        self._roster = roster if roster is not None else DEFAULT_ROSTER
 
     def subject_entity(self, sentence: str):
         toks = _ordered_tokens(sentence)
         for t in toks:                                   # explicit NAME = subject (unambiguous)
-            if t in ANIMATE_NAMES:
+            if t in self._roster:
                 self._note(t)
                 return t
         for t in toks:                                   # pronoun -> content-match, else recency
-            if t in PRON_F or t in PRON_M:
-                want = "f" if t in PRON_F else "m"
-                compatible = [e for e in self._recent if GENDER.get(e) == want]
+            if _is_pron_general(t):
+                want = _gender_of_general(t, self._roster)
+                compatible = [e for e in self._recent if _gender_of_general(e, self._roster) == want]
                 open_goal_compatible = [e for e in compatible if e in self._open_goal]
                 if open_goal_compatible:
                     return open_goal_compatible[-1]       # prefer content (open-goal), not position
@@ -248,12 +334,17 @@ def directed_goal_outcome_score(role_seq, cluster_ids, seed: int, outcome_pos: i
 # ============================================================================ per-item eval
 def run_recency_item(item: dict, seed: int, scrambled: bool):
     """Run the selector on one RECENCY item. If scrambled, the CONTENT candidate's GOAL label is
-    mislabeled onto the foil (role-scramble control)."""
-    role_seq_b, cluster_ids_b, event_slots_b = build_positions(item, RecencyEntityResolver())
+    mislabeled onto the foil (role-scramble control).
+
+    GENERALIZED (2026-08-05): both candidates now resolve names/gender via the item's OWN roster
+    (default DEFAULT_ROSTER = the toy cast, bit-identical for the authored bank) instead of the
+    hardcoded lexicon, so this pipeline runs on items with ARBITRARY names too (item["roster"])."""
+    roster = item.get("roster", DEFAULT_ROSTER)
+    role_seq_b, cluster_ids_b, event_slots_b = build_positions(item, GeneralRecencyEntityResolver(roster))
     foil = FOILS.get(item["id"])
     scramble_target = foil if (scrambled and foil is not None) else None
     role_seq_c, cluster_ids_c, event_slots_c = build_positions(
-        item, ContentMatchResolver(), scramble_owner_to_foil=scramble_target)
+        item, ContentMatchResolver(roster), scramble_owner_to_foil=scramble_target)
 
     assert role_seq_b == role_seq_c, (
         f"role sequences diverged between resolvers on {item['id']!r}: "
@@ -514,7 +605,7 @@ def self_test():
 
     # (1) build_positions: role_seq/event_slots must be resolver-independent (lexicon-only typing)
     item = next(it for it in RECENCY if it["id"] == "recency_amy_blocked_pronoun_foil_jo")
-    rs_b, cid_b, es_b = build_positions(item, RecencyEntityResolver())
+    rs_b, cid_b, es_b = build_positions(item, GeneralRecencyEntityResolver())
     rs_c, cid_c, es_c = build_positions(item, ContentMatchResolver())
     assert rs_b == rs_c and es_b == es_c, "role/slot sequence must not depend on resolver"
     assert cid_b != cid_c, "recency and content-match must disagree on this genuine trap item"
@@ -575,6 +666,38 @@ def self_test():
           f"resolver-independent; role-scramble flips the pick; seed0 "
           f"outcome_acc={res['outcome_binding_accuracy']} scrambled={res['scrambled_outcome_binding_accuracy']} "
           f"ctrl_fire={res['control_false_fire_rate']}", flush=True)
+
+    # (4) REAL-NAME SMOKE (the UNBLOCK proof, 2026-08-05 task): two items with ARBITRARY names not
+    # in DEFAULT_ROSTER, each supplying its own per-item roster -- confirms the generalized
+    # resolvers run end-to-end (no crash) and resolve correctly on names outside the toy cast.
+    real_name_items = [
+        dict(id="realname_smoke_elizabeth_darcy", owner="elizabeth", gold_goal_blocked=True,
+             gold_outcome_owner="elizabeth", trap="pronoun_distant_antecedent",
+             roster={"elizabeth": "f", "darcy": "m"},
+             text="Elizabeth longed to leave the gathering. "
+                  "Darcy strode ahead without a word. "
+                  "Left behind, she was sorry and missed her chance."),
+        dict(id="realname_smoke_marco_priya", owner="priya", gold_goal_blocked=True,
+             gold_outcome_owner="priya", trap="pronoun_distant_antecedent",
+             roster={"priya": "f", "marco": "m"},
+             text="Priya wished to win the race before dusk. "
+                  "Marco ran on far ahead of her. "
+                  "Far behind, she failed and lost her chance."),
+    ]
+    for rn_item in real_name_items:
+        rn_row = run_recency_item(rn_item, 0, scrambled=False)
+        assert rn_row["baseline_owner"] is not None and rn_row["content_owner"] is not None, (
+            f"real-name smoke {rn_item['id']!r} crashed/misresolved to None: {rn_row}")
+        assert rn_row["content_owner"] == rn_item["gold_outcome_owner"], (
+            f"real-name smoke {rn_item['id']!r}: ContentMatchResolver expected "
+            f"{rn_item['gold_outcome_owner']!r}, got {rn_row['content_owner']!r} (roster="
+            f"{rn_item['roster']!r})")
+        assert rn_row["matches_gold"] is True, (
+            f"real-name smoke {rn_item['id']!r}: full pipeline final_owner did not match gold: {rn_row}")
+    print(f"[SELFTEST PASS 4/4] REAL-NAME SMOKE: {len(real_name_items)} arbitrary-name items "
+          f"(outside DEFAULT_ROSTER) ran end-to-end via item-supplied roster, no crash, "
+          f"matches_gold=True on all -- generalized resolver UNBLOCKS arbitrary-name eval.",
+          flush=True)
     return True
 
 
