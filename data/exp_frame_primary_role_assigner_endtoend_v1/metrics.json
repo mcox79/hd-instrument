@@ -1,0 +1,1179 @@
+{
+  "anchor_name": "frame_primary_role_assigner_endtoend_v1",
+  "run_mode": "full",
+  "verdict": "MEASURED_HONEST_NUMBER",
+  "verdict_msg": "END-TO-END subj-exp-axis (real parse): resolve_rate=0.8000 (resolved=52/65) | on_resolved_acc=0.9615 (N=52) | effective_end_to_end_acc=0.7692 (unresolved=wrong) | n_resolved_wrong_slot=0 | known_resolved_acc=1.0000 (N=27) oov_resolved_acc=0.9200 (N=25) | gold_parsed_acc_CITED=0.8769 (from D:\\AI\\hd-instrument\\data\\exp_frame_primary_role_assigner_v1\\metrics.json) | failure_classes={'PARSER_DID_NOT_LICENSE_PAIR': 13}",
+  "summary": "END-TO-END subj-exp-axis (real parse): resolve_rate=0.8000 (resolved=52/65) | on_resolved_acc=0.9615 (N=52) | effective_end_to_end_acc=0.7692 (unresolved=wrong) | n_resolved_wrong_slot=0 | known_resolved_acc=1.0000 (N=27) oov_resolved_acc=0.9200 (N=25) | gold_parsed_acc_CITED=0.8769 (from D:\\AI\\hd-instrument\\data\\exp_frame_primary_role_assigner_v1\\metrics.json) | failure_classes={'PARSER_DID_NOT_LICENSE_PAIR': 13}",
+  "elapsed_s": 63.5959,
+  "ts_iso": "2026-08-05T03:27:31.357228+00:00",
+  "pid": 30396,
+  "data_source": "D:\\AI\\hd-instrument\\experiments\\data\\experiencer_narrative_roles_v1.jsonl",
+  "pos_path": "D:\\AI\\hd-instrument\\data\\frontend_assets\\pos_tagger_ud_ewt_upos.json",
+  "arc_path": "D:\\AI\\hd-instrument\\data\\frontend_assets\\arc_parser_hashed_ud_ewt.npz",
+  "n_subj_axis_sentences": 65,
+  "n_resolved": 52,
+  "n_unresolved": 13,
+  "resolve_rate": 0.8,
+  "n_resolved_correct": 50,
+  "n_resolved_wrong_slot": 0,
+  "on_resolved_acc": 0.9615384615384616,
+  "effective_end_to_end_acc": 0.7692307692307693,
+  "known_resolved_acc": 1.0,
+  "n_known_resolved": 27,
+  "oov_resolved_acc": 0.92,
+  "n_oov_resolved": 25,
+  "failure_classes": {
+    "PARSER_DID_NOT_LICENSE_PAIR": 13
+  },
+  "gold_parsed_acc_cited": 0.8769230769230769,
+  "gold_parsed_source": "D:\\AI\\hd-instrument\\data\\exp_frame_primary_role_assigner_v1\\metrics.json",
+  "induced_plugin_subj_axis": "ruleind",
+  "n_train_episodes_subj_axis": 164,
+  "oov_subj_lemmas": [
+    "abhor",
+    "cherish",
+    "covet",
+    "crave",
+    "despise",
+    "esteem",
+    "fret",
+    "grieve",
+    "hope",
+    "loathe",
+    "marvel",
+    "mourn",
+    "pine",
+    "rejoice",
+    "relish",
+    "resent",
+    "revere",
+    "value"
+  ],
+  "per_record": [
+    {
+      "idx": 0,
+      "text": "I began to fear his wits were touched.",
+      "lemma": "fear",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I began to fear his wits were touched.",
+        "lemma": "fear",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "coord"
+      }
+    },
+    {
+      "idx": 1,
+      "text": "These stalwart virgins had no men to fear and therefore no need of protection.",
+      "lemma": "fear",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "These stalwart virgins had no men to fear and therefore no need of protection.",
+        "lemma": "fear",
+        "gold_head": "virgins",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          6,
+          12,
+          14
+        ]
+      }
+    },
+    {
+      "idx": 2,
+      "text": "I fear the kitten has rolled it away.",
+      "lemma": "fear",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I fear the kitten has rolled it away.",
+        "lemma": "fear",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 3,
+      "text": "She suffered from pique, and sometimes in a curious fashion she desired Philip.",
+      "lemma": "desire",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "She suffered from pique, and sometimes in a curious fashion she desired Philip.",
+        "lemma": "desire",
+        "gold_head": "she",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          11,
+          12,
+          14
+        ]
+      }
+    },
+    {
+      "idx": 4,
+      "text": "He craved the madness of alcohol in his veins till his delicate hands trembled.",
+      "lemma": "crave",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "He craved the madness of alcohol in his veins till his delicate hands trembled.",
+        "lemma": "crave",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 5,
+      "text": "This was what her heart craved.",
+      "lemma": "crave",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "This was what her heart craved.",
+        "lemma": "crave",
+        "gold_head": "heart",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          3
+        ]
+      }
+    },
+    {
+      "idx": 6,
+      "text": "Why did you go away, when I loved you so?",
+      "lemma": "love",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "Why did you go away, when I loved you so?",
+        "lemma": "love",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 7,
+      "text": "No one could see Catherine Linton and not love her.",
+      "lemma": "love",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "No one could see Catherine Linton and not love her.",
+        "lemma": "love",
+        "gold_head": "one",
+        "slot": "subj",
+        "cand_rule": "coord"
+      }
+    },
+    {
+      "idx": 8,
+      "text": "I hate and detest you!",
+      "lemma": "hate",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I hate and detest you!",
+        "lemma": "hate",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 9,
+      "text": "Old boy hated her.",
+      "lemma": "hate",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "Old boy hated her.",
+        "lemma": "hate",
+        "gold_head": "boy",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 10,
+      "text": "She had never hoped that that barrier would be surmounted.",
+      "lemma": "hope",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "She had never hoped that that barrier would be surmounted.",
+        "lemma": "hope",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 11,
+      "text": "I hope Laddy's not mistaken in his opinion of this newcomer.",
+      "lemma": "hope",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "I hope Laddy's not mistaken in his opinion of this newcomer.",
+        "lemma": "hope",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 12,
+      "text": "He dreaded the interview with Thomas Jordan.",
+      "lemma": "dread",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "He dreaded the interview with Thomas Jordan.",
+        "lemma": "dread",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 13,
+      "text": "The terrible moment, the moment she had dreaded, had come at last.",
+      "lemma": "dread",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "The terrible moment, the moment she had dreaded, had come at last.",
+        "lemma": "dread",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 14,
+      "text": "But she dreads responsibility.",
+      "lemma": "dread",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "But she dreads responsibility.",
+        "lemma": "dread",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 15,
+      "text": "She longed for the quiet of the old garden.",
+      "lemma": "long",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "She longed for the quiet of the old garden.",
+        "lemma": "long",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 16,
+      "text": "He longed to be gone from that hateful place.",
+      "lemma": "long",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "He longed to be gone from that hateful place.",
+        "lemma": "long",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 17,
+      "text": "I dare say Miss Nash would wish you such an opportunity.",
+      "lemma": "wish",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I dare say Miss Nash would wish you such an opportunity.",
+        "lemma": "wish",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "coord"
+      }
+    },
+    {
+      "idx": 18,
+      "text": "The unpaid secretary admired this pluck.",
+      "lemma": "admire",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "The unpaid secretary admired this pluck.",
+        "lemma": "admire",
+        "gold_head": "secretary",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 19,
+      "text": "They don't admire you half so much as you admire yourselves.",
+      "lemma": "admire",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "They don't admire you half so much as you admire yourselves.",
+        "lemma": "admire",
+        "gold_head": "they",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 20,
+      "text": "I am very fond of Amelia; I adore her.",
+      "lemma": "adore",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "I am very fond of Amelia; I adore her.",
+        "lemma": "adore",
+        "gold_head": "i",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          8,
+          10
+        ]
+      }
+    },
+    {
+      "idx": 21,
+      "text": "He adored Sorais quite as earnestly as Sir Henry adored Nyleptha.",
+      "lemma": "adore",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "He adored Sorais quite as earnestly as Sir Henry adored Nyleptha.",
+        "lemma": "adore",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 22,
+      "text": "I dare say Miss Nash would envy you such an opportunity as this of being married.",
+      "lemma": "envy",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "I dare say Miss Nash would envy you such an opportunity as this of being married.",
+        "lemma": "envy",
+        "gold_head": "nash",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          1,
+          4,
+          8,
+          11,
+          14
+        ]
+      }
+    },
+    {
+      "idx": 23,
+      "text": "Helen, watching Bo play, was inclined to envy her.",
+      "lemma": "envy",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "Helen, watching Bo play, was inclined to envy her.",
+        "lemma": "envy",
+        "gold_head": "helen",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          11
+        ]
+      }
+    },
+    {
+      "idx": 24,
+      "text": "I pity Pa to that degree.",
+      "lemma": "pity",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "I pity Pa to that degree.",
+        "lemma": "pity",
+        "gold_head": "i",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": []
+      }
+    },
+    {
+      "idx": 25,
+      "text": "The impulse that I had upon me was to pity her so much.",
+      "lemma": "pity",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "The impulse that I had upon me was to pity her so much.",
+        "lemma": "pity",
+        "gold_head": "i",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": []
+      }
+    },
+    {
+      "idx": 26,
+      "text": "Dorian Gray loathed him more than ever.",
+      "lemma": "loathe",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "Dorian Gray loathed him more than ever.",
+        "lemma": "loathe",
+        "gold_head": "gray",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 27,
+      "text": "He loathed a fork.",
+      "lemma": "loathe",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "He loathed a fork.",
+        "lemma": "loathe",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 28,
+      "text": "I loathe that man.",
+      "lemma": "loathe",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "I loathe that man.",
+        "lemma": "loathe",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 29,
+      "text": "She still cherished a very tender affection for Bingley.",
+      "lemma": "cherish",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "She still cherished a very tender affection for Bingley.",
+        "lemma": "cherish",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 30,
+      "text": "Wickham still cherished the hope of making his fortune by marriage.",
+      "lemma": "cherish",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "Wickham still cherished the hope of making his fortune by marriage.",
+        "lemma": "cherish",
+        "gold_head": "wickham",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          5
+        ]
+      }
+    },
+    {
+      "idx": 31,
+      "text": "Emma listened with the warmest concern, grieved for her more and more.",
+      "lemma": "grieve",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "Emma listened with the warmest concern, grieved for her more and more.",
+        "lemma": "grieve",
+        "gold_head": "emma",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          6,
+          10
+        ]
+      }
+    },
+    {
+      "idx": 32,
+      "text": "He mourned her disappointment.",
+      "lemma": "mourn",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "He mourned her disappointment.",
+        "lemma": "mourn",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 33,
+      "text": "Rawdon marvelled over his stories about school, and fights, and fagging.",
+      "lemma": "marvel",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "AGENT",
+      "correct": false,
+      "known": false,
+      "diag": {
+        "text": "Rawdon marvelled over his stories about school, and fights, and fagging.",
+        "lemma": "marvel",
+        "gold_head": "rawdon",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 34,
+      "text": "Dick marveled that her collapse had not come sooner.",
+      "lemma": "marvel",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "AGENT",
+      "correct": false,
+      "known": false,
+      "diag": {
+        "text": "Dick marveled that her collapse had not come sooner.",
+        "lemma": "marvel",
+        "gold_head": "dick",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 35,
+      "text": "I wonder whether he will come at all.",
+      "lemma": "wonder",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I wonder whether he will come at all.",
+        "lemma": "wonder",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 36,
+      "text": "I rejoiced, for I knew that what she could not, none of those we dreaded could.",
+      "lemma": "rejoice",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "I rejoiced, for I knew that what she could not, none of those we dreaded could.",
+        "lemma": "rejoice",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 37,
+      "text": "She quailed as she thought of the amount and rejoiced because the rent was paid.",
+      "lemma": "rejoice",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "She quailed as she thought of the amount and rejoiced because the rent was paid.",
+        "lemma": "rejoice",
+        "gold_head": "she",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          8,
+          13
+        ]
+      }
+    },
+    {
+      "idx": 38,
+      "text": "Now you begin to fret about your feeling and about my feeling.",
+      "lemma": "fret",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "Now you begin to fret about your feeling and about my feeling.",
+        "lemma": "fret",
+        "gold_head": "you",
+        "slot": "subj",
+        "cand_rule": "coord"
+      }
+    },
+    {
+      "idx": 39,
+      "text": "Miss Linton fretted and pined over something.",
+      "lemma": "fret",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "Miss Linton fretted and pined over something.",
+        "lemma": "fret",
+        "gold_head": "linton",
+        "slot": "subj",
+        "cand_rule": "conj_obj"
+      }
+    },
+    {
+      "idx": 40,
+      "text": "Catherine had an awfully perverted taste to esteem him so dearly.",
+      "lemma": "esteem",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "Catherine had an awfully perverted taste to esteem him so dearly.",
+        "lemma": "esteem",
+        "gold_head": "catherine",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": [
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "idx": 41,
+      "text": "She despised him, and was tied to him.",
+      "lemma": "despise",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "She despised him, and was tied to him.",
+        "lemma": "despise",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 42,
+      "text": "Belding was sure Nell cordially despised the fellow.",
+      "lemma": "despise",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "Belding was sure Nell cordially despised the fellow.",
+        "lemma": "despise",
+        "gold_head": "nell",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 43,
+      "text": "I did not relish the notion of fastening myself in with Heathcliff.",
+      "lemma": "relish",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "I did not relish the notion of fastening myself in with Heathcliff.",
+        "lemma": "relish",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 44,
+      "text": "Mr Power did not relish the use of his Christian name.",
+      "lemma": "relish",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "Mr Power did not relish the use of his Christian name.",
+        "lemma": "relish",
+        "gold_head": "power",
+        "slot": "subj",
+        "cand_rule": "conj_obj"
+      }
+    },
+    {
+      "idx": 45,
+      "text": "For a few minutes Anne enjoyed the romance of her situation to the full.",
+      "lemma": "enjoy",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "For a few minutes Anne enjoyed the romance of her situation to the full.",
+        "lemma": "enjoy",
+        "gold_head": "anne",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 46,
+      "text": "He enjoys it like a boy.",
+      "lemma": "enjoy",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "He enjoys it like a boy.",
+        "lemma": "enjoy",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 47,
+      "text": "She valued his good opinion above all things.",
+      "lemma": "value",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "She valued his good opinion above all things.",
+        "lemma": "value",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 48,
+      "text": "Mr Duffy abhorred anything which betokened physical or mental disorder.",
+      "lemma": "abhor",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "Mr Duffy abhorred anything which betokened physical or mental disorder.",
+        "lemma": "abhor",
+        "gold_head": "duffy",
+        "slot": "subj",
+        "cand_rule": "conj_obj"
+      }
+    },
+    {
+      "idx": 49,
+      "text": "I abhorred the face of man.",
+      "lemma": "abhor",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "I abhorred the face of man.",
+        "lemma": "abhor",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 50,
+      "text": "He resented Hayward's contempt for action and success.",
+      "lemma": "resent",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "He resented Hayward's contempt for action and success.",
+        "lemma": "resent",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 51,
+      "text": "But he resented those words bitterly.",
+      "lemma": "resent",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "But he resented those words bitterly.",
+        "lemma": "resent",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 52,
+      "text": "I coveted a cake of bread.",
+      "lemma": "covet",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "I coveted a cake of bread.",
+        "lemma": "covet",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 53,
+      "text": "It is impossible that you can covet the admiration of Heathcliff.",
+      "lemma": "covet",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "It is impossible that you can covet the admiration of Heathcliff.",
+        "lemma": "covet",
+        "gold_head": "you",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 54,
+      "text": "She regretted what they had been, so small and exquisite.",
+      "lemma": "regret",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "She regretted what they had been, so small and exquisite.",
+        "lemma": "regret",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 55,
+      "text": "I regret that I am not a man.",
+      "lemma": "regret",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I regret that I am not a man.",
+        "lemma": "regret",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 56,
+      "text": "That poor boy will miss you something cruel.",
+      "lemma": "miss",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "That poor boy will miss you something cruel.",
+        "lemma": "miss",
+        "gold_head": "boy",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 57,
+      "text": "I rather miss my wild girl.",
+      "lemma": "miss",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I rather miss my wild girl.",
+        "lemma": "miss",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 58,
+      "text": "I doubt whether my own sense would have corrected me without it.",
+      "lemma": "doubt",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "I doubt whether my own sense would have corrected me without it.",
+        "lemma": "doubt",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 59,
+      "text": "He doubted not at all that she would use it.",
+      "lemma": "doubt",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "He doubted not at all that she would use it.",
+        "lemma": "doubt",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 60,
+      "text": "She trusted him with her whole heart.",
+      "lemma": "trust",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "She trusted him with her whole heart.",
+        "lemma": "trust",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 61,
+      "text": "He believed that women revere men for their manliness.",
+      "lemma": "revere",
+      "resolved": false,
+      "pred": "UNRESOLVED",
+      "correct": false,
+      "diag": {
+        "text": "He believed that women revere men for their manliness.",
+        "lemma": "revere",
+        "gold_head": "women",
+        "failure_class": "PARSER_DID_NOT_LICENSE_PAIR",
+        "cand_pairs_for_verb": []
+      }
+    },
+    {
+      "idx": 62,
+      "text": "I'm pining to see you dance.",
+      "lemma": "pine",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "diag": {
+        "text": "I'm pining to see you dance.",
+        "lemma": "pine",
+        "gold_head": "i",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 63,
+      "text": "She yearned for a word of kindness from him.",
+      "lemma": "yearn",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "She yearned for a word of kindness from him.",
+        "lemma": "yearn",
+        "gold_head": "she",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    },
+    {
+      "idx": 64,
+      "text": "He yearned after the friends of his boyhood.",
+      "lemma": "yearn",
+      "resolved": true,
+      "slot": "subj",
+      "pred": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "diag": {
+        "text": "He yearned after the friends of his boyhood.",
+        "lemma": "yearn",
+        "gold_head": "he",
+        "slot": "subj",
+        "cand_rule": "core_dep"
+      }
+    }
+  ],
+  "arms_differ": {
+    "end_to_end_preds": "92647a50a1348b14b0e1da6ad5a8db44b7c53848a517d328b18d2f9f0fc336cc"
+  },
+  "hp_band": "n/a: honest-number measurement cell, not a HARD_PASS/FAIL gate",
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy over a discrete 2-class axis; no capacity/CRLB floor",
+  "baseline_in_band": "n/a (measurement cell)",
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "calibration_check": "default_ok_for_this_regime",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "honest_scope": "This is the REAL end-to-end number: sentences where the persisted PosTagger+ArcParser front-end does not license the gold (verb, subject-argument) pair as its own candidate are UNRESOLVED and counted as wrong in effective_end_to_end_acc, per the unresolved=wrong contract. Distinct from acc_gold_parsed=0.8769 (assumes a perfect parse; the isolated 3c cell's headline number) -- do NOT conflate the two."
+}
