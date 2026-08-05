@@ -1,0 +1,552 @@
+{
+  "verdict": "MEASURED",
+  "verdict_msg": "honest_floor=0.562 (encoder=concept_encoder); best_context_sensitive=ppmi_sparse_encoder acc=0.625 (surprise_threshold=0.677); any_positive_surprise=False; best_starting_encoder_for_CA_extension=none (all 4 encoders collapse at/near chance)",
+  "summary": "C-A STEP 0 sense-collapse floor measurement complete",
+  "elapsed_s": 2.4057621999963885,
+  "ts_iso": "2026-08-05T11:44:19.873962+00:00",
+  "pid": 29212,
+  "anchor_name": "sense_collapse_floor_v1",
+  "seed": 1234,
+  "probe_n_words": 8,
+  "probe_n_sentences": 32,
+  "probe_words": [
+    "bear",
+    "bright",
+    "cross",
+    "hard",
+    "light",
+    "pay",
+    "sound",
+    "trick"
+  ],
+  "chance_level": 0.5,
+  "honest_floor_encoder": "concept_encoder",
+  "honest_floor_accuracy": 0.5625,
+  "best_starting_encoder_for_CA_extension": "none (all 4 encoders collapse at/near chance)",
+  "any_positive_surprise": false,
+  "context_sensitivity_flags": {
+    "random_indexing": false,
+    "concept_encoder": false,
+    "composed_encoder_v3": true,
+    "ppmi_sparse_encoder": true
+  },
+  "per_encoder": {
+    "random_indexing": {
+      "encoder": "random_indexing",
+      "n_trials": 32,
+      "n_correct": 12,
+      "n_ties": 32,
+      "forced_choice_accuracy": 0.375,
+      "chance": 0.5,
+      "binomial_se": 0.08838834764831845,
+      "z_vs_chance": -1.414213562373095,
+      "p_value_vs_chance": 0.1572992070502852,
+      "mean_separation": 0.0,
+      "per_word": {
+        "bear": {
+          "cos_A1_A2_same_sense": 0.9999999999999998,
+          "cos_B1_B2_same_sense": 0.9999999999999998,
+          "cos_A_vs_B_pairs": [
+            0.9999999999999998,
+            0.9999999999999998,
+            0.9999999999999998,
+            0.9999999999999998
+          ],
+          "mean_same_sense_cos": 0.9999999999999998,
+          "mean_diff_sense_cos": 0.9999999999999998,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9999999999999998
+        },
+        "bright": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        },
+        "cross": {
+          "cos_A1_A2_same_sense": 0.9999999999999999,
+          "cos_B1_B2_same_sense": 0.9999999999999999,
+          "cos_A_vs_B_pairs": [
+            0.9999999999999999,
+            0.9999999999999999,
+            0.9999999999999999,
+            0.9999999999999999
+          ],
+          "mean_same_sense_cos": 0.9999999999999999,
+          "mean_diff_sense_cos": 0.9999999999999999,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9999999999999999
+        },
+        "hard": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        },
+        "light": {
+          "cos_A1_A2_same_sense": 0.9999999999999998,
+          "cos_B1_B2_same_sense": 0.9999999999999998,
+          "cos_A_vs_B_pairs": [
+            0.9999999999999998,
+            0.9999999999999998,
+            0.9999999999999998,
+            0.9999999999999998
+          ],
+          "mean_same_sense_cos": 0.9999999999999998,
+          "mean_diff_sense_cos": 0.9999999999999998,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9999999999999998
+        },
+        "pay": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        },
+        "sound": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        },
+        "trick": {
+          "cos_A1_A2_same_sense": 1.0000000000000002,
+          "cos_B1_B2_same_sense": 1.0000000000000002,
+          "cos_A_vs_B_pairs": [
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002
+          ],
+          "mean_same_sense_cos": 1.0000000000000002,
+          "mean_diff_sense_cos": 1.0000000000000002,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0000000000000002
+        }
+      },
+      "context_sensitive_by_construction": false
+    },
+    "concept_encoder": {
+      "encoder": "concept_encoder",
+      "n_trials": 32,
+      "n_correct": 18,
+      "n_ties": 30,
+      "forced_choice_accuracy": 0.5625,
+      "chance": 0.5,
+      "binomial_se": 0.08838834764831845,
+      "z_vs_chance": 0.7071067811865475,
+      "p_value_vs_chance": 0.4795001221869535,
+      "mean_separation": 0.0,
+      "per_word": {
+        "bear": {
+          "cos_A1_A2_same_sense": 1.0000000000000002,
+          "cos_B1_B2_same_sense": 1.0000000000000002,
+          "cos_A_vs_B_pairs": [
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002
+          ],
+          "mean_same_sense_cos": 1.0000000000000002,
+          "mean_diff_sense_cos": 1.0000000000000002,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0000000000000002
+        },
+        "bright": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        },
+        "cross": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        },
+        "hard": {
+          "cos_A1_A2_same_sense": 1.0000000000000002,
+          "cos_B1_B2_same_sense": 0.019062321291575583,
+          "cos_A_vs_B_pairs": [
+            1.0000000000000002,
+            0.019062321291575583,
+            1.0000000000000002,
+            0.019062321291575583
+          ],
+          "mean_same_sense_cos": 0.5095311606457879,
+          "mean_diff_sense_cos": 0.5095311606457879,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0000000000000002
+        },
+        "light": {
+          "cos_A1_A2_same_sense": 1.0000000000000002,
+          "cos_B1_B2_same_sense": 1.0000000000000002,
+          "cos_A_vs_B_pairs": [
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002
+          ],
+          "mean_same_sense_cos": 1.0000000000000002,
+          "mean_diff_sense_cos": 1.0000000000000002,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0000000000000002
+        },
+        "pay": {
+          "cos_A1_A2_same_sense": 1.0000000000000002,
+          "cos_B1_B2_same_sense": 1.0000000000000002,
+          "cos_A_vs_B_pairs": [
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002
+          ],
+          "mean_same_sense_cos": 1.0000000000000002,
+          "mean_diff_sense_cos": 1.0000000000000002,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0000000000000002
+        },
+        "sound": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        },
+        "trick": {
+          "cos_A1_A2_same_sense": 1.0,
+          "cos_B1_B2_same_sense": 1.0,
+          "cos_A_vs_B_pairs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean_same_sense_cos": 1.0,
+          "mean_diff_sense_cos": 1.0,
+          "separation": 0.0,
+          "cos_rep_A1_vs_rep_B1_ref": 1.0
+        }
+      },
+      "context_sensitive_by_construction": false
+    },
+    "composed_encoder_v3": {
+      "encoder": "composed_encoder_v3",
+      "n_trials": 32,
+      "n_correct": 17,
+      "n_ties": 0,
+      "forced_choice_accuracy": 0.53125,
+      "chance": 0.5,
+      "binomial_se": 0.08838834764831845,
+      "z_vs_chance": 0.35355339059327373,
+      "p_value_vs_chance": 0.7236736098317631,
+      "mean_separation": 0.0048561670776032795,
+      "per_word": {
+        "bear": {
+          "cos_A1_A2_same_sense": 0.7100965472735501,
+          "cos_B1_B2_same_sense": 0.6857644790655224,
+          "cos_A_vs_B_pairs": [
+            0.6722159697762129,
+            0.6607740144591862,
+            0.6882220275293062,
+            0.6734441922668226
+          ],
+          "mean_same_sense_cos": 0.6979305131695362,
+          "mean_diff_sense_cos": 0.673664051007882,
+          "separation": 0.02426646216165429,
+          "cos_rep_A1_vs_rep_B1_ref": 0.6722159697762129
+        },
+        "bright": {
+          "cos_A1_A2_same_sense": 0.6070351695059784,
+          "cos_B1_B2_same_sense": 0.7065436031667228,
+          "cos_A_vs_B_pairs": [
+            0.6874989180163146,
+            0.6900899729486434,
+            0.6509119471681233,
+            0.6109090141081078
+          ],
+          "mean_same_sense_cos": 0.6567893863363505,
+          "mean_diff_sense_cos": 0.6598524630602973,
+          "separation": -0.0030630767239467893,
+          "cos_rep_A1_vs_rep_B1_ref": 0.6874989180163146
+        },
+        "cross": {
+          "cos_A1_A2_same_sense": 0.6745692652659193,
+          "cos_B1_B2_same_sense": 0.6944849643481428,
+          "cos_A_vs_B_pairs": [
+            0.695051222845373,
+            0.7154834786379695,
+            0.6926974289833222,
+            0.6919494186303552
+          ],
+          "mean_same_sense_cos": 0.6845271148070311,
+          "mean_diff_sense_cos": 0.6987953872742549,
+          "separation": -0.014268272467223841,
+          "cos_rep_A1_vs_rep_B1_ref": 0.695051222845373
+        },
+        "hard": {
+          "cos_A1_A2_same_sense": 0.6318819839630417,
+          "cos_B1_B2_same_sense": 0.6790592898560194,
+          "cos_A_vs_B_pairs": [
+            0.6842343202434393,
+            0.667521692542986,
+            0.6355680377337848,
+            0.6149926521238411
+          ],
+          "mean_same_sense_cos": 0.6554706369095306,
+          "mean_diff_sense_cos": 0.6505791756610128,
+          "separation": 0.004891461248517803,
+          "cos_rep_A1_vs_rep_B1_ref": 0.6842343202434393
+        },
+        "light": {
+          "cos_A1_A2_same_sense": 0.6954026783915297,
+          "cos_B1_B2_same_sense": 0.6617096595104889,
+          "cos_A_vs_B_pairs": [
+            0.6913179320294023,
+            0.6649421769815576,
+            0.6849830032258499,
+            0.6691626747358971
+          ],
+          "mean_same_sense_cos": 0.6785561689510093,
+          "mean_diff_sense_cos": 0.6776014467431767,
+          "separation": 0.0009547222078326589,
+          "cos_rep_A1_vs_rep_B1_ref": 0.6913179320294023
+        },
+        "pay": {
+          "cos_A1_A2_same_sense": 0.6575633953760718,
+          "cos_B1_B2_same_sense": 0.6941678408488792,
+          "cos_A_vs_B_pairs": [
+            0.6966962703221936,
+            0.6846184491699964,
+            0.6175093483185831,
+            0.636399472160319
+          ],
+          "mean_same_sense_cos": 0.6758656181124755,
+          "mean_diff_sense_cos": 0.6588058849927729,
+          "separation": 0.017059733119702547,
+          "cos_rep_A1_vs_rep_B1_ref": 0.6966962703221936
+        },
+        "sound": {
+          "cos_A1_A2_same_sense": 0.695389808586164,
+          "cos_B1_B2_same_sense": 0.6571532266983893,
+          "cos_A_vs_B_pairs": [
+            0.6349001221625299,
+            0.6995816994954446,
+            0.6499732852852615,
+            0.7024844010647382
+          ],
+          "mean_same_sense_cos": 0.6762715176422767,
+          "mean_diff_sense_cos": 0.6717348770019935,
+          "separation": 0.0045366406402831405,
+          "cos_rep_A1_vs_rep_B1_ref": 0.6349001221625299
+        },
+        "trick": {
+          "cos_A1_A2_same_sense": 0.6525986159924744,
+          "cos_B1_B2_same_sense": 0.7040369360150209,
+          "cos_A_vs_B_pairs": [
+            0.679005962666688,
+            0.71632009031708,
+            0.6401090879081762,
+            0.659949297387021
+          ],
+          "mean_same_sense_cos": 0.6783177760037477,
+          "mean_diff_sense_cos": 0.6738461095697412,
+          "separation": 0.004471666434006427,
+          "cos_rep_A1_vs_rep_B1_ref": 0.679005962666688
+        }
+      },
+      "context_sensitive_by_construction": true
+    },
+    "ppmi_sparse_encoder": {
+      "encoder": "ppmi_sparse_encoder",
+      "n_trials": 32,
+      "n_correct": 20,
+      "n_ties": 0,
+      "forced_choice_accuracy": 0.625,
+      "chance": 0.5,
+      "binomial_se": 0.08838834764831845,
+      "z_vs_chance": 1.414213562373095,
+      "p_value_vs_chance": 0.1572992070502852,
+      "mean_separation": 0.0026576434763914136,
+      "per_word": {
+        "bear": {
+          "cos_A1_A2_same_sense": 0.997374747461651,
+          "cos_B1_B2_same_sense": 0.9943044404226369,
+          "cos_A_vs_B_pairs": [
+            0.978288545259133,
+            0.9837719070346513,
+            0.9882816490463827,
+            0.9907801020965096
+          ],
+          "mean_same_sense_cos": 0.9958395939421439,
+          "mean_diff_sense_cos": 0.9852805508591691,
+          "separation": 0.01055904308297484,
+          "cos_rep_A1_vs_rep_B1_ref": 0.978288545259133
+        },
+        "bright": {
+          "cos_A1_A2_same_sense": 0.9860346554815538,
+          "cos_B1_B2_same_sense": 0.9943140656241649,
+          "cos_A_vs_B_pairs": [
+            0.9891567073396004,
+            0.9949561540997633,
+            0.9777439015901153,
+            0.9822653720514565
+          ],
+          "mean_same_sense_cos": 0.9901743605528593,
+          "mean_diff_sense_cos": 0.9860305337702338,
+          "separation": 0.0041438267826255926,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9891567073396004
+        },
+        "cross": {
+          "cos_A1_A2_same_sense": 0.9802692340533289,
+          "cos_B1_B2_same_sense": 0.9949271390951941,
+          "cos_A_vs_B_pairs": [
+            0.9889601368598474,
+            0.9902162381833722,
+            0.9907727366753556,
+            0.9942674500721591
+          ],
+          "mean_same_sense_cos": 0.9875981865742616,
+          "mean_diff_sense_cos": 0.9910541404476836,
+          "separation": -0.003455953873422013,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9889601368598474
+        },
+        "hard": {
+          "cos_A1_A2_same_sense": 0.992121285354726,
+          "cos_B1_B2_same_sense": 0.9748744956816822,
+          "cos_A_vs_B_pairs": [
+            0.9686301770672002,
+            0.9911465230398719,
+            0.9738415861888351,
+            0.9910443069952424
+          ],
+          "mean_same_sense_cos": 0.9834978905182041,
+          "mean_diff_sense_cos": 0.9811656483227873,
+          "separation": 0.0023322421954168338,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9686301770672002
+        },
+        "light": {
+          "cos_A1_A2_same_sense": 0.9856294793301944,
+          "cos_B1_B2_same_sense": 0.985782673516402,
+          "cos_A_vs_B_pairs": [
+            0.9866140173095553,
+            0.9886143691683017,
+            0.9754803076749073,
+            0.9910248859826324
+          ],
+          "mean_same_sense_cos": 0.9857060764232982,
+          "mean_diff_sense_cos": 0.9854333950338492,
+          "separation": 0.0002726813894490254,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9866140173095553
+        },
+        "pay": {
+          "cos_A1_A2_same_sense": 0.9819073997039668,
+          "cos_B1_B2_same_sense": 0.975599023435544,
+          "cos_A_vs_B_pairs": [
+            0.9797914262745657,
+            0.968444651193182,
+            0.9842872751379929,
+            0.9863771864208108
+          ],
+          "mean_same_sense_cos": 0.9787532115697555,
+          "mean_diff_sense_cos": 0.9797251347566379,
+          "separation": -0.0009719231868824396,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9797914262745657
+        },
+        "sound": {
+          "cos_A1_A2_same_sense": 0.9986175365430067,
+          "cos_B1_B2_same_sense": 0.9808919925046206,
+          "cos_A_vs_B_pairs": [
+            0.9895085913120978,
+            0.9857226106318532,
+            0.9913106607123399,
+            0.9881178909379995
+          ],
+          "mean_same_sense_cos": 0.9897547645238136,
+          "mean_diff_sense_cos": 0.9886649383985726,
+          "separation": 0.0010898261252410002,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9895085913120978
+        },
+        "trick": {
+          "cos_A1_A2_same_sense": 0.9984507724069688,
+          "cos_B1_B2_same_sense": 0.9785223292572311,
+          "cos_A_vs_B_pairs": [
+            0.9744165576662349,
+            0.9898519646446529,
+            0.969580486007109,
+            0.990931573827489
+          ],
+          "mean_same_sense_cos": 0.9884865508320999,
+          "mean_diff_sense_cos": 0.9811951455363714,
+          "separation": 0.00729140529572847,
+          "cos_rep_A1_vs_rep_B1_ref": 0.9744165576662349
+        }
+      },
+      "context_sensitive_by_construction": true
+    }
+  },
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "exempt_short_singleshot_cell_start_marker_and_crash_diagnostic_present",
+  "crlb_n_a": "representational-collapse measurement; no quantitative noise-floor formula applies"
+}
