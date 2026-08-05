@@ -141,12 +141,21 @@ EXPECTED_N_SEEDS = len(SEEDS)
 
 # ============================================================================ bank load
 def load_bank():
+    """Loads the RECENCY-TRAP subset of the bank only (trap_type=="recency" or unset -- the
+    original 28 core + 14 twins this cell was built + gold-VET'd on). 2026-08-05: the bank file
+    grew a SEPARATE trap_type=="primacy" subset (20 rows, all has_distractor=True) authored for
+    exp_c5_fair_goal_owner_primacy_v1 -- those rows must NOT leak into this cell's "core" set (their
+    S1 is deliberately the DISTRACTOR's sentence, so this cell's S1-alone "goal-subject-ceiling"
+    baseline would read ~0.0 for them, not the ~1.0 this cell's gates require; they are a different,
+    additional instrument, scored by their own dedicated cell). Filtering by trap_type keeps this
+    cell's validated 28+14=42-row bank bit-identical to what it was gold-VET'd against."""
     rows = []
     with open(BANK_PATH, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if line:
                 rows.append(json.loads(line))
+    rows = [r for r in rows if r.get("trap_type", "recency") == "recency"]
     core = [r for r in rows if r["has_distractor"]]
     twins = [r for r in rows if not r["has_distractor"]]
     return rows, core, twins
