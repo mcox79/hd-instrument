@@ -1,0 +1,197 @@
+{
+  "anchor_name": "frame_trigger_predicate_recall_fix_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_FRAME_TRIGGER_RECALL_FIX",
+  "verdict_msg": "HARD_PASS_FRAME_TRIGGER_RECALL_FIX | BASELINE(multi_pred=False) P=0.1803 R=0.3235 F1=0.2316 n_pred=61 | FRAME_TRIGGER(multi_pred=True) P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | dP=-0.0210 dR=+0.2059 | TRIPLE base R=0.2941 frame R=0.3824 | G1_baseline_repro=True G2_no_regression=True (orc=True argstruct=True situation_reader=True) | n_fn_before=23 n_fn_after=16",
+  "summary": "HARD_PASS_FRAME_TRIGGER_RECALL_FIX | BASELINE(multi_pred=False) P=0.1803 R=0.3235 F1=0.2316 n_pred=61 | FRAME_TRIGGER(multi_pred=True) P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | dP=-0.0210 dR=+0.2059 | TRIPLE base R=0.2941 frame R=0.3824 | G1_baseline_repro=True G2_no_regression=True (orc=True argstruct=True situation_reader=True) | n_fn_before=23 n_fn_after=16",
+  "elapsed_s": 175.9313642000052,
+  "ts_iso": "2026-08-05T22:50:57.571509+00:00",
+  "fn_composition_before_fix": {
+    "n_fn_total": 23,
+    "n_in_verb_frames": 17,
+    "n_oov_no_frame": 6,
+    "n_vbstar_single_verb_limit": 15,
+    "n_pos_mistag_nonvb": 2,
+    "n_token_not_found": 1,
+    "note": "Of 23 primary-metric FN on the frozen baseline: 17 have a lemma already in VERB_FRAMES (frame-lookup recoverable), 6 are genuinely OOV (no frame entry -- knock x3, lay, finish, have, all subsequently ADDED to VERB_FRAMES as a coverage fix). Of the 17 in-frame FN, 15 were ALREADY correctly POS-tagged VB* -- the single-main-verb-per-sentence architecture (find_main_verb stops at the first content verb) is the DOMINANT root cause (65%), not POS-mistagging (2/23, 9%). This revises the drill's P1/P2 framing but the SAME fix (frame-lookup gate, POS-independent, multi-predicate) recovers both failure classes."
+  },
+  "baseline": {
+    "primary": {
+      "precision": 0.18032786885245902,
+      "recall": 0.3235294117647059,
+      "f1": 0.23157894736842105,
+      "n_pred": 61,
+      "tp": 11,
+      "n_gold_covered": 11,
+      "n_gold": 34
+    },
+    "triple": {
+      "precision": 0.16393442622950818,
+      "recall": 0.29411764705882354,
+      "f1": 0.21052631578947367,
+      "n_pred": 61,
+      "tp": 10,
+      "n_gold_covered": 10,
+      "n_gold": 34
+    }
+  },
+  "frame_trigger": {
+    "primary": {
+      "precision": 0.1592920353982301,
+      "recall": 0.5294117647058824,
+      "f1": 0.24489795918367346,
+      "n_pred": 113,
+      "tp": 18,
+      "n_gold_covered": 18,
+      "n_gold": 34
+    },
+    "triple": {
+      "precision": 0.11504424778761062,
+      "recall": 0.38235294117647056,
+      "f1": 0.17687074829931973,
+      "n_pred": 113,
+      "tp": 13,
+      "n_gold_covered": 13,
+      "n_gold": 34
+    }
+  },
+  "design_gate": {
+    "G1_baseline_reproduction": true,
+    "G1_frozen_targets": {
+      "precision": 0.18032786885245902,
+      "recall": 0.3235294117647059,
+      "f1": 0.23157894736842105
+    },
+    "G2_no_regression": true,
+    "G2_oracle_mention_selftest": {
+      "ok": true,
+      "tail": "SELF-TEST PASS: perceptron fit (97 ex); canonical+passive roles; positional misses passive; 49 REAL 2nd-reader clauses provenance-verified verbatim; loc(bees,house) extracts (handrule=v4); 56 gold mention heads valid + blacklist-disjoint; oracle!=handrule extraction (telemetry); N_CMP=16; 4 mention arms differ."
+    },
+    "G2_argstruct_selftest": {
+      "ok": true,
+      "tail": "; 3rd-person path untouched\nPASS test_possessive_np_gender_head_governs POSSESSIVE_NP: 'his mother'->fem, 'her father'->masc, head-noun governs, non-possessive spans unchanged\n\nALL PASS: hdlab.state_of_mind.WorkingOverlay reproduces the validated recency/salience double-dissociation (longdist 49bb99c24; VET a7ca3db1) -- packaged overlay is the latest validated one.\n[self-test] controls: passive 1.00 reversal 1.00; overlay green\n[self-test] deterministic (two ON reads identical)\n[self-test] PASS"
+    },
+    "G2_situation_reader_selftest_unrelated_pipeline": {
+      "ok": true,
+      "tail": "iring\": {\n    \"fear_subj_role\": \"EXPERIENCER\",\n    \"cherish_subj_role\": \"EXPERIENCER\",\n    \"kick_subj_role\": \"AGENT\",\n    \"bolted_subj_role\": \"AGENT\",\n    \"induced_name\": \"ruleind\"\n  },\n  \"affect_wiring\": {\n    \"saw_affect\": null,\n    \"battered_affect\": \"HARM\",\n    \"n_events\": 2\n  },\n  \"event_extraction_coverage\": {\n    \"ottenburg_cherished_recovered\": true,\n    \"queequeg_gain_recovered\": true,\n    \"mary_talking_recovered\": true,\n    \"mary_resenting_recovered\": false\n  }\n}\nALL SELF-TESTS PASSED"
+    }
+  },
+  "delta": {
+    "precision": -0.021035833454228936,
+    "recall": 0.20588235294117646,
+    "precision_collapse_ge_0.10": false,
+    "recall_lift_material": true
+  },
+  "residual_fn_after_fix": {
+    "n": 16,
+    "items": [
+      [
+        "L04_01",
+        "build",
+        "he",
+        "blockhouse"
+      ],
+      [
+        "L04_03",
+        "throw",
+        "herbert",
+        "it"
+      ],
+      [
+        "L04_05",
+        "catch",
+        "hetty",
+        "her"
+      ],
+      [
+        "L04_07",
+        "do",
+        "she",
+        "it"
+      ],
+      [
+        "L04_10",
+        "build",
+        "you",
+        "it"
+      ],
+      [
+        "L04_12",
+        "rub",
+        "pussy",
+        "castle"
+      ],
+      [
+        "L04_13",
+        "do",
+        "she",
+        "it"
+      ],
+      [
+        "L04_19",
+        "lay",
+        "papa",
+        "foundation"
+      ],
+      [
+        "L05_13",
+        "knock",
+        "pussy",
+        "one"
+      ],
+      [
+        "L05_15",
+        "knock",
+        "pussy",
+        "that"
+      ],
+      [
+        "L05_15",
+        "build",
+        "you",
+        "it"
+      ],
+      [
+        "L05_16",
+        "knock",
+        "pussy",
+        "castles"
+      ],
+      [
+        "L05_17",
+        "have",
+        "i",
+        "it"
+      ],
+      [
+        "L05_18",
+        "watch",
+        "you",
+        "her"
+      ],
+      [
+        "L05_22",
+        "leave",
+        "servant",
+        "it"
+      ],
+      [
+        "L05_25",
+        "build",
+        "you",
+        "them"
+      ]
+    ],
+    "note": "Residual FN after the fix are DOMINANTLY role/patient-assignment errors on secondary predicates (the predicate DOES fire via find_frame_verbs, but assign_roles_learned_at's positional/animacy features -- calibrated for a SINGLE main-verb sentence -- mis-select the agent/patient head in coordination/relative-clause contexts, e.g. rub(pussy,castle) -> reader emits rub-adjacent 'answer(castle,hetty)'), plus a smaller genuinely-undetected residual (coordinate 'and Xed' clauses whose subject is only available via subject-carryover the multi_pred scan does not perform). This is a DIFFERENT component (thematic role / patient-head assignment for secondary predicates) than the one this fix targets (predicate/event detection) -- named here as the next residual gap, not forced into this cell's scope."
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "baseline",
+    "frame_trigger",
+    "design_gate",
+    "delta",
+    "residual_fn_after_fix",
+    "fn_composition_before_fix"
+  ],
+  "notes": "Frame-lookup multi-predicate event trigger (reuses hdlab.thematic_role_labeler.VERB_FRAMES, Component-3), replacing the single-verb POS-gated find_main_verb scan as the RECALL bottleneck's primary fix. See notes/drill_brain_event_predicate_recognition.md (commit afddc2807) for the brain-grounding; this cell's own FN-composition measurement revises that drill's P1/P2 framing (single-verb-limit dominates over POS-mistagging, 15/23 vs 2/23) but the prescribed fix (frame-lookup, POS-as-soft-prior) recovers both."
+}

@@ -320,7 +320,8 @@ def apply_argrole_fix(tagged, roles, verb_idx, verb, cand, pid=None, clause=None
 # =======================================================================================
 def extract_passage_argrole(passage_text, clf, pid, passages_dict, mention_mode, clause_seg,
                             role_fix, self_loop_guard, deixis=True, argrole=False,
-                            decisions_out=None, deixis_out=None, resolutions_out=None, site_out=None):
+                            decisions_out=None, deixis_out=None, resolutions_out=None, site_out=None,
+                            multi_pred=False):
     coref_strategy = ORC.FIXED_COREF_STRATEGY
     fix_possessive = True
     agreement = True
@@ -459,6 +460,25 @@ def extract_passage_argrole(passage_text, clf, pid, passages_dict, mention_mode,
         if verb is not None and agents and patients and verb not in ("has", "is"):
             for pi in patients:
                 rels.append(("svo", verb, head_of(agents[0]), head_of(pi)))
+        # ---- FRAME-TRIGGER multi-predicate axis (opt-in, 2026-08-05 recall fix) ----------------
+        # Reuses Component-3 (hdlab.thematic_role_labeler.VERB_FRAMES) via ORC.find_frame_verbs to
+        # emit svo relations for SECONDARY predicates the single-main-verb scan above drops (the
+        # dominant FN root cause measured on the independent-gold eval, 15/23 -- multi-predicate
+        # sentences, not POS mistagging). ADDITIVE ONLY: default False, so every existing call site
+        # (and every other reader/cell that imports extract_passage_argrole) is byte-identical.
+        if multi_pred:
+            for (v2_idx, v2_lemma, v2_passive) in ORC.find_frame_verbs(tagged):
+                if v2_idx == verb_idx:
+                    continue  # already emitted above via the primary verb/roles/cand
+                if v2_lemma in ("has", "is"):
+                    continue
+                roles2, cand2 = ORC.assign_roles_learned_at(tagged, clf, v2_idx, v2_passive,
+                                                             mention_mode, frozenset())
+                agents2 = [i for i in cand2 if roles2.get(i) == "AGENT"]
+                patients2 = [i for i in cand2 if roles2.get(i) == "PATIENT"]
+                if agents2 and patients2:
+                    for pi in patients2:
+                        rels.append(("svo", v2_lemma, head_of(agents2[0]), head_of(pi)))
         lows = [t[1] for t in tagged]
         if "kind" in lows and subj_head is not None:
             for i in cand:
@@ -547,7 +567,8 @@ def extract_passage_argrole(passage_text, clf, pid, passages_dict, mention_mode,
 # =======================================================================================
 # Read the whole corpus with the arg-role axis ON or OFF (deixis held ON = current reader).
 # =======================================================================================
-def read_corpus(clf, passages, argrole, deixis=True, hb=None, want_sites=False, want_deixis=False):
+def read_corpus(clf, passages, argrole, deixis=True, hb=None, want_sites=False, want_deixis=False,
+                multi_pred=False):
     foundation = set()
     store = {}
     sites = [] if want_sites else None
@@ -557,7 +578,7 @@ def read_corpus(clf, passages, argrole, deixis=True, hb=None, want_sites=False, 
         rels, _rbp, _removed, _inj = extract_passage_argrole(
             text, clf, pid, passages, "handrule", _VF_MODE,
             role_fix=True, self_loop_guard=True, deixis=deixis, argrole=argrole,
-            site_out=sites, resolutions_out=rr)
+            site_out=sites, resolutions_out=rr, multi_pred=multi_pred)
         store[pid] = rels
         for r in rels:
             if r[0] in _KINDS or r[0] == "goal":

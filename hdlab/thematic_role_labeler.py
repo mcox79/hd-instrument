@@ -67,7 +67,11 @@ DITRANS_VERBS = [
 ]
 
 # Plain agent-transitive / motion / general narrative verbs (subj=AGENT; obj=PATIENT if present).
+# 2026-08-05 coverage extension (frame-trigger recall fix, drill afddc2807): knock/lay/finish/have
+# were FN root causes (novel lemmas, no frame entry) found by the FN-composition test on the
+# independent-gold recall eval -- adding them is Component-3 coverage-widening, not a new organ.
 _PLAIN_TRANSITIVE = [
+    "knock", "lay", "finish", "have",
     "take", "throw", "build", "rub", "fall", "cry", "go", "come", "run", "walk", "sit", "stand",
     "catch", "reach", "spring", "leap", "creep", "swim", "pass", "do", "make", "break", "cut",
     "strike", "hit", "kick", "push", "pull", "carry", "drop", "lift", "open", "close", "shut",

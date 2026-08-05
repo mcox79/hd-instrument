@@ -288,13 +288,15 @@ def nest_axis_passage(text, clf):
 
 def extract_passage_nest(passage_text, clf, pid, passages_dict, mention_mode, clause_seg,
                          role_fix, self_loop_guard, deixis=True, nest=False,
-                         resolutions_out=None, records_out=None):
+                         resolutions_out=None, records_out=None, multi_pred=False):
     """nest=False -> LITERALLY R.extract_passage_argrole(argrole=True) (byte-identical baseline). nest=True
-    -> additive RC nest pass merged in (adds embedded+matrix+nest-link, suppresses mis-attach)."""
+    -> additive RC nest pass merged in (adds embedded+matrix+nest-link, suppresses mis-attach).
+    multi_pred=True -> additive FRAME-TRIGGER secondary-predicate axis (2026-08-05 recall fix,
+    see R.extract_passage_argrole); default False keeps this byte-identical to pre-fix behavior."""
     rels, rbp, removed, inj = R.extract_passage_argrole(
         passage_text, clf, pid, passages_dict, mention_mode, clause_seg,
         role_fix=role_fix, self_loop_guard=self_loop_guard, deixis=deixis, argrole=True,
-        resolutions_out=resolutions_out)
+        resolutions_out=resolutions_out, multi_pred=multi_pred)
     if not nest:
         return rels, rbp, removed, inj
     add, suppress, records = nest_axis_passage(passage_text, clf)
@@ -307,7 +309,8 @@ def extract_passage_nest(passage_text, clf, pid, passages_dict, mention_mode, cl
     return merged, rbp, removed, inj
 
 
-def read_corpus(clf, passages, nest, deixis=True, hb=None, want_records=False, want_deixis=False):
+def read_corpus(clf, passages, nest, deixis=True, hb=None, want_records=False, want_deixis=False,
+                multi_pred=False):
     foundation = set()
     store = {}
     records = [] if want_records else None
@@ -317,7 +320,7 @@ def read_corpus(clf, passages, nest, deixis=True, hb=None, want_records=False, w
         rels, _rbp, _removed, _inj = extract_passage_nest(
             text, clf, pid, passages, "handrule", _VF_MODE,
             role_fix=True, self_loop_guard=True, deixis=deixis, nest=nest,
-            records_out=records, resolutions_out=rr)
+            records_out=records, resolutions_out=rr, multi_pred=multi_pred)
         store[pid] = rels
         for r in rels:
             if r[0] in _KINDS or r[0] in ("nest", "pred"):

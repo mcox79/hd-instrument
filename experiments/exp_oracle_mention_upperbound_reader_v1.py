@@ -110,6 +110,16 @@ REPO = os.path.dirname(os.path.dirname(_THIS))
 if REPO not in sys.path:
     sys.path.insert(0, REPO)
 
+from hdlab.thematic_role_labeler import (  # noqa: E402
+    VERB_FRAMES as _TRL_VERB_FRAMES, lemma_verb as _trl_lemma_verb)
+
+# Determiner/possessive-like words that (per the drill's HARD-FAIL mitigation, notes/
+# drill_brain_event_predicate_recognition.md #2) reliably distinguish a NOMINAL reading ("the
+# knock", "his hurt") from a VERBAL one ("I knock", "you hurt") -- the one cheap syntactic
+# sanity-check the drill flagged as needed alongside pure lemma-frame lookup.
+_DET_LIKE = {"a", "an", "the", "his", "her", "my", "your", "its", "their", "this", "that",
+             "these", "those", "some", "any", "no", "every", "each"}
+
 ANCHOR_NAME = "oracle_mention_upperbound_reader_v1"
 OUTPUT_DIR = os.path.join(REPO, "data", "exp_" + ANCHOR_NAME)
 CORPUS_PATH = os.path.join(REPO, "data", "corpora", "graded_readers_graded", "cleaned",
@@ -357,6 +367,51 @@ def find_main_verb(tagged):
         if low in ("is", "are", "was", "were"):
             return i, "is", False
     return None, None, False
+
+
+def find_frame_verbs(tagged):
+    """FRAME-LOOKUP multi-predicate extraction (2026-08-05 recall fix; see
+    notes/drill_brain_event_predicate_recognition.md, commit afddc2807). Brain-faithful: event
+    recognition is frame/argument-structure-triggered (does this lemma have a known selectional
+    frame in hdlab.thematic_role_labeler.VERB_FRAMES?), NOT a hard pos.startswith('VB') gate --
+    POS is demoted to a SOFT prior (used below only for the passive-voice tense flag, never to
+    suppress a candidate). The one syntactic sanity-check kept (per the drill's HARD-FAIL
+    mitigation) is the determiner-guard: a candidate immediately preceded by a determiner/
+    possessive is a nominal reading ("the knock"), not a predicate ("I knock").
+
+    Returns an ORDERED (text-order) list of (idx, lemma, is_passive) predicate sites. Element 0
+    is find_main_verb's OWN single pick when it exists (so a caller that only reads element 0 -
+    or slices [:1] - sees byte-identical behavior to the pre-2026-08-05 pipeline). Every
+    additional element is ADDITIVE coverage for a secondary predicate the old single-verb,
+    POS-gated scan would have silently dropped: a second clause's verb (multi-predicate
+    sentence, the DOMINANT root cause measured on the independent-gold FN set, 15/23) or a
+    verb the shallow tagger mistagged as NN/NNS (2/23)."""
+    lows = [t[1] for t in tagged]
+    primary_idx, primary_verb, primary_passive = find_main_verb(tagged)
+    out = [(primary_idx, primary_verb, primary_passive)] if primary_idx is not None else []
+    seen = {primary_idx} if primary_idx is not None else set()
+    for i, (surf, low, pos) in enumerate(tagged):
+        if i in seen:
+            continue
+        lemma = _trl_lemma_verb(low)
+        if lemma not in _TRL_VERB_FRAMES:
+            continue
+        # aux lemma is only admitted here when its lemma was DELIBERATELY given a content frame
+        # (e.g. "have" -- possessive/desire sense, "can't have it"); plain grammatical
+        # auxiliaries (is/was/did/had-as-perfect) are never in VERB_FRAMES so the `lemma not in
+        # _TRL_VERB_FRAMES` check above already filters them -- no separate AUX_LEMMAS skip needed.
+        prev_low = lows[i - 1] if i > 0 else None
+        if prev_low in _DET_LIKE:
+            continue  # nominal-reading guard
+        is_passive = False
+        for j in range(max(0, i - 3), i):
+            if lows[j] in ("was", "were", "is", "are", "be", "been"):
+                if pos == "VBN" or low.endswith("ed"):
+                    is_passive = True
+                break
+        out.append((i, lemma, is_passive))
+        seen.add(i)
+    return out
 
 
 FUNCTION_WORDS = (PREPS_LOC | PREP_TO | PREP_OF_WITH | AUX_LEMMAS | {
@@ -861,15 +916,25 @@ PASSIVE_ITEMS = [
 # Extraction pipeline. Per passage: left-to-right pass feeds the REAL overlay for coref;
 # per sentence, assign roles (learned OR positional) then emit relations with resolved heads.
 # =======================================================================================
-def assign_roles_learned(tagged, clf, mention_mode="handrule", gold_heads=frozenset()):
-    """Return dict cand_idx -> role via the LEARNED classifier. mention_mode gates the candidates."""
-    verb_idx, verb, passive = find_main_verb(tagged)
+def assign_roles_learned_at(tagged, clf, verb_idx, passive, mention_mode="handrule",
+                             gold_heads=frozenset()):
+    """Same feature/classify loop as assign_roles_learned, but for an EXPLICIT (verb_idx, passive)
+    instead of always re-deriving it from find_main_verb -- lets a caller run role assignment for
+    a SECONDARY predicate (find_frame_verbs element 1+), not just the sentence's single main verb.
+    Returns (roles, cand)."""
     cand = candidate_indices_mode(tagged, mention_mode, gold_heads)
     first = cand[0] if cand else None
     roles = {}
     for i in cand:
         feats = candidate_features(tagged, i, verb_idx, passive, first)
         roles[i] = clf.predict(feats)
+    return roles, cand
+
+
+def assign_roles_learned(tagged, clf, mention_mode="handrule", gold_heads=frozenset()):
+    """Return dict cand_idx -> role via the LEARNED classifier. mention_mode gates the candidates."""
+    verb_idx, verb, passive = find_main_verb(tagged)
+    roles, cand = assign_roles_learned_at(tagged, clf, verb_idx, passive, mention_mode, gold_heads)
     return roles, verb_idx, verb, passive, cand
 
 
