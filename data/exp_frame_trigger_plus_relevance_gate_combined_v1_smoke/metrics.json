@@ -1,0 +1,310 @@
+{
+  "anchor_name": "frame_trigger_plus_relevance_gate_combined_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL_NO_NET_COMPOSITION_GAIN",
+  "verdict_msg": "HARD_FAIL_NO_NET_COMPOSITION_GAIN | slice=L04 | BASELINE P=0.2963 R=0.4444 F1=0.3556 n_pred=27 | FRAME_TRIGGER P=0.2273 R=0.5556 F1=0.3226 n_pred=44 | COMBINED P=0.2727 R=0.3333 F1=0.3000 n_pred=22 | dP(combined-frame)=+0.0455 | TRIPLE base=0.3111 frame=0.2258 combined=0.1500 | gate_dropped=22/44 | G1=True G2=True(ft=True gate=True) G3=True | beats_baseline_f1=False beats_frame_f1=False precision_material_gain=False recall_kept=False",
+  "summary": "HARD_FAIL_NO_NET_COMPOSITION_GAIN | slice=L04 | BASELINE P=0.2963 R=0.4444 F1=0.3556 n_pred=27 | FRAME_TRIGGER P=0.2273 R=0.5556 F1=0.3226 n_pred=44 | COMBINED P=0.2727 R=0.3333 F1=0.3000 n_pred=22 | dP(combined-frame)=+0.0455 | TRIPLE base=0.3111 frame=0.2258 combined=0.1500 | gate_dropped=22/44 | G1=True G2=True(ft=True gate=True) G3=True | beats_baseline_f1=False beats_frame_f1=False precision_material_gain=False recall_kept=False",
+  "elapsed_s": 109.82868599999347,
+  "ts_iso": "2026-08-05T23:03:23.713622+00:00",
+  "config": {
+    "slice_lessons": [
+      "L04"
+    ]
+  },
+  "arms": {
+    "baseline": {
+      "primary": {
+        "precision": 0.2962962962962963,
+        "recall": 0.4444444444444444,
+        "f1": 0.3555555555555555,
+        "n_pred": 27,
+        "tp": 8,
+        "n_gold_covered": 8,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.25925925925925924,
+        "recall": 0.3888888888888889,
+        "f1": 0.3111111111111111,
+        "n_pred": 27,
+        "tp": 7,
+        "n_gold_covered": 7,
+        "n_gold": 18
+      }
+    },
+    "frame_trigger": {
+      "primary": {
+        "precision": 0.22727272727272727,
+        "recall": 0.5555555555555556,
+        "f1": 0.3225806451612903,
+        "n_pred": 44,
+        "tp": 10,
+        "n_gold_covered": 10,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.1590909090909091,
+        "recall": 0.3888888888888889,
+        "f1": 0.22580645161290322,
+        "n_pred": 44,
+        "tp": 7,
+        "n_gold_covered": 7,
+        "n_gold": 18
+      }
+    },
+    "combined": {
+      "primary": {
+        "precision": 0.2727272727272727,
+        "recall": 0.3333333333333333,
+        "f1": 0.3,
+        "n_pred": 22,
+        "tp": 6,
+        "n_gold_covered": 6,
+        "n_gold": 18
+      },
+      "triple": {
+        "precision": 0.13636363636363635,
+        "recall": 0.16666666666666666,
+        "f1": 0.15,
+        "n_pred": 22,
+        "tp": 3,
+        "n_gold_covered": 3,
+        "n_gold": 18
+      }
+    }
+  },
+  "frozen_reference": {
+    "baseline": {
+      "precision": 0.18032786885245902,
+      "recall": 0.3235294117647059,
+      "f1": 0.23157894736842105
+    },
+    "frame_trigger": {
+      "precision": 0.1592920353982301,
+      "recall": 0.5294117647058824,
+      "f1": 0.24489795918367346
+    }
+  },
+  "design_gate": {
+    "G1_baseline_reproduction": true,
+    "G1_checked": false,
+    "G2_no_regression": true,
+    "G2_frame_trigger_selftest": {
+      "ok": true,
+      "tail": "[frame_trigger_predicate_recall_fix_v1] self-test PASS: base_pick=took frame_verbs=['took', 'throw']"
+    },
+    "G2_relevance_gate_selftest": {
+      "ok": true,
+      "tail": "{\n  \"selftest\": \"pass\",\n  \"n_events\": 4\n}"
+    },
+    "G3_arms_differ": true,
+    "G3_gate_drops_something": true,
+    "G3_combined_differs_from_baseline": true
+  },
+  "delta_precision_combined_vs_frame": 0.04545454545454544,
+  "beats_baseline_f1": false,
+  "beats_frame_f1": false,
+  "precision_material_gain_ge_0.05": false,
+  "recall_kept_ge_0.45": false,
+  "gate_dropped_examples": [
+    [
+      "L04_01",
+      [
+        "fall",
+        "herbert",
+        "ruin"
+      ],
+      []
+    ],
+    [
+      "L04_02",
+      [
+        "rubbed",
+        "cat",
+        "castle"
+      ],
+      []
+    ],
+    [
+      "L04_03",
+      [
+        "took",
+        "herbert",
+        "blocks"
+      ],
+      []
+    ],
+    [
+      "L04_03",
+      [
+        "took",
+        "herbert",
+        "one"
+      ],
+      []
+    ],
+    [
+      "L04_04",
+      [
+        "passed",
+        "it",
+        "harm"
+      ],
+      []
+    ],
+    [
+      "L04_07",
+      [
+        "cover",
+        "down",
+        "hands"
+      ],
+      []
+    ],
+    [
+      "L04_07",
+      [
+        "mean",
+        "she",
+        "do"
+      ],
+      []
+    ],
+    [
+      "L04_12",
+      [
+        "fell",
+        "castle",
+        "hetty"
+      ],
+      []
+    ],
+    [
+      "L04_14",
+      [
+        "held",
+        "herbert",
+        "out"
+      ],
+      []
+    ],
+    [
+      "L04_15",
+      [
+        "came",
+        "boy",
+        "tears"
+      ],
+      []
+    ],
+    [
+      "L04_15",
+      [
+        "got",
+        "boy",
+        "floor"
+      ],
+      []
+    ],
+    [
+      "L04_16",
+      [
+        "said",
+        "boy",
+        "papa"
+      ],
+      []
+    ],
+    [
+      "L04_17",
+      [
+        "have",
+        "you",
+        "way"
+      ],
+      []
+    ],
+    [
+      "L04_17",
+      [
+        "taken",
+        "you",
+        "heart"
+      ],
+      []
+    ],
+    [
+      "L04_17",
+      [
+        "taken",
+        "you",
+        "way"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "have",
+        "i",
+        "you"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "heard",
+        "i",
+        "blocks"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "heard",
+        "i",
+        "you"
+      ],
+      []
+    ],
+    [
+      "L04_18",
+      [
+        "sing",
+        "i",
+        "blocks"
+      ],
+      []
+    ],
+    [
+      "L04_19",
+      [
+        "sat",
+        "papa",
+        "side"
+      ],
+      []
+    ]
+  ],
+  "n_gate_dropped": 22,
+  "n_frame_flat": 44,
+  "secondary_pred_role_residual": {
+    "baseline_triple_f1": 0.3111111111111111,
+    "frame_trigger_triple_f1": 0.22580645161290322,
+    "combined_triple_f1": 0.15,
+    "triple_still_worse_than_baseline_after_combine": true,
+    "note": "Secondary-predicate role-assignment errors (assign_roles_learned_at mis-picking agent/patient head for a secondary predicate in coordination/relative-clause contexts) are a SEPARATE component from event/predicate detection (this cell's scope) and from situation-boundary filtering (the relevance-gate's scope). The relevance gate filters WHICH events survive, not WHAT role each surviving event's arguments get -- it cannot fix a wrong (agent,patient) pairing that primary-metric matching (verb+patient only) does not surface. If combined TRIPLE F1 is still below baseline, that residual routes to the role-assignment fix, not to this composition."
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arms",
+    "design_gate",
+    "secondary_pred_role_residual",
+    "delta_precision_combined_vs_frame",
+    "beats_baseline_f1",
+    "beats_frame_f1"
+  ],
+  "notes": "Composes exp_frame_trigger_predicate_recall_fix_v1 (recall via multi-predicate frame-lookup trigger) with exp_event_boundary_relevance_gate_v1 (precision via Zwaan-dimension situation-boundary filter), reusing both mechanisms unmodified through a duck-typed adapter (real tense via _temporal_ordering.extract_events, real causal-connective detection via _causal_network.CAUSAL_CONNECTIVES). See module docstring for the full pre-registration and the adapter's honest limitations (identity-mapped protagonist entities, sentence-level tense/causal granularity -- this pipeline has no cross-sentence coref clustering like the gate's native SituationReader path)."
+}
