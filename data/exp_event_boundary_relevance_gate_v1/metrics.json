@@ -1,0 +1,266 @@
+{
+  "cell": "exp_event_boundary_relevance_gate_v1",
+  "smoke": false,
+  "ts": 1785961583.3923438,
+  "n_passages": 4,
+  "n_events_total": 17,
+  "gate_score": {
+    "precision": 1.0,
+    "recall": 0.9090909090909091,
+    "f1": 0.9523809523809523,
+    "tp": 10,
+    "fp": 0,
+    "fn": 1,
+    "n": 17,
+    "n_pos_gold": 11,
+    "n_pos_pred": 10
+  },
+  "baseline_score": {
+    "precision": 0.6470588235294118,
+    "recall": 1.0,
+    "f1": 0.7857142857142858,
+    "tp": 11,
+    "fp": 6,
+    "fn": 0,
+    "n": 17,
+    "n_pos_gold": 11,
+    "n_pos_pred": 17
+  },
+  "precision_gain_pts": 35.29411764705882,
+  "recall_loss_pts": 9.090909090909093,
+  "scramble_scores": {
+    "1": {
+      "precision": 0.6666666666666666,
+      "recall": 0.7272727272727273,
+      "f1": 0.6956521739130435,
+      "tp": 8,
+      "fp": 4,
+      "fn": 3,
+      "n": 17,
+      "n_pos_gold": 11,
+      "n_pos_pred": 12
+    },
+    "2": {
+      "precision": 0.6153846153846154,
+      "recall": 0.7272727272727273,
+      "f1": 0.6666666666666667,
+      "tp": 8,
+      "fp": 5,
+      "fn": 3,
+      "n": 17,
+      "n_pos_gold": 11,
+      "n_pos_pred": 13
+    },
+    "3": {
+      "precision": 0.6666666666666666,
+      "recall": 0.7272727272727273,
+      "f1": 0.6956521739130435,
+      "tp": 8,
+      "fp": 4,
+      "fn": 3,
+      "n": 17,
+      "n_pos_gold": 11,
+      "n_pos_pred": 12
+    },
+    "4": {
+      "precision": 0.5,
+      "recall": 0.5454545454545454,
+      "f1": 0.5217391304347826,
+      "tp": 6,
+      "fp": 6,
+      "fn": 5,
+      "n": 17,
+      "n_pos_gold": 11,
+      "n_pos_pred": 12
+    },
+    "5": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 11,
+      "fp": 0,
+      "fn": 0,
+      "n": 17,
+      "n_pos_gold": 11,
+      "n_pos_pred": 11
+    }
+  },
+  "mean_scramble_gain_pts": 4.268476621417793,
+  "scramble_retained_frac": 0.12094017094017083,
+  "verdict": "HARD-PASS",
+  "zwaan_dims_available": [
+    "protagonist",
+    "time",
+    "causation"
+  ],
+  "zwaan_dims_missing": [
+    "space",
+    "intentionality_goal"
+  ],
+  "reuses_owned_readers": true,
+  "per_passage": [
+    {
+      "name": "protagonist_shift",
+      "n_events": 4,
+      "predicates": [
+        "walked",
+        "bought",
+        "called",
+        "smiled"
+      ],
+      "gold": [
+        true,
+        false,
+        true,
+        false
+      ],
+      "gate_preds": [
+        true,
+        false,
+        true,
+        false
+      ],
+      "triggers": [
+        [
+          "segment_start"
+        ],
+        [],
+        [
+          "protagonist"
+        ],
+        []
+      ],
+      "base_preds": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "tense_shift",
+      "n_events": 4,
+      "predicates": [
+        "cried",
+        "finished",
+        "forgotten",
+        "arrived"
+      ],
+      "gold": [
+        true,
+        true,
+        false,
+        true
+      ],
+      "gate_preds": [
+        true,
+        true,
+        false,
+        true
+      ],
+      "triggers": [
+        [
+          "segment_start"
+        ],
+        [
+          "time"
+        ],
+        [],
+        [
+          "time"
+        ]
+      ],
+      "base_preds": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "causal_shift",
+      "n_events": 5,
+      "predicates": [
+        "walked",
+        "smiled",
+        "broke",
+        "pushed",
+        "apologized"
+      ],
+      "gold": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "gate_preds": [
+        true,
+        false,
+        true,
+        false,
+        true
+      ],
+      "triggers": [
+        [
+          "segment_start"
+        ],
+        [],
+        [
+          "protagonist",
+          "causation"
+        ],
+        [],
+        [
+          "protagonist",
+          "causation"
+        ]
+      ],
+      "base_preds": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "multi_continuation",
+      "n_events": 4,
+      "predicates": [
+        "cheered",
+        "danced",
+        "laughed",
+        "watched"
+      ],
+      "gold": [
+        true,
+        false,
+        false,
+        true
+      ],
+      "gate_preds": [
+        true,
+        false,
+        false,
+        true
+      ],
+      "triggers": [
+        [
+          "segment_start"
+        ],
+        [],
+        [],
+        [
+          "protagonist"
+        ]
+      ],
+      "base_preds": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  ]
+}
