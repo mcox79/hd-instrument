@@ -1,0 +1,173 @@
+{
+  "anchor_name": "c5_realtext_c3mined_v1",
+  "n_items": 15,
+  "n_typed": 1,
+  "typing_fire_rate": 0.0667,
+  "outcome_binding_accuracy": 0.0,
+  "recency_baseline": 0.0,
+  "n_correct": 0,
+  "n_recency_correct": 0,
+  "per_item": [
+    {
+      "id": "c3_238_dear_enemy__s35",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 1,
+      "role_seq": [
+        "OUTCOME_MET"
+      ],
+      "verification_note": "Judy would like to see her (subject-control, PROPN Judy)"
+    },
+    {
+      "id": "c3_113_the_secret_garden__s32",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "Mary heard her say (core_dep subject, PROPN Mary)"
+    },
+    {
+      "id": "c3_95_the_prisoner_of_zenda__s7",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "brother Robert...not to mind (control chain, PROPN Robert)"
+    },
+    {
+      "id": "c3_9830_the_beautiful_and_damned__s99",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 1,
+      "role_seq": [
+        "OUTCOME_UNMET"
+      ],
+      "verification_note": "Anthony went to see (control, PROPN Anthony)"
+    },
+    {
+      "id": "c3_541_the_age_of_innocence__s23",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "Newland Archer saw (core_dep, PROPN Archer)"
+    },
+    {
+      "id": "c3_351_of_human_bondage__s80",
+      "typed": true,
+      "matches_gold": false,
+      "recency_alone_matches_gold": false,
+      "final_owner": "watkin",
+      "baseline_owner": "watkin",
+      "content_owner": "watkin",
+      "gold": "william",
+      "adopt": null,
+      "score_b": 0.0,
+      "score_c": 0.0,
+      "delta": 0.0,
+      "role_seq": [
+        "OUTCOME_UNMET",
+        "GOAL"
+      ],
+      "verification_note": "William is waiting...to see (control, PROPN William)"
+    },
+    {
+      "id": "c3_74_the_adventures_of_tom_sawyer__s44",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 1,
+      "role_seq": [
+        "OUTCOME_UNMET"
+      ],
+      "verification_note": "Tom knew (core_dep, PROPN Tom)"
+    },
+    {
+      "id": "c3_502_desert_gold__s83",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 1,
+      "role_seq": [
+        "OUTCOME_UNMET"
+      ],
+      "verification_note": "Cameron had not cared to know (control, PROPN Cameron)"
+    },
+    {
+      "id": "c3_514_little_women__s14",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 2,
+      "n_outcome": 0,
+      "role_seq": [
+        "GOAL",
+        "GOAL"
+      ],
+      "verification_note": "Mother didn't say...she won't wish (same-sent coref, she=Mother)"
+    },
+    {
+      "id": "c3_4217_a_portrait_of_the_artist_as_a_young_man__s89",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "Father Arnall knew (core_dep, title+name)"
+    },
+    {
+      "id": "c3_208_daisy_miller_a_study__s53",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "Winterbourne wondered (core_dep, PROPN Winterbourne)"
+    },
+    {
+      "id": "c3_472_the_house_behind_the_cedars__s22",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "Warwick saw (core_dep, PROPN Warwick)"
+    },
+    {
+      "id": "c3_1342_pride_and_prejudice__s30",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "Bingley will be glad to see (control, PROPN Bingley)"
+    },
+    {
+      "id": "c3_502_desert_gold__s24",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 0,
+      "role_seq": [],
+      "verification_note": "Cameron saw (core_dep, PROPN Cameron)"
+    },
+    {
+      "id": "c3_45_anne_of_green_gables__s18",
+      "typed": false,
+      "reason": "no_goal_or_outcome_event_typed",
+      "n_goal": 0,
+      "n_outcome": 1,
+      "role_seq": [
+        "OUTCOME_UNMET"
+      ],
+      "verification_note": "Rachel knew (core_dep, PROPN Rachel)"
+    }
+  ],
+  "verdict": "MEASURED_REALTEXT_C5",
+  "verdict_msg": "real-text C5: typed=1/15 outcome_binding_acc=0.0 recency_baseline=0.0",
+  "elapsed_s": 0.0
+}
