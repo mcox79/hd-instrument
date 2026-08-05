@@ -1,0 +1,2 @@
+
+- 2026-08-05: brain_audit_affective_comprehension_mechanism -> notes/brain_audit_affective_comprehension_mechanism.md (deep brain-foundational decomposition: contextual valence via ATL hub + IFG/pMTG semantic control [not lookup table]; implicit affect via situation-model integration+prediction; irony via predictive-mismatch + mentalizing reattribution; goal-owner via Zwaan intentionality-dim binding + hippocampal relational persistence)
