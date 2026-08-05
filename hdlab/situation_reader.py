@@ -74,8 +74,23 @@ from hdlab.situation_focus import ChunkedFocus
 
 # ---- Component-3 thematic-role labeling (reuse, 2026-08-05 wire; re-VET =
 # notes/skunkworks_reVET_frame_primary_role_assigner_v1.md, MIDDLE_BAND, WIRE-the-architecture) ----
-from hdlab.frame_induction import frame_primary_role
+from hdlab.frame_induction import (
+    frame_primary_role,
+    get_induced_subj_hypothesis,
+    real_construction_feats as FI_real_construction_feats,
+    predict_subj_role as FI_predict_subj_role,
+)
 from hdlab.thematic_role_labeler import lemma_verb
+
+# WIRE-DON'T-ISLAND (2026-08-05): pre-induce the OOV-subject construction->frame hypothesis ONCE
+# at import time (module-level cache inside get_induced_subj_hypothesis itself; this call just
+# forces the training so the first read() call doesn't pay the induction cost). Trained on the
+# real litbank-mined TRAIN split only (experiments/data/experiencer_narrative_roles_v1.jsonl);
+# held-out lemmas never seen (leakage-checked by exp_frame_induction_oov_psych_real_v1). Measured
+# held-out quality: subj-axis acc=0.833 (data/exp_frame_induction_oov_psych_real_v1/metrics.json,
+# MIDDLE_BAND -- data-starved, not a ceiling). Falls back to (None, None) -- the honest AGENT
+# default -- if the training file is missing; never raises.
+_INDUCED_SUBJ_NAME, _INDUCED_SUBJ_HYP = get_induced_subj_hypothesis()
 
 # ---- grounded-affect dimension (reuse, 2026-08-05 wire; CERTIFIED SCOPE =
 # notes/landed_vet_bridge1_foundation.md, animacy-axis event override, Bopen=1.000) ----
@@ -297,18 +312,23 @@ def _assign_roles(pred_idx: int, sent_noms: List[dict]) -> Tuple[str, str]:
 
 def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
                                 sent_noms: List[dict]) -> Tuple[Optional[str], Optional[str]]:
-    """Component-3 wire (2026-08-05): frame-primary THEMATIC role labels for the SAME heads
-    _assign_roles picks (via the shared _pick_role_mentions selector) -- additive, does not change
-    which head is chosen. KNOWN verb (lemma in VERB_FRAMES) -> frame_slot_role() answers
-    UNCONDITIONALLY (the re-VET's known-lemma acc=1.0 deterministic-dict path). OOV verb, subj slot,
-    NO induced hypothesis wired here (chosen_name/hypothesis left None) -> honest default "AGENT",
-    i.e. IDENTICAL to the pre-existing positional-default behavior for OOV subjects -- the
-    re-VET-flagged coarse-animacy induced-hypothesis path (OOV earned-acc=0.767) is deliberately
-    NOT wired into production labeling (see notes/skunkworks_reVET_frame_primary_role_assigner_v1.md
-    revival criteria: object-experiencer unsolved + OOV cue is animacy-only); it is exercised
-    separately, offline, by the end-to-end VET script, not by this reader path. This keeps the wire
-    conservative: zero regression risk (OOV falls back to the exact prior default), only KNOWN-verb
-    psych predicates gain a corrected label.
+    """Component-3 wire (2026-08-05, updated same day -- WIRE-DON'T-ISLAND): frame-primary
+    THEMATIC role labels for the SAME heads _assign_roles picks (via the shared
+    _pick_role_mentions selector) -- additive, does not change which head is chosen. KNOWN verb
+    (lemma in VERB_FRAMES) -> frame_slot_role() answers UNCONDITIONALLY (the re-VET's known-lemma
+    acc=1.0 deterministic-dict path), UNCHANGED. OOV verb, subj slot -> now consults the
+    module-level pre-induced construction->frame hypothesis (_INDUCED_SUBJ_NAME/_INDUCED_SUBJ_HYP,
+    trained once at import time by hdlab.frame_induction.get_induced_subj_hypothesis() on the
+    real litbank-mined TRAIN split; held-out lemmas never seen) INSTEAD of the honest-but-wrong
+    positional AGENT default -- a genuinely novel psych verb (cherish/loathe/crave/...) now gets
+    EXPERIENCER when its surrounding construction cues (has_scomp/degree_mod/passive/order_pre/
+    arg_animate) match the induced hypothesis, falling back to AGENT only when it abstains (an
+    honest, measurable degrade, not a silent override). Production quality = the SAME held-out
+    numbers the training data measured: subj-axis acc=0.833 (data-starved, MIDDLE_BAND, not 1.0 --
+    see data/exp_frame_induction_oov_psych_real_v1/metrics.json). OOV verb, obj slot -> UNCHANGED,
+    still falls to DEFAULT_FRAME (deferred axis; no induced obj-frame model is wired anywhere, per
+    frame_primary_role's own design -- object-experiencer acc=0.455 remains un-earned in
+    production).
 
     `lemma` here is the reader's EVENT lemma, which is actually the LOWERCASED SURFACE token
     (experiments/_temporal_ordering.py Event.lemma=low, e.g. "feared"/"cherished") -- NOT a true
@@ -321,7 +341,8 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
     subj_m, obj_m = _pick_role_mentions(pred_idx, sent_noms)
     subj_role = None
     if subj_m is not None:
-        subj_role = frame_primary_role(true_lemma, toks, pred_idx, int(subj_m["wtok_start"]), "subj")
+        subj_role = frame_primary_role(true_lemma, toks, pred_idx, int(subj_m["wtok_start"]), "subj",
+                                       chosen_name=_INDUCED_SUBJ_NAME, hypothesis=_INDUCED_SUBJ_HYP)
     obj_role = None
     if obj_m is not None:
         obj_role = frame_primary_role(true_lemma, toks, pred_idx, int(obj_m["wtok_start"]), "obj")
@@ -604,19 +625,33 @@ def _selftest_read_end_to_end() -> dict:
 
 
 def _selftest_frame_primary_wiring() -> dict:
-    """Component-3 wire self-test (2026-08-05): situation_reader now emits frame-primary
-    thematic role labels end-to-end through the REAL read() pipeline. KNOWN psych verb ('feared')
-    -> subj_role=EXPERIENCER (deterministic VERB_FRAMES lookup, re-VET known-lemma acc=1.0). OOV
-    psych verb ('cherished', no induced hypothesis wired) -> subj_role falls back to the honest
-    default 'AGENT' (matches the pre-existing positional default -- no regression, no overclaim of
-    the re-VET-flagged coarse-animacy path). Also asserts a plain agentive verb ('kicked') still
-    gets subj_role=AGENT via the frame table, unconditionally."""
+    """Component-3 wire self-test (updated 2026-08-05, WIRE-DON'T-ISLAND): situation_reader now
+    emits frame-primary thematic role labels end-to-end through the REAL read() pipeline, and the
+    OOV path now routes through the production-wired induction (hdlab.frame_induction.
+    get_induced_subj_hypothesis(), module-level cache -- see imports above). KNOWN psych verb
+    ('feared') -> subj_role=EXPERIENCER (deterministic VERB_FRAMES lookup, re-VET known-lemma
+    acc=1.0, UNCHANGED). OOV psych verb ('cherished') -> subj_role is now EXPERIENCER, EARNED via
+    the induced construction->frame hypothesis (this is the fix; previously fell to the honest-
+    but-wrong positional AGENT default). The construction here is deliberately "cherished that
+    Mary was kind" (has_scomp + order_pre, NO arg_animate -- "John" is sentence-initial so the
+    capitalization animacy cue does not fire, per _is_animate_head's idx>0 guard) so this witness
+    exercises the has_scomp|order_pre residual-lookup path, not the (also EXPERIENCER-predicting,
+    but animacy-driven) order_pre+arg_animate rule -- proving the wire fires on more than one
+    induced decision path. HONEST: production OOV subj-axis accuracy is 0.833, NOT 1.0 (data-
+    starved held-out eval, data/exp_frame_induction_oov_psych_real_v1/metrics.json, MIDDLE_BAND);
+    this witness exercises ONE correctly-induced construction, not a claim of perfect coverage.
+    Also asserts a plain agentive verb ('kicked') still gets subj_role=AGENT via the frame table,
+    unconditionally, and an OOV AGENTIVE-leaning construction with no matching induced rule
+    ('bolted', bare transitive, no scomp/degree/passive/animacy cue) still degrades honestly to
+    AGENT -- the induction does not overclaim on constructions it has no signal for."""
     # NOTE: _sentence_nominals filters is_pronoun mentions entirely (pre-existing behavior,
     # untouched) -- proper-noun subjects/objects exercise the real agent/patient (non "?") path.
     rows = [
         (0, 0, "John", "(0)"), (0, 1, "feared", "_"), (0, 2, "Mary", "(1)"), (0, 3, ".", "_"),
-        (1, 0, "John", "(0)"), (1, 1, "cherished", "_"), (1, 2, "Mary", "(1)"), (1, 3, ".", "_"),
+        (1, 0, "John", "(0)"), (1, 1, "cherished", "_"), (1, 2, "that", "_"),
+        (1, 3, "Mary", "(1)"), (1, 4, "was", "_"), (1, 5, "kind", "_"), (1, 6, ".", "_"),
         (2, 0, "John", "(0)"), (2, 1, "kicked", "_"), (2, 2, "Mary", "(1)"), (2, 3, ".", "_"),
+        (3, 0, "John", "(0)"), (3, 1, "bolted", "_"), (3, 2, "Mary", "(1)"), (3, 3, ".", "_"),
     ]
     path = _write_temp_conll(rows)
     try:
@@ -631,14 +666,24 @@ def _selftest_frame_primary_wiring() -> dict:
     assert "feared" in by_pred, f"known psych verb event missing: {[e.predicate for e in sm.events]}"
     assert by_pred["feared"].subj_role == "EXPERIENCER", by_pred["feared"]
     assert "cherished" in by_pred, f"OOV psych verb event missing: {[e.predicate for e in sm.events]}"
-    assert by_pred["cherished"].subj_role == "AGENT", by_pred["cherished"]  # honest OOV default, not overclaimed
+    # Induction-verified: cross-check that the module-level cached hypothesis, applied directly to
+    # this construction's own feature encoding, independently agrees with what the reader emitted
+    # (not just asserting the reader's output blind).
+    _feats = FI_real_construction_feats(["john", "cherished", "that", "mary", "was", "kind", "."], 1, 0)
+    _direct_pred = FI_predict_subj_role(_INDUCED_SUBJ_NAME, _INDUCED_SUBJ_HYP, _feats, default="AGENT")
+    assert _direct_pred == "EXPERIENCER", (_feats, _direct_pred)
+    assert by_pred["cherished"].subj_role == "EXPERIENCER", by_pred["cherished"]  # earned, not overclaimed to 1.0
     assert "kicked" in by_pred, f"agentive verb event missing: {[e.predicate for e in sm.events]}"
     assert by_pred["kicked"].subj_role == "AGENT", by_pred["kicked"]
+    assert "bolted" in by_pred, f"OOV bare-transitive event missing: {[e.predicate for e in sm.events]}"
+    assert by_pred["bolted"].subj_role == "AGENT", by_pred["bolted"]  # no induced signal -> honest default
     # non-regression: agent/patient head strings (positional selection) are unaffected by the wire.
     assert by_pred["feared"].agent.lower() == "john", by_pred["feared"]
     return {"fear_subj_role": by_pred["feared"].subj_role,
             "cherish_subj_role": by_pred["cherished"].subj_role,
-            "kick_subj_role": by_pred["kicked"].subj_role}
+            "kick_subj_role": by_pred["kicked"].subj_role,
+            "bolted_subj_role": by_pred["bolted"].subj_role,
+            "induced_name": _INDUCED_SUBJ_NAME}
 
 
 def _selftest_affect_wiring() -> dict:

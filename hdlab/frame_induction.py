@@ -38,7 +38,9 @@ Public API:
 """
 from __future__ import annotations
 
-from typing import List, Optional, Sequence
+import json
+import os
+from typing import List, Optional, Sequence, Tuple
 
 from hdlab.learner import registry
 from hdlab.thematic_role_labeler import VERB_FRAMES, DEFAULT_FRAME, lemma_verb, frame_slot_role
@@ -317,6 +319,82 @@ def predict_subj_role(chosen_name, hypothesis, feats, default="AGENT"):
     else:  # KEEP_EPISODIC or unknown
         pred = None
     return pred if pred is not None else default
+
+
+# ---------------------------------------------------------------------------------------------
+# PRODUCTION WIRE (2026-08-05, WIRE-DON'T-ISLAND): train ONCE (module-level cache) the OOV-subject
+# construction->frame hypothesis from the same REAL litbank-mined dataset + TRAIN split
+# exp_frame_induction_oov_psych_real_v1 used for its own held-out eval, so a caller (situation_
+# reader's frame-primary path) can supply (chosen_name, hypothesis) to frame_primary_role() for
+# an OOV verb's subject slot instead of leaving chosen_name/hypothesis=None (which silently
+# degrades every OOV psych verb to the AGENT default). Held-out lemmas
+# (cherish/crave/dread/loathe/yearn subj-axis; astonish/embarrass/gladden/horrify/terrify obj-axis)
+# are NEVER in the TRAIN split (leakage-checked by exp_frame_induction_oov_psych_real_v1's own
+# assertion on the same file) -- production callers therefore see the SAME held-out generalization
+# quality the cell measured: subj-axis acc=0.833, obj-axis acc=0.455 (both MIDDLE_BAND, data-
+# starved, not a ceiling -- see data/exp_frame_induction_oov_psych_real_v1/metrics.json). The
+# obj-axis model is deliberately NOT wired into frame_primary_role (unchanged design below: OOV+obj
+# always falls to DEFAULT_FRAME) -- this getter only trains the shared subj-axis hypothesis.
+# ---------------------------------------------------------------------------------------------
+DEFAULT_REAL_DATA_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "experiments", "data", "experiencer_narrative_roles_v1.jsonl")
+
+_INDUCED_SUBJ_HYP_CACHE: dict = {}
+
+
+def _load_real_train_episodes(data_path: str) -> List[dict]:
+    """TRAIN-split-only episodes from the real litbank-mined psych-verb dataset, built with the
+    SAME real_construction_feats/build_real_episode adapter exp_frame_induction_oov_psych_real_v1
+    uses for its own train corpus (mirrors that cell's build_corpus() train branch; held-out
+    records are intentionally excluded here -- production must never train on the eval lemmas)."""
+    recs = []
+    with open(data_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                recs.append(json.loads(line))
+    eps: List[dict] = []
+    for r in recs:
+        if r.get("split_recommendation") != "train":
+            continue
+        tokens = r["text"].split()
+        v_idx = locate_verb_idx(tokens, r["verb_lemma"])
+        if v_idx is None:
+            continue
+        for a in r["args"]:
+            a_idx = locate_head_idx(tokens, a["head"])
+            if a_idx is None:
+                continue
+            eps.append(build_real_episode(tokens, v_idx, a_idx, a["role"]))
+    return eps
+
+
+def get_induced_subj_hypothesis(data_path: Optional[str] = None,
+                                 use_cache: bool = True) -> Tuple[Optional[str], Optional[object]]:
+    """Return the cached (chosen_name, hypothesis) trained on the real TRAIN-split psych-verb data,
+    for use as frame_primary_role's chosen_name/hypothesis args on an OOV verb's subject slot.
+    Trains at most once per process (module-level cache keyed by data_path) -- callers on a hot
+    labeling path must NOT re-induce per call. Returns (None, None) (an honest degrade, identical
+    to leaving chosen_name/hypothesis unset) if the training file is missing/unreadable or
+    induction abstains -- this must never raise on a production read() call."""
+    path = data_path or DEFAULT_REAL_DATA_PATH
+    if use_cache and path in _INDUCED_SUBJ_HYP_CACHE:
+        return _INDUCED_SUBJ_HYP_CACHE[path]
+    result: Tuple[Optional[str], Optional[object]] = (None, None)
+    try:
+        train_eps = _load_real_train_episodes(path)
+        if train_eps:
+            classes = sorted({ep["gold_class"] for ep in train_eps})
+            spec = default_spec(classes, atoms=REAL_CONSTRUCTION_ATOMS)
+            chosen_name, chosen, _all = induce(train_eps, spec=spec)
+            if chosen is not None:
+                result = (chosen_name, chosen.hypothesis)
+    except (OSError, IOError, ValueError, KeyError):
+        result = (None, None)
+    if use_cache:
+        _INDUCED_SUBJ_HYP_CACHE[path] = result
+    return result
 
 
 # ---------------------------------------------------------------------------------------------
