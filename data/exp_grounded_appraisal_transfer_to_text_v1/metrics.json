@@ -1,0 +1,9 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: theta reuse FAILED: reconstructed digest 5d29b1e23d36cdb5 != earned f52b435fc62d1388",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounded_appraisal_transfer_to_text_v1.py\", line 723, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounded_appraisal_transfer_to_text_v1.py\", line 712, in main\n    ok = self_test()\n         ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounded_appraisal_transfer_to_text_v1.py\", line 647, in self_test\n    assert digest_full == earned_digests[0], (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: theta reuse FAILED: reconstructed digest 5d29b1e23d36cdb5 != earned f52b435fc62d1388\n",
+  "ts_iso": "2026-08-05T09:56:25.685590+00:00",
+  "anchor_name": "grounded_appraisal_transfer_to_text_v1"
+}
