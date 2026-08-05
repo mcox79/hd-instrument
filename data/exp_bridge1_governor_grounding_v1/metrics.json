@@ -1,0 +1,186 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: differential_grounding_acc=0.967 unseen_concept_acc=0.956 bow_control=0.517 scrambled=0.500 per_form_table=0.500 coh_cope_differ_all_seeds=True",
+  "summary": "differential_grounding_acc=0.967 unseen_concept_acc=0.956 bow_control=0.517 scrambled=0.500 per_form_table=0.500 coh_cope_differ_all_seeds=True",
+  "n_seeds": 5,
+  "n_ok": 5,
+  "failed_seeds": [],
+  "means": {
+    "differential_grounding_acc": 0.9666666666666666,
+    "unseen_concept_acc": 0.9555555555555555,
+    "bow_control_diff_acc": 0.5166666666666667,
+    "scrambled_diff_acc": 0.5,
+    "per_form_table_diff_acc": 0.5
+  },
+  "bands": {
+    "hard_pass_criteria_met": true,
+    "hard_fail_criteria_met": false,
+    "arms_all_identical_any_seed": false,
+    "coh_cope_differ_all_seeds": true
+  },
+  "run_mode": "full",
+  "elapsed_s": 32.70180059999984,
+  "ts_iso": "2026-08-05T13:28:54.311197+00:00",
+  "anchor_name": "bridge1_governor_grounding_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_train_theta": 8000,
+    "n_train_items": 134,
+    "n_collision_items": 12,
+    "n_collision_pairs": 6,
+    "n_unseen_items": 9
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "differential_grounding_acc": 1.0,
+      "unseen_concept_acc": 1.0,
+      "pooled_acc_governor": 1.0,
+      "bow_control_diff_acc": 0.5,
+      "bow_control_unseen_acc": 0.5555555555555556,
+      "scrambled_diff_acc": 0.5,
+      "scrambled_unseen_acc": 0.4444444444444444,
+      "per_form_table_diff_acc": 0.5,
+      "theta_witness": {
+        "BLOCK_HIGH": 0.611876904964447,
+        "BLOCK_LOW": -0.2922898679971695,
+        "RECIPROCITY": -0.9951233062893152,
+        "NEUTRAL": -0.36582648754119873,
+        "BLOCK_HIGH_random_theta": 0.014230063185095787,
+        "coh_vs_cope_differ": true
+      },
+      "arms_digests": {
+        "governor": "e91649cd5866c81a",
+        "bow": "79f0421aefdec303",
+        "scrambled": "4fd3ff23203a6e5f",
+        "per_form": "98d634e28e0eb3d0",
+        "theta_full": "302e7e29b8c2c973",
+        "theta_random": "65be7418828bc64c"
+      },
+      "arms_all_identical": false,
+      "failure_class": null
+    },
+    "1": {
+      "seed": 1,
+      "differential_grounding_acc": 1.0,
+      "unseen_concept_acc": 1.0,
+      "pooled_acc_governor": 1.0,
+      "bow_control_diff_acc": 0.5,
+      "bow_control_unseen_acc": 0.5555555555555556,
+      "scrambled_diff_acc": 0.5,
+      "scrambled_unseen_acc": 0.5555555555555556,
+      "per_form_table_diff_acc": 0.5,
+      "theta_witness": {
+        "BLOCK_HIGH": 0.7002252638339996,
+        "BLOCK_LOW": -0.28920450061559677,
+        "RECIPROCITY": -0.9628824926912785,
+        "NEUTRAL": -0.35679784417152405,
+        "BLOCK_HIGH_random_theta": 0.006237979978322983,
+        "coh_vs_cope_differ": true
+      },
+      "arms_digests": {
+        "governor": "e91649cd5866c81a",
+        "bow": "79f0421aefdec303",
+        "scrambled": "13ecddbcf76f2514",
+        "per_form": "98d634e28e0eb3d0",
+        "theta_full": "06bdf13dd4eb7ef8",
+        "theta_random": "8e5e24967f0da90e"
+      },
+      "arms_all_identical": false,
+      "failure_class": null
+    },
+    "2": {
+      "seed": 2,
+      "differential_grounding_acc": 0.8333333333333334,
+      "unseen_concept_acc": 0.7777777777777778,
+      "pooled_acc_governor": 0.8095238095238095,
+      "bow_control_diff_acc": 0.5833333333333334,
+      "bow_control_unseen_acc": 0.6666666666666666,
+      "scrambled_diff_acc": 0.4166666666666667,
+      "scrambled_unseen_acc": 0.7777777777777778,
+      "per_form_table_diff_acc": 0.5,
+      "theta_witness": {
+        "BLOCK_HIGH": 0.5925527215003967,
+        "BLOCK_LOW": -0.21119975298643112,
+        "RECIPROCITY": -1.177747905254364,
+        "NEUTRAL": -0.26026684790849686,
+        "BLOCK_HIGH_random_theta": 0.0056542521342635155,
+        "coh_vs_cope_differ": true
+      },
+      "arms_digests": {
+        "governor": "790fd9a32d5cb302",
+        "bow": "5d6123a7e9f2f341",
+        "scrambled": "45f1f8c3ec6cf800",
+        "per_form": "98d634e28e0eb3d0",
+        "theta_full": "fc7b834418095226",
+        "theta_random": "34a58d55116ead3e"
+      },
+      "arms_all_identical": false,
+      "failure_class": null
+    },
+    "3": {
+      "seed": 3,
+      "differential_grounding_acc": 1.0,
+      "unseen_concept_acc": 1.0,
+      "pooled_acc_governor": 1.0,
+      "bow_control_diff_acc": 0.5,
+      "bow_control_unseen_acc": 0.5555555555555556,
+      "scrambled_diff_acc": 0.5833333333333334,
+      "scrambled_unseen_acc": 0.7777777777777778,
+      "per_form_table_diff_acc": 0.5,
+      "theta_witness": {
+        "BLOCK_HIGH": 0.7817180752754211,
+        "BLOCK_LOW": -0.2147037796676159,
+        "RECIPROCITY": -1.0768560841679573,
+        "NEUTRAL": -0.3251849263906479,
+        "BLOCK_HIGH_random_theta": 0.004854228813201189,
+        "coh_vs_cope_differ": true
+      },
+      "arms_digests": {
+        "governor": "e91649cd5866c81a",
+        "bow": "7dc8081072a7dc5e",
+        "scrambled": "d87ea241e1338aa3",
+        "per_form": "98d634e28e0eb3d0",
+        "theta_full": "bd7229f732f8e5fc",
+        "theta_random": "8471ac088a610579"
+      },
+      "arms_all_identical": false,
+      "failure_class": null
+    },
+    "4": {
+      "seed": 4,
+      "differential_grounding_acc": 1.0,
+      "unseen_concept_acc": 1.0,
+      "pooled_acc_governor": 1.0,
+      "bow_control_diff_acc": 0.5,
+      "bow_control_unseen_acc": 0.5555555555555556,
+      "scrambled_diff_acc": 0.5,
+      "scrambled_unseen_acc": 0.5555555555555556,
+      "per_form_table_diff_acc": 0.5,
+      "theta_witness": {
+        "BLOCK_HIGH": 0.6810618937015533,
+        "BLOCK_LOW": -0.15264850109815598,
+        "RECIPROCITY": -0.8927337378263474,
+        "NEUTRAL": -0.528763011097908,
+        "BLOCK_HIGH_random_theta": 0.004588095471262932,
+        "coh_vs_cope_differ": true
+      },
+      "arms_digests": {
+        "governor": "e91649cd5866c81a",
+        "bow": "79f0421aefdec303",
+        "scrambled": "ad52edb8473846c4",
+        "per_form": "98d634e28e0eb3d0",
+        "theta_full": "88b5683e6fe54a49",
+        "theta_random": "b6c6eefbcd42e28c"
+      },
+      "arms_all_identical": false,
+      "failure_class": null
+    }
+  }
+}
