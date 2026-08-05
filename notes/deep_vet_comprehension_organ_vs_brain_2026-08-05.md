@@ -67,3 +67,20 @@ brain-faithful way, THEN an end-to-end measurement:
 HONEST NOTE: wiring the integrator to real prose (1b) will INHERIT the upstream extraction/role error rate -
 it will NOT reproduce 12/12 on real prose. That's the point: it produces the first HONEST end-to-end number
 and localizes the true cap, instead of grinding an isolated-F1 that may not be the binding constraint.
+
+## CORRECTION to VET-D (Director VET-the-VET, disk-verified 2026-08-05, self-drive cycle)
+VET-D claimed "the proven integrator has NEVER been fed a single real event the reader extracts." That is
+TOO STRONG. exp_component5_wired_endtoend_v1.py (landed, MIDDLE_BAND, N=23) already feeds
+directed_goal_outcome_score Component-3's REAL GOAL-typing (frame_primary_role, the exact fn situation_reader
+wires) and reproduces outcome_binding_accuracy=1.0 (recency floor 0.0435, beats_recency=True, scramble
+collapse=True, gold_vs_real_delta=0.0). So the GOAL-typing half of the wire EXISTS and is GREEN. The PRECISE
+remaining gap (code-verified): (i) cluster_ids in that cell come from TOY resolvers (RecencyEntityResolver /
+ContentMatchResolver, method subject_entity) — NOT the production coref organ; (ii) outcome-valence is still
+lexicon-typed (declared out of C3 scope); (iii) it runs on the N=23 recency bank, NOT the fully-fair
+goal_owner_fair_v1.jsonl (all-4-baselines-0.0); (iv) real SituationReader.read() is not used (CoNLL
+constraint). CONVERGENCE BONUS: that cell's RecencyEntityResolver-vs-ContentMatchResolver A/B maps EXACTLY
+onto VET-B's coref recency->event_role flip. So step-1 is NOT a from-scratch adapter build — it is: swap the
+toy resolvers for the REAL production coref organ (recency vs event_role arms) + run on the fair
+explicit_psych subset. DISPATCHED (hdi_exp_dev, this cycle) as exactly that cell. This is why VET-the-VET is a
+standing rule: a single grep-based "no wire" claim missed a landed green partial-wire cited in the promoted
+module's own docstring.
