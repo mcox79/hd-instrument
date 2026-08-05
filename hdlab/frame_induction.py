@@ -41,7 +41,7 @@ from __future__ import annotations
 from typing import List, Optional, Sequence
 
 from hdlab.learner import registry
-from hdlab.thematic_role_labeler import VERB_FRAMES, lemma_verb
+from hdlab.thematic_role_labeler import VERB_FRAMES, DEFAULT_FRAME, lemma_verb, frame_slot_role
 
 # The 4 declared boolean construction atoms (per-competence CONFIG; proginduction enumerates over
 # these). Small on purpose: proginduction evaluates the full 2**n_atoms truth table.
@@ -319,6 +319,50 @@ def predict_subj_role(chosen_name, hypothesis, feats, default="AGENT"):
     return pred if pred is not None else default
 
 
+# ---------------------------------------------------------------------------------------------
+# FRAME-PRIMARY role assignment (2026-08-05, Component-3 goal-owner fix): the VERB FRAME is the
+# role-determining signal for a known lemma -- ALWAYS, never re-ranked or overridden by a learned
+# position/animacy prior. This is the direct fix for the shelved flat-perceptron
+# (exp_thematic_role_labeler_cue_integration_v1, notes/skunkworks_reVET_thematic_role_labeler_
+# cue_integration_v1.md): that perceptron learned "order:pre -> AGENT" from a canonical-dominated
+# training distribution and OVERRODE the correct frame signal for pre-verbal experiencer subjects
+# (experiencer-axis acc 0.614 vs frame_only 0.857, a -0.24 EARNED-MECHANISM-HURTS regression).
+# Here there is no re-ranking layer: KNOWN verb -> frame_slot_role() answers directly and
+# UNCONDITIONALLY (position/animacy are never even consulted). OOV verb -> the induced
+# construction->frame hypothesis (this module) supplies the subject-slot answer, falling back to
+# `default` only when the hypothesis abstains. Position/animacy are used ONLY inside the induced
+# hypothesis's own feature set (as construction cues among several, per Gleitman/Naigles
+# bootstrapping), never as a hard override on a frame-determined role.
+# ---------------------------------------------------------------------------------------------
+def frame_primary_role(lemma: str, tokens: Sequence[str], v_idx: int, arg_idx: Optional[int],
+                       slot: str, chosen_name: Optional[str] = None, hypothesis=None,
+                       default: str = "AGENT") -> str:
+    """FRAME-PRIMARY role assigner for ONE (verb, argument) pair. `slot` in {"subj","obj"}.
+
+    KNOWN verb (lemma in VERB_FRAMES): return frame_slot_role(lemma, slot) UNCONDITIONALLY --
+    this is the fix; no learned component ever sees or re-ranks this answer.
+
+    OOV verb, slot=="subj": consult the induced construction-cue hypothesis
+    (chosen_name/hypothesis, from `induce()` over REAL_CONSTRUCTION_ATOMS); returns EXPERIENCER
+    if the hypothesis predicts EXPERIENCER, else `default` (an honest, measurable degrade path,
+    same semantics as predict_subj_role's own default handling).
+
+    OOV verb, slot=="obj" (or any slot besides "subj"): no induced obj-frame model exists yet
+    (deferred affect axis per the goal-owner scoping decision); returns DEFAULT_FRAME's role for
+    that slot (position-only fallback -- honestly the current known-bad behavior for this slot,
+    not silently disguised as earned).
+    """
+    if lemma in VERB_FRAMES:
+        return frame_slot_role(lemma, slot)
+    if slot != "subj":
+        return DEFAULT_FRAME.get(slot, default)
+    if chosen_name is None or hypothesis is None or arg_idx is None:
+        return default
+    feats = real_construction_feats(tokens, v_idx, arg_idx)
+    pred = predict_subj_role(chosen_name, hypothesis, feats, default="OTHER")
+    return "EXPERIENCER" if pred == "EXPERIENCER" else default
+
+
 def _selftest() -> None:
     # OOV trigger: novel psych verbs are absent from the supplied table; known ones are present.
     assert is_oov("cherish") and is_oov("loathe") and is_oov("crave") and is_oov("covet")
@@ -416,6 +460,33 @@ def _selftest_real_adapter() -> None:
     print("[selftest] PASS: frame_induction real-adapter", flush=True)
 
 
+def _selftest_frame_primary() -> None:
+    # KNOWN verb, pre-verbal ANIMATE subject (the exact configuration the shelved perceptron
+    # overrode to AGENT via its order:pre cue): frame-primary MUST stay EXPERIENCER, unconditionally,
+    # regardless of any position/animacy signal -- no re-ranking layer exists for known verbs.
+    toks = "He dreaded the interview .".split()
+    assert frame_primary_role("dread", toks, 1, 0, "subj") == "EXPERIENCER"
+    # Known agentive verb: subj = AGENT (frame table, unconditional).
+    toks2 = "He kicked the ball .".split()
+    assert frame_primary_role("kick", toks2, 1, 0, "subj") == "AGENT"
+    # OOV verb, no induced hypothesis supplied (chosen_name/hypothesis=None) -> honest default.
+    toks3 = "He cherished the ring .".split()
+    assert frame_primary_role("cherish", toks3, 1, 0, "subj") == "AGENT"
+    # OOV verb, obj slot -> DEFAULT_FRAME fallback (deferred axis), not silently upgraded.
+    assert frame_primary_role("frighten", ["it", "frightened", "him"], 1, 2, "obj") == "PATIENT"
+    # OOV verb, subj slot, WITH an induced hypothesis that fires EXPERIENCER on scomp -> obeys it.
+    eps = []
+    for _ in range(6):
+        eps.append(build_episode(["x", "verb", "that", "y", "z"], 1, 0, "EXPERIENCER"))
+        eps.append(build_episode(["x", "verb", "the", "y"], 1, 0, "AGENT"))
+    name, chosen, _ = induce(eps)
+    toks4 = "novelsubj novelverb that the storm".split()
+    assert frame_primary_role("novelverb", toks4, 1, 0, "subj",
+                              chosen_name=name, hypothesis=chosen.hypothesis) == "EXPERIENCER"
+    print("[selftest] PASS: frame_induction frame_primary_role", flush=True)
+
+
 if __name__ == "__main__":
     _selftest()
     _selftest_real_adapter()
+    _selftest_frame_primary()

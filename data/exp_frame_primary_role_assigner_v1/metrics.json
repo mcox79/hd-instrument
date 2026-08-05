@@ -1,0 +1,876 @@
+{
+  "anchor_name": "frame_primary_role_assigner_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "PRIMARY subj-exp-axis: acc=0.8769 (N=65, resolved=64) tier=HARD_PASS | beats_perceptron_0.614=True beats_default_AGENT=True | frame_ablation_acc=0.0000 (collapses=True, delta=0.8769) | no_position_override_rate=1.0000 (N_pre_animate=51) | known_lemma_acc=1.0000 (N=34) oov_lemma_acc=0.7667 (N=30) | obj-exp-axis(deferred,not-gating): acc=0.3962 (N=53) | partial_ablation(induction-for-all,bonus)=0.7969",
+  "summary": "PRIMARY subj-exp-axis: acc=0.8769 (N=65, resolved=64) tier=HARD_PASS | beats_perceptron_0.614=True beats_default_AGENT=True | frame_ablation_acc=0.0000 (collapses=True, delta=0.8769) | no_position_override_rate=1.0000 (N_pre_animate=51) | known_lemma_acc=1.0000 (N=34) oov_lemma_acc=0.7667 (N=30) | obj-exp-axis(deferred,not-gating): acc=0.3962 (N=53) | partial_ablation(induction-for-all,bonus)=0.7969",
+  "elapsed_s": 156.9404,
+  "ts_iso": "2026-08-05T02:53:41.162547+00:00",
+  "pid": 20584,
+  "data_source": "D:\\AI\\hd-instrument\\experiments\\data\\experiencer_narrative_roles_v1.jsonl",
+  "n_dataset_sentences": 118,
+  "n_subj_axis_sentences": 65,
+  "n_obj_axis_sentences_deferred": 53,
+  "n_oov_subj_lemmas": 18,
+  "oov_subj_lemmas": [
+    "abhor",
+    "cherish",
+    "covet",
+    "crave",
+    "despise",
+    "esteem",
+    "fret",
+    "grieve",
+    "hope",
+    "loathe",
+    "marvel",
+    "mourn",
+    "pine",
+    "rejoice",
+    "relish",
+    "resent",
+    "revere",
+    "value"
+  ],
+  "n_oov_obj_lemmas_deferred": 31,
+  "n_train_episodes_subj_axis": 164,
+  "n_unresolved_train_locate_failures_subj_axis": 1,
+  "n_train_episodes_obj_axis_deferred": 125,
+  "induced_plugin_subj_axis": "ruleind",
+  "induced_plugin_obj_axis_deferred": "ruleind",
+  "acc_subj_experiencer_axis": 0.8769230769230769,
+  "acc_subj_experiencer_axis_resolved_only": 0.890625,
+  "n_subj_resolved": 64,
+  "n_subj_unresolved": 1,
+  "unresolved_subj_records": [
+    {
+      "reason": "locate_failure",
+      "text": "I'm pining to see you dance.",
+      "lemma": "pine"
+    }
+  ],
+  "acc_subj_known_lemma_only": 1.0,
+  "n_subj_known": 34,
+  "acc_subj_oov_lemma_only": 0.7666666666666667,
+  "n_subj_oov_resolved": 30,
+  "acc_obj_experiencer_axis_deferred": 0.39622641509433965,
+  "n_obj_unresolved_deferred": 1,
+  "shelved_perceptron_experiencer_axis_acc": 0.614,
+  "shelved_perceptron_source": "CITED@notes/skunkworks_reVET_thematic_role_labeler_cue_integration_v1.md (old McGuffey-gold dataset, n=14; cross-dataset absolute reference, not re-run here)",
+  "default_agent_baseline_acc": 0.0,
+  "beats_shelved_perceptron": true,
+  "beats_default_agent": true,
+  "frame_ablation_acc": 0.0,
+  "frame_ablation_delta": 0.8769230769230769,
+  "frame_ablation_collapses": true,
+  "no_position_override_rate": 1.0,
+  "n_order_pre_animate_records": 51,
+  "partial_ablation_induction_for_known_too_acc": 0.796875,
+  "partial_ablation_note": "bonus diagnostic: applies the SAME induced hypothesis (not VERB_FRAMES) to known-lemma subjects too, to show the induction-alone recovery rate vs the supplied dict",
+  "per_record_subj_axis": [
+    {
+      "verb": "fear",
+      "text": "I began to fear his wits were touched.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "fear",
+      "text": "These stalwart virgins had no men to fear and therefore no need of protection.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "fear",
+      "text": "I fear the kitten has rolled it away.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "desire",
+      "text": "She suffered from pique, and sometimes in a curious fashion she desired Philip.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "crave",
+      "text": "He craved the madness of alcohol in his veins till his delicate hands trembled.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "crave",
+      "text": "This was what her heart craved.",
+      "pred": "AGENT",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "love",
+      "text": "Why did you go away, when I loved you so?",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "love",
+      "text": "No one could see Catherine Linton and not love her.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "hate",
+      "text": "I hate and detest you!",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "hate",
+      "text": "Old boy hated her.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "hope",
+      "text": "She had never hoped that that barrier would be surmounted.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "hope",
+      "text": "I hope Laddy's not mistaken in his opinion of this newcomer.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "dread",
+      "text": "He dreaded the interview with Thomas Jordan.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "dread",
+      "text": "The terrible moment, the moment she had dreaded, had come at last.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "dread",
+      "text": "But she dreads responsibility.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "long",
+      "text": "She longed for the quiet of the old garden.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "long",
+      "text": "He longed to be gone from that hateful place.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "wish",
+      "text": "I dare say Miss Nash would wish you such an opportunity.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "admire",
+      "text": "The unpaid secretary admired this pluck.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "admire",
+      "text": "They don't admire you half so much as you admire yourselves.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "degree_mod",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "adore",
+      "text": "I am very fond of Amelia; I adore her.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "adore",
+      "text": "He adored Sorais quite as earnestly as Sir Henry adored Nyleptha.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "envy",
+      "text": "I dare say Miss Nash would envy you such an opportunity as this of being married.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "envy",
+      "text": "Helen, watching Bo play, was inclined to envy her.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "pity",
+      "text": "I pity Pa to that degree.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "pity",
+      "text": "The impulse that I had upon me was to pity her so much.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "degree_mod",
+        "passive",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "loathe",
+      "text": "Dorian Gray loathed him more than ever.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "loathe",
+      "text": "He loathed a fork.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "loathe",
+      "text": "I loathe that man.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "cherish",
+      "text": "She still cherished a very tender affection for Bingley.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "degree_mod",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "cherish",
+      "text": "Wickham still cherished the hope of making his fortune by marriage.",
+      "pred": "AGENT",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "grieve",
+      "text": "Emma listened with the warmest concern, grieved for her more and more.",
+      "pred": "AGENT",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "mourn",
+      "text": "He mourned her disappointment.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "marvel",
+      "text": "Rawdon marvelled over his stories about school, and fights, and fagging.",
+      "pred": "AGENT",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "marvel",
+      "text": "Dick marveled that her collapse had not come sooner.",
+      "pred": "AGENT",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": [
+        "has_scomp",
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "wonder",
+      "text": "I wonder whether he will come at all.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "rejoice",
+      "text": "I rejoiced, for I knew that what she could not, none of those we dreaded could.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "rejoice",
+      "text": "She quailed as she thought of the amount and rejoiced because the rent was paid.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "fret",
+      "text": "Now you begin to fret about your feeling and about my feeling.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "fret",
+      "text": "Miss Linton fretted and pined over something.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "esteem",
+      "text": "Catherine had an awfully perverted taste to esteem him so dearly.",
+      "pred": "AGENT",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": [
+        "degree_mod",
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "despise",
+      "text": "She despised him, and was tied to him.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "despise",
+      "text": "Belding was sure Nell cordially despised the fellow.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "relish",
+      "text": "I did not relish the notion of fastening myself in with Heathcliff.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "relish",
+      "text": "Mr Power did not relish the use of his Christian name.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "enjoy",
+      "text": "For a few minutes Anne enjoyed the romance of her situation to the full.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "enjoy",
+      "text": "He enjoys it like a boy.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "value",
+      "text": "She valued his good opinion above all things.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "abhor",
+      "text": "Mr Duffy abhorred anything which betokened physical or mental disorder.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "abhor",
+      "text": "I abhorred the face of man.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "resent",
+      "text": "He resented Hayward's contempt for action and success.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "resent",
+      "text": "But he resented those words bitterly.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "covet",
+      "text": "I coveted a cake of bread.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "covet",
+      "text": "It is impossible that you can covet the admiration of Heathcliff.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": false,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "regret",
+      "text": "She regretted what they had been, so small and exquisite.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "regret",
+      "text": "I regret that I am not a man.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "miss",
+      "text": "That poor boy will miss you something cruel.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "miss",
+      "text": "I rather miss my wild girl.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "doubt",
+      "text": "I doubt whether my own sense would have corrected me without it.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "doubt",
+      "text": "He doubted not at all that she would use it.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "trust",
+      "text": "She trusted him with her whole heart.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "revere",
+      "text": "He believed that women revere men for their manliness.",
+      "pred": "AGENT",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": [
+        "order_pre"
+      ]
+    },
+    {
+      "verb": "pine",
+      "text": "I'm pining to see you dance.",
+      "pred": "UNRESOLVED",
+      "gold": "EXPERIENCER",
+      "correct": false,
+      "known": false,
+      "feats": null
+    },
+    {
+      "verb": "yearn",
+      "text": "She yearned for a word of kindness from him.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    },
+    {
+      "verb": "yearn",
+      "text": "He yearned after the friends of his boyhood.",
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true,
+      "known": true,
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ]
+    }
+  ],
+  "arms_differ": {
+    "digests": {
+      "frame_primary": "1955391cf0f7255eced39bc5298c34a4d779bf9fd5e94bfaa1ef0a681696dfbb",
+      "frame_ablation": "1e707e8c76eb00faf3c02642380989419022c2d6117a72433ff730287381ba86",
+      "partial_ablation": "531250f238d2f7d4327b0f822b80858019e1f3e0316087e87ada16043efa9fa7"
+    },
+    "identical_pairs": []
+  },
+  "arms_differ_verified": true,
+  "supplied_vs_earned": "SUPPLIED: role vocabulary, VERB_FRAMES dict, construction-cue detector definitions, the frame-primary ARCHITECTURE (known verb answers unconditionally, no re-ranking) is a hand-authored design fix, not learned. EARNED: the construction->frame MAPPING for OOV lemmas (induced from non-overlapping-lemma real sentences; lemma never a feature).",
+  "hp_band": [
+    0.8,
+    1.0
+  ],
+  "hp_strict_margin": 0.81,
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy over a discrete 2-class axis; no capacity/CRLB floor",
+  "baseline_in_band": "n/a (shelved-perceptron-0.614 and default-AGENT-0.0 are the discriminating baselines under test)",
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "calibration_check": "default_ok_for_this_regime",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "small_n_caveat": "N=65 subj-axis sentences (real litbank-mined); only 31 are OOV-lemma cases exercising the earned induction path (30 resolved) -- the known-lemma majority is a deterministic frame-table lookup, not a learned result. Report accordingly: this cell demonstrates the ARCHITECTURAL FIX works end-to-end on real data, at modest N for the induced component."
+}
