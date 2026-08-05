@@ -1,0 +1,422 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: core6(named-collision+real-FP) old_correct=2/6 new_correct(majority-of-3-seeds)=6/6 old_wrong=4/6 | confused_4: 3/4 OUT_OF_SCOPE (irony/no-structure/body-part), 1/4 (relinf_unstated_011) mechanically-in-scope but tied-failure on a DIFFERENT proven gap (beneficiary-tracking); new-reader-changed-under-scramble=True vs old-reader-measured-inert-on-confused4 (cited, see old_reader_confused4_scramble_inert_ref)",
+  "summary": "HARD_PASS on core6; confused_4 reported as labeled diagnostic, not gated",
+  "elapsed_s": 0.03287880000425503,
+  "ts_iso": "2026-08-05T14:47:41.812733+00:00",
+  "pid": 22272,
+  "anchor_name": "bridge1_original_failure_payoff_v1",
+  "run_mode": "full",
+  "expected_n_units": 30,
+  "measured_n_units": 30,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "old_digest": "33650f9ac98a78887117491e5975ef3b9e45aa7f0751b828e5e223c67379c9f9",
+    "new_digest": "fab213e74d59dbbeb42c6f7b0839039cd3092fa1cafc7bb3ee16f093f3beee64",
+    "identical": false
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "core6_eval_ids": [
+    "collision_hard_A_nonharm",
+    "collision_hard_B_harm",
+    "collision_trick_A_nonharm",
+    "collision_trick_B_harm",
+    "missed_a_trick_real",
+    "studied_hard_real"
+  ],
+  "core6_rows": [
+    {
+      "eval_id": "collision_hard_A_nonharm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "she practice hard for the exam",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "NA",
+        "NA",
+        "NA"
+      ],
+      "new_reader_pred_majority": "NA",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "collision_hard_B_harm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "he attack her hard",
+      "expected_harm": true,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        true,
+        true,
+        true
+      ],
+      "old_reader_correct": true,
+      "new_reader_pred_per_seed": [
+        "HARM",
+        "HARM",
+        "HARM"
+      ],
+      "new_reader_pred_majority": "HARM",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "collision_trick_A_nonharm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "he know a card trick",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "NA",
+        "NA",
+        "NA"
+      ],
+      "new_reader_pred_majority": "NA",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "collision_trick_B_harm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "that was a vicious trick",
+      "expected_harm": true,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        true,
+        true,
+        true
+      ],
+      "old_reader_correct": true,
+      "new_reader_pred_per_seed": [
+        "HARM",
+        "HARM",
+        "HELP"
+      ],
+      "new_reader_pred_majority": "HARM",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        false
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "missed_a_trick_real",
+      "scope": "IN_SCOPE",
+      "scope_reason": "real-corpus governor-extractable item (governor='missed'); traced from grapp_sincere_003 false positive in data/exp_maintained_affect_narrative_irony_probe_v1",
+      "action_text": "Aunt Polly was vexed to think she had overlooked that bit of circumstantial evidence, and missed a trick.",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "HELP",
+        "HELP",
+        "HELP"
+      ],
+      "new_reader_pred_majority": "HELP",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "studied_hard_real",
+      "scope": "IN_SCOPE",
+      "scope_reason": "real-corpus governor-extractable item (governor='studied', lemma 'study' is literally in TRAIN_NEUTRAL_VERBS); traced from grapp_sincere_005 false positive in data/exp_maintained_affect_narrative_irony_probe_v1",
+      "action_text": "I don't know. Sometimes I think I'll be all right--and then I get horribly afraid. We've studied hard and Miss Stacy has drilled us thoroughly, but we mayn't get through for all that.",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "NA",
+        "NA",
+        "NA"
+      ],
+      "new_reader_pred_majority": "NA",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    }
+  ],
+  "ab_agg_all": [
+    {
+      "eval_id": "collision_hard_A_nonharm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "she practice hard for the exam",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "NA",
+        "NA",
+        "NA"
+      ],
+      "new_reader_pred_majority": "NA",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "collision_hard_B_harm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "he attack her hard",
+      "expected_harm": true,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        true,
+        true,
+        true
+      ],
+      "old_reader_correct": true,
+      "new_reader_pred_per_seed": [
+        "HARM",
+        "HARM",
+        "HARM"
+      ],
+      "new_reader_pred_majority": "HARM",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "collision_trick_A_nonharm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "he know a card trick",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "NA",
+        "NA",
+        "NA"
+      ],
+      "new_reader_pred_majority": "NA",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "collision_trick_B_harm",
+      "scope": "IN_SCOPE",
+      "scope_reason": "named word-sense collision core, governor sense-select axis",
+      "action_text": "that was a vicious trick",
+      "expected_harm": true,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        true,
+        true,
+        true
+      ],
+      "old_reader_correct": true,
+      "new_reader_pred_per_seed": [
+        "HARM",
+        "HARM",
+        "HELP"
+      ],
+      "new_reader_pred_majority": "HARM",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        false
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "missed_a_trick_real",
+      "scope": "IN_SCOPE",
+      "scope_reason": "real-corpus governor-extractable item (governor='missed'); traced from grapp_sincere_003 false positive in data/exp_maintained_affect_narrative_irony_probe_v1",
+      "action_text": "Aunt Polly was vexed to think she had overlooked that bit of circumstantial evidence, and missed a trick.",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "HELP",
+        "HELP",
+        "HELP"
+      ],
+      "new_reader_pred_majority": "HELP",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    },
+    {
+      "eval_id": "studied_hard_real",
+      "scope": "IN_SCOPE",
+      "scope_reason": "real-corpus governor-extractable item (governor='studied', lemma 'study' is literally in TRAIN_NEUTRAL_VERBS); traced from grapp_sincere_005 false positive in data/exp_maintained_affect_narrative_irony_probe_v1",
+      "action_text": "I don't know. Sometimes I think I'll be all right--and then I get horribly afraid. We've studied hard and Miss Stacy has drilled us thoroughly, but we mayn't get through for all that.",
+      "expected_harm": false,
+      "old_reader_pred": "HARM",
+      "old_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "old_reader_correct": false,
+      "new_reader_pred_per_seed": [
+        "NA",
+        "NA",
+        "NA"
+      ],
+      "new_reader_pred_majority": "NA",
+      "new_reader_correct_per_seed": [
+        true,
+        true,
+        true
+      ],
+      "new_reader_correct_majority_seeds": true
+    }
+  ],
+  "confused_4_diagnostic": [
+    {
+      "eval_id": "relinf_unstated_007",
+      "scope": "OUT_OF_SCOPE",
+      "scope_reason": "irony/discourse: surface reads HELP-toned ('take care of herself') but gold=REVENGE_PUNISH (spiteful abandonment); no force-verb+patient collision exists; STAGE-2b discourse port, proven not open-vocab-tested per the cert.",
+      "correct_category": "REVENGE_PUNISH",
+      "gold_valence": "HARM",
+      "old_reader_pred": "HELP",
+      "old_reader_correct": false,
+      "new_reader_pred_ternary": null,
+      "new_reader_correct": null,
+      "note": "not governor-extractable / out of scope -- new reader not applicable"
+    },
+    {
+      "eval_id": "relinf_unstated_010",
+      "scope": "OUT_OF_SCOPE",
+      "scope_reason": "no force verb or HARM/HELP-class governor/adjective present (governor='skate'/'sound', both UNK); only cue is the adverb 'carefully', a structure bridge1 does not operate on.",
+      "correct_category": "CARE_FOR_OTHERS",
+      "gold_valence": "HELP",
+      "old_reader_pred": "HELP",
+      "old_reader_correct": true,
+      "new_reader_pred_ternary": null,
+      "new_reader_correct": null,
+      "note": "not governor-extractable / out of scope -- new reader not applicable"
+    },
+    {
+      "eval_id": "relinf_unstated_011",
+      "scope": "MECHANICALLY_IN_SCOPE_BUT_DIFFERENT_PROVEN_GAP",
+      "scope_reason": "governor='slap' IS in TEST_HARM_VERBS and patient='Lion' is animate, but gold_valence=HELP (PROTECT_OTHERS) because the harmed entity is the ADVERSARY not the beneficiary (Toto) -- PROVEN GAP #2 social-relational/beneficiary-tracking, not animacy/force. Both readers predict HARM here (both wrong, same architectural cause); reported separately, not gated.",
+      "correct_category": "PROTECT_OTHERS",
+      "gold_valence": "HELP",
+      "old_reader_pred": "HARM",
+      "old_reader_correct": false,
+      "new_reader_pred_ternary": "HARM",
+      "new_reader_pred_per_seed": [
+        "HARM",
+        "HARM",
+        "HARM"
+      ],
+      "new_reader_correct_all_seeds": [
+        false,
+        false,
+        false
+      ],
+      "new_reader_correct": false,
+      "scramble_control": {
+        "scrambled_governor_class": "NEUTRAL",
+        "scrambled_pred_ternary": "NA",
+        "changed_under_scramble": true
+      },
+      "note": "mechanically in-scope but requires beneficiary-tracking (PROVEN GAP #2); both readers predict HARM, both WRONG vs gold_valence=HELP -- tied failure, same architectural cause, NOT a two-stage-grounding regression."
+    },
+    {
+      "eval_id": "relinf_unstated_012",
+      "scope": "OUT_OF_SCOPE",
+      "scope_reason": "target patient 'ears' is a body-part noun -- PROVEN GAP #1 (WordNet routes to inanimate, no lift either way).",
+      "correct_category": "SELF_DISCIPLINE",
+      "gold_valence": "NA",
+      "old_reader_pred": "HARM",
+      "old_reader_correct": true,
+      "new_reader_pred_ternary": null,
+      "new_reader_correct": null,
+      "note": "not governor-extractable / out of scope -- new reader not applicable"
+    }
+  ],
+  "old_reader_confused4_scramble_inert_ref": "MEASURED@d:/AI/hd-instrument/data/exp_grounded_structure_phase0_probe_v1/metrics.json: metrics_by_scope.confused_4.GROUNDED_ORACLE_SCRAMBLED_VALENCE_accuracy == metrics_by_scope.confused_4.GROUNDED_ORACLE_NARRATIVE_accuracy == 0.75",
+  "gates": {
+    "old_correct_core6": 2,
+    "new_correct_core6": 6,
+    "old_wrong_count": 4,
+    "hard_pass_criteria": "new_correct_core6==6 and old_wrong_count>=4",
+    "middle_band_criteria": "new_correct_core6>=4"
+  },
+  "note_scope": "core6 = the 4 named hard/trick collision items + the 2 real-corpus word-sense FPs traced from data/exp_maintained_affect_narrative_irony_probe_v1. confused_4 is reported separately per the pre-registered per-item scope audit -- 3/4 items are OUT_OF_SCOPE (irony/discourse, no force-verb structure, body-part patient) and the 4th (relinf_unstated_011) is MECHANICALLY_IN_SCOPE_BUT_DIFFERENT_PROVEN_GAP (needs beneficiary-tracking, not animacy/force) -- both readers tie-fail there for the same architectural reason. Neither counts toward the core6 HARD_PASS/FAIL gate."
+}
