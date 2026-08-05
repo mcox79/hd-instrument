@@ -1,0 +1,2897 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "count_ppmi_held_out_acc=0.5500 (33/60); error_driven_pc_held_out_acc=0.5167 (31/60); floor(sense_collapse_floor_v1)=0.5625; hard_pass_threshold=0.71; shared_single_prototype_control_acc=0.5167; same_sense_agreement count_ppmi=0.8667 error_driven_pc=0.5833; count_vs_errordriven_read=COUNT_BEATS_ERROR_DRIVEN; per_arm_hard_pass={'count_ppmi': False, 'error_driven_pc': False}; verdict=HARD_FAIL",
+  "summary": "C-A v2 corpus-scale count-vs-error-driven sense-structured hub measurement complete",
+  "elapsed_s": 47.68987060000654,
+  "ts_iso": "2026-08-05T12:14:37.277302+00:00",
+  "pid": 16976,
+  "anchor_name": "sense_structured_hub_ca_v2",
+  "seed": 4242,
+  "expected_n_units": 10,
+  "arms": [
+    "count_ppmi",
+    "error_driven_pc"
+  ],
+  "n_forms": 10,
+  "forms": [
+    "bank",
+    "bat",
+    "bear",
+    "bright",
+    "cross",
+    "hard",
+    "light",
+    "pay",
+    "sound",
+    "trick"
+  ],
+  "background_corpus_stats": {
+    "n_files": 13,
+    "n_candidate_sentences_total": 33028,
+    "n_probe_word_sentences": 866,
+    "n_filler_sentences": 2134,
+    "n_background_sentences": 3000,
+    "n_background_tokens": 50925,
+    "background_probe_word_counts": {
+      "bank": 49,
+      "bat": 18,
+      "bear": 83,
+      "bright": 94,
+      "cross": 73,
+      "hard": 203,
+      "light": 244,
+      "pay": 50,
+      "sound": 86,
+      "trick": 9
+    }
+  },
+  "count_ppmi_fit_stats": {
+    "fit_elapsed_s": 38.720055700003286,
+    "vocab_size": 4351,
+    "effective_n_dim": 128
+  },
+  "error_driven_pc_fit_stats": {
+    "fit_elapsed_s": 2.3589569000032498,
+    "vocab_size": 2024,
+    "n_train_events": 18676,
+    "n_applied_writes": 18669,
+    "applied_frac": 0.9996251874062968
+  },
+  "aggregate_by_arm": {
+    "count_ppmi": {
+      "arm": "count_ppmi",
+      "held_out_sense_discrimination_accuracy": 0.55,
+      "held_out_n_correct": 33,
+      "held_out_n_trials": 60,
+      "held_out_p_value_vs_chance": 0.43857802608099944,
+      "single_prototype_control_accuracy": 0.5166666666666667,
+      "single_prototype_control_n_correct": 31,
+      "single_prototype_control_n_trials": 60,
+      "same_sense_agreement": 0.8666666666666667,
+      "same_sense_pair_agree": 52,
+      "same_sense_pair_total": 60,
+      "n_forms_with_ge2_prototypes": 6,
+      "discriminator_fires": true,
+      "senses_induced_not_hand_listed": true,
+      "cardinality_ok": true,
+      "threshold_calibration": {
+        "mean_fit_same_sense_residual": 0.23520419636777076,
+        "mean_fit_diff_sense_residual": 0.24404941579329445,
+        "n_same_sense_pairs": 60,
+        "n_diff_sense_pairs": 90,
+        "threshold_T": 0.2396268060805326,
+        "formula": "T = 0.5 * (mean_fit_same_sense_residual + mean_fit_diff_sense_residual)"
+      }
+    },
+    "error_driven_pc": {
+      "arm": "error_driven_pc",
+      "held_out_sense_discrimination_accuracy": 0.5166666666666667,
+      "held_out_n_correct": 31,
+      "held_out_n_trials": 60,
+      "held_out_p_value_vs_chance": 0.7962534147376387,
+      "single_prototype_control_accuracy": 0.5166666666666667,
+      "single_prototype_control_n_correct": 31,
+      "single_prototype_control_n_trials": 60,
+      "same_sense_agreement": 0.5833333333333334,
+      "same_sense_pair_agree": 35,
+      "same_sense_pair_total": 60,
+      "n_forms_with_ge2_prototypes": 10,
+      "discriminator_fires": true,
+      "senses_induced_not_hand_listed": true,
+      "cardinality_ok": true,
+      "threshold_calibration": {
+        "mean_fit_same_sense_residual": 0.6192863724243367,
+        "mean_fit_diff_sense_residual": 0.6169165068362976,
+        "n_same_sense_pairs": 60,
+        "n_diff_sense_pairs": 90,
+        "threshold_T": 0.6181014396303172,
+        "formula": "T = 0.5 * (mean_fit_same_sense_residual + mean_fit_diff_sense_residual)"
+      }
+    }
+  },
+  "floor_reference_honest_floor_accuracy": 0.5625,
+  "floor_reference_path": "data/exp_sense_collapse_floor_v1/metrics.json",
+  "v1_reference_path": "data/exp_sense_structured_hub_ca_v1/metrics.json",
+  "v1_reference_held_out_acc": 0.5666666666666667,
+  "shared_single_prototype_control_accuracy": 0.5166666666666667,
+  "control_consistent_across_arms": true,
+  "n_disagree_between_arms": 26,
+  "n_compared_between_arms": 60,
+  "arms_differ_verified": true,
+  "per_arm_hard_pass": {
+    "count_ppmi": false,
+    "error_driven_pc": false
+  },
+  "any_hard_pass": false,
+  "both_hard_fail": true,
+  "count_vs_errordriven_read": "COUNT_BEATS_ERROR_DRIVEN",
+  "cardinality_ok": true,
+  "disjoint_vocab_check": {
+    "bank": {
+      "fit_vocab_size": 19,
+      "test_vocab_size": 19,
+      "overlap": []
+    },
+    "bat": {
+      "fit_vocab_size": 22,
+      "test_vocab_size": 22,
+      "overlap": []
+    },
+    "bear": {
+      "fit_vocab_size": 14,
+      "test_vocab_size": 18,
+      "overlap": []
+    },
+    "bright": {
+      "fit_vocab_size": 17,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "cross": {
+      "fit_vocab_size": 14,
+      "test_vocab_size": 22,
+      "overlap": []
+    },
+    "hard": {
+      "fit_vocab_size": 18,
+      "test_vocab_size": 22,
+      "overlap": []
+    },
+    "light": {
+      "fit_vocab_size": 16,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "pay": {
+      "fit_vocab_size": 18,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "sound": {
+      "fit_vocab_size": 16,
+      "test_vocab_size": 21,
+      "overlap": []
+    },
+    "trick": {
+      "fit_vocab_size": 18,
+      "test_vocab_size": 20,
+      "overlap": []
+    }
+  },
+  "per_form_by_arm": {
+    "count_ppmi": {
+      "bank": {
+        "n_prototypes_induced": 2,
+        "cluster_label_map": {
+          "0": "B",
+          "1": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.20818171643697458
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.2483451901854179
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.12876740620773547
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.15599388448176804
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.12297702486108703
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 1,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 2
+      },
+      "bat": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "A",
+          "2": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.3190745944409792
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 0.2965603418934323
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 2,
+            "residual": 0.2143631636942001
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.2080761828974591
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 2,
+            "residual": 0.16986146275710612
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          }
+        ],
+        "held_out_n_correct": 4,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 4,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "bear": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "A",
+          "2": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.2603546530817816
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.09129426657651046
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.2095816090182121
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 0.24015801492421918
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.22919430228680726
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          }
+        ],
+        "held_out_n_correct": 4,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 3,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 5
+      },
+      "bright": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "B",
+          "2": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|0",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.2813113356314457
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.2379252400267457
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 0.2515581837481354
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.163943471220857
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.2294227960273698
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 2,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 5
+      },
+      "cross": {
+        "n_prototypes_induced": 1,
+        "cluster_label_map": {
+          "0": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.19363069468817568
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.20988663201600338
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.16293308033050652
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.2239200499811425
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.19169465658045243
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 2,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 1
+      },
+      "hard": {
+        "n_prototypes_induced": 4,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "A",
+          "2": "B",
+          "3": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.2873250608404864
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 0.2541424260689915
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 3,
+            "residual": 0.2698690148856704
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 2,
+            "residual": 0.22763309845181046
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.1455342360787264
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          }
+        ],
+        "held_out_n_correct": 4,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 2,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 4,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "light": {
+        "n_prototypes_induced": 1,
+        "cluster_label_map": {
+          "0": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|1",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.20835482600491861
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.19637769010203188
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.1437914623586008
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.14299726045793265
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.10687195121419374
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 3,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 2
+      },
+      "pay": {
+        "n_prototypes_induced": 1,
+        "cluster_label_map": {
+          "0": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|0",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.177020093732199
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.20373926601269138
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.22302690466933012
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.11918101887712451
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.14959669792995917
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 3,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 2
+      },
+      "sound": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "A",
+          "2": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.2963724816442511
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.214157895312594
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.23807884624486197
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.1535383363885428
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 0.2483477051775002
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 5,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "trick": {
+        "n_prototypes_induced": 1,
+        "cluster_label_map": {
+          "0": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|0",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.21980878854839936
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.15708743166288863
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.23028973414882353
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.1520348056103662
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.1601619050628021
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 4,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 3
+      }
+    },
+    "error_driven_pc": {
+      "bank": {
+        "n_prototypes_induced": 4,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "B",
+          "2": "A",
+          "3": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.16559375511063634
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.4121022727350475
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 3,
+            "residual": 1.0
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 3
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 3
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 3
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 3
+          }
+        ],
+        "held_out_n_correct": 5,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 1,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "bat": {
+        "n_prototypes_induced": 2,
+        "cluster_label_map": {
+          "0": "B",
+          "1": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.18017635737584664
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.684393939547481
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.5461508775910294
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.012869112736428323
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.010856208493670083
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 2,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 4,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 6
+      },
+      "bear": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "B",
+          "1": "A",
+          "2": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.10008564088984129
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.396772467029835
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 2,
+            "residual": 0.3313789966230262
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 2,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 3,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 2
+      },
+      "bright": {
+        "n_prototypes_induced": 2,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|0",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.8461750908905308
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.19833712351350952
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.32484619325707853
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.2855076887887228
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.03360811790209339
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 2,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 2,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 5
+      },
+      "cross": {
+        "n_prototypes_induced": 4,
+        "cluster_label_map": {
+          "0": "B",
+          "1": "B",
+          "2": "A",
+          "3": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.08537361791902148
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.011596099553338624
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 3,
+            "residual": 1.0
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 3
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 4,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 2,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "hard": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "B",
+          "2": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.4771700265458569
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.23601851781991373
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 2,
+            "residual": 0.10512859601538588
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 1,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 4,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 3
+      },
+      "light": {
+        "n_prototypes_induced": 2,
+        "cluster_label_map": {
+          "0": "B",
+          "1": "A"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|1",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.011738818592814337
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.014468688412099806
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.36578186302460064
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.22334560267727205
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.8599802717028124
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 6,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 3,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "pay": {
+        "n_prototypes_induced": 2,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|0",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.012831722131345702
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.9454677511484377
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.44797858563165094
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.005039367467266742
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.007425217310754351
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 1
+          }
+        ],
+        "held_out_n_correct": 5,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 3,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "sound": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "A",
+          "2": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|B|2",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.013953747733196797
+          },
+          {
+            "item": "FIT|A|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 0.823935567734437
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.2970416577420289
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "merge",
+            "proto_id": 0,
+            "residual": 0.0659498651956355
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 1.0
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          }
+        ],
+        "held_out_n_correct": 3,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 4,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          }
+        ],
+        "single_prototype_control_n_correct": 5,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 4
+      },
+      "trick": {
+        "n_prototypes_induced": 3,
+        "cluster_label_map": {
+          "0": "A",
+          "1": "A",
+          "2": "B"
+        },
+        "induction_trace": [
+          {
+            "item": "FIT|A|0",
+            "action": "seed_first_prototype",
+            "proto_id": 0,
+            "residual": null
+          },
+          {
+            "item": "FIT|A|2",
+            "action": "spawn_new_prototype",
+            "proto_id": 1,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|A|1",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.38291808308475656
+          },
+          {
+            "item": "FIT|B|0",
+            "action": "spawn_new_prototype",
+            "proto_id": 2,
+            "residual": 1.0
+          },
+          {
+            "item": "FIT|B|2",
+            "action": "merge",
+            "proto_id": 2,
+            "residual": 0.010601993438702384
+          },
+          {
+            "item": "FIT|B|1",
+            "action": "merge",
+            "proto_id": 1,
+            "residual": 0.27212907729677016
+          }
+        ],
+        "held_out_test_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 0
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true,
+            "nearest_proto": 2
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false,
+            "nearest_proto": 1
+          }
+        ],
+        "held_out_n_correct": 2,
+        "held_out_n_trials": 6,
+        "same_sense_pair_agree": 1,
+        "same_sense_pair_total": 6,
+        "single_prototype_control_results": [
+          {
+            "test_id": "TEST|A|0",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|A|1",
+            "gold_sense": "A",
+            "pred_sense": "B",
+            "correct": false
+          },
+          {
+            "test_id": "TEST|A|2",
+            "gold_sense": "A",
+            "pred_sense": "A",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|0",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|1",
+            "gold_sense": "B",
+            "pred_sense": "B",
+            "correct": true
+          },
+          {
+            "test_id": "TEST|B|2",
+            "gold_sense": "B",
+            "pred_sense": "A",
+            "correct": false
+          }
+        ],
+        "single_prototype_control_n_correct": 4,
+        "single_prototype_control_n_trials": 6,
+        "n_items_where_arms_disagree_vs_control": 2
+      }
+    }
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "exempt_short_singleshot_cell_start_marker_and_crash_diagnostic_present",
+  "crlb_n_a": "representational sense-induction measurement; no quantitative noise-floor formula applies",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "progress_logging": "print_flush_true",
+  "hard_pass_band": {
+    "held_out_sense_discrimination_accuracy": ">=0.71 (either arm)",
+    "single_prototype_control_accuracy": "<=0.65",
+    "same_sense_agreement": ">=0.6",
+    "senses_induced_not_hand_listed": true
+  },
+  "hard_fail_band": {
+    "held_out_sense_discrimination_accuracy": "<0.71 (both arms)",
+    "single_prototype_control_accuracy": ">=0.8 (leak)",
+    "same_sense_agreement": "<0.5 (over-split, both arms)"
+  }
+}
