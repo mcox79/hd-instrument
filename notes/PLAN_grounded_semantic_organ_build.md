@@ -1,147 +1,127 @@
-# PLAN (v2, design-VET-corrected) — build the missing semantic organ
+# PLAN (v3, brain-fidelity-VET-corrected) — build the missing semantic organ
 
-Status: RECORDED 2026-08-05 (survived aggressive adversarial design-VET: notes/design_vet_semantic_organ_plan.md,
-commit 7bc1acfd6; VET's load-bearing claims re-verified on disk by Director). This is the plan of record.
-Sources: brain audit (notes/brain_audit_SYNTHESIS_missing_semantic_organ.md + mechanism + our-components).
-USER mandate (2026-08-05): prove EACH component works, THEN prove the COMBINATION works, stay FULLY
-brain-faithful, do the RIGHT things not the easy ones.
+Status: RECORDED 2026-08-05. v3 supersedes v2 after a HARD per-component brain-fidelity VET
+(notes/brain_fidelity_vet_components.md, commit 6469e4899) triggered by C-A failing TWICE. The VET (USER-
+directed: "vet the components hard against the brain faithful drill") proved C-A's FORMULATION — not its
+implementation — was un-brain-faithful. This version fixes the formulation. Reference standard = the brain
+drill (notes/brain_audit_affective_comprehension_mechanism.md); assets (notes/brain_audit_our_components_status.md);
+design-VET (notes/design_vet_semantic_organ_plan.md).
+USER mandate: prove EACH component, THEN the COMBINATION, fully brain-faithful, RIGHT-not-easy.
 
-## 0. CORRECTED ASSET INVENTORY (the audit UNDER-counted; verified on disk)
-We are NOT starting from scratch. EXISTING glass-box, own-substrate, no-borrowed-embedding assets over text:
-- hdlab/random_indexing.py (Sahlgren/Kanerva distributional, Hebbian co-occurrence).
-- hdlab/ppmi_sparse_encoder.py (PPMI/SVD sparse concept encoder over text).
-- hdlab/concept_encoder.py (competitive-Hebbian sparse concept coder; HARD_PASS cat_kitten_cos=0.492).
-- hdlab/composed_encoder_v3.py (VWFA + PPMI N400 late-combine; SHELVED/superseded 2026-07-03).
-- hdlab/predictive_coding.py (Rao-Ballard residual-gated Hebbian; the forward-prediction substrate — REUSE, do not rebuild).
-- FAITHFUL+WIRED: coreference_resolver (HARD_PASS). EARNED+ISLANDED: appraisal-sim (valuation), ToM (mentalizing).
-GENUINELY MISSING (the real build surface, narrowed): (a) SENSE-STRUCTURE / polysemy — every existing
-encoder gives ONE vector per surface form, so "studied hard"/"hit hard" collapse; (b) IFG/pMTG
-CONTROL/selection; (c) an ACC-style INCONGRUITY detector; (d) the AFFECT dimension in situation_reader's
-EventRecord (verified absent); (e) valence riding a SENSE-RESOLVED concept; (f) two TEXT->STRUCTURED
-EXTRACTION BRIDGES (text->appraisal-input for the sim; text->belief-input for ToM) — both reuse organs
-take STRUCTURED input, never text, so the bridges are unbuilt and load-bearing.
-=> EXTEND, don't rebuild. C-A overlaps HIGH with concept_encoder + composed_encoder_v3 — treat as extension.
+## 0. What the two C-A fails taught us (the formulation correction)
+- The ATL semantic HUB is NOT missing (composed_encoder_v3 / concept_encoder exist, glass-box). What is
+  missing is CONTEXT-CONDITIONED SENSE RESOLUTION = GROUNDING + CONTROL, and the AFFECT dimension.
+- BAG-OF-WORDS CO-OCCURRENCE LACKS THE SENSE SIGNAL (MEASURED: supervised nearest-centroid handed the gold
+  sense scored 0.5167=chance on masked bag-of-words, v2). The brain's sense signal is GROUNDING + SYNTAX/
+  ARGUMENT-STRUCTURE + SITUATION (drill 1.4/2.2), not nearby-word counts.
+- DISCRETE stored senses are un-brain-faithful (drill 1.2/2.1: graded, constructed per-instance). Use a
+  CONTEXT-MODULATED GRADED concept read, not a sense inventory.
+- SENSE RESOLUTION IS INSEPARABLE FROM CONTROL (drill 1.4/§4 recurrence): the hub alone gives only the
+  DEFAULT sense; the contextually-correct sense is produced BY control under situation-model bias. =>
+  MERGE C-A+C-B. And the CORRECT METRIC is DOWNSTREAM DIFFERENTIAL GROUNDING ("studied hard"->non-harm vs
+  "hit hard"->harm), prior-clause-forced — NOT isolated 2AFC.
+- Therefore BRIDGE-1 (appraisal/valence FROM TEXT) is the TRUE BLOCKING FOUNDATION: you cannot even SCORE
+  the corrected sense-resolution component without producing a grounding/valence from a word-in-context.
+  Build it FIRST.
 
-## 1. Invariants (non-negotiable)
-Glass-box; no external LLM at inference; NO borrowed embedding as the meaning organ (our own weights,
-inspectable per-dim; borrowed = diagnostic-only then discarded); brain = reference standard; each
-component judged on its OWN brain metric + an ERROR-BUDGET CONTRACT to its consumer (not just "beats
-floor"); COMPONENT-FIDELITY-FIRST then a dedicated assembly proof; every gain WIRED at land; reuse the
-faithful assets as spokes; select by brain-foundational-RIGHT; do the hard BLOCKING thing.
+## 1. Invariants (unchanged)
+Glass-box; no external LLM at inference; NO borrowed embedding as the meaning organ (own inspectable
+weights; borrowed=diagnostic-only then discarded); brain=reference standard; each component judged on its
+OWN brain metric + an ERROR-BUDGET contract to its consumer; component-fidelity-first then a dedicated
+assembly proof; every gain WIRED at land; reuse faithful assets (coref, appraisal-sim, predictive_coding,
+composed_encoder_v3/concept_encoder, Component-3 frames) as spokes; select by brain-foundational-RIGHT; do
+the hard BLOCKING thing.
 
-## 2. Gate design rules (from the VET — every component obeys these)
-- FLOOR = the strongest EXISTING mechanism, never a strawman (no hash-random floors). A shortcut/heuristic
-  control MUST FAIL the gate the faithful mechanism passes.
-- ERROR-BUDGET CONTRACT: each gate states the ACCURACY/NOISE its downstream consumer needs, so "all
-  components pass" actually predicts "combination passes" (the VET's central fix).
-- HELD-OUT with DISJOINT cue vocabulary between fit and test (no leakage — recall the "sarcastically"
-  and the melancholy/hollow/burden 3-word-signature leaks; implicit-affect items MUST use disjoint cues).
-- Pre-register HARD-PASS + HARD-FAIL bands BEFORE running; difficulty on; ONE variable; real baseline.
-- Adversarial VET (independent recompute + shortcut hunt) before advancing. WIRE-or-SHELVE at land.
+## 2. Gate rules (unchanged, from the design-VET)
+Real-mechanism FLOORS (no strawman); ERROR-BUDGET contract per gate (so all-pass predicts combination-pass);
+held-out with DISJOINT cue vocabulary (no leakage); pre-register HARD-PASS+HARD-FAIL before running;
+difficulty on; one variable; adversarial VET before advancing; WIRE-or-SHELVE at land.
 
-## 3. Component order (dependency-first) — each with brain mechanism, REWRITTEN gate, error budget
+## 3. Component build order (v3 — reformulated + reordered)
 
-### C-A. SENSE-STRUCTURED lexical-semantic hub (EXTEND concept_encoder; reuse predictive_coding)
-- Brain mechanism: ATL amodal concept space, learned by statistical convergence + PREDICTION-ERROR, with
-  MULTIPLE co-active senses per form, groundable to spokes. Substrate = concept_encoder competitive-Hebbian
-  + predictive_coding Rao-Ballard gate (NAMED — hdlab/learner is model-SELECTION over hand atoms, CANNOT
-  induce a semantic space; do not miscite it).
-- STEP 0 (the RIGHT first step, cheap MEASUREMENT — begins now): run the EXISTING encoders
-  (random_indexing / composed_encoder_v3 / concept_encoder) on a sense-minimal-pair probe and MEASURE the
-  single-prototype sense-collapse. This sets the HONEST floor (replaces the asserted "count caps") and
-  proves the discriminator fires on the real failure mode.
-- Build: induce sense-structure (multi-prototype / context-clustered senses per form, induced not
-  hand-listed), error-driven via predictive_coding.
-- GATE (rewritten): on a held-out sense-labeled probe with DISJOINT fit/test context vocab, the
-  sense-structured hub separates the two senses of a polysemous form that the EXISTING single-prototype
-  encoder provably CANNOT (floor = single-prototype encoder, not hash-random). ERROR BUDGET: sense-pick
-  accuracy >= X (X set from what C-D needs; measured in Step 0, pre-registered). HARD-FAIL if it beats
-  the single-prototype floor by < the budget, or if senses are hand-listed rather than induced.
+### FOUNDATION. BRIDGE-1 = context-conditioned GROUNDING (word-in-context -> appraisal/valence)  [BUILD FIRST]
+- Brain analog: valuation/grounding spokes (drill 1.3) driven by CONTROL (1.4) under situation context.
+- Why first: the corrected sense-resolution metric IS differential grounding; that requires producing a
+  valence from a word-in-context, which needs this bridge. Also fixes the audit's hand-wave (appraisal-sim
+  CONG is a HAND MAP from episode type, verified L74; it never reads appraisal from text; its synthetic
+  1.000 is NOT a text number).
+- Build: an EARNED, glass-box map from (target word, its CONTEXT) -> the appraisal-sim's input dims
+  (congruence HURT/HELP/NEUTRAL, coping), which the FROZEN earned theta then values. CRITICAL: the context
+  SIGNAL must be GROUNDING + SYNTAX/ARGUMENT-STRUCTURE (the syntactic governor / frame — reuse depparse +
+  Component-3 frames), NOT bag-of-words (proven featureless). "hard" grounds differently under governor
+  "studied" (manner) vs "hit" (force/harm).
+- GATE (differential grounding, the drill's §6 test on the sense-override subset): on collision pairs with
+  the disambiguator in a PRIOR clause, produce DIFFERENTIAL valence ("studied hard"->non-HARM vs "hit
+  hard"->HARM) beating: (i) the single fixed-per-form table (current reader), (ii) a bag-of-words control
+  (must FAIL — signal check), (iii) scrambled-valence control. WITNESS the sim theta (not a table) drives
+  the value + generalize to unseen concepts. HARD-FAIL if only a per-form table works, if bag-of-words
+  matches it, or if it must retrain theta.
 
-### C-B. Semantic CONTROL / word-sense selection (IFG/pMTG) — real biased-competition
-- Brain mechanism: biased competition (mutual inhibition, Desimone-Duncan) among C-A candidate senses,
-  constrained by the SITUATION-MODEL context; controlled retrieval of the non-dominant sense; objective =
-  contextual coherence not frequency. NOT argmax-over-local-cues.
-- GATE (rewritten): context-minimal-pair items where the disambiguating evidence is ONLY IN A PRIOR
-  SENTENCE (not the local window); a LOCAL-WINDOW-ONLY control MUST FAIL while C-B passes (kills the arm_c
-  shortcut). Mechanism witness: inspectable mutual-inhibition dynamics, not a cue argmax. ERROR BUDGET:
-  selection accuracy on prior-sentence items >= what C-C/C-D need. HARD-FAIL if a local-window heuristic
-  matches it.
-
-### BRIDGE-1 (NEW, gated). text -> appraisal-input encoder (feeds the appraisal-sim)
-- Why: appraisal-sim's congruence/coping are HAND-MAPPED from episode type (CONG={BLOCK_HIGH:HURT,...},
-  verified) — it NEVER reads appraisal from text, and its theta space is not type-compatible with the
-  concept space. Reusing it for text valence REQUIRES this bridge; the synthetic 1.000 is NOT a text number.
-- Build: map a sense-resolved concept (C-A/C-B) + its situation context to the sim's appraisal-dim input
-  (congruence/coping), glass-box. GATE: bridge produces appraisal inputs that, fed to the FROZEN earned
-  theta, recover valence on a held-out UNSEEN-concept set above a per-sense-hand-table control (proves the
-  sim theta, not a table, drives the value) + generalizes to unseen concepts. HARD-FAIL if only a hand
-  table works or if it needs to retrain theta.
+### C-AB. Context-conditioned graded sense resolution (MERGED C-A + C-B)  [with/after BRIDGE-1]
+- Brain analog: 1.2 hub (default, GRADED) + 1.4 semantic control (biased competition keyed to the running
+  situation model), as ONE recurrent read — NOT a standalone discrete-sense inducer.
+- Build: a context-MODULATED read of the existing hub (composed_encoder_v3/concept_encoder) — the same
+  concept vector SHIFTED by a control step biased from verb-frame/argument-structure + situation + the
+  BRIDGE-1 grounding. Graded, glass-box (inspectable what shifted the read). NO discrete prototype
+  inventory; NO isolated 2AFC.
+- GATE: DOWNSTREAM differential grounding (via BRIDGE-1) on prior-clause-forced collision items; a
+  LOCAL-WINDOW-ONLY control MUST FAIL (kills the arm_c shortcut); a context-BLIND read MUST FAIL (kills the
+  single-prototype floor). ERROR BUDGET: differential-grounding accuracy >= what C-C/C-D need.
 
 ### C-C. Sense-resolved VALENCE (retire resolve_valence_blind from the affect path)
-- Build: valence = appraisal-sim (via BRIDGE-1) on the C-B sense-resolved concept.
-- GATE (rewritten): clears the audit's pinned failures — word-sense FPs (studied hard / a trick = non-HARM)
-  AND the INERT-valence hard subset (must beat the SCRAMBLED-valence control, which the current reader does
-  NOT: confused-4 oracle==scrambled==0.75). Value WITNESS: show the sim theta (not a table) drove each pick.
-  ERROR BUDGET: valence accuracy on sense-resolved concepts >= what C-D's integration needs.
+- = BRIDGE-1 grounding on the C-AB context-resolved concept, feeding the appraisal-sim valuation.
+- GATE: clears the audit's pinned failures — word-sense FPs (studied hard / a trick = non-HARM) AND the
+  INERT-valence hard subset (must BEAT the scrambled-valence control the current reader does NOT). Value
+  WITNESS (theta, not a table, drove each pick).
 
-### C-D. Situation-model AFFECT dim + PREDICTION (isolate prediction from integration) — load-bearing
-- Brain mechanism: Zwaan event-indexing + per-protagonist affect/goal state, maintained (WM in-focus +
-  coref persistence out-of-focus) and PREDICTIVE (forward valence expectation before the next clause;
-  reuse predictive_coding).
-- Build: extend EventRecord with an affect dim (populated by C-C on sense-resolved concepts, bound to the
-  coref protagonist-index) + a forward-prediction of expected next-clause valence via predictive_coding.
-- GATE (rewritten — the VET's #1): TWO can-fails, (i) INTEGRATION: recover implicit dread from multiple
-  weak DISJOINT-vocab cues vs a per-token-pooling baseline; (ii) PREDICTION (the isolating one): forward-
-  project to an UNSTATED outcome — a STATIC no-projection arm MUST FAIL while the full predictive arm
-  passes (otherwise "dread = forward prediction" is unproven and C-E is built on sand). Plus goal-owner
-  PERSISTENCE across a 2-3 sentence span with a distractor. ERROR BUDGET stated for C-E/C-F.
+### C-D. Situation-model AFFECT dim + PREDICTION (isolate prediction from integration)
+- Brain analog: 1.5 Zwaan event-indexing (per-protagonist affect/goal state, maintained via coref/hippo
+  persistence) + 1.6 predictive coding (forward valence expectation before the next clause — REUSE
+  hdlab/predictive_coding, do not island it).
+- Build: extend situation_reader EventRecord with an affect dim (populated by C-C on sense-resolved
+  concepts, bound to the coref protagonist-index) + a forward-prediction of next-clause valence.
+- GATE (rewritten): TWO can-fails — (i) INTEGRATION (implicit dread from disjoint-vocab weak cues vs
+  per-token pooling) AND (ii) PREDICTION-ISOLATING (forward-project to an UNSTATED outcome; a STATIC
+  no-projection arm MUST FAIL while the predictive arm passes). Plus goal-owner persistence across a span
+  with a distractor. This is the highest-priority gate rewrite (C-E depends on it).
 
-### C-E-DETECT (NEW, gated). ACC-style INCONGRUITY detector
-- Brain mechanism: dorsal-ACC conflict-monitoring — detects predicted-vs-surface valence mismatch, TRIGGERS
-  reinterpretation. (Carry the mechanism doc's MODERATE-CONFIDENCE flag: ACC-for-irony is inferred from
-  adjacent literature, not irony-specific — so this is a hypothesis-gated component.)
-- GATE: fires on predicted(C-D)-vs-surface mismatch above a threshold, with a real ROC vs a no-conflict
-  control; must not fire on sincere (charged, adequately-sized sincere set). It is a DETECTOR, not a
-  classifier of irony content.
+### C-E-DETECT. ACC-style INCONGRUITY detector  [FIRST-CLASS gated component, was assumed]
+- Brain analog: dorsal-ACC conflict monitoring (drill 1.8) — carries the drill's MODERATE-CONFIDENCE flag
+  (ACC-for-irony inferred from adjacent literature, not irony-specific; hypothesis-gated).
+- GATE: fires on C-D predicted-vs-surface valence mismatch with a real ROC vs a no-conflict control; must
+  not fire on a charged, adequately-sized sincere set. A detector, not an irony content classifier.
 
-### C-E. Irony as a BYPRODUCT (reuse ToM via BRIDGE-2)
-- BRIDGE-2 (NEW, gated): text mismatch context -> ToM's nested-HRR belief-input contract (ToM takes
-  structured belief bundles, not text — unbuilt). GATE the bridge separately.
-- C-E build: on C-E-DETECT firing, route through ToM (via BRIDGE-2) for intended-meaning reattribution.
+### BRIDGE-2 + C-E. Irony as a BYPRODUCT via ToM  [BRIDGE-2 is a FIRST-CLASS gated build]
+- BRIDGE-2: text mismatch context -> ToM nested-HRR belief-input contract (ToM takes structured belief
+  bundles, not text — unbuilt; gate it separately).
+- C-E: on C-E-DETECT firing, route through ToM (via BRIDGE-2) for intended-meaning reattribution.
 - GATE: recovers the narrative-only irony arm_c MISSED (3/5) with 0 sincere FP, NO explicit-marker leak,
-  as a BYPRODUCT (no dedicated irony surface-cue features). HARD-FAIL if a standalone surface classifier is
-  needed (refutes the byproduct hypothesis -> re-route). CONDITIONAL on the C-D prediction gate passing.
+  as a BYPRODUCT (no dedicated irony surface features). CONDITIONAL on the C-D prediction gate passing.
+  HARD-FAIL if a standalone surface classifier is needed (refutes the byproduct hypothesis -> re-route).
 
-### PREREQ for C-F. WIRE OOV frame-induction into production FIRST
-- Verified unsequenced dependency: frame_primary_role falls OOV subj->AGENT in production (situation_reader
-  self-test asserts cherished->AGENT). TYPING_MISS cannot move until OOV induction (offline induce(),
-  Gleitman bootstrapping) is WIRED into the production path. Do this before C-F.
+### PREREQ + C-F. Wire OOV frame-induction into production, THEN goal-owner selection
+- PREREQ (verified unsequenced dependency): frame_primary_role falls OOV subj->AGENT in production
+  (situation_reader self-test asserts cherished->AGENT). WIRE the offline OOV induction (Gleitman
+  bootstrapping) into production BEFORE C-F.
+- C-F: Component-5 selection fed by C-AB sense-resolved + OOV-wired frame roles + C-D affect/goal
+  persistence + coref. GATE: ABLATION isolating the TYPING_MISS-bucket delta (14/38) to sense-resolved
+  roles (not coref); beat ~0.32 end-to-end / 0.82 owner-ID with TYPING_MISS shrinking.
 
-### C-F. Goal-owner selection (Component-5) on the faithful stack
-- Build: Component-5 fed by C-A/C-B sense-resolved + OOV-wired frame roles + C-D affect/goal persistence + coref.
-- GATE (rewritten): ABLATION isolating the TYPING_MISS-bucket delta (dominant 14/38) specifically to
-  sense-resolved roles (not coref) on the held-out C3-mined set; beat the ~0.32 end-to-end / 0.82 owner-ID
-  with TYPING_MISS shrinking. HARD-FAIL if TYPING_MISS doesn't move.
-
-## 4. Assembly / combination proof (own phase, VET-corrected)
-- BASELINE = the EXISTING BACKBONE (coref + situation_reader + positional roles + table valence) — NOT a
-  stripped baseline (else the >=15pt gain could be coref, not C-A..C-E). Fair, backbone-matched.
-- TEST set spans (a) sense-override, (b) implicit affect [DISJOINT cue vocab, no 3-word signature leak],
-  (c) irony [no marker leak], (d) goal-owner across span with distractor.
-- HARD-PASS: >=15pts absolute on the IMPLICIT-AFFECT and GOAL-OWNER subsets (the two that provably need the
-  situation-model layer). PER-SEAM ABLATION at every wiring seam (faithful parts don't auto-compose) — so
-  an undetected error-budget gap surfaces. Carry P_deflated=0.45.
-- HARD-FAIL / diagnostic: <5pts on implicit-affect+goal-owner -> pinpoints which of C-A/C-B vs C-D vs
-  persistence is still missing.
+## 4. Assembly / combination proof (own phase)
+BASELINE = the EXISTING BACKBONE (coref + situation_reader + positional roles + table valence) — backbone-
+matched, NOT stripped (else the gain is coref not the organ). TEST spans sense-override / implicit-affect
+[disjoint cue vocab] / irony [no marker leak] / goal-owner-across-span-with-distractor. HARD-PASS = >=15pts
+absolute on IMPLICIT-AFFECT and GOAL-OWNER subsets; PER-SEAM ablation at every wiring seam (faithful parts
+don't auto-compose). Carry P_deflated=0.45. HARD-FAIL <5pts on those two -> pinpoints the still-missing piece.
 
 ## 5. Process (every phase)
 Design-gate before each full run; on every negative run the brain-fidelity element audit + "missing
 component (esp. LEARNING)?" check; VET positives as hard as negatives, per-axis, triple-check load-bearing
-data, verify on disk, READ THE CODE; resumable per-unit; local-only; git-commit after every bank; NO
-origin push w/o USER auth; docs current every cycle.
+data, verify on disk, READ THE CODE; resumable per-unit; local-only; git-commit after every bank; NO origin
+push w/o USER auth; docs current every cycle.
 
-## 6. First action (BEGIN NOW)
-C-A STEP 0 measurement cell: run existing encoders on a sense-minimal-pair probe, measure single-prototype
-sense-collapse, set the honest floor + the C-A error budget. This is the RIGHT first step (measure the real
-baseline before building; do not assume "count caps"). Everything downstream keys off this number.
+## 6. NEXT ACTION (BEGIN)
+Build BRIDGE-1 = context-conditioned grounding (word-in-context -> appraisal/valence), SIGNAL = syntactic
+governor/frame + grounding (NOT bag-of-words), EARNED, judged by DIFFERENTIAL GROUNDING on prior-clause-
+forced collision pairs (studied-hard->non-harm vs hit-hard->harm), bag-of-words control MUST fail. This is
+the true blocking foundation; C-AB is tested THROUGH it. Reuse depparse + Component-3 frames + appraisal-sim.
