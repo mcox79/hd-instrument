@@ -367,7 +367,12 @@ def run(run_mode: str):
     delta = round(gold_agg["outcome_binding_accuracy"] - real_agg["outcome_binding_accuracy"], 4)
     where_breaks = _diagnose_break(gold_agg, real_agg, real_per_seed)
 
-    beats_recency_real = real_agg["outcome_binding_accuracy"] > 0.3333
+    # recency floor recomputed on the DEEPENED bank (N=len(RECENCY), same set both cells share via
+    # the gold_cell import) -- was the stale N=3 value (0.3333, 1/3) before the 2026-08-05 deepening
+    # (RECENCY 3 -> 23 items); reused from gold_agg (gold_cell.aggregate computes it identically
+    # since both cells run over the SAME RECENCY/FOILS bank).
+    recency_floor = gold_agg["recency_baseline"]
+    beats_recency_real = (recency_floor is not None and real_agg["outcome_binding_accuracy"] > recency_floor)
     hard_fail_real = (real_agg["outcome_binding_accuracy"] <= 0.334) or (not real_agg["role_scramble_collapse"])
     hard_pass_real = (
         real_agg["outcome_binding_accuracy"] >= 0.67 and real_agg["role_scramble_collapse"] and
@@ -380,10 +385,11 @@ def run(run_mode: str):
         verdict = "MIDDLE_BAND"
 
     summary = (
+        f"N={len(RECENCY)} recency items (deepened 2026-08-05, was N=3). "
         f"GOLD-ROLE C5 (reproduced, commit 6911a28a6): outcome_binding_accuracy="
         f"{gold_agg['outcome_binding_accuracy']} scramble_collapse={gold_agg['role_scramble_collapse']}. "
         f"REAL-C3-ROLE end-to-end: outcome_binding_accuracy={real_agg['outcome_binding_accuracy']} "
-        f"(recency floor=0.3333, beats_recency={beats_recency_real}) "
+        f"(recency floor={recency_floor}, beats_recency={beats_recency_real}) "
         f"scramble_collapse={real_agg['role_scramble_collapse']} "
         f"control_false_fire_rate={real_agg['control_false_fire_rate']} "
         f"gold_vs_real_delta={delta} where_breaks={where_breaks} verdict={verdict}")
@@ -395,6 +401,7 @@ def run(run_mode: str):
         real_c3_role_endtoend=real_agg,
         gold_vs_real_delta=delta,
         where_breaks=where_breaks,
+        recency_floor_deepened=recency_floor,
         beats_recency_real=beats_recency_real,
         non_vacuous_scramble_holds_real=bool(
             real_agg["role_scramble_collapse"] and not real_agg["role_scramble_collapse_vacuous"]),

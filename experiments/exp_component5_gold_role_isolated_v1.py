@@ -116,9 +116,33 @@ D2 = 1024
 SEEDS = [0, 1, 2]
 
 # GOLD foil (the entity mentioned more recently than the true goal-owner) for each real trap item.
+# DEEPENED 2026-08-05 (USER task "deepen N for the goal-owner pipeline"): the 2 original genuine
+# traps above + 20 NEW genuine traps added to RECENCY in exp_situation_model_goal_outcome_
+# dimension_v1.py (N=23 total: 22 genuine traps + 1 antecedent-is-recent sanity item, which stays
+# excluded from FOILS by design -- it has no foil, recency happens to be correct there).
 FOILS = {
     "recency_amy_blocked_pronoun_foil_jo": "jo",
     "recency_tom_blocked_pronoun_foil_sid": "sid",
+    "recency_beth_blocked_pronoun_foil_meg": "meg",
+    "recency_meg_blocked_pronoun_foil_beth": "beth",
+    "recency_ruth_blocked_pronoun_foil_ann": "ann",
+    "recency_ann_blocked_pronoun_foil_ruth": "ruth",
+    "recency_amy_blocked_pronoun_foil_beth": "beth",
+    "recency_jo_blocked_pronoun_foil_meg": "meg",
+    "recency_beth_blocked_pronoun_foil_ruth": "ruth",
+    "recency_ann_blocked_pronoun_foil_jo": "jo",
+    "recency_meg_blocked_pronoun_foil_ann": "ann",
+    "recency_ruth_blocked_pronoun_foil_amy": "amy",
+    "recency_amy_blocked_pronoun_foil_meg": "meg",
+    "recency_jo_blocked_pronoun_foil_ruth": "ruth",
+    "recency_beth_blocked_pronoun_foil_jo": "jo",
+    "recency_meg_blocked_pronoun_foil_ruth": "ruth",
+    "recency_sid_blocked_pronoun_foil_tom": "tom",
+    "recency_laurie_blocked_pronoun_foil_tom": "tom",
+    "recency_tom_blocked_pronoun_foil_laurie": "laurie",
+    "recency_sid_blocked_pronoun_foil_laurie": "laurie",
+    "recency_laurie_blocked_pronoun_foil_sid": "sid",
+    "recency_tom_blocked_pronoun_foil_sid_summit": "sid",
 }
 
 
@@ -388,9 +412,13 @@ def aggregate(per_seed: dict):
     else:
         verdict = "MIDDLE_BAND"
 
+    n_traps = len(FOILS)
+    n_recency_total = len(RECENCY)
+    recency_floor = round(1.0 / n_recency_total, 4) if n_recency_total else None
     summary = (
-        f"N=3 recency items (2 traps+1 sanity), 3 seeds. outcome_binding_accuracy={outcome_binding_accuracy} "
-        f"(recency floor=0.3333) scrambled={scrambled_outcome_binding_accuracy} "
+        f"N={n_recency_total} recency items ({n_traps} traps+{n_recency_total - n_traps} sanity), "
+        f"{n} seeds. outcome_binding_accuracy={outcome_binding_accuracy} "
+        f"(recency floor={recency_floor}) scrambled={scrambled_outcome_binding_accuracy} "
         f"role_scramble_collapse={role_scramble_collapse} (vacuous={role_scramble_collapse_vacuous}) "
         f"goal_owner_binding_accuracy={goal_owner_binding_accuracy} "
         f"(GIVEN not EARNED) control_false_fire_rate={control_false_fire_rate} "
@@ -400,8 +428,8 @@ def aggregate(per_seed: dict):
     return dict(
         verdict=verdict, verdict_msg=f"{verdict}: {summary}", summary=summary, n_seeds=n,
         outcome_binding_accuracy=outcome_binding_accuracy,
-        recency_baseline=0.3333,
-        beats_recency=(outcome_binding_accuracy > 0.3333),
+        recency_baseline=recency_floor,
+        beats_recency=(recency_floor is not None and outcome_binding_accuracy > recency_floor),
         scrambled_outcome_binding_accuracy=scrambled_outcome_binding_accuracy,
         role_scramble_collapse=role_scramble_collapse,
         role_scramble_collapse_vacuous=role_scramble_collapse_vacuous,

@@ -1,7 +1,7 @@
 {
   "verdict": "MIDDLE_BAND_FIRES_BUT_RECENCY_CONFOUND_ROUTES_BINDING_SELECTOR",
-  "verdict_msg": "MIDDLE_BAND_FIRES_BUT_RECENCY_CONFOUND_ROUTES_BINDING_SELECTOR: TREATMENT goal_block=0.8333 control=0.0 (met=0.0 noise=0.0 harm=0.0) | BASELINE goal_block=0.0 control=0.0 | recency_binding_acc=0.3333 | decode_faithful=True | vs ~1.4% flat naturalistic baseline",
-  "summary": "TREATMENT goal_block=0.8333 control=0.0 (met=0.0 noise=0.0 harm=0.0) | BASELINE goal_block=0.0 control=0.0 | recency_binding_acc=0.3333 | decode_faithful=True | vs ~1.4% flat naturalistic baseline",
+  "verdict_msg": "MIDDLE_BAND_FIRES_BUT_RECENCY_CONFOUND_ROUTES_BINDING_SELECTOR: TREATMENT goal_block=0.8333 control=0.0 (met=0.0 noise=0.0 harm=0.0) | BASELINE goal_block=0.0 control=0.0 | recency_binding_acc=0.0435 | decode_faithful=True | vs ~1.4% flat naturalistic baseline",
+  "summary": "TREATMENT goal_block=0.8333 control=0.0 (met=0.0 noise=0.0 harm=0.0) | BASELINE goal_block=0.0 control=0.0 | recency_binding_acc=0.0435 | decode_faithful=True | vs ~1.4% flat naturalistic baseline",
   "n_seeds": 5,
   "means": {
     "treatment_goal_block_fire": 0.8333,
@@ -11,7 +11,7 @@
     "treatment_control_harm_fire": 0.0,
     "baseline_goal_block_fire": 0.0,
     "baseline_control_fire": 0.0,
-    "recency_binding_accuracy": 0.3333
+    "recency_binding_accuracy": 0.0435
   },
   "bands": {
     "fires_discriminative": true,
@@ -313,6 +313,426 @@
         "n_events": 2,
         "decode_faithful": true
       }
+    },
+    {
+      "id": "recency_beth_blocked_pronoun_foil_meg",
+      "owner": "beth",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "beth",
+      "resolver_outcome_subjects": [
+        "meg"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_meg_blocked_pronoun_foil_beth",
+      "owner": "meg",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "meg",
+      "resolver_outcome_subjects": [
+        "beth"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_ruth_blocked_pronoun_foil_ann",
+      "owner": "ruth",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "ruth",
+      "resolver_outcome_subjects": [
+        "ann"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_ann_blocked_pronoun_foil_ruth",
+      "owner": "ann",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "ann",
+      "resolver_outcome_subjects": [
+        "ruth"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 1,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_amy_blocked_pronoun_foil_beth",
+      "owner": "amy",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "amy",
+      "resolver_outcome_subjects": [
+        "beth"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_jo_blocked_pronoun_foil_meg",
+      "owner": "jo",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "jo",
+      "resolver_outcome_subjects": [
+        "meg"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 1,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_beth_blocked_pronoun_foil_ruth",
+      "owner": "beth",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "beth",
+      "resolver_outcome_subjects": [
+        "ruth"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_ann_blocked_pronoun_foil_jo",
+      "owner": "ann",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "ann",
+      "resolver_outcome_subjects": [
+        "jo"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 1,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_meg_blocked_pronoun_foil_ann",
+      "owner": "meg",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "meg",
+      "resolver_outcome_subjects": [
+        "ann"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_ruth_blocked_pronoun_foil_amy",
+      "owner": "ruth",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "ruth",
+      "resolver_outcome_subjects": [
+        "amy"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_amy_blocked_pronoun_foil_meg",
+      "owner": "amy",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "amy",
+      "resolver_outcome_subjects": [
+        "meg"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 1,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_jo_blocked_pronoun_foil_ruth",
+      "owner": "jo",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "jo",
+      "resolver_outcome_subjects": [
+        "ruth"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_beth_blocked_pronoun_foil_jo",
+      "owner": "beth",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "beth",
+      "resolver_outcome_subjects": [
+        "jo"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_meg_blocked_pronoun_foil_ruth",
+      "owner": "meg",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "meg",
+      "resolver_outcome_subjects": [
+        "ruth"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_sid_blocked_pronoun_foil_tom",
+      "owner": "sid",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "sid",
+      "resolver_outcome_subjects": [
+        "tom"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_laurie_blocked_pronoun_foil_tom",
+      "owner": "laurie",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "laurie",
+      "resolver_outcome_subjects": [
+        "tom"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": false,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 1,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_tom_blocked_pronoun_foil_laurie",
+      "owner": "tom",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "tom",
+      "resolver_outcome_subjects": [
+        "laurie"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_sid_blocked_pronoun_foil_laurie",
+      "owner": "sid",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "sid",
+      "resolver_outcome_subjects": [
+        "laurie"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_laurie_blocked_pronoun_foil_sid",
+      "owner": "laurie",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "laurie",
+      "resolver_outcome_subjects": [
+        "sid"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
+    },
+    {
+      "id": "recency_tom_blocked_pronoun_foil_sid_summit",
+      "owner": "tom",
+      "trap": "pronoun_distant_antecedent",
+      "gold_goal_blocked": true,
+      "treatment_goal_blocked": false,
+      "matches_gold": false,
+      "gold_outcome_owner": "tom",
+      "resolver_outcome_subjects": [
+        "sid"
+      ],
+      "appraise": {
+        "has_goal": true,
+        "has_action_against": true,
+        "n_unmet": 0,
+        "n_met": 0,
+        "goal_blocked": false,
+        "n_events": 2,
+        "decode_faithful": true
+      }
     }
   ],
   "register_extension": {
@@ -334,8 +754,8 @@
     "AccumulateRegister / normalize_tokens / view2_goal_outcome / V1/V2 lexicons reused bit-identical; no borrowed embedding/LLM/parser as mechanism; deterministic; multi-seed."
   ],
   "run_mode": "full",
-  "elapsed_s": 0.3599294999985432,
-  "ts_iso": "2026-08-04T19:12:21.207945+00:00",
+  "elapsed_s": 0.21355869999388233,
+  "ts_iso": "2026-08-05T05:05:40.182036+00:00",
   "anchor_name": "situation_model_goal_outcome_dimension_v1",
   "config": {
     "D2": 1024,
@@ -350,7 +770,7 @@
     "baseline_window": 2,
     "n_goal_block": 6,
     "n_control": 6,
-    "n_recency": 3
+    "n_recency": 23
   },
   "prereg": "preregs/2026-08-04_situation_model_goal_outcome_dimension_v1.md",
   "cites": [
@@ -368,7 +788,7 @@
       "treatment_control_met_fire": 0.0,
       "treatment_control_noise_fire": 0.0,
       "treatment_control_harm_fire": 0.0,
-      "recency_binding_accuracy": 0.3333,
+      "recency_binding_accuracy": 0.0435,
       "all_decode_faithful": true,
       "rows": [
         {
@@ -660,6 +1080,426 @@
             "n_unmet": 1,
             "n_met": 0,
             "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_meg",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_beth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_ann",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_ruth",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_beth",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_meg",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_ruth",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_jo",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ann",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_amy",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "amy"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_meg",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_ruth",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_jo",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ruth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_tom",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_tom",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_laurie",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_laurie",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_sid",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid_summit",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
             "n_events": 2,
             "decode_faithful": true
           }
@@ -675,7 +1515,7 @@
       "treatment_control_met_fire": 0.0,
       "treatment_control_noise_fire": 0.0,
       "treatment_control_harm_fire": 0.0,
-      "recency_binding_accuracy": 0.3333,
+      "recency_binding_accuracy": 0.0435,
       "all_decode_faithful": true,
       "rows": [
         {
@@ -967,6 +1807,426 @@
             "n_unmet": 1,
             "n_met": 0,
             "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_meg",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_beth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_ann",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_ruth",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_beth",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_meg",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_ruth",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_jo",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ann",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_amy",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "amy"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_meg",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_ruth",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_jo",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ruth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_tom",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_tom",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_laurie",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_laurie",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_sid",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid_summit",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
             "n_events": 2,
             "decode_faithful": true
           }
@@ -982,7 +2242,7 @@
       "treatment_control_met_fire": 0.0,
       "treatment_control_noise_fire": 0.0,
       "treatment_control_harm_fire": 0.0,
-      "recency_binding_accuracy": 0.3333,
+      "recency_binding_accuracy": 0.0435,
       "all_decode_faithful": true,
       "rows": [
         {
@@ -1274,6 +2534,426 @@
             "n_unmet": 1,
             "n_met": 0,
             "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_meg",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_beth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_ann",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_ruth",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_beth",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_meg",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_ruth",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_jo",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ann",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_amy",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "amy"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_meg",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_ruth",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_jo",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ruth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_tom",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_tom",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_laurie",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_laurie",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_sid",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid_summit",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
             "n_events": 2,
             "decode_faithful": true
           }
@@ -1289,7 +2969,7 @@
       "treatment_control_met_fire": 0.0,
       "treatment_control_noise_fire": 0.0,
       "treatment_control_harm_fire": 0.0,
-      "recency_binding_accuracy": 0.3333,
+      "recency_binding_accuracy": 0.0435,
       "all_decode_faithful": true,
       "rows": [
         {
@@ -1581,6 +3261,426 @@
             "n_unmet": 1,
             "n_met": 0,
             "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_meg",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_beth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_ann",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_ruth",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_beth",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_meg",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_ruth",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_jo",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ann",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_amy",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "amy"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_meg",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_ruth",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_jo",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ruth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_tom",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_tom",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_laurie",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_laurie",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_sid",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid_summit",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
             "n_events": 2,
             "decode_faithful": true
           }
@@ -1596,7 +3696,7 @@
       "treatment_control_met_fire": 0.0,
       "treatment_control_noise_fire": 0.0,
       "treatment_control_harm_fire": 0.0,
-      "recency_binding_accuracy": 0.3333,
+      "recency_binding_accuracy": 0.0435,
       "all_decode_faithful": true,
       "rows": [
         {
@@ -1888,6 +3988,426 @@
             "n_unmet": 1,
             "n_met": 0,
             "goal_blocked": true,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_meg",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_beth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_ann",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_ruth",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_beth",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "beth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_meg",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_ruth",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ann_blocked_pronoun_foil_jo",
+          "owner": "ann",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ann",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ann",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ann"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_ruth_blocked_pronoun_foil_amy",
+          "owner": "ruth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "ruth",
+          "resolver_outcome_subjects": [
+            "amy"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_amy_blocked_pronoun_foil_meg",
+          "owner": "amy",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "amy",
+          "resolver_outcome_subjects": [
+            "meg"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_jo_blocked_pronoun_foil_ruth",
+          "owner": "jo",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "jo",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_beth_blocked_pronoun_foil_jo",
+          "owner": "beth",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "beth",
+          "resolver_outcome_subjects": [
+            "jo"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_meg_blocked_pronoun_foil_ruth",
+          "owner": "meg",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "meg",
+          "resolver_outcome_subjects": [
+            "ruth"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_tom",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_tom",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "tom"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": false,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 1,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_laurie",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_sid_blocked_pronoun_foil_laurie",
+          "owner": "sid",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "sid",
+          "resolver_outcome_subjects": [
+            "laurie"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_laurie_blocked_pronoun_foil_sid",
+          "owner": "laurie",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "laurie",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
+            "n_events": 2,
+            "decode_faithful": true
+          }
+        },
+        {
+          "id": "recency_tom_blocked_pronoun_foil_sid_summit",
+          "owner": "tom",
+          "trap": "pronoun_distant_antecedent",
+          "gold_goal_blocked": true,
+          "treatment_goal_blocked": false,
+          "matches_gold": false,
+          "gold_outcome_owner": "tom",
+          "resolver_outcome_subjects": [
+            "sid"
+          ],
+          "appraise": {
+            "has_goal": true,
+            "has_action_against": true,
+            "n_unmet": 0,
+            "n_met": 0,
+            "goal_blocked": false,
             "n_events": 2,
             "decode_faithful": true
           }

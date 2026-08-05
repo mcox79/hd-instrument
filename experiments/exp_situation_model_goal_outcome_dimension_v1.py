@@ -382,6 +382,134 @@ RECENCY = [
               "In the end she missed her chance and was lost and sorry."),
 ]
 
+# ---------------------------------------------------------------------------------------------
+# DEEPENING (2026-08-05, USER task "deepen N for the goal-owner pipeline"): 20 NEW genuine
+# anti-recency traps, added (not modifying the 3 above) to raise the recency-trap bank from N=3
+# to N=23. Each item: owner states a GOAL via a psych/desiderative verb (want/wish/long) that is
+# in BOTH bit-identical lexicons this pipeline's two typing paths depend on --
+#   (a) V2_DESIRE (exp_self_extension_grounded_realprose_v1.V2_DESIRE) -- the lexicon this base
+#       cell / gold-role-isolated cell use, contains exactly {"wanted","want","wished","wish",
+#       "longed",...};
+#   (b) hdlab.thematic_role_labeler.VERB_FRAMES PSYCH_VERBS -- the REAL Component-3 mechanism
+#       (frame_primary_role) exp_component5_wired_endtoend_v1 uses, contains "want"/"wish"/"long"
+#       lemmas (lemma_verb("wanted")=="want", lemma_verb("wished")=="wish" via the irregular
+#       table, lemma_verb("longed")=="long" via suffix-strip) -- verified against both source
+#       files (hdlab/thematic_role_labeler.py PSYCH_VERBS list, disk-read) before authoring, so
+#       EVERY new item's GOAL verb fires under BOTH the lexicon path and the real-C3 path.
+# Structure (identical anti-recency shape to the 2 existing genuine traps above): S1 names the
+# OWNER + states the goal (via wanted/longed/wished); S2 names a FOIL of the SAME grammatical
+# gender who is mentioned MORE RECENTLY and does something unrelated (no desire/outcome lexicon
+# collision); S3 reports the owner's UNMET outcome via a bare pronoun ("she"/"he") whose TRUE
+# antecedent is the OWNER (distant) but whose NAIVE-RECENCY antecedent is the FOIL (near) --
+# gold_outcome_owner is always the OWNER, never the foil, by construction.
+# AUTHORED (not mined from data/litbank/): naturalistic Alcott/McGuffey-register vignettes in the
+# SAME register/vocabulary as the 2 existing gold-ruler traps (mcca_004/theatre_refusal cite
+# Little Women), original short scenes (skating, market, fair, forge, mountain-pass, etc), not
+# verbatim spans from any corpus -- reported honestly as medium-power authored items, not a
+# mined-real-corpus measurement.
+RECENCY += [
+    dict(id="recency_beth_blocked_pronoun_foil_meg", owner="beth", gold_goal_blocked=True,
+         gold_outcome_owner="beth", trap="pronoun_distant_antecedent",
+         text="Beth wanted to be warned before the ice cracked. "
+              "Meg ran ahead toward the house. "
+              "Left unwarned, she went down and was lost."),
+    dict(id="recency_meg_blocked_pronoun_foil_beth", owner="meg", gold_goal_blocked=True,
+         gold_outcome_owner="meg", trap="pronoun_distant_antecedent",
+         text="Meg longed to reach the fair before noon. "
+              "Beth hurried on to find a seat. "
+              "Left behind, she missed the gate and was sorry."),
+    dict(id="recency_ruth_blocked_pronoun_foil_ann", owner="ruth", gold_goal_blocked=True,
+         gold_outcome_owner="ruth", trap="pronoun_distant_antecedent",
+         text="Ruth wished to cross the bridge before the flood rose. "
+              "Ann walked swiftly on toward the village. "
+              "Alone on the bank, she never crossed and was left behind."),
+    dict(id="recency_ann_blocked_pronoun_foil_ruth", owner="ann", gold_goal_blocked=True,
+         gold_outcome_owner="ann", trap="pronoun_distant_antecedent",
+         text="Ann wanted to gather the harvest before the rain came. "
+              "Ruth went off early to the barn. "
+              "Caught in the field, she failed and was sorry."),
+    dict(id="recency_amy_blocked_pronoun_foil_beth", owner="amy", gold_goal_blocked=True,
+         gold_outcome_owner="amy", trap="pronoun_distant_antecedent",
+         text="Amy longed to see the market before it closed. "
+              "Beth walked briskly on ahead. "
+              "Too late at the gate, she missed it and was left standing in the rain."),
+    dict(id="recency_jo_blocked_pronoun_foil_meg", owner="jo", gold_goal_blocked=True,
+         gold_outcome_owner="jo", trap="pronoun_distant_antecedent",
+         text="Jo wished to ring the chapel bell before the service began. "
+              "Meg hurried up the path first. "
+              "Held back at the door, she never rang it and was sorry."),
+    dict(id="recency_beth_blocked_pronoun_foil_ruth", owner="beth", gold_goal_blocked=True,
+         gold_outcome_owner="beth", trap="pronoun_distant_antecedent",
+         text="Beth wanted to climb into the old quarry with the others. "
+              "Ruth scrambled in ahead of her. "
+              "Left at the top alone, she missed her turn and was sorry."),
+    dict(id="recency_ann_blocked_pronoun_foil_jo", owner="ann", gold_goal_blocked=True,
+         gold_outcome_owner="ann", trap="pronoun_distant_antecedent",
+         text="Ann longed to pick apples in the orchard that afternoon. "
+              "Jo ran off toward the barn instead. "
+              "Standing by the empty tree, she never picked a single one and was sorry."),
+    dict(id="recency_meg_blocked_pronoun_foil_ann", owner="meg", gold_goal_blocked=True,
+         gold_outcome_owner="meg", trap="pronoun_distant_antecedent",
+         text="Meg wished to watch the tide come in from the point. "
+              "Ann walked on to the shore first. "
+              "Kept from the point, she missed the tide and was sorry."),
+    dict(id="recency_ruth_blocked_pronoun_foil_amy", owner="ruth", gold_goal_blocked=True,
+         gold_outcome_owner="ruth", trap="pronoun_distant_antecedent",
+         text="Ruth wanted to sit by the camp fire with the others. "
+              "Amy hurried to the tent ahead of her. "
+              "Left out in the cold, she never got a place and was sorry."),
+    dict(id="recency_amy_blocked_pronoun_foil_meg", owner="amy", gold_goal_blocked=True,
+         gold_outcome_owner="amy", trap="pronoun_distant_antecedent",
+         text="Amy longed to find the path through the dark forest before dusk. "
+              "Meg went on quickly toward the light. "
+              "Lost among the trees, she never found the way and was sorry."),
+    dict(id="recency_jo_blocked_pronoun_foil_ruth", owner="jo", gold_goal_blocked=True,
+         gold_outcome_owner="jo", trap="pronoun_distant_antecedent",
+         text="Jo wished to draw water from the deep well before the others woke. "
+              "Ruth went off to the kitchen first. "
+              "Left at the well alone, she failed and came back with nothing."),
+    dict(id="recency_beth_blocked_pronoun_foil_jo", owner="beth", gold_goal_blocked=True,
+         gold_outcome_owner="beth", trap="pronoun_distant_antecedent",
+         text="Beth wanted to walk the ship's deck before it sailed. "
+              "Jo hurried below to the cabin. "
+              "Kept from the deck, she missed the sailing and was sorry."),
+    dict(id="recency_meg_blocked_pronoun_foil_ruth", owner="meg", gold_goal_blocked=True,
+         gold_outcome_owner="meg", trap="pronoun_distant_antecedent",
+         text="Meg longed to cross the river by the ferry before dark. "
+              "Ruth went on ahead to the landing. "
+              "Left on the far bank, she never crossed and was lost in the dusk."),
+    dict(id="recency_sid_blocked_pronoun_foil_tom", owner="sid", gold_goal_blocked=True,
+         gold_outcome_owner="sid", trap="pronoun_distant_antecedent",
+         text="Sid wanted to shoe the horse at the forge before market day. "
+              "Tom walked off toward the stable first. "
+              "Left at the forge alone, he never finished and was sorry."),
+    dict(id="recency_laurie_blocked_pronoun_foil_tom", owner="laurie", gold_goal_blocked=True,
+         gold_outcome_owner="laurie", trap="pronoun_distant_antecedent",
+         text="Laurie longed to stack the hay in the barn before the storm. "
+              "Tom hurried off to close the gate. "
+              "Caught out in the rain, he failed and lost the whole load."),
+    dict(id="recency_tom_blocked_pronoun_foil_laurie", owner="tom", gold_goal_blocked=True,
+         gold_outcome_owner="tom", trap="pronoun_distant_antecedent",
+         text="Tom wished to cross the mountain pass before nightfall. "
+              "Laurie strode on quickly ahead. "
+              "Far behind on the trail, he never made the pass and was left in the dark."),
+    dict(id="recency_sid_blocked_pronoun_foil_laurie", owner="sid", gold_goal_blocked=True,
+         gold_outcome_owner="sid", trap="pronoun_distant_antecedent",
+         text="Sid wanted to mend the old boat before the tide turned. "
+              "Laurie went off to fetch the oars. "
+              "Left with the tools alone, he failed and the boat sank."),
+    dict(id="recency_laurie_blocked_pronoun_foil_sid", owner="laurie", gold_goal_blocked=True,
+         gold_outcome_owner="laurie", trap="pronoun_distant_antecedent",
+         text="Laurie longed to catch the early train at the station. "
+              "Sid hurried on ahead to the platform. "
+              "Left behind at the gate, he missed the train and was sorry."),
+    dict(id="recency_tom_blocked_pronoun_foil_sid_summit", owner="tom", gold_goal_blocked=True,
+         gold_outcome_owner="tom", trap="pronoun_distant_antecedent",
+         text="Tom wished to reach the summit before the others. "
+              "Sid pressed on quickly up the ridge. "
+              "Far below on the rocks, he never reached the top and was left behind."),
+]
+
 
 # ============================================================================ per-seed unit
 def run_seed(seed):
