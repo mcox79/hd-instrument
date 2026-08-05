@@ -266,10 +266,98 @@ def load_gold():
 
 
 def load_earned_digests():
-    """Contamination/reuse proof: the digests already landed by the earned sim cell."""
+    """Informational only (see load_earned_full_heldout for the load-bearing reuse proof): the
+    raw SHA256 theta digests landed by the earned sim cell. NOT bit-reproducible across fresh
+    process launches on this host (hybrid P/E-core MKL FP non-associativity) -- see
+    notes/theta_reuse_digest_drift_diagnosis.md (commit 4f260ce9e). Kept as a logged diagnostic,
+    never asserted."""
     with open(EARNED_METRICS_PATH, "r", encoding="utf-8") as f:
         d = json.load(f)
     return {int(k): v["arms_theta_digests"]["FULL"] for k, v in d["per_seed"].items()}
+
+
+def load_earned_full_heldout():
+    """LOAD-BEARING contamination/reuse proof (Director-approved fix, 2026-08-05, replacing the
+    bit-exact SHA256 digest assert -- see notes/theta_reuse_digest_drift_diagnosis.md commit
+    4f260ce9e): the banked FULL_heldout eval metrics per seed from the earned sim cell. These are
+    ratios of small integer counts over a fixed n_eval=1500 -- diagnosis confirmed
+    recency_restoration=0.2978723404255319 matches EXACTLY (=140/470) between the originally
+    banked run and a from-scratch reconstruction on this host, over 1500 stochastic episodes x
+    8-way argmax each, which is not explainable by chance if theta actually differed. A
+    behavioral-equivalence check on these derived rates is a STRONGER, more meaningful reuse
+    proof than a raw digest (genuine theta drift/corruption/retraining would flip at least one
+    argmax decision and therefore at least one count), and it is robust to MKL bit-drift, which
+    the digest is not."""
+    with open(EARNED_METRICS_PATH, "r", encoding="utf-8") as f:
+        d = json.load(f)
+    return {int(k): v["FULL_heldout"] for k, v in d["per_seed"].items()}
+
+
+_BEHAVIORAL_REUSE_KEYS = ("acc", "n_bh", "revenge_emergence_rate", "targeting_specificity",
+                          "bystander_harm_rate", "earned_restoration", "recency_restoration")
+
+
+def theta_reuse_behavioral_ok(ev, earned_ev):
+    """EXACT equality (not allclose) on every derived rate in _BEHAVIORAL_REUSE_KEYS -- these are
+    ratios of small integer counts over a FIXED n_eval (not free-running floats), so exact
+    equality is the correct bar: any real theta drift/corruption/retrain flips at least one
+    argmax decision and therefore at least one integer count, which shows up as an exact
+    mismatch. MKL bit-level non-reproducibility (the actual root cause diagnosed) never flips an
+    argmax at this margin, so it never flips these counts either -- this is exactly the
+    "reconstruction reproduces the earned run's decisions to 16 sig figs" evidence from the
+    diagnosis, turned into a machine-checkable gate."""
+    return all(ev[k] == earned_ev[k] for k in _BEHAVIORAL_REUSE_KEYS)
+
+
+def reconstruct_and_eval_full_heldout(seed, cfg):
+    """Reconstruct theta bit-for-bit via the exact same deterministic procedure as
+    exp_grounded_appraisal_sim_earned_v1.run_seed's FULL arm (reconstruct_full_theta), then
+    evaluate it with the SAME generator-seeding scheme used to bank FULL_heldout
+    (seed*1000 + hash_variant('FULL') + 1, n_eval=cfg['n_eval'], pool='eval'), so the returned
+    dict is directly comparable via theta_reuse_behavioral_ok() to the banked earned metrics."""
+    cb, theta, digest = reconstruct_full_theta(seed, cfg)
+    ge = torch.Generator().manual_seed(seed * 1000 + sim.hash_variant("FULL") + 1)
+    ev = sim.eval_theta(cb, ge, "FULL", theta, cfg["n_eval"], "eval")
+    return cb, theta, digest, ev
+
+
+# ---------------------------------------------------------------------------------------------
+# IRONY-EVAL CONTAMINATION LEAK-GUARD (contract item 3, 2026-08-05): asserts NO reader-visible
+# span in the irony/sincere eval set -- neither the item JSON's own surface_span/supporting_span
+# text, NOR the +-2-line raw corpus window get_corpus_context() actually reads for arm_c around
+# each irony item's surface_span -- contains an explicit irony/sarcasm/mocking marker. Catches
+# BOTH leak classes found in the 08-05 audit: (a) an explicit narrator gloss inside the item's
+# own JSON text field, and (b) a marker word present in the raw corpus at the SAME line_range
+# (invisible to a JSON-only review -- this is how grapp_irony_002 was caught as a 4th leak beyond
+# the 3 originally named: get_corpus_context reads straight from the .clean.txt file by line
+# number, so trimming only the JSON text does not remove a leak sitting in the corpus itself).
+# ---------------------------------------------------------------------------------------------
+import re as _re
+IRONY_LEAK_RE = _re.compile(r"sarcast|mocking|ironic|scornful|sneer|jeer", _re.IGNORECASE)
+
+
+def irony_leak_guard(items):
+    """Raises AssertionError on any leak; returns the count of irony items scanned."""
+    n = 0
+    for it in items:
+        if it["item_type"] != "irony_vs_sincere_valence":
+            continue
+        n += 1
+        surf = it["surface_span"]["text"]
+        supp = it.get("supporting_span", {}).get("text", "")
+        assert not IRONY_LEAK_RE.search(surf), (
+            f"IRONY_LEAK_GUARD: {it['id']} surface_span contains an explicit sarcasm/mocking "
+            f"marker (leak): {surf!r}")
+        assert not IRONY_LEAK_RE.search(supp), (
+            f"IRONY_LEAK_GUARD: {it['id']} supporting_span contains an explicit sarcasm/mocking "
+            f"marker (leak): {supp!r}")
+        ctx_text = get_corpus_context(it["novel"], it["surface_span"]["line_range"])
+        assert not IRONY_LEAK_RE.search(ctx_text), (
+            f"IRONY_LEAK_GUARD: {it['id']} +-2-line corpus window around surface_span "
+            f"(novel={it['novel']} line_range={it['surface_span']['line_range']}) contains an "
+            f"explicit sarcasm/mocking marker (leak) -- get_corpus_context reads raw corpus "
+            f"text, a JSON-only edit does not fix this class of leak: {ctx_text!r}")
+    return n
 
 
 # ---------------------------------------------------------------------------------------------
@@ -465,24 +553,34 @@ def _acc(rows, key):
 
 
 def run_seed_unit(seed, arm_c):
-    cb, theta, digest = reconstruct_full_theta(seed, TRAIN_CFG)
+    cb, theta, digest, full_heldout_ev = reconstruct_and_eval_full_heldout(seed, TRAIN_CFG)
     items = load_gold()
     causal_items = [it for it in items if it["item_type"] == "multi_candidate_causal_attribution"]
     irony_items = [it for it in items if it["item_type"] == "irony_vs_sincere_valence"]
     causal_rows = [score_causal_item(it, cb, theta, arm_c) for it in causal_items]
     irony_rows = [score_irony_item(it, cb, theta, arm_c) for it in irony_items]
-    return {"seed": seed, "theta_digest": digest, "causal_rows": causal_rows, "irony_rows": irony_rows}
+    return {"seed": seed, "theta_digest": digest, "full_heldout_eval": full_heldout_ev,
+            "causal_rows": causal_rows, "irony_rows": irony_rows}
 
 
-def aggregate_and_verdict(per_seed, earned_digests, benpat_rows, arm_c_meta):
+def aggregate_and_verdict(per_seed, earned_digests, earned_heldout, benpat_rows, arm_c_meta):
     seeds = sorted(per_seed.keys())
     n = len(seeds)
     n_causal = len(per_seed[seeds[0]]["causal_rows"]) if seeds else 0
     n_irony = len(per_seed[seeds[0]]["irony_rows"]) if seeds else 0
 
-    # contamination proof: reconstructed digest == earned cell's landed digest, every seed
+    # informational only (raw digest not bit-reproducible on this host; see
+    # notes/theta_reuse_digest_drift_diagnosis.md), logged for visibility, never asserted
     digest_matches = {s: per_seed[s]["theta_digest"] == earned_digests.get(s) for s in seeds}
     all_digests_match = all(digest_matches.values())
+
+    # LOAD-BEARING contamination proof (Director-approved behavioral-equivalence fix, 2026-08-05):
+    # reconstructed theta's FULL_heldout eval must EXACTLY match the banked earned metrics on
+    # every derived rate, every seed. See theta_reuse_behavioral_ok() docstring for why exact
+    # equality (not allclose) is the correct bar.
+    behavioral_matches = {s: theta_reuse_behavioral_ok(per_seed[s]["full_heldout_eval"],
+                                                        earned_heldout.get(s, {})) for s in seeds}
+    all_behavioral_match = all(behavioral_matches.values())
 
     def mean_acc(rows_key, correct_key):
         vals = []
@@ -511,8 +609,8 @@ def aggregate_and_verdict(per_seed, earned_digests, benpat_rows, arm_c_meta):
 
     if n < EXPECTED_N_SEEDS:
         verdict = "HARD_FAIL_CARDINALITY_BREACH_META_RULE_H"
-    elif not all_digests_match:
-        verdict = "HARD_FAIL_THETA_NOT_REUSED_DIGEST_MISMATCH"
+    elif not all_behavioral_match:
+        verdict = "HARD_FAIL_THETA_NOT_REUSED_BEHAVIORAL_MISMATCH"
     elif arm_a_works and arm_b_works:
         verdict = "TRANSFER_WORKS"
     elif arm_a_works and not arm_b_works:
@@ -546,16 +644,20 @@ def aggregate_and_verdict(per_seed, earned_digests, benpat_rows, arm_c_meta):
         f"recency={causal_recency:.3f} chance={CHANCE:.3f} gap_closure={causal_gap_closure:.3f} | "
         f"IRONY(n={n_irony}): arm_a={irony_arm_a:.3f} arm_b={irony_arm_b:.3f} arm_c={irony_arm_c:.3f} "
         f"surface={irony_surface:.3f} chance={CHANCE:.3f} | BENEFICIARY(n=5): capability GAP, "
-        f"no bridge attempted | theta_reuse_digest_match={all_digests_match} | "
+        f"no bridge attempted | theta_reuse_behavioral_match={all_behavioral_match} "
+        f"(digest_match_informational={all_digests_match}) | "
         f"arm_c_verdict={arm_c_verdict} (resisting={resisting_category or 'none'}) | "
         f"arm_c_plugin={arm_c_meta['chosen_name']}"
     )
     return {
         "verdict": verdict, "verdict_msg": f"{verdict}: {summary}", "summary": summary,
-        "n_seeds": n, "contamination_check": {"all_theta_digests_match_earned_run": all_digests_match,
-                                              "per_seed_digest_match": digest_matches,
-                                              "arm_c_hypothesis_digest": arm_c_meta["digest"],
-                                              "arm_c_reads_answer_fields": False},
+        "n_seeds": n, "contamination_check": {
+            "all_theta_reuse_behavioral_match_earned_run": all_behavioral_match,
+            "per_seed_behavioral_match": behavioral_matches,
+            "all_theta_digests_match_earned_run_informational": all_digests_match,
+            "per_seed_digest_match_informational": digest_matches,
+            "arm_c_hypothesis_digest": arm_c_meta["digest"],
+            "arm_c_reads_answer_fields": False},
         "means": {
             "causal_arm_a_acc": causal_arm_a, "causal_arm_b_acc": causal_arm_b,
             "causal_arm_c_acc": causal_arm_c,
@@ -588,7 +690,12 @@ def run(run_mode):
     output_dir = out_dir_for(run_mode)
     _write_start_marker(output_dir, run_mode, EXPECTED_N_SEEDS)
     earned_digests = load_earned_digests()
+    earned_heldout = load_earned_full_heldout()
     items = load_gold()
+    n_irony_scanned = irony_leak_guard(items)  # contract item 3: HARD gate, blocks the run
+    print(f"[progress] irony_leak_guard PASS: {n_irony_scanned} irony/sincere items scanned, "
+          f"no explicit sarcasm/mocking marker in surface_span/supporting_span/corpus-window",
+          flush=True)
     benpat_items = [it for it in items if it["item_type"] == "beneficiary_vs_patient"]
     benpat_rows = [score_beneficiary_item(it) for it in benpat_items]
 
@@ -612,12 +719,14 @@ def run(run_mode):
         ts = time.perf_counter()
         res = run_seed_unit(seed, arm_c)
         record_unit(output_dir, k, res)
+        behavioral_ok = theta_reuse_behavioral_ok(res["full_heldout_eval"], earned_heldout.get(seed, {}))
         digest_ok = res["theta_digest"] == earned_digests.get(seed)
         print(f"[progress] seed={seed} done in {time.perf_counter()-ts:.1f}s "
-              f"digest={res['theta_digest']} matches_earned={digest_ok}", flush=True)
+              f"behavioral_reuse_ok={behavioral_ok} (digest_match_informational={digest_ok})",
+              flush=True)
 
     per_seed = {int(r["seed"]): r for r in load_units(output_dir).values()}
-    agg = aggregate_and_verdict(per_seed, earned_digests, benpat_rows, arm_c_meta)
+    agg = aggregate_and_verdict(per_seed, earned_digests, earned_heldout, benpat_rows, arm_c_meta)
     agg["run_mode"] = run_mode
     agg["elapsed_s"] = time.perf_counter() - t0
     agg["ts_iso"] = datetime.now(timezone.utc).isoformat()
@@ -632,20 +741,45 @@ def run(run_mode):
 
 # ----------------------------------------------------------------------------- self-test
 def self_test():
-    """(1) reconstructed theta digest for seed 0 matches the earned cell's landed digest (proof of
-    bit-identical reuse, not a fresh retrain) -- arm_c does NOT retrain theta. (2) arm_c hypothesis
-    fit is DETERMINISTIC (two independent fit_arm_c_hypothesis() calls produce the identical
-    digest) -- proves it is not accidentally reading anything nondeterministic (e.g. wall-clock,
-    RNG) that would make it look like a "trained" artifact when it is really a fixed function of
-    the training grid. (3) ARM-A/ARM-B/ARM-C produce different predictions on at least one item
-    (arms-must-differ, META_RULE_AF) -- arm_c is not a silent no-op copy of arm_b. (4) contamination:
-    no scoring function (including arm_c) reads any answer field (true_blocker_agent /
-    true_intent_valence / distractor_agent) before comparison -- arm_c only ever receives span text
-    + GIVEN line_range-derived corpus context, structurally disjoint from those fields."""
+    """(1) reconstructed theta for seed 0 is a BEHAVIORAL match to the earned cell's landed
+    FULL_heldout metrics (proof of reuse, not a fresh retrain/corruption) -- arm_c does NOT
+    retrain theta. Director-approved fix (2026-08-05, see
+    notes/theta_reuse_digest_drift_diagnosis.md commit 4f260ce9e): replaces the old bit-exact
+    SHA256 digest assert, which is NOT bit-reproducible on this host across process launches
+    (hybrid P/E-core MKL FP non-associativity) even though the underlying decisions/values are
+    functionally identical. The raw digest is still computed and logged (informational), never
+    asserted. (2) arm_c hypothesis fit is DETERMINISTIC (two independent fit_arm_c_hypothesis()
+    calls produce the identical digest) -- proves it is not accidentally reading anything
+    nondeterministic (e.g. wall-clock, RNG) that would make it look like a "trained" artifact when
+    it is really a fixed function of the training grid. (3) ARM-A/ARM-B/ARM-C produce different
+    predictions on at least one item (arms-must-differ, META_RULE_AF) -- arm_c is not a silent
+    no-op copy of arm_b. (4) contamination: no scoring function (including arm_c) reads any answer
+    field (true_blocker_agent / true_intent_valence / distractor_agent) before comparison -- arm_c
+    only ever receives span text + GIVEN line_range-derived corpus context, structurally disjoint
+    from those fields. (5) IRONY LEAK-GUARD (contract item 3, 2026-08-05): no reader-visible span
+    in the irony/sincere eval set (JSON text fields OR the raw +-2-line corpus window arm_c
+    actually reads) contains an explicit sarcasm/mocking marker."""
     earned_digests = load_earned_digests()
-    cb_full, theta_full, digest_full = reconstruct_full_theta(0, TRAIN_CFG)
-    assert digest_full == earned_digests[0], (
-        f"theta reuse FAILED: reconstructed digest {digest_full} != earned {earned_digests[0]}")
+    earned_heldout = load_earned_full_heldout()
+    cb_full, theta_full, digest_full, ev_full = reconstruct_and_eval_full_heldout(0, TRAIN_CFG)
+    digest_matches_earned = digest_full == earned_digests[0]
+    print(f"[self-test] theta_digest={digest_full} earned_digest={earned_digests[0]} "
+          f"bit_exact_match={digest_matches_earned} (informational only, NOT asserted -- see "
+          f"notes/theta_reuse_digest_drift_diagnosis.md)", flush=True)
+    behavioral_ok = theta_reuse_behavioral_ok(ev_full, earned_heldout[0])
+    assert behavioral_ok, (
+        f"THETA_REUSE_BEHAVIORAL_MISMATCH: reconstructed theta's FULL_heldout eval {ev_full} != "
+        f"banked earned metrics {earned_heldout[0]} on {_BEHAVIORAL_REUSE_KEYS} -- this indicates "
+        f"theta was actually retrained/corrupted (the real contamination concern), not merely "
+        f"MKL bit-drift (which never flips these exact-equality integer-count ratios).")
+    print(f"[self-test] THETA_REUSE_BEHAVIORAL_OK: reconstructed FULL_heldout exactly matches "
+          f"banked earned metrics on {_BEHAVIORAL_REUSE_KEYS}", flush=True)
+
+    items_for_leak_guard = load_gold()
+    n_irony_scanned = irony_leak_guard(items_for_leak_guard)
+    print(f"[self-test] irony_leak_guard PASS: {n_irony_scanned} irony/sincere items scanned "
+          f"(surface_span + supporting_span JSON text + +-2-line raw corpus window), no explicit "
+          f"sarcasm/mocking marker found", flush=True)
 
     name1, res1, digest1, _ = fit_arm_c_hypothesis()
     name2, res2, digest2, _ = fit_arm_c_hypothesis()
@@ -695,8 +829,9 @@ def self_test():
     assert list(sig.parameters) == ["chosen_name", "hypothesis", "span_text", "context_text"], (
         "resolve_valence_context signature drifted -- re-verify contamination argument surface")
 
-    print(f"[SELFTEST PASS] theta_digest_match={digest_full == earned_digests[0]} "
-          f"arm_c_deterministic=True arm_c_plugin={name1}", flush=True)
+    print(f"[SELFTEST PASS] theta_reuse_behavioral_match={behavioral_ok} "
+          f"(digest_match_informational={digest_matches_earned}) "
+          f"irony_leak_guard_ok=True arm_c_deterministic=True arm_c_plugin={name1}", flush=True)
     return True
 
 

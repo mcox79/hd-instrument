@@ -1,9 +1,4474 @@
 {
-  "verdict": "CELL_CRASHED",
-  "verdict_msg": "AssertionError: theta reuse FAILED: reconstructed digest 5d29b1e23d36cdb5 != earned f52b435fc62d1388",
-  "summary": "CELL_CRASHED: AssertionError",
-  "elapsed_s": 0.0,
-  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounded_appraisal_transfer_to_text_v1.py\", line 723, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounded_appraisal_transfer_to_text_v1.py\", line 712, in main\n    ok = self_test()\n         ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounded_appraisal_transfer_to_text_v1.py\", line 647, in self_test\n    assert digest_full == earned_digests[0], (\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: theta reuse FAILED: reconstructed digest 5d29b1e23d36cdb5 != earned f52b435fc62d1388\n",
-  "ts_iso": "2026-08-05T09:56:25.685590+00:00",
-  "anchor_name": "grounded_appraisal_transfer_to_text_v1"
+  "verdict": "EXTRACTION_BOTTLENECK",
+  "verdict_msg": "EXTRACTION_BOTTLENECK: CAUSAL(n=7): arm_a=1.000 arm_b=0.629 arm_c=0.514 recency=0.143 chance=0.500 gap_closure=-0.308 | IRONY(n=10): arm_a=0.600 arm_b=0.500 arm_c=0.700 surface=0.500 chance=0.500 | BENEFICIARY(n=5): capability GAP, no bridge attempted | theta_reuse_behavioral_match=True (digest_match_informational=True) | arm_c_verdict=ARM_C_PARTIAL (resisting=['causal']) | arm_c_plugin=ruleind",
+  "summary": "CAUSAL(n=7): arm_a=1.000 arm_b=0.629 arm_c=0.514 recency=0.143 chance=0.500 gap_closure=-0.308 | IRONY(n=10): arm_a=0.600 arm_b=0.500 arm_c=0.700 surface=0.500 chance=0.500 | BENEFICIARY(n=5): capability GAP, no bridge attempted | theta_reuse_behavioral_match=True (digest_match_informational=True) | arm_c_verdict=ARM_C_PARTIAL (resisting=['causal']) | arm_c_plugin=ruleind",
+  "n_seeds": 5,
+  "contamination_check": {
+    "all_theta_reuse_behavioral_match_earned_run": true,
+    "per_seed_behavioral_match": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true
+    },
+    "all_theta_digests_match_earned_run_informational": true,
+    "per_seed_digest_match_informational": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true
+    },
+    "arm_c_hypothesis_digest": "fd11bc97668b6003",
+    "arm_c_reads_answer_fields": false
+  },
+  "means": {
+    "causal_arm_a_acc": 1.0,
+    "causal_arm_b_acc": 0.6285714285714286,
+    "causal_arm_c_acc": 0.5142857142857142,
+    "causal_recency_acc": 0.14285714285714285,
+    "causal_chance": 0.5,
+    "causal_n": 7,
+    "irony_arm_a_acc": 0.6,
+    "irony_arm_b_acc": 0.5,
+    "irony_arm_c_acc": 0.7,
+    "irony_surface_acc": 0.5,
+    "irony_chance": 0.5,
+    "irony_n": 10
+  },
+  "bands": {
+    "causal_arm_a_beats_all": true,
+    "irony_arm_a_beats_all": true,
+    "causal_arm_b_beats_all": true,
+    "irony_arm_b_beats_all": false,
+    "arm_a_works": true,
+    "arm_b_works": false,
+    "causal_gap_closure": -0.30769230769230776,
+    "causal_c_closes_half_gap": false,
+    "irony_c_beats_baselines": true,
+    "arm_c_verdict": "ARM_C_PARTIAL",
+    "arm_c_resisting_categories": [
+      "causal"
+    ]
+  },
+  "arm_c_meta": {
+    "chosen_name": "ruleind",
+    "digest": "fd11bc97668b6003",
+    "chosen_metrics": {
+      "n_rules": 1,
+      "n_episodic": 60,
+      "model_bits": 6.109,
+      "data_bits_rules": 0.0,
+      "data_bits_residual": 95.098
+    },
+    "chosen_compression_ratio": 1.1180183171853915,
+    "all_plugin_metrics": {
+      "ruleind": {
+        "n_rules": 1,
+        "n_episodic": 60,
+        "model_bits": 6.109,
+        "data_bits_rules": 0.0,
+        "data_bits_residual": 95.098
+      },
+      "estimation": {
+        "n_keys": 72,
+        "n_classes": 3,
+        "model_bits": 114.117,
+        "data_bits": 72.0
+      }
+    }
+  },
+  "beneficiary_note": "5 beneficiary_vs_patient items reported as honest capability GAP (no appraisal slot in the sim distinguishes beneficiary from patient); see per-item beneficiary_rows.",
+  "beneficiary_rows": [
+    {
+      "id": "grapp_benpat_001",
+      "item_type": "beneficiary_vs_patient",
+      "note": "The sim's action space has no beneficiary-vs-patient appraisal slot distinct from the single RECIPROCITY 'coh' target -- bridging this item type would require either reading the answer field (leakage) or inventing an ungrounded slot the sim never earned. Reported as an honest capability GAP, not forced into a bridge.",
+      "bridge_attempted": false
+    },
+    {
+      "id": "grapp_benpat_002",
+      "item_type": "beneficiary_vs_patient",
+      "note": "The sim's action space has no beneficiary-vs-patient appraisal slot distinct from the single RECIPROCITY 'coh' target -- bridging this item type would require either reading the answer field (leakage) or inventing an ungrounded slot the sim never earned. Reported as an honest capability GAP, not forced into a bridge.",
+      "bridge_attempted": false
+    },
+    {
+      "id": "grapp_benpat_003",
+      "item_type": "beneficiary_vs_patient",
+      "note": "The sim's action space has no beneficiary-vs-patient appraisal slot distinct from the single RECIPROCITY 'coh' target -- bridging this item type would require either reading the answer field (leakage) or inventing an ungrounded slot the sim never earned. Reported as an honest capability GAP, not forced into a bridge.",
+      "bridge_attempted": false
+    },
+    {
+      "id": "grapp_benpat_004",
+      "item_type": "beneficiary_vs_patient",
+      "note": "The sim's action space has no beneficiary-vs-patient appraisal slot distinct from the single RECIPROCITY 'coh' target -- bridging this item type would require either reading the answer field (leakage) or inventing an ungrounded slot the sim never earned. Reported as an honest capability GAP, not forced into a bridge.",
+      "bridge_attempted": false
+    },
+    {
+      "id": "grapp_benpat_005",
+      "item_type": "beneficiary_vs_patient",
+      "note": "The sim's action space has no beneficiary-vs-patient appraisal slot distinct from the single RECIPROCITY 'coh' target -- bridging this item type would require either reading the answer field (leakage) or inventing an ungrounded slot the sim never earned. Reported as an honest capability GAP, not forced into a bridge.",
+      "bridge_attempted": false
+    }
+  ],
+  "run_mode": "full",
+  "elapsed_s": 43.19798029999947,
+  "ts_iso": "2026-08-05T10:38:29.702789+00:00",
+  "anchor_name": "grounded_appraisal_transfer_to_text_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "train_cfg": {
+      "n_train": 10000,
+      "n_eval": 1500
+    }
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "theta_digest": "f52b435fc62d1388",
+      "full_heldout_eval": {
+        "acc": 1.0,
+        "n_bh": 470,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.2978723404255319
+      },
+      "causal_rows": [
+        {
+          "id": "grapp_mcca_001",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9896784424781799,
+            -0.295108437538147
+          ],
+          "q_arm_b": [
+            -0.28595855832099915,
+            -0.295108437538147
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.28595855832099915,
+            -0.295108437538147
+          ]
+        },
+        {
+          "id": "grapp_mcca_003",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9945493340492249,
+            -0.28595855832099915
+          ],
+          "q_arm_b": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ]
+        },
+        {
+          "id": "grapp_mcca_004",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9945493340492249,
+            -0.28595855832099915
+          ],
+          "q_arm_b": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": "DISTR_CAND",
+          "arm_c_extraction_differentiated": true,
+          "q_arm_c": [
+            -0.295108437538147,
+            0.9896784424781799
+          ]
+        },
+        {
+          "id": "grapp_mcca_005",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9945493340492249,
+            -0.28595855832099915
+          ],
+          "q_arm_b": [
+            -0.295108437538147,
+            0.9896784424781799
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ]
+        },
+        {
+          "id": "grapp_mcca_006",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 0,
+          "recency_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9896784424781799,
+            -0.295108437538147
+          ],
+          "q_arm_b": [
+            0.9896784424781799,
+            -0.295108437538147
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.28595855832099915,
+            -0.295108437538147
+          ]
+        },
+        {
+          "id": "grapp_mcca_007",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9945493340492249,
+            -0.28595855832099915
+          ],
+          "q_arm_b": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ]
+        },
+        {
+          "id": "grapp_mcca_008",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9945493340492249,
+            -0.28595855832099915
+          ],
+          "q_arm_b": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.295108437538147,
+            -0.28595855832099915
+          ]
+        }
+      ],
+      "irony_rows": [
+        {
+          "id": "grapp_irony_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "HURT",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "NEG",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9945493340492249,
+            0.4458010196685791
+          ],
+          "q_arm_b": [
+            -0.05699874088168144,
+            0.9917401075363159
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9945493340492249,
+            0.4458010196685791
+          ]
+        },
+        {
+          "id": "grapp_irony_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ]
+        },
+        {
+          "id": "grapp_irony_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ]
+        },
+        {
+          "id": "grapp_sincere_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.05699874088168144,
+            0.9917401075363159
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.05699874088168144,
+            0.9917401075363159
+          ]
+        },
+        {
+          "id": "grapp_sincere_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "HELP",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.05699874088168144,
+            0.9917401075363159
+          ],
+          "q_arm_b": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ]
+        },
+        {
+          "id": "grapp_sincere_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.05699874088168144,
+            0.9917401075363159
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.05699874088168144,
+            0.9917401075363159
+          ]
+        },
+        {
+          "id": "grapp_irony_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.05699874088168144,
+            0.9917401075363159
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9945493340492249,
+            0.4458010196685791
+          ]
+        },
+        {
+          "id": "grapp_irony_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ]
+        },
+        {
+          "id": "grapp_sincere_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ]
+        },
+        {
+          "id": "grapp_sincere_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "q_arm_b": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.06258594244718552,
+            0.3134922385215759
+          ]
+        }
+      ]
+    },
+    "1": {
+      "seed": 1,
+      "theta_digest": "513e6bec11fad1da",
+      "full_heldout_eval": {
+        "acc": 1.0,
+        "n_bh": 447,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.319910514541387
+      },
+      "causal_rows": [
+        {
+          "id": "grapp_mcca_001",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9759213924407959,
+            -0.006448268890380859
+          ],
+          "q_arm_b": [
+            -0.30173006653785706,
+            -0.006448268890380859
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.30173006653785706,
+            -0.006448268890380859
+          ]
+        },
+        {
+          "id": "grapp_mcca_003",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9801142811775208,
+            -0.30173006653785706
+          ],
+          "q_arm_b": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ]
+        },
+        {
+          "id": "grapp_mcca_004",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9801142811775208,
+            -0.30173006653785706
+          ],
+          "q_arm_b": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": "DISTR_CAND",
+          "arm_c_extraction_differentiated": true,
+          "q_arm_c": [
+            -0.006448268890380859,
+            0.9759213924407959
+          ]
+        },
+        {
+          "id": "grapp_mcca_005",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9801142811775208,
+            -0.30173006653785706
+          ],
+          "q_arm_b": [
+            -0.006448268890380859,
+            0.9759213924407959
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ]
+        },
+        {
+          "id": "grapp_mcca_006",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 0,
+          "recency_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9759213924407959,
+            -0.006448268890380859
+          ],
+          "q_arm_b": [
+            0.9759213924407959,
+            -0.006448268890380859
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.30173006653785706,
+            -0.006448268890380859
+          ]
+        },
+        {
+          "id": "grapp_mcca_007",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9801142811775208,
+            -0.30173006653785706
+          ],
+          "q_arm_b": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ]
+        },
+        {
+          "id": "grapp_mcca_008",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9801142811775208,
+            -0.30173006653785706
+          ],
+          "q_arm_b": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.006448268890380859,
+            -0.30173006653785706
+          ]
+        }
+      ],
+      "irony_rows": [
+        {
+          "id": "grapp_irony_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "HURT",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "NEG",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9801142811775208,
+            0.39045271277427673
+          ],
+          "q_arm_b": [
+            -0.06705289334058762,
+            0.9901626110076904
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9801142811775208,
+            0.39045271277427673
+          ]
+        },
+        {
+          "id": "grapp_irony_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ]
+        },
+        {
+          "id": "grapp_irony_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ]
+        },
+        {
+          "id": "grapp_sincere_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.06705289334058762,
+            0.9901626110076904
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.06705289334058762,
+            0.9901626110076904
+          ]
+        },
+        {
+          "id": "grapp_sincere_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "HELP",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.06705289334058762,
+            0.9901626110076904
+          ],
+          "q_arm_b": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ]
+        },
+        {
+          "id": "grapp_sincere_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.06705289334058762,
+            0.9901626110076904
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.06705289334058762,
+            0.9901626110076904
+          ]
+        },
+        {
+          "id": "grapp_irony_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.06705289334058762,
+            0.9901626110076904
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9801142811775208,
+            0.39045271277427673
+          ]
+        },
+        {
+          "id": "grapp_irony_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ]
+        },
+        {
+          "id": "grapp_sincere_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ]
+        },
+        {
+          "id": "grapp_sincere_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "q_arm_b": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.08682657778263092,
+            0.25959083437919617
+          ]
+        }
+      ]
+    },
+    "2": {
+      "seed": 2,
+      "theta_digest": "54c59c33be70d8cf",
+      "full_heldout_eval": {
+        "acc": 1.0,
+        "n_bh": 455,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.2813186813186813
+      },
+      "causal_rows": [
+        {
+          "id": "grapp_mcca_001",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9993575811386108,
+            -0.13469240069389343
+          ],
+          "q_arm_b": [
+            -0.3508628010749817,
+            -0.13469240069389343
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.3508628010749817,
+            -0.13469240069389343
+          ]
+        },
+        {
+          "id": "grapp_mcca_003",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            1.0008724927902222,
+            -0.3508628010749817
+          ],
+          "q_arm_b": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ]
+        },
+        {
+          "id": "grapp_mcca_004",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            1.0008724927902222,
+            -0.3508628010749817
+          ],
+          "q_arm_b": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": "DISTR_CAND",
+          "arm_c_extraction_differentiated": true,
+          "q_arm_c": [
+            -0.13469240069389343,
+            0.9993575811386108
+          ]
+        },
+        {
+          "id": "grapp_mcca_005",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            1.0008724927902222,
+            -0.3508628010749817
+          ],
+          "q_arm_b": [
+            -0.13469240069389343,
+            0.9993575811386108
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ]
+        },
+        {
+          "id": "grapp_mcca_006",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 0,
+          "recency_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9993575811386108,
+            -0.13469240069389343
+          ],
+          "q_arm_b": [
+            0.9993575811386108,
+            -0.13469240069389343
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.3508628010749817,
+            -0.13469240069389343
+          ]
+        },
+        {
+          "id": "grapp_mcca_007",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            1.0008724927902222,
+            -0.3508628010749817
+          ],
+          "q_arm_b": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ]
+        },
+        {
+          "id": "grapp_mcca_008",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            1.0008724927902222,
+            -0.3508628010749817
+          ],
+          "q_arm_b": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.13469240069389343,
+            -0.3508628010749817
+          ]
+        }
+      ],
+      "irony_rows": [
+        {
+          "id": "grapp_irony_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "HURT",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "NEG",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            1.0008724927902222,
+            0.36540478467941284
+          ],
+          "q_arm_b": [
+            0.12202775478363037,
+            1.0026671886444092
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            1.0008724927902222,
+            0.36540478467941284
+          ]
+        },
+        {
+          "id": "grapp_irony_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            0.09983154386281967,
+            0.2575578987598419
+          ]
+        },
+        {
+          "id": "grapp_irony_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            0.09983154386281967,
+            0.2575578987598419
+          ]
+        },
+        {
+          "id": "grapp_sincere_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.12202775478363037,
+            1.0026671886444092
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.12202775478363037,
+            1.0026671886444092
+          ]
+        },
+        {
+          "id": "grapp_sincere_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "HELP",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.12202775478363037,
+            1.0026671886444092
+          ],
+          "q_arm_b": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.09983154386281967,
+            0.2575578987598419
+          ]
+        },
+        {
+          "id": "grapp_sincere_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.12202775478363037,
+            1.0026671886444092
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.12202775478363037,
+            1.0026671886444092
+          ]
+        },
+        {
+          "id": "grapp_irony_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.12202775478363037,
+            1.0026671886444092
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            1.0008724927902222,
+            0.36540478467941284
+          ]
+        },
+        {
+          "id": "grapp_irony_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            0.09983154386281967,
+            0.2575578987598419
+          ]
+        },
+        {
+          "id": "grapp_sincere_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.09983154386281967,
+            0.2575578987598419
+          ]
+        },
+        {
+          "id": "grapp_sincere_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "q_arm_b": [
+            0.09983154386281967,
+            0.2575578987598419
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.09983154386281967,
+            0.2575578987598419
+          ]
+        }
+      ]
+    },
+    "3": {
+      "seed": 3,
+      "theta_digest": "6297a56302f4264e",
+      "full_heldout_eval": {
+        "acc": 1.0,
+        "n_bh": 445,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.3258426966292135
+      },
+      "causal_rows": [
+        {
+          "id": "grapp_mcca_001",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.995600700378418,
+            -0.12544475495815277
+          ],
+          "q_arm_b": [
+            -0.2668476700782776,
+            -0.12544475495815277
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.2668476700782776,
+            -0.12544475495815277
+          ]
+        },
+        {
+          "id": "grapp_mcca_003",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9986171722412109,
+            -0.2668476700782776
+          ],
+          "q_arm_b": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ]
+        },
+        {
+          "id": "grapp_mcca_004",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9986171722412109,
+            -0.2668476700782776
+          ],
+          "q_arm_b": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": "DISTR_CAND",
+          "arm_c_extraction_differentiated": true,
+          "q_arm_c": [
+            -0.12544475495815277,
+            0.995600700378418
+          ]
+        },
+        {
+          "id": "grapp_mcca_005",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9986171722412109,
+            -0.2668476700782776
+          ],
+          "q_arm_b": [
+            -0.12544475495815277,
+            0.995600700378418
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ]
+        },
+        {
+          "id": "grapp_mcca_006",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 0,
+          "recency_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.995600700378418,
+            -0.12544475495815277
+          ],
+          "q_arm_b": [
+            0.995600700378418,
+            -0.12544475495815277
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.2668476700782776,
+            -0.12544475495815277
+          ]
+        },
+        {
+          "id": "grapp_mcca_007",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9986171722412109,
+            -0.2668476700782776
+          ],
+          "q_arm_b": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ]
+        },
+        {
+          "id": "grapp_mcca_008",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9986171722412109,
+            -0.2668476700782776
+          ],
+          "q_arm_b": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.12544475495815277,
+            -0.2668476700782776
+          ]
+        }
+      ],
+      "irony_rows": [
+        {
+          "id": "grapp_irony_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "HURT",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "NEG",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9986171722412109,
+            0.227901428937912
+          ],
+          "q_arm_b": [
+            -0.0840860903263092,
+            1.007942795753479
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9986171722412109,
+            0.227901428937912
+          ]
+        },
+        {
+          "id": "grapp_irony_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            0.06470105051994324,
+            0.3107811212539673
+          ]
+        },
+        {
+          "id": "grapp_irony_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            0.06470105051994324,
+            0.3107811212539673
+          ]
+        },
+        {
+          "id": "grapp_sincere_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            -0.0840860903263092,
+            1.007942795753479
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.0840860903263092,
+            1.007942795753479
+          ]
+        },
+        {
+          "id": "grapp_sincere_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "HELP",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.0840860903263092,
+            1.007942795753479
+          ],
+          "q_arm_b": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.06470105051994324,
+            0.3107811212539673
+          ]
+        },
+        {
+          "id": "grapp_sincere_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            -0.0840860903263092,
+            1.007942795753479
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.0840860903263092,
+            1.007942795753479
+          ]
+        },
+        {
+          "id": "grapp_irony_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            -0.0840860903263092,
+            1.007942795753479
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9986171722412109,
+            0.227901428937912
+          ]
+        },
+        {
+          "id": "grapp_irony_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            0.06470105051994324,
+            0.3107811212539673
+          ]
+        },
+        {
+          "id": "grapp_sincere_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.06470105051994324,
+            0.3107811212539673
+          ]
+        },
+        {
+          "id": "grapp_sincere_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "q_arm_b": [
+            0.06470105051994324,
+            0.3107811212539673
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.06470105051994324,
+            0.3107811212539673
+          ]
+        }
+      ]
+    },
+    "4": {
+      "seed": 4,
+      "theta_digest": "d23064ae9dd37c43",
+      "full_heldout_eval": {
+        "acc": 1.0,
+        "n_bh": 486,
+        "revenge_emergence_rate": 1.0,
+        "targeting_specificity": 1.0,
+        "bystander_harm_rate": 0.0,
+        "earned_restoration": 1.0,
+        "recency_restoration": 0.29218106995884774
+      },
+      "causal_rows": [
+        {
+          "id": "grapp_mcca_001",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9852698445320129,
+            -0.22437000274658203
+          ],
+          "q_arm_b": [
+            -0.30982518196105957,
+            -0.22437000274658203
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.30982518196105957,
+            -0.22437000274658203
+          ]
+        },
+        {
+          "id": "grapp_mcca_003",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9893688559532166,
+            -0.30982518196105957
+          ],
+          "q_arm_b": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ]
+        },
+        {
+          "id": "grapp_mcca_004",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9893688559532166,
+            -0.30982518196105957
+          ],
+          "q_arm_b": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HELP",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": "DISTR_CAND",
+          "arm_c_extraction_differentiated": true,
+          "q_arm_c": [
+            -0.22437000274658203,
+            0.9852698445320129
+          ]
+        },
+        {
+          "id": "grapp_mcca_005",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 1,
+          "arm_b_correct": false,
+          "arm_b_real_attributed": "DISTR_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9893688559532166,
+            -0.30982518196105957
+          ],
+          "q_arm_b": [
+            -0.22437000274658203,
+            0.9852698445320129
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ]
+        },
+        {
+          "id": "grapp_mcca_006",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": "TRUE_CAND",
+          "arm_b_extraction_differentiated": true,
+          "recency_pred_slot": 0,
+          "recency_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9852698445320129,
+            -0.22437000274658203
+          ],
+          "q_arm_b": [
+            0.9852698445320129,
+            -0.22437000274658203
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "HARM",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 1,
+          "arm_c_correct": false,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.30982518196105957,
+            -0.22437000274658203
+          ]
+        },
+        {
+          "id": "grapp_mcca_007",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9893688559532166,
+            -0.30982518196105957
+          ],
+          "q_arm_b": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ]
+        },
+        {
+          "id": "grapp_mcca_008",
+          "item_type": "multi_candidate_causal_attribution",
+          "arm_a_pred_slot": 0,
+          "arm_a_correct": true,
+          "arm_b_pred_slot": 0,
+          "arm_b_correct": true,
+          "arm_b_real_attributed": null,
+          "arm_b_extraction_differentiated": false,
+          "recency_pred_slot": -1,
+          "recency_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9893688559532166,
+            -0.30982518196105957
+          ],
+          "q_arm_b": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ],
+          "used_contamination": {
+            "reads_true_blocker_agent_label": false,
+            "arm_a_given_facts": [
+              "oracle event-structure convention: slot0=true_blocker_span"
+            ],
+            "arm_b_given_facts": [
+              "own-span blind valence",
+              "real line positions"
+            ],
+            "bridge_used": {
+              "candidates_considered": [
+                {
+                  "agent": "TRUE_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 100
+                },
+                {
+                  "agent": "DISTR_CAND",
+                  "patient": "VICTIM",
+                  "valence": "NA",
+                  "position": 200
+                }
+              ],
+              "gate": "blind_valence==HARM and coreference(patient, query_agent)",
+              "reads_category_label": false,
+              "reads_prior_block_flag": false
+            },
+            "arm_c_given_facts": [
+              "own-span text + wider corpus context window (via GIVEN line_range only)",
+              "real line positions"
+            ],
+            "reads_true_intent_valence_label": false
+          },
+          "arm_c_pred_slot": 0,
+          "arm_c_correct": true,
+          "arm_c_real_attributed": null,
+          "arm_c_extraction_differentiated": false,
+          "q_arm_c": [
+            -0.22437000274658203,
+            -0.30982518196105957
+          ]
+        }
+      ],
+      "irony_rows": [
+        {
+          "id": "grapp_irony_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "HURT",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "NEG",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            0.9893688559532166,
+            0.30609607696533203
+          ],
+          "q_arm_b": [
+            -0.09241680800914764,
+            0.9918316602706909
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9893688559532166,
+            0.30609607696533203
+          ]
+        },
+        {
+          "id": "grapp_irony_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ]
+        },
+        {
+          "id": "grapp_irony_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ]
+        },
+        {
+          "id": "grapp_sincere_001",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.09241680800914764,
+            0.9918316602706909
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.09241680800914764,
+            0.9918316602706909
+          ]
+        },
+        {
+          "id": "grapp_sincere_002",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "HELP",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.09241680800914764,
+            0.9918316602706909
+          ],
+          "q_arm_b": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ]
+        },
+        {
+          "id": "grapp_sincere_003",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.09241680800914764,
+            0.9918316602706909
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HELP",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.09241680800914764,
+            0.9918316602706909
+          ]
+        },
+        {
+          "id": "grapp_irony_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "HELP",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.09241680800914764,
+            0.9918316602706909
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "HURT",
+          "arm_c_pred": "NEG",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            0.9893688559532166,
+            0.30609607696533203
+          ]
+        },
+        {
+          "id": "grapp_irony_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "irony",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": false,
+          "arm_b_pred": "POS",
+          "arm_b_correct": false,
+          "surface_pred": "POS",
+          "surface_correct": false,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": false,
+          "q_arm_c": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ]
+        },
+        {
+          "id": "grapp_sincere_004",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ]
+        },
+        {
+          "id": "grapp_sincere_005",
+          "item_type": "irony_vs_sincere_valence",
+          "valence_type": "sincere",
+          "cong_arm_a": "NEUTRAL",
+          "cong_arm_b": "NEUTRAL",
+          "arm_a_pred": "POS",
+          "arm_a_correct": true,
+          "arm_b_pred": "POS",
+          "arm_b_correct": true,
+          "surface_pred": "POS",
+          "surface_correct": true,
+          "chance_correct_prob": 0.5,
+          "q_arm_a": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "q_arm_b": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ],
+          "used_contamination": {
+            "reads_true_intent_valence_label": false,
+            "arm_a_given_facts": [
+              "supporting_span (given narrative span, distinct from surface_span)"
+            ],
+            "arm_b_given_facts": [
+              "surface_span alone"
+            ],
+            "arm_c_given_facts": [
+              "surface_span text + wider corpus context window (via GIVEN line_range only)"
+            ]
+          },
+          "cong_arm_c": "NEUTRAL",
+          "arm_c_pred": "POS",
+          "arm_c_correct": true,
+          "q_arm_c": [
+            -0.16269923746585846,
+            0.4095895290374756
+          ]
+        }
+      ]
+    }
+  }
 }
