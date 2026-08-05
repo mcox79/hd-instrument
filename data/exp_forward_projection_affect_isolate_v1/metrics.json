@@ -1,0 +1,434 @@
+{
+  "verdict": "PARTIAL_ISOLATE_PROVEN_REGRESSION_FP",
+  "verdict_msg": "PARTIAL_ISOLATE_PROVEN_REGRESSION_FP: forward-NEG predictive=3/3 vs STATIC-no-projection=0/3 (isolate_gap=100pt) | irony_005_recovered=True | scramble_collapsed=True (scr_mean=0.47 vs real=1.00) | pos_guard=True | degenerate=False | regression_broken=['grapp_sincere_003', 'grapp_sincere_004']",
+  "summary": "PARTIAL_ISOLATE_PROVEN_REGRESSION_FP: forward-NEG predictive=3/3 vs STATIC-no-projection=0/3 (isolate_gap=100pt) | irony_005_recovered=True | scramble_collapsed=True (scr_mean=0.47 vs real=1.00) | pos_guard=True | degenerate=False | regression_broken=['grapp_sincere_003', 'grapp_sincere_004']",
+  "run_mode": "full",
+  "elapsed_s": 7.066804599991883,
+  "ts_iso": "2026-08-05T15:32:05.748086+00:00",
+  "anchor_name": "forward_projection_affect_isolate_v1",
+  "mechanism": "forward-projection via hdlab.predictive_coding (Rao-Ballard residual-gated associative transition map situation-state -> outcome-valence codeword); extends C-D part 1 present-state grounded maintainer with a prediction step",
+  "predictive_coding_telemetry": {
+    "n_episodes": 8,
+    "applied_frac": 1.0,
+    "mean_residual_mag": 0.4969482421875,
+    "min_residual_mag": 0.0,
+    "max_residual_mag": 1.0
+  },
+  "degenerate_probe": {
+    "neg_probe": {
+      "label": "NEG",
+      "margin": 0.97265625
+    },
+    "pos_probe": {
+      "label": "POS",
+      "margin": 0.97265625
+    }
+  },
+  "bands": {
+    "forward_neg_ids": [
+      "grapp_irony_005",
+      "synth_fwd_neg_1",
+      "synth_fwd_neg_2"
+    ],
+    "n_forward_neg": 3,
+    "forward_static_correct": 0,
+    "forward_predictive_correct": 3,
+    "static_pct": 0.0,
+    "predictive_pct": 100.0,
+    "isolate_gap_pts": 100.0,
+    "irony_005_static_correct": false,
+    "irony_005_forward_correct": true,
+    "irony_005_recovered": true,
+    "irony_005_decode": {
+      "cos_neg": 1.0,
+      "cos_pos": 0.02734375,
+      "margin": 0.97265625
+    },
+    "irony_005_cues": [
+      "benign_anticipation",
+      "evasion",
+      "feign_illness",
+      "threat_foreboding"
+    ],
+    "scramble_mean_acc": 0.4739583333333333,
+    "scramble_n_seeds": 64,
+    "scramble_real_acc": 1.0,
+    "scramble_collapsed": true,
+    "forward_pos_guard_ok": true,
+    "forward_pos_n": 2,
+    "leak_clean": true,
+    "predictive_degenerate": false,
+    "regression_static_correct": 8,
+    "regression_forward_correct": 7,
+    "regression_broken_ids": [
+      "grapp_sincere_003",
+      "grapp_sincere_004"
+    ]
+  },
+  "arms_differ_verified": {
+    "static_digest": "021be77d6e0aa9d71a34b3222ed93382d2ebe9ae9985828819de2b3934450a65",
+    "forward_digest": "0b99ff1654b5310281d19d01e9fd00212636094136983e8213ed002a2383f0d7",
+    "differ_on_forward_neg": true
+  },
+  "rows": [
+    {
+      "id": "grapp_irony_001",
+      "kind": "real",
+      "true_label": "NEG",
+      "grounded_state": "HELP",
+      "setup_cues": [],
+      "state_features": [
+        "help_present"
+      ],
+      "static_pred": "NEG",
+      "static_correct": true,
+      "projection_label": "POS",
+      "override_fired": false,
+      "forward_pred": "NEG",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 0.02734375,
+        "cos_pos": 1.0,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_irony_002",
+      "kind": "real",
+      "true_label": "NEG",
+      "grounded_state": "HARM",
+      "setup_cues": [
+        "deception"
+      ],
+      "state_features": [
+        "deception",
+        "harm_present"
+      ],
+      "static_pred": "NEG",
+      "static_correct": true,
+      "projection_label": "NEG",
+      "override_fired": false,
+      "forward_pred": "NEG",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_irony_003",
+      "kind": "real",
+      "true_label": "NEG",
+      "grounded_state": "HARM",
+      "setup_cues": [
+        "threat_foreboding"
+      ],
+      "state_features": [
+        "harm_present",
+        "threat_foreboding"
+      ],
+      "static_pred": "NEG",
+      "static_correct": true,
+      "projection_label": "NEG",
+      "override_fired": false,
+      "forward_pred": "NEG",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_sincere_001",
+      "kind": "real",
+      "true_label": "POS",
+      "grounded_state": "HELP",
+      "setup_cues": [
+        "threat_foreboding"
+      ],
+      "state_features": [
+        "help_present",
+        "threat_foreboding"
+      ],
+      "static_pred": "POS",
+      "static_correct": true,
+      "projection_label": "NEG",
+      "override_fired": false,
+      "forward_pred": "POS",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_sincere_002",
+      "kind": "real",
+      "true_label": "POS",
+      "grounded_state": "HELP",
+      "setup_cues": [
+        "deception"
+      ],
+      "state_features": [
+        "deception",
+        "help_present"
+      ],
+      "static_pred": "POS",
+      "static_correct": true,
+      "projection_label": "NEG",
+      "override_fired": false,
+      "forward_pred": "POS",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_sincere_003",
+      "kind": "real",
+      "true_label": "POS",
+      "grounded_state": "NA",
+      "setup_cues": [
+        "benign_anticipation",
+        "deception",
+        "threat_foreboding"
+      ],
+      "state_features": [
+        "benign_anticipation",
+        "deception",
+        "threat_foreboding"
+      ],
+      "static_pred": "POS",
+      "static_correct": true,
+      "projection_label": "NEG",
+      "override_fired": true,
+      "forward_pred": "NEG",
+      "forward_correct": false,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_irony_004",
+      "kind": "real",
+      "true_label": "NEG",
+      "grounded_state": "HARM",
+      "setup_cues": [
+        "deception"
+      ],
+      "state_features": [
+        "deception",
+        "harm_present"
+      ],
+      "static_pred": "NEG",
+      "static_correct": true,
+      "projection_label": "NEG",
+      "override_fired": false,
+      "forward_pred": "NEG",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_irony_005",
+      "kind": "real",
+      "true_label": "NEG",
+      "grounded_state": "NA",
+      "setup_cues": [
+        "benign_anticipation",
+        "evasion",
+        "feign_illness",
+        "threat_foreboding"
+      ],
+      "state_features": [
+        "benign_anticipation",
+        "evasion",
+        "feign_illness",
+        "threat_foreboding"
+      ],
+      "static_pred": "POS",
+      "static_correct": false,
+      "projection_label": "NEG",
+      "override_fired": true,
+      "forward_pred": "NEG",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_sincere_004",
+      "kind": "real",
+      "true_label": "POS",
+      "grounded_state": "NA",
+      "setup_cues": [
+        "benign_anticipation",
+        "deception",
+        "feign_illness"
+      ],
+      "state_features": [
+        "benign_anticipation",
+        "deception",
+        "feign_illness"
+      ],
+      "static_pred": "POS",
+      "static_correct": true,
+      "projection_label": "NEG",
+      "override_fired": true,
+      "forward_pred": "NEG",
+      "forward_correct": false,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "grapp_sincere_005",
+      "kind": "real",
+      "true_label": "POS",
+      "grounded_state": "HARM",
+      "setup_cues": [
+        "deception"
+      ],
+      "state_features": [
+        "deception",
+        "harm_present"
+      ],
+      "static_pred": "NEG",
+      "static_correct": false,
+      "projection_label": "NEG",
+      "override_fired": false,
+      "forward_pred": "NEG",
+      "forward_correct": false,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false
+    },
+    {
+      "id": "synth_fwd_neg_1",
+      "kind": "synthetic",
+      "true_label": "NEG",
+      "grounded_state": "NA",
+      "setup_cues": [
+        "deception"
+      ],
+      "state_features": [
+        "deception"
+      ],
+      "static_pred": "POS",
+      "static_correct": false,
+      "projection_label": "NEG",
+      "override_fired": true,
+      "forward_pred": "NEG",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false,
+      "note": "deception setup; unstated betrayal outcome"
+    },
+    {
+      "id": "synth_fwd_neg_2",
+      "kind": "synthetic",
+      "true_label": "NEG",
+      "grounded_state": "NA",
+      "setup_cues": [
+        "threat_foreboding"
+      ],
+      "state_features": [
+        "threat_foreboding"
+      ],
+      "static_pred": "POS",
+      "static_correct": false,
+      "projection_label": "NEG",
+      "override_fired": true,
+      "forward_pred": "NEG",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 1.0,
+        "cos_pos": 0.02734375,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false,
+      "note": "threat/foreboding setup; unstated harm outcome"
+    },
+    {
+      "id": "synth_fwd_pos_1",
+      "kind": "synthetic",
+      "true_label": "POS",
+      "grounded_state": "NA",
+      "setup_cues": [
+        "benign_anticipation"
+      ],
+      "state_features": [
+        "benign_anticipation"
+      ],
+      "static_pred": "POS",
+      "static_correct": true,
+      "projection_label": "POS",
+      "override_fired": false,
+      "forward_pred": "POS",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 0.02734375,
+        "cos_pos": 1.0,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false,
+      "note": "benign anticipation; unstated positive outcome (constant-NEG guard)"
+    },
+    {
+      "id": "synth_fwd_pos_2",
+      "kind": "synthetic",
+      "true_label": "POS",
+      "grounded_state": "NA",
+      "setup_cues": [
+        "benign_anticipation"
+      ],
+      "state_features": [
+        "benign_anticipation"
+      ],
+      "static_pred": "POS",
+      "static_correct": true,
+      "projection_label": "POS",
+      "override_fired": false,
+      "forward_pred": "POS",
+      "forward_correct": true,
+      "decode": {
+        "cos_neg": 0.02734375,
+        "cos_pos": 1.0,
+        "margin": 0.97265625
+      },
+      "setup_window_leak": false,
+      "note": "benign/help anticipation; unstated positive outcome (constant-NEG guard)"
+    }
+  ],
+  "deflation_note": "ARCHITECTURE/MECHANISM proof. setup->outcome KNOWLEDGE is supplied via a disjoint glass-box training grid (armc pattern); the win is the ISOLATE gate (static provably cannot recover forward items, forward-projection can, scramble collapses). 2/3 forward-NEG are SYNTHETIC; grapp_irony_005 is the only real-corpus forward anchor (N=1 real)."
+}
