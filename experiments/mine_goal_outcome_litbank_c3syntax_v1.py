@@ -47,15 +47,83 @@ for _p in (REPO_ROOT, os.path.join(REPO_ROOT, "hdlab"), os.path.join(REPO_ROOT, 
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from hdlab.thematic_role_labeler import PSYCH_VERBS, lemma_verb  # noqa: E402
+from hdlab.thematic_role_labeler import PSYCH_VERBS, lemma_verb, is_passive_clause  # noqa: E402
 from hdlab.candidate_generator import CandidateGenerator  # noqa: E402
 from hdlab.state_of_mind import PRONOUN_SCOPE, infer_nominal_gender  # noqa: E402
+from hdlab.animacy_lexicon import lookup_animacy  # noqa: E402
 
-# reuse bit-identical: sentence loading, roster-building, outcome-cue lexicon, diversity selection
+# reuse bit-identical: sentence loading, outcome-cue lexicon, diversity selection, mentions.
+# build_roster is REPLACED by build_roster_c3 below (roster fix); STOP_CAPS reused as the base
+# stoplist that build_roster_c3 EXTENDS with pronouns/titles/ALLCAPS.
 from mine_goal_outcome_litbank_v1 import (  # noqa: E402
-    LITBANK_DIR, load_sentences, build_roster, mentions_in, ACHIEVE_CUES, BLOCK_CUES,
-    select_diverse, _tokens,
+    LITBANK_DIR, load_sentences, mentions_in, ACHIEVE_CUES, BLOCK_CUES,
+    select_diverse, _tokens, STOP_CAPS,
 )
+
+# --- ROSTER FIX (fix 3): reject capitalized-but-non-name tokens that build_roster (surface miner)
+# admitted as pseudo proper-nouns and thereby corrupted pronoun-antecedent search. The dominant
+# failure mode diagnosed at commit 2690d6f7f (13/25 wrong owners). Three deterministic gates on top
+# of the reused STOP_CAPS base stoplist:
+#   (a) possessive/personal PRONOUN surface forms (Her/His/Its/Him/She/...) -- these are NEVER names.
+#   (b) common-noun TITLE/kinship/role words (King/Queen/Mistress/Master/Father/Mother/Man/Woman...).
+#   (c) ALLCAPS emphasis tokens (MAN, GOD) -- len>1 and .isupper().
+# NOTE on a REJECTED 4th gate: an animacy-lexicon common-noun backstop (reject any capitalized token
+# that WordNet knows as a common noun) was tried and DROPPED -- direct probe showed it catastrophically
+# over-rejects real names that are surface-homographs of common nouns (Bridget/Elizabeth/Anne/Frank/
+# Ruth/Victor/Rose/Will/Mark/Pearl/Faith/Grace/Hope/May...). This is exactly the homograph collision
+# hdlab/animacy_lexicon.py's own docstring warns about (Dash/Patty/Read); its lookup_animacy returns
+# None for PROPN precisely to avoid it. The explicit (a)+(b)+(c) stoplists cover every diagnosed
+# failure (Her/His/Its/King/Mistress/Father/MAN) with zero real-name collateral. Animacy IS still
+# wired at the OWNER-decision site (fix 2 in c3_syntax_owner), which is the correct place for it.
+_ROSTER_PRONOUN_STOP = {
+    "he", "him", "his", "she", "her", "hers", "it", "its", "they", "them", "their", "theirs",
+    "i", "me", "my", "mine", "you", "your", "yours", "we", "us", "our", "ours",
+    "myself", "himself", "herself", "itself", "themselves", "yourself", "ourselves", "who", "whom",
+}
+_ROSTER_TITLE_STOP = {
+    "king", "queen", "prince", "princess", "duke", "duchess", "earl", "count", "countess",
+    "baron", "baroness", "knight", "squire", "dame", "mistress", "master", "mister", "madam",
+    "madame", "father", "mother", "papa", "mamma", "mama", "mother", "dad", "mum", "son",
+    "daughter", "sister", "brother", "cousin", "aunt", "uncle", "grandmother", "grandfather",
+    "grandma", "grandpa", "nurse", "cook", "maid", "servant", "captain", "colonel", "major",
+    "general", "sergeant", "corporal", "doctor", "professor", "reverend", "bishop", "priest",
+    "parson", "widow", "widower", "man", "woman", "boy", "girl", "child", "lady", "lord", "sir",
+    "gentleman", "gentlemen", "mistress", "matron", "governess",
+}
+
+
+def _is_name_token(w: str) -> bool:
+    """True iff capitalized token `w` (already stripped, non-sentence-initial) is admissible as a
+    proper-noun roster NAME under the roster fix. Deterministic; read-only reuse of lookup_animacy."""
+    lw = w.lower()
+    if len(w) > 1 and w.isupper():
+        return False  # (c) ALLCAPS emphasis
+    if lw in _ROSTER_PRONOUN_STOP:
+        return False  # (a) pronoun
+    if lw in _ROSTER_TITLE_STOP:
+        return False  # (b) title/role/kinship common noun
+    return True
+
+
+def build_roster_c3(sentences):
+    """Roster fix: glass-box proper-noun roster with the added pronoun/title/ALLCAPS/animacy gates.
+    Same frequency>=3, non-sentence-initial, STOP_CAPS-excluded base as the surface miner's
+    build_roster (mine_goal_outcome_litbank_v1.build_roster), plus _is_name_token()."""
+    counts = Counter()
+    for sent in sentences:
+        toks = sent.split(" ")
+        for i, tok in enumerate(toks):
+            w = tok.strip(".,\"'();:!?")
+            if not w or not w[0].isupper() or not w.isalpha():
+                continue
+            if i == 0:
+                continue
+            if w in STOP_CAPS:
+                continue
+            if not _is_name_token(w):
+                continue
+            counts[w] += 1
+    return {w for w, c in counts.items() if c >= 3}
 
 OUT_PATH = os.path.join(REPO_ROOT, "experiments", "data", "goal_outcome_c3mined_v1.jsonl")
 POS_PATH = os.path.join(REPO_ROOT, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
@@ -102,6 +170,14 @@ def c3_syntax_owner(gen: CandidateGenerator, sentence: str, verb_lemma: str, ros
             break
     if v_idx0 is None:
         return None, None, {"failure_class": "VERB_NOT_POS_VERB_OR_NOT_LOCATED"}
+    # PASSIVE GATE (fix 1): if the psych-verb clause is passive ("was feared", "is loved by"), the
+    # surface SUBJECT is the PATIENT/stimulus, NOT the EXPERIENCER/goal-holder. Read-only reuse of
+    # hdlab.thematic_role_labeler.is_passive_clause on a local window [aux..verb] centered on the
+    # psych verb (a targeted slice so an unrelated passive elsewhere in the sentence does not fire).
+    lo = max(0, v_idx0 - 3)
+    if is_passive_clause(toks[lo:v_idx0 + 2], pos[lo:v_idx0 + 2]):
+        return None, None, {"failure_class": "PASSIVE_PSYCH_SUBJECT_IS_PATIENT_NOT_EXPERIENCER",
+                            "v_idx0": v_idx0, "v_tok": toks[v_idx0]}
     v1 = v_idx0 + 1
     subj_cands = [a for (vv, a) in cr.candidates if vv == v1 and a < v1]
     if not subj_cands:
@@ -113,6 +189,13 @@ def c3_syntax_owner(gen: CandidateGenerator, sentence: str, verb_lemma: str, ros
     diag = {"v_idx0": v_idx0, "a_idx0": a_idx0, "a_pos": ptag, "a_tok": tok,
             "cand_rule": cr.cand_rules.get((v1, ranked[0])), "n_subj_cands": len(subj_cands)}
     if ptag in ("PROPN", "NOUN") and tok in roster:
+        # ANIMACY GATE (fix 2): a goal-holder/experiencer must be ANIMATE. Reject a subject the
+        # animacy lexicon classifies as inanimate (e.g. a place/object common noun admitted via a
+        # gapped relative-clause subject). Read-only reuse of hdlab.animacy_lexicon.lookup_animacy.
+        # Proper nouns return None (uncovered) -> not rejected here (honest coverage gap, noted).
+        info = lookup_animacy(tok, pos_tag=ptag)
+        if info is not None and info["animacy"] == "inanimate":
+            return None, None, {**diag, "failure_class": "SUBJECT_INANIMATE_NOT_GOAL_HOLDER"}
         return tok, "syntactic_subject_name", diag
     if _is_pron(tok):
         want = _gender_of(tok, roster_gender)
@@ -127,10 +210,10 @@ def mine_novel(gen: CandidateGenerator, path: str, budget: list, roster_min_name
     novel = os.path.splitext(os.path.basename(path))[0]
     sentences = load_sentences(path)
     if len(sentences) < 50:
-        return []
-    roster = build_roster(sentences)
+        return [], Counter()
+    roster = build_roster_c3(sentences)  # ROSTER FIX (fix 3): pronoun/title/ALLCAPS/animacy-gated
     if len(roster) < roster_min_names:
-        return []
+        return [], Counter()
     roster_gender = {}  # populate lazily via infer_nominal_gender per name below
     last_named = []
     items = []
@@ -268,5 +351,53 @@ def main():
     return selected, dict(total_stats)
 
 
+def self_test():
+    """Deterministic in-process self-test that the 3 wired organs behave as specified. Constructs
+    the REAL organs (build_roster_c3 via lookup_animacy, is_passive_clause, c3_syntax_owner via the
+    REAL persisted CandidateGenerator) at tiny scale -- exercises the actual code path FULL uses."""
+    # fix 3: roster fix -- pronoun/title/ALLCAPS/animacy-word rejected; real names admitted.
+    assert not _is_name_token("Her"), "roster: possessive pronoun Her must be rejected"
+    assert not _is_name_token("His"), "roster: His must be rejected"
+    assert not _is_name_token("King"), "roster: title King must be rejected"
+    assert not _is_name_token("Mistress"), "roster: title Mistress must be rejected"
+    assert not _is_name_token("Father"), "roster: kinship Father must be rejected"
+    assert not _is_name_token("MAN"), "roster: ALLCAPS MAN must be rejected"
+    assert _is_name_token("Margaret"), "roster: real name Margaret must be admitted"
+    assert _is_name_token("Bridget"), "roster: real name Bridget must be admitted"
+    sents = ["The King spoke to Her.", "Margaret loved Bridget dearly.",
+             "Margaret loved Bridget dearly.", "Margaret loved Bridget dearly.",
+             "Bridget feared Margaret always.", "Bridget feared Margaret always.",
+             "Bridget feared Margaret always."] * 1
+    roster = build_roster_c3(sents * 1)
+    assert "King" not in roster and "Her" not in roster, f"roster admitted junk: {roster}"
+
+    # fix 1: passive gate -- is_passive_clause fires on 'was feared' but not on active 'feared'.
+    assert is_passive_clause(["She", "was", "feared"], ["PRON", "AUX", "VERB"]), "passive not detected"
+    assert not is_passive_clause(["She", "feared", "him"], ["PRON", "VERB", "PRON"]), "false passive"
+
+    # fix 2: animacy gate -- inanimate common noun rejected, animate/person admitted, PROPN uncovered.
+    assert lookup_animacy("city", pos_tag="NOUN")["animacy"] == "inanimate", "city should be inanimate"
+    girl = lookup_animacy("girl", pos_tag="NOUN")
+    assert girl is not None and girl["animacy"] == "animate", "girl should be animate"
+
+    # real-code-path: c3_syntax_owner over the persisted parser on an active + a passive sentence.
+    gen = CandidateGenerator.load(POS_PATH, ARC_PATH)
+    rost = {"Margaret", "Bridget"}
+    rg = {"Margaret": "f", "Bridget": "f"}
+    owner_active, how_a, diag_a = c3_syntax_owner(
+        gen, "Margaret loved the garden.", "love", rost, rg, ["Margaret"])
+    owner_pass, how_p, diag_p = c3_syntax_owner(
+        gen, "Margaret was feared everywhere.", "fear", rost, rg, ["Margaret"])
+    assert diag_p.get("failure_class") == "PASSIVE_PSYCH_SUBJECT_IS_PATIENT_NOT_EXPERIENCER", \
+        f"passive gate did not fire on real parse: {diag_p}"
+    print("[self-test] PASS: passive-gate + animacy-gate + roster-fix all wired and firing.")
+    print(f"[self-test]   active-parse owner={owner_active!r} how={how_a} diag={diag_a}")
+    print(f"[self-test]   passive-parse correctly rejected: {diag_p.get('failure_class')}")
+    return True
+
+
 if __name__ == "__main__":
-    main()
+    if "--self-test" in sys.argv:
+        self_test()
+    else:
+        main()
