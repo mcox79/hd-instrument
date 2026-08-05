@@ -58,7 +58,7 @@ def is_oov(lemma: str) -> bool:
 
 
 def _clean(tok: str) -> str:
-    return tok.lower().strip(".,\"'();:")
+    return tok.lower().strip(".,\"'();:!?")
 
 
 def has_sentential_complement(tokens: Sequence[str], v_idx: int, window: int = 4) -> bool:
@@ -138,10 +138,12 @@ def _key_fn(ep):
     return "|".join(sorted(ep["feats"]))
 
 
-def default_spec(classes):
+def default_spec(classes, atoms=None):
     """Default hypothesis-space CONFIG: MDL-auto-select across estimation / ruleind /
     proginduction. proginduction included per audit (its total-boolean-function-over-declared-atoms
-    design is the strongest defense against a majority-marginal collapsing an unseen combo)."""
+    design is the strongest defense against a majority-marginal collapsing an unseen combo).
+    `atoms` overrides the proginduction atom list (real-data adapter passes REAL_CONSTRUCTION_ATOMS)."""
+    atoms = list(atoms) if atoms is not None else list(CONSTRUCTION_ATOMS)
     return {
         "candidate_plugins": ["estimation", "ruleind", "proginduction"],
         "per_plugin": {
@@ -149,7 +151,7 @@ def default_spec(classes):
                            "label_fn": lambda ep: ep["gold_class"], "classes": list(classes)},
             "ruleind": {"max_conjunct": 2, "min_coverage": 2, "purity_thresh": 0.75,
                         "max_rules": 25, "key_fn": _key_fn},
-            "proginduction": {"atoms": list(CONSTRUCTION_ATOMS), "max_nodes": 9,
+            "proginduction": {"atoms": atoms, "max_nodes": 9,
                               "label_fn": lambda ep: ep["gold_class"], "classes": list(classes)},
         },
     }
@@ -161,6 +163,138 @@ def induce(episodes, spec=None):
     classes = sorted({ep["gold_class"] for ep in episodes})
     spec = spec or default_spec(classes)
     return registry.learn(episodes, _feat_fn, spec)
+
+
+# ---------------------------------------------------------------------------------------------
+# REAL-DATA ADAPTER (2026-08-04): construction cues computed directly from REAL narrative text
+# (experiments/data/experiencer_narrative_roles_v1.jsonl), replacing the templated bare/scomp/
+# degree/progressive corpus above. Adds PASSIVE-VOICE and ARGUMENT-ANIMACY cues -- both legitimate
+# Gleitman/Naigles-style syntactic+semantic bootstrapping signals, observable from surface form
+# ALONE. Deliberately NEVER uses: the verb lemma, the gold role, or the dataset's own
+# "construction" field (that field WOULD be circular -- it already encodes the subj-exp/obj-exp
+# distinction induction is trying to recover; e.g. "transitive" vs "exp_obj_active" is the exact
+# semantic ambiguity classic psych-verb pairs like fear/frighten are syntactically IDENTICAL on
+# (fixed English SVO order alone -- this is the acknowledged "hard case", not solvable from
+# order/scomp/degree/progressive cues; passive + animacy are the two additional surface cues that
+# can help without peeking at the answer.
+# ---------------------------------------------------------------------------------------------
+REAL_CONSTRUCTION_ATOMS = ["has_scomp", "degree_mod", "progressive", "passive", "order_pre", "arg_animate"]
+
+_NOMINATIVE_PRONOUNS = {"i", "he", "she", "we", "they", "you", "who"}
+_INANIMATE_PRONOUNS = {"it", "this", "that", "these", "those"}
+
+
+def is_passive_real(tokens: Sequence[str], v_idx: int, window: int = 3) -> bool:
+    """Self-contained passive-voice surface detector (no POS tagger): a BE-aux within `window`
+    tokens before v_idx, at most one intervening token (participle morphology not required --
+    v_idx itself is the (possibly irregular) participle by construction of the psych-verb data).
+    """
+    lo = max(0, v_idx - window)
+    for i in range(lo, v_idx):
+        if _clean(tokens[i]) in _BE_AUX and (v_idx - i - 1) <= 1:
+            return True
+    return False
+
+
+def _is_animate_head(tokens: Sequence[str], idx: Optional[int]) -> bool:
+    """Surface animacy heuristic for the token at idx: nominative/1st/2nd-person pronoun ->
+    animate; 'it'/demonstrative -> inanimate; a capitalized NON-sentence-initial token (proper
+    noun) -> animate; else unknown -> treated inanimate. Never consults gold roles or the lemma."""
+    if idx is None or not (0 <= idx < len(tokens)):
+        return False
+    raw = tokens[idx]
+    w = _clean(raw)
+    if w in _NOMINATIVE_PRONOUNS:
+        return True
+    if w in _INANIMATE_PRONOUNS:
+        return False
+    if idx > 0 and raw[:1].isupper():
+        return True
+    return False
+
+
+def real_construction_feats(tokens: Sequence[str], v_idx: int, arg_idx: Optional[int]) -> List[str]:
+    """Construction-cue atom list for ONE (verb-occurrence, argument) pair in REAL text. Extends
+    episode_feats() with passive + animacy -- real prose has frequent zero-complementizer finite
+    clauses ("I fear his wits were touched", no "that") and exp_obj_passive constructions
+    ("was amused by") the templated 4-atom set under-detects."""
+    feats: List[str] = []
+    if has_sentential_complement(tokens, v_idx):
+        feats.append("has_scomp")
+    elif (arg_idx is not None and arg_idx > v_idx and
+          _clean(tokens[arg_idx]) in _NOMINATIVE_PRONOUNS):
+        # Zero-complementizer finite clause: the post-verbal slot is filled by a NOMINATIVE-case
+        # pronoun ("I fear HE is right", not "I fear HIM") -- real English case morphology signals
+        # an embedded-clause subject, not a direct object. Not a parser; a case-form surface cue.
+        feats.append("has_scomp")
+    if is_degree_modified(tokens, v_idx):
+        feats.append("degree_mod")
+    if is_progressive(tokens, v_idx):
+        feats.append("progressive")
+    if is_passive_real(tokens, v_idx):
+        feats.append("passive")
+    if arg_idx is not None and arg_idx < v_idx:
+        feats.append("order_pre")
+    if _is_animate_head(tokens, arg_idx):
+        feats.append("arg_animate")
+    return feats
+
+
+def _lemma_candidates(word: str) -> set:
+    """Self-contained inflection-candidate generator for verb-token matching against a supplied
+    lemma. Deliberately independent of thematic_role_labeler.lemma_verb(), which strips silent-e
+    incorrectly for this purpose (e.g. 'loved'->'lov', 'amused'->'amus') -- here we want the FULL
+    candidate SET (bare-stripped form AND the +e restore) so an exact-lemma match is reachable."""
+    w = _clean(word)
+    cands = {w}
+    if w.endswith("ing") and len(w) > 4:
+        base = w[:-3]
+        cands.add(base)
+        cands.add(base + "e")
+        if len(base) > 2 and base[-1] == base[-2] and base[-1] not in "aeiou":
+            cands.add(base[:-1])
+    if w.endswith("ied") and len(w) > 4:
+        cands.add(w[:-3] + "y")
+    if w.endswith("ed") and len(w) > 3:
+        base = w[:-2]
+        cands.add(base)
+        cands.add(base + "e")
+        if len(base) > 2 and base[-1] == base[-2] and base[-1] not in "aeiou":
+            cands.add(base[:-1])
+    if w.endswith("es") and len(w) > 3:
+        cands.add(w[:-2])
+        cands.add(w[:-1])
+    if w.endswith("s") and len(w) > 3 and not w.endswith("ss"):
+        cands.add(w[:-1])
+    return cands
+
+
+def locate_verb_idx(tokens: Sequence[str], verb_lemma: str) -> Optional[int]:
+    """First token whose inflection-candidate set contains `verb_lemma`. None if absent."""
+    for i, t in enumerate(tokens):
+        if verb_lemma in _lemma_candidates(t):
+            return i
+    return None
+
+
+def locate_head_idx(tokens: Sequence[str], head: str, exclude: Sequence[int] = ()) -> Optional[int]:
+    """First token (case-insensitive, punctuation-stripped) matching `head`, skipping `exclude`
+    indices. `head` is already lowercased in the dataset. None if absent."""
+    exclude = set(exclude)
+    for i, t in enumerate(tokens):
+        if i in exclude:
+            continue
+        if _clean(t) == head:
+            return i
+    return None
+
+
+def build_real_episode(tokens: Sequence[str], v_idx: int, arg_idx: Optional[int],
+                       gold_role: str) -> dict:
+    """One real-data episode. Binary gold_class collapses the 6-way role vocabulary to
+    EXPERIENCER vs OTHER (the axis this cell measures)."""
+    gc = "EXPERIENCER" if gold_role == "EXPERIENCER" else "OTHER"
+    return {"feats": real_construction_feats(tokens, v_idx, arg_idx), "gold_class": gc}
 
 
 def predict_subj_role(chosen_name, hypothesis, feats, default="AGENT"):
@@ -224,5 +358,64 @@ def _selftest() -> None:
     print("[selftest] PASS: frame_induction (chosen=%s)" % name, flush=True)
 
 
+def _selftest_real_adapter() -> None:
+    # Zero-complementizer finite clause ("I began to fear his wits were touched"): no overt "that",
+    # locate_verb_idx must find "fear" (not "began" or "touched"), and the nominative-pronoun cue
+    # must fire for a post-verbal embedded-clause subject NOUN is absent here (wits is a noun, not
+    # a pronoun) so has_scomp relies on the base complementizer/to-infinitive detector instead --
+    # verify locate + order_pre + animacy behave correctly regardless.
+    toks = "I began to fear his wits were touched .".split()
+    v = locate_verb_idx(toks, "fear")
+    assert v is not None and _clean(toks[v]) == "fear", "locate_verb_idx failed on 'fear': %r" % (toks[v] if v is not None else None)
+    wi = locate_head_idx(toks, "wits")
+    assert wi is not None and wi > v
+    f_theme = real_construction_feats(toks, v, wi)
+    assert "order_pre" not in f_theme  # wits is post-verbal
+    ii = locate_head_idx(toks, "i")
+    assert ii is not None and ii < v
+    f_subj = real_construction_feats(toks, v, ii)
+    assert "order_pre" in f_subj and "arg_animate" in f_subj  # "I" is pre-verbal + nominative
+
+    # Nominative-case zero-complementizer cue: "I fear he is right" (not "him") -> has_scomp fires
+    # on the post-verbal argument via case-form, not an overt complementizer.
+    toks_case = "I fear he is right .".split()
+    vc = locate_verb_idx(toks_case, "fear")
+    hei = locate_head_idx(toks_case, "he")
+    f_case = real_construction_feats(toks_case, vc, hei)
+    assert "has_scomp" in f_case
+
+    # Passive + silent-e lemma matching: "He was amused by her conversation." verb_lemma="amuse".
+    toks2 = "He was amused by her conversation .".split()
+    v2 = locate_verb_idx(toks2, "amuse")
+    assert v2 is not None and _clean(toks2[v2]) == "amused"
+    hi2 = locate_head_idx(toks2, "he")
+    f2 = real_construction_feats(toks2, v2, hi2)
+    assert "passive" in f2 and "order_pre" in f2 and "arg_animate" in f2
+
+    # Active exp_obj construction: "It frightened the child." subject "it" pre-verbal + inanimate.
+    toks3 = "It frightened the child .".split()
+    v3 = locate_verb_idx(toks3, "frighten")
+    assert v3 is not None
+    it_i = locate_head_idx(toks3, "it")
+    f3 = real_construction_feats(toks3, v3, it_i)
+    assert "order_pre" in f3 and "arg_animate" not in f3  # "it" is the inanimate-pronoun cue
+    child_i = locate_head_idx(toks3, "child")
+    f3b = real_construction_feats(toks3, v3, child_i)
+    assert "order_pre" not in f3b  # child is post-verbal (object)
+
+    # Silent-e past tense not in the standard lemma_verb() table: 'loved'->lemma_verb gives 'lov'
+    # (wrong for exact-match lookup), but locate_verb_idx's candidate set must still find "love".
+    toks4 = "He loved her deeply .".split()
+    v4 = locate_verb_idx(toks4, "love")
+    assert v4 is not None and _clean(toks4[v4]) == "loved"
+
+    # build_real_episode never leaks the lemma into feats.
+    ep = build_real_episode(toks2, v2, hi2, "EXPERIENCER")
+    assert ep["gold_class"] == "EXPERIENCER"
+    assert "amuse" not in " ".join(ep["feats"])
+    print("[selftest] PASS: frame_induction real-adapter", flush=True)
+
+
 if __name__ == "__main__":
     _selftest()
+    _selftest_real_adapter()

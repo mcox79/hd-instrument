@@ -1,0 +1,490 @@
+{
+  "anchor_name": "frame_induction_oov_psych_real_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "overall=MIDDLE_BAND (worse-of-axes). SUBJ-axis: acc=0.8333333333333334 N=12 tier=MIDDLE_BAND beats_default=True beats_position=False (pos_acc=1.0). OBJ-axis (hard case): acc=0.45454545454545453 N=11 tier=MIDDLE_BAND beats_default=True beats_position=False (pos_acc=0.5454545454545454). scramble_delta=0.30434782608695654 scramble_collapses=True. Induced=ruleind. Real litbank-mined data, NOT templated.",
+  "summary": "overall=MIDDLE_BAND (worse-of-axes). SUBJ-axis: acc=0.8333333333333334 N=12 tier=MIDDLE_BAND beats_default=True beats_position=False (pos_acc=1.0). OBJ-axis (hard case): acc=0.45454545454545453 N=11 tier=MIDDLE_BAND beats_default=True beats_position=False (pos_acc=0.5454545454545454). scramble_delta=0.30434782608695654 scramble_collapses=True. Induced=ruleind. Real litbank-mined data, NOT templated.",
+  "elapsed_s": 121.7516,
+  "ts_iso": "2026-08-05T01:48:18.327787+00:00",
+  "pid": 15920,
+  "scope_note": "Real-data capability re-run of the templated mechanism-demo (exp_frame_induction_oov_psych_v1, commit 893a6fa88/b8f54bf5d, MIDDLE per synthetic-toy-outcomes-can-be-construction-determined). Same learner-expand mechanism (registry.learn/apply, MDL-auto-select), NEW real-text feature encoder (hdlab/frame_induction.py real-data adapter, this session).",
+  "supplied_vs_earned": "role vocabulary (EXPERIENCER/OTHER) + construction-cue detector definitions (has_scomp/degree_mod/progressive/passive/order_pre/arg_animate) SUPPLIED; construction->frame MAPPING EARNED (induced from TRAIN-split real sentences, transferred to unseen lemmas by construction-feature overlap only; lemma never a feature).",
+  "data_source": "experiments/data/experiencer_narrative_roles_v1.jsonl (real, litbank-mined + flagged supplements)",
+  "config_only_expand": true,
+  "hdlab_learner_core_registry_plugins_edited": false,
+  "induced_plugin": "ruleind",
+  "induced_hypothesis": {
+    "kind": "rules_residual",
+    "rules": [
+      {
+        "conjunct": [
+          "arg_animate",
+          "passive"
+        ],
+        "majority_class": "EXPERIENCER",
+        "coverage": 6,
+        "precision": 1.0,
+        "bits_rule": 3.807,
+        "bits_exceptions": 0.0,
+        "bits_null": 5.986
+      },
+      {
+        "conjunct": [
+          "order_pre",
+          "arg_animate"
+        ],
+        "majority_class": "EXPERIENCER",
+        "coverage": 47,
+        "precision": 0.8936,
+        "bits_rule": 3.585,
+        "bits_exceptions": 5.0,
+        "bits_null": 46.981
+      },
+      {
+        "conjunct": [
+          "order_pre",
+          "degree_mod"
+        ],
+        "majority_class": "OTHER",
+        "coverage": 6,
+        "precision": 0.8333,
+        "bits_rule": 3.322,
+        "bits_exceptions": 1.0,
+        "bits_null": 5.685
+      },
+      {
+        "conjunct": [
+          "order_pre",
+          "passive"
+        ],
+        "majority_class": "EXPERIENCER",
+        "coverage": 6,
+        "precision": 0.8333,
+        "bits_rule": 3.17,
+        "bits_exceptions": 1.0,
+        "bits_null": 5.731
+      },
+      {
+        "conjunct": [
+          "passive"
+        ],
+        "majority_class": "OTHER",
+        "coverage": 8,
+        "precision": 0.875,
+        "bits_rule": 3.0,
+        "bits_exceptions": 1.0,
+        "bits_null": 7.482
+      },
+      {
+        "conjunct": [
+          "has_scomp",
+          "arg_animate"
+        ],
+        "majority_class": "OTHER",
+        "coverage": 9,
+        "precision": 0.7778,
+        "bits_rule": 2.807,
+        "bits_exceptions": 2.0,
+        "bits_null": 8.549
+      },
+      {
+        "conjunct": [
+          "degree_mod"
+        ],
+        "majority_class": "EXPERIENCER",
+        "coverage": 6,
+        "precision": 0.8333,
+        "bits_rule": 2.322,
+        "bits_exceptions": 1.0,
+        "bits_null": 5.761
+      }
+    ],
+    "residual_lookup": {
+      "": "OTHER",
+      "order_pre": "OTHER",
+      "arg_animate": "OTHER",
+      "has_scomp": "OTHER",
+      "has_scomp|order_pre": "EXPERIENCER"
+    },
+    "n_classes": 2
+  },
+  "all_plugin_compression_ratios": {
+    "estimation": 1.1633446376076473,
+    "ruleind": 1.4510004928835962,
+    "proginduction": 1.1484290215803163
+  },
+  "n_train_episodes": 176,
+  "n_unresolved_locate_failures": 3,
+  "unresolved_locate_failures_sample": [
+    {
+      "reason": "arg_not_located",
+      "text": "I hope Laddy's not mistaken in his opinion of this newcomer.",
+      "head": "laddy"
+    },
+    {
+      "reason": "arg_not_located",
+      "text": "I'm pining to see you dance.",
+      "head": "i"
+    },
+    {
+      "reason": "arg_not_located",
+      "text": "I'm delighted to see you!",
+      "head": "i"
+    }
+  ],
+  "heldout_subj_lemmas": [
+    "cherish",
+    "crave",
+    "dread",
+    "loathe",
+    "yearn"
+  ],
+  "heldout_obj_lemmas": [
+    "astonish",
+    "embarrass",
+    "gladden",
+    "horrify",
+    "terrify"
+  ],
+  "n_heldout_subj_sentences": 12,
+  "n_heldout_obj_sentences": 11,
+  "small_n_cap_threshold": 8,
+  "acc_experiencer_subj_axis_heldout": 0.8333333333333334,
+  "acc_experiencer_obj_axis_heldout": 0.45454545454545453,
+  "acc_default_agent_subj_axis": 0.0,
+  "acc_default_agent_obj_axis": 0.0,
+  "acc_position_majority_subj_axis": 1.0,
+  "acc_position_majority_obj_axis": 0.5454545454545454,
+  "acc_experiencer_scrambled_aggregate": 0.34782608695652173,
+  "acc_experiencer_unscrambled_aggregate": 0.6521739130434783,
+  "scramble_delta": 0.30434782608695654,
+  "scramble_collapses": true,
+  "scramble_class_map": {
+    "EXPERIENCER": "OTHER",
+    "OTHER": "EXPERIENCER"
+  },
+  "beats_default_agent_subj": true,
+  "beats_default_agent_obj": true,
+  "beats_position_majority_subj": false,
+  "beats_position_majority_obj": false,
+  "tier_subj_axis": "MIDDLE_BAND",
+  "tier_obj_axis": "MIDDLE_BAND",
+  "position_majority_table": {
+    "pre": "EXPERIENCER",
+    "post": "OTHER"
+  },
+  "per_heldout_record": [
+    {
+      "verb": "crave",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "He craved the madness of alcohol in his veins till his delicate hands trembled.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "crave",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "This was what her heart craved.",
+      "feats": [
+        "order_pre"
+      ],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    },
+    {
+      "verb": "dread",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "He dreaded the interview with Thomas Jordan.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "dread",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "The terrible moment, the moment she had dreaded, had come at last.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "dread",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "But she dreads responsibility.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "loathe",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "Dorian Gray loathed him more than ever.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "loathe",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "He loathed a fork.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "loathe",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "I loathe that man.",
+      "feats": [
+        "has_scomp",
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "cherish",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "She still cherished a very tender affection for Bingley.",
+      "feats": [
+        "degree_mod",
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "cherish",
+      "exp_type": "subj",
+      "construction_gold": "transitive",
+      "text": "Wickham still cherished the hope of making his fortune by marriage.",
+      "feats": [
+        "order_pre"
+      ],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    },
+    {
+      "verb": "yearn",
+      "exp_type": "subj",
+      "construction_gold": "pp_complement",
+      "text": "She yearned for a word of kindness from him.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "yearn",
+      "exp_type": "subj",
+      "construction_gold": "pp_complement",
+      "text": "He yearned after the friends of his boyhood.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "astonish",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_active",
+      "text": "What astonished him was the endurance of Nell's mother.",
+      "feats": [],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    },
+    {
+      "verb": "astonish",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_passive",
+      "text": "I stared, astonished, and stirred profoundly by the man's resolution.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "astonish",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_passive",
+      "text": "Carrie listened, more astonished than anything else at this sudden rise of passion.",
+      "feats": [
+        "order_pre"
+      ],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    },
+    {
+      "verb": "terrify",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_active",
+      "text": "The sudden roar terrified the horses.",
+      "feats": [],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    },
+    {
+      "verb": "terrify",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_passive",
+      "text": "She was terrified by the shadow on the wall.",
+      "feats": [
+        "passive",
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "horrify",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_passive",
+      "text": "He was horrified at his thoughtlessness and tried to comfort her.",
+      "feats": [
+        "passive",
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "horrify",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_passive",
+      "text": "For a few minutes we stood horrified over the corpse of Foulata.",
+      "feats": [
+        "order_pre",
+        "arg_animate"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "embarrass",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_active",
+      "text": "He did not embarrass her much.",
+      "feats": [
+        "degree_mod"
+      ],
+      "pred": "EXPERIENCER",
+      "gold": "EXPERIENCER",
+      "correct": true
+    },
+    {
+      "verb": "embarrass",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_passive",
+      "text": "Philip was touched and embarrassed.",
+      "feats": [
+        "order_pre"
+      ],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    },
+    {
+      "verb": "gladden",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_active",
+      "text": "God sent them thither to gladden our poor Clifford.",
+      "feats": [
+        "arg_animate"
+      ],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    },
+    {
+      "verb": "gladden",
+      "exp_type": "obj",
+      "construction_gold": "exp_obj_active",
+      "text": "The fire upon the hearth can gladden a whole semicircle of faces.",
+      "feats": [],
+      "pred": "OTHER",
+      "gold": "EXPERIENCER",
+      "correct": false
+    }
+  ],
+  "arms_differ": {
+    "digests": {
+      "induced_subj": "af51f6ffa58a7c98526fe64ad68771000409d66cd2b3c0af7f7d80713750f8dc",
+      "induced_obj": "507b4bbc95554ab11335f48a5dfb8111e38eaaf32a94a69977c22bde1aa3c826",
+      "default_subj": "ef5289ef25cf488c2b13a8c17732ad880baf688d7b26b96e6fef799939244581",
+      "default_obj": "185775d745329e91d86acda0afc06f30a71790d7565c2b73f25d5dee13b2f6f2",
+      "position_subj": "5ab50c349f99aa8c26c62276571e51001b5d81c0cf86ef3a60961508e20c16a9",
+      "position_obj": "9048c0ae7b09e4e1635d5d0381ceb507673af83de1e3f4e2da3f73790c5babc4",
+      "scramble_subj": "620c972cfd87cd4d4ee020a7dd1a6943e1d99b642022da12892adbc64d3eb35f",
+      "scramble_obj": "8632912f2ca4f945dc4da1fbbd93b6d49f586a1b17224a4e499f301d22b13f65"
+    },
+    "identical_pairs": []
+  },
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [],
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy over a discrete 2-class axis; no capacity/CRLB floor",
+  "baseline_in_band": "n/a (DEFAULT_AGENT + POSITION_MAJORITY are the discriminating baselines under test)",
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "calibration_check": "default_ok_for_this_regime",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true"
+}
