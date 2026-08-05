@@ -1,0 +1,210 @@
+{
+  "anchor_name": "frame_induction_oov_psych_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: held-out-novel experiencer-axis acc=0.667 (>=0.55), beats default-AGENT (0.000) + position-majority (0.000), scramble collapses (delta=0.333). Induced=ruleind. Construction signal, not position.",
+  "summary": "HARD_PASS: held-out-novel experiencer-axis acc=0.667 (>=0.55), beats default-AGENT (0.000) + position-majority (0.000), scramble collapses (delta=0.333). Induced=ruleind. Construction signal, not position.",
+  "elapsed_s": 9.2964,
+  "ts_iso": "2026-08-05T01:03:44.874157+00:00",
+  "pid": 27088,
+  "scope_note": "OOV-ACQUISITION ONLY. Downstream cue-conflict (induced frame overridden by position prior in the role-assignment perceptron) is a SEPARATE unfixed bug (re-VET criterion #1), NOT addressed here.",
+  "supplied_vs_earned": "role vocabulary (AGENT/EXPERIENCER) SUPPLIED; construction->frame MAPPING EARNED (induced, lemma never a feature); corpus is templated (mechanism test, not a real-corpus capability claim).",
+  "config_only_expand": true,
+  "induced_plugin": "ruleind",
+  "induced_hypothesis": {
+    "kind": "rules_residual",
+    "rules": [
+      {
+        "conjunct": [
+          "progressive"
+        ],
+        "majority_class": "AGENT",
+        "coverage": 156,
+        "precision": 1.0,
+        "bits_rule": 2.807,
+        "bits_exceptions": 0.0,
+        "bits_null": 121.784
+      },
+      {
+        "conjunct": [
+          "has_scomp"
+        ],
+        "majority_class": "EXPERIENCER",
+        "coverage": 47,
+        "precision": 1.0,
+        "bits_rule": 2.322,
+        "bits_exceptions": 0.0,
+        "bits_null": 42.047
+      },
+      {
+        "conjunct": [
+          "degree_mod"
+        ],
+        "majority_class": "EXPERIENCER",
+        "coverage": 47,
+        "precision": 1.0,
+        "bits_rule": 1.585,
+        "bits_exceptions": 0.0,
+        "bits_null": 36.691
+      },
+      {
+        "conjunct": [
+          "order_pre"
+        ],
+        "majority_class": "AGENT",
+        "coverage": 359,
+        "precision": 0.8691,
+        "bits_rule": 1.0,
+        "bits_exceptions": 47.0,
+        "bits_null": 201.023
+      }
+    ],
+    "residual_lookup": {},
+    "n_classes": 2
+  },
+  "all_plugin_compression_ratios": {
+    "estimation": 2.2719523276136697,
+    "ruleind": 8.689262474900268,
+    "proginduction": 1.9818819282459328
+  },
+  "n_train_episodes": 609,
+  "n_train_psych_verbs": 47,
+  "n_train_agentive_verbs": 156,
+  "heldout_psych_verbs": [
+    "cherish",
+    "loathe",
+    "crave",
+    "covet"
+  ],
+  "n_heldout_psych_verbs": 4,
+  "n_heldout_psych_episodes": 12,
+  "acc_experiencer_axis_heldout": 0.6666666666666666,
+  "acc_default_frame_heldout": 0.0,
+  "acc_position_majority_heldout": 0.0,
+  "acc_experiencer_axis_scrambled": 0.3333333333333333,
+  "scramble_delta": 0.3333333333333333,
+  "scramble_collapses": true,
+  "scramble_class_map": {
+    "AGENT": "EXPERIENCER",
+    "EXPERIENCER": "AGENT"
+  },
+  "beats_default_agent": true,
+  "beats_position_majority": true,
+  "construction_signal_not_position": true,
+  "position_majority_table": {
+    "pre": "AGENT",
+    "post": "AGENT"
+  },
+  "acc_agentive_heldout_sanity": 1.0,
+  "per_heldout_verb": {
+    "cherish": {
+      "n": 3,
+      "correct": 2,
+      "by_construction": {
+        "bare": {
+          "pred": "AGENT",
+          "gold": "EXPERIENCER"
+        },
+        "scomp": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        },
+        "degree": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        }
+      },
+      "acc": 0.6666666666666666
+    },
+    "loathe": {
+      "n": 3,
+      "correct": 2,
+      "by_construction": {
+        "bare": {
+          "pred": "AGENT",
+          "gold": "EXPERIENCER"
+        },
+        "scomp": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        },
+        "degree": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        }
+      },
+      "acc": 0.6666666666666666
+    },
+    "crave": {
+      "n": 3,
+      "correct": 2,
+      "by_construction": {
+        "bare": {
+          "pred": "AGENT",
+          "gold": "EXPERIENCER"
+        },
+        "scomp": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        },
+        "degree": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        }
+      },
+      "acc": 0.6666666666666666
+    },
+    "covet": {
+      "n": 3,
+      "correct": 2,
+      "by_construction": {
+        "bare": {
+          "pred": "AGENT",
+          "gold": "EXPERIENCER"
+        },
+        "scomp": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        },
+        "degree": {
+          "pred": "EXPERIENCER",
+          "gold": "EXPERIENCER"
+        }
+      },
+      "acc": 0.6666666666666666
+    }
+  },
+  "arms_differ": {
+    "digests": {
+      "induced": "7b8a1666fbc9c6e122b781a9a87dccde6467eed9c52b68ef5a89632b9053eb4d",
+      "default": "075335a785d026e603e833f8791a66cf019cb70cc68d951fc7ec9fdcaac39d8b",
+      "position": "075335a785d026e603e833f8791a66cf019cb70cc68d951fc7ec9fdcaac39d8b",
+      "scramble": "a5b690757b7af4fd8eb1f7a8824057577d6a1df91081187b82d44ba97fbb0d30"
+    },
+    "identical_pairs": [
+      [
+        "default",
+        "position"
+      ]
+    ]
+  },
+  "arms_differ_verified": false,
+  "arms_differ_exempted": [
+    {
+      "pair": [
+        "default",
+        "position"
+      ],
+      "rationale": "default-AGENT and position-majority may coincide when the order-conditioned majority is AGENT (both predict all-AGENT on held-out psych); this is the reported finding (position cannot recover EXPERIENCER), not an arm bug."
+    }
+  ],
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "accuracy measurement over a discrete 2-class axis; no capacity/CRLB floor",
+  "baseline_in_band": "n/a (DEFAULT_FRAME + POSITION_MAJORITY are the discriminating baselines under test)",
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "calibration_check": "default_ok_for_this_regime",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true"
+}
