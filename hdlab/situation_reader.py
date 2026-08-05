@@ -16,7 +16,17 @@ modules -- NO new mechanism; it COMPOSES what exists (scoured + reused, not reim
   EVENTS (what)    : per-sentence predicate + agent + patient, extracted glass-box from the
                      shared token stream (predicate via the temporal POS tagger; agent =
                      the sentence subject-mention, patient = nearest post-predicate mention,
-                     reusing the parse_litbank_conll mention structure). Each event is stored
+                     reusing the parse_litbank_conll mention structure). One sentence can yield
+                     MULTIPLE events (every qualifying VBD/VBN/VB/VBG token, not just one).
+                     2026-08-05 COVERAGE EXTENSION (experiments/_temporal_ordering.extract_events,
+                     additive-only, see goldvet_oov_psych_bank.md): also emits events for
+                     COORDINATED VPs sharing a distant aux ("had owned AND cherished"),
+                     MODAL-governed bare-infinitive subordinate clauses ("might gain the power"),
+                     and bare PARTICIPIAL -ing clauses ("resenting that ..."), subject inherited
+                     via the SAME preceding-nominal selector already used for finite predicates.
+                     Known residual gap: a participial token the shared NLTK tagger mistags as a
+                     noun (not VBG) is still missed -- see _selftest_event_extraction_coverage.
+                     Each event is stored
                      as a Cowan-4 role-slot BUNDLE (hdlab/event_bundle.py EventBundleCodec,
                      29511) -- the validated "2 chunks x 4 slots" role-slot format.
                      HONEST SCOPE: this is a LIGHTWEIGHT structural event extractor for the
@@ -751,6 +761,106 @@ def _selftest_pred_gate() -> dict:
     return {"verbs_for_'the red coat lay there'": sorted(verbs)}
 
 
+def _selftest_event_extraction_coverage() -> dict:
+    """Coverage-extension self-test (2026-08-05, goldvet_oov_psych_bank.md gap-recovery task):
+    _read_events -> experiments._temporal_ordering.extract_events now emits events for
+    COORDINATED VPs (shared distant aux across "and"/"or"), MODAL-governed bare-infinitive
+    subordinate-clause predicates, and bare PARTICIPIAL (-ing) non-finite clauses -- additive to
+    the pre-existing VBD / VBN+had / VBN+be branches (BYTE-IDENTICAL, unchanged). Real-text
+    fixtures are the 3 goldvet NOT_FOUND items (notes/goldvet_oov_psych_bank.md): #13 Ottenburg
+    ("had long owned and cherished" -- coordinated VP, extractor previously caught only "owned"),
+    #5 Queequeg ("if thereby he might happily gain the power ..." -- modal-governed subordinate
+    clause), #19 Mary ("Mary, resenting that ..., began talking ..., and protesting ..." --
+    participial clauses).
+
+    HONEST per-item outcome (verified against a hand-run of the OLD extractor logic, not just
+    asserted here):
+      - Ottenburg: CLEAN RECOVERY. "cherished" was dropped before this fix (only "owned" fired);
+        now both fire, correct agent (ottenburg) on both via the pre-existing positional selector.
+      - Queequeg: the OOV goal-verb token "disdained" was ALREADY extractable before this fix
+        (plain VBD); this fix ADDITIONALLY recovers "gain" -- the actual embedded desiderative
+        predicate inside the modal-governed subordinate "if" clause -- with the correct agent.
+      - Mary: NOT recovered. The general participial-clause branch IS proven to fire correctly on
+        THIS SAME sentence (talking/protesting both get PARTICIPIAL events with the correct
+        agent=mary), but the specific goal-verb token "resenting" is mistagged NN (not VBG) by the
+        shared NLTK PerceptronTagger for this exact comma-fronted-gerund construction -- a POS
+        signal limitation upstream of this extractor, not an architecture gap this fix can close
+        without a better tagger (spaCy is available as an opt-in predicate-VALIDITY gate elsewhere
+        in this module but is not installed in this environment, and it is a POST-HOC filter, not
+        a tagger -- it cannot rescue a token the base tagger never proposed as a predicate).
+    """
+    # -- Ottenburg: coordinated VP, shared distant "had" aux --
+    rows_ott = [
+        (0, 0, "Otto", "_"), (0, 1, "Ottenburg", "(0)"), (0, 2, "had", "_"),
+        (0, 3, "long", "_"), (0, 4, "owned", "_"), (0, 5, "and", "_"),
+        (0, 6, "cherished", "_"), (0, 7, ".", "_"),
+    ]
+    path = _write_temp_conll(rows_ott)
+    try:
+        sm = SituationReader(gaz={"ottenburg": "masc"}).read(path)
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+    by_pred = {ev.predicate: ev for ev in sm.events}
+    assert "cherished" in by_pred, f"coordinated-VP event not recovered: {[e.predicate for e in sm.events]}"
+    assert by_pred["cherished"].agent == "ottenburg", by_pred["cherished"]
+    assert by_pred["cherished"].tense == "PAST_PERFECT", by_pred["cherished"]
+    assert "owned" in by_pred and by_pred["owned"].agent == "ottenburg", by_pred  # unchanged
+
+    # -- Queequeg: modal-governed subordinate clause --
+    rows_qq = [
+        (0, 0, "Queequeg", "(0)"), (0, 1, "disdained", "_"), (0, 2, "no", "_"),
+        (0, 3, "seeming", "_"), (0, 4, "ignominy", "_"), (0, 5, "if", "_"),
+        (0, 6, "thereby", "_"), (0, 7, "he", "_"), (0, 8, "might", "_"),
+        (0, 9, "happily", "_"), (0, 10, "gain", "_"), (0, 11, "the", "_"),
+        (0, 12, "power", "_"), (0, 13, ".", "_"),
+    ]
+    path = _write_temp_conll(rows_qq)
+    try:
+        sm = SituationReader(gaz={"queequeg": "masc"}).read(path)
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+    by_pred = {ev.predicate: ev for ev in sm.events}
+    assert "disdained" in by_pred and by_pred["disdained"].agent == "queequeg", by_pred  # pre-existing
+    assert "gain" in by_pred, f"modal-subordinate event not recovered: {[e.predicate for e in sm.events]}"
+    assert by_pred["gain"].agent == "queequeg", by_pred["gain"]
+    assert by_pred["gain"].tense == "MODAL_SUBORDINATE", by_pred["gain"]
+
+    # -- Mary: participial clauses (general construction works; the specific goal-verb token
+    #    'resenting' is a documented POS-tagger mistag, NOT recovered -- asserted honestly below) --
+    rows_mary = [
+        (0, 0, "Mary", "(0)"), (0, 1, "resenting", "_"), (0, 2, "that", "_"),
+        (0, 3, "she", "_"), (0, 4, "should", "_"), (0, 5, "be", "_"),
+        (0, 6, "supposed", "_"), (0, 7, "not", "_"), (0, 8, "to", "_"),
+        (0, 9, "know", "_"), (0, 10, "her", "_"), (0, 11, "own", "_"),
+        (0, 12, "cousin", "_"), (0, 13, ",", "_"), (0, 14, "began", "_"),
+        (0, 15, "talking", "_"), (0, 16, "and", "_"), (0, 17, "protesting", "_"),
+    ]
+    path = _write_temp_conll(rows_mary)
+    try:
+        sm = SituationReader(gaz={"mary": "fem"}).read(path)
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+    by_pred = {ev.predicate: ev for ev in sm.events}
+    assert "talking" in by_pred and by_pred["talking"].tense == "PARTICIPIAL", by_pred
+    assert by_pred["talking"].agent == "mary", by_pred["talking"]  # general construction WORKS
+    assert "protesting" in by_pred and by_pred["protesting"].tense == "PARTICIPIAL", by_pred
+    assert "resenting" not in by_pred, (
+        "documented tagger-mistag gap closed unexpectedly -- update this self-test's honest "
+        f"claim if 'resenting' is now recovered: {[e.predicate for e in sm.events]}")
+
+    return {"ottenburg_cherished_recovered": True, "queequeg_gain_recovered": True,
+            "mary_talking_recovered": True, "mary_resenting_recovered": "resenting" in by_pred}
+
+
 def _run_all_selftests() -> dict:
     out = {}
     out["role_assignment"] = _selftest_role_assignment()
@@ -758,6 +868,7 @@ def _run_all_selftests() -> dict:
     out["pred_gate"] = _selftest_pred_gate()
     out["frame_primary_wiring"] = _selftest_frame_primary_wiring()
     out["affect_wiring"] = _selftest_affect_wiring()
+    out["event_extraction_coverage"] = _selftest_event_extraction_coverage()
     return out
 
 
