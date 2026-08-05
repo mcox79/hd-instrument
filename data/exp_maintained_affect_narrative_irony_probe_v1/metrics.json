@@ -1,0 +1,491 @@
+{
+  "verdict": "NULL_FALSE_POSITIVES",
+  "verdict_msg": "NULL_FALSE_POSITIVES: narrative_missed_recovered=1/3 (['grapp_irony_002']) | sincere_fp=2/5 | local_cue_maintained_acc=1.0 | arm_c_local_narrative_missed_acc=0.0 | maintained_narrative_missed_acc=0.3333333333333333",
+  "summary": "NULL_FALSE_POSITIVES: narrative_missed_recovered=1/3 (['grapp_irony_002']) | sincere_fp=2/5 | local_cue_maintained_acc=1.0 | arm_c_local_narrative_missed_acc=0.0 | maintained_narrative_missed_acc=0.3333333333333333",
+  "run_mode": "full",
+  "elapsed_s": 0.0316673999914201,
+  "ts_iso": "2026-08-05T10:55:43.314590+00:00",
+  "anchor_name": "maintained_affect_narrative_irony_probe_v1",
+  "n_items": 10,
+  "arm_c_fitted_plugin": "ruleind",
+  "arm_c_hypothesis_digest": "fd11bc97668b6003",
+  "bands": {
+    "narrative_missed_recovered": 1,
+    "sincere_false_positives": 2,
+    "pass_band": "narrative_missed_recovered >= 2 and sincere_fp == 0",
+    "narrative_missed_acc_arm_c_local": 0.0,
+    "narrative_missed_acc_maintained": 0.3333333333333333,
+    "local_cue_acc_arm_c_local": 1.0,
+    "local_cue_acc_maintained": 1.0,
+    "sincere_acc_arm_c_local": 1.0,
+    "sincere_acc_maintained": 0.6
+  },
+  "arms_differ_verified": {
+    "arm_c_local_digest": "bddd4199063eaaf70f02090fee0c2acdbde5c06d76d9e03c20ae1621d9918a46",
+    "maintained_affect_digest": "ca197cbd087ddd4b9dd6614d8c57617cdd4a1ea0423707310f7a03e31cd1d142",
+    "arms_identical": false,
+    "fired_on_at_least_one_narrative_missed_item": true
+  },
+  "rows": [
+    {
+      "id": "grapp_irony_001",
+      "valence_type": "irony",
+      "agent": "Jo",
+      "agent_source": "surface_span itself narrates Jo's line",
+      "true_label": "NEG",
+      "arm_c_local_cls": "HARM",
+      "arm_c_local_pred": "NEG",
+      "arm_c_local_correct": true,
+      "trajectory": [
+        {
+          "para_start_line": 2941,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 2991,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3093,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3171,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3176,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3199,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3211,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3215,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3225,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3236,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3257,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3266,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3274,
+          "cls": "HELP"
+        }
+      ],
+      "maintained_state": "HELP",
+      "override_fired": false,
+      "maintained_affect_final_cls": "HARM",
+      "maintained_affect_pred": "NEG",
+      "maintained_affect_correct": true,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          2878,
+          3275
+        ]
+      }
+    },
+    {
+      "id": "grapp_irony_002",
+      "valence_type": "irony",
+      "agent": "Oz",
+      "agent_source": "surface_span text: 'answered Oz'",
+      "true_label": "NEG",
+      "arm_c_local_cls": "NA",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": false,
+      "trajectory": [
+        {
+          "para_start_line": 3372,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3395,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3416,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3469,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3481,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3494,
+          "cls": "HARM"
+        }
+      ],
+      "maintained_state": "HARM",
+      "override_fired": true,
+      "maintained_affect_final_cls": "HARM",
+      "maintained_affect_pred": "NEG",
+      "maintained_affect_correct": true,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          3233,
+          3630
+        ]
+      }
+    },
+    {
+      "id": "grapp_irony_003",
+      "valence_type": "irony",
+      "agent": "Tom",
+      "agent_source": "chapter-identity: Tom Sawyer whitewashing scene",
+      "true_label": "NEG",
+      "arm_c_local_cls": "NA",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": false,
+      "trajectory": [
+        {
+          "para_start_line": 546,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 580,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 598,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 909,
+          "cls": "HELP"
+        }
+      ],
+      "maintained_state": "HELP",
+      "override_fired": false,
+      "maintained_affect_final_cls": "NA",
+      "maintained_affect_pred": "POS",
+      "maintained_affect_correct": false,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          538,
+          935
+        ]
+      }
+    },
+    {
+      "id": "grapp_sincere_001",
+      "valence_type": "sincere",
+      "agent": "Meg",
+      "agent_source": "surface_span context: 'Meg spoke earnestly'",
+      "true_label": "POS",
+      "arm_c_local_cls": "HELP",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": true,
+      "trajectory": [
+        {
+          "para_start_line": 6635,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 6911,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 6925,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 6944,
+          "cls": "HELP"
+        }
+      ],
+      "maintained_state": "HELP",
+      "override_fired": false,
+      "maintained_affect_final_cls": "HELP",
+      "maintained_affect_pred": "POS",
+      "maintained_affect_correct": true,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          6549,
+          6946
+        ]
+      }
+    },
+    {
+      "id": "grapp_sincere_002",
+      "valence_type": "sincere",
+      "agent": "Marilla",
+      "agent_source": "matched_pair note names Marilla as speaker",
+      "true_label": "POS",
+      "arm_c_local_cls": "NA",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": true,
+      "trajectory": [
+        {
+          "para_start_line": 9949,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 9957,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 10120,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 10132,
+          "cls": "HELP"
+        }
+      ],
+      "maintained_state": "HELP",
+      "override_fired": false,
+      "maintained_affect_final_cls": "NA",
+      "maintained_affect_pred": "POS",
+      "maintained_affect_correct": true,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          9744,
+          10141
+        ]
+      }
+    },
+    {
+      "id": "grapp_sincere_003",
+      "valence_type": "sincere",
+      "agent": "Aunt Polly",
+      "agent_source": "matched_pair note names Aunt Polly as speaker",
+      "true_label": "POS",
+      "arm_c_local_cls": "HELP",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": true,
+      "trajectory": [
+        {
+          "para_start_line": 504,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 570,
+          "cls": "HARM"
+        }
+      ],
+      "maintained_state": "HARM",
+      "override_fired": true,
+      "maintained_affect_final_cls": "HARM",
+      "maintained_affect_pred": "NEG",
+      "maintained_affect_correct": false,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          181,
+          578
+        ]
+      }
+    },
+    {
+      "id": "grapp_irony_004",
+      "valence_type": "irony",
+      "agent": "Oz",
+      "agent_source": "chapter-identity: same Oz heart-granting scene as irony_002",
+      "true_label": "NEG",
+      "arm_c_local_cls": "HARM",
+      "arm_c_local_pred": "NEG",
+      "arm_c_local_correct": true,
+      "trajectory": [
+        {
+          "para_start_line": 3219,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3224,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3372,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3395,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3416,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 3469,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3481,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3494,
+          "cls": "HARM"
+        }
+      ],
+      "maintained_state": "HELP",
+      "override_fired": false,
+      "maintained_affect_final_cls": "HARM",
+      "maintained_affect_pred": "NEG",
+      "maintained_affect_correct": true,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          3204,
+          3601
+        ]
+      }
+    },
+    {
+      "id": "grapp_irony_005",
+      "valence_type": "irony",
+      "agent": "Tom",
+      "agent_source": "chapter-identity: Tom Sawyer fake-deathbed scene",
+      "true_label": "NEG",
+      "arm_c_local_cls": "NA",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": false,
+      "trajectory": [
+        {
+          "para_start_line": 1530,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 1595,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 1671,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 1708,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 1772,
+          "cls": "HARM"
+        }
+      ],
+      "maintained_state": "HELP",
+      "override_fired": false,
+      "maintained_affect_final_cls": "NA",
+      "maintained_affect_pred": "POS",
+      "maintained_affect_correct": false,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          1426,
+          1823
+        ]
+      }
+    },
+    {
+      "id": "grapp_sincere_004",
+      "valence_type": "sincere",
+      "agent": "Marilla",
+      "agent_source": "matched_pair note names Marilla as speaker",
+      "true_label": "POS",
+      "arm_c_local_cls": "NA",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": true,
+      "trajectory": [
+        {
+          "para_start_line": 2890,
+          "cls": "HELP"
+        },
+        {
+          "para_start_line": 3044,
+          "cls": "HELP"
+        }
+      ],
+      "maintained_state": "HELP",
+      "override_fired": false,
+      "maintained_affect_final_cls": "NA",
+      "maintained_affect_pred": "POS",
+      "maintained_affect_correct": true,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          2738,
+          3135
+        ]
+      }
+    },
+    {
+      "id": "grapp_sincere_005",
+      "valence_type": "sincere",
+      "agent": "Marilla",
+      "agent_source": "surface_span context: Mrs Lynde/Marilla praise scene",
+      "true_label": "POS",
+      "arm_c_local_cls": "NA",
+      "arm_c_local_pred": "POS",
+      "arm_c_local_correct": true,
+      "trajectory": [
+        {
+          "para_start_line": 8778,
+          "cls": "HARM"
+        },
+        {
+          "para_start_line": 8981,
+          "cls": "HARM"
+        }
+      ],
+      "maintained_state": "HARM",
+      "override_fired": true,
+      "maintained_affect_final_cls": "HARM",
+      "maintained_affect_pred": "NEG",
+      "maintained_affect_correct": false,
+      "used_contamination": {
+        "reads_true_intent_valence_label": false,
+        "reads_supporting_span_field": false,
+        "reads_surface_valence_label": false,
+        "window_scanned": [
+          8673,
+          9070
+        ]
+      }
+    }
+  ]
+}
