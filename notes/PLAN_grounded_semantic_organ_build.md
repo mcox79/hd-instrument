@@ -120,8 +120,21 @@ component (esp. LEARNING)?" check; VET positives as hard as negatives, per-axis,
 data, verify on disk, READ THE CODE; resumable per-unit; local-only; git-commit after every bank; NO origin
 push w/o USER auth; docs current every cycle.
 
-## 6. NEXT ACTION (BEGIN)
-Build BRIDGE-1 = context-conditioned grounding (word-in-context -> appraisal/valence), SIGNAL = syntactic
-governor/frame + grounding (NOT bag-of-words), EARNED, judged by DIFFERENTIAL GROUNDING on prior-clause-
-forced collision pairs (studied-hard->non-harm vs hit-hard->harm), bag-of-words control MUST fail. This is
-the true blocking foundation; C-AB is tested THROUGH it. Reuse depparse + Component-3 frames + appraisal-sim.
+## 6. STATUS + NEXT ACTION (v3.1, deep-drill-corrected)
+BRIDGE-1 stage-1 (governor/frame sense-selection) is BUILT + HARD_PASS on the local-governor subset
+(0.967, commit 96e8e8404). A LIVE-VERIFIED deep-drill (notes/deepdrill_SYNTHESIS_bridge1_certainty.md) then
+ruled it NECESSARY-NOT-SUFFICIENT and prescribed 3 corrections (see synthesis; supersedes the naive
+governor->appraisal shape):
+  (1) TWO-STAGE EVENT-CONDITIONED: governor selects the sense-FRAME -> Component-3 ASSEMBLES the event
+      (predicate+args+goal) -> appraisal is scored over the EVENT (Scherer goal-congruence), not the governor
+      token. BRIDGE-1 + Component-3 = ONE build.
+  (2) TOP-DOWN SITUATION-BIAS PORT from day one, wired to Component-5 organs (AccumulateRegister/
+      GoalOutcomeRegister) + situation model -- co-design, do NOT sequence local-then-discourse (a local-only
+      module computes a different quantity per predictive coding and would be wrong-direction on the target
+      subset -- Nieuwland & Van Berkum peanut-in-love).
+  (3) DOMINANCE-DEFAULT + BIASED COMPETITION (suppressed-not-erased loser), not hard serial gating.
+NEXT ACTION: (a) CONFIRM test -- run current BRIDGE-1 on governor-matched/event-differing pairs
+("hit the deadline" non-harm vs "hit the wall" harm) + discourse-decisive pairs; expected to FAIL there
+(validates the correction). (b) Then build BRIDGE-1/C-AB v2 = two-stage governor->Component-3 event-assembly
+->event+situation-conditioned appraisal + stubbed situation-bias port + dominance-default. C-AB is tested
+THROUGH it by differential grounding on BOTH local AND event-differing/discourse subsets.
