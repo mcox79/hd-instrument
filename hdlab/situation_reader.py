@@ -30,10 +30,15 @@ modules -- NO new mechanism; it COMPOSES what exists (scoured + reused, not reim
                      as a Cowan-4 role-slot BUNDLE (hdlab/event_bundle.py EventBundleCodec,
                      29511) -- the validated "2 chunks x 4 slots" role-slot format.
                      HONEST SCOPE: this is a LIGHTWEIGHT structural event extractor for the
-                     multi-sentence demonstration; the calibrated single-sentence role reader
-                     (predicate+agent+patient, F1~0.64 on McGuffey LCCP gold, 29502) is the
-                     component whose ACCURACY is CITED -- NOT re-scored here (no LitBank role
-                     gold). Reported honestly per the "roles vs gold where available" rule.
+                     multi-sentence demonstration. LOAD-BEARING ACCURACY (2026-08-05 component
+                     audit, be6203bc4): THIS extractor's own measured predicate+agent+patient
+                     F1 = 0.232 ungated / 0.278 gated / 0.297 FULL (independent gold,
+                     data/exp_coherence_gate_extraction_correctness_independent_gold_v1) -- recall
+                     is tagger-capped (~0.32). Do NOT read the "F1~0.64" cited historically as this
+                     component's health: that 0.64 belongs to a DIFFERENT narrower single-sentence
+                     role reader (29502) on DIFFERENT gold (McGuffey LCCP), ~2x higher and NOT the
+                     number the situation model inherits. Everything downstream inherits recall
+                     ~0.32 -- event extraction is the weakest load-bearing link (audit roadmap #1).
   TIME (when)      : chronological reconstruction via tense/aspect + connective cues ->
                      toposort timeline (experiments/_temporal_ordering_multiframe.py, 29510).
                      Fires on the passage's past-perfect / connective sentences (flashbacks).
