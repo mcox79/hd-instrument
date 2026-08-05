@@ -1,0 +1,36 @@
+{"text": "The teacher gave the boy a book.", "args": [{"head": "teacher", "role": "AGENT"}, {"head": "boy", "role": "RECIPIENT"}, {"head": "book", "role": "PATIENT"}]}
+{"text": "Charles told his sister a story.", "args": [{"head": "charles", "role": "AGENT"}, {"head": "sister", "role": "RECIPIENT"}, {"head": "story", "role": "PATIENT"}]}
+{"text": "She showed the children her garden.", "args": [{"head": "she", "role": "AGENT"}, {"head": "children", "role": "RECIPIENT"}, {"head": "garden", "role": "PATIENT"}]}
+{"text": "Father sent James a letter.", "args": [{"head": "father", "role": "AGENT"}, {"head": "james", "role": "RECIPIENT"}, {"head": "letter", "role": "PATIENT"}]}
+{"text": "The old man offered the traveler some bread.", "args": [{"head": "man", "role": "AGENT"}, {"head": "traveler", "role": "RECIPIENT"}, {"head": "bread", "role": "PATIENT"}]}
+{"text": "Mother handed Joe his coat.", "args": [{"head": "mother", "role": "AGENT"}, {"head": "joe", "role": "RECIPIENT"}, {"head": "coat", "role": "PATIENT"}]}
+{"text": "The captain taught the boys navigation.", "args": [{"head": "captain", "role": "AGENT"}, {"head": "boys", "role": "RECIPIENT"}, {"head": "navigation", "role": "PATIENT"}]}
+{"text": "Grandfather paid the farmer a fair price.", "args": [{"head": "grandfather", "role": "AGENT"}, {"head": "farmer", "role": "RECIPIENT"}, {"head": "price", "role": "PATIENT"}]}
+{"text": "The merchant sold the villagers cheap cloth.", "args": [{"head": "merchant", "role": "AGENT"}, {"head": "villagers", "role": "RECIPIENT"}, {"head": "cloth", "role": "PATIENT"}]}
+{"text": "The gardener brought the children fresh flowers.", "args": [{"head": "gardener", "role": "AGENT"}, {"head": "children", "role": "RECIPIENT"}, {"head": "flowers", "role": "PATIENT"}]}
+{"text": "Uncle promised the girl a puppy.", "args": [{"head": "uncle", "role": "AGENT"}, {"head": "girl", "role": "RECIPIENT"}, {"head": "puppy", "role": "PATIENT"}]}
+{"text": "The king granted the knight a castle.", "args": [{"head": "king", "role": "AGENT"}, {"head": "knight", "role": "RECIPIENT"}, {"head": "castle", "role": "PATIENT"}]}
+{"text": "The baker sold his neighbor a fresh loaf.", "args": [{"head": "baker", "role": "AGENT"}, {"head": "neighbor", "role": "RECIPIENT"}, {"head": "loaf", "role": "PATIENT"}]}
+{"text": "The nurse fed the baby some warm milk.", "args": [{"head": "nurse", "role": "AGENT"}, {"head": "baby", "role": "RECIPIENT"}, {"head": "milk", "role": "PATIENT"}]}
+{"text": "The soldier lent his friend a horse.", "args": [{"head": "soldier", "role": "AGENT"}, {"head": "friend", "role": "RECIPIENT"}, {"head": "horse", "role": "PATIENT"}]}
+{"text": "The old woman gave the beggar a coin.", "args": [{"head": "woman", "role": "AGENT"}, {"head": "beggar", "role": "RECIPIENT"}, {"head": "coin", "role": "PATIENT"}]}
+{"text": "The doctor showed the student a wound.", "args": [{"head": "doctor", "role": "AGENT"}, {"head": "student", "role": "RECIPIENT"}, {"head": "wound", "role": "PATIENT"}]}
+{"text": "He taught his little brother the alphabet.", "args": [{"head": "he", "role": "AGENT"}, {"head": "brother", "role": "RECIPIENT"}, {"head": "alphabet", "role": "PATIENT"}]}
+{"text": "The farmer sold the miller his wheat.", "args": [{"head": "farmer", "role": "AGENT"}, {"head": "miller", "role": "RECIPIENT"}, {"head": "wheat", "role": "PATIENT"}]}
+{"text": "The teacher handed each pupil a slate.", "args": [{"head": "teacher", "role": "AGENT"}, {"head": "pupil", "role": "RECIPIENT"}, {"head": "slate", "role": "PATIENT"}]}
+{"text": "The letter was written by the sailor.", "args": [{"head": "letter", "role": "PATIENT"}, {"head": "sailor", "role": "AGENT"}]}
+{"text": "The castle was built by the workmen.", "args": [{"head": "castle", "role": "PATIENT"}, {"head": "workmen", "role": "AGENT"}]}
+{"text": "The kite was carried away by the wind.", "args": [{"head": "kite", "role": "PATIENT"}, {"head": "wind", "role": "AGENT"}]}
+{"text": "The mouse was caught by the cat.", "args": [{"head": "mouse", "role": "PATIENT"}, {"head": "cat", "role": "AGENT"}]}
+{"text": "The garden was watered by the gardener.", "args": [{"head": "garden", "role": "PATIENT"}, {"head": "gardener", "role": "AGENT"}]}
+{"text": "The apples were picked by the children.", "args": [{"head": "apples", "role": "PATIENT"}, {"head": "children", "role": "AGENT"}]}
+{"text": "The horse was ridden by the young rider.", "args": [{"head": "horse", "role": "PATIENT"}, {"head": "rider", "role": "AGENT"}]}
+{"text": "The window was broken by the boys.", "args": [{"head": "window", "role": "PATIENT"}, {"head": "boys", "role": "AGENT"}]}
+{"text": "The dog fears the loud thunder.", "args": [{"head": "dog", "role": "EXPERIENCER"}, {"head": "thunder", "role": "PATIENT"}]}
+{"text": "Herbert likes the little kitten.", "args": [{"head": "herbert", "role": "EXPERIENCER"}, {"head": "kitten", "role": "PATIENT"}]}
+{"text": "The children hate the cold winter.", "args": [{"head": "children", "role": "EXPERIENCER"}, {"head": "winter", "role": "PATIENT"}]}
+{"text": "Mary wants a new dress.", "args": [{"head": "mary", "role": "EXPERIENCER"}, {"head": "dress", "role": "PATIENT"}]}
+{"text": "The old sailor remembers the storm.", "args": [{"head": "sailor", "role": "EXPERIENCER"}, {"head": "storm", "role": "PATIENT"}]}
+{"text": "The farmer builds a new barn.", "args": [{"head": "farmer", "role": "AGENT"}, {"head": "barn", "role": "PATIENT"}]}
+{"text": "The boy threw the ball.", "args": [{"head": "boy", "role": "AGENT"}, {"head": "ball", "role": "PATIENT"}]}
+{"text": "The girl caught the fish.", "args": [{"head": "girl", "role": "AGENT"}, {"head": "fish", "role": "PATIENT"}]}
