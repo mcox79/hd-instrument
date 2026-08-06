@@ -1,0 +1,158 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: held_out_acc(outcome=1.0, goal=1.0) scramble_mean(outcome=0.5188, goal=0.5) probe_blockers_ok=True OUTCOME_NEVER_TYPED(baseline=6 -> now=4) owner_acc(baseline=0.3 -> now=0.5, delta=0.2) vs recency=0.7 polarity_acc(baseline=0.1 -> now=0.2) endtoend_deterministic_across_seeds=True.",
+  "summary": "held_out_acc(outcome=1.0, goal=1.0) scramble_mean(outcome=0.5188, goal=0.5) probe_blockers_ok=True OUTCOME_NEVER_TYPED(baseline=6 -> now=4) owner_acc(baseline=0.3 -> now=0.5, delta=0.2) vs recency=0.7 polarity_acc(baseline=0.1 -> now=0.2) endtoend_deterministic_across_seeds=True.",
+  "gates": {
+    "held_out_80": true,
+    "scramble_collapses": true,
+    "probe_blockers_typed": true,
+    "never_typed_drops": true,
+    "owner_acc_material": true,
+    "owner_acc_delta": 0.2
+  },
+  "hard_fail_triggers": {
+    "held_out_below_60": false,
+    "scramble_no_collapse": false,
+    "probe_blockers_fail": false,
+    "bottleneck_misdiagnosed": false
+  },
+  "baseline": {
+    "outcome_never_typed": 6,
+    "owner_acc": 0.3,
+    "polarity_acc": 0.1,
+    "recency_acc": 0.7,
+    "n_items": 10,
+    "source": "data/exp_real_text_goal_owner_generalization_diagnostic_v1/metrics.json (commit f496caa51, disk-verified)"
+  },
+  "measured": {
+    "outcome_never_typed": 4,
+    "owner_acc": 0.5,
+    "polarity_acc": 0.2,
+    "endtoend_deterministic_across_seeds": true
+  },
+  "classification": {
+    "outcome_accuracy": 1.0,
+    "outcome_n": 32,
+    "outcome_correct": 32,
+    "outcome_misses": [],
+    "goal_accuracy": 1.0,
+    "goal_n": 32,
+    "goal_correct": 32,
+    "goal_misses": [],
+    "praise_pred": "MET",
+    "accept_pred": "MET",
+    "invite_pred": "MET",
+    "probe_blockers_typed_correctly": true
+  },
+  "scramble": {
+    "outcome_scramble_accs": [
+      0.5,
+      0.34375,
+      0.5,
+      0.6875,
+      0.5625
+    ],
+    "outcome_scramble_mean": 0.5188,
+    "goal_scramble_accs": [
+      0.59375,
+      0.46875,
+      0.4375,
+      0.46875,
+      0.53125
+    ],
+    "goal_scramble_mean": 0.5,
+    "outcome_collapses_within_15pct": true,
+    "goal_collapses_within_15pct": true
+  },
+  "endtoend_per_seed": {
+    "0": {
+      "seed": 0,
+      "n_items": 10,
+      "n_outcome_typeable": 6,
+      "outcome_never_typed_count": 4,
+      "organ_owner_accuracy": 0.5,
+      "recency_accuracy": 0.7,
+      "organ_polarity_accuracy": 0.2,
+      "lexicon_baseline_polarity_accuracy": 0.2,
+      "owner_failure_tally": {
+        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 4,
+        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1
+      },
+      "polarity_failure_tally": {
+        "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 6,
+        "LEXICON_COVERAGE_MISS_actual_verb_class_unknown": 2
+      }
+    },
+    "1": {
+      "seed": 1,
+      "n_items": 10,
+      "n_outcome_typeable": 6,
+      "outcome_never_typed_count": 4,
+      "organ_owner_accuracy": 0.5,
+      "recency_accuracy": 0.7,
+      "organ_polarity_accuracy": 0.2,
+      "lexicon_baseline_polarity_accuracy": 0.2,
+      "owner_failure_tally": {
+        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 4,
+        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1
+      },
+      "polarity_failure_tally": {
+        "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 6,
+        "LEXICON_COVERAGE_MISS_actual_verb_class_unknown": 2
+      }
+    },
+    "2": {
+      "seed": 2,
+      "n_items": 10,
+      "n_outcome_typeable": 6,
+      "outcome_never_typed_count": 4,
+      "organ_owner_accuracy": 0.5,
+      "recency_accuracy": 0.7,
+      "organ_polarity_accuracy": 0.2,
+      "lexicon_baseline_polarity_accuracy": 0.2,
+      "owner_failure_tally": {
+        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 4,
+        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1
+      },
+      "polarity_failure_tally": {
+        "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 6,
+        "LEXICON_COVERAGE_MISS_actual_verb_class_unknown": 2
+      }
+    }
+  },
+  "arms_must_differ": {
+    "real_praise": "62b87ae02736c69a7a02095834391a28125e3b354798319cf29e1e6c62c80e44",
+    "scrambled_praise": "a296487199349206f097d556cecc884a8b65ab57c05bd91307709d2e1b57fd72",
+    "differ": true
+  },
+  "arms_differ_verified": true,
+  "run_mode": "full",
+  "elapsed_s": 0.012810200016247109,
+  "ts_iso": "2026-08-06T10:50:01.605180+00:00",
+  "anchor_name": "verb_class_openvocab_similarity_v1",
+  "config": {
+    "expected_n_units": 5,
+    "cardinality_ok": true,
+    "endtoend_seeds": [
+      0,
+      1,
+      2
+    ],
+    "final_metrics_atomicity": "tmp_replace",
+    "cell_chunked": true,
+    "deterministic_seeding": true,
+    "crlb_n_a": "graded-similarity threshold decision + bounded accuracy metric, not a capacity/argmax-noise-floor cell",
+    "discriminator_reachability": true,
+    "baseline_in_band_n_a": "classification arms are direct held-out accuracy vs fixed true labels, not a baseline-vs-mechanism comparison; end-to-end arm's recency baseline (0.70) is in-band by construction",
+    "calibration_check": "default_ok_for_this_regime: VERB_CLASS_SIM_FLOOR/MARGIN imported directly from hdlab.goal_typing (production values), not re-typed"
+  },
+  "prereg": "preregs/2026-08-06_verb_class_openvocab_similarity_v1.md",
+  "cites": [
+    "hdlab/verb_lexical_similarity.py (the built organ)",
+    "hdlab/goal_typing.py (three Tier-2 integration points)",
+    "experiments/exp_real_text_goal_owner_generalization_diagnostic_v1.py (decisive end-to-end harness, reused)",
+    "experiments/data/real_text_goal_owner_diagnostic_v1.jsonl (end-to-end bank, 10 items)",
+    "notes/drill_brain_openvocab_verb_class_membership_2026-08-06.md (formalize drill)"
+  ],
+  "dispatch": "LOCAL-ONLY, in-process foreground, not queue-dispatched"
+}

@@ -162,6 +162,22 @@ from hdlab.lexical_similarity import (
     in_lexicon as _lexsim_in_lexicon,
     SIMILARITY_LINK_THRESHOLD,
 )
+from hdlab import verb_lexical_similarity as _verblex
+
+# TIER-2 OPEN-VOCAB VERB-CLASS UPGRADE (2026-08-06). Per
+# notes/drill_brain_openvocab_verb_class_membership_2026-08-06.md (formalize drill) +
+# preregs/2026-08-06_verb_class_openvocab_similarity_v1.md: extends CLASS_REGISTRY /
+# V2_OUTCOME_MET/_UNMET / DESIDERATIVE_PASS-ASPECTUAL_STOP membership from exact `lemma in members`
+# to concept_similarity(verb, class_seed_exemplars) via hdlab.verb_lexical_similarity (the verb-
+# feature-tagged sibling of hdlab.lexical_similarity's ATL-hub-style organ). Thresholds MEASURED@
+# preregs/2026-08-06_verb_class_openvocab_similarity_v1.md (held-out non-circular classification,
+# both pools well above floor with wide margins; see that pre-reg for the exact numbers this
+# threshold choice is based on). Strict ADD in all three integration points below: Tier-1 exact
+# literal membership always wins; Tier-2 only fires on OOV-of-Tier-1; abstain (None/{}/False) is
+# IDENTICAL to today's OOV behavior in every case, so this can never regress a caller that
+# currently gets no class/no polarity/no skip.
+VERB_CLASS_SIM_FLOOR = 0.35
+VERB_CLASS_MARGIN = 0.15
 
 # ============================================================================ role vocabulary
 # Byte-identical to experiments/exp_situation_model_goal_outcome_dimension_v1.py's R_GOAL/R_UNMET/R_MET.
@@ -176,6 +192,47 @@ V2_OUTCOME_UNMET = {"down", "fell", "fall", "sank", "sink", "wailing", "wailed",
                     "lost", "lose", "failed", "fail", "calamity", "sorry", "missed", "miss",
                     "unwarned", "unprotected", "late", "never"}
 V2_OUTCOME_MET = {"reached", "enjoyed", "enjoy", "won", "escaped", "arrived"}
+
+# TIER-2 (2026-08-06): open-vocab 2-way MET/UNMET fallback for tokens OOV of the flat V2 lexicon
+# above. Seed pools = the verb-like subset of V2_OUTCOME_MET/_UNMET's own lemmas (their non-verb
+# members -- "sorry"/"late"/"never"/"down"/"unwarned"/"unprotected"/"calamity" -- are adjectives/
+# adverbs/a noun and stay Tier-1-only, unaffected). This is the mechanism that directly targets the
+# OUTCOME_NEVER_TYPED bottleneck (disk-verified 6/10 on real prose, commit f496caa51): outcome-
+# typeability for owner-selection is gated entirely by has_unmet/has_met below, not by
+# CLASS_REGISTRY -- see preregs/2026-08-06_verb_class_openvocab_similarity_v1.md.
+_V2_POLARITY_SEED_POS = ("reach", "win", "escape", "arrive", "enjoy")
+_V2_POLARITY_SEED_NEG = ("fall", "sink", "lose", "fail", "miss", "wail")
+
+
+def _outcome_polarity_tier2(lemma: str):
+    """2-way POS/NEG classification via hdlab.verb_lexical_similarity. Returns "MET", "UNMET", or
+    None (abstain -- OOV, below floor, or margin too thin)."""
+    verdict = _verblex.classify_2way(lemma, _V2_POLARITY_SEED_POS, _V2_POLARITY_SEED_NEG,
+                                      "outcome", VERB_CLASS_SIM_FLOOR, VERB_CLASS_MARGIN)
+    if verdict == "POS":
+        return "MET"
+    if verdict == "NEG":
+        return "UNMET"
+    return None
+
+
+def _tier2_outcome_polarity_scan(sentence: str):
+    """Scan every ordered token of `sentence` that is OOV of the literal V2_OUTCOME_UNMET/_MET
+    sets; lemmatize + Tier-2 classify each. Returns (has_unmet_t2, has_met_t2) -- either or both may
+    fire (mirrors the existing Tier-1 has_unmet/has_met independence, which callers already
+    disambiguate, e.g. lexicon_predict's AMBIGUOUS branch)."""
+    has_unmet_t2 = False
+    has_met_t2 = False
+    for tok in _ordered_tokens(sentence):
+        if tok in V2_OUTCOME_UNMET or tok in V2_OUTCOME_MET:
+            continue
+        lemma = lemma_verb(tok)
+        verdict = _outcome_polarity_tier2(lemma)
+        if verdict == "UNMET":
+            has_unmet_t2 = True
+        elif verdict == "MET":
+            has_met_t2 = True
+    return has_unmet_t2, has_met_t2
 
 
 def _tokset(text: str):
@@ -205,14 +262,17 @@ def c3_has_desire(sentence: str) -> bool:
 
 
 def type_sentence_events_c3(sentence: str, subject) -> List[Tuple[object, str]]:
-    """Byte-identical copy of experiments/exp_component5_wired_endtoend_v1.py::
-    type_sentence_events_c3: has_desire computed via the real Component-3 mechanism
-    (c3_has_desire), OUTCOME_UNMET/OUTCOME_MET stay lexicon-typed."""
+    """Based on experiments/exp_component5_wired_endtoend_v1.py::type_sentence_events_c3
+    (has_desire computed via the real Component-3 mechanism, c3_has_desire); OUTCOME_UNMET/
+    OUTCOME_MET stay PRIMARILY lexicon-typed (Tier-1, unchanged) with a TIER-2 open-vocab
+    similarity fallback added 2026-08-06 (_tier2_outcome_polarity_scan) for tokens OOV of the flat
+    V2_OUTCOME_UNMET/_MET lexicon -- strict ADD, Tier-1 exact membership always wins."""
     t = _tokset(sentence)
     events: List[Tuple[object, str]] = []
     has_desire = c3_has_desire(sentence)
-    has_unmet = bool(t & V2_OUTCOME_UNMET)
-    has_met = bool(t & V2_OUTCOME_MET)
+    has_unmet_t2, has_met_t2 = _tier2_outcome_polarity_scan(sentence)
+    has_unmet = bool(t & V2_OUTCOME_UNMET) or has_unmet_t2
+    has_met = bool(t & V2_OUTCOME_MET) or has_met_t2
     if has_desire and subject is not None:
         events.append((subject, R_GOAL))
     if has_unmet and subject is not None:
@@ -257,10 +317,38 @@ PARTITIONED_STOP = ASPECTUAL_STOP | OTHER_STOP_UNCHANGED
 assert DESIDERATIVE_PASS.isdisjoint(PARTITIONED_STOP), "partition must be disjoint by construction"
 
 
+# TIER-2 (2026-08-06): open-vocab control-verb classification for action_frame_feats's PARTITIONED
+# exclusion below. Seed pools = the lemma forms already in ASPECTUAL_STOP / DESIDERATIVE_PASS.
+_GOAL_ASPECT_SEED_LEMMAS = ("begin", "start", "try", "fail", "manage", "happen", "cease", "stop",
+                            "continue")
+_GOAL_DESID_SEED_LEMMAS = ("want", "hope", "wish", "mean", "plan", "intend", "aim", "long",
+                           "yearn", "desire")
+
+
+def _control_verb_is_aspectual_like(preceding: str) -> bool:
+    """True iff `preceding` should be treated as an aspectual/implicative control verb (i.e. the
+    purpose-infinitival construction should be SUPPRESSED). Tier-1: literal PARTITIONED_STOP /
+    DESIDERATIVE_PASS membership (unchanged, always wins). Tier-2 (NEW): for a preceding word OOV
+    of BOTH literal sets, classify via hdlab.verb_lexical_similarity; only a confident
+    ASPECTUAL-pool verdict flips the (permissive) default to suppress -- abstain or a
+    DESIDERATIVE-pool verdict preserves today's default behavior (fire purpose_to_no_det), so this
+    can only ever ADD precision (catch more true aspectual-like OOV governing verbs), never regress
+    an already-firing case."""
+    if preceding in PARTITIONED_STOP:
+        return True
+    if preceding in DESIDERATIVE_PASS:
+        return False
+    lemma = lemma_verb(preceding)
+    verdict = _verblex.classify_2way(lemma, _GOAL_ASPECT_SEED_LEMMAS, _GOAL_DESID_SEED_LEMMAS,
+                                      "goal", VERB_CLASS_SIM_FLOOR, VERB_CLASS_MARGIN)
+    return verdict == "POS"  # "POS" pool == first arg == the aspectual pool here
+
+
 def action_frame_feats(sentence: str) -> List[str]:
     """Structural purpose-infinitival detector (verb-lemma-independent 'to VP' vs 'to NP'), with the
-    PARTITIONED control-verb exclusion. Byte-identical logic to
-    exp_c5_desiderative_aspectual_partition_goal_typing_v1.action_frame_feats_partitioned."""
+    PARTITIONED control-verb exclusion. Based on
+    exp_c5_desiderative_aspectual_partition_goal_typing_v1.action_frame_feats_partitioned, extended
+    2026-08-06 with a Tier-2 open-vocab control-verb classifier (_control_verb_is_aspectual_like)."""
     toks = _ordered_tokens(sentence)
     feats = []
     has_purpose_inf = False
@@ -268,7 +356,7 @@ def action_frame_feats(sentence: str) -> List[str]:
         if toks[i] != "to" or toks[i + 1] in DET_STOP:
             continue
         preceding = toks[i - 1] if i > 0 else None
-        if preceding in PARTITIONED_STOP:
+        if preceding is not None and _control_verb_is_aspectual_like(preceding):
             continue
         has_purpose_inf = True
         break
@@ -423,7 +511,38 @@ OBJECT_IS_REFERENT_CLASSES = {
 
 
 def _verb_classes(lemma: str) -> set:
-    return {name for name, members in CLASS_REGISTRY.items() if lemma in members}
+    """Tier-1: exact CLASS_REGISTRY membership (unchanged, always wins -- zero regression). Tier-2
+    (2026-08-06): open-vocab fallback via shared-feature similarity, OOV-of-Tier-1 only."""
+    literal = {name for name, members in CLASS_REGISTRY.items() if lemma in members}
+    if literal:
+        return literal
+    return _verb_classes_similarity(lemma)
+
+
+def _verb_classes_similarity(lemma: str) -> set:
+    """Tier-2: argmax over CLASS_REGISTRY seed-exemplar-mean shared-feature similarity
+    (hdlab.verb_lexical_similarity), thresholded + margin-gated. Returns {} (abstain) if `lemma` is
+    OOV of the verb-feature lexicon, or if the best class doesn't clear the floor, or if the top-2
+    classes are too close to call -- {} is IDENTICAL to today's OOV behavior, so this can never
+    regress a caller that currently gets no class."""
+    if not _verblex.in_lexicon(lemma, "outcome"):
+        return set()
+    sims = {}
+    for cls, members in CLASS_REGISTRY.items():
+        seed_words = [m for m in members if _verblex.in_lexicon(m, "outcome")]
+        if not seed_words:
+            continue
+        sim = _verblex.mean_similarity_to_seeds(lemma, seed_words, "outcome")
+        if sim is not None:
+            sims[cls] = sim
+    if not sims:
+        return set()
+    ranked = sorted(sims.items(), key=lambda kv: -kv[1])
+    best_cls, best_sim = ranked[0]
+    second_sim = ranked[1][1] if len(ranked) > 1 else -1.0
+    if best_sim >= VERB_CLASS_SIM_FLOOR and (best_sim - second_sim) >= VERB_CLASS_MARGIN:
+        return {best_cls}
+    return set()
 
 
 def _opposed_of(classes: set) -> set:
@@ -638,11 +757,13 @@ def congruence_outcome_valence(passage_text: str):
 def lexicon_predict(outcome_sentence: str):
     """The mechanism this promotion supplements (not deletes): V2_OUTCOME_UNMET/_MET set-membership
     on the outcome sentence alone (same sets, same tokenization convention as
-    type_sentence_events_c3 above). Byte-identical to
+    type_sentence_events_c3 above), PLUS the same TIER-2 open-vocab similarity fallback
+    (_tier2_outcome_polarity_scan, 2026-08-06) for tokens OOV of the literal lexicon. Based on
     experiments/exp_outcome_valence_goal_congruence_v1.py::lexicon_predict."""
     t = normalize_tokens(outcome_sentence)
-    has_unmet = bool(t & V2_OUTCOME_UNMET)
-    has_met = bool(t & V2_OUTCOME_MET)
+    has_unmet_t2, has_met_t2 = _tier2_outcome_polarity_scan(outcome_sentence)
+    has_unmet = bool(t & V2_OUTCOME_UNMET) or has_unmet_t2
+    has_met = bool(t & V2_OUTCOME_MET) or has_met_t2
     if has_unmet and has_met:
         return "AMBIGUOUS"
     if has_unmet:
