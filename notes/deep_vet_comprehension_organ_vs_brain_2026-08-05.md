@@ -247,6 +247,16 @@ POSITION+METRIC vs the exact brain mechanism) + missing-component/LEARNING check
   (exp_grounded_appraisal_sim_earned_v1, MECHANISM_EARNS goal-congruence valuation, currently ISLANDED) instead of
   the V2_OUTCOME lexicon = wire-don't-island. RISK: needs the goal-state + outcome-state as appraisal inputs (the
   situation model has goal via GO_ROLES; outcome-state extraction is the work).
+  **CORRECTION (Director read the sim code 2026-08-05): the appraisal-sim is NOT a drop-in reuse for
+  outcome-valence -- exp_grounded_appraisal_sim_earned_v1.py:74 CONG is a HAND-MAP (episode-type->HURT/HELP/
+  NEUTRAL) that the sim VALUES; it takes congruence as INPUT, does not COMPUTE it from goal+outcome. Real
+  outcome-valence = a GOAL-CONGRUENCE COMPUTATION (does the outcome-STATE achieve vs block/negate the goal-STATE
+  on the shared object; "sank" is UNMET for mend-boat but valence is RELATIVE TO THE GOAL, not intrinsic to the
+  word -- the V2_OUTCOME lexicon is a goal-INDEPENDENT proxy). Better reuse = PREDICTIVE CODING (goal sets an
+  expected outcome-state; predictive_coding residual expectation-vs-actual = MET[low]/UNMET[high]) -- which ALSO
+  wires the deep-VET islanded predictive_coding. NOTE: for OWNER selection this polarity does NOT matter (48/48
+  already works w/ lexicon typing); outcome-valence is a separate POLARITY readout (instrument outcome_polarity
+  gold: met=21/unmet=41) -- measure lexicon vs goal-congruence there. Genuine design problem, not a simple wire.**
 - **situation_reader.read() call-site integration of goal_typing** (promoted organ not yet CALLED by the reader;
   CoNLL-gated, same as frame_primary_role wire).
 - **source situation_type -> context_grounded_valence.py:141** (mechanism proven HARD_PASS in _v2, integration only).
