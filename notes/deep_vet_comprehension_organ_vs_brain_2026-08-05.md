@@ -174,3 +174,35 @@ production hdlab (parameterized) -> a PRODUCTION PROMOTION of the combined goal-
 C3 GOAL-typing path, certification-gated) is the pending lock-in. NEXT (prose recommendation to USER): promote
 the goal-typing to production (lock the gain) + run the primacy-trap subset end-to-end (complete the fairness
 picture / earn "beats all 4 baselines"); then real outcome-valence typing.
+
+## LANDED-4 (NEGATIVE, brain-foundational drill + VET-the-VET): primacy-trap end-to-end HARD_FAIL = SEVERED-TOP-DOWN-LOOP exposed (commit 43e942ca0, exp_c5_primacy_trap_endtoend_promoted_organ_v1)
+Ran the promoted goal_typing organ + event_role coref on the 20 primacy-trap items (p01-p20). RESULT: 0/20
+(0/12 explicit_psych, 0/8 action_implied), scramble VACUOUS (no unscrambled gain to collapse), HARD_FAIL
+exactly as pre-registered. VET on disk confirms 0/20 + scramble-vacuous.
+**VET-THE-VET (decisive, checked before propagating): the goal-owner MECHANISM is NOT at fault.** The ISOLATED
+primacy cell exp_c5_fair_goal_owner_primacy_v1 scores SYSTEM=0.6 (explicit 12/12, action_implied 0/8), all 4
+baselines=0.0, scramble non-vacuous = INSTRUMENT_VALID_FULLY_FAIR_PRIMACY_TRAP. So the integrator DOES beat
+primacy in isolation. The 0/20 end-to-end is a CANDIDATE-GENERATION failure, not a mechanism failure.
+MECHANISM (SHAPE/POSITION/METRIC):
+- ISOLATED candidate generator = "roster entity with most explicit-name mentions" -> on primacy surfaces the
+  OWNER (protagonist, mentioned first/most) as the content candidate -> candidates DIVERGE -> goal-coherence
+  (directed_goal_outcome_score) picks the owner -> 12/12 explicit.
+- END-TO-END candidate generator = real event_role coref resolving the outcome PRONOUN -> on primacy resolves
+  "she" to the recent/event-central FOIL -> both candidates bit-identical on the outcome slot -> no divergence
+  -> integrator can't redirect -> 0/20. GOAL-typing fires correctly (20/20); it is moot because the owner is
+  never a candidate.
+- ROOT: event_role coref uses EVENT-CENTRALITY (bottom-up), which ALIGNS with the goal-holder on recency-trap
+  (owner is event-central -> 18/18) but DIVERGES on primacy-trap (foil is event-central, owner is goal-holder
+  -> 0/20). The brain resolves the outcome pronoun/attribution via GOAL-COHERENCE as a TOP-DOWN BIAS
+  (coherence-over-recency), at the point of resolution. Our goal-coherence is applied POST-coref on coref's
+  already-collapsed candidate set. = EXACTLY the deep-VET severed-top-down-loop thesis, now proven by a can-fail.
+ROUTE (rule b): NOT missing-LEARNING (mechanism exists + proven 12/12). WIRING/ARCHITECTURE gap: the outcome-
+owner CANDIDATE GENERATION must surface the goal-holder -> enumerate the entity set (from entity-clustering
+coref, the wired-STRONG capability) as candidate outcome-owners and let directed_goal_outcome_score select by
+goal-coherence, INSTEAD of depending on event_role coref's bottom-up outcome-pronoun resolution. This is the
+brain's top-down-goal-biased outcome attribution; proven primacy-robust in isolation (12/12 explicit).
+RE-SCOPES the milestone (honest): the 18/18+10/10 recency-trap end-to-end is REAL but coref-pronoun-resolution-
+dependent (works where event-centrality happens to align with the goal-holder); primacy-trap exposes that
+dependence. FIX (dispatched): end-to-end with roster-enumerated goal-coherence candidate generation + promoted
+goal-typing, re-measured on primacy (expect explicit_psych ~12/12 + action_implied improved via the promoted
+purpose-infinitival typing that the isolated cell lacked) AND re-confirm recency-trap stays 18/18+10/10.
