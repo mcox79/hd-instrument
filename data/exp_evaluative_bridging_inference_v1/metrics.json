@@ -1,0 +1,793 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: zero_overlap_bridging_acc=1.0 (incl mg2 correct=True) vs lexical_only_acc=0.0 (gap=1.0) | valence: pos_acc=1.0 neg_acc=1.0 | bystander_no_bridge_acc=1.0 | unchanged_control_acc=1.0 | scramble_acc=0.0 | deterministic_across_seeds=True",
+  "summary": "zero_overlap_bridging_acc=1.0 (incl mg2 correct=True) vs lexical_only_acc=0.0 (gap=1.0) | valence: pos_acc=1.0 neg_acc=1.0 | bystander_no_bridge_acc=1.0 | unchanged_control_acc=1.0 | scramble_acc=0.0 | deterministic_across_seeds=True",
+  "n_seeds": 3,
+  "cardinality_ok": true,
+  "counts_ok": true,
+  "deterministic_across_seeds": true,
+  "zero_overlap_bridging_acc": 1.0,
+  "lexical_only_acc": 0.0,
+  "gap": 1.0,
+  "mg2_bridging_correct_all_seeds": true,
+  "valence_pos_acc": 1.0,
+  "valence_neg_acc": 1.0,
+  "bystander_no_bridge_acc": 1.0,
+  "unchanged_control_acc": 1.0,
+  "scramble_acc": 0.0,
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "n_items": 13,
+      "cat_counts": {
+        "POS_MET": 6,
+        "NEG_UNMET": 3,
+        "BYSTANDER": 2,
+        "UNCHANGED": 2
+      },
+      "zero_overlap_bridging_acc": 1.0,
+      "lexical_only_acc": 0.0,
+      "mg2_bridging_correct": true,
+      "valence_pos_acc": 1.0,
+      "valence_neg_acc": 1.0,
+      "bystander_no_bridge_acc": 1.0,
+      "unchanged_control_acc": 1.0,
+      "scramble_acc": 0.0,
+      "rows": [
+        {
+          "id": "mg2_henry_bootblack",
+          "category": "POS_MET",
+          "goal_holder": "henry",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "henry": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "lucy_garden_roses",
+          "category": "POS_MET",
+          "goal_holder": "lucy",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "lucy": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "sam_woodpile",
+          "category": "POS_MET",
+          "goal_holder": "sam",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "sam": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "ellen_sailor_letter",
+          "category": "POS_MET",
+          "goal_holder": "ellen",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "ellen": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "tommy_broken_gate",
+          "category": "POS_MET",
+          "goal_holder": "tommy",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "tommy": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "maria_dishes",
+          "category": "POS_MET",
+          "goal_holder": "maria",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "maria": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "eddie_parlor_shelf",
+          "category": "NEG_UNMET",
+          "goal_holder": "eddie",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "eddie": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "nora_milk_pail",
+          "category": "NEG_UNMET",
+          "goal_holder": "nora",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "nora": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "peter_new_book",
+          "category": "NEG_UNMET",
+          "goal_holder": "peter",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "peter": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "jack_kate_fence_bystander",
+          "category": "BYSTANDER",
+          "goal_holder": "jack",
+          "gold_polarity": "ABSTAIN",
+          "bridging_hits": {},
+          "bridging_source": "NONE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": true
+        },
+        {
+          "id": "ruth_owen_spelling_bystander",
+          "category": "BYSTANDER",
+          "goal_holder": "ruth",
+          "gold_polarity": "ABSTAIN",
+          "bridging_hits": {},
+          "bridging_source": "NONE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": true
+        },
+        {
+          "id": "clara_village_race",
+          "category": "UNCHANGED",
+          "goal_holder": "clara",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "clara": "OUTCOME_MET"
+          },
+          "bridging_source": "LEXICAL",
+          "bridging_correct": true,
+          "lexical_hits": {
+            "clara": "OUTCOME_MET"
+          },
+          "lexical_correct": true
+        },
+        {
+          "id": "ben_hilltop_sunset",
+          "category": "UNCHANGED",
+          "goal_holder": "ben",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "ben": "OUTCOME_MET"
+          },
+          "bridging_source": "LEXICAL",
+          "bridging_correct": true,
+          "lexical_hits": {
+            "ben": "OUTCOME_MET"
+          },
+          "lexical_correct": true
+        }
+      ],
+      "scramble_rows": [
+        {
+          "id": "mg2_henry_bootblack",
+          "scrambled_register_from": "lucy_garden_roses",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "lucy_garden_roses",
+          "scrambled_register_from": "sam_woodpile",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "sam_woodpile",
+          "scrambled_register_from": "ellen_sailor_letter",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "ellen_sailor_letter",
+          "scrambled_register_from": "tommy_broken_gate",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "tommy_broken_gate",
+          "scrambled_register_from": "maria_dishes",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "maria_dishes",
+          "scrambled_register_from": "eddie_parlor_shelf",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "eddie_parlor_shelf",
+          "scrambled_register_from": "nora_milk_pail",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "nora_milk_pail",
+          "scrambled_register_from": "peter_new_book",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "peter_new_book",
+          "scrambled_register_from": "mg2_henry_bootblack",
+          "hits": {},
+          "correct": false
+        }
+      ]
+    },
+    "1": {
+      "seed": 1,
+      "n_items": 13,
+      "cat_counts": {
+        "POS_MET": 6,
+        "NEG_UNMET": 3,
+        "BYSTANDER": 2,
+        "UNCHANGED": 2
+      },
+      "zero_overlap_bridging_acc": 1.0,
+      "lexical_only_acc": 0.0,
+      "mg2_bridging_correct": true,
+      "valence_pos_acc": 1.0,
+      "valence_neg_acc": 1.0,
+      "bystander_no_bridge_acc": 1.0,
+      "unchanged_control_acc": 1.0,
+      "scramble_acc": 0.0,
+      "rows": [
+        {
+          "id": "mg2_henry_bootblack",
+          "category": "POS_MET",
+          "goal_holder": "henry",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "henry": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "lucy_garden_roses",
+          "category": "POS_MET",
+          "goal_holder": "lucy",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "lucy": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "sam_woodpile",
+          "category": "POS_MET",
+          "goal_holder": "sam",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "sam": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "ellen_sailor_letter",
+          "category": "POS_MET",
+          "goal_holder": "ellen",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "ellen": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "tommy_broken_gate",
+          "category": "POS_MET",
+          "goal_holder": "tommy",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "tommy": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "maria_dishes",
+          "category": "POS_MET",
+          "goal_holder": "maria",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "maria": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "eddie_parlor_shelf",
+          "category": "NEG_UNMET",
+          "goal_holder": "eddie",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "eddie": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "nora_milk_pail",
+          "category": "NEG_UNMET",
+          "goal_holder": "nora",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "nora": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "peter_new_book",
+          "category": "NEG_UNMET",
+          "goal_holder": "peter",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "peter": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "jack_kate_fence_bystander",
+          "category": "BYSTANDER",
+          "goal_holder": "jack",
+          "gold_polarity": "ABSTAIN",
+          "bridging_hits": {},
+          "bridging_source": "NONE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": true
+        },
+        {
+          "id": "ruth_owen_spelling_bystander",
+          "category": "BYSTANDER",
+          "goal_holder": "ruth",
+          "gold_polarity": "ABSTAIN",
+          "bridging_hits": {},
+          "bridging_source": "NONE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": true
+        },
+        {
+          "id": "clara_village_race",
+          "category": "UNCHANGED",
+          "goal_holder": "clara",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "clara": "OUTCOME_MET"
+          },
+          "bridging_source": "LEXICAL",
+          "bridging_correct": true,
+          "lexical_hits": {
+            "clara": "OUTCOME_MET"
+          },
+          "lexical_correct": true
+        },
+        {
+          "id": "ben_hilltop_sunset",
+          "category": "UNCHANGED",
+          "goal_holder": "ben",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "ben": "OUTCOME_MET"
+          },
+          "bridging_source": "LEXICAL",
+          "bridging_correct": true,
+          "lexical_hits": {
+            "ben": "OUTCOME_MET"
+          },
+          "lexical_correct": true
+        }
+      ],
+      "scramble_rows": [
+        {
+          "id": "mg2_henry_bootblack",
+          "scrambled_register_from": "lucy_garden_roses",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "lucy_garden_roses",
+          "scrambled_register_from": "sam_woodpile",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "sam_woodpile",
+          "scrambled_register_from": "ellen_sailor_letter",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "ellen_sailor_letter",
+          "scrambled_register_from": "tommy_broken_gate",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "tommy_broken_gate",
+          "scrambled_register_from": "maria_dishes",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "maria_dishes",
+          "scrambled_register_from": "eddie_parlor_shelf",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "eddie_parlor_shelf",
+          "scrambled_register_from": "nora_milk_pail",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "nora_milk_pail",
+          "scrambled_register_from": "peter_new_book",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "peter_new_book",
+          "scrambled_register_from": "mg2_henry_bootblack",
+          "hits": {},
+          "correct": false
+        }
+      ]
+    },
+    "2": {
+      "seed": 2,
+      "n_items": 13,
+      "cat_counts": {
+        "POS_MET": 6,
+        "NEG_UNMET": 3,
+        "BYSTANDER": 2,
+        "UNCHANGED": 2
+      },
+      "zero_overlap_bridging_acc": 1.0,
+      "lexical_only_acc": 0.0,
+      "mg2_bridging_correct": true,
+      "valence_pos_acc": 1.0,
+      "valence_neg_acc": 1.0,
+      "bystander_no_bridge_acc": 1.0,
+      "unchanged_control_acc": 1.0,
+      "scramble_acc": 0.0,
+      "rows": [
+        {
+          "id": "mg2_henry_bootblack",
+          "category": "POS_MET",
+          "goal_holder": "henry",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "henry": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "lucy_garden_roses",
+          "category": "POS_MET",
+          "goal_holder": "lucy",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "lucy": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "sam_woodpile",
+          "category": "POS_MET",
+          "goal_holder": "sam",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "sam": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "ellen_sailor_letter",
+          "category": "POS_MET",
+          "goal_holder": "ellen",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "ellen": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "tommy_broken_gate",
+          "category": "POS_MET",
+          "goal_holder": "tommy",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "tommy": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "maria_dishes",
+          "category": "POS_MET",
+          "goal_holder": "maria",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "maria": "OUTCOME_MET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "eddie_parlor_shelf",
+          "category": "NEG_UNMET",
+          "goal_holder": "eddie",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "eddie": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "nora_milk_pail",
+          "category": "NEG_UNMET",
+          "goal_holder": "nora",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "nora": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "peter_new_book",
+          "category": "NEG_UNMET",
+          "goal_holder": "peter",
+          "gold_polarity": "UNMET",
+          "bridging_hits": {
+            "peter": "OUTCOME_UNMET"
+          },
+          "bridging_source": "BRIDGE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": false
+        },
+        {
+          "id": "jack_kate_fence_bystander",
+          "category": "BYSTANDER",
+          "goal_holder": "jack",
+          "gold_polarity": "ABSTAIN",
+          "bridging_hits": {},
+          "bridging_source": "NONE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": true
+        },
+        {
+          "id": "ruth_owen_spelling_bystander",
+          "category": "BYSTANDER",
+          "goal_holder": "ruth",
+          "gold_polarity": "ABSTAIN",
+          "bridging_hits": {},
+          "bridging_source": "NONE",
+          "bridging_correct": true,
+          "lexical_hits": {},
+          "lexical_correct": true
+        },
+        {
+          "id": "clara_village_race",
+          "category": "UNCHANGED",
+          "goal_holder": "clara",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "clara": "OUTCOME_MET"
+          },
+          "bridging_source": "LEXICAL",
+          "bridging_correct": true,
+          "lexical_hits": {
+            "clara": "OUTCOME_MET"
+          },
+          "lexical_correct": true
+        },
+        {
+          "id": "ben_hilltop_sunset",
+          "category": "UNCHANGED",
+          "goal_holder": "ben",
+          "gold_polarity": "MET",
+          "bridging_hits": {
+            "ben": "OUTCOME_MET"
+          },
+          "bridging_source": "LEXICAL",
+          "bridging_correct": true,
+          "lexical_hits": {
+            "ben": "OUTCOME_MET"
+          },
+          "lexical_correct": true
+        }
+      ],
+      "scramble_rows": [
+        {
+          "id": "mg2_henry_bootblack",
+          "scrambled_register_from": "lucy_garden_roses",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "lucy_garden_roses",
+          "scrambled_register_from": "sam_woodpile",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "sam_woodpile",
+          "scrambled_register_from": "ellen_sailor_letter",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "ellen_sailor_letter",
+          "scrambled_register_from": "tommy_broken_gate",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "tommy_broken_gate",
+          "scrambled_register_from": "maria_dishes",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "maria_dishes",
+          "scrambled_register_from": "eddie_parlor_shelf",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "eddie_parlor_shelf",
+          "scrambled_register_from": "nora_milk_pail",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "nora_milk_pail",
+          "scrambled_register_from": "peter_new_book",
+          "hits": {},
+          "correct": false
+        },
+        {
+          "id": "peter_new_book",
+          "scrambled_register_from": "mg2_henry_bootblack",
+          "hits": {},
+          "correct": false
+        }
+      ]
+    }
+  },
+  "arms_must_differ": {
+    "bridging": "6b267e89e12301b4e710988b9b54a3f1720ae79ee0f30c54d5a40a84c2a2ee1c",
+    "lexical": "024048e8a9663f22f0106d70e857329ce3561b6272e4626fbdd3c5ebc77776d5",
+    "identical": false
+  },
+  "arms_differ_verified": true,
+  "run_mode": "full",
+  "elapsed_s": 0.10686420000274666,
+  "ts_iso": "2026-08-06T11:57:20.688171+00:00",
+  "anchor_name": "evaluative_bridging_inference_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "bank_path": "D:\\AI\\hd-instrument\\experiments\\data\\evaluative_bridging_bank_v1.jsonl",
+    "expected_n_items": 13,
+    "expected_cat_counts": {
+      "POS_MET": 6,
+      "NEG_UNMET": 3,
+      "BYSTANDER": 2,
+      "UNCHANGED": 2
+    },
+    "final_metrics_atomicity": "tmp_replace",
+    "crlb_n_a": "boolean construction-detector + registry lookup, no capacity-feasibility quantitative discriminator threshold",
+    "deterministic_seeding": true,
+    "production_files_modified": [],
+    "no_cert_gate_required_reason": "no production file modified"
+  },
+  "prereg": "preregs/2026-08-06_evaluative_bridging_inference_v1.md",
+  "cites": [
+    "hdlab/goal_owner_select.py::GoalOutcomeRegister (unmodified)",
+    "hdlab/goal_typing.py::type_goal_events/_sentences/_ordered_tokens (unmodified)",
+    "experiments/data/evaluative_bridging_bank_v1.jsonl (this cell's bank, 13 items)",
+    "experiments/data/real_text_goal_owner_diagnostic_v1.jsonl (mg2 verbatim source)"
+  ],
+  "dispatch": "LOCAL-ONLY, in-process foreground, not queue-dispatched (per task brief)"
+}
