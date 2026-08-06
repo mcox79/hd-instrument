@@ -35,15 +35,47 @@ The REAL-C3-role end-to-end honest-compounded measurement (does this score still
 GOAL role comes from Component-3's actual frame_primary_role labeler instead of a hand-lexicon)
 lives in experiments/exp_component5_wired_endtoend_v1.py -- see that cell for the compounded
 (not-isolated) numbers; this module's self-test only reproduces the ISOLATED historical result.
+
+SELECTOR PROMOTION (2026-08-05, extends this module): select_outcome_owner(passage_text, roster,
+seed) is the FULL outcome-owner selection flow -- candidate enumeration + directed-score argmax +
+content-coherence tie-break -- promoted from two further-validated experiment cells, reused
+byte-identically (no re-tuning, no reimplementation):
+  (1) CANDIDATE ENUMERATION + ARGMAX: experiments/exp_c5_primacy_trap_endtoend_goal_coherence_
+      candidate_gen_v1.py (commit b1b1ce460) -- enumerate_and_select's pattern (propose every
+      roster entity as the outcome-slot referent, score with directed_goal_outcome_score above,
+      argmax). MEASURED (disk, that cell's metrics.json): 47/48 on the full fair instrument
+      (goal_owner_fair_v1.jsonl: primacy ep 12/12 + ai 8/8, recency-trap divergent ep 18/18 + ai
+      10/10) without the tie-break below.
+  (2) CONTENT-COHERENCE TIE-BREAK: experiments/exp_c5_multigoal_content_coherence_tiebreak_v1.py
+      (commit 6961f5b49) -- among tied top-scorers, prefer the entity whose GOAL-theme (head nouns
+      of the goal-bearing clause's determiner-led NPs) overlaps the OUTCOME-theme; fires ONLY on a
+      unique overlapper, else falls back to sorted-order (so non-tie items are bit-identical to (1)
+      by construction). MEASURED (disk, that cell's metrics.json): 48/48 full instrument (closes the
+      one remaining miss, t24_tom_boat_foil_sid) and 12/12 on a dedicated 6-family multi-goal
+      cue-conflict bank (experiments/data/goal_owner_multigoal_coherence_v1.jsonl) vs 6/12 (chance)
+      for the tie-break-off/positional path, with a full within-family flip-control (swapping the
+      outcome-theme flips the pick to the other entity in all 6 families).
+
+DEPENDENCY NOTE: hdlab/ must not import from experiments/, so this promotion also byte-copies (not
+re-derives) three pieces that previously lived ONLY in experiment cells: GeneralRecencyEntityResolver
++ its gender helpers (_is_pron_general/_gender_of_general/DEFAULT_ROSTER, from experiments/
+exp_component5_gold_role_isolated_v1.py), the trivial sentence splitter (_sentences, from
+experiments/exp_situation_model_goal_outcome_dimension_v1.py), and the theme-extraction tie-break
+helpers (clause_theme/_theme_tokens/_DET/_ADJ_STOP/entity_goal_themes, from experiments/exp_c5_
+multigoal_content_coherence_tiebreak_v1.py). GOAL-typing itself is NOT byte-copied -- it is consumed
+directly from the already-promoted hdlab.goal_typing.type_goal_events (no duplicate typer).
 """
 from __future__ import annotations
 
+import re
 from collections import Counter
 from typing import Dict, List, Sequence
 
 import torch
 
 from hdlab.situation_model_accumulate import AccumulateRegister
+from hdlab.goal_typing import type_goal_events
+from hdlab.state_of_mind import PRONOUN_SCOPE, infer_nominal_gender
 
 # GoalOutcomeRegister role vocabulary (Zwaan goal/intentionality + outcome valence), byte-identical
 # to experiments/exp_situation_model_goal_outcome_dimension_v1.py's GO_ROLES.
@@ -121,6 +153,230 @@ def directed_goal_outcome_score(role_seq: Sequence[str], cluster_ids: Sequence[s
     return 1.0 if ap["has_goal"] else 0.0
 
 
+# ============================================================================ STRUCTURAL SUBJECT
+# RESOLVER (byte-copied dependency: hdlab/ must not import from experiments/). Byte-identical
+# mechanism to experiments/exp_component5_gold_role_isolated_v1.py's GeneralRecencyEntityResolver +
+# _is_pron_general/_gender_of_general/DEFAULT_ROSTER -- gold-free, backward-search recency pick over
+# gender/number-compatible roster candidates.
+def _ordered_tokens(sentence: str) -> List[str]:
+    """Order-preserving lowercase content tokens. Byte-identical to
+    exp_situation_model_goal_outcome_dimension_v1._ordered_tokens / hdlab.goal_typing._ordered_tokens
+    (same regex, independently promoted; kept local so this module has no other hdlab-internal dep)."""
+    return [t for t in re.findall(r"[a-z']+", sentence.lower()) if t]
+
+
+# Byte-identical default gazetteer to exp_component5_gold_role_isolated_v1.py's DEFAULT_ROSTER (the
+# original 12-name toy cast, now pluggable DATA -- any caller may supply its own {name: gender} roster).
+GENDER = {}
+for _n in ("amy", "jo", "beth", "meg", "ruth", "ann"):
+    GENDER[_n] = "f"
+for _n in ("tom", "sid", "laurie"):
+    GENDER[_n] = "m"
+DEFAULT_ROSTER = dict(GENDER)
+
+# PRONOUN_SCOPE (production, hdlab.state_of_mind) does not carry reflexives (herself/himself); extend
+# the PRODUCTION table locally (reuse-then-augment, byte-identical to the source cell's extension).
+_PRON_SCOPE_EXT = dict(PRONOUN_SCOPE)
+_PRON_SCOPE_EXT.setdefault("herself", {"number": "singular", "gender": "fem"})
+_PRON_SCOPE_EXT.setdefault("himself", {"number": "singular", "gender": "masc"})
+_GENDER_MAP = {"masc": "m", "fem": "f"}  # production's masc/fem -> this organ's f/m scheme
+
+
+def _is_pron_general(token: str) -> bool:
+    """True iff token is a gendered singular pronoun (production PRONOUN_SCOPE, reflexive-extended).
+    Byte-identical to exp_component5_gold_role_isolated_v1.py's _is_pron_general."""
+    scope = _PRON_SCOPE_EXT.get(token)
+    return scope is not None and scope["gender"] in ("masc", "fem")
+
+
+def _gender_of_general(token: str, roster: dict):
+    """f / m / None gender for a lowercase token, generalized off any roster (not a fixed lexicon).
+    Byte-identical to exp_component5_gold_role_isolated_v1.py's _gender_of_general: (1) PRONOUN_SCOPE
+    (production, hdlab.state_of_mind) -> (2) the roster's explicit gender (structural passage cast
+    data) -> (3) infer_nominal_gender (production, hdlab.state_of_mind) as an honest fallback."""
+    scope = _PRON_SCOPE_EXT.get(token)
+    if scope is not None:
+        return _GENDER_MAP.get(scope["gender"])
+    if token in roster:
+        return roster[token]
+    return _GENDER_MAP.get(infer_nominal_gender([token]))
+
+
+class GeneralRecencyEntityResolver:
+    """Structural (gold-free) subject resolver: backward-search recency pick over gender/number-
+    compatible roster candidates. Byte-identical mechanism to exp_component5_gold_role_isolated_v1.
+    py's GeneralRecencyEntityResolver (byte-copied here because hdlab/ must not import from
+    experiments/): the first explicit roster NAME in a sentence is the subject; else the first
+    pronoun resolves to the most-recently-mentioned gender-compatible roster entity. `roster` is a
+    {name: gender} dict describing the passage's cast (structural passage metadata, NEVER a gold
+    label); defaults to DEFAULT_ROSTER when the caller doesn't supply one."""
+
+    def __init__(self, roster: dict | None = None):
+        self._recent = []  # entity names in order of mention (most recent last)
+        self._roster = roster if roster is not None else DEFAULT_ROSTER
+
+    def subject_entity(self, sentence: str):
+        toks = _ordered_tokens(sentence)
+        for t in toks:                                   # first explicit roster NAME = subject
+            if t in self._roster:
+                self._note(t)
+                return t
+        for t in toks:                                   # else first pronoun -> recency-resolved
+            if _is_pron_general(t):
+                want = _gender_of_general(t, self._roster)
+                for e in reversed(self._recent):          # BACKWARD search == recency
+                    if _gender_of_general(e, self._roster) == want:
+                        return e
+                return None
+        return None
+
+    def _note(self, entity: str):
+        self._recent.append(entity)
+
+
+def _sentences(text: str) -> List[str]:
+    """Byte-identical to experiments/exp_situation_model_goal_outcome_dimension_v1.py's _sentences."""
+    return [s.strip() for s in re.split(r"[.!?]", text) if s.strip()]
+
+
+# ============================================================================ THEME EXTRACTION (for
+# the content-coherence tie-break below). Byte-identical mechanism to experiments/exp_c5_multigoal_
+# content_coherence_tiebreak_v1.py's clause_theme/_theme_tokens/_DET/_ADJ_STOP/entity_goal_themes
+# (byte-copied here because hdlab/ must not import from experiments/).
+_DET = {"the", "a", "an", "his", "her", "its", "their"}
+_ADJ_STOP = {
+    "old", "whole", "broken", "tall", "leaking", "torn", "heavy", "brass",
+    "woven", "copper", "cracked", "wooden", "new",
+}
+
+
+def _theme_tokens(sentence: str) -> List[str]:
+    return [t for t in re.findall(r"[a-z']+", sentence.lower()) if t]
+
+
+def clause_theme(sentence: str, roster: dict) -> set:
+    """Head nouns of determiner-led NPs in `sentence`, minus roster entity names. Glass-box, no POS
+    tagger. Byte-identical to exp_c5_multigoal_content_coherence_tiebreak_v1.py's clause_theme."""
+    toks = _theme_tokens(sentence)
+    heads = set()
+    i = 0
+    n = len(toks)
+    while i < n:
+        if toks[i] in _DET:
+            j = i + 1
+            while j < n and toks[j] in _ADJ_STOP:
+                j += 1
+            if j < n and toks[j] not in _DET:
+                head = toks[j]
+                if head not in roster:
+                    heads.add(head)
+            i = j + 1
+        else:
+            i += 1
+    return heads
+
+
+def entity_goal_themes(passage_text: str, roster: dict) -> dict:
+    """{entity: set of goal-theme head nouns} from each non-outcome sentence whose STRUCTURAL
+    subject (GeneralRecencyEntityResolver -- gold-free) fires a GOAL. Byte-identical mechanism to
+    exp_c5_multigoal_content_coherence_tiebreak_v1.py's entity_goal_themes, generalized off the
+    source cell's 'item' dict onto (passage_text, roster) args; never consults a gold label."""
+    sents = _sentences(passage_text)
+    resolver = GeneralRecencyEntityResolver(roster)
+    themes: dict = {}
+    for s in sents[:-1]:
+        subj = resolver.subject_entity(s)
+        if subj is None:
+            continue
+        fires_goal = any(r == R_GOAL and e == subj for (e, r) in type_goal_events(s, subj))
+        if fires_goal:
+            themes.setdefault(subj, set()).update(clause_theme(s, roster))
+    return themes
+
+
+# ============================================================================ CANDIDATE ENUMERATION
+# + SELECTION (the full outcome-owner selector). Byte-identical mechanism to experiments/exp_c5_
+# primacy_trap_endtoend_goal_coherence_candidate_gen_v1.py's build_candidate_role_seq/_outcome_pos/
+# enumerate_and_select (commit b1b1ce460), generalized off the source cell's 'item' dict onto
+# (passage_text, roster) args.
+def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
+                              scramble_goal_to_foil=None):
+    """Structural (gold-free) role_seq/cluster_ids for ONE proposed outcome-slot candidate.
+    Non-outcome sentences: subject resolved from the PASSAGE TEXT (GeneralRecencyEntityResolver),
+    never from a gold label. Outcome (final) sentence: subject is the PROPOSED CANDIDATE
+    `outcome_entity` -- this is the enumeration step. `scramble_goal_to_foil` is a diagnostic-only
+    hook (redirects GOAL-role bindings to a named foil entity) for scramble-control self-tests; leave
+    None in production use."""
+    sents = _sentences(passage_text)
+    resolver = GeneralRecencyEntityResolver(roster)
+    role_seq, cluster_ids = [], []
+    for s in sents[:-1]:
+        subj = resolver.subject_entity(s)
+        for (entity, role) in type_goal_events(s, subj):
+            eff = entity
+            if scramble_goal_to_foil is not None and role == R_GOAL:
+                eff = scramble_goal_to_foil
+            role_seq.append(role)
+            cluster_ids.append(eff)
+    for (entity, role) in type_goal_events(sents[-1], outcome_entity):
+        role_seq.append(role)
+        cluster_ids.append(entity)
+    return role_seq, cluster_ids
+
+
+def _outcome_pos(role_seq: Sequence[str]):
+    positions = [i for i, r in enumerate(role_seq) if r in (R_UNMET, R_MET)]
+    return positions[-1] if positions else None
+
+
+def enumerate_and_score(passage_text: str, roster: dict, seed: int, scramble_goal_to_foil=None):
+    """Candidate-enumeration + directed-score core: propose EVERY roster entity as the outcome-slot
+    referent, score each with directed_goal_outcome_score (unmodified), return (scored, winners)
+    where winners is the sorted-order list of argmax entities (len>1 iff genuinely tied). Entity set
+    = roster.keys() (structural passage metadata), never a gold label."""
+    candidates = sorted(roster.keys())
+    scored = {}
+    for c in candidates:
+        rs, cid = build_candidate_role_seq(passage_text, roster, c,
+                                            scramble_goal_to_foil=scramble_goal_to_foil)
+        pos = _outcome_pos(rs)
+        if pos is None:
+            raise ValueError(
+                f"outcome slot never typed for candidate {c!r}; passage_text's final sentence must "
+                f"type an OUTCOME_UNMET/OUTCOME_MET event")
+        scored[c] = directed_goal_outcome_score(rs, cid, seed, pos)
+    max_score = max(scored.values())
+    winners = [c for c in candidates if scored[c] == max_score]
+    return scored, winners
+
+
+def select_outcome_owner(passage_text: str, roster: dict, seed: int,
+                          scramble_goal_to_foil=None) -> str:
+    """PRODUCTION outcome-owner selector: enumerate every roster entity as the outcome-slot referent
+    (gold-free), score each with directed_goal_outcome_score (argmax), break ties by goal-theme <->
+    outcome-theme content-coherence overlap, else fall back to sorted-order. GOLD-FREE: `roster` is
+    the passage's entity set (structural cast metadata); the caller must never pass a gold answer
+    through it. Byte-identical composition to the mechanism validated in experiments/exp_c5_primacy_
+    trap_endtoend_goal_coherence_candidate_gen_v1.py (enumerate+argmax, commit b1b1ce460, 47/48 on
+    the 48-item fair instrument) plus experiments/exp_c5_multigoal_content_coherence_tiebreak_v1.py's
+    content-coherence tie-break (commit 6961f5b49, 48/48 with the tie-break; 12/12 on the multi-goal
+    cue-conflict bank vs 6/12 for the tie-break-off/positional path). `scramble_goal_to_foil` is a
+    diagnostic-only hook for scramble-control self-tests; leave None in production use.
+
+    Non-tie items are BIT-IDENTICAL to the pre-tie-break organ (the tie-break only ever runs when
+    len(winners) > 1), so this promotion cannot regress any of the 46 non-tie items the fair
+    instrument already got right."""
+    scored, winners = enumerate_and_score(passage_text, roster, seed,
+                                           scramble_goal_to_foil=scramble_goal_to_foil)
+    if len(winners) > 1:
+        goal_themes = entity_goal_themes(passage_text, roster)
+        out_theme = clause_theme(_sentences(passage_text)[-1], roster)
+        overlappers = [c for c in winners if goal_themes.get(c, set()) & out_theme]
+        if len(overlappers) == 1:
+            return overlappers[0]
+    return winners[0]
+
+
 # ============================================================================ self-test
 def self_test() -> dict:
     """Reproduces the historical isolated-mechanism numbers (commit 6911a28a6) with THIS module's
@@ -157,8 +413,41 @@ def self_test() -> dict:
     adopt = decide_keep_or_revert({"content": score_correct - score_wrong}, ABSTAIN_BAND_DEFAULT)
     assert adopt == "content", f"gate must adopt on a clean directed-score win, got {adopt!r}"
 
+    # ---- SELECTOR self-tests (select_outcome_owner: enumerate + argmax + content-coherence
+    # tie-break), reproducing two decisive cases byte-identically off the passage text (exact
+    # sentences from experiments/data/goal_owner_fair_v1.jsonl, disk-verified this session).
+
+    # TIE CASE broken correctly by theme (t24_tom_boat_foil_sid, commit 6961f5b49): both tom and sid
+    # hold a goal (directed-score ties at 1.0 each) -- the content-coherence tie-break must pick tom
+    # because his goal-theme {oars, boat, tide} overlaps the outcome-theme {tools, boat}={boat} while
+    # sid's goal-theme {rope} does not.
+    t24_text = ("Tom carried the oars to mend the old boat before the tide turned. Sid went off to "
+                "fetch the rope. Left with the tools alone, he failed and the boat sank.")
+    t24_roster = {"tom": "m", "sid": "m"}
+    t24_scored, t24_winners = enumerate_and_score(t24_text, t24_roster, seed=0)
+    assert t24_scored == {"sid": 1.0, "tom": 1.0} and len(t24_winners) == 2, (
+        f"t24 must be a genuine directed-score tie (both hold a goal): {t24_scored}")
+    t24_owner = select_outcome_owner(t24_text, t24_roster, seed=0)
+    assert t24_owner == "tom", (
+        f"t24 content-coherence tie-break must select tom (theme overlap), got {t24_owner!r}")
+
+    # SINGLE-GOAL (non-tie) case UNAFFECTED by the tie-break (p01_amy_ice_foil_jo, commit b1b1ce460,
+    # already a clean win before the tie-break existed): only amy holds a goal, so len(winners)==1
+    # and the tie-break code path never runs -- proves the promotion cannot regress non-tie items.
+    p01_text = ("Jo hurried off early toward the barn. Amy wanted to be warned in time about the "
+                "cracking ice. Jo walked back again toward the barn door. Left unwarned, she went "
+                "down through the ice.")
+    p01_roster = {"amy": "f", "jo": "f"}
+    p01_scored, p01_winners = enumerate_and_score(p01_text, p01_roster, seed=0)
+    assert len(p01_winners) == 1, f"p01 must NOT be a tie (single-goal-holder case): {p01_scored}"
+    p01_owner = select_outcome_owner(p01_text, p01_roster, seed=0)
+    assert p01_owner == "amy" == p01_winners[0], (
+        f"p01 (single-goal, non-tie) selection must be unaffected by the tie-break: {p01_owner!r}")
+
     return {"score_correct": score_correct, "score_wrong": score_wrong,
-            "score_amy_own_goal": score_amy_own_goal, "adopt": adopt}
+            "score_amy_own_goal": score_amy_own_goal, "adopt": adopt,
+            "t24_scored": t24_scored, "t24_owner": t24_owner,
+            "p01_scored": p01_scored, "p01_owner": p01_owner}
 
 
 if __name__ == "__main__":
