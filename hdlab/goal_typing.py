@@ -680,6 +680,36 @@ POS_POLE_CLASSES = {a for a, _ in OPPOSED_PAIRS}
 NEG_POLE_CLASSES = {b for _, b in OPPOSED_PAIRS}
 ACQUIRED_POLE_SENTINELS = {"ACQUIRED_REALIZED", "ACQUIRED_BLOCKED"}
 
+# ============================================================================ GOAL-VERB-RECURRENCE
+# CHANNEL (2026-08-06, did-it-happen occurrence-gate build; preregs/
+# 2026-08-06_did_it_happen_occurrence_gate_v1.md Check 1). A CLASS_REGISTRY-OOV outcome verb that is
+# LEMMA-IDENTICAL to the antecedent goal's OWN desired verb ("the campaign MADE 400,000 pounds"
+# recurring "wanted to MAKE a fund") is direct discourse evidence the desired action OCCURRED. Such an
+# OOV verb otherwise gets no class and is silently dropped by find_actual_state_candidates' `if
+# classes:` filter; the fix gives it a one-element RECURRENCE_SENTINEL so it survives as a candidate,
+# and _class_relation reads a recurrence as "same" (the occurrence-gate in congruence_decision flips
+# it to "opposed" iff that recurrence is itself negated). Structurally identical IN KIND to the
+# ACQUIRED_* pole sentinels above -- it never fires unless the specific condition holds (outcome lemma
+# == desired lemma, a content verb of len>3 not in the light/copula stop-list). Pure strict ADD:
+# every existing caller passes desired_verb_lemma=None so the channel never fires -> byte-identical.
+RECURRENCE_SENTINEL = "RECURRENCE_MATCH"
+# Light/copula verbs that must NOT drive the recurrence channel (a coincidental recurrence of
+# "was"/"had"/"said"/"got" is not evidence a contentful goal recurred). Reuses the aspectual seed
+# lemmas (_GOAL_ASPECT_SEED_LEMMAS, defined above) plus the copula/light-verb closed set the design
+# note names (be/do/have/say/get at minimum). NOTE: "make" is deliberately NOT excluded -- it is a
+# genuine creation verb (onestop_hunt_crowdfunding's goal recurrence) and clears the len>3 gate; the
+# stop-list was chosen from these principled classes, NOT tuned against eval-passage text (Check 5).
+_RECURRENCE_LIGHT_VERB_STOP = set(_GOAL_ASPECT_SEED_LEMMAS) | {"be", "do", "have", "say", "get"}
+
+
+def _is_recurrence(lemma: str, desired_verb_lemma: Optional[str]) -> bool:
+    """True iff `lemma` should fire the goal-verb-recurrence channel against `desired_verb_lemma`:
+    lemma-identical to the goal's OWN desired verb, a content verb (len>3), and not a light/copula
+    verb. desired_verb_lemma=None (every legacy caller) -> always False -> byte-identical behavior."""
+    return (desired_verb_lemma is not None and lemma == desired_verb_lemma
+            and len(desired_verb_lemma) > 3
+            and desired_verb_lemma not in _RECURRENCE_LIGHT_VERB_STOP)
+
 # Which grammatical position holds the referent for CONTROL-pattern ("X wanted to VP") sentences,
 # keyed by the embedded verb's class: achievement verbs (win/reach/...) -- the SUBJECT (agent) is
 # who changes state; change-of-state transitives (mend/save/open/fill/...) -- the OBJECT (patient)
@@ -744,6 +774,13 @@ def _class_relation(desired_classes: set, actual_classes: set) -> Optional[str]:
     opposed = bool(_opposed_of(desired_classes) & actual_classes)
     if same or opposed:
         return "same" if same else "opposed"
+    # RECURRENCE channel (2026-08-06 did-it-happen build): a RECURRENCE_SENTINEL means the actual
+    # outcome verb is lemma-identical to the desired goal verb (a CLASS_REGISTRY-OOV recurrence) -> the
+    # desired action recurred -> "same" by construction (the occurrence-gate in congruence_decision
+    # then flips it to "opposed" iff the recurrence is itself negated). RECURRENCE_SENTINEL is never a
+    # CLASS_REGISTRY member, so two pure-registry sets can never reach this branch.
+    if RECURRENCE_SENTINEL in actual_classes or RECURRENCE_SENTINEL in desired_classes:
+        return "same"
     if (actual_classes & ACQUIRED_POLE_SENTINELS) or (desired_classes & ACQUIRED_POLE_SENTINELS):
         dp, ap = _pole_of(desired_classes), _pole_of(actual_classes)
         if dp is not None and ap is not None:
@@ -916,20 +953,31 @@ def find_desired_state(sentence: str):
     return None
 
 
-def find_actual_state_candidates(sentence: str):
+def find_actual_state_candidates(sentence: str, desired_verb_lemma: Optional[str] = None):
     """ALL class-match verb occurrences in `sentence`, left-to-right (not just the first -- needed so
     congruence_decision below can prefer a LATER goal-relevant clause over an EARLIER same-class
     DISTRACTOR clause, e.g. "The workshop flooded and the shed collapsed." must not resolve to
-    'workshop' just because 'flooded' is scanned first). Byte-identical to
+    'workshop' just because 'flooded' is scanned first). Extended 2026-08-06 (did-it-happen build,
+    strict ADD): every candidate carries a `negated` key (_verb_negated_before reused verbatim, the
+    SAME do-support/modal/"never" adjacency scanner already used on the GOAL side) so
+    congruence_decision's occurrence-gate can flip same<->opposed when the outcome verb is negated;
+    and a CLASS_REGISTRY-OOV token lemma-identical to `desired_verb_lemma` (the recurrence channel,
+    _is_recurrence guard) becomes a candidate via a RECURRENCE_SENTINEL. desired_verb_lemma=None
+    (every legacy caller: find_actual_state, _cb_antecedent_goal_type) -> no recurrence candidate ever
+    added; the `negated` key is purely additive -> byte-identical candidate SET for legacy callers.
+    Base scan otherwise byte-identical to
     experiments/exp_outcome_valence_goal_congruence_v2.py::find_actual_state_candidates."""
     toks = _tokens(sentence)
     out = []
     for idx, t in enumerate(toks):
         lemma = lemma_verb(t)
         classes = _verb_classes(lemma)
+        if not classes and _is_recurrence(lemma, desired_verb_lemma):
+            classes = {RECURRENCE_SENTINEL}
         if classes:
             referent = _np_last_content(toks[:idx])
-            out.append({"referent": referent, "classes": classes, "verb_lemma": lemma, "verb_idx": idx})
+            out.append({"referent": referent, "classes": classes, "verb_lemma": lemma,
+                        "verb_idx": idx, "negated": _verb_negated_before(toks, idx)})
     return out
 
 
@@ -955,7 +1003,9 @@ def congruence_decision(goal_sentences, outcome_sentence: str):
             break
     if desired is None:
         return "NA", {"reason": "no_desiderative_goal_found"}
-    candidates = find_actual_state_candidates(outcome_sentence)
+    # Thread the goal's OWN desired verb lemma so the recurrence channel (did-it-happen build) can
+    # admit a CLASS_REGISTRY-OOV outcome verb that recurs the goal verb; None-safe for OOV desired.
+    candidates = find_actual_state_candidates(outcome_sentence, desired.get("verb_lemma"))
     if not candidates:
         return "NA", {"reason": "actual_verb_class_unknown", "desired": desired}
 
@@ -982,6 +1032,16 @@ def congruence_decision(goal_sentences, outcome_sentence: str):
     # actual/desired carries an ACQUIRED_* sentinel -- _class_relation is byte-identical to the prior
     # `same`/`opposed` computation for every non-sentinel pair.
     relation = _class_relation(desired["classes"], actual["classes"])
+    # OCCURRENCE-GATE (2026-08-06 did-it-happen build): a NEGATED actual outcome verb inverts the
+    # occurrence polarity -- the wanted THING lexically appears but did NOT actually happen. Pure XOR
+    # flip of same<->opposed; fires ONLY when relation is already not None, so it can never create a
+    # MET/UNMET out of a class-unrelated candidate (the NA/abstain path is untouched). Uses the SAME
+    # negation-scope readout (_verb_negated_before, recorded per candidate as `negated`) the goal side
+    # already uses -- distinct discourse-occurrence readout, not a lexical-pole fact.
+    occurrence_gate_fired = False
+    if relation is not None and actual.get("negated"):
+        relation = "opposed" if relation == "same" else "same"
+        occurrence_gate_fired = True
     if relation is None:
         return "NA", {"reason": "verb_class_unrelated", "desired": desired, "actual": actual,
                       "link_tier": link_tier}
@@ -990,12 +1050,12 @@ def congruence_decision(goal_sentences, outcome_sentence: str):
                       "link_tier": link_tier}
     if link_tier not in LINK_TIERS:
         return "UNMET", {"reason": "referent_mismatch", "desired": desired, "actual": actual,
-                         "link_tier": link_tier}
+                         "link_tier": link_tier, "occurrence_gate_fired": occurrence_gate_fired}
     if relation == "same":
         return "MET", {"reason": "same_class_same_referent", "desired": desired, "actual": actual,
-                       "link_tier": link_tier}
+                       "link_tier": link_tier, "occurrence_gate_fired": occurrence_gate_fired}
     return "UNMET", {"reason": "opposed_class_same_referent", "desired": desired, "actual": actual,
-                     "link_tier": link_tier}
+                     "link_tier": link_tier, "occurrence_gate_fired": occurrence_gate_fired}
 
 
 def congruence_outcome_valence(passage_text: str):
@@ -1006,6 +1066,43 @@ def congruence_outcome_valence(passage_text: str):
     if len(sents) < 2:
         return "NA", {"reason": "insufficient_sentences"}
     return congruence_decision(sents[:-1], sents[-1])
+
+
+def congruence_outcome_valence_windowed(passage_text: str, max_window: int = 4):
+    """WINDOW-WIDENING companion (2026-08-06 did-it-happen build; preregs/
+    2026-08-06_did_it_happen_occurrence_gate_v1.md Check 4). Same contract as
+    congruence_outcome_valence, but the outcome sentence is chosen by a candidate-nonempty BACKWARD
+    scan instead of the unconditional sents[-1]: step from the nearest-to-end sentence backward (up to
+    max_window) and use the FIRST one that yields >=1 outcome candidate. This closes GAP-1 -- real
+    narrative resolution clauses are frequently followed by a trailing reaction/dialogue sentence, so
+    sents[-1] often has no outcome verb at all and congruence_outcome_valence abstains no matter how
+    good the occurrence-gate is.
+
+    STRICT-WIDEN / byte-identical-fallback property: the candidate-nonempty gate is threaded with the
+    goal's OWN desired verb lemma (so a recurrence-only true clause is detected, not skipped -- the
+    onestop_limal 'found'==goal 'find' case), and when sents[-1] already yields >=1 candidate the loop
+    returns at k=1 immediately, i.e. congruence_decision(goal_sentences, sents[-1]) -- byte-identical
+    to congruence_outcome_valence for every already-typed passage. The loop only steps backward when
+    the closest-to-end sentence is candidate-EMPTY. Named risk (measured eval-wide, Check 4): stepping
+    backward could pick an earlier, coincidentally-class-related clause; the non-regression sweep is
+    over the FULL 44-item eval, not just the OOV subset."""
+    sents = _sentences(passage_text)
+    if len(sents) < 2:
+        return "NA", {"reason": "insufficient_sentences"}
+    goal_sentences = sents[:-1]
+    # Resolve the antecedent goal ONCE so the candidate-nonempty gate can admit a recurrence-only
+    # clause (find_actual_state_candidates with the goal's desired verb lemma). None-safe.
+    desired = None
+    for gs in goal_sentences:
+        desired = find_desired_state(gs)
+        if desired is not None:
+            break
+    dvl = desired.get("verb_lemma") if desired is not None else None
+    for k in range(1, min(max_window, len(sents) - 1) + 1):
+        outcome_sentence = sents[-k]
+        if find_actual_state_candidates(outcome_sentence, dvl):
+            return congruence_decision(goal_sentences, outcome_sentence)
+    return congruence_decision(goal_sentences, sents[-1])   # byte-identical fallback
 
 
 def lexicon_predict(outcome_sentence: str):
@@ -1404,6 +1501,57 @@ def self_test() -> dict:
         f"ABSTAIN must fall back to the lexicon (which reads 'reached' as MET), "
         f"got {fallback_verdict} ({fallback_detail})")
 
+    # (13) DID-IT-HAPPEN occurrence-gate + goal-verb-recurrence channel (2026-08-06 build; preregs/
+    # 2026-08-06_did_it_happen_occurrence_gate_v1.md). These pin the MECHANISM (fires correctly on
+    # constructed inputs) + the strict-ADD guards; the eval-wide LIFT is measured separately in
+    # verification/witness_did_it_happen_occurrence_gate_v1.py (MEASURED HARD-FAIL on real prose --
+    # blocked by referent-extraction gaps documented there, NOT by a mechanism bug).
+    # (13a) recurrence-only MET: a CLASS_REGISTRY-OOV outcome verb lemma-identical to the goal's own
+    # desired verb ("pitch") recurs -> MET via the RECURRENCE_SENTINEL (referent 'davey' links).
+    rec_met, rec_det = congruence_decision(
+        ["The coach wanted Davey to pitch in the final"], "Davey pitched all afternoon")
+    assert rec_met == "MET" and rec_det["reason"] == "same_class_same_referent" and \
+        RECURRENCE_SENTINEL in rec_det["actual"]["classes"], (
+        f"recurrence channel must type MET via RECURRENCE_SENTINEL, got {rec_met} ({rec_det})")
+    # (13b) occurrence-gate EXECUTES on a negated recurrence (flips same<->opposed). The referent is
+    # poisoned by the pre-verbal negator here (a documented real-prose gap), so the final verdict is
+    # referent_mismatch -- what is asserted is that the gate FIRED, not the (poison-defeated) verdict.
+    _neg_v, neg_det = congruence_decision(
+        ["The coach wanted Davey to pitch in the final"], "Davey did not pitch at all")
+    assert neg_det.get("occurrence_gate_fired") is True, (
+        f"occurrence-gate must fire on a negated class-related/recurrence outcome: {neg_det}")
+    # (13c) every candidate carries a correct `negated` key (reused _verb_negated_before verbatim).
+    assert find_actual_state_candidates("The boat did not sink")[0]["negated"] is True
+    assert find_actual_state_candidates("The boat sank")[0]["negated"] is False
+    # (13d) recurrence guard: a content verb (len>3, not light) fires; a light/copula verb is blocked.
+    assert any(RECURRENCE_SENTINEL in c["classes"]
+               for c in find_actual_state_candidates("Davey pitched hard", "pitch"))
+    assert not any(RECURRENCE_SENTINEL in c["classes"]
+                   for c in find_actual_state_candidates("He got the prize", "get")), (
+        "light/copula verb 'get' must NOT drive the recurrence channel")
+    # (13e) STRICT-ADD: a legacy call (no desired_verb_lemma) never produces a RECURRENCE_SENTINEL.
+    assert not any(RECURRENCE_SENTINEL in c["classes"]
+                   for c in find_actual_state_candidates("Davey pitched hard"))
+    # (13f) the occurrence-gate can NEVER fabricate a MET/UNMET from a class-UNRELATED candidate: an
+    # unrelated (OPEN vs ARRIVE) negated outcome still abstains NA, gate does not fire.
+    ung_v, ung_det = congruence_decision(
+        ["Owen wanted to open the greenhouse before winter came"],
+        "The gardener did not reach the market")
+    assert ung_v == "NA" and ung_det["reason"] == "verb_class_unrelated" and \
+        not ung_det.get("occurrence_gate_fired"), (
+        f"class-unrelated negated outcome must stay NA (gate cannot fabricate): {ung_v} ({ung_det})")
+    # (13g) window-widening: byte-identical to congruence_outcome_valence when sents[-1] already has a
+    # candidate (k=1 wins); steps back to the true clause when sents[-1] is a candidate-empty trailing
+    # reaction sentence.
+    _wp1 = "Owen wanted to sink the raft before dawn. The raft sank."
+    assert congruence_outcome_valence_windowed(_wp1) == congruence_outcome_valence(_wp1), (
+        "windowed must be byte-identical when sents[-1] already yields a candidate")
+    _wp2 = ("The coach wanted Davey to pitch in the final. Davey pitched all afternoon. "
+            "Everyone cheered loudly.")
+    _ww, _wwd = congruence_outcome_valence_windowed(_wp2)
+    assert _ww == "MET" and congruence_outcome_valence(_wp2)[0] == "NA", (
+        f"windowed must step back past a trailing reaction sentence to the true clause: {_ww} ({_wwd})")
+
     # (12) v1 regression: v1's original 10-item bank re-verdicts bit-identically under this module's
     # expanded registry (proves the CLASS_REGISTRY expansion did not silently change v1 behavior).
     import json
@@ -1444,6 +1592,11 @@ def self_test() -> dict:
             "over_link_guard_unmet": diff_ref, "theme_mismatch_abstain": theme_mismatch,
             "abstain_fallback_verdict": fallback_verdict, "v1_bank_checked": len(v1_rows) if
             os.path.exists(_v1_bank_path) else 0, "v1_regression_mismatches": v1_mismatches,
+        },
+        "did_it_happen": {
+            "recurrence_met": rec_met, "occurrence_gate_fired_on_negated": neg_det.get(
+                "occurrence_gate_fired"), "unrelated_negated_stays_na": ung_v,
+            "windowed_steps_back_to_true_clause": _ww,
         },
     }
 
