@@ -1,26 +1,34 @@
 {
-  "verdict": "MIDDLE_BAND_COVERAGE_WALL",
-  "verdict_msg": "MIDDLE_BAND_COVERAGE_WALL: FLIP_SET(N=22, families A-M): mechanism_acc=0.8636 lexicon_acc=0.3182 delta=0.5454 mechanism_fire_rate=1.0 (prior detector floor=0.0789). CORE_FLIP(N=16, A-J, no coverage-stress): mechanism_acc=1.0 fire_rate=1.0. COVERAGE_STRESS(N=6, K/L/M pronoun+synonym+multiobject): mechanism_acc=0.5 fire_rate=1.0 acc_when_fired=0.5 fired_ids=['K-unmet', 'K-met', 'L-unmet', 'L-met', 'M-unmet', 'M-met'] abstained_ids=[]. base_rate=0.5 scramble_acc=0.2692 collapse_strict=False collapse_loose=True. H_abstains=True H2_abstains=True G_correct=True G2_correct=True. owner_48_held=True (owner_correct=48/48) mechanism_ran_clean_on_62=True. v1_regression_identical=True (v1's original 10-item bank re-verdicted bit-identically under the expanded registry: no mismatches). GATE: {'gate1_pooled_flip_acc_ge_085': True, 'gate2_fire_rate_ge_050': True, 'gate3_coverage_stress_acc_ge_070': False, 'gate4_scramble_collapses': False, 'gate5_h_and_h2_abstain': True, 'gate6_g_and_g2_correct': True, 'gate7_owner_48_held': True}. failed_gates=['gate3_coverage_stress_acc_ge_070', 'gate4_scramble_collapses']. PROMOTED=False. VERDICT=MIDDLE_BAND_COVERAGE_WALL. SCRAMBLE NOTE: strict collapse missed because scramble_acc=0.2692 UNDERSHOOTS below base_rate-0.15 (not the 'secretly still keying off the outcome word alone' failure mode the gate exists to catch, which would show scramble_acc staying artificially near/above base_rate; loose reading collapse_loose=True passes) -- scrambling reliably triggers the referent-mismatch->UNMET default once goal/outcome are unrelated, a benign overshoot, reported not hidden. COVERAGE WALL: pooled FLIP_SET accuracy clears 0.85 largely by DILUTION (16 easy core-flip items outnumber 6 hard coverage-stress items); the coverage-stress subset itself shows the mechanism FIRES on effectively all pronoun/synonym/multi-object items (high fire-rate, unlike the prior detector) but is WRONG on the DECISIVE -met side of every one of the 3 families -- naive literal-string referent equality treats a pronoun/synonym/distractor-clause referent as a DIFFERENT entity (referent_mismatch -> UNMET) rather than abstaining, which is a confident-wrong-answer failure mode, not a low-fire-rate failure mode. DO NOT promote on this measurement; the natural next build is coreference-aware referent matching (hdlab.coreference_resolver exists and was not consulted by v1's plain-string _np_last_content match).",
-  "summary": "FLIP_SET(N=22, families A-M): mechanism_acc=0.8636 lexicon_acc=0.3182 delta=0.5454 mechanism_fire_rate=1.0 (prior detector floor=0.0789). CORE_FLIP(N=16, A-J, no coverage-stress): mechanism_acc=1.0 fire_rate=1.0. COVERAGE_STRESS(N=6, K/L/M pronoun+synonym+multiobject): mechanism_acc=0.5 fire_rate=1.0 acc_when_fired=0.5 fired_ids=['K-unmet', 'K-met', 'L-unmet', 'L-met', 'M-unmet', 'M-met'] abstained_ids=[]. base_rate=0.5 scramble_acc=0.2692 collapse_strict=False collapse_loose=True. H_abstains=True H2_abstains=True G_correct=True G2_correct=True. owner_48_held=True (owner_correct=48/48) mechanism_ran_clean_on_62=True. v1_regression_identical=True (v1's original 10-item bank re-verdicted bit-identically under the expanded registry: no mismatches). GATE: {'gate1_pooled_flip_acc_ge_085': True, 'gate2_fire_rate_ge_050': True, 'gate3_coverage_stress_acc_ge_070': False, 'gate4_scramble_collapses': False, 'gate5_h_and_h2_abstain': True, 'gate6_g_and_g2_correct': True, 'gate7_owner_48_held': True}. failed_gates=['gate3_coverage_stress_acc_ge_070', 'gate4_scramble_collapses']. PROMOTED=False. VERDICT=MIDDLE_BAND_COVERAGE_WALL. SCRAMBLE NOTE: strict collapse missed because scramble_acc=0.2692 UNDERSHOOTS below base_rate-0.15 (not the 'secretly still keying off the outcome word alone' failure mode the gate exists to catch, which would show scramble_acc staying artificially near/above base_rate; loose reading collapse_loose=True passes) -- scrambling reliably triggers the referent-mismatch->UNMET default once goal/outcome are unrelated, a benign overshoot, reported not hidden. COVERAGE WALL: pooled FLIP_SET accuracy clears 0.85 largely by DILUTION (16 easy core-flip items outnumber 6 hard coverage-stress items); the coverage-stress subset itself shows the mechanism FIRES on effectively all pronoun/synonym/multi-object items (high fire-rate, unlike the prior detector) but is WRONG on the DECISIVE -met side of every one of the 3 families -- naive literal-string referent equality treats a pronoun/synonym/distractor-clause referent as a DIFFERENT entity (referent_mismatch -> UNMET) rather than abstaining, which is a confident-wrong-answer failure mode, not a low-fire-rate failure mode. DO NOT promote on this measurement; the natural next build is coreference-aware referent matching (hdlab.coreference_resolver exists and was not consulted by v1's plain-string _np_last_content match).",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: FLIP_SET(N=22, families A-M): mechanism_acc=1.0 lexicon_acc=0.3182 delta=0.6818 mechanism_fire_rate=1.0 (prior detector floor=0.0789). CORE_FLIP(N=16, A-J, no coverage-stress): mechanism_acc=1.0 fire_rate=1.0. COVERAGE_STRESS(N=6, K/L/M pronoun+synonym+multiobject): mechanism_acc=1.0 fire_rate=1.0 acc_when_fired=1.0 fired_ids=['K-unmet', 'K-met', 'L-unmet', 'L-met', 'M-unmet', 'M-met'] abstained_ids=[]. base_rate=0.5 scramble_acc=0.2692 collapse_strict=False collapse_loose=True. H_abstains=True H2_abstains=True G_correct=True G2_correct=True. D_unmet_correct=True (over-link guard: sister-vs-rival must stay UNMET) M_unmet_correct=True (over-link guard: car-vs-garage-distractor must stay UNMET). owner_48_held=True (owner_correct=48/48) mechanism_ran_clean_on_62=True. v1_regression_identical=True (v1's original 10-item bank re-verdicted bit-identically under the expanded registry: no mismatches). STEP4 coverage_lifted_past_prior_0.50_floor=True (cov_acc_when_fired 1.0 vs PRIOR_COVERAGE_BASELINE 0.5). GATE: {'gate1_pooled_flip_acc_ge_085': True, 'gate1b_core_flip_16_16': True, 'gate2_fire_rate_ge_050': True, 'gate3_coverage_stress_acc_ge_070': True, 'gate4_scramble_collapses': False, 'gate5_h_and_h2_abstain': True, 'gate6_g_and_g2_correct': True, 'gate7_owner_48_held': True}. failed_gates=['gate4_scramble_collapses']. PROMOTED=False. VERDICT=MIDDLE_BAND. SCRAMBLE NOTE: strict collapse missed because scramble_acc=0.2692 is outside base_rate+/-0.15 (loose reading collapse_loose=True); reported, not hidden -- see per-item scramble detail for the direction of the miss. COVERAGE WALL FIXED (Step 4): coverage-stress accuracy_when_fired rose from the Step-3-measured 0.50 floor to 1.0 via discourse-entity referent resolution (pronoun coref for K, hand-authored synonym group for L, multi-candidate scan preferring the referent-linked clause for M); all 3 decisive coverage-stress flips (K-met/L-met/M-met) now correct, while the over-link guards (D-unmet, M-unmet) and the precision guards (H, H2) still correctly refuse/abstain.",
+  "summary": "FLIP_SET(N=22, families A-M): mechanism_acc=1.0 lexicon_acc=0.3182 delta=0.6818 mechanism_fire_rate=1.0 (prior detector floor=0.0789). CORE_FLIP(N=16, A-J, no coverage-stress): mechanism_acc=1.0 fire_rate=1.0. COVERAGE_STRESS(N=6, K/L/M pronoun+synonym+multiobject): mechanism_acc=1.0 fire_rate=1.0 acc_when_fired=1.0 fired_ids=['K-unmet', 'K-met', 'L-unmet', 'L-met', 'M-unmet', 'M-met'] abstained_ids=[]. base_rate=0.5 scramble_acc=0.2692 collapse_strict=False collapse_loose=True. H_abstains=True H2_abstains=True G_correct=True G2_correct=True. D_unmet_correct=True (over-link guard: sister-vs-rival must stay UNMET) M_unmet_correct=True (over-link guard: car-vs-garage-distractor must stay UNMET). owner_48_held=True (owner_correct=48/48) mechanism_ran_clean_on_62=True. v1_regression_identical=True (v1's original 10-item bank re-verdicted bit-identically under the expanded registry: no mismatches). STEP4 coverage_lifted_past_prior_0.50_floor=True (cov_acc_when_fired 1.0 vs PRIOR_COVERAGE_BASELINE 0.5). GATE: {'gate1_pooled_flip_acc_ge_085': True, 'gate1b_core_flip_16_16': True, 'gate2_fire_rate_ge_050': True, 'gate3_coverage_stress_acc_ge_070': True, 'gate4_scramble_collapses': False, 'gate5_h_and_h2_abstain': True, 'gate6_g_and_g2_correct': True, 'gate7_owner_48_held': True}. failed_gates=['gate4_scramble_collapses']. PROMOTED=False. VERDICT=MIDDLE_BAND. SCRAMBLE NOTE: strict collapse missed because scramble_acc=0.2692 is outside base_rate+/-0.15 (loose reading collapse_loose=True); reported, not hidden -- see per-item scramble detail for the direction of the miss. COVERAGE WALL FIXED (Step 4): coverage-stress accuracy_when_fired rose from the Step-3-measured 0.50 floor to 1.0 via discourse-entity referent resolution (pronoun coref for K, hand-authored synonym group for L, multi-candidate scan preferring the referent-linked clause for M); all 3 decisive coverage-stress flips (K-met/L-met/M-met) now correct, while the over-link guards (D-unmet, M-unmet) and the precision guards (H, H2) still correctly refuse/abstain.",
   "promoted": false,
   "gates": {
     "gate1_pooled_flip_acc_ge_085": true,
+    "gate1b_core_flip_16_16": true,
     "gate2_fire_rate_ge_050": true,
-    "gate3_coverage_stress_acc_ge_070": false,
+    "gate3_coverage_stress_acc_ge_070": true,
     "gate4_scramble_collapses": false,
     "gate5_h_and_h2_abstain": true,
     "gate6_g_and_g2_correct": true,
     "gate7_owner_48_held": true
   },
   "failed_gates": [
-    "gate3_coverage_stress_acc_ge_070",
     "gate4_scramble_collapses"
   ],
+  "step4": {
+    "coverage_lifted_past_prior_floor": true,
+    "prior_coverage_baseline": 0.5,
+    "d_unmet_correct": true,
+    "m_unmet_correct": true,
+    "hard_fail": false,
+    "hard_pass": false
+  },
   "flip_set": {
     "n": 22,
-    "mechanism_accuracy": 0.8636,
+    "mechanism_accuracy": 1.0,
     "lexicon_accuracy": 0.3182,
-    "delta": 0.5454,
+    "delta": 0.6818,
     "fire_rate": 1.0,
     "base_rate": 0.5,
     "per_item": [
@@ -46,7 +54,8 @@
             ],
             "verb_lemma": "sink",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -75,7 +84,8 @@
             ],
             "verb_lemma": "sink",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -104,7 +114,8 @@
             ],
             "verb_lemma": "fall",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -133,7 +144,8 @@
             ],
             "verb_lemma": "fall",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -163,7 +175,8 @@
             ],
             "verb_lemma": "lose",
             "verb_idx": 1
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -194,7 +207,8 @@
             ],
             "verb_lemma": "lose",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -223,7 +237,8 @@
             ],
             "verb_lemma": "win",
             "verb_idx": 1
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -252,7 +267,8 @@
             ],
             "verb_lemma": "win",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "no_link"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -281,7 +297,8 @@
             ],
             "verb_lemma": "shut",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -310,7 +327,8 @@
             ],
             "verb_lemma": "shut",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -339,7 +357,8 @@
             ],
             "verb_lemma": "drain",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -368,7 +387,8 @@
             ],
             "verb_lemma": "drain",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -397,7 +417,8 @@
             ],
             "verb_lemma": "scatter",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -426,7 +447,8 @@
             ],
             "verb_lemma": "scatter",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -455,7 +477,8 @@
             ],
             "verb_lemma": "worsen",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -484,7 +507,8 @@
             ],
             "verb_lemma": "worsen",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -497,7 +521,7 @@
         "gold": "UNMET",
         "mechanism": "UNMET",
         "mechanism_detail": {
-          "reason": "referent_mismatch",
+          "reason": "opposed_class_same_referent",
           "desired": {
             "referent": "canoe",
             "classes": [
@@ -513,7 +537,8 @@
             ],
             "verb_lemma": "sink",
             "verb_idx": 1
-          }
+          },
+          "link_tier": "pronoun_coref"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -524,9 +549,9 @@
         "id": "K-met",
         "category": "coverage_stress_pronoun",
         "gold": "MET",
-        "mechanism": "UNMET",
+        "mechanism": "MET",
         "mechanism_detail": {
-          "reason": "referent_mismatch",
+          "reason": "same_class_same_referent",
           "desired": {
             "referent": "canoe",
             "classes": [
@@ -542,9 +567,10 @@
             ],
             "verb_lemma": "sink",
             "verb_idx": 1
-          }
+          },
+          "link_tier": "pronoun_coref"
         },
-        "mechanism_matches": false,
+        "mechanism_matches": true,
         "mechanism_fired": true,
         "lexicon": "UNMET",
         "lexicon_matches": false
@@ -555,7 +581,7 @@
         "gold": "UNMET",
         "mechanism": "UNMET",
         "mechanism_detail": {
-          "reason": "referent_mismatch",
+          "reason": "opposed_class_same_referent",
           "desired": {
             "referent": "ferry",
             "classes": [
@@ -571,7 +597,8 @@
             ],
             "verb_lemma": "sink",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "synonym"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -582,9 +609,9 @@
         "id": "L-met",
         "category": "coverage_stress_synonym",
         "gold": "MET",
-        "mechanism": "UNMET",
+        "mechanism": "MET",
         "mechanism_detail": {
-          "reason": "referent_mismatch",
+          "reason": "same_class_same_referent",
           "desired": {
             "referent": "ferry",
             "classes": [
@@ -600,9 +627,10 @@
             ],
             "verb_lemma": "sink",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "synonym"
         },
-        "mechanism_matches": false,
+        "mechanism_matches": true,
         "mechanism_fired": true,
         "lexicon": "UNMET",
         "lexicon_matches": false
@@ -613,7 +641,7 @@
         "gold": "UNMET",
         "mechanism": "UNMET",
         "mechanism_detail": {
-          "reason": "referent_mismatch",
+          "reason": "opposed_class_same_referent",
           "desired": {
             "referent": "car",
             "classes": [
@@ -623,13 +651,14 @@
             "pattern": "CONTROL"
           },
           "actual": {
-            "referent": "garage",
+            "referent": "car",
             "classes": [
               "DAMAGE_LOSE"
             ],
-            "verb_lemma": "flood",
-            "verb_idx": 2
-          }
+            "verb_lemma": "sink",
+            "verb_idx": 6
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -640,9 +669,9 @@
         "id": "M-met",
         "category": "coverage_stress_multiobject",
         "gold": "MET",
-        "mechanism": "UNMET",
+        "mechanism": "MET",
         "mechanism_detail": {
-          "reason": "referent_mismatch",
+          "reason": "same_class_same_referent",
           "desired": {
             "referent": "shed",
             "classes": [
@@ -652,15 +681,16 @@
             "pattern": "ECM"
           },
           "actual": {
-            "referent": "workshop",
+            "referent": "shed",
             "classes": [
               "DAMAGE_LOSE"
             ],
-            "verb_lemma": "flood",
-            "verb_idx": 2
-          }
+            "verb_lemma": "collaps",
+            "verb_idx": 6
+          },
+          "link_tier": "literal"
         },
-        "mechanism_matches": false,
+        "mechanism_matches": true,
         "mechanism_fired": true,
         "lexicon": "NONE",
         "lexicon_matches": false
@@ -708,7 +738,8 @@
             ],
             "verb_lemma": "reach",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "no_link"
         },
         "mechanism_matches": true,
         "mechanism_fired": false,
@@ -737,7 +768,8 @@
             ],
             "verb_lemma": "reach",
             "verb_idx": 1
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -766,7 +798,8 @@
             ],
             "verb_lemma": "gather",
             "verb_idx": 2
-          }
+          },
+          "link_tier": "literal"
         },
         "mechanism_matches": true,
         "mechanism_fired": true,
@@ -782,9 +815,9 @@
   },
   "coverage_stress": {
     "n": 6,
-    "mechanism_accuracy": 0.5,
+    "mechanism_accuracy": 1.0,
     "fire_rate": 1.0,
-    "accuracy_when_fired": 0.5,
+    "accuracy_when_fired": 1.0,
     "fired_ids": [
       "K-unmet",
       "K-met",
@@ -1033,7 +1066,8 @@
           ],
           "verb_lemma": "reach",
           "verb_idx": 2
-        }
+        },
+        "link_tier": "no_link"
       },
       "mechanism_matches": true,
       "mechanism_fired": false,
@@ -1067,7 +1101,8 @@
           ],
           "verb_lemma": "reach",
           "verb_idx": 1
-        }
+        },
+        "link_tier": "literal"
       },
       "mechanism_matches": true,
       "mechanism_fired": true,
@@ -1096,7 +1131,8 @@
           ],
           "verb_lemma": "gather",
           "verb_idx": 2
-        }
+        },
+        "link_tier": "literal"
       },
       "mechanism_matches": true,
       "mechanism_fired": true,
@@ -1111,8 +1147,8 @@
     "owner_misses": [],
     "owner_48_held": true,
     "mechanism_verdict_distribution": {
-      "UNMET": 46,
-      "MET": 16
+      "UNMET": 44,
+      "MET": 18
     },
     "mechanism_errors": [],
     "mechanism_ran_clean": true
@@ -1130,8 +1166,8 @@
     ]
   ],
   "run_mode": "full",
-  "elapsed_s": 0.009121800016146153,
-  "ts_iso": "2026-08-06T03:48:14.221529+00:00",
+  "elapsed_s": 0.009313799993833527,
+  "ts_iso": "2026-08-06T04:09:47.418858+00:00",
   "anchor_name": "outcome_valence_goal_congruence_v2",
   "config": {
     "seeds": [
@@ -1153,6 +1189,7 @@
       ],
       "DAMAGE_LOSE": [
         "break",
+        "collaps",
         "collapse",
         "crash",
         "damage",
