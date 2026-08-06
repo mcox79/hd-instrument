@@ -150,3 +150,27 @@ EXPERIENCER (they are desirers, not emotion-undergoers). Deeper frontier (separa
 desiderative-vs-aspectual partition for fully-OOV control verbs via the OOV induction (missing-LEARNING route).
 DISPATCHED (this cycle) as the desiderative-partition fix. NET after LANDED-2: action_implied SOLVED end-to-end;
 explicit_psych at 16/18 with a 2-item gap that the desiderative partition closes.
+
+## LANDED-3 (MILESTONE): desiderative/aspectual partition (commit 5da76bf34, exp_c5_desiderative_aspectual_partition_goal_typing_v1, Director per-axis disk-VET incl the precision probe)
+CLEAN HARD_PASS on the target + precision guard spotless. explicit_psych divergent (N=18):
+c3_only 0.8889 -> partitioned **1.0 (18/18)**, t03/t12 BOTH RECOVERED (partitioned arm-digest DIFFERS from the
+original arm = a real behavioral change, not a no-op). action_implied divergent (N=10): held **1.0 (10/10)**,
+no regression. PRECISION GUARD (the whole risk): aspectual-infinitival probe n=7 (began/started/tried/failed/
+managed/ceased/continued) false_goal_count_max=0 across 3 seeds, owner-selection matches c3_only on EVERY item
+-> the desiderative partition fires GOAL on desideratives WITHOUT over-firing on aspectuals. Scramble collapses
+non-vacuous both subsets; gated positional baselines (recency/nearest_subject=0.0) beaten both.
+
+### MILESTONE STATE OF THE GOAL-OWNER ORGAN (end of this arc)
+The goal-owner organ is now MEASURED END-TO-END ON REAL COREF at **18/18 explicit_psych + 10/10 action_implied**
+across BOTH construction types on the fair instrument, with: real production coref (event_role, promoted
+a9e873ab0), real GOAL-typing (frame_primary_role EXPERIENCER + purpose-infinitival construction + desiderative
+partition), gated positional baselines beaten, scramble non-vacuous, precision guard clean. From
+"proven-in-isolation-on-hand-typed-roles" -> "measured end-to-end on real coref across both constructions."
+HONEST REMAINING CAVEATS: (1) N small (18+10 divergent, MIDDLE_BAND by small-N convention); (2) first_mention/
+majority baselines NOT gated on these RECENCY-trap subsets -> the PRIMACY-trap subset (which defeats those) is
+UNTESTED end-to-end = the next fairness milestone; (3) outcome-valence still LEXICON-typed; (4) WIRE-DON'T-
+ISLAND: the purpose-infinitival + desiderative-partition goal-typing live in EXPERIMENT cells, NOT promoted to
+production hdlab (parameterized) -> a PRODUCTION PROMOTION of the combined goal-typing (into situation_reader's
+C3 GOAL-typing path, certification-gated) is the pending lock-in. NEXT (prose recommendation to USER): promote
+the goal-typing to production (lock the gain) + run the primacy-trap subset end-to-end (complete the fairness
+picture / earn "beats all 4 baselines"); then real outcome-valence typing.
