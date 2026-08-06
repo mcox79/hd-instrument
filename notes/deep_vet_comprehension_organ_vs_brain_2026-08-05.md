@@ -255,3 +255,21 @@ POSITION+METRIC vs the exact brain mechanism) + missing-component/LEARNING check
 - **Generalization stress-test:** the fair instrument is small (62 hand-authored items); maximize = test the
   goal-owner organ on a broader/real narrative set (guard confounds) to prove it's not instrument-overfit.
 Lower-certainty: wire ToM (HARD_PASS islanded), relabel 2 mislabels (outcome-valence label, ToM registry row).
+
+## LANDED-6 (MILESTONE): 3c goal-content coherence tie-break HARD_PASS -> goal-owner organ 48/48 (commit 6961f5b49, exp_c5_multigoal_content_coherence_tiebreak_v1, Director per-axis disk-VET incl authored-data quality)
+The 3c THEME-MATCH tie-break (among tied goal-holders, prefer the entity whose goal-theme overlaps the outcome-
+theme; Trabasso content coherence) WORKS. Multi-goal set (12 authored gold-vetted items): content-coherence
+12/12 (1.0) vs positional/sorted-order 6/12 (0.5=chance), content_beats_positional=True, scramble non-vacuous.
+FLIP-CONTROL (the make-or-break, Director-read the items): all 6 families flip -- e.g. m01 "Hugh to mend the
+FENCE / Dean to fetch the LADDER", base outcome "the FENCE collapsed"->Hugh vs flip "the LADDER snapped"->Dean;
+ONLY the outcome-object changes so the correct owner flips, and content flips (base+flip both right) while
+positional can't (stuck picking the same entity) -> proves the signal is THEME not position/identity. GOLD-VET:
+items are clean (both entities hold goals, distinct themes, outcome-object decisive) -- NOT circular. Full fair
+instrument: content 48/48 (positional 47/48), t24 FIXED (goal-theme{oars,boat,tide} ∩ outcome-theme{tools,boat}
+={boat}), 47 HELD (no_regression by construction: 2 ties only; t23 falls back, t24 uniquely decided). The
+mechanism is a PURE ADD-ON tie-break over the promoted organ, fires only when len(winners)>1; production hdlab
+consumed UNMODIFIED. **MILESTONE: the goal-owner organ is COMPLETE on the fully-fair instrument (48/48, both
+trap types, both constructions, GOLD-FREE) + the multi-goal cue-conflict class (12/12, flip-control clean).**
+NEXT = WIRE the complete selector (candidate-gen + goal-coherence + content-coherence tie-break) into production
+hdlab/goal_owner_select.py + witness + registry + certification (wire-don't-island lock-in, agent flagged it),
+THEN outcome-valence = goal-congruence appraisal (see NEXT-CAPABILITY PREP above).
