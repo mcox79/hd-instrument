@@ -127,3 +127,26 @@ capability, not a new mechanism. Minor data note: t03/t12's verb_type tag is imp
 intention/infinitival, not psych-EXPERIENCER) - relabel when convenient, non-blocking. NEXT BUILD (after the
 certification-gated coref promotion lands): wire generative purpose-infinitival goal-typing -> GOAL-detection,
 re-measure on BOTH the explicit_psych OOV-miss items and the action_implied subset of goal_owner_fair_v1.
+
+## LANDED-2: purpose-infinitival wire (commit 78294a2c6, exp_c5_real_coref_endtoend_purpose_infinitival_v1, Director per-axis disk-VET)
+CLEAN WIN on the target subset: **action_implied divergent (N=10) 0.0 -> 1.0 (10/10)** end-to-end, scramble
+collapses non-vacuously (1.0->0.0), gated positional baselines cleared (recency/nearest_subject=0.0),
+deterministic 3 seeds. The proven purpose-infinitival goal-typer, wired into GOAL-detection, solves the entire
+action_implied subset end-to-end (was 0/10 with EXPERIENCER-only typing). PARTIAL on explicit_psych: unchanged
+16/18 (t03/t12 NOT recovered) - a PRE-REGISTERED, precisely-diagnosed COVERAGE GAP between two
+individually-correct mechanisms: the purpose-infinitival detector's CONTROL_VERB_STOP deliberately EXCLUDES
+desiderative-governing verbs (hope/want/wish) assuming C3's EXPERIENCER lexicon catches them, but C3 has an OOV
+gap on "hoped" -> "Beth hoped to win" falls between both (action_frame_feats==[] AND c3_has_desire=False). No
+over-firing (scramble non-vacuous both subsets, arms_differ verified). Overall MIDDLE_BAND by worse-of-subsets.
+
+FIX ROUTING for t03/t12 (brain-foundational, do-the-right-thing not the easy OR-hack): the goal reading of
+"X hoped/wanted to VP" comes from a DESIDERATIVE/intention verb + the infinitival-purpose construction,
+verb-class-conditioned. The principled fix = PARTITION control verbs into DESIDERATIVE/intention
+(hope/want/wish/mean/plan/intend/aim/long/yearn -> pass, fire GOAL via the construction even when C3 is OOV) vs
+ASPECTUAL/implicative (began/tried/failed/managed/started -> keep stopping, NOT goals). This SUPPLIES a small
+innate-core desire-verb class (defensible: core ~6yo desire vocabulary, SUPPLY not induce) and keeps the
+construction-detector verb-independent WITHIN the desiderative class, WITHOUT mislabeling want/hope as
+EXPERIENCER (they are desirers, not emotion-undergoers). Deeper frontier (separate): LEARN the
+desiderative-vs-aspectual partition for fully-OOV control verbs via the OOV induction (missing-LEARNING route).
+DISPATCHED (this cycle) as the desiderative-partition fix. NET after LANDED-2: action_implied SOLVED end-to-end;
+explicit_psych at 16/18 with a 2-item gap that the desiderative partition closes.
