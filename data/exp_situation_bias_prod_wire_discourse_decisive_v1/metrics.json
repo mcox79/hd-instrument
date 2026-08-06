@@ -1,0 +1,927 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: wired_acc=1.000 none_arg_acc=0.500 scr_acc=0.500 arms_differ_all=True animacy_axis_ok=True",
+  "summary": "wired_acc=1.000 none_arg_acc=0.500 scr_acc=0.500 arms_differ_all=True animacy_axis_ok=True",
+  "n_seeds": 3,
+  "n_ok": 3,
+  "failed_seeds": [],
+  "means": {
+    "wired_acc": 1.0,
+    "none_arg_acc": 0.5,
+    "scr_acc": 0.5
+  },
+  "arms_differ_all": true,
+  "animacy_axis_ok": true,
+  "animacy_axis_err": null,
+  "animacy_axis_witness": {
+    "check1_original_failure_payoff": {
+      "new_correct_count": 6,
+      "old_wrong_count": 4,
+      "per_item": [
+        [
+          "collision_hard_A_nonharm",
+          false,
+          true,
+          [
+            "NA",
+            "NA",
+            "NA"
+          ]
+        ],
+        [
+          "collision_hard_B_harm",
+          true,
+          true,
+          [
+            "HARM",
+            "HARM",
+            "HARM"
+          ]
+        ],
+        [
+          "collision_trick_A_nonharm",
+          false,
+          true,
+          [
+            "NA",
+            "NA",
+            "NA"
+          ]
+        ],
+        [
+          "collision_trick_B_harm",
+          true,
+          true,
+          [
+            "HARM",
+            "HARM",
+            "HELP"
+          ]
+        ],
+        [
+          "missed_a_trick_real",
+          false,
+          true,
+          [
+            "NA",
+            "NA",
+            "NA"
+          ]
+        ],
+        [
+          "studied_hard_real",
+          false,
+          true,
+          [
+            "NA",
+            "NA",
+            "NA"
+          ]
+        ]
+      ]
+    },
+    "check2_animacy_axis_and_controls": {
+      "acc_real": 1.0,
+      "acc_governor_only": 0.5,
+      "acc_bow": 0.5,
+      "acc_scrambled": 0.3333333333333333,
+      "lift": 0.6666666666666667,
+      "flips_correct": 6
+    }
+  },
+  "run_mode": "full",
+  "elapsed_s": 29.46480889999657,
+  "ts_iso": "2026-08-06T06:52:12.270558+00:00",
+  "anchor_name": "situation_bias_prod_wire_discourse_decisive_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "n_train_theta": 8000,
+    "n_pairs": 6,
+    "n_items": 12
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "n_items": 12,
+      "wired_correct": 12,
+      "none_arg_correct": 6,
+      "scr_correct": 6,
+      "n_scr": 12,
+      "wired_acc": 1.0,
+      "none_arg_acc": 0.5,
+      "scr_acc": 0.5,
+      "wired_digest": "09111d4546653003",
+      "none_arg_digest": "c270b6da289ea028",
+      "arms_differ": true,
+      "wired_results": [
+        {
+          "form": "approached",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "approached",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "grabbed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "touched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "followed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "circled",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "watched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        }
+      ],
+      "none_arg_results": [
+        {
+          "form": "approached",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "approached",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        }
+      ],
+      "scr_results": [
+        {
+          "form": "approached",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "approached",
+          "gold_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "grabbed",
+          "gold_type": "NEUTRAL",
+          "sign": 1
+        },
+        {
+          "form": "touched",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "gold_type": "RECIPROCITY",
+          "sign": 1
+        },
+        {
+          "form": "followed",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "gold_type": "NEUTRAL",
+          "sign": 1
+        },
+        {
+          "form": "circled",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "circled",
+          "gold_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "gold_type": "RECIPROCITY",
+          "sign": -1
+        }
+      ],
+      "failure_class": null
+    },
+    "1": {
+      "seed": 1,
+      "n_items": 12,
+      "wired_correct": 12,
+      "none_arg_correct": 6,
+      "scr_correct": 4,
+      "n_scr": 12,
+      "wired_acc": 1.0,
+      "none_arg_acc": 0.5,
+      "scr_acc": 0.3333333333333333,
+      "wired_digest": "09111d4546653003",
+      "none_arg_digest": "c270b6da289ea028",
+      "arms_differ": true,
+      "wired_results": [
+        {
+          "form": "approached",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "approached",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "grabbed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "touched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "followed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "circled",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "watched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        }
+      ],
+      "none_arg_results": [
+        {
+          "form": "approached",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "approached",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        }
+      ],
+      "scr_results": [
+        {
+          "form": "approached",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "approached",
+          "gold_type": "RECIPROCITY",
+          "sign": 1
+        },
+        {
+          "form": "grabbed",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "grabbed",
+          "gold_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "gold_type": "RECIPROCITY",
+          "sign": 1
+        },
+        {
+          "form": "followed",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "gold_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "gold_type": "NEUTRAL",
+          "sign": 1
+        },
+        {
+          "form": "watched",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "watched",
+          "gold_type": "RECIPROCITY",
+          "sign": 1
+        }
+      ],
+      "failure_class": null
+    },
+    "2": {
+      "seed": 2,
+      "n_items": 12,
+      "wired_correct": 12,
+      "none_arg_correct": 6,
+      "scr_correct": 8,
+      "n_scr": 12,
+      "wired_acc": 1.0,
+      "none_arg_acc": 0.5,
+      "scr_acc": 0.6666666666666666,
+      "wired_digest": "09111d4546653003",
+      "none_arg_digest": "c270b6da289ea028",
+      "arms_differ": true,
+      "wired_results": [
+        {
+          "form": "approached",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "approached",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "grabbed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "touched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "followed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "circled",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "prior_affect": "HARM",
+          "situation_type_in": "BLOCK_HIGH",
+          "predicted_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "watched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "prior_affect": "HELP",
+          "situation_type_in": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        }
+      ],
+      "none_arg_results": [
+        {
+          "form": "approached",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "approached",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "circled",
+          "leg": "help_prior",
+          "gold_type": "NEUTRAL",
+          "predicted_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "harm_prior",
+          "gold_type": "BLOCK_HIGH",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "leg": "help_prior",
+          "gold_type": "RECIPROCITY",
+          "predicted_type": "NEUTRAL",
+          "sign": -1
+        }
+      ],
+      "scr_results": [
+        {
+          "form": "approached",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "approached",
+          "gold_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "grabbed",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "grabbed",
+          "gold_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "gold_type": "BLOCK_HIGH",
+          "sign": -1
+        },
+        {
+          "form": "touched",
+          "gold_type": "RECIPROCITY",
+          "sign": -1
+        },
+        {
+          "form": "followed",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "followed",
+          "gold_type": "NEUTRAL",
+          "sign": 1
+        },
+        {
+          "form": "circled",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "circled",
+          "gold_type": "NEUTRAL",
+          "sign": -1
+        },
+        {
+          "form": "watched",
+          "gold_type": "BLOCK_HIGH",
+          "sign": 1
+        },
+        {
+          "form": "watched",
+          "gold_type": "RECIPROCITY",
+          "sign": 1
+        }
+      ],
+      "failure_class": null
+    }
+  }
+}

@@ -19,18 +19,30 @@ vs 2/6 baseline).
 NOT wrapped here / SCOPED-OPEN (stays in experiments/, not promoted as capability -- see the cert
 doc AXIS 3/5 for the honest boundary):
   - force-verb identification: FORCE_CLASS_HARM_REAL is a closed, test-fitted hand list.
-  - the situation/discourse-bias stage (subset C, `situation_type_for_prior` in v2): never
-    open-vocab-tested. `prior_context` is accepted by the sentence-level convenience entrypoint
-    below ONLY as a reserved/no-op parameter -- it is NOT wired to that stage.
+  - `situation_type_for_prior` (the RAW-PRIOR-TEXT lexicon reader in v2): never open-vocab-tested,
+    NOT reused here. `prior_context` is accepted by the sentence-level convenience entrypoint below
+    ONLY as a reserved/no-op parameter -- it is NOT wired to anything.
   - body-part animacy (WordNet routes body-part nouns to inanimate hypernyms -- quantified gap,
     not fixed, `BODY_PART_SUPPLEMENT` covers only the 9 words the cert cells hand-patched).
   - abstract-harm-vs-goal-noun disambiguation and beneficiary/social-relational valence (both
     proven gaps in the cert doc, animacy alone cannot resolve either).
 
+WIRED (2026-08-06, un-severing deep-VET top-down-loop cut-point #3, notes/deep_vet_comprehension_
+organ_vs_brain_2026-08-05.md "STEP-1c CAVEAT RESOLVED"): `combine_biased_competition`'s 3rd arg
+(situation/discourse-bias) is no longer hard-coded None everywhere -- `score_item`/`score_batch`
+(the CERTIFIED single-item/independent-batch entrypoints) still default it to None (byte-identical
+behavior, strict ADD, animacy-axis unchanged). `score_passage` is a NEW opt-in entrypoint that scores
+a list of items IN NARRATIVE ORDER and derives each item's situation_type from the TERNARY AFFECT
+(to_ternary(predicted_type): HARM/HELP/NA) of the items THIS SAME ORGAN already scored earlier in the
+passage (`situation_type_from_affect`) -- a production-derivable top-down signal built from the
+organ's own running output, NOT a raw prior-text lexicon rescan (that was v2's `situation_type_for_
+prior`, deliberately not reused). See `score_passage` / `situation_type_from_affect` below; measured
+in experiments/exp_situation_bias_prod_wire_discourse_decisive_v1.py.
+
 Three-stage pipeline (unchanged from the cells): governor/adj-modifier perceptron (stage 1) ->
-animacy-axis event override for the direct-object patient (stage 2, biased-competition combine,
-situation stage never fires here) -> frozen appraisal-sim theta valuation (stage 3, VALENCE =
-Q(harm@coherent) - Q(help@coherent)).
+animacy-axis event override for the direct-object patient (stage 2) -> biased-competition combine
+(situation > event > governor; situation only ever non-None via score_passage) -> frozen
+appraisal-sim theta valuation (stage 3, VALENCE = Q(harm@coherent) - Q(help@coherent)).
 """
 from __future__ import annotations
 
@@ -98,7 +110,8 @@ def _sim_theta(seed: int, n_train_theta: int):
 
 def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[str] = None, *,
                seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
-               control: str = "none", animacy_map: Optional[dict] = None) -> dict:
+               control: str = "none", animacy_map: Optional[dict] = None,
+               situation_type: Optional[str] = None) -> dict:
     """Certified 3-stage scoring for one pre-tokenized/POS-tagged item. Returns predicted_type (in
     TYPES), valence (float, Q(harm@coherent)-Q(help@coherent)), sign (+1/-1), and per-stage
     diagnostics. `control` selects a certified can-fail control arm in place of the real governor
@@ -106,7 +119,12 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
     "scrambled_governor" = permuted governor/adj class dicts). `animacy_map` overrides the live
     WordNet lookup for the event stage -- used by score_batch to inject a pool-level SCRAMBLED
     animacy map for the scrambled-animacy control (a single-item permutation is a no-op by
-    construction; that control is inherently pool-level, see score_batch)."""
+    construction; that control is inherently pool-level, see score_batch). `situation_type`
+    (BLOCK_HIGH/NEUTRAL/None) is the 3rd arg to combine_biased_competition -- defaults to None
+    (IDENTICAL to the pre-wire hard-coded None; every existing caller that omits it gets the
+    byte-identical certified animacy-axis path). Direct callers pass it explicitly for testing;
+    production narrative scoring should go through score_passage, which derives it from prior
+    events' own affect rather than hand-setting it per item."""
     target_word = target_word or tokens[target_idx]
     item = {"tokens": tokens, "pos": pos, "target_idx": target_idx, "target_word": target_word}
 
@@ -136,15 +154,18 @@ def score_item(tokens: list, pos: list, target_idx: int, target_word: Optional[s
         event_type, category, gov_word = _ea.event_type_for_item_real(
             item, amap, _ea.FORCE_CLASS_HARM_REAL, _gov.GOVERNOR_VERB_CLASS)
 
-    # situation/discourse-bias stage is SCOPED-OPEN (never open-vocab-tested) -- not wired; always
-    # passed None here, exactly like the certified event-assembly cell's own run_seed does.
-    final_type, winner = _v2.combine_biased_competition(gov_type, event_type, None)
+    # situation/discourse-bias stage: `situation_type` defaults to None here (byte-identical to the
+    # pre-wire hard-coded None, exactly like the certified event-assembly cell's own run_seed did) --
+    # score_item stays the certified/unwired path. score_passage is the opt-in wire that computes a
+    # real situation_type per item (see module docstring) and passes it through this parameter.
+    final_type, winner = _v2.combine_biased_competition(gov_type, event_type, situation_type)
     cb, theta = _sim_theta(seed, n_train_theta)
     valence = _gov.valence_for_type(cb, theta, final_type)
     return {
         "predicted_type": final_type, "valence": valence, "sign": 1 if valence > 0 else -1,
         "stage": winner, "governor_type": gov_type, "event_type": event_type,
         "patient_category": category, "governor_word": gov_word, "control": control, "seed": seed,
+        "situation_type": situation_type,
     }
 
 
@@ -182,6 +203,55 @@ def to_ternary(predicted_type: str) -> str:
     return TERNARY_MAP.get(predicted_type, "NA")
 
 
+def situation_type_from_affect(prior_affects: list, *, window: Optional[int] = None) -> Optional[str]:
+    """Derives a coarse situation_type ('BLOCK_HIGH'=threat / 'NEUTRAL'=benign / None=abstain) from
+    the TERNARY affect (HARM/HELP/NA, via to_ternary) of events THIS SAME ORGAN already scored
+    earlier in a passage -- a production-derivable top-down signal built from the organ's own
+    running output, NOT a raw prior-text lexicon scan (that is v2's situation_type_for_prior, not
+    reused here). `prior_affects` is the ordered list of to_ternary(predicted_type) values for the
+    items strictly before the current one; `window` (if given, e.g. 3) restricts consideration to
+    the most recent N prior affects (recency-limited situation memory) -- default None = the whole
+    passage-so-far. Dominance rule (glass-box, parameterized, symmetric with v2's return-domain so
+    it drops into combine_biased_competition's 3rd argument unmodified):
+      HARM-dominant (harm_count > help_count, harm_count > 0) -> 'BLOCK_HIGH' (threat context)
+      HELP-dominant (help_count > harm_count, help_count > 0) -> 'NEUTRAL'    (benign context)
+      empty / all-NA / tied HARM==HELP                        -> None         (abstain -- IDENTICAL
+                                                                     to the pre-wire hard-coded None)
+    """
+    affects = prior_affects if window is None else prior_affects[-window:] if window > 0 else []
+    harm_count = sum(1 for a in affects if a == "HARM")
+    help_count = sum(1 for a in affects if a == "HELP")
+    if harm_count > help_count and harm_count > 0:
+        return "BLOCK_HIGH"
+    if help_count > harm_count and help_count > 0:
+        return "NEUTRAL"
+    return None
+
+
+def score_passage(items: list, *, seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA,
+                   control: str = "none", window: Optional[int] = None) -> list:
+    """WIRED situation-bias entrypoint (the production un-severing of combine_biased_competition's
+    3rd arg): scores `items` IN NARRATIVE ORDER, one at a time, deriving each item's situation_type
+    from situation_type_from_affect over the to_ternary affect of the items THIS CALL already scored
+    before it -- i.e. the running situation-model affect state, not a re-scan of raw prior text.
+    First item in `items` always gets situation_type=None (no prior events yet in this passage) --
+    IDENTICAL to the score_item/score_batch default. Returns the same per-item dict as score_item
+    plus `situation_type_in` (the derived value actually used, for glass-box inspection). The
+    certified score_item/score_batch entrypoints are completely UNCHANGED by this function's
+    existence -- this is a strictly-additive opt-in wire, not a modification of the certified path."""
+    results = []
+    prior_affects = []
+    for it in items:
+        st = situation_type_from_affect(prior_affects, window=window)
+        r = score_item(it["tokens"], it["pos"], it["target_idx"], it.get("target_word"),
+                        seed=seed, n_train_theta=n_train_theta, control=control,
+                        animacy_map=it.get("animacy_map"), situation_type=st)
+        r["situation_type_in"] = st
+        results.append(r)
+        prior_affects.append(to_ternary(r["predicted_type"]))
+    return results
+
+
 _AUX_LEMMAS = {"be", "is", "are", "was", "were", "been", "being", "am",
                "have", "has", "had", "do", "does", "did"}
 _UNIVERSAL_TAGMAP = {"VERB": "VERB", "NOUN": "NOUN", "ADJ": "ADJ", "ADV": "ADV", "ADP": "ADP",
@@ -211,10 +281,11 @@ def score_context_grounded_valence(target_word: str, sentence: str,
                                      seed: int = 0, n_train_theta: int = FULL_N_TRAIN_THETA) -> dict:
     """Convenience sentence-level entrypoint. Tokenizes/POS-tags `sentence` (UNCERTIFIED layer, see
     _tokenize_and_tag), locates the first case-insensitive occurrence of `target_word`, and calls
-    score_item -- the certified 3-stage scoring itself is unchanged. `prior_context` is RESERVED for
-    the situation/discourse-bias stage; that stage is SCOPED-OPEN (never open-vocab-tested, see
-    module docstring) and is NOT wired here -- passing it has no effect on the result (recorded in
-    the returned dict as `prior_context_ignored` for honesty, not silently dropped)."""
+    score_item -- the certified 3-stage scoring itself is unchanged. `prior_context` is a RAW TEXT
+    string; it stays RESERVED/no-op here on purpose (recorded as `prior_context_ignored` for honesty,
+    not silently dropped) -- wiring a raw-text rescan was deliberately rejected (see module docstring
+    "WIRED" note); the production situation-bias wire is `score_passage`, which derives situation_type
+    from PRIOR EVENTS' OWN scored affect, not from re-scanning text here."""
     tokens, pos = _tokenize_and_tag(sentence)
     tw = target_word.lower()
     target_idx = next((i for i, t in enumerate(tokens) if t.lower() == tw), None)
@@ -230,8 +301,12 @@ def score_context_grounded_valence(target_word: str, sentence: str,
 def self_test():
     """Off-disk smoke (fast, SMOKE_N_TRAIN_THETA): (1) score_item differentiates a known collision
     pair by sign; (2) BOW control diverges from the real path (arms-must-differ); (3) score_batch
-    scrambled_animacy collapses the Bopen lift relative to the real path. Full certified-number
-    reproduction lives in verification/verify_context_grounded_valence.py, not here."""
+    scrambled_animacy collapses the Bopen lift relative to the real path; (4) score_passage
+    situation-bias wire: a threat-priming vs benign-priming prior EVENT (production-derivable via
+    this same organ's own to_ternary affect, NOT a raw prior-text lexicon scan) flips an otherwise-
+    ambiguous target's sign, while the None-arg score_item path on the identical target clause does
+    NOT differentiate (byte-identical to the pre-wire behavior). Full certified-number reproduction
+    lives in verification/verify_context_grounded_valence.py, not here."""
     form, a, b = _gov.COLLISION_PAIRS[0]
     ra = score_item(a["tokens"], a["pos"], a["target_idx"], a["target_word"], seed=0,
                      n_train_theta=SMOKE_N_TRAIN_THETA)
@@ -255,8 +330,38 @@ def self_test():
         f"scrambled_animacy control did not collapse the Bopen lift: real={real_correct}/12 "
         f"scrambled={scr_correct}/12")
 
+    # (4) situation-bias production wire (score_passage). Prior EVENTS use bridge1's own trained
+    # HARM/HELP governor vocab ("attack"/"rescue", disjoint from the ambiguous target's "touch") --
+    # production-derivable via this organ scoring the prior event itself, not a raw-text scan. The
+    # target clause is BIT-IDENTICAL across both passages so only the situation-bias wire can decide
+    # the sign; the None-arg score_item call on that same clause must NOT differentiate (matches the
+    # current/pre-wire production default exactly).
+    threat_prior = {"tokens": ["wolves", "attacked", "the", "sheep"],
+                     "pos": ["NOUN", "VERB", "DET", "NOUN"], "target_idx": 3, "target_word": "sheep"}
+    benign_prior = {"tokens": ["a", "dog", "rescued", "the", "kitten"],
+                     "pos": ["DET", "NOUN", "VERB", "DET", "NOUN"], "target_idx": 4,
+                     "target_word": "kitten"}
+    target_amb = {"tokens": ["it", "touched", "her", "hand"],
+                  "pos": ["PRON", "VERB", "PRON", "NOUN"], "target_idx": 3, "target_word": "hand"}
+    passage_threat = score_passage([threat_prior, target_amb], seed=0, n_train_theta=SMOKE_N_TRAIN_THETA)
+    passage_benign = score_passage([benign_prior, target_amb], seed=0, n_train_theta=SMOKE_N_TRAIN_THETA)
+    none_arg = score_item(target_amb["tokens"], target_amb["pos"], target_amb["target_idx"],
+                           target_amb["target_word"], seed=0, n_train_theta=SMOKE_N_TRAIN_THETA)
+    assert passage_threat[1]["situation_type_in"] == "BLOCK_HIGH", (
+        f"threat-primed passage did not derive BLOCK_HIGH situation_type: {passage_threat[1]}")
+    assert passage_benign[1]["situation_type_in"] == "NEUTRAL", (
+        f"benign-primed passage did not derive NEUTRAL situation_type: {passage_benign[1]}")
+    assert passage_threat[1]["sign"] != passage_benign[1]["sign"], (
+        "situation-bias wire did not flip the ambiguous target's sign across threat/benign priors")
+    assert none_arg["situation_type"] is None, "None-arg path must default to None (strict ADD)"
+    assert none_arg["sign"] == passage_threat[1]["sign"] or none_arg["sign"] == passage_benign[1]["sign"], (
+        "None-arg sign should trivially match exactly one of the two opposite-sign situation "
+        "outcomes (sanity: none_arg is a real +-1 value, not a NaN/None regression)")
+
     print(f"[SELFTEST PASS] hard_A sign={ra['sign']} hard_B sign={rb['sign']} "
-          f"bow_type={bow_a['predicted_type']} Bopen_real={real_correct}/12 Bopen_scrambled={scr_correct}/12",
+          f"bow_type={bow_a['predicted_type']} Bopen_real={real_correct}/12 Bopen_scrambled={scr_correct}/12 "
+          f"situation_threat={passage_threat[1]['predicted_type']} "
+          f"situation_benign={passage_benign[1]['predicted_type']} none_arg={none_arg['predicted_type']}",
           flush=True)
     return True
 
