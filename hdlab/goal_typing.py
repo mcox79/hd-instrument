@@ -799,6 +799,159 @@ def congruence_with_lexicon_fallback(passage_text: str):
     return lex, {"reason": "abstain_fallback_to_lexicon", "lexicon_raw": lex}
 
 
+# ============================================================================ CHANNEL B ADAPTER
+# goal_congruence_appraisal_type (2026-08-06, online grounded-word-acquisition increment 1,
+# preregs/2026-08-06_grounded_word_acquisition_increment1_v1.md). STRICT ADD: this function is
+# consulted ONLY by hdlab.word_acquisition_loop's Channel B; NO existing call site changes behavior.
+# It maps an outcome clause's GOAL-CONGRUENCE STRUCTURE onto one of the reward-simulation appraisal
+# types RECIPROCITY (goal-completing) / BLOCK_HIGH (goal-thwarting) / None (insufficient or ambiguous
+# structure -> abstain), using ONLY argument structure + animacy (+ an antecedent desiderative goal's
+# referent when present) -- NEVER the target verb's own lexical identity and NEVER any text
+# co-occurrence statistic of the target word. The VALENCE of the returned type is NOT decided here;
+# the acquisition loop reads it downstream from the FROZEN reward-trained appraisal theta
+# (context_grounded_valence.score_item's situation_type path -> Q(harm@coherent)-Q(help@coherent)).
+# The completing/thwarting DECISION follows Talmy (1988) force dynamics, the SAME AGONIST_REALIZED-vs-
+# AGONIST_BLOCKED axis hdlab.verb_lexical_similarity.OUTCOME_VERB_FEATURES tags its poles by (so this
+# adapter is consistent with the module's own polarity typology, not an ad-hoc heuristic).
+_CB_NOMINATIVE_PRONOUNS = {"i", "he", "she", "we", "they", "you", "who"}
+_CB_INANIMATE_PRONOUNS = {"it", "this", "that", "these", "those"}
+_CB_OBJECT_PRONOUNS = {"me", "him", "her", "us", "them", "myself", "himself", "herself",
+                       "themselves", "itself", "ourselves", "yourself"}
+_CB_RESULT_PARTICLES = {"up", "down", "off", "out", "away", "back"}
+_CB_BE_AUX = {"is", "are", "was", "were", "be", "been", "being", "am", "get", "got", "gets"}
+_CB_PREPS = {"to", "at", "on", "in", "of", "for", "with", "by", "from", "into", "onto", "upon",
+             "over", "under", "through", "toward", "towards", "about", "after", "before", "against"}
+_CB_CLAUSE_BOUNDARY = {"and", "but", "or", "nor", "yet", "so", "while", "when", "because", "if",
+                       "though", "although", "as", "until", "till"}
+# closed-class function words that never head a direct-object NP (used to reject non-noun tokens).
+_CB_FUNCTION_WORDS = (_DET | _CB_PREPS | _CB_CLAUSE_BOUNDARY | _CB_BE_AUX | _CB_NOMINATIVE_PRONOUNS
+                      | _CB_INANIMATE_PRONOUNS | _CB_RESULT_PARTICLES
+                      | {"not", "very", "so", "then", "there", "here", "no", "nor", "too", "also",
+                         "just", "only", "even", "still", "more", "most", "much", "well", "how",
+                         "why", "where", "again", "ever", "never", "almost", "quite", "the"})
+
+
+def _cb_token_is_animate_agent(tok_lower: str, tok_raw: str, idx: int) -> bool:
+    """Surface animacy for a candidate subject token: nominative pronoun -> animate; inanimate
+    pronoun -> inanimate; animacy_lexicon animate+agent_capable -> animate; non-sentence-initial
+    capitalized token (proper noun) -> animate; else inanimate. Never consults the target verb."""
+    if tok_lower in _CB_NOMINATIVE_PRONOUNS:
+        return True
+    if tok_lower in _CB_INANIMATE_PRONOUNS:
+        return False
+    from hdlab.animacy_lexicon import lookup_animacy
+    info = lookup_animacy(tok_lower)
+    if info is not None:
+        return info.get("animacy") == "animate" and bool(info.get("agent_capable", False))
+    if idx > 0 and tok_raw[:1].isupper():
+        return True
+    return False
+
+
+def _cb_analyze_outcome_clause(outcome_sentence: str, target_lemma: str):
+    """Extract the target verb's local clause structure (subject animacy, direct-object presence,
+    passive voice, result particle) around the FIRST token whose lemma == target_lemma. Returns None
+    if the target verb is not found in the sentence. Glass-box surface parse, no external parser, no
+    lemma-as-feature."""
+    toks = _tokens(outcome_sentence)
+    raw = re.findall(r"[A-Za-z']+", outcome_sentence)
+    if len(raw) != len(toks):
+        raw = list(toks)
+    v_idx = next((i for i, t in enumerate(toks) if lemma_verb(t) == target_lemma), None)
+    if v_idx is None:
+        return None
+    start = 0
+    for j in range(v_idx - 1, -1, -1):
+        if toks[j] in _CB_CLAUSE_BOUNDARY:
+            start = j + 1
+            break
+    subj_idxs = list(range(start, v_idx))
+    animate_agent = any(
+        _cb_token_is_animate_agent(toks[j], raw[j] if j < len(raw) else toks[j], j)
+        for j in subj_idxs)
+    subject_present = len(subj_idxs) > 0
+    passive = any(toks[j] in _CB_BE_AUX for j in range(max(0, v_idx - 2), v_idx))
+    result_particle = any(toks[k] in _CB_RESULT_PARTICLES
+                          for k in range(v_idx + 1, min(len(toks), v_idx + 3)))
+    # Direct object := the FIRST NP head after the verb (skipping determiners) is a bare accusative
+    # NP, NOT introduced by a preposition. A preposition (or infinitival "to") ANYWHERE earlier in the
+    # post-verb span makes the remaining constituent oblique (a PP), so "stood by the wooden gate" /
+    # "walked to the well" have NO direct object while "caught the mousie" / "earned money" do. Glass-
+    # box surface approximation (no chunker); may over-count a post-verbal adjective as an NP head.
+    has_direct_object = False
+    saw_prep = False
+    for k in range(v_idx + 1, len(toks)):
+        w = toks[k]
+        if w in _CB_CLAUSE_BOUNDARY:
+            break
+        if w in _CB_PREPS or w == "to":
+            saw_prep = True
+            continue
+        if w in _DET:
+            continue
+        if not saw_prep and (w in _CB_OBJECT_PRONOUNS
+                             or (w not in _CB_FUNCTION_WORDS and len(w) >= 2)):
+            has_direct_object = True
+            break
+    return {"v_idx": v_idx, "animate_agent": animate_agent, "subject_present": subject_present,
+            "passive": passive, "result_particle": result_particle,
+            "has_direct_object": has_direct_object}
+
+
+def _cb_antecedent_goal_type(goal_sentences, clause):
+    """If the goal_sentences carry an explicit desiderative goal whose referent LINKS to a
+    class-related verb in the outcome clause, return RECIPROCITY (same-class completion) or BLOCK_HIGH
+    (opposed-class thwarting). Reuses find_desired_state + _referent_links + the SUBJECT/OBJECT-is-
+    referent class sets already in this module. Returns None when no explicit goal is present (the
+    common case for bare corpus acquisition sentences)."""
+    if not goal_sentences:
+        return None
+    desired = None
+    for gs in goal_sentences:
+        desired = find_desired_state(gs)
+        if desired is not None:
+            break
+    if desired is None or not desired.get("classes"):
+        return None
+    # A class-related outcome-clause verb whose referent links to the goal theme -> congruent.
+    for cand in find_actual_state_candidates(clause):
+        same = bool(desired["classes"] & cand["classes"])
+        opposed = bool(_opposed_of(desired["classes"]) & cand["classes"])
+        if not (same or opposed):
+            continue
+        linked, tier = _referent_links(desired["referent"], cand["referent"])
+        if linked and tier in LINK_TIERS:
+            return "RECIPROCITY" if same else "BLOCK_HIGH"
+    return None
+
+
+def goal_congruence_appraisal_type(goal_sentences, outcome_sentence: str, target_word: str):
+    """Channel B adapter. Returns "RECIPROCITY" (goal-completing), "BLOCK_HIGH" (goal-thwarting), or
+    None (abstain). See the section banner above for the full contract and the anti-corner discipline
+    (no target-verb identity, no target-word co-occurrence; valence is read downstream from the frozen
+    reward theta, NOT assigned here). `goal_sentences` may be an empty list (bare-clause acquisition).
+    """
+    target_lemma = lemma_verb(target_word)
+    clause = _cb_analyze_outcome_clause(outcome_sentence, target_lemma)
+    if clause is None:
+        return None
+    # (1) explicit antecedent-goal congruence, when the passage supplies a desiderative goal.
+    g = _cb_antecedent_goal_type(goal_sentences, outcome_sentence)
+    if g is not None:
+        return g
+    # (2) implicit force-dynamics reading of the outcome clause alone (Talmy agonist realized/blocked).
+    agonist_realized = ((clause["animate_agent"] and clause["has_direct_object"])
+                        or clause["passive"] or clause["result_particle"])
+    agonist_blocked = (clause["subject_present"] and not clause["has_direct_object"]
+                       and not clause["passive"] and not clause["result_particle"]
+                       and not clause["animate_agent"])
+    if agonist_realized and not agonist_blocked:
+        return "RECIPROCITY"
+    if agonist_blocked and not agonist_realized:
+        return "BLOCK_HIGH"
+    return None
+
+
 # ============================================================================ self-test
 def self_test() -> dict:
     """Reproduces decisive cases from the source cells with THIS module's promoted (copied) organ,

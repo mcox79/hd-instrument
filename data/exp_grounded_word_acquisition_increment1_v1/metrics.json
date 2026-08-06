@@ -1,0 +1,514 @@
+{
+  "channel_a": {
+    "plugin": "ruleind",
+    "n_episodes": 249,
+    "hypothesis": {
+      "kind": "rules_residual",
+      "rules": [
+        {
+          "conjunct": [
+            "result_particle_present"
+          ],
+          "majority_class": "NEG",
+          "coverage": 5,
+          "precision": 0.8,
+          "bits_rule": 3.322,
+          "bits_exceptions": 1.0,
+          "bits_null": 4.995
+        }
+      ],
+      "residual_lookup": {
+        "": "POS",
+        "has_direct_object|patient_np_present|subject_is_animate_agent": "POS",
+        "subject_is_animate_agent": "POS",
+        "has_direct_object|patient_np_present": "NEG",
+        "patient_np_present": "POS",
+        "patient_np_present|subject_is_animate_agent": "POS"
+      },
+      "n_classes": 2
+    }
+  },
+  "channel_b_valence_table": {
+    "RECIPROCITY": -0.9951,
+    "BLOCK_HIGH": 0.6119
+  },
+  "arms": {
+    "combined": {
+      "heldout_accuracy": 0.2857,
+      "heldout_correct": 2,
+      "pos_correct": 2,
+      "neg_correct": 0,
+      "acquired": {
+        "earn": "POS",
+        "gain": "POS"
+      },
+      "details": [
+        {
+          "word": "caught",
+          "gold": "POS",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "obtained",
+          "gold": "POS",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "gained",
+          "gold": "POS",
+          "acquired": "POS",
+          "predicted": "MET",
+          "correct": true
+        },
+        {
+          "word": "earned",
+          "gold": "POS",
+          "acquired": "POS",
+          "predicted": "MET",
+          "correct": true
+        },
+        {
+          "word": "deserted",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "wasted",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "faded",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        }
+      ]
+    },
+    "channel_A_only": {
+      "heldout_accuracy": 0.5714,
+      "heldout_correct": 4,
+      "pos_correct": 3,
+      "neg_correct": 1,
+      "acquired": {
+        "catch": "POS",
+        "earn": "POS",
+        "fad": "NEG",
+        "gain": "POS"
+      },
+      "details": [
+        {
+          "word": "caught",
+          "gold": "POS",
+          "acquired": "POS",
+          "predicted": "MET",
+          "correct": true
+        },
+        {
+          "word": "obtained",
+          "gold": "POS",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "gained",
+          "gold": "POS",
+          "acquired": "POS",
+          "predicted": "MET",
+          "correct": true
+        },
+        {
+          "word": "earned",
+          "gold": "POS",
+          "acquired": "POS",
+          "predicted": "MET",
+          "correct": true
+        },
+        {
+          "word": "deserted",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "wasted",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "faded",
+          "gold": "NEG",
+          "acquired": "NEG",
+          "predicted": "UNMET",
+          "correct": true
+        }
+      ]
+    },
+    "channel_B_only": {
+      "heldout_accuracy": 0.2857,
+      "heldout_correct": 2,
+      "pos_correct": 2,
+      "neg_correct": 0,
+      "acquired": {
+        "earn": "POS",
+        "gain": "POS"
+      },
+      "details": [
+        {
+          "word": "caught",
+          "gold": "POS",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "obtained",
+          "gold": "POS",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "gained",
+          "gold": "POS",
+          "acquired": "POS",
+          "predicted": "MET",
+          "correct": true
+        },
+        {
+          "word": "earned",
+          "gold": "POS",
+          "acquired": "POS",
+          "predicted": "MET",
+          "correct": true
+        },
+        {
+          "word": "deserted",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "wasted",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        },
+        {
+          "word": "faded",
+          "gold": "NEG",
+          "acquired": null,
+          "predicted": "NONE",
+          "correct": false
+        }
+      ]
+    }
+  },
+  "combined_trace": [
+    {
+      "word": "caught",
+      "lemma": "catch",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "caught",
+      "lemma": "catch",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "obtained",
+      "lemma": "obtain",
+      "channel_a": "NEG",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "obtained",
+      "lemma": "obtain",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "gained",
+      "lemma": "gain",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "gained",
+      "lemma": "gain",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "earned",
+      "lemma": "earn",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "earned",
+      "lemma": "earn",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "deserted",
+      "lemma": "desert",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "deserted",
+      "lemma": "desert",
+      "channel_a": "NEG",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "wasted",
+      "lemma": "wast",
+      "channel_a": "NEG",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "wasted",
+      "lemma": "wast",
+      "channel_a": "POS",
+      "channel_b": "NEG",
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "faded",
+      "lemma": "fad",
+      "channel_a": "NEG",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "faded",
+      "lemma": "fad",
+      "channel_a": "NEG",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    }
+  ],
+  "fallthrough_baseline_correct": 0,
+  "noise_consolidated_count": 2,
+  "noise_consolidated_words": {
+    "answer": "POS",
+    "carry": "POS"
+  },
+  "noise_channel_A_only_count": 7,
+  "noise_channel_B_only_count": 2,
+  "noise_trace": [
+    {
+      "word": "walked",
+      "lemma": "walk",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "walked",
+      "lemma": "walk",
+      "channel_a": "NEG",
+      "channel_b": "POS",
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "sat",
+      "lemma": "sit",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "sat",
+      "lemma": "sit",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "spoke",
+      "lemma": "speak",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "spoke",
+      "lemma": "speak",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "turned",
+      "lemma": "turn",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "turned",
+      "lemma": "turn",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "answered",
+      "lemma": "answer",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "answered",
+      "lemma": "answer",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "asked",
+      "lemma": "ask",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "asked",
+      "lemma": "ask",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "stood",
+      "lemma": "stand",
+      "channel_a": "POS",
+      "channel_b": null,
+      "combined": null,
+      "arm": "combined"
+    },
+    {
+      "word": "stood",
+      "lemma": "stand",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "carried",
+      "lemma": "carry",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    },
+    {
+      "word": "carried",
+      "lemma": "carry",
+      "channel_a": "POS",
+      "channel_b": "POS",
+      "combined": "POS",
+      "arm": "combined"
+    }
+  ],
+  "scrambled_heldout_accuracy": 0.1429,
+  "scrambled_per_seed": [
+    0.2857,
+    0.1429,
+    0.1429,
+    0.1429,
+    0.0
+  ],
+  "combined_acquired_hash": "363cb44472d3119c",
+  "scrambled_acquired_hashes": [
+    "f604f034025c84df",
+    "c46f1876dedfa0a9",
+    "31f4c911aa815665",
+    "b19e0776c0ffebbc",
+    "b86b6368648b73ed"
+  ],
+  "mg1_baseline_predict": "NONE",
+  "mg1_acquired_predict": "NONE",
+  "mg1_flip": false,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: combined heldout=2/7 (POS=2/4 NEG=0/3) | A_only=4/7 B_only=2/7 | noise_leak=2/8 | scramble=0.143 | mg1_flip=False | fallthrough=0/7",
+  "summary": "combined heldout=2/7 (POS=2/4 NEG=0/3) | A_only=4/7 B_only=2/7 | noise_leak=2/8 | scramble=0.143 | mg1_flip=False | fallthrough=0/7",
+  "hard_fail_reasons": [
+    "anti_drift_leak(noise_consolidated=2/8)"
+  ],
+  "bands": {
+    "hard_pass": false,
+    "hard_fail": true
+  },
+  "run_mode": "full",
+  "elapsed_s": 21.939468500000658,
+  "ts_iso": "2026-08-06T15:15:05.009811+00:00",
+  "anchor_name": "grounded_word_acquisition_increment1_v1",
+  "expected_n_units": 10,
+  "config": {
+    "n_scramble_seeds": 5,
+    "theta": null,
+    "n_heldout": 7,
+    "n_noise": 8
+  }
+}

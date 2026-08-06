@@ -253,6 +253,59 @@ OUTCOME_NEG_WORDS: FrozenSet[str] = frozenset(OUTCOME_SEED_NEG) | frozenset(OUTC
 
 
 # =============================================================================================
+# TIER-3 ACQUIRED OVERLAY (2026-08-06, online grounded-word-acquisition increment 1).
+# preregs/2026-08-06_grounded_word_acquisition_increment1_v1.md.
+# A runtime-mutable, PROCESS-LOCAL overlay populated ONLY by hdlab.word_acquisition_loop's
+# consolidation step (never at import; EMPTY by default, so cert/production behavior is BYTE-IDENTICAL
+# until an acquisition loop runs). Consulted as a STRICT FALLBACK by in_lexicon / concept_vector /
+# mean_similarity_to_seeds / classify_2way (via _features_for below) -- only for outcome-domain words
+# OOV of the Tier-2 hand-tagged OUTCOME_VERB_FEATURES lexicon, so it can only ever ADD coverage, never
+# regress a Tier-1/Tier-2 hit. Only the RESULT_VALENCE (POS/NEG) axis is proposed by increment 1
+# (EVENT_DOMAIN/ROOT_TYPE are out of scope, see the build-spec honest-scope): an acquired POS/NEG word
+# carries exactly the polarity-discriminating tags PLUS the shared RESULT_ROOT superclass, and NO
+# EVENT_DOMAIN tag. Every tag below is already in OUTCOME_VERB_FEATURES's own feature vocabulary, so an
+# acquired word's concept vector lives in the SAME FHRR geometry as the seed exemplars (no new feature
+# atom -> no _feature_vocab drift -> _feature_vectors never KeyErrors on an acquired word).
+ACQUIRED_OUTCOME_VERB_FEATURES: Dict[str, FrozenSet[str]] = {}
+
+_ACQUIRED_POS_TAGS: FrozenSet[str] = frozenset(
+    {"POS_AFFECT", "AGONIST_REALIZED", "SCALE_UP", "RESULT_ROOT"})
+_ACQUIRED_NEG_TAGS: FrozenSet[str] = frozenset(
+    {"NEG_AFFECT", "AGONIST_BLOCKED", "SCALE_DOWN", "RESULT_ROOT"})
+
+
+def acquired_tags_for_polarity(polarity: str) -> FrozenSet[str]:
+    """POS/NEG -> the acquired polarity tag-set (raises on any other value)."""
+    if polarity == "POS":
+        return _ACQUIRED_POS_TAGS
+    if polarity == "NEG":
+        return _ACQUIRED_NEG_TAGS
+    raise ValueError(f"acquired polarity must be 'POS' or 'NEG'; got {polarity!r}")
+
+
+def register_acquired_outcome(word: str, polarity: str) -> None:
+    """Write a consolidated Tier-3 outcome-verb polarity entry. Called ONLY by the acquisition loop's
+    consolidation step (never at import). Idempotent-overwrite; invalidates any cached concept vector
+    for `word` so a re-registration is reflected. A `word` already present in the Tier-2 base lexicon
+    is left to Tier-2 (base always wins in _features_for); registering it here is harmless but never
+    consulted."""
+    ACQUIRED_OUTCOME_VERB_FEATURES[word] = acquired_tags_for_polarity(polarity)
+    cache = _concept_vec_cache.get("outcome")
+    if cache is not None:
+        cache.pop(word, None)
+
+
+def clear_acquired_outcome() -> None:
+    """Reset the Tier-3 overlay to empty (experiment/test hygiene; not used in production). Also drops
+    any cached concept vectors for words no longer resolvable through the base lexicon."""
+    ACQUIRED_OUTCOME_VERB_FEATURES.clear()
+    cache = _concept_vec_cache.get("outcome")
+    if cache is not None:
+        for w in [w for w in cache if w not in OUTCOME_VERB_FEATURES]:
+            cache.pop(w, None)
+
+
+# =============================================================================================
 # (2) GOAL_VERB_FEATURES -- VERB_SUPERCLASS x COMPLEMENT_ENTAILMENT x MODAL_FORCE x
 #     COMPLEMENT_REALIS. VERB_SUPERCLASS is NOT shared across DESIDERATIVE/ASPECTUAL (they are not
 #     polar opposites of one domain, simply different verb classes -- drill Section 1b/2b).
@@ -343,13 +396,27 @@ def _concept_vector_from(features: FrozenSet[str], feature_vecs: Dict[str, torch
     return bundle(stacked)
 
 
+def _features_for(word: str, domain: str) -> Optional[FrozenSet[str]]:
+    """Tier-2 base lexicon FIRST (always wins -> zero regression); Tier-3 acquired overlay (outcome
+    domain ONLY) as a STRICT fallback for words OOV of the base lexicon. None if OOV of both. This is
+    the single choke point that makes the Tier-3 overlay strictly-additive: base membership is checked
+    before the overlay is ever consulted, so a Tier-1/Tier-2 hit is byte-identical to before."""
+    feats = _DOMAINS[domain].get(word)
+    if feats is not None:
+        return feats
+    if domain == "outcome":
+        return ACQUIRED_OUTCOME_VERB_FEATURES.get(word)
+    return None
+
+
 def in_lexicon(word: str, domain: str) -> bool:
-    """domain in {"outcome", "goal"}."""
-    return word in _DOMAINS[domain]
+    """domain in {"outcome", "goal"}. True for a base-lexicon member OR (outcome domain) an acquired
+    Tier-3 overlay entry."""
+    return _features_for(word, domain) is not None
 
 
 def concept_vector(word: str, domain: str) -> Optional[torch.Tensor]:
-    feats = _DOMAINS[domain].get(word)
+    feats = _features_for(word, domain)
     if feats is None:
         return None
     if domain not in _concept_vec_cache:
