@@ -172,6 +172,16 @@ COMPONENT 4 -- COREFERENCE / RELATIONAL BINDING
     "vet_confirmed_promoted_2026-08-02_plus_deixis_lever_plus_honest_mode"; pipeline-reachable.
     This is the strongest, most brain-faithful, genuinely-WIRED organ in the set.
     NOTE (MEMORY.md correction carried): coref is FAITHFUL (Centering-Cb), NOT "recency-falsified".
+    CAVEAT (2026-08-05 VET-B, disk-verified): the PRODUCTION situation_reader event-extraction path
+    does NOT call THIS module. situation_reader.py:412-420 instantiates EventCentralityReader
+    (hdlab/event_centrality_coref.py -> coref_distractor_suppress.py -> coref.py), a DIFFERENT coref
+    lineage, and until 2026-08-05 passed centrality_mode="recency" (perirhinal FAMILIARITY) overriding
+    that fn's "event_role" default (hippocampal CA3 RECOLLECTION). exp_c5_real_coref_endtoend_v1
+    (commit f3f88f752) showed event_role 0.8889 vs recency 0.0 in goal-owner end-to-end -> the flip to
+    event_role is being promoted (certification-gated). So the "strongest/WIRED" verdict describes
+    coreference_resolver.py on ITS OWN evals, but the production extraction+goal-owner pipeline runs the
+    event_centrality lineage. RECONCILE which coref organ is canonical for production (two parallel
+    organs, not one).
 
 ============================================================================
 COMPONENT 5 -- THEMATIC-ROLE LABELING (Component-3 in the frontier's numbering)

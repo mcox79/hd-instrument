@@ -97,3 +97,18 @@ the ANIMACY axis and did not carry the discourse stage over -- a scope decision,
 1c is GREEN; the real work is SOURCING situation_type from the running situation model at runtime (in _v2 it's
 a threat/benign lexicon over prior text; production must derive it from the accumulated situation-model
 affect/goal state) -- an integration, not a new mechanism.
+
+## LANDED: real-coref goal-owner end-to-end (commit f3f88f752, exp_c5_real_coref_endtoend_v1, Director per-axis VET on disk)
+The dispatched cell landed and VALIDATES VET-B's flip END-TO-END. On the explicit_psych recency-trap DIVERGENT
+subset (N=18, 3 seeds, deterministic): coref centrality_mode **event_role = 0.8889 (16/18)** vs
+**recency = 0.0 (0/18)**; gated positional baselines recency=0.0 + nearest_subject=0.0 both BEATEN; scramble
+collapses non-vacuously (0.0 vs 0.8889); twin-control 1.0. CLEAN DECOMPOSITION: n_goal_present_c3=16 and
+accuracy=16/18 -> when Component-3 supplies the GOAL, event_role coref + the proven integrator get the owner
+right **16/16 (100%)**; the ONLY 2 misses are items where frame_primary_role failed to detect GOAL on OOV
+psych verbs ("hoped"/"meant") -> the entire residual cap is the OOV GOAL-typing sub-problem (3b), NOT coref
+and NOT the integrator. HONEST CAVEATS (VET as hard as a negative): N=18 small (MIDDLE_BAND, not HARD_PASS);
+first_mention/majority baselines =1.0 NOT gated on this recency-trap subset (bank-structural confound; the
+primacy-trap bank defeats those, out of scope) so "beats all 4 positional" is FALSE - it beats the 2
+subset-relevant traps; outcome-valence still lexicon-typed (declared scope). NET: VET-B's event_role flip is
+empirically validated where it matters; PROMOTION to production dispatched (certification-gated); the frontier
+narrows to OOV GOAL-typing (3b) + the primacy-trap subset + real outcome-valence.
