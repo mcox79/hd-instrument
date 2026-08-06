@@ -285,6 +285,22 @@ POSITION+METRIC vs the exact brain mechanism) + missing-component/LEARNING check
   flip families + coverage-stress where theme-overlap is harder) -> re-measure -> if holds, PROMOTE goal-
   congruence typing into hdlab/goal_typing.py (lexicon->fallback) + witness + certification. v2: negation-scope
   (prevent/NOT-VP) + OOV verb-class induction.**
+  **COVERAGE WALL (NEGATIVE, north-star drill; commit e33dab529, exp_outcome_valence_goal_congruence_v2, N=26,
+  Director disk-VET): expanded bank -> mech 19/22 flip (vs lexicon 7/22), FIRE-RATE=1.0 (NOT the prior detector's
+  0.08 low-fire problem), BUT coverage-stress accuracy-when-fired=0.50 (3/6, fails the 0.70 gate) -> PROMOTED=NO
+  (pooled 0.86 clears 0.85 only by DILUTION: 16 easy core-flips outnumber 6 hard coverage-stress). Core-flips
+  16/16 perfect; wall is SPECIFICALLY non-verbatim REFERENT BINDING. BRAIN-DRILL (SHAPE/POS/METRIC): the
+  referent-match (_np_last_content) is SURFACE-STRING equality; the brain matches at the DISCOURSE-ENTITY level
+  (coref binds pronoun->antecedent, ATL-hub binds synonym->concept, BEFORE the congruence match). "It sank"
+  (pronoun), "The vessel sank" (synonym for ferry), multi-object distractor all fire referent_mismatch->wrongly
+  UNMET because string!=. Same META-PATTERN (surface proxy for a deeper representation) + WIRE-DON'T-ISLAND gap:
+  hdlab/coreference_resolver EXISTS (event_role production default) but the referent-match imports it only for
+  normalize_tokens, never for resolution. ROUTE: pronoun = NOT missing (own coref -> WIRE it into the referent-
+  match); synonym/hypernym = reuse concept-encoder (ATL-hub) lexical-semantic similarity OR small supplied
+  synonym set (harder tier). Mechanism RIGHT on verbatim + goal-dependent-valence; wall = referent binding.
+  Scramble strict-collapse NO but acc 0.27 undershoots base 0.5 = benign disruption (not still-keying-off-word).
+  48/48 held, v1 identical. FIX (dispatched): wire coreference (pronoun->entity) into the referent-match +
+  concept-similarity for synonyms; re-measure coverage-stress (gate3 >=0.70) holding core-flips 16/16 + 48/48.**
 - **situation_reader.read() call-site integration of goal_typing** (promoted organ not yet CALLED by the reader;
   CoNLL-gated, same as frame_primary_role wire).
 - **source situation_type -> context_grounded_valence.py:141** (mechanism proven HARD_PASS in _v2, integration only).
