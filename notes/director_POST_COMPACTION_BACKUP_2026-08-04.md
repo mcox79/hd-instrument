@@ -52,7 +52,23 @@ STRATEGIC READ (SUPERSEDED by the DEEP VET below): the extraction ROOT is a MULT
   glass-box, NOT data-starved). Select-by-brain-foundational-right. EARN levers (PPMI via owned ppmi_sparse_
   encoder, wider radius, bigger corpus) = fallback/complement. SUPPLY-track build dispatched. Coverage caveat:
   feature-lexicon = mechanism-proof on covered concepts; general open-vocab feature-coverage = the deeper
-  follow-up (missing-LEARNING: induce features from grounding/text), mirrors the outcome-valence pattern.** Predictive-coding = right-shape/wrong-metric (design pattern only). Old next-cap-3b CLOSED; (c) wire situation-bias 3rd arg [AFTER checking it wasn't left None for underperformance]. STEP 2 MEASURE END-TO-END on goal_owner_fair_v1.jsonl (= the assembly-proof; localizes the true cap; will INHERIT upstream extraction error, will NOT reproduce 12/12 - that's the point). STEP 3 SHAPE fixes gated by step-2 result: A collapse-two-stages extraction (arg-realization gate at generation, not overgenerate-then-filter), C conditional thematic-role override, D forward predictive prior for CONTINUOUS affect only (NOT discrete roles - frame_induction.py:27 already ruled the residual wrong-shape for discrete). DOC-MISLABEL to fix: brain-audit calls coreference_resolver.py the "strongest wired" organ but production uses a DIFFERENT lineage (event_centrality_coref->coref_distractor_suppress->coref.py). Still-standing lower-certainty wins: wire ToM, relabel 2 mislabels, gold-VET primacy bank, pure-action-telos goal-typing.
+  follow-up (missing-LEARNING: induce features from grounding/text), mirrors the outcome-valence pattern.**
+  **SUPPLY-TRACK HARD_PASS = ATL-HUB METRIC PROVEN (commit 7d0a574b4, exp_n11c_shared_feature_lexical_similarity_v1,
+  Director disk-VET incl circularity + glass-box): shared-FEATURE cosine over FHRR feature-bundles (86-concept
+  hand-authored McRae-style feature-lexicon SUPPLIED as DATA; mechanism = hdlab.bundling.bundle + unit_phase_vec,
+  the substrate's OWN op) produces GRADED lexical similarity: tier-means synonym 0.9307 / related 0.3041 /
+  unrelated 0.0020, ordered-frac 0.9655 (28/29) vs distributional window 0.379 (delta +0.586); CIRCULARITY GUARD
+  HELD (scrambled-features collapses 0.97->0.31, delta 0.655 -- mechanism reads the real feature structure, not
+  gerrymandered); GLASS-BOX/NOT-BORROWED confirmed (n_llm_calls=0, n_external_model_calls=0, feature-provenance
+  persisted). The 1 miss (happy/music) = associative-not-taxonomic, PREDICTED before running. **MILESTONE: the
+  deep-VET #1 root gap (missing ATL learned lexical-semantic hub) is now MECHANISM-SOLVED -- the brain-faithful
+  shared-feature-correlation METRIC (Cox 2024) works glass-box in FHRR. The EARN-fail->SUPPLY-pass arc vindicated
+  the metric.** HONEST SCOPE: mechanism-proof on 86 concepts w/ a uniform feature convention; the SPECIFIC numbers
+  are convention-shaped (scramble-guard proves the mechanism honest, not that features scale) -- GENERAL coverage =
+  feature-coverage follow-up (broad McRae norms SUPPLY, or missing-LEARNING induce features), same as outcome-
+  valence. NEXT = WIRE the shared-feature-similarity mechanism into hdlab (ATL-hub-similarity organ + the 86-concept
+  lexicon + SUPPLY extension point; can upgrade outcome-valence's narrow SYNONYM_GROUPS for covered concepts);
+  then feature-coverage expansion.** Predictive-coding = right-shape/wrong-metric (design pattern only). Old next-cap-3b CLOSED; (c) wire situation-bias 3rd arg [AFTER checking it wasn't left None for underperformance]. STEP 2 MEASURE END-TO-END on goal_owner_fair_v1.jsonl (= the assembly-proof; localizes the true cap; will INHERIT upstream extraction error, will NOT reproduce 12/12 - that's the point). STEP 3 SHAPE fixes gated by step-2 result: A collapse-two-stages extraction (arg-realization gate at generation, not overgenerate-then-filter), C conditional thematic-role override, D forward predictive prior for CONTINUOUS affect only (NOT discrete roles - frame_induction.py:27 already ruled the residual wrong-shape for discrete). DOC-MISLABEL to fix: brain-audit calls coreference_resolver.py the "strongest wired" organ but production uses a DIFFERENT lineage (event_centrality_coref->coref_distractor_suppress->coref.py). Still-standing lower-certainty wins: wire ToM, relabel 2 mislabels, gold-VET primacy bank, pure-action-telos goal-typing.
 
 KEY DOCS: notes/DRILL_SYNTHESIS_goal_owner_brain_and_fairness.md (the ruling), notes/testfairness_audit_goal_owner.md, notes/component_health_audit_comprehension_organ.md, notes/PLAN_grounded_semantic_organ_build.md (v3 plan), the 3 drill notes (event-segmentation/goal-owner-flow/event-predicate-recognition). All work LOCAL, committed through 4d7006f2a. IN-FLIGHT AGENT: a21e14c (real-coref gate) -- on recovery: check its result on disk (data/exp_frame_trigger_plus_relevance_gate*/ or its commit), VET per-axis, bank, then follow the strategic read above.
 
