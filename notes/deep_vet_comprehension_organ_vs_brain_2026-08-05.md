@@ -234,3 +234,24 @@ coherence is historically HARD (the earlier role-content arc HARD_FAILed for dec
 role-compatibility-score selector was a thin HARD_PASS). NEXT = build 3c goal-content-coherence tie-break (reuse
 theme-match), with gold-vetted MULTI-GOAL cue-conflict test items, pre-reg fix-t24 + hold-47 + validate-multigoal;
 THEN promote the complete goal-owner selector (candidate-gen + content-coherence) as the wire-don't-island lock-in.
+
+## NEXT-CAPABILITY PREP (brain-foundational targets, Director-scoped 2026-08-05, full-auto-all-night USER-authorized)
+North star (USER): on ANY negative, FULLY drill existing components for brain-foundational fidelity (SHAPE+
+POSITION+METRIC vs the exact brain mechanism) + missing-component/LEARNING check; push each capability to CEILING.
+- **OUTCOME-VALENCE (next component, deep-VET-flagged lexicon shortcut):** currently hdlab/goal_typing.py:84-87
+  V2_OUTCOME_UNMET={"down","fell","sank","sink","wailed"...}/V2_OUTCOME_MET={"reached","won","escaped","arrived"}
+  matched by SET MEMBERSHIP (goal_typing.py:123-124). BRAIN (Scherer/Lazarus goal-congruence appraisal): outcome
+  valence = whether the outcome ACHIEVES vs BLOCKS the GOAL (relative to goal-state), NOT outcome-word-in-lexicon.
+  "the boat sank" = UNMET because it blocks the mend-boat goal (goal-congruence), not because "sank" is a bad word.
+  METRIC = goal-congruence (achieved/blocked), computed against the goal. FIX = reuse the OWNED appraisal-sim
+  (exp_grounded_appraisal_sim_earned_v1, MECHANISM_EARNS goal-congruence valuation, currently ISLANDED) instead of
+  the V2_OUTCOME lexicon = wire-don't-island. RISK: needs the goal-state + outcome-state as appraisal inputs (the
+  situation model has goal via GO_ROLES; outcome-state extraction is the work).
+- **situation_reader.read() call-site integration of goal_typing** (promoted organ not yet CALLED by the reader;
+  CoNLL-gated, same as frame_primary_role wire).
+- **source situation_type -> context_grounded_valence.py:141** (mechanism proven HARD_PASS in _v2, integration only).
+- **Frame-B (deeper): goal-biased coref resolution** (the full recurrent-loop fix -- goal-coherence biases the
+  outcome-pronoun resolution itself, not just candidate-gen).
+- **Generalization stress-test:** the fair instrument is small (62 hand-authored items); maximize = test the
+  goal-owner organ on a broader/real narrative set (guard confounds) to prove it's not instrument-overfit.
+Lower-certainty: wire ToM (HARD_PASS islanded), relabel 2 mislabels (outcome-valence label, ToM registry row).
