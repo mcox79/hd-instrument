@@ -270,6 +270,21 @@ POSITION+METRIC vs the exact brain mechanism) + missing-component/LEARNING check
   py:27) -> use as design pattern, NOT literal dep. CAN-FAIL: goal-dependent-valence flips (same outcome word,
   opposite valence by goal; lexicon MUST score ~chance). Routing: used-ability-wrong (retire lexicon to fallback)
   + missing-FACT SUPPLY (verb-class register), NOT missing-LEARNING. Build dispatched.**
+  **LANDED HARD_PASS (commit 63c71935d, exp_outcome_valence_goal_congruence_v1, Director per-axis disk-VET):
+  mechanism 8/8 on the flip+binding set vs lexicon 4/8 (chance, delta 0.50); SCRAMBLE COLLAPSES GENUINELY
+  1.0->0.4 (per-item verified: scrambling goal<->outcome pairing breaks theme-match -> abstain -> lexicon
+  fallback -> MET items collapse to UNMET; proves the signal is goal-CONTENT/pairing not a hidden 2nd lexicon);
+  H abstains (precision guard), G correct (no regression); backward-compat 48/48 HELD (strict ADD -- select_
+  outcome_owner scorer reads only has_goal, polarity can't move owner-selection; mechanism ran clean on all 62
+  rows via ABSTAIN->lexicon-fallback). HONEST SCOPE (VET + PRIOR-ART): N=10 hand-authored FOR theme-match =
+  mechanism-EXISTS proof, NOT solved-on-real-data. Prior attempt exp_outcome_valence_detector_v1 HARD_FAILED
+  with detector_fire_rate=0.0789 on N=38 -> theme-overlap has a COVERAGE problem on real data; goal-dependent-
+  valence is a RARE-but-real PRECISION subclass (same word opposite valence by goal); the mechanism fixes that
+  subclass + falls back to lexicon elsewhere = a genuine precision improvement, not broad coverage. NOT promoted
+  (hdlab untouched). NEXT (maximize this capability): expand bank to 20-30 diverse items (more verb classes +
+  flip families + coverage-stress where theme-overlap is harder) -> re-measure -> if holds, PROMOTE goal-
+  congruence typing into hdlab/goal_typing.py (lexicon->fallback) + witness + certification. v2: negation-scope
+  (prevent/NOT-VP) + OOV verb-class induction.**
 - **situation_reader.read() call-site integration of goal_typing** (promoted organ not yet CALLED by the reader;
   CoNLL-gated, same as frame_primary_role wire).
 - **source situation_type -> context_grounded_valence.py:141** (mechanism proven HARD_PASS in _v2, integration only).
