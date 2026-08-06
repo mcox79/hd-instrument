@@ -80,8 +80,9 @@ MECHANISM (glass-box, deterministic, no RNG): extract the antecedent goal's DESI
 the final sentence's ACTUAL-STATE (referent + RESULT_VERB_CLASS, scanned across every class-match
 verb occurrence, not just the first); resolve BOTH referents to a discourse entity (Tier-1:
 bare-pronoun gender/number agreement via hdlab.coreference_resolver.is_pronoun_mention/
-gender_number_for/gn_compatible, already-production primitives, reused unmodified; Tier-2: a small
-hand-authored SYNONYM_GROUPS register); same-referent + same/entailing class -> MET; same-referent +
+gender_number_for/gn_compatible, already-production primitives, reused unmodified; Tier-2 (2026-08-06
+upgrade, see TIER-2 UPGRADE section below): shared-feature cosine similarity, hdlab.lexical_
+similarity, the lifted exp_n11c ATL-hub organ); same-referent + same/entailing class -> MET; same-referent +
 opposed class -> UNMET; different/unlinked referent -> UNMET (referent_mismatch, the over-link
 guard: two distinct common nouns with no pronoun/synonym relationship NEVER link, by construction);
 no related verb class or no referent extracted -> ABSTAIN (NA) -> falls back to the
@@ -113,12 +114,25 @@ fire-rate, coverage-stress, H/H2 precision, G/G2 controls, 48/48 backward-compat
 promotion proceeds on the strict-ADD + zero-regression + certification-green strength, not on a
 re-labeled HARD_PASS.
 
+TIER-2 UPGRADE (2026-08-06, WIRE-DONT-ISLAND): the original NARROW hand-authored SYNONYM_GROUPS
+register (one group, {ferry, vessel, boat, ship}) is REPLACED by the shared-feature-similarity
+organ proved in experiments/exp_n11c_shared_feature_lexical_similarity_v1.py (commit 7d0a574b4,
+HARD_PASS: ordered_frac=0.9655 vs WINDOW=0.3793/HASH_RANDOM=0.1034, SCRAMBLED_FEATURES collapse
+confirms earned-not-artifact), lifted into hdlab/lexical_similarity.py (clean copy of the
+McRae-style feature lexicon + FHRR bundle-cosine encoder, both hdlab-only -- no experiments/
+import). Two referents link at Tier-2 iff BOTH are present in
+hdlab.lexical_similarity.CONCEPT_FEATURES AND their shared-feature cosine clears
+SIMILARITY_LINK_THRESHOLD=0.50 (MEASURED@this promotion: sim(vessel,ferry)=0.634 links;
+sim(sister,rival)=0.398 and sim(vessel,dock)=0.279 do NOT -- see
+preregs/2026-08-06_wire_shared_feature_similarity_outcome_valence_v1.md). OOV-of-lexicon falls
+through to no-link (never crashes, never over-links by default).
+
 SCOPE (do not overclaim): Tier-1 pronoun-referent linking is GENERAL (the production coreference
-primitives, not bank-specific). Tier-2 SYNONYM_GROUPS is a NARROW hand-authored register (one group,
-{ferry, vessel, boat, ship}) -- hdlab.concept_encoder was checked and ruled out as not cleanly
-reusable for ad hoc lexical-similarity queries (supervised, concept-label-conditioned, no pretrained
-zero-shot weights); general synonym/hypernym resolution is BLOCKED on the missing ATL-analog learned
-lexical-semantic hub, a deferred deep-VET component. Validated on a N=26 hand-authored bank
+primitives, not bank-specific). Tier-2 shared-feature linking is scoped to
+hdlab.lexical_similarity.CONCEPT_FEATURES's 89 concepts (the 86 exp_n11c concepts + 3 SUPPLY
+additions for this bank's referent-stress items); general open-vocabulary synonym/hypernym
+resolution (inducing features for arbitrary words) remains a separate, missing-LEARNING follow-up,
+not claimed here. Validated on a N=26 hand-authored bank
 (experiments/data/outcome_valence_congruence_v2.jsonl) -- production-safe as a strict ADD (zero
 regression on every existing call site), but broad real-data coverage beyond this bank remains the
 open follow-up, same caveat the source cells' own verdict already carries.
@@ -126,9 +140,11 @@ open follow-up, same caveat the source cells' own verdict already carries.
 Cites (outcome-valence section): experiments/exp_outcome_valence_goal_congruence_v1.py (mechanism
 origin, commit 63c71935d); experiments/exp_outcome_valence_goal_congruence_v2.py (discourse-entity
 referent resolution + expanded RESULT_VERB_CLASS register + 26-item bank, commit 3ed374148);
-hdlab.coreference_resolver (is_pronoun_mention/gender_number_for/gn_compatible, PROMOTED, consumed
-directly); hdlab.thematic_role_labeler.lemma_verb; hdlab.goal_owner_select.py (backward-compat
-consumer, unaffected by this promotion, verified not merely asserted).
+experiments/exp_n11c_shared_feature_lexical_similarity_v1.py (Tier-2 shared-feature-similarity
+organ, commit 7d0a574b4, HARD_PASS); hdlab/lexical_similarity.py (the lifted production organ,
+this promotion); hdlab.coreference_resolver (is_pronoun_mention/gender_number_for/gn_compatible,
+PROMOTED, consumed directly); hdlab.thematic_role_labeler.lemma_verb; hdlab.goal_owner_select.py
+(backward-compat consumer, unaffected by this promotion, verified not merely asserted).
 """
 from __future__ import annotations
 
@@ -141,6 +157,11 @@ from hdlab.coreference_resolver import (
 from hdlab.frame_induction import frame_primary_role
 from hdlab.thematic_role_labeler import lemma_verb
 from hdlab.learner import apply as learner_apply, learn as learner_learn
+from hdlab.lexical_similarity import (
+    concept_similarity as _lexsim_concept_similarity,
+    in_lexicon as _lexsim_in_lexicon,
+    SIMILARITY_LINK_THRESHOLD,
+)
 
 # ============================================================================ role vocabulary
 # Byte-identical to experiments/exp_situation_model_goal_outcome_dimension_v1.py's R_GOAL/R_UNMET/R_MET.
@@ -412,20 +433,13 @@ def _opposed_of(classes: set) -> set:
     return out
 
 
-# Discourse-entity referent linking (v2's coverage-wall fix). TIER 2 SUPPLY register: SMALL,
-# hand-authored, honestly scoped to the source cell's L-family case -- NOT a general synonym/WordNet
-# substitute (hdlab.concept_encoder checked and ruled out: supervised, concept-label-conditioned, no
-# zero-shot pretrained weights to reuse for an ad hoc "ferry"~"vessel" query -- see module docstring
-# SCOPE section).
-SYNONYM_GROUPS = [
-    {"ferry", "vessel", "boat", "ship"},
-]
-_SYNONYM_OF: dict = {}
-for _grp in SYNONYM_GROUPS:
-    for _w in _grp:
-        _SYNONYM_OF[_w] = _grp
+# Discourse-entity referent linking (v2's coverage-wall fix). TIER 2 (2026-08-06 WIRE-DONT-ISLAND
+# upgrade): shared-feature cosine similarity over hdlab.lexical_similarity.CONCEPT_FEATURES (the
+# lifted exp_n11c ATL-hub organ), REPLACING the prior narrow hand-authored SYNONYM_GROUPS
+# set-membership register -- see module docstring TIER-2 UPGRADE section and
+# preregs/2026-08-06_wire_shared_feature_similarity_outcome_valence_v1.md.
 
-LINK_TIERS = {"literal", "pronoun_coref", "synonym"}  # tiers that count as a genuine referent link
+LINK_TIERS = {"literal", "pronoun_coref", "shared_feature"}  # tiers that count as a genuine referent link
 
 
 def _referent_links(desired_ref, actual_ref):
@@ -434,11 +448,17 @@ def _referent_links(desired_ref, actual_ref):
     surface (`is_pronoun_mention`, owned hdlab.coreference_resolver primitive) AND its gender/number
     is agreement-compatible (`gn_compatible`, same owned primitive the production pronoun resolvers
     use) with the goal referent's inferred gender/number (`gender_number_for`, nominal-cue path).
-    TIER 2 (synonym) fires ONLY when both referents are literal members of the SAME hand-authored
-    SYNONYM_GROUPS entry. Two distinct common nouns with neither relationship (e.g. "sister"/"rival",
-    "workshop"/"shed") NEVER link -- there is no generic-similarity fallback tier, by design (the
-    over-link guard). Byte-identical logic to
-    experiments/exp_outcome_valence_goal_congruence_v2.py::_referent_links."""
+    TIER 2 (shared_feature) fires ONLY when BOTH referents are present in
+    hdlab.lexical_similarity.CONCEPT_FEATURES AND their shared-feature cosine
+    (hdlab.lexical_similarity.concept_similarity, the lifted exp_n11c ATL-hub organ) clears
+    SIMILARITY_LINK_THRESHOLD -- either referent being OOV of that lexicon falls straight through
+    to no-link (never crashes, never over-links by default). Two distinct common nouns with neither
+    a pronoun-agreement nor a clears-threshold shared-feature relationship (e.g. "sister"/"rival" at
+    sim=0.398 < 0.50, "workshop"/"shed" both OOV of the lexicon) NEVER link -- there is no
+    unconditional generic-similarity fallback, by design (the over-link guard). Byte-identical
+    referent-extraction logic to experiments/exp_outcome_valence_goal_congruence_v2.py::
+    _referent_links; the Tier-2 MECHANISM itself is the 2026-08-06 upgrade (that source cell keeps
+    its own SYNONYM_GROUPS copy, untouched, as the source-of-truth for its own historical numbers)."""
     if desired_ref is None or actual_ref is None:
         return False, "none"
     if desired_ref == actual_ref:
@@ -449,8 +469,10 @@ def _referent_links(desired_ref, actual_ref):
         if gn_compatible(p_gender, p_number, c_gender, c_number):
             return True, "pronoun_coref"
         return False, "pronoun_incompatible"
-    if actual_ref in _SYNONYM_OF.get(desired_ref, ()):
-        return True, "synonym"
+    if _lexsim_in_lexicon(desired_ref) and _lexsim_in_lexicon(actual_ref):
+        sim = _lexsim_concept_similarity(desired_ref, actual_ref)
+        if sim is not None and sim >= SIMILARITY_LINK_THRESHOLD:
+            return True, "shared_feature"
     return False, "no_link"
 
 
@@ -699,14 +721,26 @@ def self_test() -> dict:
         f"goal=save(canoe), outcome=mended(it) must be MET via pronoun_coref linking, got {pron_met} "
         f"({pron_detail})")
 
+    # (9b) DECISIVE (2026-08-06 TIER-2 UPGRADE): shared-feature-similarity MET -- "ferry" resolves
+    # to "vessel" via hdlab.lexical_similarity.concept_similarity (the lifted exp_n11c ATL-hub
+    # organ, sim(vessel,ferry)=0.634 >= SIMILARITY_LINK_THRESHOLD=0.50), NOT a literal string match
+    # and NOT the old hand-authored SYNONYM_GROUPS register (which this promotion removes).
+    synfeat_met, synfeat_detail = congruence_decision(
+        ["Grace wanted the ferry to sink so the insurers would pay out"], "The vessel sank")
+    assert synfeat_met == "MET" and synfeat_detail["link_tier"] == "shared_feature", (
+        f"goal=sink(ferry), outcome=sank(vessel) must be MET via shared_feature linking "
+        f"(sim(vessel,ferry)=0.634 >= threshold), got {synfeat_met} ({synfeat_detail})")
+
     # (10) DECISIVE: over-link guard, genuinely-different-referent UNMET -- an ECM goal ("wanted his
     # SISTER to win") must NOT be satisfied by a different entity's same-class outcome ("his RIVAL
-    # won"); sister and rival share no pronoun/synonym relationship, so they must never link.
+    # won"); sister and rival are BOTH in hdlab.lexical_similarity.CONCEPT_FEATURES (this is a
+    # genuine sub-threshold measurement, sim(sister,rival)=0.398 < 0.50, not an OOV-fallthrough) and
+    # still correctly do NOT link.
     diff_ref, diff_detail = congruence_decision(
         ["Owen wanted his sister to win the race before the whistle blew"], "His rival won the race")
     assert diff_ref == "UNMET" and diff_detail["reason"] == "referent_mismatch", (
         f"goal=win(sister) [ECM], outcome=won(rival) must be UNMET (over-link guard: sister!=rival, "
-        f"no pronoun/synonym relationship), got {diff_ref} ({diff_detail})")
+        f"sub-threshold shared-feature similarity), got {diff_ref} ({diff_detail})")
     assert diff_detail["link_tier"] == "no_link", "over-link guard must not fabricate a link tier"
 
     # (11) DECISIVE: theme-mismatch ABSTAIN -> lexicon fallback -- the goal's verb class (OPEN_CLASS)
@@ -749,6 +783,7 @@ def self_test() -> dict:
         "c3_only_misses_hoped": not any(r == R_GOAL for (_e, r) in c3_only_events),
         "outcome_valence": {
             "flip_unmet": flip_unmet, "flip_met": flip_met, "pronoun_referent_met": pron_met,
+            "shared_feature_synonym_met": synfeat_met,
             "over_link_guard_unmet": diff_ref, "theme_mismatch_abstain": theme_mismatch,
             "abstain_fallback_verdict": fallback_verdict, "v1_bank_checked": len(v1_rows) if
             os.path.exists(_v1_bank_path) else 0, "v1_regression_mismatches": v1_mismatches,

@@ -22,11 +22,14 @@ Six checks, matching the promotion contract (exp_dev task brief, 2026-08-06):
   (1) core_flip (16 items, families A-J, no referent stress): mechanism_accuracy must be 16/16 (1.0).
   (2) coverage_stress (6 items, families K/L/M: pronoun/synonym/multi-object referent stress):
       accuracy_when_fired must be 6/6 (1.0) -- the discourse-entity referent linker (Tier-1 pronoun
-      coref via hdlab.coreference_resolver, Tier-2 hand-authored synonym group) closing the coverage
-      wall a plain-string-equality match could not close.
+      coref via hdlab.coreference_resolver, Tier-2 shared-feature-similarity organ lifted from
+      exp_n11c, 2026-08-06 WIRE-DONT-ISLAND upgrade of the prior hand-authored synonym group)
+      closing the coverage wall a plain-string-equality match could not close.
   (3) over-link guard: D-unmet (ECM "wanted his sister to win" vs "his rival won") and M-unmet (a
       same-class distractor clause) must both stay UNMET via referent_mismatch/no_link -- two
-      distinct common nouns with no pronoun/synonym relationship must never spuriously link.
+      distinct common nouns with no pronoun/synonym relationship (sim(sister,rival)=0.398 stays
+      below SIMILARITY_LINK_THRESHOLD=0.50, a genuine measurement not an OOV-fallthrough) must
+      never spuriously link.
   (4) precision guard (H/H2 abstain) and positive controls (G/G2 correct), the remaining v2 gates.
   (5) backward-compat: hdlab.goal_owner_select.select_outcome_owner (untouched by this promotion)
       stays 48/48 on the fair instrument -- proves polarity-only outcome-valence changes cannot move
@@ -105,13 +108,14 @@ def check_coverage_stress_accuracy_when_fired():
     m_met = next(r for r in cov_rows if r["id"] == "M-met")
     assert k_met["detail"]["link_tier"] == "pronoun_coref", (
         f"K-met must resolve via pronoun_coref, got {k_met['detail']['link_tier']}")
-    assert l_met["detail"]["link_tier"] == "synonym", (
-        f"L-met must resolve via synonym, got {l_met['detail']['link_tier']}")
+    assert l_met["detail"]["link_tier"] == "shared_feature", (
+        f"L-met must resolve via shared_feature (hdlab.lexical_similarity organ, 2026-08-06 "
+        f"upgrade of the prior hand-authored synonym-group tier), got {l_met['detail']['link_tier']}")
     assert m_met["detail"]["link_tier"] == "literal", (
         f"M-met must resolve via literal (2nd candidate, first-match-hijack fix), "
         f"got {m_met['detail']['link_tier']}")
     print("[CHECK coverage_stress] accuracy_when_fired=6/6, fire_rate=6/6 "
-          "(K-met=pronoun_coref L-met=synonym M-met=literal-2nd-candidate)")
+          "(K-met=pronoun_coref L-met=shared_feature M-met=literal-2nd-candidate)")
     return {"coverage_stress_correct": n_correct, "coverage_stress_fired": len(fired)}
 
 
