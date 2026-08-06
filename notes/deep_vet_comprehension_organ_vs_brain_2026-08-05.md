@@ -206,3 +206,31 @@ dependent (works where event-centrality happens to align with the goal-holder); 
 dependence. FIX (dispatched): end-to-end with roster-enumerated goal-coherence candidate generation + promoted
 goal-typing, re-measured on primacy (expect explicit_psych ~12/12 + action_implied improved via the promoted
 purpose-infinitival typing that the isolated cell lacked) AND re-confirm recency-trap stays 18/18+10/10.
+
+## LANDED-5 (MILESTONE + VET-as-hard-as-negative found 3c): goal-coherence candidate-gen HARD_PASS (commit b1b1ce460, exp_c5_primacy_trap_endtoend_goal_coherence_candidate_gen_v1, Director per-axis disk-VET incl gold-free code read)
+FIX WORKS. Primacy: explicit 12/12 (1.0) + action_implied 8/8 (1.0), ALL 4 baselines=0.0, beats_all_four=True,
+scramble non-vacuous. Recency-trap HELD: explicit 18/18 (1.0) + action_implied 9/10 (0.9). Net vs the 0/20
+primacy HARD_FAIL: +20 primacy, -1 recency = the goal-owner organ is now **47/48 on the fully-fair instrument**
+(both trap types, both constructions), GOLD-FREE (candidate set = roster.keys() [cast metadata]; outcome-slot
+subject = the proposed candidate; GOAL-typing structural via promoted hdlab/goal_typing; gold_outcome_owner read
+ONLY in scoring -- Director read enumerate_and_select/build_candidate_role_seq on disk to confirm; this cell is
+MORE fair than the isolated cell, which had a gold-owner leak [owner=item['owner'] to decide GOAL-bearing] that
+this one removes). Agent's mid-run scramble-vacuity gate change VET'd = CORRECT (compares recency-trap scramble
+vs the non-trivial {recency,nearest_subject} reference, not the trivially-tied first_mention/majority).
+
+### VET-AS-HARD-AS-NEGATIVE found the 3c gap (the self-drive brief's named frontier)
+The 1 recency miss (t24_tom_boat_foil_sid) = a GENUINE tie: directed_goal_outcome_score returns {tom:1.0, sid:1.0}
+(instrumented on disk) because BOTH Tom ("to mend the boat") and Sid ("to fetch the rope") hold purpose-infinitival
+goals, so the score (which checks goal-PRESENCE) ties -> sorted-order picks 'sid' (wrong). Full-instrument scope
+(inline count): 2 genuine ties (t23, t24); only t24 wrong (t23 won the alphabetical tiebreak by luck). BRAIN-DRILL
+(SHAPE/POS/METRIC): the brain binds the outcome to the goal it RESOLVES via CONTENT/CAUSAL coherence (Trabasso:
+Tom's goal is ABOUT the boat; the outcome is the boat SANK -> shared referent + causal goal-blocked relation),
+METRIC = goal-content <-> outcome-content overlap, NOT goal-presence. OURS = directed_goal_outcome_score checks
+has_goal (presence) = CONTENT-BLIND (same class as the earlier-session decode_coherence_margins role-content-
+blindness). On single-goal items presence==coherence; on MULTI-goal cue-conflict items it ties. ROUTE (rule b):
+NOT missing-LEARNING; missing CAPABILITY = goal-content<->outcome-content (shared theme/object) coherence, a
+REUSE/EXTEND of owned machinery (EventRecord.patient/theme + CausalLinkRegister), not from-scratch. RISK: content-
+coherence is historically HARD (the earlier role-content arc HARD_FAILed for decode_coherence_margins; only the
+role-compatibility-score selector was a thin HARD_PASS). NEXT = build 3c goal-content-coherence tie-break (reuse
+theme-match), with gold-vetted MULTI-GOAL cue-conflict test items, pre-reg fix-t24 + hold-47 + validate-multigoal;
+THEN promote the complete goal-owner selector (candidate-gen + content-coherence) as the wire-don't-island lock-in.
