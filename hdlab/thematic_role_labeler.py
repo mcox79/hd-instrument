@@ -26,7 +26,17 @@ Public API:
   train_perceptron(examples, seed=7, epochs=20) -> (pred_fn, avg_weights, roles)
   scramble_weights(avg_weights, seed) -> dict  # validity-scramble control
   ablate_weights(avg_weights, keep_prefixes) -> dict  # single-cue-ablation control
+  is_strictly_intransitive(lemma) -> bool      # frame-ARITY fact (2026-08-06); see below
   ROLES = (AGENT, PATIENT, EXPERIENCER, RECIPIENT, GOAL, NONE)
+
+FRAME-ARITY NOTE (2026-08-06, event-extraction precision fix, hdlab/situation_reader.py
+_pick_role_mentions gate): VERB_FRAMES above does NOT encode selectional ARITY (whether a verb
+licenses an object slot AT ALL) -- every entry, including DEFAULT_FRAME, maps "obj"->"PATIENT"
+for whichever verb reaches that slot; it says nothing about whether an object CAN exist for a
+given verb. Checked before writing STRICTLY_INTRANSITIVE_VERBS below: PSYCH_FRAME, DITRANS_FRAME,
+and DEFAULT_FRAME all carry an "obj" key, so no frame in this table can answer "does this verb
+ever take a direct object." This is therefore a missing-FACT SUPPLY (not VERB_FRAMES-encoded),
+per the route-errors-by-flavor discipline.
 """
 from __future__ import annotations
 
@@ -102,6 +112,45 @@ def frame_slot_role(lemma: str, slot: str) -> str:
     """verb lemma + syntactic slot ('subj'/'obj'/'iobj') -> role licensed at that slot."""
     frame = VERB_FRAMES.get(lemma, DEFAULT_FRAME)
     return frame.get(slot, "none")
+
+
+# ---------------------------------------------------------------------------------------------
+# STRICTLY-INTRANSITIVE verbs (SUPPLY, hand-authored, 2026-08-06): verbs that NEVER license a
+# direct-object/PATIENT slot in ordinary narrative usage. Used ONLY to gate the PATIENT slot in
+# hdlab/situation_reader.py::_pick_role_mentions (frame-ARITY gate) -- never touches AGENT/subject
+# selection. CONSERVATIVE by design: a verb is excluded from this set (left ungated, i.e. keeps
+# the current positional-object behavior) whenever it has a plausible transitive OR ambitransitive
+# sense in narrative prose, even an idiomatic/homonymous one, per the "over-gating a real patient
+# is worse than under-gating a rare one" instruction. Two verbs from the illustrative example list
+# are DELIBERATELY EXCLUDED for this reason (documented, not an oversight):
+#   - "stand": excluded -- common transitive STATIVE-EXPERIENCER homonym "cannot stand it/him"
+#     (tolerate) is frequent in narrative English; gating would strip a real patient.
+#   - "wait": excluded -- "wait one's turn" / "wait tables" are real (if less frequent) transitive
+#     uses; conservative exclusion.
+# Everything below is checked against no such common transitive/ambitransitive sense:
+#   arrive/depart/vanish/disappear/arise/faint/collapse/expire/perish: no direct-object sense at
+#     all in ordinary English. die: "die a death/die a hero's death" is a marginal, archaic
+#     cognate-object idiom (semantically near-vacuous, does not license a genuine distinct
+#     PATIENT) -- included. go/come/fall/rise: the "go/come/fall/rise it" idiomatic transitive
+#     uses are archaic/marginal; the self-motion sense (the dominant sense this gate targets) never
+#     takes a direct object -- included. kneel: no transitive sense -- included. sit/sleep: "sit an
+#     exam"/"sit a horse" (chiefly British/archaic) and the cognate-object "sleep the sleep of the
+#     just" are rare/literary; included per the conservative-but-not-absolute reading of the
+#     instruction (both verbs were named in the illustrative example list and their transitive
+#     senses are markedly rarer than "stand"=tolerate).
+# ---------------------------------------------------------------------------------------------
+STRICTLY_INTRANSITIVE_VERBS = frozenset({
+    "arrive", "depart", "vanish", "disappear", "arise", "faint", "collapse", "expire", "perish",
+    "die", "go", "come", "fall", "rise", "kneel", "sit", "sleep",
+})
+
+
+def is_strictly_intransitive(lemma: str) -> bool:
+    """True iff `lemma` never licenses a direct-object/PATIENT slot (SUPPLIED conservative set;
+    see STRICTLY_INTRANSITIVE_VERBS above + its exclusion rationale). AMBITRANSITIVE verbs
+    (eat/read/sing/...) are deliberately NOT in this set -- they keep the current positional
+    object-selection behavior unconditionally."""
+    return lemma in STRICTLY_INTRANSITIVE_VERBS
 
 
 # ---------------------------------------------------------------------------------------------
@@ -337,6 +386,13 @@ def _selftest() -> None:
     assert set(scr.keys()) == set(avg.keys())
     abl = ablate_weights(avg, "animacy:")
     assert all(f.startswith("animacy:") or f == "BIAS" for (f, _r) in abl.keys())
+    # frame-ARITY fact (2026-08-06): strictly-intransitive membership + conservative exclusions.
+    assert is_strictly_intransitive("go") and is_strictly_intransitive("arrive")
+    assert is_strictly_intransitive("sit") and is_strictly_intransitive("die")
+    assert not is_strictly_intransitive("stand"), "stand must stay ungated (tolerate homonym)"
+    assert not is_strictly_intransitive("wait"), "wait must stay ungated (wait-one's-turn)"
+    assert not is_strictly_intransitive("eat"), "ambitransitive verbs must never be gated"
+    assert not is_strictly_intransitive("build"), "plain transitive verbs must never be gated"
     print("[selftest] PASS: thematic_role_labeler", flush=True)
 
 

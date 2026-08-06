@@ -95,7 +95,7 @@ from hdlab.frame_induction import (
     real_construction_feats as FI_real_construction_feats,
     predict_subj_role as FI_predict_subj_role,
 )
-from hdlab.thematic_role_labeler import lemma_verb
+from hdlab.thematic_role_labeler import lemma_verb, is_strictly_intransitive
 
 # WIRE-DON'T-ISLAND (2026-08-05): pre-induce the OOV-subject construction->frame hypothesis ONCE
 # at import time (module-level cache inside get_induced_subj_hypothesis itself; this call just
@@ -299,11 +299,26 @@ def _build_spacy_pred_gate():
     return pred_gate_fn
 
 
-def _pick_role_mentions(pred_idx: int, sent_noms: List[dict]) -> Tuple[Optional[dict], Optional[dict]]:
+def _pick_role_mentions(pred_idx: int, sent_noms: List[dict], *,
+                        gate_intransitive: bool = False,
+                        pred_lemma: Optional[str] = None
+                        ) -> Tuple[Optional[dict], Optional[dict]]:
     """Positional mention selection (single source of truth for both head-strings and, since
     2026-08-05, frame-primary role labeling): subj-mention = the subject-mention (rank 0) if
     before/at the predicate else nearest preceding nominal; obj-mention = nearest nominal
-    strictly after the predicate. Returns (subj_mention_dict_or_None, obj_mention_dict_or_None)."""
+    strictly after the predicate. Returns (subj_mention_dict_or_None, obj_mention_dict_or_None).
+
+    FRAME-ARITY GATE (2026-08-06, additive, default OFF -> byte-identical to the pre-existing
+    behavior when gate_intransitive=False): the un-gated obj-mention selection above is FRAME-
+    BLIND -- it hands an intransitive verb ("sat", "arrived", "went") the nearest following
+    nominal as a spurious PATIENT even though the verb's frame has no patient slot. When
+    gate_intransitive=True and `pred_lemma` (already re-lemmatized by the caller, see
+    hdlab.thematic_role_labeler.lemma_verb) names a verb in
+    hdlab.thematic_role_labeler.STRICTLY_INTRANSITIVE_VERBS, obj_m is forced to None regardless of
+    the nearest-following nominal -- the frame has no PATIENT slot, so there is nothing to select.
+    AMBITRANSITIVE verbs (eat/read/sing/...) are NOT in that set and are therefore never gated
+    here; their positional object selection (right or wrong) is unchanged. Subject/AGENT selection
+    is never touched by this gate."""
     before = [m for m in sent_noms if m["wtok_start"] <= pred_idx]
     after = [m for m in sent_noms if m["wtok_start"] > pred_idx]
     subj_m: Optional[dict] = None
@@ -311,22 +326,37 @@ def _pick_role_mentions(pred_idx: int, sent_noms: List[dict]) -> Tuple[Optional[
         subj = [m for m in before if m.get("is_subject")]
         subj_m = subj[0] if subj else before[-1]
     obj_m = after[0] if after else None
+    if gate_intransitive and pred_lemma is not None and is_strictly_intransitive(pred_lemma):
+        obj_m = None
     return subj_m, obj_m
 
 
-def _assign_roles(pred_idx: int, sent_noms: List[dict]) -> Tuple[str, str]:
+def _assign_roles(pred_idx: int, sent_noms: List[dict], *,
+                  lemma: Optional[str] = None,
+                  gate_intransitive: bool = False) -> Tuple[str, str]:
     """Glass-box structural role assignment against the sentence's gold mention heads:
     AGENT = the subject-mention (rank 0) if before/at the predicate else nearest preceding
     nominal; PATIENT = nearest nominal strictly after the predicate. '?' when none.
-    UNCHANGED behavior (2026-08-05): now backed by _pick_role_mentions, byte-identical output."""
-    subj_m, obj_m = _pick_role_mentions(pred_idx, sent_noms)
+    UNCHANGED behavior (2026-08-05): now backed by _pick_role_mentions, byte-identical output.
+
+    FRAME-ARITY GATE (2026-08-06): `lemma` is the caller's raw predicate token (surface or
+    already-a-lemma; re-lemmatized here via hdlab.thematic_role_labeler.lemma_verb, same as
+    _assign_frame_primary_roles below); `gate_intransitive` defaults to False so every existing
+    call site is byte-identical unless it opts in. When True, PATIENT is suppressed for verbs in
+    STRICTLY_INTRANSITIVE_VERBS (see _pick_role_mentions docstring)."""
+    pred_lemma = lemma_verb(lemma) if (gate_intransitive and lemma is not None) else None
+    subj_m, obj_m = _pick_role_mentions(pred_idx, sent_noms,
+                                        gate_intransitive=gate_intransitive,
+                                        pred_lemma=pred_lemma)
     agent = subj_m["head"] if subj_m is not None else "?"
     patient = obj_m["head"] if obj_m is not None else "?"
     return agent, patient
 
 
 def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
-                                sent_noms: List[dict]) -> Tuple[Optional[str], Optional[str]]:
+                                sent_noms: List[dict], *,
+                                gate_intransitive: bool = False
+                                ) -> Tuple[Optional[str], Optional[str]]:
     """Component-3 wire (2026-08-05, updated same day -- WIRE-DON'T-ISLAND): frame-primary
     THEMATIC role labels for the SAME heads _assign_roles picks (via the shared
     _pick_role_mentions selector) -- additive, does not change which head is chosen. KNOWN verb
@@ -351,9 +381,16 @@ def _assign_frame_primary_roles(lemma: str, toks: List[str], pred_idx: int,
     the existing glass-box lemma_verb() (irregular table + suffix-strip) before the frame lookup,
     same as every other real-data consumer of frame_primary_role (see
     experiments/exp_frame_primary_role_assigner_v1.py which lemmatizes from record["verb_lemma"]
-    supplied by the gold dataset -- here there is no supplied lemma, so lemma_verb() derives it)."""
+    supplied by the gold dataset -- here there is no supplied lemma, so lemma_verb() derives it).
+
+    FRAME-ARITY GATE (2026-08-06): `gate_intransitive` defaults to False (byte-identical to the
+    pre-existing behavior); when True, forwarded to the shared _pick_role_mentions selector so the
+    obj-mention (and therefore obj_role below) is suppressed for STRICTLY_INTRANSITIVE_VERBS,
+    exactly mirroring _assign_roles."""
     true_lemma = lemma_verb(lemma)
-    subj_m, obj_m = _pick_role_mentions(pred_idx, sent_noms)
+    subj_m, obj_m = _pick_role_mentions(pred_idx, sent_noms,
+                                        gate_intransitive=gate_intransitive,
+                                        pred_lemma=true_lemma if gate_intransitive else None)
     subj_role = None
     if subj_m is not None:
         subj_role = frame_primary_role(true_lemma, toks, pred_idx, int(subj_m["wtok_start"]), "subj",
@@ -400,7 +437,8 @@ class SituationReader:
 
     def __init__(self, *, gaz: Optional[Dict[str, str]] = None,
                  focus_n_dim: int = FOCUS_N_DIM,
-                 pred_gate_fn=None, spacy_pred_gate: bool = False) -> None:
+                 pred_gate_fn=None, spacy_pred_gate: bool = False,
+                 gate_intransitive: bool = False) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -408,6 +446,10 @@ class SituationReader:
         if pred_gate_fn is None and spacy_pred_gate:
             pred_gate_fn = _build_spacy_pred_gate()
         self.pred_gate_fn = pred_gate_fn
+        # OPTIONAL frame-ARITY gate (2026-08-06). Default OFF -> byte-identical to the pre-existing
+        # positional obj-selection. When True, STRICTLY_INTRANSITIVE_VERBS (sit/go/arrive/...) never
+        # get a spurious PATIENT from the nearest following nominal. See _pick_role_mentions.
+        self.gate_intransitive = bool(gate_intransitive)
         # persistent readers (the banked backbone + single-sentence validity baseline)
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
         self.reader_ss = CorefReader()
@@ -449,7 +491,8 @@ class SituationReader:
             # supplied-grammar gate: valid predicate LOW tokens for THIS sentence (spaCy VERBs)
             verb_lows = self.pred_gate_fn(text) if self.pred_gate_fn is not None else None
             for e in evs:
-                agent, patient = _assign_roles(e.idx, noms)
+                agent, patient = _assign_roles(e.idx, noms, lemma=e.lemma,
+                                               gate_intransitive=self.gate_intransitive)
                 if verb_lows is not None and e.lemma not in verb_lows:
                     # POS mis-tag (non-verb read as a predicate) -> suppress (glass-box record)
                     suppressed.append(SuppressedPredicate(
@@ -462,7 +505,8 @@ class SituationReader:
                 focus.push(vec, gidx)
                 # Component-3 wire: frame-primary thematic labels for the same agent/patient heads
                 # (additive metadata; does not change codec encoding or head selection above).
-                subj_role, obj_role = _assign_frame_primary_roles(e.lemma, toks, e.idx, noms)
+                subj_role, obj_role = _assign_frame_primary_roles(
+                    e.lemma, toks, e.idx, noms, gate_intransitive=self.gate_intransitive)
                 # grounded-affect wire: certified animacy-axis valence for the same patient head
                 # (additive metadata; does not change codec encoding or head selection above).
                 affect = _assign_affect(patient, text)
@@ -752,6 +796,150 @@ def _selftest_role_assignment() -> dict:
     return {"agent": agent, "patient": patient}
 
 
+def _selftest_frame_arity_gate() -> dict:
+    """MECHANISM CAN-FAIL suite for the 2026-08-06 frame-ARITY patient gate (redirected
+    event-extraction precision fix, hdlab/situation_reader.py::_pick_role_mentions). Structural
+    correctness is verified directly against hdlab.thematic_role_labeler.STRICTLY_INTRANSITIVE_VERBS
+    -- NOT against any gold corpus -- so this is gold-independent, decisive evidence per the
+    pre-reg. Every case calls the REAL _assign_roles()/_pick_role_mentions() (unit level) with
+    gate_intransitive=False (must reproduce the pre-fix bug exactly, byte-identical) and
+    gate_intransitive=True (must fix it), plus one full end-to-end SituationReader().read() proof.
+
+    Cases (16 total):
+      (A) 9x STRICTLY-intransitive verb + a following nominal -> ungated WRONGLY assigns it as
+          patient (the bug, reproduced); gated correctly abstains (patient='?'). Covers every verb
+          family in STRICTLY_INTRANSITIVE_VERBS except the rare/archaic-only synonyms (arrive is
+          the motion-verb representative; die/go/come/fall/rise/sit/sleep/kneel are the rest).
+      (B) 3x TRANSITIVE / AMBITRANSITIVE-with-a-real-object -> patient KEPT identically gated and
+          ungated (build=plain-transitive, eat/read=ambitransitive-but-used-transitively-here).
+      (C) 1x AMBITRANSITIVE-intransitive-use with NO following nominal at all ("Tom ate.") ->
+          abstains ('?') in BOTH arms via the pre-existing after=[] path, not via gating (eat is
+          never in STRICTLY_INTRANSITIVE_VERBS) -- proves the natural-abstain path still works and
+          is undisturbed by this change.
+      (D) 1x AMBITRANSITIVE-intransitive-use WITH a trailing nominal that is not its patient
+          ("Tom sang under the tree.") -> patient is WRONGLY kept ('tree') in BOTH arms (sing is
+          deliberately NOT gated) -- documents the honest scope boundary: this fix only reaches
+          verbs with NO transitive sense at all, not ambitransitive verbs used intransitively with
+          a trailing distractor nominal (that residual needs a WSD/valence-frame classifier, not an
+          arity lookup).
+      (E) 2x CONSERVATIVE-EXCLUSION boundary ("stand"="tolerate", "wait"="wait one's turn") -> both
+          deliberately excluded from STRICTLY_INTRANSITIVE_VERBS (see its docstring); patient KEPT
+          in the gated arm, proving the conservative exclusion actually protects a real patient
+          rather than being a dead declaration.
+      (F) 1x full end-to-end SituationReader(gate_intransitive=True).read() over a real 2-sentence
+          CoNLL doc (sit + build) -- proves the constructor flag reaches _read_events, event COUNT
+          (recall) is unchanged, AGENT is unchanged, and only the intransitive verb's patient moves.
+    In every case AGENT is asserted unchanged gated-vs-ungated (the gate must never touch subject
+    selection)."""
+    def run(pred_idx, noms, lemma, gated):
+        return _assign_roles(pred_idx, noms, lemma=lemma, gate_intransitive=gated)
+
+    # helper: two nominals, "subj" before the predicate, "obj_candidate" after it.
+    def noms2(subj_head, subj_pos, obj_head, obj_pos):
+        return [{"head": subj_head, "wtok_start": subj_pos, "is_subject": True, "midx": 0},
+                {"head": obj_head, "wtok_start": obj_pos, "is_subject": False, "midx": 1}]
+
+    results = {}
+
+    # -- (A) 9x strictly-intransitive + following nominal: ungated bug reproduced, gated fixed --
+    strictly_intransitive_cases = [
+        ("go", 1, noms2("tom", 0, "store", 4)),
+        ("come", 1, noms2("mary", 0, "door", 4)),
+        ("arrive", 1, noms2("he", 0, "station", 4)),
+        ("fall", 1, noms2("it", 0, "wall", 4)),
+        ("rise", 2, noms2("sun", 1, "hills", 5)),
+        ("die", 2, noms2("king", 1, "battle", 5)),
+        ("sit", 1, noms2("tom", 0, "window", 4)),
+        ("sleep", 2, noms2("baby", 1, "storm", 5)),
+        ("kneel", 1, noms2("she", 0, "altar", 4)),
+    ]
+    for lemma, pidx, noms in strictly_intransitive_cases:
+        ag_u, pt_u = run(pidx, noms, lemma, gated=False)
+        ag_g, pt_g = run(pidx, noms, lemma, gated=True)
+        assert pt_u == noms[1]["head"], (
+            f"[{lemma}] ungated must reproduce the pre-fix bug (patient={pt_u!r}, "
+            f"expected {noms[1]['head']!r})")
+        assert pt_g == "?", f"[{lemma}] gated must suppress the spurious patient, got {pt_g!r}"
+        assert ag_u == ag_g == noms[0]["head"], f"[{lemma}] AGENT must be untouched by the gate"
+        results[lemma] = {"ungated_patient": pt_u, "gated_patient": pt_g}
+
+    # -- (B) 3x transitive / ambitransitive-with-real-object: patient kept both arms --
+    keep_patient_cases = [
+        ("build", 1, noms2("tom", 0, "castle", 3)),
+        ("eat", 1, noms2("tom", 0, "cake", 3)),
+        ("read", 1, noms2("she", 0, "book", 3)),
+    ]
+    for lemma, pidx, noms in keep_patient_cases:
+        ag_u, pt_u = run(pidx, noms, lemma, gated=False)
+        ag_g, pt_g = run(pidx, noms, lemma, gated=True)
+        assert pt_u == pt_g == noms[1]["head"], (
+            f"[{lemma}] transitive/ambitransitive patient must be kept identically in both arms "
+            f"(ungated={pt_u!r} gated={pt_g!r} expected={noms[1]['head']!r})")
+        assert ag_u == ag_g == noms[0]["head"]
+        results[lemma] = {"ungated_patient": pt_u, "gated_patient": pt_g}
+
+    # -- (C) ambitransitive intransitive-use, NO trailing nominal: natural abstain both arms --
+    noms_no_obj = [{"head": "tom", "wtok_start": 0, "is_subject": True, "midx": 0}]
+    ag_u, pt_u = run(1, noms_no_obj, "eat", gated=False)
+    ag_g, pt_g = run(1, noms_no_obj, "eat", gated=True)
+    assert pt_u == pt_g == "?", (
+        f"[eat/no-candidate] must abstain naturally in both arms (ungated={pt_u!r} gated={pt_g!r})")
+    results["eat_no_object"] = {"ungated_patient": pt_u, "gated_patient": pt_g}
+
+    # -- (D) ambitransitive intransitive-use WITH a trailing distractor nominal: known boundary --
+    noms_sing = noms2("tom", 0, "tree", 4)
+    ag_u, pt_u = run(1, noms_sing, "sing", gated=False)
+    ag_g, pt_g = run(1, noms_sing, "sing", gated=True)
+    assert pt_u == pt_g == "tree", (
+        f"[sing/distractor] ambitransitive-not-in-gate-set must be UNCHANGED by this fix "
+        f"(ungated={pt_u!r} gated={pt_g!r}) -- this residual is out of scope, not a regression")
+    results["sing_distractor_known_boundary"] = {"ungated_patient": pt_u, "gated_patient": pt_g}
+
+    # -- (E) conservative-exclusion boundary: stand/wait keep their real patient even gated=True --
+    excluded_cases = [
+        ("stand", 2, noms2("he", 0, "noise", 5)),
+        ("wait", 1, noms2("tom", 0, "turn", 3)),
+    ]
+    for lemma, pidx, noms in excluded_cases:
+        ag_g, pt_g = run(pidx, noms, lemma, gated=True)
+        assert pt_g == noms[1]["head"], (
+            f"[{lemma}] deliberately-excluded verb must KEEP its patient under gate_intransitive="
+            f"True (got {pt_g!r}, expected {noms[1]['head']!r}) -- conservatism check")
+        results[f"{lemma}_conservative_exclusion"] = {"gated_patient": pt_g}
+
+    # -- (F) full end-to-end: SituationReader(gate_intransitive=True) over a real CoNLL doc --
+    rows = [
+        (0, 0, "Tom", "(0)"), (0, 1, "sat", "_"), (0, 2, "down", "_"), (0, 3, "by", "_"),
+        (0, 4, "the", "_"), (0, 5, "chair", "(1)"), (0, 6, ".", "_"),
+        (1, 0, "Tom", "(0)"), (1, 1, "built", "_"), (1, 2, "the", "_"),
+        (1, 3, "castle", "(2)"), (1, 4, ".", "_"),
+    ]
+    path = _write_temp_conll(rows)
+    try:
+        sm_ungated = SituationReader(gaz={"tom": "masc"}).read(path)
+        sm_gated = SituationReader(gaz={"tom": "masc"}, gate_intransitive=True).read(path)
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+    bu = {ev.predicate: ev for ev in sm_ungated.events}
+    bg = {ev.predicate: ev for ev in sm_gated.events}
+    assert len(sm_ungated.events) == len(sm_gated.events) == 2, (
+        f"end-to-end event COUNT (recall) must be unchanged: "
+        f"ungated={len(sm_ungated.events)} gated={len(sm_gated.events)}")
+    assert bu["sat"].patient == "chair", f"end-to-end ungated must reproduce the bug: {bu['sat']}"
+    assert bg["sat"].patient == "?", f"end-to-end gated must fix it: {bg['sat']}"
+    assert bu["built"].patient == bg["built"].patient == "castle", "transitive event unchanged"
+    assert bu["sat"].agent == bg["sat"].agent == "tom", "AGENT untouched end-to-end"
+    results["end_to_end"] = {
+        "n_events_ungated": len(sm_ungated.events), "n_events_gated": len(sm_gated.events),
+        "sat_patient_ungated": bu["sat"].patient, "sat_patient_gated": bg["sat"].patient,
+        "built_patient_both": bu["built"].patient}
+
+    return {"n_cases": 16, "all_pass": True, **results}
+
+
 def _selftest_pred_gate() -> dict:
     """OPT-IN spaCy predicate-validity gate: a planted non-verb mis-tag is suppressed,
     a real verb survives. SKIPS gracefully if spaCy is not installed (default-env)."""
@@ -869,6 +1057,7 @@ def _selftest_event_extraction_coverage() -> dict:
 def _run_all_selftests() -> dict:
     out = {}
     out["role_assignment"] = _selftest_role_assignment()
+    out["frame_arity_gate"] = _selftest_frame_arity_gate()
     out["read_end_to_end"] = _selftest_read_end_to_end()
     out["pred_gate"] = _selftest_pred_gate()
     out["frame_primary_wiring"] = _selftest_frame_primary_wiring()

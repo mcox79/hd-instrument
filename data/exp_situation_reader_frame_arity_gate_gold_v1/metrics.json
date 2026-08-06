@@ -1,0 +1,152 @@
+{
+  "anchor_name": "situation_reader_frame_arity_gate_gold_v1",
+  "run_mode": "full",
+  "verdict": "MIDDLE_BAND_PRECISION_UP_SMALL_N_GOLD_SECONDARY_EVIDENCE",
+  "verdict_msg": "MIDDLE_BAND_PRECISION_UP_SMALL_N_GOLD_SECONDARY_EVIDENCE | n_sents=46 gold=34 | UNGATED P=0.148 R=0.265 F1=0.189 n_pred=61 | GATED P=0.173 R=0.265 F1=0.209 n_pred=52 | intransitive_fp_removed=9 other_removed=0 added_by_gate=0 | recall_unchanged=True n_events_unchanged=True | arms_differ=True discrim_fires=True",
+  "summary": "MIDDLE_BAND_PRECISION_UP_SMALL_N_GOLD_SECONDARY_EVIDENCE | n_sents=46 gold=34 | UNGATED P=0.148 R=0.265 F1=0.189 n_pred=61 | GATED P=0.173 R=0.265 F1=0.209 n_pred=52 | intransitive_fp_removed=9 other_removed=0 added_by_gate=0 | recall_unchanged=True n_events_unchanged=True | arms_differ=True discrim_fires=True",
+  "elapsed_s": 9.837813200021628,
+  "ts_iso": "2026-08-06T08:46:08.042728+00:00",
+  "arm_metrics": {
+    "ungated": {
+      "precision": 0.14754098360655737,
+      "recall": 0.2647058823529412,
+      "f1": 0.18947368421052632,
+      "n_pred": 61,
+      "tp": 9,
+      "n_gold_covered": 9,
+      "n_gold": 34
+    },
+    "gated": {
+      "precision": 0.17307692307692307,
+      "recall": 0.2647058823529412,
+      "f1": 0.20930232558139533,
+      "n_pred": 52,
+      "tp": 9,
+      "n_gold_covered": 9,
+      "n_gold": 34
+    }
+  },
+  "n_events_ungated": 69,
+  "n_events_gated": 69,
+  "n_events_unchanged": true,
+  "intransitive_fp_removed": [
+    {
+      "sid": "L04_10",
+      "v": "go",
+      "a": "herbert",
+      "p": "crying",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L04_02",
+      "v": "go",
+      "a": "cat",
+      "p": "floor",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L04_07",
+      "v": "sit",
+      "a": "passion",
+      "p": "floor",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L04_01",
+      "v": "fall",
+      "a": "o",
+      "p": "ruin",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L05_06",
+      "v": "go",
+      "a": "pussy",
+      "p": "building",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L04_15",
+      "v": "come",
+      "a": "boy",
+      "p": "eyes",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L04_19",
+      "v": "sit",
+      "a": "shall",
+      "p": "floor",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L05_11",
+      "v": "go",
+      "a": "sticks",
+      "p": "reading",
+      "was_gold_true_positive": false
+    },
+    {
+      "sid": "L04_12",
+      "v": "fall",
+      "a": "pussy",
+      "p": "hetty",
+      "was_gold_true_positive": false
+    }
+  ],
+  "other_removed_non_intransitive_class": [],
+  "n_intransitive_fp_removed": 9,
+  "n_other_removed": 0,
+  "n_added_by_gate": 0,
+  "recall_unchanged": true,
+  "any_lost_true_positive": false,
+  "kept_hashes": {
+    "ungated": "84f645a5046e92a7",
+    "gated": "ee000843a58e8470"
+  },
+  "arms_differ_verified": true,
+  "discriminator_fires": true,
+  "scaffold_free_witness": {
+    "witness": "PASS",
+    "n_removed_total": 9,
+    "go_patient_removed_example": [
+      [
+        "L04_10",
+        [
+          "go",
+          "herbert",
+          "crying"
+        ]
+      ],
+      [
+        "L04_02",
+        [
+          "go",
+          "cat",
+          "floor"
+        ]
+      ],
+      [
+        "L05_06",
+        [
+          "go",
+          "pussy",
+          "building"
+        ]
+      ]
+    ],
+    "rub_castle_kept": true
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "n_nominal_tokens_synthetic_candidate_pool": 250,
+  "independent_gold_source": "data/gold_mcguffey_castle_building_svo_v1.json (same gold as exp_coherence_gate_extraction_correctness_independent_gold_v1)",
+  "honest_limitation": "candidate nominal pool is a SYNTHETIC every-noun-is-a-singleton-mention CoNLL (no real LitBank coref annotation exists for this non-LitBank McGuffey text) -- absolute P/R here are NOT comparable to the 0.232/0.278/0.297 F1 numbers in situation_reader.py's docstring (those are on real LitBank data); only the GATED-vs-UNGATED delta on this SAME candidate pool is the measured quantity.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arm_metrics",
+    "intransitive_fp_removed",
+    "recall_unchanged",
+    "scaffold_free_witness"
+  ],
+  "notes": "SECONDARY, small-n (34 gold relations) gold measurement of the frame-arity patient gate. PRIMARY/decisive evidence is hdlab.situation_reader._selftest_frame_arity_gate (gold-independent, 16/16 mechanism can-fail). MIDDLE_BAND on the aggregate is the PRE-REGISTERED expected outcome at this n; HARD_FAIL only if recall regresses or the gate ever ADDS a relation (n_added_by_gate>0, which would indicate a wiring bug)."
+}
