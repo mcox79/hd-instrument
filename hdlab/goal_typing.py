@@ -251,12 +251,18 @@ def _ordered_tokens(sentence: str) -> List[str]:
 def c3_has_desire(sentence: str) -> bool:
     """True iff ANY token in `sentence` lemmatizes (hdlab.thematic_role_labeler.lemma_verb) to a
     verb that frame_primary_role (Component-3, production config: chosen_name=None, hypothesis=None
-    -- identical to the conservative wire in hdlab/situation_reader.py) labels subj=EXPERIENCER.
-    Byte-identical copy of experiments/exp_component5_wired_endtoend_v1.py::c3_has_desire."""
-    for tok in _ordered_tokens(sentence):
+    -- identical to the conservative wire in hdlab/situation_reader.py) labels subj=EXPERIENCER,
+    AND that EXPERIENCER token is not itself NEGATED. Based on
+    experiments/exp_component5_wired_endtoend_v1.py::c3_has_desire; NO LONGER byte-identical --
+    extended 2026-08-06 with the same do-support/modal/"never" negation-scope guard the construction
+    path uses (_verb_negated_before), so a NEGATED desire state ("he did NOT like to VP") is not
+    read as an active desire (that source cell keeps its own copy untouched as its historical
+    source-of-truth). A non-negated EXPERIENCER fire ("he was WANTING attention") is unchanged."""
+    toks = _ordered_tokens(sentence)
+    for k, tok in enumerate(toks):
         lemma = lemma_verb(tok)
         role = frame_primary_role(lemma, [], 0, None, "subj")
-        if role == "EXPERIENCER":
+        if role == "EXPERIENCER" and not _verb_negated_before(toks, k):
             return True
     return False
 
@@ -345,6 +351,62 @@ assert DESIDERATIVE_PASS.isdisjoint(CONATIVE_PASS) and DESIDERATIVE_PASS.isdisjo
     and CONATIVE_PASS.isdisjoint(INTENTION_PASS), "the three pass-classes must be mutually disjoint"
 
 
+# ============================================================================ NEGATION-SCOPE GUARD
+# (2026-08-06). Closes the pre-existing negation gap that the goal-recognition coverage expansion
+# (commit 051f6d0ef) widened: a GOAL_GOVERNING_PASS verb that is itself NEGATED ("did not try",
+# "never decided", "did not mean", "did not like") signals a NEGATED/ABSENT goal and must NOT be
+# recognized as an active goal (abstain). LOAD-BEARING PRECISION GUARD: the negator must scope the
+# GOVERNING VERB ITSELF (precede it, via do-support / modal / "never" adjacency), NOT the "to VP"
+# COMPLEMENT -- "He tried NOT to cry" / "She decided NOT to go" are AVOIDANCE goals (the goal-holder
+# still HAS a goal) and MUST still fire. That is why only tokens PRECEDING the governing verb are
+# consulted (a complement negator sits AFTER the governing verb, so it can never suppress). Brain-
+# grounding: FrameNet Negation frame (EVOKED_BY never.adv, HAS_FE Negated_proposition) -- the top
+# substrate-KB hit for this concept.
+#
+# SCOPE / known edges (reported honestly, "scope out conservatively"): (a) double-negation via a
+# lexical negative-implicative ("did not FAIL to arrive", "never NEGLECTED to help") is semantically
+# POSITIVE; those never reach this guard because fail/neglect/arrive are not GOAL_GOVERNING_PASS
+# verbs (dv_idx is None -> already abstained), so no false-suppression. (b) Litotes "not without ...
+# hopes" is NOT suppressed because the negator is not adjacent to the (noun) "hopes" -- a content
+# word breaks the window. (c) A double negation directly adjacent to a governing verb ("not not
+# want") and a fronted negation ("Never did she want to VP") are out of scope, left as known edges
+# (the conservative direction is to NOT suppress, favoring recall over false-suppression).
+NEGATORS = {"not", "never", "no", "none", "cannot"}
+# Degree/focus adverbs that can sit between a do-support/modal negator and the verb ("did not REALLY
+# want", "would not EVER decide") -- transparent to the backward negator scan. A content word,
+# preposition, determiner, or clause boundary is NOT transparent and stops the scan (this is what
+# keeps litotes "not without her own secret HOPES" un-suppressed: "secret" stops the scan short).
+_NEG_TRANSPARENT_ADVERBS = {"really", "ever", "always", "just", "simply", "even", "quite", "only",
+                            "truly", "actually", "once", "also", "still"}
+_NEG_MAX_SKIP = 2
+
+
+def _is_negator(tok: str) -> bool:
+    """True for an explicit clausal negator token: a NEGATORS-set word or an n't-contraction
+    ("didn't"/"won't"/"can't"/... -- the [a-z']+ tokenizer keeps "n't" joined to its host)."""
+    return tok in NEGATORS or tok.endswith("n't")
+
+
+def _verb_negated_before(toks: List[str], v_idx: int) -> bool:
+    """True iff a negator scopes the verb at toks[v_idx] via do-support / modal / "never" adjacency:
+    scan LEFT from v_idx-1, skipping up to _NEG_MAX_SKIP transparent degree adverbs; an explicit
+    negator within that window -> negated; a content word / clause boundary / sentence start ->
+    NOT negated. Only tokens PRECEDING the verb are consulted, so a negator on the "to VP" complement
+    ("tried NOT to cry") never suppresses -- that negator sits AFTER the governing verb."""
+    steps = 0
+    j = v_idx - 1
+    while j >= 0 and steps <= _NEG_MAX_SKIP:
+        tok = toks[j]
+        if _is_negator(tok):
+            return True
+        if tok in _NEG_TRANSPARENT_ADVERBS:
+            j -= 1
+            steps += 1
+            continue
+        return False
+    return False
+
+
 # TIER-2 (2026-08-06): open-vocab control-verb classification for action_frame_feats's PARTITIONED
 # exclusion below. Seed pools = the lemma forms already in ASPECTUAL_STOP / DESIDERATIVE_PASS.
 # ("try" REMOVED from the aspect seed pool 2026-08-06: it is now CONATIVE, and leaving it here
@@ -387,6 +449,13 @@ def action_frame_feats(sentence: str) -> List[str]:
             continue
         preceding = toks[i - 1] if i > 0 else None
         if preceding is not None and _control_verb_is_aspectual_like(preceding):
+            continue
+        # NEGATION-SCOPE GUARD (2026-08-06): suppress when the GOVERNING verb of this purpose-
+        # infinitival is itself negated. The governing verb is toks[i-1]; if THAT token is itself a
+        # negator, the negation scopes the COMPLEMENT ("tried NOT to cry" = avoidance goal, still a
+        # goal) and must still fire -- so the verb-negation guard is consulted only when toks[i-1] is
+        # not a negator. (Same _verb_negated_before adjacency logic find_desired_state uses.)
+        if preceding is not None and not _is_negator(preceding) and _verb_negated_before(toks, i - 1):
             continue
         has_purpose_inf = True
         break
@@ -746,7 +815,14 @@ def find_desired_state(sentence: str):
     gate widened 2026-08-06 from DESIDERATIVE_PASS alone to the GOAL_GOVERNING_PASS union (adds
     try/decide/determine/like/love + gerund forms)."""
     toks = _tokens(sentence)
-    dv_idx = next((i for i, t in enumerate(toks) if t in GOAL_GOVERNING_PASS), None)
+    # NEGATION-SCOPE GUARD (2026-08-06): iterate governing-verb occurrences and SKIP one whose verb
+    # is itself negated (do-support / modal / "never" adjacency, _verb_negated_before) -- a negated
+    # goal is ABSENT, not active -- recognizing from the first NON-negated governing verb instead.
+    # When no governing verb is negated this is behaviourally identical to the prior first-match
+    # next(...) logic (first GOAL_GOVERNING_PASS token == first non-negated one), so no non-negated
+    # coverage item changes.
+    dv_idx = next((k for k, t in enumerate(toks)
+                   if t in GOAL_GOVERNING_PASS and not _verb_negated_before(toks, k)), None)
     if dv_idx is None:
         return None
     for i in range(dv_idx + 1, len(toks) - 1):
@@ -1144,6 +1220,30 @@ def self_test() -> dict:
     assert goal_decided is True, "intention 'decided to VP' must fire GOAL"
     decided_bare = has_goal("He decided the matter without delay.", "he")
     assert decided_bare is False, "bare-transitive 'decided NP' (no infinitival) must NOT fire GOAL"
+
+    # (5d) NEGATION-SCOPE GUARD (2026-08-06): a goal-governing verb that is itself NEGATED (do-
+    # support / modal / "never" adjacency) signals a NEGATED/ABSENT goal -> abstain. Both the gated
+    # goal-CONTENT recognizer (find_desired_state) and has_goal must decline.
+    for _neg_sent, _neg_subj in [("She did not try to escape from the tower.", "she"),
+                                 ("He never decided to leave the village.", "he"),
+                                 ("She did not mean to intoxicate Diana.", "she"),
+                                 ("He did not like to disturb her.", "he"),
+                                 ("She didn't try to escape.", "she")]:
+        assert find_desired_state(_neg_sent) is None, (
+            f"negated goal-governing verb must abstain in find_desired_state: {_neg_sent!r}")
+        assert has_goal(_neg_sent, _neg_subj) is False, (
+            f"negated goal-governing verb must abstain in has_goal: {_neg_sent!r}")
+    # PRECISION GUARD: negation on the COMPLEMENT ("tried NOT to cry") is an AVOIDANCE goal -- the
+    # goal-holder still HAS a goal -- and MUST still fire (only the governing-verb negation suppresses).
+    for _cn_sent, _cn_subj in [("He tried not to cry.", "he"), ("She decided not to go.", "she")]:
+        assert find_desired_state(_cn_sent) is not None, (
+            f"complement negation (avoidance goal) must still fire in find_desired_state: {_cn_sent!r}")
+        assert has_goal(_cn_sent, _cn_subj) is True, (
+            f"complement negation (avoidance goal) must still fire in has_goal: {_cn_sent!r}")
+    # LITOTES: "not without ... hopes" is a positive goal (the negator is not adjacent to the
+    # governing noun/verb) -- must NOT be over-suppressed.
+    assert find_desired_state("she was not without secret hopes, and wanted to win") is not None, (
+        "litotes 'not without ... hopes' must not be over-suppressed")
 
     # (6) action-frame telos (no desiderative/psych word at all) still fires GOAL via the
     # purpose-infinitival construction (signal 2), same held-out verbs as the source cell.
