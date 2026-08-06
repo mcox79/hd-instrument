@@ -417,7 +417,7 @@ class SituationReader:
         sid_fixed = [i // LOCAL_WINDOW for i in range(n_sents)]
         recs_ec = self.reader_ec.resolve_stream(
             mentions, targets, scene_ids=sid_fixed, topical_mode="rolemass",
-            query_memory=True, centrality_mode="recency", **SUP_KW)
+            query_memory=True, centrality_mode="event_role", **SUP_KW)
         # single-sentence validity baseline (structurally blind cross-sentence)
         recs_ss = self.reader_ss.resolve_stream(
             mentions, targets, reset_per_sentence=True, strategy="maintained")
