@@ -499,6 +499,22 @@ for _a, _b in OPPOSED_PAIRS:
     OPPOSED_OF.setdefault(_a, set()).add(_b)
     OPPOSED_OF.setdefault(_b, set()).add(_a)
 
+# TIER-3 ACQUIRED-POLE SENTINEL (2026-08-06, grounded-word-acquisition increment 1b, Risk #1 fix;
+# preregs/2026-08-06_grounded_word_acquisition_increment1b_v1.md Section 3). A Tier-3-acquired outcome
+# verb (resolvable ONLY through verb_lexical_similarity.ACQUIRED_OUTCOME_VERB_FEATURES, which carries
+# the polarity POLE tags but NO EVENT_DOMAIN tag) cannot be placed into one of the 12 domain-keyed
+# CLASS_REGISTRY classes by the Tier-2 argmax (near-tied across same-pole classes -> margin gate fails
+# -> set()), so find_actual_state_candidates' `if classes:` filter would silently drop it. The fix
+# gives such a lemma a one-element POLE sentinel ({"ACQUIRED_REALIZED"} / {"ACQUIRED_BLOCKED"}) so it
+# survives as a candidate, and adds ONE pole-comparison branch to _class_relation below. POS_POLE /
+# NEG_POLE are a re-derivation of the ALREADY-EXISTING OPPOSED_PAIRS (first element of each pair is the
+# realized/POS pole, second the blocked/NEG pole -- matches verb_lexical_similarity.OUTCOME_SEED_POS vs
+# _NEG exactly), ZERO new taxonomy. All strict ADD: the overlay is EMPTY at import, so these constants
+# and branches never fire for any Tier-1/Tier-2 verb -> cert/production behavior byte-identical.
+POS_POLE_CLASSES = {a for a, _ in OPPOSED_PAIRS}
+NEG_POLE_CLASSES = {b for _, b in OPPOSED_PAIRS}
+ACQUIRED_POLE_SENTINELS = {"ACQUIRED_REALIZED", "ACQUIRED_BLOCKED"}
+
 # Which grammatical position holds the referent for CONTROL-pattern ("X wanted to VP") sentences,
 # keyed by the embedded verb's class: achievement verbs (win/reach/...) -- the SUBJECT (agent) is
 # who changes state; change-of-state transitives (mend/save/open/fill/...) -- the OBJECT (patient)
@@ -512,11 +528,62 @@ OBJECT_IS_REFERENT_CLASSES = {
 
 def _verb_classes(lemma: str) -> set:
     """Tier-1: exact CLASS_REGISTRY membership (unchanged, always wins -- zero regression). Tier-2
-    (2026-08-06): open-vocab fallback via shared-feature similarity, OOV-of-Tier-1 only."""
+    (2026-08-06): open-vocab fallback via shared-feature similarity, OOV-of-Tier-1 only. Tier-3
+    (2026-08-06 increment 1b, Risk #1 fix): a lemma resolvable ONLY through the acquired overlay
+    (Tier-1 and Tier-2 both returned nothing) gets a one-element pole sentinel so it survives
+    find_actual_state_candidates' `if classes:` filter. The overlay is EMPTY at import, so this branch
+    never fires for any Tier-1/Tier-2 verb -> byte-identical to before for every existing caller."""
     literal = {name for name, members in CLASS_REGISTRY.items() if lemma in members}
     if literal:
         return literal
-    return _verb_classes_similarity(lemma)
+    sim = _verb_classes_similarity(lemma)
+    if sim:
+        return sim
+    return _acquired_pole_sentinel(lemma)
+
+
+def _acquired_pole_sentinel(lemma: str) -> set:
+    """Tier-3 pole sentinel for an outcome verb resolvable ONLY through
+    verb_lexical_similarity.ACQUIRED_OUTCOME_VERB_FEATURES (increment 1b Risk #1). Returns
+    {"ACQUIRED_REALIZED"} for an acquired POS-pole word, {"ACQUIRED_BLOCKED"} for NEG, or set() if the
+    lemma is not in the acquired overlay. Never touches Tier-1/Tier-2 resolution."""
+    feats = _verblex.ACQUIRED_OUTCOME_VERB_FEATURES.get(lemma)
+    if feats is None:
+        return set()
+    if "AGONIST_REALIZED" in feats:
+        return {"ACQUIRED_REALIZED"}
+    if "AGONIST_BLOCKED" in feats:
+        return {"ACQUIRED_BLOCKED"}
+    return set()
+
+
+def _pole_of(classes: set) -> Optional[str]:
+    """POS/NEG/None pole for a class-set, unifying CLASS_REGISTRY poles (OPPOSED_PAIRS) and the Tier-3
+    ACQUIRED_* sentinels. None if the set carries no pole or mixes both poles (ambiguous)."""
+    pos = bool(classes & POS_POLE_CLASSES) or ("ACQUIRED_REALIZED" in classes)
+    neg = bool(classes & NEG_POLE_CLASSES) or ("ACQUIRED_BLOCKED" in classes)
+    if pos and not neg:
+        return "POS"
+    if neg and not pos:
+        return "NEG"
+    return None
+
+
+def _class_relation(desired_classes: set, actual_classes: set) -> Optional[str]:
+    """'same' / 'opposed' / None between a desired class-set and an actual class-set. Tier-1/Tier-2
+    literal class intersection first (BYTE-IDENTICAL to the pre-1b `same`/`opposed` computation, same
+    'same wins' precedence). Tier-3 (increment 1b) ADD: a single pole-comparison branch that fires
+    ONLY when at least one side carries an ACQUIRED_* sentinel -- so two pure CLASS_REGISTRY sets can
+    never reach it (a non-sentinel unrelated pair still returns None -> NA, exactly as before)."""
+    same = bool(desired_classes & actual_classes)
+    opposed = bool(_opposed_of(desired_classes) & actual_classes)
+    if same or opposed:
+        return "same" if same else "opposed"
+    if (actual_classes & ACQUIRED_POLE_SENTINELS) or (desired_classes & ACQUIRED_POLE_SENTINELS):
+        dp, ap = _pole_of(desired_classes), _pole_of(actual_classes)
+        if dp is not None and ap is not None:
+            return "same" if dp == ap else "opposed"
+    return None
 
 
 def _verb_classes_similarity(lemma: str) -> set:
@@ -724,8 +791,7 @@ def congruence_decision(goal_sentences, outcome_sentence: str):
     # pronoun-coref / synonym).
     actual, link_tier = None, None
     for cand in candidates:
-        related = bool((desired["classes"] & cand["classes"])
-                       or (_opposed_of(desired["classes"]) & cand["classes"]))
+        related = _class_relation(desired["classes"], cand["classes"]) is not None
         if not related:
             continue
         linked, tier = _referent_links(desired["referent"], cand["referent"])
@@ -739,9 +805,11 @@ def congruence_decision(goal_sentences, outcome_sentence: str):
         actual = candidates[0]
         _, link_tier = _referent_links(desired["referent"], actual["referent"])
 
-    same = desired["classes"] & actual["classes"]
-    opposed = _opposed_of(desired["classes"]) & actual["classes"]
-    if not same and not opposed:
+    # Tier-1/Tier-2 literal class intersection OR (increment 1b) a Tier-3 pole comparison when the
+    # actual/desired carries an ACQUIRED_* sentinel -- _class_relation is byte-identical to the prior
+    # `same`/`opposed` computation for every non-sentinel pair.
+    relation = _class_relation(desired["classes"], actual["classes"])
+    if relation is None:
         return "NA", {"reason": "verb_class_unrelated", "desired": desired, "actual": actual,
                       "link_tier": link_tier}
     if desired["referent"] is None or actual["referent"] is None:
@@ -750,7 +818,7 @@ def congruence_decision(goal_sentences, outcome_sentence: str):
     if link_tier not in LINK_TIERS:
         return "UNMET", {"reason": "referent_mismatch", "desired": desired, "actual": actual,
                          "link_tier": link_tier}
-    if same:
+    if relation == "same":
         return "MET", {"reason": "same_class_same_referent", "desired": desired, "actual": actual,
                        "link_tier": link_tier}
     return "UNMET", {"reason": "opposed_class_same_referent", "desired": desired, "actual": actual,
@@ -830,6 +898,30 @@ _CB_FUNCTION_WORDS = (_DET | _CB_PREPS | _CB_CLAUSE_BOUNDARY | _CB_BE_AUX | _CB_
                          "just", "only", "even", "still", "more", "most", "much", "well", "how",
                          "why", "where", "again", "ever", "never", "almost", "quite", "the"})
 
+# OPTIONAL enrichment-atom vocabulary (increment 1b Section 4, behind the `enrich` flag threaded
+# through _cb_analyze_outcome_clause / goal_congruence_appraisal_type below -- default OFF, so every
+# existing caller and cert path is byte-identical). Beavers 2011 scalar affectedness (a quantized DO
+# marks a telic, fully-affected result) + Kehler 2002 / Hobbs 1979 discourse-coherence pole cues.
+_CB_QUANTIFIERS = {"some", "many", "much", "all", "every", "each", "no", "two", "three", "four",
+                   "five", "six", "seven", "eight", "nine", "ten", "several", "few", "most", "both",
+                   "another", "one"}
+_CB_CONTRAST_CUES = {"but", "yet", "though", "although", "however"}
+_CB_RESULT_CUES = {"and", "so", "then", "for"}
+
+
+def _cb_discourse_pole_cue(toks, start, v_idx):
+    """Discourse-coherence pole cue for the target clause (Kehler 2002, Hobbs 1979). A CONTRAST
+    connective opening the clause (or 'however' inside it) votes REVERSAL relative to the clause-local
+    force-dynamic trajectory; a RESULT/continuation connective votes continuation. Returns
+    'CONTRAST' / 'CONTINUATION' / None."""
+    if start > 0 and toks[start - 1] in _CB_CONTRAST_CUES:
+        return "CONTRAST"
+    if "however" in toks[start:v_idx]:
+        return "CONTRAST"
+    if start > 0 and toks[start - 1] in _CB_RESULT_CUES:
+        return "CONTINUATION"
+    return None
+
 
 def _cb_token_is_animate_agent(tok_lower: str, tok_raw: str, idx: int) -> bool:
     """Surface animacy for a candidate subject token: nominative pronoun -> animate; inanimate
@@ -848,11 +940,13 @@ def _cb_token_is_animate_agent(tok_lower: str, tok_raw: str, idx: int) -> bool:
     return False
 
 
-def _cb_analyze_outcome_clause(outcome_sentence: str, target_lemma: str):
+def _cb_analyze_outcome_clause(outcome_sentence: str, target_lemma: str, enrich: bool = False):
     """Extract the target verb's local clause structure (subject animacy, direct-object presence,
     passive voice, result particle) around the FIRST token whose lemma == target_lemma. Returns None
     if the target verb is not found in the sentence. Glass-box surface parse, no external parser, no
-    lemma-as-feature."""
+    lemma-as-feature. `enrich` (increment 1b, default OFF -> byte-identical return dict) ADDS two
+    optional keys -- `direct_object_is_quantized` and `discourse_pole_cue` -- consumed only by the
+    enriched branch of goal_congruence_appraisal_type; the ablation runs both configs from this path."""
     toks = _tokens(outcome_sentence)
     raw = re.findall(r"[A-Za-z']+", outcome_sentence)
     if len(raw) != len(toks):
@@ -879,23 +973,34 @@ def _cb_analyze_outcome_clause(outcome_sentence: str, target_lemma: str):
     # "walked to the well" have NO direct object while "caught the mousie" / "earned money" do. Glass-
     # box surface approximation (no chunker); may over-count a post-verbal adjective as an NP head.
     has_direct_object = False
+    do_quantized = False
     saw_prep = False
+    det_before = False
     for k in range(v_idx + 1, len(toks)):
         w = toks[k]
         if w in _CB_CLAUSE_BOUNDARY:
             break
         if w in _CB_PREPS or w == "to":
             saw_prep = True
+            det_before = False
             continue
-        if w in _DET:
+        if w in _DET or w in _CB_QUANTIFIERS:
+            det_before = True
             continue
         if not saw_prep and (w in _CB_OBJECT_PRONOUNS
                              or (w not in _CB_FUNCTION_WORDS and len(w) >= 2)):
             has_direct_object = True
+            do_quantized = (det_before or (k < len(raw) and raw[k][:1].isupper())
+                            or w in _CB_OBJECT_PRONOUNS)
             break
-    return {"v_idx": v_idx, "animate_agent": animate_agent, "subject_present": subject_present,
-            "passive": passive, "result_particle": result_particle,
-            "has_direct_object": has_direct_object}
+        det_before = False
+    result = {"v_idx": v_idx, "animate_agent": animate_agent, "subject_present": subject_present,
+              "passive": passive, "result_particle": result_particle,
+              "has_direct_object": has_direct_object}
+    if enrich:
+        result["direct_object_is_quantized"] = has_direct_object and do_quantized
+        result["discourse_pole_cue"] = _cb_discourse_pole_cue(toks, start, v_idx)
+    return result
 
 
 def _cb_antecedent_goal_type(goal_sentences, clause):
@@ -925,14 +1030,18 @@ def _cb_antecedent_goal_type(goal_sentences, clause):
     return None
 
 
-def goal_congruence_appraisal_type(goal_sentences, outcome_sentence: str, target_word: str):
-    """Channel B adapter. Returns "RECIPROCITY" (goal-completing), "BLOCK_HIGH" (goal-thwarting), or
-    None (abstain). See the section banner above for the full contract and the anti-corner discipline
-    (no target-verb identity, no target-word co-occurrence; valence is read downstream from the frozen
-    reward theta, NOT assigned here). `goal_sentences` may be an empty list (bare-clause acquisition).
+def goal_congruence_appraisal_type(goal_sentences, outcome_sentence: str, target_word: str,
+                                   enrich: bool = False):
+    """Channel B / 1b structural situation-typer. Returns "RECIPROCITY" (goal-completing), "BLOCK_HIGH"
+    (goal-thwarting), or None (abstain). PURE STRUCTURE -- no target-verb identity, no target-word
+    co-occurrence, and (unlike increment 1's downstream caller) NO reward-theta lookup: the caller maps
+    RECIPROCITY->POS / BLOCK_HIGH->NEG directly (increment 1b, Section 1: the reward-theta was a fixed
+    2-value sign constant, dropped as proven-redundant, not a capability loss). `goal_sentences` may be
+    an empty list (bare-clause acquisition). `enrich` (default OFF -> byte-identical to increment 1's
+    behavior) adds the Beavers-2011 quantized-DO realization atom + the Kehler/Hobbs CONTRAST pole flip.
     """
     target_lemma = lemma_verb(target_word)
-    clause = _cb_analyze_outcome_clause(outcome_sentence, target_lemma)
+    clause = _cb_analyze_outcome_clause(outcome_sentence, target_lemma, enrich=enrich)
     if clause is None:
         return None
     # (1) explicit antecedent-goal congruence, when the passage supplies a desiderative goal.
@@ -942,14 +1051,19 @@ def goal_congruence_appraisal_type(goal_sentences, outcome_sentence: str, target
     # (2) implicit force-dynamics reading of the outcome clause alone (Talmy agonist realized/blocked).
     agonist_realized = ((clause["animate_agent"] and clause["has_direct_object"])
                         or clause["passive"] or clause["result_particle"])
+    if enrich and clause.get("direct_object_is_quantized"):
+        agonist_realized = True   # a bounded/quantized DO independently marks a telic realized result
     agonist_blocked = (clause["subject_present"] and not clause["has_direct_object"]
                        and not clause["passive"] and not clause["result_particle"]
                        and not clause["animate_agent"])
+    stype = None
     if agonist_realized and not agonist_blocked:
-        return "RECIPROCITY"
-    if agonist_blocked and not agonist_realized:
-        return "BLOCK_HIGH"
-    return None
+        stype = "RECIPROCITY"
+    elif agonist_blocked and not agonist_realized:
+        stype = "BLOCK_HIGH"
+    if enrich and stype is not None and clause.get("discourse_pole_cue") == "CONTRAST":
+        stype = "BLOCK_HIGH" if stype == "RECIPROCITY" else "RECIPROCITY"
+    return stype
 
 
 # ============================================================================ self-test

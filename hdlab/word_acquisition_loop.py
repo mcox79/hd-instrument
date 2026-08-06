@@ -336,6 +336,101 @@ def apply_acquired(acquired: Dict[str, dict]) -> None:
         _vls.register_acquired_outcome(lemma, info["polarity"])
 
 
+# =================================================================================================
+# INCREMENT 1b (2026-08-06): SINGLE-CHANNEL structural acquisition.
+# preregs/2026-08-06_grounded_word_acquisition_increment1b_v1.md.
+# Strict ADD alongside increment 1's two-channel path above (train_channel_a / channel_b_valence_table
+# / combine_votes are left importable-but-unused for historical comparison, per the pre-reg's
+# implementer's-call note). 1b drops (a) the reward-theta sign-constant (goal_typing's
+# goal_congruence_appraisal_type is already structural; the RECIPROCITY->POS / BLOCK_HIGH->NEG map is a
+# direct constant here, no context_grounded_valence import in the hot path) and (b) the STRICT
+# two-channel AND-gate (there is one channel now; the full anti-drift burden is carried by the REUSED
+# MIN_CONFIRM=2 + decide_keep_or_revert consolidation below, unchanged). The propose gate (word_is_novel
+# / predictive_coding.threshold_gate) and write-back (register_acquired_outcome) are reused verbatim.
+# =================================================================================================
+def structural_vote(goal_sentences, sentence: str, target_word: str,
+                    enrich: bool = False) -> Optional[str]:
+    """Increment 1b's sole channel: the structural situation type mapped DIRECTLY to a polarity vote,
+    RECIPROCITY -> POS (AGONIST_REALIZED), BLOCK_HIGH -> NEG (AGONIST_BLOCKED), None -> abstain. No
+    reward-theta lookup (proven a fixed 2-value sign constant, increment 1b Section 1). `enrich` toggles
+    goal_typing's optional Beavers-2011 / Kehler-Hobbs enrichment atoms for the ablation arm."""
+    stype = goal_congruence_appraisal_type(goal_sentences, sentence, target_word, enrich=enrich)
+    if stype is None:
+        return None
+    return "POS" if stype == "RECIPROCITY" else "NEG"
+
+
+def _lemma_index(sentences: Sequence[str]) -> Dict[str, List[int]]:
+    """Inverted index {verb_lemma: [sentence_index,...]} over `sentences`. Each unique surface token is
+    lemmatized ONCE (cache), so the scan is linear in corpus size regardless of the number of target
+    lemmas queried afterward."""
+    lemma_cache: Dict[str, str] = {}
+    index: Dict[str, List[int]] = {}
+    for si, sent in enumerate(sentences):
+        seen: set = set()
+        for tok in re.findall(r"[a-z']+", sent.lower()):
+            lem = lemma_cache.get(tok)
+            if lem is None:
+                lem = lemma_verb(tok)
+                lemma_cache[tok] = lem
+            if lem in seen:
+                continue
+            seen.add(lem)
+            index.setdefault(lem, []).append(si)
+    return index
+
+
+def mine_target_lemma_sentences(target_lemmas: Sequence[str], sentences: Sequence[str],
+                                exclude=None, max_occ: int = 6) -> Dict[str, List[str]]:
+    """Target-lemma acquisition-exposure mining (increment 1b; generalizes mine_seed_episodes's
+    corpus-scanning pattern from seed-verb to target-lemma). For each lemma, return up to `max_occ`
+    DISTINCT corpus sentences containing an inflected form of that lemma (lemma_verb match), in stable
+    corpus order, skipping any sentence for which `exclude(sentence)` is True (non-circularity: the eval
+    item's own cited passage). Returns {lemma: [sentence,...]}; the caller flags a lemma with fewer than
+    its min-confirm threshold of occurrences as insufficient_corpus_support. Deterministic (corpus
+    order, no RNG)."""
+    index = _lemma_index(sentences)
+    if exclude is None:
+        def exclude(_s):  # noqa: E306
+            return False
+    out: Dict[str, List[str]] = {}
+    for lemma in sorted(set(target_lemmas)):
+        picked: List[str] = []
+        seen_norm: set = set()
+        for si in index.get(lemma, []):
+            sent = sentences[si]
+            norm = " ".join(sent.lower().split())
+            if norm in seen_norm or exclude(sent):
+                continue
+            seen_norm.add(norm)
+            picked.append(sent)
+            if len(picked) >= max_occ:
+                break
+        out[lemma] = picked
+    return out
+
+
+def run_acquisition_1b(target_sentences: Dict[str, List[str]], enrich: bool = False,
+                       vote_override=None) -> Tuple[Dict[str, dict], List[dict]]:
+    """Increment 1b end-to-end: structural_vote each mined sentence (bare-clause acquisition,
+    goal_sentences=[]) per target lemma, then CONSOLIDATE via the REUSED MIN_CONFIRM>=2 +
+    decide_keep_or_revert gate (byte-identical to increment 1's `consolidate`). `vote_override(lemma,
+    occ_index)` injects permuted votes for the scramble control. Returns (acquired, per-occurrence
+    trace)."""
+    per_lemma: Dict[str, List[Optional[str]]] = {}
+    trace: List[dict] = []
+    for lemma in sorted(target_sentences):
+        for oi, sent in enumerate(target_sentences[lemma]):
+            if vote_override is not None:
+                v = vote_override(lemma, oi)
+            else:
+                v = structural_vote([], sent, lemma, enrich=enrich)
+            per_lemma.setdefault(lemma, []).append(v)
+            trace.append({"lemma": lemma, "occ": oi, "vote": v})
+    acquired = consolidate(per_lemma)
+    return acquired, trace
+
+
 def self_test() -> dict:
     """Fast off-disk gate: (1) PROPOSE gate fires on OOV, skips on in-lexicon; (2) Channel B earned
     sign relation holds (RECIPROCITY<0<BLOCK_HIGH); (3) combine_votes agreement/ablation semantics;

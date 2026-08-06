@@ -1,0 +1,987 @@
+{
+  "config": {
+    "run_mode": "full",
+    "novels_only": false,
+    "max_occ": 6,
+    "n_corpus_sents": 73831,
+    "n_oov_items": 36,
+    "n_target_lemmas": 33,
+    "n_scramble_seeds": 5,
+    "min_occ": 2
+  },
+  "target_lemmas": [
+    "admit",
+    "agree",
+    "be",
+    "befriend",
+    "buy",
+    "carry",
+    "come",
+    "croak",
+    "curve",
+    "drag",
+    "drink",
+    "encore",
+    "find",
+    "flee",
+    "give",
+    "go",
+    "have",
+    "improve",
+    "jell",
+    "like",
+    "make",
+    "practice",
+    "put",
+    "rap",
+    "refuse",
+    "relent",
+    "ruin",
+    "spoil",
+    "take",
+    "turn",
+    "whip",
+    "whisper",
+    "whitewash"
+  ],
+  "mined_counts": {
+    "admit": 6,
+    "agree": 6,
+    "be": 6,
+    "befriend": 6,
+    "buy": 6,
+    "carry": 6,
+    "come": 6,
+    "croak": 6,
+    "curve": 6,
+    "drag": 6,
+    "drink": 6,
+    "encore": 2,
+    "find": 6,
+    "flee": 2,
+    "give": 6,
+    "go": 6,
+    "have": 6,
+    "improve": 6,
+    "jell": 3,
+    "like": 6,
+    "make": 6,
+    "practice": 6,
+    "put": 6,
+    "rap": 6,
+    "refuse": 6,
+    "relent": 6,
+    "ruin": 6,
+    "spoil": 6,
+    "take": 6,
+    "turn": 6,
+    "whip": 6,
+    "whisper": 6,
+    "whitewash": 6
+  },
+  "insufficient_corpus_support": [],
+  "insufficient_corpus_support_count": 0,
+  "majority_floor": 0.6389,
+  "fallthrough_baseline_correct": 6,
+  "primary_arm": "structural_core_only",
+  "structural_core_only": {
+    "n_acquired": 27,
+    "acquired": {
+      "admit": "POS",
+      "be": "POS",
+      "befriend": "POS",
+      "buy": "POS",
+      "carry": "POS",
+      "come": "POS",
+      "croak": "POS",
+      "curve": "NEG",
+      "drag": "POS",
+      "drink": "POS",
+      "find": "POS",
+      "flee": "POS",
+      "give": "POS",
+      "go": "POS",
+      "have": "POS",
+      "improve": "POS",
+      "jell": "NEG",
+      "like": "POS",
+      "make": "POS",
+      "practice": "POS",
+      "rap": "NEG",
+      "ruin": "NEG",
+      "spoil": "POS",
+      "take": "POS",
+      "turn": "POS",
+      "whip": "POS",
+      "whisper": "POS"
+    },
+    "acquired_hash": "b0a9696adf44f876",
+    "primary_accuracy": 0.4444,
+    "primary_correct": 16,
+    "met_recall_correct": 14,
+    "met_total": 23,
+    "unmet_recall_correct": 2,
+    "unmet_total": 13,
+    "desiderative_eligible_subset_accuracy": 0.3889,
+    "eligible_correct": 7,
+    "eligible_total": 18,
+    "flat_fallback_subset_accuracy": 0.5,
+    "fallback_correct": 9,
+    "fallback_total": 18,
+    "details": [
+      {
+        "id": "lw_jo_laurie_snowball",
+        "outcome_lemma": "croak",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "lw_ice_rescue_amy",
+        "outcome_lemma": "drag",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "lw_beth_piano_invite",
+        "outcome_lemma": "practice",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "lw_beth_slippers_piano_gift",
+        "outcome_lemma": "give",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "lw_jo_mr_laurence_confront",
+        "outcome_lemma": "admit",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "lw_aunt_march_opposition",
+        "outcome_lemma": "whisper",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "lw_meg_currant_jelly",
+        "outcome_lemma": "jell",
+        "acquired_polarity": "NEG",
+        "gold": "UNMET",
+        "pred": "UNMET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "lw_jo_editor_dashwood",
+        "outcome_lemma": "take",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "lw_laurie_proposal_rejected",
+        "outcome_lemma": "refuse",
+        "acquired_polarity": null,
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "lw_laurie_flower_table_amy",
+        "outcome_lemma": "buy",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "agg_anne_liniment_cake_ch21",
+        "outcome_lemma": "spoil",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "agg_matthew_puffed_sleeves_dress_ch25",
+        "outcome_lemma": "like",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_avonlea_school_gilbert_sacrifice_ch38",
+        "outcome_lemma": "give",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_hair_dye_green_ch27",
+        "outcome_lemma": "turn",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_concert_recitation_encore_ch33",
+        "outcome_lemma": "encore",
+        "acquired_polarity": null,
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "agg_anne_diana_bosom_friend_ch12",
+        "outcome_lemma": "agree",
+        "acquired_polarity": null,
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "agg_gilbert_pond_rescue_friendship_plea_ch28",
+        "outcome_lemma": "befriend",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_pudding_sauce_mouse_ch16",
+        "outcome_lemma": "ruin",
+        "acquired_polarity": "NEG",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_mrs_barry_forgiveness_currant_wine_ch16_17",
+        "outcome_lemma": "relent",
+        "acquired_polarity": null,
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "ts_tom_whitewash_fence",
+        "outcome_lemma": "whitewash",
+        "acquired_polarity": null,
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "ts_becky_anatomy_book_confession",
+        "outcome_lemma": "whip",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "ts_tom_sugar_theft",
+        "outcome_lemma": "rap",
+        "acquired_polarity": "NEG",
+        "gold": "UNMET",
+        "pred": "UNMET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "ts_tom_wish_free_potter",
+        "outcome_lemma": "flee",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "woz_dorothy_kansas_wish",
+        "outcome_lemma": "carry",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "woz_scarecrow_brains",
+        "outcome_lemma": "give",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "UNMET",
+        "reason": "referent_mismatch",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "woz_tin_woodman_heart",
+        "outcome_lemma": "put",
+        "acquired_polarity": null,
+        "gold": "MET",
+        "pred": "UNMET",
+        "reason": "referent_mismatch",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "woz_lion_courage_granted",
+        "outcome_lemma": "drink",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "woz_lion_courage_denied",
+        "outcome_lemma": "have",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "alice_beautiful_garden",
+        "outcome_lemma": "find",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "race_chen_situps",
+        "outcome_lemma": "improve",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "race_german_dog",
+        "outcome_lemma": "come",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "race_davey_wiffle",
+        "outcome_lemma": "curve",
+        "acquired_polarity": "NEG",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "onestop_malala",
+        "outcome_lemma": "go",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "onestop_carle_madeinfrance",
+        "outcome_lemma": "be",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "onestop_hunt_crowdfunding",
+        "outcome_lemma": "make",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "onestop_limal_dating",
+        "outcome_lemma": "find",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      }
+    ]
+  },
+  "with_enrichment_atoms": {
+    "n_acquired": 29,
+    "acquired": {
+      "admit": "POS",
+      "agree": "POS",
+      "be": "POS",
+      "befriend": "POS",
+      "buy": "POS",
+      "carry": "POS",
+      "come": "POS",
+      "croak": "POS",
+      "curve": "NEG",
+      "drag": "POS",
+      "drink": "POS",
+      "find": "POS",
+      "flee": "POS",
+      "give": "POS",
+      "go": "POS",
+      "have": "POS",
+      "improve": "POS",
+      "like": "POS",
+      "make": "POS",
+      "practice": "POS",
+      "put": "POS",
+      "rap": "NEG",
+      "refuse": "POS",
+      "ruin": "NEG",
+      "spoil": "POS",
+      "take": "POS",
+      "turn": "POS",
+      "whip": "POS",
+      "whisper": "POS"
+    },
+    "acquired_hash": "01055b67bd69c9bc",
+    "primary_accuracy": 0.4167,
+    "primary_correct": 15,
+    "met_recall_correct": 14,
+    "met_total": 23,
+    "unmet_recall_correct": 1,
+    "unmet_total": 13,
+    "desiderative_eligible_subset_accuracy": 0.3333,
+    "eligible_correct": 6,
+    "eligible_total": 18,
+    "flat_fallback_subset_accuracy": 0.5,
+    "fallback_correct": 9,
+    "fallback_total": 18,
+    "details": [
+      {
+        "id": "lw_jo_laurie_snowball",
+        "outcome_lemma": "croak",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "lw_ice_rescue_amy",
+        "outcome_lemma": "drag",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "lw_beth_piano_invite",
+        "outcome_lemma": "practice",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "lw_beth_slippers_piano_gift",
+        "outcome_lemma": "give",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "lw_jo_mr_laurence_confront",
+        "outcome_lemma": "admit",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "lw_aunt_march_opposition",
+        "outcome_lemma": "whisper",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "lw_meg_currant_jelly",
+        "outcome_lemma": "jell",
+        "acquired_polarity": null,
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "lw_jo_editor_dashwood",
+        "outcome_lemma": "take",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "lw_laurie_proposal_rejected",
+        "outcome_lemma": "refuse",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "lw_laurie_flower_table_amy",
+        "outcome_lemma": "buy",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "agg_anne_liniment_cake_ch21",
+        "outcome_lemma": "spoil",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "agg_matthew_puffed_sleeves_dress_ch25",
+        "outcome_lemma": "like",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_avonlea_school_gilbert_sacrifice_ch38",
+        "outcome_lemma": "give",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_hair_dye_green_ch27",
+        "outcome_lemma": "turn",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_concert_recitation_encore_ch33",
+        "outcome_lemma": "encore",
+        "acquired_polarity": null,
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "agg_anne_diana_bosom_friend_ch12",
+        "outcome_lemma": "agree",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "agg_gilbert_pond_rescue_friendship_plea_ch28",
+        "outcome_lemma": "befriend",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_pudding_sauce_mouse_ch16",
+        "outcome_lemma": "ruin",
+        "acquired_polarity": "NEG",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "agg_anne_mrs_barry_forgiveness_currant_wine_ch16_17",
+        "outcome_lemma": "relent",
+        "acquired_polarity": null,
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "ts_tom_whitewash_fence",
+        "outcome_lemma": "whitewash",
+        "acquired_polarity": null,
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "ts_becky_anatomy_book_confession",
+        "outcome_lemma": "whip",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "ts_tom_sugar_theft",
+        "outcome_lemma": "rap",
+        "acquired_polarity": "NEG",
+        "gold": "UNMET",
+        "pred": "UNMET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "ts_tom_wish_free_potter",
+        "outcome_lemma": "flee",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "woz_dorothy_kansas_wish",
+        "outcome_lemma": "carry",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": true
+      },
+      {
+        "id": "woz_scarecrow_brains",
+        "outcome_lemma": "give",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "UNMET",
+        "reason": "referent_mismatch",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "woz_tin_woodman_heart",
+        "outcome_lemma": "put",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "UNMET",
+        "reason": "referent_mismatch",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "woz_lion_courage_granted",
+        "outcome_lemma": "drink",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "woz_lion_courage_denied",
+        "outcome_lemma": "have",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "alice_beautiful_garden",
+        "outcome_lemma": "find",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "race_chen_situps",
+        "outcome_lemma": "improve",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": false
+      },
+      {
+        "id": "race_german_dog",
+        "outcome_lemma": "come",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "AMBIGUOUS",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "race_davey_wiffle",
+        "outcome_lemma": "curve",
+        "acquired_polarity": "NEG",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "onestop_malala",
+        "outcome_lemma": "go",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "onestop_carle_madeinfrance",
+        "outcome_lemma": "be",
+        "acquired_polarity": "POS",
+        "gold": "UNMET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      },
+      {
+        "id": "onestop_hunt_crowdfunding",
+        "outcome_lemma": "make",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "MET",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": false,
+        "correct": true
+      },
+      {
+        "id": "onestop_limal_dating",
+        "outcome_lemma": "find",
+        "acquired_polarity": "POS",
+        "gold": "MET",
+        "pred": "NONE",
+        "reason": "abstain_fallback_to_lexicon",
+        "eligible": true,
+        "correct": false
+      }
+    ]
+  },
+  "enrichment_delta": -0.0277,
+  "noise": {
+    "noise_consolidated_count": 2,
+    "noise_consolidated_words": {
+      "answered": "POS",
+      "carried": "POS"
+    },
+    "noise_gated_count": 2,
+    "noise_per_verb_votes": {
+      "walked": [
+        null,
+        "POS"
+      ],
+      "sat": [
+        null,
+        null
+      ],
+      "spoke": [
+        null,
+        null
+      ],
+      "turned": [
+        null,
+        "POS"
+      ],
+      "answered": [
+        "POS",
+        "POS"
+      ],
+      "asked": [
+        null,
+        "POS"
+      ],
+      "stood": [
+        null,
+        "POS"
+      ],
+      "carried": [
+        "POS",
+        "POS"
+      ]
+    }
+  },
+  "scramble": {
+    "scrambled_primary_accuracy": 0.3667,
+    "scrambled_per_seed": [
+      0.2778,
+      0.4444,
+      0.3611,
+      0.3611,
+      0.3889
+    ],
+    "scrambled_acquired_hashes": [
+      "c3ef17cc1628afec",
+      "ff1e73b7c975b166",
+      "9a84f8f928a8b4c1",
+      "2ae064681db953e6",
+      "30e8d3a37292e943"
+    ]
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: primary=16/36=0.4444 (floor=0.6389) met_recall=14/23 unmet_recall=2/13 | noise_consol=2/8 noise_gated=2/8 | scramble=0.367 | GATE5 eligible=0.389 vs fallback=0.500 | enrich_delta=-0.0277 | insuff_corpus=0",
+  "summary": "primary=16/36=0.4444 (floor=0.6389) met_recall=14/23 unmet_recall=2/13 | noise_consol=2/8 noise_gated=2/8 | scramble=0.367 | GATE5 eligible=0.389 vs fallback=0.500 | enrich_delta=-0.0277 | insuff_corpus=0",
+  "hard_fail_reasons": [
+    "primary_le_majority_floor(0.4444<=0.6389)",
+    "anti_drift_leak(noise_consolidated=2/8)",
+    "eligible_le_fallback(elig=0.3889<=fallback=0.5000)"
+  ],
+  "gates": {
+    "gate1_primary_and_recall": false,
+    "gate2_noise": false,
+    "gate3_scramble_band": false,
+    "gate4_coverage": true,
+    "gate5_eligible_beats_fallback": false,
+    "hard_pass": false,
+    "hard_fail": true
+  },
+  "run_mode": "full",
+  "recorded_units": 34,
+  "expected_n_units": 34,
+  "cardinality_ok": true,
+  "elapsed_s": 5.431040900002699,
+  "ts_iso": "2026-08-06T17:06:46.522416+00:00",
+  "anchor_name": "grounded_word_acquisition_increment1b_v1"
+}
