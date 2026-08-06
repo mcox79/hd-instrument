@@ -111,7 +111,8 @@ if REPO not in sys.path:
     sys.path.insert(0, REPO)
 
 from hdlab.thematic_role_labeler import (  # noqa: E402
-    VERB_FRAMES as _TRL_VERB_FRAMES, lemma_verb as _trl_lemma_verb)
+    VERB_FRAMES as _TRL_VERB_FRAMES, lemma_verb as _trl_lemma_verb,
+    PSYCH_VERBS as _TRL_PSYCH_VERBS, DITRANS_VERBS as _TRL_DITRANS_VERBS)
 
 # Determiner/possessive-like words that (per the drill's HARD-FAIL mitigation, notes/
 # drill_brain_event_predicate_recognition.md #2) reliably distinguish a NOMINAL reading ("the
@@ -369,7 +370,96 @@ def find_main_verb(tagged):
     return None, None, False
 
 
-def find_frame_verbs(tagged):
+# ---------------------------------------------------------------------------------------------
+# ARGUMENT-REALIZATION source-gate (2026-08-06; deep-VET notes/deep_vet_comprehension_organ_vs_
+# brain_2026-08-05.md row #4 "Event extraction: hood + segmentation [A]"). The additive frame-
+# lookup scan below (event-HOOD = static VERB_FRAMES membership, no confirmation) over-generates
+# on frame-bearing NOMINAL / predicate-nominal / predicate-adjective uses of a frame lemma (a
+# lexical accident: "knock"/"help"/"watch" etc. double as common nouns or take copula-complement
+# readings). The brain gates event-hood by whether the frame's expected core slots are actually
+# FILLED nearby (McRae thematic-fit / frame-argument realization), not by lemma membership alone.
+# This block adds that check as an OPT-IN gate (default off -- find_frame_verbs is byte-identical
+# unless a caller asks for it), reusing ONLY machinery already in this file (candidate_indices for
+# argument-candidate detection; VERB_FRAMES' own PSYCH/DITRANS lemma classes for which frames
+# semantically REQUIRE a realized object/complement) -- no new parser.
+# ---------------------------------------------------------------------------------------------
+_OBJ_OBLIGATORY_LEMMAS = set(_TRL_PSYCH_VERBS) | set(_TRL_DITRANS_VERBS)
+_COPULA_LEMMAS = {"is", "are", "was", "were", "be", "been", "being"}
+_COMPLEMENT_SKIP_POS = {"DT", "JJ", "JJR", "JJS", "RB"}
+_COMPLEMENT_SKIP_LOW = {"a", "an", "the", "very", "quite", "so", "too", "rather", "such"}
+_HARD_CLAUSE_BREAK = {",", ";", ".", "!", "?", ":", "who", "which", "that", "when", "while",
+                      "because", "if", "after", "before", "though", "although", "since", "as"}
+_SOFT_CLAUSE_BREAK = {"and", "but", "or", "so", "then"}
+
+
+def _is_copula_complement(tagged, i):
+    """True when token i is a predicate NOMINAL/ADJECTIVE complement of a copula ('was a great
+    help', 'felt poor', 'was asleep') rather than an independent predicate of its own. Only fires
+    when the token's OWN POS is not itself verbal (VB*): a passive VBN secondary predicate ('was
+    thrown by Tom') is a REAL event and must not be caught here -- POS is used as a soft
+    disambiguator here (never a hard gate on its own), matching find_frame_verbs' existing design."""
+    if tagged[i][2].startswith("VB"):
+        return False
+    j = i - 1
+    while j >= 0:
+        low, pos = tagged[j][1], tagged[j][2]
+        if low in _COPULA_LEMMAS:
+            return True
+        if pos in _COMPLEMENT_SKIP_POS or low in _COMPLEMENT_SKIP_LOW:
+            j -= 1
+            continue
+        return False
+    return False
+
+
+def _has_candidate_in_window(tagged, i, cand_set, step, max_dist):
+    """Scan from i in direction `step` (-1 left / +1 right) for a candidate_indices() member.
+    Stops at a HARD clause-boundary token (strong punctuation / subordinator / relative pronoun)
+    and allows at most ONE SOFT boundary crossing (a coordinating conjunction), so a compound-
+    predicate's carried-over subject ("Herbert took the block and threw it") still resolves
+    without letting the scan wander into an unrelated clause."""
+    lows = [t[1] for t in tagged]
+    n = len(tagged)
+    j = i + step
+    soft_crossed = 0
+    dist = 0
+    while 0 <= j < n and dist < max_dist:
+        w = lows[j]
+        if w in _HARD_CLAUSE_BREAK:
+            return False
+        if w in _SOFT_CLAUSE_BREAK:
+            soft_crossed += 1
+            if soft_crossed > 1:
+                return False
+            j += step
+            dist += 1
+            continue
+        if j in cand_set:
+            return True
+        j += step
+        dist += 1
+    return False
+
+
+def _arg_realization_ok(tagged, i, lemma, cand_set):
+    """ARGUMENT-REALIZATION check: accept a frame-hit as an event only if its frame's core slot(s)
+    are locally FILLED, not merely lexically present. (1) reject copula-complement readings
+    (predicate nominal/adjective); (2) require a resolvable SUBJECT/AGENT-eligible candidate
+    nearby (every frame's core, incl. DEFAULT_FRAME); (3) for frames whose object is semantically
+    OBLIGATORY (psych-stimulus / ditransitive theme -- not plain ambitransitive motion/action
+    verbs, which commonly appear intransitively as real events, e.g. "he sat") also require a
+    resolvable OBJECT/PATIENT-eligible candidate nearby."""
+    if _is_copula_complement(tagged, i):
+        return False
+    if not _has_candidate_in_window(tagged, i, cand_set, step=-1, max_dist=8):
+        return False
+    if lemma in _OBJ_OBLIGATORY_LEMMAS:
+        if not _has_candidate_in_window(tagged, i, cand_set, step=+1, max_dist=8):
+            return False
+    return True
+
+
+def find_frame_verbs(tagged, require_arg_realization=False):
     """FRAME-LOOKUP multi-predicate extraction (2026-08-05 recall fix; see
     notes/drill_brain_event_predicate_recognition.md, commit afddc2807). Brain-faithful: event
     recognition is frame/argument-structure-triggered (does this lemma have a known selectional
@@ -385,11 +475,20 @@ def find_frame_verbs(tagged):
     additional element is ADDITIVE coverage for a secondary predicate the old single-verb,
     POS-gated scan would have silently dropped: a second clause's verb (multi-predicate
     sentence, the DOMINANT root cause measured on the independent-gold FN set, 15/23) or a
-    verb the shallow tagger mistagged as NN/NNS (2/23)."""
+    verb the shallow tagger mistagged as NN/NNS (2/23).
+
+    require_arg_realization (2026-08-06, default False -- byte-identical to the pre-existing
+    behavior unless a caller opts in): when True, an ADDITIVE (non-element-0) frame-hit is also
+    gated by _arg_realization_ok -- its frame's core argument slot(s) must be locally FILLED by a
+    real candidate mention, not merely lexically present. This is the SOURCE-gate fix for the
+    over-generation the ungated additive scan introduced on nominal / predicate-nominal /
+    predicate-adjective frame-lemma uses (measured: n_pred nearly doubled 61->113, precision fell
+    0.180->0.159 when the ungated multi-predicate scan landed)."""
     lows = [t[1] for t in tagged]
     primary_idx, primary_verb, primary_passive = find_main_verb(tagged)
     out = [(primary_idx, primary_verb, primary_passive)] if primary_idx is not None else []
     seen = {primary_idx} if primary_idx is not None else set()
+    cand_set = set(candidate_indices(tagged)) if require_arg_realization else None
     for i, (surf, low, pos) in enumerate(tagged):
         if i in seen:
             continue
@@ -403,6 +502,8 @@ def find_frame_verbs(tagged):
         prev_low = lows[i - 1] if i > 0 else None
         if prev_low in _DET_LIKE:
             continue  # nominal-reading guard
+        if require_arg_realization and not _arg_realization_ok(tagged, i, lemma, cand_set):
+            continue  # argument-realization source-gate (2026-08-06)
         is_passive = False
         for j in range(max(0, i - 3), i):
             if lows[j] in ("was", "were", "is", "are", "be", "been"):

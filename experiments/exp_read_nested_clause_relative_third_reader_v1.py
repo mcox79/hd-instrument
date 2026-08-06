@@ -288,15 +288,20 @@ def nest_axis_passage(text, clf):
 
 def extract_passage_nest(passage_text, clf, pid, passages_dict, mention_mode, clause_seg,
                          role_fix, self_loop_guard, deixis=True, nest=False,
-                         resolutions_out=None, records_out=None, multi_pred=False):
+                         resolutions_out=None, records_out=None, multi_pred=False,
+                         gate_arg_realization=False):
     """nest=False -> LITERALLY R.extract_passage_argrole(argrole=True) (byte-identical baseline). nest=True
     -> additive RC nest pass merged in (adds embedded+matrix+nest-link, suppresses mis-attach).
     multi_pred=True -> additive FRAME-TRIGGER secondary-predicate axis (2026-08-05 recall fix,
-    see R.extract_passage_argrole); default False keeps this byte-identical to pre-fix behavior."""
+    see R.extract_passage_argrole); default False keeps this byte-identical to pre-fix behavior.
+    gate_arg_realization=True -> additive ARGUMENT-REALIZATION source-gate on the secondary-
+    predicate axis (2026-08-06 precision fix; see ORC.find_frame_verbs); default False keeps this
+    byte-identical to pre-gate behavior; only meaningful when multi_pred=True."""
     rels, rbp, removed, inj = R.extract_passage_argrole(
         passage_text, clf, pid, passages_dict, mention_mode, clause_seg,
         role_fix=role_fix, self_loop_guard=self_loop_guard, deixis=deixis, argrole=True,
-        resolutions_out=resolutions_out, multi_pred=multi_pred)
+        resolutions_out=resolutions_out, multi_pred=multi_pred,
+        gate_arg_realization=gate_arg_realization)
     if not nest:
         return rels, rbp, removed, inj
     add, suppress, records = nest_axis_passage(passage_text, clf)
@@ -310,7 +315,7 @@ def extract_passage_nest(passage_text, clf, pid, passages_dict, mention_mode, cl
 
 
 def read_corpus(clf, passages, nest, deixis=True, hb=None, want_records=False, want_deixis=False,
-                multi_pred=False):
+                multi_pred=False, gate_arg_realization=False):
     foundation = set()
     store = {}
     records = [] if want_records else None
@@ -320,7 +325,8 @@ def read_corpus(clf, passages, nest, deixis=True, hb=None, want_records=False, w
         rels, _rbp, _removed, _inj = extract_passage_nest(
             text, clf, pid, passages, "handrule", _VF_MODE,
             role_fix=True, self_loop_guard=True, deixis=deixis, nest=nest,
-            records_out=records, resolutions_out=rr, multi_pred=multi_pred)
+            records_out=records, resolutions_out=rr, multi_pred=multi_pred,
+            gate_arg_realization=gate_arg_realization)
         store[pid] = rels
         for r in rels:
             if r[0] in _KINDS or r[0] in ("nest", "pred"):

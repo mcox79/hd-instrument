@@ -1,0 +1,336 @@
+{
+  "anchor_name": "frame_trigger_argrealization_gate_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_NO_RECALL_KEPT_OR_NO_PRECISION_LIFT_OR_NO_COMPOSITION",
+  "verdict_msg": "HARD_FAIL_NO_RECALL_KEPT_OR_NO_PRECISION_LIFT_OR_NO_COMPOSITION | BASELINE P=0.1803 R=0.3235 F1=0.2316 n_pred=61 | FRAME_TRIGGER(ungated) P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | GATED P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | dP_vs_frame=+0.0000 dR_vs_frame=+0.0000 dF1_vs_frame=+0.0000 | precision_up=False recall_kept=True f1_composes=False decisive=False | canfail=13/13 | G1_baseline_repro=True G1b_frame_trigger_repro=True G2_no_regression=True (orc=True argstruct=True nest=True) | n_fn_gated=16",
+  "summary": "HARD_FAIL_NO_RECALL_KEPT_OR_NO_PRECISION_LIFT_OR_NO_COMPOSITION | BASELINE P=0.1803 R=0.3235 F1=0.2316 n_pred=61 | FRAME_TRIGGER(ungated) P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | GATED P=0.1593 R=0.5294 F1=0.2449 n_pred=113 | dP_vs_frame=+0.0000 dR_vs_frame=+0.0000 dF1_vs_frame=+0.0000 | precision_up=False recall_kept=True f1_composes=False decisive=False | canfail=13/13 | G1_baseline_repro=True G1b_frame_trigger_repro=True G2_no_regression=True (orc=True argstruct=True nest=True) | n_fn_gated=16",
+  "elapsed_s": 133.98732819998986,
+  "ts_iso": "2026-08-06T07:55:30.837964+00:00",
+  "arms": {
+    "baseline": {
+      "primary": {
+        "precision": 0.18032786885245902,
+        "recall": 0.3235294117647059,
+        "f1": 0.23157894736842105,
+        "n_pred": 61,
+        "tp": 11,
+        "n_gold_covered": 11,
+        "n_gold": 34
+      },
+      "triple": {
+        "precision": 0.16393442622950818,
+        "recall": 0.29411764705882354,
+        "f1": 0.21052631578947367,
+        "n_pred": 61,
+        "tp": 10,
+        "n_gold_covered": 10,
+        "n_gold": 34
+      }
+    },
+    "frame_trigger_ungated": {
+      "primary": {
+        "precision": 0.1592920353982301,
+        "recall": 0.5294117647058824,
+        "f1": 0.24489795918367346,
+        "n_pred": 113,
+        "tp": 18,
+        "n_gold_covered": 18,
+        "n_gold": 34
+      },
+      "triple": {
+        "precision": 0.11504424778761062,
+        "recall": 0.38235294117647056,
+        "f1": 0.17687074829931973,
+        "n_pred": 113,
+        "tp": 13,
+        "n_gold_covered": 13,
+        "n_gold": 34
+      }
+    },
+    "gated": {
+      "primary": {
+        "precision": 0.1592920353982301,
+        "recall": 0.5294117647058824,
+        "f1": 0.24489795918367346,
+        "n_pred": 113,
+        "tp": 18,
+        "n_gold_covered": 18,
+        "n_gold": 34
+      },
+      "triple": {
+        "precision": 0.11504424778761062,
+        "recall": 0.38235294117647056,
+        "f1": 0.17687074829931973,
+        "n_pred": 113,
+        "tp": 13,
+        "n_gold_covered": 13,
+        "n_gold": 34
+      }
+    }
+  },
+  "frozen_reference": {
+    "baseline": {
+      "precision": 0.18032786885245902,
+      "recall": 0.3235294117647059,
+      "f1": 0.23157894736842105
+    },
+    "frame_trigger": {
+      "precision": 0.1592920353982301,
+      "recall": 0.5294117647058824,
+      "f1": 0.24489795918367346
+    }
+  },
+  "design_gate": {
+    "G1_baseline_reproduction": true,
+    "G1b_frame_trigger_reproduction": true,
+    "G2_no_regression": true,
+    "G2_oracle_mention_selftest": {
+      "ok": true,
+      "tail": "SELF-TEST PASS: perceptron fit (97 ex); canonical+passive roles; positional misses passive; 49 REAL 2nd-reader clauses provenance-verified verbatim; loc(bees,house) extracts (handrule=v4); 56 gold mention heads valid + blacklist-disjoint; oracle!=handrule extraction (telemetry); N_CMP=16; 4 mention arms differ."
+    },
+    "G2_argstruct_selftest": {
+      "ok": true,
+      "tail": "; 3rd-person path untouched\nPASS test_possessive_np_gender_head_governs POSSESSIVE_NP: 'his mother'->fem, 'her father'->masc, head-noun governs, non-possessive spans unchanged\n\nALL PASS: hdlab.state_of_mind.WorkingOverlay reproduces the validated recency/salience double-dissociation (longdist 49bb99c24; VET a7ca3db1) -- packaged overlay is the latest validated one.\n[self-test] controls: passive 1.00 reversal 1.00; overlay green\n[self-test] deterministic (two ON reads identical)\n[self-test] PASS"
+    },
+    "G2_nest_selftest": {
+      "ok": true,
+      "tail": "; 3rd-person path untouched\nPASS test_possessive_np_gender_head_governs POSSESSIVE_NP: 'his mother'->fem, 'her father'->masc, head-noun governs, non-possessive spans unchanged\n\nALL PASS: hdlab.state_of_mind.WorkingOverlay reproduces the validated recency/salience double-dissociation (longdist 49bb99c24; VET a7ca3db1) -- packaged overlay is the latest validated one.\n[self-test] controls: passive 1.00 reversal 1.00; overlay green\n[self-test] deterministic (two ON reads identical)\n[self-test] PASS"
+    },
+    "design_gate_ok": true
+  },
+  "delta_gated_vs_frame_trigger": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "precision_up_ge_0.05": false,
+    "precision_up_decisive": false,
+    "recall_kept_ge_0.45": true,
+    "recall_kept_decisive": true,
+    "f1_composes_gt_frame_trigger": false,
+    "f1_composes_decisive": false,
+    "numeric_ok": false,
+    "numeric_decisive": false
+  },
+  "mechanism_canfail": {
+    "rows": [
+      {
+        "sentence": "Tom gave the toy and Ann watched the show.",
+        "lemma": "watch",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "Jack ran home and helped his sister.",
+        "lemma": "help",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "Jack ran home and caught the ball.",
+        "lemma": "catch",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "Tom entered and knocked twice.",
+        "lemma": "knock",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "Ann arrived home and cleaned the room.",
+        "lemma": "clean",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "She stood in the yard and wanted the toy.",
+        "lemma": "want",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "Sam patrolled the wall and guarded the gate.",
+        "lemma": "guard",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "Herbert took the block and threw it at the cat.",
+        "lemma": "throw",
+        "expect": "KEEP",
+        "present": true,
+        "correct": true,
+        "class_": "real_event"
+      },
+      {
+        "sentence": "The room was clean and tidy.",
+        "lemma": "clean",
+        "expect": "REJECT",
+        "present": false,
+        "correct": true,
+        "class_": "predicate_adjective_copula_complement"
+      },
+      {
+        "sentence": "Tom was a great help.",
+        "lemma": "help",
+        "expect": "REJECT",
+        "present": false,
+        "correct": true,
+        "class_": "predicate_nominal_copula_complement"
+      },
+      {
+        "sentence": "Knocks echoed through the house.",
+        "lemma": "knock",
+        "expect": "REJECT",
+        "present": false,
+        "correct": true,
+        "class_": "sentence_initial_nominal_no_subject"
+      },
+      {
+        "sentence": "She stood in the yard and wanted more.",
+        "lemma": "want",
+        "expect": "REJECT",
+        "present": false,
+        "correct": true,
+        "class_": "psych_object_obligatory_not_realized"
+      },
+      {
+        "sentence": "Sam was a loyal guard.",
+        "lemma": "guard",
+        "expect": "REJECT",
+        "present": false,
+        "correct": true,
+        "class_": "predicate_nominal_copula_complement"
+      }
+    ],
+    "n": 13,
+    "n_correct": 13,
+    "all_correct": true
+  },
+  "residual_fn_gated": {
+    "n": 16,
+    "items": [
+      [
+        "L04_01",
+        "build",
+        "he",
+        "blockhouse"
+      ],
+      [
+        "L04_03",
+        "throw",
+        "herbert",
+        "it"
+      ],
+      [
+        "L04_05",
+        "catch",
+        "hetty",
+        "her"
+      ],
+      [
+        "L04_07",
+        "do",
+        "she",
+        "it"
+      ],
+      [
+        "L04_10",
+        "build",
+        "you",
+        "it"
+      ],
+      [
+        "L04_12",
+        "rub",
+        "pussy",
+        "castle"
+      ],
+      [
+        "L04_13",
+        "do",
+        "she",
+        "it"
+      ],
+      [
+        "L04_19",
+        "lay",
+        "papa",
+        "foundation"
+      ],
+      [
+        "L05_13",
+        "knock",
+        "pussy",
+        "one"
+      ],
+      [
+        "L05_15",
+        "knock",
+        "pussy",
+        "that"
+      ],
+      [
+        "L05_15",
+        "build",
+        "you",
+        "it"
+      ],
+      [
+        "L05_16",
+        "knock",
+        "pussy",
+        "castles"
+      ],
+      [
+        "L05_17",
+        "have",
+        "i",
+        "it"
+      ],
+      [
+        "L05_18",
+        "watch",
+        "you",
+        "her"
+      ],
+      [
+        "L05_22",
+        "leave",
+        "servant",
+        "it"
+      ],
+      [
+        "L05_25",
+        "build",
+        "you",
+        "them"
+      ]
+    ]
+  },
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "arms",
+    "frozen_reference",
+    "design_gate",
+    "delta_gated_vs_frame_trigger",
+    "mechanism_canfail",
+    "residual_fn_gated"
+  ],
+  "notes": "ARGUMENT-REALIZATION source-gate on find_frame_verbs' additive multi-predicate scan (require_arg_realization kwarg, default False = byte-identical to the pre-fix pipeline). See notes/deep_vet_comprehension_organ_vs_brain_2026-08-05.md row #4 for the brain-grounding (McRae thematic-fit / frame argument realization) and this cell's own module docstring for the exact gate mechanics."
+}
