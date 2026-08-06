@@ -1,0 +1,1395 @@
+{
+  "anchor_name": "n11b_symmetric_pattern_lexical_similarity_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: symmetric_pattern did not clear its own bar or did not beat window, or the scramble ablation failed to collapse (possible artifact). ordered_frac: sym=0.207 window=0.379 hash=0.000 scramble=0.207 | delta(sym-window)=-0.172 | tier1/2/3 sym=(0.154,0.092,0.084) window=(0.859,0.852,0.830)",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "sparsity": 10,
+  "window": 5,
+  "min_count": 5,
+  "seed": 7,
+  "detail": {
+    "sym_frac": 0.2069,
+    "window_frac": 0.3793,
+    "hash_frac": 0.0,
+    "scramble_frac": 0.2069,
+    "delta_sym_vs_win": -0.1724,
+    "delta_separation_sym_vs_win": 0.0547,
+    "tier_means": {
+      "window": [
+        0.8586,
+        0.8515,
+        0.8301
+      ],
+      "symmetric_pattern": [
+        0.1541,
+        0.0923,
+        0.0841
+      ],
+      "hash_random": [
+        0.0034,
+        0.0,
+        0.0069
+      ],
+      "symmetric_pattern_scrambled": [
+        0.2546,
+        0.3134,
+        0.2805
+      ]
+    },
+    "coverage": {
+      "window": "29/29",
+      "symmetric_pattern": "29/29",
+      "hash_random": "29/29",
+      "symmetric_pattern_scrambled": "29/29"
+    },
+    "n_llm_calls": 0,
+    "structured_gate_claims": [
+      {
+        "gate_name": "sym_frac_ge_070",
+        "measured": 0.2069,
+        "threshold": 0.7,
+        "op": ">=",
+        "gate_verdict": false,
+        "note": "Tier1>Tier2>Tier3 ordered fraction"
+      },
+      {
+        "gate_name": "window_frac_lt_050",
+        "measured": 0.3793,
+        "threshold": 0.5,
+        "op": "<",
+        "gate_verdict": true,
+        "note": "baseline should NOT clear majority"
+      },
+      {
+        "gate_name": "hash_frac_lt_050",
+        "measured": 0.0,
+        "threshold": 0.5,
+        "op": "<",
+        "gate_verdict": true,
+        "note": "floor control should NOT clear majority"
+      },
+      {
+        "gate_name": "delta_sym_vs_win_ge_020",
+        "measured": -0.1724,
+        "threshold": 0.2,
+        "op": ">=",
+        "gate_verdict": false,
+        "note": "material mechanism delta"
+      },
+      {
+        "gate_name": "scramble_collapse_delta_ge_030",
+        "measured": 0.0,
+        "threshold": 0.3,
+        "op": ">=",
+        "gate_verdict": false,
+        "note": "scramble ablation must collapse the gain"
+      },
+      {
+        "gate_name": "scramble_frac_le_045",
+        "measured": 0.2069,
+        "threshold": 0.45,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "scramble absolute ceiling"
+      }
+    ],
+    "strictly_above_floor_0.735": false,
+    "CONFIG_VERSION": "n11b_symmetric_pattern_v1; N=8192 sparsity=10 window=5 min_count=5 seed=7",
+    "cites": [
+      "notes/drill_brain_atl_lexical_semantic_hub_2026-08-06.md",
+      "Schwartz_Reichart_Rappoport_2015_symmetric_pattern_embeddings",
+      "Hill_Reichart_Korhonen_2015_SimLex999",
+      "data/exp_n11_random_indexing_semantic_v1/metrics.json"
+    ]
+  },
+  "metrics_source": "measured_cpu_n11b_symmetric_pattern_lexical_similarity_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "n_tokens": 17005207,
+      "window": {
+        "per_triple": [
+          {
+            "anchor": "vessel",
+            "syn": "ship",
+            "rel": "dock",
+            "unrel": "anger",
+            "cos_syn": 0.9716,
+            "cos_rel": 0.8313,
+            "cos_unrel": 0.8217,
+            "ordered": true
+          },
+          {
+            "anchor": "vessel",
+            "syn": "boat",
+            "rel": "sailor",
+            "unrel": "mathematics",
+            "cos_syn": 0.9443,
+            "cos_rel": 0.7737,
+            "cos_unrel": 0.8043,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "vessel",
+            "rel": "captain",
+            "unrel": "jealousy",
+            "cos_syn": 0.9716,
+            "cos_rel": 0.9281,
+            "cos_unrel": 0.7171,
+            "ordered": true
+          },
+          {
+            "anchor": "ship",
+            "syn": "boat",
+            "rel": "crew",
+            "unrel": "sorrow",
+            "cos_syn": 0.9499,
+            "cos_rel": 0.9721,
+            "cos_unrel": 0.78,
+            "ordered": false
+          },
+          {
+            "anchor": "boat",
+            "syn": "ship",
+            "rel": "water",
+            "unrel": "grief",
+            "cos_syn": 0.9499,
+            "cos_rel": 0.9055,
+            "cos_unrel": 0.8512,
+            "ordered": true
+          },
+          {
+            "anchor": "car",
+            "syn": "automobile",
+            "rel": "wheel",
+            "unrel": "passion",
+            "cos_syn": 0.918,
+            "cos_rel": 0.897,
+            "cos_unrel": 0.8672,
+            "ordered": true
+          },
+          {
+            "anchor": "car",
+            "syn": "vehicle",
+            "rel": "engine",
+            "unrel": "hatred",
+            "cos_syn": 0.9297,
+            "cos_rel": 0.9297,
+            "cos_unrel": 0.7468,
+            "ordered": false
+          },
+          {
+            "anchor": "truck",
+            "syn": "vehicle",
+            "rel": "cargo",
+            "unrel": "melody",
+            "cos_syn": 0.9159,
+            "cos_rel": 0.7846,
+            "cos_unrel": 0.9054,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "glad",
+            "rel": "love",
+            "unrel": "mountain",
+            "cos_syn": 0.6775,
+            "cos_rel": 0.9087,
+            "cos_unrel": 0.8247,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "joyful",
+            "rel": "music",
+            "unrel": "desert",
+            "cos_syn": 0.5008,
+            "cos_rel": 0.8625,
+            "cos_unrel": 0.811,
+            "ordered": false
+          },
+          {
+            "anchor": "sad",
+            "syn": "unhappy",
+            "rel": "grief",
+            "unrel": "river",
+            "cos_syn": 0.7125,
+            "cos_rel": 0.8153,
+            "cos_unrel": 0.7017,
+            "ordered": false
+          },
+          {
+            "anchor": "big",
+            "syn": "large",
+            "rel": "weight",
+            "unrel": "stream",
+            "cos_syn": 0.8639,
+            "cos_rel": 0.92,
+            "cos_unrel": 0.9309,
+            "ordered": false
+          },
+          {
+            "anchor": "large",
+            "syn": "huge",
+            "rel": "weight",
+            "unrel": "song",
+            "cos_syn": 0.9793,
+            "cos_rel": 0.9147,
+            "cos_unrel": 0.8655,
+            "ordered": true
+          },
+          {
+            "anchor": "small",
+            "syn": "tiny",
+            "rel": "distance",
+            "unrel": "terror",
+            "cos_syn": 0.9672,
+            "cos_rel": 0.8853,
+            "cos_unrel": 0.8795,
+            "ordered": true
+          },
+          {
+            "anchor": "fast",
+            "syn": "quick",
+            "rel": "speed",
+            "unrel": "forest",
+            "cos_syn": 0.9551,
+            "cos_rel": 0.9263,
+            "cos_unrel": 0.9045,
+            "ordered": true
+          },
+          {
+            "anchor": "fast",
+            "syn": "rapid",
+            "rel": "velocity",
+            "unrel": "hill",
+            "cos_syn": 0.9111,
+            "cos_rel": 0.8833,
+            "cos_unrel": 0.8674,
+            "ordered": true
+          },
+          {
+            "anchor": "slow",
+            "syn": "sluggish",
+            "rel": "speed",
+            "unrel": "valley",
+            "cos_syn": 0.7824,
+            "cos_rel": 0.9251,
+            "cos_unrel": 0.8443,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "fix",
+            "rel": "broken",
+            "unrel": "song",
+            "cos_syn": 0.8617,
+            "cos_rel": 0.8228,
+            "cos_unrel": 0.7942,
+            "ordered": true
+          },
+          {
+            "anchor": "repair",
+            "syn": "mend",
+            "rel": "damaged",
+            "unrel": "painting",
+            "cos_syn": 0.6506,
+            "cos_rel": 0.8451,
+            "cos_unrel": 0.836,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "mad",
+            "rel": "rage",
+            "unrel": "lake",
+            "cos_syn": 0.7998,
+            "cos_rel": 0.8354,
+            "cos_unrel": 0.8095,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "furious",
+            "rel": "hate",
+            "unrel": "river",
+            "cos_syn": 0.8413,
+            "cos_rel": 0.7447,
+            "cos_unrel": 0.7746,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "terror",
+            "rel": "afraid",
+            "unrel": "music",
+            "cos_syn": 0.9194,
+            "cos_rel": 0.8655,
+            "cos_unrel": 0.9298,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "dread",
+            "rel": "anxiety",
+            "unrel": "art",
+            "cos_syn": 0.88,
+            "cos_rel": 0.8418,
+            "cos_unrel": 0.9459,
+            "ordered": false
+          },
+          {
+            "anchor": "rich",
+            "syn": "wealthy",
+            "rel": "buy",
+            "unrel": "forest",
+            "cos_syn": 0.9253,
+            "cos_rel": 0.7486,
+            "cos_unrel": 0.9386,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "intelligent",
+            "rel": "answer",
+            "unrel": "stream",
+            "cos_syn": 0.6742,
+            "cos_rel": 0.7197,
+            "cos_unrel": 0.7618,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "clever",
+            "rel": "mistake",
+            "unrel": "desert",
+            "cos_syn": 0.8088,
+            "cos_rel": 0.7697,
+            "cos_unrel": 0.7189,
+            "ordered": true
+          },
+          {
+            "anchor": "begin",
+            "syn": "start",
+            "rel": "end",
+            "unrel": "color",
+            "cos_syn": 0.9087,
+            "cos_rel": 0.8185,
+            "cos_unrel": 0.8691,
+            "ordered": false
+          },
+          {
+            "anchor": "end",
+            "syn": "finish",
+            "rel": "begin",
+            "unrel": "shape",
+            "cos_syn": 0.8508,
+            "cos_rel": 0.8185,
+            "cos_unrel": 0.9353,
+            "ordered": false
+          },
+          {
+            "anchor": "buy",
+            "syn": "purchase",
+            "rel": "wealthy",
+            "unrel": "biology",
+            "cos_syn": 0.8771,
+            "cos_rel": 0.7993,
+            "cos_unrel": 0.6353,
+            "ordered": true
+          }
+        ],
+        "n_scored": 29,
+        "n_skipped_oov_or_zero": 0,
+        "n_total_triples": 29,
+        "ordered_inequality_frac": 0.3793,
+        "tier1_syn_mean_cos": 0.8586,
+        "tier2_rel_mean_cos": 0.8515,
+        "tier3_unrel_mean_cos": 0.8301,
+        "synonym_vs_related_separation": 0.0071,
+        "arm": "WINDOW",
+        "fit_wall_s": 310.93,
+        "vocab_size": 71290
+      },
+      "symmetric_pattern": {
+        "per_triple": [
+          {
+            "anchor": "vessel",
+            "syn": "ship",
+            "rel": "dock",
+            "unrel": "anger",
+            "cos_syn": 0.1773,
+            "cos_rel": 0.2031,
+            "cos_unrel": 0.1549,
+            "ordered": false
+          },
+          {
+            "anchor": "vessel",
+            "syn": "boat",
+            "rel": "sailor",
+            "unrel": "mathematics",
+            "cos_syn": 0.2664,
+            "cos_rel": -0.0063,
+            "cos_unrel": 0.1342,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "vessel",
+            "rel": "captain",
+            "unrel": "jealousy",
+            "cos_syn": 0.1773,
+            "cos_rel": 0.2892,
+            "cos_unrel": 0.0552,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "boat",
+            "rel": "crew",
+            "unrel": "sorrow",
+            "cos_syn": 0.2225,
+            "cos_rel": 0.101,
+            "cos_unrel": 0.0293,
+            "ordered": true
+          },
+          {
+            "anchor": "boat",
+            "syn": "ship",
+            "rel": "water",
+            "unrel": "grief",
+            "cos_syn": 0.2225,
+            "cos_rel": 0.2417,
+            "cos_unrel": 0.0217,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "automobile",
+            "rel": "wheel",
+            "unrel": "passion",
+            "cos_syn": 0.2129,
+            "cos_rel": 0.3145,
+            "cos_unrel": 0.1552,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "vehicle",
+            "rel": "engine",
+            "unrel": "hatred",
+            "cos_syn": 0.5112,
+            "cos_rel": 0.4566,
+            "cos_unrel": 0.1254,
+            "ordered": true
+          },
+          {
+            "anchor": "truck",
+            "syn": "vehicle",
+            "rel": "cargo",
+            "unrel": "melody",
+            "cos_syn": 0.3058,
+            "cos_rel": 0.0716,
+            "cos_unrel": 0.2568,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "glad",
+            "rel": "love",
+            "unrel": "mountain",
+            "cos_syn": -0.0082,
+            "cos_rel": 0.0331,
+            "cos_unrel": 0.0178,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "joyful",
+            "rel": "music",
+            "unrel": "desert",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0972,
+            "cos_unrel": 0.0841,
+            "ordered": false
+          },
+          {
+            "anchor": "sad",
+            "syn": "unhappy",
+            "rel": "grief",
+            "unrel": "river",
+            "cos_syn": -0.0083,
+            "cos_rel": 0.0511,
+            "cos_unrel": 0.2278,
+            "ordered": false
+          },
+          {
+            "anchor": "big",
+            "syn": "large",
+            "rel": "weight",
+            "unrel": "stream",
+            "cos_syn": 0.2138,
+            "cos_rel": 0.0158,
+            "cos_unrel": 0.0212,
+            "ordered": false
+          },
+          {
+            "anchor": "large",
+            "syn": "huge",
+            "rel": "weight",
+            "unrel": "song",
+            "cos_syn": 0.0277,
+            "cos_rel": 0.0749,
+            "cos_unrel": 0.047,
+            "ordered": false
+          },
+          {
+            "anchor": "small",
+            "syn": "tiny",
+            "rel": "distance",
+            "unrel": "terror",
+            "cos_syn": 0.0556,
+            "cos_rel": 0.0709,
+            "cos_unrel": 0.0635,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "quick",
+            "rel": "speed",
+            "unrel": "forest",
+            "cos_syn": 0.0656,
+            "cos_rel": 0.0937,
+            "cos_unrel": 0.1265,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "rapid",
+            "rel": "velocity",
+            "unrel": "hill",
+            "cos_syn": 0.0474,
+            "cos_rel": 0.1603,
+            "cos_unrel": 0.1097,
+            "ordered": false
+          },
+          {
+            "anchor": "slow",
+            "syn": "sluggish",
+            "rel": "speed",
+            "unrel": "valley",
+            "cos_syn": -0.0098,
+            "cos_rel": 0.0882,
+            "cos_unrel": 0.1444,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "fix",
+            "rel": "broken",
+            "unrel": "song",
+            "cos_syn": -0.0031,
+            "cos_rel": 0.0593,
+            "cos_unrel": 0.0353,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "mend",
+            "rel": "damaged",
+            "unrel": "painting",
+            "cos_syn": 0.0977,
+            "cos_rel": 0.053,
+            "cos_unrel": 0.0248,
+            "ordered": true
+          },
+          {
+            "anchor": "angry",
+            "syn": "mad",
+            "rel": "rage",
+            "unrel": "lake",
+            "cos_syn": 0.0222,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0471,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "furious",
+            "rel": "hate",
+            "unrel": "river",
+            "cos_syn": 0.028,
+            "cos_rel": 0.03,
+            "cos_unrel": 0.0778,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "terror",
+            "rel": "afraid",
+            "unrel": "music",
+            "cos_syn": 0.1241,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.1043,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "dread",
+            "rel": "anxiety",
+            "unrel": "art",
+            "cos_syn": 0.1698,
+            "cos_rel": 0.0313,
+            "cos_unrel": 0.0355,
+            "ordered": false
+          },
+          {
+            "anchor": "rich",
+            "syn": "wealthy",
+            "rel": "buy",
+            "unrel": "forest",
+            "cos_syn": 0.2882,
+            "cos_rel": 0.0088,
+            "cos_unrel": 0.1539,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "intelligent",
+            "rel": "answer",
+            "unrel": "stream",
+            "cos_syn": 0.0726,
+            "cos_rel": 0.0035,
+            "cos_unrel": -0.0061,
+            "ordered": true
+          },
+          {
+            "anchor": "smart",
+            "syn": "clever",
+            "rel": "mistake",
+            "unrel": "desert",
+            "cos_syn": 0.1529,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.013,
+            "ordered": false
+          },
+          {
+            "anchor": "begin",
+            "syn": "start",
+            "rel": "end",
+            "unrel": "color",
+            "cos_syn": 0.7221,
+            "cos_rel": 0.0633,
+            "cos_unrel": 0.0494,
+            "ordered": true
+          },
+          {
+            "anchor": "end",
+            "syn": "finish",
+            "rel": "begin",
+            "unrel": "shape",
+            "cos_syn": 0.2319,
+            "cos_rel": 0.0633,
+            "cos_unrel": 0.1343,
+            "ordered": false
+          },
+          {
+            "anchor": "buy",
+            "syn": "purchase",
+            "rel": "wealthy",
+            "unrel": "biology",
+            "cos_syn": 0.0825,
+            "cos_rel": 0.0063,
+            "cos_unrel": -0.0039,
+            "ordered": true
+          }
+        ],
+        "n_scored": 29,
+        "n_skipped_oov_or_zero": 0,
+        "n_total_triples": 29,
+        "ordered_inequality_frac": 0.2069,
+        "tier1_syn_mean_cos": 0.1541,
+        "tier2_rel_mean_cos": 0.0923,
+        "tier3_unrel_mean_cos": 0.0841,
+        "synonym_vs_related_separation": 0.0618,
+        "arm": "SYMMETRIC_PATTERN",
+        "fit_wall_s": 14.96,
+        "vocab_size": 71290
+      },
+      "hash_random": {
+        "per_triple": [
+          {
+            "anchor": "vessel",
+            "syn": "ship",
+            "rel": "dock",
+            "unrel": "anger",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "vessel",
+            "syn": "boat",
+            "rel": "sailor",
+            "unrel": "mathematics",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "vessel",
+            "rel": "captain",
+            "unrel": "jealousy",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "boat",
+            "rel": "crew",
+            "unrel": "sorrow",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.1,
+            "ordered": false
+          },
+          {
+            "anchor": "boat",
+            "syn": "ship",
+            "rel": "water",
+            "unrel": "grief",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.1,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "automobile",
+            "rel": "wheel",
+            "unrel": "passion",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "vehicle",
+            "rel": "engine",
+            "unrel": "hatred",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "truck",
+            "syn": "vehicle",
+            "rel": "cargo",
+            "unrel": "melody",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "glad",
+            "rel": "love",
+            "unrel": "mountain",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "joyful",
+            "rel": "music",
+            "unrel": "desert",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "sad",
+            "syn": "unhappy",
+            "rel": "grief",
+            "unrel": "river",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "big",
+            "syn": "large",
+            "rel": "weight",
+            "unrel": "stream",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "large",
+            "syn": "huge",
+            "rel": "weight",
+            "unrel": "song",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "small",
+            "syn": "tiny",
+            "rel": "distance",
+            "unrel": "terror",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "quick",
+            "rel": "speed",
+            "unrel": "forest",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "rapid",
+            "rel": "velocity",
+            "unrel": "hill",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "slow",
+            "syn": "sluggish",
+            "rel": "speed",
+            "unrel": "valley",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "fix",
+            "rel": "broken",
+            "unrel": "song",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "mend",
+            "rel": "damaged",
+            "unrel": "painting",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "mad",
+            "rel": "rage",
+            "unrel": "lake",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "furious",
+            "rel": "hate",
+            "unrel": "river",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "terror",
+            "rel": "afraid",
+            "unrel": "music",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "dread",
+            "rel": "anxiety",
+            "unrel": "art",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "rich",
+            "syn": "wealthy",
+            "rel": "buy",
+            "unrel": "forest",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "intelligent",
+            "rel": "answer",
+            "unrel": "stream",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "clever",
+            "rel": "mistake",
+            "unrel": "desert",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "begin",
+            "syn": "start",
+            "rel": "end",
+            "unrel": "color",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "end",
+            "syn": "finish",
+            "rel": "begin",
+            "unrel": "shape",
+            "cos_syn": 0.1,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          },
+          {
+            "anchor": "buy",
+            "syn": "purchase",
+            "rel": "wealthy",
+            "unrel": "biology",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.0,
+            "ordered": false
+          }
+        ],
+        "n_scored": 29,
+        "n_skipped_oov_or_zero": 0,
+        "n_total_triples": 29,
+        "ordered_inequality_frac": 0.0,
+        "tier1_syn_mean_cos": 0.0034,
+        "tier2_rel_mean_cos": 0.0,
+        "tier3_unrel_mean_cos": 0.0069,
+        "synonym_vs_related_separation": 0.0034,
+        "arm": "HASH_RANDOM",
+        "fit_wall_s": 3.61,
+        "vocab_size": 71290
+      },
+      "symmetric_pattern_scrambled": {
+        "per_triple": [
+          {
+            "anchor": "vessel",
+            "syn": "ship",
+            "rel": "dock",
+            "unrel": "anger",
+            "cos_syn": 0.3208,
+            "cos_rel": 0.2451,
+            "cos_unrel": 0.1344,
+            "ordered": true
+          },
+          {
+            "anchor": "vessel",
+            "syn": "boat",
+            "rel": "sailor",
+            "unrel": "mathematics",
+            "cos_syn": 0.2143,
+            "cos_rel": 0.1021,
+            "cos_unrel": 0.307,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "vessel",
+            "rel": "captain",
+            "unrel": "jealousy",
+            "cos_syn": 0.3208,
+            "cos_rel": 0.4889,
+            "cos_unrel": 0.0552,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "boat",
+            "rel": "crew",
+            "unrel": "sorrow",
+            "cos_syn": 0.3002,
+            "cos_rel": 0.4841,
+            "cos_unrel": 0.026,
+            "ordered": false
+          },
+          {
+            "anchor": "boat",
+            "syn": "ship",
+            "rel": "water",
+            "unrel": "grief",
+            "cos_syn": 0.3002,
+            "cos_rel": 0.3532,
+            "cos_unrel": 0.1279,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "automobile",
+            "rel": "wheel",
+            "unrel": "passion",
+            "cos_syn": 0.3972,
+            "cos_rel": 0.3883,
+            "cos_unrel": 0.228,
+            "ordered": true
+          },
+          {
+            "anchor": "car",
+            "syn": "vehicle",
+            "rel": "engine",
+            "unrel": "hatred",
+            "cos_syn": 0.4832,
+            "cos_rel": 0.4585,
+            "cos_unrel": 0.2784,
+            "ordered": true
+          },
+          {
+            "anchor": "truck",
+            "syn": "vehicle",
+            "rel": "cargo",
+            "unrel": "melody",
+            "cos_syn": 0.1524,
+            "cos_rel": 0.0763,
+            "cos_unrel": 0.0,
+            "ordered": true
+          },
+          {
+            "anchor": "happy",
+            "syn": "glad",
+            "rel": "love",
+            "unrel": "mountain",
+            "cos_syn": 0.0,
+            "cos_rel": 0.3465,
+            "cos_unrel": 0.2666,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "joyful",
+            "rel": "music",
+            "unrel": "desert",
+            "cos_syn": 0.0,
+            "cos_rel": 0.4094,
+            "cos_unrel": 0.131,
+            "ordered": false
+          },
+          {
+            "anchor": "sad",
+            "syn": "unhappy",
+            "rel": "grief",
+            "unrel": "river",
+            "cos_syn": 0.0,
+            "cos_rel": 0.2871,
+            "cos_unrel": 0.3922,
+            "ordered": false
+          },
+          {
+            "anchor": "big",
+            "syn": "large",
+            "rel": "weight",
+            "unrel": "stream",
+            "cos_syn": 0.7668,
+            "cos_rel": 0.616,
+            "cos_unrel": 0.2768,
+            "ordered": true
+          },
+          {
+            "anchor": "large",
+            "syn": "huge",
+            "rel": "weight",
+            "unrel": "song",
+            "cos_syn": 0.5282,
+            "cos_rel": 0.6564,
+            "cos_unrel": 0.6406,
+            "ordered": false
+          },
+          {
+            "anchor": "small",
+            "syn": "tiny",
+            "rel": "distance",
+            "unrel": "terror",
+            "cos_syn": 0.6813,
+            "cos_rel": 0.692,
+            "cos_unrel": 0.3491,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "quick",
+            "rel": "speed",
+            "unrel": "forest",
+            "cos_syn": 0.174,
+            "cos_rel": 0.4473,
+            "cos_unrel": 0.2171,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "rapid",
+            "rel": "velocity",
+            "unrel": "hill",
+            "cos_syn": 0.4214,
+            "cos_rel": 0.4061,
+            "cos_unrel": 0.2869,
+            "ordered": true
+          },
+          {
+            "anchor": "slow",
+            "syn": "sluggish",
+            "rel": "speed",
+            "unrel": "valley",
+            "cos_syn": 0.0,
+            "cos_rel": 0.4645,
+            "cos_unrel": 0.4172,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "fix",
+            "rel": "broken",
+            "unrel": "song",
+            "cos_syn": 0.1443,
+            "cos_rel": 0.1019,
+            "cos_unrel": 0.2514,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "mend",
+            "rel": "damaged",
+            "unrel": "painting",
+            "cos_syn": 0.0,
+            "cos_rel": 0.1188,
+            "cos_unrel": 0.1144,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "mad",
+            "rel": "rage",
+            "unrel": "lake",
+            "cos_syn": 0.3869,
+            "cos_rel": 0.0972,
+            "cos_unrel": 0.4008,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "furious",
+            "rel": "hate",
+            "unrel": "river",
+            "cos_syn": 0.0,
+            "cos_rel": 0.0736,
+            "cos_unrel": 0.3207,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "terror",
+            "rel": "afraid",
+            "unrel": "music",
+            "cos_syn": 0.3038,
+            "cos_rel": 0.0,
+            "cos_unrel": 0.5794,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "dread",
+            "rel": "anxiety",
+            "unrel": "art",
+            "cos_syn": 0.008,
+            "cos_rel": 0.1851,
+            "cos_unrel": 0.5177,
+            "ordered": false
+          },
+          {
+            "anchor": "rich",
+            "syn": "wealthy",
+            "rel": "buy",
+            "unrel": "forest",
+            "cos_syn": 0.4099,
+            "cos_rel": 0.191,
+            "cos_unrel": 0.2637,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "intelligent",
+            "rel": "answer",
+            "unrel": "stream",
+            "cos_syn": 0.0554,
+            "cos_rel": 0.2514,
+            "cos_unrel": 0.2463,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "clever",
+            "rel": "mistake",
+            "unrel": "desert",
+            "cos_syn": 0.1107,
+            "cos_rel": 0.2121,
+            "cos_unrel": 0.1434,
+            "ordered": false
+          },
+          {
+            "anchor": "begin",
+            "syn": "start",
+            "rel": "end",
+            "unrel": "color",
+            "cos_syn": 0.2328,
+            "cos_rel": 0.4051,
+            "cos_unrel": 0.3479,
+            "ordered": false
+          },
+          {
+            "anchor": "end",
+            "syn": "finish",
+            "rel": "begin",
+            "unrel": "shape",
+            "cos_syn": 0.3453,
+            "cos_rel": 0.4051,
+            "cos_unrel": 0.5741,
+            "ordered": false
+          },
+          {
+            "anchor": "buy",
+            "syn": "purchase",
+            "rel": "wealthy",
+            "unrel": "biology",
+            "cos_syn": 0.3265,
+            "cos_rel": 0.1253,
+            "cos_unrel": 0.2403,
+            "ordered": false
+          }
+        ],
+        "n_scored": 29,
+        "n_skipped_oov_or_zero": 0,
+        "n_total_triples": 29,
+        "ordered_inequality_frac": 0.2069,
+        "tier1_syn_mean_cos": 0.2546,
+        "tier2_rel_mean_cos": 0.3134,
+        "tier3_unrel_mean_cos": 0.2805,
+        "synonym_vs_related_separation": -0.0588,
+        "arm": "SYMMETRIC_PATTERN_SCRAMBLED",
+        "fit_wall_s": 19.58,
+        "vocab_size": 71290
+      },
+      "window_vocab_size": 71290,
+      "arms_hash_digests": {
+        "WINDOW_index_matrix": "41ab4f4304b35a0601d60c727b5acfa788d2fb9af412454ceb02beb9bff7cbd3"
+      },
+      "unit_wall_s": 354.73,
+      "run_mode": "full",
+      "config_version": "n11b_symmetric_pattern_v1; N=8192 sparsity=10 window=5 min_count=5 seed=7"
+    }
+  ],
+  "elapsed_s": 355.85807037353516,
+  "summary": "DISCRIMINATOR HARD_FAIL: symmetric_pattern did not clear its own bar or did not beat window, or the scramble ablation failed to collapse (possible artifact). ordered_frac: sym=0.207 window=0.379 hash=0.000 scramble=0.207 | delta(sym-window)=-0.172 | tier1/2/3 sym=(0.154,0.092,0.084) window=(0.859,0.852,0.830)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "_name_says_smoke_workaround": false,
+  "structured_gate_claims": [
+    {
+      "gate_name": "sym_frac_ge_070",
+      "measured": 0.2069,
+      "threshold": 0.7,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "Tier1>Tier2>Tier3 ordered fraction"
+    },
+    {
+      "gate_name": "window_frac_lt_050",
+      "measured": 0.3793,
+      "threshold": 0.5,
+      "op": "<",
+      "gate_verdict": true,
+      "note": "baseline should NOT clear majority"
+    },
+    {
+      "gate_name": "hash_frac_lt_050",
+      "measured": 0.0,
+      "threshold": 0.5,
+      "op": "<",
+      "gate_verdict": true,
+      "note": "floor control should NOT clear majority"
+    },
+    {
+      "gate_name": "delta_sym_vs_win_ge_020",
+      "measured": -0.1724,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "material mechanism delta"
+    },
+    {
+      "gate_name": "scramble_collapse_delta_ge_030",
+      "measured": 0.0,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "scramble ablation must collapse the gain"
+    },
+    {
+      "gate_name": "scramble_frac_le_045",
+      "measured": 0.2069,
+      "threshold": 0.45,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "scramble absolute ceiling"
+    }
+  ]
+}
