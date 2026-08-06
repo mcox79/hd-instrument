@@ -293,33 +293,63 @@ DIRECTIONAL_PP = {"toward", "towards", "into", "up", "down", "out", "across", "o
 # (commit 5da76bf34). DESIDERATIVE/intention verbs -- goal-signaling; REMOVED from the stop set so
 # "X <verb> to VP" fires purpose_to_no_det via the CONSTRUCTION path even when C3 is OOV.
 DESIDERATIVE_PASS = {
-    "hope", "hopes", "hoped", "want", "wants", "wanted", "wish", "wishes", "wished",
-    "mean", "means", "meant", "plan", "plans", "planned", "intend", "intends", "intended",
-    "aim", "aims", "aimed", "long", "longs", "longed", "yearn", "yearns", "yearned",
-    "desire", "desires", "desired",
+    "hope", "hopes", "hoped", "hoping", "want", "wants", "wanted", "wanting",
+    "wish", "wishes", "wished", "wishing", "mean", "means", "meant", "meaning",
+    "plan", "plans", "planned", "planning", "intend", "intends", "intended", "intending",
+    "aim", "aims", "aimed", "aiming", "long", "longs", "longed", "longing",
+    "yearn", "yearns", "yearned", "yearning", "desire", "desires", "desired", "desiring",
+    # BOULETIC-PREFERENCE extension (2026-08-06 coverage expansion): like/love are the same
+    # world-to-mind DESIRE class as want/wish/hope (Searle 1983 Intentionality), NOT a new
+    # category. base + 3sg + past + gerund, matching the desiderative inflection convention.
+    "like", "likes", "liked", "liking", "love", "loves", "loved", "loving",
 }
-# ASPECTUAL/IMPLICATIVE verbs -- NOT goal-signaling ("X began/tried/failed to VP" is not a goal
-# ownership signal); STAYS in the stop set.
+# CONATIVE / ATTEMPT class (2026-08-06 coverage expansion): "try to VP" recognizes the goal via
+# Talmy (1988) force-dynamics AGONIST-exertion -- the goal is recognized EVEN WHEN THE ATTEMPT
+# FAILS ("tried to X but couldn't" -> X is still the goal). Moved OUT of ASPECTUAL_STOP: an
+# attempt is NOT aspectual marking of a prior action, it IS the effortful reaching toward a goal.
+CONATIVE_PASS = {"try", "tries", "tried", "trying"}
+# INTENTION / DECISION / COMMITMENT class (2026-08-06 coverage expansion): "decide/determine to
+# VP" -- Bratman (1987) intention-vs-desire; deciding FORMS an intention and the decided-upon
+# action becomes the goal regardless of whether it is later acted out. decide* moved OUT of
+# OTHER_STOP_UNCHANGED; determine* was previously in NO set (a genuine unclassified gap).
+INTENTION_PASS = {
+    "decide", "decides", "decided", "deciding",
+    "determine", "determines", "determined", "determining",
+}
+# ASPECTUAL/IMPLICATIVE verbs -- NOT goal-signaling ("X began/failed to VP" is not a goal
+# ownership signal); STAYS in the stop set. (try* REMOVED 2026-08-06 -> CONATIVE_PASS: it was
+# miscategorized -- an attempt is a goal signal, not aspectual marking.)
 ASPECTUAL_STOP = {
     "begin", "begins", "began", "start", "starts", "started",
-    "try", "tries", "tried", "fail", "fails", "failed",
+    "fail", "fails", "failed",
     "manage", "manages", "managed", "happen", "happens", "happened",
     "cease", "ceases", "ceased", "stop", "stops", "stopped",
     "continue", "continues", "continued",
 }
-# Unclassified by the source cell's task brief -- conservatively LEFT in the stop set: no behavior
-# change vs the pre-partition typer, precision-safe default.
+# Remaining unclassified / precision-safe stop-set verbs. (decide* REMOVED 2026-08-06 ->
+# INTENTION_PASS: it was an acknowledged placeholder, not a considered exclusion.)
 OTHER_STOP_UNCHANGED = {
-    "decide", "decides", "decided", "need", "needs", "needed", "seem", "seems", "seemed",
+    "need", "needs", "needed", "seem", "seems", "seemed",
     "get", "gets", "got", "choose", "chooses", "chose",
 }
 PARTITIONED_STOP = ASPECTUAL_STOP | OTHER_STOP_UNCHANGED
-assert DESIDERATIVE_PASS.isdisjoint(PARTITIONED_STOP), "partition must be disjoint by construction"
+# GOAL_GOVERNING_PASS: the UNION of the three intentional-state pass-classes (bouletic DESIRE +
+# conative ATTEMPT + intention DECISION -- Bratman 1987's three-way split). BOTH consumers below
+# (find_desired_state's dv_idx gate and _control_verb_is_aspectual_like's Tier-1 check) test THIS
+# union, not DESIDERATIVE_PASS alone -- the union coverage at both call sites is load-bearing.
+GOAL_GOVERNING_PASS = DESIDERATIVE_PASS | CONATIVE_PASS | INTENTION_PASS
+# Load-bearing invariant: the removal-half (try*/decide* out of the stop sets) and the addition-half
+# (CONATIVE_PASS/INTENTION_PASS) MUST land together or this assert AssertionErrors at import.
+assert GOAL_GOVERNING_PASS.isdisjoint(PARTITIONED_STOP), "goal-governing pass-set must be disjoint from the stop set"
+assert DESIDERATIVE_PASS.isdisjoint(CONATIVE_PASS) and DESIDERATIVE_PASS.isdisjoint(INTENTION_PASS) \
+    and CONATIVE_PASS.isdisjoint(INTENTION_PASS), "the three pass-classes must be mutually disjoint"
 
 
 # TIER-2 (2026-08-06): open-vocab control-verb classification for action_frame_feats's PARTITIONED
 # exclusion below. Seed pools = the lemma forms already in ASPECTUAL_STOP / DESIDERATIVE_PASS.
-_GOAL_ASPECT_SEED_LEMMAS = ("begin", "start", "try", "fail", "manage", "happen", "cease", "stop",
+# ("try" REMOVED from the aspect seed pool 2026-08-06: it is now CONATIVE, and leaving it here
+# would bias OOV siblings attempt/endeavor/strive toward the wrong (aspectual-suppress) pool.)
+_GOAL_ASPECT_SEED_LEMMAS = ("begin", "start", "fail", "manage", "happen", "cease", "stop",
                             "continue")
 _GOAL_DESID_SEED_LEMMAS = ("want", "hope", "wish", "mean", "plan", "intend", "aim", "long",
                            "yearn", "desire")
@@ -336,7 +366,7 @@ def _control_verb_is_aspectual_like(preceding: str) -> bool:
     an already-firing case."""
     if preceding in PARTITIONED_STOP:
         return True
-    if preceding in DESIDERATIVE_PASS:
+    if preceding in GOAL_GOVERNING_PASS:  # desiderative | conative | intention (2026-08-06 union)
         return False
     lemma = lemma_verb(preceding)
     verdict = _verblex.classify_2way(lemma, _GOAL_ASPECT_SEED_LEMMAS, _GOAL_DESID_SEED_LEMMAS,
@@ -709,13 +739,14 @@ def _sentences(text: str) -> List[str]:
 
 
 def find_desired_state(sentence: str):
-    """Locate a desiderative-governed purpose-infinitival "to VERB" and extract
-    {referent, classes, verb_lemma, pattern}. Returns None if no DESIDERATIVE_PASS verb is found.
-    Byte-identical logic to
-    experiments/exp_outcome_valence_goal_congruence_v1.py::find_desired_state (reuses this module's
-    own DESIDERATIVE_PASS/DET_STOP, unchanged)."""
+    """Locate a goal-governing (desiderative | conative | intention) purpose-infinitival "to VERB"
+    and extract {referent, classes, verb_lemma, pattern}. Returns None if no GOAL_GOVERNING_PASS
+    verb is found. Scan logic byte-identical to
+    experiments/exp_outcome_valence_goal_congruence_v1.py::find_desired_state; the governing-verb
+    gate widened 2026-08-06 from DESIDERATIVE_PASS alone to the GOAL_GOVERNING_PASS union (adds
+    try/decide/determine/like/love + gerund forms)."""
     toks = _tokens(sentence)
-    dv_idx = next((i for i, t in enumerate(toks) if t in DESIDERATIVE_PASS), None)
+    dv_idx = next((i for i, t in enumerate(toks) if t in GOAL_GOVERNING_PASS), None)
     if dv_idx is None:
         return None
     for i in range(dv_idx + 1, len(toks) - 1):
@@ -1070,8 +1101,12 @@ def goal_congruence_appraisal_type(goal_sentences, outcome_sentence: str, target
 def self_test() -> dict:
     """Reproduces decisive cases from the source cells with THIS module's promoted (copied) organ,
     proving the promotion is byte-identical, not just similarly-shaped."""
-    # (1) partition is disjoint by construction
+    # (1) partition is disjoint by construction (all three goal-governing pass-classes vs the stop
+    # set, and the pass-classes mutually -- 2026-08-06 coverage expansion invariant)
     assert DESIDERATIVE_PASS.isdisjoint(ASPECTUAL_STOP) and DESIDERATIVE_PASS.isdisjoint(OTHER_STOP_UNCHANGED)
+    assert GOAL_GOVERNING_PASS.isdisjoint(PARTITIONED_STOP), "goal-governing union must be disjoint from stop set"
+    assert DESIDERATIVE_PASS.isdisjoint(CONATIVE_PASS) and DESIDERATIVE_PASS.isdisjoint(INTENTION_PASS) \
+        and CONATIVE_PASS.isdisjoint(INTENTION_PASS), "the three pass-classes must be mutually disjoint"
 
     # (2) FIT/TEST verb disjointness (held-out generalization, not memorization)
     assert FIT_VERBS.isdisjoint(TEST_ACTION_VERBS)
@@ -1088,6 +1123,27 @@ def self_test() -> dict:
     # (5) DECISIVE CASE: an aspectual "began to VP" does NOT fire GOAL for the subject.
     goal_began = has_goal("Dawn began to open the gate.", "dawn")
     assert goal_began is False, "aspectual 'began to VP' must NOT fire GOAL"
+
+    # (5b) DECISIVE CASE (2026-08-06 coverage expansion): a CONATIVE "tried to VP" fires GOAL, and
+    # the goal is recognized EVEN THOUGH THE ATTEMPT MAY FAIL (Talmy 1988 force-dynamics) -- goal
+    # recognition is NOT outcome-typing. Precision guard: a bare-transitive "tried NP" (no
+    # infinitival complement) must NOT fire.
+    goal_tried = has_goal("Tom tried to steal sugar under his aunt's nose.", "tom")
+    assert goal_tried is True, "conative 'tried to VP' must fire GOAL"
+    tried_bare = has_goal("She tried the cake before dinner.", "she")
+    assert tried_bare is False, "bare-transitive 'tried NP' (no infinitival) must NOT fire GOAL"
+    assert find_desired_state("She tried the cake before dinner.") is None, (
+        "bare-transitive 'tried the cake' must yield no desired-state (no 'to VP')")
+    tried_state = find_desired_state("Tom tried to steal sugar under his aunt's nose.")
+    assert tried_state is not None and tried_state["verb_lemma"] == "steal", (
+        f"conative 'tried to steal' must recognize the goal-content verb 'steal', got {tried_state}")
+
+    # (5c) DECISIVE CASE (2026-08-06 coverage expansion): an INTENTION "decided to VP" fires GOAL
+    # (Bratman 1987 intention-vs-desire). Precision guard: a bare-transitive "decided NP" must NOT.
+    goal_decided = has_goal("He decided to leave the village at once.", "he")
+    assert goal_decided is True, "intention 'decided to VP' must fire GOAL"
+    decided_bare = has_goal("He decided the matter without delay.", "he")
+    assert decided_bare is False, "bare-transitive 'decided NP' (no infinitival) must NOT fire GOAL"
 
     # (6) action-frame telos (no desiderative/psych word at all) still fires GOAL via the
     # purpose-infinitival construction (signal 2), same held-out verbs as the source cell.
@@ -1180,6 +1236,10 @@ def self_test() -> dict:
     return {
         "goal_hoped_to_win": goal_hoped,
         "goal_began_to_open": goal_began,
+        "goal_tried_to_steal": goal_tried,
+        "goal_tried_bare_transitive": tried_bare,
+        "goal_decided_to_leave": goal_decided,
+        "goal_decided_bare_transitive": decided_bare,
         "goal_action_frame_telos": goal_action_frame,
         "c3_only_misses_hoped": not any(r == R_GOAL for (_e, r) in c3_only_events),
         "outcome_valence": {

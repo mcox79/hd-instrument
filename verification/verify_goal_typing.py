@@ -106,25 +106,50 @@ def check_end_to_end_subset(verb_type: str, expected_n_divergent: int):
 # ---------------------------------------------------------------------------
 # (3) aspectual precision probe: 0/7 false GOALs, all seeds
 # ---------------------------------------------------------------------------
+# p03_ivy_crate_foil_kay ("Ivy tried to lift the crate.") was RECLASSIFIED 2026-08-06 by the
+# goal-recognition coverage expansion: `try` moved from ASPECTUAL_STOP to the new CONATIVE_PASS
+# class (Talmy 1988 force-dynamics -- an attempt IS a goal signal, recognized even when it fails),
+# so this item now CORRECTLY fires GOAL. The remaining 6 items are genuinely aspectual/implicative
+# (began/started/failed/managed/ceased/continued to VP) and must still fire 0 GOAL -- that precision
+# guard is unchanged. See preregs/2026-08-06_goal_recognition_coverage_expansion_v1.md.
+CONATIVE_RECLASSIFIED_IDS = {"p03_ivy_crate_foil_kay"}
+
+
 def check_aspectual_precision_probe():
     probe = DESID.ASPECTUAL_PRECISION_PROBE
     assert len(probe) == 7, f"expected the certified 7-item probe bank, got {len(probe)}"
+    aspectual = [it for it in probe if it["id"] not in CONATIVE_RECLASSIFIED_IDS]
+    conative = [it for it in probe if it["id"] in CONATIVE_RECLASSIFIED_IDS]
+    assert len(aspectual) == 6 and len(conative) == 1, (
+        f"expected 6 genuinely-aspectual + 1 reclassified-conative, got {len(aspectual)}/{len(conative)}")
     max_false_goal = 0
     for seed in SEEDS:
-        rows = [run_item_promoted(it, seed) for it in probe]
-        false_goal_count = sum(1 for r in rows if r["goal_present"])
+        # (a) the 6 genuinely-aspectual items must STILL fire 0 GOAL (precision guard, unchanged)
+        asp_rows = [run_item_promoted(it, seed) for it in aspectual]
+        false_goal_count = sum(1 for r in asp_rows if r["goal_present"])
         max_false_goal = max(max_false_goal, false_goal_count)
         assert false_goal_count == 0, (
-            f"seed={seed}: promoted organ fired GOAL on {false_goal_count}/{len(probe)} "
-            f"aspectual-verb probe items: {[r['id'] for r in rows if r['goal_present']]}")
-    # sentence-level convenience-wrapper check too (has_goal), same 7 items, seed-independent
-    for it in probe:
+            f"seed={seed}: promoted organ fired GOAL on {false_goal_count}/6 genuinely-aspectual "
+            f"probe items: {[r['id'] for r in asp_rows if r['goal_present']]}")
+        # (b) the reclassified conative item ("tried to VP") must NOW fire GOAL (the coverage fix)
+        con_rows = [run_item_promoted(it, seed) for it in conative]
+        assert all(r["goal_present"] for r in con_rows), (
+            f"seed={seed}: reclassified conative 'tried to VP' item must NOW fire GOAL: "
+            f"{[r['id'] for r in con_rows if not r['goal_present']]}")
+    # sentence-level convenience-wrapper check too (has_goal), seed-independent
+    for it in aspectual:
         sentence = PREVMOD._sentences(it["text"])[0]
         assert has_goal(sentence, it["owner"]) is False, (
-            f"{it['id']}: has_goal() must be False on an aspectual-verb sentence")
-    print(f"[CHECK aspectual_precision_probe] N={len(probe)} false_goal_count(max over seeds)="
-          f"{max_false_goal} clean=True (promoted hdlab.goal_typing organ)")
-    return {"n": len(probe), "false_goal_count_max": max_false_goal, "clean": True}
+            f"{it['id']}: has_goal() must be False on a genuinely-aspectual sentence")
+    for it in conative:
+        sentence = PREVMOD._sentences(it["text"])[0]
+        assert has_goal(sentence, it["owner"]) is True, (
+            f"{it['id']}: has_goal() must be True on a reclassified conative 'tried to VP' sentence")
+    print(f"[CHECK aspectual_precision_probe] N_aspectual=6 false_goal_count(max over seeds)="
+          f"{max_false_goal} clean=True; N_conative_reclassified=1 fires_GOAL=True "
+          f"(promoted hdlab.goal_typing organ, 2026-08-06 coverage expansion)")
+    return {"n_aspectual": 6, "false_goal_count_max": max_false_goal, "clean": True,
+            "n_conative_reclassified": 1, "conative_fires_goal": True}
 
 
 def run():
