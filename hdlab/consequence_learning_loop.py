@@ -288,7 +288,8 @@ def learn_corpus(goal_windows: List[Tuple[str, str, object]],
                  signal_mode: str = "and_gate",
                  credit_mode: str = "referent_linked",
                  rng_choice=None,
-                 register: bool = True) -> dict:
+                 register: bool = True,
+                 dictionary_priors: Optional[Dict[str, Dict[str, int]]] = None) -> dict:
     """Multi-pass bootstrap driver. Clears the Tier-3 overlay, runs up to n_passes corpus passes.
     Exposures are merged into a MASTER cross-situational tally deduplicated by (window_id, lemma)
     first-verdict-wins (so a word's evidence is retained even after it is grounded and drops out of the
@@ -297,13 +298,26 @@ def learn_corpus(goal_windows: List[Tuple[str, str, object]],
     into the Tier-3 overlay (iff register=True) so the NEXT pass's Signal A picks it up (the bootstrap).
     Early-stops on a pass that adds zero new (window,lemma) exposures.
 
-    Returns: master_counter (the definitive cross-situational tally), master_grounded (consolidate of
-    it -- the single source of truth for every canary/learnable/noise number), registered (the overlay
-    POS/NEG map used for scoring), master_records (deduped flat records for the scramble control), and
-    the per-pass bootstrap curve. Leaves the overlay POPULATED with the final POS/NEG grounding iff
+    dictionary_priors (COMBINED dictionary+consequence tool, 2026-08-06): optional
+    {lemma: {"POS": n, "NEG": n}} Bayesian pseudo-exposure counts (from
+    hdlab.wordnet_polarity_propagation.pseudo_counts_from_dictionary). Seeded into `master` ONCE, BEFORE
+    the pass loop -- NOT per-pass (per-pass would silently TRIPLE the prior's weight under N_PASSES=3).
+    Real corpus exposures then accumulate ADDITIVELY on top via the existing setdefault (a pre-seeded
+    lemma's setdefault finds the pseudo-seeded entry and adds real votes to it). Default None ==
+    BYTE-IDENTICAL prior behavior (so the existing self_test + both prior executed runs remain exactly
+    reproducible). consolidate() is UNCHANGED and consumes the merged counter verbatim.
+
+    Returns: master_counter (the definitive cross-situational tally, INCLUDING any dictionary priors),
+    master_grounded (consolidate of it -- the single source of truth for every canary/learnable/noise
+    number), registered (the overlay POS/NEG map used for scoring), master_records (deduped flat records
+    for the scramble control -- REAL exposures only, dictionary priors are seeds not records), and the
+    per-pass bootstrap curve. Leaves the overlay POPULATED with the final POS/NEG grounding iff
     register=True (caller scores against the live overlay then clears for hygiene)."""
     clear_acquired_outcome()
-    master: Dict[str, Dict[str, int]] = {}
+    # INJECT-ONCE: seed the master counter with the dictionary pseudo-counts before pass 0 (a deep copy
+    # so the caller's prior dict is never mutated by the additive setdefault accumulation below).
+    master: Dict[str, Dict[str, int]] = {
+        lemma: dict(counts) for lemma, counts in (dictionary_priors or {}).items()}
     master_records: List[dict] = []
     seen_pairs = set()                        # (window_id, lemma) dedup
     registered: Dict[str, str] = {}           # lemma -> "POS"/"NEG" currently in overlay
@@ -418,12 +432,36 @@ def self_test() -> dict:
         ao = teacher_verdict(gs, win, signal_mode="signal_a_only")
         assert ag is None or ag == ao, "AND-gate must never fire a verdict Signal-A-only did not"
 
+    # (7) dictionary_priors INJECT-ONCE (COMBINED tool, 2026-08-06): a prior is seeded ONCE, not
+    # per-pass. With N_PASSES=3 and a probe word that NEVER appears in the corpus, its master count must
+    # equal the prior EXACTLY (total unchanged), NOT the prior tripled -- this is the specified trap.
+    priors = {"zzsquander": {"POS": 0, "NEG": 1},   # weak prior, total 1 < MIN_CONFIRM -> PENDING
+              "zzruin": {"POS": 0, "NEG": 3}}        # confident prior, total 3 -> locks NEG, zero real
+    r3 = learn_corpus(windows, n_passes=3, register=True, dictionary_priors=priors)
+    clear_acquired_outcome()
+    assert r3["master_counter"]["zzsquander"] == {"POS": 0, "NEG": 1}, (
+        f"INJECT-ONCE FAILURE: prior tripled/mutated across passes, got "
+        f"{r3['master_counter']['zzsquander']} (expected the seeded count, unchanged)")
+    assert r3["master_grounded"]["zzsquander"] == "PENDING", "weak prior (total 1) must stay PENDING"
+    # a confident dictionary prior alone (zero real corroborating exposures) reaches MIN_CONFIRM + locks.
+    assert r3["master_grounded"]["zzruin"] == "NEG", (
+        f"confident dict prior must lock from pseudo-count alone, got {r3['master_grounded']['zzruin']}")
+    assert r3["registered"].get("zzruin") == "NEG", "confident dict prior must register into overlay"
+    # default None path is byte-identical: seeding no priors reproduces the plain run's grounding.
+    r4 = learn_corpus(windows, n_passes=2, register=True, dictionary_priors=None)
+    clear_acquired_outcome()
+    assert r4["master_grounded"] == r1["master_grounded"], (
+        "dictionary_priors=None must be byte-identical to the no-priors path")
+    # the caller's prior dict must NOT be mutated by the additive accumulation (deep-copy contract).
+    assert priors["zzruin"] == {"POS": 0, "NEG": 3}, "caller's prior dict was mutated (deep-copy broken)"
+
     clear_acquired_outcome()
     return {
         "consolidate_ok": True,
         "teacher_flip_ok": True,
         "credit_target_referent_linked_ok": True,
         "determinism_ok": r1["master_grounded"] == r2["master_grounded"],
+        "dictionary_priors_inject_once_ok": True,
         "config": {"W": W_DEFAULT, "MIN_CONFIRM": MIN_CONFIRM, "NEUTRAL_BAND": NEUTRAL_BAND,
                    "N_PASSES": N_PASSES_DEFAULT},
     }
