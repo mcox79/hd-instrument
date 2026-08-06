@@ -438,7 +438,7 @@ class SituationReader:
     def __init__(self, *, gaz: Optional[Dict[str, str]] = None,
                  focus_n_dim: int = FOCUS_N_DIM,
                  pred_gate_fn=None, spacy_pred_gate: bool = False,
-                 gate_intransitive: bool = False) -> None:
+                 gate_intransitive: bool = True) -> None:
         self.gaz = load_name_gender() if gaz is None else gaz
         self.focus_n_dim = int(focus_n_dim)
         # OPTIONAL supplied-grammar predicate-validity gate (29522 L1 win, ADOPTED opt-in).
@@ -446,9 +446,14 @@ class SituationReader:
         if pred_gate_fn is None and spacy_pred_gate:
             pred_gate_fn = _build_spacy_pred_gate()
         self.pred_gate_fn = pred_gate_fn
-        # OPTIONAL frame-ARITY gate (2026-08-06). Default OFF -> byte-identical to the pre-existing
-        # positional obj-selection. When True, STRICTLY_INTRANSITIVE_VERBS (sit/go/arrive/...) never
-        # get a spurious PATIENT from the nearest following nominal. See _pick_role_mentions.
+        # FRAME-ARITY gate (2026-08-06, PROMOTED TO DEFAULT-ON 2026-08-06): mechanism can-fail
+        # 16/16 (gold-independent structural cases, hdlab/situation_reader.py::_selftest_frame_arity_gate)
+        # + gold measurement precision 0.148->0.173 (+0.025, 9 spurious intransitive-patient FPs
+        # removed, 0 other changes, recall unchanged) + certification 220/3 unchanged with the gate
+        # OFF at land-time (commit 29842ab70). STRICTLY_INTRANSITIVE_VERBS (sit/go/arrive/...) never
+        # get a spurious PATIENT from the nearest following nominal. See _pick_role_mentions. Still
+        # an explicit kwarg -> callers needing the pre-fix positional-only behavior pass
+        # gate_intransitive=False to opt back out.
         self.gate_intransitive = bool(gate_intransitive)
         # persistent readers (the banked backbone + single-sentence validity baseline)
         self.reader_ec = EventCentralityReader(n_dim=EVENT_N_DIM, mem_seed=MEM_SEED)
@@ -907,7 +912,11 @@ def _selftest_frame_arity_gate() -> dict:
             f"True (got {pt_g!r}, expected {noms[1]['head']!r}) -- conservatism check")
         results[f"{lemma}_conservative_exclusion"] = {"gated_patient": pt_g}
 
-    # -- (F) full end-to-end: SituationReader(gate_intransitive=True) over a real CoNLL doc --
+    # -- (F) full end-to-end: SituationReader(gate_intransitive=True/False) over a real CoNLL doc --
+    # NOTE (2026-08-06, PROMOTION): gate_intransitive is now DEFAULT True on SituationReader (see
+    # __init__), so both arms below pass the flag EXPLICITLY -- relying on the constructor default
+    # for the "ungated" arm would silently test gated-vs-gated post-promotion. This mirrors the
+    # opt-out kwarg any caller still uses to get the pre-fix positional-only behavior.
     rows = [
         (0, 0, "Tom", "(0)"), (0, 1, "sat", "_"), (0, 2, "down", "_"), (0, 3, "by", "_"),
         (0, 4, "the", "_"), (0, 5, "chair", "(1)"), (0, 6, ".", "_"),
@@ -916,7 +925,7 @@ def _selftest_frame_arity_gate() -> dict:
     ]
     path = _write_temp_conll(rows)
     try:
-        sm_ungated = SituationReader(gaz={"tom": "masc"}).read(path)
+        sm_ungated = SituationReader(gaz={"tom": "masc"}, gate_intransitive=False).read(path)
         sm_gated = SituationReader(gaz={"tom": "masc"}, gate_intransitive=True).read(path)
     finally:
         try:
