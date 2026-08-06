@@ -257,6 +257,19 @@ POSITION+METRIC vs the exact brain mechanism) + missing-component/LEARNING check
   wires the deep-VET islanded predictive_coding. NOTE: for OWNER selection this polarity does NOT matter (48/48
   already works w/ lexicon typing); outcome-valence is a separate POLARITY readout (instrument outcome_polarity
   gold: met=21/unmet=41) -- measure lexicon vs goal-congruence there. Genuine design problem, not a simple wire.**
+  **FORMALIZED (research drill, notes/drill_brain_outcome_valence_goal_congruence_2026-08-06.md, P=0.50):
+  brain computes outcome-valence as GOAL-CONGRUENCE = compare goal DESIRED-STATE (theme, result_verb_class) vs
+  outcome ACTUAL-STATE (theme, result_verb_class) on the SAME referent (Scherer goal-conduciveness / Roseman
+  motive-consistency / Trabasso chain-closing-vs-extending; goal-conduciveness is DISSOCIABLE from intrinsic word
+  valence, Kreibig autonomic dissociation). MECHANISM: same-theme+opposed-class->UNMET, same-theme+entailing-
+  class->MET, theme-mismatch->ABSTAIN (fallback to lexicon = preserves 48/48, strict ADD). REUSE (already own):
+  clause_theme/entity_goal_themes (my 3c theme-binding), goal_typing desiderative/purpose-infinitival detection,
+  lemma_verb, EventRecord. BUILD (small SUPPLY): RESULT_VERB_CLASS register (REPAIR_PRESERVE vs DAMAGE_LOSE etc,
+  Levin/Beavers) + desired-state extractor + ~20-line congruence fn. Predictive-coding = right SHAPE (predict-
+  then-observe ORDER) WRONG METRIC (continuous residual != discrete class-match; same ruling as frame_induction.
+  py:27) -> use as design pattern, NOT literal dep. CAN-FAIL: goal-dependent-valence flips (same outcome word,
+  opposite valence by goal; lexicon MUST score ~chance). Routing: used-ability-wrong (retire lexicon to fallback)
+  + missing-FACT SUPPLY (verb-class register), NOT missing-LEARNING. Build dispatched.**
 - **situation_reader.read() call-site integration of goal_typing** (promoted organ not yet CALLED by the reader;
   CoNLL-gated, same as frame_primary_role wire).
 - **source situation_type -> context_grounded_valence.py:141** (mechanism proven HARD_PASS in _v2, integration only).
