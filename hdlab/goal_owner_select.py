@@ -417,6 +417,116 @@ def _bridge_outcome_event(outcome_sentence: str, roster: dict, entity: str, has_
     return R_MET if polarity == "POS" else R_UNMET
 
 
+# ============================================================================ TIER-3 AFFECT-STATE
+# BRIDGING INFERENCE (promotion, 2026-08-06). SIBLING of the evaluative bridge above; byte-copied
+# (not imported -- hdlab/ must not import from experiments/) from experiments/exp_affect_state_
+# bridging_inference_v1.py (commit 0ff1a6d97, Director-VET'd HARD_PASS: zero_overlap_bridging_acc=1.0
+# 8/8 incl frank_fishing_glad, gap_vs_lexical_only=1.0, valence controls 1.0/1.0, bystander_no_bridge_
+# acc=1.0, unchanged_control_acc=1.0, scramble_acc=0.0, no_interference=True). Graesser Class-7
+# BACKWARD causal-antecedent bridge from the goal-holder's OWN AFFECT STATE ("Oh, how glad I am!" ->
+# goal MET; "he felt ashamed" -> goal UNMET) back to that holder's standing GOAL, for the case where
+# the outcome clause shares ZERO verb/theme with the goal clause. INTERNAL-affect sibling of the
+# EXTERNAL-evaluation bridge above ("you are a good boy"); same strict-Tier-3-ADD scope, same over-fire
+# guards, same reuse of the candidate's already-accumulated has_open_goal boolean (NO GoalOutcome-
+# Register modification, NO new binding operator). The two detectors are PROVABLY DISJOINT: Pattern A
+# below triggers on is/was/feels/felt but DELIBERATELY NOT are/were, so it can never match the
+# evaluative bridge's 2nd-person "you are ADJ" construction, and none of this bridge's AFFECT words are
+# EVAL_POS/EVAL_NEG members (the one shared token, "cheerful", still cannot cross-fire for the same
+# is/was-not-are/were structural reason) -- verified by the PART 3 interference self-tests below and
+# the verification/verify_affect_state_bridging_production.py witness, not merely asserted.
+AFFECT_POS = {
+    "glad", "happy", "joyful", "delighted", "proud", "pleased", "thankful", "merry", "cheerful",
+}
+AFFECT_NEG = {
+    "sad", "ashamed", "sorry", "miserable", "disappointed", "unhappy", "grieved", "downcast",
+    "sorrowful",
+}
+_AFFECT_TRIGGERS_3P = {"feels", "felt", "is", "was"}  # deliberately NOT are/were (2nd-person guard)
+_AFFECT_WINDOW = 6
+
+
+def detect_affect_state_construction(sentence: str, roster: dict):
+    """Own-affect construction detector (glass-box, no POS tagger). Returns (polarity, holder) where
+    polarity in {"POS","NEG"}, holder = the roster entity whose OWN affect this is, or (None, None).
+    Byte-identical to experiments/exp_affect_state_bridging_inference_v1.py's
+    detect_affect_state_construction (commit 0ff1a6d97).
+
+    Pattern B (first person) checked FIRST: "i" immediately followed by "am" (covers "I am so glad"
+    AND "how glad I am!" word order -- the AFFECT scan below covers the WHOLE sentence for this
+    pattern, since the affect word can precede "i am"). Holder = the first roster-name token in the
+    sentence (reporting-verb speaker attribution, e.g. "Frank cried, ...I am!").
+
+    Pattern A (third person): a roster NAME or a gender-resolvable pronoun (he/she) immediately
+    preceding feels/felt/is/was (NEVER are/were -- that word order is the evaluative bridge's 2nd-
+    person "you are ADJ" construction, out of scope here BY CONSTRUCTION, not by exclusion-list
+    patching), AFFECT word within a forward window. Ambiguous pronoun (no unique gender match in
+    roster) -> abstain for that trigger, scan continues."""
+    toks = _ordered_tokens(sentence)
+    # ---- Pattern B: first person dialogue ----
+    for i, t in enumerate(toks):
+        if t == "i" and i + 1 < len(toks) and toks[i + 1] == "am":
+            polarity = None
+            for w in toks:
+                if w in AFFECT_POS:
+                    polarity = "POS"
+                    break
+                if w in AFFECT_NEG:
+                    polarity = "NEG"
+                    break
+            if polarity is None:
+                continue
+            holder = None
+            for t2 in toks:
+                if t2 in roster:
+                    holder = t2
+                    break
+            return polarity, holder
+    # ---- Pattern A: third person ----
+    for i, t in enumerate(toks):
+        if t not in _AFFECT_TRIGGERS_3P:
+            continue
+        subj = toks[i - 1] if i > 0 else None
+        if subj is None or subj in ("you", "i"):
+            continue
+        holder = None
+        if subj in roster:
+            holder = subj
+        elif _is_pron_general(subj):
+            want = _gender_of_general(subj, roster)
+            cands = sorted(e for e in roster if roster[e] == want)
+            if len(cands) == 1:
+                holder = cands[0]
+        if holder is None:
+            continue
+        polarity = None
+        for w in toks[i + 1: i + 1 + _AFFECT_WINDOW]:
+            if w in AFFECT_POS:
+                polarity = "POS"
+                break
+            if w in AFFECT_NEG:
+                polarity = "NEG"
+                break
+        if polarity is not None:
+            return polarity, holder
+    return None, None
+
+
+def _bridge_affect_outcome_event(outcome_sentence: str, roster: dict, entity: str,
+                                 has_open_goal: bool):
+    """Affect-state bridging DECISION, same over-fire guards as experiments/exp_affect_state_bridging_
+    inference_v1.py's bridge_outcome (commit 0ff1a6d97): fires ONLY if the affect-state construction's
+    HOLDER is `entity` (the affect must be the GOAL-HOLDER's OWN affect, never a bystander's) AND
+    `entity` already holds an open GOAL (`has_open_goal`, read off this candidate's own accumulated
+    events -- identical source as the evaluative bridge above). No match / wrong holder / no open goal
+    -> abstain (None), never forces a bridge. Returns R_MET / R_UNMET / None."""
+    polarity, holder = detect_affect_state_construction(outcome_sentence, roster)
+    if polarity is None or holder != entity:
+        return None
+    if not has_open_goal:
+        return None
+    return R_MET if polarity == "POS" else R_UNMET
+
+
 # ============================================================================ CANDIDATE ENUMERATION
 # + SELECTION (the full outcome-owner selector). Byte-identical mechanism to experiments/exp_c5_
 # primacy_trap_endtoend_goal_coherence_candidate_gen_v1.py's build_candidate_role_seq/_outcome_pos/
@@ -429,9 +539,13 @@ def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
     never from a gold label. Outcome (final) sentence: subject is the PROPOSED CANDIDATE
     `outcome_entity` -- this is the enumeration step; TIER-3 ADD (2026-08-06): if lexical/similarity
     verb-typing (type_goal_events) types NOTHING for the outcome sentence under this candidate's
-    hypothesis, try the evaluative bridge (_bridge_outcome_event) before giving up. `scramble_goal_
-    to_foil` is a diagnostic-only hook (redirects GOAL-role bindings to a named foil entity) for
-    scramble-control self-tests; leave None in production use."""
+    hypothesis, try the two sibling bridges IN ORDER -- the evaluative bridge (_bridge_outcome_event,
+    external "you are a good boy") then the affect-state bridge (_bridge_affect_outcome_event, internal
+    "how glad I am!") -- before giving up. The two detectors are provably disjoint (at most one fires
+    on any outcome sentence; see the affect detector's module comment), so ordering is a formality; a
+    passage exercising NEITHER bridge leaves outcome_events byte-identical to the pre-bridge organ.
+    `scramble_goal_to_foil` is a diagnostic-only hook (redirects GOAL-role bindings to a named foil
+    entity) for scramble-control self-tests; leave None in production use."""
     sents = _sentences(passage_text)
     resolver = GeneralRecencyEntityResolver(roster)
     role_seq, cluster_ids = [], []
@@ -448,7 +562,13 @@ def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
     if not any(role in (R_UNMET, R_MET) for (_e, role) in outcome_events):
         has_open_goal = any(r == R_GOAL and cid == outcome_entity
                              for r, cid in zip(role_seq, cluster_ids))
+        # TIER-3: evaluative bridge first, then the sibling affect-state bridge (2026-08-06). Both
+        # abstaining (bridged_role stays None) leaves outcome_events byte-identical to the pre-affect
+        # organ -- the strict-ADD property.
         bridged_role = _bridge_outcome_event(outcome_sentence, roster, outcome_entity, has_open_goal)
+        if bridged_role is None:
+            bridged_role = _bridge_affect_outcome_event(outcome_sentence, roster, outcome_entity,
+                                                        has_open_goal)
         if bridged_role is not None:
             outcome_events = list(outcome_events) + [(outcome_entity, bridged_role)]
     for (entity, role) in outcome_events:
@@ -682,6 +802,73 @@ def self_test() -> dict:
         f"addressee-mismatch guard: amy is not the addressee ('jo' is), must not bridge, "
         f"got {mismatch_bridge!r}")
 
+    # ---- PART 3 self-tests (2026-08-06): Tier-3 AFFECT-STATE bridging inference (sibling of PART 2),
+    # wired into build_candidate_role_seq as the SECOND bridge. Reproduces decisive cases from
+    # experiments/data/affect_state_bridging_bank_v1.jsonl (commit 0ff1a6d97's Director-VET'd HARD_PASS
+    # bank) end-to-end THROUGH PRODUCTION select_outcome_owner. Both anchor passages (frank, peter)
+    # contain NO lexical outcome verb anywhere, so the pre-bridge organ raises OUTCOME_NEVER_TYPED on
+    # them -- their resolution is 100% attributable to the affect bridge (the clean-case analogue of
+    # mg2 for the evaluative bridge).
+
+    # POS_MET, first-person Pattern B ("Oh, how glad I am!"): goal MET bound to frank (the reporting
+    # speaker holding the desiderative goal); father (no goal) must NOT score.
+    frank_roster = {"frank": "m", "father": "m"}
+    frank_text = ("Frank wanted to catch a fine fish with his father. They walked down to the river "
+                  "together. Frank cried, \"Oh, how glad I am!\"")
+    frank_lex = type_goal_events(_sentences(frank_text)[-1], "frank")
+    assert not any(r in (R_UNMET, R_MET) for (_e, r) in frank_lex), (
+        "affect sanity: outcome ('...how glad I am!') must have ZERO lexical/similarity verb-typing "
+        "overlap -- proves the AFFECT bridge, not Tier-1/2, resolves this")
+    frank_scored, frank_winners = enumerate_and_score(frank_text, frank_roster, seed=0)
+    assert frank_scored.get("frank") == 1.0 and frank_scored.get("father", 0.0) == 0.0, (
+        f"affect CAN-FAIL: bridge must bind the outcome to frank (open GOAL + own affect); father "
+        f"(no goal, not the holder) must NOT score, got {frank_scored}")
+    frank_owner = select_outcome_owner(frank_text, frank_roster, seed=0)
+    assert frank_owner == "frank", (
+        f"affect end-to-end: select_outcome_owner must resolve owner=frank via the Tier-3 affect "
+        f"bridge, got {frank_owner!r}")
+
+    # NEG_UNMET, third-person Pattern A (pronoun subject, unique-gender resolved): "He felt downcast"
+    # -> goal UNMET bound to peter. peter's passage also has no lexical outcome verb (pre-bridge organ
+    # raises), so this isolates the affect bridge's NEG valence path end-to-end.
+    peter_roster = {"peter": "m", "sister": "f"}
+    peter_text = ("Peter wanted to keep his new book free of every crease. His little sister borrowed "
+                  "it without asking. He felt downcast when he found the torn page.")
+    peter_rs, peter_cid = build_candidate_role_seq(peter_text, peter_roster, "peter")
+    peter_pos = _outcome_pos(peter_rs)
+    assert peter_pos is not None and peter_rs[peter_pos] == R_UNMET and peter_cid[peter_pos] == "peter", (
+        f"affect valence (neg): peter's outcome slot must bridge to OUTCOME_UNMET, "
+        f"got role_seq={peter_rs} cluster_ids={peter_cid}")
+    peter_owner = select_outcome_owner(peter_text, peter_roster, seed=0)
+    assert peter_owner == "peter", f"affect neg end-to-end owner must be peter, got {peter_owner!r}"
+
+    # BYSTANDER over-fire guard (the critical affect-bridge property): the affect (glad) is kate's OWN,
+    # but the goal-holder is jack -- the bridge must bind NOBODY. The construction is correctly detected
+    # as kate's, yet the bridge abstains for the protagonist jack (holder mismatch) EVEN when jack holds
+    # an open goal -- so the affect bridge can never hijack a bystander's affect onto the protagonist.
+    bys_roster = {"jack": "m", "kate": "f"}
+    bys_outcome = "Kate felt very glad about the fair weather."
+    bys_pol, bys_holder = detect_affect_state_construction(bys_outcome, bys_roster)
+    assert (bys_pol, bys_holder) == ("POS", "kate"), (
+        f"bystander sanity: affect must be detected as kate's own (POS, kate), "
+        f"got ({bys_pol!r}, {bys_holder!r})")
+    assert _bridge_affect_outcome_event(bys_outcome, bys_roster, "jack", has_open_goal=True) is None, (
+        "bystander over-fire guard: the affect is kate's, jack is the protagonist -- the affect bridge "
+        "must NOT fire for jack even with an open goal")
+    assert _bridge_affect_outcome_event(bys_outcome, bys_roster, "kate", has_open_goal=False) is None, (
+        "bystander over-fire guard: kate is the affect-holder but has no open goal -- must abstain")
+
+    # CROSS-DETECTOR non-interference (both directions, decisive inline cases; the full 0/13 + 0/12 +
+    # 0/62 bank-wide sweep is verification/verify_affect_state_bridging_production.py): the affect
+    # detector must NOT fire on the evaluative "you are ADJ" construction, and the evaluative detector
+    # must NOT fire on an affect-state outcome.
+    assert detect_affect_state_construction(
+        "You are a dear, good boy, Henry.", {"henry": "m", "mother": "f"}) == (None, None), (
+        "cross-detector: affect detector must NOT fire on the evaluative 'you are ADJ' construction")
+    assert detect_evaluative_construction(
+        "Ellen was so happy that she smiled all afternoon.", {"ellen": "f", "mother": "f"}) == (
+        None, None), "cross-detector: evaluative detector must NOT fire on an affect-state outcome"
+
     return {"score_correct": score_correct, "score_wrong": score_wrong,
             "score_amy_own_goal": score_amy_own_goal, "adopt": adopt,
             "t24_scored": t24_scored, "t24_owner": t24_owner,
@@ -689,7 +876,10 @@ def self_test() -> dict:
             "part1_henry_subj": henry_subj, "part1_amy_subj": amy_subj, "part1_jo_subj": jo_subj,
             "part1_override_subj": override_subj,
             "part2_mg2_scored": mg2_scored, "part2_mg2_owner": mg2_owner,
-            "part2_bystander_bridge": bystander_bridge, "part2_addressee_mismatch_bridge": mismatch_bridge}
+            "part2_bystander_bridge": bystander_bridge, "part2_addressee_mismatch_bridge": mismatch_bridge,
+            "part3_frank_scored": frank_scored, "part3_frank_owner": frank_owner,
+            "part3_peter_outcome_role": peter_rs[peter_pos], "part3_peter_owner": peter_owner,
+            "part3_bystander_detect": [bys_pol, bys_holder]}
 
 
 if __name__ == "__main__":
