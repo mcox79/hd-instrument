@@ -1,0 +1,3623 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: MULTI-GOAL (N=12, all_genuine_ties=True): content=1.0 vs positional_tiebreak=0.5 (beats=True); baselines={'recency': 0.5, 'first_mention': 0.5, 'nearest_subject': 0.5, 'majority': 0.5}; scramble=0.0 collapses=True vacuous=False; flip_control_all_families_flip=True. FULL INSTRUMENT (N=48): content_total=48/48 positional_total=47/48; t24_fixed=True (owner=tom); t23_correct=True; no_regression=True; newly_fixed=['t24_tom_boat_foil_sid']; ties=2 tiebreak_fired=1; seed_invariant=True. VERDICT=HARD_PASS.",
+  "summary": "MULTI-GOAL (N=12, all_genuine_ties=True): content=1.0 vs positional_tiebreak=0.5 (beats=True); baselines={'recency': 0.5, 'first_mention': 0.5, 'nearest_subject': 0.5, 'majority': 0.5}; scramble=0.0 collapses=True vacuous=False; flip_control_all_families_flip=True. FULL INSTRUMENT (N=48): content_total=48/48 positional_total=47/48; t24_fixed=True (owner=tom); t23_correct=True; no_regression=True; newly_fixed=['t24_tom_boat_foil_sid']; ties=2 tiebreak_fired=1; seed_invariant=True. VERDICT=HARD_PASS.",
+  "n_seeds": 3,
+  "multigoal": {
+    "n": 12,
+    "all_genuine_ties": true,
+    "content_accuracy": 1.0,
+    "positional_tiebreak_accuracy": 0.5,
+    "content_beats_positional": true,
+    "scrambled_accuracy": 0.0,
+    "scramble_collapses": true,
+    "scramble_vacuous": false,
+    "baselines": {
+      "recency": 0.5,
+      "first_mention": 0.5,
+      "nearest_subject": 0.5,
+      "majority": 0.5
+    },
+    "flip_control_all_flip": true,
+    "flip_control_details": {
+      "f1": {
+        "base_gold": "hugh",
+        "flip_gold": "dean",
+        "content_base": "hugh",
+        "content_flip": "dean",
+        "content_flips": true,
+        "positional_base": "dean",
+        "positional_flip": "dean",
+        "positional_flips": false
+      },
+      "f2": {
+        "base_gold": "cole",
+        "flip_gold": "seth",
+        "content_base": "cole",
+        "content_flip": "seth",
+        "content_flips": true,
+        "positional_base": "cole",
+        "positional_flip": "cole",
+        "positional_flips": false
+      },
+      "f3": {
+        "base_gold": "rose",
+        "flip_gold": "iris",
+        "content_base": "rose",
+        "content_flip": "iris",
+        "content_flips": true,
+        "positional_base": "iris",
+        "positional_flip": "iris",
+        "positional_flips": false
+      },
+      "f4": {
+        "base_gold": "nell",
+        "flip_gold": "dora",
+        "content_base": "nell",
+        "content_flip": "dora",
+        "content_flips": true,
+        "positional_base": "dora",
+        "positional_flip": "dora",
+        "positional_flips": false
+      },
+      "f5": {
+        "base_gold": "finn",
+        "flip_gold": "drew",
+        "content_base": "finn",
+        "content_flip": "drew",
+        "content_flips": true,
+        "positional_base": "drew",
+        "positional_flip": "drew",
+        "positional_flips": false
+      },
+      "f6": {
+        "base_gold": "kate",
+        "flip_gold": "jane",
+        "content_base": "kate",
+        "content_flip": "jane",
+        "content_flips": true,
+        "positional_base": "jane",
+        "positional_flip": "jane",
+        "positional_flips": false
+      }
+    }
+  },
+  "full_instrument": {
+    "n": 48,
+    "content_total": 48,
+    "positional_total": 47,
+    "no_regression": true,
+    "newly_fixed": [
+      "t24_tom_boat_foil_sid"
+    ],
+    "t24_content_correct": true,
+    "t24_owner": "tom",
+    "t23_content_correct": true,
+    "n_ties": 2,
+    "n_tiebreak_fired": 1,
+    "content_correct": [
+      "p01_amy_ice_foil_jo",
+      "p02_jo_bell_foil_meg",
+      "p03_beth_fair_foil_ruth",
+      "p04_meg_market_foil_amy",
+      "p05_ruth_bridge_foil_ann",
+      "p06_ann_harvest_foil_beth",
+      "p07_tom_shore_foil_sid",
+      "p08_sid_forge_foil_laurie",
+      "p09_laurie_pass_foil_tom",
+      "p10_amy_orchard_foil_meg",
+      "p11_amy_race_foil_beth",
+      "p12_jo_garden_foil_ruth",
+      "p13_ruth_well_foil_amy",
+      "p14_ann_quarry_foil_jo",
+      "p15_beth_camp_foil_meg",
+      "p16_meg_river_foil_ruth",
+      "p17_laurie_hay_foil_tom",
+      "p18_tom_boat_foil_sid",
+      "p19_jo_forest_foil_beth",
+      "p20_amy_kite_foil_ann",
+      "t01_amy_ice_foil_jo",
+      "t02_jo_bell_foil_meg",
+      "t03_beth_fair_foil_ruth",
+      "t04_meg_market_foil_amy",
+      "t05_ruth_bridge_foil_ann",
+      "t06_ann_harvest_foil_beth",
+      "t07_tom_shore_foil_sid",
+      "t08_sid_forge_foil_laurie",
+      "t09_laurie_pass_foil_tom",
+      "t10_amy_orchard_foil_meg",
+      "t11_amy_race_foil_beth",
+      "t12_jo_garden_foil_ruth",
+      "t13_beth_song_foil_meg",
+      "t14_ruth_market_foil_ann",
+      "t15_meg_lake_foil_amy",
+      "t16_tom_river_foil_laurie",
+      "t17_sid_train_foil_tom",
+      "t18_laurie_summit_foil_sid",
+      "t19_ruth_well_foil_amy",
+      "t20_ann_apples_foil_jo",
+      "t21_beth_camp_foil_meg",
+      "t22_meg_river_foil_ruth",
+      "t23_laurie_hay_foil_tom",
+      "t24_tom_boat_foil_sid",
+      "t25_jo_forest_foil_beth",
+      "t26_amy_kite_foil_ann",
+      "t27_sid_bridge_foil_laurie",
+      "t28_ruth_loft_foil_ann"
+    ],
+    "content_misses": []
+  },
+  "seed_invariant": true,
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "multigoal_rows": [
+        {
+          "id": "m01_hugh_fence_dean_ladder_base",
+          "family": "f1",
+          "variant": "base",
+          "gold": "hugh",
+          "foil": "dean",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dean": 1.0,
+            "hugh": 1.0
+          },
+          "scored_scrambled": {
+            "dean": 1.0,
+            "hugh": 0.0
+          },
+          "content_owner": "hugh",
+          "content_matches": true,
+          "positional_owner": "dean",
+          "positional_matches": false,
+          "scrambled_owner": "dean",
+          "scrambled_matches": false,
+          "recency_owner": "dean",
+          "recency_matches": false,
+          "first_mention_owner": "hugh",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "dean",
+          "nearest_subject_matches": false,
+          "majority_owner": "hugh",
+          "majority_matches": true
+        },
+        {
+          "id": "m01_hugh_fence_dean_ladder_flip",
+          "family": "f1",
+          "variant": "flip",
+          "gold": "dean",
+          "foil": "hugh",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dean": 1.0,
+            "hugh": 1.0
+          },
+          "scored_scrambled": {
+            "dean": 0.0,
+            "hugh": 1.0
+          },
+          "content_owner": "dean",
+          "content_matches": true,
+          "positional_owner": "dean",
+          "positional_matches": true,
+          "scrambled_owner": "hugh",
+          "scrambled_matches": false,
+          "recency_owner": "dean",
+          "recency_matches": true,
+          "first_mention_owner": "hugh",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "dean",
+          "nearest_subject_matches": true,
+          "majority_owner": "hugh",
+          "majority_matches": false
+        },
+        {
+          "id": "m02_cole_canoe_seth_net_base",
+          "family": "f2",
+          "variant": "base",
+          "gold": "cole",
+          "foil": "seth",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "cole": 1.0,
+            "seth": 1.0
+          },
+          "scored_scrambled": {
+            "cole": 0.0,
+            "seth": 1.0
+          },
+          "content_owner": "cole",
+          "content_matches": true,
+          "positional_owner": "cole",
+          "positional_matches": true,
+          "scrambled_owner": "seth",
+          "scrambled_matches": false,
+          "recency_owner": "seth",
+          "recency_matches": false,
+          "first_mention_owner": "cole",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "seth",
+          "nearest_subject_matches": false,
+          "majority_owner": "cole",
+          "majority_matches": true
+        },
+        {
+          "id": "m02_cole_canoe_seth_net_flip",
+          "family": "f2",
+          "variant": "flip",
+          "gold": "seth",
+          "foil": "cole",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "cole": 1.0,
+            "seth": 1.0
+          },
+          "scored_scrambled": {
+            "cole": 1.0,
+            "seth": 0.0
+          },
+          "content_owner": "seth",
+          "content_matches": true,
+          "positional_owner": "cole",
+          "positional_matches": false,
+          "scrambled_owner": "cole",
+          "scrambled_matches": false,
+          "recency_owner": "seth",
+          "recency_matches": true,
+          "first_mention_owner": "cole",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "seth",
+          "nearest_subject_matches": true,
+          "majority_owner": "cole",
+          "majority_matches": false
+        },
+        {
+          "id": "m03_rose_quilt_iris_lantern_base",
+          "family": "f3",
+          "variant": "base",
+          "gold": "rose",
+          "foil": "iris",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "iris": 1.0,
+            "rose": 1.0
+          },
+          "scored_scrambled": {
+            "iris": 1.0,
+            "rose": 0.0
+          },
+          "content_owner": "rose",
+          "content_matches": true,
+          "positional_owner": "iris",
+          "positional_matches": false,
+          "scrambled_owner": "iris",
+          "scrambled_matches": false,
+          "recency_owner": "iris",
+          "recency_matches": false,
+          "first_mention_owner": "rose",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "iris",
+          "nearest_subject_matches": false,
+          "majority_owner": "rose",
+          "majority_matches": true
+        },
+        {
+          "id": "m03_rose_quilt_iris_lantern_flip",
+          "family": "f3",
+          "variant": "flip",
+          "gold": "iris",
+          "foil": "rose",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "iris": 1.0,
+            "rose": 1.0
+          },
+          "scored_scrambled": {
+            "iris": 0.0,
+            "rose": 1.0
+          },
+          "content_owner": "iris",
+          "content_matches": true,
+          "positional_owner": "iris",
+          "positional_matches": true,
+          "scrambled_owner": "rose",
+          "scrambled_matches": false,
+          "recency_owner": "iris",
+          "recency_matches": true,
+          "first_mention_owner": "rose",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "iris",
+          "nearest_subject_matches": true,
+          "majority_owner": "rose",
+          "majority_matches": false
+        },
+        {
+          "id": "m04_nell_basket_dora_kettle_base",
+          "family": "f4",
+          "variant": "base",
+          "gold": "nell",
+          "foil": "dora",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dora": 1.0,
+            "nell": 1.0
+          },
+          "scored_scrambled": {
+            "dora": 1.0,
+            "nell": 0.0
+          },
+          "content_owner": "nell",
+          "content_matches": true,
+          "positional_owner": "dora",
+          "positional_matches": false,
+          "scrambled_owner": "dora",
+          "scrambled_matches": false,
+          "recency_owner": "dora",
+          "recency_matches": false,
+          "first_mention_owner": "nell",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "dora",
+          "nearest_subject_matches": false,
+          "majority_owner": "nell",
+          "majority_matches": true
+        },
+        {
+          "id": "m04_nell_basket_dora_kettle_flip",
+          "family": "f4",
+          "variant": "flip",
+          "gold": "dora",
+          "foil": "nell",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dora": 1.0,
+            "nell": 1.0
+          },
+          "scored_scrambled": {
+            "dora": 0.0,
+            "nell": 1.0
+          },
+          "content_owner": "dora",
+          "content_matches": true,
+          "positional_owner": "dora",
+          "positional_matches": true,
+          "scrambled_owner": "nell",
+          "scrambled_matches": false,
+          "recency_owner": "dora",
+          "recency_matches": true,
+          "first_mention_owner": "nell",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "dora",
+          "nearest_subject_matches": true,
+          "majority_owner": "nell",
+          "majority_matches": false
+        },
+        {
+          "id": "m05_finn_saddle_drew_lamp_base",
+          "family": "f5",
+          "variant": "base",
+          "gold": "finn",
+          "foil": "drew",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "drew": 1.0,
+            "finn": 1.0
+          },
+          "scored_scrambled": {
+            "drew": 1.0,
+            "finn": 0.0
+          },
+          "content_owner": "finn",
+          "content_matches": true,
+          "positional_owner": "drew",
+          "positional_matches": false,
+          "scrambled_owner": "drew",
+          "scrambled_matches": false,
+          "recency_owner": "drew",
+          "recency_matches": false,
+          "first_mention_owner": "finn",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "drew",
+          "nearest_subject_matches": false,
+          "majority_owner": "finn",
+          "majority_matches": true
+        },
+        {
+          "id": "m05_finn_saddle_drew_lamp_flip",
+          "family": "f5",
+          "variant": "flip",
+          "gold": "drew",
+          "foil": "finn",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "drew": 1.0,
+            "finn": 1.0
+          },
+          "scored_scrambled": {
+            "drew": 0.0,
+            "finn": 1.0
+          },
+          "content_owner": "drew",
+          "content_matches": true,
+          "positional_owner": "drew",
+          "positional_matches": true,
+          "scrambled_owner": "finn",
+          "scrambled_matches": false,
+          "recency_owner": "drew",
+          "recency_matches": true,
+          "first_mention_owner": "finn",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "drew",
+          "nearest_subject_matches": true,
+          "majority_owner": "finn",
+          "majority_matches": false
+        },
+        {
+          "id": "m06_kate_trunk_jane_broom_base",
+          "family": "f6",
+          "variant": "base",
+          "gold": "kate",
+          "foil": "jane",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "jane": 1.0,
+            "kate": 1.0
+          },
+          "scored_scrambled": {
+            "jane": 1.0,
+            "kate": 0.0
+          },
+          "content_owner": "kate",
+          "content_matches": true,
+          "positional_owner": "jane",
+          "positional_matches": false,
+          "scrambled_owner": "jane",
+          "scrambled_matches": false,
+          "recency_owner": "jane",
+          "recency_matches": false,
+          "first_mention_owner": "kate",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "jane",
+          "nearest_subject_matches": false,
+          "majority_owner": "kate",
+          "majority_matches": true
+        },
+        {
+          "id": "m06_kate_trunk_jane_broom_flip",
+          "family": "f6",
+          "variant": "flip",
+          "gold": "jane",
+          "foil": "kate",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "jane": 1.0,
+            "kate": 1.0
+          },
+          "scored_scrambled": {
+            "jane": 0.0,
+            "kate": 1.0
+          },
+          "content_owner": "jane",
+          "content_matches": true,
+          "positional_owner": "jane",
+          "positional_matches": true,
+          "scrambled_owner": "kate",
+          "scrambled_matches": false,
+          "recency_owner": "jane",
+          "recency_matches": true,
+          "first_mention_owner": "kate",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "jane",
+          "nearest_subject_matches": true,
+          "majority_owner": "kate",
+          "majority_matches": false
+        }
+      ],
+      "full_rows": [
+        {
+          "id": "p01_amy_ice_foil_jo",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "p02_jo_bell_foil_meg",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p03_beth_fair_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p04_meg_market_foil_amy",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "p05_ruth_bridge_foil_ann",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "p06_ann_harvest_foil_beth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "p07_tom_shore_foil_sid",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "p08_sid_forge_foil_laurie",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "p09_laurie_pass_foil_tom",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "p10_amy_orchard_foil_meg",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p11_amy_race_foil_beth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "p12_jo_garden_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p13_ruth_well_foil_amy",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "p14_ann_quarry_foil_jo",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "p15_beth_camp_foil_meg",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p16_meg_river_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "meg": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p17_laurie_hay_foil_tom",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "p18_tom_boat_foil_sid",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "p19_jo_forest_foil_beth",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "beth": 0.0,
+            "jo": 1.0
+          }
+        },
+        {
+          "id": "p20_amy_kite_foil_ann",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "ann": 0.0
+          }
+        },
+        {
+          "id": "t01_amy_ice_foil_jo",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "t02_jo_bell_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t03_beth_fair_foil_ruth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t04_meg_market_foil_amy",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "t05_ruth_bridge_foil_ann",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t06_ann_harvest_foil_beth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "t07_tom_shore_foil_sid",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t08_sid_forge_foil_laurie",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "t09_laurie_pass_foil_tom",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "t10_amy_orchard_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t11_amy_race_foil_beth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "t12_jo_garden_foil_ruth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t13_beth_song_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t14_ruth_market_foil_ann",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t15_meg_lake_foil_amy",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "t16_tom_river_foil_laurie",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t17_sid_train_foil_tom",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "sid": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "t18_laurie_summit_foil_sid",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "sid": 0.0
+          }
+        },
+        {
+          "id": "t19_ruth_well_foil_amy",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t20_ann_apples_foil_jo",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "t21_beth_camp_foil_meg",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t22_meg_river_foil_ruth",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "meg": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t23_laurie_hay_foil_tom",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "laurie",
+          "tie": true,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t24_tom_boat_foil_sid",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "tom",
+          "tie": true,
+          "tiebreak_fired": true,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": false,
+          "scored": {
+            "sid": 1.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t25_jo_forest_foil_beth",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "beth": 0.0,
+            "jo": 1.0
+          }
+        },
+        {
+          "id": "t26_amy_kite_foil_ann",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "ann": 0.0
+          }
+        },
+        {
+          "id": "t27_sid_bridge_foil_laurie",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "t28_ruth_loft_foil_ann",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        }
+      ]
+    },
+    "1": {
+      "seed": 1,
+      "multigoal_rows": [
+        {
+          "id": "m01_hugh_fence_dean_ladder_base",
+          "family": "f1",
+          "variant": "base",
+          "gold": "hugh",
+          "foil": "dean",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dean": 1.0,
+            "hugh": 1.0
+          },
+          "scored_scrambled": {
+            "dean": 1.0,
+            "hugh": 0.0
+          },
+          "content_owner": "hugh",
+          "content_matches": true,
+          "positional_owner": "dean",
+          "positional_matches": false,
+          "scrambled_owner": "dean",
+          "scrambled_matches": false,
+          "recency_owner": "dean",
+          "recency_matches": false,
+          "first_mention_owner": "hugh",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "dean",
+          "nearest_subject_matches": false,
+          "majority_owner": "hugh",
+          "majority_matches": true
+        },
+        {
+          "id": "m01_hugh_fence_dean_ladder_flip",
+          "family": "f1",
+          "variant": "flip",
+          "gold": "dean",
+          "foil": "hugh",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dean": 1.0,
+            "hugh": 1.0
+          },
+          "scored_scrambled": {
+            "dean": 0.0,
+            "hugh": 1.0
+          },
+          "content_owner": "dean",
+          "content_matches": true,
+          "positional_owner": "dean",
+          "positional_matches": true,
+          "scrambled_owner": "hugh",
+          "scrambled_matches": false,
+          "recency_owner": "dean",
+          "recency_matches": true,
+          "first_mention_owner": "hugh",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "dean",
+          "nearest_subject_matches": true,
+          "majority_owner": "hugh",
+          "majority_matches": false
+        },
+        {
+          "id": "m02_cole_canoe_seth_net_base",
+          "family": "f2",
+          "variant": "base",
+          "gold": "cole",
+          "foil": "seth",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "cole": 1.0,
+            "seth": 1.0
+          },
+          "scored_scrambled": {
+            "cole": 0.0,
+            "seth": 1.0
+          },
+          "content_owner": "cole",
+          "content_matches": true,
+          "positional_owner": "cole",
+          "positional_matches": true,
+          "scrambled_owner": "seth",
+          "scrambled_matches": false,
+          "recency_owner": "seth",
+          "recency_matches": false,
+          "first_mention_owner": "cole",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "seth",
+          "nearest_subject_matches": false,
+          "majority_owner": "cole",
+          "majority_matches": true
+        },
+        {
+          "id": "m02_cole_canoe_seth_net_flip",
+          "family": "f2",
+          "variant": "flip",
+          "gold": "seth",
+          "foil": "cole",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "cole": 1.0,
+            "seth": 1.0
+          },
+          "scored_scrambled": {
+            "cole": 1.0,
+            "seth": 0.0
+          },
+          "content_owner": "seth",
+          "content_matches": true,
+          "positional_owner": "cole",
+          "positional_matches": false,
+          "scrambled_owner": "cole",
+          "scrambled_matches": false,
+          "recency_owner": "seth",
+          "recency_matches": true,
+          "first_mention_owner": "cole",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "seth",
+          "nearest_subject_matches": true,
+          "majority_owner": "cole",
+          "majority_matches": false
+        },
+        {
+          "id": "m03_rose_quilt_iris_lantern_base",
+          "family": "f3",
+          "variant": "base",
+          "gold": "rose",
+          "foil": "iris",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "iris": 1.0,
+            "rose": 1.0
+          },
+          "scored_scrambled": {
+            "iris": 1.0,
+            "rose": 0.0
+          },
+          "content_owner": "rose",
+          "content_matches": true,
+          "positional_owner": "iris",
+          "positional_matches": false,
+          "scrambled_owner": "iris",
+          "scrambled_matches": false,
+          "recency_owner": "iris",
+          "recency_matches": false,
+          "first_mention_owner": "rose",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "iris",
+          "nearest_subject_matches": false,
+          "majority_owner": "rose",
+          "majority_matches": true
+        },
+        {
+          "id": "m03_rose_quilt_iris_lantern_flip",
+          "family": "f3",
+          "variant": "flip",
+          "gold": "iris",
+          "foil": "rose",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "iris": 1.0,
+            "rose": 1.0
+          },
+          "scored_scrambled": {
+            "iris": 0.0,
+            "rose": 1.0
+          },
+          "content_owner": "iris",
+          "content_matches": true,
+          "positional_owner": "iris",
+          "positional_matches": true,
+          "scrambled_owner": "rose",
+          "scrambled_matches": false,
+          "recency_owner": "iris",
+          "recency_matches": true,
+          "first_mention_owner": "rose",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "iris",
+          "nearest_subject_matches": true,
+          "majority_owner": "rose",
+          "majority_matches": false
+        },
+        {
+          "id": "m04_nell_basket_dora_kettle_base",
+          "family": "f4",
+          "variant": "base",
+          "gold": "nell",
+          "foil": "dora",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dora": 1.0,
+            "nell": 1.0
+          },
+          "scored_scrambled": {
+            "dora": 1.0,
+            "nell": 0.0
+          },
+          "content_owner": "nell",
+          "content_matches": true,
+          "positional_owner": "dora",
+          "positional_matches": false,
+          "scrambled_owner": "dora",
+          "scrambled_matches": false,
+          "recency_owner": "dora",
+          "recency_matches": false,
+          "first_mention_owner": "nell",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "dora",
+          "nearest_subject_matches": false,
+          "majority_owner": "nell",
+          "majority_matches": true
+        },
+        {
+          "id": "m04_nell_basket_dora_kettle_flip",
+          "family": "f4",
+          "variant": "flip",
+          "gold": "dora",
+          "foil": "nell",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dora": 1.0,
+            "nell": 1.0
+          },
+          "scored_scrambled": {
+            "dora": 0.0,
+            "nell": 1.0
+          },
+          "content_owner": "dora",
+          "content_matches": true,
+          "positional_owner": "dora",
+          "positional_matches": true,
+          "scrambled_owner": "nell",
+          "scrambled_matches": false,
+          "recency_owner": "dora",
+          "recency_matches": true,
+          "first_mention_owner": "nell",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "dora",
+          "nearest_subject_matches": true,
+          "majority_owner": "nell",
+          "majority_matches": false
+        },
+        {
+          "id": "m05_finn_saddle_drew_lamp_base",
+          "family": "f5",
+          "variant": "base",
+          "gold": "finn",
+          "foil": "drew",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "drew": 1.0,
+            "finn": 1.0
+          },
+          "scored_scrambled": {
+            "drew": 1.0,
+            "finn": 0.0
+          },
+          "content_owner": "finn",
+          "content_matches": true,
+          "positional_owner": "drew",
+          "positional_matches": false,
+          "scrambled_owner": "drew",
+          "scrambled_matches": false,
+          "recency_owner": "drew",
+          "recency_matches": false,
+          "first_mention_owner": "finn",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "drew",
+          "nearest_subject_matches": false,
+          "majority_owner": "finn",
+          "majority_matches": true
+        },
+        {
+          "id": "m05_finn_saddle_drew_lamp_flip",
+          "family": "f5",
+          "variant": "flip",
+          "gold": "drew",
+          "foil": "finn",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "drew": 1.0,
+            "finn": 1.0
+          },
+          "scored_scrambled": {
+            "drew": 0.0,
+            "finn": 1.0
+          },
+          "content_owner": "drew",
+          "content_matches": true,
+          "positional_owner": "drew",
+          "positional_matches": true,
+          "scrambled_owner": "finn",
+          "scrambled_matches": false,
+          "recency_owner": "drew",
+          "recency_matches": true,
+          "first_mention_owner": "finn",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "drew",
+          "nearest_subject_matches": true,
+          "majority_owner": "finn",
+          "majority_matches": false
+        },
+        {
+          "id": "m06_kate_trunk_jane_broom_base",
+          "family": "f6",
+          "variant": "base",
+          "gold": "kate",
+          "foil": "jane",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "jane": 1.0,
+            "kate": 1.0
+          },
+          "scored_scrambled": {
+            "jane": 1.0,
+            "kate": 0.0
+          },
+          "content_owner": "kate",
+          "content_matches": true,
+          "positional_owner": "jane",
+          "positional_matches": false,
+          "scrambled_owner": "jane",
+          "scrambled_matches": false,
+          "recency_owner": "jane",
+          "recency_matches": false,
+          "first_mention_owner": "kate",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "jane",
+          "nearest_subject_matches": false,
+          "majority_owner": "kate",
+          "majority_matches": true
+        },
+        {
+          "id": "m06_kate_trunk_jane_broom_flip",
+          "family": "f6",
+          "variant": "flip",
+          "gold": "jane",
+          "foil": "kate",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "jane": 1.0,
+            "kate": 1.0
+          },
+          "scored_scrambled": {
+            "jane": 0.0,
+            "kate": 1.0
+          },
+          "content_owner": "jane",
+          "content_matches": true,
+          "positional_owner": "jane",
+          "positional_matches": true,
+          "scrambled_owner": "kate",
+          "scrambled_matches": false,
+          "recency_owner": "jane",
+          "recency_matches": true,
+          "first_mention_owner": "kate",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "jane",
+          "nearest_subject_matches": true,
+          "majority_owner": "kate",
+          "majority_matches": false
+        }
+      ],
+      "full_rows": [
+        {
+          "id": "p01_amy_ice_foil_jo",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "p02_jo_bell_foil_meg",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p03_beth_fair_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p04_meg_market_foil_amy",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "p05_ruth_bridge_foil_ann",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "p06_ann_harvest_foil_beth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "p07_tom_shore_foil_sid",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "p08_sid_forge_foil_laurie",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "p09_laurie_pass_foil_tom",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "p10_amy_orchard_foil_meg",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p11_amy_race_foil_beth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "p12_jo_garden_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p13_ruth_well_foil_amy",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "p14_ann_quarry_foil_jo",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "p15_beth_camp_foil_meg",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p16_meg_river_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "meg": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p17_laurie_hay_foil_tom",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "p18_tom_boat_foil_sid",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "p19_jo_forest_foil_beth",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "beth": 0.0,
+            "jo": 1.0
+          }
+        },
+        {
+          "id": "p20_amy_kite_foil_ann",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "ann": 0.0
+          }
+        },
+        {
+          "id": "t01_amy_ice_foil_jo",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "t02_jo_bell_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t03_beth_fair_foil_ruth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t04_meg_market_foil_amy",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "t05_ruth_bridge_foil_ann",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t06_ann_harvest_foil_beth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "t07_tom_shore_foil_sid",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t08_sid_forge_foil_laurie",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "t09_laurie_pass_foil_tom",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "t10_amy_orchard_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t11_amy_race_foil_beth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "t12_jo_garden_foil_ruth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t13_beth_song_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t14_ruth_market_foil_ann",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t15_meg_lake_foil_amy",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "t16_tom_river_foil_laurie",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t17_sid_train_foil_tom",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "sid": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "t18_laurie_summit_foil_sid",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "sid": 0.0
+          }
+        },
+        {
+          "id": "t19_ruth_well_foil_amy",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t20_ann_apples_foil_jo",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "t21_beth_camp_foil_meg",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t22_meg_river_foil_ruth",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "meg": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t23_laurie_hay_foil_tom",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "laurie",
+          "tie": true,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t24_tom_boat_foil_sid",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "tom",
+          "tie": true,
+          "tiebreak_fired": true,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": false,
+          "scored": {
+            "sid": 1.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t25_jo_forest_foil_beth",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "beth": 0.0,
+            "jo": 1.0
+          }
+        },
+        {
+          "id": "t26_amy_kite_foil_ann",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "ann": 0.0
+          }
+        },
+        {
+          "id": "t27_sid_bridge_foil_laurie",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "t28_ruth_loft_foil_ann",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        }
+      ]
+    },
+    "2": {
+      "seed": 2,
+      "multigoal_rows": [
+        {
+          "id": "m01_hugh_fence_dean_ladder_base",
+          "family": "f1",
+          "variant": "base",
+          "gold": "hugh",
+          "foil": "dean",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dean": 1.0,
+            "hugh": 1.0
+          },
+          "scored_scrambled": {
+            "dean": 1.0,
+            "hugh": 0.0
+          },
+          "content_owner": "hugh",
+          "content_matches": true,
+          "positional_owner": "dean",
+          "positional_matches": false,
+          "scrambled_owner": "dean",
+          "scrambled_matches": false,
+          "recency_owner": "dean",
+          "recency_matches": false,
+          "first_mention_owner": "hugh",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "dean",
+          "nearest_subject_matches": false,
+          "majority_owner": "hugh",
+          "majority_matches": true
+        },
+        {
+          "id": "m01_hugh_fence_dean_ladder_flip",
+          "family": "f1",
+          "variant": "flip",
+          "gold": "dean",
+          "foil": "hugh",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dean": 1.0,
+            "hugh": 1.0
+          },
+          "scored_scrambled": {
+            "dean": 0.0,
+            "hugh": 1.0
+          },
+          "content_owner": "dean",
+          "content_matches": true,
+          "positional_owner": "dean",
+          "positional_matches": true,
+          "scrambled_owner": "hugh",
+          "scrambled_matches": false,
+          "recency_owner": "dean",
+          "recency_matches": true,
+          "first_mention_owner": "hugh",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "dean",
+          "nearest_subject_matches": true,
+          "majority_owner": "hugh",
+          "majority_matches": false
+        },
+        {
+          "id": "m02_cole_canoe_seth_net_base",
+          "family": "f2",
+          "variant": "base",
+          "gold": "cole",
+          "foil": "seth",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "cole": 1.0,
+            "seth": 1.0
+          },
+          "scored_scrambled": {
+            "cole": 0.0,
+            "seth": 1.0
+          },
+          "content_owner": "cole",
+          "content_matches": true,
+          "positional_owner": "cole",
+          "positional_matches": true,
+          "scrambled_owner": "seth",
+          "scrambled_matches": false,
+          "recency_owner": "seth",
+          "recency_matches": false,
+          "first_mention_owner": "cole",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "seth",
+          "nearest_subject_matches": false,
+          "majority_owner": "cole",
+          "majority_matches": true
+        },
+        {
+          "id": "m02_cole_canoe_seth_net_flip",
+          "family": "f2",
+          "variant": "flip",
+          "gold": "seth",
+          "foil": "cole",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "cole": 1.0,
+            "seth": 1.0
+          },
+          "scored_scrambled": {
+            "cole": 1.0,
+            "seth": 0.0
+          },
+          "content_owner": "seth",
+          "content_matches": true,
+          "positional_owner": "cole",
+          "positional_matches": false,
+          "scrambled_owner": "cole",
+          "scrambled_matches": false,
+          "recency_owner": "seth",
+          "recency_matches": true,
+          "first_mention_owner": "cole",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "seth",
+          "nearest_subject_matches": true,
+          "majority_owner": "cole",
+          "majority_matches": false
+        },
+        {
+          "id": "m03_rose_quilt_iris_lantern_base",
+          "family": "f3",
+          "variant": "base",
+          "gold": "rose",
+          "foil": "iris",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "iris": 1.0,
+            "rose": 1.0
+          },
+          "scored_scrambled": {
+            "iris": 1.0,
+            "rose": 0.0
+          },
+          "content_owner": "rose",
+          "content_matches": true,
+          "positional_owner": "iris",
+          "positional_matches": false,
+          "scrambled_owner": "iris",
+          "scrambled_matches": false,
+          "recency_owner": "iris",
+          "recency_matches": false,
+          "first_mention_owner": "rose",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "iris",
+          "nearest_subject_matches": false,
+          "majority_owner": "rose",
+          "majority_matches": true
+        },
+        {
+          "id": "m03_rose_quilt_iris_lantern_flip",
+          "family": "f3",
+          "variant": "flip",
+          "gold": "iris",
+          "foil": "rose",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "iris": 1.0,
+            "rose": 1.0
+          },
+          "scored_scrambled": {
+            "iris": 0.0,
+            "rose": 1.0
+          },
+          "content_owner": "iris",
+          "content_matches": true,
+          "positional_owner": "iris",
+          "positional_matches": true,
+          "scrambled_owner": "rose",
+          "scrambled_matches": false,
+          "recency_owner": "iris",
+          "recency_matches": true,
+          "first_mention_owner": "rose",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "iris",
+          "nearest_subject_matches": true,
+          "majority_owner": "rose",
+          "majority_matches": false
+        },
+        {
+          "id": "m04_nell_basket_dora_kettle_base",
+          "family": "f4",
+          "variant": "base",
+          "gold": "nell",
+          "foil": "dora",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dora": 1.0,
+            "nell": 1.0
+          },
+          "scored_scrambled": {
+            "dora": 1.0,
+            "nell": 0.0
+          },
+          "content_owner": "nell",
+          "content_matches": true,
+          "positional_owner": "dora",
+          "positional_matches": false,
+          "scrambled_owner": "dora",
+          "scrambled_matches": false,
+          "recency_owner": "dora",
+          "recency_matches": false,
+          "first_mention_owner": "nell",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "dora",
+          "nearest_subject_matches": false,
+          "majority_owner": "nell",
+          "majority_matches": true
+        },
+        {
+          "id": "m04_nell_basket_dora_kettle_flip",
+          "family": "f4",
+          "variant": "flip",
+          "gold": "dora",
+          "foil": "nell",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "dora": 1.0,
+            "nell": 1.0
+          },
+          "scored_scrambled": {
+            "dora": 0.0,
+            "nell": 1.0
+          },
+          "content_owner": "dora",
+          "content_matches": true,
+          "positional_owner": "dora",
+          "positional_matches": true,
+          "scrambled_owner": "nell",
+          "scrambled_matches": false,
+          "recency_owner": "dora",
+          "recency_matches": true,
+          "first_mention_owner": "nell",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "dora",
+          "nearest_subject_matches": true,
+          "majority_owner": "nell",
+          "majority_matches": false
+        },
+        {
+          "id": "m05_finn_saddle_drew_lamp_base",
+          "family": "f5",
+          "variant": "base",
+          "gold": "finn",
+          "foil": "drew",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "drew": 1.0,
+            "finn": 1.0
+          },
+          "scored_scrambled": {
+            "drew": 1.0,
+            "finn": 0.0
+          },
+          "content_owner": "finn",
+          "content_matches": true,
+          "positional_owner": "drew",
+          "positional_matches": false,
+          "scrambled_owner": "drew",
+          "scrambled_matches": false,
+          "recency_owner": "drew",
+          "recency_matches": false,
+          "first_mention_owner": "finn",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "drew",
+          "nearest_subject_matches": false,
+          "majority_owner": "finn",
+          "majority_matches": true
+        },
+        {
+          "id": "m05_finn_saddle_drew_lamp_flip",
+          "family": "f5",
+          "variant": "flip",
+          "gold": "drew",
+          "foil": "finn",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "drew": 1.0,
+            "finn": 1.0
+          },
+          "scored_scrambled": {
+            "drew": 0.0,
+            "finn": 1.0
+          },
+          "content_owner": "drew",
+          "content_matches": true,
+          "positional_owner": "drew",
+          "positional_matches": true,
+          "scrambled_owner": "finn",
+          "scrambled_matches": false,
+          "recency_owner": "drew",
+          "recency_matches": true,
+          "first_mention_owner": "finn",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "drew",
+          "nearest_subject_matches": true,
+          "majority_owner": "finn",
+          "majority_matches": false
+        },
+        {
+          "id": "m06_kate_trunk_jane_broom_base",
+          "family": "f6",
+          "variant": "base",
+          "gold": "kate",
+          "foil": "jane",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "jane": 1.0,
+            "kate": 1.0
+          },
+          "scored_scrambled": {
+            "jane": 1.0,
+            "kate": 0.0
+          },
+          "content_owner": "kate",
+          "content_matches": true,
+          "positional_owner": "jane",
+          "positional_matches": false,
+          "scrambled_owner": "jane",
+          "scrambled_matches": false,
+          "recency_owner": "jane",
+          "recency_matches": false,
+          "first_mention_owner": "kate",
+          "first_mention_matches": true,
+          "nearest_subject_owner": "jane",
+          "nearest_subject_matches": false,
+          "majority_owner": "kate",
+          "majority_matches": true
+        },
+        {
+          "id": "m06_kate_trunk_jane_broom_flip",
+          "family": "f6",
+          "variant": "flip",
+          "gold": "jane",
+          "foil": "kate",
+          "both_goals_tie": true,
+          "tiebreak_fired": true,
+          "scored": {
+            "jane": 1.0,
+            "kate": 1.0
+          },
+          "scored_scrambled": {
+            "jane": 0.0,
+            "kate": 1.0
+          },
+          "content_owner": "jane",
+          "content_matches": true,
+          "positional_owner": "jane",
+          "positional_matches": true,
+          "scrambled_owner": "kate",
+          "scrambled_matches": false,
+          "recency_owner": "jane",
+          "recency_matches": true,
+          "first_mention_owner": "kate",
+          "first_mention_matches": false,
+          "nearest_subject_owner": "jane",
+          "nearest_subject_matches": true,
+          "majority_owner": "kate",
+          "majority_matches": false
+        }
+      ],
+      "full_rows": [
+        {
+          "id": "p01_amy_ice_foil_jo",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "p02_jo_bell_foil_meg",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p03_beth_fair_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p04_meg_market_foil_amy",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "p05_ruth_bridge_foil_ann",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "p06_ann_harvest_foil_beth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "p07_tom_shore_foil_sid",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "p08_sid_forge_foil_laurie",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "p09_laurie_pass_foil_tom",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "p10_amy_orchard_foil_meg",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p11_amy_race_foil_beth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "p12_jo_garden_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p13_ruth_well_foil_amy",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "p14_ann_quarry_foil_jo",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "p15_beth_camp_foil_meg",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "p16_meg_river_foil_ruth",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "meg": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "p17_laurie_hay_foil_tom",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "p18_tom_boat_foil_sid",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "p19_jo_forest_foil_beth",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "beth": 0.0,
+            "jo": 1.0
+          }
+        },
+        {
+          "id": "p20_amy_kite_foil_ann",
+          "subset": "primacy",
+          "verb_type": "action_implied",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "ann": 0.0
+          }
+        },
+        {
+          "id": "t01_amy_ice_foil_jo",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "t02_jo_bell_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t03_beth_fair_foil_ruth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t04_meg_market_foil_amy",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "t05_ruth_bridge_foil_ann",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t06_ann_harvest_foil_beth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "t07_tom_shore_foil_sid",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "sid": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t08_sid_forge_foil_laurie",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "t09_laurie_pass_foil_tom",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "t10_amy_orchard_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t11_amy_race_foil_beth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "beth": 0.0
+          }
+        },
+        {
+          "id": "t12_jo_garden_foil_ruth",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "jo": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t13_beth_song_foil_meg",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t14_ruth_market_foil_ann",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t15_meg_lake_foil_amy",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "meg": 1.0
+          }
+        },
+        {
+          "id": "t16_tom_river_foil_laurie",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "tom",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "tom",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t17_sid_train_foil_tom",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "sid": 1.0,
+            "tom": 0.0
+          }
+        },
+        {
+          "id": "t18_laurie_summit_foil_sid",
+          "subset": "recency",
+          "verb_type": "explicit_psych",
+          "gold": "laurie",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "sid": 0.0
+          }
+        },
+        {
+          "id": "t19_ruth_well_foil_amy",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "amy": 0.0,
+            "ruth": 1.0
+          }
+        },
+        {
+          "id": "t20_ann_apples_foil_jo",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ann",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ann",
+          "content_matches": true,
+          "positional_owner": "ann",
+          "positional_matches": true,
+          "scored": {
+            "ann": 1.0,
+            "jo": 0.0
+          }
+        },
+        {
+          "id": "t21_beth_camp_foil_meg",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "beth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "beth",
+          "content_matches": true,
+          "positional_owner": "beth",
+          "positional_matches": true,
+          "scored": {
+            "beth": 1.0,
+            "meg": 0.0
+          }
+        },
+        {
+          "id": "t22_meg_river_foil_ruth",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "meg",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "meg",
+          "content_matches": true,
+          "positional_owner": "meg",
+          "positional_matches": true,
+          "scored": {
+            "meg": 1.0,
+            "ruth": 0.0
+          }
+        },
+        {
+          "id": "t23_laurie_hay_foil_tom",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "laurie",
+          "tie": true,
+          "tiebreak_fired": false,
+          "content_owner": "laurie",
+          "content_matches": true,
+          "positional_owner": "laurie",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 1.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t24_tom_boat_foil_sid",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "tom",
+          "tie": true,
+          "tiebreak_fired": true,
+          "content_owner": "tom",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": false,
+          "scored": {
+            "sid": 1.0,
+            "tom": 1.0
+          }
+        },
+        {
+          "id": "t25_jo_forest_foil_beth",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "jo",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "jo",
+          "content_matches": true,
+          "positional_owner": "jo",
+          "positional_matches": true,
+          "scored": {
+            "beth": 0.0,
+            "jo": 1.0
+          }
+        },
+        {
+          "id": "t26_amy_kite_foil_ann",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "amy",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "amy",
+          "content_matches": true,
+          "positional_owner": "amy",
+          "positional_matches": true,
+          "scored": {
+            "amy": 1.0,
+            "ann": 0.0
+          }
+        },
+        {
+          "id": "t27_sid_bridge_foil_laurie",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "sid",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "sid",
+          "content_matches": true,
+          "positional_owner": "sid",
+          "positional_matches": true,
+          "scored": {
+            "laurie": 0.0,
+            "sid": 1.0
+          }
+        },
+        {
+          "id": "t28_ruth_loft_foil_ann",
+          "subset": "recency",
+          "verb_type": "action_implied",
+          "gold": "ruth",
+          "tie": false,
+          "tiebreak_fired": false,
+          "content_owner": "ruth",
+          "content_matches": true,
+          "positional_owner": "ruth",
+          "positional_matches": true,
+          "scored": {
+            "ann": 0.0,
+            "ruth": 1.0
+          }
+        }
+      ]
+    }
+  },
+  "arms_differ_verified": false,
+  "arms_differ_exempted": [
+    [
+      "content_coherence_tiebreak_ON",
+      "positional_tiebreak_OFF"
+    ]
+  ],
+  "run_mode": "full",
+  "elapsed_s": 0.6390610999951605,
+  "ts_iso": "2026-08-06T02:08:28.712463+00:00",
+  "anchor_name": "c5_multigoal_content_coherence_tiebreak_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "multigoal_bank": "D:\\AI\\hd-instrument\\experiments\\data\\goal_owner_multigoal_coherence_v1.jsonl",
+    "cardinality_ok": true,
+    "parent_organ": "exp_c5_primacy_trap_endtoend_goal_coherence_candidate_gen_v1 (commit b1b1ce460)",
+    "typer": "hdlab.goal_typing.type_goal_events (PROMOTED, wire-dont-island)",
+    "scorer": "hdlab.goal_owner_select.directed_goal_outcome_score (PROMOTED, unmodified)",
+    "tiebreak": "content-coherence: goal-theme vs outcome-theme head-noun overlap among tied goal-holders; fires only on unique overlapper, else sorted-order fallback"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "boolean owner-selection accuracy (theme-overlap tie-break), not an SNR regime",
+  "deterministic_seeding": true,
+  "prereg": "inline (docstring, LOCAL-ONLY task brief; no separate preregs/ file)",
+  "dispatch": "LOCAL-ONLY, in-process foreground, not queue-dispatched (per task brief)"
+}
