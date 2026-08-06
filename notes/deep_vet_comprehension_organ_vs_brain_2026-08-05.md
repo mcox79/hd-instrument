@@ -112,3 +112,18 @@ primacy-trap bank defeats those, out of scope) so "beats all 4 positional" is FA
 subset-relevant traps; outcome-valence still lexicon-typed (declared scope). NET: VET-B's event_role flip is
 empirically validated where it matters; PROMOTION to production dispatched (certification-gated); the frontier
 narrows to OOV GOAL-typing (3b) + the primacy-trap subset + real outcome-valence.
+
+## 3b DIAGNOSIS (Director, disk-verified) - the OOV GOAL-typing cap UNIFIES with the action_implied extension
+The 2/18 misses (t03, t12) are "Beth/Jo HOPED TO win/finish..." - PURPOSE-INFINITIVAL intention constructions
+(subj + hope/mean + to-VP = goal-holder), MISLABELED verb_type=explicit_psych in goal_owner_fair_v1. They miss
+because situation_reader's wired OOV induction (_INDUCED_SUBJ_HYP, situation_reader.py:359-360) is a
+psych-EXPERIENCER-construction model (has_scomp etc.) that correctly ABSTAINS on infinitival-intention verbs ->
+AGENT -> no GOAL. But the purpose-infinitival "X V...to VP -> goal" construction is EXACTLY what the already-built
+generative goal-typing (exp_c5_generative_goal_typing_action_frame_v1, 8/10, verb-independent) detects. So 3b is
+NOT a new OOV psych-verb induction - it is: WIRE the generative purpose-infinitival goal-detector into the
+GOAL-detection path (currently EXPERIENCER-only). ONE build closes BOTH (i) these explicit_psych infinitival
+misses AND (ii) the action_implied subset (23 items, same construction). This is a WIRE-DON'T-ISLAND of a proven
+capability, not a new mechanism. Minor data note: t03/t12's verb_type tag is imprecise ("hope to VP" is
+intention/infinitival, not psych-EXPERIENCER) - relabel when convenient, non-blocking. NEXT BUILD (after the
+certification-gated coref promotion lands): wire generative purpose-infinitival goal-typing -> GOAL-detection,
+re-measure on BOTH the explicit_psych OOV-miss items and the action_implied subset of goal_owner_fair_v1.
