@@ -158,13 +158,26 @@ def baseline_majority(item):
 
 # ============================================================================ failure-stage diagnosis
 def outcome_typeable(text, roster):
-    """True iff the passage's role_seq (any candidate as outcome-slot filler; non-outcome sentences
-    are candidate-invariant) contains at least one OUTCOME_UNMET/OUTCOME_MET event anywhere -- the
-    hard precondition enumerate_and_score/select_outcome_owner require (_outcome_pos raises
-    ValueError otherwise). Harness-only introspection over the same production primitive."""
-    any_cand = sorted(roster.keys())[0]
-    role_seq, _cid = build_candidate_role_seq(text, roster, any_cand)
-    return _outcome_pos(role_seq) is not None
+    """True iff AT LEAST ONE roster candidate's role_seq (hypothesized as the outcome-slot filler)
+    contains an OUTCOME_UNMET/OUTCOME_MET event for the outcome (final) sentence -- the hard
+    precondition enumerate_and_score/select_outcome_owner require (raises only when NO candidate
+    types, per hdlab.goal_owner_select.enumerate_and_score's 2026-08-06 Tier-3-bridging update).
+    UPDATED 2026-08-06 (task brief Part 3, harness-only change, no new mechanism): the prior version
+    checked only sorted(roster.keys())[0], which was a safe proxy while outcome-typing was subject-
+    INVARIANT (lexical typing fires identically for whichever candidate is hypothesized, so all
+    candidates were always typeable together or not at all). The Tier-3 evaluative bridge (wired into
+    hdlab.goal_owner_select.build_candidate_role_seq) is candidate-DIRECTED -- it fires only for the
+    evaluative construction's addressee, who must already hold an open GOAL -- so typeability can now
+    differ per candidate; checking only the alphabetically-first roster key could under-report
+    OUTCOME_NEVER_TYPED for a passage where the bridge fires for a later-sorted candidate. This
+    harness-only introspection now mirrors production's own precondition exactly (re-walks the SAME
+    production primitive, build_candidate_role_seq/_outcome_pos, for every candidate -- no new typing
+    or scoring mechanism introduced)."""
+    for cand in sorted(roster.keys()):
+        role_seq, _cid = build_candidate_role_seq(text, roster, cand)
+        if _outcome_pos(role_seq) is not None:
+            return True
+    return False
 
 
 def structural_goal_trace(text, roster):

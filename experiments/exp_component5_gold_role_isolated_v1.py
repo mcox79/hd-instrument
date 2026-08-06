@@ -204,7 +204,25 @@ class GeneralRecencyEntityResolver:
     this is the unblocked baseline candidate used by run_recency_item (the RECENCY pipeline);
     run_goal_owner_binding keeps using the original RecencyEntityResolver import UNCHANGED (per
     task brief scope). Default roster = DEFAULT_ROSTER (bit-identical to the toy cast, so the
-    authored 23-item bank is unaffected); any item may supply its own roster of arbitrary names."""
+    authored 23-item bank is unaffected); any item may supply its own roster of arbitrary names.
+
+    KNOWN BUG, DELIBERATELY LEFT UNFIXED HERE (2026-08-06, coref goal-subject confound): subject_
+    entity below is TWO-PASS -- pass 1 scans the WHOLE sentence for the first roster-NAME token
+    ANYWHERE (subject OR object position) before ever checking for a pronoun; pass 2 (reached only if
+    pass 1 finds no name at all) resolves the first pronoun via recency. This mis-resolves a pronoun
+    SUBJECT that precedes an object-position roster name, e.g. "He wanted to help his mother" (roster
+    {henry, mother}) returns "mother" (the object) instead of resolving "he" -> henry. hdlab/goal_
+    owner_select.py's byte-copied GeneralRecencyEntityResolver has been FIXED (single-pass
+    first-nominal: the first token that is EITHER a name OR a pronoun wins, respecting subject-first
+    word order) -- see that module's docstring for the full fix + rationale. THIS copy is
+    intentionally left with the original two-pass behavior: it is the resolver
+    resolve_outcome_recency_positional (in experiments/exp_c5_real_coref_endtoend_purpose_infinitival_
+    v1.py) uses as the BASELINE to select the divergent-item population verification/test_goal_owner_
+    select.py's 48-item fair instrument and verification/verify_goal_typing.py's expected_n_divergent
+    counts are gated on; changing this resolver's behavior would change that population and risk an
+    unrelated cert regression. Same "left untouched as source-of-truth for its own historical numbers"
+    convention as this module's sibling promotion docstrings (hdlab/goal_owner_select.py /
+    hdlab/goal_typing.py) already document for the sentence-splitter fix."""
 
     def __init__(self, roster: dict | None = None):
         self._recent = []  # entity names in order of mention (most recent last)

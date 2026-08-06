@@ -203,13 +203,34 @@ def _gender_of_general(token: str, roster: dict):
 
 
 class GeneralRecencyEntityResolver:
-    """Structural (gold-free) subject resolver: backward-search recency pick over gender/number-
-    compatible roster candidates. Byte-identical mechanism to exp_component5_gold_role_isolated_v1.
-    py's GeneralRecencyEntityResolver (byte-copied here because hdlab/ must not import from
-    experiments/): the first explicit roster NAME in a sentence is the subject; else the first
-    pronoun resolves to the most-recently-mentioned gender-compatible roster entity. `roster` is a
-    {name: gender} dict describing the passage's cast (structural passage metadata, NEVER a gold
-    label); defaults to DEFAULT_ROSTER when the caller doesn't supply one."""
+    """Structural (gold-free) subject resolver: SINGLE-PASS first-nominal pick, respecting
+    subject-first word order (fixed 2026-08-06, coref goal-subject confound -- see below), with a
+    backward-search recency resolution for pronouns. `roster` is a {name: gender} dict describing
+    the passage's cast (structural passage metadata, NEVER a gold label); defaults to
+    DEFAULT_ROSTER when the caller doesn't supply one.
+
+    COREF GOAL-SUBJECT CONFOUND FIX (2026-08-06): the prior mechanism was TWO-PASS -- pass 1 scanned
+    the WHOLE sentence for the first roster-NAME token ANYWHERE (subject OR object position) before
+    ever looking for a pronoun; pass 2 (only reached if pass 1 found no name at all) resolved the
+    first pronoun via recency. Bug: "He wanted to help his mother" (roster {henry, mother}) -- pass 1
+    scans past the pronoun subject "he" and finds "mother" (a roster key that happens to sit in
+    OBJECT position later in the same sentence), returning "mother" as the subject instead of
+    resolving "he" -> henry via recency. The brain resolves the grammatical SUBJECT by POSITION
+    (subject-first order), not by "any roster name anywhere in the sentence." FIX: iterate tokens
+    ONCE, in order; the FIRST token that is EITHER a roster name OR a pronoun IS the subject (name ->
+    use it directly; pronoun -> the existing recency/gender resolution) -- a roster name that occurs
+    only in a LATER (object) position can never pre-empt an earlier pronoun subject. Byte-identical
+    mechanism otherwise (backward-search recency pick over gender/number-compatible candidates) to
+    the historical exp_component5_gold_role_isolated_v1.py GeneralRecencyEntityResolver this class
+    was byte-copied from -- that experiment cell's OWN copy is deliberately left unfixed (see its
+    docstring) because it gates the 48-item fair instrument's DIVERGENT-item population for the cert
+    suite (test_goal_owner_select.py / verify_goal_typing.py); this PRODUCTION-only fix cannot change
+    that population without risking a cert regression unrelated to this fix's own correctness. The
+    fair instrument's own goal sentences are all name-subject-first by construction, so this fix
+    reproduces every one of them byte-identically (verified: single-pass and two-pass agree whenever
+    the sentence's first roster-name-or-pronoun token is also its first roster-name token, which is
+    always true when no pronoun subject precedes an object name -- exactly the fair instrument's
+    construction)."""
 
     def __init__(self, roster: dict | None = None):
         self._recent = []  # entity names in order of mention (most recent last)
@@ -217,14 +238,13 @@ class GeneralRecencyEntityResolver:
 
     def subject_entity(self, sentence: str):
         toks = _ordered_tokens(sentence)
-        for t in toks:                                   # first explicit roster NAME = subject
-            if t in self._roster:
+        for t in toks:                                   # SINGLE PASS: first NAME-or-PRONOUN wins
+            if t in self._roster:                         # explicit roster NAME = subject
                 self._note(t)
                 return t
-        for t in toks:                                   # else first pronoun -> recency-resolved
-            if _is_pron_general(t):
+            if _is_pron_general(t):                       # first pronoun -> recency-resolved
                 want = _gender_of_general(t, self._roster)
-                for e in reversed(self._recent):          # BACKWARD search == recency
+                for e in reversed(self._recent):           # BACKWARD search == recency
                     if _gender_of_general(e, self._roster) == want:
                         return e
                 return None
@@ -315,19 +335,103 @@ def entity_goal_themes(passage_text: str, roster: dict) -> dict:
     return themes
 
 
+# ============================================================================ TIER-3 EVALUATIVE
+# BRIDGING INFERENCE (promotion, 2026-08-06). Byte-copied (not imported -- hdlab/ must not import
+# from experiments/) from experiments/exp_evaluative_bridging_inference_v1.py (commit 17dd3567b,
+# HARD_PASS: zero_overlap_bridging_acc=1.0 9/9 incl mg2_henry_bootblack, gap_vs_lexical_only=1.0,
+# valence controls 1.0/1.0, bystander_no_bridge_acc=1.0, unchanged_control_acc=1.0, scramble_acc=0.0).
+# Graesser Class-7 BACKWARD causal-antecedent bridge: an evaluative speech act ("you are a good boy")
+# implies the addressee's antecedent goal was met/unmet, for the case where the outcome clause shares
+# ZERO verb/theme/thematic-role with the goal clause -- no similarity/verb-typing/theme-match
+# mechanism can ever bridge these, only an inferential bridge can. STRICT Tier-3 ADD: consulted only
+# when Tier-1 exact-lexicon + Tier-2 concept-similarity verb-typing (type_goal_events, unmodified)
+# produced NOTHING for the outcome (final) sentence under a candidate's hypothesis (the
+# OUTCOME_NEVER_TYPED case) -- wired into build_candidate_role_seq below, the single outcome-typing
+# call site select_outcome_owner depends on. No GoalOutcomeRegister modification, no new binding
+# operator: `has_open_goal` below is read directly off the candidate's own already-accumulated
+# role_seq/cluster_ids (equivalent to that source cell's GoalOutcomeRegister.appraise(entity)
+# ["has_goal"], since appraise's decode_faithful==True on every self-test -- a GOAL role written for
+# an entity always decodes back as GOAL at this event-slot scale) rather than constructing a register
+# just to ask one boolean.
+EVAL_POS = {
+    "good", "dear", "kind", "fine", "gentle", "devoted", "obedient", "cheerful", "quiet",
+    "thoughtful", "gallant", "noble", "sweet", "honest", "brave",
+}
+EVAL_NEG = {
+    "bad", "wicked", "naughty", "clumsy", "careless", "cruel", "foolish", "selfish", "unkind",
+    "rude", "lazy",
+}
+_COPULA = {"is", "are", "was", "were"}
+_EVAL_WINDOW = 6
+
+
+def detect_evaluative_construction(sentence: str, roster: dict):
+    """Copula + evaluative-predicate construction detector (glass-box, no POS tagger). Returns
+    (polarity, addressee) where polarity in {"POS","NEG"}, or (None, None) if no evaluative
+    construction is found. addressee: 2nd-person "you...Name" -> the LAST roster name token in the
+    sentence (vocative); 3rd-person "Name is/was ADJ" -> the roster name immediately preceding the
+    copula. Neither pattern matched -> addressee=None. Byte-identical to experiments/
+    exp_evaluative_bridging_inference_v1.py's detect_evaluative_construction (commit 17dd3567b)."""
+    toks = _ordered_tokens(sentence)
+    cop_idx = None
+    for i, t in enumerate(toks):
+        if t in _COPULA:
+            cop_idx = i
+            break
+    if cop_idx is None:
+        return None, None
+    polarity = None
+    for w in toks[cop_idx + 1: cop_idx + 1 + _EVAL_WINDOW]:
+        if w in EVAL_POS:
+            polarity = "POS"
+            break
+        if w in EVAL_NEG:
+            polarity = "NEG"
+            break
+    if polarity is None:
+        return None, None
+    subj = toks[cop_idx - 1] if cop_idx > 0 else None
+    if subj == "you":
+        addressee = None
+        for t in reversed(toks):
+            if t in roster:
+                addressee = t
+                break
+        return polarity, addressee
+    if subj in roster:
+        return polarity, subj
+    return polarity, None
+
+
+def _bridge_outcome_event(outcome_sentence: str, roster: dict, entity: str, has_open_goal: bool):
+    """Bridging DECISION, same over-fire guards as experiments/exp_evaluative_bridging_inference_v1.
+    py's bridge_outcome (commit 17dd3567b): fires ONLY if the evaluative construction's addressee is
+    `entity` AND `entity` already holds an open GOAL (`has_open_goal`, read off this candidate's own
+    accumulated events -- see module comment above). No match / no open goal -> abstain (None), never
+    forces a bridge. Returns R_MET / R_UNMET / None."""
+    polarity, addressee = detect_evaluative_construction(outcome_sentence, roster)
+    if polarity is None or addressee != entity:
+        return None
+    if not has_open_goal:
+        return None
+    return R_MET if polarity == "POS" else R_UNMET
+
+
 # ============================================================================ CANDIDATE ENUMERATION
 # + SELECTION (the full outcome-owner selector). Byte-identical mechanism to experiments/exp_c5_
 # primacy_trap_endtoend_goal_coherence_candidate_gen_v1.py's build_candidate_role_seq/_outcome_pos/
 # enumerate_and_select (commit b1b1ce460), generalized off the source cell's 'item' dict onto
-# (passage_text, roster) args.
+# (passage_text, roster) args, extended 2026-08-06 with the Tier-3 evaluative bridge above.
 def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
                               scramble_goal_to_foil=None):
     """Structural (gold-free) role_seq/cluster_ids for ONE proposed outcome-slot candidate.
     Non-outcome sentences: subject resolved from the PASSAGE TEXT (GeneralRecencyEntityResolver),
     never from a gold label. Outcome (final) sentence: subject is the PROPOSED CANDIDATE
-    `outcome_entity` -- this is the enumeration step. `scramble_goal_to_foil` is a diagnostic-only
-    hook (redirects GOAL-role bindings to a named foil entity) for scramble-control self-tests; leave
-    None in production use."""
+    `outcome_entity` -- this is the enumeration step; TIER-3 ADD (2026-08-06): if lexical/similarity
+    verb-typing (type_goal_events) types NOTHING for the outcome sentence under this candidate's
+    hypothesis, try the evaluative bridge (_bridge_outcome_event) before giving up. `scramble_goal_
+    to_foil` is a diagnostic-only hook (redirects GOAL-role bindings to a named foil entity) for
+    scramble-control self-tests; leave None in production use."""
     sents = _sentences(passage_text)
     resolver = GeneralRecencyEntityResolver(roster)
     role_seq, cluster_ids = [], []
@@ -339,7 +443,15 @@ def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
                 eff = scramble_goal_to_foil
             role_seq.append(role)
             cluster_ids.append(eff)
-    for (entity, role) in type_goal_events(sents[-1], outcome_entity):
+    outcome_sentence = sents[-1]
+    outcome_events = type_goal_events(outcome_sentence, outcome_entity)
+    if not any(role in (R_UNMET, R_MET) for (_e, role) in outcome_events):
+        has_open_goal = any(r == R_GOAL and cid == outcome_entity
+                             for r, cid in zip(role_seq, cluster_ids))
+        bridged_role = _bridge_outcome_event(outcome_sentence, roster, outcome_entity, has_open_goal)
+        if bridged_role is not None:
+            outcome_events = list(outcome_events) + [(outcome_entity, bridged_role)]
+    for (entity, role) in outcome_events:
         role_seq.append(role)
         cluster_ids.append(entity)
     return role_seq, cluster_ids
@@ -354,18 +466,33 @@ def enumerate_and_score(passage_text: str, roster: dict, seed: int, scramble_goa
     """Candidate-enumeration + directed-score core: propose EVERY roster entity as the outcome-slot
     referent, score each with directed_goal_outcome_score (unmodified), return (scored, winners)
     where winners is the sorted-order list of argmax entities (len>1 iff genuinely tied). Entity set
-    = roster.keys() (structural passage metadata), never a gold label."""
+    = roster.keys() (structural passage metadata), never a gold label.
+
+    TIER-3 NOTE (2026-08-06): outcome-typing is no longer subject-invariant once the evaluative
+    bridge can fire (bridging is candidate-DIRECTED: it fires only for the construction's addressee,
+    who must already hold an open GOAL) -- unlike the old lexical-only typing, which fires uniformly
+    for whichever candidate is hypothesized (so every candidate was always typeable together or not
+    at all; a strictly no-regression property for any bank that never exercises the bridge). A
+    candidate whose own outcome-slot hypothesis gets typed by NEITHER path scores 0.0 (cannot win the
+    argmax) but no longer aborts the whole enumeration; only raise if NO roster candidate gets a
+    typed outcome anywhere (the genuine OUTCOME_NEVER_TYPED case)."""
     candidates = sorted(roster.keys())
     scored = {}
+    any_typed = False
     for c in candidates:
         rs, cid = build_candidate_role_seq(passage_text, roster, c,
                                             scramble_goal_to_foil=scramble_goal_to_foil)
         pos = _outcome_pos(rs)
         if pos is None:
-            raise ValueError(
-                f"outcome slot never typed for candidate {c!r}; passage_text's final sentence must "
-                f"type an OUTCOME_UNMET/OUTCOME_MET event")
+            scored[c] = 0.0
+            continue
+        any_typed = True
         scored[c] = directed_goal_outcome_score(rs, cid, seed, pos)
+    if not any_typed:
+        raise ValueError(
+            f"outcome slot never typed for ANY roster candidate; passage_text's final sentence must "
+            f"type an OUTCOME_UNMET/OUTCOME_MET event (lexically, via concept-similarity, or via the "
+            f"Tier-3 evaluative bridge) for at least one roster entity")
     max_score = max(scored.values())
     winners = [c for c in candidates if scored[c] == max_score]
     return scored, winners
@@ -465,10 +592,104 @@ def self_test() -> dict:
     assert p01_owner == "amy" == p01_winners[0], (
         f"p01 (single-goal, non-tie) selection must be unaffected by the tie-break: {p01_owner!r}")
 
+    # ---- PART 1 self-tests (2026-08-06): coref goal-subject confound CAN-FAIL cases -- the OLD
+    # two-pass resolver returned the first roster-NAME token ANYWHERE in the sentence (even an
+    # OBJECT), so a pronoun SUBJECT preceding an object name mis-resolved to the object. SINGLE-PASS
+    # must resolve the pronoun subject via recency instead.
+    henry_roster = {"henry": "m", "mother": "f"}
+    henry_resolver = GeneralRecencyEntityResolver(henry_roster)
+    henry_resolver.subject_entity("Henry was a kind, good boy.")  # seeds recency with henry
+    henry_subj = henry_resolver.subject_entity("He wanted to help his mother.")
+    assert henry_subj == "henry", (
+        f"CAN-FAIL: pronoun subject 'he' must resolve to henry (not the object-position roster name "
+        f"'mother'), got {henry_subj!r}")
+
+    amy_subj = GeneralRecencyEntityResolver({"amy": "f"}).subject_entity("Amy wanted to win.")
+    assert amy_subj == "amy", f"CAN-FAIL: explicit name-subject must resolve to amy, got {amy_subj!r}"
+
+    jo_subj = GeneralRecencyEntityResolver({"jo": "f"}).subject_entity("Jo saw the dog.")
+    assert jo_subj == "jo", f"CAN-FAIL: explicit name-subject must resolve to jo, got {jo_subj!r}"
+
+    # object-is-a-roster-name must NOT override an earlier pronoun SUBJECT (the exact bug shape,
+    # isolated from the desiderative-verb case above).
+    override_roster = {"amy": "f", "jo": "f"}
+    override_resolver = GeneralRecencyEntityResolver(override_roster)
+    override_resolver.subject_entity("Amy walked to the store.")  # seeds recency with amy
+    override_subj = override_resolver.subject_entity("She saw Jo.")
+    assert override_subj == "amy", (
+        f"CAN-FAIL: pronoun subject 'she' must resolve via recency to amy, NOT be overridden by the "
+        f"object-position roster name 'jo', got {override_subj!r}")
+
+    # NO-REGRESSION: the 48-item fair instrument's goal sentences are all name-subject-first, so
+    # single-pass reproduces the two-pass answer byte-identically on a representative fair-instrument
+    # sentence (full 48/48 regression is verification/test_goal_owner_select.py's job, not
+    # duplicated here).
+    p01_first_subj = GeneralRecencyEntityResolver(p01_roster).subject_entity(
+        "Jo hurried off early toward the barn.")
+    assert p01_first_subj == "jo", (
+        f"no-regression: name-subject-first fair-instrument sentence must be unaffected by the "
+        f"single-pass fix, got {p01_first_subj!r}")
+
+    # ---- PART 2 self-tests (2026-08-06): Tier-3 evaluative bridging inference, wired into
+    # build_candidate_role_seq/enumerate_and_score/select_outcome_owner. Reproduces the decisive
+    # mg2_henry_bootblack case (experiments/data/real_text_goal_owner_diagnostic_v1.jsonl,
+    # commit 17dd3567b's validated bank) end-to-end THROUGH PRODUCTION select_outcome_owner (not just
+    # the standalone bridge functions), depending on the PART 1 fix above (without it, "he wanted to
+    # help his mother" mis-attributes the GOAL to mother, so henry never has an open goal to bridge).
+    mg2_roster = {"henry": "m", "mother": "f"}
+    mg2_text = (
+        "Henry was a kind, good boy. His father was dead, and his mother was very poor. He wanted "
+        "to help his mother, for she could not always earn enough to buy food for her little "
+        "family. With the dollar he bought a box, three brushes, and some blacking. He was so "
+        "polite that gentlemen soon began to notice him, and to let him black their boots. The "
+        "first day he brought home fifty cents, which he gave to his mother to buy food with. She "
+        "said, as she dropped a tear of joy, \"You are a dear, good boy, Henry.\""
+    )
+    mg2_lex_events = type_goal_events(_sentences(mg2_text)[-1], "henry")
+    assert not any(r in (R_UNMET, R_MET) for (_e, r) in mg2_lex_events), (
+        "mg2 sanity: the outcome sentence ('You are a dear, good boy, Henry.') must have ZERO "
+        "lexical/similarity verb-typing overlap -- proves the bridge, not Tier-1/2, resolves this")
+    mg2_scored, mg2_winners = enumerate_and_score(mg2_text, mg2_roster, seed=0)
+    assert mg2_scored.get("henry") == 1.0, (
+        f"mg2 CAN-FAIL: bridge must type+bind the outcome to henry (open GOAL + addressee match), "
+        f"got scored={mg2_scored}")
+    assert mg2_scored.get("mother", 0.0) == 0.0, (
+        f"mg2 over-fire guard: mother (not the goal-holder, not the addressee) must NOT score, "
+        f"got scored={mg2_scored}")
+    mg2_owner = select_outcome_owner(mg2_text, mg2_roster, seed=0)
+    assert mg2_owner == "henry", (
+        f"mg2 end-to-end: select_outcome_owner must resolve owner=henry via the Tier-3 bridge, "
+        f"got {mg2_owner!r}")
+
+    # BYSTANDER over-fire guard (unit-level, per the validated bank's bystander_no_bridge_acc=1.0
+    # gate): an evaluative construction correctly detected + addressed at `jo` must still NOT bridge
+    # when jo has no open goal (has_open_goal=False) -- abstain, never a forced bridge.
+    bystander_sentence = "You are a good girl, Jo."
+    bystander_roster = {"amy": "f", "jo": "f"}
+    bys_polarity, bys_addressee = detect_evaluative_construction(bystander_sentence, bystander_roster)
+    assert bys_polarity == "POS" and bys_addressee == "jo", (
+        f"bystander sanity: construction must be detected (POS, addressee=jo), "
+        f"got ({bys_polarity!r}, {bys_addressee!r})")
+    bystander_bridge = _bridge_outcome_event(bystander_sentence, bystander_roster, "jo",
+                                              has_open_goal=False)
+    assert bystander_bridge is None, (
+        f"bystander over-fire guard: jo has no open goal, must not bridge, got {bystander_bridge!r}")
+    # addressee-mismatch guard: even WITH an open goal, the bridge must not fire for a DIFFERENT
+    # entity than the construction's addressee (never binds a non-addressed bystander).
+    mismatch_bridge = _bridge_outcome_event(bystander_sentence, bystander_roster, "amy",
+                                             has_open_goal=True)
+    assert mismatch_bridge is None, (
+        f"addressee-mismatch guard: amy is not the addressee ('jo' is), must not bridge, "
+        f"got {mismatch_bridge!r}")
+
     return {"score_correct": score_correct, "score_wrong": score_wrong,
             "score_amy_own_goal": score_amy_own_goal, "adopt": adopt,
             "t24_scored": t24_scored, "t24_owner": t24_owner,
-            "p01_scored": p01_scored, "p01_owner": p01_owner}
+            "p01_scored": p01_scored, "p01_owner": p01_owner,
+            "part1_henry_subj": henry_subj, "part1_amy_subj": amy_subj, "part1_jo_subj": jo_subj,
+            "part1_override_subj": override_subj,
+            "part2_mg2_scored": mg2_scored, "part2_mg2_owner": mg2_owner,
+            "part2_bystander_bridge": bystander_bridge, "part2_addressee_mismatch_bridge": mismatch_bridge}
 
 
 if __name__ == "__main__":

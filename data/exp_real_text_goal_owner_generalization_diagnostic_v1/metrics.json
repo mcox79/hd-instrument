@@ -1,13 +1,13 @@
 {
   "verdict": "DIAGNOSTIC_COMPLETE",
-  "verdict_msg": "DIAGNOSTIC_COMPLETE: N_items=10 (7 met + 3 unmet gold). OWNER: organ=0.5 vs recency=0.7 first_mention=0.7 majority=0.6 (max_baseline=0.7, organ_beats_baselines=False). POLARITY: organ=0.2 vs lexicon_baseline=0.2 (organ_beats_lexicon=False). deterministic_across_seeds=True. OWNER_FAILURE_TALLY(seed0)={'OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely': 4, 'TIEBREAK_MISS_content_coherence_picked_wrong_entity': 1} -> dominant=OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely. POLARITY_FAILURE_TALLY(seed0)={'LEXICON_COVERAGE_MISS_no_desiderative_goal_found': 6, 'LEXICON_COVERAGE_MISS_actual_verb_class_unknown': 2} -> dominant=LEXICON_COVERAGE_MISS_no_desiderative_goal_found. This is a DIAGNOSTIC probe (no HARD_PASS/HARD_FAIL capability gate) -- numbers are reported AS MEASURED; a low score is a finding about real-text generalization, not a cell failure.",
-  "summary": "N_items=10 (7 met + 3 unmet gold). OWNER: organ=0.5 vs recency=0.7 first_mention=0.7 majority=0.6 (max_baseline=0.7, organ_beats_baselines=False). POLARITY: organ=0.2 vs lexicon_baseline=0.2 (organ_beats_lexicon=False). deterministic_across_seeds=True. OWNER_FAILURE_TALLY(seed0)={'OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely': 4, 'TIEBREAK_MISS_content_coherence_picked_wrong_entity': 1} -> dominant=OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely. POLARITY_FAILURE_TALLY(seed0)={'LEXICON_COVERAGE_MISS_no_desiderative_goal_found': 6, 'LEXICON_COVERAGE_MISS_actual_verb_class_unknown': 2} -> dominant=LEXICON_COVERAGE_MISS_no_desiderative_goal_found. This is a DIAGNOSTIC probe (no HARD_PASS/HARD_FAIL capability gate) -- numbers are reported AS MEASURED; a low score is a finding about real-text generalization, not a cell failure.",
+  "verdict_msg": "DIAGNOSTIC_COMPLETE: N_items=10 (7 met + 3 unmet gold). OWNER: organ=0.6 vs recency=0.6 first_mention=0.7 majority=0.6 (max_baseline=0.7, organ_beats_baselines=False). POLARITY: organ=0.2 vs lexicon_baseline=0.2 (organ_beats_lexicon=False). deterministic_across_seeds=True. OWNER_FAILURE_TALLY(seed0)={'TIEBREAK_MISS_content_coherence_picked_wrong_entity': 1, 'OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely': 3} -> dominant=OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely. POLARITY_FAILURE_TALLY(seed0)={'LEXICON_COVERAGE_MISS_no_desiderative_goal_found': 6, 'LEXICON_COVERAGE_MISS_actual_verb_class_unknown': 2} -> dominant=LEXICON_COVERAGE_MISS_no_desiderative_goal_found. This is a DIAGNOSTIC probe (no HARD_PASS/HARD_FAIL capability gate) -- numbers are reported AS MEASURED; a low score is a finding about real-text generalization, not a cell failure.",
+  "summary": "N_items=10 (7 met + 3 unmet gold). OWNER: organ=0.6 vs recency=0.6 first_mention=0.7 majority=0.6 (max_baseline=0.7, organ_beats_baselines=False). POLARITY: organ=0.2 vs lexicon_baseline=0.2 (organ_beats_lexicon=False). deterministic_across_seeds=True. OWNER_FAILURE_TALLY(seed0)={'TIEBREAK_MISS_content_coherence_picked_wrong_entity': 1, 'OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely': 3} -> dominant=OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely. POLARITY_FAILURE_TALLY(seed0)={'LEXICON_COVERAGE_MISS_no_desiderative_goal_found': 6, 'LEXICON_COVERAGE_MISS_actual_verb_class_unknown': 2} -> dominant=LEXICON_COVERAGE_MISS_no_desiderative_goal_found. This is a DIAGNOSTIC probe (no HARD_PASS/HARD_FAIL capability gate) -- numbers are reported AS MEASURED; a low score is a finding about real-text generalization, not a cell failure.",
   "n_seeds": 3,
   "n_items": 10,
   "cardinality_ok": true,
   "deterministic_across_seeds": true,
-  "organ_owner_accuracy": 0.5,
-  "recency_accuracy": 0.7,
+  "organ_owner_accuracy": 0.6,
+  "recency_accuracy": 0.6,
   "first_mention_accuracy": 0.7,
   "majority_accuracy": 0.6,
   "max_baseline_owner_accuracy": 0.7,
@@ -16,16 +16,16 @@
   "lexicon_baseline_polarity_accuracy": 0.2,
   "organ_beats_lexicon_polarity": false,
   "owner_failure_tally_seed0": {
-    "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 4,
-    "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1
+    "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1,
+    "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 3
   },
   "polarity_failure_tally_seed0": {
     "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 6,
     "LEXICON_COVERAGE_MISS_actual_verb_class_unknown": 2
   },
   "owner_failure_tally_combined_all_seeds": {
-    "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 12,
-    "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 3
+    "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 3,
+    "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 9
   },
   "polarity_failure_tally_combined_all_seeds": {
     "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 18,
@@ -37,16 +37,16 @@
     "0": {
       "seed": 0,
       "n_items": 10,
-      "n_outcome_typeable": 6,
-      "organ_owner_accuracy": 0.5,
-      "recency_accuracy": 0.7,
+      "n_outcome_typeable": 7,
+      "organ_owner_accuracy": 0.6,
+      "recency_accuracy": 0.6,
       "first_mention_accuracy": 0.7,
       "majority_accuracy": 0.6,
       "organ_polarity_accuracy": 0.2,
       "lexicon_baseline_polarity_accuracy": 0.2,
       "owner_failure_tally": {
-        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 4,
-        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1
+        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1,
+        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 3
       },
       "polarity_failure_tally": {
         "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 6,
@@ -88,24 +88,29 @@
           "corpus": "data/corpora/mcguffey_graded/g2_second.txt Lesson XIV (HENRY, THE BOOTBLACK)",
           "gold_owner": "henry",
           "gold_polarity": "met",
-          "outcome_typeable": false,
-          "system_owner": null,
-          "owner_hit": false,
+          "outcome_typeable": true,
+          "system_owner": "henry",
+          "owner_hit": true,
           "recency_owner": "henry",
           "recency_hit": true,
           "first_mention_owner": "henry",
           "first_mention_hit": true,
           "majority_owner": "mother",
           "majority_hit": false,
-          "owner_failure_class": "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely",
+          "owner_failure_class": null,
           "system_polarity": "NONE",
           "system_polarity_reason": "abstain_fallback_to_lexicon",
           "polarity_hit": false,
           "baseline_polarity": "NONE",
           "baseline_polarity_hit": false,
           "polarity_failure_class": "LEXICON_COVERAGE_MISS_actual_verb_class_unknown",
-          "scored": null,
-          "winners": null
+          "scored": {
+            "henry": 1.0,
+            "mother": 0.0
+          },
+          "winners": [
+            "henry"
+          ]
         },
         {
           "id": "mg2_george_broken_window",
@@ -115,8 +120,8 @@
           "outcome_typeable": true,
           "system_owner": "gentleman",
           "owner_hit": false,
-          "recency_owner": "george",
-          "recency_hit": true,
+          "recency_owner": "gentleman",
+          "recency_hit": false,
           "first_mention_owner": "george",
           "first_mention_hit": true,
           "majority_owner": "george",
@@ -333,16 +338,16 @@
     "1": {
       "seed": 1,
       "n_items": 10,
-      "n_outcome_typeable": 6,
-      "organ_owner_accuracy": 0.5,
-      "recency_accuracy": 0.7,
+      "n_outcome_typeable": 7,
+      "organ_owner_accuracy": 0.6,
+      "recency_accuracy": 0.6,
       "first_mention_accuracy": 0.7,
       "majority_accuracy": 0.6,
       "organ_polarity_accuracy": 0.2,
       "lexicon_baseline_polarity_accuracy": 0.2,
       "owner_failure_tally": {
-        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 4,
-        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1
+        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1,
+        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 3
       },
       "polarity_failure_tally": {
         "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 6,
@@ -384,24 +389,29 @@
           "corpus": "data/corpora/mcguffey_graded/g2_second.txt Lesson XIV (HENRY, THE BOOTBLACK)",
           "gold_owner": "henry",
           "gold_polarity": "met",
-          "outcome_typeable": false,
-          "system_owner": null,
-          "owner_hit": false,
+          "outcome_typeable": true,
+          "system_owner": "henry",
+          "owner_hit": true,
           "recency_owner": "henry",
           "recency_hit": true,
           "first_mention_owner": "henry",
           "first_mention_hit": true,
           "majority_owner": "mother",
           "majority_hit": false,
-          "owner_failure_class": "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely",
+          "owner_failure_class": null,
           "system_polarity": "NONE",
           "system_polarity_reason": "abstain_fallback_to_lexicon",
           "polarity_hit": false,
           "baseline_polarity": "NONE",
           "baseline_polarity_hit": false,
           "polarity_failure_class": "LEXICON_COVERAGE_MISS_actual_verb_class_unknown",
-          "scored": null,
-          "winners": null
+          "scored": {
+            "henry": 1.0,
+            "mother": 0.0
+          },
+          "winners": [
+            "henry"
+          ]
         },
         {
           "id": "mg2_george_broken_window",
@@ -411,8 +421,8 @@
           "outcome_typeable": true,
           "system_owner": "gentleman",
           "owner_hit": false,
-          "recency_owner": "george",
-          "recency_hit": true,
+          "recency_owner": "gentleman",
+          "recency_hit": false,
           "first_mention_owner": "george",
           "first_mention_hit": true,
           "majority_owner": "george",
@@ -629,16 +639,16 @@
     "2": {
       "seed": 2,
       "n_items": 10,
-      "n_outcome_typeable": 6,
-      "organ_owner_accuracy": 0.5,
-      "recency_accuracy": 0.7,
+      "n_outcome_typeable": 7,
+      "organ_owner_accuracy": 0.6,
+      "recency_accuracy": 0.6,
       "first_mention_accuracy": 0.7,
       "majority_accuracy": 0.6,
       "organ_polarity_accuracy": 0.2,
       "lexicon_baseline_polarity_accuracy": 0.2,
       "owner_failure_tally": {
-        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 4,
-        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1
+        "TIEBREAK_MISS_content_coherence_picked_wrong_entity": 1,
+        "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely": 3
       },
       "polarity_failure_tally": {
         "LEXICON_COVERAGE_MISS_no_desiderative_goal_found": 6,
@@ -680,24 +690,29 @@
           "corpus": "data/corpora/mcguffey_graded/g2_second.txt Lesson XIV (HENRY, THE BOOTBLACK)",
           "gold_owner": "henry",
           "gold_polarity": "met",
-          "outcome_typeable": false,
-          "system_owner": null,
-          "owner_hit": false,
+          "outcome_typeable": true,
+          "system_owner": "henry",
+          "owner_hit": true,
           "recency_owner": "henry",
           "recency_hit": true,
           "first_mention_owner": "henry",
           "first_mention_hit": true,
           "majority_owner": "mother",
           "majority_hit": false,
-          "owner_failure_class": "OUTCOME_NEVER_TYPED_event_extraction_blocks_owner_selection_entirely",
+          "owner_failure_class": null,
           "system_polarity": "NONE",
           "system_polarity_reason": "abstain_fallback_to_lexicon",
           "polarity_hit": false,
           "baseline_polarity": "NONE",
           "baseline_polarity_hit": false,
           "polarity_failure_class": "LEXICON_COVERAGE_MISS_actual_verb_class_unknown",
-          "scored": null,
-          "winners": null
+          "scored": {
+            "henry": 1.0,
+            "mother": 0.0
+          },
+          "winners": [
+            "henry"
+          ]
         },
         {
           "id": "mg2_george_broken_window",
@@ -707,8 +722,8 @@
           "outcome_typeable": true,
           "system_owner": "gentleman",
           "owner_hit": false,
-          "recency_owner": "george",
-          "recency_hit": true,
+          "recency_owner": "gentleman",
+          "recency_hit": false,
           "first_mention_owner": "george",
           "first_mention_hit": true,
           "majority_owner": "george",
@@ -924,16 +939,16 @@
     }
   },
   "arms_must_differ": {
-    "system": "8b7945b66b349f63365771423b8fa6d27c3c11427f808ae2b0450ee9e94cea86",
-    "recency": "ba9a89621b7a8f85a618acfba826bb8abcc819d2ca3aafb13602bb3c0fcba680",
+    "system": "39c0c69c02dd798d7743008cd5b3d3a75fafaeb81fe8a3d6b48d0ad579060129",
+    "recency": "8f513c276dd1c3e7818e9eb68d50cfd185f1a2df6616a939e6a101d9ed8825d1",
     "first_mention": "19ca1af455d432ad9e234086a14ee3cf983fe64a3df888741d45ad8c9e97bf99",
     "majority": "bf8633023efdb8ab50678b826d6898065095b40abc41462b0da6dc284791f25c",
     "all_identical_to_every_baseline": false
   },
   "arms_differ_verified": true,
   "run_mode": "full",
-  "elapsed_s": 0.25643769997986965,
-  "ts_iso": "2026-08-06T11:06:32.431880+00:00",
+  "elapsed_s": 0.1824237999971956,
+  "ts_iso": "2026-08-06T12:27:03.096721+00:00",
   "anchor_name": "real_text_goal_owner_generalization_diagnostic_v1",
   "config": {
     "seeds": [
