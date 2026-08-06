@@ -216,14 +216,20 @@ def _outcome_polarity_tier2(lemma: str):
     return None
 
 
-def _tier2_outcome_polarity_scan(sentence: str):
+def _tier2_outcome_polarity_scan(sentence: str, exclude_idxs=None):
     """Scan every ordered token of `sentence` that is OOV of the literal V2_OUTCOME_UNMET/_MET
     sets; lemmatize + Tier-2 classify each. Returns (has_unmet_t2, has_met_t2) -- either or both may
     fire (mirrors the existing Tier-1 has_unmet/has_met independence, which callers already
-    disambiguate, e.g. lexicon_predict's AMBIGUOUS branch)."""
+    disambiguate, e.g. lexicon_predict's AMBIGUOUS branch). `exclude_idxs` (ordered-token indices,
+    default None) are skipped -- type_sentence_events_c3 passes a GOAL clause's own infinitival
+    complement verb index here so the goal verb is not mis-read as an achieved outcome (2026-08-06
+    bystander mis-bind fix, _goal_complement_verb_indices). None -> byte-identical to the pre-fix
+    scan, so lexicon_predict (which passes no exclusion) is unchanged."""
     has_unmet_t2 = False
     has_met_t2 = False
-    for tok in _ordered_tokens(sentence):
+    for idx, tok in enumerate(_ordered_tokens(sentence)):
+        if exclude_idxs is not None and idx in exclude_idxs:
+            continue
         if tok in V2_OUTCOME_UNMET or tok in V2_OUTCOME_MET:
             continue
         lemma = lemma_verb(tok)
@@ -272,11 +278,19 @@ def type_sentence_events_c3(sentence: str, subject) -> List[Tuple[object, str]]:
     (has_desire computed via the real Component-3 mechanism, c3_has_desire); OUTCOME_UNMET/
     OUTCOME_MET stay PRIMARILY lexicon-typed (Tier-1, unchanged) with a TIER-2 open-vocab
     similarity fallback added 2026-08-06 (_tier2_outcome_polarity_scan) for tokens OOV of the flat
-    V2_OUTCOME_UNMET/_MET lexicon -- strict ADD, Tier-1 exact membership always wins."""
-    t = _tokset(sentence)
+    V2_OUTCOME_UNMET/_MET lexicon -- strict ADD, Tier-1 exact membership always wins.
+
+    GOAL-COMPLEMENT OUTCOME EXCLUSION (2026-08-06 bystander mis-bind fix): a GOAL clause's OWN
+    purpose-infinitival complement verb ("X wanted to FIX...", "X longed to WIN...") IS the goal
+    (find_desired_state's desired-state verb), never an achieved outcome, so its token is excluded
+    from OUTCOME typing in BOTH tiers (Tier-2 skips the index; Tier-1 subtracts the surface form only
+    when it occurs SOLELY at goal-complement positions -- a later recurrence elsewhere stays typed).
+    GOAL typing (has_desire) is untouched. See _goal_complement_verb_indices below."""
     events: List[Tuple[object, str]] = []
     has_desire = c3_has_desire(sentence)
-    has_unmet_t2, has_met_t2 = _tier2_outcome_polarity_scan(sentence)
+    excl = _goal_complement_verb_indices(sentence)
+    has_unmet_t2, has_met_t2 = _tier2_outcome_polarity_scan(sentence, exclude_idxs=excl)
+    t = _tokset(sentence) - _goal_complement_only_outcome_surface(sentence, excl)
     has_unmet = bool(t & V2_OUTCOME_UNMET) or has_unmet_t2
     has_met = bool(t & V2_OUTCOME_MET) or has_met_t2
     if has_desire and subject is not None:
@@ -405,6 +419,58 @@ def _verb_negated_before(toks: List[str], v_idx: int) -> bool:
             continue
         return False
     return False
+
+
+# ============================================================================ GOAL-COMPLEMENT
+# OUTCOME-TYPING EXCLUSION (2026-08-06 bystander mis-bind fix). BUG (flagged in the affect-bridge
+# wiring, commit f99d1024f): a GOAL clause's OWN infinitival complement verb ("Jack wanted to FIX
+# the fence", "Ruth longed to WIN the prize") was being read as an achieved OUTCOME_MET/UNMET by the
+# outcome scans (Tier-1 lexicon set-membership and the Tier-2 open-vocab polarity scan), fabricating
+# a spurious outcome event bound to the goal-holder. In the owner-selection path (hdlab.goal_owner_
+# select.build_candidate_role_seq -> type_goal_events -> type_sentence_events_c3 here) that spurious
+# outcome let a BYSTANDER passage -- whose real outcome belongs to NOBODY (the affect/praise is a
+# bystander's, so both Tier-3 bridges correctly abstain) -- mis-bind an owner via the goal-clause
+# verb instead of abstaining (OUTCOME_NEVER_TYPED). FIX (strict SUBTRACT, never adds an event): the
+# "to VERB" complement of a GOAL_GOVERNING_PASS verb IS the goal (exactly find_desired_state's
+# desired-state verb), never an outcome, so its token is excluded from outcome typing. PRECISION
+# GUARD (load-bearing, do NOT over-exclude): only the goal-clause-INTERNAL complement token index is
+# excluded; a LATER recurrence of the same verb elsewhere ("wanted to WIN" ... then "she WON the
+# prize") is a genuine outcome and stays typed -- Tier-2 skips only the excluded index, Tier-1
+# subtracts a surface form only when it occurs SOLELY at goal-complement positions.
+def _goal_complement_verb_indices(sentence: str) -> set:
+    """Ordered-token indices (_ordered_tokens) of the verb heading a GOAL_GOVERNING_PASS-governed
+    purpose-infinitival 'to VP' -- the goal's OWN desired-state verb, which outcome-typing must not
+    read as an achieved OUTCOME. Mirrors find_desired_state's non-negated-governing-verb + first
+    'to VERB' scan (same [a-z']+ tokenization), collected for EVERY non-negated governing verb in the
+    sentence (a slight superset of find_desired_state's single first-match, so a two-goal sentence is
+    covered). A negated governing verb ('did not want to VP') is skipped exactly as find_desired_state
+    skips it -- there is no active goal to protect there."""
+    toks = _ordered_tokens(sentence)
+    idxs: set = set()
+    for k, t in enumerate(toks):
+        if t not in GOAL_GOVERNING_PASS or _verb_negated_before(toks, k):
+            continue
+        for i in range(k + 1, len(toks) - 1):
+            if toks[i] != "to" or toks[i + 1] in DET_STOP:
+                continue
+            idxs.add(i + 1)
+            break
+    return idxs
+
+
+def _goal_complement_only_outcome_surface(sentence: str, excl: set) -> set:
+    """V2-lexicon outcome surface forms that occur ONLY at a goal-complement index in `sentence` (so
+    subtracting them from the Tier-1 token SET suppresses the spurious goal-complement outcome
+    WITHOUT suppressing a genuine recurrence of the same surface elsewhere -- the precision guard for
+    the set-based Tier-1 path, which cannot otherwise tell two occurrences of one surface apart). A
+    surface that also appears at a non-excluded index is retained (returned NOT here)."""
+    if not excl:
+        return set()
+    ordered = _ordered_tokens(sentence)
+    non_excluded = {tok for k, tok in enumerate(ordered) if k not in excl}
+    excluded_surface = {ordered[i] for i in excl if i < len(ordered)}
+    return {s for s in (excluded_surface - non_excluded)
+            if s in V2_OUTCOME_UNMET or s in V2_OUTCOME_MET}
 
 
 # TIER-2 (2026-08-06): open-vocab control-verb classification for action_frame_feats's PARTITIONED
@@ -1256,6 +1322,29 @@ def self_test() -> dict:
     assert not any(r == R_GOAL for (_e, r) in c3_only_events), (
         "c3_only sanity check: expected 'hoped' to stay OOV under signal 1 alone")
 
+    # (7b) GOAL-COMPLEMENT OUTCOME-TYPING EXCLUSION (2026-08-06 bystander mis-bind fix) -----------
+    # CAN-FAIL (a): a GOAL clause's OWN infinitival complement verb must NOT be typed as an achieved
+    # outcome. Pre-fix, "wanted to FIX"/"longed to WIN" (Tier-2) and "wanted to SINK" (Tier-1) fired
+    # a spurious (subject, OUTCOME_MET/UNMET) that mis-bound a bystander owner downstream; GOAL must
+    # still fire (the exclusion is strict SUBTRACT of outcome typing only, never touches has_desire).
+    for _gs, _gsubj in [("Jack wanted to fix the old fence before the storm came.", "jack"),
+                        ("Ruth longed to win the reading prize this year.", "ruth"),
+                        ("Owen wanted to sink the raft before dawn.", "owen")]:
+        _ev = type_sentence_events_c3(_gs, _gsubj)
+        assert (_gsubj, R_GOAL) in _ev, f"goal must still fire after the exclusion: {_gs!r} -> {_ev}"
+        assert not any(r in (R_UNMET, R_MET) for (_e, r) in _ev), (
+            f"goal-clause complement verb must NOT be typed as an outcome: {_gs!r} -> {_ev}")
+    # PRECISION GUARD (b): only the goal-clause-INTERNAL complement token is excluded; a LATER
+    # genuine recurrence of the SAME verb surface elsewhere in the sentence must STILL type an
+    # outcome (index-scoped, not a blanket surface suppression). Both tiers exercised on the SAME
+    # surface: Tier-2 (base "win" recurs) and Tier-1 ("sink", a V2_OUTCOME_UNMET surface, recurs).
+    _recur_t2 = type_sentence_events_c3("Sam wanted to win, and in the end did win the race.", "sam")
+    assert ("sam", R_GOAL) in _recur_t2 and any(r == R_MET for (_e, r) in _recur_t2), (
+        f"Tier-2: later recurrence of goal verb 'win' must still type OUTCOME_MET: {_recur_t2}")
+    _recur_t1 = type_sentence_events_c3("Owen wanted to sink the raft, so he did sink it.", "owen")
+    assert ("owen", R_GOAL) in _recur_t1 and any(r == R_UNMET for (_e, r) in _recur_t1), (
+        f"Tier-1: later recurrence of goal verb 'sink' must still type OUTCOME_UNMET: {_recur_t1}")
+
     # ---- OUTCOME-VALENCE GOAL-CONGRUENCE (promotion, 2026-08-06) -------------------------------
     # (8) DECISIVE: a goal-dependent flip in BOTH directions on the SAME outcome word ("sank") --
     # the lexicon (goal-independent) cannot do this by construction; the congruence mechanism must.
@@ -1342,6 +1431,13 @@ def self_test() -> dict:
         "goal_decided_bare_transitive": decided_bare,
         "goal_action_frame_telos": goal_action_frame,
         "c3_only_misses_hoped": not any(r == R_GOAL for (_e, r) in c3_only_events),
+        "goal_complement_exclusion": {
+            "jack_fix_no_outcome": not any(
+                r in (R_UNMET, R_MET) for (_e, r) in
+                type_sentence_events_c3("Jack wanted to fix the old fence before the storm came.", "jack")),
+            "win_recurrence_still_met": any(r == R_MET for (_e, r) in _recur_t2),
+            "sink_recurrence_still_unmet": any(r == R_UNMET for (_e, r) in _recur_t1),
+        },
         "outcome_valence": {
             "flip_unmet": flip_unmet, "flip_met": flip_met, "pronoun_referent_met": pron_met,
             "shared_feature_synonym_met": synfeat_met,
