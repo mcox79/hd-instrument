@@ -619,13 +619,26 @@ def _np_last_content(span):
     return toks[-1] if toks else None
 
 
+# SENTENCE-SPLITTER FIX (2026-08-06, real-text generalization diagnostic, commit d52aa7669 traced
+# root cause) -- kept byte-identical to hdlab.goal_owner_select._SENT_SPLIT_RE / _sentences; see that
+# module for the full rationale. Summary: `[.!?]` alone split each terminal-punctuation char
+# individually, so a dialogue-final passage (`...boy, Henry."`) produced a spurious bare-quote final
+# fragment that survived the `if s.strip()` filter (strip() doesn't remove quote chars) and became
+# `sents[-1]` -- the sentence congruence_outcome_valence/lexicon_predict treat as THE outcome
+# sentence, so real dialogue-final outcomes silently went untyped. Consuming an optional
+# immediately-following closing quote as part of the delimiter fixes this without changing any
+# non-dialogue split point (the optional group simply never matches when no quote follows).
+_SENT_SPLIT_RE = re.compile(r'[.!?]+[\'"’”]?')
+
+
 def _sentences(text: str) -> List[str]:
     """Trivial sentence splitter. Byte-copied (not imported) from
-    hdlab.goal_owner_select._sentences (itself byte-copied from experiments/
-    exp_situation_model_goal_outcome_dimension_v1.py) so this module has no dependency on
-    hdlab.goal_owner_select, which imports type_goal_events FROM this module -- a reverse import
-    would be circular."""
-    return [s.strip() for s in re.split(r"[.!?]", text) if s.strip()]
+    hdlab.goal_owner_select._sentences so this module has no dependency on hdlab.goal_owner_select,
+    which imports type_goal_events FROM this module -- a reverse import would be circular. NO LONGER
+    byte-identical to experiments/exp_situation_model_goal_outcome_dimension_v1.py's _sentences --
+    that experiment cell is left untouched per the source-of-truth convention; this fix is
+    PRODUCTION-only (see _SENT_SPLIT_RE comment above for the dialogue/quote-final bug this closes)."""
+    return [s.strip() for s in _SENT_SPLIT_RE.split(text) if s.strip()]
 
 
 def find_desired_state(sentence: str):

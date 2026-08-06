@@ -234,9 +234,30 @@ class GeneralRecencyEntityResolver:
         self._recent.append(entity)
 
 
+# SENTENCE-SPLITTER FIX (2026-08-06, real-text generalization diagnostic, commit d52aa7669 traced
+# root cause): the old delimiter `[.!?]` split each terminal-punctuation char individually, so a
+# passage ending in dialogue (`...boy, Henry."`) produced a spurious final fragment consisting ONLY
+# of the closing quote (`"`) -- `.strip()` does not remove quote chars, so that bare-quote fragment
+# survived the `if s.strip()` filter and became `sents[-1]`, silently discarding the REAL final
+# clause. Downstream (build_candidate_role_seq / congruence_outcome_valence) treat `sents[-1]` as
+# THE outcome sentence, so this degenerated to OUTCOME_NEVER_TYPED for any dialogue-final passage.
+# FIX: the delimiter now consumes a run of terminal punctuation PLUS one immediately-following
+# closing quote (straight or curly) as a single delimiter token, so the quote is dropped along with
+# the punctuation instead of surviving as its own fragment. Non-dialogue text (no quote char
+# immediately after `.!?`) is byte-identical to the old behavior -- the optional quote-group simply
+# never matches, so `[.!?]+` alone determines every split point exactly as `[.!?]` did before (a run
+# of punctuation with no intervening non-punctuation chars produces one non-empty fragment before it
+# and one after, same as splitting on each char and filtering the resulting empty strings).
+_SENT_SPLIT_RE = re.compile(r'[.!?]+[\'"’”]?')
+
+
 def _sentences(text: str) -> List[str]:
-    """Byte-identical to experiments/exp_situation_model_goal_outcome_dimension_v1.py's _sentences."""
-    return [s.strip() for s in re.split(r"[.!?]", text) if s.strip()]
+    """Byte-identical to hdlab.goal_typing._sentences (kept in sync; see that module's docstring for
+    the circular-import rationale). NO LONGER byte-identical to experiments/exp_situation_model_
+    goal_outcome_dimension_v1.py's _sentences -- that experiment cell is left untouched per this
+    module's own promotion convention (source-of-truth for its historical numbers); this fix is
+    PRODUCTION-only. See _SENT_SPLIT_RE comment above for the dialogue/quote-final bug this closes."""
+    return [s.strip() for s in _SENT_SPLIT_RE.split(text) if s.strip()]
 
 
 # ============================================================================ THEME EXTRACTION (for
