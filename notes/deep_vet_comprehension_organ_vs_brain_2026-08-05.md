@@ -301,6 +301,19 @@ POSITION+METRIC vs the exact brain mechanism) + missing-component/LEARNING check
   Scramble strict-collapse NO but acc 0.27 undershoots base 0.5 = benign disruption (not still-keying-off-word).
   48/48 held, v1 identical. FIX (dispatched): wire coreference (pronoun->entity) into the referent-match +
   concept-similarity for synonyms; re-measure coverage-stress (gate3 >=0.70) holding core-flips 16/16 + 48/48.**
+  **FIX LANDED (commit 3ed374148, Director disk-VET 7/8 gates): coverage-stress 0.50->1.0 (pronoun K 2/2, synonym
+  L 2/2, multi-object M 2/2); OVER-LINK GUARD HELD (d_unmet_correct=True -- coref/synonym did NOT merge
+  sister/rival); precision guard H/H2 abstain; core-flips 16/16; G/G2 correct; 48/48 held; ZERO regressions.
+  Only open gate = gate4 strict-scramble (scrambled 0.27 << unscrambled 1.0 = NON-VACUOUS collapse, but
+  undershoots base_rate 0.5 so the within-band proxy mislabels a STRONGER-than-expected collapse; fidelity is
+  fine). TIER-1 pronoun = GENERAL (wired hdlab.coreference_resolver primitives is_pronoun_mention/gn_compatible).
+  TIER-2 synonym = NARROW hand-authored SYNONYM_GROUPS (concept_encoder ruled out: supervised-synthetic, no
+  zero-shot). Also fixed a real lemma_verb silent-e bug (collapsed->collaps dropped M-met). **HONEST ROOT
+  CONNECTION: general synonym/hypernym resolution is BLOCKED on the missing ATL learned lexical-semantic hub =
+  the deep VET's component #1 MISSING (this table's top row) -- the synonym coverage-tail routes straight back to
+  the foundational gap; a narrow supplied set closes the bank but not real data.** NEXT: PROMOTE the validated
+  GENERAL core (goal-congruence + coref pronoun-referent) to hdlab/goal_typing.py (strict ADD, cert-gated), honest
+  scope; general-synonymy deferred to the ATL-hub build.**
 - **situation_reader.read() call-site integration of goal_typing** (promoted organ not yet CALLED by the reader;
   CoNLL-gated, same as frame_primary_role wire).
 - **source situation_type -> context_grounded_valence.py:141** (mechanism proven HARD_PASS in _v2, integration only).
