@@ -1,0 +1,1521 @@
+{
+  "anchor_name": "n11c_shared_feature_lexical_similarity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "DISCRIMINATOR HARD_PASS: shared-feature FHRR bundles separate genuine synonymy from mere topical relatedness, materially beat the cited WINDOW distributional baseline AND the HASH_RANDOM floor, and the scramble ablation collapses the gain (earned, not artifact). ordered_frac: shared_feature=0.966 window=0.379 hash=0.103 scramble=0.310 | delta(sf-window)=0.586 delta(sf-hash)=0.862 delta(sf-scramble)=0.655 | tier1/2/3 shared_feature=(0.931,0.304,0.002) window=(0.859,0.852,0.830)",
+  "run_mode": "smoke",
+  "N_DIM": 8192,
+  "seed": 7,
+  "scramble_seed": 999,
+  "detail": {
+    "sf_frac": 0.9655,
+    "window_frac": 0.3793,
+    "hash_frac": 0.1034,
+    "scramble_frac": 0.3103,
+    "delta_sf_vs_window": 0.5862,
+    "delta_sf_vs_hash": 0.8621,
+    "delta_sf_vs_scramble": 0.6552,
+    "tier_means": {
+      "shared_feature": [
+        0.9307,
+        0.3041,
+        0.002
+      ],
+      "window_cited": [
+        0.8586,
+        0.8515,
+        0.8301
+      ],
+      "hash_random": [
+        0.0001,
+        0.0009,
+        0.0004
+      ],
+      "scrambled_features": [
+        0.0799,
+        0.0648,
+        0.0646
+      ]
+    },
+    "tier_ordered_strict": true,
+    "delta_tier1_tier2": 0.6266,
+    "delta_tier2_tier3": 0.3021,
+    "coverage": {
+      "shared_feature": "29/29",
+      "window_cited": "29/29",
+      "hash_random": "29/29",
+      "scrambled_features": "29/29"
+    },
+    "n_llm_calls": 0,
+    "n_external_model_calls": 0,
+    "crlb_n/a": "graded-ordering discriminator, not a capacity/argmax-noise-floor cell",
+    "chance_level_3way": 0.16666666666666666,
+    "honest_scope": {
+      "predicted_single_disclosed_miss": "happy/music (row 10 of _PROBE_TRIPLES) is a genuine CROSS-DOMAIN associative relation (happy music) that a taxonomic feature-lexicon structurally cannot capture by this cell's design convention (Tier2 shares only a domain tag; music's domain=ART_DOM != happy's domain=EMOTION_DOM); predicted BEFORE running, not an after-the-fact excuse.",
+      "coverage_scope": "mechanism-proof on 86 hand-authored concepts covering exactly the words in n11b's probe; general open-vocabulary feature coverage (inducing features for arbitrary words) is a separate, missing-LEARNING follow-up, NOT claimed here."
+    },
+    "structured_gate_claims": [
+      {
+        "gate_name": "sf_frac_ge_081",
+        "measured": 0.9655,
+        "threshold": 0.81,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "Tier1>Tier2>Tier3 ordered fraction, strictly above 0.80 floor"
+      },
+      {
+        "gate_name": "delta_sf_vs_window_ge_020",
+        "measured": 0.5862,
+        "threshold": 0.2,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "material margin over WINDOW baseline (0.3793)"
+      },
+      {
+        "gate_name": "delta_sf_vs_hash_ge_020",
+        "measured": 0.8621,
+        "threshold": 0.2,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "material margin over HASH_RANDOM floor"
+      },
+      {
+        "gate_name": "scramble_frac_le_035",
+        "measured": 0.3103,
+        "threshold": 0.35,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "scramble absolute ceiling (chance=0.167)"
+      },
+      {
+        "gate_name": "delta_sf_vs_scramble_ge_030",
+        "measured": 0.6552,
+        "threshold": 0.3,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "scramble ablation must collapse the gain"
+      },
+      {
+        "gate_name": "delta_tier1_tier2_ge_010",
+        "measured": 0.6266,
+        "threshold": 0.1,
+        "op": ">=",
+        "gate_verdict": true,
+        "note": "clear synonym-vs-related tier-mean gap"
+      }
+    ],
+    "CONFIG_VERSION": "n11c_shared_feature_v1; N=8192 seed=7 scramble_seed=999",
+    "cites": [
+      "notes/drill_brain_atl_lexical_semantic_hub_2026-08-06.md",
+      "Cox_Rogers_Shimotake_2024_vATL_graded_crossmodal_similarity_PMC12224414",
+      "McRae_Cree_Seidenberg_McNorgan_2005_feature_production_norms",
+      "data/exp_n11b_symmetric_pattern_lexical_similarity_v1/metrics.json"
+    ]
+  },
+  "metrics_source": "measured_cpu_n11c_shared_feature_lexical_similarity_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "shared_feature": {
+        "arm": "SHARED_FEATURE",
+        "per_triple": [
+          {
+            "anchor": "vessel",
+            "syn": "ship",
+            "rel": "dock",
+            "unrel": "anger",
+            "cos_syn": 0.7982,
+            "cos_rel": 0.2787,
+            "cos_unrel": -0.0024,
+            "ordered": true
+          },
+          {
+            "anchor": "vessel",
+            "syn": "boat",
+            "rel": "sailor",
+            "unrel": "mathematics",
+            "cos_syn": 0.6378,
+            "cos_rel": 0.2795,
+            "cos_unrel": -0.0017,
+            "ordered": true
+          },
+          {
+            "anchor": "ship",
+            "syn": "vessel",
+            "rel": "captain",
+            "unrel": "jealousy",
+            "cos_syn": 0.7982,
+            "cos_rel": 0.2084,
+            "cos_unrel": -0.005,
+            "ordered": true
+          },
+          {
+            "anchor": "ship",
+            "syn": "boat",
+            "rel": "crew",
+            "unrel": "sorrow",
+            "cos_syn": 0.5609,
+            "cos_rel": 0.2105,
+            "cos_unrel": -0.0052,
+            "ordered": true
+          },
+          {
+            "anchor": "boat",
+            "syn": "ship",
+            "rel": "water",
+            "unrel": "grief",
+            "cos_syn": 0.5609,
+            "cos_rel": 0.2742,
+            "cos_unrel": 0.0098,
+            "ordered": true
+          },
+          {
+            "anchor": "car",
+            "syn": "automobile",
+            "rel": "wheel",
+            "unrel": "passion",
+            "cos_syn": 1.0,
+            "cos_rel": 0.2887,
+            "cos_unrel": -0.0027,
+            "ordered": true
+          },
+          {
+            "anchor": "car",
+            "syn": "vehicle",
+            "rel": "engine",
+            "unrel": "hatred",
+            "cos_syn": 1.0,
+            "cos_rel": 0.2457,
+            "cos_unrel": 0.0049,
+            "ordered": true
+          },
+          {
+            "anchor": "truck",
+            "syn": "vehicle",
+            "rel": "cargo",
+            "unrel": "melody",
+            "cos_syn": 0.6353,
+            "cos_rel": 0.2945,
+            "cos_unrel": 0.0023,
+            "ordered": true
+          },
+          {
+            "anchor": "happy",
+            "syn": "glad",
+            "rel": "love",
+            "unrel": "mountain",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3294,
+            "cos_unrel": -0.0059,
+            "ordered": true
+          },
+          {
+            "anchor": "happy",
+            "syn": "joyful",
+            "rel": "music",
+            "unrel": "desert",
+            "cos_syn": 1.0,
+            "cos_rel": 0.0041,
+            "cos_unrel": 0.0067,
+            "ordered": false
+          },
+          {
+            "anchor": "sad",
+            "syn": "unhappy",
+            "rel": "grief",
+            "unrel": "river",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3334,
+            "cos_unrel": 0.0015,
+            "ordered": true
+          },
+          {
+            "anchor": "big",
+            "syn": "large",
+            "rel": "weight",
+            "unrel": "stream",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3321,
+            "cos_unrel": -0.0048,
+            "ordered": true
+          },
+          {
+            "anchor": "large",
+            "syn": "huge",
+            "rel": "weight",
+            "unrel": "song",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3321,
+            "cos_unrel": 0.0047,
+            "ordered": true
+          },
+          {
+            "anchor": "small",
+            "syn": "tiny",
+            "rel": "distance",
+            "unrel": "terror",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3373,
+            "cos_unrel": 0.0013,
+            "ordered": true
+          },
+          {
+            "anchor": "fast",
+            "syn": "quick",
+            "rel": "speed",
+            "unrel": "forest",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3413,
+            "cos_unrel": -0.0123,
+            "ordered": true
+          },
+          {
+            "anchor": "fast",
+            "syn": "rapid",
+            "rel": "velocity",
+            "unrel": "hill",
+            "cos_syn": 1.0,
+            "cos_rel": 0.2826,
+            "cos_unrel": -0.0017,
+            "ordered": true
+          },
+          {
+            "anchor": "slow",
+            "syn": "sluggish",
+            "rel": "speed",
+            "unrel": "valley",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3319,
+            "cos_unrel": 0.018,
+            "ordered": true
+          },
+          {
+            "anchor": "repair",
+            "syn": "fix",
+            "rel": "broken",
+            "unrel": "song",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3202,
+            "cos_unrel": -0.0015,
+            "ordered": true
+          },
+          {
+            "anchor": "repair",
+            "syn": "mend",
+            "rel": "damaged",
+            "unrel": "painting",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3202,
+            "cos_unrel": 0.0039,
+            "ordered": true
+          },
+          {
+            "anchor": "angry",
+            "syn": "mad",
+            "rel": "rage",
+            "unrel": "lake",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3406,
+            "cos_unrel": 0.0052,
+            "ordered": true
+          },
+          {
+            "anchor": "angry",
+            "syn": "furious",
+            "rel": "hate",
+            "unrel": "river",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3394,
+            "cos_unrel": 0.0138,
+            "ordered": true
+          },
+          {
+            "anchor": "fear",
+            "syn": "terror",
+            "rel": "afraid",
+            "unrel": "music",
+            "cos_syn": 1.0,
+            "cos_rel": 0.342,
+            "cos_unrel": -0.0052,
+            "ordered": true
+          },
+          {
+            "anchor": "fear",
+            "syn": "dread",
+            "rel": "anxiety",
+            "unrel": "art",
+            "cos_syn": 1.0,
+            "cos_rel": 0.342,
+            "cos_unrel": 0.004,
+            "ordered": true
+          },
+          {
+            "anchor": "rich",
+            "syn": "wealthy",
+            "rel": "buy",
+            "unrel": "forest",
+            "cos_syn": 1.0,
+            "cos_rel": 0.331,
+            "cos_unrel": 0.0052,
+            "ordered": true
+          },
+          {
+            "anchor": "smart",
+            "syn": "intelligent",
+            "rel": "answer",
+            "unrel": "stream",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3271,
+            "cos_unrel": 0.0095,
+            "ordered": true
+          },
+          {
+            "anchor": "smart",
+            "syn": "clever",
+            "rel": "mistake",
+            "unrel": "desert",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3411,
+            "cos_unrel": 0.0059,
+            "ordered": true
+          },
+          {
+            "anchor": "begin",
+            "syn": "start",
+            "rel": "end",
+            "unrel": "color",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3895,
+            "cos_unrel": -0.0013,
+            "ordered": true
+          },
+          {
+            "anchor": "end",
+            "syn": "finish",
+            "rel": "begin",
+            "unrel": "shape",
+            "cos_syn": 1.0,
+            "cos_rel": 0.3895,
+            "cos_unrel": -0.0065,
+            "ordered": true
+          },
+          {
+            "anchor": "buy",
+            "syn": "purchase",
+            "rel": "wealthy",
+            "unrel": "biology",
+            "cos_syn": 1.0,
+            "cos_rel": 0.331,
+            "cos_unrel": 0.0166,
+            "ordered": true
+          }
+        ],
+        "n_scored": 29,
+        "n_skipped_oov_or_zero": 0,
+        "n_total_triples": 29,
+        "ordered_inequality_frac": 0.9655,
+        "tier1_syn_mean_cos": 0.9307,
+        "tier2_rel_mean_cos": 0.3041,
+        "tier3_unrel_mean_cos": 0.002,
+        "synonym_vs_related_separation": 0.6267,
+        "fit_wall_s": 0.0222,
+        "n_features_total": 76,
+        "n_concepts_covered": 86
+      },
+      "window_cited": {
+        "arm": "WINDOW_CITED",
+        "ordered_inequality_frac": 0.3793,
+        "tier1_syn_mean_cos": 0.8586,
+        "tier2_rel_mean_cos": 0.8515,
+        "tier3_unrel_mean_cos": 0.8301,
+        "n_scored": 29,
+        "n_total_triples": 29,
+        "source": "loaded_from_disk:D:\\AI\\hd-instrument\\data\\exp_n11b_symmetric_pattern_lexical_similarity_v1\\metrics.json"
+      },
+      "hash_random": {
+        "arm": "HASH_RANDOM",
+        "per_triple": [
+          {
+            "anchor": "vessel",
+            "syn": "ship",
+            "rel": "dock",
+            "unrel": "anger",
+            "cos_syn": -0.001,
+            "cos_rel": 0.0017,
+            "cos_unrel": 0.0027,
+            "ordered": false
+          },
+          {
+            "anchor": "vessel",
+            "syn": "boat",
+            "rel": "sailor",
+            "unrel": "mathematics",
+            "cos_syn": 0.0009,
+            "cos_rel": 0.0037,
+            "cos_unrel": 0.0149,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "vessel",
+            "rel": "captain",
+            "unrel": "jealousy",
+            "cos_syn": -0.001,
+            "cos_rel": 0.0166,
+            "cos_unrel": 0.0083,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "boat",
+            "rel": "crew",
+            "unrel": "sorrow",
+            "cos_syn": 0.001,
+            "cos_rel": 0.0191,
+            "cos_unrel": 0.0054,
+            "ordered": false
+          },
+          {
+            "anchor": "boat",
+            "syn": "ship",
+            "rel": "water",
+            "unrel": "grief",
+            "cos_syn": 0.001,
+            "cos_rel": -0.0115,
+            "cos_unrel": -0.0008,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "automobile",
+            "rel": "wheel",
+            "unrel": "passion",
+            "cos_syn": -0.0039,
+            "cos_rel": 0.0052,
+            "cos_unrel": -0.0083,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "vehicle",
+            "rel": "engine",
+            "unrel": "hatred",
+            "cos_syn": -0.0018,
+            "cos_rel": 0.02,
+            "cos_unrel": 0.0123,
+            "ordered": false
+          },
+          {
+            "anchor": "truck",
+            "syn": "vehicle",
+            "rel": "cargo",
+            "unrel": "melody",
+            "cos_syn": -0.0141,
+            "cos_rel": 0.0022,
+            "cos_unrel": -0.0252,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "glad",
+            "rel": "love",
+            "unrel": "mountain",
+            "cos_syn": 0.0076,
+            "cos_rel": -0.0073,
+            "cos_unrel": 0.0064,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "joyful",
+            "rel": "music",
+            "unrel": "desert",
+            "cos_syn": -0.0092,
+            "cos_rel": -0.0054,
+            "cos_unrel": -0.0112,
+            "ordered": false
+          },
+          {
+            "anchor": "sad",
+            "syn": "unhappy",
+            "rel": "grief",
+            "unrel": "river",
+            "cos_syn": -0.0012,
+            "cos_rel": -0.0035,
+            "cos_unrel": -0.0022,
+            "ordered": false
+          },
+          {
+            "anchor": "big",
+            "syn": "large",
+            "rel": "weight",
+            "unrel": "stream",
+            "cos_syn": 0.0005,
+            "cos_rel": -0.0012,
+            "cos_unrel": -0.0034,
+            "ordered": true
+          },
+          {
+            "anchor": "large",
+            "syn": "huge",
+            "rel": "weight",
+            "unrel": "song",
+            "cos_syn": 0.0027,
+            "cos_rel": -0.0036,
+            "cos_unrel": -0.003,
+            "ordered": false
+          },
+          {
+            "anchor": "small",
+            "syn": "tiny",
+            "rel": "distance",
+            "unrel": "terror",
+            "cos_syn": -0.0067,
+            "cos_rel": 0.0005,
+            "cos_unrel": -0.0013,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "quick",
+            "rel": "speed",
+            "unrel": "forest",
+            "cos_syn": -0.0076,
+            "cos_rel": 0.0015,
+            "cos_unrel": -0.0026,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "rapid",
+            "rel": "velocity",
+            "unrel": "hill",
+            "cos_syn": 0.0092,
+            "cos_rel": -0.005,
+            "cos_unrel": -0.0032,
+            "ordered": false
+          },
+          {
+            "anchor": "slow",
+            "syn": "sluggish",
+            "rel": "speed",
+            "unrel": "valley",
+            "cos_syn": -0.0012,
+            "cos_rel": -0.0068,
+            "cos_unrel": 0.0086,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "fix",
+            "rel": "broken",
+            "unrel": "song",
+            "cos_syn": -0.0003,
+            "cos_rel": -0.0027,
+            "cos_unrel": -0.0046,
+            "ordered": true
+          },
+          {
+            "anchor": "repair",
+            "syn": "mend",
+            "rel": "damaged",
+            "unrel": "painting",
+            "cos_syn": 0.0015,
+            "cos_rel": -0.0021,
+            "cos_unrel": 0.0048,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "mad",
+            "rel": "rage",
+            "unrel": "lake",
+            "cos_syn": 0.0158,
+            "cos_rel": 0.0035,
+            "cos_unrel": 0.0126,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "furious",
+            "rel": "hate",
+            "unrel": "river",
+            "cos_syn": 0.0128,
+            "cos_rel": -0.0078,
+            "cos_unrel": -0.0018,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "terror",
+            "rel": "afraid",
+            "unrel": "music",
+            "cos_syn": 0.0161,
+            "cos_rel": -0.0003,
+            "cos_unrel": 0.0063,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "dread",
+            "rel": "anxiety",
+            "unrel": "art",
+            "cos_syn": -0.0046,
+            "cos_rel": -0.0069,
+            "cos_unrel": -0.0083,
+            "ordered": true
+          },
+          {
+            "anchor": "rich",
+            "syn": "wealthy",
+            "rel": "buy",
+            "unrel": "forest",
+            "cos_syn": -0.0003,
+            "cos_rel": 0.0011,
+            "cos_unrel": -0.0096,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "intelligent",
+            "rel": "answer",
+            "unrel": "stream",
+            "cos_syn": 0.0029,
+            "cos_rel": -0.0111,
+            "cos_unrel": 0.0088,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "clever",
+            "rel": "mistake",
+            "unrel": "desert",
+            "cos_syn": -0.002,
+            "cos_rel": 0.0002,
+            "cos_unrel": -0.0074,
+            "ordered": false
+          },
+          {
+            "anchor": "begin",
+            "syn": "start",
+            "rel": "end",
+            "unrel": "color",
+            "cos_syn": -0.0137,
+            "cos_rel": 0.0174,
+            "cos_unrel": 0.0035,
+            "ordered": false
+          },
+          {
+            "anchor": "end",
+            "syn": "finish",
+            "rel": "begin",
+            "unrel": "shape",
+            "cos_syn": 0.0027,
+            "cos_rel": 0.0174,
+            "cos_unrel": 0.0082,
+            "ordered": false
+          },
+          {
+            "anchor": "buy",
+            "syn": "purchase",
+            "rel": "wealthy",
+            "unrel": "biology",
+            "cos_syn": -0.0036,
+            "cos_rel": -0.0077,
+            "cos_unrel": 0.0026,
+            "ordered": false
+          }
+        ],
+        "n_scored": 29,
+        "n_skipped_oov_or_zero": 0,
+        "n_total_triples": 29,
+        "ordered_inequality_frac": 0.1034,
+        "tier1_syn_mean_cos": 0.0001,
+        "tier2_rel_mean_cos": 0.0009,
+        "tier3_unrel_mean_cos": 0.0004,
+        "synonym_vs_related_separation": -0.0009,
+        "fit_wall_s": 0.0061
+      },
+      "scrambled_features": {
+        "arm": "SCRAMBLED_FEATURES",
+        "per_triple": [
+          {
+            "anchor": "vessel",
+            "syn": "ship",
+            "rel": "dock",
+            "unrel": "anger",
+            "cos_syn": 0.0059,
+            "cos_rel": -0.008,
+            "cos_unrel": 0.0065,
+            "ordered": false
+          },
+          {
+            "anchor": "vessel",
+            "syn": "boat",
+            "rel": "sailor",
+            "unrel": "mathematics",
+            "cos_syn": -0.009,
+            "cos_rel": -0.0069,
+            "cos_unrel": -0.0011,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "vessel",
+            "rel": "captain",
+            "unrel": "jealousy",
+            "cos_syn": 0.0059,
+            "cos_rel": 0.0004,
+            "cos_unrel": 0.009,
+            "ordered": false
+          },
+          {
+            "anchor": "ship",
+            "syn": "boat",
+            "rel": "crew",
+            "unrel": "sorrow",
+            "cos_syn": -0.0014,
+            "cos_rel": -0.0075,
+            "cos_unrel": 0.0175,
+            "ordered": false
+          },
+          {
+            "anchor": "boat",
+            "syn": "ship",
+            "rel": "water",
+            "unrel": "grief",
+            "cos_syn": -0.0014,
+            "cos_rel": -0.0025,
+            "cos_unrel": 0.0068,
+            "ordered": false
+          },
+          {
+            "anchor": "car",
+            "syn": "automobile",
+            "rel": "wheel",
+            "unrel": "passion",
+            "cos_syn": 0.0013,
+            "cos_rel": -0.002,
+            "cos_unrel": -0.0043,
+            "ordered": true
+          },
+          {
+            "anchor": "car",
+            "syn": "vehicle",
+            "rel": "engine",
+            "unrel": "hatred",
+            "cos_syn": 0.0151,
+            "cos_rel": -0.0038,
+            "cos_unrel": -0.0038,
+            "ordered": true
+          },
+          {
+            "anchor": "truck",
+            "syn": "vehicle",
+            "rel": "cargo",
+            "unrel": "melody",
+            "cos_syn": 0.014,
+            "cos_rel": 0.0063,
+            "cos_unrel": -0.007,
+            "ordered": true
+          },
+          {
+            "anchor": "happy",
+            "syn": "glad",
+            "rel": "love",
+            "unrel": "mountain",
+            "cos_syn": -0.0039,
+            "cos_rel": 0.0141,
+            "cos_unrel": -0.0071,
+            "ordered": false
+          },
+          {
+            "anchor": "happy",
+            "syn": "joyful",
+            "rel": "music",
+            "unrel": "desert",
+            "cos_syn": 0.2275,
+            "cos_rel": 0.0058,
+            "cos_unrel": -0.0077,
+            "ordered": true
+          },
+          {
+            "anchor": "sad",
+            "syn": "unhappy",
+            "rel": "grief",
+            "unrel": "river",
+            "cos_syn": 0.5478,
+            "cos_rel": 0.2742,
+            "cos_unrel": -0.0031,
+            "ordered": true
+          },
+          {
+            "anchor": "big",
+            "syn": "large",
+            "rel": "weight",
+            "unrel": "stream",
+            "cos_syn": 0.0142,
+            "cos_rel": -0.0075,
+            "cos_unrel": 1.0,
+            "ordered": false
+          },
+          {
+            "anchor": "large",
+            "syn": "huge",
+            "rel": "weight",
+            "unrel": "song",
+            "cos_syn": 0.0095,
+            "cos_rel": -0.0106,
+            "cos_unrel": -0.0083,
+            "ordered": false
+          },
+          {
+            "anchor": "small",
+            "syn": "tiny",
+            "rel": "distance",
+            "unrel": "terror",
+            "cos_syn": 0.0006,
+            "cos_rel": -0.0064,
+            "cos_unrel": 0.0023,
+            "ordered": false
+          },
+          {
+            "anchor": "fast",
+            "syn": "quick",
+            "rel": "speed",
+            "unrel": "forest",
+            "cos_syn": -0.0049,
+            "cos_rel": -0.0108,
+            "cos_unrel": -0.0143,
+            "ordered": true
+          },
+          {
+            "anchor": "fast",
+            "syn": "rapid",
+            "rel": "velocity",
+            "unrel": "hill",
+            "cos_syn": 0.5599,
+            "cos_rel": 0.0042,
+            "cos_unrel": 0.0055,
+            "ordered": false
+          },
+          {
+            "anchor": "slow",
+            "syn": "sluggish",
+            "rel": "speed",
+            "unrel": "valley",
+            "cos_syn": -0.0062,
+            "cos_rel": 1.0,
+            "cos_unrel": 0.0095,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "fix",
+            "rel": "broken",
+            "unrel": "song",
+            "cos_syn": 0.2721,
+            "cos_rel": 0.3396,
+            "cos_unrel": 0.5505,
+            "ordered": false
+          },
+          {
+            "anchor": "repair",
+            "syn": "mend",
+            "rel": "damaged",
+            "unrel": "painting",
+            "cos_syn": 0.3396,
+            "cos_rel": 0.0111,
+            "cos_unrel": 0.0035,
+            "ordered": true
+          },
+          {
+            "anchor": "angry",
+            "syn": "mad",
+            "rel": "rage",
+            "unrel": "lake",
+            "cos_syn": -0.0057,
+            "cos_rel": 0.331,
+            "cos_unrel": 0.0043,
+            "ordered": false
+          },
+          {
+            "anchor": "angry",
+            "syn": "furious",
+            "rel": "hate",
+            "unrel": "river",
+            "cos_syn": -0.0012,
+            "cos_rel": -0.0123,
+            "cos_unrel": 0.005,
+            "ordered": false
+          },
+          {
+            "anchor": "fear",
+            "syn": "terror",
+            "rel": "afraid",
+            "unrel": "music",
+            "cos_syn": 0.0018,
+            "cos_rel": -0.0023,
+            "cos_unrel": -0.0043,
+            "ordered": true
+          },
+          {
+            "anchor": "fear",
+            "syn": "dread",
+            "rel": "anxiety",
+            "unrel": "art",
+            "cos_syn": 0.0115,
+            "cos_rel": 0.0049,
+            "cos_unrel": 0.0039,
+            "ordered": true
+          },
+          {
+            "anchor": "rich",
+            "syn": "wealthy",
+            "rel": "buy",
+            "unrel": "forest",
+            "cos_syn": -0.0012,
+            "cos_rel": -0.0027,
+            "cos_unrel": 0.2775,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "intelligent",
+            "rel": "answer",
+            "unrel": "stream",
+            "cos_syn": 0.0019,
+            "cos_rel": -0.0082,
+            "cos_unrel": 0.0142,
+            "ordered": false
+          },
+          {
+            "anchor": "smart",
+            "syn": "clever",
+            "rel": "mistake",
+            "unrel": "desert",
+            "cos_syn": -0.0044,
+            "cos_rel": -0.0082,
+            "cos_unrel": -0.0052,
+            "ordered": false
+          },
+          {
+            "anchor": "begin",
+            "syn": "start",
+            "rel": "end",
+            "unrel": "color",
+            "cos_syn": 0.3303,
+            "cos_rel": -0.0074,
+            "cos_unrel": 0.0084,
+            "ordered": false
+          },
+          {
+            "anchor": "end",
+            "syn": "finish",
+            "rel": "begin",
+            "unrel": "shape",
+            "cos_syn": -0.0057,
+            "cos_rel": -0.0074,
+            "cos_unrel": 0.0128,
+            "ordered": false
+          },
+          {
+            "anchor": "buy",
+            "syn": "purchase",
+            "rel": "wealthy",
+            "unrel": "biology",
+            "cos_syn": 0.0024,
+            "cos_rel": 0.0025,
+            "cos_unrel": 0.0035,
+            "ordered": false
+          }
+        ],
+        "n_scored": 29,
+        "n_skipped_oov_or_zero": 0,
+        "n_total_triples": 29,
+        "ordered_inequality_frac": 0.3103,
+        "tier1_syn_mean_cos": 0.0799,
+        "tier2_rel_mean_cos": 0.0648,
+        "tier3_unrel_mean_cos": 0.0646,
+        "synonym_vs_related_separation": 0.0151,
+        "fit_wall_s": 0.0327
+      },
+      "n_concepts": 86,
+      "n_feature_tags": 76,
+      "arms_hash_digests": {
+        "SHARED_FEATURE_stack": "98e29e02804aa1e2aaa46231dcaec468a23c4e54e7b10d24bce3a386cc37809a"
+      },
+      "feature_provenance": {
+        "afraid": [
+          "EMOTION_DOM",
+          "GENERAL_STATE"
+        ],
+        "anger": [
+          "EMOTION_DOM",
+          "NEG_VALENCE",
+          "RESPONSE_TO_INJUSTICE"
+        ],
+        "angry": [
+          "EMOTION_DOM",
+          "HIGH_AROUSAL",
+          "NEG_VALENCE"
+        ],
+        "answer": [
+          "COGNITION_DOM",
+          "PROBLEM_SOLVING_OUTPUT"
+        ],
+        "anxiety": [
+          "EMOTION_DOM",
+          "GENERAL_STATE"
+        ],
+        "art": [
+          "ART_DOM",
+          "CREATIVE",
+          "EXPRESSIVE"
+        ],
+        "automobile": [
+          "CARRIES_PEOPLE",
+          "LAND_VEHICLE",
+          "MOTORIZED",
+          "VEHICLE_DOM"
+        ],
+        "begin": [
+          "START_BOUNDARY",
+          "TEMPORAL_DOM"
+        ],
+        "big": [
+          "LARGE_SIZE",
+          "MAGNITUDE_DOM",
+          "PHYSICAL_DIMENSION"
+        ],
+        "biology": [
+          "ACADEMIC_DOM",
+          "NATURAL_SCIENCE"
+        ],
+        "boat": [
+          "CARRIES_PEOPLE",
+          "HAS_HULL",
+          "NAUTICAL",
+          "WATERCRAFT"
+        ],
+        "broken": [
+          "DAMAGE_STATE",
+          "REPAIR_DOM"
+        ],
+        "buy": [
+          "FINANCE_DOM",
+          "TRANSACTION_ACTION"
+        ],
+        "captain": [
+          "AUTHORITY",
+          "NAUTICAL",
+          "PERSON_ROLE"
+        ],
+        "car": [
+          "CARRIES_PEOPLE",
+          "LAND_VEHICLE",
+          "MOTORIZED",
+          "VEHICLE_DOM"
+        ],
+        "cargo": [
+          "GOODS_ITEM",
+          "VEHICLE_DOM"
+        ],
+        "clever": [
+          "COGNITION_DOM",
+          "EVALUATIVE_POSITIVE",
+          "MENTAL_ABILITY"
+        ],
+        "color": [
+          "PERCEPTUAL_PROPERTY",
+          "VISUAL_DOM"
+        ],
+        "crew": [
+          "GROUP",
+          "NAUTICAL",
+          "PERSON_ROLE"
+        ],
+        "damaged": [
+          "DAMAGE_STATE",
+          "REPAIR_DOM"
+        ],
+        "desert": [
+          "ARID",
+          "GEO_DOM",
+          "LANDSCAPE"
+        ],
+        "distance": [
+          "MAGNITUDE_DOM",
+          "SPATIAL_EXTENT"
+        ],
+        "dock": [
+          "NAUTICAL",
+          "STATIC_STRUCTURE"
+        ],
+        "dread": [
+          "EMOTION_DOM",
+          "NEG_VALENCE",
+          "RESPONSE_TO_THREAT"
+        ],
+        "end": [
+          "END_BOUNDARY",
+          "TEMPORAL_DOM"
+        ],
+        "engine": [
+          "MECHANICAL_PART",
+          "POWER_SOURCE",
+          "VEHICLE_DOM"
+        ],
+        "fast": [
+          "HIGH_RATE",
+          "MOTION_PROPERTY",
+          "SPEED_DOM"
+        ],
+        "fear": [
+          "EMOTION_DOM",
+          "NEG_VALENCE",
+          "RESPONSE_TO_THREAT"
+        ],
+        "finish": [
+          "END_BOUNDARY",
+          "TEMPORAL_DOM"
+        ],
+        "fix": [
+          "CHANGE_OF_STATE",
+          "REPAIR_DOM",
+          "RESTORATIVE_ACTION"
+        ],
+        "forest": [
+          "GEO_DOM",
+          "LANDSCAPE",
+          "VEGETATION"
+        ],
+        "furious": [
+          "EMOTION_DOM",
+          "HIGH_AROUSAL",
+          "NEG_VALENCE"
+        ],
+        "glad": [
+          "EMOTION_DOM",
+          "GENERAL_MOOD",
+          "POS_VALENCE"
+        ],
+        "grief": [
+          "EMOTION_DOM",
+          "RESPONSE_TO_LOSS"
+        ],
+        "happy": [
+          "EMOTION_DOM",
+          "GENERAL_MOOD",
+          "POS_VALENCE"
+        ],
+        "hate": [
+          "EMOTION_DOM",
+          "SOCIAL_EMOTION"
+        ],
+        "hatred": [
+          "EMOTION_DOM",
+          "NEG_VALENCE",
+          "SOCIAL_EMOTION"
+        ],
+        "hill": [
+          "ELEVATED",
+          "GEO_DOM",
+          "LANDFORM",
+          "SMALL_LANDFORM"
+        ],
+        "huge": [
+          "LARGE_SIZE",
+          "MAGNITUDE_DOM",
+          "PHYSICAL_DIMENSION"
+        ],
+        "intelligent": [
+          "COGNITION_DOM",
+          "EVALUATIVE_POSITIVE",
+          "MENTAL_ABILITY"
+        ],
+        "jealousy": [
+          "EMOTION_DOM",
+          "NEG_VALENCE",
+          "SOCIAL_EMOTION"
+        ],
+        "joyful": [
+          "EMOTION_DOM",
+          "GENERAL_MOOD",
+          "POS_VALENCE"
+        ],
+        "lake": [
+          "BODY_OF_WATER",
+          "GEO_DOM"
+        ],
+        "large": [
+          "LARGE_SIZE",
+          "MAGNITUDE_DOM",
+          "PHYSICAL_DIMENSION"
+        ],
+        "love": [
+          "ATTACHMENT",
+          "EMOTION_DOM"
+        ],
+        "mad": [
+          "EMOTION_DOM",
+          "HIGH_AROUSAL",
+          "NEG_VALENCE"
+        ],
+        "mathematics": [
+          "ACADEMIC_DOM",
+          "FORMAL_SCIENCE"
+        ],
+        "melody": [
+          "ART_DOM",
+          "AUDITORY",
+          "CREATIVE"
+        ],
+        "mend": [
+          "CHANGE_OF_STATE",
+          "REPAIR_DOM",
+          "RESTORATIVE_ACTION"
+        ],
+        "mistake": [
+          "COGNITION_DOM",
+          "ERROR_STATE"
+        ],
+        "mountain": [
+          "ELEVATED",
+          "GEO_DOM",
+          "LANDFORM"
+        ],
+        "music": [
+          "ART_DOM",
+          "AUDITORY",
+          "CREATIVE"
+        ],
+        "painting": [
+          "ART_DOM",
+          "CREATIVE",
+          "VISUAL"
+        ],
+        "passion": [
+          "ATTACHMENT",
+          "EMOTION_DOM",
+          "HIGH_AROUSAL"
+        ],
+        "purchase": [
+          "FINANCE_DOM",
+          "TRANSACTION_ACTION"
+        ],
+        "quick": [
+          "HIGH_RATE",
+          "MOTION_PROPERTY",
+          "SPEED_DOM"
+        ],
+        "rage": [
+          "EMOTION_DOM",
+          "INTENSE_STATE"
+        ],
+        "rapid": [
+          "HIGH_RATE",
+          "MOTION_PROPERTY",
+          "SPEED_DOM"
+        ],
+        "repair": [
+          "CHANGE_OF_STATE",
+          "REPAIR_DOM",
+          "RESTORATIVE_ACTION"
+        ],
+        "rich": [
+          "EVALUATIVE_POSITIVE",
+          "FINANCE_DOM",
+          "WEALTH_STATE"
+        ],
+        "river": [
+          "BODY_OF_WATER",
+          "FLOWING",
+          "GEO_DOM"
+        ],
+        "sad": [
+          "EMOTION_DOM",
+          "GENERAL_MOOD",
+          "NEG_VALENCE"
+        ],
+        "sailor": [
+          "NAUTICAL",
+          "PERSON_ROLE"
+        ],
+        "shape": [
+          "PERCEPTUAL_PROPERTY",
+          "VISUAL_DOM"
+        ],
+        "ship": [
+          "CARRIES_CARGO",
+          "HAS_HULL",
+          "LARGE_VESSEL",
+          "NAUTICAL",
+          "WATERCRAFT"
+        ],
+        "slow": [
+          "LOW_RATE",
+          "MOTION_PROPERTY",
+          "SPEED_DOM"
+        ],
+        "sluggish": [
+          "LOW_RATE",
+          "MOTION_PROPERTY",
+          "SPEED_DOM"
+        ],
+        "small": [
+          "MAGNITUDE_DOM",
+          "PHYSICAL_DIMENSION",
+          "SMALL_SIZE"
+        ],
+        "smart": [
+          "COGNITION_DOM",
+          "EVALUATIVE_POSITIVE",
+          "MENTAL_ABILITY"
+        ],
+        "song": [
+          "ART_DOM",
+          "AUDITORY",
+          "CREATIVE"
+        ],
+        "sorrow": [
+          "EMOTION_DOM",
+          "NEG_VALENCE",
+          "RESPONSE_TO_LOSS"
+        ],
+        "speed": [
+          "ABSTRACT_QUANTITY",
+          "SPEED_DOM"
+        ],
+        "start": [
+          "START_BOUNDARY",
+          "TEMPORAL_DOM"
+        ],
+        "stream": [
+          "BODY_OF_WATER",
+          "FLOWING",
+          "GEO_DOM",
+          "SMALL_LANDFORM"
+        ],
+        "terror": [
+          "EMOTION_DOM",
+          "NEG_VALENCE",
+          "RESPONSE_TO_THREAT"
+        ],
+        "tiny": [
+          "MAGNITUDE_DOM",
+          "PHYSICAL_DIMENSION",
+          "SMALL_SIZE"
+        ],
+        "truck": [
+          "CARRIES_CARGO",
+          "LAND_VEHICLE",
+          "MOTORIZED",
+          "VEHICLE_DOM"
+        ],
+        "unhappy": [
+          "EMOTION_DOM",
+          "GENERAL_MOOD",
+          "NEG_VALENCE"
+        ],
+        "valley": [
+          "GEO_DOM",
+          "LANDFORM",
+          "LOW_ELEVATION"
+        ],
+        "vehicle": [
+          "CARRIES_PEOPLE",
+          "LAND_VEHICLE",
+          "MOTORIZED",
+          "VEHICLE_DOM"
+        ],
+        "velocity": [
+          "ABSTRACT_QUANTITY",
+          "PHYSICS_TERM",
+          "SPEED_DOM"
+        ],
+        "vessel": [
+          "CARRIES_CARGO",
+          "HAS_HULL",
+          "NAUTICAL",
+          "WATERCRAFT"
+        ],
+        "water": [
+          "LIQUID_SUBSTANCE",
+          "NAUTICAL"
+        ],
+        "wealthy": [
+          "EVALUATIVE_POSITIVE",
+          "FINANCE_DOM",
+          "WEALTH_STATE"
+        ],
+        "weight": [
+          "MAGNITUDE_DOM",
+          "MASS_PROPERTY"
+        ],
+        "wheel": [
+          "MECHANICAL_PART",
+          "VEHICLE_DOM"
+        ]
+      },
+      "unit_wall_s": 0.0798,
+      "run_mode": "smoke",
+      "config_version": "n11c_shared_feature_v1; N=8192 seed=7 scramble_seed=999"
+    }
+  ],
+  "elapsed_s": 0.19235968589782715,
+  "summary": "DISCRIMINATOR HARD_PASS: shared-feature FHRR bundles separate genuine synonymy from mere topical relatedness, materially beat the cited WINDOW distributional baseline AND the HASH_RANDOM floor, and the scramble ablation collapses the gain (earned, not artifact). ordered_frac: shared_feature=0.966 window=0.379 hash=0.103 scramble=0.310 | delta(sf-window)=0.586 delta(sf-hash)=0.862 delta(sf-scramble)=0.655 | tier1/2/3 shared_feature=(0.931,0.304,0.002) window=(0.859,0.852,0.830)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "n_external_model_calls": 0,
+  "_name_says_smoke_workaround": false,
+  "structured_gate_claims": [
+    {
+      "gate_name": "sf_frac_ge_081",
+      "measured": 0.9655,
+      "threshold": 0.81,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "Tier1>Tier2>Tier3 ordered fraction, strictly above 0.80 floor"
+    },
+    {
+      "gate_name": "delta_sf_vs_window_ge_020",
+      "measured": 0.5862,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "material margin over WINDOW baseline (0.3793)"
+    },
+    {
+      "gate_name": "delta_sf_vs_hash_ge_020",
+      "measured": 0.8621,
+      "threshold": 0.2,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "material margin over HASH_RANDOM floor"
+    },
+    {
+      "gate_name": "scramble_frac_le_035",
+      "measured": 0.3103,
+      "threshold": 0.35,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "scramble absolute ceiling (chance=0.167)"
+    },
+    {
+      "gate_name": "delta_sf_vs_scramble_ge_030",
+      "measured": 0.6552,
+      "threshold": 0.3,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "scramble ablation must collapse the gain"
+    },
+    {
+      "gate_name": "delta_tier1_tier2_ge_010",
+      "measured": 0.6266,
+      "threshold": 0.1,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "clear synonym-vs-related tier-mean gap"
+    }
+  ]
+}
