@@ -1,0 +1,505 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: FLIP_SET(N=8): mechanism_acc=1.0 lexicon_acc=0.5 delta=0.5. base_rate=0.5 scramble_acc=0.4 collapse_strict(within 0.15 of base_rate)=True collapse_loose(<=base_rate+0.15)=True. H_abstains=True G_correct=True owner_48_held=True (owner_correct=48/48). mechanism_ran_clean_on_62=True mech_verdict_dist_on_62={'UNMET': 46, 'MET': 16}. N=10 is small; MIDDLE_BAND unless HARD-PASS clears decisively -- a 20-30 item follow-up bank is needed before production promotion regardless of tier. VERDICT=HARD_PASS.",
+  "summary": "FLIP_SET(N=8): mechanism_acc=1.0 lexicon_acc=0.5 delta=0.5. base_rate=0.5 scramble_acc=0.4 collapse_strict(within 0.15 of base_rate)=True collapse_loose(<=base_rate+0.15)=True. H_abstains=True G_correct=True owner_48_held=True (owner_correct=48/48). mechanism_ran_clean_on_62=True mech_verdict_dist_on_62={'UNMET': 46, 'MET': 16}. N=10 is small; MIDDLE_BAND unless HARD-PASS clears decisively -- a 20-30 item follow-up bank is needed before production promotion regardless of tier. VERDICT=HARD_PASS.",
+  "flip_set": {
+    "n": 8,
+    "mechanism_accuracy": 1.0,
+    "lexicon_accuracy": 0.5,
+    "delta": 0.5,
+    "base_rate": 0.5,
+    "per_item": [
+      {
+        "id": "A-unmet",
+        "category": "core_flip",
+        "gold": "UNMET",
+        "mechanism": "UNMET",
+        "mechanism_detail": {
+          "reason": "opposed_class_same_referent",
+          "desired": {
+            "referent": "boat",
+            "classes": [
+              "REPAIR_PRESERVE"
+            ],
+            "verb_lemma": "mend",
+            "pattern": "CONTROL"
+          },
+          "actual": {
+            "referent": "boat",
+            "classes": [
+              "DAMAGE_LOSE"
+            ],
+            "verb_lemma": "sink",
+            "verb_idx": 2
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "UNMET",
+        "lexicon_matches": true
+      },
+      {
+        "id": "A-met",
+        "category": "core_flip",
+        "gold": "MET",
+        "mechanism": "MET",
+        "mechanism_detail": {
+          "reason": "same_class_same_referent",
+          "desired": {
+            "referent": "boat",
+            "classes": [
+              "DAMAGE_LOSE"
+            ],
+            "verb_lemma": "sink",
+            "pattern": "ECM"
+          },
+          "actual": {
+            "referent": "boat",
+            "classes": [
+              "DAMAGE_LOSE"
+            ],
+            "verb_lemma": "sink",
+            "verb_idx": 2
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "UNMET",
+        "lexicon_matches": false
+      },
+      {
+        "id": "B-unmet",
+        "category": "core_flip",
+        "gold": "UNMET",
+        "mechanism": "UNMET",
+        "mechanism_detail": {
+          "reason": "opposed_class_same_referent",
+          "desired": {
+            "referent": "tree",
+            "classes": [
+              "REPAIR_PRESERVE"
+            ],
+            "verb_lemma": "save",
+            "pattern": "CONTROL"
+          },
+          "actual": {
+            "referent": "tree",
+            "classes": [
+              "DAMAGE_LOSE"
+            ],
+            "verb_lemma": "fall",
+            "verb_idx": 2
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "UNMET",
+        "lexicon_matches": true
+      },
+      {
+        "id": "B-met",
+        "category": "core_flip",
+        "gold": "MET",
+        "mechanism": "MET",
+        "mechanism_detail": {
+          "reason": "same_class_same_referent",
+          "desired": {
+            "referent": "tree",
+            "classes": [
+              "DAMAGE_LOSE"
+            ],
+            "verb_lemma": "fall",
+            "pattern": "ECM"
+          },
+          "actual": {
+            "referent": "tree",
+            "classes": [
+              "DAMAGE_LOSE"
+            ],
+            "verb_lemma": "fall",
+            "verb_idx": 2
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "UNMET",
+        "lexicon_matches": false
+      },
+      {
+        "id": "C-unmet",
+        "category": "core_flip",
+        "gold": "UNMET",
+        "mechanism": "UNMET",
+        "mechanism_detail": {
+          "reason": "opposed_class_same_referent",
+          "desired": {
+            "referent": "kate",
+            "classes": [
+              "ARRIVE_SUCCEED"
+            ],
+            "verb_lemma": "win",
+            "pattern": "CONTROL"
+          },
+          "actual": {
+            "referent": "kate",
+            "classes": [
+              "DAMAGE_LOSE",
+              "FAIL_LOSE"
+            ],
+            "verb_lemma": "lose",
+            "verb_idx": 1
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "UNMET",
+        "lexicon_matches": true
+      },
+      {
+        "id": "C-met",
+        "category": "core_flip",
+        "gold": "MET",
+        "mechanism": "MET",
+        "mechanism_detail": {
+          "reason": "same_class_same_referent",
+          "desired": {
+            "referent": "rival",
+            "classes": [
+              "DAMAGE_LOSE",
+              "FAIL_LOSE"
+            ],
+            "verb_lemma": "lose",
+            "pattern": "ECM"
+          },
+          "actual": {
+            "referent": "rival",
+            "classes": [
+              "DAMAGE_LOSE",
+              "FAIL_LOSE"
+            ],
+            "verb_lemma": "lose",
+            "verb_idx": 2
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "UNMET",
+        "lexicon_matches": false
+      },
+      {
+        "id": "D-met",
+        "category": "entity_binding",
+        "gold": "MET",
+        "mechanism": "MET",
+        "mechanism_detail": {
+          "reason": "same_class_same_referent",
+          "desired": {
+            "referent": "owen",
+            "classes": [
+              "ARRIVE_SUCCEED"
+            ],
+            "verb_lemma": "win",
+            "pattern": "CONTROL"
+          },
+          "actual": {
+            "referent": "owen",
+            "classes": [
+              "ARRIVE_SUCCEED"
+            ],
+            "verb_lemma": "win",
+            "verb_idx": 1
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "MET",
+        "lexicon_matches": true
+      },
+      {
+        "id": "D-unmet",
+        "category": "entity_binding",
+        "gold": "UNMET",
+        "mechanism": "UNMET",
+        "mechanism_detail": {
+          "reason": "referent_mismatch",
+          "desired": {
+            "referent": "sister",
+            "classes": [
+              "ARRIVE_SUCCEED"
+            ],
+            "verb_lemma": "win",
+            "pattern": "ECM"
+          },
+          "actual": {
+            "referent": "rival",
+            "classes": [
+              "ARRIVE_SUCCEED"
+            ],
+            "verb_lemma": "win",
+            "verb_idx": 2
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "MET",
+        "lexicon_matches": false
+      },
+      {
+        "id": "H-abstain",
+        "category": "precision_guard_abstain",
+        "gold": "NA",
+        "mechanism": "NA",
+        "mechanism_detail": {
+          "reason": "actual_verb_class_unknown",
+          "desired": {
+            "referent": "bicycle",
+            "classes": [
+              "REPAIR_PRESERVE"
+            ],
+            "verb_lemma": "fix",
+            "pattern": "CONTROL"
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "NONE",
+        "lexicon_matches": false
+      },
+      {
+        "id": "G-control",
+        "category": "positive_control",
+        "gold": "MET",
+        "mechanism": "MET",
+        "mechanism_detail": {
+          "reason": "same_class_same_referent",
+          "desired": {
+            "referent": "sara",
+            "classes": [
+              "ARRIVE_SUCCEED"
+            ],
+            "verb_lemma": "reach",
+            "pattern": "CONTROL"
+          },
+          "actual": {
+            "referent": "sara",
+            "classes": [
+              "ARRIVE_SUCCEED"
+            ],
+            "verb_lemma": "reach",
+            "verb_idx": 1
+          }
+        },
+        "mechanism_matches": true,
+        "lexicon": "MET",
+        "lexicon_matches": true
+      }
+    ]
+  },
+  "scramble": {
+    "offset": 2,
+    "accuracy": 0.4,
+    "collapse_strict": true,
+    "collapse_loose": true,
+    "per_item": [
+      {
+        "id": "A-unmet",
+        "scrambled_with": "B-unmet",
+        "gold": "UNMET",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": true
+      },
+      {
+        "id": "A-met",
+        "scrambled_with": "B-met",
+        "gold": "MET",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": false
+      },
+      {
+        "id": "B-unmet",
+        "scrambled_with": "C-unmet",
+        "gold": "UNMET",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": true
+      },
+      {
+        "id": "B-met",
+        "scrambled_with": "C-met",
+        "gold": "MET",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": false
+      },
+      {
+        "id": "C-unmet",
+        "scrambled_with": "D-met",
+        "gold": "UNMET",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": true
+      },
+      {
+        "id": "C-met",
+        "scrambled_with": "D-unmet",
+        "gold": "MET",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": false
+      },
+      {
+        "id": "D-met",
+        "scrambled_with": "H-abstain",
+        "gold": "MET",
+        "scrambled_verdict": "NA",
+        "scrambled_matches": false
+      },
+      {
+        "id": "D-unmet",
+        "scrambled_with": "G-control",
+        "gold": "UNMET",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": true
+      },
+      {
+        "id": "H-abstain",
+        "scrambled_with": "A-unmet",
+        "gold": "NA",
+        "scrambled_verdict": "UNMET",
+        "scrambled_matches": false
+      },
+      {
+        "id": "G-control",
+        "scrambled_with": "A-met",
+        "gold": "MET",
+        "scrambled_verdict": "NA",
+        "scrambled_matches": false
+      }
+    ]
+  },
+  "precision_guard": {
+    "h_abstains": true,
+    "h_detail": {
+      "id": "H-abstain",
+      "category": "precision_guard_abstain",
+      "gold": "NA",
+      "mechanism": "NA",
+      "mechanism_detail": {
+        "reason": "actual_verb_class_unknown",
+        "desired": {
+          "referent": "bicycle",
+          "classes": [
+            "REPAIR_PRESERVE"
+          ],
+          "verb_lemma": "fix",
+          "pattern": "CONTROL"
+        }
+      },
+      "mechanism_matches": true,
+      "lexicon": "NONE",
+      "lexicon_matches": false
+    },
+    "g_correct": true,
+    "g_detail": {
+      "id": "G-control",
+      "category": "positive_control",
+      "gold": "MET",
+      "mechanism": "MET",
+      "mechanism_detail": {
+        "reason": "same_class_same_referent",
+        "desired": {
+          "referent": "sara",
+          "classes": [
+            "ARRIVE_SUCCEED"
+          ],
+          "verb_lemma": "reach",
+          "pattern": "CONTROL"
+        },
+        "actual": {
+          "referent": "sara",
+          "classes": [
+            "ARRIVE_SUCCEED"
+          ],
+          "verb_lemma": "reach",
+          "verb_idx": 1
+        }
+      },
+      "mechanism_matches": true,
+      "lexicon": "MET",
+      "lexicon_matches": true
+    }
+  },
+  "backward_compat": {
+    "n_total_rows": 62,
+    "n_48_subset": 48,
+    "owner_correct": 48,
+    "owner_misses": [],
+    "owner_48_held": true,
+    "mechanism_verdict_distribution": {
+      "UNMET": 46,
+      "MET": 16
+    },
+    "mechanism_errors": [],
+    "mechanism_ran_clean": true
+  },
+  "arms_differ_verified": false,
+  "arms_differ_exempted": [
+    [
+      "mechanism",
+      "lexicon"
+    ]
+  ],
+  "run_mode": "full",
+  "elapsed_s": 0.09598529999493621,
+  "ts_iso": "2026-08-06T03:20:55.889922+00:00",
+  "anchor_name": "outcome_valence_goal_congruence_v1",
+  "config": {
+    "seeds": [
+      0
+    ],
+    "bank_path": "D:\\AI\\hd-instrument\\experiments\\data\\outcome_valence_congruence_v1.jsonl",
+    "fair_bank_path": "D:\\AI\\hd-instrument\\experiments\\data\\goal_owner_fair_v1.jsonl",
+    "cardinality_ok": true,
+    "result_verb_classes": {
+      "REPAIR_PRESERVE": [
+        "build",
+        "fix",
+        "mend",
+        "protect",
+        "repair",
+        "rescue",
+        "restore",
+        "save"
+      ],
+      "DAMAGE_LOSE": [
+        "break",
+        "collapse",
+        "crash",
+        "damage",
+        "destroy",
+        "drown",
+        "fail",
+        "fall",
+        "flood",
+        "lose",
+        "sink",
+        "wreck"
+      ],
+      "ARRIVE_SUCCEED": [
+        "arrive",
+        "escape",
+        "reach",
+        "succeed",
+        "win"
+      ],
+      "FAIL_LOSE": [
+        "fail",
+        "lose",
+        "miss"
+      ]
+    },
+    "opposed_pairs": [
+      [
+        "REPAIR_PRESERVE",
+        "DAMAGE_LOSE"
+      ],
+      [
+        "ARRIVE_SUCCEED",
+        "FAIL_LOSE"
+      ]
+    ],
+    "mechanism": "goal-congruence: (theme_referent, result_verb_class) desired-vs-actual on the shared referent; ABSTAIN falls back to hdlab.goal_typing's V2_OUTCOME_UNMET/_MET lexicon"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "boolean congruence-decision accuracy, not an SNR/capacity regime",
+  "deterministic_seeding": true,
+  "prereg": "inline (docstring, mirrors notes/drill_brain_outcome_valence_goal_congruence_2026-08-06.md Section 4 bands verbatim; no separate preregs/ file)",
+  "dispatch": "LOCAL-ONLY, in-process foreground, not queue-dispatched"
+}
