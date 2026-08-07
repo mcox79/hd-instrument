@@ -1,0 +1,3015 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: held_out_collapse(real)=1.000 (band>=0.75) scramble_acc=0.400 (band<=0.6) lift_over_scramble=0.600 (band>=0.15) context_driven_rate=1.000 (band>=1.0) baseline_acc=1.000 (band>=0.75) baseline_stable_rate=1.000 (band>=1.0) n_test_ambiguous=20 n_test_baseline=4",
+  "summary": "held_out_collapse(real)=1.000 (band>=0.75) scramble_acc=0.400 (band<=0.6) lift_over_scramble=0.600 (band>=0.15) context_driven_rate=1.000 (band>=1.0) baseline_acc=1.000 (band>=0.75) baseline_stable_rate=1.000 (band>=1.0) n_test_ambiguous=20 n_test_baseline=4",
+  "n_seeds": 5,
+  "n_ok": 5,
+  "failed_seeds": [],
+  "means": {
+    "acc_real": 1.0,
+    "acc_scramble": 0.4,
+    "lift_over_scramble": 0.6,
+    "context_driven_rate": 1.0,
+    "acc_baseline": 1.0,
+    "baseline_stable_rate": 1.0
+  },
+  "bands": {
+    "open_pass": true,
+    "scramble_collapsed": true,
+    "context_pass": true,
+    "baseline_pass": true,
+    "open_hard_fail": false,
+    "any_arms_identical": false
+  },
+  "words": {
+    "ambiguous": [
+      "spoil",
+      "beat",
+      "strike",
+      "whip",
+      "crush"
+    ],
+    "baseline": "cherish",
+    "menu": {
+      "spoil": {
+        "inanimate": "RUIN",
+        "animate": "PAMPER"
+      },
+      "beat": {
+        "inanimate": "BENIGN",
+        "animate": "HARM"
+      },
+      "strike": {
+        "inanimate": "BENIGN",
+        "animate": "HARM"
+      },
+      "whip": {
+        "inanimate": "BENIGN",
+        "animate": "HARM"
+      },
+      "crush": {
+        "inanimate": "BENIGN",
+        "animate": "HARM"
+      },
+      "cherish": {
+        "inanimate": "CHERISH",
+        "animate": "CHERISH"
+      }
+    },
+    "sense_affect_type": {
+      "RUIN": "BLOCK_HIGH",
+      "PAMPER": "RECIPROCITY",
+      "BENIGN": "RECIPROCITY",
+      "HARM": "BLOCK_HIGH",
+      "CHERISH": "RECIPROCITY"
+    }
+  },
+  "run_mode": "smoke",
+  "elapsed_s": 113.81354179998743,
+  "ts_iso": "2026-08-07T11:08:27.279584+00:00",
+  "anchor_name": "word_context_affect_superposition_map_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_train_theta": 4000,
+    "n_dim_word": 1024,
+    "n_test_ambiguous": 20,
+    "n_test_baseline": 4,
+    "bands": {
+      "heldout_pass": 0.75,
+      "scramble_max_for_collapse": 0.6,
+      "min_lift_over_scramble": 0.15,
+      "context_driven_min": 1.0,
+      "baseline_pass": 0.75,
+      "baseline_stable_min": 1.0,
+      "hard_fail_heldout": 0.55
+    }
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "acc_real": 1.0,
+      "acc_scramble": 0.3,
+      "acc_baseline": 1.0,
+      "lift_over_scramble": 0.7,
+      "context_driven_rate": 1.0,
+      "baseline_stable": true,
+      "divergence_detail": {
+        "spoil": {
+          "pred_in": "RUIN",
+          "pred_an": "PAMPER",
+          "gold_in": "RUIN",
+          "gold_an": "PAMPER",
+          "diverges": true,
+          "correct_both": true
+        },
+        "beat": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "strike": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "whip": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "crush": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        }
+      },
+      "baseline_detail": {
+        "pred_in": "CHERISH",
+        "pred_an": "CHERISH"
+      },
+      "digests": {
+        "real": "885470ad56ed2183",
+        "scramble": "c06ceb6e47b0a04f"
+      },
+      "arms_differ_real_vs_scramble": true,
+      "theta_witness": {
+        "RECIPROCITY": 0.6031755805015564,
+        "BLOCK_HIGH": -0.504818320274353,
+        "signs_ok": true
+      },
+      "untrained_probe_sims": {
+        "PAMPER": -0.0384,
+        "RUIN": -0.0143
+      },
+      "items_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0094,
+            "RUIN": 0.6674
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0094,
+            "RUIN": 0.6674
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6674,
+            "RUIN": 0.0094
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6674,
+            "RUIN": 0.0094
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6397,
+            "HARM": 0.0154
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6397,
+            "HARM": 0.0154
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0154,
+            "HARM": 0.6397
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0154,
+            "HARM": 0.6397
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6368,
+            "HARM": -0.0218
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6368,
+            "HARM": -0.0218
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0218,
+            "HARM": 0.6368
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0218,
+            "HARM": 0.6368
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6375,
+            "HARM": 0.0023
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6375,
+            "HARM": 0.0023
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0023,
+            "HARM": 0.6375
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0023,
+            "HARM": 0.6375
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6291,
+            "HARM": 0.0055
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6291,
+            "HARM": 0.0055
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0055,
+            "HARM": 0.6291
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0055,
+            "HARM": 0.6291
+          },
+          "correct": true
+        }
+      ],
+      "items_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0007,
+            "RUIN": 0.0546
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0007,
+            "RUIN": 0.0546
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0196,
+            "RUIN": 0.0398
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0196,
+            "RUIN": 0.0398
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0012,
+            "HARM": 0.6455
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0012,
+            "HARM": 0.6455
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0238,
+            "HARM": 0.6455
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0238,
+            "HARM": 0.6455
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0123,
+            "HARM": 0.6178
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0123,
+            "HARM": 0.6178
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0302,
+            "HARM": 0.0142
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0302,
+            "HARM": 0.0142
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.035,
+            "HARM": 0.0277
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.035,
+            "HARM": 0.0277
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6321,
+            "HARM": -0.0509
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6321,
+            "HARM": -0.0509
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0123,
+            "HARM": 0.621
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0123,
+            "HARM": 0.621
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.621,
+            "HARM": 0.0123
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.621,
+            "HARM": 0.0123
+          },
+          "correct": false
+        }
+      ],
+      "items_baseline": [
+        {
+          "noun": "ring",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "painting",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "wife",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "husband",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    },
+    "1": {
+      "seed": 1,
+      "acc_real": 1.0,
+      "acc_scramble": 0.4,
+      "acc_baseline": 1.0,
+      "lift_over_scramble": 0.6,
+      "context_driven_rate": 1.0,
+      "baseline_stable": true,
+      "divergence_detail": {
+        "spoil": {
+          "pred_in": "RUIN",
+          "pred_an": "PAMPER",
+          "gold_in": "RUIN",
+          "gold_an": "PAMPER",
+          "diverges": true,
+          "correct_both": true
+        },
+        "beat": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "strike": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "whip": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "crush": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        }
+      },
+      "baseline_detail": {
+        "pred_in": "CHERISH",
+        "pred_an": "CHERISH"
+      },
+      "digests": {
+        "real": "885470ad56ed2183",
+        "scramble": "d17392feea8f969a"
+      },
+      "arms_differ_real_vs_scramble": true,
+      "theta_witness": {
+        "RECIPROCITY": 0.5701814591884613,
+        "BLOCK_HIGH": -0.5962373912334442,
+        "signs_ok": true
+      },
+      "untrained_probe_sims": {
+        "PAMPER": 0.058,
+        "RUIN": 0.0012
+      },
+      "items_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0204,
+            "RUIN": 0.6284
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0204,
+            "RUIN": 0.6284
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6284,
+            "RUIN": 0.0204
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6284,
+            "RUIN": 0.0204
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6448,
+            "HARM": 0.0097
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6448,
+            "HARM": 0.0097
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0097,
+            "HARM": 0.6448
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0097,
+            "HARM": 0.6448
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6419,
+            "HARM": 0.0273
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6419,
+            "HARM": 0.0273
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0273,
+            "HARM": 0.6419
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0273,
+            "HARM": 0.6419
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6344,
+            "HARM": 0.0344
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6344,
+            "HARM": 0.0344
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0344,
+            "HARM": 0.6344
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0344,
+            "HARM": 0.6344
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6291,
+            "HARM": 0.0086
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6291,
+            "HARM": 0.0086
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0086,
+            "HARM": 0.6291
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0086,
+            "HARM": 0.6291
+          },
+          "correct": true
+        }
+      ],
+      "items_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.019,
+            "RUIN": -0.0012
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.019,
+            "RUIN": -0.0012
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0118,
+            "RUIN": 0.0212
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0118,
+            "RUIN": 0.0212
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6542,
+            "HARM": -0.0409
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6542,
+            "HARM": -0.0409
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6542,
+            "HARM": 0.0023
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6542,
+            "HARM": 0.0023
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0045,
+            "HARM": 0.642
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0045,
+            "HARM": 0.642
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.642,
+            "HARM": -0.0045
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.642,
+            "HARM": -0.0045
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0062,
+            "HARM": 0.6258
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0062,
+            "HARM": 0.6258
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0057,
+            "HARM": 0.0334
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0057,
+            "HARM": 0.0334
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0155,
+            "HARM": 0.6483
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0155,
+            "HARM": 0.6483
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0015,
+            "HARM": 0.0231
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0015,
+            "HARM": 0.0231
+          },
+          "correct": true
+        }
+      ],
+      "items_baseline": [
+        {
+          "noun": "ring",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "painting",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "wife",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "husband",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    },
+    "2": {
+      "seed": 2,
+      "acc_real": 1.0,
+      "acc_scramble": 0.3,
+      "acc_baseline": 1.0,
+      "lift_over_scramble": 0.7,
+      "context_driven_rate": 1.0,
+      "baseline_stable": true,
+      "divergence_detail": {
+        "spoil": {
+          "pred_in": "RUIN",
+          "pred_an": "PAMPER",
+          "gold_in": "RUIN",
+          "gold_an": "PAMPER",
+          "diverges": true,
+          "correct_both": true
+        },
+        "beat": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "strike": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "whip": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "crush": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        }
+      },
+      "baseline_detail": {
+        "pred_in": "CHERISH",
+        "pred_an": "CHERISH"
+      },
+      "digests": {
+        "real": "885470ad56ed2183",
+        "scramble": "a515c1100d84110e"
+      },
+      "arms_differ_real_vs_scramble": true,
+      "theta_witness": {
+        "RECIPROCITY": 0.8221818208694458,
+        "BLOCK_HIGH": -0.4890151917934418,
+        "signs_ok": true
+      },
+      "untrained_probe_sims": {
+        "PAMPER": -0.0183,
+        "RUIN": 0.0054
+      },
+      "items_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0517,
+            "RUIN": 0.6421
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0517,
+            "RUIN": 0.6421
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6421,
+            "RUIN": -0.0517
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6421,
+            "RUIN": -0.0517
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6346,
+            "HARM": -0.0011
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6346,
+            "HARM": -0.0011
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0011,
+            "HARM": 0.6346
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0011,
+            "HARM": 0.6346
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6411,
+            "HARM": -0.0314
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6411,
+            "HARM": -0.0314
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0314,
+            "HARM": 0.6411
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0314,
+            "HARM": 0.6411
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6245,
+            "HARM": -0.026
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6245,
+            "HARM": -0.026
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.026,
+            "HARM": 0.6245
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.026,
+            "HARM": 0.6245
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6287,
+            "HARM": -0.0168
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6287,
+            "HARM": -0.0168
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0168,
+            "HARM": 0.6287
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0168,
+            "HARM": 0.6287
+          },
+          "correct": true
+        }
+      ],
+      "items_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0188,
+            "RUIN": 0.006
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0188,
+            "RUIN": 0.006
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0253,
+            "RUIN": -0.0
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0253,
+            "RUIN": -0.0
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0205,
+            "HARM": 0.625
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0205,
+            "HARM": 0.625
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0187,
+            "HARM": 0.625
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0187,
+            "HARM": 0.625
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0075,
+            "HARM": 0.6436
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0075,
+            "HARM": 0.6436
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6436,
+            "HARM": -0.0075
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6436,
+            "HARM": -0.0075
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0503,
+            "HARM": 0.0102
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0503,
+            "HARM": 0.0102
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0103,
+            "HARM": 0.0069
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0103,
+            "HARM": 0.0069
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6287,
+            "HARM": -0.0168
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6287,
+            "HARM": -0.0168
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0168,
+            "HARM": 0.6287
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0168,
+            "HARM": 0.6287
+          },
+          "correct": true
+        }
+      ],
+      "items_baseline": [
+        {
+          "noun": "ring",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "painting",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "wife",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "husband",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    },
+    "3": {
+      "seed": 3,
+      "acc_real": 1.0,
+      "acc_scramble": 0.6,
+      "acc_baseline": 1.0,
+      "lift_over_scramble": 0.4,
+      "context_driven_rate": 1.0,
+      "baseline_stable": true,
+      "divergence_detail": {
+        "spoil": {
+          "pred_in": "RUIN",
+          "pred_an": "PAMPER",
+          "gold_in": "RUIN",
+          "gold_an": "PAMPER",
+          "diverges": true,
+          "correct_both": true
+        },
+        "beat": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "strike": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "whip": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "crush": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        }
+      },
+      "baseline_detail": {
+        "pred_in": "CHERISH",
+        "pred_an": "CHERISH"
+      },
+      "digests": {
+        "real": "885470ad56ed2183",
+        "scramble": "849094ca7d960105"
+      },
+      "arms_differ_real_vs_scramble": true,
+      "theta_witness": {
+        "RECIPROCITY": 0.8038638830184937,
+        "BLOCK_HIGH": -0.6183448135852814,
+        "signs_ok": true
+      },
+      "untrained_probe_sims": {
+        "PAMPER": 0.0367,
+        "RUIN": -0.0069
+      },
+      "items_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0223,
+            "RUIN": 0.634
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0223,
+            "RUIN": 0.634
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.634,
+            "RUIN": -0.0223
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.634,
+            "RUIN": -0.0223
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6426,
+            "HARM": 0.0283
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6426,
+            "HARM": 0.0283
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0283,
+            "HARM": 0.6426
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0283,
+            "HARM": 0.6426
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6347,
+            "HARM": -0.021
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6347,
+            "HARM": -0.021
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.021,
+            "HARM": 0.6347
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.021,
+            "HARM": 0.6347
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6385,
+            "HARM": 0.0076
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6385,
+            "HARM": 0.0076
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0076,
+            "HARM": 0.6385
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0076,
+            "HARM": 0.6385
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6548,
+            "HARM": -0.0086
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6548,
+            "HARM": -0.0086
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0086,
+            "HARM": 0.6548
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0086,
+            "HARM": 0.6548
+          },
+          "correct": true
+        }
+      ],
+      "items_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0345,
+            "RUIN": 0.028
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0345,
+            "RUIN": 0.028
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0352,
+            "RUIN": 0.0058
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0352,
+            "RUIN": 0.0058
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.644,
+            "HARM": 0.048
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.644,
+            "HARM": 0.048
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.644,
+            "HARM": 0.0228
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.644,
+            "HARM": 0.0228
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0015,
+            "HARM": 0.6273
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0015,
+            "HARM": 0.6273
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0188,
+            "HARM": 0.0603
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0188,
+            "HARM": 0.0603
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6385,
+            "HARM": 0.0076
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6385,
+            "HARM": 0.0076
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0076,
+            "HARM": 0.6385
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0076,
+            "HARM": 0.6385
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6407,
+            "HARM": -0.0008
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6407,
+            "HARM": -0.0008
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.016,
+            "HARM": 0.0177
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.016,
+            "HARM": 0.0177
+          },
+          "correct": true
+        }
+      ],
+      "items_baseline": [
+        {
+          "noun": "ring",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "painting",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "wife",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "husband",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    },
+    "4": {
+      "seed": 4,
+      "acc_real": 1.0,
+      "acc_scramble": 0.4,
+      "acc_baseline": 1.0,
+      "lift_over_scramble": 0.6,
+      "context_driven_rate": 1.0,
+      "baseline_stable": true,
+      "divergence_detail": {
+        "spoil": {
+          "pred_in": "RUIN",
+          "pred_an": "PAMPER",
+          "gold_in": "RUIN",
+          "gold_an": "PAMPER",
+          "diverges": true,
+          "correct_both": true
+        },
+        "beat": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "strike": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "whip": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        },
+        "crush": {
+          "pred_in": "BENIGN",
+          "pred_an": "HARM",
+          "gold_in": "BENIGN",
+          "gold_an": "HARM",
+          "diverges": true,
+          "correct_both": true
+        }
+      },
+      "baseline_detail": {
+        "pred_in": "CHERISH",
+        "pred_an": "CHERISH"
+      },
+      "digests": {
+        "real": "885470ad56ed2183",
+        "scramble": "341b6265e4652b78"
+      },
+      "arms_differ_real_vs_scramble": true,
+      "theta_witness": {
+        "RECIPROCITY": 0.699303388595581,
+        "BLOCK_HIGH": -0.47811269760131836,
+        "signs_ok": true
+      },
+      "untrained_probe_sims": {
+        "PAMPER": 0.0242,
+        "RUIN": -0.0584
+      },
+      "items_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0094,
+            "RUIN": 0.6447
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0094,
+            "RUIN": 0.6447
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6447,
+            "RUIN": 0.0094
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6447,
+            "RUIN": 0.0094
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6279,
+            "HARM": -0.012
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6279,
+            "HARM": -0.012
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.012,
+            "HARM": 0.6279
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.012,
+            "HARM": 0.6279
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6321,
+            "HARM": 0.0018
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6321,
+            "HARM": 0.0018
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0018,
+            "HARM": 0.6321
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0018,
+            "HARM": 0.6321
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6346,
+            "HARM": -0.0059
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6346,
+            "HARM": -0.0059
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0059,
+            "HARM": 0.6346
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0059,
+            "HARM": 0.6346
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.621,
+            "HARM": 0.0088
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.621,
+            "HARM": 0.0088
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0088,
+            "HARM": 0.621
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0088,
+            "HARM": 0.621
+          },
+          "correct": true
+        }
+      ],
+      "items_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0159,
+            "RUIN": -0.0129
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "context_class": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0159,
+            "RUIN": -0.0129
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0221,
+            "RUIN": 0.0339
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "context_class": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.0221,
+            "RUIN": 0.0339
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0129,
+            "HARM": -0.0148
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0129,
+            "HARM": -0.0148
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6337,
+            "HARM": 0.0007
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6337,
+            "HARM": 0.0007
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0022,
+            "HARM": 0.6418
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0022,
+            "HARM": 0.6418
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0055,
+            "HARM": 0.6418
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0055,
+            "HARM": 0.6418
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6418,
+            "HARM": 0.0356
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6418,
+            "HARM": 0.0356
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6418,
+            "HARM": -0.0182
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6418,
+            "HARM": -0.0182
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6326,
+            "HARM": -0.0051
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "context_class": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6326,
+            "HARM": -0.0051
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0192,
+            "HARM": -0.0277
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "context_class": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.0192,
+            "HARM": -0.0277
+          },
+          "correct": false
+        }
+      ],
+      "items_baseline": [
+        {
+          "noun": "ring",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "painting",
+          "context_class": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "wife",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        },
+        {
+          "noun": "husband",
+          "context_class": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    }
+  }
+}
