@@ -910,6 +910,58 @@ def _sentences(text: str) -> List[str]:
     return [s.strip() for s in _SENT_SPLIT_RE.split(text) if s.strip()]
 
 
+# ============================================================================ REFERENT-EXTRACTION
+# REPAIR (2026-08-06, did-it-happen occurrence-gate unblock; preregs/
+# 2026-08-06_did_it_happen_occurrence_gate_v1.md). The occurrence-gate + recurrence channel (built at
+# 7058d026b, strict-ADD, mechanism-correct) landed net-new-correct=0 on the real-prose eval because
+# the signals were STARVED by two upstream referent-extraction gaps -- fixed here, still strict-ADD:
+#
+#   GAP-C (actual side): find_actual_state_candidates reads the pre-verb NP head as the referent via
+#     _np_last_content(toks[:idx]). For a NEGATED outcome verb the do-support/negator/modal cluster
+#     ("the boat DID NOT sink", "he DIDN'T come back") sits between the true subject and the verb, so
+#     the rightmost pre-verb token is the negator/aux -> referent poisoned to "not"/"did" ->
+#     congruence_decision discards the (correct) occurrence-gate flip at referent_mismatch. FIX: for a
+#     negated verb, skip the contiguous pre-verbal negator/aux/transparent-adverb cluster before
+#     taking the NP head. NON-negated extraction is BYTE-IDENTICAL (toks[:idx]) -- a genuinely
+#     different referent still mismatches (precision guard).
+#
+#   GAP-B (desired side): an OOV control-verb goal ("wanted to FIND love") has no CLASS_REGISTRY
+#     class, so neither SUBJECT_IS_REFERENT nor OBJECT_IS_REFERENT applied and the referent was left
+#     None -> the recurrence "same-referent" match died at referent_extraction_failed even when the
+#     outcome recurred the goal verb. FIX: extract the object NP after the embedded verb (the goal's
+#     THEME) for the OOV control case -- symmetric with the recurrence channel's actual-side object
+#     theme below. Conservative: only fills a slot that was None; never overrides an existing referent.
+_PREVERBAL_AUX = {
+    "did", "do", "does", "will", "would", "shall", "should", "can", "could", "may", "might",
+    "must", "have", "has", "had", "is", "are", "was", "were", "be", "been", "being", "am",
+}
+
+
+def _subject_span_skipping_preverbal_aux(toks: List[str], v_idx: int) -> List[str]:
+    """Pre-verb subject-NP span for a NEGATED verb (GAP-C): step left from v_idx-1 over the
+    contiguous pre-verbal negator / do-support-modal-copula auxiliary / transparent-adverb cluster
+    and return toks up to (and excluding) that cluster, so "the boat did not sink" -> ["the","boat"].
+    Only called when _verb_negated_before(toks, v_idx) is True; non-negated extraction stays
+    byte-identical (the caller passes toks[:v_idx] in that case)."""
+    j = v_idx - 1
+    while j >= 0 and (_is_negator(toks[j]) or toks[j] in _PREVERBAL_AUX
+                      or toks[j] in _NEG_TRANSPARENT_ADVERBS):
+        j -= 1
+    return toks[:j + 1]
+
+
+def _object_referent_after(toks: List[str], v_idx: int) -> Optional[str]:
+    """Head of the direct-object NP immediately after toks[v_idx] (walk forward to the first
+    _STOP_BOUNDARY token or "to"), or None when there is no such NP ("tried to intercede FOR anne" ->
+    None). Same span logic find_desired_state already uses for OBJECT_IS_REFERENT_CLASSES, factored
+    here so both the GAP-B desired side and the recurrence-channel actual side compare the same THEME
+    (object) of the recurred action."""
+    j = v_idx + 1
+    while j < len(toks) and toks[j] not in _STOP_BOUNDARY and toks[j] != "to":
+        j += 1
+    return _np_last_content(toks[v_idx + 1:j])
+
+
 def find_desired_state(sentence: str):
     """Locate a goal-governing (desiderative | conative | intention) purpose-infinitival "to VERB"
     and extract {referent, classes, verb_lemma, pattern}. Returns None if no GOAL_GOVERNING_PASS
@@ -947,7 +999,10 @@ def find_desired_state(sentence: str):
                     j += 1
                 referent = _np_last_content(toks[i + 2:j])
             else:
-                referent = None
+                # GAP-B (2026-08-06): OOV control verb (no CLASS_REGISTRY class) -- extract the object
+                # NP theme ("wanted to FIND love" -> "love") so the goal-verb-recurrence channel can
+                # link, instead of leaving the referent None. None-safe (stays None when no object NP).
+                referent = _object_referent_after(toks, i + 1)
         return {"referent": referent, "classes": classes, "verb_lemma": embedded_lemma,
                 "pattern": pattern}
     return None
@@ -972,12 +1027,31 @@ def find_actual_state_candidates(sentence: str, desired_verb_lemma: Optional[str
     for idx, t in enumerate(toks):
         lemma = lemma_verb(t)
         classes = _verb_classes(lemma)
+        is_recur = False
         if not classes and _is_recurrence(lemma, desired_verb_lemma):
             classes = {RECURRENCE_SENTINEL}
+            is_recur = True
         if classes:
-            referent = _np_last_content(toks[:idx])
-            out.append({"referent": referent, "classes": classes, "verb_lemma": lemma,
-                        "verb_idx": idx, "negated": _verb_negated_before(toks, idx)})
+            negated = _verb_negated_before(toks, idx)
+            # GAP-C (2026-08-06): for a NEGATED verb, skip the pre-verbal negator/aux cluster so the
+            # subject NP head is read (not "not"/"did"); byte-identical span toks[:idx] otherwise.
+            subj_span = _subject_span_skipping_preverbal_aux(toks, idx) if negated else toks[:idx]
+            subj_ref = _np_last_content(subj_span)
+            out.append({"referent": subj_ref, "classes": classes, "verb_lemma": lemma,
+                        "verb_idx": idx, "negated": negated})
+            # RECURRENCE THEME SYMMETRY (2026-08-06): a recurred TRANSITIVE action's theme is its
+            # OBJECT ("found LOVE" recurring "find LOVE"); a recurred INTRANSITIVE action's theme is
+            # its SUBJECT ("Davey PITCHED"). Robustly telling the two apart needs a parser we do not
+            # have, so emit BOTH referents as sibling recurrence candidates (subject first, preserving
+            # legacy order + the intransitive case; then the object theme) and let congruence_decision
+            # Pass-1 link on whichever matches the goal's theme. Strict-ADD: recurrence candidates
+            # exist only when desired_verb_lemma is threaded (never for legacy callers), so no
+            # class-candidate set changes and every legacy candidate SET is byte-identical.
+            if is_recur:
+                obj_ref = _object_referent_after(toks, idx)
+                if obj_ref is not None and obj_ref != subj_ref:
+                    out.append({"referent": obj_ref, "classes": classes, "verb_lemma": lemma,
+                                "verb_idx": idx, "negated": negated})
     return out
 
 
@@ -1127,9 +1201,17 @@ def lexicon_predict(outcome_sentence: str):
 def congruence_with_lexicon_fallback(passage_text: str):
     """PRODUCTION entry point: goal-congruence PRIMARY, V2_OUTCOME_UNMET/_MET lexicon as the ABSTAIN
     fallback (strict ADD -- non-goal-dependent / non-referent-stress behavior is unchanged from the
-    pre-promotion lexicon-only path). Byte-identical to
-    experiments/exp_outcome_valence_goal_congruence_v1.py::congruence_with_lexicon_fallback."""
-    verdict, detail = congruence_outcome_valence(passage_text)
+    pre-promotion lexicon-only path). WINDOW-WIDENING WIRED (2026-08-06 did-it-happen build, Check 4):
+    the PRIMARY is now congruence_outcome_valence_windowed (was congruence_outcome_valence) so a true
+    resolving clause followed by a trailing reaction/dialogue sentence is still reached. Strict-widen
+    property (see congruence_outcome_valence_windowed): when sents[-1] already yields >=1 outcome
+    candidate the windowed primary returns k=1 == congruence_outcome_valence, i.e. BYTE-IDENTICAL to
+    the pre-wire behavior for every already-typed passage; it only steps backward when the
+    closest-to-end sentence is candidate-empty. FULL-44 eval-wide non-regression verified (Check 4):
+    every verdict that moves is NONE/NA -> a correct verdict, none correct -> wrong. Was byte-identical
+    to experiments/exp_outcome_valence_goal_congruence_v1.py::congruence_with_lexicon_fallback before
+    this wire (that source cell keeps its own copy untouched)."""
+    verdict, detail = congruence_outcome_valence_windowed(passage_text)
     if verdict != "NA":
         return verdict, detail
     sents = _sentences(passage_text)

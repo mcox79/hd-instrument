@@ -1,30 +1,46 @@
 """Scaffold-free witness for the DID-IT-HAPPEN occurrence-gate + recurrence + window-widening build
-(2026-08-06). tracing=False; hdlab organs + the in-repo eval JSONL only (no experiment-cell scaffold,
-no corpora needed -- the eval carries each passage's text directly).
+AND its 2026-08-06 REFERENT-EXTRACTION REPAIR (GAP-B / GAP-C). tracing=False; hdlab organs + the
+in-repo eval JSONL only (no experiment-cell scaffold, no corpora needed -- the eval carries each
+passage's text directly).
 
 Pre-reg: preregs/2026-08-06_did_it_happen_occurrence_gate_v1.md
 Design:  notes/research_did_it_happen_occurrence_gate_congruence_wiring_2026-08-06.md
 
-MEASURED VERDICT (this witness reproduces it): Check 1 = HARD-FAIL, Check 4 = HARD-FAIL.
-  - The occurrence-gate + recurrence channel + window-widening are all CORRECTLY BUILT (they fire on
-    constructed inputs, see check_mechanism_fires) and are strict-ADD (zero regression across all 44
-    eval items; goal_typing.self_test byte-identical), BUT they produce ZERO net-new-correct on the
-    real-prose eval because every did-it-happen item is blocked by structural gaps DEEPER than the
-    pre-reg's GAP-1 window framing:
-      GAP-A: all 15 desired verbs are OOV of CLASS_REGISTRY (empty desired classes) -> the
-             occurrence-gate has no class-related candidate to flip.
-      GAP-B: a CONTROL-pattern OOV desired verb yields desired referent=None -> a recurrence "same"
-             dies at referent_extraction_failed (onestop_limal: window reaches "found love" and
-             recurrence fires, but referent=None kills it).
-      GAP-C: a pre-verbal negator ("did not"/"never") occupies the SUBJECT slot that
-             find_actual_state_candidates reads, poisoning the actual referent to "not"/"never" ->
-             the occurrence-gate flip is discarded at referent_mismatch (the flip is computed,
-             occurrence_gate_fired=True, but never reaches a linking referent).
-      GAP-D: window-widening reaches a DISTRACTOR clause ("All the balls failed") or finds no
-             class/recurrence candidate anywhere in the window (woz_dorothy: carry/take are OOV).
-  - This is the pre-reg's anticipated "clean fail is honest + informative" outcome (P_deflated
-    Check1=0.35, Check4=0.25). The mechanism is retained (dormant-but-correct substrate); the newly
-    discovered blocker is GAP-B/GAP-C referent extraction, the natural next FORMALIZE target.
+HISTORY. The occurrence-gate + recurrence channel + window-widening were built at 7058d026b (strict-ADD,
+mechanism-correct on constructed inputs) but landed net-new-correct=0 on the real-prose eval because the
+signals were STARVED by two upstream referent-extraction bugs (Director-reproduced): GAP-C (a pre-verbal
+negator/do-support cluster poisons the ACTUAL referent -- "the boat did not sink" -> referent="not" ->
+the correct occurrence-gate flip is discarded at referent_mismatch) and GAP-B (an OOV control-verb goal
+yields desired referent=None -> the recurrence same-referent match dies at referent_extraction_failed).
+
+MEASURED VERDICT AFTER THE REFERENT REPAIR (this witness reproduces it):
+  - GAP-C FIXED: for a NEGATED outcome verb the pre-verbal negator/aux cluster is skipped before taking
+    the subject NP head, so "the boat did not sink" -> referent="boat" and the occurrence-gate flip
+    RESOLVES (save-goal + "did not sink" -> MET). Byte-identical referent extraction for NON-negated
+    verbs (precision guard).
+  - GAP-B FIXED: an OOV control-verb goal ("wanted to find love") now extracts the object NP theme
+    ("love") instead of None, so the recurrence channel can link.
+  - RECURRENCE THEME SYMMETRY: a recurrence emits BOTH a subject-referent and an object-referent sibling
+    candidate (a recurred transitive action's theme is its object, an intransitive's is its subject; we
+    cannot tell them apart without a parser), and congruence_decision Pass-1 links on whichever matches
+    the goal's theme.
+  - WINDOW-WIDENING WIRED into production (congruence_with_lexicon_fallback now uses
+    congruence_outcome_valence_windowed; strict-widen: byte-identical when sents[-1] already has a
+    candidate).
+  MEASURED lift (disk, this witness): the 15-item did-it-happen subset moved 6/15 -> 7/15
+    (net-new +1: onestop_limal_dating, recovered via window-widening + GAP-B object theme + recurrence
+    object candidate); the full 36-OOV eval moved 6/36 -> 8/36 (net-new +2: onestop_limal_dating PLUS
+    lw_aunt_march_opposition, a recurrence 'marry' that referent-mismatches -> UNMET, matching gold).
+    ZERO regressions across the FULL 44-item eval (exactly 2 verdicts move, both NONE->correct);
+    cert 220/3 green, fair_v1 48/48, real_text owner 6/10, goal_typing.self_test byte-identical,
+    NOISE 0 leaks, numeric-threshold traps not false-MET.
+
+HONEST BAND READ (do not overclaim): net-new +1 on the 15-subset is ABOVE the luck baseline and ABOVE
+the pre-reg Check-1 HARD-FAIL bar (net==0) but BELOW its +2 HARD-PASS bar -> a PARTIAL/MIDDLE result, not
+a HARD-PASS. Check-4 recovered only 1 of the 5 GAP-1 items (onestop_limal_dating). The other 4 have
+blockers DEEPER than window-widening + referent extraction, named per-item in check4 below (no-desiderative
+-goal, OOV-verb-with-no-object-referent, ECM-copula-referent, distractor-clause) -- these are the natural
+next FORMALIZE targets, reported not forced.
 
 Run: .venv/Scripts/python.exe verification/witness_did_it_happen_occurrence_gate_v1.py
 """
@@ -70,9 +86,12 @@ def _gold(r):
     return "MET" if r["gold_outcome_polarity"] == "met" else "UNMET"
 
 
-def _windowed_fallback(txt):
-    """congruence_with_lexicon_fallback contract but routed through the WINDOWED primary (Check 4)."""
-    v, det = G.congruence_outcome_valence_windowed(txt)
+def _baseline_nonwindowed(txt):
+    """FROZEN pre-fix baseline: the NON-windowed congruence_outcome_valence primary + V2 lexicon
+    fallback (the behavior before window-widening was wired into congruence_with_lexicon_fallback).
+    The GAP-B/GAP-C referent fixes only bite via a recurrence in a BACKWARD clause, which this
+    non-windowed path never reaches, so this reproduces the exact historical 6/15 + 6/36 baseline."""
+    v, det = G.congruence_outcome_valence(txt)
     if v != "NA":
         return v, det
     sents = G._sentences(txt)
@@ -80,63 +99,76 @@ def _windowed_fallback(txt):
 
 
 def check_step0_baseline():
-    """Step 0: bare production organ (congruence_with_lexicon_fallback) -- full-36 + 15-subset."""
+    """Step 0: FROZEN baseline via the non-windowed path -- full-36 + 15-subset + congruence-native."""
     rows, d = _load()
     oov = [r for r in rows if r.get("outcome_in_lexicon") is False]
     assert len(oov) == 36, f"expected 36 OOV, got {len(oov)}"
-    full = sum(G.congruence_with_lexicon_fallback(r["text"])[0] == _gold(r) for r in oov)
-    sub = sum(G.congruence_with_lexicon_fallback(d[i]["text"])[0] == _gold(d[i]) for i in SUBSET15)
-    # all 6 currently-correct 15-subset items are LEXICON-FALLBACK (zero congruence-native), incl the
-    # two the design note guessed were structural (woz_lion, alice) -- an honest Step-0 correction.
+    full = sum(_baseline_nonwindowed(r["text"])[0] == _gold(r) for r in oov)
+    sub = sum(_baseline_nonwindowed(d[i]["text"])[0] == _gold(d[i]) for i in SUBSET15)
     native_correct = 0
     for i in SUBSET15:
-        pred, det = G.congruence_with_lexicon_fallback(d[i]["text"])
+        pred, det = _baseline_nonwindowed(d[i]["text"])
         if pred == _gold(d[i]) and det.get("reason") != "abstain_fallback_to_lexicon":
             native_correct += 1
     assert full == 6, f"Step-0 full-36 must be 6 (empty-overlay floor), got {full}"
     assert sub == 6, f"Step-0 15-subset must be 6, got {sub}"
     assert native_correct == 0, f"Step-0 congruence-native-correct on subset must be 0, got {native_correct}"
-    print(f"[CHECK step0] full-36=6/36=0.1667 | 15-subset=6/15=0.40 | congruence-native-correct=0 "
-          f"(all 6 are lexicon-fallback luck)")
+    print("[CHECK step0] FROZEN baseline (non-windowed): full-36=6/36=0.1667 | 15-subset=6/15=0.40 | "
+          "congruence-native-correct=0 (all 6 are lexicon-fallback luck)")
     return {"full36": full, "sub15": sub, "native_correct": native_correct}
 
 
 def check_mechanism_fires():
-    """The occurrence-gate, recurrence channel, and window-widening FIRE correctly on constructed
-    inputs -- distinguishes 'correctly built, eval does not exercise it' from 'silently broken'."""
-    # recurrence-only MET (OOV desired verb 'pitch' with an extractable ECM referent 'davey')
-    v, det = G.congruence_decision(["The coach wanted Davey to pitch in the final"],
-                                   "Davey pitched all afternoon")
-    assert v == "MET" and G.RECURRENCE_SENTINEL in det["actual"]["classes"], (v, det)
-    # occurrence-gate EXECUTES on a negated recurrence (flip); poisoned referent defeats the verdict
-    v2, det2 = G.congruence_decision(["The coach wanted Davey to pitch in the final"],
-                                     "Davey did not pitch at all")
-    assert det2.get("occurrence_gate_fired") is True and det2["actual"]["referent"] == "not", (v2, det2)
+    """The occurrence-gate, recurrence channel (subject + object theme), and window-widening FIRE and
+    now RESOLVE correctly on constructed inputs (was the DEFEAT documented at 7058d026b) -- proves the
+    GAP-B/GAP-C referent repair, not just that the gate executes."""
+    goal = ["The coach wanted Davey to pitch in the final"]
+    # subject-recurrence positive (intransitive theme == subject) still MET
+    v, det = G.congruence_decision(goal, "Davey pitched all afternoon")
+    assert v == "MET" and det["actual"]["referent"] == "davey" \
+        and G.RECURRENCE_SENTINEL in det["actual"]["classes"], (v, det)
+    # GAP-C: a NEGATED recurrence is no longer referent-poisoned -- referent="davey" (was "not"),
+    # occurrence-gate flips same->opposed, verdict UNMET (Davey did NOT pitch -> goal unmet).
+    v2, det2 = G.congruence_decision(goal, "Davey did not pitch at all")
+    assert det2.get("occurrence_gate_fired") is True and det2["actual"]["referent"] == "davey" \
+        and v2 == "UNMET", (v2, det2)
+    # object-recurrence positive (transitive theme == object): GAP-B object referent on the goal side
+    # links to the recurrence object candidate on the actual side.
+    v3, det3 = G.congruence_decision(["Nora wanted to paint a fence in the yard"], "Nora painted a fence")
+    assert v3 == "MET" and det3["desired"]["referent"] == "fence" \
+        and det3["actual"]["referent"] == "fence", (v3, det3)
     # window-widening steps back past a trailing reaction sentence to the true clause
     p = ("The coach wanted Davey to pitch in the final. Davey pitched all afternoon. "
          "Everyone cheered loudly.")
     assert G.congruence_outcome_valence_windowed(p)[0] == "MET" and \
         G.congruence_outcome_valence(p)[0] == "NA"
-    # referent-poisoning demonstration (GAP-C): the occurrence-gate SHOULD flip save+"did not sink"
-    # to MET (boat saved) but poisoned referent forces referent_mismatch(UNMET) -- documented defeat.
+    # GAP-C headline repro: save-goal + "The boat did not sink" now RESOLVES to MET (was the poisoned
+    # referent_mismatch(UNMET) defeat at 7058d026b) -- occurrence-gate flip reaches a literal referent.
     vp, detp = G.congruence_decision(["Owen wanted to save the boat before the storm hit"],
                                      "The boat did not sink")
-    assert detp.get("occurrence_gate_fired") is True and vp == "UNMET" and \
-        detp["reason"] == "referent_mismatch", (vp, detp)
-    print("[CHECK mechanism_fires] recurrence->MET; occurrence-gate flip EXECUTES (gate_fired=True); "
-          "window steps back to true clause; GAP-C poisoning defeat reproduced (save+'did not sink' "
-          "flips to same but referent='not' -> referent_mismatch)")
-    return {"recurrence": v, "gate_fired": det2.get("occurrence_gate_fired")}
+    assert detp.get("occurrence_gate_fired") is True and vp == "MET" \
+        and detp["reason"] == "same_class_same_referent" \
+        and detp["actual"]["referent"] == "boat", (vp, detp)
+    print("[CHECK mechanism_fires] GAP-C FIXED: 'the boat did not sink' -> referent='boat', gate flips "
+          "-> MET (was referent_mismatch/UNMET defeat). subject-recur->MET(davey); negated-recur "
+          "un-poisoned->UNMET(davey); GAP-B object-recur paint/fence->MET; window steps back to true clause")
+    return {"gapc_repro": vp, "gate_fired": detp.get("occurrence_gate_fired")}
 
 
 def check1_occurrence_gate_and_recurrence():
-    """Check 1 (production sents[-1] path): net-new-correct on the 15-subset + eval-wide no-regression
-    + NOISE anti-drift + numeric-threshold no-false-MET."""
+    """Check 1 (production, now WINDOWED primary): net-new-correct on the 15-subset relative to the
+    frozen non-windowed baseline + NOISE anti-drift + light-verb recurrence block + numeric-threshold
+    no-false-MET."""
     _rows, d = _load()
-    # baseline re-run (bare organ is what production is; Check 1 changes are strict-ADD inside it, so
-    # to measure the *delta* we compare production-now against the Step-0 numbers just proven == 6/6).
-    sub_now = sum(G.congruence_with_lexicon_fallback(d[i]["text"])[0] == _gold(d[i]) for i in SUBSET15)
-    net_new = sub_now - 6
+    base_sub = sum(_baseline_nonwindowed(d[i]["text"])[0] == _gold(d[i]) for i in SUBSET15)
+    prod_sub = sum(G.congruence_with_lexicon_fallback(d[i]["text"])[0] == _gold(d[i]) for i in SUBSET15)
+    net_new = prod_sub - base_sub
+    # which items newly earned a congruence-native verdict
+    newly = []
+    for i in SUBSET15:
+        pred, det = G.congruence_with_lexicon_fallback(d[i]["text"])
+        if pred == _gold(d[i]) and det.get("reason") != "abstain_fallback_to_lexicon":
+            newly.append((i, det.get("reason")))
     # NOISE anti-drift: 0 spurious congruence-native MET/UNMET
     leaks = 0
     for v, sent in NOISE:
@@ -153,44 +185,58 @@ def check1_occurrence_gate_and_recurrence():
     # numeric-threshold: must NOT be flipped to a false MET
     for i in ["race_chen_situps", "onestop_carle_madeinfrance"]:
         assert G.congruence_with_lexicon_fallback(d[i]["text"])[0] != "MET", i
-    assert net_new == 0, f"MEASURED Check-1 net-new-correct on 15-subset = {net_new} (HARD-FAIL: 0)"
+    assert base_sub == 6 and prod_sub == 7, (base_sub, prod_sub)
+    assert net_new == 1, f"MEASURED Check-1 net-new-correct on 15-subset = {net_new} (expected +1)"
     assert leaks == 0, f"NOISE anti-drift leaks = {leaks} (HARD-FAIL if > 0)"
-    print(f"[CHECK check1] MEASURED net-new-correct=0/15 -> HARD-FAIL bar hit (pre-reg: net==0 is "
-          f"HARD-FAIL); NOISE leaks=0; light-verb recurrence blocked; numeric-threshold no false MET")
-    return {"net_new": net_new, "noise_leaks": leaks}
+    assert ("onestop_limal_dating", "same_class_same_referent") in newly, newly
+    print(f"[CHECK check1] MEASURED net-new-correct = +1/15 (6->7; onestop_limal_dating, "
+          f"same_class_same_referent); ABOVE luck baseline + HARD-FAIL(0) bar, BELOW +2 HARD-PASS "
+          f"(PARTIAL); NOISE leaks=0; light-verb recurrence blocked; numeric-threshold no false MET")
+    return {"net_new": net_new, "noise_leaks": leaks, "newly_earned": newly}
 
 
 def check4_window_widening():
-    """Check 4 (windowed path): GAP-1 items recovered + FULL-44 non-regression."""
+    """Check 4 (windowed production): GAP-1 items recovered + FULL-44 non-regression (every moved
+    verdict is a gain)."""
     rows, d = _load()
-    recovered = []
-    for i in GAP1_ITEMS:
-        w = _windowed_fallback(d[i]["text"])[0]
-        if w == _gold(d[i]):
-            recovered.append(i)
-    # FULL-44 non-regression: windowed primary must not change any verdict vs the production sents[-1]
-    # path (measured: 0 changes -- window-widening reaches earlier clauses but the reached clauses hit
-    # GAP-B/C/D so no verdict actually moves either way).
-    changed = []
+    recovered = [i for i in GAP1_ITEMS
+                 if G.congruence_with_lexicon_fallback(d[i]["text"])[0] == _gold(d[i])]
+    # FULL-44 non-regression: compare windowed production against the frozen non-windowed baseline.
+    gains, regressions = [], []
     for r in rows:
-        base_pred = G.congruence_with_lexicon_fallback(r["text"])[0]
-        win_pred = _windowed_fallback(r["text"])[0]
-        if win_pred != base_pred:
-            changed.append((r["id"], base_pred, win_pred))
-    assert len(recovered) < 2, f"MEASURED GAP-1 recovered = {recovered} (pre-reg HARD-FAIL: < 2)"
-    assert not changed, f"window-widening regressed/changed verdicts eval-wide: {changed}"
-    print(f"[CHECK check4] MEASURED GAP-1 recovered={len(recovered)}/5 -> HARD-FAIL (pre-reg: <2 is "
-          f"HARD-FAIL); FULL-44 verdict changes={len(changed)} (zero regression)")
-    return {"recovered": recovered, "eval_wide_changes": changed}
+        base = _baseline_nonwindowed(r["text"])[0]
+        prod = G.congruence_with_lexicon_fallback(r["text"])[0]
+        if prod == base:
+            continue
+        bc, pc = base == _gold(r), prod == _gold(r)
+        if pc and not bc:
+            gains.append(r["id"])
+        elif bc and not pc:
+            regressions.append((r["id"], base, prod))
+    assert recovered == ["onestop_limal_dating"], f"GAP-1 recovered = {recovered} (expected exactly 1)"
+    assert not regressions, f"FULL-44 REGRESSIONS: {regressions}"
+    assert sorted(gains) == ["lw_aunt_march_opposition", "onestop_limal_dating"], gains
+    print(f"[CHECK check4] MEASURED GAP-1 recovered={len(recovered)}/5 (onestop_limal_dating, via "
+          f"window-widening + GAP-B object theme + recurrence object candidate); FULL-44: 2 verdicts "
+          f"move, BOTH gains ({sorted(gains)}), ZERO regressions. Remaining 4 GAP-1 items have DEEPER "
+          f"blockers (out of GAP-B/GAP-C scope): lw_laurie=no_desiderative_goal_found; "
+          f"agg_anne_mrs_barry=OOV verb 'intercede' with no object referent; woz_dorothy=ECM copula "
+          f"referent 'is'; race_davey=distractor clause 'balls failed', goal 'play' never recurs")
+    return {"recovered": recovered, "gains": gains, "regressions": regressions}
 
 
 def check_strict_add():
     """goal_typing.self_test passes (all decisive cases byte-identical) AND legacy find_actual_state_
-    candidates (no desired_verb_lemma) never produces a RECURRENCE_SENTINEL."""
+    candidates (no desired_verb_lemma) never produces a RECURRENCE_SENTINEL (GAP-C referent skip is
+    negated-only, so non-negated legacy extraction is byte-identical)."""
     G.self_test()
     assert not any(G.RECURRENCE_SENTINEL in c["classes"]
                    for c in G.find_actual_state_candidates("Davey pitched all afternoon"))
-    print("[CHECK strict_add] goal_typing.self_test passes; legacy candidate scan has no recurrence")
+    # GAP-C is NEGATED-only: a non-negated candidate's referent is byte-identical to toks[:idx].
+    cands = G.find_actual_state_candidates("The boat sank in the storm")
+    assert cands and cands[0]["referent"] == "boat" and cands[0]["negated"] is False
+    print("[CHECK strict_add] goal_typing.self_test passes; legacy candidate scan has no recurrence; "
+          "non-negated referent extraction byte-identical")
     return True
 
 
@@ -200,10 +246,11 @@ def run():
     r1 = check1_occurrence_gate_and_recurrence()
     r4 = check4_window_widening()
     rs = check_strict_add()
-    print("[ALL CHECKS PASS] did-it-happen occurrence-gate: mechanism CORRECTLY BUILT + strict-ADD "
-          "(zero regression, self_test byte-identical), but MEASURED VERDICT = Check1 HARD-FAIL "
-          "(net-new=0) + Check4 HARD-FAIL (GAP-1 recovered=0/5), blocked by referent-extraction "
-          "gaps (GAP-A/B/C/D) deeper than the pre-reg's window framing. Honest informative fail.")
+    print("[ALL CHECKS PASS] did-it-happen occurrence-gate REFERENT REPAIR (GAP-B/GAP-C) MEASURED: "
+          "15-subset 6->7 (net-new +1), full-36 6->8 (net-new +2), GAP-C repro flips to MET, "
+          "onestop_limal_dating recovered via window-widening; ZERO regressions (cert 220/3, fair 48/48, "
+          "real 6/10, self_test byte-identical, NOISE 0 leaks, numeric-threshold not false-MET). "
+          "PARTIAL vs the +2/3-of-5 HARD-PASS bars -- honest; 4 remaining GAP-1 items need deeper fixes.")
     return {"step0": r0, "mechanism": rm, "check1": r1, "check4": r4, "strict_add": rs}
 
 
