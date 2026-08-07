@@ -74,7 +74,7 @@ from typing import Dict, List, Sequence
 import torch
 
 from hdlab.situation_model_accumulate import AccumulateRegister
-from hdlab.goal_typing import type_goal_events
+from hdlab.goal_typing import type_goal_events, congruence_with_lexicon_fallback, find_desired_state
 from hdlab.state_of_mind import PRONOUN_SCOPE, infer_nominal_gender
 
 # GoalOutcomeRegister role vocabulary (Zwaan goal/intentionality + outcome valence), byte-identical
@@ -582,6 +582,46 @@ def _outcome_pos(role_seq: Sequence[str]):
     return positions[-1] if positions else None
 
 
+# ============================================================================ PATH-UNIFICATION
+# FALLBACK (2a-part-1, 2026-08-07). Two separate typing engines exist: this OWNER path (above,
+# enumerate_and_score -> build_candidate_role_seq -> type_goal_events) and the sibling POLARITY path
+# (hdlab.goal_typing.congruence_with_lexicon_fallback), which independently gained a richer
+# referent-recurrence did-it-happen mechanism (window-widening + goal-verb-recurrence) that the
+# OWNER path's own typer never sees. Brain-foundational rationale (DMN integration, Component-5):
+# the two readouts (does the outcome MATCH the goal / WHO does the outcome belong to) should share
+# ONE situation model, not run two independent typers that can disagree about whether an outcome was
+# typed AT ALL. This fallback UNIFIES them the cheap, safe way -- reuse (not reimplement) the
+# polarity path's verdict, then resolve WHO via the SAME structural machinery already in this module
+# (GeneralRecencyEntityResolver) applied to the sentence where hdlab.goal_typing.find_desired_state
+# (the richer goal-recognition the polarity path itself consults) fires -- rather than duplicating
+# the polarity path's typing logic here.
+def _unify_owner_via_polarity_path(passage_text: str, roster: dict):
+    """Resolve a goal-holder ROSTER ENTITY via the polarity path, for use ONLY when the owner path's
+    own typer (type_goal_events, via build_candidate_role_seq) typed NOTHING for ANY roster
+    candidate. Returns the resolved entity name, or None to defer (caller must raise, unchanged) --
+    never forces a bind: (1) if congruence_with_lexicon_fallback doesn't reach a MET/UNMET verdict,
+    abstain; (2) resolve the SUBJECT of the first sentence where find_desired_state fires, scanning
+    sentences in order through the SAME resolver instance (mirrors entity_goal_themes's threading
+    pattern above, so pronoun recency state accumulates identically to every other consumer in this
+    module); (3) if that subject doesn't resolve to a UNIQUE roster entity (e.g. first-person dialogue
+    "I want... said the Tin Woodman" -> a pronoun subject with no accumulated recency antecedent
+    resolves to None), abstain -- speaker-attribution for that case is a follow-up, not fixed here."""
+    verdict, _detail = congruence_with_lexicon_fallback(passage_text)
+    if verdict not in ("MET", "UNMET"):
+        return None
+    sents = _sentences(passage_text)
+    resolver = GeneralRecencyEntityResolver(roster)
+    goal_holder = None
+    for s in sents[:-1]:
+        subj = resolver.subject_entity(s)
+        if find_desired_state(s) is not None:
+            goal_holder = subj
+            break
+    if goal_holder is None or goal_holder not in roster:
+        return None
+    return goal_holder
+
+
 def enumerate_and_score(passage_text: str, roster: dict, seed: int, scramble_goal_to_foil=None):
     """Candidate-enumeration + directed-score core: propose EVERY roster entity as the outcome-slot
     referent, score each with directed_goal_outcome_score (unmodified), return (scored, winners)
@@ -609,6 +649,10 @@ def enumerate_and_score(passage_text: str, roster: dict, seed: int, scramble_goa
         any_typed = True
         scored[c] = directed_goal_outcome_score(rs, cid, seed, pos)
     if not any_typed:
+        unified_owner = _unify_owner_via_polarity_path(passage_text, roster)
+        if unified_owner is not None:
+            scored = {c: (1.0 if c == unified_owner else 0.0) for c in candidates}
+            return scored, [unified_owner]
         raise ValueError(
             f"outcome slot never typed for ANY roster candidate; passage_text's final sentence must "
             f"type an OUTCOME_UNMET/OUTCOME_MET event (lexically, via concept-similarity, or via the "
