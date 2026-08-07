@@ -87,9 +87,18 @@ primitives) + the A-steer (learn from exposure) into ONE engine.
    map learns from stories-with-consequences.
 
 ## BUILD ORDER (can-fail per stage)
-1. **[IN FLIGHT] Prove a social affect primitive grounds the harm-axis way** (exp_social_relational_
-   grounding_axis, supplied-seed, targeted probe). PASS -> social valence IS groundable as mental-harm;
-   FAIL -> primitives need the fuller experiential simulation first. [fold result in here]
+1. **[✅ DONE = HARD_PASS, ca1d70d1a, Director-VET'd] Social affect primitive GROUNDS the harm-axis way.**
+   exp_social_relational_grounding_axis_v1 (isolated, 5 seeds, full): a 12-word supplied social seed
+   (praise/accept/... vs refuse/scorn/...) propagated to open vocab via wordnet_polarity_propagation
+   (the "no free WordNet social axis" risk had a working substitute already in the codebase), fed the
+   SAME frozen appraisal-sim theta valuation as physical harm. MEASURED (Director confirmed off
+   metrics.json): open-vocab acc 0.833 on 12 HELD-OUT test verbs (appreciate/humiliate/snub/spurn/... ,
+   test_disjoint_from_seed=True); scramble 0.483 (lift 0.35); seed-ablation 0.000 (seed IS the lever);
+   random-theta 0.467 (near chance -> the EARNED valuation, not noise, does the work). => **CONFIRMED:
+   social valence grounds like physical harm (= mental harm, shared valuation), via supplied-seed +
+   WordNet propagation + the owned earned theta -- Layer-1 social primitive is REAL, not vacuous.**
+   Open: this is the SUPPLIED-seed version; the deeper experiential-social-simulation (EARN the seed)
+   is Stage 5. But the architecture (social channel -> shared harm valuation) is proven.
 2. **Layer-1 social channel** wired into the owned valuation (social-harm events -> earned harm value).
 3. **Layer-2 superposition map**: word = bundle of (context (X) sense+affect); dictionary candidate
    senses; VSA storage + context-collapse read. Prove collapse on a small taught set (spoil/cake vs
