@@ -1,0 +1,616 @@
+{
+  "anchor_name": "sharpened_credit_assignment_v1",
+  "run_mode": "smoke",
+  "config": {
+    "N_PASSES": 3,
+    "MIN_CONFIRM": 3,
+    "NEUTRAL_BAND": 0.34,
+    "n_scramble_seeds": 5,
+    "n_oov_items": 36,
+    "LIGHT_LEXNAME_BREADTH": 5,
+    "LIGHT_SENSE_COUNT": 15,
+    "LIGHT_VERB_WEIGHT": 0.15,
+    "LOADED_VERB_WEIGHT": 1.0,
+    "scramble_lift_hard_pass": 0.1,
+    "scramble_lift_no_signal": 0.05
+  },
+  "corpus_stats": {
+    "little_women.clean.txt": {
+      "total_lines": 20372,
+      "excluded_lines": 1608,
+      "n_eval_citations": 12
+    }
+  },
+  "win_stats": {
+    "total_sents": 9358,
+    "goal_fire": 958,
+    "substring_dropped": 0,
+    "n_windows": 958
+  },
+  "exclusion_integrity": {
+    "exclusion_integrity_violations": 0,
+    "clean": true
+  },
+  "majority_floor": 0.6389,
+  "fallthrough_baseline_accuracy": 0.3889,
+  "primary_accuracy": 0.4167,
+  "primary_minus_floor": -0.2222,
+  "met_recall": "10/23",
+  "unmet_recall": "5/13",
+  "n_registered_old": 14,
+  "old_registered": {
+    "cry": "POS",
+    "tell": "NEG",
+    "speak": "POS",
+    "look": "POS",
+    "whisper": "NEG",
+    "boy": "NEG",
+    "lik": "NEG",
+    "seem": "NEG",
+    "sister": "POS",
+    "feel": "POS",
+    "think": "NEG",
+    "take": "NEG",
+    "us": "POS",
+    "find": "POS"
+  },
+  "n_registered_new": 1,
+  "new_registered": {
+    "be": "POS"
+  },
+  "learnable_subset": {
+    "n_learnable": 1,
+    "registered_eval_lemmas": [
+      "be"
+    ],
+    "learnable_subset_size": 1,
+    "learnable_subset_accuracy": 0.0,
+    "learnable_subset_correct": 0
+  },
+  "bootstrap_curve": [
+    {
+      "pass": 1,
+      "n_windows_with_teacher": 240,
+      "n_windows_credited": 119,
+      "n_windows_no_anchor": 0,
+      "n_windows_clause_filtered_to_empty": 75,
+      "n_new_exposure_pairs": 174,
+      "n_newly_registered_pos": 1,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 1,
+      "n_grounded_neutral": 4,
+      "n_lemmas_pending": 74
+    },
+    {
+      "pass": 2,
+      "n_windows_with_teacher": 164,
+      "n_windows_credited": 58,
+      "n_windows_no_anchor": 0,
+      "n_windows_clause_filtered_to_empty": 62,
+      "n_new_exposure_pairs": 0,
+      "n_newly_registered_pos": 0,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 1,
+      "n_grounded_neutral": 4,
+      "n_lemmas_pending": 74
+    }
+  ],
+  "scramble": {
+    "scrambled_primary_accuracy": 0.4111,
+    "scrambled_per_seed": [
+      0.4444,
+      0.3889,
+      0.3889,
+      0.3889,
+      0.4444
+    ]
+  },
+  "scramble_lift": 0.0056,
+  "attribution_precision_old": {
+    "n_exposures": 568,
+    "n_loaded": 267,
+    "precision": 0.4701,
+    "loaded_lemmas": [
+      "answer",
+      "arm",
+      "ask",
+      "attempt",
+      "be",
+      "bed",
+      "begin",
+      "being",
+      "book",
+      "bow",
+      "cheek",
+      "clap",
+      "cock",
+      "consent",
+      "cry",
+      "disappoint",
+      "distinguish",
+      "doubt",
+      "drink",
+      "earning",
+      "envelop",
+      "explain",
+      "exult",
+      "fear",
+      "forget",
+      "freak",
+      "frighten",
+      "gallop",
+      "gown",
+      "grow",
+      "hand",
+      "hat",
+      "hop",
+      "hurry",
+      "know",
+      "labor",
+      "laugh",
+      "lean",
+      "learn",
+      "let",
+      "long",
+      "mean",
+      "mutter",
+      "need",
+      "order",
+      "paper",
+      "peg",
+      "permit",
+      "perturb",
+      "pet",
+      "pin",
+      "pity",
+      "plan",
+      "pocket",
+      "regard",
+      "regret",
+      "remember",
+      "rubber",
+      "say",
+      "seem",
+      "shop",
+      "sing",
+      "slip",
+      "sound",
+      "speak",
+      "stand",
+      "star",
+      "stoop",
+      "suit",
+      "talk",
+      "tear",
+      "tell",
+      "think",
+      "thought",
+      "trust",
+      "tuck",
+      "understand",
+      "wake",
+      "watch",
+      "wear",
+      "wed",
+      "whisper",
+      "wish",
+      "word"
+    ],
+    "light_lemmas": [
+      "ad",
+      "alway",
+      "amusement",
+      "anyth",
+      "babi",
+      "boy",
+      "bring",
+      "burn",
+      "cal",
+      "capaciou",
+      "carry",
+      "caus",
+      "check",
+      "com",
+      "come",
+      "confid",
+      "creat",
+      "danc",
+      "decid",
+      "deficienci",
+      "defin",
+      "devot",
+      "do",
+      "doing",
+      "draw",
+      "drive",
+      "everyth",
+      "explanation",
+      "expres",
+      "ey",
+      "feel",
+      "feeling",
+      "find",
+      "follow",
+      "fortun",
+      "fr",
+      "fre",
+      "friend",
+      "geniu",
+      "giv",
+      "give",
+      "go",
+      "going",
+      "gues",
+      "guest",
+      "have",
+      "heart",
+      "help",
+      "hold",
+      "hour",
+      "inquir",
+      "jump",
+      "keep",
+      "kis",
+      "ladi",
+      "leav",
+      "leave",
+      "lesson",
+      "lik",
+      "limb",
+      "lip",
+      "look",
+      "lov",
+      "lover",
+      "mak",
+      "make",
+      "manag",
+      "manner",
+      "menageri",
+      "movement",
+      "ne",
+      "noth",
+      "pas",
+      "pois",
+      "prid",
+      "pronounc",
+      "propos",
+      "pupil",
+      "rebelliou",
+      "receiv",
+      "recogniz",
+      "resolv",
+      "return",
+      "scribbl",
+      "secur",
+      "see",
+      "sel",
+      "servic",
+      "shake",
+      "sho",
+      "shortsight",
+      "show",
+      "sister",
+      "sit",
+      "smil",
+      "someth",
+      "sometim",
+      "stay",
+      "stifl",
+      "stretch",
+      "strike",
+      "strol",
+      "surviv",
+      "tak",
+      "take",
+      "temptation",
+      "thi",
+      "thing",
+      "touch",
+      "treat",
+      "tri",
+      "troubl",
+      "try",
+      "tumbl",
+      "turn",
+      "us",
+      "valu",
+      "want",
+      "wav",
+      "way",
+      "weakness",
+      "wick",
+      "worri",
+      "year"
+    ]
+  },
+  "attribution_precision_new": {
+    "n_exposures": 174,
+    "n_loaded": 86,
+    "precision": 0.4943,
+    "loaded_lemmas": [
+      "ask",
+      "attempt",
+      "be",
+      "being",
+      "cheek",
+      "cock",
+      "consent",
+      "cry",
+      "gown",
+      "hand",
+      "hurry",
+      "know",
+      "labor",
+      "learn",
+      "let",
+      "mean",
+      "need",
+      "paper",
+      "peg",
+      "pin",
+      "pocket",
+      "say",
+      "seem",
+      "tear",
+      "tell",
+      "think",
+      "trust",
+      "watch",
+      "whisper",
+      "wish",
+      "word"
+    ],
+    "light_lemmas": [
+      "alway",
+      "boy",
+      "bring",
+      "cal",
+      "capaciou",
+      "carry",
+      "caus",
+      "come",
+      "confid",
+      "creat",
+      "decid",
+      "do",
+      "explanation",
+      "feel",
+      "follow",
+      "fortun",
+      "fr",
+      "friend",
+      "give",
+      "gues",
+      "have",
+      "heart",
+      "help",
+      "inquir",
+      "keep",
+      "leav",
+      "lik",
+      "look",
+      "lov",
+      "lover",
+      "make",
+      "manner",
+      "movement",
+      "noth",
+      "pronounc",
+      "rebelliou",
+      "return",
+      "someth",
+      "stifl",
+      "tak",
+      "thi",
+      "thing",
+      "tri",
+      "try",
+      "tumbl",
+      "want",
+      "wav",
+      "wick"
+    ]
+  },
+  "arms_differ_verified": true,
+  "calibration_table": {
+    "light_verb_canary": {
+      "be": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "have": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "do": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "say": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "try": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "look": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "feel": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "want": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "think": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "make": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "come": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "go": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "find": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "ask": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "seem": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "begin": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "mean": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "know": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "see": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "tell": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "get": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "put": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "take": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "give": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "carry": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "buy": {
+        "weight": 1.0,
+        "loaded": true
+      }
+    },
+    "noise_canary": {
+      "walk": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "sit": {
+        "weight": 0.15,
+        "loaded": false
+      },
+      "speak": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "stand": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "sigh": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "glance": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "nod": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "pause": {
+        "weight": 1.0,
+        "loaded": true
+      }
+    },
+    "loaded_examples": {
+      "sink": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "mend": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "tinker": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "dwindle": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "croak": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "squander": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "flourish": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "wither": {
+        "weight": 1.0,
+        "loaded": true
+      },
+      "ruin": {
+        "weight": 1.0,
+        "loaded": true
+      }
+    },
+    "summary": {
+      "light_canary_correctly_downweighted": "16/26",
+      "loaded_examples_correctly_loaded": "9/9"
+    }
+  },
+  "gate_detail": {
+    "SCRAMBLE_COLLAPSES_lift>=0.10": false,
+    "PRIMARY_ABOVE_FLOOR": false,
+    "ARMS_DIFFER": true,
+    "SCRAMBLE_NO_SIGNAL_lift<=0.05": true,
+    "hard_fail_reasons": [
+      "SCRAMBLE_STILL_DOES_NOT_COLLAPSE_signal_still_does_not_carry"
+    ]
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: primary=0.4167 (floor=0.6389, delta=-0.2222) | scrambled=0.4111 lift=0.0056 (hard_pass>=0.1, no_signal<=0.05) | attribution_precision old=0.4701 new=0.4943 | n_registered old=14 new=1 | arms_differ=True | hard_fail_reasons=['SCRAMBLE_STILL_DOES_NOT_COLLAPSE_signal_still_does_not_carry']",
+  "summary": "HARD_FAIL: primary=0.4167 (floor=0.6389, delta=-0.2222) | scrambled=0.4111 lift=0.0056 (hard_pass>=0.1, no_signal<=0.05) | attribution_precision old=0.4701 new=0.4943 | n_registered old=14 new=1 | arms_differ=True | hard_fail_reasons=['SCRAMBLE_STILL_DOES_NOT_COLLAPSE_signal_still_does_not_carry']",
+  "elapsed_s": 10.32,
+  "discriminator_fires": {
+    "max_windows_credited": 119,
+    "fires": true
+  }
+}
