@@ -1,0 +1,2032 @@
+{
+  "verdict": "MEASURED",
+  "ts_iso": "2026-08-07T21:15:44.697650+00:00",
+  "anchor_name": "definition_composition_grounding_retest_freshset_v1",
+  "prior_probe_commit": "9907cc8e2",
+  "hypothesis": "the pre-registered light-verb filter (ARM B) GENERALIZES beyond the 16-item set it was post-hoc fit against, i.e. is not a curve-fit",
+  "pre_registration": {
+    "sense_selection": "wn.synsets(word,'v')[0] definition()+examples(), tokenized (v1.gloss_content_words, imported verbatim, unmodified)",
+    "composition_rule": "signed weighted sum over grounded gloss content-words; sign->prediction; 0->abstain (v1.compose_prediction, imported verbatim, unmodified)",
+    "light_verb_stoplist": [
+      "became",
+      "become",
+      "becomes",
+      "becoming",
+      "did",
+      "do",
+      "does",
+      "doing",
+      "gave",
+      "get",
+      "gets",
+      "getting",
+      "give",
+      "gives",
+      "giving",
+      "go",
+      "goes",
+      "going",
+      "got",
+      "had",
+      "has",
+      "have",
+      "having",
+      "made",
+      "make",
+      "makes",
+      "making",
+      "put",
+      "puts",
+      "putting",
+      "take",
+      "takes",
+      "taking",
+      "took",
+      "use",
+      "used",
+      "uses",
+      "using",
+      "went"
+    ],
+    "grounding_sources": "A=OUTCOME_SEED_POS/NEG direct; B1/B2=CONCEPT_FEATURES ATL-hub direct/one-hop-cosine(thr=0.50); C=wordnet_polarity_propagation.dictionary_lookup one-hop on the gloss word (v1.ground_gloss_word, imported verbatim, unmodified)",
+    "frozen_before_run": true
+  },
+  "fresh_held_out_set": {
+    "n_total": 28,
+    "n_neg": 14,
+    "n_pos": 14,
+    "words": [
+      "alleviate",
+      "beautify",
+      "blemish",
+      "blight",
+      "bruise",
+      "corrode",
+      "corrupt",
+      "cure",
+      "demolish",
+      "disfigure",
+      "enhance",
+      "enrich",
+      "eradicate",
+      "erect",
+      "exterminate",
+      "fortify",
+      "impair",
+      "mutilate",
+      "obliterate",
+      "perfect",
+      "polish",
+      "purify",
+      "rebuild",
+      "renovate",
+      "revitalize",
+      "sully",
+      "taint",
+      "upgrade"
+    ],
+    "gold": {
+      "demolish": "NEG",
+      "eradicate": "NEG",
+      "exterminate": "NEG",
+      "obliterate": "NEG",
+      "disfigure": "NEG",
+      "mutilate": "NEG",
+      "corrode": "NEG",
+      "corrupt": "NEG",
+      "sully": "NEG",
+      "taint": "NEG",
+      "blight": "NEG",
+      "blemish": "NEG",
+      "bruise": "NEG",
+      "impair": "NEG",
+      "beautify": "POS",
+      "alleviate": "POS",
+      "cure": "POS",
+      "enhance": "POS",
+      "enrich": "POS",
+      "polish": "POS",
+      "perfect": "POS",
+      "purify": "POS",
+      "revitalize": "POS",
+      "upgrade": "POS",
+      "erect": "POS",
+      "rebuild": "POS",
+      "fortify": "POS",
+      "renovate": "POS"
+    },
+    "selection_method": "systematic WordNet hyponym-tree draw under 4 result-verb hypernym roots (destroy.v.01, damage.v.01 -> NEG; improve.v.01, construct.v.01 -> POS), depth<=3, single-word verb lemmas, hand-vetted for (i) sense-0 denoting the intended unambiguous-valence meaning and (ii) unambiguous common-usage valence -- full writeup in this file's module docstring",
+    "disjoint_from": [
+      "OUTCOME_SEED_POS",
+      "OUTCOME_SEED_NEG",
+      "OUTCOME_HELDOUT_POS",
+      "OUTCOME_HELDOUT_NEG",
+      "v1.HELD_OUT_WORDS (the probe's 16)"
+    ],
+    "n_banned_pool": 100,
+    "chance_floor_balanced": 0.5,
+    "chance_floor_majority_class": 0.5
+  },
+  "ARM_A_no_light_verb_filter": {
+    "n": 28,
+    "coverage": 21,
+    "coverage_pct": 0.75,
+    "fires": 21,
+    "fires_pct": 0.75,
+    "acc_when_fires": 0.9048,
+    "acc_overall": 0.6786,
+    "n_correct_overall": 19,
+    "n_correct_when_fires": 19
+  },
+  "ARM_A_scrambled": {
+    "n": 28,
+    "coverage": 21,
+    "coverage_pct": 0.75,
+    "fires": 21,
+    "fires_pct": 0.75,
+    "acc_when_fires": 0.4762,
+    "acc_overall": 0.3571,
+    "n_correct_overall": 10,
+    "n_correct_when_fires": 10
+  },
+  "ARM_A_scramble_collapse_delta_acc_overall": 0.3215,
+  "ARM_B_light_verb_filter_PRIMARY_CLAIM": {
+    "n": 28,
+    "coverage": 17,
+    "coverage_pct": 0.6071,
+    "fires": 17,
+    "fires_pct": 0.6071,
+    "acc_when_fires": 0.8824,
+    "acc_overall": 0.5357,
+    "n_correct_overall": 15,
+    "n_correct_when_fires": 15
+  },
+  "ARM_B_scrambled": {
+    "n": 28,
+    "coverage": 17,
+    "coverage_pct": 0.6071,
+    "fires": 16,
+    "fires_pct": 0.5714,
+    "acc_when_fires": 0.4375,
+    "acc_overall": 0.25,
+    "n_correct_overall": 7,
+    "n_correct_when_fires": 7
+  },
+  "ARM_B_scramble_collapse_delta_acc_overall": 0.2857,
+  "ARM_B_scramble_collapse_delta_acc_when_fires": 0.4449,
+  "relational_baseline": {
+    "n": 28,
+    "coverage": 10,
+    "coverage_pct": 0.3571,
+    "fires": 10,
+    "fires_pct": 0.3571,
+    "acc_when_fires": 1.0,
+    "acc_overall": 0.3571,
+    "n_correct_overall": 10,
+    "n_correct_when_fires": 10
+  },
+  "coverage_delta_ARM_B_minus_baseline": 0.25,
+  "fires_overlap_ARM_B_vs_baseline": {
+    "both_fire": [
+      "alleviate",
+      "blight",
+      "disfigure",
+      "enrich",
+      "polish",
+      "renovate",
+      "revitalize",
+      "taint"
+    ],
+    "ARM_B_only_fires": [
+      "blemish",
+      "corrode",
+      "cure",
+      "demolish",
+      "erect",
+      "mutilate",
+      "rebuild",
+      "sully",
+      "upgrade"
+    ],
+    "baseline_only_fires": [
+      "enhance",
+      "perfect"
+    ],
+    "neither_fires": [
+      "beautify",
+      "bruise",
+      "corrupt",
+      "eradicate",
+      "exterminate",
+      "fortify",
+      "impair",
+      "obliterate",
+      "purify"
+    ],
+    "n_ARM_B_only": 9,
+    "n_baseline_only": 2
+  },
+  "ARM_C_exploratory_adjective_extension": {
+    "disclosure": "SECONDARY/EXPLORATORY. Adds a small supplied 18-word adjective-valence seed (ADJ_SEED_POS/NEG) propagated one-hop via WordNet adjective antonyms/similar_to, ON TOP OF ARM B. Reported for COVERAGE GAIN ONLY per the pre-reg -- its accuracy numbers are informational, NOT used to validate the ARM-B primary claim.",
+    "adj_seed_pos": [
+      "beautiful",
+      "clean",
+      "good",
+      "healthy",
+      "kind",
+      "pleasant",
+      "pure",
+      "strong",
+      "useful"
+    ],
+    "adj_seed_neg": [
+      "bad",
+      "dirty",
+      "foul",
+      "harsh",
+      "ugly",
+      "unhealthy",
+      "unpleasant",
+      "useless",
+      "weak"
+    ],
+    "coverage_gain_n_words_rescued_from_zero": 4,
+    "coverage_gain_words": [
+      "beautify",
+      "fortify",
+      "impair",
+      "perfect"
+    ],
+    "composition_informational_only": {
+      "n": 28,
+      "coverage": 21,
+      "coverage_pct": 0.75,
+      "fires": 21,
+      "fires_pct": 0.75,
+      "acc_when_fires": 0.9048,
+      "acc_overall": 0.6786,
+      "n_correct_overall": 19,
+      "n_correct_when_fires": 19
+    }
+  },
+  "evaluative_adjective_gap_spotcheck": {
+    "words_checked": [
+      "attached",
+      "bad",
+      "beautiful",
+      "beneficial",
+      "clean",
+      "desirable",
+      "dirty",
+      "encouragement",
+      "fond",
+      "good",
+      "harmful",
+      "healthy",
+      "imperfect",
+      "pleasant",
+      "pure",
+      "strong",
+      "ugly",
+      "undesirable",
+      "unpleasant",
+      "unusable",
+      "weak"
+    ],
+    "n_in_CONCEPT_FEATURES": 0
+  },
+  "glass_box": {
+    "alleviate": {
+      "gold": "POS",
+      "gloss": "provide physical relief, as from pain This pill will relieve your headaches",
+      "content_words": [
+        "provide",
+        "physical",
+        "relief",
+        "pain",
+        "pill",
+        "relieve",
+        "headaches"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "provide",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.123,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 0.123,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "provide",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.123,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": 0.123,
+      "arm_B_prediction": "POS",
+      "arm_B_correct": true,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "provide",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.123,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "beautify": {
+      "gold": "POS",
+      "gloss": "make more beautiful ",
+      "content_words": [
+        "make",
+        "beautiful"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 1.0,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "beautiful",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "adj_seed_direct"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "blemish": {
+      "gold": "NEG",
+      "gloss": "mar or spoil the appearance of scars defaced her cheeks The vandals disfigured the statue",
+      "content_words": [
+        "mar",
+        "spoil",
+        "appearance",
+        "scars",
+        "defaced",
+        "cheeks",
+        "vandals",
+        "disfigured",
+        "statue"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "scars",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "defaced",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "cheeks",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "disfigured",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": -0.5263,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "scars",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "defaced",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "cheeks",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "disfigured",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -0.5263,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "scars",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "defaced",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "cheeks",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "disfigured",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "blight": {
+      "gold": "NEG",
+      "gloss": "cause to suffer a blight Too much rain may blight the garden with mold",
+      "content_words": [
+        "cause",
+        "suffer",
+        "much",
+        "rain",
+        "garden",
+        "mold"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "suffer",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": -1.0,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "suffer",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -1.0,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": "NEG",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "suffer",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "bruise": {
+      "gold": "NEG",
+      "gloss": "injure the underlying soft tissue or bone of I bruised my knee",
+      "content_words": [
+        "injure",
+        "underlying",
+        "soft",
+        "tissue",
+        "bone",
+        "bruised",
+        "knee"
+      ],
+      "arm_A_hits": [],
+      "arm_A_score": 0.0,
+      "arm_A_prediction": null,
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [],
+      "arm_C_prediction": null
+    },
+    "corrode": {
+      "gold": "NEG",
+      "gloss": "cause to deteriorate due to the action of water, air, or an acid The acid corroded the metal The steady dripping of water rusted the metal stopper in the sink",
+      "content_words": [
+        "cause",
+        "deteriorate",
+        "due",
+        "action",
+        "water",
+        "air",
+        "acid",
+        "acid",
+        "corroded",
+        "metal",
+        "steady",
+        "dripping",
+        "water",
+        "rusted",
+        "metal",
+        "stopper",
+        "sink"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "deteriorate",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.0946,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "stopper",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "sink",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_A_score": -0.0946,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "deteriorate",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.0946,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "stopper",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "sink",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_B_score": -0.0946,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "deteriorate",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.0946,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "acid",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "adj_similar_to"
+        },
+        {
+          "word": "acid",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "adj_similar_to"
+        },
+        {
+          "word": "stopper",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "sink",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "corrupt": {
+      "gold": "NEG",
+      "gloss": "corrupt morally or by intemperance or sensuality debauch the young people with wine and women Socrates was accused of corrupting young men Do school counselors subvert young children? corrupt the morals",
+      "content_words": [
+        "morally",
+        "intemperance",
+        "sensuality",
+        "debauch",
+        "young",
+        "people",
+        "wine",
+        "women",
+        "socrates",
+        "accused",
+        "corrupting",
+        "young",
+        "men",
+        "school",
+        "counselors",
+        "subvert",
+        "young",
+        "children",
+        "morals"
+      ],
+      "arm_A_hits": [],
+      "arm_A_score": 0.0,
+      "arm_A_prediction": null,
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [],
+      "arm_C_prediction": null
+    },
+    "cure": {
+      "gold": "POS",
+      "gloss": "provide a cure for, make healthy again The treatment cured the boy's acne The quack pretended to heal patients but never managed to",
+      "content_words": [
+        "provide",
+        "make",
+        "healthy",
+        "treatment",
+        "cured",
+        "boy",
+        "acne",
+        "quack",
+        "pretended",
+        "heal",
+        "patients",
+        "never",
+        "managed"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "provide",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.123,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "heal",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "managed",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 3.123,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "provide",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.123,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "heal",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "managed",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": 2.123,
+      "arm_B_prediction": "POS",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "provide",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.123,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "healthy",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "adj_seed_direct"
+        },
+        {
+          "word": "heal",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "managed",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "demolish": {
+      "gold": "NEG",
+      "gloss": "destroy completely the wrecking ball demolished the building demolish your enemies pulverize the rebellion before it gets out of hand",
+      "content_words": [
+        "destroy",
+        "completely",
+        "wrecking",
+        "ball",
+        "demolished",
+        "building",
+        "enemies",
+        "pulverize",
+        "rebellion",
+        "before",
+        "gets",
+        "hand"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "pulverize",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.3005,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": -1.3005,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "pulverize",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.3005,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -1.3005,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "pulverize",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.3005,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "disfigure": {
+      "gold": "NEG",
+      "gloss": "mar or spoil the appearance of scars defaced her cheeks The vandals disfigured the statue",
+      "content_words": [
+        "mar",
+        "spoil",
+        "appearance",
+        "scars",
+        "defaced",
+        "cheeks",
+        "vandals",
+        "disfigured",
+        "statue"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "scars",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "defaced",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "cheeks",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "disfigured",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": -0.5263,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "scars",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "defaced",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "cheeks",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "disfigured",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -0.5263,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": "NEG",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "scars",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "defaced",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "cheeks",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "disfigured",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "enhance": {
+      "gold": "POS",
+      "gloss": "increase This will enhance your enjoyment heighten the tension",
+      "content_words": [
+        "increase",
+        "enjoyment",
+        "heighten",
+        "tension"
+      ],
+      "arm_A_hits": [],
+      "arm_A_score": 0.0,
+      "arm_A_prediction": null,
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [],
+      "arm_C_prediction": null
+    },
+    "enrich": {
+      "gold": "POS",
+      "gloss": "make better or improve in quality The experience enriched her understanding enriched foods",
+      "content_words": [
+        "make",
+        "better",
+        "improve",
+        "quality",
+        "experience",
+        "enriched",
+        "understanding",
+        "enriched",
+        "foods"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "better",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "improve",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "enriched",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1483,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "enriched",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1483,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 3.2966,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "better",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "improve",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "enriched",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1483,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "enriched",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1483,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": 2.2966,
+      "arm_B_prediction": "POS",
+      "arm_B_correct": true,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "better",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "improve",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "enriched",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1483,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "enriched",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1483,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "eradicate": {
+      "gold": "NEG",
+      "gloss": "kill in large numbers the plague wiped out an entire population",
+      "content_words": [
+        "kill",
+        "large",
+        "numbers",
+        "plague",
+        "wiped",
+        "entire",
+        "population"
+      ],
+      "arm_A_hits": [],
+      "arm_A_score": 0.0,
+      "arm_A_prediction": null,
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [],
+      "arm_C_prediction": null
+    },
+    "erect": {
+      "gold": "POS",
+      "gloss": "construct, build, or erect Raise a barn",
+      "content_words": [
+        "construct",
+        "build",
+        "raise",
+        "barn"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "build",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_A_score": 1.0,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "build",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_B_score": 1.0,
+      "arm_B_prediction": "POS",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "build",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "exterminate": {
+      "gold": "NEG",
+      "gloss": "kill en masse; kill on a large scale; kill many Hitler wanted to exterminate the Jews, Gypsies, Communists, and homosexuals of Europe",
+      "content_words": [
+        "kill",
+        "masse",
+        "kill",
+        "large",
+        "scale",
+        "kill",
+        "many",
+        "hitler",
+        "wanted",
+        "jews",
+        "gypsies",
+        "communists",
+        "homosexuals",
+        "europe"
+      ],
+      "arm_A_hits": [],
+      "arm_A_score": 0.0,
+      "arm_A_prediction": null,
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [],
+      "arm_C_prediction": null
+    },
+    "fortify": {
+      "gold": "POS",
+      "gloss": "make strong or stronger This exercise will strengthen your upper body strengthen the relations between the two countries",
+      "content_words": [
+        "make",
+        "strong",
+        "stronger",
+        "exercise",
+        "strengthen",
+        "upper",
+        "body",
+        "strengthen",
+        "relations",
+        "between",
+        "countries"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 1.0,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "strong",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "adj_seed_direct"
+        },
+        {
+          "word": "stronger",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "adj_antonym"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "impair": {
+      "gold": "NEG",
+      "gloss": "make worse or less effective His vision was impaired",
+      "content_words": [
+        "make",
+        "worse",
+        "less",
+        "effective",
+        "vision",
+        "impaired"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 1.0,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "worse",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "adj_antonym"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "mutilate": {
+      "gold": "NEG",
+      "gloss": "destroy or injure severely The madman mutilates art work",
+      "content_words": [
+        "destroy",
+        "injure",
+        "severely",
+        "madman",
+        "mutilates",
+        "art",
+        "work"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_A_score": -1.0,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_B_score": -1.0,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "obliterate": {
+      "gold": "NEG",
+      "gloss": "mark for deletion, rub off, or erase kill these lines in the President's speech",
+      "content_words": [
+        "mark",
+        "deletion",
+        "rub",
+        "erase",
+        "kill",
+        "lines",
+        "president",
+        "speech"
+      ],
+      "arm_A_hits": [],
+      "arm_A_score": 0.0,
+      "arm_A_prediction": null,
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [],
+      "arm_C_prediction": null
+    },
+    "perfect": {
+      "gold": "POS",
+      "gloss": "make perfect or complete perfect your French in Paris!",
+      "content_words": [
+        "make",
+        "complete",
+        "french",
+        "paris"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 1.0,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "complete",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "adj_similar_to"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "polish": {
+      "gold": "POS",
+      "gloss": "make (a surface) shine shine the silver, please polish my shoes",
+      "content_words": [
+        "make",
+        "surface",
+        "shine",
+        "shine",
+        "silver",
+        "please",
+        "shoes"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "shoes",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.7524,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 0.2476,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "shoes",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.7524,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -0.7524,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": false,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "shoes",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.7524,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "purify": {
+      "gold": "POS",
+      "gloss": "remove impurities from, increase the concentration of, and separate through the process of distillation purify the water",
+      "content_words": [
+        "remove",
+        "impurities",
+        "increase",
+        "concentration",
+        "separate",
+        "through",
+        "process",
+        "distillation",
+        "water"
+      ],
+      "arm_A_hits": [],
+      "arm_A_score": 0.0,
+      "arm_A_prediction": null,
+      "arm_A_correct": false,
+      "arm_B_hits": [],
+      "arm_B_score": 0.0,
+      "arm_B_prediction": null,
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [],
+      "arm_C_prediction": null
+    },
+    "rebuild": {
+      "gold": "POS",
+      "gloss": "build again The house was rebuild after it was hit by a bomb",
+      "content_words": [
+        "build",
+        "house",
+        "after",
+        "hit",
+        "bomb"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "build",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "hit",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 2.0,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "build",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "hit",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": 2.0,
+      "arm_B_prediction": "POS",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "build",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "hit",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "renovate": {
+      "gold": "POS",
+      "gloss": "restore to a previous or better condition They renovated the ceiling of the Sistine Chapel",
+      "content_words": [
+        "restore",
+        "previous",
+        "better",
+        "condition",
+        "renovated",
+        "ceiling",
+        "sistine",
+        "chapel"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "restore",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "better",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "condition",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "renovated",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.7561,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 2.888,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "restore",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "better",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "condition",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "renovated",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.7561,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": 2.888,
+      "arm_B_prediction": "POS",
+      "arm_B_correct": true,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "restore",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "better",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "condition",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "renovated",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.7561,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "revitalize": {
+      "gold": "POS",
+      "gloss": "restore strength This food revitalized the patient",
+      "content_words": [
+        "restore",
+        "strength",
+        "food",
+        "revitalized",
+        "patient"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "restore",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "revitalized",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": 1.1319,
+      "arm_A_prediction": "POS",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "restore",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "revitalized",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": 1.1319,
+      "arm_B_prediction": "POS",
+      "arm_B_correct": true,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "restore",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "revitalized",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "POS"
+    },
+    "sully": {
+      "gold": "NEG",
+      "gloss": "place under suspicion or cast doubt upon sully someone's reputation",
+      "content_words": [
+        "place",
+        "suspicion",
+        "cast",
+        "doubt",
+        "upon",
+        "someone",
+        "reputation"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "doubt",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": -1.0,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "doubt",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -1.0,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "doubt",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "taint": {
+      "gold": "NEG",
+      "gloss": "place under suspicion or cast doubt upon sully someone's reputation",
+      "content_words": [
+        "place",
+        "suspicion",
+        "cast",
+        "doubt",
+        "upon",
+        "sully",
+        "someone",
+        "reputation"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "doubt",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": -1.0,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": true,
+      "arm_B_hits": [
+        {
+          "word": "doubt",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -1.0,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": true,
+      "baseline_prediction": "NEG",
+      "baseline_stage": "neighbor",
+      "baseline_correct": true,
+      "arm_C_hits": [
+        {
+          "word": "doubt",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    },
+    "upgrade": {
+      "gold": "POS",
+      "gloss": "rate higher; raise in value or esteem ",
+      "content_words": [
+        "rate",
+        "higher",
+        "raise",
+        "value",
+        "esteem"
+      ],
+      "arm_A_hits": [
+        {
+          "word": "esteem",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_A_score": -1.0,
+      "arm_A_prediction": "NEG",
+      "arm_A_correct": false,
+      "arm_B_hits": [
+        {
+          "word": "esteem",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_B_score": -1.0,
+      "arm_B_prediction": "NEG",
+      "arm_B_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_correct": false,
+      "arm_C_hits": [
+        {
+          "word": "esteem",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "arm_C_prediction": "NEG"
+    }
+  },
+  "self_test": {
+    "n_fresh": 28,
+    "n_banned_pool": 100,
+    "any_covered_ARM_A": true,
+    "any_covered_ARM_B": true,
+    "scramble_machinery_changed_a_label_ARM_B": true,
+    "arm_c_adjective_smoke_ok": true
+  },
+  "reused_organ_self_tests": {
+    "wordnet_polarity_propagation_self_test": {
+      "n_anchor": 52,
+      "n_anchor_extended": 84,
+      "K_MAX": 3,
+      "NEIGHBOR_FLOOR": 0.2,
+      "VOTE_MARGIN": 0.15,
+      "VOTE_MARGIN_SATURATE": 0.5,
+      "stage_A_machinery_fires": true,
+      "scramble_flips_probe": "improve",
+      "scramble_flips_polarity": true
+    },
+    "lexical_similarity_self_test": {
+      "sim_vessel_ferry": 0.634,
+      "sim_vessel_dock": 0.2789,
+      "sim_sister_rival": 0.3977,
+      "sim_vessel_ferry_scrambled": 0.0134,
+      "threshold": 0.5,
+      "n_concepts": 89,
+      "n_feature_tags": 79
+    },
+    "verb_lexical_similarity_self_test": {
+      "n_outcome_words": 99,
+      "n_goal_words": 73,
+      "sim_praise_pos": 0.696,
+      "sim_praise_neg": 0.1606,
+      "sim_accept_pos": 0.696,
+      "sim_accept_neg": 0.1606,
+      "sim_crave_desid": 1.0,
+      "sim_crave_asp": 0.0104,
+      "sim_commence_desid": 0.0104,
+      "sim_commence_asp": 1.0,
+      "real_gap_praise": 0.5354,
+      "scrambled_gap_praise": -0.0201
+    },
+    "v1_probe_self_test": {
+      "n_held_out": 16,
+      "n_dropped_seed_members": 4,
+      "any_covered": true,
+      "scramble_machinery_changed_a_label": true,
+      "atl_hub_direct_smoke_ok": true
+    }
+  }
+}
