@@ -532,26 +532,6 @@ def _bridge_affect_outcome_event(outcome_sentence: str, roster: dict, entity: st
 # primacy_trap_endtoend_goal_coherence_candidate_gen_v1.py's build_candidate_role_seq/_outcome_pos/
 # enumerate_and_select (commit b1b1ce460), generalized off the source cell's 'item' dict onto
 # (passage_text, roster) args, extended 2026-08-06 with the Tier-3 evaluative bridge above.
-def _type_outcome_at(sentence: str, roster: dict, entity, has_open_goal: bool) -> list:
-    """Try to type a MET/UNMET outcome event for `entity` AT `sentence`: lexical/similarity typing
-    first (type_goal_events), then the two Tier-3 bridges in order (evaluative, then affect-state).
-    Returns the events list to splice in for this sentence (verbatim type_goal_events output when it
-    already carries a MET/UNMET; +1 bridged event when a bridge fires; otherwise whatever
-    type_goal_events returned, unchanged -- e.g. empty, or a non-MET/UNMET role). Factored out of
-    build_candidate_role_seq (2026-08-06, increment 2b) so the SAME single-sentence typing logic can
-    be applied to sents[-1] first and then, unchanged, to earlier sentences during the backward scan
-    below -- no new mechanism, just the existing per-sentence organ applied at more positions."""
-    events = type_goal_events(sentence, entity)
-    if any(role in (R_UNMET, R_MET) for (_e, role) in events):
-        return events
-    bridged_role = _bridge_outcome_event(sentence, roster, entity, has_open_goal)
-    if bridged_role is None:
-        bridged_role = _bridge_affect_outcome_event(sentence, roster, entity, has_open_goal)
-    if bridged_role is not None:
-        return list(events) + [(entity, bridged_role)]
-    return events
-
-
 def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
                               scramble_goal_to_foil=None):
     """Structural (gold-free) role_seq/cluster_ids for ONE proposed outcome-slot candidate.
@@ -564,19 +544,6 @@ def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
     "how glad I am!") -- before giving up. The two detectors are provably disjoint (at most one fires
     on any outcome sentence; see the affect detector's module comment), so ordering is a formality; a
     passage exercising NEITHER bridge leaves outcome_events byte-identical to the pre-bridge organ.
-
-    WHOLE-PASSAGE BACKWARD SCAN (2026-08-06, increment 2b, DMN whole-model integration -- notes/
-    formalize_situation_model_DMN_integration_spec_2026-08-06.md op D): if sents[-1] STILL types no
-    MET/UNMET for this candidate (neither type_goal_events nor either Tier-3 bridge -- the
-    OUTCOME_NEVER_TYPED case), walk BACKWARD over the earlier sentences (sents[:-1], latest-first) and
-    take the FIRST one whose SAME _type_outcome_at hypothesis-test (entity=outcome_entity) DOES yield a
-    MET/UNMET. STRICT-ADD / byte-identical fallback: this scan only ever runs when sents[-1] already
-    produced no MET/UNMET, so any item whose outcome already resolves on the final sentence is
-    completely unaffected. Bounded regression risk (an earlier coincidentally-related clause
-    outcompeting the true outcome): the scan is per-CANDIDATE (only queried for this outcome_entity,
-    never a different one) and picks the LATEST matching sentence, i.e. the earlier clause that sits
-    CLOSEST to the true outcome, not an arbitrary early one. No new binding operator or mechanism --
-    `_type_outcome_at` is the pre-existing single-sentence organ, just invoked at more positions.
     `scramble_goal_to_foil` is a diagnostic-only hook (redirects GOAL-role bindings to a named foil
     entity) for scramble-control self-tests; leave None in production use."""
     sents = _sentences(passage_text)
@@ -590,16 +557,20 @@ def build_candidate_role_seq(passage_text: str, roster: dict, outcome_entity,
                 eff = scramble_goal_to_foil
             role_seq.append(role)
             cluster_ids.append(eff)
-    has_open_goal = any(r == R_GOAL and cid == outcome_entity
-                         for r, cid in zip(role_seq, cluster_ids))
     outcome_sentence = sents[-1]
-    outcome_events = _type_outcome_at(outcome_sentence, roster, outcome_entity, has_open_goal)
+    outcome_events = type_goal_events(outcome_sentence, outcome_entity)
     if not any(role in (R_UNMET, R_MET) for (_e, role) in outcome_events):
-        for s in reversed(sents[:-1]):
-            cand_events = _type_outcome_at(s, roster, outcome_entity, has_open_goal)
-            if any(role in (R_UNMET, R_MET) for (_e, role) in cand_events):
-                outcome_events = cand_events
-                break
+        has_open_goal = any(r == R_GOAL and cid == outcome_entity
+                             for r, cid in zip(role_seq, cluster_ids))
+        # TIER-3: evaluative bridge first, then the sibling affect-state bridge (2026-08-06). Both
+        # abstaining (bridged_role stays None) leaves outcome_events byte-identical to the pre-affect
+        # organ -- the strict-ADD property.
+        bridged_role = _bridge_outcome_event(outcome_sentence, roster, outcome_entity, has_open_goal)
+        if bridged_role is None:
+            bridged_role = _bridge_affect_outcome_event(outcome_sentence, roster, outcome_entity,
+                                                        has_open_goal)
+        if bridged_role is not None:
+            outcome_events = list(outcome_events) + [(outcome_entity, bridged_role)]
     for (entity, role) in outcome_events:
         role_seq.append(role)
         cluster_ids.append(entity)
