@@ -100,10 +100,19 @@ primitives) + the A-steer (learn from exposure) into ONE engine.
    Open: this is the SUPPLIED-seed version; the deeper experiential-social-simulation (EARN the seed)
    is Stage 5. But the architecture (social channel -> shared harm valuation) is proven.
 2. **Layer-1 social channel** wired into the owned valuation (social-harm events -> earned harm value).
-3. **Layer-2 superposition map**: word = bundle of (context (X) sense+affect); dictionary candidate
-   senses; VSA storage + context-collapse read. Prove collapse on a small taught set (spoil/cake vs
-   spoil/person), can-fail: correct collapse only when the context->affect binding was TAUGHT (proves
-   learning, not lookup).
+3. **[✅ MECHANISM PROVEN = HARD_PASS, 04af969c4, Director-VET'd] Layer-2 superposition map + taught
+   context-collapse.** exp_word_context_affect_superposition_map_v1: each word = bundle(bind(context_key
+   (X) sense)) over FHRR senses; context key = patient animacy (owned); (context->sense) binding TAUGHT
+   from labeled TRAIN, tested on HELD-OUT TEST nouns; sense affect = Stage-1's valuation. 6 words (spoil/
+   beat/strike/whip/crush + cherish single-sense). MEASURED (5 seeds, Director confirmed off code+metrics):
+   held-out collapse 1.000; SCRAMBLE 0.400 (lift 0.600 -> bindings are LEARNED not lookup = the decisive
+   control); context-driven divergence 1.000; single-sense baseline 1.000 stable. **DECISIVE ANTI-CONFOUND
+   (real in code): `spoil` polarity DELIBERATELY REVERSED vs beat/strike/whip/crush -> the SAME animacy
+   feature selects OPPOSITE senses per word -> a generic "animate->X" heuristic would FAIL spoil; it
+   doesn't -> the map learned WORD-SPECIFIC bindings.** => USER's superposition-map + taught-collapse
+   architecture is PROVEN at the mechanism level. HONEST BOUNDARY: coarse context key (2-way animacy) +
+   HAND-TAUGHT bindings -> a mechanism proof, NOT rich generalization; next = richer context keys +
+   LEARN-from-exposure (stage 4).
 4. **Layer-2 learning from exposure**: fill the map by reading stories-with-consequences (self-improving
    reader); the RPE/learner writes context->affect bindings. Can-fail: held-out words' affect learned
    from exposure, not seeded.
