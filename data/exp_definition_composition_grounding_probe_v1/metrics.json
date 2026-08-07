@@ -1,0 +1,904 @@
+{
+  "verdict": "MEASURED",
+  "ts_iso": "2026-08-07T20:41:02.246130+00:00",
+  "anchor_name": "definition_composition_grounding_probe_v1",
+  "hypothesis": "definition-gloss composition over already-grounded content-words can ground an OOV outcome-verb's result-valence",
+  "sense_selection": "wn.synsets(word, pos='v')[0] (most-frequent WordNet verb sense); definition()+examples() both tokenized",
+  "grounding_depth": "A=seed direct(0); B1=ATL-hub direct(0); B2=ATL-hub one-hop cosine(1); C=wordnet_polarity_propagation.dictionary_lookup one-hop on the gloss word itself(1). No depth>=2 grounding is used in the primary composition (depth-2 is measured SEPARATELY below as a what-if diagnosis only).",
+  "composition_rule": "score = sum(+weight if POS else -weight over every grounded gloss content-word); sign(score) -> prediction; score==0 -> abstain",
+  "chance_floor_balanced": 0.5,
+  "chance_floor_majority_class": 0.5625,
+  "held_out_set": {
+    "n_total": 16,
+    "n_neg": 9,
+    "n_pos": 7,
+    "words": [
+      "bolster",
+      "botch",
+      "cherish",
+      "deface",
+      "hearten",
+      "mar",
+      "nurture",
+      "refine",
+      "ruin",
+      "sabotage",
+      "salvage",
+      "spoil",
+      "squander",
+      "tarnish",
+      "thwart",
+      "uplift"
+    ],
+    "gold": {
+      "spoil": "NEG",
+      "squander": "NEG",
+      "mar": "NEG",
+      "ruin": "NEG",
+      "tarnish": "NEG",
+      "sabotage": "NEG",
+      "botch": "NEG",
+      "deface": "NEG",
+      "thwart": "NEG",
+      "cherish": "POS",
+      "nurture": "POS",
+      "bolster": "POS",
+      "salvage": "POS",
+      "uplift": "POS",
+      "hearten": "POS",
+      "refine": "POS"
+    },
+    "dropped_already_in_seed_lexicon": [
+      "wreck",
+      "mend",
+      "restore",
+      "rescue"
+    ]
+  },
+  "composition": {
+    "n": 16,
+    "coverage": 10,
+    "coverage_pct": 0.625,
+    "fires": 6,
+    "fires_pct": 0.375,
+    "acc_when_fires": 0.8333,
+    "acc_overall": 0.3125,
+    "n_correct_overall": 5,
+    "n_correct_when_fires": 5
+  },
+  "composition_scrambled": {
+    "n": 16,
+    "coverage": 10,
+    "coverage_pct": 0.625,
+    "fires": 5,
+    "fires_pct": 0.3125,
+    "acc_when_fires": 0.4,
+    "acc_overall": 0.125,
+    "n_correct_overall": 2,
+    "n_correct_when_fires": 2
+  },
+  "scramble_collapse_delta_acc_overall": 0.1875,
+  "scramble_collapse_delta_acc_when_fires": 0.4333,
+  "baseline_relational_teacher": {
+    "n": 16,
+    "coverage": 3,
+    "coverage_pct": 0.1875,
+    "fires": 3,
+    "fires_pct": 0.1875,
+    "acc_when_fires": 1.0,
+    "acc_overall": 0.1875,
+    "n_correct_overall": 3,
+    "n_correct_when_fires": 3
+  },
+  "coverage_delta_composition_minus_baseline": 0.4375,
+  "post_hoc_diagnostic_ablation_light_verb_filtered_source_c": {
+    "disclosure": "NOT the primary pre-specified composition rule. Added AFTER the primary run (above) surfaced that generic light verbs ('make' etc.) in gloss boilerplate spuriously ground via Source C's WordNet path_similarity neighbor-vote and cancel real signal. Tests whether that specific, named composition-rule flaw (not gloss-composition-in-general) is the driver. Needs a FRESH held-out set to confirm as a generalizable fix rather than post-hoc curve-fitting to these 16 items.",
+    "light_verb_stoplist": [
+      "became",
+      "become",
+      "becomes",
+      "becoming",
+      "did",
+      "do",
+      "does",
+      "doing",
+      "gave",
+      "get",
+      "gets",
+      "getting",
+      "give",
+      "gives",
+      "giving",
+      "go",
+      "goes",
+      "going",
+      "got",
+      "had",
+      "has",
+      "have",
+      "having",
+      "made",
+      "make",
+      "makes",
+      "making",
+      "put",
+      "puts",
+      "putting",
+      "take",
+      "takes",
+      "taking",
+      "took",
+      "use",
+      "used",
+      "uses",
+      "using",
+      "went"
+    ],
+    "composition": {
+      "n": 16,
+      "coverage": 9,
+      "coverage_pct": 0.5625,
+      "fires": 8,
+      "fires_pct": 0.5,
+      "acc_when_fires": 1.0,
+      "acc_overall": 0.5,
+      "n_correct_overall": 8,
+      "n_correct_when_fires": 8
+    },
+    "composition_scrambled": {
+      "n": 16,
+      "coverage": 9,
+      "coverage_pct": 0.5625,
+      "fires": 7,
+      "fires_pct": 0.4375,
+      "acc_when_fires": 0.5714,
+      "acc_overall": 0.25,
+      "n_correct_overall": 4,
+      "n_correct_when_fires": 4
+    },
+    "scramble_collapse_delta_acc_overall": 0.25
+  },
+  "fires_overlap": {
+    "both_fire": [
+      "deface"
+    ],
+    "composition_only_fires": [
+      "mar",
+      "refine",
+      "ruin",
+      "sabotage",
+      "uplift"
+    ],
+    "baseline_only_fires": [
+      "salvage",
+      "tarnish"
+    ],
+    "neither_fires": [
+      "bolster",
+      "botch",
+      "cherish",
+      "hearten",
+      "nurture",
+      "spoil",
+      "squander",
+      "thwart"
+    ],
+    "n_composition_only": 5,
+    "n_baseline_only": 2
+  },
+  "depth2_recursion_diagnosis": {
+    "n_zero_coverage_at_depth<=1": 6,
+    "n_of_those_rescuable_at_depth2": 5,
+    "detail": {
+      "bolster": [
+        {
+          "gloss_word": "strengthen",
+          "grounds_via": "make",
+          "polarity": "POS"
+        }
+      ],
+      "cherish": [],
+      "hearten": [
+        {
+          "gloss_word": "give",
+          "grounds_via": "black",
+          "polarity": "NEG"
+        },
+        {
+          "gloss_word": "give",
+          "grounds_via": "draft",
+          "polarity": "POS"
+        }
+      ],
+      "nurture": [
+        {
+          "gloss_word": "help",
+          "grounds_via": "table",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "develop",
+          "grounds_via": "make",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "develop",
+          "grounds_via": "company",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "develop",
+          "grounds_via": "weather",
+          "polarity": "NEG"
+        },
+        {
+          "gloss_word": "help",
+          "grounds_via": "table",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "grow",
+          "grounds_via": "pass",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "grow",
+          "grounds_via": "condition",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "grow",
+          "grounds_via": "weather",
+          "polarity": "NEG"
+        },
+        {
+          "gloss_word": "grow",
+          "grounds_via": "angry",
+          "polarity": "NEG"
+        }
+      ],
+      "squander": [
+        {
+          "gloss_word": "spend",
+          "grounds_via": "pass",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "get",
+          "grounds_via": "acquired",
+          "polarity": "POS"
+        }
+      ],
+      "thwart": [
+        {
+          "gloss_word": "prevent",
+          "grounds_via": "keep",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "prevent",
+          "grounds_via": "arising",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "prevent",
+          "grounds_via": "make",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "surge",
+          "grounds_via": "rise",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "foil",
+          "grounds_via": "enhance",
+          "polarity": "POS"
+        },
+        {
+          "gloss_word": "foil",
+          "grounds_via": "picture",
+          "polarity": "POS"
+        }
+      ]
+    }
+  },
+  "glass_box_examples": {
+    "bolster": {
+      "gold": "POS",
+      "gloss": "support and strengthen bolster morale",
+      "content_words": [
+        "support",
+        "strengthen",
+        "morale"
+      ],
+      "grounded_hits": [],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "botch": {
+      "gold": "NEG",
+      "gloss": "make a mess of, destroy or ruin I botched the dinner and we had to eat out the pianist screwed up the difficult passage in the second movement",
+      "content_words": [
+        "make",
+        "mess",
+        "destroy",
+        "ruin",
+        "botched",
+        "dinner",
+        "eat",
+        "pianist",
+        "screwed",
+        "difficult",
+        "passage",
+        "second",
+        "movement"
+      ],
+      "grounded_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "cherish": {
+      "gold": "POS",
+      "gloss": "be fond of; be attached to ",
+      "content_words": [
+        "fond",
+        "attached"
+      ],
+      "grounded_hits": [],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "deface": {
+      "gold": "NEG",
+      "gloss": "mar or spoil the appearance of scars defaced her cheeks The vandals disfigured the statue",
+      "content_words": [
+        "mar",
+        "spoil",
+        "appearance",
+        "scars",
+        "defaced",
+        "cheeks",
+        "vandals",
+        "disfigured",
+        "statue"
+      ],
+      "grounded_hits": [
+        {
+          "word": "scars",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "defaced",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "cheeks",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "disfigured",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.2632,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "composition_score": -0.5263,
+      "composition_prediction": "NEG",
+      "composition_correct": true,
+      "baseline_prediction": "NEG",
+      "baseline_stage": "neighbor",
+      "baseline_confidence": 0.2632,
+      "baseline_correct": true
+    },
+    "hearten": {
+      "gold": "POS",
+      "gloss": "give encouragement to ",
+      "content_words": [
+        "give",
+        "encouragement"
+      ],
+      "grounded_hits": [],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "mar": {
+      "gold": "NEG",
+      "gloss": "make imperfect nothing marred her beauty",
+      "content_words": [
+        "make",
+        "imperfect",
+        "nothing",
+        "marred",
+        "beauty"
+      ],
+      "grounded_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "composition_score": 1.0,
+      "composition_prediction": "POS",
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "nurture": {
+      "gold": "POS",
+      "gloss": "help develop, help grow nurture his talents",
+      "content_words": [
+        "help",
+        "develop",
+        "help",
+        "grow",
+        "talents"
+      ],
+      "grounded_hits": [],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "refine": {
+      "gold": "POS",
+      "gloss": "improve or perfect by pruning or polishing refine one's style of writing",
+      "content_words": [
+        "improve",
+        "perfect",
+        "pruning",
+        "polishing",
+        "style",
+        "writing"
+      ],
+      "grounded_hits": [
+        {
+          "word": "improve",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "perfect",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "pruning",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "polishing",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 0.1319,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "composition_score": 0.2638,
+      "composition_prediction": "POS",
+      "composition_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "ruin": {
+      "gold": "NEG",
+      "gloss": "destroy completely; damage irreparably You have ruined my car by pouring sugar in the tank! The tears ruined her make-up",
+      "content_words": [
+        "destroy",
+        "completely",
+        "damage",
+        "irreparably",
+        "ruined",
+        "car",
+        "pouring",
+        "sugar",
+        "tank",
+        "tears",
+        "ruined",
+        "make"
+      ],
+      "grounded_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "damage",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "tears",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 0.1397,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "composition_score": -1.1397,
+      "composition_prediction": "NEG",
+      "composition_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "sabotage": {
+      "gold": "NEG",
+      "gloss": "destroy property or hinder normal operations The Resistance sabotaged railroad operations during the war",
+      "content_words": [
+        "destroy",
+        "property",
+        "hinder",
+        "normal",
+        "operations",
+        "resistance",
+        "sabotaged",
+        "railroad",
+        "operations",
+        "during",
+        "war"
+      ],
+      "grounded_hits": [
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "composition_score": -1.0,
+      "composition_prediction": "NEG",
+      "composition_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "salvage": {
+      "gold": "POS",
+      "gloss": "save from ruin, destruction, or harm ",
+      "content_words": [
+        "save",
+        "ruin",
+        "destruction",
+        "harm"
+      ],
+      "grounded_hits": [
+        {
+          "word": "save",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "harm",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": "POS",
+      "baseline_stage": "neighbor",
+      "baseline_confidence": 0.0566,
+      "baseline_correct": true
+    },
+    "spoil": {
+      "gold": "NEG",
+      "gloss": "make a mess of, destroy or ruin I botched the dinner and we had to eat out the pianist screwed up the difficult passage in the second movement",
+      "content_words": [
+        "make",
+        "mess",
+        "destroy",
+        "ruin",
+        "botched",
+        "dinner",
+        "eat",
+        "pianist",
+        "screwed",
+        "difficult",
+        "passage",
+        "second",
+        "movement"
+      ],
+      "grounded_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "destroy",
+          "polarity": "NEG",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        }
+      ],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "squander": {
+      "gold": "NEG",
+      "gloss": "spend thoughtlessly; throw away He wasted his inheritance on his insincere friends You squandered the opportunity to get and advanced degree",
+      "content_words": [
+        "spend",
+        "thoughtlessly",
+        "throw",
+        "away",
+        "wasted",
+        "inheritance",
+        "insincere",
+        "friends",
+        "squandered",
+        "opportunity",
+        "get",
+        "advanced",
+        "degree"
+      ],
+      "grounded_hits": [],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "tarnish": {
+      "gold": "NEG",
+      "gloss": "make dirty or spotty, as by exposure to air; also used metaphorically The silver was tarnished by the long exposure to the air Her reputation was sullied after the affair with a married man",
+      "content_words": [
+        "make",
+        "dirty",
+        "spotty",
+        "exposure",
+        "air",
+        "metaphorically",
+        "silver",
+        "tarnished",
+        "long",
+        "exposure",
+        "air",
+        "reputation",
+        "sullied",
+        "after",
+        "affair",
+        "married",
+        "man"
+      ],
+      "grounded_hits": [
+        {
+          "word": "make",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "tarnished",
+          "polarity": "NEG",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": "NEG",
+      "baseline_stage": "neighbor",
+      "baseline_confidence": 1.0,
+      "baseline_correct": true
+    },
+    "thwart": {
+      "gold": "NEG",
+      "gloss": "hinder or prevent (the efforts, plans, or desires) of What ultimately frustrated every challenger was Ruth's amazing September surge foil your opponent",
+      "content_words": [
+        "hinder",
+        "prevent",
+        "efforts",
+        "plans",
+        "desires",
+        "ultimately",
+        "frustrated",
+        "every",
+        "challenger",
+        "ruth",
+        "amazing",
+        "september",
+        "surge",
+        "foil",
+        "opponent"
+      ],
+      "grounded_hits": [],
+      "composition_score": 0.0,
+      "composition_prediction": null,
+      "composition_correct": false,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    },
+    "uplift": {
+      "gold": "POS",
+      "gloss": "fill with high spirits; fill with optimism Music can uplift your spirits",
+      "content_words": [
+        "fill",
+        "high",
+        "spirits",
+        "fill",
+        "optimism",
+        "music",
+        "spirits"
+      ],
+      "grounded_hits": [
+        {
+          "word": "fill",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "spirits",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        },
+        {
+          "word": "fill",
+          "polarity": "POS",
+          "depth": 0,
+          "weight": 1.0,
+          "source": "outcome_seed"
+        },
+        {
+          "word": "spirits",
+          "polarity": "POS",
+          "depth": 1,
+          "weight": 1.0,
+          "source": "wordnet_anchor_hop"
+        }
+      ],
+      "composition_score": 4.0,
+      "composition_prediction": "POS",
+      "composition_correct": true,
+      "baseline_prediction": null,
+      "baseline_stage": "abstain",
+      "baseline_confidence": 0.0,
+      "baseline_correct": false
+    }
+  },
+  "self_test": {
+    "n_held_out": 16,
+    "n_dropped_seed_members": 4,
+    "any_covered": true,
+    "scramble_machinery_changed_a_label": true,
+    "atl_hub_direct_smoke_ok": true
+  },
+  "reused_organ_self_tests": {
+    "wordnet_polarity_propagation_self_test": {
+      "n_anchor": 52,
+      "n_anchor_extended": 84,
+      "K_MAX": 3,
+      "NEIGHBOR_FLOOR": 0.2,
+      "VOTE_MARGIN": 0.15,
+      "VOTE_MARGIN_SATURATE": 0.5,
+      "stage_A_machinery_fires": true,
+      "scramble_flips_probe": "improve",
+      "scramble_flips_polarity": true
+    },
+    "lexical_similarity_self_test": {
+      "sim_vessel_ferry": 0.634,
+      "sim_vessel_dock": 0.2789,
+      "sim_sister_rival": 0.3977,
+      "sim_vessel_ferry_scrambled": 0.0134,
+      "threshold": 0.5,
+      "n_concepts": 89,
+      "n_feature_tags": 79
+    },
+    "verb_lexical_similarity_self_test": {
+      "n_outcome_words": 99,
+      "n_goal_words": 73,
+      "sim_praise_pos": 0.696,
+      "sim_praise_neg": 0.1606,
+      "sim_accept_pos": 0.696,
+      "sim_accept_neg": 0.1606,
+      "sim_crave_desid": 1.0,
+      "sim_crave_asp": 0.0104,
+      "sim_commence_desid": 0.0104,
+      "sim_commence_asp": 1.0,
+      "real_gap_praise": 0.5354,
+      "scrambled_gap_praise": -0.0201
+    }
+  }
+}
