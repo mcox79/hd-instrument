@@ -136,7 +136,20 @@ owned valuation + VSA + learner (wire-don't-island); brain-faithful (shared valu
 harm, context-modulated hub). Formalize-first honored (this doc); build stage-by-stage, can-fail, VET
 each, USER-visible.
 
-## STATUS
-Direction USER-confirmed. Stage 1 IN FLIGHT (Director will VET + fold in). Stages 2-5 are the program.
-This doc = the B plan of record; the situation-model competency work (polarity 11->17, owner 18->13,
-dialogue-goals) is the STRUCTURAL reading that this grounding will feed with felt meaning.
+## STATUS (2026-08-07, updated)
+Direction USER-confirmed + full-auto green-lit. **ALL 4 CORE COMPONENTS PROVEN (mechanism-level, clean
+signal, Director-VET'd): S1 grounding primitives (ca1d70d1a) + S2 superposition map+taught-collapse
+(04af969c4) + S4 learned-from-exposure (d423cce63) + richer selectional context KEY (0527afeab).** The 2
+remaining research levers TESTED -> both HARD_FAIL but CLARIFYING: COVERAGE (Levin backoff, 883e1b7ba)
+= tier-ordering pre-emption, OVERCOME = last-resort placement (predicted clean +1); NOISE (Snorkel
+soft-combine, fc21752f3) = premise stale (coverage self-resolved to 439/1655 via this session's
+goal_typing hardening) + THE REAL WALL: on REAL prose the teaching signal DOESN'T CARRY (scramble does
+NOT collapse, gap -0.03; primary 0.472 < floor 0.639) -> the earn-from-exposure loop is bottlenecked by
+CONTEXT-EXTRACTION precision (credit-assignment: attach the consequence to the right verb/goal). **KEY:
+the architecture is sound on clean signal; real-prose application is CONTEXT-EXTRACTION-limited. B
+(grounding) + context-extraction = ONE frontier (the circularity, now MEASURED).** REVISED PLAN: (1)
+Levin last-resort fix (clean +1); (2) wire the richer context KEY into the situation model + target
+CREDIT-ASSIGNMENT (goal-linked consequence, not window co-occurrence) = the real lever to make real
+prose a clean-enough teacher; (3) learning loop PROVEN + waiting -- improves as extraction improves;
+(4) Stage-5 EARN primitives via experiential-social simulation. The situation-model competency work
+(polarity 11->17, owner 18->13, dialogue-goals) IS the context extractor this grounding feeds on.
