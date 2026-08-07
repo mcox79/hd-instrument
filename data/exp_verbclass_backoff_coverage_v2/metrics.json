@@ -1,0 +1,161 @@
+{
+  "anchor_name": "exp_verbclass_backoff_coverage_v2",
+  "verdict": "PARTIAL",
+  "verdict_msg": "coverage_gain=1 (NA->CORRECT) na_to_wrong=0 regressions=0 heldout=4/8 no_overfire=True restoration_ok=True tier_counts={'primary_cascade_no_backoff_needed': 21, 'levin_last_resort_backoff': 1, 'both_abstain': 22} verdict=PARTIAL",
+  "summary": "coverage_gain=1 (NA->CORRECT) na_to_wrong=0 regressions=0 heldout=4/8 no_overfire=True restoration_ok=True tier_counts={'primary_cascade_no_backoff_needed': 21, 'levin_last_resort_backoff': 1, 'both_abstain': 22} verdict=PARTIAL",
+  "elapsed_s": 91.254787,
+  "ts_iso": "2026-08-07T13:07:18.828068+00:00",
+  "run_mode": "full",
+  "eval_path": "D:\\AI\\hd-instrument\\experiments\\data\\goal_bearing_modern_eval_v1.jsonl",
+  "n_items": 44,
+  "prior_cell": "experiments/exp_verbclass_backoff_coverage_v1.py (commit 883e1b7ba, HARD_FAIL, early-tier pre-emption)",
+  "fix_applied": "last_resort_tier_placement (patch consulted only after the FULL unpatched cascade -- including bare-lexicon fallback -- abstains)",
+  "baseline": {
+    "correct": 17,
+    "wrong": 4,
+    "na": 23
+  },
+  "last_resort": {
+    "correct": 18,
+    "wrong": 4,
+    "na": 22
+  },
+  "tier_counts": {
+    "primary_cascade_no_backoff_needed": 21,
+    "levin_last_resort_backoff": 1,
+    "both_abstain": 22
+  },
+  "coverage_gain_count": 1,
+  "coverage_gain_items": [
+    {
+      "id": "ts_tom_wish_free_potter",
+      "before": {
+        "status": "NA",
+        "verdict": "NONE",
+        "gold": "MET",
+        "reason": "abstain_fallback_to_lexicon"
+      },
+      "after": {
+        "status": "CORRECT",
+        "verdict": "MET",
+        "gold": "MET",
+        "reason": "same_class_same_referent",
+        "tier": "levin_last_resort_backoff"
+      }
+    }
+  ],
+  "na_to_wrong_count": 0,
+  "na_to_wrong_items": [],
+  "regression_count": 0,
+  "regression_items": [],
+  "unchanged_count": 43,
+  "restoration_ok": true,
+  "heldout_generalization": {
+    "n_correct": 4,
+    "n_total": 8,
+    "pass_bar": 6,
+    "results": [
+      {
+        "goal": "She wanted to procure a horse for the journey.",
+        "outcome": "But the horse was stolen before she could leave.",
+        "gold": "UNMET",
+        "verdict": "MET",
+        "correct": false,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "referent_recurrence",
+        "note": "LEVIN_POSSESSION held-out member 'procure' vs existing DAMAGE_LOSE-ish steal(OOV)/lost"
+      },
+      {
+        "goal": "She wanted to secure a loan from the bank.",
+        "outcome": "She lost the loan to a rival buyer.",
+        "gold": "UNMET",
+        "verdict": "MET",
+        "correct": false,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "referent_recurrence",
+        "note": "LEVIN_POSSESSION held-out 'secure' opposed to existing FAIL_LOSE 'lost'"
+      },
+      {
+        "goal": "The queen wished to grant her knight a title.",
+        "outcome": "The queen gave her knight the title of Sir Rowan.",
+        "gold": "MET",
+        "verdict": "MET",
+        "correct": true,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "referent_recurrence",
+        "note": "LEVIN_TRANSFER held-out 'grant' same-class as CORE 'give'"
+      },
+      {
+        "goal": "The courier meant to deliver the package before noon.",
+        "outcome": "The courier failed to deliver it in time.",
+        "gold": "UNMET",
+        "verdict": "MET",
+        "correct": false,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "same_class_same_referent",
+        "note": "LEVIN_TRANSFER held-out 'deliver' opposed to existing FAIL_LOSE 'failed'"
+      },
+      {
+        "goal": "The engineers hoped to construct a bridge across the river.",
+        "outcome": "The engineers built the bridge in six months.",
+        "gold": "MET",
+        "verdict": "MET",
+        "correct": true,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "referent_recurrence",
+        "note": "LEVIN_CREATION held-out 'construct' same-class as CORE 'build'"
+      },
+      {
+        "goal": "The smith wanted to forge a new sword for the king.",
+        "outcome": "The smith lost the metal in the fire.",
+        "gold": "UNMET",
+        "verdict": "UNMET",
+        "correct": true,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "abstain_fallback_to_lexicon",
+        "note": "LEVIN_CREATION held-out 'forge' opposed to existing FAIL_LOSE 'lost'"
+      },
+      {
+        "goal": "The sailor longed to witness the eclipse from the deck.",
+        "outcome": "The sailor saw the eclipse just before dawn.",
+        "gold": "MET",
+        "verdict": "MET",
+        "correct": true,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "referent_recurrence",
+        "note": "LEVIN_PERCEPTION held-out 'witness' same-class as CORE 'see'"
+      },
+      {
+        "goal": "The scout hoped to perceive the enemy camp before dark.",
+        "outcome": "The scout missed the camp entirely in the fog.",
+        "gold": "UNMET",
+        "verdict": "MET",
+        "correct": false,
+        "tier": "primary_cascade_no_backoff_needed",
+        "reason": "referent_recurrence",
+        "note": "LEVIN_PERCEPTION held-out 'perceive' opposed to existing FAIL_LOSE 'missed'"
+      }
+    ]
+  },
+  "adversarial_overfire_probe": {
+    "do_excluded_from_table": true,
+    "unrelated_whisper_in_table": false,
+    "unrelated_sneeze_in_table": false,
+    "unrelated_yawn_in_table": false,
+    "do_live_last_resort_verdict": "NONE",
+    "do_live_last_resort_tier": "both_abstain",
+    "do_stays_unclassed": true
+  },
+  "backoff_table_size": {
+    "full": 51,
+    "core": 38,
+    "heldout": 13
+  },
+  "gates": {
+    "coverage_gain_ge_1": true,
+    "no_regression": true,
+    "heldout_generalization_ge_6_of_8": false,
+    "no_overfire": true,
+    "restoration_ok": true
+  }
+}
