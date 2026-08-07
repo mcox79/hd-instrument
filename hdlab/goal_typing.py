@@ -1410,6 +1410,152 @@ def congruence_referent_recurrence_windowed(passage_text: str, max_window: int =
     return "NA", {"reason": "no_referent_recurrence", "referent": referent}
 
 
+# ============================================================================ CROSS-CHARACTER
+# RESPONSE CHANNEL (2026-08-07, mentalizing / Plot-Units cross-character-link ADOPT; notes/
+# formalize_cross_character_response_detector_ToM_2d_2026-08-06.md). SIBLING of the referent-
+# recurrence channel above but for the case NO same-entity channel can ever type: the goal is
+# directed at/about ANOTHER agent, and the resolution is THAT agent's own RESPONSE action (brain:
+# TPJ/mPFC mentalizing network represents a second agent's action as satisfying/blocking the
+# protagonist's goal -- Plot-Units' REQUEST honored/denied, vicarious ENABLEMENT/MOTIVATION). SUPPLY
+# (small closed lexical class, hand-authored, invariant-OK as data -- same convention as MONEY_CLASS /
+# CLASS_REGISTRY, NOT induced/tuned against eval text; deliberately NOT similarity-expanded -- see
+# _response_verb_polarity docstring).
+RESPONSE_ACCEPT_CLASS = {"accept", "take", "agree", "consent", "admit", "grant", "allow",
+                         "promise", "yield", "relent"}
+RESPONSE_REFUSE_CLASS = {"refuse", "decline", "reject", "deny", "forbid"}
+# lemma_verb SILENT-e / IRREGULAR mis-lemmatization workaround (documented pattern already used
+# elsewhere in this module -- e.g. DAMAGE_LOSE.add("collaps") for "collapsed", FILL_CLASS's "fil"
+# for "filled"): hdlab.thematic_role_labeler.lemma_verb naively strips -s/-ed/-ing and does not
+# restore a silent trailing "e", so "agreed"/"agrees" -> "agre" (not "agree"), "promised"/
+# "promises"/"promising" -> "promis", "refused"/"refuses"/"refusing" -> "refus",
+# "declined"/"declines"/"declining" -> "declin", "denies" -> "deni", "takes"/"taking" -> "tak", and
+# the irregular past-participle "taken" and past-tense "forbade" don't lemmatize to their base at
+# all. MEASURED@this build (lemma_verb probed on every inflected form of every class member): these
+# are the ONLY mis-lemmatizations in this class list; every other inflection (accept/consent/admit/
+# grant/allow/yield/relent/reject/forbid + "took"->"take", "denied"/"denying"->"deny") already folds
+# correctly. Without this fix, ordinary PAST-TENSE narrative prose ("she agreed", "he refused") --
+# the single most common tense for reporting what a character DID -- would silently never match.
+RESPONSE_ACCEPT_CLASS |= {"agre", "promis", "tak", "taken"}
+RESPONSE_REFUSE_CLASS |= {"refus", "declin", "deni"}
+assert RESPONSE_ACCEPT_CLASS.isdisjoint(RESPONSE_REFUSE_CLASS), (
+    "response-verb ACCEPT/REFUSE classes must be mutually disjoint")
+
+
+def _cross_character_goal_holder(sentence: str) -> Optional[str]:
+    """The SUBJECT NP head of `sentence`'s own GOAL_GOVERNING_PASS-governed clause -- the goal-HOLDER
+    G, NOT find_desired_state's own `referent` field (which is the desired-state THEME/addressee, a
+    different slot). Byte-identical governing-verb scan to find_desired_state's dv_idx (same
+    negation-scope guard), so this always finds the SAME governing verb find_desired_state found on
+    this sentence. Returns None if no governing verb is found (mirrors find_desired_state's contract)."""
+    toks = _ordered_tokens(sentence)
+    dv_idx = next((k for k, t in enumerate(toks)
+                   if t in GOAL_GOVERNING_PASS and not _verb_negated_before(toks, k)), None)
+    if dv_idx is None:
+        return None
+    return _np_last_content(toks[:dv_idx])
+
+
+def _response_verb_polarity(lemma: str) -> Optional[str]:
+    """MET / UNMET / None for a response-verb lemma via the closed RESPONSE_ACCEPT/REFUSE_CLASS
+    membership. Tier-1-literal ONLY, deliberately no similarity-expanded fallback: accept/take/agree
+    are already common words (the over-fire risk this whole channel is formalized against); widening
+    membership via shared-feature similarity would make that risk strictly worse, not better."""
+    if lemma in RESPONSE_ACCEPT_CLASS:
+        return "MET"
+    if lemma in RESPONSE_REFUSE_CLASS:
+        return "UNMET"
+    return None
+
+
+def _cross_character_response_in_sentence(sentence: str, goal_holder: str):
+    """First RESPONSE_ACCEPT/REFUSE_CLASS verb occurrence in `sentence` whose grammatical SUBJECT R is
+    a genuine cross-entity responder (GUARD 2: R resolved, R != goal_holder -- surface-token
+    inequality, the SAME convention every other referent comparison in this module uses). Subject
+    extraction reuses the SAME negated/non-negated span logic find_actual_state_candidates already
+    uses for its own subj_ref (_subject_span_skipping_preverbal_aux for a negated verb, else
+    toks[:idx]). Occurrence-gated: a negated response verb XOR-flips its class polarity (reuses
+    _verb_negated_before verbatim, the SAME negation-scope primitive every sibling channel uses) so
+    "would not agree" / "did not refuse" invert correctly -- this ALSO covers the spec's "'won't'/
+    'will not' + response verb" REFUSE pattern (a negated ACCEPT-class verb IS that pattern; no
+    separate rule needed). Returns (verdict, responder, detail) or None (no eligible match)."""
+    toks = _tokens(sentence)
+    for idx, tok in enumerate(toks):
+        lemma = lemma_verb(tok)
+        verdict = _response_verb_polarity(lemma)
+        if verdict is None:
+            continue
+        negated = _verb_negated_before(toks, idx)
+        subj_span = _subject_span_skipping_preverbal_aux(toks, idx) if negated else toks[:idx]
+        responder = _np_last_content(subj_span)
+        if responder is None or responder == goal_holder:
+            continue  # GUARD 2: R must resolve, and must be a genuine cross-entity (R != G)
+        if negated:
+            verdict = "UNMET" if verdict == "MET" else "MET"
+        return verdict, responder, {"reason": "cross_character_response", "response_lemma": lemma,
+                                    "responder": responder, "goal_holder": goal_holder,
+                                    "occurrence_gate_fired": negated}
+    return None
+
+
+def congruence_cross_character_response(passage_text: str, max_window: int = 4):
+    """Cross-character RESPONSE channel (ToM/mentalizing; Plot-Units REQUEST honored/denied ADOPT).
+    Same backward-window convention as congruence_outcome_valence_windowed/congruence_referent_
+    recurrence_windowed above. Fires ONLY when ALL of:
+      (a) an antecedent goal is found (find_desired_state, the SAME primary every sibling channel
+          uses) in one of the passage's non-final sentences;
+      (b) that sentence's goal-HOLDER G resolves (_cross_character_goal_holder);
+      (c) a trailing sentence (backward scan, up to max_window) contains an eligible cross-entity
+          RESPONSE_ACCEPT/REFUSE_CLASS occurrence (GUARD 2, inside _cross_character_response_in_
+          sentence: R resolved, R != G, occurrence-gated);
+      (d) GUARD 1 (MANDATORY, "NOT a bare response-verb scan"): the goal is directed AT/ABOUT the
+          responder -- the goal's own extracted referent (find_desired_state's `referent`: the
+          object-of-desire theme for CONTROL, or the addressee for ECM) discourse-links to R via
+          _referent_links, the SAME literal/pronoun_coref/shared_feature primitive congruence_
+          decision itself uses to link every other channel's referent -- reused here, not
+          reimplemented, so "overlaps R" and "R is the goal's addressee" are a single check (ECM's
+          `referent` field already IS the addressee in the cases where it resolves). EXTRA PRECISION
+          SUB-GUARD on the pronoun_coref tier specifically: _referent_links' gn_compatible is a WEAK
+          filter ("compatible unless a KNOWN conflict"), so an UNKNOWN-gender common-noun referent
+          would otherwise trivially "link" to ANY singular pronoun responder by default -- exactly
+          the bare-scan over-fire Guard 1 exists to prevent. Require the goal referent to carry a
+          KNOWN gender cue (infer_nominal_gender, via gender_number_for) before a pronoun_coref link
+          counts; literal and shared_feature tiers are unaffected (already precise).
+    NA (abstain) otherwise -- never a forced verdict. STRICT-ADD scope: this channel is a fallback
+    tier (see congruence_with_lexicon_fallback below), consulted only after the same-entity channels
+    (verb-class windowed primary, referent-recurrence) have already abstained."""
+    sents = _sentences(passage_text)
+    if len(sents) < 2:
+        return "NA", {"reason": "insufficient_sentences"}
+    goal_sentences = sents[:-1]
+    desired, goal_sentence_text = None, None
+    for gs in goal_sentences:
+        desired = find_desired_state(gs)
+        if desired is not None:
+            goal_sentence_text = gs
+            break
+    if desired is None:
+        return "NA", {"reason": "no_desiderative_goal_found"}
+    goal_holder = _cross_character_goal_holder(goal_sentence_text)
+    if goal_holder is None:
+        return "NA", {"reason": "goal_holder_unresolved"}
+    goal_referent = desired.get("referent")
+    for k in range(1, min(max_window, len(sents) - 1) + 1):
+        hit = _cross_character_response_in_sentence(sents[-k], goal_holder)
+        if hit is None:
+            continue
+        verdict, responder, detail = hit
+        linked, tier = _referent_links(goal_referent, responder)  # GUARD 1
+        if not linked:
+            continue
+        if tier == "pronoun_coref" and gender_number_for(goal_referent, is_pron=False)[0] is None:
+            continue  # EXTRA PRECISION SUB-GUARD (see docstring)
+        detail["desired"] = desired
+        detail["link_tier"] = tier
+        detail["window_k"] = k
+        return verdict, detail
+    return "NA", {"reason": "no_cross_character_response", "goal_holder": goal_holder}
+
+
 def lexicon_predict(outcome_sentence: str):
     """The mechanism this promotion supplements (not deletes): V2_OUTCOME_UNMET/_MET set-membership
     on the outcome sentence alone (same sets, same tokenization convention as
@@ -1447,13 +1593,20 @@ def congruence_with_lexicon_fallback(passage_text: str):
     goal-relative referent-grounded signal is preferred over a goal-independent word-lexicon guess.
     Strict-ADD: only consulted on NA from the primary, and itself abstains (NA) unless a genuine
     referent recurrence is found, so a passage with no antecedent goal or no eligible referent falls
-    through to the lexicon exactly as before."""
+    through to the lexicon exactly as before. CROSS-CHARACTER RESPONSE WIRED (2026-08-07, ToM/
+    mentalizing build): when BOTH prior channels abstain, try congruence_cross_character_response
+    BEFORE falling all the way to the bare lexicon -- a goal-directed second-agent response is
+    preferred over a goal-independent word-lexicon guess, same strict-ADD contract as the referent-
+    recurrence tier (only consulted on NA, itself abstains unless its own guards clear)."""
     verdict, detail = congruence_outcome_valence_windowed(passage_text)
     if verdict != "NA":
         return verdict, detail
     verdict2, detail2 = congruence_referent_recurrence_windowed(passage_text)
     if verdict2 != "NA":
         return verdict2, detail2
+    verdict3, detail3 = congruence_cross_character_response(passage_text)
+    if verdict3 != "NA":
+        return verdict3, detail3
     sents = _sentences(passage_text)
     lex = lexicon_predict(sents[-1]) if sents else "NONE"
     return lex, {"reason": "abstain_fallback_to_lexicon", "lexicon_raw": lex}
@@ -1874,6 +2027,87 @@ def self_test() -> dict:
     assert _ww == "MET" and congruence_outcome_valence(_wp2)[0] == "NA", (
         f"windowed must step back past a trailing reaction sentence to the true clause: {_ww} ({_wwd})")
 
+    # ---- (14) CROSS-CHARACTER RESPONSE CHANNEL (2026-08-07, ToM/mentalizing build) ---------------
+    # (14a) DECISIVE MET: ECM goal directed at a named responder ("wanted his SISTER to join"), the
+    # responder answers via a PRONOUN (not the literal referent surface) -- isolates this channel
+    # from referent-recurrence (which requires the literal/shared-feature referent itself to recur;
+    # "she" is neither). Guard 1 (directedness) clears via pronoun_coref (sister/she, KNOWN gender).
+    xchar_met, xchar_met_detail = congruence_with_lexicon_fallback(
+        "Owen wanted his sister to join the choir before winter. She agreed to come at once.")
+    assert xchar_met == "MET" and xchar_met_detail["reason"] == "cross_character_response", (
+        f"cross-character ECM+pronoun-response MET must fire, got {xchar_met} ({xchar_met_detail})")
+    assert xchar_met_detail["responder"] == "she" and xchar_met_detail["goal_holder"] == "owen", (
+        f"responder/goal_holder must resolve to she/owen (genuine cross-entity), got {xchar_met_detail}")
+    assert congruence_outcome_valence_windowed(
+        "Owen wanted his sister to join the choir before winter. She agreed to come at once."
+    )[0] == "NA", "sanity: verb-class primary must NOT already claim this case (isolates the channel)"
+    assert congruence_referent_recurrence_windowed(
+        "Owen wanted his sister to join the choir before winter. She agreed to come at once."
+    )[0] == "NA", "sanity: referent-recurrence must NOT already claim this case (isolates the channel)"
+
+    # (14b) DECISIVE UNMET: REFUSE class, ECM goal directed at a different named responder.
+    xchar_unmet, xchar_unmet_detail = congruence_with_lexicon_fallback(
+        "Anne wanted her brother to lend the book right away. He refused outright.")
+    assert xchar_unmet == "UNMET" and xchar_unmet_detail["reason"] == "cross_character_response", (
+        f"cross-character REFUSE-class UNMET must fire, got {xchar_unmet} ({xchar_unmet_detail})")
+
+    # (14c) OCCURRENCE-GATE: a negated ACCEPT-class response verb flips MET->UNMET ("would not
+    # agree" -- also covers the spec's "won't/will not + response verb" REFUSE pattern for free).
+    xchar_neg, xchar_neg_detail = congruence_with_lexicon_fallback(
+        "Owen wanted his sister to join the choir before winter. She would not agree to come.")
+    assert xchar_neg == "UNMET" and xchar_neg_detail.get("occurrence_gate_fired") is True, (
+        f"negated ACCEPT-class response must flip to UNMET with gate fired, got {xchar_neg} "
+        f"({xchar_neg_detail})")
+
+    # (14d) GUARD 2 (genuine cross-entity): the SAME goal-holder producing the response verb (R == G)
+    # must NOT fire this channel (same-entity resolution belongs to the other channels, not this one).
+    assert _cross_character_response_in_sentence("Owen agreed to join at once.", "owen") is None, (
+        "GUARD 2 violation: responder == goal_holder must not fire cross-character response")
+
+    # (14e) GUARD 1 (directedness, NOT a bare response-verb scan): an ACCEPT-class verb near an open
+    # goal must NOT fire when the goal's own referent does not link to the responder -- an unrelated
+    # THING-directed goal ("visit the museum") must not be satisfied by an unrelated party "agreeing"
+    # to something else entirely, even with a compatible-number pronoun subject.
+    xchar_undirected, xchar_undirected_detail = congruence_cross_character_response(
+        "Owen wanted to visit the museum before closing. She agreed to renovate the office.")
+    assert xchar_undirected == "NA", (
+        f"GUARD 1 violation: bare response-verb scan with no goal-directed link must abstain, "
+        f"got {xchar_undirected} ({xchar_undirected_detail})")
+    # sanity: this is genuinely the KNOWN-gender precision sub-guard doing the work, not merely a
+    # missing pronoun_coref link -- "museum" has unknown gender, so _referent_links itself WOULD
+    # weakly "link" via gn_compatible's default-compatible behavior; the channel's extra sub-guard
+    # (require a KNOWN gender cue on the goal referent) is what correctly blocks it.
+    _weak_linked, _weak_tier = _referent_links("museum", "she")
+    assert _weak_linked and _weak_tier == "pronoun_coref", (
+        "sanity: _referent_links' weak gn_compatible default IS permissive here (confirms the "
+        "channel's own extra precision sub-guard, not _referent_links, is what blocks GUARD 1)")
+
+    # (14f) OVER-FIRE GUARD: the 8-verb NOISE light-verb bank (none are ACCEPT/REFUSE-class members)
+    # must never produce a response-verb hit, even when embedded as the trailing sentence after a
+    # genuine open goal (the maximally adversarial placement for this channel).
+    _NOISE_VERB_SENTS = [
+        ("Owen wanted his sister to join the choir before winter.",
+         "He walked to the well and carried the pail home."),
+        ("Owen wanted his sister to join the choir before winter.",
+         "She sat by the fire in the evening."),
+        ("Owen wanted his sister to join the choir before winter.",
+         "She turned and spoke to her brother."),
+        ("Owen wanted his sister to join the choir before winter.",
+         "The boy answered the question at once."),
+        ("Owen wanted his sister to join the choir before winter.",
+         "He asked for a cup of cold water."),
+        ("Owen wanted his sister to join the choir before winter.",
+         "He stood near the open window."),
+        ("Owen wanted his sister to join the choir before winter.",
+         "She carried the basket to the market."),
+    ]
+    noise_overfire = []
+    for _goal_s, _noise_s in _NOISE_VERB_SENTS:
+        _nv, _nd = congruence_cross_character_response(_goal_s + " " + _noise_s)
+        if _nv != "NA":
+            noise_overfire.append((_noise_s, _nv, _nd))
+    assert not noise_overfire, f"NOISE-bank over-fire (HARD-FAIL class): {noise_overfire}"
+
     # (12) v1 regression: v1's original 10-item bank re-verdicts bit-identically under this module's
     # expanded registry (proves the CLASS_REGISTRY expansion did not silently change v1 behavior).
     import json
@@ -1919,6 +2153,13 @@ def self_test() -> dict:
             "recurrence_met": rec_met, "occurrence_gate_fired_on_negated": neg_det.get(
                 "occurrence_gate_fired"), "unrelated_negated_stays_na": ung_v,
             "windowed_steps_back_to_true_clause": _ww,
+        },
+        "cross_character_response": {
+            "accept_class_met": xchar_met, "refuse_class_unmet": xchar_unmet,
+            "negated_accept_flips_unmet": xchar_neg,
+            "guard2_same_entity_blocked": True,
+            "guard1_undirected_abstains": xchar_undirected,
+            "noise_bank_overfire_count": len(noise_overfire),
         },
     }
 
