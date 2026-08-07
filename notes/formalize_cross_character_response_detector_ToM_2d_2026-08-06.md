@@ -94,7 +94,21 @@ Reverted (Δ+0 = no value; the real fix is a DIFFERENT mechanism). **BRAIN-FIDEL
 (directed-goal-gated cross-entity = TPJ/mPFC), but SHAPE gap real -- the brain reads assent via
 illocutionary-force/situation-model reasoning over the whole speech act, not a lexical-class lookup; our
 closed 15-word lexicon is too coarse a METRIC proxy.**
-## ➡️ v2 = SPEECH-ACT / ASSENT-IN-DIALOGUE detection (the real ToM lever; separate, larger build)
+## ➡️ v2 DIAGNOSED RETRY (Director pre-VET, 2026-08-07): cross-char detector v2 = SAME proven-safe infra + PARTICLE MARKERS
+The v1 HARD-FAIL was NOT the guards (0/16 over-fire = perfect) -- it was the LEXICON (literal response
+VERBS absent; 3/4 responses are FID/dialogue). Director pre-VET: assent/dissent PARTICLE markers ARE
+present where verbs weren't (diana "Why, I guess so"=assent; anne_picnic "no picnic"=dissent-ish;
+becky "never"). So the diagnosed fix = REVIVE the reverted v1 infrastructure (commit de34ecdd5:
+directedness gate + responder-subject + cross-entity binding + occurrence-gate -- all proven 0/16
+over-fire) and EXPAND the response lexicon from ACCEPT/REFUSE verbs to assent/dissent PARTICLES
+(yes/yeah/sure/indeed/certainly/of-course/"i guess"/"i suppose" = assent; no/never/refuse/decline =
+dissent). Predicted ~+1-2 (diana clean directed-response; anne_picnic needs a blocked-by-authority
+variant not a directed-response, so may not fire). Same over-fire safety (proven gate). **HONEST: this
+is a modest +1-2, in the same area as 2 recent reverts -- WORTH doing when eval-tail work resumes, but
+NOT worth a fresh ~200k-token agent cycle right now given diminishing returns (Director effort-economy
+call). The deep FID-inference cases (laurie "you're too good for me"=refusal, NO marker) still need
+GROUNDING -- out of glass-box scope.**
+## ➡️ (deeper) SPEECH-ACT / ASSENT-IN-DIALOGUE detection (the real ToM lever; separate, larger build)
 The cross-character tail is conveyed via SPEECH ACTS in dialogue/FID, not literal response verbs. v2 needs
 illocutionary-force / assent detection ("Why, I guess so"=assent, "You're right"=concession,
 "You're a great deal too good for me"=polite refusal) bound to the standing directed goal. This is deeper
