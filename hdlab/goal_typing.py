@@ -1042,25 +1042,163 @@ def _object_referent_after_pp_aware(toks: List[str], v_idx: int) -> Optional[str
     return _np_last_content(toks[v_idx + 1:j])
 
 
-def find_desired_state(sentence: str):
-    """Locate a goal-governing (desiderative | conative | intention) purpose-infinitival "to VERB"
-    and extract {referent, classes, verb_lemma, pattern}. Returns None if no GOAL_GOVERNING_PASS
-    verb is found. Scan logic byte-identical to
-    experiments/exp_outcome_valence_goal_congruence_v1.py::find_desired_state; the governing-verb
-    gate widened 2026-08-06 from DESIDERATIVE_PASS alone to the GOAL_GOVERNING_PASS union (adds
-    try/decide/determine/like/love + gerund forms). Referent extraction extended 2026-08-07 with the
-    ECM-ditransitive-theme, ECM-copula, and invalid-function-word-referent repairs above."""
-    toks = _tokens(sentence)
-    # NEGATION-SCOPE GUARD (2026-08-06): iterate governing-verb occurrences and SKIP one whose verb
-    # is itself negated (do-support / modal / "never" adjacency, _verb_negated_before) -- a negated
-    # goal is ABSENT, not active -- recognizing from the first NON-negated governing verb instead.
-    # When no governing verb is negated this is behaviourally identical to the prior first-match
-    # next(...) logic (first GOAL_GOVERNING_PASS token == first non-negated one), so no non-negated
-    # coverage item changes.
-    dv_idx = next((k for k, t in enumerate(toks)
-                   if t in GOAL_GOVERNING_PASS and not _verb_negated_before(toks, k)), None)
-    if dv_idx is None:
-        return None
+# ============================================================================ DIALOGUE-GOAL
+# CONSTRUCTIONS (2026-08-07). find_desired_state's scan above requires a GOAL_GOVERNING_PASS verb
+# followed by an infinitival "to VP" -- but dialogue expresses a goal through two other constructions
+# that shape never covers:
+#
+#   HEDGED-MODAL WISH: "I wish I might open the gate" / "I wish we could get him out" -- a FINITE
+#     modal complement ("wish [SUBJ] might/could/would VP"), not an infinitival. "wish" is already
+#     GOAL_GOVERNING_PASS (DESIDERATIVE_PASS), so dv_idx above finds it, but the existing for-loop
+#     only looks for "to" and finds none here -> falls through to the original `return None`.
+#
+#   REQUEST: "let me/us VP", "may/might/can I VP", "will you (not) VP", "please VP" -- an
+#     illocutionary request IS the requester's goal (Searle 1969 directive speech acts: a request
+#     expresses the speaker's desire that the addressee bring about VP). No GOAL_GOVERNING_PASS verb
+#     governs this shape at all ("let"/"may"/"will"/"please" are not in that set), so dv_idx is None
+#     and the ORIGINAL scan never even starts.
+#
+# Both are wired as ADDITIONAL fallback passes tried only after the existing GOAL_GOVERNING_PASS +
+# "to VP" scan has already returned nothing (see find_desired_state below) -- a pure strict ADD: any
+# sentence the existing scan already resolves is untouched (these passes are never consulted), so
+# every already-passing coverage/recall/precision number stays exactly as measured.
+#
+# OVER-FIRE GUARDS (load-bearing -- requests/wishes are common; not every one is the protagonist's
+# own goal):
+#   - HEDGED_MODAL_WISH fires only for a FIRST-PERSON embedded subject ("i"/"we") -- "I wish YOU
+#     would stop" is a wish about someone ELSE's behavior, not the speaker's own action-goal.
+#   - REQUEST fires only on first-/second-person forms that request something FOR the speaker:
+#     a light/discourse-filler verb immediately governed by the request ("let me THINK", "may I
+#     SAY", "let me TELL you") is a conversational aside, not a real-world action goal
+#     (_REQUEST_DISCOURSE_STOP, SUPPLY -- the closed cognition/speech-act class, not tuned to one
+#     item); a request whose object is the 2nd-person addressee ("may I help YOU", "let me help
+#     you") is an OFFER to the addressee, not the speaker's own goal
+#     (_request_object_is_addressee); "will you (not) VP" additionally requires VP's own object to
+#     be "me"/"us" (the request explicitly names something the SPEAKER receives), which is what
+#     excludes rhetorical/command uses with no such object ("will you be quiet", "will you stop
+#     that").
+_HEDGE_MODALS = {"might", "could", "would"}
+_HEDGE_SUBJ_MAX_SPAN = 6
+_WISH_FORMS = {"wish", "wishes", "wished", "wishing"}
+assert _WISH_FORMS <= DESIDERATIVE_PASS, "wish forms must stay a subset of DESIDERATIVE_PASS"
+
+_REQUEST_ME_PRONOUNS = {"me", "us"}
+_REQUEST_MODALS_1P = {"may", "might", "can"}
+# Cognition/speech-act light verbs that read as a conversational filler ("let me THINK", "may I
+# SAY", "let me TELL you") rather than a real-world action goal when directly governed by a
+# REQUEST construction. SUPPLY, hand-authored closed class (same convention as CLASS_REGISTRY /
+# DESIDERATIVE_PASS) -- deliberately NOT the recurrence channel's _RECURRENCE_LIGHT_VERB_STOP (that
+# set includes "get", which is a genuine content verb in a request -- "let me GET my coat" -- and
+# must NOT be suppressed here).
+_REQUEST_DISCOURSE_STOP = {"think", "tell", "say", "know", "ask", "see", "explain", "mention",
+                           "guess", "wonder"}
+
+
+def _request_object_is_addressee(toks: List[str], verb_idx: int) -> bool:
+    """True iff the embedded verb's direct object is the 2nd-person addressee ("you") -- an OFFER
+    ("may I help YOU", "let me help you"), not a request for something the SPEAKER wants. Reuses the
+    existing object-NP scan (_object_referent_after) rather than a second hand-rolled one."""
+    return _object_referent_after(toks, verb_idx) == "you"
+
+
+def _find_hedged_modal_wish(toks: List[str]):
+    """HEDGED-MODAL WISH: "wish [i/we] might/could/would VP" -- see section docstring above. Returns
+    the same {referent, classes, verb_lemma, pattern} contract as find_desired_state, or None.
+    Referent extraction reuses the SAME SUBJECT_IS_REFERENT_CLASSES / OBJECT_IS_REFERENT_CLASSES
+    branching find_desired_state's CONTROL pattern already uses (the embedded verb's own class
+    decides subject-changes-state vs object-changes-state); OOV embedded verbs default to the
+    object-NP scan, exactly the GAP-B fallback convention used elsewhere in this module."""
+    for k, t in enumerate(toks):
+        if t not in _WISH_FORMS or _verb_negated_before(toks, k):
+            continue
+        j = k + 1
+        while (j < len(toks) and toks[j] not in _HEDGE_MODALS
+               and toks[j] not in _STOP_BOUNDARY and (j - k) <= _HEDGE_SUBJ_MAX_SPAN):
+            j += 1
+        if j >= len(toks) or toks[j] not in _HEDGE_MODALS:
+            continue
+        subj_span = toks[k + 1:j]
+        if subj_span not in (["i"], ["we"]):   # first-person-only over-fire guard
+            continue
+        v_idx = j + 1
+        if v_idx >= len(toks):
+            continue
+        embedded_lemma = lemma_verb(toks[v_idx])
+        classes = _verb_classes(embedded_lemma)
+        if classes & SUBJECT_IS_REFERENT_CLASSES:
+            referent = _np_last_content(subj_span)
+        else:
+            referent = _object_referent_after(toks, v_idx)
+        return {"referent": referent, "classes": classes, "verb_lemma": embedded_lemma,
+                "pattern": "HEDGED_MODAL_WISH"}
+    return None
+
+
+def _find_request_goal(toks: List[str]):
+    """REQUEST constructions -- see section docstring above. Returns the same
+    {referent, classes, verb_lemma, pattern} contract as find_desired_state, or None. Tries, in
+    order: "let me/us VP", "may/might/can I VP", "will you (not) VP" (gated to a VP whose own object
+    is "me"/"us"), "please VP"."""
+    n = len(toks)
+    for k, t in enumerate(toks):
+        if t != "let" or k + 2 >= n or toks[k + 1] not in _REQUEST_ME_PRONOUNS:
+            continue
+        v_idx = k + 2
+        if toks[v_idx] in _REQUEST_DISCOURSE_STOP or _request_object_is_addressee(toks, v_idx):
+            continue
+        embedded_lemma = lemma_verb(toks[v_idx])
+        classes = _verb_classes(embedded_lemma)
+        requester = toks[k + 1]
+        referent = requester if classes & SUBJECT_IS_REFERENT_CLASSES \
+            else _object_referent_after(toks, v_idx)
+        return {"referent": referent, "classes": classes, "verb_lemma": embedded_lemma,
+                "pattern": "REQUEST_LET"}
+    for k, t in enumerate(toks):
+        if t not in _REQUEST_MODALS_1P or k + 2 >= n or toks[k + 1] != "i":
+            continue
+        v_idx = k + 2
+        if toks[v_idx] in _REQUEST_DISCOURSE_STOP or _request_object_is_addressee(toks, v_idx):
+            continue
+        embedded_lemma = lemma_verb(toks[v_idx])
+        classes = _verb_classes(embedded_lemma)
+        referent = "i" if classes & SUBJECT_IS_REFERENT_CLASSES \
+            else _object_referent_after(toks, v_idx)
+        return {"referent": referent, "classes": classes, "verb_lemma": embedded_lemma,
+                "pattern": "REQUEST_MODAL_1P"}
+    for k, t in enumerate(toks):
+        if t != "will" or k + 1 >= n or toks[k + 1] != "you":
+            continue
+        v_idx = k + 2
+        if v_idx < n and toks[v_idx] in NEGATORS:   # "will you NOT VP" -- still a positive request
+            v_idx += 1
+        if v_idx >= n or toks[v_idx] in _REQUEST_DISCOURSE_STOP:
+            continue
+        obj = _object_referent_after(toks, v_idx)
+        if obj not in _REQUEST_ME_PRONOUNS:   # excludes "will you be quiet" / "will you stop that"
+            continue
+        embedded_lemma = lemma_verb(toks[v_idx])
+        classes = _verb_classes(embedded_lemma)
+        return {"referent": obj, "classes": classes, "verb_lemma": embedded_lemma,
+                "pattern": "REQUEST_WILL_YOU"}
+    for k, t in enumerate(toks):
+        if t != "please" or k + 1 >= n:
+            continue
+        v_idx = k + 1
+        if toks[v_idx] in _REQUEST_DISCOURSE_STOP or _request_object_is_addressee(toks, v_idx):
+            continue
+        embedded_lemma = lemma_verb(toks[v_idx])
+        classes = _verb_classes(embedded_lemma)
+        referent = "i" if classes & SUBJECT_IS_REFERENT_CLASSES \
+            else _object_referent_after(toks, v_idx)
+        return {"referent": referent, "classes": classes, "verb_lemma": embedded_lemma,
+                "pattern": "REQUEST_PLEASE"}
+    return None
+
+
+def _find_purpose_infinitival(toks: List[str], dv_idx: int):
+    """The original GOAL_GOVERNING_PASS + infinitival "to VERB" scan, unchanged (extracted verbatim
+    out of find_desired_state below so the 2026-08-07 dialogue-goal fallback passes can be tried when
+    this one finds nothing, without touching a single byte of this scan's own logic)."""
     for i in range(dv_idx + 1, len(toks) - 1):
         if toks[i] != "to" or toks[i + 1] in DET_STOP:
             continue
@@ -1104,6 +1242,39 @@ def find_desired_state(sentence: str):
         return {"referent": referent, "classes": classes, "verb_lemma": embedded_lemma,
                 "pattern": pattern}
     return None
+
+
+def find_desired_state(sentence: str):
+    """Locate a goal-bearing construction and extract {referent, classes, verb_lemma, pattern}, or
+    None if no goal is found. Tries, in order: (1) the original GOAL_GOVERNING_PASS (desiderative |
+    conative | intention) purpose-infinitival "to VERB" scan (_find_purpose_infinitival, byte-
+    identical to experiments/exp_outcome_valence_goal_congruence_v1.py::find_desired_state; the
+    governing-verb gate widened 2026-08-06 from DESIDERATIVE_PASS alone to the GOAL_GOVERNING_PASS
+    union -- adds try/decide/determine/like/love + gerund forms; referent extraction extended
+    2026-08-07 with the ECM-ditransitive-theme, ECM-copula, and invalid-function-word-referent
+    repairs above); then, ONLY when that finds nothing, (2) the HEDGED-MODAL WISH construction
+    ("wish [i/we] might/could/would VP") and (3) the REQUEST construction ("let me/us VP",
+    "may/might/can I VP", "will you (not) VP", "please VP") -- both added 2026-08-07, see the
+    DIALOGUE-GOAL CONSTRUCTIONS section above _find_hedged_modal_wish for the full rationale and
+    over-fire guards. Strict ADD: any sentence (1) already resolves is returned unchanged from (1),
+    so every existing coverage/recall/precision number this module reproduces is untouched."""
+    toks = _tokens(sentence)
+    # NEGATION-SCOPE GUARD (2026-08-06): iterate governing-verb occurrences and SKIP one whose verb
+    # is itself negated (do-support / modal / "never" adjacency, _verb_negated_before) -- a negated
+    # goal is ABSENT, not active -- recognizing from the first NON-negated governing verb instead.
+    # When no governing verb is negated this is behaviourally identical to the prior first-match
+    # next(...) logic (first GOAL_GOVERNING_PASS token == first non-negated one), so no non-negated
+    # coverage item changes.
+    dv_idx = next((k for k, t in enumerate(toks)
+                   if t in GOAL_GOVERNING_PASS and not _verb_negated_before(toks, k)), None)
+    if dv_idx is not None:
+        purpose_inf = _find_purpose_infinitival(toks, dv_idx)
+        if purpose_inf is not None:
+            return purpose_inf
+    hedged = _find_hedged_modal_wish(toks)
+    if hedged is not None:
+        return hedged
+    return _find_request_goal(toks)
 
 
 def find_actual_state_candidates(sentence: str, desired_verb_lemma: Optional[str] = None):
