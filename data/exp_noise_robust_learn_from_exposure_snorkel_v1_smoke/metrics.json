@@ -1,0 +1,331 @@
+{
+  "anchor_name": "noise_robust_learn_from_exposure_snorkel_v1",
+  "run_mode": "smoke",
+  "config": {
+    "N_PASSES": 3,
+    "CONF_THRESHOLD": 0.7,
+    "N_EM_ITERS": 15,
+    "MIN_CONFIRM": 3,
+    "NEUTRAL_BAND": 0.34,
+    "n_scramble_seeds": 5,
+    "n_oov_items": 36,
+    "or_rescue_multiple": 15,
+    "soft_rescue_multiple": 10,
+    "soft_rescue_floor": 15
+  },
+  "corpus_stats": {
+    "little_women.clean.txt": {
+      "total_lines": 20372,
+      "excluded_lines": 1608,
+      "n_eval_citations": 12
+    }
+  },
+  "win_stats": {
+    "total_sents": 9358,
+    "goal_fire": 958,
+    "substring_dropped": 0,
+    "n_windows": 958
+  },
+  "exclusion_integrity": {
+    "exclusion_integrity_violations": 0,
+    "clean": true
+  },
+  "majority_floor": 0.6389,
+  "coverage": {
+    "n_windows": 958,
+    "n_windows_AND_baseline": 240,
+    "n_windows_signal_A_fires_alone": 433,
+    "n_windows_signal_B_fires_alone": 466,
+    "n_windows_signal_C_fires_alone": 0,
+    "n_windows_signal_D_fires_alone": 0,
+    "n_windows_OR_any_signal_fires": 690,
+    "n_windows_soft_combine_trusted_pristine": 177,
+    "n_windows_evidence_but_abstained_pristine": 513,
+    "or_vs_and_multiple": 2.88,
+    "soft_vs_and_multiple": 0.74,
+    "em_alpha_pristine": {
+      "A_verbclass": 0.6395,
+      "B_lexicon": 0.5966
+    },
+    "em_pi_pristine": 0.579,
+    "or_rescue_gate_pass": false,
+    "soft_rescue_gate_pass": false
+  },
+  "n_registered_and_gate": 14,
+  "and_gate_registered": {
+    "cry": "POS",
+    "tell": "NEG",
+    "speak": "POS",
+    "look": "POS",
+    "whisper": "NEG",
+    "boy": "NEG",
+    "lik": "NEG",
+    "seem": "NEG",
+    "sister": "POS",
+    "feel": "POS",
+    "think": "NEG",
+    "take": "NEG",
+    "us": "POS",
+    "find": "POS"
+  },
+  "n_registered_soft_combine": 106,
+  "soft_combine_registered": {
+    "cry": "POS",
+    "be": "POS",
+    "hand": "POS",
+    "speak": "POS",
+    "have": "POS",
+    "look": "POS",
+    "ask": "POS",
+    "do": "POS",
+    "know": "POS",
+    "thi": "POS",
+    "find": "POS",
+    "mean": "POS",
+    "sister": "POS",
+    "feel": "POS",
+    "lov": "POS",
+    "make": "POS",
+    "troubl": "POS",
+    "try": "POS",
+    "want": "POS",
+    "say": "POS",
+    "decid": "POS",
+    "ey": "POS",
+    "someth": "POS",
+    "give": "POS",
+    "lik": "POS",
+    "come": "POS",
+    "hat": "POS",
+    "turn": "POS",
+    "us": "POS",
+    "sit": "POS",
+    "thing": "POS",
+    "boot": "POS",
+    "plan": "POS",
+    "bring": "POS",
+    "go": "POS",
+    "need": "POS",
+    "book": "POS",
+    "draw": "POS",
+    "lesson": "POS",
+    "talk": "POS",
+    "take": "POS",
+    "ad": "POS",
+    "giv": "POS",
+    "help": "POS",
+    "lip": "POS",
+    "tell": "POS",
+    "begin": "POS",
+    "tak": "POS",
+    "leave": "POS",
+    "amusement": "POS",
+    "seem": "POS",
+    "see": "POS",
+    "com": "POS",
+    "feeling": "POS",
+    "anyth": "POS",
+    "return": "POS",
+    "receiv": "POS",
+    "wear": "POS",
+    "caus": "POS",
+    "wish": "POS",
+    "hop": "POS",
+    "pin": "POS",
+    "tear": "POS",
+    "think": "POS",
+    "remember": "POS",
+    "forget": "POS",
+    "bear": "POS",
+    "arm": "POS",
+    "whisper": "POS",
+    "danc": "POS",
+    "word": "POS",
+    "bed": "POS",
+    "long": "POS",
+    "lean": "POS",
+    "laugh": "POS",
+    "sound": "POS",
+    "cal": "POS",
+    "mak": "POS",
+    "alway": "POS",
+    "stoop": "POS",
+    "thought": "POS",
+    "pet": "POS",
+    "boy": "POS",
+    "send": "POS",
+    "noth": "POS",
+    "answer": "POS",
+    "run": "POS",
+    "stand": "POS",
+    "grow": "POS",
+    "watch": "POS",
+    "reply": "POS",
+    "get": "POS",
+    "sometim": "POS",
+    "keep": "POS",
+    "frolick": "POS",
+    "hold": "POS",
+    "posses": "POS",
+    "color": "POS",
+    "glanc": "POS",
+    "valu": "POS",
+    "friend": "POS",
+    "assum": "POS",
+    "order": "POS",
+    "work": "POS",
+    "haunt": "POS",
+    "smil": "POS"
+  },
+  "fallthrough_baseline_accuracy": 0.3611,
+  "primary_accuracy": 0.5556,
+  "met_recall": "15/23",
+  "unmet_recall": "5/13",
+  "learnable_subset": {
+    "n_learnable": 10,
+    "registered_eval_lemmas": [
+      "be",
+      "come",
+      "find",
+      "give",
+      "go",
+      "have",
+      "make",
+      "take",
+      "turn",
+      "whisper"
+    ],
+    "learnable_subset_size": 13,
+    "learnable_subset_accuracy": 0.6154,
+    "learnable_subset_correct": 8
+  },
+  "light_verb_canary": {
+    "light_verb_canary_neutral_rate": 0.0,
+    "light_verb_n_reached": 23,
+    "light_verb_n_neutral": 0,
+    "light_verb_n_polar_locked": 23
+  },
+  "noise_canary": {
+    "consolidated_count": 3,
+    "consolidated_words": [
+      "sit",
+      "speak",
+      "stand"
+    ]
+  },
+  "bootstrap_curve": [
+    {
+      "pass": 1,
+      "n_windows_voted": 690,
+      "n_windows_trusted": 177,
+      "n_windows_credited": 152,
+      "n_new_exposure_pairs": 445,
+      "n_newly_registered_pos": 29,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 29,
+      "n_grounded_neutral": 0,
+      "n_lemmas_pending": 150,
+      "em_diag": {
+        "alpha": {
+          "A_verbclass": 0.6395,
+          "B_lexicon": 0.5966
+        },
+        "pi": 0.579,
+        "n_voted": 690,
+        "n_signals_active": 2
+      }
+    },
+    {
+      "pass": 2,
+      "n_windows_voted": 769,
+      "n_windows_trusted": 769,
+      "n_windows_credited": 393,
+      "n_new_exposure_pairs": 574,
+      "n_newly_registered_pos": 71,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 100,
+      "n_grounded_neutral": 0,
+      "n_lemmas_pending": 297,
+      "em_diag": {
+        "alpha": {
+          "A_verbclass": 0.7583,
+          "B_lexicon": 0.999
+        },
+        "pi": 0.95,
+        "n_voted": 769,
+        "n_signals_active": 2
+      }
+    },
+    {
+      "pass": 3,
+      "n_windows_voted": 805,
+      "n_windows_trusted": 805,
+      "n_windows_credited": 253,
+      "n_new_exposure_pairs": 33,
+      "n_newly_registered_pos": 6,
+      "n_newly_registered_neg": 0,
+      "cumulative_registered": 106,
+      "n_grounded_neutral": 0,
+      "n_lemmas_pending": 309,
+      "em_diag": {
+        "alpha": {
+          "A_verbclass": 0.7947,
+          "B_lexicon": 0.999
+        },
+        "pi": 0.95,
+        "n_voted": 805,
+        "n_signals_active": 2
+      }
+    }
+  ],
+  "scramble": {
+    "scrambled_primary_accuracy": 0.5556,
+    "scrambled_per_seed": [
+      0.5556,
+      0.5556,
+      0.5556,
+      0.5556,
+      0.5556
+    ]
+  },
+  "anti_drift_cases": {
+    "conflict_A_pos_B_neg": {
+      "trusted": false,
+      "verdict": null,
+      "q_met": 0.5
+    },
+    "conflict_2v2": {
+      "trusted": false,
+      "verdict": null,
+      "q_met": 0.5
+    },
+    "absent_no_votes": {
+      "trusted": false,
+      "reason": "zero_votes_structurally_abstains"
+    }
+  },
+  "anti_drift_all_abstain": true,
+  "arms_differ_verified": true,
+  "gate_detail": {
+    "COVERAGE_RESCUE_soft_vs_and>=10x_and_floor15": false,
+    "COVERAGE_RESCUE_or_vs_and>=15x_diagnostic": false,
+    "LEARNED_MAP_UNDER_NOISE_ls_acc>=0.75_n>=6": false,
+    "SCRAMBLE_COLLAPSE_gap>=0.15": false,
+    "SCRAMBLE_NO_SIGNAL_flag_gap<=0.08": true,
+    "ANTI_DRIFT_all_conflict_cases_abstain": true,
+    "ARMS_DIFFER_and_vs_soft_registered_maps": true,
+    "hard_fail_reasons": [
+      "COVERAGE_NOT_RESCUED_signals_absent",
+      "SCRAMBLE_DOES_NOT_COLLAPSE_no_real_signal"
+    ]
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: coverage AND=240 OR=690 soft_trusted=177 (rescue_gate=False) | primary=0.5556 (floor=0.6389) | learnable_ls_acc=0.6154(10/N>=6) | scramble=0.5556 gap=-0.0 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'SCRAMBLE_DOES_NOT_COLLAPSE_no_real_signal']",
+  "summary": "HARD_FAIL: coverage AND=240 OR=690 soft_trusted=177 (rescue_gate=False) | primary=0.5556 (floor=0.6389) | learnable_ls_acc=0.6154(10/N>=6) | scramble=0.5556 gap=-0.0 | anti_drift_ok=True | arms_differ=True | hard_fail_reasons=['COVERAGE_NOT_RESCUED_signals_absent', 'SCRAMBLE_DOES_NOT_COLLAPSE_no_rea",
+  "elapsed_s": 54.84,
+  "discriminator_fires": {
+    "n_windows_AND": 240,
+    "n_windows_soft_trusted": 177,
+    "fires": false
+  }
+}
