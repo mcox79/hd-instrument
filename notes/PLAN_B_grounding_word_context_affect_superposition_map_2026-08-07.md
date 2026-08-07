@@ -113,9 +113,20 @@ primitives) + the A-steer (learn from exposure) into ONE engine.
    architecture is PROVEN at the mechanism level. HONEST BOUNDARY: coarse context key (2-way animacy) +
    HAND-TAUGHT bindings -> a mechanism proof, NOT rich generalization; next = richer context keys +
    LEARN-from-exposure (stage 4).
-4. **Layer-2 learning from exposure**: fill the map by reading stories-with-consequences (self-improving
-   reader); the RPE/learner writes context->affect bindings. Can-fail: held-out words' affect learned
-   from exposure, not seeded.
+4. **[✅ MECHANISM PROVEN = HARD_PASS, d423cce63, Director-VET'd] Layer-2 LEARNING FROM EXPOSURE (the
+   crux -- the A-steer/North-Star core).** exp_learn_context_affect_map_from_exposure_v1: instead of
+   hand-teaching, LEARN each (word,context->sense) binding by reading each story's SHOWN CONSEQUENCE via
+   the owned congruence_with_lexicon_fallback (MET->+1/UNMET->-1), voting per exposure, gated by the
+   owned anti-drift decide_keep_or_revert. MEASURED (5 seeds, Director confirmed off metrics): learned
+   held-out 1.000 (28 items, NO hand-teaching); **SCRAMBLE-CONSEQUENCE 0.486 (lift 0.514) = the DECISIVE
+   control -- shuffle the consequences and learning falls to chance, proving the STORY'S CONSEQUENCE is
+   the genuine teacher, not a construction artifact**; anti-drift ABSTAINS on noise (inconsistent +
+   absent); spoil-reversed holds (word-specific); learned == hand-taught (gap 0.000). => the map CAN be
+   LEARNED from exposure via consequence-as-teacher + the owned gate. HONEST BOUNDARY: gap 0.000 is a
+   CLEAN-corpus artifact (consequences unambiguously hit Tier-1) -> this proves the LEARNING PIPELINE is
+   faithful under clean supervision; ROBUSTNESS TO NOISY REAL PROSE (Tier-2-only / mixed-signal
+   consequences) is the next stress test (the parallel research a91d473e on learn-affect-from-consequences
+   informs it).
 5. **Earned primitives** (deeper): swap supplied seeds for experiential-simulation-earned affect.
 
 ## INVARIANTS
