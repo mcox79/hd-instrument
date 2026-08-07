@@ -80,3 +80,24 @@ Highest-yield remaining lever (~+3-4, both numbers), = the ToM build + the one r
 #5 op G. Mechanism clean; the make-or-break is the OVER-FIRE guards (open-directed-goal + responder-subject
 + occurrence-gate + strict-ADD). Dispatch next cycle with these guards mandatory; Director pre-VETs the
 over-fire on the NOISE bank + VETs recovered items against this prediction.
+
+## ⛔ BUILT -> HARD-FAIL (Δ+0) -> REVERTED (de34ecdd5 built, reverted 4ef33fda8; Director VET'd)
+Built exactly to spec. MEASURED: ZERO over-fire (0/16 NOISE), ZERO regression, cert 220/3, guards work
+perfectly -- but Δ+0 on the real eval (polarity 15->15, owner never-typed 15->15). **ROOT CAUSE (Director
+disk-VET'd via grep of the 4 targets): 3/4 (laurie, jo_mr_laurence, diana) have NO literal ACCEPT/REFUSE
+verb anywhere -- the response is FREE-INDIRECT-DISCOURSE / dialogue ("Why, I guess so" = assent without
+"agree"; "You're right, girl, I am!" = concession). The 4th (dashwood) has literal "take" but Guard 1
+correctly abstains due to the Mr.-abbreviation splitter bug (goal referent truncated to "mr") + "we'll"
+not recognized as coref.** MY PRE-VET MISS (lesson): I validated the response-verb->polarity MAPPING but
+NOT that the verbs APPEAR LITERALLY -- pre-VET must check SURFACE FORM presence, not just semantic mapping.
+Reverted (Δ+0 = no value; the real fix is a DIFFERENT mechanism). **BRAIN-FIDELITY: POSITION correct
+(directed-goal-gated cross-entity = TPJ/mPFC), but SHAPE gap real -- the brain reads assent via
+illocutionary-force/situation-model reasoning over the whole speech act, not a lexical-class lookup; our
+closed 15-word lexicon is too coarse a METRIC proxy.**
+## ➡️ v2 = SPEECH-ACT / ASSENT-IN-DIALOGUE detection (the real ToM lever; separate, larger build)
+The cross-character tail is conveyed via SPEECH ACTS in dialogue/FID, not literal response verbs. v2 needs
+illocutionary-force / assent detection ("Why, I guess so"=assent, "You're right"=concession,
+"You're a great deal too good for me"=polite refusal) bound to the standing directed goal. This is deeper
+pragmatic comprehension (borders the situation-model + dialogue-goal competency the backup's NEXT list
+already flagged: mg1_frank "may I go?"). Also fix the Mr.-abbreviation splitter bug (blocks the 1 literal
+case + is a general infra bug). SIZE: substantial (not a cheap detector) -- surface to USER as a fork.
