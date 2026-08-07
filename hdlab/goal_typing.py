@@ -1410,6 +1410,168 @@ def congruence_referent_recurrence_windowed(passage_text: str, max_window: int =
     return "NA", {"reason": "no_referent_recurrence", "referent": referent}
 
 
+# ============================================================================ GROUNDED RESULT-CLASS
+# TIER (2026-08-07, ~6yo-grounded-foundation SUPPLY build; last-resort congruence tier). USER-
+# authorized as Director-LEAN option A from the grounding fork: "supply the grounded result-
+# semantics a 6yo has" is DATA (a small hand-authored result-valence lexicon), not text-induction
+# (the closed VERB-VALENCE GROUNDING arc) and not raw lexical valence in isolation (a 6yo doesn't
+# just grade the WORD "spoil"/"punish" as bad -- they COMBINE it with "did this happen to something/
+# someone connected to what I wanted", i.e. a recognized goal). This tier is that combination: it
+# fires ONLY when (1) find_desired_state has already recognized a goal (this module's existing
+# goal-recognition, unchanged) AND (2)-(4) the outcome region carries a small closed-class RESULT
+# verb whose grounded valence (NEGATIVE_RESULT/POSITIVE_RESULT below) is common-sense-obvious to a
+# young child, subject-linked to a person (not a bystander/inanimate event) and occurrence-gated the
+# SAME way every other channel in this module is (_verb_negated_before).
+#
+# NOT referent-linked (unlike the verb-class Pass-1 channel and the referent-recurrence channel
+# above) -- ts_tom_sugar_theft is why: the goal's referent extracts as "nose" (a known GAP-C artifact
+# of the "steal sugar UNDER his aunt's very NOSE" PP-attachment span; "under" is not in
+# _STOP_BOUNDARY so the object-scan overruns past the true theme "sugar") but the punishment lands on
+# "his KNUCKLES" -- a different noun with no lexical or shared-feature relationship to either. The
+# only thing connecting the punishment to the goal is that it happens TO the goal-holder (not a
+# stranger), which is exactly guard (2)/_grounded_result_subject_linked below, not a referent match.
+#
+# STRICT LAST-RESORT ORDERING (never touches an item any earlier tier already resolves): consulted
+# by congruence_with_lexicon_fallback ONLY after BOTH congruence_outcome_valence_windowed (the
+# verb-class + occurrence-gate + goal-verb-recurrence did-it-happen channel) AND
+# congruence_referent_recurrence_windowed have abstained (NA) -- see congruence_with_lexicon_fallback
+# below. Pure additive fallback, isolated new code path: does not modify congruence_decision /
+# find_actual_state_candidates / congruence_referent_recurrence_windowed.
+NEGATIVE_RESULT = {"spoil", "ruin", "punish", "scold", "damage", "damag", "harm", "wreck", "rap"}
+POSITIVE_RESULT = {"reward", "praise", "prais", "succeed", "succe", "achieve", "achiev", "mend",
+                    "fix"}
+# "damag"/"prais"/"succe"/"achiev": hdlab.thematic_role_labeler.lemma_verb double-consonant/silent-e
+# stemmer quirks (MEASURED@this build: lemma_verb("damaged")=="damag" but lemma_verb("damage")==
+# "damage"; lemma_verb("praised")=="prais"; lemma_verb("succeed")=="succe" but lemma_verb
+# ("succeeded")=="succeed"; lemma_verb("achieved")=="achiev") -- same documented workaround pattern
+# as DAMAGE_LOSE.add("collaps") / FILL_CLASS's "fil" above, not a mechanism change. TWO words from
+# the Director pre-reg's example list are DELIBERATELY EXCLUDED, both MEASURED@this build (a
+# real-eval regression sweep, not a hypothetical):
+#   "break" -- already a CLASS_REGISTRY/DAMAGE_LOSE member (reachable via the earlier, referent-
+#     linked windowed-primary tier when a link exists) AND it carries a common positive idiom this
+#     coarse lemma-membership scan cannot safely tell apart ("broke the RECORD" / "broke new GROUND"
+#     = achieved, not damaged).
+#   "fail" -- MEASURED@this build's own full-44 regression sweep: onestop_malala ("They thought the
+#     bullet would silence us. But they FAILED," she said...) mis-typed UNMET (gold MET) because the
+#     ANTAGONIST's own failure is GOOD news for the goal-holder -- guard (2) confirms the clause is
+#     about a person ("they" is a legitimate pronoun) but has no way to tell that person is the
+#     antagonist, not the goal-holder (find_desired_state itself has no entity attribution -- a
+#     pre-existing, out-of-scope limitation this tier is not positioned to fix). Removing "fail"
+#     costs nothing (not load-bearing for either measured gain below) and eliminates the miss.
+# Both exclusions are scope-narrowing safety choices, not oversights.
+
+# SENSE-DISAMBIGUATION EXCEPTIONS (narrow, principled, not eval-tuned): a couple of the remaining
+# words have a genuinely different, non-negative/non-positive common sense a literal
+# lemma-membership scan cannot otherwise tell apart. "rapped ON/AT the door" = knocked (neutral), not
+# "rapped SOMEONE'S KNUCKLES" = struck/punished; "spoil HIM/HER/THEM/a CHILD" = indulge/pamper
+# (positive-adjacent), not "spoil the CAKE/MILK/FOOD" = ruin.
+_GROUNDED_RESULT_SKIP_IF_NEXT = {"rap": {"on", "at"}}
+_GROUNDED_RESULT_SKIP_IF_NEXT_PERSON = {"spoil": {"him", "her", "them", "me", "us", "kid", "kids",
+                                                   "child", "children"}}
+
+
+def _grounded_result_subject_linked(toks: List[str], v_idx: int) -> bool:
+    """Guard (2), the 'responder/subject = goal-holder or the goal's target' constraint: scan LEFT
+    from the result verb to the nearest _STOP_BOUNDARY / sentence start (same clause-scoping
+    convention _referent_recurrence_in_sentence above already uses) and require the clause to be
+    ABOUT a person -- an elliptical/imperative clause with no subject at all ('Punish me...'), a
+    pronoun (is_pronoun_mention, which already covers possessives like 'his'/'her' -- 'got HIS
+    knuckles rapped' links via the possessive), or an explicit animate noun
+    (hdlab.animacy_lexicon.lookup_animacy, the SAME primitive Channel B's _cb_token_is_animate_agent
+    above already uses) all pass. An explicit new INANIMATE subject with none of these cues ('the
+    STORM broke') fails the guard -- this is what keeps the tier from crediting/blaming the
+    goal-holder for a bystander event."""
+    j = v_idx - 1
+    span = []
+    while j >= 0 and toks[j] not in _STOP_BOUNDARY:
+        span.append(toks[j])
+        j -= 1
+    if not span:
+        return True
+    from hdlab.animacy_lexicon import lookup_animacy
+    for t in span:
+        if is_pronoun_mention(t):
+            return True
+        info = lookup_animacy(t)
+        if info is not None and info.get("animacy") == "animate":
+            return True
+    return False
+
+
+def _grounded_result_class_in_sentence(sentence: str):
+    """First eligible NEGATIVE_RESULT/POSITIVE_RESULT verb occurrence in `sentence`: lemma_verb
+    membership, sense-disambiguation exceptions, guard (2) (_grounded_result_subject_linked), then
+    occurrence-gated (_verb_negated_before, reused verbatim -- the SAME primitive every other channel
+    in this module uses) with a same<->opposed XOR flip on negation ('he was NOT rewarded' -> the
+    good thing did not happen -> UNMET; 'no HARM done' -- 'no' is itself a NEGATORS-set negator, so
+    this already flips NEGATIVE_RESULT 'harm' to MET via the same gate, no special-case needed).
+    Returns (verdict, detail) or None (no eligible match in this sentence)."""
+    toks = _tokens(sentence)
+    for idx, tok in enumerate(toks):
+        lemma = lemma_verb(tok)
+        if lemma in NEGATIVE_RESULT:
+            base_verdict = "UNMET"
+        elif lemma in POSITIVE_RESULT:
+            base_verdict = "MET"
+        else:
+            continue
+        skip_next = _GROUNDED_RESULT_SKIP_IF_NEXT.get(lemma)
+        if skip_next and idx + 1 < len(toks) and toks[idx + 1] in skip_next:
+            continue
+        skip_next_person = _GROUNDED_RESULT_SKIP_IF_NEXT_PERSON.get(lemma)
+        if skip_next_person and idx + 1 < len(toks) and toks[idx + 1] in skip_next_person:
+            continue
+        if not _grounded_result_subject_linked(toks, idx):
+            continue
+        negated = _verb_negated_before(toks, idx)
+        verdict = ("MET" if base_verdict == "UNMET" else "UNMET") if negated else base_verdict
+        return verdict, {"reason": "grounded_result_class", "verb_lemma": lemma,
+                          "base_verdict": base_verdict, "negated": negated,
+                          "occurrence_gate_fired": negated}
+    return None
+
+
+def congruence_grounded_result_class(passage_text: str, max_window: int = 2):
+    """LAST-RESORT congruence tier (sibling of congruence_referent_recurrence_windowed, same
+    backward-window convention, max_window=2 for the same reason -- reaching further back risks
+    picking up a goal-adjacent restatement rather than genuine outcome). Fires ONLY when (1) an
+    antecedent goal is found (find_desired_state fires -- guard 1: 'a recognized positive goal'), and
+    (2)-(4) a NEGATIVE_RESULT/POSITIVE_RESULT verb passes the subject-linkage guard and
+    occurrence-gate in one of the trailing `max_window` sentences (_grounded_result_class_in_sentence
+    above). NA (abstain) otherwise.
+
+    GOAL-SEARCH SCOPE (extends the sents[:-1] convention every sibling tier uses): if no goal is
+    found among sents[:-1], ALSO try find_desired_state on sents[-1] itself before abstaining -- a
+    coordinated single-sentence goal+result construction ('Tom TRIED to steal sugar under his aunt's
+    nose, and got his knuckles RAPPED for it.') states the goal and its immediate result in ONE
+    sentence joined by a coordinator, so the ordinary goal_sentences=sents[:-1] split (which treats
+    the goal-bearing sentence as the LAST sentence, hence unavailable to the goal-search) never finds
+    it. This is a general narrative-construction pattern (X tried to VP, and/but RESULT), not tuned
+    to one item; it only ever ADDS a goal-search candidate (never removes desired=None -> NA when
+    both scans fail), so no existing NA outcome elsewhere in this module changes."""
+    sents = _sentences(passage_text)
+    if len(sents) < 2:
+        return "NA", {"reason": "insufficient_sentences"}
+    goal_sentences = sents[:-1]
+    desired = None
+    for gs in goal_sentences:
+        desired = find_desired_state(gs)
+        if desired is not None:
+            break
+    if desired is None:
+        desired = find_desired_state(sents[-1])
+    if desired is None:
+        return "NA", {"reason": "no_desiderative_goal_found"}
+    for k in range(1, min(max_window, len(sents) - 1) + 1):
+        hit = _grounded_result_class_in_sentence(sents[-k])
+        if hit is not None:
+            verdict, detail = hit
+            detail["desired"] = desired
+            detail["window_k"] = k
+            return verdict, detail
+    return "NA", {"reason": "no_grounded_result_verb_found"}
+
+
 def lexicon_predict(outcome_sentence: str):
     """The mechanism this promotion supplements (not deletes): V2_OUTCOME_UNMET/_MET set-membership
     on the outcome sentence alone (same sets, same tokenization convention as
@@ -1447,13 +1609,23 @@ def congruence_with_lexicon_fallback(passage_text: str):
     goal-relative referent-grounded signal is preferred over a goal-independent word-lexicon guess.
     Strict-ADD: only consulted on NA from the primary, and itself abstains (NA) unless a genuine
     referent recurrence is found, so a passage with no antecedent goal or no eligible referent falls
-    through to the lexicon exactly as before."""
+    through to the lexicon exactly as before. GROUNDED RESULT-CLASS TIER WIRED (2026-08-07, ~6yo-
+    grounded-foundation SUPPLY build): when BOTH the verb-class windowed primary AND
+    referent-recurrence abstain (NA), try congruence_grounded_result_class BEFORE falling all the way
+    to the bare lexicon -- a goal-relational grounded-result-verb signal (SUPPLY, not raw lexical
+    valence: it only ever fires when a goal is already recognized) is preferred over a
+    goal-independent word-lexicon guess. Strict-ADD: only consulted on NA from both prior tiers, and
+    itself abstains (NA) unless an eligible grounded-result verb is found, so a passage with no
+    antecedent goal or no eligible result verb falls through to the lexicon exactly as before."""
     verdict, detail = congruence_outcome_valence_windowed(passage_text)
     if verdict != "NA":
         return verdict, detail
     verdict2, detail2 = congruence_referent_recurrence_windowed(passage_text)
     if verdict2 != "NA":
         return verdict2, detail2
+    verdict3, detail3 = congruence_grounded_result_class(passage_text)
+    if verdict3 != "NA":
+        return verdict3, detail3
     sents = _sentences(passage_text)
     lex = lexicon_predict(sents[-1]) if sents else "NONE"
     return lex, {"reason": "abstain_fallback_to_lexicon", "lexicon_raw": lex}
