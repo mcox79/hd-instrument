@@ -1,0 +1,6949 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: [DECISIVE] insuff_rich=1.000 (band>=0.75) insuff_animacy_only=0.500 (band<=0.6) margin=0.500 (band>=0.15) | [REGRESSION] suff_rich=1.000 (band>=0.75) suff_baseline=1.000 | [SCRAMBLE] suff_scr=0.460 lift_suff=0.540 insuff_scr=0.540 lift_insuff=0.460 (band<=0.6 lift>=0.15) | [GENERALIZATION] gen_probe_rate=1.000 (band>=0.8) n_test_suff=20 n_test_insuff=20 n_gen_probes=10",
+  "summary": "[DECISIVE] insuff_rich=1.000 (band>=0.75) insuff_animacy_only=0.500 (band<=0.6) margin=0.500 (band>=0.15) | [REGRESSION] suff_rich=1.000 (band>=0.75) suff_baseline=1.000 | [SCRAMBLE] suff_scr=0.460 lift_suff=0.540 insuff_scr=0.540 lift_insuff=0.460 (band<=0.6 lift>=0.15) | [GENERALIZATION] gen_probe_rate=1.000 (band>=0.8) n_test_suff=20 n_test_insuff=20 n_gen_probes=10",
+  "n_seeds": 5,
+  "n_ok": 5,
+  "failed_seeds": [],
+  "means": {
+    "insuff_rich": 1.0,
+    "insuff_animacy_only": 0.5,
+    "margin_rich_over_animacy_only": 0.5,
+    "suff_rich": 1.0,
+    "suff_baseline": 1.0,
+    "suff_scramble": 0.45999999999999996,
+    "lift_suff": 0.54,
+    "insuff_scramble": 0.54,
+    "lift_insuff": 0.45999999999999996,
+    "gen_probe_rate": 1.0
+  },
+  "bands": {
+    "gate1_rich_wins": true,
+    "gate2_no_regression": true,
+    "gate3_scramble": true,
+    "gate4_generalization": true,
+    "hard_fail_insuff": false,
+    "hard_fail_suff": false,
+    "any_arms_identical": false
+  },
+  "words": {
+    "insufficient": [
+      "run",
+      "draw",
+      "hold",
+      "throw",
+      "catch"
+    ],
+    "sufficient_ambiguous": [
+      "spoil",
+      "beat",
+      "strike",
+      "whip",
+      "crush"
+    ],
+    "sufficient_baseline": "cherish",
+    "insufficient_menu": {
+      "run": {
+        "EVENT": "COMPETE",
+        "GROUP": "MANAGE"
+      },
+      "draw": {
+        "ARTIFACT": "SKETCH",
+        "GROUP": "ATTRACT"
+      },
+      "hold": {
+        "ARTIFACT": "GRASP",
+        "EVENT": "CONVENE"
+      },
+      "throw": {
+        "ARTIFACT": "HURL",
+        "EVENT": "HOST"
+      },
+      "catch": {
+        "ARTIFACT": "GRAB",
+        "OTHER": "CONTRACT_ILLNESS"
+      }
+    }
+  },
+  "run_mode": "full",
+  "elapsed_s": 1.1616099999810103,
+  "ts_iso": "2026-08-07T12:12:59.113475+00:00",
+  "anchor_name": "richer_selectional_context_key_v1",
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_dim_word": 1024,
+    "n_test_suff_ambiguous": 20,
+    "n_test_suff_baseline": 4,
+    "n_test_insuff": 20,
+    "n_gen_probes": 10,
+    "bands": {
+      "rich_insuff_pass": 0.75,
+      "animacy_only_max": 0.6,
+      "min_margin_rich_over_animacy": 0.15,
+      "no_regression_suff_pass": 0.75,
+      "scramble_max": 0.6,
+      "min_lift_over_scramble": 0.15,
+      "gen_probe_min": 0.8,
+      "hard_fail_insuff": 0.55,
+      "hard_fail_suff": 0.55
+    }
+  },
+  "per_seed": {
+    "0": {
+      "seed": 0,
+      "suff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.4,
+        "lift_over_scramble": 0.6,
+        "acc_baseline": 1.0,
+        "digests": {
+          "real": "885470ad56ed2183",
+          "scramble": "167a00ae531f70de"
+        },
+        "arms_differ": true
+      },
+      "insuff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.6,
+        "lift_over_scramble": 0.4,
+        "acc_animacy_only": 0.5,
+        "margin_rich_over_animacy_only": 0.5,
+        "digests": {
+          "real": "4d728b548686b91b",
+          "scramble": "cf9b58d9f1f07596"
+        },
+        "arms_differ": true
+      },
+      "gen_probe": {
+        "rate": 1.0,
+        "n_correct": 10,
+        "n_total": 10,
+        "detail": [
+          {
+            "word": "run",
+            "label": "EVENT",
+            "noun": "steeplechase",
+            "gold_sense": "COMPETE",
+            "pred_sense": "COMPETE",
+            "correct": true
+          },
+          {
+            "word": "run",
+            "label": "GROUP",
+            "noun": "syndicate",
+            "gold_sense": "MANAGE",
+            "pred_sense": "MANAGE",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "ARTIFACT",
+            "noun": "etching",
+            "gold_sense": "SKETCH",
+            "pred_sense": "SKETCH",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "GROUP",
+            "noun": "posse",
+            "gold_sense": "ATTRACT",
+            "pred_sense": "ATTRACT",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "ARTIFACT",
+            "noun": "jug",
+            "gold_sense": "GRASP",
+            "pred_sense": "GRASP",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "EVENT",
+            "noun": "inauguration",
+            "gold_sense": "CONVENE",
+            "pred_sense": "CONVENE",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "ARTIFACT",
+            "noun": "grenade",
+            "gold_sense": "HURL",
+            "pred_sense": "HURL",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "EVENT",
+            "noun": "fair",
+            "gold_sense": "HOST",
+            "pred_sense": "HOST",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "ARTIFACT",
+            "noun": "balloon",
+            "gold_sense": "GRAB",
+            "pred_sense": "GRAB",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "OTHER",
+            "noun": "shingles",
+            "gold_sense": "CONTRACT_ILLNESS",
+            "pred_sense": "CONTRACT_ILLNESS",
+            "correct": true
+          }
+        ]
+      },
+      "items_suff_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.3115,
+            "RUIN": 0.6367
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.3115,
+            "RUIN": 0.6367
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6367,
+            "RUIN": 0.3115
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6367,
+            "RUIN": 0.3115
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6479,
+            "HARM": 0.2721
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6479,
+            "HARM": 0.2721
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2721,
+            "HARM": 0.6479
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2721,
+            "HARM": 0.6479
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6125,
+            "HARM": 0.2555
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6125,
+            "HARM": 0.2555
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2555,
+            "HARM": 0.6125
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2555,
+            "HARM": 0.6125
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6373,
+            "HARM": 0.2742
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6373,
+            "HARM": 0.2742
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2742,
+            "HARM": 0.6373
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2742,
+            "HARM": 0.6373
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6372,
+            "HARM": 0.2917
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6372,
+            "HARM": 0.2917
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2917,
+            "HARM": 0.6372
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2917,
+            "HARM": 0.6372
+          },
+          "correct": true
+        }
+      ],
+      "items_suff_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0317,
+            "RUIN": 0.0279
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0317,
+            "RUIN": 0.0279
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0503,
+            "RUIN": 0.0036
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0503,
+            "RUIN": 0.0036
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0069,
+            "HARM": 0.8219
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0069,
+            "HARM": 0.8219
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0179,
+            "HARM": 0.8219
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0179,
+            "HARM": 0.8219
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0365,
+            "HARM": 0.6394
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0365,
+            "HARM": 0.6394
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0516,
+            "HARM": 0.2986
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0516,
+            "HARM": 0.2986
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2802,
+            "HARM": 0.0303
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2802,
+            "HARM": 0.0303
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6262,
+            "HARM": 0.0086
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6262,
+            "HARM": 0.0086
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2914,
+            "HARM": 0.6409
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2914,
+            "HARM": 0.6409
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6409,
+            "HARM": 0.2914
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6409,
+            "HARM": 0.2914
+          },
+          "correct": false
+        }
+      ],
+      "items_suff_baseline": [
+        {
+          "word": "cherish",
+          "noun": "ring",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8219
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "painting",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8219
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "wife",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8219
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "husband",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8219
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_rich": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6455,
+            "MANAGE": 0.3046
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6455,
+            "MANAGE": 0.3046
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.3046,
+            "MANAGE": 0.6455
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.3046,
+            "MANAGE": 0.6455
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2661,
+            "SKETCH": 0.6465
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2661,
+            "SKETCH": 0.6465
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6465,
+            "SKETCH": 0.2661
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6465,
+            "SKETCH": 0.2661
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2607,
+            "GRASP": 0.6364
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2607,
+            "GRASP": 0.6364
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6364,
+            "GRASP": 0.2607
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6364,
+            "GRASP": 0.2607
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2349,
+            "HURL": 0.6435
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2349,
+            "HURL": 0.6435
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6435,
+            "HURL": 0.2349
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6435,
+            "HURL": 0.2349
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2469,
+            "GRAB": 0.6246
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2469,
+            "GRAB": 0.6246
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6246,
+            "GRAB": 0.2469
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6246,
+            "GRAB": 0.2469
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_scramble": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0234,
+            "MANAGE": 0.0011
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0234,
+            "MANAGE": 0.0011
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0388,
+            "MANAGE": -0.0179
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0388,
+            "MANAGE": -0.0179
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.217,
+            "SKETCH": 0.0097
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.217,
+            "SKETCH": 0.0097
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6377,
+            "SKETCH": 0.0518
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6377,
+            "SKETCH": 0.0518
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.0016,
+            "GRASP": 0.0065
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.0016,
+            "GRASP": 0.0065
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": -0.0069,
+            "GRASP": 0.0373
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": -0.0069,
+            "GRASP": 0.0373
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.2253,
+            "HURL": 0.0425
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.2253,
+            "HURL": 0.0425
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6379,
+            "HURL": 0.0035
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6379,
+            "HURL": 0.0035
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0051,
+            "GRAB": 0.0373
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0051,
+            "GRAB": 0.0373
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0244,
+            "GRAB": 0.0193
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0244,
+            "GRAB": 0.0193
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_animacy_only": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6528,
+            "MANAGE": 0.6528
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6528,
+            "MANAGE": 0.6528
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6528,
+            "MANAGE": 0.6528
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6528,
+            "MANAGE": 0.6528
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6597,
+            "SKETCH": 0.6597
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6597,
+            "SKETCH": 0.6597
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6597,
+            "SKETCH": 0.6597
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6597,
+            "SKETCH": 0.6597
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6403,
+            "GRASP": 0.6403
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6403,
+            "GRASP": 0.6403
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6403,
+            "GRASP": 0.6403
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6403,
+            "GRASP": 0.6403
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6289,
+            "HURL": 0.6289
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6289,
+            "HURL": 0.6289
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6289,
+            "HURL": 0.6289
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6289,
+            "HURL": 0.6289
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6297,
+            "GRAB": 0.6297
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6297,
+            "GRAB": 0.6297
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6297,
+            "GRAB": 0.6297
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6297,
+            "GRAB": 0.6297
+          },
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    },
+    "1": {
+      "seed": 1,
+      "suff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.3,
+        "lift_over_scramble": 0.7,
+        "acc_baseline": 1.0,
+        "digests": {
+          "real": "885470ad56ed2183",
+          "scramble": "ffa97cc731c79728"
+        },
+        "arms_differ": true
+      },
+      "insuff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.4,
+        "lift_over_scramble": 0.6,
+        "acc_animacy_only": 0.5,
+        "margin_rich_over_animacy_only": 0.5,
+        "digests": {
+          "real": "4d728b548686b91b",
+          "scramble": "2735cff727793511"
+        },
+        "arms_differ": true
+      },
+      "gen_probe": {
+        "rate": 1.0,
+        "n_correct": 10,
+        "n_total": 10,
+        "detail": [
+          {
+            "word": "run",
+            "label": "EVENT",
+            "noun": "steeplechase",
+            "gold_sense": "COMPETE",
+            "pred_sense": "COMPETE",
+            "correct": true
+          },
+          {
+            "word": "run",
+            "label": "GROUP",
+            "noun": "syndicate",
+            "gold_sense": "MANAGE",
+            "pred_sense": "MANAGE",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "ARTIFACT",
+            "noun": "etching",
+            "gold_sense": "SKETCH",
+            "pred_sense": "SKETCH",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "GROUP",
+            "noun": "posse",
+            "gold_sense": "ATTRACT",
+            "pred_sense": "ATTRACT",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "ARTIFACT",
+            "noun": "jug",
+            "gold_sense": "GRASP",
+            "pred_sense": "GRASP",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "EVENT",
+            "noun": "inauguration",
+            "gold_sense": "CONVENE",
+            "pred_sense": "CONVENE",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "ARTIFACT",
+            "noun": "grenade",
+            "gold_sense": "HURL",
+            "pred_sense": "HURL",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "EVENT",
+            "noun": "fair",
+            "gold_sense": "HOST",
+            "pred_sense": "HOST",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "ARTIFACT",
+            "noun": "balloon",
+            "gold_sense": "GRAB",
+            "pred_sense": "GRAB",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "OTHER",
+            "noun": "shingles",
+            "gold_sense": "CONTRACT_ILLNESS",
+            "pred_sense": "CONTRACT_ILLNESS",
+            "correct": true
+          }
+        ]
+      },
+      "items_suff_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2379,
+            "RUIN": 0.6397
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2379,
+            "RUIN": 0.6397
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6397,
+            "RUIN": 0.2379
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6397,
+            "RUIN": 0.2379
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6377,
+            "HARM": 0.2586
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6377,
+            "HARM": 0.2586
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2586,
+            "HARM": 0.6377
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2586,
+            "HARM": 0.6377
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6327,
+            "HARM": 0.2251
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6327,
+            "HARM": 0.2251
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2251,
+            "HARM": 0.6327
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2251,
+            "HARM": 0.6327
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6381,
+            "HARM": 0.239
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6381,
+            "HARM": 0.239
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.239,
+            "HARM": 0.6381
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.239,
+            "HARM": 0.6381
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6137,
+            "HARM": 0.2323
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6137,
+            "HARM": 0.2323
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2323,
+            "HARM": 0.6137
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2323,
+            "HARM": 0.6137
+          },
+          "correct": true
+        }
+      ],
+      "items_suff_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": -0.0198,
+            "RUIN": -0.0348
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": -0.0198,
+            "RUIN": -0.0348
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.035,
+            "RUIN": -0.0131
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.035,
+            "RUIN": -0.0131
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8019,
+            "HARM": 0.0312
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8019,
+            "HARM": 0.0312
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8019,
+            "HARM": 0.0262
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8019,
+            "HARM": 0.0262
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2364,
+            "HARM": 0.629
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2364,
+            "HARM": 0.629
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.629,
+            "HARM": 0.2364
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.629,
+            "HARM": 0.2364
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0069,
+            "HARM": 0.6301
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0069,
+            "HARM": 0.6301
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0007,
+            "HARM": 0.22
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0007,
+            "HARM": 0.22
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0149,
+            "HARM": 0.6376
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0149,
+            "HARM": 0.6376
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0205,
+            "HARM": 0.2602
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0205,
+            "HARM": 0.2602
+          },
+          "correct": true
+        }
+      ],
+      "items_suff_baseline": [
+        {
+          "word": "cherish",
+          "noun": "ring",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8019
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "painting",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8019
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "wife",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8019
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "husband",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8019
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_rich": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6262,
+            "MANAGE": 0.2591
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6262,
+            "MANAGE": 0.2591
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2591,
+            "MANAGE": 0.6262
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2591,
+            "MANAGE": 0.6262
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2725,
+            "SKETCH": 0.6423
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2725,
+            "SKETCH": 0.6423
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6423,
+            "SKETCH": 0.2725
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6423,
+            "SKETCH": 0.2725
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2351,
+            "GRASP": 0.6377
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2351,
+            "GRASP": 0.6377
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6377,
+            "GRASP": 0.2351
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6377,
+            "GRASP": 0.2351
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2377,
+            "HURL": 0.6357
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2377,
+            "HURL": 0.6357
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6357,
+            "HURL": 0.2377
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6357,
+            "HURL": 0.2377
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2094,
+            "GRAB": 0.6338
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2094,
+            "GRAB": 0.6338
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6338,
+            "GRAB": 0.2094
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6338,
+            "GRAB": 0.2094
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_scramble": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.0112,
+            "MANAGE": 0.0331
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.0112,
+            "MANAGE": 0.0331
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0354,
+            "MANAGE": 0.005
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0354,
+            "MANAGE": 0.005
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.0181,
+            "SKETCH": 0.6327
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.0181,
+            "SKETCH": 0.6327
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": -0.016,
+            "SKETCH": 0.2628
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": -0.016,
+            "SKETCH": 0.2628
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": -0.0065,
+            "GRASP": 0.258
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": -0.0065,
+            "GRASP": 0.258
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": -0.0162,
+            "GRASP": 0.6518
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": -0.0162,
+            "GRASP": 0.6518
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0061,
+            "HURL": -0.0217
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0061,
+            "HURL": -0.0217
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0375,
+            "HURL": -0.0027
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0375,
+            "HURL": -0.0027
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6347,
+            "GRAB": -0.0149
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6347,
+            "GRAB": -0.0149
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2496,
+            "GRAB": -0.0245
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2496,
+            "GRAB": -0.0245
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_animacy_only": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6263,
+            "MANAGE": 0.6263
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6263,
+            "MANAGE": 0.6263
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6263,
+            "MANAGE": 0.6263
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6263,
+            "MANAGE": 0.6263
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.6409,
+            "SKETCH": 0.6409
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.6409,
+            "SKETCH": 0.6409
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.6409,
+            "SKETCH": 0.6409
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.6409,
+            "SKETCH": 0.6409
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.625,
+            "GRASP": 0.625
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.625,
+            "GRASP": 0.625
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.625,
+            "GRASP": 0.625
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.625,
+            "GRASP": 0.625
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6375,
+            "HURL": 0.6375
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6375,
+            "HURL": 0.6375
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6375,
+            "HURL": 0.6375
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6375,
+            "HURL": 0.6375
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6172,
+            "GRAB": 0.6172
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6172,
+            "GRAB": 0.6172
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6172,
+            "GRAB": 0.6172
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6172,
+            "GRAB": 0.6172
+          },
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    },
+    "2": {
+      "seed": 2,
+      "suff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.5,
+        "lift_over_scramble": 0.5,
+        "acc_baseline": 1.0,
+        "digests": {
+          "real": "885470ad56ed2183",
+          "scramble": "84c289e5d13a9e5a"
+        },
+        "arms_differ": true
+      },
+      "insuff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.5,
+        "lift_over_scramble": 0.5,
+        "acc_animacy_only": 0.5,
+        "margin_rich_over_animacy_only": 0.5,
+        "digests": {
+          "real": "4d728b548686b91b",
+          "scramble": "3270b0a486496af0"
+        },
+        "arms_differ": true
+      },
+      "gen_probe": {
+        "rate": 1.0,
+        "n_correct": 10,
+        "n_total": 10,
+        "detail": [
+          {
+            "word": "run",
+            "label": "EVENT",
+            "noun": "steeplechase",
+            "gold_sense": "COMPETE",
+            "pred_sense": "COMPETE",
+            "correct": true
+          },
+          {
+            "word": "run",
+            "label": "GROUP",
+            "noun": "syndicate",
+            "gold_sense": "MANAGE",
+            "pred_sense": "MANAGE",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "ARTIFACT",
+            "noun": "etching",
+            "gold_sense": "SKETCH",
+            "pred_sense": "SKETCH",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "GROUP",
+            "noun": "posse",
+            "gold_sense": "ATTRACT",
+            "pred_sense": "ATTRACT",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "ARTIFACT",
+            "noun": "jug",
+            "gold_sense": "GRASP",
+            "pred_sense": "GRASP",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "EVENT",
+            "noun": "inauguration",
+            "gold_sense": "CONVENE",
+            "pred_sense": "CONVENE",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "ARTIFACT",
+            "noun": "grenade",
+            "gold_sense": "HURL",
+            "pred_sense": "HURL",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "EVENT",
+            "noun": "fair",
+            "gold_sense": "HOST",
+            "pred_sense": "HOST",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "ARTIFACT",
+            "noun": "balloon",
+            "gold_sense": "GRAB",
+            "pred_sense": "GRAB",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "OTHER",
+            "noun": "shingles",
+            "gold_sense": "CONTRACT_ILLNESS",
+            "pred_sense": "CONTRACT_ILLNESS",
+            "correct": true
+          }
+        ]
+      },
+      "items_suff_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2756,
+            "RUIN": 0.6311
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2756,
+            "RUIN": 0.6311
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6311,
+            "RUIN": 0.2756
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6311,
+            "RUIN": 0.2756
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6288,
+            "HARM": 0.286
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6288,
+            "HARM": 0.286
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.286,
+            "HARM": 0.6288
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.286,
+            "HARM": 0.6288
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6387,
+            "HARM": 0.2472
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6387,
+            "HARM": 0.2472
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2472,
+            "HARM": 0.6387
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2472,
+            "HARM": 0.6387
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6517,
+            "HARM": 0.2617
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6517,
+            "HARM": 0.2617
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2617,
+            "HARM": 0.6517
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2617,
+            "HARM": 0.6517
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6615,
+            "HARM": 0.2781
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6615,
+            "HARM": 0.2781
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2781,
+            "HARM": 0.6615
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2781,
+            "HARM": 0.6615
+          },
+          "correct": true
+        }
+      ],
+      "items_suff_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.015,
+            "RUIN": 0.0254
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.015,
+            "RUIN": 0.0254
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0246,
+            "RUIN": 0.02
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0246,
+            "RUIN": 0.02
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.003,
+            "HARM": 0.8123
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.003,
+            "HARM": 0.8123
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0246,
+            "HARM": 0.8123
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0246,
+            "HARM": 0.8123
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2592,
+            "HARM": 0.6267
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2592,
+            "HARM": 0.6267
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6267,
+            "HARM": 0.2592
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6267,
+            "HARM": 0.2592
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0003,
+            "HARM": 0.0532
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0003,
+            "HARM": 0.0532
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0002,
+            "HARM": 0.0641
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": -0.0002,
+            "HARM": 0.0641
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6615,
+            "HARM": 0.2781
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6615,
+            "HARM": 0.2781
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2781,
+            "HARM": 0.6615
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2781,
+            "HARM": 0.6615
+          },
+          "correct": true
+        }
+      ],
+      "items_suff_baseline": [
+        {
+          "word": "cherish",
+          "noun": "ring",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8123
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "painting",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8123
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "wife",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8123
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "husband",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8123
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_rich": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6402,
+            "MANAGE": 0.2584
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6402,
+            "MANAGE": 0.2584
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2584,
+            "MANAGE": 0.6402
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2584,
+            "MANAGE": 0.6402
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.299,
+            "SKETCH": 0.6625
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.299,
+            "SKETCH": 0.6625
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6625,
+            "SKETCH": 0.299
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6625,
+            "SKETCH": 0.299
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2402,
+            "GRASP": 0.6407
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2402,
+            "GRASP": 0.6407
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6407,
+            "GRASP": 0.2402
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6407,
+            "GRASP": 0.2402
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2874,
+            "HURL": 0.637
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2874,
+            "HURL": 0.637
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.637,
+            "HURL": 0.2874
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.637,
+            "HURL": 0.2874
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2708,
+            "GRAB": 0.6313
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2708,
+            "GRAB": 0.6313
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6313,
+            "GRAB": 0.2708
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6313,
+            "GRAB": 0.2708
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_scramble": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0357,
+            "MANAGE": 0.0148
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0357,
+            "MANAGE": 0.0148
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0052,
+            "MANAGE": 0.012
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0052,
+            "MANAGE": 0.012
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.0243,
+            "SKETCH": 0.2821
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.0243,
+            "SKETCH": 0.2821
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.0221,
+            "SKETCH": 0.6359
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.0221,
+            "SKETCH": 0.6359
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.0287,
+            "GRASP": 0.2433
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.0287,
+            "GRASP": 0.2433
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.0141,
+            "GRASP": 0.6364
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.0141,
+            "GRASP": 0.6364
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.0345,
+            "HURL": 0.6454
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.0345,
+            "HURL": 0.6454
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": -0.0118,
+            "HURL": 0.2364
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": -0.0118,
+            "HURL": 0.2364
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0086,
+            "GRAB": 0.0536
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0086,
+            "GRAB": 0.0536
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": -0.0262,
+            "GRAB": 0.0147
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": -0.0262,
+            "GRAB": 0.0147
+          },
+          "correct": false
+        }
+      ],
+      "items_insuff_animacy_only": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.638,
+            "MANAGE": 0.638
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.638,
+            "MANAGE": 0.638
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.638,
+            "MANAGE": 0.638
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.638,
+            "MANAGE": 0.638
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6649,
+            "SKETCH": 0.6649
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6649,
+            "SKETCH": 0.6649
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6649,
+            "SKETCH": 0.6649
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6649,
+            "SKETCH": 0.6649
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.6355,
+            "GRASP": 0.6355
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.6355,
+            "GRASP": 0.6355
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.6355,
+            "GRASP": 0.6355
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.6355,
+            "GRASP": 0.6355
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6556,
+            "HURL": 0.6556
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6556,
+            "HURL": 0.6556
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6556,
+            "HURL": 0.6556
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6556,
+            "HURL": 0.6556
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.643,
+            "GRAB": 0.643
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.643,
+            "GRAB": 0.643
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.643,
+            "GRAB": 0.643
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.643,
+            "GRAB": 0.643
+          },
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    },
+    "3": {
+      "seed": 3,
+      "suff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.6,
+        "lift_over_scramble": 0.4,
+        "acc_baseline": 1.0,
+        "digests": {
+          "real": "885470ad56ed2183",
+          "scramble": "ee752ec3da24d45b"
+        },
+        "arms_differ": true
+      },
+      "insuff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.6,
+        "lift_over_scramble": 0.4,
+        "acc_animacy_only": 0.5,
+        "margin_rich_over_animacy_only": 0.5,
+        "digests": {
+          "real": "4d728b548686b91b",
+          "scramble": "7178a72a4315fea4"
+        },
+        "arms_differ": true
+      },
+      "gen_probe": {
+        "rate": 1.0,
+        "n_correct": 10,
+        "n_total": 10,
+        "detail": [
+          {
+            "word": "run",
+            "label": "EVENT",
+            "noun": "steeplechase",
+            "gold_sense": "COMPETE",
+            "pred_sense": "COMPETE",
+            "correct": true
+          },
+          {
+            "word": "run",
+            "label": "GROUP",
+            "noun": "syndicate",
+            "gold_sense": "MANAGE",
+            "pred_sense": "MANAGE",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "ARTIFACT",
+            "noun": "etching",
+            "gold_sense": "SKETCH",
+            "pred_sense": "SKETCH",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "GROUP",
+            "noun": "posse",
+            "gold_sense": "ATTRACT",
+            "pred_sense": "ATTRACT",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "ARTIFACT",
+            "noun": "jug",
+            "gold_sense": "GRASP",
+            "pred_sense": "GRASP",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "EVENT",
+            "noun": "inauguration",
+            "gold_sense": "CONVENE",
+            "pred_sense": "CONVENE",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "ARTIFACT",
+            "noun": "grenade",
+            "gold_sense": "HURL",
+            "pred_sense": "HURL",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "EVENT",
+            "noun": "fair",
+            "gold_sense": "HOST",
+            "pred_sense": "HOST",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "ARTIFACT",
+            "noun": "balloon",
+            "gold_sense": "GRAB",
+            "pred_sense": "GRAB",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "OTHER",
+            "noun": "shingles",
+            "gold_sense": "CONTRACT_ILLNESS",
+            "pred_sense": "CONTRACT_ILLNESS",
+            "correct": true
+          }
+        ]
+      },
+      "items_suff_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2512,
+            "RUIN": 0.6351
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2512,
+            "RUIN": 0.6351
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6351,
+            "RUIN": 0.2512
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6351,
+            "RUIN": 0.2512
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6307,
+            "HARM": 0.2524
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6307,
+            "HARM": 0.2524
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2524,
+            "HARM": 0.6307
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2524,
+            "HARM": 0.6307
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6317,
+            "HARM": 0.2427
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6317,
+            "HARM": 0.2427
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2427,
+            "HARM": 0.6317
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2427,
+            "HARM": 0.6317
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6453,
+            "HARM": 0.264
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6453,
+            "HARM": 0.264
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.264,
+            "HARM": 0.6453
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.264,
+            "HARM": 0.6453
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6379,
+            "HARM": 0.2636
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6379,
+            "HARM": 0.2636
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2636,
+            "HARM": 0.6379
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2636,
+            "HARM": 0.6379
+          },
+          "correct": true
+        }
+      ],
+      "items_suff_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0081,
+            "RUIN": -0.0139
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0081,
+            "RUIN": -0.0139
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0152,
+            "RUIN": 0.0082
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.0152,
+            "RUIN": 0.0082
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8027,
+            "HARM": -0.0025
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8027,
+            "HARM": -0.0025
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8027,
+            "HARM": 0.0116
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8027,
+            "HARM": 0.0116
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0088,
+            "HARM": 0.6421
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0088,
+            "HARM": 0.6421
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0135,
+            "HARM": 0.2694
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0135,
+            "HARM": 0.2694
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6453,
+            "HARM": 0.264
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6453,
+            "HARM": 0.264
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.264,
+            "HARM": 0.6453
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.264,
+            "HARM": 0.6453
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6367,
+            "HARM": 0.0442
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6367,
+            "HARM": 0.0442
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2319,
+            "HARM": 0.017
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2319,
+            "HARM": 0.017
+          },
+          "correct": false
+        }
+      ],
+      "items_suff_baseline": [
+        {
+          "word": "cherish",
+          "noun": "ring",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8027
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "painting",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8027
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "wife",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8027
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "husband",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8027
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_rich": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6362,
+            "MANAGE": 0.2455
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6362,
+            "MANAGE": 0.2455
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2455,
+            "MANAGE": 0.6362
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2455,
+            "MANAGE": 0.6362
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2225,
+            "SKETCH": 0.6345
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2225,
+            "SKETCH": 0.6345
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6345,
+            "SKETCH": 0.2225
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6345,
+            "SKETCH": 0.2225
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2309,
+            "GRASP": 0.6195
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2309,
+            "GRASP": 0.6195
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6195,
+            "GRASP": 0.2309
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6195,
+            "GRASP": 0.2309
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2509,
+            "HURL": 0.6468
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2509,
+            "HURL": 0.6468
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6468,
+            "HURL": 0.2509
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6468,
+            "HURL": 0.2509
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2558,
+            "GRAB": 0.6329
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2558,
+            "GRAB": 0.6329
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6329,
+            "GRAB": 0.2558
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6329,
+            "GRAB": 0.2558
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_scramble": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0253,
+            "MANAGE": 0.0127
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.0253,
+            "MANAGE": 0.0127
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.0005,
+            "MANAGE": 0.0023
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.0005,
+            "MANAGE": 0.0023
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.003,
+            "SKETCH": -0.041
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.003,
+            "SKETCH": -0.041
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.0041,
+            "SKETCH": -0.0255
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.0041,
+            "SKETCH": -0.0255
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.0451,
+            "GRASP": -0.0272
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.0451,
+            "GRASP": -0.0272
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": -0.0048,
+            "GRASP": -0.0355
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": -0.0048,
+            "GRASP": -0.0355
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0015,
+            "HURL": -0.0506
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0015,
+            "HURL": -0.0506
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0048,
+            "HURL": -0.0711
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.0048,
+            "HURL": -0.0711
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0149,
+            "GRAB": 0.0353
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0149,
+            "GRAB": 0.0353
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": -0.012,
+            "GRAB": 0.0218
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": -0.012,
+            "GRAB": 0.0218
+          },
+          "correct": false
+        }
+      ],
+      "items_insuff_animacy_only": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.64,
+            "MANAGE": 0.64
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.64,
+            "MANAGE": 0.64
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.64,
+            "MANAGE": 0.64
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.64,
+            "MANAGE": 0.64
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6435,
+            "SKETCH": 0.6435
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6435,
+            "SKETCH": 0.6435
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6435,
+            "SKETCH": 0.6435
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6435,
+            "SKETCH": 0.6435
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6213,
+            "GRASP": 0.6213
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6213,
+            "GRASP": 0.6213
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6213,
+            "GRASP": 0.6213
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6213,
+            "GRASP": 0.6213
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6347,
+            "HURL": 0.6347
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6347,
+            "HURL": 0.6347
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6347,
+            "HURL": 0.6347
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6347,
+            "HURL": 0.6347
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6358,
+            "GRAB": 0.6358
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6358,
+            "GRAB": 0.6358
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6358,
+            "GRAB": 0.6358
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6358,
+            "GRAB": 0.6358
+          },
+          "correct": false
+        }
+      ],
+      "failure_class": null
+    },
+    "4": {
+      "seed": 4,
+      "suff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.5,
+        "lift_over_scramble": 0.5,
+        "acc_baseline": 1.0,
+        "digests": {
+          "real": "885470ad56ed2183",
+          "scramble": "8920e5fab7f4cb9b"
+        },
+        "arms_differ": true
+      },
+      "insuff": {
+        "acc_rich_real": 1.0,
+        "acc_rich_scramble": 0.6,
+        "lift_over_scramble": 0.4,
+        "acc_animacy_only": 0.5,
+        "margin_rich_over_animacy_only": 0.5,
+        "digests": {
+          "real": "4d728b548686b91b",
+          "scramble": "65c2eb35bfcfa5b3"
+        },
+        "arms_differ": true
+      },
+      "gen_probe": {
+        "rate": 1.0,
+        "n_correct": 10,
+        "n_total": 10,
+        "detail": [
+          {
+            "word": "run",
+            "label": "EVENT",
+            "noun": "steeplechase",
+            "gold_sense": "COMPETE",
+            "pred_sense": "COMPETE",
+            "correct": true
+          },
+          {
+            "word": "run",
+            "label": "GROUP",
+            "noun": "syndicate",
+            "gold_sense": "MANAGE",
+            "pred_sense": "MANAGE",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "ARTIFACT",
+            "noun": "etching",
+            "gold_sense": "SKETCH",
+            "pred_sense": "SKETCH",
+            "correct": true
+          },
+          {
+            "word": "draw",
+            "label": "GROUP",
+            "noun": "posse",
+            "gold_sense": "ATTRACT",
+            "pred_sense": "ATTRACT",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "ARTIFACT",
+            "noun": "jug",
+            "gold_sense": "GRASP",
+            "pred_sense": "GRASP",
+            "correct": true
+          },
+          {
+            "word": "hold",
+            "label": "EVENT",
+            "noun": "inauguration",
+            "gold_sense": "CONVENE",
+            "pred_sense": "CONVENE",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "ARTIFACT",
+            "noun": "grenade",
+            "gold_sense": "HURL",
+            "pred_sense": "HURL",
+            "correct": true
+          },
+          {
+            "word": "throw",
+            "label": "EVENT",
+            "noun": "fair",
+            "gold_sense": "HOST",
+            "pred_sense": "HOST",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "ARTIFACT",
+            "noun": "balloon",
+            "gold_sense": "GRAB",
+            "pred_sense": "GRAB",
+            "correct": true
+          },
+          {
+            "word": "catch",
+            "label": "OTHER",
+            "noun": "shingles",
+            "gold_sense": "CONTRACT_ILLNESS",
+            "pred_sense": "CONTRACT_ILLNESS",
+            "correct": true
+          }
+        ]
+      },
+      "items_suff_real": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2748,
+            "RUIN": 0.6421
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": 0.2748,
+            "RUIN": 0.6421
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6421,
+            "RUIN": 0.2748
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "PAMPER",
+          "sims": {
+            "PAMPER": 0.6421,
+            "RUIN": 0.2748
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6352,
+            "HARM": 0.2611
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6352,
+            "HARM": 0.2611
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2611,
+            "HARM": 0.6352
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2611,
+            "HARM": 0.6352
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6523,
+            "HARM": 0.2632
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6523,
+            "HARM": 0.2632
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2632,
+            "HARM": 0.6523
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2632,
+            "HARM": 0.6523
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6433,
+            "HARM": 0.2424
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6433,
+            "HARM": 0.2424
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2424,
+            "HARM": 0.6433
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2424,
+            "HARM": 0.6433
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6385,
+            "HARM": 0.2706
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6385,
+            "HARM": 0.2706
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2706,
+            "HARM": 0.6385
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.2706,
+            "HARM": 0.6385
+          },
+          "correct": true
+        }
+      ],
+      "items_suff_scramble": [
+        {
+          "word": "spoil",
+          "noun": "cheese",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0223,
+            "RUIN": -0.0003
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "fruit",
+          "label": "inanimate",
+          "gold_sense": "RUIN",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0223,
+            "RUIN": -0.0003
+          },
+          "correct": true
+        },
+        {
+          "word": "spoil",
+          "noun": "kitten",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0206,
+            "RUIN": 0.0052
+          },
+          "correct": false
+        },
+        {
+          "word": "spoil",
+          "noun": "son",
+          "label": "animate",
+          "gold_sense": "PAMPER",
+          "pred_sense": "RUIN",
+          "sims": {
+            "PAMPER": -0.0206,
+            "RUIN": 0.0052
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "buzzer",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2388,
+            "HARM": -0.0194
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "clock",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2388,
+            "HARM": -0.0194
+          },
+          "correct": true
+        },
+        {
+          "word": "beat",
+          "noun": "guard",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.637,
+            "HARM": -0.0083
+          },
+          "correct": false
+        },
+        {
+          "word": "beat",
+          "noun": "stranger",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.637,
+            "HARM": -0.0083
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "gong",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0289,
+            "HARM": 0.8065
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "anvil",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0289,
+            "HARM": 0.8065
+          },
+          "correct": false
+        },
+        {
+          "word": "strike",
+          "noun": "mule",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0102,
+            "HARM": 0.8065
+          },
+          "correct": true
+        },
+        {
+          "word": "strike",
+          "noun": "man",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "HARM",
+          "sims": {
+            "BENIGN": 0.0102,
+            "HARM": 0.8065
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "icing",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8065,
+            "HARM": -0.0192
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "meringue",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8065,
+            "HARM": -0.0192
+          },
+          "correct": true
+        },
+        {
+          "word": "whip",
+          "noun": "puppy",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8065,
+            "HARM": 0.0117
+          },
+          "correct": false
+        },
+        {
+          "word": "whip",
+          "noun": "calf",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.8065,
+            "HARM": 0.0117
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "rocks",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6361,
+            "HARM": 0.0232
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "leaves",
+          "label": "inanimate",
+          "gold_sense": "BENIGN",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.6361,
+            "HARM": 0.0232
+          },
+          "correct": true
+        },
+        {
+          "word": "crush",
+          "noun": "rival",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2383,
+            "HARM": 0.0071
+          },
+          "correct": false
+        },
+        {
+          "word": "crush",
+          "noun": "opponent",
+          "label": "animate",
+          "gold_sense": "HARM",
+          "pred_sense": "BENIGN",
+          "sims": {
+            "BENIGN": 0.2383,
+            "HARM": 0.0071
+          },
+          "correct": false
+        }
+      ],
+      "items_suff_baseline": [
+        {
+          "word": "cherish",
+          "noun": "ring",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8065
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "painting",
+          "label": "inanimate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8065
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "wife",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8065
+          },
+          "correct": true
+        },
+        {
+          "word": "cherish",
+          "noun": "husband",
+          "label": "animate",
+          "gold_sense": "CHERISH",
+          "pred_sense": "CHERISH",
+          "sims": {
+            "CHERISH": 0.8065
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_rich": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6288,
+            "MANAGE": 0.2477
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6288,
+            "MANAGE": 0.2477
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2477,
+            "MANAGE": 0.6288
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": 0.2477,
+            "MANAGE": 0.6288
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2593,
+            "SKETCH": 0.6329
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": 0.2593,
+            "SKETCH": 0.6329
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.633,
+            "SKETCH": 0.2593
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.633,
+            "SKETCH": 0.2593
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2799,
+            "GRASP": 0.6425
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "GRASP",
+          "sims": {
+            "CONVENE": 0.2799,
+            "GRASP": 0.6425
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6425,
+            "GRASP": 0.2799
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6425,
+            "GRASP": 0.2799
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2478,
+            "HURL": 0.6212
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.2478,
+            "HURL": 0.6212
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6212,
+            "HURL": 0.2478
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HOST",
+          "sims": {
+            "HOST": 0.6212,
+            "HURL": 0.2478
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2555,
+            "GRAB": 0.6331
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.2555,
+            "GRAB": 0.6331
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6331,
+            "GRAB": 0.2555
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6331,
+            "GRAB": 0.2555
+          },
+          "correct": true
+        }
+      ],
+      "items_insuff_scramble": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0439,
+            "MANAGE": 0.0037
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "EVENT",
+          "gold_sense": "COMPETE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0439,
+            "MANAGE": 0.0037
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0021,
+            "MANAGE": 0.0107
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "GROUP",
+          "gold_sense": "MANAGE",
+          "pred_sense": "MANAGE",
+          "sims": {
+            "COMPETE": -0.0021,
+            "MANAGE": 0.0107
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": -0.0086,
+            "SKETCH": 0.0116
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "ARTIFACT",
+          "gold_sense": "SKETCH",
+          "pred_sense": "SKETCH",
+          "sims": {
+            "ATTRACT": -0.0086,
+            "SKETCH": 0.0116
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": -0.0097,
+            "SKETCH": -0.0178
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "GROUP",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": -0.0097,
+            "SKETCH": -0.0178
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.0031,
+            "GRASP": -0.0285
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "ARTIFACT",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.0031,
+            "GRASP": -0.0285
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": -0.0054,
+            "GRASP": -0.049
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "EVENT",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": -0.0054,
+            "GRASP": -0.049
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": -0.0104,
+            "HURL": 0.0134
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "ARTIFACT",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": -0.0104,
+            "HURL": 0.0134
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.0115,
+            "HURL": 0.0587
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "EVENT",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.0115,
+            "HURL": 0.0587
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": -0.0126,
+            "GRAB": 0.0002
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "ARTIFACT",
+          "gold_sense": "GRAB",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": -0.0126,
+            "GRAB": 0.0002
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0052,
+            "GRAB": 0.0396
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "OTHER",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "GRAB",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.0052,
+            "GRAB": 0.0396
+          },
+          "correct": false
+        }
+      ],
+      "items_insuff_animacy_only": [
+        {
+          "word": "run",
+          "noun": "contest",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6259,
+            "MANAGE": 0.6259
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "relay",
+          "label": "inanimate",
+          "gold_sense": "COMPETE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6259,
+            "MANAGE": 0.6259
+          },
+          "correct": true
+        },
+        {
+          "word": "run",
+          "noun": "corporation",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6259,
+            "MANAGE": 0.6259
+          },
+          "correct": false
+        },
+        {
+          "word": "run",
+          "noun": "agency",
+          "label": "inanimate",
+          "gold_sense": "MANAGE",
+          "pred_sense": "COMPETE",
+          "sims": {
+            "COMPETE": 0.6259,
+            "MANAGE": 0.6259
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "diagram",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6246,
+            "SKETCH": 0.6246
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mural",
+          "label": "inanimate",
+          "gold_sense": "SKETCH",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6246,
+            "SKETCH": 0.6246
+          },
+          "correct": false
+        },
+        {
+          "word": "draw",
+          "noun": "mob",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6246,
+            "SKETCH": 0.6246
+          },
+          "correct": true
+        },
+        {
+          "word": "draw",
+          "noun": "gathering",
+          "label": "inanimate",
+          "gold_sense": "ATTRACT",
+          "pred_sense": "ATTRACT",
+          "sims": {
+            "ATTRACT": 0.6246,
+            "SKETCH": 0.6246
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "box",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6426,
+            "GRASP": 0.6426
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "bottle",
+          "label": "inanimate",
+          "gold_sense": "GRASP",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6426,
+            "GRASP": 0.6426
+          },
+          "correct": false
+        },
+        {
+          "word": "hold",
+          "noun": "celebration",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6426,
+            "GRASP": 0.6426
+          },
+          "correct": true
+        },
+        {
+          "word": "hold",
+          "noun": "gala",
+          "label": "inanimate",
+          "gold_sense": "CONVENE",
+          "pred_sense": "CONVENE",
+          "sims": {
+            "CONVENE": 0.6426,
+            "GRASP": 0.6426
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "frisbee",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6224,
+            "HURL": 0.6224
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "disc",
+          "label": "inanimate",
+          "gold_sense": "HURL",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6224,
+            "HURL": 0.6224
+          },
+          "correct": true
+        },
+        {
+          "word": "throw",
+          "noun": "exhibition",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6224,
+            "HURL": 0.6224
+          },
+          "correct": false
+        },
+        {
+          "word": "throw",
+          "noun": "fete",
+          "label": "inanimate",
+          "gold_sense": "HOST",
+          "pred_sense": "HURL",
+          "sims": {
+            "HOST": 0.6224,
+            "HURL": 0.6224
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "dart",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6445,
+            "GRAB": 0.6445
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "boomerang",
+          "label": "inanimate",
+          "gold_sense": "GRAB",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6445,
+            "GRAB": 0.6445
+          },
+          "correct": false
+        },
+        {
+          "word": "catch",
+          "noun": "chickenpox",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6445,
+            "GRAB": 0.6445
+          },
+          "correct": true
+        },
+        {
+          "word": "catch",
+          "noun": "mumps",
+          "label": "inanimate",
+          "gold_sense": "CONTRACT_ILLNESS",
+          "pred_sense": "CONTRACT_ILLNESS",
+          "sims": {
+            "CONTRACT_ILLNESS": 0.6445,
+            "GRAB": 0.6445
+          },
+          "correct": true
+        }
+      ],
+      "failure_class": null
+    }
+  }
+}
