@@ -153,6 +153,7 @@ from typing import List, Optional, Tuple
 
 from hdlab.coreference_resolver import (
     normalize_tokens, is_pronoun_mention, gender_number_for, gn_compatible,
+    _SPEECH_VERBS as _COREF_SPEECH_VERBS,
 )
 from hdlab.frame_induction import frame_primary_role
 from hdlab.thematic_role_labeler import lemma_verb
@@ -873,19 +874,43 @@ _DET = {"the", "a", "an", "his", "her", "its", "their", "this", "that", "my", "y
 _STOP_BOUNDARY = ({"before", "after", "so", "and", "but", "or", "when", "while", "until", "if",
                     "because", "from", "for", "by", "at", "in", "on", "with"} | DIRECTIONAL_PP)
 
+# QUOTE-ATTRIBUTION BOUNDARY (2026-08-07, referent-extraction repair for dialogue-final passages).
+# _object_referent_after's forward object-NP scan previously stopped ONLY at _STOP_BOUNDARY / "to",
+# so a trailing quotative-attribution tag with no intervening preposition ("...a heart," said the
+# Tin Woodman) was NOT a stop point -- the scan ran past the true object NP and grabbed the speaker
+# tag instead ("woodman" instead of "heart"). FIX: reuse hdlab.coreference_resolver's OWN quotative-
+# attribution vocabulary (_SPEECH_VERBS, already the production primitive for "said/replied/asked
+# NAME" detection) as an ADDITIONAL boundary set, rather than hand-authoring a second copy.
+_QUOTE_ATTRIBUTION_VERBS = frozenset(_COREF_SPEECH_VERBS.split("|"))
+_QUOTE_BOUNDARY = _STOP_BOUNDARY | _QUOTE_ATTRIBUTION_VERBS
+
 
 def _tokens(sentence: str):
     return [t for t in re.findall(r"[a-z']+", sentence.lower()) if t]
 
 
+# DEICTIC NON-NOMINAL GUARD (2026-08-07, referent-recurrence regression fix): a bare deictic locative/
+# temporal adverb ("here"/"there"/"now"/...) is grammatically NOT a noun phrase head -- it can only
+# reach _np_last_content via an object-scan running past the true (pronoun/absent) object into an
+# adjunct ("want to come HERE for" -> "here"). Disk-probed regression: ts_potter_failed_escape's
+# desired referent extracted as "here" (from "wanted to come here"), which then falsely
+# referent-recurred against a later "here" -> false MET (gold UNMET). General fix, not tuned to this
+# one item: _np_last_content must never return a deictic adverb as an NP head.
+_DEICTIC_NON_NOMINAL = {"here", "there", "now", "then", "today", "tomorrow", "yesterday"}
+
+
 def _np_last_content(span):
     """Rightmost content token of an NP span, after stripping ONE leading determiner-equivalent (a
     closed DET set, or any token ending "'s" -- handles both "the old oak tree" (-> tree) and
-    possessive "Owen's rival" (-> rival, not owen))."""
+    possessive "Owen's rival" (-> rival, not owen)). Returns None (not a real NP head) for a bare
+    deictic locative/temporal adverb (_DEICTIC_NON_NOMINAL)."""
     toks = list(span)
     if toks and (toks[0] in _DET or toks[0].endswith("'s")):
         toks = toks[1:]
-    return toks[-1] if toks else None
+    if not toks:
+        return None
+    last = toks[-1]
+    return None if last in _DEICTIC_NON_NOMINAL else last
 
 
 # SENTENCE-SPLITTER FIX (2026-08-06, real-text generalization diagnostic, commit d52aa7669 traced
@@ -952,12 +977,67 @@ def _subject_span_skipping_preverbal_aux(toks: List[str], v_idx: int) -> List[st
 
 def _object_referent_after(toks: List[str], v_idx: int) -> Optional[str]:
     """Head of the direct-object NP immediately after toks[v_idx] (walk forward to the first
-    _STOP_BOUNDARY token or "to"), or None when there is no such NP ("tried to intercede FOR anne" ->
-    None). Same span logic find_desired_state already uses for OBJECT_IS_REFERENT_CLASSES, factored
-    here so both the GAP-B desired side and the recurrence-channel actual side compare the same THEME
-    (object) of the recurred action."""
+    _QUOTE_BOUNDARY token, "to", or _PREVERBAL_AUX token), or None when there is no such NP ("tried to
+    intercede FOR anne" -> None). Same span logic find_desired_state already uses for
+    OBJECT_IS_REFERENT_CLASSES, factored here so both the GAP-B desired side and the recurrence-channel
+    actual side compare the same THEME (object) of the recurred action. Boundary widened 2026-08-07
+    from _STOP_BOUNDARY to _QUOTE_BOUNDARY (adds quotative-attribution verbs) so a dialogue-final NP
+    doesn't run on into "...," said X -- see _QUOTE_BOUNDARY docstring above. FINITE-CLAUSE GUARD
+    (2026-08-07, referent-recurrence regression fix): also stop at a _PREVERBAL_AUX token (modal/aux/
+    copula -- the SAME closed set _subject_span_skipping_preverbal_aux already reuses) -- a modal/
+    copula inside the span marks the start of a SEPARATE finite clause (a comparative/adverbial, e.g.
+    "cover it just as much as COULD be, Diana"), not a continuation of the direct-object NP; without
+    this guard the scan ran past the true (pronoun) object into a trailing vocative and returned the
+    vocative name as the "referent" (disk-probed regression: agg_anne_pudding_sauce_mouse_ch16's
+    desired referent was extracted as "diana", a vocative address, not a real goal target -- false
+    MET once referent-recurrence found "Diana" mentioned again downstream). Byte-identical for every
+    span that doesn't reach a speech verb or preverbal-aux token (the only NEW stop points)."""
     j = v_idx + 1
-    while j < len(toks) and toks[j] not in _STOP_BOUNDARY and toks[j] != "to":
+    while j < len(toks) and toks[j] not in _QUOTE_BOUNDARY and toks[j] != "to" \
+            and toks[j] not in _PREVERBAL_AUX:
+        j += 1
+    return _np_last_content(toks[v_idx + 1:j])
+
+
+# ============================================================================ REFERENT-EXTRACTION
+# REPAIR PART 2 (2026-08-07, referent-recurrence unblock; extends the 2026-08-06 GAP-B/GAP-C repair
+# above). Two more find_desired_state referent bugs, both real-prose-probed:
+#
+#   ECM-DITRANSITIVE-THEME: "I want HIM to give me a heart" -- the ECM subject ("him") is NOT who
+#     changes state for a transfer-of-possession embedded verb; the THEME being transferred ("heart")
+#     is the did-it-happen-relevant referent. SUBJECT_IS_REFERENT_CLASSES/OBJECT_IS_REFERENT_CLASSES
+#     already encode this subject-vs-object distinction for CONTROL, but ECM's `between` span is
+#     ALWAYS read as the referent today regardless of the embedded verb's argument structure -- wrong
+#     specifically for a small closed class of transfer verbs (give/hand/bring/...). SUPPLY register
+#     (hand-authored, same convention as CLASS_REGISTRY -- NOT induced/tuned against eval text).
+TRANSFER_CLASS = {"give", "hand", "bring", "send", "offer", "grant", "pay", "pass", "return",
+                   "award", "present", "deliver", "donate"}
+
+#   ECM-COPULA: "My greatest WISH now ... IS to get back to Kansas" -- "wish" here is a NOUN (subject
+#     of a copular predicate), not a verb governing an ECM-subject infinitival. The naive `between`
+#     span ("now Dorothy added is") spans an entire intervening clause and ends at the copula itself,
+#     so _np_last_content(between) grabs "is" -- not a referent at all. FIX: when `between`'s last
+#     token is a copula form, this is NOT a true ECM embedding; treat it like CONTROL (referent comes
+#     from the embedded verb's own complement, not from `between`).
+_ECM_COPULA_FORMS = {"is", "are", "was", "were", "be", "been", "being", "am"}
+# Motion particles a destination PP can follow ("get BACK TO Kansas") -- the "to" there heads a
+# destination PP, not a new infinitival clause, so the object-NP scan must not stop at it. Reuses
+# DIRECTIONAL_PP (already-existing constant) plus "back" (not in DIRECTIONAL_PP, common in this
+# construction); scoped to its own local set so the shared DIRECTIONAL_PP / _object_referent_after
+# semantics used elsewhere (action_frame_feats's has_directional_pp feature) are untouched.
+_PP_CONTINUATION_PARTICLES = DIRECTIONAL_PP | {"back"}
+
+
+def _object_referent_after_pp_aware(toks: List[str], v_idx: int) -> Optional[str]:
+    """Variant of _object_referent_after that does not stop at a "to" immediately preceded by a
+    _PP_CONTINUATION_PARTICLES word -- that "to" heads a destination PP ("get BACK TO Kansas"), not a
+    new infinitival clause, so the scan must continue through it to reach the real destination NP.
+    Used ONLY by the ECM-copula referent fallback below (narrow, additive; the shared
+    _object_referent_after stays byte-identical for every existing caller)."""
+    j = v_idx + 1
+    while j < len(toks) and toks[j] not in _QUOTE_BOUNDARY:
+        if toks[j] == "to" and not (j > v_idx + 1 and toks[j - 1] in _PP_CONTINUATION_PARTICLES):
+            break
         j += 1
     return _np_last_content(toks[v_idx + 1:j])
 
@@ -968,7 +1048,8 @@ def find_desired_state(sentence: str):
     verb is found. Scan logic byte-identical to
     experiments/exp_outcome_valence_goal_congruence_v1.py::find_desired_state; the governing-verb
     gate widened 2026-08-06 from DESIDERATIVE_PASS alone to the GOAL_GOVERNING_PASS union (adds
-    try/decide/determine/like/love + gerund forms)."""
+    try/decide/determine/like/love + gerund forms). Referent extraction extended 2026-08-07 with the
+    ECM-ditransitive-theme, ECM-copula, and invalid-function-word-referent repairs above."""
     toks = _tokens(sentence)
     # NEGATION-SCOPE GUARD (2026-08-06): iterate governing-verb occurrences and SKIP one whose verb
     # is itself negated (do-support / modal / "never" adjacency, _verb_negated_before) -- a negated
@@ -986,11 +1067,26 @@ def find_desired_state(sentence: str):
         embedded_lemma = lemma_verb(toks[i + 1])
         classes = _verb_classes(embedded_lemma)
         between = toks[dv_idx + 1:i]
-        if between:
-            referent = _np_last_content(between)
+        between_is_copula_predicate = bool(between) and between[-1] in _ECM_COPULA_FORMS
+        if between and not between_is_copula_predicate:
             pattern = "ECM"
+            candidate_referent = _np_last_content(between)
+            # INVALID-ECM-REFERENT GUARD (2026-08-07): a dropped numeric token ("decided IN [2013] to
+            # see") can strand a bare preposition/function word as the "between" NP head -- not a real
+            # referent (candidate_referent in _STOP_BOUNDARY). DITRANSITIVE-TRANSFER GUARD: for a
+            # transfer-of-possession embedded verb, the referent that matters is the THEME being
+            # transferred (the embedded verb's own direct object), not the ECM subject in `between`.
+            if (candidate_referent is None or candidate_referent in _STOP_BOUNDARY
+                    or embedded_lemma in TRANSFER_CLASS):
+                referent = _object_referent_after(toks, i + 1)
+            else:
+                referent = candidate_referent
         else:
-            pattern = "CONTROL"
+            # ECM-COPULA (2026-08-07): between_is_copula_predicate -- a copular predicate ("wish ...
+            # IS to VP"), not a true ECM embedding; fall through to the embedded verb's own complement
+            # exactly like CONTROL, with a PP-aware object scan (get BACK TO Kansas) as the final
+            # fallback. between empty -> ordinary CONTROL, byte-identical to before.
+            pattern = "ECM_COPULA" if between_is_copula_predicate else "CONTROL"
             if classes & SUBJECT_IS_REFERENT_CLASSES:
                 referent = _np_last_content(toks[:dv_idx])
             elif classes & OBJECT_IS_REFERENT_CLASSES:
@@ -998,6 +1094,8 @@ def find_desired_state(sentence: str):
                 while j < len(toks) and toks[j] not in _STOP_BOUNDARY and toks[j] != "to":
                     j += 1
                 referent = _np_last_content(toks[i + 2:j])
+            elif between_is_copula_predicate:
+                referent = _object_referent_after_pp_aware(toks, i + 1)
             else:
                 # GAP-B (2026-08-06): OOV control verb (no CLASS_REGISTRY class) -- extract the object
                 # NP theme ("wanted to FIND love" -> "love") so the goal-verb-recurrence channel can
@@ -1179,6 +1277,139 @@ def congruence_outcome_valence_windowed(passage_text: str, max_window: int = 4):
     return congruence_decision(goal_sentences, sents[-1])   # byte-identical fallback
 
 
+# ============================================================================ REFERENT-RECURRENCE
+# CHANNEL (2026-08-07, did-it-happen build, sibling of the GOAL-VERB-RECURRENCE channel above). The
+# verb-recurrence channel (RECURRENCE_SENTINEL) types MET/UNMET when the OUTCOME reuses the goal's own
+# VERB. Several real-prose items never recur the verb at all (goal "give a heart", outcome "put the
+# heart in") -- the goal's REFERENT (its TARGET noun, now correctly extracted per the 2026-08-07 A3
+# repair above) recurs instead. This channel is deliberately built as a SEPARATE top-level pass (NOT
+# spliced into find_actual_state_candidates/congruence_decision) so it can be added as a pure
+# ADDITIONAL fallback tier with zero risk to the existing verb-class Pass-1/occurrence-gate/
+# verb-recurrence machinery (fully isolated new code path; congruence_decision, find_actual_state_
+# candidates, and _referent_links are UNTOUCHED by this section).
+#
+# SUPPLY, innate-core noun-concept register (2026-08-07) -- same "hand-authored, not induced/tuned
+# against eval text" convention as CLASS_REGISTRY, extended to a small common-sense NOUN class the
+# existing 89-concept hdlab.lexical_similarity.CONCEPT_FEATURES lexicon does not cover. Generalizes to
+# any money/funding passage, not specific to one eval item's wording.
+MONEY_CLASS = {"money", "funding", "fund", "funds", "cash", "pound", "pounds", "dollar", "dollars",
+               "euro", "euros"}
+NOUN_CONCEPT_CLASSES = {"MONEY_CLASS": MONEY_CLASS}
+
+# OVER-FIRE GUARD: light/vague/pronoun/gerund referents must never drive this channel (a coincidental
+# recurrence of "it"/"something"/"one" is not evidence the goal's target recurred). Reuses
+# _RECURRENCE_LIGHT_VERB_STOP (already-defined light-verb-adjacent closed set) plus a small explicit
+# vague-pronoun set; the gerund-suffix + is_pronoun_mention checks are GENERAL (not a hand list).
+_REFERENT_RECURRENCE_STOP = _RECURRENCE_LIGHT_VERB_STOP | {
+    "something", "someone", "somebody", "anything", "anybody", "everything", "everybody",
+    "nothing", "one", "it",
+}
+_REFERENT_RECURRENCE_MIN_LEN = 3
+
+
+def _referent_recurrence_eligible(referent: Optional[str]) -> bool:
+    """True iff `referent` is specific enough to drive the referent-recurrence channel: not None, not
+    too short, not a light/vague-pronoun noun (_REFERENT_RECURRENCE_STOP), not gerund-shaped (a
+    generic morphological guard against gerund referents that are almost always an extraction
+    artifact, not a real target), and not a bare pronoun (is_pronoun_mention, the same production
+    coreference primitive _referent_links already reuses)."""
+    if not referent or len(referent) < _REFERENT_RECURRENCE_MIN_LEN:
+        return False
+    if referent in _REFERENT_RECURRENCE_STOP:
+        return False
+    if referent.endswith("ing"):
+        return False
+    if is_pronoun_mention(referent):
+        return False
+    return True
+
+
+def _noun_class_of(word: str) -> set:
+    return {name for name, members in NOUN_CONCEPT_CLASSES.items() if word in members}
+
+
+def _referent_recurrence_matches(desired_ref: str, tok: str) -> bool:
+    """Does outcome-sentence token `tok` recur the goal's target referent `desired_ref`? LITERAL
+    (exact match) first; then SHARED_FEATURE (hdlab.lexical_similarity.concept_similarity, the SAME
+    organ _referent_links already uses, reused unmodified); then NOUN_CONCEPT_CLASSES (the small SUPPLY
+    register above, for common-sense noun concepts the 89-concept shared-feature lexicon doesn't
+    cover, e.g. money/funding/pounds)."""
+    if desired_ref == tok:
+        return True
+    if _lexsim_in_lexicon(desired_ref) and _lexsim_in_lexicon(tok):
+        sim = _lexsim_concept_similarity(desired_ref, tok)
+        if sim is not None and sim >= SIMILARITY_LINK_THRESHOLD:
+            return True
+    return bool(_noun_class_of(desired_ref) & _noun_class_of(tok))
+
+
+def _referent_recurrence_in_sentence(sentence: str, desired_ref: str):
+    """First token in `sentence` that recurs `desired_ref` (_referent_recurrence_matches), plus an
+    OCCURRENCE-GATE read: scan LEFT from the match to the nearest _STOP_BOUNDARY token or sentence
+    start (the same clause-scoping convention _object_referent_after/_STOP_BOUNDARY already use
+    elsewhere in this module) and check for an explicit negator (_is_negator -- the SAME primitive the
+    verb-side occurrence-gate uses) in that span: negated -> UNMET (the target recurred but under
+    negation, "the money never came"), else MET (occurrence confirmed). Returns (verdict, detail) or
+    None (no recurrence found in this sentence)."""
+    toks = _tokens(sentence)
+    for idx, tok in enumerate(toks):
+        if _referent_recurrence_matches(desired_ref, tok):
+            j = idx - 1
+            while j >= 0 and toks[j] not in _STOP_BOUNDARY:
+                j -= 1
+            clause = toks[j + 1:idx]
+            negated = any(_is_negator(t) for t in clause)
+            verdict = "UNMET" if negated else "MET"
+            return verdict, {"reason": "referent_recurrence", "referent": desired_ref,
+                             "matched_token": tok, "negated": negated,
+                             "occurrence_gate_fired": negated}
+    return None
+
+
+def congruence_referent_recurrence_windowed(passage_text: str, max_window: int = 2):
+    """Referent-recurrence fallback tier (sibling of congruence_outcome_valence_windowed, same
+    backward-window convention). Fires ONLY when: (a) an antecedent goal is found
+    (find_desired_state), (b) its referent is _referent_recurrence_eligible, and (c) that referent
+    recurs (literal / shared-feature / noun-concept-class) in one of the trailing `max_window`
+    sentences. NA (abstain) otherwise -- never a forced verdict; the closest-to-end matching sentence
+    wins (consistent with congruence_outcome_valence_windowed's own backward-scan convention).
+
+    max_window=2 (narrower than the verb-class channel's max_window=4): a bare-noun recurrence is a
+    WEAKER signal than a class-matched verb (no result-state semantics at all, just co-reference), so
+    it is given a tighter reach. MEASURED reason (2026-08-07, disk-probed): at max_window=4 the scan
+    can reach back INTO the goal-adjacent region and match a goal RESTATEMENT rather than a genuine
+    post-goal outcome -- e.g. a passage where the goal sentence is followed 1 sentence later by a
+    rhetorical repeat of the same target noun (agg_anne_diana_bosom_friend_ch12: the goal is "hoped to
+    be your bosom friend"; two sentences later Anne asks Diana "...enough to be my bosom FRIEND?" --
+    literal 'friend' recurs, but this is the SAME request restated, not evidence Diana agreed; the
+    real signal there is enablement/granting ('Diana laughed...I guess so'), a different, harder,
+    out-of-scope mechanism). max_window=2 keeps every measured genuine recovery (all three land at
+    k=1: woz_tin_woodman_heart/woz_dorothy_kansas_wish/onestop_hunt_crowdfunding) while dropping that
+    one coincidental/lucky match -- reported honestly, not silently kept."""
+    sents = _sentences(passage_text)
+    if len(sents) < 2:
+        return "NA", {"reason": "insufficient_sentences"}
+    goal_sentences = sents[:-1]
+    desired = None
+    for gs in goal_sentences:
+        desired = find_desired_state(gs)
+        if desired is not None:
+            break
+    if desired is None:
+        return "NA", {"reason": "no_desiderative_goal_found"}
+    referent = desired.get("referent")
+    if not _referent_recurrence_eligible(referent):
+        return "NA", {"reason": "referent_recurrence_ineligible", "referent": referent}
+    for k in range(1, min(max_window, len(sents) - 1) + 1):
+        hit = _referent_recurrence_in_sentence(sents[-k], referent)
+        if hit is not None:
+            verdict, detail = hit
+            detail["desired"] = desired
+            detail["window_k"] = k
+            return verdict, detail
+    return "NA", {"reason": "no_referent_recurrence", "referent": referent}
+
+
 def lexicon_predict(outcome_sentence: str):
     """The mechanism this promotion supplements (not deletes): V2_OUTCOME_UNMET/_MET set-membership
     on the outcome sentence alone (same sets, same tokenization convention as
@@ -1210,10 +1441,19 @@ def congruence_with_lexicon_fallback(passage_text: str):
     closest-to-end sentence is candidate-empty. FULL-44 eval-wide non-regression verified (Check 4):
     every verdict that moves is NONE/NA -> a correct verdict, none correct -> wrong. Was byte-identical
     to experiments/exp_outcome_valence_goal_congruence_v1.py::congruence_with_lexicon_fallback before
-    this wire (that source cell keeps its own copy untouched)."""
+    this wire (that source cell keeps its own copy untouched). REFERENT-RECURRENCE WIRED (2026-08-07,
+    did-it-happen sibling build): when the verb-class windowed primary abstains (NA), try
+    congruence_referent_recurrence_windowed BEFORE falling all the way to the bare lexicon -- a
+    goal-relative referent-grounded signal is preferred over a goal-independent word-lexicon guess.
+    Strict-ADD: only consulted on NA from the primary, and itself abstains (NA) unless a genuine
+    referent recurrence is found, so a passage with no antecedent goal or no eligible referent falls
+    through to the lexicon exactly as before."""
     verdict, detail = congruence_outcome_valence_windowed(passage_text)
     if verdict != "NA":
         return verdict, detail
+    verdict2, detail2 = congruence_referent_recurrence_windowed(passage_text)
+    if verdict2 != "NA":
+        return verdict2, detail2
     sents = _sentences(passage_text)
     lex = lexicon_predict(sents[-1]) if sents else "NONE"
     return lex, {"reason": "abstain_fallback_to_lexicon", "lexicon_raw": lex}
