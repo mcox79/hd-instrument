@@ -1,0 +1,248 @@
+{
+  "anchor_name": "exp_verbclass_backoff_coverage_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "coverage_gain=1 (NA->CORRECT) na_to_wrong=0 regressions=3 heldout=4/8 no_overfire=True restoration_ok=True verdict=HARD_FAIL",
+  "summary": "coverage_gain=1 (NA->CORRECT) na_to_wrong=0 regressions=3 heldout=4/8 no_overfire=True restoration_ok=True verdict=HARD_FAIL",
+  "elapsed_s": 255.251961,
+  "ts_iso": "2026-08-07T12:37:51.631914+00:00",
+  "run_mode": "full",
+  "eval_path": "D:\\AI\\hd-instrument\\experiments\\data\\goal_bearing_modern_eval_v1.jsonl",
+  "n_items": 44,
+  "baseline": {
+    "correct": 17,
+    "wrong": 4,
+    "na": 23
+  },
+  "patched": {
+    "correct": 15,
+    "wrong": 6,
+    "na": 23
+  },
+  "coverage_gain_count": 1,
+  "coverage_gain_items": [
+    {
+      "id": "ts_tom_wish_free_potter",
+      "before": {
+        "status": "NA",
+        "verdict": "NONE",
+        "gold": "MET",
+        "reason": "abstain_fallback_to_lexicon"
+      },
+      "after": {
+        "status": "CORRECT",
+        "verdict": "MET",
+        "gold": "MET",
+        "reason": "same_class_same_referent"
+      }
+    }
+  ],
+  "na_to_wrong_count": 0,
+  "na_to_wrong_items": [],
+  "regression_count": 3,
+  "regression_items": [
+    {
+      "id": "lw_aunt_march_opposition",
+      "before": {
+        "status": "CORRECT",
+        "verdict": "UNMET",
+        "gold": "UNMET",
+        "reason": "referent_mismatch"
+      },
+      "after": {
+        "status": "NA",
+        "verdict": "NONE",
+        "gold": "UNMET",
+        "reason": "abstain_fallback_to_lexicon"
+      }
+    },
+    {
+      "id": "woz_dorothy_kansas_wish",
+      "before": {
+        "status": "CORRECT",
+        "verdict": "MET",
+        "gold": "MET",
+        "reason": "referent_recurrence"
+      },
+      "after": {
+        "status": "WRONG",
+        "verdict": "UNMET",
+        "gold": "MET",
+        "reason": "referent_mismatch"
+      }
+    },
+    {
+      "id": "onestop_limal_dating",
+      "before": {
+        "status": "CORRECT",
+        "verdict": "MET",
+        "gold": "MET",
+        "reason": "same_class_same_referent"
+      },
+      "after": {
+        "status": "WRONG",
+        "verdict": "UNMET",
+        "gold": "MET",
+        "reason": "referent_mismatch"
+      }
+    }
+  ],
+  "restoration_ok": true,
+  "heldout_generalization": {
+    "n_correct": 4,
+    "n_total": 8,
+    "pass_bar": 6,
+    "results": [
+      {
+        "goal": "She wanted to procure a horse for the journey.",
+        "outcome": "But the horse was stolen before she could leave.",
+        "gold": "UNMET",
+        "verdict": "MET",
+        "correct": false,
+        "reason": "referent_recurrence",
+        "note": "LEVIN_POSSESSION held-out member 'procure' vs existing DAMAGE_LOSE-ish steal(OOV)/lost"
+      },
+      {
+        "goal": "She wanted to secure a loan from the bank.",
+        "outcome": "She lost the loan to a rival buyer.",
+        "gold": "UNMET",
+        "verdict": "UNMET",
+        "correct": true,
+        "reason": "opposed_class_same_referent",
+        "note": "LEVIN_POSSESSION held-out 'secure' opposed to existing FAIL_LOSE 'lost'"
+      },
+      {
+        "goal": "The queen wished to grant her knight a title.",
+        "outcome": "The queen gave her knight the title of Sir Rowan.",
+        "gold": "MET",
+        "verdict": "UNMET",
+        "correct": false,
+        "reason": "referent_mismatch",
+        "note": "LEVIN_TRANSFER held-out 'grant' same-class as CORE 'give'"
+      },
+      {
+        "goal": "The courier meant to deliver the package before noon.",
+        "outcome": "The courier failed to deliver it in time.",
+        "gold": "UNMET",
+        "verdict": "UNMET",
+        "correct": true,
+        "reason": "referent_mismatch",
+        "note": "LEVIN_TRANSFER held-out 'deliver' opposed to existing FAIL_LOSE 'failed'"
+      },
+      {
+        "goal": "The engineers hoped to construct a bridge across the river.",
+        "outcome": "The engineers built the bridge in six months.",
+        "gold": "MET",
+        "verdict": "MET",
+        "correct": true,
+        "reason": "referent_recurrence",
+        "note": "LEVIN_CREATION held-out 'construct' same-class as CORE 'build'"
+      },
+      {
+        "goal": "The smith wanted to forge a new sword for the king.",
+        "outcome": "The smith lost the metal in the fire.",
+        "gold": "UNMET",
+        "verdict": "UNMET",
+        "correct": true,
+        "reason": "referent_mismatch",
+        "note": "LEVIN_CREATION held-out 'forge' opposed to existing FAIL_LOSE 'lost'"
+      },
+      {
+        "goal": "The sailor longed to witness the eclipse from the deck.",
+        "outcome": "The sailor saw the eclipse just before dawn.",
+        "gold": "MET",
+        "verdict": "UNMET",
+        "correct": false,
+        "reason": "referent_mismatch",
+        "note": "LEVIN_PERCEPTION held-out 'witness' same-class as CORE 'see'"
+      },
+      {
+        "goal": "The scout hoped to perceive the enemy camp before dark.",
+        "outcome": "The scout missed the camp entirely in the fog.",
+        "gold": "UNMET",
+        "verdict": "MET",
+        "correct": false,
+        "reason": "referent_recurrence",
+        "note": "LEVIN_PERCEPTION held-out 'perceive' opposed to existing FAIL_LOSE 'missed'"
+      }
+    ]
+  },
+  "adversarial_overfire_probe": {
+    "do_excluded_from_table": true,
+    "do_live_classes": [],
+    "do_stays_unclassed": true,
+    "unrelated_whisper_in_table": false,
+    "unrelated_sneeze_in_table": false,
+    "unrelated_yawn_in_table": false
+  },
+  "backoff_table_size": {
+    "full": 51,
+    "core": 38,
+    "heldout": 13
+  },
+  "core_trigger_lemmas": [
+    "award",
+    "build",
+    "craft",
+    "creat",
+    "create",
+    "find",
+    "form",
+    "gain",
+    "get",
+    "giv",
+    "give",
+    "given",
+    "glimps",
+    "glimpse",
+    "got",
+    "hand",
+    "hav",
+    "have",
+    "mak",
+    "make",
+    "notic",
+    "notice",
+    "observ",
+    "observe",
+    "obtain",
+    "offer",
+    "present",
+    "produc",
+    "produce",
+    "provid",
+    "provide",
+    "se",
+    "see",
+    "seen",
+    "spot",
+    "tak",
+    "take",
+    "taken"
+  ],
+  "heldout_lemmas": [
+    "construct",
+    "deliver",
+    "forg",
+    "forge",
+    "grant",
+    "perceiv",
+    "perceive",
+    "procur",
+    "procure",
+    "secur",
+    "secure",
+    "witnes",
+    "witness"
+  ],
+  "class_registry_negative_poles_used_for_opposition": [
+    "DAMAGE_LOSE",
+    "FAIL_LOSE"
+  ],
+  "gates": {
+    "coverage_gain_ge_3": false,
+    "no_regression": false,
+    "heldout_generalization_ge_6_of_8": false,
+    "no_overfire": true,
+    "restoration_ok": true
+  }
+}
