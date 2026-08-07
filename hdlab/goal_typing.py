@@ -1743,6 +1743,170 @@ def congruence_grounded_result_class(passage_text: str, max_window: int = 2):
     return "NA", {"reason": "no_grounded_result_verb_found"}
 
 
+# ============================================================================ REQUEST-RESPONSE
+# OUTCOME-TYPING TIER (2026-08-07, dialogue-goal companion build). The 2026-08-07 dialogue-goal-
+# recognition build (commit 2747fac9a) taught find_desired_state to recognize an illocutionary
+# REQUEST/hedged-request as the requester's own goal (HEDGED_MODAL_WISH / REQUEST_LET /
+# REQUEST_MODAL_1P / REQUEST_WILL_YOU / REQUEST_PLEASE -- collectively _DIALOGUE_REQUEST_PATTERNS
+# below), but left the OUTCOME of that goal untyped: the standard recurrence channel
+# (find_actual_state_candidates) requires a class-bearing verb, so it structurally cannot type a
+# request refused via "will not LET you in" (no CLASS_REGISTRY class at all -- "let" is a light verb
+# with no matching class) or granted via a verb with no lexical relationship to the request's own verb
+# ("invited...to come in" shares no verb-class with "open the gate"). A request's outcome is not "did
+# the SAME event happen again" (the recurrence channel's question) -- it is "did the ADDRESSEE respond
+# to the request", a distinct illocutionary-uptake construction (Searle 1969 direct/indirect speech
+# acts; Austin 1962 perlocutionary effect) that needs its own scan of the dialogue turn FOLLOWING the
+# request, not the request's own clause.
+#
+# MECHANISM: fires ONLY when a request goal was found (_find_dialogue_request_goal, scanning
+# sents[:-1] left-to-right for the FIRST sentence whose find_desired_state result carries a
+# _DIALOGUE_REQUEST_PATTERNS pattern) -- never touches a passage with no recognized request. Then
+# scans the sentence(s) immediately FOLLOWING the request (max_window_forward, default 1 -- the
+# request's very next line of dialogue) for one of two response signals, earliest-token-index wins if
+# both appear in the same sentence:
+#
+#   (a) GRANT-VERB (_request_grant_verb_match): a small closed-class affirmative-response verb
+#       (_REQUEST_GRANT_VERBS: invite/allow/admit/permit/grant) whose own direct object is a PERSON
+#       pronoun (is_pronoun_mention guard -- blocks an unrelated sense with no person object at all,
+#       e.g. "invited PROPOSALS for the new park") -> MET (base_verdict), occurrence-gated
+#       (_verb_negated_before) same as every other channel in this module ("did not allow him in" ->
+#       negation flips MET -> UNMET).
+#   (b) REQUEST-ECHO (_request_echo_match): the request's OWN verb-or-particle surface recurs in the
+#       response, occurrence-gated the same way. REQUEST_LET's embedded "verb" is frequently an
+#       elided participle/particle rather than a real verb ("let me IN" -- lemma_verb("in") == "in"
+#       itself, not a conjugated form), so a bare lemma match on a word as common as "in" would be a
+#       serious over-fire risk (any unrelated "in"-containing sentence in the response window). THE
+#       DEIXIS-SHIFT GUARD (over-fire guard, load-bearing): for REQUEST_LET specifically, require the
+#       echoed "let" be immediately followed by "you" -- the request's own surface has the requester
+#       as "me"/"us" (1st person, from the requester's own utterance); a genuine response addresses
+#       that SAME entity as "you" (2nd person, from the responder's turn) -- "I will not let YOU in" /
+#       "I will let YOU in". This blocks a coincidental unrelated "let X in" about a different entity
+#       in the response window (e.g. "the cat let ITSELF in") without needing a full
+#       speaker-attribution / cross-turn coreference primitive this module does not have.
+#       For every OTHER _DIALOGUE_REQUEST_PATTERNS pattern the verb_lemma is a genuine content verb
+#       (find_desired_state only reaches those patterns for a real embedded verb) -- REFERENT-LINK
+#       GUARD (over-fire guard, load-bearing, disk-probed): a bare lemma_verb match on that content
+#       verb ANYWHERE in the response is still not enough -- "May I OPEN the shop early?" ... "she
+#       OPENED the report" shares the verb lemma but is about a different object entirely. Reuse the
+#       SAME class-directed referent extraction find_desired_state itself uses (SUBJECT_IS_REFERENT_
+#       CLASSES / OBJECT_IS_REFERENT_CLASSES) to read the echoed token's own referent, then require it
+#       to _referent_links (literal / pronoun-coref / shared-feature -- the SAME discourse-entity
+#       linker congruence_decision's Pass-1 already uses) back to the request's own referent. A
+#       coincidentally-lemma-matching but referentially-unrelated echo never qualifies.
+#
+# OVER-FIRE GUARDS (matches the spawn-prompt's own checklist): (1) fires ONLY for a recognized
+# _DIALOGUE_REQUEST_PATTERNS goal (never a bare verb-class goal already handled by the earlier tiers);
+# (2) the response is scanned starting at the sentence AFTER the request sentence, never the request's
+# own sentence (rules out the requester's own repeated "let me in; let me in" from being read as its
+# own response); (3) both response channels are occurrence-gated (_verb_negated_before, the SAME
+# primitive every sibling channel in this module already uses); (4) STRICT LAST-RESORT ORDERING --
+# consulted by congruence_with_lexicon_fallback ONLY after congruence_outcome_valence_windowed,
+# congruence_referent_recurrence_windowed, AND congruence_grounded_result_class have all abstained
+# (NA); a passage any earlier tier already resolves is untouched. max_window_forward defaults to 1
+# (the request's immediate next line) rather than a wider window like the sibling tiers use --
+# MEASURED (this build): both pre-reg target items resolve at forward-window 1, and narrowing the
+# reach is a direct over-fire mitigation (a request/response pair that is not adjacent dialogue is
+# exactly the kind of narrative distance where a coincidental unrelated echo becomes likely).
+_DIALOGUE_REQUEST_PATTERNS = {"REQUEST_LET", "REQUEST_MODAL_1P", "REQUEST_WILL_YOU",
+                              "REQUEST_PLEASE", "HEDGED_MODAL_WISH"}
+_REQUEST_GRANT_VERBS = {"invite", "invit", "allow", "admit", "permit", "grant"}
+_REQUEST_ECHO_MAX_SPAN = 3
+_REQUEST_RESPONSE_MAX_WINDOW_FORWARD = 1
+
+
+def _request_grant_verb_match(toks: List[str]):
+    """First _REQUEST_GRANT_VERBS occurrence whose own direct object is a person pronoun (guards
+    against an unrelated sense of the same verb with no person object, e.g. "invited proposals").
+    Returns (idx, negated, kind, base_verdict) or None."""
+    for idx, tok in enumerate(toks):
+        lemma = lemma_verb(tok)
+        if lemma not in _REQUEST_GRANT_VERBS:
+            continue
+        obj = _object_referent_after(toks, idx)
+        if obj is None or not is_pronoun_mention(obj):
+            continue
+        return idx, _verb_negated_before(toks, idx), "grant_verb", "MET"
+    return None
+
+
+def _request_echo_match(toks: List[str], request: dict):
+    """First echo of `request`'s own verb-or-particle surface. Returns (idx, negated, kind,
+    base_verdict) or None. See section docstring above for the REQUEST_LET deixis-shift guard and the
+    referent-link guard used for every other pattern."""
+    verb_lemma = request.get("verb_lemma")
+    if not verb_lemma:
+        return None
+    if request.get("pattern") == "REQUEST_LET":
+        for idx, tok in enumerate(toks):
+            if tok != "let" or idx + 1 >= len(toks) or toks[idx + 1] != "you":
+                continue
+            span_end = min(len(toks), idx + 2 + _REQUEST_ECHO_MAX_SPAN)
+            if any(toks[k] == verb_lemma for k in range(idx + 2, span_end)):
+                return idx, _verb_negated_before(toks, idx), "let_echo", "MET"
+        return None
+    for idx, tok in enumerate(toks):
+        if lemma_verb(tok) != verb_lemma:
+            continue
+        classes = _verb_classes(verb_lemma)
+        candidate_ref = (_np_last_content(toks[:idx]) if classes & SUBJECT_IS_REFERENT_CLASSES
+                         else _object_referent_after(toks, idx))
+        linked, _tier = _referent_links(request.get("referent"), candidate_ref)
+        if not linked:
+            continue
+        return idx, _verb_negated_before(toks, idx), "verb_echo", "MET"
+    return None
+
+
+def _request_response_in_sentence(sentence: str, request: dict):
+    """Earliest-token-index response signal in `sentence` (grant-verb or request-echo, see section
+    docstring), occurrence-gated with a same<->opposed XOR flip on negation. Returns (verdict, detail)
+    or None (no response signal in this sentence)."""
+    toks = _tokens(sentence)
+    candidates = [c for c in (_request_grant_verb_match(toks), _request_echo_match(toks, request))
+                  if c is not None]
+    if not candidates:
+        return None
+    idx, negated, kind, base_verdict = min(candidates, key=lambda c: c[0])
+    verdict = ("UNMET" if base_verdict == "MET" else "MET") if negated else base_verdict
+    return verdict, {"reason": f"request_response_{kind}", "match_idx": idx, "negated": negated,
+                      "occurrence_gate_fired": negated}
+
+
+def _find_dialogue_request_goal(sents: List[str]):
+    """First sentence (left-to-right) whose find_desired_state result carries a
+    _DIALOGUE_REQUEST_PATTERNS pattern, paired with its index in `sents`. Returns (request, idx) or
+    (None, None)."""
+    for i, s in enumerate(sents):
+        d = find_desired_state(s)
+        if d is not None and d.get("pattern") in _DIALOGUE_REQUEST_PATTERNS:
+            return d, i
+    return None, None
+
+
+def congruence_request_response(passage_text: str,
+                                 max_window_forward: int = _REQUEST_RESPONSE_MAX_WINDOW_FORWARD):
+    """REQUEST-RESPONSE outcome-typing tier (sibling of congruence_grounded_result_class, same
+    last-resort-fallback convention). Fires ONLY when (1) a _DIALOGUE_REQUEST_PATTERNS goal is found
+    among sents[:-1] (_find_dialogue_request_goal), and (2) one of the trailing `max_window_forward`
+    sentences AFTER the request sentence carries a grant-verb or request-echo response signal
+    (_request_response_in_sentence). NA (abstain) otherwise -- never a forced verdict. See section
+    docstring above for the full mechanism + over-fire guards."""
+    sents = _sentences(passage_text)
+    if len(sents) < 2:
+        return "NA", {"reason": "insufficient_sentences"}
+    request, req_idx = _find_dialogue_request_goal(sents[:-1])
+    if request is None:
+        return "NA", {"reason": "no_request_goal_found"}
+    for j in range(req_idx + 1, min(req_idx + 1 + max_window_forward, len(sents))):
+        hit = _request_response_in_sentence(sents[j], request)
+        if hit is not None:
+            verdict, detail = hit
+            detail["desired"] = request
+            detail["response_sentence_idx"] = j
+            return verdict, detail
+    return "NA", {"reason": "no_response_found", "desired": request}
+
+
 def lexicon_predict(outcome_sentence: str):
     """The mechanism this promotion supplements (not deletes): V2_OUTCOME_UNMET/_MET set-membership
     on the outcome sentence alone (same sets, same tokenization convention as
@@ -1787,14 +1951,51 @@ def congruence_with_lexicon_fallback(passage_text: str):
     valence: it only ever fires when a goal is already recognized) is preferred over a
     goal-independent word-lexicon guess. Strict-ADD: only consulted on NA from both prior tiers, and
     itself abstains (NA) unless an eligible grounded-result verb is found, so a passage with no
-    antecedent goal or no eligible result verb falls through to the lexicon exactly as before."""
+    antecedent goal or no eligible result verb falls through to the lexicon exactly as before.
+    REQUEST-RESPONSE TIER WIRED (2026-08-07, dialogue-goal companion build): a request's outcome is
+    typed by whether the addressee's NEXT dialogue turn grants or refuses it (see
+    congruence_request_response's own section docstring for the full mechanism), which fires ONLY
+    when find_desired_state recognized the antecedent goal as a REQUEST/hedged-request construction
+    (never a bare verb-class goal already handled by the earlier tiers). ORDERING (load-bearing,
+    MEASURED@this build): a plain last-resort append (consulted only when ALL THREE prior tiers
+    abstain) is NOT sufficient on its own -- the three prior tiers each independently call
+    find_desired_state too, and now that it recognizes REQUEST_*/HEDGED_MODAL_WISH goals (2026-08-07
+    dialogue-goal-recognition build), those tiers can produce a non-NA verdict FROM a request-type
+    antecedent even though they were never designed/validated for illocutionary request/response
+    resolution -- MEASURED regression case: mg3_frank_garden_invited's windowed verb-class primary
+    (congruence_outcome_valence_windowed) coincidentally classifies "invited" into the SAME
+    Tier-2-open-vocab-similarity class as the wish's "open" (both OPEN_CLASS), then fails the
+    referent link (the subject-scan picks up the stray adverb "kindly", not "the gardener") ->
+    "referent_mismatch" -> a confident but WRONG UNMET (gold MET), which a plain last-resort ordering
+    would never get a chance to override. FIX: each of the three prior tiers' verdicts is trusted
+    UNLESS it was computed from a _DIALOGUE_REQUEST_PATTERNS antecedent (detail["desired"]["pattern"]
+    -- present on every non-NA verdict all three tiers return), in which case
+    congruence_request_response gets the first attempt instead; if congruence_request_response ALSO
+    abstains, the original tier's verdict is used exactly as it would have been anyway (so this can
+    never produce a WORSE answer than before, only a chance to supply a better one). Strict-scoped:
+    for any passage whose antecedent is NOT a dialogue-request construction (every existing 44-item /
+    real_text / fair-instrument regression item outside the 2 new targets), `pattern` is never in
+    _DIALOGUE_REQUEST_PATTERNS, so the very first non-NA tier returns exactly as before -- BYTE-
+    IDENTICAL for every already-typed non-dialogue-request passage."""
     verdict, detail = congruence_outcome_valence_windowed(passage_text)
-    if verdict != "NA":
+    if verdict != "NA" and detail.get("desired", {}).get("pattern") not in _DIALOGUE_REQUEST_PATTERNS:
         return verdict, detail
     verdict2, detail2 = congruence_referent_recurrence_windowed(passage_text)
-    if verdict2 != "NA":
+    if verdict2 != "NA" and detail2.get("desired", {}).get("pattern") not in _DIALOGUE_REQUEST_PATTERNS:
         return verdict2, detail2
     verdict3, detail3 = congruence_grounded_result_class(passage_text)
+    if verdict3 != "NA" and detail3.get("desired", {}).get("pattern") not in _DIALOGUE_REQUEST_PATTERNS:
+        return verdict3, detail3
+    verdict4, detail4 = congruence_request_response(passage_text)
+    if verdict4 != "NA":
+        return verdict4, detail4
+    # congruence_request_response itself abstained -- fall back to whichever prior tier had a
+    # (request-antecedent) non-NA verdict, in the ORIGINAL priority order, so a passage that reaches
+    # this point is typed EXACTLY as it would have been before this build.
+    if verdict != "NA":
+        return verdict, detail
+    if verdict2 != "NA":
+        return verdict2, detail2
     if verdict3 != "NA":
         return verdict3, detail3
     sents = _sentences(passage_text)
