@@ -445,6 +445,19 @@ _AFFECT_TRIGGERS_3P = {"feels", "felt", "is", "was"}  # deliberately NOT are/wer
 _AFFECT_WINDOW = 6
 
 
+def _first_roster_name_token(toks: List[str], roster: dict):
+    """First token (in sentence order) that is a roster entity name, or None. Shared low-level helper:
+    factored 2026-08-07 (2a-part-2) out of detect_affect_state_construction's Pattern B (first-person
+    dialogue holder = the first roster-name token in the sentence, for reporting-verb speaker
+    attribution) so the goal-holder speaker-attribution fallback in _unify_owner_via_polarity_path
+    below reuses the SAME scan instead of hand-duplicating it. Behavior-preserving: identical to the
+    inline loop Pattern B used before this refactor."""
+    for t in toks:
+        if t in roster:
+            return t
+    return None
+
+
 def detect_affect_state_construction(sentence: str, roster: dict):
     """Own-affect construction detector (glass-box, no POS tagger). Returns (polarity, holder) where
     polarity in {"POS","NEG"}, holder = the roster entity whose OWN affect this is, or (None, None).
@@ -475,12 +488,7 @@ def detect_affect_state_construction(sentence: str, roster: dict):
                     break
             if polarity is None:
                 continue
-            holder = None
-            for t2 in toks:
-                if t2 in roster:
-                    holder = t2
-                    break
-            return polarity, holder
+            return polarity, _first_roster_name_token(toks, roster)
     # ---- Pattern A: third person ----
     for i, t in enumerate(toks):
         if t not in _AFFECT_TRIGGERS_3P:
@@ -583,18 +591,45 @@ def _outcome_pos(role_seq: Sequence[str]):
 
 
 # ============================================================================ PATH-UNIFICATION
-# FALLBACK (2a-part-1, 2026-08-07). Two separate typing engines exist: this OWNER path (above,
-# enumerate_and_score -> build_candidate_role_seq -> type_goal_events) and the sibling POLARITY path
-# (hdlab.goal_typing.congruence_with_lexicon_fallback), which independently gained a richer
-# referent-recurrence did-it-happen mechanism (window-widening + goal-verb-recurrence) that the
-# OWNER path's own typer never sees. Brain-foundational rationale (DMN integration, Component-5):
-# the two readouts (does the outcome MATCH the goal / WHO does the outcome belong to) should share
-# ONE situation model, not run two independent typers that can disagree about whether an outcome was
-# typed AT ALL. This fallback UNIFIES them the cheap, safe way -- reuse (not reimplement) the
-# polarity path's verdict, then resolve WHO via the SAME structural machinery already in this module
-# (GeneralRecencyEntityResolver) applied to the sentence where hdlab.goal_typing.find_desired_state
-# (the richer goal-recognition the polarity path itself consults) fires -- rather than duplicating
-# the polarity path's typing logic here.
+# FALLBACK (2a-part-1, 2026-08-07; extended 2a-part-2, 2026-08-07). Two separate typing engines exist:
+# this OWNER path (above, enumerate_and_score -> build_candidate_role_seq -> type_goal_events) and the
+# sibling POLARITY path (hdlab.goal_typing.congruence_with_lexicon_fallback), which independently
+# gained a richer referent-recurrence did-it-happen mechanism (window-widening + goal-verb-recurrence)
+# that the OWNER path's own typer never sees. Brain-foundational rationale (DMN integration,
+# Component-5): the two readouts (does the outcome MATCH the goal / WHO does the outcome belong to)
+# should share ONE situation model, not run two independent typers that can disagree about whether an
+# outcome was typed AT ALL. This fallback UNIFIES them the cheap, safe way -- reuse (not reimplement)
+# the polarity path's verdict, then resolve WHO via the SAME structural machinery already in this
+# module (GeneralRecencyEntityResolver) applied to the sentence where hdlab.goal_typing.find_desired_
+# state (the richer goal-recognition the polarity path itself consults) fires -- rather than
+# duplicating the polarity path's typing logic here. 2a-part-2 ADDS a SPEAKER-ATTRIBUTION fallback for
+# the case flagged unfixed by 2a-part-1's own docstring: first-person dialogue goals ("I want... said
+# the Tin Woodman") whose grammatical subject is the pronoun "I" -- GeneralRecencyEntityResolver has no
+# first-person antecedent to resolve "I" against, so subject_entity returns None even though the
+# SPEAKER is named right there via a reporting-verb attribution clause. Reuses (does not hand-
+# duplicate) detect_affect_state_construction's Pattern B "holder = the first roster-name token in the
+# sentence" helper (_first_roster_name_token, factored out above) to resolve the speaker.
+_REPORTING_VERBS = {"said", "replied", "added", "announced", "cried"}
+
+
+def _speaker_attributed_goal_holder(sentence: str, roster: dict):
+    """SPEAKER-ATTRIBUTION fallback (2a-part-2) for a first-person dialogue GOAL sentence ("I want..."
+    inside quotes) whose grammatical subject GeneralRecencyEntityResolver cannot resolve. Fires ONLY
+    when `sentence` contains BOTH a first-person pronoun ("i") AND one of the reporting verbs
+    (_REPORTING_VERBS: said/replied/added/announced/cried) -- i.e. only on a genuine reported-speech
+    construction, never a bare unattributed "I" clause. Resolves holder = the roster entity named as
+    the speaker via _first_roster_name_token (the SAME helper detect_affect_state_construction's
+    Pattern B uses for the identical "holder = first roster-name token in the sentence" heuristic;
+    reused here, not reimplemented). Returns the entity name, or None to abstain (caller must not
+    force a bind)."""
+    toks = _ordered_tokens(sentence)
+    if "i" not in toks:
+        return None
+    if not any(v in toks for v in _REPORTING_VERBS):
+        return None
+    return _first_roster_name_token(toks, roster)
+
+
 def _unify_owner_via_polarity_path(passage_text: str, roster: dict):
     """Resolve a goal-holder ROSTER ENTITY via the polarity path, for use ONLY when the owner path's
     own typer (type_goal_events, via build_candidate_role_seq) typed NOTHING for ANY roster
@@ -603,20 +638,28 @@ def _unify_owner_via_polarity_path(passage_text: str, roster: dict):
     abstain; (2) resolve the SUBJECT of the first sentence where find_desired_state fires, scanning
     sentences in order through the SAME resolver instance (mirrors entity_goal_themes's threading
     pattern above, so pronoun recency state accumulates identically to every other consumer in this
-    module); (3) if that subject doesn't resolve to a UNIQUE roster entity (e.g. first-person dialogue
-    "I want... said the Tin Woodman" -> a pronoun subject with no accumulated recency antecedent
-    resolves to None), abstain -- speaker-attribution for that case is a follow-up, not fixed here."""
+    module); (3) 2a-part-2 ADD: if that subject doesn't resolve to a roster entity (e.g. first-person
+    dialogue "I want... said the Tin Woodman" -> a pronoun subject with no accumulated recency
+    antecedent resolves to None), try SPEAKER-ATTRIBUTION on that SAME goal sentence
+    (_speaker_attributed_goal_holder) before abstaining; (4) if speaker-attribution also fails (or
+    never applies -- not first-person dialogue), abstain."""
     verdict, _detail = congruence_with_lexicon_fallback(passage_text)
     if verdict not in ("MET", "UNMET"):
         return None
     sents = _sentences(passage_text)
     resolver = GeneralRecencyEntityResolver(roster)
     goal_holder = None
+    goal_sentence = None
     for s in sents[:-1]:
         subj = resolver.subject_entity(s)
         if find_desired_state(s) is not None:
             goal_holder = subj
+            goal_sentence = s
             break
+    if (goal_holder is None or goal_holder not in roster) and goal_sentence is not None:
+        speaker = _speaker_attributed_goal_holder(goal_sentence, roster)
+        if speaker is not None and speaker in roster:
+            goal_holder = speaker
     if goal_holder is None or goal_holder not in roster:
         return None
     return goal_holder
