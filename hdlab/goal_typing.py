@@ -1926,7 +1926,135 @@ def lexicon_predict(outcome_sentence: str):
     return "NONE"
 
 
-def congruence_with_lexicon_fallback(passage_text: str):
+# ============================================================================ LEVIN VERB-CLASS
+# LAST-RESORT BACKOFF (2026-08-07, WIRE-DONT-ISLAND promotion from experiments/
+# exp_verbclass_backoff_coverage_v2.py, commit 276674abb, PARTIAL: coverage_gain=+1
+# (ts_tom_wish_free_potter, NA->CORRECT), regressions=0, na_to_wrong=0, no_overfire=True,
+# restoration_ok=True on the full-44 goal_bearing_modern_eval_v1.jsonl bank; held-out generalization
+# 4/8, below the 6/8 bar -- a separate, already-traced referent-extraction gap (see the source cell's
+# docstring), not a defect of this tier's placement. v1 (commit 883e1b7ba, HARD_FAIL) patched
+# _verb_classes GLOBALLY, so the FIRST cascade tier saw the backoff and pre-empted later,
+# more-reliable tiers that were correctly answering via referent matching -- net -2. v2's fix (this
+# promotion): consult the SAME Levin backoff table ONLY as the ABSOLUTE LAST RESORT, after the entire
+# unpatched cascade (verb-class-windowed / referent-recurrence / grounded-result / request-response /
+# bare-lexicon, ALL unchanged by this promotion) has abstained -- see the `_levin_retry` parameter on
+# congruence_with_lexicon_fallback below, which re-runs the SAME cascade function exactly once more
+# with this table installed, then restores. STRICT-ADD (load-bearing, MEASURED not just argued): an
+# item whose unpatched cascade already returns a non-abstain verdict (correct OR wrong) never even
+# attempts the retry, so it is IMPOSSIBLE for this tier to touch (let alone flip) an already-decided
+# item.
+#
+# CLASS DESIGN (SUPPLY DATA, hand-authored from Levin 1993's class inventory, same convention as
+# CLASS_REGISTRY above -- NOT induced/tuned against any eval's text). "do" is DELIBERATELY EXCLUDED:
+# Levin/VerbNet do not define a dedicated "do" class -- it is the paradigm semantically-bleached
+# light-verb/pro-verb (Jespersen 1949); forcing a class onto it would be a precision risk (over-fire),
+# not a genuine backoff.
+LEVIN_CLASS_MEMBERS = {
+    "LEVIN_POSSESSION": [  # Levin 13.5.1 "Obtain verbs" + have-class possession-state verbs
+        ("get",     ["get", "gets", "getting", "got"],                    True),
+        ("have",    ["have", "has", "had", "having"],                     True),
+        ("find",    ["find", "finds", "finding", "found"],                True),
+        ("take",    ["take", "takes", "taking", "took", "taken"],         True),
+        ("obtain",  ["obtain", "obtains", "obtaining", "obtained"],       True),
+        ("gain",    ["gain", "gains", "gaining", "gained"],               True),
+        ("procure", ["procure", "procures", "procuring", "procured"],     False),
+        ("secure",  ["secure", "secures", "securing", "secured"],         False),
+    ],
+    "LEVIN_TRANSFER": [  # Levin 13.1 "Verbs of Future Having" / dative-alternation give-class
+        ("give",    ["give", "gives", "giving", "gave", "given"],         True),
+        ("hand",    ["hand", "hands", "handing", "handed"],               True),
+        ("offer",   ["offer", "offers", "offering", "offered"],           True),
+        ("provide", ["provide", "provides", "providing", "provided"],     True),
+        ("present", ["present", "presents", "presenting", "presented"],   True),
+        ("award",   ["award", "awards", "awarding", "awarded"],           True),
+        ("grant",   ["grant", "grants", "granting", "granted"],           False),
+        ("deliver", ["deliver", "delivers", "delivering", "delivered"],   False),
+    ],
+    "LEVIN_CREATION": [  # Levin 26.1/26.4 "Build verbs" / "Create verbs"
+        ("make",     ["make", "makes", "making", "made"],                 True),
+        ("build",    ["build", "builds", "building", "built"],            True),
+        ("create",   ["create", "creates", "creating", "created"],        True),
+        ("form",     ["form", "forms", "forming", "formed"],              True),
+        ("produce",  ["produce", "produces", "producing", "produced"],    True),
+        ("craft",    ["craft", "crafts", "crafting", "crafted"],          True),
+        ("construct", ["construct", "constructs", "constructing", "constructed"], False),
+        ("forge",    ["forge", "forges", "forging", "forged"],            False),
+    ],
+    "LEVIN_PERCEPTION": [  # Levin 30.1 "Verbs of Perception"
+        ("see",      ["see", "sees", "seeing", "saw", "seen"],            True),
+        ("notice",   ["notice", "notices", "noticing", "noticed"],        True),
+        ("observe",  ["observe", "observes", "observing", "observed"],    True),
+        ("spot",     ["spot", "spots", "spotting", "spotted"],            True),
+        ("glimpse",  ["glimpse", "glimpses", "glimpsing", "glimpsed"],    True),
+        ("witness",  ["witness", "witnesses", "witnessing", "witnessed"], False),
+        ("perceive", ["perceive", "perceives", "perceiving", "perceived"], False),
+    ],
+}
+LEVIN_ADVERSARIAL_EXCLUDED_LIGHT_VERB = "do"  # deliberately unclassed -- see class-design note above
+_LEVIN_NEGATIVE_ACHIEVEMENT_CLASSES = {"FAIL_LOSE", "DAMAGE_LOSE"}  # existing CLASS_REGISTRY neg poles
+_LEVIN_ABSTAIN = ("NA", "NONE", "AMBIGUOUS")
+
+_levin_backoff_table_cache: Optional[dict] = None
+
+
+def _levin_backoff_table() -> dict:
+    """Lazily-built lemma -> frozenset({class_tag}) table, built from lemma_verb (the real production
+    lemmatizer, never hand-guessed) so truncation quirks (collaps/fil/mak/giv/tak) are handled
+    identically to every other tier. Cached after first build (deterministic, no RNG, no I/O)."""
+    global _levin_backoff_table_cache
+    if _levin_backoff_table_cache is None:
+        table = {}
+        for class_tag, members in LEVIN_CLASS_MEMBERS.items():
+            for _concept, surfaces, _is_core in members:
+                for surf in surfaces:
+                    table[lemma_verb(surf)] = frozenset({class_tag})
+        _levin_backoff_table_cache = table
+    return _levin_backoff_table_cache
+
+
+def _install_levin_backoff_patch():
+    """Runtime-only reassignment of the module-globals _verb_classes / _class_relation to STRICT-ADD
+    wrappers (never overrides an existing non-empty classification/relation). Returns the two ORIGINAL
+    function objects so the caller restores them exactly. Same monkeypatch mechanics validated in
+    experiments/exp_verbclass_backoff_coverage_v1.py::_install_patch (reused by v2) -- promoted
+    in-module here (this module IS the target, so no cross-process patching is needed)."""
+    global _verb_classes, _class_relation
+    orig_verb_classes = _verb_classes
+    orig_class_relation = _class_relation
+    backoff_table = _levin_backoff_table()
+
+    def _patched_verb_classes(lemma):
+        classes = orig_verb_classes(lemma)
+        if classes:
+            return classes  # STRICT ADD: never override an existing classification
+        return set(backoff_table.get(lemma, set()))
+
+    def _patched_class_relation(desired_classes, actual_classes):
+        rel = orig_class_relation(desired_classes, actual_classes)
+        if rel is not None:
+            return rel  # STRICT ADD: never override an existing relation decision
+        levin_d = {c for c in desired_classes if c in LEVIN_CLASS_MEMBERS}
+        levin_a = {c for c in actual_classes if c in LEVIN_CLASS_MEMBERS}
+        if levin_d and levin_d & levin_a:
+            return "same"
+        if levin_d and (actual_classes & _LEVIN_NEGATIVE_ACHIEVEMENT_CLASSES):
+            return "opposed"
+        if levin_a and (desired_classes & _LEVIN_NEGATIVE_ACHIEVEMENT_CLASSES):
+            return "opposed"
+        return None
+
+    _verb_classes = _patched_verb_classes
+    _class_relation = _patched_class_relation
+    return orig_verb_classes, orig_class_relation
+
+
+def _restore_levin_backoff_patch(orig_verb_classes, orig_class_relation):
+    global _verb_classes, _class_relation
+    _verb_classes = orig_verb_classes
+    _class_relation = orig_class_relation
+
+
+def congruence_with_lexicon_fallback(passage_text: str, _levin_retry: bool = False):
     """PRODUCTION entry point: goal-congruence PRIMARY, V2_OUTCOME_UNMET/_MET lexicon as the ABSTAIN
     fallback (strict ADD -- non-goal-dependent / non-referent-stress behavior is unchanged from the
     pre-promotion lexicon-only path). WINDOW-WIDENING WIRED (2026-08-06 did-it-happen build, Check 4):
@@ -1976,7 +2104,18 @@ def congruence_with_lexicon_fallback(passage_text: str):
     for any passage whose antecedent is NOT a dialogue-request construction (every existing 44-item /
     real_text / fair-instrument regression item outside the 2 new targets), `pattern` is never in
     _DIALOGUE_REQUEST_PATTERNS, so the very first non-NA tier returns exactly as before -- BYTE-
-    IDENTICAL for every already-typed non-dialogue-request passage."""
+    IDENTICAL for every already-typed non-dialogue-request passage.
+    LEVIN VERB-CLASS LAST-RESORT BACKOFF WIRED (2026-08-07, promoted from experiments/
+    exp_verbclass_backoff_coverage_v2.py, commit 276674abb -- see the section comment above this
+    function for the full mechanism + provenance): when ALL of the above (the 4 tiers AND the bare
+    lexicon) abstain, the LEVIN_CLASS_MEMBERS table (get/have/find/take/obtain/gain,
+    give/hand/offer/provide/present/award, make/build/create/form/produce/craft,
+    see/notice/observe/spot/glimpse -- "do" excluded) is installed via `_install_levin_backoff_patch`
+    and the SAME cascade is retried exactly once (`_levin_retry=True` on the internal recursive call
+    prevents this block from firing again inside the retry, capping recursion at depth 1). Strict-ADD:
+    fires ONLY on total abstain, so it is structurally impossible to flip an already-decided verdict
+    -- MEASURED zero regression, +1 coverage gain on goal_bearing_modern_eval_v1.jsonl (see
+    verification/verify_levin_lastresort_backoff.py)."""
     verdict, detail = congruence_outcome_valence_windowed(passage_text)
     if verdict != "NA" and detail.get("desired", {}).get("pattern") not in _DIALOGUE_REQUEST_PATTERNS:
         return verdict, detail
@@ -2000,6 +2139,24 @@ def congruence_with_lexicon_fallback(passage_text: str):
         return verdict3, detail3
     sents = _sentences(passage_text)
     lex = lexicon_predict(sents[-1]) if sents else "NONE"
+    if lex.upper() not in _LEVIN_ABSTAIN or _levin_retry:
+        return lex, {"reason": "abstain_fallback_to_lexicon", "lexicon_raw": lex}
+    # LEVIN VERB-CLASS LAST-RESORT BACKOFF (2026-08-07 promotion; see section comment above this
+    # function). The entire unpatched cascade (all 4 prior tiers + bare lexicon) has abstained --
+    # install the Levin backoff table and retry the SAME cascade exactly once. `_levin_retry=True` on
+    # the recursive call below prevents this block from firing again inside the retry itself, so
+    # recursion depth is capped at 1. An item that already reached a non-abstain verdict above never
+    # enters this block, so it is structurally impossible for the backoff to touch (let alone flip) an
+    # already-decided item.
+    orig_verb_classes, orig_class_relation = _install_levin_backoff_patch()
+    try:
+        verdict5, detail5 = congruence_with_lexicon_fallback(passage_text, _levin_retry=True)
+    finally:
+        _restore_levin_backoff_patch(orig_verb_classes, orig_class_relation)
+    if verdict5.upper() not in _LEVIN_ABSTAIN:
+        detail5 = dict(detail5)
+        detail5["levin_last_resort_backoff_applied"] = True
+        return verdict5, detail5
     return lex, {"reason": "abstain_fallback_to_lexicon", "lexicon_raw": lex}
 
 
