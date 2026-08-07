@@ -650,7 +650,12 @@ def _unify_owner_via_polarity_path(passage_text: str, roster: dict):
     resolver = GeneralRecencyEntityResolver(roster)
     goal_holder = None
     goal_sentence = None
-    for s in sents[:-1]:
+    # 2a-part-3 (2026-08-07): search ALL sentences, not sents[:-1] -- mirrors congruence's own
+    # goal-search, which includes sents[-1] for the coordinated single-sentence "X tried to VP, and
+    # got RESULT" construction (e.g. ts_tom_sugar). Safe: this helper only runs in the NEVER_TYPED
+    # fallback, so it cannot touch a currently-typed item; pre-VET across the never-typed set found +1
+    # correct recovery (tom), 0 wrong.
+    for s in sents:
         subj = resolver.subject_entity(s)
         if find_desired_state(s) is not None:
             goal_holder = subj
