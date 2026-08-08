@@ -1,0 +1,894 @@
+{
+  "anchor_name": "pragmatic_curriculum_dialogue_role_sharded_shard_attention_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_SHARD_ATTENTION_WINS",
+  "verdict_msg": "HARD_PASS: best new shard-attention arm (role_shard_weighted, mean_acc=0.8333 over 5 seeds) BEATS attention-flat's mean_acc=0.7833 (n_train=40), non-constant (min n_distinct_preds=2), scramble collapses (mean_acc_scramble=0.4000 <= band=0.60) -> attention belongs at BOTH the cue level (arm3) AND the shard level (this cell); wire the shard-weighted/select combiner into the role-sharded architecture.",
+  "summary": "HARD_PASS: best new shard-attention arm (role_shard_weighted, mean_acc=0.8333 over 5 seeds) BEATS attention-flat's mean_acc=0.7833 (n_train=40), non-constant (min n_distinct_preds=2), scramble collapses (mean_acc_scramble=0.4000 <= band=0.60) -> attention belongs at BOTH the cue level (arm3) AND the shard level (this cell); wire the shard-weighted/select combiner into the role-sharded architecture.",
+  "elapsed_s": 1.5045,
+  "ts_iso": "2026-08-08T02:19:19.894404+00:00",
+  "pid": 14240,
+  "positive_controls": {
+    "mdl_xor_control": {
+      "chosen_name": "ruleind",
+      "compression_ratios": {
+        "estimation": 0.967741935483871,
+        "ruleind": 7.380981670562186,
+        "gam": 4.529063974435123
+      },
+      "passed": true
+    },
+    "vsa_synthetic_control": {
+      "acc": 1.0,
+      "acc_scramble": 0.2685185185185185,
+      "acc_scramble_trials": [
+        0.16666666666666666,
+        0.5833333333333334,
+        0.08333333333333333,
+        1.0,
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.25,
+        0.0
+      ],
+      "passed": true
+    }
+  },
+  "config": {
+    "n_train": 40,
+    "n_seeds": 5,
+    "tie_band": 0.02,
+    "split_seed": 20260822101,
+    "test_size": 24,
+    "subsample_seed_base": 20260822200,
+    "scramble_seed": 461207,
+    "scramble_band": 0.6,
+    "roles": [
+      "REQUEST",
+      "RESPONSE_POLARITY",
+      "DISCOURSE",
+      "FILLER_META"
+    ]
+  },
+  "data": {
+    "n_items_total": 72,
+    "data_path": "D:\\AI\\hd-instrument\\experiments\\data\\dialogue_request_response_dailydialog_scaling_v1.jsonl",
+    "test_ids": [
+      "dds_test_282_12",
+      "dds_test_403_4",
+      "dds_test_486_1",
+      "dds_test_547_11",
+      "dds_test_96_4",
+      "dds_train_10396_0",
+      "dds_train_10612_2",
+      "dds_train_2061_1",
+      "dds_train_2210_13",
+      "dds_train_2515_3",
+      "dds_train_5423_0",
+      "dds_train_5432_3",
+      "dds_train_5433_8",
+      "dds_train_5512_3",
+      "dds_train_6609_0",
+      "dds_train_701_0",
+      "dds_train_7069_2",
+      "dds_train_7800_0",
+      "dds_train_8116_0",
+      "dds_train_8496_2",
+      "dds_train_8580_0",
+      "dds_train_9817_4",
+      "dds_validation_199_0",
+      "dds_validation_694_1"
+    ],
+    "role_fallback_ids_unweighted": {}
+  },
+  "results_n_train_40": {
+    "majority": {
+      "mean_acc": 0.5,
+      "std_acc": 0.0,
+      "acc_values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "mdl": {
+      "mean_acc": 0.7083333333333333,
+      "std_acc": 0.11785113019775792,
+      "acc_values": [
+        0.625,
+        0.5416666666666666,
+        0.7083333333333334,
+        0.875,
+        0.7916666666666666
+      ],
+      "frac_episodic": 0.0
+    },
+    "naive_flat": {
+      "mean_acc": 0.65,
+      "std_acc": 0.07728015412913088,
+      "acc_values": [
+        0.5833333333333334,
+        0.5416666666666666,
+        0.7083333333333334,
+        0.75,
+        0.6666666666666666
+      ],
+      "mean_acc_scramble": 0.4833333333333333,
+      "acc_scramble_values": [
+        0.4583333333333333,
+        0.4166666666666667,
+        0.4166666666666667,
+        0.5833333333333334,
+        0.5416666666666666
+      ],
+      "min_n_distinct_preds": 2
+    },
+    "attention_flat": {
+      "mean_acc": 0.7833333333333333,
+      "std_acc": 0.016666666666666653,
+      "acc_values": [
+        0.7916666666666666,
+        0.75,
+        0.7916666666666666,
+        0.7916666666666666,
+        0.7916666666666666
+      ],
+      "mean_acc_scramble": 0.4666666666666667,
+      "acc_scramble_values": [
+        0.5,
+        0.3333333333333333,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "min_n_distinct_preds": 2
+    },
+    "role_sharded": {
+      "mean_acc": 0.5333333333333333,
+      "std_acc": 0.05527707983925667,
+      "acc_values": [
+        0.5,
+        0.4583333333333333,
+        0.5416666666666666,
+        0.625,
+        0.5416666666666666
+      ],
+      "mean_acc_scramble": 0.4666666666666667,
+      "acc_scramble_values": [
+        0.4583333333333333,
+        0.4166666666666667,
+        0.2916666666666667,
+        0.5416666666666666,
+        0.625
+      ],
+      "min_n_distinct_preds": 2
+    },
+    "role_shard_weighted": {
+      "mean_acc": 0.8333333333333334,
+      "std_acc": 0.0,
+      "acc_values": [
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "mean_acc_scramble": 0.4,
+      "acc_scramble_values": [
+        0.3333333333333333,
+        0.5,
+        0.20833333333333334,
+        0.3333333333333333,
+        0.625
+      ],
+      "min_n_distinct_preds": 2
+    },
+    "role_shard_select": {
+      "mean_acc": 0.8333333333333334,
+      "std_acc": 0.0,
+      "acc_values": [
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "mean_acc_scramble": 0.4416666666666667,
+      "acc_scramble_values": [
+        0.3333333333333333,
+        0.5,
+        0.4166666666666667,
+        0.3333333333333333,
+        0.625
+      ],
+      "min_n_distinct_preds": 2
+    },
+    "role_shard_weighted_composed_both_levels": {
+      "mean_acc": 0.8,
+      "std_acc": 0.0666666666666667,
+      "acc_values": [
+        0.8333333333333334,
+        0.6666666666666666,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "mean_acc_scramble": 0.425,
+      "acc_scramble_values": [
+        0.3333333333333333,
+        0.625,
+        0.125,
+        0.4166666666666667,
+        0.625
+      ],
+      "min_n_distinct_preds": 2
+    }
+  },
+  "shard_train_loo_acc_mean_over_seeds": {
+    "REQUEST": 0.38,
+    "RESPONSE_POLARITY": 0.72,
+    "DISCOURSE": 0.5,
+    "FILLER_META": 0.31
+  },
+  "shard_train_loo_acc_mean_over_seeds_scramble": {
+    "REQUEST": 0.52,
+    "RESPONSE_POLARITY": 0.42000000000000004,
+    "DISCOURSE": 0.525,
+    "FILLER_META": 0.27999999999999997
+  },
+  "raw_points": [
+    {
+      "n_train": 40,
+      "majority": {
+        "acc": 0.5
+      },
+      "mdl": {
+        "acc": 0.625,
+        "chosen_plugin": "ruleind",
+        "is_episodic": false
+      },
+      "naive_flat": {
+        "acc": 0.5833333333333334,
+        "acc_scramble": 0.4583333333333333,
+        "n_distinct_preds": 2
+      },
+      "attention_flat": {
+        "acc": 0.7916666666666666,
+        "acc_scramble": 0.5,
+        "n_distinct_preds": 2
+      },
+      "role_sharded": {
+        "acc": 0.5,
+        "acc_scramble": 0.4583333333333333,
+        "n_distinct_preds": 2
+      },
+      "role_shard_weighted": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.3333333333333333,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "de3e64d649d55862",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        },
+        "shard_weights_scramble": {
+          "REQUEST": 0.09999999999999998,
+          "RESPONSE_POLARITY": 0.0,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        }
+      },
+      "role_shard_select": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.3333333333333333,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "de3e64d649d55862",
+        "selected_role": "RESPONSE_POLARITY",
+        "selected_role_scramble": "REQUEST"
+      },
+      "role_shard_weighted_composed_both_levels": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.3333333333333333,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "de3e64d649d55862",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        }
+      },
+      "shard_train_loo_acc": {
+        "REQUEST": 0.425,
+        "RESPONSE_POLARITY": 0.725,
+        "DISCOURSE": 0.5,
+        "FILLER_META": 0.475
+      },
+      "shard_train_loo_acc_scramble": {
+        "REQUEST": 0.6,
+        "RESPONSE_POLARITY": 0.275,
+        "DISCOURSE": 0.5,
+        "FILLER_META": 0.325
+      },
+      "shard_weight_fallback_used_real": false,
+      "shard_weight_fallback_used_scramble": false,
+      "seed": 20260862200,
+      "seed_idx": 0,
+      "train_ids": [
+        "dds_test_468_6",
+        "dds_test_563_2",
+        "dds_test_587_7",
+        "dds_test_783_1",
+        "dds_train_10664_8",
+        "dds_train_11099_4",
+        "dds_train_111_0",
+        "dds_train_1309_8",
+        "dds_train_1353_4",
+        "dds_train_2100_6",
+        "dds_train_2174_2",
+        "dds_train_284_2",
+        "dds_train_3492_3",
+        "dds_train_3688_8",
+        "dds_train_5679_0",
+        "dds_train_6285_0",
+        "dds_train_6857_0",
+        "dds_train_7085_2",
+        "dds_train_7340_3",
+        "dds_train_7720_2",
+        "dds_train_7791_0",
+        "dds_train_7835_5",
+        "dds_train_7860_5",
+        "dds_train_8053_0",
+        "dds_train_8088_0",
+        "dds_train_839_6",
+        "dds_train_8466_5",
+        "dds_train_8735_6",
+        "dds_train_8837_2",
+        "dds_train_9166_8",
+        "dds_train_9174_0",
+        "dds_train_9257_2",
+        "dds_train_9633_2",
+        "dds_train_9814_0",
+        "dds_validation_13_0",
+        "dds_validation_549_0",
+        "dds_validation_606_0",
+        "dds_validation_737_0",
+        "dds_validation_808_3",
+        "dds_validation_808_5"
+      ]
+    },
+    {
+      "n_train": 40,
+      "majority": {
+        "acc": 0.5
+      },
+      "mdl": {
+        "acc": 0.5416666666666666,
+        "chosen_plugin": "ruleind",
+        "is_episodic": false
+      },
+      "naive_flat": {
+        "acc": 0.5416666666666666,
+        "acc_scramble": 0.4166666666666667,
+        "n_distinct_preds": 2
+      },
+      "attention_flat": {
+        "acc": 0.75,
+        "acc_scramble": 0.3333333333333333,
+        "n_distinct_preds": 2
+      },
+      "role_sharded": {
+        "acc": 0.4583333333333333,
+        "acc_scramble": 0.4166666666666667,
+        "n_distinct_preds": 2
+      },
+      "role_shard_weighted": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.5,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "a7d61736127d13df",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        },
+        "shard_weights_scramble": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.0,
+          "DISCOURSE": 0.07499999999999996,
+          "FILLER_META": 0.0
+        }
+      },
+      "role_shard_select": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.5,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "a7d61736127d13df",
+        "selected_role": "RESPONSE_POLARITY",
+        "selected_role_scramble": "DISCOURSE"
+      },
+      "role_shard_weighted_composed_both_levels": {
+        "acc": 0.6666666666666666,
+        "acc_scramble": 0.625,
+        "n_distinct_preds": 2,
+        "digest_real": "f19e3fea1f77aec5",
+        "digest_scramble": "6ecbfa1a9ea962ba",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.17500000000000004
+        }
+      },
+      "shard_train_loo_acc": {
+        "REQUEST": 0.5,
+        "RESPONSE_POLARITY": 0.725,
+        "DISCOURSE": 0.5,
+        "FILLER_META": 0.225
+      },
+      "shard_train_loo_acc_scramble": {
+        "REQUEST": 0.275,
+        "RESPONSE_POLARITY": 0.325,
+        "DISCOURSE": 0.575,
+        "FILLER_META": 0.0
+      },
+      "shard_weight_fallback_used_real": false,
+      "shard_weight_fallback_used_scramble": false,
+      "seed": 20260862201,
+      "seed_idx": 1,
+      "train_ids": [
+        "dds_test_307_4",
+        "dds_test_397_5",
+        "dds_test_563_2",
+        "dds_test_587_7",
+        "dds_test_783_1",
+        "dds_train_10664_8",
+        "dds_train_10745_8",
+        "dds_train_10973_0",
+        "dds_train_111_0",
+        "dds_train_1309_8",
+        "dds_train_1353_4",
+        "dds_train_2174_2",
+        "dds_train_284_2",
+        "dds_train_3168_7",
+        "dds_train_3492_3",
+        "dds_train_3688_8",
+        "dds_train_5679_0",
+        "dds_train_6500_9",
+        "dds_train_7340_3",
+        "dds_train_7467_1",
+        "dds_train_7791_0",
+        "dds_train_7835_5",
+        "dds_train_7860_5",
+        "dds_train_8053_0",
+        "dds_train_8088_0",
+        "dds_train_839_6",
+        "dds_train_8466_5",
+        "dds_train_8735_6",
+        "dds_train_8837_2",
+        "dds_train_9166_8",
+        "dds_train_9174_0",
+        "dds_train_9257_2",
+        "dds_train_9814_0",
+        "dds_validation_13_0",
+        "dds_validation_549_0",
+        "dds_validation_606_0",
+        "dds_validation_737_0",
+        "dds_validation_746_7",
+        "dds_validation_808_3",
+        "dds_validation_808_5"
+      ]
+    },
+    {
+      "n_train": 40,
+      "majority": {
+        "acc": 0.5
+      },
+      "mdl": {
+        "acc": 0.7083333333333334,
+        "chosen_plugin": "ruleind",
+        "is_episodic": false
+      },
+      "naive_flat": {
+        "acc": 0.7083333333333334,
+        "acc_scramble": 0.4166666666666667,
+        "n_distinct_preds": 2
+      },
+      "attention_flat": {
+        "acc": 0.7916666666666666,
+        "acc_scramble": 0.5,
+        "n_distinct_preds": 2
+      },
+      "role_sharded": {
+        "acc": 0.5416666666666666,
+        "acc_scramble": 0.2916666666666667,
+        "n_distinct_preds": 2
+      },
+      "role_shard_weighted": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.20833333333333334,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "0e5a6a34fe3bba32",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        },
+        "shard_weights_scramble": {
+          "REQUEST": 0.050000000000000044,
+          "RESPONSE_POLARITY": 0.09999999999999998,
+          "DISCOURSE": 0.050000000000000044,
+          "FILLER_META": 0.0
+        }
+      },
+      "role_shard_select": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.4166666666666667,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "b5ce539afd34974d",
+        "selected_role": "RESPONSE_POLARITY",
+        "selected_role_scramble": "RESPONSE_POLARITY"
+      },
+      "role_shard_weighted_composed_both_levels": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.125,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "d7e209882a5d0918",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        }
+      },
+      "shard_train_loo_acc": {
+        "REQUEST": 0.4,
+        "RESPONSE_POLARITY": 0.725,
+        "DISCOURSE": 0.5,
+        "FILLER_META": 0.45
+      },
+      "shard_train_loo_acc_scramble": {
+        "REQUEST": 0.55,
+        "RESPONSE_POLARITY": 0.6,
+        "DISCOURSE": 0.55,
+        "FILLER_META": 0.35
+      },
+      "shard_weight_fallback_used_real": false,
+      "shard_weight_fallback_used_scramble": false,
+      "seed": 20260862202,
+      "seed_idx": 2,
+      "train_ids": [
+        "dds_test_307_4",
+        "dds_test_397_5",
+        "dds_test_468_6",
+        "dds_test_563_2",
+        "dds_test_783_1",
+        "dds_train_10664_8",
+        "dds_train_10745_8",
+        "dds_train_11099_4",
+        "dds_train_111_0",
+        "dds_train_2100_6",
+        "dds_train_2174_2",
+        "dds_train_284_2",
+        "dds_train_3168_7",
+        "dds_train_3492_3",
+        "dds_train_3688_8",
+        "dds_train_5679_0",
+        "dds_train_6285_0",
+        "dds_train_6500_9",
+        "dds_train_6857_0",
+        "dds_train_7085_2",
+        "dds_train_7340_3",
+        "dds_train_7720_2",
+        "dds_train_7791_0",
+        "dds_train_7835_5",
+        "dds_train_7860_5",
+        "dds_train_8053_0",
+        "dds_train_8088_0",
+        "dds_train_839_6",
+        "dds_train_8466_5",
+        "dds_train_8735_6",
+        "dds_train_8837_2",
+        "dds_train_9166_8",
+        "dds_train_9174_0",
+        "dds_train_9257_2",
+        "dds_train_9633_2",
+        "dds_validation_13_0",
+        "dds_validation_606_0",
+        "dds_validation_737_0",
+        "dds_validation_746_7",
+        "dds_validation_808_5"
+      ]
+    },
+    {
+      "n_train": 40,
+      "majority": {
+        "acc": 0.5
+      },
+      "mdl": {
+        "acc": 0.875,
+        "chosen_plugin": "ruleind",
+        "is_episodic": false
+      },
+      "naive_flat": {
+        "acc": 0.75,
+        "acc_scramble": 0.5833333333333334,
+        "n_distinct_preds": 2
+      },
+      "attention_flat": {
+        "acc": 0.7916666666666666,
+        "acc_scramble": 0.5,
+        "n_distinct_preds": 2
+      },
+      "role_sharded": {
+        "acc": 0.625,
+        "acc_scramble": 0.5416666666666666,
+        "n_distinct_preds": 2
+      },
+      "role_shard_weighted": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.3333333333333333,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "de3e64d649d55862",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        },
+        "shard_weights_scramble": {
+          "REQUEST": 0.17500000000000004,
+          "RESPONSE_POLARITY": 0.0,
+          "DISCOURSE": 0.050000000000000044,
+          "FILLER_META": 0.0
+        }
+      },
+      "role_shard_select": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.3333333333333333,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "de3e64d649d55862",
+        "selected_role": "RESPONSE_POLARITY",
+        "selected_role_scramble": "REQUEST"
+      },
+      "role_shard_weighted_composed_both_levels": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.4166666666666667,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "6baa90b42622ccae",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.22499999999999998,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        }
+      },
+      "shard_train_loo_acc": {
+        "REQUEST": 0.075,
+        "RESPONSE_POLARITY": 0.725,
+        "DISCOURSE": 0.5,
+        "FILLER_META": 0.2
+      },
+      "shard_train_loo_acc_scramble": {
+        "REQUEST": 0.675,
+        "RESPONSE_POLARITY": 0.35,
+        "DISCOURSE": 0.55,
+        "FILLER_META": 0.375
+      },
+      "shard_weight_fallback_used_real": false,
+      "shard_weight_fallback_used_scramble": false,
+      "seed": 20260862203,
+      "seed_idx": 3,
+      "train_ids": [
+        "dds_test_307_4",
+        "dds_test_397_5",
+        "dds_test_468_6",
+        "dds_test_587_7",
+        "dds_test_783_1",
+        "dds_train_10745_8",
+        "dds_train_10973_0",
+        "dds_train_111_0",
+        "dds_train_1309_8",
+        "dds_train_1353_4",
+        "dds_train_2100_6",
+        "dds_train_2174_2",
+        "dds_train_284_2",
+        "dds_train_3168_7",
+        "dds_train_3492_3",
+        "dds_train_3688_8",
+        "dds_train_5679_0",
+        "dds_train_6500_9",
+        "dds_train_7085_2",
+        "dds_train_7340_3",
+        "dds_train_7467_1",
+        "dds_train_7720_2",
+        "dds_train_7791_0",
+        "dds_train_7835_5",
+        "dds_train_7860_5",
+        "dds_train_8053_0",
+        "dds_train_8088_0",
+        "dds_train_839_6",
+        "dds_train_8466_5",
+        "dds_train_8735_6",
+        "dds_train_8837_2",
+        "dds_train_9166_8",
+        "dds_train_9633_2",
+        "dds_train_9814_0",
+        "dds_validation_13_0",
+        "dds_validation_606_0",
+        "dds_validation_737_0",
+        "dds_validation_746_7",
+        "dds_validation_808_3",
+        "dds_validation_808_5"
+      ]
+    },
+    {
+      "n_train": 40,
+      "majority": {
+        "acc": 0.5
+      },
+      "mdl": {
+        "acc": 0.7916666666666666,
+        "chosen_plugin": "ruleind",
+        "is_episodic": false
+      },
+      "naive_flat": {
+        "acc": 0.6666666666666666,
+        "acc_scramble": 0.5416666666666666,
+        "n_distinct_preds": 2
+      },
+      "attention_flat": {
+        "acc": 0.7916666666666666,
+        "acc_scramble": 0.5,
+        "n_distinct_preds": 2
+      },
+      "role_sharded": {
+        "acc": 0.5416666666666666,
+        "acc_scramble": 0.625,
+        "n_distinct_preds": 2
+      },
+      "role_shard_weighted": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.625,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "6ecbfa1a9ea962ba",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.19999999999999996,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        },
+        "shard_weights_scramble": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.050000000000000044,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        }
+      },
+      "role_shard_select": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.625,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "6ecbfa1a9ea962ba",
+        "selected_role": "RESPONSE_POLARITY",
+        "selected_role_scramble": "RESPONSE_POLARITY"
+      },
+      "role_shard_weighted_composed_both_levels": {
+        "acc": 0.8333333333333334,
+        "acc_scramble": 0.625,
+        "n_distinct_preds": 2,
+        "digest_real": "7e846189788c6496",
+        "digest_scramble": "6ecbfa1a9ea962ba",
+        "shard_weights": {
+          "REQUEST": 0.0,
+          "RESPONSE_POLARITY": 0.19999999999999996,
+          "DISCOURSE": 0.0,
+          "FILLER_META": 0.0
+        }
+      },
+      "shard_train_loo_acc": {
+        "REQUEST": 0.5,
+        "RESPONSE_POLARITY": 0.7,
+        "DISCOURSE": 0.5,
+        "FILLER_META": 0.2
+      },
+      "shard_train_loo_acc_scramble": {
+        "REQUEST": 0.5,
+        "RESPONSE_POLARITY": 0.55,
+        "DISCOURSE": 0.45,
+        "FILLER_META": 0.35
+      },
+      "shard_weight_fallback_used_real": false,
+      "shard_weight_fallback_used_scramble": false,
+      "seed": 20260862204,
+      "seed_idx": 4,
+      "train_ids": [
+        "dds_test_307_4",
+        "dds_test_468_6",
+        "dds_test_563_2",
+        "dds_test_783_1",
+        "dds_train_10664_8",
+        "dds_train_10745_8",
+        "dds_train_10973_0",
+        "dds_train_11099_4",
+        "dds_train_111_0",
+        "dds_train_1309_8",
+        "dds_train_1353_4",
+        "dds_train_2174_2",
+        "dds_train_284_2",
+        "dds_train_3168_7",
+        "dds_train_3492_3",
+        "dds_train_3688_8",
+        "dds_train_5679_0",
+        "dds_train_6285_0",
+        "dds_train_6857_0",
+        "dds_train_7085_2",
+        "dds_train_7340_3",
+        "dds_train_7467_1",
+        "dds_train_7720_2",
+        "dds_train_7835_5",
+        "dds_train_7860_5",
+        "dds_train_8088_0",
+        "dds_train_839_6",
+        "dds_train_8466_5",
+        "dds_train_8837_2",
+        "dds_train_9166_8",
+        "dds_train_9257_2",
+        "dds_train_9633_2",
+        "dds_train_9814_0",
+        "dds_validation_13_0",
+        "dds_validation_549_0",
+        "dds_validation_606_0",
+        "dds_validation_737_0",
+        "dds_validation_746_7",
+        "dds_validation_808_3",
+        "dds_validation_808_5"
+      ]
+    }
+  ],
+  "decisive_readout": {
+    "attention_flat_mean_acc": 0.7833333333333333,
+    "best_new_arm_name": "role_shard_weighted",
+    "best_new_arm_mean_acc": 0.8333333333333334,
+    "margin_best_new_minus_attention_flat": 0.050000000000000044,
+    "beats_attention_flat_strict": true,
+    "ties_attention_flat": false,
+    "best_new_non_constant": true,
+    "best_new_scramble_collapses": true,
+    "role_sharded_unweighted_reprint_mean_acc": 0.5333333333333333,
+    "naive_flat_reprint_mean_acc": 0.65,
+    "mdl_reprint_mean_acc": 0.7083333333333333,
+    "majority_reprint_mean_acc": 0.5
+  },
+  "gates": {
+    "positive_controls_passed": true,
+    "hard_pass": true,
+    "partial_ties": false,
+    "below": false,
+    "tie_band": 0.02
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "expected_n_units": 5
+}
