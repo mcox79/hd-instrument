@@ -1,0 +1,1150 @@
+{
+  "anchor_name": "pragmatic_curriculum_dialogue_exemplar_knn_v1",
+  "run_mode": "full",
+  "verdict": "PARTIAL_MATCHES_BAND",
+  "verdict_msg": "PARTIAL: best exemplar-KNN arm (knn_k1_gcm, acc=0.6667) lands in the [arm3=0.6667, role_sharded=0.7333] band, non-constant -- a valid complementary way (exemplar memory scales by stored-exemplar count, not a fixed superposed map, so its capacity profile differs from both arm3 and role-sharded even without a strict win here). scramble=0.4667 (collapses).",
+  "summary": "PARTIAL: best exemplar-KNN arm (knn_k1_gcm, acc=0.6667) lands in the [arm3=0.6667, role_sharded=0.7333] band, non-constant -- a valid complementary way (exemplar memory scales by stored-exemplar count, not a fixed superposed map, so its capacity profile differs from both arm3 and role-sharded even without a strict win here). scramble=0.4667 (collapses).",
+  "elapsed_s": 0.1193,
+  "ts_iso": "2026-08-08T01:39:29.088592+00:00",
+  "pid": 16648,
+  "positive_control": {
+    "acc": 1.0,
+    "acc_scramble": 0.49074074074074076,
+    "acc_scramble_trials": [
+      0.4166666666666667,
+      0.6666666666666666,
+      0.5,
+      0.0,
+      0.75,
+      0.5833333333333334,
+      0.5,
+      0.08333333333333333,
+      0.9166666666666666
+    ],
+    "passed": true
+  },
+  "split": {
+    "seed_used": 20260808100,
+    "n_train": 12,
+    "n_test": 15
+  },
+  "incumbents": {
+    "role_sharded_LIVE": {
+      "name": "role_multi_combine_unweighted",
+      "acc": 0.7333333333333333,
+      "source": "exp_pragmatic_curriculum_dialogue_role_sharded_binding_v1.py, HARD_PASS commit 7f21a4d75"
+    },
+    "arm3_attention_weighted_flat_LIVE": 0.6666666666666666,
+    "arm2_naive_flat_LIVE": 0.5333333333333333,
+    "mdl_LIVE": 0.6,
+    "majority_floor_LIVE": 0.6
+  },
+  "arms": {
+    "knn_k1": {
+      "name": "knn_k1",
+      "k": 1,
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.5333333333333333,
+      "acc_scramble": 0.5333333333333333,
+      "scramble_delta": 0.0,
+      "digest_real": "39df35b04f50e845",
+      "digest_scramble": "73ae991a496c4266",
+      "arms_differ_real_vs_scramble": true,
+      "collapsed_to_constant": false,
+      "n_distinct_preds": 2,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_another_copy_of_course",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_trust_him_concession",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        }
+      ],
+      "mean_pairwise_train_cosine": 0.539371907711029
+    },
+    "knn_k3": {
+      "name": "knn_k3",
+      "k": 3,
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.5333333333333333,
+      "acc_scramble": 0.3333333333333333,
+      "scramble_delta": 0.2,
+      "digest_real": "30d78ca384420197",
+      "digest_scramble": "c47fd6f892cc945a",
+      "arms_differ_real_vs_scramble": true,
+      "collapsed_to_constant": false,
+      "n_distinct_preds": 2,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_another_copy_of_course",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_another_copy_of_course",
+            "dd_amy_help_work_redirect",
+            "dd_dress_party_declined_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dinner_tonight_love_to",
+            "dd_dress_party_declined_concession",
+            "dd_dentist_cover_okay"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_another_copy_of_course"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_dress_party_declined_concession",
+            "dd_dentist_cover_okay"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dinner_tonight_love_to",
+            "dd_trust_him_concession",
+            "dd_dentist_cover_okay"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dinner_tonight_love_to",
+            "dd_another_copy_of_course",
+            "dd_movie_weekend_sounds_good"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "MET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_dress_party_declined_concession",
+            "dd_dentist_cover_okay"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_movie_weekend_sounds_good"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_dinner_tonight_love_to",
+            "dd_wait_for_mr_li_concession_unmet",
+            "dd_amy_help_work_redirect"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_another_copy_of_course"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_another_copy_of_course"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "MET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_trust_him_concession",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_trust_him_concession",
+            "dd_wait_for_mr_li_concession_unmet",
+            "dd_dentist_cover_okay"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "MET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        }
+      ]
+    },
+    "knn_k1_gcm": {
+      "name": "knn_k1_gcm",
+      "k": 1,
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.6666666666666666,
+      "acc_scramble": 0.4666666666666667,
+      "scramble_delta": 0.19999999999999996,
+      "digest_real": "6ec1c3e2e09e4fcd",
+      "digest_scramble": "9cf8f4248f29dc31",
+      "arms_differ_real_vs_scramble": true,
+      "collapsed_to_constant": false,
+      "n_distinct_preds": 2,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_another_copy_of_course",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_movie_weekend_sounds_good",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_appointment_mr_wu_afraid_not",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_trust_him_concession",
+          "retrieved_label": "MET",
+          "tie": false,
+          "k_used": 1
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "tie": false,
+          "k_used": 1
+        }
+      ],
+      "n_fallback_items_train_real": 0,
+      "n_fallback_items_train_scrambled": 0,
+      "weights_top8": {
+        "response_negation_present=True": 0.6666666666666666,
+        "explicit_no_present=True": 0.6,
+        "request_pattern=REQUEST_PLEASE": 0.6,
+        "grant_verb_present=True": 0.5454545454545454,
+        "idiom_phrase_afraid_not=True": 0.5454545454545454,
+        "idiom_phrase_of_course=True": 0.5454545454545454,
+        "response_len_bucket=short": 0.5454545454545454,
+        "request_pattern=none": 0.375
+      }
+    },
+    "knn_k3_gcm": {
+      "name": "knn_k3_gcm",
+      "k": 3,
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.6666666666666666,
+      "acc_scramble": 0.4666666666666667,
+      "scramble_delta": 0.19999999999999996,
+      "digest_real": "6ec1c3e2e09e4fcd",
+      "digest_scramble": "9cf8f4248f29dc31",
+      "arms_differ_real_vs_scramble": true,
+      "collapsed_to_constant": false,
+      "n_distinct_preds": 2,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_another_copy_of_course",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_another_copy_of_course",
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dinner_tonight_love_to",
+            "dd_trust_him_concession",
+            "dd_dentist_cover_okay"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_trust_him_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_wait_for_mr_li_concession_unmet",
+            "dd_appointment_mr_wu_afraid_not"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "UNMET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dinner_tonight_love_to",
+            "dd_trust_him_concession",
+            "dd_dentist_cover_okay"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dinner_tonight_love_to",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dinner_tonight_love_to",
+            "dd_another_copy_of_course",
+            "dd_wait_for_mr_li_concession_unmet"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_wait_for_mr_li_concession_unmet",
+            "dd_appointment_mr_wu_afraid_not"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "UNMET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_wait_for_mr_li_concession_unmet",
+            "dd_appointment_mr_wu_afraid_not"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "UNMET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_movie_weekend_sounds_good",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_movie_weekend_sounds_good",
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_appointment_mr_wu_afraid_not",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_appointment_mr_wu_afraid_not",
+            "dd_wait_for_mr_li_concession_unmet",
+            "dd_amy_help_work_redirect"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "UNMET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_trust_him_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_trust_him_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "retrieved_train_id": "dd_dentist_cover_okay",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession",
+            "dd_trust_him_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "UNMET",
+            "MET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "retrieved_train_id": "dd_trust_him_concession",
+          "retrieved_label": "MET",
+          "retrieved_train_ids_k3": [
+            "dd_trust_him_concession",
+            "dd_dentist_cover_okay",
+            "dd_dress_party_declined_concession"
+          ],
+          "retrieved_labels_k3": [
+            "MET",
+            "MET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "retrieved_train_id": "dd_amy_help_work_redirect",
+          "retrieved_label": "UNMET",
+          "retrieved_train_ids_k3": [
+            "dd_amy_help_work_redirect",
+            "dd_wait_for_mr_li_concession_unmet",
+            "dd_appointment_mr_wu_afraid_not"
+          ],
+          "retrieved_labels_k3": [
+            "UNMET",
+            "UNMET",
+            "UNMET"
+          ],
+          "tie": false,
+          "k_used": 3
+        }
+      ]
+    }
+  },
+  "best_arm_name": "knn_k1_gcm",
+  "best_arm_acc": 0.6666666666666666,
+  "mean_pairwise_train_cosine_unweighted": 0.539371907711029,
+  "gates": {
+    "positive_control_passed": true,
+    "best_non_constant": true,
+    "best_scramble_collapses": true,
+    "beats_role_sharded": false,
+    "matches_arm3_to_role_band": true,
+    "at_or_below_arm2_and_constant": false,
+    "hard_pass": false,
+    "partial": true,
+    "hard_fail_band": false,
+    "scramble_band": 0.6
+  },
+  "glass_box_money_items": [
+    {
+      "id": "dd_jade_show_yes_of_course",
+      "subtype": "direct",
+      "gold": "MET",
+      "pred": "MET",
+      "correct": true,
+      "retrieved_train_id": "dd_another_copy_of_course",
+      "retrieved_label": "MET"
+    },
+    {
+      "id": "dd_waiter_bill_implicit_comply",
+      "subtype": "direct",
+      "gold": "MET",
+      "pred": "MET",
+      "correct": true,
+      "retrieved_train_id": "dd_dinner_tonight_love_to",
+      "retrieved_label": "MET"
+    },
+    {
+      "id": "dd_speed_up_road_crowded",
+      "subtype": "direct",
+      "gold": "UNMET",
+      "pred": "MET",
+      "correct": false,
+      "retrieved_train_id": "dd_dentist_cover_okay",
+      "retrieved_label": "MET"
+    },
+    {
+      "id": "dd_you_should_go_in_no_dont_want",
+      "subtype": "direct",
+      "gold": "UNMET",
+      "pred": "UNMET",
+      "correct": true,
+      "retrieved_train_id": "dd_amy_help_work_redirect",
+      "retrieved_label": "UNMET"
+    },
+    {
+      "id": "dd_dance_invite_with_pleasure",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "pred": "MET",
+      "correct": true,
+      "retrieved_train_id": "dd_dinner_tonight_love_to",
+      "retrieved_label": "MET"
+    }
+  ],
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "scramble_seed": 461207,
+  "split_seed": 20260808100,
+  "cardinality_ok": true,
+  "expected_n_units": 1
+}
