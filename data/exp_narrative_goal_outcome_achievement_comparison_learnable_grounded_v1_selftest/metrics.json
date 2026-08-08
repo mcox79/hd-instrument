@@ -1,0 +1,666 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "ARM-LEARN held-out acc=0.6000 beats majority=0.5000 but does NOT clear SURFACE_PLATEAU=0.60 (or scramble/episodic gate failed: learn_non_episodic=True scramble_collapses=True) -- partial relational signal, not decisively past the surface-cue ceiling.",
+  "summary": "PARTIAL: best_arm=ARM-LEARN acc=0.6000 vs surface_plateau=0.60 vs majority=0.5000 vs owned=0.4500",
+  "elapsed_s": 0.039698123931884766,
+  "ts_iso": "2026-08-08T05:47:44.324196+00:00",
+  "pid": 18924,
+  "anchor_name": "narrative_goal_outcome_achievement_comparison_learnable_grounded_v1",
+  "run_mode": "self_test",
+  "n_items": 50,
+  "n_train": 30,
+  "n_test": 20,
+  "majority_class": "MET",
+  "majority_acc": 0.5,
+  "owned_acc": 0.45,
+  "owned_fire_rate": 0.15,
+  "owned_acc_when_fired": 0.0,
+  "owned_n_fired": 3,
+  "owned_preds": [
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "UNMET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET"
+  ],
+  "owned_digest": "6f1300d4bc0ab003",
+  "grounded_acc": 0.5,
+  "grounded_fire_rate": 0.15,
+  "grounded_preds": [
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET"
+  ],
+  "grounded_digest": "13891245e93573f3",
+  "grounded_n_distinct_preds": 1,
+  "learn_acc": 0.6,
+  "learn_chosen_plugin": "ruleind",
+  "learn_non_episodic": true,
+  "learn_preds": [
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "UNMET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "UNMET",
+    "UNMET",
+    "MET",
+    "UNMET"
+  ],
+  "learn_digest": "04997bc1cd85730c",
+  "learn_n_distinct_preds": 2,
+  "learn_hypothesis_metrics": {
+    "n_rules": 1,
+    "n_episodic": 19,
+    "model_bits": 7.644,
+    "data_bits_rules": 1.0,
+    "data_bits_residual": 19.0
+  },
+  "learn_hypothesis_n_free_params": 2,
+  "learn_hypothesis_compression_ratio": 1.0852264505860223,
+  "learn_all_plugin_results": {
+    "estimation": {
+      "is_episodic": false,
+      "compression_ratio": 1.011104291988008,
+      "cost_rank": 1,
+      "metrics": {
+        "n_keys": 9,
+        "n_classes": 2,
+        "model_bits": 9.0,
+        "data_bits": 20.671
+      }
+    },
+    "ruleind": {
+      "is_episodic": false,
+      "compression_ratio": 1.0852264505860223,
+      "cost_rank": 3,
+      "metrics": {
+        "n_rules": 1,
+        "n_episodic": 19,
+        "model_bits": 7.644,
+        "data_bits_rules": 1.0,
+        "data_bits_residual": 19.0
+      }
+    },
+    "gam": {
+      "is_episodic": false,
+      "compression_ratio": 0.8037761553345433,
+      "cost_rank": 2,
+      "metrics": {
+        "n_main_keys": 26,
+        "n_interaction_keys": 0,
+        "n_classes": 2,
+        "model_bits": 26.0,
+        "data_bits": 11.324
+      }
+    }
+  },
+  "scramble_chosen_plugin": "KEEP_EPISODIC",
+  "scramble_acc": 0.5,
+  "scramble_collapses": true,
+  "scramble_preds": [
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET"
+  ],
+  "scramble_digest": "13891245e93573f3",
+  "surface_plateau_citation": {
+    "source": "D:\\AI\\hd-instrument\\data\\exp_narrative_goal_outcome_role_sharded_generality_v1\\metrics.json",
+    "verdict": "PARTIAL_TIE",
+    "majority_acc": 0.5,
+    "naive_flat_mean_acc": 0.61,
+    "role_shard_weighted_mean_acc": 0.6,
+    "attention_flat_mean_acc": 0.6
+  },
+  "family_signal_train": {
+    "achieve_verb_present": {
+      "False": {
+        "n": 19,
+        "majority_label": "UNMET",
+        "purity": 0.737
+      },
+      "True": {
+        "n": 11,
+        "majority_label": "MET",
+        "purity": 0.909
+      }
+    },
+    "class_relation": {
+      "none": {
+        "n": 29,
+        "majority_label": "UNMET",
+        "purity": 0.517
+      },
+      "same": {
+        "n": 1,
+        "majority_label": "MET",
+        "purity": 1.0
+      }
+    },
+    "fail_verb_present": {
+      "False": {
+        "n": 27,
+        "majority_label": "MET",
+        "purity": 0.556
+      },
+      "True": {
+        "n": 3,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "goal_verb_class": {
+      "none": {
+        "n": 28,
+        "majority_label": "MET",
+        "purity": 0.5
+      },
+      "OPEN_CLASS": {
+        "n": 1,
+        "majority_label": "MET",
+        "purity": 1.0
+      },
+      "ARRIVE_SUCCEED": {
+        "n": 1,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "modal_failure_present": {
+      "False": {
+        "n": 29,
+        "majority_label": "MET",
+        "purity": 0.517
+      },
+      "True": {
+        "n": 1,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "negative_affect_present": {
+      "False": {
+        "n": 26,
+        "majority_label": "MET",
+        "purity": 0.577
+      },
+      "True": {
+        "n": 4,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "outcome_negation_present": {
+      "False": {
+        "n": 26,
+        "majority_label": "MET",
+        "purity": 0.577
+      },
+      "True": {
+        "n": 4,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "outcome_verb_class": {
+      "ARRIVE_SUCCEED": {
+        "n": 3,
+        "majority_label": "MET",
+        "purity": 1.0
+      },
+      "none": {
+        "n": 23,
+        "majority_label": "UNMET",
+        "purity": 0.522
+      },
+      "RECURRENCE_MATCH": {
+        "n": 1,
+        "majority_label": "MET",
+        "purity": 1.0
+      },
+      "REPAIR_PRESERVE": {
+        "n": 1,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      },
+      "CLOSE_CLASS": {
+        "n": 1,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      },
+      "DAMAGE_LOSE": {
+        "n": 1,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "outcome_verb_negated": {
+      "False": {
+        "n": 30,
+        "majority_label": "MET",
+        "purity": 0.5
+      }
+    },
+    "owned_reason": {
+      "verb_class_unrelated": {
+        "n": 10,
+        "majority_label": "UNMET",
+        "purity": 0.6
+      },
+      "actual_verb_class_unknown": {
+        "n": 9,
+        "majority_label": "MET",
+        "purity": 0.778
+      },
+      "no_desiderative_goal_found": {
+        "n": 5,
+        "majority_label": "UNMET",
+        "purity": 0.6
+      },
+      "same_class_same_referent": {
+        "n": 2,
+        "majority_label": "MET",
+        "purity": 0.5
+      },
+      "referent_mismatch": {
+        "n": 2,
+        "majority_label": "MET",
+        "purity": 0.5
+      },
+      "referent_extraction_failed": {
+        "n": 2,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "owned_verdict": {
+      "NA": {
+        "n": 26,
+        "majority_label": "MET",
+        "purity": 0.5
+      },
+      "MET": {
+        "n": 2,
+        "majority_label": "MET",
+        "purity": 0.5
+      },
+      "UNMET": {
+        "n": 2,
+        "majority_label": "MET",
+        "purity": 0.5
+      }
+    },
+    "positive_affect_present": {
+      "False": {
+        "n": 27,
+        "majority_label": "UNMET",
+        "purity": 0.556
+      },
+      "True": {
+        "n": 3,
+        "majority_label": "MET",
+        "purity": 1.0
+      }
+    },
+    "referent_literal_match": {
+      "False": {
+        "n": 25,
+        "majority_label": "UNMET",
+        "purity": 0.52
+      },
+      "True": {
+        "n": 5,
+        "majority_label": "MET",
+        "purity": 0.6
+      }
+    },
+    "referent_recur_verdict": {
+      "NA": {
+        "n": 24,
+        "majority_label": "UNMET",
+        "purity": 0.542
+      },
+      "MET": {
+        "n": 5,
+        "majority_label": "MET",
+        "purity": 0.8
+      },
+      "UNMET": {
+        "n": 1,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "referent_sim_bucket": {
+      "oov": {
+        "n": 30,
+        "majority_label": "MET",
+        "purity": 0.5
+      }
+    },
+    "result_state_polarity": {
+      "none": {
+        "n": 24,
+        "majority_label": "MET",
+        "purity": 0.542
+      },
+      "positive": {
+        "n": 2,
+        "majority_label": "MET",
+        "purity": 1.0
+      },
+      "negative": {
+        "n": 4,
+        "majority_label": "UNMET",
+        "purity": 1.0
+      }
+    },
+    "verb_sim_bucket": {
+      "oov": {
+        "n": 30,
+        "majority_label": "MET",
+        "purity": 0.5
+      }
+    }
+  },
+  "best_arm_name": "ARM-LEARN",
+  "best_acc": 0.6,
+  "beats_plateau": false,
+  "beats_majority": true,
+  "non_constant": true,
+  "gate": {
+    "SURFACE_PLATEAU": 0.6,
+    "SCRAMBLE_BAND": 0.6
+  },
+  "test_item_ids": [
+    "rocs_nya_paintball_met",
+    "rocs2_matt_saving_for_video_game_met",
+    "rocs2_ty_hearing_aid_met",
+    "rocs_tyler_balloon_party_met",
+    "rocs_colin_bar_budget_met",
+    "rocs2_sally_piano_lessons_met",
+    "rocs_fred_weight_bet_met",
+    "rocs2_erica_chicken_pot_pie_met",
+    "rocs_priya_new_restaurant_met",
+    "rocs2_jared_movie_alone_met",
+    "rocs2_jennifer_disneyland_car_breakdown_unmet",
+    "rocs_tim_baking_contest_unmet",
+    "rocs2_picnic_ants_unmet",
+    "rocs2_jacob_skateboard_kickflip_unmet",
+    "rocs_bernice_africa_trip_unmet",
+    "rocs2_stassi_move_away_unmet",
+    "rocs_ignacio_swim_team_unmet",
+    "rocs_amber_sunday_errands_unmet",
+    "rocs_ryan_bike_led_unmet",
+    "rocs_tyler_balloon_party_unmet"
+  ],
+  "test_item_debug": {
+    "rocs_nya_paintball_met": {
+      "goal_verb_lemma": "have",
+      "goal_referent": "fun",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs2_matt_saving_for_video_game_met": {
+      "goal_verb_lemma": "try",
+      "goal_referent": "online",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs2_ty_hearing_aid_met": {
+      "goal_verb_lemma": "hear",
+      "goal_referent": null,
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "referent_extraction_failed",
+      "rr_reason": "referent_recurrence_ineligible"
+    },
+    "rocs_tyler_balloon_party_met": {
+      "goal_verb_lemma": "have",
+      "goal_referent": "party",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs_colin_bar_budget_met": {
+      "goal_verb_lemma": "go",
+      "goal_referent": "anyway",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "verb_class_unrelated",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs2_sally_piano_lessons_met": {
+      "goal_verb_lemma": "play",
+      "goal_referent": "piano",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs_fred_weight_bet_met": {
+      "goal_verb_lemma": "win",
+      "goal_referent": "really",
+      "outcome_referent": "up",
+      "verb_sim": 1.0,
+      "referent_sim": null,
+      "owned_reason": "referent_mismatch",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs2_erica_chicken_pot_pie_met": {
+      "goal_verb_lemma": "help",
+      "goal_referent": "thanksgiving",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "referent_recurrence_ineligible"
+    },
+    "rocs_priya_new_restaurant_met": {
+      "goal_verb_lemma": "try",
+      "goal_referent": "restaurant",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "verb_class_unrelated",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs2_jared_movie_alone_met": {
+      "goal_verb_lemma": "see",
+      "goal_referent": "came",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs2_jennifer_disneyland_car_breakdown_unmet": {
+      "goal_verb_lemma": "take",
+      "goal_referent": "kids",
+      "outcome_referent": "car",
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "verb_class_unrelated",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs_tim_baking_contest_unmet": {
+      "goal_verb_lemma": "make",
+      "goal_referent": "donuts",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "same_class_same_referent",
+      "rr_reason": "referent_recurrence"
+    },
+    "rocs2_picnic_ants_unmet": {
+      "goal_verb_lemma": "have",
+      "goal_referent": "picnic",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs2_jacob_skateboard_kickflip_unmet": {
+      "goal_verb_lemma": "impress",
+      "goal_referent": "who",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "same_class_same_referent",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs_bernice_africa_trip_unmet": {
+      "goal_verb_lemma": "travel",
+      "goal_referent": null,
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "referent_recurrence_ineligible"
+    },
+    "rocs2_stassi_move_away_unmet": {
+      "goal_verb_lemma": "get",
+      "goal_referent": "away",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs_ignacio_swim_team_unmet": {
+      "goal_verb_lemma": "play",
+      "goal_referent": "sport",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "verb_class_unrelated",
+      "rr_reason": "no_referent_recurrence"
+    },
+    "rocs_amber_sunday_errands_unmet": {
+      "goal_verb_lemma": null,
+      "goal_referent": null,
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "no_desiderative_goal_found",
+      "rr_reason": "no_desiderative_goal_found"
+    },
+    "rocs_ryan_bike_led_unmet": {
+      "goal_verb_lemma": "customize",
+      "goal_referent": "bike",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "verb_class_unrelated",
+      "rr_reason": "referent_recurrence"
+    },
+    "rocs_tyler_balloon_party_unmet": {
+      "goal_verb_lemma": "have",
+      "goal_referent": "party",
+      "outcome_referent": null,
+      "verb_sim": null,
+      "referent_sim": null,
+      "owned_reason": "actual_verb_class_unknown",
+      "rr_reason": "no_referent_recurrence"
+    }
+  },
+  "test_item_gold": [
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "MET",
+    "UNMET",
+    "UNMET",
+    "UNMET",
+    "UNMET",
+    "UNMET",
+    "UNMET",
+    "UNMET",
+    "UNMET",
+    "UNMET",
+    "UNMET"
+  ],
+  "instrumentation": {
+    "n_items": 50,
+    "n_train": 30,
+    "n_test": 20
+  }
+}
