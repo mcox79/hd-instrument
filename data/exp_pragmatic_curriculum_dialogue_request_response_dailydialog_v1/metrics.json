@@ -1,0 +1,1464 @@
+{
+  "anchor_name": "pragmatic_curriculum_dialogue_request_response_dailydialog_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: arm3 fixes the naive collapse (distinct_preds=2, digest_real!=digest_scramble), held_out_acc arm3=0.6667 >= mdl=0.6000, recovers 7 held-out idiomatic/concession member(s) the hand list misses, scramble collapses (acc_scr=0.4667 <= band=0.60). NOTE: the naive (unweighted) arm2 does not clearly generalize here (digest_real==digest_scramble:False, acc=0.5333 vs majority=0.6000) even under the fixed stratified split -- consistent with common-mode swamping being a property of the flat-bundle mechanism itself, not just the prior domain-shift split.",
+  "summary": "HARD_PASS: arm3 fixes the naive collapse (distinct_preds=2, digest_real!=digest_scramble), held_out_acc arm3=0.6667 >= mdl=0.6000, recovers 7 held-out idiomatic/concession member(s) the hand list misses, scramble collapses (acc_scr=0.4667 <= band=0.60). NOTE: the naive (unweighted) arm2 does not clearly generalize here (digest_real==digest_scramble:False, acc=0.5333 vs majority=0.6000) even under the fixed stratified split -- consistent with common-mode swamping being a property of the flat-bundle mechanism itself, not just the prior domain-shift split.",
+  "elapsed_s": 0.105,
+  "ts_iso": "2026-08-08T01:06:37.376571+00:00",
+  "pid": 13700,
+  "positive_controls": {
+    "mdl_xor_control": {
+      "chosen_name": "ruleind",
+      "compression_ratios": {
+        "estimation": 0.967741935483871,
+        "ruleind": 7.380981670562186,
+        "gam": 4.529063974435123
+      },
+      "passed": true
+    },
+    "vsa_synthetic_control": {
+      "acc": 1.0,
+      "acc_scramble": 0.2685185185185185,
+      "acc_scramble_trials": [
+        0.16666666666666666,
+        0.5833333333333334,
+        0.08333333333333333,
+        1.0,
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.25,
+        0.0
+      ],
+      "passed": true
+    }
+  },
+  "data": {
+    "n_raw": 30,
+    "drop_indices": [
+      2,
+      3,
+      20
+    ],
+    "dropped_ids": [
+      "dd_is_today_ok_sorry_cant",
+      "dd_mortgage_advice_unfortunately_no",
+      "dd_stay_longer_sorry_cant"
+    ],
+    "n_cleaned": 27,
+    "n_items": 27
+  },
+  "split": {
+    "seed_used": 20260808100,
+    "seed_search_base": 20260808100,
+    "n_train": 12,
+    "n_test": 15,
+    "train_gold_counts": {
+      "MET": 6,
+      "UNMET": 6
+    },
+    "test_gold_counts": {
+      "MET": 9,
+      "UNMET": 6
+    },
+    "train_subtype_counts": {
+      "direct": 3,
+      "idiomatic": 5,
+      "concession": 4
+    },
+    "test_subtype_counts": {
+      "direct": 4,
+      "idiomatic": 6,
+      "concession": 5
+    },
+    "train_ids": [
+      "dd_dentist_cover_okay",
+      "dd_shirt_ironing_no_way",
+      "dd_amy_help_work_redirect",
+      "dd_dinner_tonight_love_to",
+      "dd_movie_weekend_sounds_good",
+      "dd_another_copy_of_course",
+      "dd_appointment_mr_wu_afraid_not",
+      "dd_forgive_me_no_way",
+      "dd_star_wars_tickets_concession",
+      "dd_trust_him_concession",
+      "dd_dress_party_declined_concession",
+      "dd_wait_for_mr_li_concession_unmet"
+    ],
+    "test_ids": [
+      "dd_jade_show_yes_of_course",
+      "dd_waiter_bill_implicit_comply",
+      "dd_speed_up_road_crowded",
+      "dd_you_should_go_in_no_dont_want",
+      "dd_dance_invite_with_pleasure",
+      "dd_be_our_guide_of_course",
+      "dd_farm_trip_why_not",
+      "dd_mind_washing_not_at_all",
+      "dd_sit_here_seat_taken",
+      "dd_spicy_food_afraid_not",
+      "dd_saturday_5pm_reschedule_concession",
+      "dd_concert_saturday_meetup_concession",
+      "dd_sushi_tofu_stirfry_concession",
+      "dd_sunday_replan_still_unavailable_concession",
+      "dd_babysitter_suzy_declined_concession"
+    ],
+    "default_train_majority_class": "MET",
+    "hard_case_coverage_at_split_time": [
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "subtype": "idiomatic",
+        "hand_list_verdict": "NA",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "subtype": "idiomatic",
+        "hand_list_verdict": "NA",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_farm_trip_why_not",
+        "subtype": "idiomatic",
+        "hand_list_verdict": "NA",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_mind_washing_not_at_all",
+        "subtype": "idiomatic",
+        "hand_list_verdict": "NA",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_sit_here_seat_taken",
+        "subtype": "idiomatic",
+        "hand_list_verdict": "NA",
+        "gold": "UNMET"
+      },
+      {
+        "id": "dd_spicy_food_afraid_not",
+        "subtype": "idiomatic",
+        "hand_list_verdict": "NA",
+        "gold": "UNMET"
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "subtype": "concession",
+        "hand_list_verdict": "NA",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "subtype": "concession",
+        "hand_list_verdict": "NA",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "subtype": "concession",
+        "hand_list_verdict": "NA",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_sunday_replan_still_unavailable_concession",
+        "subtype": "concession",
+        "hand_list_verdict": "NA",
+        "gold": "UNMET"
+      },
+      {
+        "id": "dd_babysitter_suzy_declined_concession",
+        "subtype": "concession",
+        "hand_list_verdict": "NA",
+        "gold": "UNMET"
+      }
+    ]
+  },
+  "n_features_seen": 17,
+  "feature_names_nonconstant": [
+    "explicit_no_present",
+    "explicit_yes_present",
+    "grant_verb_present",
+    "idiom_phrase_afraid_not",
+    "idiom_phrase_of_course",
+    "idiom_token_why_initial",
+    "request_pattern",
+    "response_is_question",
+    "response_len_bucket",
+    "response_negation_present"
+  ],
+  "majority_class_floor": {
+    "held_out_accuracy": 0.6
+  },
+  "hand_list_only": {
+    "held_out_accuracy": 0.6,
+    "n_abstained_NA": 15
+  },
+  "mdl_arm": {
+    "chosen_plugin": "KEEP_EPISODIC",
+    "is_episodic": true,
+    "compression_ratios_all_plugins": {
+      "estimation": 0.9230769230769231,
+      "ruleind": 1.0,
+      "gam": 0.845126593407383
+    },
+    "compression_ratio_chosen": null,
+    "held_out_accuracy": 0.6,
+    "held_out_preds": [
+      {
+        "id": "dd_jade_show_yes_of_course",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "direct"
+      },
+      {
+        "id": "dd_waiter_bill_implicit_comply",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "direct"
+      },
+      {
+        "id": "dd_speed_up_road_crowded",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "direct"
+      },
+      {
+        "id": "dd_you_should_go_in_no_dont_want",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "direct"
+      },
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "dd_farm_trip_why_not",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "dd_mind_washing_not_at_all",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "dd_sit_here_seat_taken",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "dd_spicy_food_afraid_not",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "concession"
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "concession"
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "concession"
+      },
+      {
+        "id": "dd_sunday_replan_still_unavailable_concession",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "concession"
+      },
+      {
+        "id": "dd_babysitter_suzy_declined_concession",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "concession"
+      }
+    ],
+    "hypothesis_glass_box": null,
+    "recovered_over_hand_list": [
+      {
+        "id": "dd_jade_show_yes_of_course",
+        "subtype": "direct",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_waiter_bill_implicit_comply",
+        "subtype": "direct",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_farm_trip_why_not",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_mind_washing_not_at_all",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "subtype": "concession",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "subtype": "concession",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "subtype": "concession",
+        "gold": "MET"
+      }
+    ],
+    "hard_recovered_idiomatic_or_concession": [
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_farm_trip_why_not",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_mind_washing_not_at_all",
+        "subtype": "idiomatic",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "subtype": "concession",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "subtype": "concession",
+        "gold": "MET"
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "subtype": "concession",
+        "gold": "MET"
+      }
+    ]
+  },
+  "naive_superposition_arm2": {
+    "n_train": 12,
+    "n_test": 15,
+    "acc": 0.5333333333333333,
+    "acc_scramble": 0.4666666666666667,
+    "scramble_delta": 0.06666666666666665,
+    "digest_real": "7acfe51fbd7804b5",
+    "digest_scramble": "d1deb3bc233b485f",
+    "arms_differ_real_vs_scramble": true,
+    "per_item": [
+      {
+        "id": "dd_jade_show_yes_of_course",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.47242,
+          "UNMET": 0.36771
+        },
+        "margin": 0.10472
+      },
+      {
+        "id": "dd_waiter_bill_implicit_comply",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.3496,
+          "UNMET": 0.22224
+        },
+        "margin": 0.12736
+      },
+      {
+        "id": "dd_speed_up_road_crowded",
+        "subtype": "direct",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.63317,
+          "UNMET": 0.53052
+        },
+        "margin": 0.10265
+      },
+      {
+        "id": "dd_you_should_go_in_no_dont_want",
+        "subtype": "direct",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.45183,
+          "UNMET": 0.51802
+        },
+        "margin": 0.0662
+      },
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.50172,
+          "UNMET": 0.32245
+        },
+        "margin": 0.17927
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.36159,
+          "UNMET": 0.22643
+        },
+        "margin": 0.13516
+      },
+      {
+        "id": "dd_farm_trip_why_not",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.4529,
+          "UNMET": 0.45372
+        },
+        "margin": 0.00082
+      },
+      {
+        "id": "dd_mind_washing_not_at_all",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.45183,
+          "UNMET": 0.51802
+        },
+        "margin": 0.0662
+      },
+      {
+        "id": "dd_sit_here_seat_taken",
+        "subtype": "idiomatic",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.4432,
+          "UNMET": 0.40414
+        },
+        "margin": 0.03906
+      },
+      {
+        "id": "dd_spicy_food_afraid_not",
+        "subtype": "idiomatic",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.37944,
+          "UNMET": 0.34472
+        },
+        "margin": 0.03472
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.63317,
+          "UNMET": 0.53052
+        },
+        "margin": 0.10265
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.63317,
+          "UNMET": 0.53052
+        },
+        "margin": 0.10265
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.56521,
+          "UNMET": 0.46036
+        },
+        "margin": 0.10485
+      },
+      {
+        "id": "dd_sunday_replan_still_unavailable_concession",
+        "subtype": "concession",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.49595,
+          "UNMET": 0.38648
+        },
+        "margin": 0.10947
+      },
+      {
+        "id": "dd_babysitter_suzy_declined_concession",
+        "subtype": "concession",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.5209,
+          "UNMET": 0.51912
+        },
+        "margin": 0.00178
+      }
+    ],
+    "recovered_items": [
+      {
+        "id": "dd_jade_show_yes_of_course",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.47242,
+          "UNMET": 0.36771
+        },
+        "margin": 0.10472
+      },
+      {
+        "id": "dd_waiter_bill_implicit_comply",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.3496,
+          "UNMET": 0.22224
+        },
+        "margin": 0.12736
+      },
+      {
+        "id": "dd_you_should_go_in_no_dont_want",
+        "subtype": "direct",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.45183,
+          "UNMET": 0.51802
+        },
+        "margin": 0.0662
+      },
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.50172,
+          "UNMET": 0.32245
+        },
+        "margin": 0.17927
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.36159,
+          "UNMET": 0.22643
+        },
+        "margin": 0.13516
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.63317,
+          "UNMET": 0.53052
+        },
+        "margin": 0.10265
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.63317,
+          "UNMET": 0.53052
+        },
+        "margin": 0.10265
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "sims": {
+          "MET": 0.56521,
+          "UNMET": 0.46036
+        },
+        "margin": 0.10485
+      }
+    ],
+    "regressed_items": []
+  },
+  "naive_arm2_hard_recovered": [
+    {
+      "id": "dd_dance_invite_with_pleasure",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "sims": {
+        "MET": 0.50172,
+        "UNMET": 0.32245
+      },
+      "margin": 0.17927
+    },
+    {
+      "id": "dd_be_our_guide_of_course",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "sims": {
+        "MET": 0.36159,
+        "UNMET": 0.22643
+      },
+      "margin": 0.13516
+    },
+    {
+      "id": "dd_saturday_5pm_reschedule_concession",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "sims": {
+        "MET": 0.63317,
+        "UNMET": 0.53052
+      },
+      "margin": 0.10265
+    },
+    {
+      "id": "dd_concert_saturday_meetup_concession",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "sims": {
+        "MET": 0.63317,
+        "UNMET": 0.53052
+      },
+      "margin": 0.10265
+    },
+    {
+      "id": "dd_sushi_tofu_stirfry_concession",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "sims": {
+        "MET": 0.56521,
+        "UNMET": 0.46036
+      },
+      "margin": 0.10485
+    }
+  ],
+  "naive_arm2_generalizes_here": false,
+  "refined_superposition_arm3": {
+    "n_train": 12,
+    "n_test": 15,
+    "acc": 0.6666666666666666,
+    "acc_scramble": 0.4666666666666667,
+    "scramble_delta": 0.19999999999999996,
+    "digest_real": "6ec1c3e2e09e4fcd",
+    "digest_scramble": "50200bd9dc58964a",
+    "arms_differ_real_vs_scramble": true,
+    "collapsed_to_constant": false,
+    "n_distinct_preds": 2,
+    "weights": {
+      "response_negation_present=True": 0.66667,
+      "explicit_no_present=True": 0.6,
+      "request_pattern=REQUEST_PLEASE": 0.6,
+      "grant_verb_present=True": 0.54545,
+      "idiom_phrase_afraid_not=True": 0.54545,
+      "idiom_phrase_of_course=True": 0.54545,
+      "response_len_bucket=short": 0.54545,
+      "request_pattern=none": 0.375,
+      "response_len_bucket=medium": 0.22222,
+      "hand_list_kind=none": 0.0,
+      "hand_list_verdict=NA": 0.0,
+      "request_pattern=CONTROL": 0.0,
+      "response_is_question=True": 0.0,
+      "response_len_bucket=long": 0.0
+    },
+    "weights_scrambled": {
+      "response_len_bucket=medium": 0.66667,
+      "response_negation_present=True": 0.66667,
+      "explicit_no_present=True": 0.6,
+      "request_pattern=REQUEST_PLEASE": 0.6,
+      "response_len_bucket=long": 0.6,
+      "grant_verb_present=True": 0.54545,
+      "idiom_phrase_afraid_not=True": 0.54545,
+      "idiom_phrase_of_course=True": 0.54545,
+      "response_len_bucket=short": 0.54545,
+      "request_pattern=none": 0.375,
+      "hand_list_kind=none": 0.0,
+      "hand_list_verdict=NA": 0.0,
+      "request_pattern=CONTROL": 0.0,
+      "response_is_question=True": 0.0
+    },
+    "n_fallback_items_real": 0,
+    "fallback_item_ids_real": [],
+    "n_fallback_items_scrambled": 0,
+    "per_item": [
+      {
+        "id": "dd_jade_show_yes_of_course",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.42886,
+          "UNMET": 0.14388
+        },
+        "margin": 0.28498
+      },
+      {
+        "id": "dd_waiter_bill_implicit_comply",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.14344,
+          "UNMET": -0.01838
+        },
+        "margin": 0.16182
+      },
+      {
+        "id": "dd_speed_up_road_crowded",
+        "subtype": "direct",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.61943,
+          "UNMET": 0.30734
+        },
+        "margin": 0.31209
+      },
+      {
+        "id": "dd_you_should_go_in_no_dont_want",
+        "subtype": "direct",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.2322,
+          "UNMET": 0.51154
+        },
+        "margin": 0.27933
+      },
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.34145,
+          "UNMET": 0.07414
+        },
+        "margin": 0.26732
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.16837,
+          "UNMET": 0.0029
+        },
+        "margin": 0.16547
+      },
+      {
+        "id": "dd_farm_trip_why_not",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.22705,
+          "UNMET": 0.51658
+        },
+        "margin": 0.28953
+      },
+      {
+        "id": "dd_mind_washing_not_at_all",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.2322,
+          "UNMET": 0.51154
+        },
+        "margin": 0.27933
+      },
+      {
+        "id": "dd_sit_here_seat_taken",
+        "subtype": "idiomatic",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.30095,
+          "UNMET": 0.18584
+        },
+        "margin": 0.11511
+      },
+      {
+        "id": "dd_spicy_food_afraid_not",
+        "subtype": "idiomatic",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.22135,
+          "UNMET": 0.3581
+        },
+        "margin": 0.13674
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.61943,
+          "UNMET": 0.30734
+        },
+        "margin": 0.31209
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.61943,
+          "UNMET": 0.30734
+        },
+        "margin": 0.31209
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.61943,
+          "UNMET": 0.30734
+        },
+        "margin": 0.31209
+      },
+      {
+        "id": "dd_sunday_replan_still_unavailable_concession",
+        "subtype": "concession",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": false,
+        "hand_list_correct": false,
+        "recovered_by_vsa": false,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.54566,
+          "UNMET": 0.24729
+        },
+        "margin": 0.29836
+      },
+      {
+        "id": "dd_babysitter_suzy_declined_concession",
+        "subtype": "concession",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.22705,
+          "UNMET": 0.51658
+        },
+        "margin": 0.28953
+      }
+    ],
+    "recovered_items": [
+      {
+        "id": "dd_jade_show_yes_of_course",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.42886,
+          "UNMET": 0.14388
+        },
+        "margin": 0.28498
+      },
+      {
+        "id": "dd_waiter_bill_implicit_comply",
+        "subtype": "direct",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.14344,
+          "UNMET": -0.01838
+        },
+        "margin": 0.16182
+      },
+      {
+        "id": "dd_you_should_go_in_no_dont_want",
+        "subtype": "direct",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.2322,
+          "UNMET": 0.51154
+        },
+        "margin": 0.27933
+      },
+      {
+        "id": "dd_dance_invite_with_pleasure",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.34145,
+          "UNMET": 0.07414
+        },
+        "margin": 0.26732
+      },
+      {
+        "id": "dd_be_our_guide_of_course",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.16837,
+          "UNMET": 0.0029
+        },
+        "margin": 0.16547
+      },
+      {
+        "id": "dd_spicy_food_afraid_not",
+        "subtype": "idiomatic",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.22135,
+          "UNMET": 0.3581
+        },
+        "margin": 0.13674
+      },
+      {
+        "id": "dd_saturday_5pm_reschedule_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.61943,
+          "UNMET": 0.30734
+        },
+        "margin": 0.31209
+      },
+      {
+        "id": "dd_concert_saturday_meetup_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.61943,
+          "UNMET": 0.30734
+        },
+        "margin": 0.31209
+      },
+      {
+        "id": "dd_sushi_tofu_stirfry_concession",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "MET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.61943,
+          "UNMET": 0.30734
+        },
+        "margin": 0.31209
+      },
+      {
+        "id": "dd_babysitter_suzy_declined_concession",
+        "subtype": "concession",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "vsa_pred": "UNMET",
+        "vsa_correct": true,
+        "hand_list_correct": false,
+        "recovered_by_vsa": true,
+        "regressed_by_vsa": false,
+        "used_weight_fallback": false,
+        "sims": {
+          "MET": 0.22705,
+          "UNMET": 0.51658
+        },
+        "margin": 0.28953
+      }
+    ],
+    "regressed_items": []
+  },
+  "refined_arm3_hard_recovered": [
+    {
+      "id": "dd_dance_invite_with_pleasure",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "used_weight_fallback": false,
+      "sims": {
+        "MET": 0.34145,
+        "UNMET": 0.07414
+      },
+      "margin": 0.26732
+    },
+    {
+      "id": "dd_be_our_guide_of_course",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "used_weight_fallback": false,
+      "sims": {
+        "MET": 0.16837,
+        "UNMET": 0.0029
+      },
+      "margin": 0.16547
+    },
+    {
+      "id": "dd_spicy_food_afraid_not",
+      "subtype": "idiomatic",
+      "gold": "UNMET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "UNMET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "used_weight_fallback": false,
+      "sims": {
+        "MET": 0.22135,
+        "UNMET": 0.3581
+      },
+      "margin": 0.13674
+    },
+    {
+      "id": "dd_saturday_5pm_reschedule_concession",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "used_weight_fallback": false,
+      "sims": {
+        "MET": 0.61943,
+        "UNMET": 0.30734
+      },
+      "margin": 0.31209
+    },
+    {
+      "id": "dd_concert_saturday_meetup_concession",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "used_weight_fallback": false,
+      "sims": {
+        "MET": 0.61943,
+        "UNMET": 0.30734
+      },
+      "margin": 0.31209
+    },
+    {
+      "id": "dd_sushi_tofu_stirfry_concession",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "MET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "used_weight_fallback": false,
+      "sims": {
+        "MET": 0.61943,
+        "UNMET": 0.30734
+      },
+      "margin": 0.31209
+    },
+    {
+      "id": "dd_babysitter_suzy_declined_concession",
+      "subtype": "concession",
+      "gold": "UNMET",
+      "hand_list_verdict": "NA",
+      "vsa_pred": "UNMET",
+      "vsa_correct": true,
+      "hand_list_correct": false,
+      "recovered_by_vsa": true,
+      "regressed_by_vsa": false,
+      "used_weight_fallback": false,
+      "sims": {
+        "MET": 0.22705,
+        "UNMET": 0.51658
+      },
+      "margin": 0.28953
+    }
+  ],
+  "gates": {
+    "positive_controls_passed": true,
+    "arm3_fixes_collapse": true,
+    "arm3_beats_or_matches_mdl": true,
+    "arm3_recovers_hard_member": true,
+    "arm3_scramble_collapses": true,
+    "hard_pass": true,
+    "scramble_band": 0.6
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "scramble_seed": 461207,
+  "split_seed": 20260808100,
+  "cardinality_ok": true,
+  "expected_n_units": 1
+}
