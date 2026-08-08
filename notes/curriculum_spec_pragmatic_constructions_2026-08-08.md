@@ -38,7 +38,22 @@ B-steer on the larger 26-item gap -- independent re-confirmation, not repetition
 Developmental grounding (D2): direct-request mastered earliest (~age 3-4), indirect ~age 6 tracking
 false-belief timeline; ToM-load (not syntax) is the rate-limiter -> this ordering is brain-faithful.
 
-## 3. THE LEARNING MECHANISM (D2, disk-grounded reuse -- the engine EXISTS)
+## 3-PRIME. ARCHITECTURAL REFRAME (USER 2026-08-08, "chime-in"): construction-typing = the WORD-MAP SUPERPOSITION-COLLAPSE lifted to sentences (NOT an MDL classifier)
+USER insight (Director read-the-code-confirmed): the construction level is the SAME VSA superposition-
+collapse we PROVED for words (S2/S4), just at the sentence/discourse scale -- and we OWN it, proven.
+- WORD (proven): bundle(bind(context (x) sense)), collapse to the sense via the context key.
+- CONSTRUCTION: bundle(bind(role (x) filler)) over the 4-role GoalOutcomeRegister {GOAL, ACTION, MET,
+  UNMET} (GO_ROLES, hdlab/goal_owner_select.py + AccumulateRegister bind/unbind/cleanup_argmax),
+  collapse to MET/UNMET via the goal/FOCUS key held in the Cowan-4 bounded FOCUS (hdlab/situation_focus.py
+  = "bounded-capacity superposition of event bundles, Cowan 2001 ~4+/-1 chunks" -- USER's "focus 4-bundle
+  superposition" is LITERALLY this).
+Two-part structure identical at both scales: LEARN the (context->reading) bindings + COLLAPSE via a key.
+=> PRIMARY mechanism = the VSA superposition-collapse (reuse S2/S4 + the 4-role register + situation_focus),
+NOT the D2 MDL feature-classifier. The MDL route (below) is DEMOTED to a BASELINE for comparison on the
+same held-out data. The in-flight first-test's authored graded DATA is reusable either way; its MDL number
+becomes the baseline the superposition build must match-or-beat to confirm the unified mechanism.
+
+## 3. THE MDL-CLASSIFIER ROUTE (D2 -- now the BASELINE, not primary; kept for comparison)
 - **Acquisition engine = hdlab/learner (MDL mdl_select).** Not a convenience borrow: usage-based
   construction acquisition (Tomasello/Goldberg type-frequency -> generalization) IS a compression
   argument, so MDL is the mechanism the acquisition literature converges on. A construction is
