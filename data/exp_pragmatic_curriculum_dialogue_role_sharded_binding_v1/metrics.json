@@ -1,0 +1,1323 @@
+{
+  "anchor_name": "pragmatic_curriculum_dialogue_role_sharded_binding_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: best role-sharded arm (role_multi_combine_unweighted, acc=0.7333) BEATS arm3's live acc=0.6667, non-constant (n_distinct_preds=2), scramble collapses (acc_scr=0.6000 <= band=0.60) -> role-structure is the better brain-faithful mechanism at this data density.",
+  "summary": "HARD_PASS: best role-sharded arm (role_multi_combine_unweighted, acc=0.7333) BEATS arm3's live acc=0.6667, non-constant (n_distinct_preds=2), scramble collapses (acc_scr=0.6000 <= band=0.60) -> role-structure is the better brain-faithful mechanism at this data density.",
+  "elapsed_s": 0.1137,
+  "ts_iso": "2026-08-08T01:26:33.985813+00:00",
+  "pid": 7536,
+  "positive_controls": {
+    "mdl_xor_control": {
+      "chosen_name": "ruleind",
+      "compression_ratios": {
+        "estimation": 0.967741935483871,
+        "ruleind": 7.380981670562186,
+        "gam": 4.529063974435123
+      },
+      "passed": true
+    },
+    "vsa_synthetic_control": {
+      "acc": 1.0,
+      "acc_scramble": 0.2685185185185185,
+      "acc_scramble_trials": [
+        0.16666666666666666,
+        0.5833333333333334,
+        0.08333333333333333,
+        1.0,
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.25,
+        0.0
+      ],
+      "passed": true
+    }
+  },
+  "role_map": {
+    "REQUEST": [
+      "request_pattern"
+    ],
+    "RESPONSE_POLARITY": [
+      "explicit_no_present",
+      "explicit_yes_present",
+      "grant_verb_present",
+      "idiom_phrase_afraid_not",
+      "idiom_phrase_all_right",
+      "idiom_phrase_by_all_means",
+      "idiom_phrase_certainly_not",
+      "idiom_phrase_do_not_care",
+      "idiom_phrase_dont_care",
+      "idiom_phrase_guess_so",
+      "idiom_phrase_i_dare_say",
+      "idiom_phrase_i_think_not",
+      "idiom_phrase_in_that_case",
+      "idiom_phrase_not_likely",
+      "idiom_phrase_of_course",
+      "idiom_phrase_very_well",
+      "narrated_resolution_verb_present",
+      "request_verb_echoed",
+      "response_negation_present"
+    ],
+    "DISCOURSE": [
+      "contrast_cue_present",
+      "idiom_token_guess",
+      "idiom_token_indeed",
+      "idiom_token_really",
+      "idiom_token_suppose",
+      "idiom_token_truly",
+      "idiom_token_why_initial"
+    ],
+    "FILLER_META": [
+      "hand_list_kind",
+      "hand_list_verdict",
+      "response_is_question",
+      "response_len_bucket",
+      "response_starts_with_quote"
+    ]
+  },
+  "n_vocab_terms": 17,
+  "split": {
+    "seed_used": 20260808100,
+    "n_train": 12,
+    "n_test": 15,
+    "train_ids": [
+      "dd_dentist_cover_okay",
+      "dd_shirt_ironing_no_way",
+      "dd_amy_help_work_redirect",
+      "dd_dinner_tonight_love_to",
+      "dd_movie_weekend_sounds_good",
+      "dd_another_copy_of_course",
+      "dd_appointment_mr_wu_afraid_not",
+      "dd_forgive_me_no_way",
+      "dd_star_wars_tickets_concession",
+      "dd_trust_him_concession",
+      "dd_dress_party_declined_concession",
+      "dd_wait_for_mr_li_concession_unmet"
+    ],
+    "test_ids": [
+      "dd_jade_show_yes_of_course",
+      "dd_waiter_bill_implicit_comply",
+      "dd_speed_up_road_crowded",
+      "dd_you_should_go_in_no_dont_want",
+      "dd_dance_invite_with_pleasure",
+      "dd_be_our_guide_of_course",
+      "dd_farm_trip_why_not",
+      "dd_mind_washing_not_at_all",
+      "dd_sit_here_seat_taken",
+      "dd_spicy_food_afraid_not",
+      "dd_saturday_5pm_reschedule_concession",
+      "dd_concert_saturday_meetup_concession",
+      "dd_sushi_tofu_stirfry_concession",
+      "dd_sunday_replan_still_unavailable_concession",
+      "dd_babysitter_suzy_declined_concession"
+    ]
+  },
+  "incumbents_live": {
+    "arm2_naive_flat": {
+      "acc": 0.5333333333333333,
+      "acc_scramble": 0.4666666666666667
+    },
+    "arm3_attention_weighted_flat": {
+      "acc": 0.6666666666666666,
+      "acc_scramble": 0.4666666666666667
+    },
+    "mdl": {
+      "acc": 0.6
+    },
+    "majority": {
+      "acc": 0.6
+    }
+  },
+  "role_isolation_diagnostic": {
+    "REQUEST": {
+      "acc": 0.6,
+      "acc_scramble": 0.6,
+      "n_distinct_preds": 1,
+      "collapsed_to_constant": true
+    },
+    "RESPONSE_POLARITY": {
+      "acc": 0.6666666666666666,
+      "acc_scramble": 0.4666666666666667,
+      "n_distinct_preds": 2,
+      "collapsed_to_constant": false
+    },
+    "DISCOURSE": {
+      "acc": 0.6,
+      "acc_scramble": 0.6,
+      "n_distinct_preds": 1,
+      "collapsed_to_constant": true
+    },
+    "FILLER_META": {
+      "acc": 0.5333333333333333,
+      "acc_scramble": 0.3333333333333333,
+      "n_distinct_preds": 2,
+      "collapsed_to_constant": false
+    }
+  },
+  "which_role_carried_signal_alone": "RESPONSE_POLARITY",
+  "fallback_shards_used_real_unweighted": {},
+  "fallback_shards_used_real_weighted": {
+    "dd_waiter_bill_implicit_comply": [
+      "REQUEST"
+    ],
+    "dd_be_our_guide_of_course": [
+      "REQUEST"
+    ],
+    "dd_farm_trip_why_not": [
+      "DISCOURSE"
+    ],
+    "dd_movie_weekend_sounds_good": [
+      "REQUEST"
+    ],
+    "dd_sit_here_seat_taken": [
+      "REQUEST"
+    ],
+    "dd_appointment_mr_wu_afraid_not": [
+      "REQUEST"
+    ],
+    "dd_trust_him_concession": [
+      "FILLER_META"
+    ],
+    "dd_sunday_replan_still_unavailable_concession": [
+      "FILLER_META"
+    ],
+    "dd_wait_for_mr_li_concession_unmet": [
+      "FILLER_META"
+    ]
+  },
+  "fallback_shards_used_scramble_weighted": {
+    "dd_waiter_bill_implicit_comply": [
+      "REQUEST"
+    ],
+    "dd_be_our_guide_of_course": [
+      "REQUEST"
+    ],
+    "dd_farm_trip_why_not": [
+      "DISCOURSE"
+    ],
+    "dd_movie_weekend_sounds_good": [
+      "REQUEST"
+    ],
+    "dd_sit_here_seat_taken": [
+      "REQUEST"
+    ],
+    "dd_appointment_mr_wu_afraid_not": [
+      "REQUEST"
+    ]
+  },
+  "learned_cue_weights_top10": {
+    "response_negation_present=True": 0.6666666666666666,
+    "explicit_no_present=True": 0.6,
+    "request_pattern=REQUEST_PLEASE": 0.6,
+    "grant_verb_present=True": 0.5454545454545454,
+    "idiom_phrase_afraid_not=True": 0.5454545454545454,
+    "idiom_phrase_of_course=True": 0.5454545454545454,
+    "response_len_bucket=short": 0.5454545454545454,
+    "request_pattern=none": 0.375,
+    "response_len_bucket=medium": 0.2222222222222222,
+    "hand_list_kind=none": 0.0
+  },
+  "arms": {
+    "role_route_unweighted": {
+      "role": "RESPONSE_POLARITY",
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.6666666666666666,
+      "acc_scramble": 0.4666666666666667,
+      "scramble_delta": 0.19999999999999996,
+      "digest_real": "6ec1c3e2e09e4fcd",
+      "digest_scramble": "db6238d34f871a79",
+      "arms_differ_real_vs_scramble": true,
+      "n_distinct_preds": 2,
+      "collapsed_to_constant": false,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.17911
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.73097
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.25554
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.63674
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.73097
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.56984
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.63674
+        }
+      ]
+    },
+    "role_multi_combine_unweighted": {
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.7333333333333333,
+      "acc_scramble": 0.6,
+      "scramble_delta": 0.1333333333333333,
+      "digest_real": "3db72ce3faae1f0d",
+      "digest_scramble": "0302210a60835c3e",
+      "arms_differ_real_vs_scramble": true,
+      "n_distinct_preds": 2,
+      "collapsed_to_constant": false,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.54,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.17921,
+              "UNMET": 0.0001
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.50115,
+              "UNMET": 0.58529
+            }
+          }
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.08873,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.02557,
+              "UNMET": -0.0222
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.40397,
+              "UNMET": 0.36301
+            }
+          }
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.2989,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.56758,
+              "UNMET": 0.71371
+            }
+          }
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.43207,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0516,
+              "UNMET": 0.78257
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.56758,
+              "UNMET": 0.71371
+            }
+          }
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.486,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.40397,
+              "UNMET": 0.36301
+            }
+          }
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.3064,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.10405,
+              "UNMET": 0.09415
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.26382,
+              "UNMET": 0.00828
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.40397,
+              "UNMET": 0.36301
+            }
+          }
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.27585,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.05753,
+              "UNMET": 0.69427
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.50115,
+              "UNMET": 0.58529
+            }
+          }
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.43207,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0516,
+              "UNMET": 0.78257
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.56758,
+              "UNMET": 0.71371
+            }
+          }
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.09836,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.02557,
+              "UNMET": -0.0222
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.56758,
+              "UNMET": 0.71371
+            }
+          }
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.08384,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.03027,
+              "UNMET": 0.60011
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.40397,
+              "UNMET": 0.36301
+            }
+          }
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.2989,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.56758,
+              "UNMET": 0.71371
+            }
+          }
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.2989,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.56758,
+              "UNMET": 0.71371
+            }
+          }
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.36089,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.50115,
+              "UNMET": 0.58529
+            }
+          }
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.38119,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.38241,
+              "UNMET": 0.44626
+            }
+          }
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.33784,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.05753,
+              "UNMET": 0.69427
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.56758,
+              "UNMET": 0.71371
+            }
+          }
+        }
+      ]
+    },
+    "role_route_weighted": {
+      "role": "RESPONSE_POLARITY",
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.6666666666666666,
+      "acc_scramble": 0.4666666666666667,
+      "scramble_delta": 0.19999999999999996,
+      "digest_real": "6ec1c3e2e09e4fcd",
+      "digest_scramble": "db6238d34f871a79",
+      "arms_differ_real_vs_scramble": true,
+      "n_distinct_preds": 2,
+      "collapsed_to_constant": false,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.24612
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.78516
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.24612
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.6743
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.78516
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.64109
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.0
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.6743
+        }
+      ]
+    },
+    "role_multi_combine_weighted_COMPOSED": {
+      "n_train": 12,
+      "n_test": 15,
+      "acc": 0.7333333333333333,
+      "acc_scramble": 0.4,
+      "scramble_delta": 0.33333333333333326,
+      "digest_real": "3db72ce3faae1f0d",
+      "digest_scramble": "d3c3e98c42fa3cc4",
+      "arms_differ_real_vs_scramble": true,
+      "n_distinct_preds": 2,
+      "collapsed_to_constant": false,
+      "per_item": [
+        {
+          "id": "dd_jade_show_yes_of_course",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.40101,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.25337,
+              "UNMET": 0.00725
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_waiter_bill_implicit_comply",
+          "subtype": "direct",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.22836,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.02557,
+              "UNMET": -0.0222
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.1029,
+              "UNMET": -0.07768
+            }
+          }
+        },
+        {
+          "id": "dd_speed_up_road_crowded",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.15488,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_you_should_go_in_no_dont_want",
+          "subtype": "direct",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.63027,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.04822,
+              "UNMET": 0.83338
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_dance_invite_with_pleasure",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.62562,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.1029,
+              "UNMET": -0.07768
+            }
+          }
+        },
+        {
+          "id": "dd_be_our_guide_of_course",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.43661,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.10405,
+              "UNMET": 0.09415
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.25337,
+              "UNMET": 0.00725
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.1029,
+              "UNMET": -0.07768
+            }
+          }
+        },
+        {
+          "id": "dd_farm_trip_why_not",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.51942,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.05734,
+              "UNMET": 0.73164
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_mind_washing_not_at_all",
+          "subtype": "idiomatic",
+          "gold": "MET",
+          "pred": "UNMET",
+          "correct": false,
+          "margin": 0.63027,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.04822,
+              "UNMET": 0.83338
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_sit_here_seat_taken",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.24238,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.02557,
+              "UNMET": -0.0222
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_spicy_food_afraid_not",
+          "subtype": "idiomatic",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.01547,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.03689,
+              "UNMET": 0.67798
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.1029,
+              "UNMET": -0.07768
+            }
+          }
+        },
+        {
+          "id": "dd_saturday_5pm_reschedule_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.15488,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_concert_saturday_meetup_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.15488,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_sushi_tofu_stirfry_concession",
+          "subtype": "concession",
+          "gold": "MET",
+          "pred": "MET",
+          "correct": true,
+          "margin": 0.15488,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        },
+        {
+          "id": "dd_sunday_replan_still_unavailable_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "MET",
+          "correct": false,
+          "margin": 0.41912,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.05952,
+              "UNMET": 0.08543
+            }
+          }
+        },
+        {
+          "id": "dd_babysitter_suzy_declined_concession",
+          "subtype": "concession",
+          "gold": "UNMET",
+          "pred": "UNMET",
+          "correct": true,
+          "margin": 0.51942,
+          "per_role_sims": {
+            "REQUEST": {
+              "MET": 0.8282,
+              "UNMET": 0.38317
+            },
+            "RESPONSE_POLARITY": {
+              "MET": 0.05734,
+              "UNMET": 0.73164
+            },
+            "DISCOURSE": {
+              "MET": 0.0,
+              "UNMET": 0.0
+            },
+            "FILLER_META": {
+              "MET": 0.49385,
+              "UNMET": 0.784
+            }
+          }
+        }
+      ]
+    }
+  },
+  "best_arm_name": "role_multi_combine_unweighted",
+  "best_arm_acc": 0.7333333333333333,
+  "gates": {
+    "positive_controls_passed": true,
+    "best_beats_arm3": true,
+    "best_matches_arm3": true,
+    "best_non_constant": true,
+    "best_scramble_collapses": true,
+    "best_at_or_below_arm2": false,
+    "best_constant_collapse": false,
+    "hard_pass": true,
+    "partial": false,
+    "hard_fail_band": false,
+    "scramble_band": 0.6
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "scramble_seed": 461207,
+  "split_seed": 20260808100,
+  "cardinality_ok": true,
+  "expected_n_units": 1
+}
