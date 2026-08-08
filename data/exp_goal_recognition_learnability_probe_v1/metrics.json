@@ -1,0 +1,76 @@
+{
+  "n_pos": 63,
+  "n_neg": 143,
+  "n_total": 206,
+  "n_train": 103,
+  "n_test": 103,
+  "n_pos_train": 32,
+  "n_pos_test": 31,
+  "baseline_recall": 0.6774193548387096,
+  "baseline_precision": 1.0,
+  "baseline_tp": 21,
+  "baseline_fp": 0,
+  "baseline_fn": 10,
+  "baseline_tn": 72,
+  "learned_recall": 0.8709677419354839,
+  "learned_precision": 0.8181818181818182,
+  "learned_tp": 27,
+  "learned_fp": 6,
+  "learned_fn": 4,
+  "learned_tn": 66,
+  "learned_accuracy": 0.9029126213592233,
+  "chosen_plugin": "estimation",
+  "is_episodic": false,
+  "compression_ratio": 1.6795824864300102,
+  "scramble_chosen_plugin": "KEEP_EPISODIC",
+  "scramble_is_episodic": true,
+  "scramble_compression_ratio": NaN,
+  "scramble_recall": 0.0,
+  "scramble_precision": NaN,
+  "scramble_accuracy": 0.6990291262135923,
+  "real_accuracy": 0.9029126213592233,
+  "test_base_rate": 0.30097087378640774,
+  "n_pos_missed_by_baseline_all": 21,
+  "n_pos_caught_by_baseline_all": 42,
+  "determinism_real_ok": true,
+  "determinism_scramble_ok": true,
+  "self_test_pass": true,
+  "all_plugin_results": {
+    "estimation": {
+      "is_episodic": false,
+      "compression_ratio": 1.6795824864300102,
+      "cost_rank": 1,
+      "metrics": {
+        "n_keys": 27,
+        "n_classes": 2,
+        "model_bits": 27.0,
+        "data_bits": 27.822
+      }
+    },
+    "ruleind": {
+      "is_episodic": false,
+      "compression_ratio": 1.2906855735217138,
+      "cost_rank": 3,
+      "metrics": {
+        "n_rules": 3,
+        "n_episodic": 59,
+        "model_bits": 11.34,
+        "data_bits_rules": 1.0,
+        "data_bits_residual": 59.0
+      }
+    },
+    "gam": {
+      "is_episodic": false,
+      "compression_ratio": 1.608900656032332,
+      "cost_rank": 2,
+      "metrics": {
+        "n_main_keys": 9,
+        "n_interaction_keys": 1,
+        "n_classes": 2,
+        "model_bits": 10.0,
+        "data_bits": 47.23
+      }
+    }
+  },
+  "seed": 20260807
+}
