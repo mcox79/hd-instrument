@@ -1,0 +1,360 @@
+{
+  "verdict": "PARTIAL_TIE",
+  "verdict_msg": "role_shard_weighted mean_acc=0.6000 ties naive_flat=0.6100/attention_flat=0.6000 (within TIE_BAND=0.02) -- sharding not decisively additive on this construction/scale; simplest sufficient baseline wins Occam.",
+  "summary": "PARTIAL_TIE: best_wired_arm=role_shard_weighted mean_acc=0.6000",
+  "elapsed_s": 1.3692667484283447,
+  "ts_iso": "2026-08-08T03:24:45.225074+00:00",
+  "pid": 28700,
+  "anchor_name": "narrative_goal_outcome_role_sharded_generality_v1",
+  "run_mode": "full",
+  "n_items": 50,
+  "n_train": 30,
+  "n_test": 20,
+  "majority_class": "MET",
+  "majority_acc": 0.5,
+  "results_real": {
+    "role_shard_weighted": {
+      "mean_acc": 0.6,
+      "std_acc": 0.06324555320336757,
+      "accs": [
+        0.6,
+        0.7,
+        0.6,
+        0.5,
+        0.6
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        1,
+        2
+      ],
+      "digests": [
+        "6f14f67944b910f4",
+        "2110439994f7e30d",
+        "6f14f67944b910f4",
+        "13891245e93573f3",
+        "6f14f67944b910f4"
+      ]
+    },
+    "role_shard_select": {
+      "mean_acc": 0.6,
+      "std_acc": 0.06324555320336757,
+      "accs": [
+        0.6,
+        0.7,
+        0.6,
+        0.5,
+        0.6
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        1,
+        2
+      ],
+      "digests": [
+        "6f14f67944b910f4",
+        "2110439994f7e30d",
+        "6f14f67944b910f4",
+        "13891245e93573f3",
+        "6f14f67944b910f4"
+      ]
+    },
+    "role_shard_weighted_composed": {
+      "mean_acc": 0.6100000000000001,
+      "std_acc": 0.07999999999999999,
+      "accs": [
+        0.55,
+        0.75,
+        0.65,
+        0.55,
+        0.55
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "digests": [
+        "64cc9b6fd1dbb423",
+        "32fbb7cc84f101b4",
+        "6a6bfb44dafd93f8",
+        "15fdf952e0bffa66",
+        "15fdf952e0bffa66"
+      ]
+    },
+    "naive_flat": {
+      "mean_acc": 0.61,
+      "std_acc": 0.05830951894845298,
+      "accs": [
+        0.55,
+        0.6,
+        0.55,
+        0.7,
+        0.65
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "digests": [
+        "dafdf6fb3b16329e",
+        "c88ef405959331ca",
+        "03cfed98762ef536",
+        "00279a62bcdf9d92",
+        "65f9e8c63825809d"
+      ]
+    },
+    "attention_flat": {
+      "mean_acc": 0.6,
+      "std_acc": 0.0,
+      "accs": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "digests": [
+        "90019d4220053cd4",
+        "90019d4220053cd4",
+        "90019d4220053cd4",
+        "90019d4220053cd4",
+        "90019d4220053cd4"
+      ]
+    }
+  },
+  "results_scramble": {
+    "role_shard_weighted": {
+      "mean_acc": 0.35,
+      "std_acc": 0.0,
+      "accs": [
+        0.35,
+        0.35,
+        0.35,
+        0.35,
+        0.35
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "digests": [
+        "459a529faff4ff8d",
+        "459a529faff4ff8d",
+        "459a529faff4ff8d",
+        "459a529faff4ff8d",
+        "459a529faff4ff8d"
+      ]
+    },
+    "role_shard_select": {
+      "mean_acc": 0.35,
+      "std_acc": 0.0,
+      "accs": [
+        0.35,
+        0.35,
+        0.35,
+        0.35,
+        0.35
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "digests": [
+        "459a529faff4ff8d",
+        "459a529faff4ff8d",
+        "459a529faff4ff8d",
+        "459a529faff4ff8d",
+        "459a529faff4ff8d"
+      ]
+    },
+    "role_shard_weighted_composed": {
+      "mean_acc": 0.33999999999999997,
+      "std_acc": 0.08602325267042628,
+      "accs": [
+        0.35,
+        0.3,
+        0.25,
+        0.3,
+        0.5
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "digests": [
+        "459a529faff4ff8d",
+        "860bb9665071a9a5",
+        "deae7b131dd24e5b",
+        "860bb9665071a9a5",
+        "903f0b7124d605f4"
+      ]
+    },
+    "naive_flat": {
+      "mean_acc": 0.54,
+      "std_acc": 0.07348469228349533,
+      "accs": [
+        0.4,
+        0.6,
+        0.6,
+        0.55,
+        0.55
+      ],
+      "n_distinct_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "digests": [
+        "ffdc357bf6021562",
+        "e170921a5b55d01e",
+        "f9138150def94a6b",
+        "e42eefe7c3d493d7",
+        "3e92e8f7bd602130"
+      ]
+    },
+    "attention_flat": {
+      "mean_acc": 0.5,
+      "std_acc": 0.0,
+      "accs": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "n_distinct_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "digests": [
+        "13891245e93573f3",
+        "13891245e93573f3",
+        "13891245e93573f3",
+        "13891245e93573f3",
+        "13891245e93573f3"
+      ]
+    }
+  },
+  "role_map": {
+    "GOAL": [
+      "goal_marker_present",
+      "goal_marker_type",
+      "obstacle_cue_present"
+    ],
+    "OUTCOME_POLARITY": [
+      "achieve_verb_present",
+      "fail_verb_present",
+      "modal_failure_present",
+      "negation_present",
+      "result_state_polarity"
+    ],
+    "AFFECT_REACTION": [
+      "negative_affect_present",
+      "positive_affect_present"
+    ],
+    "FILLER": [
+      "exclamation_present",
+      "has_dialogue_quote",
+      "narrator_person",
+      "sentence_count_bucket",
+      "text_len_bucket"
+    ]
+  },
+  "shard_loo_acc_mean_over_seeds": {
+    "GOAL": 0.30666666666666664,
+    "OUTCOME_POLARITY": 0.6333333333333333,
+    "AFFECT_REACTION": 0.6333333333333333,
+    "FILLER": 0.21333333333333332
+  },
+  "shard_weights_mean_over_seeds": {
+    "GOAL": 0.0,
+    "OUTCOME_POLARITY": 0.1333333333333333,
+    "AFFECT_REACTION": 0.1333333333333333,
+    "FILLER": 0.0
+  },
+  "selected_role_per_seed": [
+    "OUTCOME_POLARITY",
+    "OUTCOME_POLARITY",
+    "OUTCOME_POLARITY",
+    "OUTCOME_POLARITY",
+    "OUTCOME_POLARITY"
+  ],
+  "best_wired_arm": "role_shard_weighted",
+  "best_wired_mean_acc": 0.6,
+  "beats_majority": true,
+  "beats_naive_flat": false,
+  "non_constant": false,
+  "scramble_collapses": true,
+  "gate": {
+    "SCRAMBLE_BAND": 0.6,
+    "TIE_BAND": 0.02
+  },
+  "seeds_used": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "instrumentation": {
+    "n_items": 50,
+    "n_train": 30,
+    "n_test": 20,
+    "role_map": {
+      "GOAL": [
+        "goal_marker_present",
+        "goal_marker_type",
+        "obstacle_cue_present"
+      ],
+      "OUTCOME_POLARITY": [
+        "achieve_verb_present",
+        "fail_verb_present",
+        "modal_failure_present",
+        "negation_present",
+        "result_state_polarity"
+      ],
+      "AFFECT_REACTION": [
+        "negative_affect_present",
+        "positive_affect_present"
+      ],
+      "FILLER": [
+        "exclamation_present",
+        "has_dialogue_quote",
+        "narrator_person",
+        "sentence_count_bucket",
+        "text_len_bucket"
+      ]
+    }
+  }
+}
