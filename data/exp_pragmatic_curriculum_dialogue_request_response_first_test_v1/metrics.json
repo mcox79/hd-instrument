@@ -1,0 +1,436 @@
+{
+  "anchor_name": "pragmatic_curriculum_dialogue_request_response_first_test_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL_NULL",
+  "verdict_msg": "mdl_select stayed KEEP_EPISODIC on TRAIN (n=12) -- no plugin compressed past the null code.",
+  "summary": "mdl_select stayed KEEP_EPISODIC on TRAIN (n=12) -- no plugin compressed past the null code.",
+  "elapsed_s": 0.0101,
+  "ts_iso": "2026-08-08T00:16:30.305406+00:00",
+  "pid": 7364,
+  "positive_control": {
+    "chosen_name": "ruleind",
+    "compression_ratios": {
+      "estimation": 0.967741935483871,
+      "ruleind": 7.380981670562186,
+      "gam": 4.529063974435123
+    },
+    "passed": true
+  },
+  "n_items_total": 24,
+  "n_train": 12,
+  "n_test": 12,
+  "n_features_seen": 38,
+  "feature_names_nonconstant": [
+    "contrast_cue_present",
+    "explicit_no_present",
+    "explicit_yes_present",
+    "grant_verb_present",
+    "hand_list_kind",
+    "hand_list_verdict",
+    "idiom_phrase_afraid_not",
+    "idiom_phrase_all_right",
+    "idiom_phrase_certainly_not",
+    "idiom_phrase_dont_care",
+    "idiom_phrase_guess_so",
+    "idiom_phrase_i_think_not",
+    "idiom_phrase_in_that_case",
+    "idiom_phrase_not_likely",
+    "idiom_phrase_of_course",
+    "idiom_token_guess",
+    "idiom_token_indeed",
+    "idiom_token_really",
+    "idiom_token_truly",
+    "narrated_resolution_verb_present",
+    "request_pattern",
+    "request_verb_echoed",
+    "response_is_question",
+    "response_len_bucket",
+    "response_negation_present",
+    "response_starts_with_quote"
+  ],
+  "n_features_nonconstant": 26,
+  "train_ids": [
+    "ts_becky_call_me_tom",
+    "ts_grace_miller_may_i_come",
+    "mg1_frank_fishing",
+    "mg3_frank_garden_invited",
+    "mg3_boy_at_garden_gate",
+    "ts_huck_welshman_door1",
+    "woz_lion_tiger_bow_down",
+    "ts_becky_picnic_consented",
+    "agg_marilla_refuses_concert",
+    "alice_mouse_refuses_help",
+    "authored_no_you_may_not",
+    "ts_huck_please_dont_tell"
+  ],
+  "test_ids": [
+    "agg_anne_diana_bosom_friend",
+    "lw_laurie_proposal_rejected",
+    "ts_huck_tom_gang_membership",
+    "lw_laurie_may_i_come_in",
+    "agg_anne_name_geranium_bonny",
+    "agg_marilla_picnic_litotes_yes",
+    "agg_mrs_allan_cake_concession",
+    "authored_i_think_not",
+    "authored_not_likely",
+    "authored_afraid_not",
+    "authored_certainly_not",
+    "authored_concession_unmet"
+  ],
+  "train_gold_counts": {
+    "MET": 8,
+    "UNMET": 4
+  },
+  "test_gold_counts": {
+    "MET": 6,
+    "UNMET": 6
+  },
+  "default_train_majority_class": "MET",
+  "hand_list_only": {
+    "held_out_accuracy": 0.5,
+    "n_abstained_NA": 12,
+    "n_wrong_verdict": 0,
+    "preds": [
+      {
+        "id": "agg_anne_diana_bosom_friend",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "MET"
+      },
+      {
+        "id": "lw_laurie_proposal_rejected",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "UNMET"
+      },
+      {
+        "id": "ts_huck_tom_gang_membership",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "MET"
+      },
+      {
+        "id": "lw_laurie_may_i_come_in",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "MET"
+      },
+      {
+        "id": "agg_anne_name_geranium_bonny",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "MET"
+      },
+      {
+        "id": "agg_marilla_picnic_litotes_yes",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "MET"
+      },
+      {
+        "id": "agg_mrs_allan_cake_concession",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "MET"
+      },
+      {
+        "id": "authored_i_think_not",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "UNMET"
+      },
+      {
+        "id": "authored_not_likely",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "UNMET"
+      },
+      {
+        "id": "authored_afraid_not",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "UNMET"
+      },
+      {
+        "id": "authored_certainly_not",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "UNMET"
+      },
+      {
+        "id": "authored_concession_unmet",
+        "hand_list_verdict": "NA",
+        "hand_list_kind": "none",
+        "gold": "UNMET"
+      }
+    ]
+  },
+  "majority_class_floor": {
+    "held_out_accuracy": 0.5
+  },
+  "learner": {
+    "chosen_plugin": "KEEP_EPISODIC",
+    "is_episodic": true,
+    "compression_ratios_all_plugins": {
+      "estimation": 0.8463848597938766,
+      "ruleind": 0.9182958340544896,
+      "gam": 0.5574545761822579
+    },
+    "compression_ratio_chosen": null,
+    "n_free_params_chosen": null,
+    "metrics_chosen": null,
+    "held_out_accuracy": 0.5,
+    "held_out_preds": [
+      {
+        "id": "agg_anne_diana_bosom_friend",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "lw_laurie_proposal_rejected",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "ts_huck_tom_gang_membership",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "concession"
+      },
+      {
+        "id": "lw_laurie_may_i_come_in",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "agg_anne_name_geranium_bonny",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "agg_marilla_picnic_litotes_yes",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "agg_mrs_allan_cake_concession",
+        "gold": "MET",
+        "pred": "MET",
+        "subtype": "concession"
+      },
+      {
+        "id": "authored_i_think_not",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "authored_not_likely",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "authored_afraid_not",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "authored_certainly_not",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "idiomatic"
+      },
+      {
+        "id": "authored_concession_unmet",
+        "gold": "UNMET",
+        "pred": "MET",
+        "subtype": "concession"
+      }
+    ],
+    "hypothesis_glass_box": null
+  },
+  "beats_hand_list_on_held_out": false,
+  "recovered_idiomatic_members": [
+    {
+      "id": "agg_anne_diana_bosom_friend",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "module_pred": "MET"
+    },
+    {
+      "id": "ts_huck_tom_gang_membership",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "module_pred": "MET"
+    },
+    {
+      "id": "lw_laurie_may_i_come_in",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "module_pred": "MET"
+    },
+    {
+      "id": "agg_anne_name_geranium_bonny",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "module_pred": "MET"
+    },
+    {
+      "id": "agg_marilla_picnic_litotes_yes",
+      "subtype": "idiomatic",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "module_pred": "MET"
+    },
+    {
+      "id": "agg_mrs_allan_cake_concession",
+      "subtype": "concession",
+      "gold": "MET",
+      "hand_list_verdict": "NA",
+      "module_pred": "MET"
+    }
+  ],
+  "regressed_members": [],
+  "scramble_control": {
+    "chosen_plugin": "KEEP_EPISODIC",
+    "held_out_accuracy": 0.5,
+    "scramble_delta": 0.0
+  },
+  "triage": {
+    "foundation_present": true,
+    "teaching_signal_reached_learner_nonconstant_features": true,
+    "held_out_genuinely_new_and_nondegenerate": true,
+    "hand_list_abstains_on_held_out_fraction": 1.0,
+    "data_density_branch": {
+      "n_train_primary": 12,
+      "n_candidate_feature_values_at_min_coverage_3_on_train": 10,
+      "all_24_item_probe_compression_ratios": {
+        "estimation": 0.9169745005110543,
+        "ruleind": 2.6331709953675584,
+        "gam": 0.7150925318685185
+      },
+      "all_24_item_probe_chosen_plugin": "ruleind",
+      "interpretation": "Same features/plugins/thresholds, fit on all 24 items instead of the 12-item TRAIN split, cross to non-episodic (ruleind compression_ratio=2.633, chosen=ruleind) -- consistent with a genuine DATA-DENSITY bottleneck at n_train=12 (MDL rule-specification cost log2(|candidate space|) exceeds the null-code payoff of even a locally-pure small-coverage cue), not an architecture or feature-degeneracy failure."
+    }
+  },
+  "followup_data_density_probe": {
+    "note": "SECONDARY/EXPLORATORY -- not the pre-registered primary gate. Tests the primary run's own data-density diagnosis with a revised train/test split (18/6).",
+    "n_train": 18,
+    "n_test": 6,
+    "train_gold_counts": {
+      "MET": 11,
+      "UNMET": 7
+    },
+    "test_gold_counts": {
+      "MET": 3,
+      "UNMET": 3
+    },
+    "test_ids": [
+      "agg_anne_diana_bosom_friend",
+      "lw_laurie_proposal_rejected",
+      "ts_huck_tom_gang_membership",
+      "agg_marilla_picnic_litotes_yes",
+      "authored_not_likely",
+      "authored_concession_unmet"
+    ],
+    "chosen_plugin": "ruleind",
+    "is_episodic": false,
+    "compression_ratios_all_plugins": {
+      "estimation": 0.8921937568975042,
+      "ruleind": 2.2619157672768666,
+      "gam": 0.6105995670309177
+    },
+    "compression_ratio_chosen": 2.2619157672768666,
+    "held_out_accuracy_module": 0.8333333333333334,
+    "held_out_accuracy_hand_list_only": 0.5,
+    "held_out_accuracy_majority": 0.5,
+    "beats_hand_list": true,
+    "recovered_members": [
+      {
+        "id": "agg_anne_diana_bosom_friend",
+        "subtype": "idiomatic",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "module_pred": "MET"
+      },
+      {
+        "id": "lw_laurie_proposal_rejected",
+        "subtype": "idiomatic",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "module_pred": "UNMET"
+      },
+      {
+        "id": "ts_huck_tom_gang_membership",
+        "subtype": "concession",
+        "gold": "MET",
+        "hand_list_verdict": "NA",
+        "module_pred": "MET"
+      },
+      {
+        "id": "authored_not_likely",
+        "subtype": "idiomatic",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "module_pred": "UNMET"
+      },
+      {
+        "id": "authored_concession_unmet",
+        "subtype": "concession",
+        "gold": "UNMET",
+        "hand_list_verdict": "NA",
+        "module_pred": "UNMET"
+      }
+    ],
+    "hypothesis_glass_box": {
+      "kind": "rules_residual",
+      "rules": [
+        {
+          "conjunct": [
+            "response_negation_present=True"
+          ],
+          "majority_class": "UNMET",
+          "coverage": 8,
+          "precision": 0.75,
+          "bits_rule": 5.672,
+          "bits_exceptions": 2.0,
+          "bits_null": 7.713
+        },
+        {
+          "conjunct": [],
+          "majority_class": "MET",
+          "coverage": 10,
+          "precision": 0.9,
+          "bits_rule": 0.0,
+          "bits_exceptions": 0.0,
+          "bits_null": 0.0,
+          "is_default": true
+        }
+      ],
+      "residual_lookup": {},
+      "n_classes": 2
+    },
+    "scramble_control": {
+      "chosen_plugin": "KEEP_EPISODIC",
+      "held_out_accuracy": 0.5,
+      "scramble_delta": 0.33333333333333337
+    }
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "scramble_seed": 461207,
+  "cardinality_ok": true,
+  "expected_n_units": 1
+}
