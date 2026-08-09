@@ -945,7 +945,8 @@ _RESULTTYPE_VOTE_WEIGHT = 2  # a whole-span result-type classification is a more
                              # the SAME fixed, pre-declared design choice as M1's _IDIOM_VOTE_WEIGHT.
 
 
-def _attribute_outcome_state_resulttype_grounded(attr: str, outcome: str, chosen_name, hypothesis
+def _attribute_outcome_state_resulttype_grounded(attr: str, outcome: str, chosen_name, hypothesis,
+                                                   pool_stage: Optional[str] = None
                                                    ) -> Tuple[str, dict]:
     """Direction-B M2 variant of `_attribute_outcome_state`: the same per-token WordNet vote PLUS a
     supplementary result-type vote from `hdlab.result_type_induction.result_type_votes` (weighted).
@@ -954,12 +955,13 @@ def _attribute_outcome_state_resulttype_grounded(attr: str, outcome: str, chosen
     `hdlab.idiom_grounding.dedupe_repeated_sentences` first (same general data-hygiene fix M1
     applied -- DesireDB's own verbatim-repeated-sentence scraping artifact otherwise inflates the
     per-token WordNet vote 2-3x; reused verbatim, not idiom-lexicon-specific per that function's own
-    docstring)."""
+    docstring). `pool_stage` (2026-08-09 M3-increment-1): forwarded to `result_type_votes` -- MUST
+    match the pool_stage `chosen_name`/`hypothesis` were fit at (None = ACTIVE_POOL_STAGE)."""
     from hdlab import idiom_grounding as _ig
     from hdlab import result_type_induction as _rti
     outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
     npos, nneg = _token_vote(attr, outcome_dedup)
-    rt = _rti.result_type_votes(outcome_dedup, chosen_name, hypothesis)
+    rt = _rti.result_type_votes(outcome_dedup, chosen_name, hypothesis, pool_stage=pool_stage)
     rt_pos_w = _RESULTTYPE_VOTE_WEIGHT * rt["POS"]
     rt_neg_w = _RESULTTYPE_VOTE_WEIGHT * rt["NEG"]
     trace = {"token_npos": npos, "token_nneg": nneg,
@@ -973,13 +975,14 @@ def _attribute_outcome_state_resulttype_grounded(attr: str, outcome: str, chosen
     return ("SATISFIED" if npos > nneg else "VIOLATED"), trace
 
 
-def utility_channel_trace_resulttype_grounded(desire: str, outcome: str, chosen_name, hypothesis
-                                               ) -> dict:
+def utility_channel_trace_resulttype_grounded(desire: str, outcome: str, chosen_name, hypothesis,
+                                               pool_stage: Optional[str] = None) -> dict:
     """Direction-B M2 (2026-08-09) result-type-grounded variant of `utility_channel_trace`. SAME
     activation and SAME FHRR bind/bundle/unbind scoring layer as Stage-2/M1; only the per-attribute
     outcome-evidence function differs (`_attribute_outcome_state_resulttype_grounded`). NOT wired
     into goal_achievement_verdict's precedence -- pure ADD, evaluated standalone by
-    experiments/exp_direction_b_M2_speechact_result_generalization_v1.py."""
+    experiments/exp_direction_b_M2_speechact_result_generalization_v1.py (and the M3-increment-1
+    coverage-expansion cell, which passes `pool_stage` explicitly for its v0/v1/v2 comparison)."""
     active = activate_attributes(desire)
     if not active:
         return {"verdict": None, "reason": "no_attribute_activated", "active": {}}
@@ -987,7 +990,8 @@ def utility_channel_trace_resulttype_grounded(desire: str, outcome: str, chosen_
     per_attr = {}
     weighted_terms = []
     for attr, w in active.items():
-        state, trace = _attribute_outcome_state_resulttype_grounded(attr, outcome, chosen_name, hypothesis)
+        state, trace = _attribute_outcome_state_resulttype_grounded(
+            attr, outcome, chosen_name, hypothesis, pool_stage=pool_stage)
         weighted_terms.append(w * bind(roles[attr], fillers[state]))
         per_attr[attr] = {"activation_weight": round(w, 2), "outcome_state": state,
                            "grounding_trace": trace}
@@ -1006,11 +1010,12 @@ def utility_channel_trace_resulttype_grounded(desire: str, outcome: str, chosen_
     return {"verdict": verdict, "reason": "weighted_bundle", "score": round(score, 4), "active": per_attr}
 
 
-def utility_channel_resulttype_grounded(desire: str, outcome: str, chosen_name, hypothesis
-                                         ) -> Optional[str]:
+def utility_channel_resulttype_grounded(desire: str, outcome: str, chosen_name, hypothesis,
+                                         pool_stage: Optional[str] = None) -> Optional[str]:
     """Fulfilled/Unfulfilled/None -- Direction-B M2's result-type-grounded 4th-channel variant. See
     `utility_channel_trace_resulttype_grounded` for the mechanism."""
-    return utility_channel_trace_resulttype_grounded(desire, outcome, chosen_name, hypothesis)["verdict"]
+    return utility_channel_trace_resulttype_grounded(
+        desire, outcome, chosen_name, hypothesis, pool_stage=pool_stage)["verdict"]
 
 
 def self_test_resulttype_grounded_channel() -> dict:
@@ -1065,9 +1070,166 @@ def self_test_resulttype_grounded_channel() -> dict:
             "scrambled_case2": scrambled, "chosen_plugin": chosen_name}
 
 
+# ============================================================================ DIRECTION-B
+# M3-INCREMENT-1: COMBINED (result-type + idiom-fallback) grounded evidence-scoring (2026-08-09).
+# Per the task's explicit design: M2's result-type classifier is the COMPOSITIONAL CORE (generalizes
+# to unseen surface forms via construction-cue transfer) and M1's idiom lexicon is the
+# NON-COMPOSITIONAL TAIL (a fixed set of exact phrase matches, zero breadth generalization measured
+# -- M1 landed 0/37 on the ENLARGED cohort). This combines them with an explicit PRECEDENCE, not a
+# blind additive merge, so the trace stays auditable (which source, if any, supplied the secondary
+# vote is always visible per-attribute): try the result-type vote FIRST; fall back to the idiom vote
+# ONLY when the result-type classifier genuinely had nothing to say (`result_type_votes` returned an
+# honest all-zero abstain, i.e. no construction cue fired at all -- see that function's docstring).
+# Never both -- avoids double-counting when the two sources would otherwise agree, and keeps the
+# "which knowledge source explains this verdict" trace a single unambiguous field, not two competing
+# ones. SAME activation (`activate_attributes`, goal-side only) -- confound-immunity argument
+# identical to Stage-2/M1/M2.
+def _attribute_outcome_state_combined_grounded(attr: str, outcome: str, chosen_name, hypothesis,
+                                                pool_stage: Optional[str] = None
+                                                ) -> Tuple[str, dict]:
+    """Direction-B M3-increment-1 variant of `_attribute_outcome_state`: the same per-token WordNet
+    vote PLUS ONE supplementary vote chosen by precedence -- `hdlab.result_type_induction.
+    result_type_votes` (M2, compositional core) if it fired at all, else `hdlab.idiom_grounding.
+    idiom_votes` (M1, non-compositional tail) as fallback. Returns (state, trace); `trace[
+    'secondary_source']` is 'resulttype' | 'idiom_fallback' | 'none' (auditability -- the product
+    differentiator, same discipline as M1/M2's own traces). Applies `dedupe_repeated_sentences`
+    first (same general data-hygiene fix M1/M2 both applied)."""
+    from hdlab import idiom_grounding as _ig
+    from hdlab import result_type_induction as _rti
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    npos, nneg = _token_vote(attr, outcome_dedup)
+    rt = _rti.result_type_votes(outcome_dedup, chosen_name, hypothesis, pool_stage=pool_stage)
+    if rt["POS"] or rt["NEG"]:
+        source = "resulttype"
+        sec_pos_w = _RESULTTYPE_VOTE_WEIGHT * rt["POS"]
+        sec_neg_w = _RESULTTYPE_VOTE_WEIGHT * rt["NEG"]
+        matched = rt["matched"]
+    else:
+        idiom = _ig.idiom_votes(outcome_dedup)
+        sec_pos_w = _IDIOM_VOTE_WEIGHT * idiom["POS"]
+        sec_neg_w = _IDIOM_VOTE_WEIGHT * idiom["NEG"]
+        matched = idiom["matched"]
+        source = "idiom_fallback" if (idiom["POS"] or idiom["NEG"]) else "none"
+    trace = {"token_npos": npos, "token_nneg": nneg, "secondary_source": source,
+             "secondary_pos_weighted": sec_pos_w, "secondary_neg_weighted": sec_neg_w,
+             "secondary_matched": matched}
+    npos += sec_pos_w
+    nneg += sec_neg_w
+    if npos == nneg:
+        return "ABSENT", trace
+    return ("SATISFIED" if npos > nneg else "VIOLATED"), trace
+
+
+def utility_channel_trace_combined_grounded(desire: str, outcome: str, chosen_name, hypothesis,
+                                             pool_stage: Optional[str] = None) -> dict:
+    """Direction-B M3-increment-1 (2026-08-09) combined result-type+idiom-fallback variant of
+    `utility_channel_trace`. SAME activation and SAME FHRR bind/bundle/unbind scoring layer as
+    Stage-2/M1/M2; only the per-attribute outcome-evidence function differs
+    (`_attribute_outcome_state_combined_grounded`). NOT wired into goal_achievement_verdict's
+    precedence -- pure ADD, evaluated standalone by
+    experiments/exp_direction_b_M3inc1_coverage_expansion_v1.py."""
+    active = activate_attributes(desire)
+    if not active:
+        return {"verdict": None, "reason": "no_attribute_activated", "active": {}}
+    roles, fillers = _utility_vecs()
+    per_attr = {}
+    weighted_terms = []
+    for attr, w in active.items():
+        state, trace = _attribute_outcome_state_combined_grounded(
+            attr, outcome, chosen_name, hypothesis, pool_stage=pool_stage)
+        weighted_terms.append(w * bind(roles[attr], fillers[state]))
+        per_attr[attr] = {"activation_weight": round(w, 2), "outcome_state": state,
+                           "grounding_trace": trace}
+    U = bundle(torch.stack(weighted_terms))
+    score = 0.0
+    for attr, w in active.items():
+        probe = unbind(U, roles[attr])
+        recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+        per_attr[attr]["recovered_state"] = recovered_name
+        per_attr[attr]["recovered_margin"] = round(margin, 4)
+        per_attr[attr]["roundtrip_ok"] = (recovered_name == per_attr[attr]["outcome_state"])
+        score += w * _UTIL_SIGN[recovered_name]
+    if score == 0.0:
+        return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+    verdict = "Fulfilled" if score > 0.0 else "Unfulfilled"
+    return {"verdict": verdict, "reason": "weighted_bundle", "score": round(score, 4), "active": per_attr}
+
+
+def utility_channel_combined_grounded(desire: str, outcome: str, chosen_name, hypothesis,
+                                       pool_stage: Optional[str] = None) -> Optional[str]:
+    """Fulfilled/Unfulfilled/None -- Direction-B M3-increment-1's combined (result-type-first,
+    idiom-fallback) 4th-channel variant. See `utility_channel_trace_combined_grounded`."""
+    return utility_channel_trace_combined_grounded(
+        desire, outcome, chosen_name, hypothesis, pool_stage=pool_stage)["verdict"]
+
+
+def self_test_combined_grounded_channel() -> dict:
+    """MECHANISM-FIRES check for the M3-increment-1 combined channel: one case that must go through
+    the RESULT-TYPE precedence path (result-type fires, matching M2's own flagship "Uh. No." case)
+    and one case that must go through the IDIOM FALLBACK path (result-type construction atoms find
+    nothing at all -- no comm/give/achieve/fail-class verb, no negator -- but the idiom lexicon
+    fires; the exact "put the kabash on" flagship phrase M1's own self-test uses). Mirrors self_test_
+    idiom_grounded_channel/self_test_resulttype_grounded_channel's discipline (pairscramble, FHRR
+    round-trip, determinism)."""
+    from hdlab import result_type_induction as _rti
+    chosen_name, hypothesis = _rti.get_induced_hypothesis()
+    assert hypothesis is not None, "M2 induction abstained on its own TRAIN set -- cannot self-test"
+
+    # (1) "Uh. No." case: precedence path must be 'resulttype' (fires via the bare-discourse-negation
+    # construction rule), and the verdict must match M2's own channel exactly on this case.
+    desire1 = "My girl [wanted to] act it out in real life, even wanting to move to England! Uh. No."
+    outcome1 = "Uh. No. Uh. No."
+    combined1 = utility_channel_trace_combined_grounded(desire1, outcome1, chosen_name, hypothesis)
+    assert combined1["verdict"] == "Unfulfilled", (
+        f"MECHANISM-FIRES FAILURE: combined channel did not recover 'Uh. No.' case: {combined1}")
+    sources1 = {a: info["grounding_trace"]["secondary_source"] for a, info in combined1["active"].items()}
+    assert all(s == "resulttype" for s in sources1.values()), (
+        f"PRECEDENCE FAILURE: expected 'resulttype' source on case1, got {sources1}")
+
+    # (2) "put the kabash on" case: result-type construction atoms find NOTHING ('put' is not a
+    # comm/give/achieve/fail-class verb by WordNet primary-sense overlap, no negator token present)
+    # -- the fallback path must engage the idiom lexicon and recover the correct verdict, matching
+    # M1's own PRIMARY_MECH_ARM behavior on this exact flagship phrase.
+    desire2 = "I wanted to finish the project."  # ACTIVITY_COMPLETION ("finish" literal goal_verb)
+    outcome2 = "I put the kabash on that idea (privately), at least for the day."
+    feats2 = _rti.span_feats(outcome2)
+    assert feats2 == ["no_verb_class_cue"], (
+        f"fixture assumption broken: result-type atoms found something on case2: {feats2}")
+    plain2 = utility_channel_trace(desire2, outcome2)
+    combined2 = utility_channel_trace_combined_grounded(desire2, outcome2, chosen_name, hypothesis)
+    assert plain2["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain2}"
+    assert combined2["verdict"] == "Unfulfilled", (
+        f"MECHANISM-FIRES FAILURE: combined channel did not recover the idiom-fallback case: {combined2}")
+    sources2 = {a: info["grounding_trace"]["secondary_source"] for a, info in combined2["active"].items()}
+    assert all(s == "idiom_fallback" for s in sources2.values()), (
+        f"FALLBACK FAILURE: expected 'idiom_fallback' source on case2, got {sources2}")
+
+    # (3) FHRR round-trip fidelity on both cases.
+    for r in (combined1, combined2):
+        for attr, info in r["active"].items():
+            assert info["roundtrip_ok"], f"FHRR ROUND-TRIP FAILURE on {attr!r}: {info}"
+
+    # (4) pairscramble control: a WRONG goal cue must not reproduce the correct pick.
+    scramble_desire = "I wanted to buy a new bike."
+    scrambled = utility_channel_combined_grounded(scramble_desire, outcome2, chosen_name, hypothesis)
+    assert scrambled != "Unfulfilled" or activate_attributes(scramble_desire) != activate_attributes(desire2), (
+        f"SCRAMBLE-CONTROL AMBIGUOUS: scrambled-cue verdict={scrambled!r} reproduced the grounded "
+        f"pick with an IDENTICAL activation set to the real goal")
+
+    # (5) determinism.
+    assert utility_channel_trace_combined_grounded(
+        desire2, outcome2, chosen_name, hypothesis)["score"] == combined2["score"]
+
+    return {"case1_uh_no_resulttype_precedence": combined1, "case2_kabash_idiom_fallback": combined2,
+            "sources1": sources1, "sources2": sources2, "scrambled_case2": scrambled,
+            "chosen_plugin": chosen_name}
+
+
 if __name__ == "__main__":
     import json
     print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued(),
                        "self_test_utility_channel": self_test_utility_channel(),
-                       "self_test_idiom_grounded_channel": self_test_idiom_grounded_channel()},
+                       "self_test_idiom_grounded_channel": self_test_idiom_grounded_channel(),
+                       "self_test_resulttype_grounded_channel": self_test_resulttype_grounded_channel(),
+                       "self_test_combined_grounded_channel": self_test_combined_grounded_channel()},
                       indent=2, default=str))

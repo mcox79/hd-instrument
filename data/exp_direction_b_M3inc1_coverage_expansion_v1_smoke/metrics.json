@@ -1,0 +1,26 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_OK: GATE1_held_out_acc=0.9615 cohort_n=22 activation_fires_rate=0.2727 verdict_fires_rate_iii=0.1818 recovery_iii=0.375 arms_differ=True",
+  "summary": "HARD_PASS: SMOKE_OK: GATE1_held_out_acc=0.9615 cohort_n=22 activation_fires_rate=0.2727 verdict_fires_rate_iii=0.1818 recovery_iii=0.375 arms_differ=True",
+  "elapsed_s": 54.546,
+  "run_mode": "smoke",
+  "anchor_name": "direction_b_M3inc1_coverage_expansion_v1",
+  "gate1": {
+    "pool_stage": "v2_broader_class_expansion",
+    "verdict_component": "PASS",
+    "chosen_name": "ruleind",
+    "n_train": 34,
+    "n_heldout": 26,
+    "held_out_acc": 0.9615,
+    "memorization_baseline_acc": 0.2308,
+    "scramble_control_acc": 0.0,
+    "scramble_collapses": true,
+    "majority_train_class": "REFUSAL"
+  },
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true
+}

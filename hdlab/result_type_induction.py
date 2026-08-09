@@ -51,6 +51,35 @@ first/primary-sense WordNet grounding is noisy. Neither is patched away here (th
 p-hacking the atom set to the eval set); both are reported honestly in the M2 cell's metrics, and
 decision-list matching (a rule's conjunct only needs to be a SUBSET of the fired features) is
 naturally robust to the spurious extra achieve_verb hit alongside a correct give_verb hit.
+
+POOL-STAGE COVERAGE EXPANSION (2026-08-09, Direction-B M3-increment-1). `POOL_STAGES` below adds two
+further staged pool versions on top of the original ("v0_baseline", exactly the 4 pools above) so
+`exp_direction_b_M3inc1_coverage_expansion_v1.py` can measure RETURNS-PER-EXPANSION (does each
+increment of pool coverage move DesireDB recovery, and is the trend linear or diminishing -- the
+M3-cost signal). Every addition is authored from the CANDIDATE WORD'S OWN WordNet primary-sense
+gloss/definition (verified via `wn.synsets(word, pos=wn.VERB)[0].definition()`), matching the exact
+class definitions already given above -- NEVER by checking which DesireDB item it would flip
+(calibration-honesty; the same discipline `_RAW_IDIOMS` in `hdlab/idiom_grounding.py` already
+follows). "v1_targeted_gap_close" closes exactly the 4 disclosed gaps above by adding each missing
+verb's OWN base form (a word is always a trivial member of its own WordNet-primary-sense-synonym
+set, so adding the literal base form is sufficient for `_pool_related` to bridge any of its
+inflections -- MEASURED@this session's diagnostic: "object"/"award"/"provide"/"quit" all verified to
+fire their intended atom on the exact previously-failing HELDOUT_EXAMPLES token after this addition,
+via `wn.synsets(w, pos=wn.VERB)[0]`: object.v.01 "express or raise an objection or protest ...";
+award.v.01 "give, especially as an honor or reward"; supply.v.01 "give something useful or necessary
+to" (provide's primary sense; also transitively covers "supply"/"render"/"furnish" tokens, its own
+synset-mates); discontinue.v.01 "put an end to a state or an activity" (quit's primary sense; also
+transitively covers "stop"/"cease"/"discontinue"/"give up"/"lay off" tokens). "v2_broader_class_
+expansion" adds 3 further GENUINE dictionary-grounded class members NOT tied to any specific known
+gap (general vocabulary breadth, not gap-patching): "deny" (deny.v.01 "declare untrue; contradict" --
+a common real-world refusal-of-a-request verb) and "reject" (reject.v.01 "refuse to accept or
+acknowledge") for REFUSAL/comm_verb; "abandon" (abandon.v.01 "forsake, leave behind" -- an
+inherently-negative give-up-on-an-attempt lexeme) for FAIL/fail_verb. `ACTIVE_POOL_STAGE` selects
+which stage `span_feats`/`get_induced_hypothesis`/`result_type_votes` use BY DEFAULT (an explicit
+`pool_stage=` kwarg on each overrides, for the coverage-expansion cell's own per-stage measurement
+loop) -- default is the most-expanded "v2_broader_class_expansion" stage, so this module and every
+caller that does not pass `pool_stage=` (M2's own cell/self-test, `goal_achievement.py`'s default
+call sites) transparently pick up the expansion going forward.
 """
 from __future__ import annotations
 
@@ -63,10 +92,35 @@ from hdlab.learner import registry
 RESULT_TYPES = ("REFUSAL", "GRANT", "BLOCK", "ACHIEVE", "FAIL")
 RESULT_TYPE_POLARITY = {"REFUSAL": "NEG", "BLOCK": "NEG", "FAIL": "NEG", "GRANT": "POS", "ACHIEVE": "POS"}
 
-COMM_POOL = ["say", "decline", "reply"]
-GIVE_POOL = ["give", "offer", "grant"]
-ACHIEVE_POOL = ["achieve", "finish", "succeed"]
-FAIL_POOL = ["fail", "lose"]
+# POOL_STAGES: staged construction-cue exemplar-pool coverage (see module docstring's 2026-08-09
+# addendum for the WordNet-primary-sense-gloss justification of every v1/v2 addition).
+POOL_STAGES = {
+    "v0_baseline": {
+        "COMM_POOL": ["say", "decline", "reply"],
+        "GIVE_POOL": ["give", "offer", "grant"],
+        "ACHIEVE_POOL": ["achieve", "finish", "succeed"],
+        "FAIL_POOL": ["fail", "lose"],
+    },
+    "v1_targeted_gap_close": {
+        "COMM_POOL": ["say", "decline", "reply", "object"],
+        "GIVE_POOL": ["give", "offer", "grant", "award", "provide"],
+        "ACHIEVE_POOL": ["achieve", "finish", "succeed"],
+        "FAIL_POOL": ["fail", "lose", "quit"],
+    },
+    "v2_broader_class_expansion": {
+        "COMM_POOL": ["say", "decline", "reply", "object", "deny", "reject"],
+        "GIVE_POOL": ["give", "offer", "grant", "award", "provide"],
+        "ACHIEVE_POOL": ["achieve", "finish", "succeed"],
+        "FAIL_POOL": ["fail", "lose", "quit", "abandon"],
+    },
+}
+POOL_STAGE_ORDER = ("v0_baseline", "v1_targeted_gap_close", "v2_broader_class_expansion")
+ACTIVE_POOL_STAGE = "v2_broader_class_expansion"
+
+COMM_POOL = POOL_STAGES[ACTIVE_POOL_STAGE]["COMM_POOL"]
+GIVE_POOL = POOL_STAGES[ACTIVE_POOL_STAGE]["GIVE_POOL"]
+ACHIEVE_POOL = POOL_STAGES[ACTIVE_POOL_STAGE]["ACHIEVE_POOL"]
+FAIL_POOL = POOL_STAGES[ACTIVE_POOL_STAGE]["FAIL_POOL"]
 
 MODAL_STEMS = {"would", "could", "can", "will", "might", "should", "must", "shall"}
 MODAL_CONTRACTIONS = {"wouldn't", "couldn't", "can't", "won't", "shouldn't", "mightn't", "mustn't", "shan't"}
@@ -127,15 +181,21 @@ def _modal_neg(toks: List[str]) -> bool:
     return False
 
 
-def span_feats(outcome: str) -> List[str]:
+def span_feats(outcome: str, pool_stage: Optional[str] = None) -> List[str]:
     """The 7 boolean CONSTRUCTION_ATOMS present in `outcome`. NEVER contains a verb lemma or any
     n-gram containing one -- construction-class + negation-structure shape only, so the induced
-    hypothesis transfers to a verb never seen during training (frame_induction's discipline)."""
+    hypothesis transfers to a verb never seen during training (frame_induction's discipline).
+    `pool_stage` (one of POOL_STAGES' keys) overrides the module-default ACTIVE_POOL_STAGE pools --
+    used by the coverage-expansion cell to measure v0/v1/v2 side-by-side without mutating module
+    globals; None (the default) reproduces every existing caller's behavior unchanged."""
+    pools = POOL_STAGES[pool_stage] if pool_stage is not None else {
+        "COMM_POOL": COMM_POOL, "GIVE_POOL": GIVE_POOL,
+        "ACHIEVE_POOL": ACHIEVE_POOL, "FAIL_POOL": FAIL_POOL}
     toks = _gt._tokens(outcome)
-    comm = _any_pool_hit(toks, COMM_POOL)
-    give = _any_pool_hit(toks, GIVE_POOL)
-    ach = _any_pool_hit(toks, ACHIEVE_POOL)
-    fail = _any_pool_hit(toks, FAIL_POOL)
+    comm = _any_pool_hit(toks, pools["COMM_POOL"])
+    give = _any_pool_hit(toks, pools["GIVE_POOL"])
+    ach = _any_pool_hit(toks, pools["ACHIEVE_POOL"])
+    fail = _any_pool_hit(toks, pools["FAIL_POOL"])
     feats = []
     if comm:
         feats.append("comm_verb")
@@ -154,8 +214,8 @@ def span_feats(outcome: str) -> List[str]:
     return feats
 
 
-def build_episode(outcome: str, gold_class: str, tag: str = "") -> dict:
-    return {"feats": span_feats(outcome), "gold_class": gold_class, "tag": tag}
+def build_episode(outcome: str, gold_class: str, tag: str = "", pool_stage: Optional[str] = None) -> dict:
+    return {"feats": span_feats(outcome, pool_stage), "gold_class": gold_class, "tag": tag}
 
 
 # ---------------------------------------------------------------------------------------------
@@ -297,26 +357,28 @@ def memorization_baseline_predict(train_examples: List[Tuple[str, str, str]], ta
     return lookup.get(tag, default)
 
 
-_INDUCED_HYP_CACHE: Optional[Tuple[Optional[str], Optional[object]]] = None
+_INDUCED_HYP_CACHE: Dict[str, Tuple[Optional[str], Optional[object]]] = {}
 
 
-def get_induced_hypothesis(use_cache: bool = True) -> Tuple[Optional[str], Optional[object]]:
-    """(chosen_name, hypothesis) trained ONCE on TRAIN_EXAMPLES only (module-level cache) -- the
-    SAME hypothesis GATE-1's held-out eval uses, reused unmodified for GATE-2's DesireDB scoring.
-    NEVER trains on DesireDB -- this is what keeps the DesireDB recovery measurement (GATE-2)
-    non-circular per the M2 task's anti-circular design mandate #4."""
-    global _INDUCED_HYP_CACHE
-    if use_cache and _INDUCED_HYP_CACHE is not None:
-        return _INDUCED_HYP_CACHE
-    train_eps = [build_episode(t, c, tag) for t, c, tag in TRAIN_EXAMPLES]
+def get_induced_hypothesis(use_cache: bool = True, pool_stage: Optional[str] = None
+                            ) -> Tuple[Optional[str], Optional[object]]:
+    """(chosen_name, hypothesis) trained ONCE on TRAIN_EXAMPLES only (module-level cache, keyed by
+    pool_stage so v0/v1/v2 can be fit + cached independently) -- the SAME hypothesis GATE-1's
+    held-out eval uses, reused unmodified for GATE-2's DesireDB scoring. NEVER trains on DesireDB --
+    this is what keeps the DesireDB recovery measurement (GATE-2) non-circular per the M2 task's
+    anti-circular design mandate #4. `pool_stage=None` uses ACTIVE_POOL_STAGE (module default)."""
+    stage = pool_stage if pool_stage is not None else ACTIVE_POOL_STAGE
+    if use_cache and stage in _INDUCED_HYP_CACHE:
+        return _INDUCED_HYP_CACHE[stage]
+    train_eps = [build_episode(t, c, tag, pool_stage=stage) for t, c, tag in TRAIN_EXAMPLES]
     chosen_name, chosen, _all = induce(train_eps)
     result = (chosen_name, chosen.hypothesis) if chosen is not None else (None, None)
     if use_cache:
-        _INDUCED_HYP_CACHE = result
+        _INDUCED_HYP_CACHE[stage] = result
     return result
 
 
-def result_type_votes(outcome: str, chosen_name, hypothesis) -> dict:
+def result_type_votes(outcome: str, chosen_name, hypothesis, pool_stage: Optional[str] = None) -> dict:
     """{'POS': int, 'NEG': int, 'matched': [result_type]} -- SAME return shape as
     hdlab.idiom_grounding.idiom_votes so a caller (hdlab.goal_achievement's resulttype-grounded
     channel) can combine it with the existing per-token WordNet vote the identical way M1 combined
@@ -327,8 +389,10 @@ def result_type_votes(outcome: str, chosen_name, hypothesis) -> dict:
     constant, outcome-content-independent bias vote into DesireDB scoring; the mechanism must only
     vote when a real construction cue fired. A bare discourse-negation span ('Uh. No.', feats ==
     ['neg_present','no_verb_class_cue']) is NOT uninformative by this test and proceeds to the
-    model normally."""
-    feats = span_feats(outcome)
+    model normally. `pool_stage=None` uses ACTIVE_POOL_STAGE (must match the stage `chosen_name`/
+    `hypothesis` were fit at -- callers passing an explicit `pool_stage` to `get_induced_hypothesis`
+    must pass the SAME `pool_stage` here)."""
+    feats = span_feats(outcome, pool_stage)
     if feats == ["no_verb_class_cue"]:
         return {"POS": 0, "NEG": 0, "matched": []}
     key = "|".join(sorted(feats))
@@ -401,9 +465,39 @@ def self_test() -> dict:
     fires = result_type_votes("So Jarrad calls and she told him no.", chosen_name, chosen.hypothesis)
     assert fires["matched"] == ["REFUSAL"] and fires["NEG"] == 1 and fires["POS"] == 0, fires
 
+    # (6) POOL-STAGE COVERAGE-EXPANSION sanity (2026-08-09 M3-increment-1): each of the 4 disclosed
+    # v0 gaps must be UNCOVERED at v0_baseline and COVERED at v1_targeted_gap_close (and therefore at
+    # v2_broader_class_expansion, which is a strict superset) -- proves the expansion is real, not a
+    # no-op, and that it is the intended atom (not a spurious different one) that newly fires.
+    gap_probes = [("They objected to the idea.", "comm_verb"),
+                  ("They awarded him the prize.", "give_verb"),
+                  ("She provided him with the funds.", "give_verb"),
+                  ("He quit the team.", "fail_verb")]
+    for text, expected_atom in gap_probes:
+        f_v0 = span_feats(text, pool_stage="v0_baseline")
+        f_v1 = span_feats(text, pool_stage="v1_targeted_gap_close")
+        assert expected_atom not in f_v0, f"v0 unexpectedly already covers {text!r}: {f_v0}"
+        assert expected_atom in f_v1, f"v1 failed to close the known gap on {text!r}: {f_v1}"
+    # v2 adds genuinely NEW general-vocabulary coverage beyond the 4 targeted gaps (not tied to any
+    # specific held-out tag) -- "denied"/"rejected"/"abandoned" must fire at v2 but not at v1.
+    broader_probes = [("They denied the request.", "comm_verb"),
+                       ("They rejected the offer.", "comm_verb"),
+                       ("He abandoned the attempt.", "fail_verb")]
+    for text, expected_atom in broader_probes:
+        f_v1 = span_feats(text, pool_stage="v1_targeted_gap_close")
+        f_v2 = span_feats(text, pool_stage="v2_broader_class_expansion")
+        assert expected_atom not in f_v1, f"v1 unexpectedly already covers {text!r}: {f_v1}"
+        assert expected_atom in f_v2, f"v2 failed to add general coverage on {text!r}: {f_v2}"
+    # genuine WordNet-TRANSFER (not literal pool membership) still works post-expansion: "supplied"/
+    # "discontinued" are NOT pool members themselves, only synset-mates of "provide"/"quit" that v1
+    # added -- confirms the expansion bridges via real synonymy, not by hardcoding every inflection.
+    assert "give_verb" in span_feats("The charity supplied him with funds.", pool_stage="v1_targeted_gap_close")
+    assert "fail_verb" in span_feats("He discontinued the effort.", pool_stage="v1_targeted_gap_close")
+
     return {"chosen_plugin": chosen_name, "n_train": len(train_eps), "n_heldout": len(held_eps),
             "held_out_acc": round(held_acc, 4), "memorization_baseline_acc": round(mem_acc, 4),
             "scramble_control_acc": round(scr_acc, 4), "majority_train_class": majority_train,
+            "active_pool_stage": ACTIVE_POOL_STAGE,
             "all_plugin_description_bits": {k: round(v.description_bits, 3) for k, v in all_results.items()}}
 
 

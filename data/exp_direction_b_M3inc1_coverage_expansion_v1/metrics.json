@@ -1,0 +1,772 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "GATE1[PASS]: held_out_acc=0.9615 (v0_cited=0.8846) || GATE2_PRIMARY: rate=0.375 (vs M2=0.375, M1=0.25) collapses=True leaks=False hard_pass=False || GATE2_BREADTH(context): rate=0.2432 (vs M2=0.2432, M1=0.0) collapses=True || no_returns=True || WIRE_CANDIDATE=False",
+  "summary": "HARD_FAIL: GATE1[PASS]: held_out_acc=0.9615 (v0_cited=0.8846) || GATE2_PRIMARY: rate=0.375 (vs M2=0.375, M1=0.25) collapses=True leaks=False hard_pass=False || GATE2_BREADTH(context): rate=0.2432 (vs M2=0.2432, M1=0.0) collapses=True || no_returns=True || WIRE_CANDIDATE=False",
+  "elapsed_s": 408.067,
+  "run_mode": "full",
+  "anchor_name": "direction_b_M3inc1_coverage_expansion_v1",
+  "this_invocation_unit": "v2_combined",
+  "units_recorded": [
+    "v1_resulttype",
+    "v2_combined",
+    "v2_resulttype"
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "verdict_details": {
+    "primary_rate": 0.375,
+    "breadth_rate": 0.2432,
+    "primary_collapses": true,
+    "primary_leaks": false,
+    "breadth_collapses": true,
+    "pairscramble_ok": true,
+    "no_returns_from_expansion_or_combination": true,
+    "gate2_primary_hard_pass": false,
+    "gate2_primary_hard_fail": false,
+    "wire_candidate": false
+  },
+  "returns_per_expansion": {
+    "gate1_held_out_acc": {
+      "v0_baseline_cited": 0.8846,
+      "v1_targeted_gap_close": 0.9615,
+      "v2_broader_class_expansion": 0.9615
+    },
+    "primary_recovery_rate": {
+      "v0_M2_resulttype_cited": 0.375,
+      "v1_resulttype": 0.375,
+      "v2_resulttype": 0.375,
+      "v2_combined": 0.375
+    },
+    "breadth_recovery_rate": {
+      "v0_M2_resulttype_cited": 0.2432,
+      "v0_M1_idiom_cited": 0.0,
+      "v2_resulttype_pool_expansion_only": 0.2432,
+      "v2_combined_plus_idiom_fallback": 0.2432
+    },
+    "breadth_delta_from_pool_expansion_v0_to_v2resulttype": 0.0,
+    "breadth_delta_from_combination_v2resulttype_to_v2combined": 0.0,
+    "m3_tractability_trend_assessment": "flat_or_negative"
+  },
+  "units": {
+    "v1_resulttype": {
+      "unit_name": "v1_resulttype",
+      "config": {
+        "pool_stage": "v1_targeted_gap_close",
+        "channel": "resulttype",
+        "include_breadth": false
+      },
+      "gate1": {
+        "pool_stage": "v1_targeted_gap_close",
+        "verdict_component": "PASS",
+        "chosen_name": "ruleind",
+        "n_train": 34,
+        "n_heldout": 26,
+        "held_out_acc": 0.9615,
+        "memorization_baseline_acc": 0.2308,
+        "scramble_control_acc": 0.0,
+        "scramble_collapses": true,
+        "majority_train_class": "REFUSAL"
+      },
+      "harness_validity_check": {
+        "n": 80,
+        "measured_acc": 0.7,
+        "measured_macro_f1": 0.6992,
+        "documented_macro_f1": 0.686,
+        "delta_macro_f1": 0.0132,
+        "valid": true,
+        "tolerance": 0.03
+      },
+      "primary": {
+        "cohort_n": 22,
+        "n_sample": 160,
+        "activation_fires_rate": 0.2727,
+        "verdict_fires_rate_iii": 0.1818,
+        "gold_dist": {
+          "Fulfilled": 14,
+          "Unfulfilled": 8
+        },
+        "acc_i": 0.6364,
+        "acc_ii": 0.6364,
+        "acc_iii": 0.7727,
+        "acc_iv": 0.5909,
+        "macro_f1_i": 0.3889,
+        "macro_f1_ii": 0.3889,
+        "macro_f1_iii": 0.697,
+        "macro_f1_iv": 0.4545,
+        "recovery_i": {
+          "n_majority_wrong": 8,
+          "n_recovered": 0,
+          "rate": 0.0
+        },
+        "recovery_ii": {
+          "n_majority_wrong": 8,
+          "n_recovered": 0,
+          "rate": 0.0
+        },
+        "recovery_iii": {
+          "n_majority_wrong": 8,
+          "n_recovered": 3,
+          "rate": 0.375
+        },
+        "recovery_iv": {
+          "n_majority_wrong": 8,
+          "n_recovered": 1,
+          "rate": 0.125
+        },
+        "arms_differ": true,
+        "arms_digests": {
+          "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+          "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+          "iii": "a92cf1386708293ab2e532c246fa8c1a9bb7cdc422d9df2838f454512adf17e1",
+          "iv": "61aad75543880b7eeb781f379b6d6fff4e849be8369bb9f4052032621c363f5e"
+        },
+        "match_traces_gold_unfulfilled": [
+          {
+            "idx": 91,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.9644,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 99,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 1.0,
+                "outcome_state": "ABSENT",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 0,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 0,
+                  "resulttype_matched": []
+                },
+                "recovered_state": "ABSENT",
+                "recovered_margin": 0.8217,
+                "roundtrip_ok": true
+              },
+              "AVOID_HARM_SAFETY": {
+                "activation_weight": 0.7,
+                "outcome_state": "ABSENT",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 0,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 0,
+                  "resulttype_matched": []
+                },
+                "recovered_state": "ABSENT",
+                "recovered_margin": 0.3967,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 107,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 118,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 135,
+            "gold": "Unfulfilled",
+            "trace": {
+              "ACQUIRE_POSSESS": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 2,
+                  "token_nneg": 2,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "BLOCK"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.9644,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 144,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.3659,
+                "roundtrip_ok": true
+              },
+              "SOCIAL_CONNECTION": {
+                "activation_weight": 1.0,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 1,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.831,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 150,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 154,
+            "gold": "Unfulfilled",
+            "trace": {}
+          }
+        ]
+      },
+      "breadth": null,
+      "elapsed_s": 79.96
+    },
+    "v2_resulttype": {
+      "unit_name": "v2_resulttype",
+      "config": {
+        "pool_stage": "v2_broader_class_expansion",
+        "channel": "resulttype",
+        "include_breadth": true
+      },
+      "gate1": {
+        "pool_stage": "v2_broader_class_expansion",
+        "verdict_component": "PASS",
+        "chosen_name": "ruleind",
+        "n_train": 34,
+        "n_heldout": 26,
+        "held_out_acc": 0.9615,
+        "memorization_baseline_acc": 0.2308,
+        "scramble_control_acc": 0.0,
+        "scramble_collapses": true,
+        "majority_train_class": "REFUSAL"
+      },
+      "harness_validity_check": {
+        "n": 80,
+        "measured_acc": 0.7,
+        "measured_macro_f1": 0.6992,
+        "documented_macro_f1": 0.686,
+        "delta_macro_f1": 0.0132,
+        "valid": true,
+        "tolerance": 0.03
+      },
+      "primary": {
+        "cohort_n": 22,
+        "n_sample": 160,
+        "activation_fires_rate": 0.2727,
+        "verdict_fires_rate_iii": 0.1818,
+        "gold_dist": {
+          "Fulfilled": 14,
+          "Unfulfilled": 8
+        },
+        "acc_i": 0.6364,
+        "acc_ii": 0.6364,
+        "acc_iii": 0.7727,
+        "acc_iv": 0.5909,
+        "macro_f1_i": 0.3889,
+        "macro_f1_ii": 0.3889,
+        "macro_f1_iii": 0.697,
+        "macro_f1_iv": 0.4545,
+        "recovery_i": {
+          "n_majority_wrong": 8,
+          "n_recovered": 0,
+          "rate": 0.0
+        },
+        "recovery_ii": {
+          "n_majority_wrong": 8,
+          "n_recovered": 0,
+          "rate": 0.0
+        },
+        "recovery_iii": {
+          "n_majority_wrong": 8,
+          "n_recovered": 3,
+          "rate": 0.375
+        },
+        "recovery_iv": {
+          "n_majority_wrong": 8,
+          "n_recovered": 1,
+          "rate": 0.125
+        },
+        "arms_differ": true,
+        "arms_digests": {
+          "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+          "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+          "iii": "a92cf1386708293ab2e532c246fa8c1a9bb7cdc422d9df2838f454512adf17e1",
+          "iv": "61aad75543880b7eeb781f379b6d6fff4e849be8369bb9f4052032621c363f5e"
+        },
+        "match_traces_gold_unfulfilled": [
+          {
+            "idx": 91,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.9644,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 99,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 1.0,
+                "outcome_state": "ABSENT",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 0,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 0,
+                  "resulttype_matched": []
+                },
+                "recovered_state": "ABSENT",
+                "recovered_margin": 0.8217,
+                "roundtrip_ok": true
+              },
+              "AVOID_HARM_SAFETY": {
+                "activation_weight": 0.7,
+                "outcome_state": "ABSENT",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 0,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 0,
+                  "resulttype_matched": []
+                },
+                "recovered_state": "ABSENT",
+                "recovered_margin": 0.3967,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 107,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 118,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 135,
+            "gold": "Unfulfilled",
+            "trace": {
+              "ACQUIRE_POSSESS": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 2,
+                  "token_nneg": 2,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "BLOCK"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.9644,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 144,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.3659,
+                "roundtrip_ok": true
+              },
+              "SOCIAL_CONNECTION": {
+                "activation_weight": 1.0,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 1,
+                  "token_nneg": 0,
+                  "resulttype_pos_votes": 0,
+                  "resulttype_neg_votes": 1,
+                  "resulttype_pos_weighted": 0,
+                  "resulttype_neg_weighted": 2,
+                  "resulttype_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.831,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 150,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 154,
+            "gold": "Unfulfilled",
+            "trace": {}
+          }
+        ]
+      },
+      "breadth": {
+        "n_subsample_rows": 900,
+        "n_total_rows_available": 3076,
+        "cohort_n": 152,
+        "gold_unfulfilled_n": 37,
+        "recovery": {
+          "n_recovered": 9,
+          "n_majority_wrong": 37,
+          "rate": 0.2432
+        },
+        "pairscramble_at_scale": {
+          "cohort_n": 152,
+          "acc_i": 0.7566,
+          "acc_scrambled": 0.7237,
+          "delta": 0.0329,
+          "collapses_at_scale": true
+        },
+        "secondary_source_frequency": {
+          "resulttype": 19
+        }
+      },
+      "elapsed_s": 397.874
+    },
+    "v2_combined": {
+      "unit_name": "v2_combined",
+      "config": {
+        "pool_stage": "v2_broader_class_expansion",
+        "channel": "combined",
+        "include_breadth": true
+      },
+      "gate1": {
+        "pool_stage": "v2_broader_class_expansion",
+        "verdict_component": "PASS",
+        "chosen_name": "ruleind",
+        "n_train": 34,
+        "n_heldout": 26,
+        "held_out_acc": 0.9615,
+        "memorization_baseline_acc": 0.2308,
+        "scramble_control_acc": 0.0,
+        "scramble_collapses": true,
+        "majority_train_class": "REFUSAL"
+      },
+      "harness_validity_check": {
+        "n": 80,
+        "measured_acc": 0.7,
+        "measured_macro_f1": 0.6992,
+        "documented_macro_f1": 0.686,
+        "delta_macro_f1": 0.0132,
+        "valid": true,
+        "tolerance": 0.03
+      },
+      "primary": {
+        "cohort_n": 22,
+        "n_sample": 160,
+        "activation_fires_rate": 0.2727,
+        "verdict_fires_rate_iii": 0.1818,
+        "gold_dist": {
+          "Fulfilled": 14,
+          "Unfulfilled": 8
+        },
+        "acc_i": 0.6364,
+        "acc_ii": 0.6364,
+        "acc_iii": 0.7727,
+        "acc_iv": 0.6364,
+        "macro_f1_i": 0.3889,
+        "macro_f1_ii": 0.3889,
+        "macro_f1_iii": 0.697,
+        "macro_f1_iv": 0.5417,
+        "recovery_i": {
+          "n_majority_wrong": 8,
+          "n_recovered": 0,
+          "rate": 0.0
+        },
+        "recovery_ii": {
+          "n_majority_wrong": 8,
+          "n_recovered": 0,
+          "rate": 0.0
+        },
+        "recovery_iii": {
+          "n_majority_wrong": 8,
+          "n_recovered": 3,
+          "rate": 0.375
+        },
+        "recovery_iv": {
+          "n_majority_wrong": 8,
+          "n_recovered": 2,
+          "rate": 0.25
+        },
+        "arms_differ": true,
+        "arms_digests": {
+          "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+          "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+          "iii": "a92cf1386708293ab2e532c246fa8c1a9bb7cdc422d9df2838f454512adf17e1",
+          "iv": "035e2b11c9e8efb0461d1bd1142fdf39f66057f64e8ba01255930afce9ba38b8"
+        },
+        "match_traces_gold_unfulfilled": [
+          {
+            "idx": 91,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "secondary_source": "resulttype",
+                  "secondary_pos_weighted": 0,
+                  "secondary_neg_weighted": 2,
+                  "secondary_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.9644,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 99,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 1.0,
+                "outcome_state": "ABSENT",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "secondary_source": "none",
+                  "secondary_pos_weighted": 0,
+                  "secondary_neg_weighted": 0,
+                  "secondary_matched": []
+                },
+                "recovered_state": "ABSENT",
+                "recovered_margin": 0.8217,
+                "roundtrip_ok": true
+              },
+              "AVOID_HARM_SAFETY": {
+                "activation_weight": 0.7,
+                "outcome_state": "ABSENT",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "secondary_source": "none",
+                  "secondary_pos_weighted": 0,
+                  "secondary_neg_weighted": 0,
+                  "secondary_matched": []
+                },
+                "recovered_state": "ABSENT",
+                "recovered_margin": 0.3967,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 107,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 118,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 135,
+            "gold": "Unfulfilled",
+            "trace": {
+              "ACQUIRE_POSSESS": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 2,
+                  "token_nneg": 2,
+                  "secondary_source": "resulttype",
+                  "secondary_pos_weighted": 0,
+                  "secondary_neg_weighted": 2,
+                  "secondary_matched": [
+                    "BLOCK"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.9644,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 144,
+            "gold": "Unfulfilled",
+            "trace": {
+              "LOCATION_REACHED": {
+                "activation_weight": 0.7,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 0,
+                  "token_nneg": 0,
+                  "secondary_source": "resulttype",
+                  "secondary_pos_weighted": 0,
+                  "secondary_neg_weighted": 2,
+                  "secondary_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.3659,
+                "roundtrip_ok": true
+              },
+              "SOCIAL_CONNECTION": {
+                "activation_weight": 1.0,
+                "outcome_state": "VIOLATED",
+                "grounding_trace": {
+                  "token_npos": 1,
+                  "token_nneg": 0,
+                  "secondary_source": "resulttype",
+                  "secondary_pos_weighted": 0,
+                  "secondary_neg_weighted": 2,
+                  "secondary_matched": [
+                    "REFUSAL"
+                  ]
+                },
+                "recovered_state": "VIOLATED",
+                "recovered_margin": 0.831,
+                "roundtrip_ok": true
+              }
+            }
+          },
+          {
+            "idx": 150,
+            "gold": "Unfulfilled",
+            "trace": {}
+          },
+          {
+            "idx": 154,
+            "gold": "Unfulfilled",
+            "trace": {}
+          }
+        ]
+      },
+      "breadth": {
+        "n_subsample_rows": 900,
+        "n_total_rows_available": 3076,
+        "cohort_n": 152,
+        "gold_unfulfilled_n": 37,
+        "recovery": {
+          "n_recovered": 9,
+          "n_majority_wrong": 37,
+          "rate": 0.2432
+        },
+        "pairscramble_at_scale": {
+          "cohort_n": 152,
+          "acc_i": 0.7566,
+          "acc_scrambled": 0.7237,
+          "delta": 0.0329,
+          "collapses_at_scale": true
+        },
+        "secondary_source_frequency": {
+          "resulttype": 19,
+          "none": 8
+        }
+      },
+      "elapsed_s": 407.922
+    }
+  },
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic construction-cue-vote learner (ruleind/estimation/proginduction over a fixed 7-atom boolean feature space) + idiom-regex lexicon + FHRR bind/bundle/cleanup over a fixed 6-role x 3-filler codebook, no decoded/noisy continuous signal from a swept capacity regime -- identical justification to Stage-2/M1/M2's crlb_n/a, unchanged FHRR mechanism layer",
+  "deterministic_seeding": true
+}
