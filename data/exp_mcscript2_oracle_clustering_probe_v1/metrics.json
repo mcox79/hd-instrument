@@ -1,0 +1,701 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "Q-A=ORACLE_BEATS_BASELINE (oracle_bow_commonsense=0.6180 vs baseline=0.5859); Q-B=FHRR_NO_BETTER (oracle_fhrr_commonsense=0.5507 vs oracle_bow=0.6180); SCORING_LOCUS=SCORING_LOCUS_HARD_PASS",
+  "summary": "run_mode=full n_train=2500 n_dev=355 qa=ORACLE_BEATS_BASELINE qb=FHRR_NO_BETTER scoring_locus=SCORING_LOCUS_HARD_PASS",
+  "elapsed_s": 262.334,
+  "run_mode": "full",
+  "q_a_oracle_upper_bound": {
+    "verdict": "ORACLE_BEATS_BASELINE",
+    "margin_required": 0.02,
+    "oracle_bow_commonsense_acc": 0.618,
+    "baseline_text_overlap_commonsense_acc": 0.5859,
+    "as_run_system_commonsense_acc_CITED": 0.5538,
+    "majority_floor_commonsense_acc_CITED": 0.4565
+  },
+  "q_b_representation_fairness": {
+    "verdict": "FHRR_NO_BETTER",
+    "margin_required": 0.02,
+    "oracle_fhrr_commonsense_acc": 0.5507,
+    "oracle_bow_commonsense_acc": 0.618,
+    "n_fhrr_fallback_to_neutral": 0,
+    "n_scenarios_zero_structural_extraction": 0,
+    "n_train_extract_ok": 2499,
+    "n_train_extract_fail": 1
+  },
+  "scoring_locus_anchor1": {
+    "verdict": "SCORING_LOCUS_HARD_PASS",
+    "hard_pass_rule": "covered_passage_own closes >=80% of (covered_text_baseline - covered_system) at EVERY pass 2-5",
+    "hard_fail_rule": "closes <50% at ANY pass 2-5",
+    "per_pass_gap_closed": [
+      {
+        "pass": 2,
+        "gap": 0.0148,
+        "closed_frac": 2.8041,
+        "covered_system_acc": 0.5638,
+        "covered_passage_own_acc": 0.6053,
+        "covered_text_baseline_acc": 0.5786
+      },
+      {
+        "pass": 3,
+        "gap": 0.0334,
+        "closed_frac": 1.5509,
+        "covered_system_acc": 0.5576,
+        "covered_passage_own_acc": 0.6094,
+        "covered_text_baseline_acc": 0.591
+      },
+      {
+        "pass": 4,
+        "gap": 0.0331,
+        "closed_frac": 1.5801,
+        "covered_system_acc": 0.5524,
+        "covered_passage_own_acc": 0.6047,
+        "covered_text_baseline_acc": 0.5855
+      },
+      {
+        "pass": 5,
+        "gap": 0.0325,
+        "closed_frac": 1.6123,
+        "covered_system_acc": 0.5539,
+        "covered_passage_own_acc": 0.6063,
+        "covered_text_baseline_acc": 0.5864
+      }
+    ],
+    "full_scoring_locus_curve": [
+      {
+        "n_covered": 0,
+        "covered_system_acc": 0.0,
+        "covered_passage_own_acc": 0.0,
+        "covered_text_baseline_acc": 0.0,
+        "pass": 1
+      },
+      {
+        "n_covered": 674,
+        "covered_system_acc": 0.5638,
+        "covered_passage_own_acc": 0.6053,
+        "covered_text_baseline_acc": 0.5786,
+        "pass": 2
+      },
+      {
+        "n_covered": 868,
+        "covered_system_acc": 0.5576,
+        "covered_passage_own_acc": 0.6094,
+        "covered_text_baseline_acc": 0.591,
+        "pass": 3
+      },
+      {
+        "n_covered": 936,
+        "covered_system_acc": 0.5524,
+        "covered_passage_own_acc": 0.6047,
+        "covered_text_baseline_acc": 0.5855,
+        "pass": 4
+      },
+      {
+        "n_covered": 955,
+        "covered_system_acc": 0.5539,
+        "covered_passage_own_acc": 0.6063,
+        "covered_text_baseline_acc": 0.5864,
+        "pass": 5
+      }
+    ]
+  },
+  "oracle_eval_full_by_type": {
+    "commonsense": {
+      "oracle_bow_acc": 0.6180124223602484,
+      "oracle_fhrr_acc": 0.5507246376811594,
+      "n_questions": 966
+    },
+    "text": {
+      "oracle_bow_acc": 0.6255924170616114,
+      "oracle_fhrr_acc": 0.54739336492891,
+      "n_questions": 844
+    },
+    "positive-merged": {
+      "oracle_bow_acc": 0.6571428571428571,
+      "oracle_fhrr_acc": 0.5761904761904761,
+      "n_questions": 210
+    },
+    "ALL": {
+      "oracle_bow_acc": 0.6252475247524752,
+      "oracle_fhrr_acc": 0.551980198019802,
+      "n_questions": 2020
+    }
+  },
+  "baselines": {
+    "commonsense": {
+      "text_overlap_acc": 0.5859213250517599,
+      "majority_acc": 0.45652173913043476,
+      "n_questions": 966
+    },
+    "text": {
+      "text_overlap_acc": 0.7582938388625592,
+      "majority_acc": 0.5071090047393365,
+      "n_questions": 844
+    },
+    "positive-merged": {
+      "text_overlap_acc": 0.6714285714285714,
+      "majority_acc": 0.5047619047619047,
+      "n_questions": 210
+    },
+    "ALL": {
+      "text_overlap_acc": 0.6668316831683169,
+      "majority_acc": 0.48267326732673266,
+      "n_questions": 2020
+    }
+  },
+  "gold_n_scenarios": 195,
+  "item_forensics": {
+    "n_commonsense_questions_total": 966,
+    "n_wrong_system_right_baseline_total": 213,
+    "sanity_reproduced_commonsense_system_acc": 0.5538,
+    "sanity_reproduced_commonsense_text_acc": 0.5859,
+    "sanity_matches_landed_run": true,
+    "novelty_thresh": 0.1061,
+    "final_grounded": 33,
+    "sample": [
+      {
+        "inst_id": "101",
+        "scenario": "making a dinner reservation",
+        "narrative": "My family wanted to take my sister and brother-in-law to dinner to celebrate their move to New York . My dad called me and asked me to go make a reservation . I drove to the Olive Garden and I walked into the restaurant . I told them that I wanted to make a reservation for a table for 9 people . They said that they could do that , but it would be a 10 minute wait . I told them that was fine and we waited for everyone to show up . After 10 minutes , a waiter took us back into the other room in order to enjoy a nice table . They sat us down and we waited until everyone was seated until we started to order drinks and any food that we were already hungry to start eating .",
+        "q_id": "3",
+        "q_text": "When did the people in front ask them what they wanted?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "when the author came to make a reservation",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "at the end",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0000",
+        "match_score": 0.1953
+      },
+      {
+        "inst_id": "200",
+        "scenario": "shopping for clothes",
+        "narrative": "Last Friday night my mom took me to shop for new clothes at the mall . The store that we went to had tons of clothes to choose from . We had to ask an employee for directions just to find the kids section ! The nice employee told us that the kids section would be right in front of us when we got to the second floor . My mom and I picked out a couple of great ones that we thought would look really nice . We then started looking at the shirts . It was harder to find nice shirts , but after some time , we were able to find five that we both liked a lot . On our way back to the car , I carried the bag of shorts and my mom carried the bag of shirts .",
+        "q_id": "4",
+        "q_text": "What was money handed over for?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "purchase food",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "To pay for clothes",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0000",
+        "match_score": 0.2344
+      },
+      {
+        "inst_id": "150",
+        "scenario": "going bowling",
+        "narrative": "One day my mother took me out to a bowling alley to spend time with my family and it was a new experience for me since I usually never go out and get socially active with people , But once I was out there long enough and started to loosen up and have fun with my family it was a very fun experience and we all laughed and joked around . We had a team battle where all the girls took on the boys at one point my team being the boys were down and we needed a major comeback and eventually what happened was I was able to bring the boys back into the game . Finally the game came down to one last move , If I got a strike we would win and if I did n't we would lose and surprisingly I was able to get the strike and get my team the win !",
+        "q_id": "0",
+        "q_text": "When was it fun?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "Right away.",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "When bowling",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0001",
+        "match_score": 0.25
+      },
+      {
+        "inst_id": "2",
+        "scenario": "serving a drink",
+        "narrative": "I am at work . I have a guest sit at the bar . The ordered themselves a beer . I check that he is of age , and that his license is valid . I then go to the beer cooler , and grab a nice cold mug , and fill it up with beer . I place a napkin down and set the beer on top in front of the bar guest . I present him the check and tell him no rush , whenever he is ready . He then places his cash with the receipt . I go to cash him out , offer to be right back with his change , and he responds with , \" Keep the change \" . I like nights like this .",
+        "q_id": "3",
+        "q_text": "What was the check created for?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "to get the list done",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "to tell how much the guest has to pay",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0001",
+        "match_score": 0.1328
+      },
+      {
+        "inst_id": "127",
+        "scenario": "looking for a job",
+        "narrative": "I just graduated from school and need to find a job so I can be independent and take care of myself . The first thing I need to do is write a resume . I am not sure how to do this so I asked my parents for some help . We talked about this for a while . Then she sat down with me at the kitchen table and we created my resume together . She made me do most of the work though , telling me that she was so proud of me . I know that I would n't be qualified for anything more than that so I was being realistic . After scanning the listings for entry level positions , I saw one that sounded really good . It was an interesting company and they wanted someone who had the skills that I have . I sent my resume online , as they asked , and hoped for a call to set up a time for my interview . I was very nervous . A day or two went by and I keep sending resumes to different places . On the third day I got a text message asking me to call the first company I sent my resume to . A very nice man answered . I told him I was calling in response to his email to set up an appointment for an interview . He said he was looking forward to meeting me and asked if tomorrow was convenient for me . I was so excited , but I stayed calm and told him that , thank you , it would be very convenient . He was very nice and spoke with me for quite a while . At the end of our meeting he told me he did n't have to look any further , I was hired . I could n't believe it . I felt so happy and lucky at the same time . I had my first job !",
+        "q_id": "3",
+        "q_text": "Their mother told them to keep what short and simple?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "resume",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "The notes",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0002",
+        "match_score": 0.3359
+      },
+      {
+        "inst_id": "127",
+        "scenario": "looking for a job",
+        "narrative": "I just graduated from school and need to find a job so I can be independent and take care of myself . The first thing I need to do is write a resume . I am not sure how to do this so I asked my parents for some help . We talked about this for a while . Then she sat down with me at the kitchen table and we created my resume together . She made me do most of the work though , telling me that she was so proud of me . I know that I would n't be qualified for anything more than that so I was being realistic . After scanning the listings for entry level positions , I saw one that sounded really good . It was an interesting company and they wanted someone who had the skills that I have . I sent my resume online , as they asked , and hoped for a call to set up a time for my interview . I was very nervous . A day or two went by and I keep sending resumes to different places . On the third day I got a text message asking me to call the first company I sent my resume to . A very nice man answered . I told him I was calling in response to his email to set up an appointment for an interview . He said he was looking forward to meeting me and asked if tomorrow was convenient for me . I was so excited , but I stayed calm and told him that , thank you , it would be very convenient . He was very nice and spoke with me for quite a while . At the end of our meeting he told me he did n't have to look any further , I was hired . I could n't believe it . I felt so happy and lucky at the same time . I had my first job !",
+        "q_id": "7",
+        "q_text": "What did they use to call after taking a deep breath?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "A telephone",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "A speaker",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0002",
+        "match_score": 0.3359
+      },
+      {
+        "inst_id": "108",
+        "scenario": "paying with a credit card",
+        "narrative": "When I walked into the store , I did n't notice that the register up front was not taking cash , the whole reason I had come into the store in the first place . After grabbing a couple of candy bars , I made my way to the front of the store and up to the register . When I got there , I noticed the sign stating that cash was not currently being taken . Reluctantly , I pulled out my debit card , not remembering that I had just used the last of the money available on it on groceries . I searched through my wallet and finally found my credit card . I had just gotten a credit limit increase , so I was positive that it would not be declined . Thankfully , I was correct and I left the store with my candy bars , but not able to break the cash I had .",
+        "q_id": "1",
+        "q_text": "What was handed back?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "Their money.",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "debit card",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0003",
+        "match_score": 0.25
+      },
+      {
+        "inst_id": "108",
+        "scenario": "paying with a credit card",
+        "narrative": "When I walked into the store , I did n't notice that the register up front was not taking cash , the whole reason I had come into the store in the first place . After grabbing a couple of candy bars , I made my way to the front of the store and up to the register . When I got there , I noticed the sign stating that cash was not currently being taken . Reluctantly , I pulled out my debit card , not remembering that I had just used the last of the money available on it on groceries . I searched through my wallet and finally found my credit card . I had just gotten a credit limit increase , so I was positive that it would not be declined . Thankfully , I was correct and I left the store with my candy bars , but not able to break the cash I had .",
+        "q_id": "2",
+        "q_text": "Who handed it back?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "The cashier.",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "the customer",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0003",
+        "match_score": 0.25
+      },
+      {
+        "inst_id": "37",
+        "scenario": "cooking rice",
+        "narrative": "It seems like it should be easy to cook rice , but there are lots of different types and knowing how long to soak and then boil it can be tricky . I selected a nice mild basmati rice to cook for dinner . I took out the container and looked at the instructions . I poured two cups of water into the pot and added one cup of rice . I let it soak for 15 minutes , and then I turned on the burner . Once the water started boiling , I covered the pot and reduced the temperature to simmer for ten minutes . I let the rice sit covered for five minutes , and then I fluffed it with a fork . I put it in a bowl to enjoy .",
+        "q_id": "7",
+        "q_text": "When did they set the timer?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "Before the water boiled.",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "when the water was set to boil",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0004",
+        "match_score": 0.305
+      },
+      {
+        "inst_id": "37",
+        "scenario": "cooking rice",
+        "narrative": "It seems like it should be easy to cook rice , but there are lots of different types and knowing how long to soak and then boil it can be tricky . I selected a nice mild basmati rice to cook for dinner . I took out the container and looked at the instructions . I poured two cups of water into the pot and added one cup of rice . I let it soak for 15 minutes , and then I turned on the burner . Once the water started boiling , I covered the pot and reduced the temperature to simmer for ten minutes . I let the rice sit covered for five minutes , and then I fluffed it with a fork . I put it in a bowl to enjoy .",
+        "q_id": "9",
+        "q_text": "Where or what was the pot taken off from?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "burner",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "wood stove",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0004",
+        "match_score": 0.305
+      },
+      {
+        "inst_id": "137",
+        "scenario": "heating food in a microwave",
+        "narrative": "Yesterday , I ordered pizza for dinner but I ended up having a few slices leftover , so I stuck them in the fridge . Today , I decided to have one of those slices of pizza for lunch . I took the pizza box out of the fridge and put it on the counter .  I took one of the pizza slices and placed it on the paper plate . I decided I wanted my pizza warmed up , so I opened up the microwave door . Then I took the plate with the pizza and put it inside the microwave .  I pressed the button that corresponded to a 30 second microwave time and watched as the plate spun around inside the microwave .  I opened up the microwave door and took out my pizza . It was warm and ready to be eaten !",
+        "q_id": "0",
+        "q_text": "What stopped spinning and beeped?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "The microwave.",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "The pizza.",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0005",
+        "match_score": 0.2109
+      },
+      {
+        "inst_id": "137",
+        "scenario": "heating food in a microwave",
+        "narrative": "Yesterday , I ordered pizza for dinner but I ended up having a few slices leftover , so I stuck them in the fridge . Today , I decided to have one of those slices of pizza for lunch . I took the pizza box out of the fridge and put it on the counter .  I took one of the pizza slices and placed it on the paper plate . I decided I wanted my pizza warmed up , so I opened up the microwave door . Then I took the plate with the pizza and put it inside the microwave .  I pressed the button that corresponded to a 30 second microwave time and watched as the plate spun around inside the microwave .  I opened up the microwave door and took out my pizza . It was warm and ready to be eaten !",
+        "q_id": "1",
+        "q_text": "Where did they get the paper plate from?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "the kitchen",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "outside",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0005",
+        "match_score": 0.2109
+      },
+      {
+        "inst_id": "223",
+        "scenario": "changing batteries in an alarm clock",
+        "narrative": "I looked at my alarm clock one night and the screen was blank , so I knew the batteries were probably dead . I picked up the alarm clock and turned it over , looking at the back and bottom for a place where the batteries go . On the bottom of the clock I saw what looked like a little rectangular door with a latch on one side . The little rectangular door came off the clock and underneath I saw two batteries . They said AA on them , so I knew they were double A. I went into the kitchen and found some double A batteries in a drawer . I took them back to the clock , and pulled the old batteries out of the clock . I checked inside the clock where the batteries had been and saw a picture of a battery in each spot where the batteries go . I lined up the bumpy end and flat end of each battery with the picture inside the clock when I put the new batteries in . Then I put the little door back on the clock the same way i took it off , by pushing in on the latch and this time pressing it down into place .",
+        "q_id": "1",
+        "q_text": "Where do they pull?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "clock latch",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "alarm",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0006",
+        "match_score": 0.2824
+      },
+      {
+        "inst_id": "252",
+        "scenario": "laying flooring in a room",
+        "narrative": "It was time for a new flooring . Our carpeting had been worn and old , so we decided to go to laminate floors . We measured the size of the room to get the area and we ordered the flooring at the lumber yard . The cartons of flooring were heavy . We also needed to purchase rolls of underlay . We tore the carpet up and threw it out . Then we lay down the underlay mats . After just laying down the underlay , we took a short break . Then it was time to put down the laminate . It was hard to lock the pieces together , but it came out nicely . We were proud of the hard work we did .",
+        "q_id": "0",
+        "q_text": "What was it that made them sweat a lot?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "knocking down a wall",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "Heavy cartons and laying down the underlay",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0006",
+        "match_score": 0.3294
+      },
+      {
+        "inst_id": "121",
+        "scenario": "feeding an infant",
+        "narrative": "It really takes patience when it comes to feeding a infant . It was time for me to feed my baby . She was crying because she was hungry . It is much easier to feed baby in car seat , because you can rock it at same time to sooth them too . I put the bib around her neck , and i made sure it is big enough , because it always make mass , I grabbed baby food which I purchased from grocery store . It was peach and banana . She smiled , I was happy that she liked it , because first time i introduced her this flavor . I opened another bottle , that is zucchini and peas . Alternatively I gave that too , just to give more change of taste . I gave her water time to time . She calmed down very quickly and finished her food ,",
+        "q_id": "6",
+        "q_text": "When did they put their baby in it?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "when it was time for the baby to nap.",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "when it was time to feed the baby",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0007",
+        "match_score": 0.3047
+      },
+      {
+        "inst_id": "153",
+        "scenario": "attending a church service",
+        "narrative": "On Sunday morning I decided to go visit a church that my friend attended . The church is very close to my house so I was able to sleep in a little bit before I had to leave . When I got to the church , my first thought was about how small the building was , but when I went inside I could see that it was much bigger than it appeared .  When the service started , I got a little nervous , because this church is different from the church I usually attend . I did not know the prayers , hymns , and did not know when to sit , kneel and stand . It did not matter .  People around me were very helpful , and I figured out that if I watched the people around the altar , I could figure out what I needed to do .  I loved all of the ceremony and the formality of the service . When it was over , I thanked my friend for inviting me . I hope to attend again soon .",
+        "q_id": "0",
+        "q_text": "What was simple and beautiful?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "the drive over",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "the church service",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0007",
+        "match_score": 0.2578
+      },
+      {
+        "inst_id": "144",
+        "scenario": "playing tennis",
+        "narrative": "Yesterday , my best friend and I decided that we wanted to play some tennis . There is a tennis court outside of our apartment clubhouse , so we decided to rent some tennis racquets and balls from our clubhouse . We first met up at the clubhouse to pick up the racquets and balls . I changed into a tennis skirt and put on some tennis shoes . My friend changed into athletic clothes as well and put on a tennis visor . We then went to the tennis court with our gear . We volleyed the ball back and forth for a while , and I felt proud that my tennis skills had n't gotten rusty . After we 'd played for an hour , a couple joined us and asked if we wanted to play doubles . We ended up playing for another two hours !",
+        "q_id": "1",
+        "q_text": "What did she ask her friend if she wanted to serve first?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "the soccer ball.",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "The tennis ball.",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0008",
+        "match_score": 0.2109
+      },
+      {
+        "inst_id": "144",
+        "scenario": "playing tennis",
+        "narrative": "Yesterday , my best friend and I decided that we wanted to play some tennis . There is a tennis court outside of our apartment clubhouse , so we decided to rent some tennis racquets and balls from our clubhouse . We first met up at the clubhouse to pick up the racquets and balls . I changed into a tennis skirt and put on some tennis shoes . My friend changed into athletic clothes as well and put on a tennis visor . We then went to the tennis court with our gear . We volleyed the ball back and forth for a while , and I felt proud that my tennis skills had n't gotten rusty . After we 'd played for an hour , a couple joined us and asked if we wanted to play doubles . We ended up playing for another two hours !",
+        "q_id": "8",
+        "q_text": "What did they ask them to serve?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "the tennis ball.",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "racket",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0008",
+        "match_score": 0.2109
+      },
+      {
+        "inst_id": "160",
+        "scenario": "cleaning up toys",
+        "narrative": "Today my nephew came to visit at my apartment . He is 5 years old and very active . His mom brought over his favorite toys to play with .  He was so excited to show me what toys he had and had a blast when I played along with him and his toys . After a few hours him and his mom had to leave for the day . Me and his mom had to clean up all the toys that were scattered all over the floor .  It seemed to take longer picking up the toys rather then taking them out to play with . After we were done picking up the toys my nephew gave me a big hug and told me how much fun he had with me and then they left .",
+        "q_id": "1",
+        "q_text": "When did they take quite awhile?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "when they were cleaning up",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "last week",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0009",
+        "match_score": 0.2196
+      },
+      {
+        "inst_id": "160",
+        "scenario": "cleaning up toys",
+        "narrative": "Today my nephew came to visit at my apartment . He is 5 years old and very active . His mom brought over his favorite toys to play with .  He was so excited to show me what toys he had and had a blast when I played along with him and his toys . After a few hours him and his mom had to leave for the day . Me and his mom had to clean up all the toys that were scattered all over the floor .  It seemed to take longer picking up the toys rather then taking them out to play with . After we were done picking up the toys my nephew gave me a big hug and told me how much fun he had with me and then they left .",
+        "q_id": "2",
+        "q_text": "When did they pick all of them up?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "before arriving",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "The end of the day.",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "passage_own_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0009",
+        "match_score": 0.2196
+      }
+    ]
+  },
+  "n_train_instances": 2500,
+  "n_dev_instances": 355,
+  "deterministic_seeding": true,
+  "final_metrics_atomicity": "tmp_replace"
+}

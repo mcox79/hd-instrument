@@ -1,0 +1,53 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: real code path exercised.",
+  "summary": "self_test",
+  "elapsed_s": 0.792,
+  "run_mode": "self_test",
+  "self_test_result": {
+    "extraction_self_test": {
+      "extraction_fires_on_clean_narrative": true,
+      "extracted_tuple": [
+        "want",
+        "serv",
+        "i",
+        "eggs"
+      ],
+      "diag": {
+        "n_sents": 7,
+        "n_root_found": 7,
+        "root_fire_rate": 1.0,
+        "agent_votes": {
+          "i": 7
+        },
+        "patient_votes": {
+          "eggs": 2,
+          "salt": 1,
+          "mixture": 1
+        },
+        "agent_is_pronoun": true
+      },
+      "xml_parse_ok": true,
+      "real_code_path_exercised": [
+        "CandidateGenerator",
+        "parse_mcscript_xml",
+        "extract_instance_tuple"
+      ]
+    },
+    "answer_role_tuple_verb_found": true,
+    "answer_role_tuple_fallback_ok": true,
+    "gold_prototypes_ok": true,
+    "oracle_eval_saturates_on_toy_corpus": true,
+    "real_system_reproduction_ok": true,
+    "n_wrong_total_toy": 0,
+    "real_code_path_exercised": [
+      "CandidateGenerator",
+      "parse_mcscript_xml",
+      "extract_instance_tuple",
+      "extract_answer_role_tuple",
+      "build_instance_register",
+      "ScriptLibrary.match_or_spawn",
+      "script_consolidation_pass"
+    ]
+  }
+}

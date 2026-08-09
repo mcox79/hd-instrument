@@ -1,0 +1,241 @@
+{
+  "verdict": "MEASURED_DIAGNOSTIC",
+  "verdict_msg": "Q-A=ORACLE_BEATS_BASELINE (oracle_bow_commonsense=0.5577 vs baseline=0.5000); Q-B=FHRR_NO_BETTER (oracle_fhrr_commonsense=0.5192 vs oracle_bow=0.5577)",
+  "summary": "run_mode=smoke n_train=203 n_dev=18 qa=ORACLE_BEATS_BASELINE qb=FHRR_NO_BETTER",
+  "elapsed_s": 20.769,
+  "run_mode": "smoke",
+  "q_a_oracle_upper_bound": {
+    "verdict": "ORACLE_BEATS_BASELINE",
+    "margin_required": 0.02,
+    "oracle_bow_commonsense_acc": 0.5577,
+    "baseline_text_overlap_commonsense_acc": 0.5,
+    "as_run_system_commonsense_acc_CITED": 0.5538,
+    "majority_floor_commonsense_acc_CITED": 0.6538
+  },
+  "q_b_representation_fairness": {
+    "verdict": "FHRR_NO_BETTER",
+    "margin_required": 0.02,
+    "oracle_fhrr_commonsense_acc": 0.5192,
+    "oracle_bow_commonsense_acc": 0.5577,
+    "n_fhrr_fallback_to_neutral": 0,
+    "n_scenarios_zero_structural_extraction": 0,
+    "n_train_extract_ok": 202,
+    "n_train_extract_fail": 1
+  },
+  "oracle_eval_full_by_type": {
+    "commonsense": {
+      "oracle_bow_acc": 0.5576923076923077,
+      "oracle_fhrr_acc": 0.5192307692307693,
+      "n_questions": 52
+    },
+    "text": {
+      "oracle_bow_acc": 0.64,
+      "oracle_fhrr_acc": 0.64,
+      "n_questions": 25
+    },
+    "positive-merged": {
+      "oracle_bow_acc": 0.7857142857142857,
+      "oracle_fhrr_acc": 0.5714285714285714,
+      "n_questions": 14
+    },
+    "ALL": {
+      "oracle_bow_acc": 0.6153846153846154,
+      "oracle_fhrr_acc": 0.5604395604395604,
+      "n_questions": 91
+    }
+  },
+  "baselines": {
+    "commonsense": {
+      "text_overlap_acc": 0.5,
+      "majority_acc": 0.6538461538461539,
+      "n_questions": 52
+    },
+    "text": {
+      "text_overlap_acc": 0.8,
+      "majority_acc": 0.48,
+      "n_questions": 25
+    },
+    "positive-merged": {
+      "text_overlap_acc": 0.7857142857142857,
+      "majority_acc": 0.5714285714285714,
+      "n_questions": 14
+    },
+    "ALL": {
+      "text_overlap_acc": 0.6263736263736264,
+      "majority_acc": 0.5934065934065934,
+      "n_questions": 91
+    }
+  },
+  "gold_n_scenarios": 15,
+  "item_forensics": {
+    "n_commonsense_questions_total": 52,
+    "n_wrong_system_right_baseline_total": 7,
+    "sanity_reproduced_commonsense_system_acc": 0.6346,
+    "sanity_reproduced_commonsense_text_acc": 0.5,
+    "sanity_matches_landed_run": false,
+    "novelty_thresh": 0.1195,
+    "final_grounded": 11,
+    "sample": [
+      {
+        "inst_id": "68",
+        "scenario": "adopting a pet",
+        "narrative": "I have been promising my girls a pet cat but kept putting it off . I had n't been feeling well and I felt I had enough to work on around my house to worry about a pet . Unfortunately I I had been having a lot of issues with mice . My husband bought a few traps and set them up once , but would n't follow through with emptying them and resetting them , or figureing out how to stop from coming in in the first place . After I spent hours cleaning out nests I found inside my couches , I gave up and decided having a cat would be fare less work than dealing with this mess and hopefully might help with the mice issue . We liked her , and she seemed to like us . She had been fixed and had a chip . We filled out some paperwork and paid some fees , and took her home .",
+        "q_id": "1",
+        "q_text": "When did they go to the human society?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "when they developed a mouse problem",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "When the person promised",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0000",
+        "match_score": 0.25
+      },
+      {
+        "inst_id": "281",
+        "scenario": "borrowing a book from the library",
+        "narrative": "Yesterday after lunch I decided I wanted a book to read . I went to my local library and browsed the shelves for something I would enjoy reading . After finding my favorite section of the library I looked at the titles of each book . I picked out a book I thought sounded interesting and read the back cover to make sure the story sounded amusing . I took the book up to the front of the library where the librarian sat at her desk . I informed her that I found the book I wanted and was ready to check out . She scanned the bar code on the book and let me know it was due to be returned in five days .",
+        "q_id": "4",
+        "q_text": "When did they read their book?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "in the library",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "After they left the library",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0004",
+        "match_score": 0.3181
+      },
+      {
+        "inst_id": "281",
+        "scenario": "borrowing a book from the library",
+        "narrative": "Yesterday after lunch I decided I wanted a book to read . I went to my local library and browsed the shelves for something I would enjoy reading . After finding my favorite section of the library I looked at the titles of each book . I picked out a book I thought sounded interesting and read the back cover to make sure the story sounded amusing . I took the book up to the front of the library where the librarian sat at her desk . I informed her that I found the book I wanted and was ready to check out . She scanned the bar code on the book and let me know it was due to be returned in five days .",
+        "q_id": "8",
+        "q_text": "When did they leave the library to go read their book?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "Before picking a book",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "After checking out the book",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0004",
+        "match_score": 0.3181
+      },
+      {
+        "inst_id": "336",
+        "scenario": "attending a wedding ceremony",
+        "narrative": "This past weekend , one of my best friends and band mates , Andrew , was getting married . I was really excited for him and could n't wait to see it . We had received an invitation to go a few weeks ago and took that invitation with us to find the church to go to . When we arrived , we entered the holy place and waited for the couple to arrive . They looked great together and went up to the altar . The elder gave them some great advice and told them that their marriage would be eternal . He than told them their promises they would make to each other and asked them if they would live those promises . Afterwards , we celebrated with a party at the bride 's house down the street .",
+        "q_id": "5",
+        "q_text": "When did they seal the marriage?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "earlier in the day",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "After agreeing to live the promises",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0007",
+        "match_score": 0.1414
+      },
+      {
+        "inst_id": "179",
+        "scenario": "brushing teeth",
+        "narrative": "I brushed my teeth last night . I walked over to my bathroom and grabbed my electronic tooth brush . Then I squeezed a small pea-sized amount of toothpaste out from my tube that I leave out on my bathroom counter ready to go . Then I turn on my faucet in my bathroom sink to get the brush-head and toothpaste wet , because it is easier to spread around in my mouth and it does not feel dry and abrasiveness on my tongue . Then I put the toothbrush in my mouth and slowly and regularly draw it back and forth , up and down , over my teeth . I get the surface of my teeth , behind my teeth , and push down on the caps of my teeth with just enough friction that it cleans them , but not too strong otherwise it will be bad for the brush and hurt my teeth . Then I spit the toothpaste out , take some water from the faucet into my mouth and swish it around in my mouth and then spit it out to get the toothpaste out of my mouth .",
+        "q_id": "3",
+        "q_text": "What do they put back in their places?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "teeth",
+            "correct": false
+          },
+          {
+            "id": "1",
+            "text": "The toothbrush and toothpaste",
+            "correct": true
+          }
+        ],
+        "correct_id": "1",
+        "system_pred": "0",
+        "text_pred": "1",
+        "use_script": true,
+        "matched_item_id": "SITEM_0008",
+        "match_score": 0.4141
+      },
+      {
+        "inst_id": "333",
+        "scenario": "attending a wedding ceremony",
+        "narrative": "Finally , the big day has arrived , my niece is getting married . The whole family will be there everyone is so excited ! Let see , I must remember to bring the gift , but first I will get ready . All the finishing touches are done hair , makeup , and the right perfume.The gift is placed in the car and off to the chapel , zoom , zoom ! Once there the gift is placed on the brides table , and a quick peek at the cake . How lovely the colors are gold and white and the flowers are aromatic . All the guest are finally in their seats , and silence fills the room , the groom is waiting . We all stand , here comes the bride , dress is stunning as she walks down the flower covered aisle . Vows are exchanged to love and cherish .",
+        "q_id": "0",
+        "q_text": "Other than family, who celebrated and danced?",
+        "qtype": "commonsense",
+        "answers": [
+          {
+            "id": "0",
+            "text": "friends",
+            "correct": true
+          },
+          {
+            "id": "1",
+            "text": "busboy",
+            "correct": false
+          }
+        ],
+        "correct_id": "0",
+        "system_pred": "1",
+        "text_pred": "0",
+        "use_script": true,
+        "matched_item_id": "SITEM_0008",
+        "match_score": 0.1797
+      }
+    ]
+  },
+  "n_train_instances": 203,
+  "n_dev_instances": 18,
+  "deterministic_seeding": true,
+  "final_metrics_atomicity": "tmp_replace"
+}
