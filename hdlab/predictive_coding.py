@@ -125,6 +125,78 @@ def threshold_gate(
     )
 
 
+def running_avg_update(prev_avg: Optional[float], new_value: float, *,
+                       decay: float = 0.05) -> float:
+    """0.05-weighted low-pass filter update (Reynolds/Zacks/Braver 2007 Eq. 8).
+
+    avg_t = decay * new_value + (1 - decay) * avg_{t-1}
+
+    This is the EST computational model's running estimate of the LOCAL
+    (self-referential) prediction-error level that the current error is
+    compared against -- a small decay (default 0.05, as cited) makes it track
+    the recent baseline slowly, so within-event repeats settle it low while a
+    single event-boundary spike does not itself contaminate the baseline much.
+    prev_avg=None seeds the filter with new_value (first observation).
+    """
+    if prev_avg is None:
+        return float(new_value)
+    if not 0.0 < decay <= 1.0:
+        raise ValueError(f"decay must be in (0, 1]; got {decay}")
+    return float(decay * new_value + (1.0 - decay) * prev_avg)
+
+
+@dataclass(frozen=True)
+class BoundaryDecision:
+    """Outcome of a relative-threshold boundary/flag test."""
+    is_boundary: bool
+    residual_mag: float          # current prediction-error magnitude
+    running_avg: float           # baseline BEFORE this observation (denominator)
+    ratio: float                 # residual_mag / running_avg (inf-safe)
+    reason: str
+
+
+def relative_threshold_gate(
+    observed: np.ndarray,
+    predicted: np.ndarray,
+    *,
+    running_avg_prev: Optional[float],
+    threshold: float,
+) -> BoundaryDecision:
+    """EST-style RELATIVE (self-referential) boundary/flag detector.
+
+    Literature-pinned to Reynolds/Zacks/Braver 2007's computational model of
+    Event Segmentation Theory: a perceived event boundary fires when the
+    CURRENT prediction error is large relative to the model's OWN recent
+    (running-average) error level, not relative to a fixed absolute constant.
+    Complements `threshold_gate` (the absolute comparison this function is
+    designed to be A/B'd against): same `residual_magnitude` numerator, but
+    the comparison point is `running_avg_prev` (see `running_avg_update`)
+    instead of a fixed threshold in [0, 1].
+
+    is_boundary fires iff residual_magnitude(observed, predicted) /
+    running_avg_prev >= threshold.
+
+    running_avg_prev=None or ~0 (no baseline established yet, e.g. the very
+    first observation in a stream) never fires -- caller must have called
+    running_avg_update at least once before this is meaningful.
+    """
+    if threshold <= 0.0:
+        raise ValueError(f"threshold must be > 0; got {threshold}")
+    mag = residual_magnitude(observed, predicted)
+    if running_avg_prev is None or running_avg_prev <= 1e-9:
+        return BoundaryDecision(
+            False, mag, float(running_avg_prev or 0.0),
+            float("inf") if mag > 1e-9 else 0.0,
+            "no running baseline yet (warmup)",
+        )
+    ratio = mag / running_avg_prev
+    fires = ratio >= threshold
+    return BoundaryDecision(
+        fires, mag, float(running_avg_prev), float(ratio),
+        f"ratio={ratio:.3f} {'>=' if fires else '<'} threshold={threshold:.3f}",
+    )
+
+
 def proportional_gate(
     observed: np.ndarray,
     predicted: np.ndarray,
@@ -225,10 +297,26 @@ def _selftest() -> None:
     mean_cos = float(np.mean(recalls))
     assert mean_cos > 0.5, f"vanilla recall mean_cos={mean_cos:.3f} too low"
 
+    # relative_threshold_gate / running_avg_update sanity.
+    avg = None
+    avg = running_avg_update(avg, 0.5)
+    assert abs(avg - 0.5) < 1e-9, "running_avg_update should seed with first value"
+    avg = running_avg_update(avg, 0.5, decay=0.05)
+    assert abs(avg - 0.5) < 1e-9, "constant input should leave running_avg unchanged"
+    obs_t = np.ones(8)
+    pred_same = np.ones(8)
+    pred_opp = -np.ones(8)
+    dec_no_fire = relative_threshold_gate(obs_t, pred_same, running_avg_prev=0.5, threshold=2.0)
+    assert not dec_no_fire.is_boundary, "matching prediction (mag=0) must never fire"
+    dec_fire = relative_threshold_gate(obs_t, pred_opp, running_avg_prev=0.1, threshold=2.0)
+    assert dec_fire.is_boundary, "mag=1.0 vs running_avg=0.1 (ratio=10) must fire at threshold=2.0"
+    dec_warmup = relative_threshold_gate(obs_t, pred_opp, running_avg_prev=None, threshold=2.0)
+    assert not dec_warmup.is_boundary, "no baseline yet must never fire"
+
     print(
         f"[predictive_coding selftest] PASS  "
         f"first_residual_mag={mag0:.3f}  vanilla_mean_cos={mean_cos:.3f}  "
-        f"gate_skipped={n_skipped}/{M}",
+        f"gate_skipped={n_skipped}/{M}  relative_gate_ok=True",
         flush=True,
     )
 
