@@ -1225,11 +1225,225 @@ def self_test_combined_grounded_channel() -> dict:
             "chosen_plugin": chosen_name}
 
 
+# ============================================================================ DIRECTION-B fork-A:
+# GOAL<->OUTCOME SEMANTIC-RELATION-grounded evidence-scoring (2026-08-09). Per this session's Director
+# spawn prompt (fork-A, the decisive test of whether the abstain-cohort residual is tractable via a
+# means-end + conventionalized-contradiction RELATION mechanism): after M1 (idiom lexicon, 0/37
+# breadth) and M2/M3-inc1 (learned result-type classifier, plateaued at 3/8 primary / 9/37 breadth,
+# "no returns" HARD_FAIL), the Director's own decomposition of the still-non-firing residual split
+# it into MEANS-END/INSTANTIATES ("wanted to know" / "I talked about that") and CONVENTIONALIZED-
+# CONTRADICTION/CONTRADICTS ("wanted her to stay" / "she walked away") -- neither has a word-level
+# cue; the relation lives between the GOAL CONCEPT and the OUTCOME-EVENT CONCEPT. `chosen_name`/
+# `hypothesis` are the induced hypothesis from hdlab.goal_outcome_relation.get_induced_hypothesis()
+# (trained ONLY on TRAIN_EXAMPLES, never on DesireDB -- caller passes it explicitly, same
+# non-circularity discipline as M2/M3-inc1's resulttype-grounded channel). SAME activation
+# (`activate_attributes`, goal-side only, never touches outcome text) -- confound-immunity argument
+# identical to Stage-2/M1/M2/M3-inc1.
+_RELATION_VOTE_WEIGHT = 2  # a whole-pair relation classification is a more decisive/less-ambiguous
+                           # signal than one single ambiguous WordNet token vote -- the SAME fixed,
+                           # pre-declared design choice as M1's _IDIOM_VOTE_WEIGHT / M2's
+                           # _RESULTTYPE_VOTE_WEIGHT.
+
+
+def _attribute_outcome_state_relation_grounded(attr: str, desire: str, outcome: str, chosen_name,
+                                                hypothesis) -> Tuple[str, dict]:
+    """Direction-B fork-A variant of `_attribute_outcome_state`: the same per-token WordNet vote
+    PLUS a supplementary relation vote from `hdlab.goal_outcome_relation.relation_votes` (weighted).
+    Returns (state, trace) -- trace separates the WordNet-only sub-total from the relation
+    contribution (auditability, same discipline as M1/M2's own traces). Applies
+    `hdlab.idiom_grounding.dedupe_repeated_sentences` first (same general data-hygiene fix M1/M2
+    both applied). Unlike M1/M2's outcome-only supplementary votes, `relation_votes` ALSO consumes
+    `desire` -- this does NOT reintroduce Stage-1's confound because the relation classifier's own
+    construction atoms are goal-class-vs-outcome-class (never literal goal-word-vs-outcome-word
+    comparison; see hdlab/goal_outcome_relation.py's module docstring for the full argument)."""
+    from hdlab import idiom_grounding as _ig
+    from hdlab import goal_outcome_relation as _gor
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    npos, nneg = _token_vote(attr, outcome_dedup)
+    rel = _gor.relation_votes(desire, outcome_dedup, chosen_name, hypothesis)
+    rel_pos_w = _RELATION_VOTE_WEIGHT * rel["POS"]
+    rel_neg_w = _RELATION_VOTE_WEIGHT * rel["NEG"]
+    trace = {"token_npos": npos, "token_nneg": nneg,
+             "relation_pos_votes": rel["POS"], "relation_neg_votes": rel["NEG"],
+             "relation_pos_weighted": rel_pos_w, "relation_neg_weighted": rel_neg_w,
+             "relation_matched": rel["matched"]}
+    npos += rel_pos_w
+    nneg += rel_neg_w
+    if npos == nneg:
+        return "ABSENT", trace
+    return ("SATISFIED" if npos > nneg else "VIOLATED"), trace
+
+
+# ACTIVATION-GAP FIX (MEASURED@this session's self-test run): Stage-2's 6 hand-specified ATTRIBUTES
+# (ACQUIRE_POSSESS/LOCATION_REACHED/SOCIAL_CONNECTION/AVOID_HARM_SAFETY/ACTIVITY_COMPLETION/
+# EMOTIONAL_STATE_ACHIEVED) do NOT cover a COGNITION goal ("wanted to KNOW why") -- activate_
+# attributes("I wanted to know why he left.") measures {} (empty), so utility_channel_trace's
+# `if not active: return None` short-circuits BEFORE the relation vote ever gets a chance to fire,
+# for the exact means-end/cognition sub-class this channel's own GATE-1 measured PERFECT (7/7)
+# held-out generalization on. FIX (strict ADD, zero risk to Stage-2/M1/M2/M3-inc1's existing
+# numbers): a FALLBACK pseudo-attribute "RELATION_LINK" that activates ONLY when (a) none of the
+# original 6 ATTRIBUTES fire AND (b) hdlab.goal_outcome_relation.goal_atoms(desire) is non-empty
+# (fork-A's OWN goal-side classification recognizes a class the older 6-attribute scheme doesn't).
+# Uses its OWN SEPARATELY-SEEDED FHRR codebook (`_RELATION_FALLBACK_SEED`, never touches
+# `_utility_vecs()`'s shared torch.Generator stream) so this is a genuine strict ADD -- Stage-2/M1/
+# M2/M3-inc1's role/filler vectors, and therefore every one of their landed numbers, are BIT-
+# IDENTICAL to before this addition (verified: this fallback path is never reached unless `active`
+# is already empty, and `_utility_vecs()` itself is untouched).
+_RELATION_FALLBACK_SEED = 20260810
+_relation_fallback_vecs_cache = None
+
+
+def _relation_fallback_vecs():
+    """(role_vec, fillers_dict) for the RELATION_LINK pseudo-attribute -- own seed, own generator,
+    completely independent of `_utility_vecs()`'s shared codebook (see ACTIVATION-GAP FIX note)."""
+    global _relation_fallback_vecs_cache
+    if _relation_fallback_vecs_cache is None:
+        gen = torch.Generator().manual_seed(_RELATION_FALLBACK_SEED)
+        role = _unit_phase(gen)
+        fillers = {s: _unit_phase(gen) for s in _UTIL_STATES}
+        _relation_fallback_vecs_cache = (role, fillers)
+    return _relation_fallback_vecs_cache
+
+
+def utility_channel_trace_relation_grounded(desire: str, outcome: str, chosen_name, hypothesis) -> dict:
+    """Direction-B fork-A (2026-08-09) relation-grounded variant of `utility_channel_trace`. SAME
+    activation and SAME FHRR bind/bundle/unbind scoring layer as Stage-2/M1/M2/M3-inc1 WHEN one of
+    the original 6 ATTRIBUTES fires; falls back to the RELATION_LINK pseudo-attribute (own separate
+    FHRR codebook, see ACTIVATION-GAP FIX note above `_relation_fallback_vecs`) when none of them do
+    but fork-A's own goal-side classification recognizes a class. NOT wired into
+    goal_achievement_verdict's precedence -- pure ADD, evaluated standalone by
+    experiments/exp_direction_b_A_goal_outcome_relation_v1.py."""
+    from hdlab import goal_outcome_relation as _gor
+    active = activate_attributes(desire)
+    if active:
+        roles, fillers = _utility_vecs()
+        per_attr = {}
+        weighted_terms = []
+        for attr, w in active.items():
+            state, trace = _attribute_outcome_state_relation_grounded(
+                attr, desire, outcome, chosen_name, hypothesis)
+            weighted_terms.append(w * bind(roles[attr], fillers[state]))
+            per_attr[attr] = {"activation_weight": round(w, 2), "outcome_state": state,
+                               "grounding_trace": trace, "path": "stage2_attribute"}
+        U = bundle(torch.stack(weighted_terms))
+        score = 0.0
+        for attr, w in active.items():
+            probe = unbind(U, roles[attr])
+            recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+            per_attr[attr]["recovered_state"] = recovered_name
+            per_attr[attr]["recovered_margin"] = round(margin, 4)
+            per_attr[attr]["roundtrip_ok"] = (recovered_name == per_attr[attr]["outcome_state"])
+            score += w * _UTIL_SIGN[recovered_name]
+        if score == 0.0:
+            return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+        verdict = "Fulfilled" if score > 0.0 else "Unfulfilled"
+        return {"verdict": verdict, "reason": "weighted_bundle", "score": round(score, 4), "active": per_attr}
+
+    if not _gor.goal_atoms(desire):
+        return {"verdict": None, "reason": "no_attribute_activated", "active": {}}
+    from hdlab import idiom_grounding as _ig
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    rel = _gor.relation_votes(desire, outcome_dedup, chosen_name, hypothesis)
+    role, fillers = _relation_fallback_vecs()
+    if rel["POS"] == rel["NEG"]:  # both zero (abstain) or a tie -- never guess
+        state = "ABSENT"
+    else:
+        state = "SATISFIED" if rel["POS"] > rel["NEG"] else "VIOLATED"
+    U = bind(role, fillers[state])  # bundle-of-1 (single pseudo-attribute) -- same bind/unbind/
+                                     # cleanup discipline as the multi-attribute path above
+    probe = unbind(U, role)
+    recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+    trace = {"relation_pos_votes": rel["POS"], "relation_neg_votes": rel["NEG"],
+             "relation_matched": rel["matched"], "path": "relation_link_fallback"}
+    per_attr = {"RELATION_LINK": {"activation_weight": 1.0, "outcome_state": state,
+                                   "grounding_trace": trace, "recovered_state": recovered_name,
+                                   "recovered_margin": round(margin, 4),
+                                   "roundtrip_ok": (recovered_name == state), "path": "relation_link_fallback"}}
+    if recovered_name == "ABSENT":
+        return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+    verdict = "Fulfilled" if recovered_name == "SATISFIED" else "Unfulfilled"
+    score = _UTIL_SIGN[recovered_name]
+    return {"verdict": verdict, "reason": "relation_link_fallback", "score": round(score, 4), "active": per_attr}
+
+
+def utility_channel_relation_grounded(desire: str, outcome: str, chosen_name, hypothesis) -> Optional[str]:
+    """Fulfilled/Unfulfilled/None -- Direction-B fork-A's relation-grounded 4th-channel variant. See
+    `utility_channel_trace_relation_grounded` for the mechanism."""
+    return utility_channel_trace_relation_grounded(desire, outcome, chosen_name, hypothesis)["verdict"]
+
+
+def self_test_relation_grounded_channel() -> dict:
+    """MECHANISM-FIRES check for Direction-B fork-A, mirroring self_test_resulttype_grounded_
+    channel's discipline (real-DesireDB-flavored flagship case + pairscramble control), but with a
+    flagship case chosen for THIS channel's mechanism (means-end instantiation) rather than
+    reusing M2's "told her no" result-type flagship (that case does not exercise the relation
+    classifier's own construction atoms -- a different mechanism)."""
+    from hdlab import goal_outcome_relation as _gor
+    chosen_name, hypothesis = _gor.get_induced_hypothesis()
+    assert hypothesis is not None, "fork-A induction abstained on its own TRAIN set -- cannot self-test"
+
+    # (1) MEANS-END flagship: plain WordNet-only channel ABSTAINS (no literal outcome-side cue token
+    # for ACQUIRE_POSSESS/SOCIAL_CONNECTION/etc against "discussed"); relation-grounded must recover
+    # Fulfilled via the INSTANTIATES(info_exchange, cognition) relation on a HELD-OUT surface form
+    # ("discussed" is never in TRAIN_EXAMPLES).
+    desire1 = "I wanted to know why he left."
+    outcome1 = "We discussed it at length last night."
+    plain1 = utility_channel_trace(desire1, outcome1)
+    grounded1 = utility_channel_trace_relation_grounded(desire1, outcome1, chosen_name, hypothesis)
+    assert plain1["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain1}"
+    assert grounded1["verdict"] == "Fulfilled", (
+        f"MECHANISM-FIRES FAILURE: relation-grounded channel did not recover the means-end case: {grounded1}")
+
+    # (2) CONTRADICTION flagship: plain WordNet-only channel ABSTAINS (activate_attributes({}) --
+    # "out and about" fires none of Stage-2's 6 attributes, exercising the RELATION_LINK fallback
+    # path); relation-grounded must recover Unfulfilled via the DICTIONARY-LOOKUP disengagement vote
+    # (`hdlab.goal_outcome_relation.mwe_disengage_scan`'s "back_off" MWE, WordNet gloss "move
+    # backwards from a certain position") -- the CONTRADICTS mechanism per the 2026-08-09
+    # Director+USER design refinement (coverage-measured dictionary lookup, not a learned classifier
+    # for this sub-class; see hdlab/goal_outcome_relation.py's module docstring).
+    desire2 = "She wanted to be out and about."
+    outcome2 = "In the end everyone backed off and stayed home instead."
+    plain2 = utility_channel_trace(desire2, outcome2)
+    grounded2 = utility_channel_trace_relation_grounded(desire2, outcome2, chosen_name, hypothesis)
+    assert plain2["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain2}"
+    assert grounded2["verdict"] == "Unfulfilled", (
+        f"MECHANISM-FIRES FAILURE: relation-grounded channel did not recover the contradiction case: {grounded2}")
+    assert grounded2["active"]["RELATION_LINK"]["path"] == "relation_link_fallback", grounded2
+    assert grounded2["active"]["RELATION_LINK"]["grounding_trace"]["relation_matched"] == ["back_off"], grounded2
+
+    # (3) FHRR round-trip fidelity on both grounded cases.
+    for r in (grounded1, grounded2):
+        for attr, info in r["active"].items():
+            assert info["roundtrip_ok"], f"FHRR ROUND-TRIP FAILURE on {attr!r}: {info}"
+
+    # (4) pairscramble control: a WRONG goal cue must not reproduce the correct pick.
+    scramble_desire = "I wanted to buy a new bike."
+    scrambled1 = utility_channel_relation_grounded(scramble_desire, outcome1, chosen_name, hypothesis)
+    assert scrambled1 != "Fulfilled" or activate_attributes(scramble_desire) != activate_attributes(desire1), (
+        f"SCRAMBLE-CONTROL AMBIGUOUS (case1): scrambled-cue verdict={scrambled1!r} reproduced the "
+        f"grounded pick with an IDENTICAL activation set to the real goal")
+    scrambled2 = utility_channel_relation_grounded(scramble_desire, outcome2, chosen_name, hypothesis)
+    assert scrambled2 != "Unfulfilled" or activate_attributes(scramble_desire) != activate_attributes(desire2), (
+        f"SCRAMBLE-CONTROL AMBIGUOUS (case2): scrambled-cue verdict={scrambled2!r} reproduced the "
+        f"grounded pick with an IDENTICAL activation set to the real goal")
+
+    # (5) determinism.
+    assert utility_channel_trace_relation_grounded(
+        desire1, outcome1, chosen_name, hypothesis)["score"] == grounded1["score"]
+
+    return {"case1_means_end": grounded1, "case2_contradiction": grounded2,
+            "plain_channel_case1_abstained": plain1["verdict"] is None,
+            "plain_channel_case2_abstained": plain2["verdict"] is None,
+            "scrambled_case1": scrambled1, "scrambled_case2": scrambled2,
+            "chosen_plugin": chosen_name}
+
+
 if __name__ == "__main__":
     import json
     print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued(),
                        "self_test_utility_channel": self_test_utility_channel(),
                        "self_test_idiom_grounded_channel": self_test_idiom_grounded_channel(),
                        "self_test_resulttype_grounded_channel": self_test_resulttype_grounded_channel(),
-                       "self_test_combined_grounded_channel": self_test_combined_grounded_channel()},
+                       "self_test_combined_grounded_channel": self_test_combined_grounded_channel(),
+                       "self_test_relation_grounded_channel": self_test_relation_grounded_channel()},
                       indent=2, default=str))

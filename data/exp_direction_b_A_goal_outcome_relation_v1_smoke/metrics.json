@@ -1,0 +1,463 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_OK: GATE1A_component=MIDDLE_BAND GATE1B_coverage=0.8276 cohort n=22 activation_fires_rate=0.273 verdict_fires_rate_iii=0.318 recovery_iii=0.25 (2/8) arms_differ=True",
+  "summary": "HARD_PASS: SMOKE_OK: GATE1A_component=MIDDLE_BAND GATE1B_coverage=0.8276 cohort n=22 activation_fires_rate=0.273 verdict_fires_rate_iii=0.318 recovery_iii=0.25 (2/8) arms_differ=True",
+  "elapsed_s": 48.361,
+  "run_mode": "smoke",
+  "anchor_name": "direction_b_A_goal_outcome_relation_v1",
+  "n_sample": 160,
+  "n_per_class": 80,
+  "seed": 20260808,
+  "gate1a": {
+    "verdict_component": "MIDDLE_BAND",
+    "chosen_name": "ruleind",
+    "chosen_plugin_description_bits": {
+      "estimation": 25.634,
+      "ruleind": 19.435
+    },
+    "n_train": 14,
+    "n_heldout": 11,
+    "held_out_acc": 1.0,
+    "memorization_baseline_acc": 0.6364,
+    "scramble_control_acc": 0.6364,
+    "delta_vs_memorization": 0.3636,
+    "scramble_collapses_strict": false,
+    "majority_train_class": "INSTANTIATES",
+    "subtype_acc": {
+      "means_end": 1.0,
+      "self_reliance_construction": 1.0,
+      "neither": 1.0
+    },
+    "held_per_item": [
+      {
+        "tag": "discuss_know",
+        "gold": "INSTANTIATES",
+        "pred": "INSTANTIATES",
+        "ok": true
+      },
+      {
+        "tag": "explain_know",
+        "gold": "INSTANTIATES",
+        "pred": "INSTANTIATES",
+        "ok": true
+      },
+      {
+        "tag": "tell_know",
+        "gold": "INSTANTIATES",
+        "pred": "INSTANTIATES",
+        "ok": true
+      },
+      {
+        "tag": "describe_understand",
+        "gold": "INSTANTIATES",
+        "pred": "INSTANTIATES",
+        "ok": true
+      },
+      {
+        "tag": "chores_out_of_house",
+        "gold": "INSTANTIATES",
+        "pred": "INSTANTIATES",
+        "ok": true
+      },
+      {
+        "tag": "outing_involved",
+        "gold": "INSTANTIATES",
+        "pred": "INSTANTIATES",
+        "ok": true
+      },
+      {
+        "tag": "mentor_teach_skill",
+        "gold": "INSTANTIATES",
+        "pred": "INSTANTIATES",
+        "ok": true
+      },
+      {
+        "tag": "took_care_own",
+        "gold": "CONTRADICTS",
+        "pred": "CONTRADICTS",
+        "ok": true
+      },
+      {
+        "tag": "carried_by_herself",
+        "gold": "CONTRADICTS",
+        "pred": "CONTRADICTS",
+        "ok": true
+      },
+      {
+        "tag": "unrelated_snow",
+        "gold": "NEITHER",
+        "pred": "NEITHER",
+        "ok": true
+      },
+      {
+        "tag": "unrelated_cake",
+        "gold": "NEITHER",
+        "pred": "NEITHER",
+        "ok": true
+      }
+    ]
+  },
+  "gate1b": {
+    "n": 29,
+    "n_hit": 24,
+    "coverage": 0.8276,
+    "hits": [
+      {
+        "text": "She walked away without another word.",
+        "match": {
+          "lemma": "walk_away",
+          "synset": "walk_off.v.02",
+          "gloss": "go away from",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "He walked off in a huff.",
+        "match": {
+          "lemma": "walk_off",
+          "synset": "walk_off.v.02",
+          "gloss": "go away from",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "The other side backed off from the table.",
+        "match": {
+          "lemma": "back_off",
+          "synset": "back_up.v.02",
+          "gloss": "move backwards from a certain position",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "They backed down from the plan.",
+        "match": {
+          "lemma": "back_down",
+          "synset": "back_up.v.02",
+          "gloss": "move backwards from a certain position",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "The buyer backed out of the deal.",
+        "match": {
+          "lemma": "back_out",
+          "synset": "back_out.v.01",
+          "gloss": "move out of a space backwards",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "The buyer pulled back from the table entirely.",
+        "match": {
+          "lemma": "pull_back",
+          "synset": "withdraw.v.01",
+          "gloss": "pull back or move away or backward",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "He pulled out of the race.",
+        "match": {
+          "lemma": "pull_out",
+          "synset": "pull_out.v.01",
+          "gloss": "move out or away",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "She gave up on the project.",
+        "match": {
+          "lemma": "give_up",
+          "synset": "abandon.v.02",
+          "gloss": "give up with the intent of never claiming again",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "He withdrew his application.",
+        "match": {
+          "lemma": "withdrew",
+          "synset": "retire.v.02",
+          "gloss": "withdraw from active participation",
+          "span_kind": "1_gram"
+        }
+      },
+      {
+        "text": "They retreated from the position.",
+        "match": {
+          "lemma": "retreated",
+          "synset": "retreat.v.04",
+          "gloss": "make a retreat from an earlier commitment or activity",
+          "span_kind": "1_gram"
+        }
+      },
+      {
+        "text": "She abandoned the plan.",
+        "match": {
+          "lemma": "abandoned",
+          "synset": "abandon.v.01",
+          "gloss": "forsake, leave behind",
+          "span_kind": "1_gram"
+        }
+      },
+      {
+        "text": "He quit the team.",
+        "match": {
+          "lemma": "quit",
+          "synset": "leave_office.v.01",
+          "gloss": "give up or retire from a position",
+          "span_kind": "1_gram"
+        }
+      },
+      {
+        "text": "The board turned away every request.",
+        "match": {
+          "lemma": "turn_away",
+          "synset": "reject.v.06",
+          "gloss": "refuse entrance or membership",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "They turned down the offer.",
+        "match": {
+          "lemma": "turn_down",
+          "synset": "refuse.v.02",
+          "gloss": "refuse to accept",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "The company shut down the project.",
+        "match": {
+          "lemma": "shut_down",
+          "synset": "close_up.v.01",
+          "gloss": "cease to operate or cause to cease operating",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "They called it quits after the fight.",
+        "match": {
+          "lemma": "call_it_quits",
+          "synset": "call_it_quits.v.01",
+          "gloss": "stop doing what one is doing",
+          "span_kind": "3_gram"
+        }
+      },
+      {
+        "text": "He threw in the towel after the third round.",
+        "match": {
+          "lemma": "throw_in_the_towel",
+          "synset": "drop_out.v.01",
+          "gloss": "give up in the face of defeat of lacking hope; admit defeat",
+          "span_kind": "4_gram"
+        }
+      },
+      {
+        "text": "The board put the kabash on that idea entirely.",
+        "match": {
+          "lemma": "put_the_kibosh_on",
+          "synset": "kibosh.v (via stop.v.03)",
+          "gloss": "stop from happening or developing",
+          "span_kind": "discontinuous_light_verb_frame"
+        }
+      },
+      {
+        "text": "He backed away slowly.",
+        "match": {
+          "lemma": "back_away",
+          "synset": "retreat.v.04",
+          "gloss": "make a retreat from an earlier commitment or activity",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "She ran away from the argument.",
+        "match": {
+          "lemma": "run_away",
+          "synset": "scat.v.01",
+          "gloss": "flee; take to one's heels; cut and run",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "He dropped out of the program.",
+        "match": {
+          "lemma": "drop_out",
+          "synset": "drop_out.v.01",
+          "gloss": "give up in the face of defeat of lacking hope; admit defeat",
+          "span_kind": "2_gram"
+        }
+      },
+      {
+        "text": "He declined to help further.",
+        "match": {
+          "lemma": "declined",
+          "synset": "refuse.v.02",
+          "gloss": "refuse to accept",
+          "span_kind": "1_gram"
+        }
+      },
+      {
+        "text": "She refused to continue.",
+        "match": {
+          "lemma": "refused",
+          "synset": "refuse.v.02",
+          "gloss": "refuse to accept",
+          "span_kind": "1_gram"
+        }
+      },
+      {
+        "text": "They rejected the whole idea.",
+        "match": {
+          "lemma": "rejected",
+          "synset": "reject.v.01",
+          "gloss": "refuse to accept or acknowledge",
+          "span_kind": "1_gram"
+        }
+      }
+    ],
+    "misses": [
+      {
+        "text": "They bailed out of the contract.",
+        "match": null
+      },
+      {
+        "text": "She simply turned the other cheek and moved on.",
+        "match": null
+      },
+      {
+        "text": "He chickened out at the last second.",
+        "match": null
+      },
+      {
+        "text": "She shied away from the confrontation.",
+        "match": null
+      },
+      {
+        "text": "She washed her hands of the whole affair.",
+        "match": null
+      }
+    ],
+    "false_positive_count": 0,
+    "false_positive_probe_n": 5,
+    "coverage_provenance": "floor_wordnet_mwe",
+    "kaikki_wiktextract_flagged": {
+      "status": "flagged_not_fetched",
+      "reason": "MEASURED infeasible for local-CPU compute-proportionality budget this session",
+      "raw_jsonl_url": "https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.jsonl",
+      "raw_jsonl_content_length_bytes": 3212430706,
+      "gzip_url": "https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.jsonl.gz",
+      "gzip_content_length_bytes": 501997915,
+      "measured_via": "HEAD request, this session"
+    }
+  },
+  "cohort_metrics": {
+    "cohort_n": 22,
+    "activation_fires_rate": 0.2727,
+    "verdict_fires_rate_iii": 0.3182,
+    "gold_dist": {
+      "Fulfilled": 14,
+      "Unfulfilled": 8
+    },
+    "acc_i": 0.6364,
+    "acc_ii": 0.6364,
+    "acc_iii": 0.6818,
+    "acc_iv": 0.6364,
+    "macro_f1_i": 0.3889,
+    "macro_f1_ii": 0.3889,
+    "macro_f1_iii": 0.5758,
+    "macro_f1_iv": 0.5417,
+    "recovery_i": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_ii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_iii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_iv": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "relation_traces_gold_unfulfilled": [
+      {
+        "idx": 91,
+        "gold": "Unfulfilled",
+        "matched": [],
+        "source": "none"
+      },
+      {
+        "idx": 99,
+        "gold": "Unfulfilled",
+        "matched": [
+          "CONTRADICTS"
+        ],
+        "source": "learned_classifier"
+      },
+      {
+        "idx": 107,
+        "gold": "Unfulfilled",
+        "matched": [],
+        "source": "none"
+      },
+      {
+        "idx": 118,
+        "gold": "Unfulfilled",
+        "matched": [],
+        "source": "none"
+      },
+      {
+        "idx": 135,
+        "gold": "Unfulfilled",
+        "matched": [],
+        "source": "none"
+      },
+      {
+        "idx": 144,
+        "gold": "Unfulfilled",
+        "matched": [],
+        "source": "none"
+      },
+      {
+        "idx": 150,
+        "gold": "Unfulfilled",
+        "matched": [
+          "walk_away"
+        ],
+        "source": "mwe_dictionary"
+      },
+      {
+        "idx": 154,
+        "gold": "Unfulfilled",
+        "matched": [],
+        "source": "none"
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "iii": "2664601952af71cd4159b072e04b51c2aed81b14b1673e24f7334544a5ba5e14",
+    "iv": "7be45ff01ebeff67573ae9852c00333e75c1b15ec8ea6898de5c89a704101819"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true
+}
