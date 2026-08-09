@@ -1,0 +1,40 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: real code path exercised; precheck fires.",
+  "summary": "self_test",
+  "elapsed_s": 0.167,
+  "run_mode": "self_test",
+  "self_test_result": {
+    "precheck_chain_predict_toy": {
+      "cos_real_chain_predict_to_true_next": 0.9955,
+      "cos_scramble_chain_predict_to_true_next": 0.5658,
+      "n_pairs_bound_real": 120,
+      "n_pairs_bound_scramble": 120,
+      "n_repeats": 40,
+      "fires_and_discriminates": true
+    },
+    "toy_types_built": [
+      "making eggs",
+      "walking dog"
+    ],
+    "toy_pairs_bound_real": {
+      "making eggs": 24,
+      "walking dog": 24
+    },
+    "toy_pairs_bound_scramble": {
+      "making eggs": 24,
+      "walking dog": 24
+    },
+    "toy_arm_real_staged_accuracy": 1.0,
+    "toy_arm_scramble_staged_accuracy": 1.0,
+    "toy_n_residual": 0,
+    "real_code_path_exercised": [
+      "SequenceMatrix.bind_sequence",
+      "SequenceMatrix.chain_predict",
+      "context_vector",
+      "split_sentences",
+      "build_type_sequence_matrices",
+      "compute_arm"
+    ]
+  }
+}

@@ -1,0 +1,635 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: staged_accuracy=0.5119 vs primary_only_accuracy=0.5357 (margin=-0.0238, need >=+0.0200); fallback_accuracy_on_residual(real)=0.6154 (need >0.55, chance-band=[0.45,0.55]); real_edge=+0.1154 vs scramble_edge=-0.0897 (real_beats_scramble=True); precheck_trusted=True; n_residual=39 n_unresolved=13",
+  "summary": "run_mode=smoke n_train=261 n_dev=31 n_commonsense_q=84 verdict=HARD_FAIL",
+  "elapsed_s": 2.915,
+  "run_mode": "smoke",
+  "config": {
+    "CHAIN_DEPTH": 1,
+    "CHAIN_DEPTH_EXTRA": [
+      2,
+      3
+    ],
+    "PRIMARY_MARGIN_THRESH": 0.02,
+    "MARGIN_HP": 0.02,
+    "RESIDUAL_ACC_HP": 0.55,
+    "RESIDUAL_CHANCE_BAND": [
+      0.45,
+      0.55
+    ],
+    "BOW_D": 256
+  },
+  "precheck_chain_predict_toy": {
+    "cos_real_chain_predict_to_true_next": 0.9955,
+    "cos_scramble_chain_predict_to_true_next": 0.5658,
+    "n_pairs_bound_real": 120,
+    "n_pairs_bound_scramble": 120,
+    "n_repeats": 40,
+    "fires_and_discriminates": true
+  },
+  "baselines": {
+    "commonsense": {
+      "text_overlap_acc": 0.5833333333333334,
+      "majority_acc": 0.6071428571428571,
+      "n_questions": 84
+    },
+    "text": {
+      "text_overlap_acc": 0.864406779661017,
+      "majority_acc": 0.423728813559322,
+      "n_questions": 59
+    },
+    "positive-merged": {
+      "text_overlap_acc": 0.7916666666666666,
+      "majority_acc": 0.4583333333333333,
+      "n_questions": 24
+    },
+    "ALL": {
+      "text_overlap_acc": 0.7125748502994012,
+      "majority_acc": 0.5209580838323353,
+      "n_questions": 167
+    }
+  },
+  "primary_only_accuracy": 0.5357,
+  "n_commonsense_dev_questions": 84,
+  "n_unresolved_total": 13,
+  "n_residual_total": 39,
+  "headline": {
+    "staged_accuracy_real": 0.5119,
+    "primary_only_accuracy": 0.5357,
+    "margin": -0.0238,
+    "fallback_accuracy_on_residual_real": 0.6154,
+    "fallback_accuracy_on_residual_scramble": 0.4103,
+    "real_edge_over_chance": 0.1154,
+    "scramble_edge_over_chance": -0.0897,
+    "real_beats_scramble": true,
+    "precheck_trusted": true
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "n_train_instances": 261,
+  "n_dev_instances": 31,
+  "n_train_scenarios": 20,
+  "n_dev_scenarios": 15,
+  "real_arm": {
+    "seed": "real",
+    "run_mode": "smoke",
+    "n_types": 20,
+    "mean_pairs_bound_per_type": 110.75,
+    "n_questions": 84,
+    "staged_accuracy": 0.5119,
+    "n_unresolved": 13,
+    "staged_accuracy_on_unresolved": 0.4615,
+    "n_residual": 39,
+    "fallback_accuracy_on_residual": 0.6154,
+    "type_coverage_frac": 1.0,
+    "_ckpt_key": "real",
+    "_partial_written_at": 1786315667.5442903
+  },
+  "scramble_arm": {
+    "seed": "scramble",
+    "run_mode": "smoke",
+    "n_types": 20,
+    "mean_pairs_bound_per_type": 110.75,
+    "n_questions": 84,
+    "staged_accuracy": 0.5,
+    "n_unresolved": 13,
+    "staged_accuracy_on_unresolved": 0.3846,
+    "n_residual": 39,
+    "fallback_accuracy_on_residual": 0.4103,
+    "type_coverage_frac": 1.0,
+    "_ckpt_key": "scramble",
+    "_partial_written_at": 1786315668.1399527
+  },
+  "residual_item_forensics_sample": [
+    {
+      "inst_id": "109",
+      "scenario": "attending a football match",
+      "narrative": "My dad and I decided to go to a football game on Saturday . We got into the car and drove to the football stadium . We had to wait in line for a little while because a lot of people were going to the game . When we got to the front of the line , we handed our tickets to someone and they let us in . I ordered a hot dog , some nachos and a Sprite . My dad had popcorn , a hamburger and a Coke . We were cheering for the Buckeyes to win . At halftime , we went to the bathroom . The lines were really long , so we did n't get to hear the band play . Even though we cheered for the Buckeyes , they still lost . After the game was over , we went home . I had a lot of fun .",
+      "q_text": "Where was the food bought?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "In the car",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "From the concession stand.",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.2344,
+        0.0859
+      ],
+      "primary_margin": 0.1484,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        -0.0392,
+        0.3582
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "129",
+      "scenario": "baking a cake",
+      "narrative": "I like to cook a lot but I am not a very good baker . So I never bake cakes from scratch . However I do like cake a lot so I do bake them . I use box mixes . it really does n't take much time . All you need to do is get one bowl . Add the cake mix from the box . Then a half cup of oil and finally about a cup of water . Then you need to get your mixer and put it on medium and mix it all up for 2 to 3 minutes . Then put it into a non stick cake pan and bake for about 30 minutes . So all together about 10 minutes preparation and 30 minutes baking you can have a good tasting cake in 40 minutes . .",
+      "q_text": "What ar they waiting to cool?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "the cake after baking",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "water",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        0.1328,
+        0.1953
+      ],
+      "primary_margin": 0.0625,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.0,
+        0.0
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "13",
+      "scenario": "buying from a vending machine",
+      "narrative": "I approached the vending machine while pulling my wallet out of my back pocket . I stood in front of the machine and looked through the glass at all the choices in front of me . Did I want a bag of potato chips or a candy bar ? I decided I wanted a Reese 's peanut butter cups . I pulled two one dollar bills from wallet and placed them into the money slot and watched the machine grab and pull them inside . I saw that I now had $ 2.00 of credit . I pressed A7 on the keypad which was in front of the Reese 's peanut butter cups . I watched it drop down to bottom of the machine . I pushed the wide door open and grabbed my candy bar . I heard two quarters fall into the coin return slot .",
+      "q_text": "When did a tag get put in front of the candy bar that said $1.50?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "Whenever the vending machine people filled the machine",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "After they bought the candy bar",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        0.1953,
+        0.2109
+      ],
+      "primary_margin": 0.0156,
+      "primary_pred": "1",
+      "unresolved": true,
+      "fallback_scores": [
+        0.433,
+        0.2586
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": true,
+      "fallback_recovered": true
+    },
+    {
+      "inst_id": "145",
+      "scenario": "attending a church service",
+      "narrative": "On Sunday morning , we woke up early so that we could go to church . Our whole family got dressed in nice clothes . I put one a button up shirt and pants , while my girls put on pretty dresses . After we parked and walked in , there were very friendly greeters at the door who shook our hands and gave us a bulletin that the had the order of the service printed on it . \\ nWe went inside the sanctuary and sat in a long pew . The service started with a singer and choir leading us in singing several songs . Then the pastor gave a message from the Bible about God 's love and forgiveness . It really touched my heart . We prayed together and the service ended .",
+      "q_text": "Who came by and passed plates around?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "the pastor",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "the usher",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.1406,
+        0.0234
+      ],
+      "primary_margin": 0.1172,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.0566,
+        -0.039
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "145",
+      "scenario": "attending a church service",
+      "narrative": "On Sunday morning , we woke up early so that we could go to church . Our whole family got dressed in nice clothes . I put one a button up shirt and pants , while my girls put on pretty dresses . After we parked and walked in , there were very friendly greeters at the door who shook our hands and gave us a bulletin that the had the order of the service printed on it . \\ nWe went inside the sanctuary and sat in a long pew . The service started with a singer and choir leading us in singing several songs . Then the pastor gave a message from the Bible about God 's love and forgiveness . It really touched my heart . We prayed together and the service ended .",
+      "q_text": "Where did they load up into?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "into the bus",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "into the car",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.0312,
+        -0.0078
+      ],
+      "primary_margin": 0.0391,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        -0.0312,
+        0.0459
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "145",
+      "scenario": "attending a church service",
+      "narrative": "On Sunday morning , we woke up early so that we could go to church . Our whole family got dressed in nice clothes . I put one a button up shirt and pants , while my girls put on pretty dresses . After we parked and walked in , there were very friendly greeters at the door who shook our hands and gave us a bulletin that the had the order of the service printed on it . \\ nWe went inside the sanctuary and sat in a long pew . The service started with a singer and choir leading us in singing several songs . Then the pastor gave a message from the Bible about God 's love and forgiveness . It really touched my heart . We prayed together and the service ended .",
+      "q_text": "What did the men pass around?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "service",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "offering plates",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.25,
+        0.0234
+      ],
+      "primary_margin": 0.2266,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.2192,
+        0.2693
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "145",
+      "scenario": "attending a church service",
+      "narrative": "On Sunday morning , we woke up early so that we could go to church . Our whole family got dressed in nice clothes . I put one a button up shirt and pants , while my girls put on pretty dresses . After we parked and walked in , there were very friendly greeters at the door who shook our hands and gave us a bulletin that the had the order of the service printed on it . \\ nWe went inside the sanctuary and sat in a long pew . The service started with a singer and choir leading us in singing several songs . Then the pastor gave a message from the Bible about God 's love and forgiveness . It really touched my heart . We prayed together and the service ended .",
+      "q_text": "When did they put money in?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "when the bread basket was passed along",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "when the collection plate came along",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.1016,
+        0.0469
+      ],
+      "primary_margin": 0.0547,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.2097,
+        0.3147
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "164",
+      "scenario": "buying from a vending machine",
+      "narrative": "I first found a dollar bill in my pocket . I walked over to the vending machine and looked through the window to make sure I knew what I wanted . There were many rows of candy , snacks , and drinks to choose from I chose a particular candy bar and looked at the letter and number below it .  I then touched the letter and number on the keypad . The metal arms that held the candy bar in place pushed forward and the machine dropped my candy bar down into a place where I could reach through a door to pick it up . The machine knew that I put too much money in and I heard the sound of coins falling into a slot on the machine , which I used to hand to remove .",
+      "q_text": "When did the next person use it?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "While the writer purchased a vending machine snack",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "After they got their candy.",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.1328,
+        0.1328
+      ],
+      "primary_margin": 0.0,
+      "primary_pred": "0",
+      "unresolved": true,
+      "fallback_scores": [
+        0.331,
+        -0.0318
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "164",
+      "scenario": "buying from a vending machine",
+      "narrative": "I first found a dollar bill in my pocket . I walked over to the vending machine and looked through the window to make sure I knew what I wanted . There were many rows of candy , snacks , and drinks to choose from I chose a particular candy bar and looked at the letter and number below it .  I then touched the letter and number on the keypad . The metal arms that held the candy bar in place pushed forward and the machine dropped my candy bar down into a place where I could reach through a door to pick it up . The machine knew that I put too much money in and I heard the sound of coins falling into a slot on the machine , which I used to hand to remove .",
+      "q_text": "When did the machine take the money?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "when they put the dollar bill in the vending machine's slot",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "After releasing the candy bar to the customer",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        0.1016,
+        0.2266
+      ],
+      "primary_margin": 0.125,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.4104,
+        0.0768
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "164",
+      "scenario": "buying from a vending machine",
+      "narrative": "I first found a dollar bill in my pocket . I walked over to the vending machine and looked through the window to make sure I knew what I wanted . There were many rows of candy , snacks , and drinks to choose from I chose a particular candy bar and looked at the letter and number below it .  I then touched the letter and number on the keypad . The metal arms that held the candy bar in place pushed forward and the machine dropped my candy bar down into a place where I could reach through a door to pick it up . The machine knew that I put too much money in and I heard the sound of coins falling into a slot on the machine , which I used to hand to remove .",
+      "q_text": "What was taken by the machine?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "author's money",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "The candy bar.",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        -0.0859,
+        0.2266
+      ],
+      "primary_margin": 0.3125,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.3346,
+        0.3565
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "164",
+      "scenario": "buying from a vending machine",
+      "narrative": "I first found a dollar bill in my pocket . I walked over to the vending machine and looked through the window to make sure I knew what I wanted . There were many rows of candy , snacks , and drinks to choose from I chose a particular candy bar and looked at the letter and number below it .  I then touched the letter and number on the keypad . The metal arms that held the candy bar in place pushed forward and the machine dropped my candy bar down into a place where I could reach through a door to pick it up . The machine knew that I put too much money in and I heard the sound of coins falling into a slot on the machine , which I used to hand to remove .",
+      "q_text": "When did they walk away from the vending machine?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "Before choosing a snack.",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "After purchasing a snack",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.0625,
+        -0.0078
+      ],
+      "primary_margin": 0.0703,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.1703,
+        -0.0384
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "179",
+      "scenario": "brushing teeth",
+      "narrative": "I brushed my teeth last night . I walked over to my bathroom and grabbed my electronic tooth brush . Then I squeezed a small pea-sized amount of toothpaste out from my tube that I leave out on my bathroom counter ready to go . Then I turn on my faucet in my bathroom sink to get the brush-head and toothpaste wet , because it is easier to spread around in my mouth and it does not feel dry and abrasiveness on my tongue . Then I put the toothbrush in my mouth and slowly and regularly draw it back and forth , up and down , over my teeth . I get the surface of my teeth , behind my teeth , and push down on the caps of my teeth with just enough friction that it cleans them , but not too strong otherwise it will be bad for the brush and hurt my teeth . Then I spit the toothpaste out , take some water from the faucet into my mouth and swish it around in my mouth and then spit it out to get the toothpaste out of my mouth .",
+      "q_text": "When was the brush and mouth dried off?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "After they were finished brushing their teeth",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "Before they brushed their teeth",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        0.0547,
+        0.2031
+      ],
+      "primary_margin": 0.1484,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.386,
+        0.1554
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "179",
+      "scenario": "brushing teeth",
+      "narrative": "I brushed my teeth last night . I walked over to my bathroom and grabbed my electronic tooth brush . Then I squeezed a small pea-sized amount of toothpaste out from my tube that I leave out on my bathroom counter ready to go . Then I turn on my faucet in my bathroom sink to get the brush-head and toothpaste wet , because it is easier to spread around in my mouth and it does not feel dry and abrasiveness on my tongue . Then I put the toothbrush in my mouth and slowly and regularly draw it back and forth , up and down , over my teeth . I get the surface of my teeth , behind my teeth , and push down on the caps of my teeth with just enough friction that it cleans them , but not too strong otherwise it will be bad for the brush and hurt my teeth . Then I spit the toothpaste out , take some water from the faucet into my mouth and swish it around in my mouth and then spit it out to get the toothpaste out of my mouth .",
+      "q_text": "What do they dry off after rinsing the brush?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "teeth",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "Mouth",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.4453,
+        0.3672
+      ],
+      "primary_margin": 0.0781,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.3303,
+        0.2884
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "179",
+      "scenario": "brushing teeth",
+      "narrative": "I brushed my teeth last night . I walked over to my bathroom and grabbed my electronic tooth brush . Then I squeezed a small pea-sized amount of toothpaste out from my tube that I leave out on my bathroom counter ready to go . Then I turn on my faucet in my bathroom sink to get the brush-head and toothpaste wet , because it is easier to spread around in my mouth and it does not feel dry and abrasiveness on my tongue . Then I put the toothbrush in my mouth and slowly and regularly draw it back and forth , up and down , over my teeth . I get the surface of my teeth , behind my teeth , and push down on the caps of my teeth with just enough friction that it cleans them , but not too strong otherwise it will be bad for the brush and hurt my teeth . Then I spit the toothpaste out , take some water from the faucet into my mouth and swish it around in my mouth and then spit it out to get the toothpaste out of my mouth .",
+      "q_text": "What do they place back?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "sink",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "the toothbrush",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.0781,
+        0.0469
+      ],
+      "primary_margin": 0.0312,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.0608,
+        0.2928
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "179",
+      "scenario": "brushing teeth",
+      "narrative": "I brushed my teeth last night . I walked over to my bathroom and grabbed my electronic tooth brush . Then I squeezed a small pea-sized amount of toothpaste out from my tube that I leave out on my bathroom counter ready to go . Then I turn on my faucet in my bathroom sink to get the brush-head and toothpaste wet , because it is easier to spread around in my mouth and it does not feel dry and abrasiveness on my tongue . Then I put the toothbrush in my mouth and slowly and regularly draw it back and forth , up and down , over my teeth . I get the surface of my teeth , behind my teeth , and push down on the caps of my teeth with just enough friction that it cleans them , but not too strong otherwise it will be bad for the brush and hurt my teeth . Then I spit the toothpaste out , take some water from the faucet into my mouth and swish it around in my mouth and then spit it out to get the toothpaste out of my mouth .",
+      "q_text": "What do they put back in their places?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "teeth",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "The toothbrush and toothpaste",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.4453,
+        0.0391
+      ],
+      "primary_margin": 0.4062,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.3303,
+        0.4256
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    }
+  ],
+  "residual_item_forensics_n_total": 39,
+  "determinism_check_passed": true,
+  "deterministic_seeding": true,
+  "crlb_n_a": "cosine-scoring + chain-prediction cell; no argmax/top-k capacity ceiling applies",
+  "final_metrics_atomicity": "tmp_replace"
+}

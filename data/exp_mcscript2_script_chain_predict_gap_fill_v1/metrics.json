@@ -1,0 +1,635 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: staged_accuracy=0.6128 vs primary_only_accuracy=0.6025 (margin=+0.0103, need >=+0.0200); fallback_accuracy_on_residual(real)=0.4401 (need >0.55, chance-band=[0.45,0.55]); real_edge=-0.0599 vs scramble_edge=-0.0833 (real_beats_scramble=True); precheck_trusted=True; n_residual=384 n_unresolved=114",
+  "summary": "run_mode=full n_train=2500 n_dev=355 n_commonsense_q=966 verdict=MIDDLE_BAND",
+  "elapsed_s": 13.666,
+  "run_mode": "full",
+  "config": {
+    "CHAIN_DEPTH": 1,
+    "CHAIN_DEPTH_EXTRA": [
+      2,
+      3
+    ],
+    "PRIMARY_MARGIN_THRESH": 0.02,
+    "MARGIN_HP": 0.02,
+    "RESIDUAL_ACC_HP": 0.55,
+    "RESIDUAL_CHANCE_BAND": [
+      0.45,
+      0.55
+    ],
+    "BOW_D": 256
+  },
+  "precheck_chain_predict_toy": {
+    "cos_real_chain_predict_to_true_next": 0.9955,
+    "cos_scramble_chain_predict_to_true_next": 0.5658,
+    "n_pairs_bound_real": 120,
+    "n_pairs_bound_scramble": 120,
+    "n_repeats": 40,
+    "fires_and_discriminates": true
+  },
+  "baselines": {
+    "commonsense": {
+      "text_overlap_acc": 0.5859213250517599,
+      "majority_acc": 0.45652173913043476,
+      "n_questions": 966
+    },
+    "text": {
+      "text_overlap_acc": 0.7582938388625592,
+      "majority_acc": 0.5071090047393365,
+      "n_questions": 844
+    },
+    "positive-merged": {
+      "text_overlap_acc": 0.6714285714285714,
+      "majority_acc": 0.5047619047619047,
+      "n_questions": 210
+    },
+    "ALL": {
+      "text_overlap_acc": 0.6668316831683169,
+      "majority_acc": 0.48267326732673266,
+      "n_questions": 2020
+    }
+  },
+  "primary_only_accuracy": 0.6025,
+  "n_commonsense_dev_questions": 966,
+  "n_unresolved_total": 114,
+  "n_residual_total": 384,
+  "headline": {
+    "staged_accuracy_real": 0.6128,
+    "primary_only_accuracy": 0.6025,
+    "margin": 0.0103,
+    "fallback_accuracy_on_residual_real": 0.4401,
+    "fallback_accuracy_on_residual_scramble": 0.4167,
+    "real_edge_over_chance": -0.0599,
+    "scramble_edge_over_chance": -0.0833,
+    "real_beats_scramble": true,
+    "precheck_trusted": true
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "n_train_instances": 2500,
+  "n_dev_instances": 355,
+  "n_train_scenarios": 195,
+  "n_dev_scenarios": 162,
+  "real_arm": {
+    "seed": "real",
+    "run_mode": "full",
+    "n_types": 195,
+    "mean_pairs_bound_per_type": 103.98,
+    "n_questions": 966,
+    "staged_accuracy": 0.6128,
+    "n_unresolved": 114,
+    "staged_accuracy_on_unresolved": 0.5263,
+    "n_residual": 384,
+    "fallback_accuracy_on_residual": 0.4401,
+    "type_coverage_frac": 1.0,
+    "_ckpt_key": "real",
+    "_partial_written_at": 1786315711.5989592
+  },
+  "scramble_arm": {
+    "seed": "scramble",
+    "run_mode": "full",
+    "n_types": 195,
+    "mean_pairs_bound_per_type": 103.98,
+    "n_questions": 966,
+    "staged_accuracy": 0.6139,
+    "n_unresolved": 114,
+    "staged_accuracy_on_unresolved": 0.5351,
+    "n_residual": 384,
+    "fallback_accuracy_on_residual": 0.4167,
+    "type_coverage_frac": 1.0,
+    "_ckpt_key": "scramble",
+    "_partial_written_at": 1786315713.8982923
+  },
+  "residual_item_forensics_sample": [
+    {
+      "inst_id": "100",
+      "scenario": "going fishing",
+      "narrative": "Last weekend my dad and I decided to take a day to go fishing together at the local lake . We got into the car and headed to the lake . When we got there my dad rented a rowboat for us . Once we were in a good quiet spot on the lake , my dad took out our fishing poles and some worms for fishing bait . He put a worm at the end of my fishing hook and then told me to cast my fishing line into the lake . Once my fishing line was in the lake I waited and waited , but it seemed like there were no fish that were falling for my bait . I began reeling it in to find a fish that was 12 inches long ! My dad and I took it home so that mom could cook it for dinner .",
+      "q_text": "When did they feel a nibble on the fishing rod?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "After cooking the fish",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "when fish bit",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.0703,
+        0.0234
+      ],
+      "primary_margin": 0.0469,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.2399,
+        0.4239
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "101",
+      "scenario": "making a dinner reservation",
+      "narrative": "My family wanted to take my sister and brother-in-law to dinner to celebrate their move to New York . My dad called me and asked me to go make a reservation . I drove to the Olive Garden and I walked into the restaurant . I told them that I wanted to make a reservation for a table for 9 people . They said that they could do that , but it would be a 10 minute wait . I told them that was fine and we waited for everyone to show up . After 10 minutes , a waiter took us back into the other room in order to enjoy a nice table . They sat us down and we waited until everyone was seated until we started to order drinks and any food that we were already hungry to start eating .",
+      "q_text": "When did the people in front tell them \"Hi\"?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "when the writer entered the restaurant",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "after the family finished eating",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        -0.0859,
+        0.1094
+      ],
+      "primary_margin": 0.1953,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.0353,
+        0.1096
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "103",
+      "scenario": "visiting the beach",
+      "narrative": "Visiting the beach is fun . Sometimes a beach is close and I can walk to it . Sometimes I drive to a beach far away . Today I am going to a beach near me but I have to drive to . I am going to take everything I need to have fun at the beach : sunglasses , towel , swim suit , sun screen and food and something to drink . When I get to the beach I have to find a place to the things I brought . Usually I get into the ocean water and swim all around . Or other times I play in the waves . This makes me hungry and I eat the food I brought , then take a nap on my towel .",
+      "q_text": "Where did they lay the towel?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "In the water",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "On the sand",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.1328,
+        -0.0625
+      ],
+      "primary_margin": 0.1953,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.2392,
+        0.0037
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "105",
+      "scenario": "taking a taxi",
+      "narrative": "I recently took a taxi when I was staying with a friend in Chicago . The city is very busy , and parking can be hard to find , so it is often easier to take a taxi to get to place to place . We had decided to go to dinner and see a play . We walked to a street where taxis often go past , and waved to show the driver that we wanted a ride . I told the driver the name and address of the Thai restaurant my friend and I had planned to go to . He was familiar with the location and we started to travel . On he way , the driver told us that he also enjoyed Thai food and recommended the green curry at that restaurant . As we were driving , I could see how much the cost of the trip would be as a screen displayed a slowly increasing cost . We got to our destination , and I paid the driver the fee on the screen along with a small tip .",
+      "q_text": "where was the driver?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "In the front seat driving the taxi",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "At the restaurant.",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        0.0625,
+        0.0938
+      ],
+      "primary_margin": 0.0312,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.3635,
+        -0.0436
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "106",
+      "scenario": "putting away groceries",
+      "narrative": "When my wife and I get home from the grocery store , sometimes we get my stepson to come out and help us pull them out of the trunk of the car . Then We take them upstairs to our kitchen and set all of the bags on the kitchen floor . Then we just grab whatever bag we want and start trying to find a place for them . Then we place stuff like cans , boxed cereals , boxed rice , in one particular cabinet . Then we put away all the refrigerated stuff like cheese , milk , eggs , lunch meat in the lower portion of the fridge . Then of course , we do the frozen on top , like frozen pizzas , meat patties , chicken breasts and ice cream . Then we put stuff that we ca n't fit anywhere else on our counter top , like bags of chips or fruit .",
+      "q_text": "When did they put the plastic bags away in another cabinet?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "after the meal",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "after putting groceries away",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        -0.0234,
+        -0.0391
+      ],
+      "primary_margin": 0.0156,
+      "primary_pred": "0",
+      "unresolved": true,
+      "fallback_scores": [
+        0.2149,
+        0.0947
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "107",
+      "scenario": "loading the dishwasher",
+      "narrative": "Yesterday the dishes were piling up . First , I turned on the warm water to rinse the dishes . The water warmed up slowly so I loaded some of the dishes that did n't need to be rinsed first into the dishwasher . Some of the dishes require soap and scrubbing with the sponge to get off the caked dried food . I knew those dishes would n't be cleaned by the dishwasher if I did n't do this . After I loaded the dishwasher I put the dishwasher detergent inside the detergent door . I then started the dishwasher so they dishes could be washed . After this I had to finish washing the dishes that could not be washed in the dishwasher . I finished the dishes and waited for the dishwasher to finish so I could put the dishes away .",
+      "q_text": "When did they rinse the rest of the dishes one by one?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "After dishwasher finished",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "after rubbing soap on each one",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.3359,
+        0.1328
+      ],
+      "primary_margin": 0.2031,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.2506,
+        0.2647
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "107",
+      "scenario": "loading the dishwasher",
+      "narrative": "Yesterday the dishes were piling up . First , I turned on the warm water to rinse the dishes . The water warmed up slowly so I loaded some of the dishes that did n't need to be rinsed first into the dishwasher . Some of the dishes require soap and scrubbing with the sponge to get off the caked dried food . I knew those dishes would n't be cleaned by the dishwasher if I did n't do this . After I loaded the dishwasher I put the dishwasher detergent inside the detergent door . I then started the dishwasher so they dishes could be washed . After this I had to finish washing the dishes that could not be washed in the dishwasher . I finished the dishes and waited for the dishwasher to finish so I could put the dishes away .",
+      "q_text": "What did they rinse before loading them into the dishwasher?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "the dishes with caked dried food",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "the dishwasher",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        0.2578,
+        0.4766
+      ],
+      "primary_margin": 0.2188,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.2176,
+        0.3723
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "108",
+      "scenario": "paying with a credit card",
+      "narrative": "When I walked into the store , I did n't notice that the register up front was not taking cash , the whole reason I had come into the store in the first place . After grabbing a couple of candy bars , I made my way to the front of the store and up to the register . When I got there , I noticed the sign stating that cash was not currently being taken . Reluctantly , I pulled out my debit card , not remembering that I had just used the last of the money available on it on groceries . I searched through my wallet and finally found my credit card . I had just gotten a credit limit increase , so I was positive that it would not be declined . Thankfully , I was correct and I left the store with my candy bars , but not able to break the cash I had .",
+      "q_text": "What did the cashier give them?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "cash",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "the receipt",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.2969,
+        -0.0938
+      ],
+      "primary_margin": 0.3906,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.0919,
+        0.0373
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "108",
+      "scenario": "paying with a credit card",
+      "narrative": "When I walked into the store , I did n't notice that the register up front was not taking cash , the whole reason I had come into the store in the first place . After grabbing a couple of candy bars , I made my way to the front of the store and up to the register . When I got there , I noticed the sign stating that cash was not currently being taken . Reluctantly , I pulled out my debit card , not remembering that I had just used the last of the money available on it on groceries . I searched through my wallet and finally found my credit card . I had just gotten a credit limit increase , so I was positive that it would not be declined . Thankfully , I was correct and I left the store with my candy bars , but not able to break the cash I had .",
+      "q_text": "Who handed it back?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "The cashier.",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "the customer",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        -0.0234,
+        0.1016
+      ],
+      "primary_margin": 0.125,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        0.0385,
+        0.1737
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "108",
+      "scenario": "paying with a credit card",
+      "narrative": "When I walked into the store , I did n't notice that the register up front was not taking cash , the whole reason I had come into the store in the first place . After grabbing a couple of candy bars , I made my way to the front of the store and up to the register . When I got there , I noticed the sign stating that cash was not currently being taken . Reluctantly , I pulled out my debit card , not remembering that I had just used the last of the money available on it on groceries . I searched through my wallet and finally found my credit card . I had just gotten a credit limit increase , so I was positive that it would not be declined . Thankfully , I was correct and I left the store with my candy bars , but not able to break the cash I had .",
+      "q_text": "When did the cashier hand back the debit card?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "after items were paid for",
+          "correct": true
+        },
+        {
+          "id": "1",
+          "text": "After cutting it.",
+          "correct": false
+        }
+      ],
+      "correct_id": "0",
+      "primary_scores": [
+        -0.0156,
+        0.0938
+      ],
+      "primary_margin": 0.1094,
+      "primary_pred": "1",
+      "unresolved": false,
+      "fallback_scores": [
+        -0.1538,
+        0.2504
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "1",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "109",
+      "scenario": "attending a football match",
+      "narrative": "My dad and I decided to go to a football game on Saturday . We got into the car and drove to the football stadium . We had to wait in line for a little while because a lot of people were going to the game . When we got to the front of the line , we handed our tickets to someone and they let us in . I ordered a hot dog , some nachos and a Sprite . My dad had popcorn , a hamburger and a Coke . We were cheering for the Buckeyes to win . At halftime , we went to the bathroom . The lines were really long , so we did n't get to hear the band play . Even though we cheered for the Buckeyes , they still lost . After the game was over , we went home . I had a lot of fun .",
+      "q_text": "Where was the food bought?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "In the car",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "From the concession stand.",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.2344,
+        0.0859
+      ],
+      "primary_margin": 0.1484,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        -0.0392,
+        0.3582
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "11",
+      "scenario": "ordering a pizza",
+      "narrative": "I saw a sign for large pizza for 5.99 at domino pizza . It is good deal , and I wanted to invite some people to my house . I made a list of toppings that all like . Then , I found a number to call . So I told him carry out . Then he asked me about the type of crust and I told him hand toast . I ordered all large pizzas . 2 of them just plain cheese , 2 of them with beef and chicken -LRB- half and half -RRB- , 2 of them with jalapeno and green pepper . He repeated whole order for me and told me if I need to add anything else . I said no . He said thank you .",
+      "q_text": "When did the pizza restaurant employee answer a call?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "After he said thank you.",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "When the person called to place the order",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.1094,
+        0.0547
+      ],
+      "primary_margin": 0.0547,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.018,
+        -0.2055
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "110",
+      "scenario": "washing one\u2019s hair",
+      "narrative": "When I woke up this morning , I decided that the first I was going to do was to take a shower and wash my hair . I did n't want to get my clothes wet , so I undressed and stepped into the shower . I turned the water on and waited to the side until the water warmed up . After my hair was wet , I reached down and grabbed the shampoo that I was currently using . It ran out , so I reached for another one . I put the liquid in my hands and started rubbing them together . I let the soap sit in my hair for a few minutes before I dunked my head under the water to make it all wash off of me .",
+      "q_text": "What part of their body was foamy?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "shower",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "head",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.1562,
+        0.0234
+      ],
+      "primary_margin": 0.1328,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.195,
+        0.0315
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "110",
+      "scenario": "washing one\u2019s hair",
+      "narrative": "When I woke up this morning , I decided that the first I was going to do was to take a shower and wash my hair . I did n't want to get my clothes wet , so I undressed and stepped into the shower . I turned the water on and waited to the side until the water warmed up . After my hair was wet , I reached down and grabbed the shampoo that I was currently using . It ran out , so I reached for another one . I put the liquid in my hands and started rubbing them together . I let the soap sit in my hair for a few minutes before I dunked my head under the water to make it all wash off of me .",
+      "q_text": "When did they start to scrub their hair with foamy hands?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "after they were shampooing",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "when they were shampooing",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.0859,
+        -0.0391
+      ],
+      "primary_margin": 0.125,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.2704,
+        0.0671
+      ],
+      "fallback_pred": "0",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    },
+    {
+      "inst_id": "111",
+      "scenario": "playing golf",
+      "narrative": "There was a par three course where I went to with two of my friends . I did not have clubs . But I won the game only borrowing two of their clubs , a butter and a wedge . The wedge was great . It was a close game . I needed to get a par on the last hole to win , and I did . I did the fist pump like Tiger Woods when I won the game . It was 8 dollars . You just put in the money in some box . There was n't anyone there to make sure you payed . It was 9 holes total . It was a sunny day . And one of my friends is usually a better golfer than I am .",
+      "q_text": "When did they start to compete?",
+      "answers": [
+        {
+          "id": "0",
+          "text": "before waking",
+          "correct": false
+        },
+        {
+          "id": "1",
+          "text": "after ariving",
+          "correct": true
+        }
+      ],
+      "correct_id": "1",
+      "primary_scores": [
+        0.1094,
+        0.0547
+      ],
+      "primary_margin": 0.0547,
+      "primary_pred": "0",
+      "unresolved": false,
+      "fallback_scores": [
+        0.1085,
+        0.2132
+      ],
+      "fallback_pred": "1",
+      "type_covered": true,
+      "staged_pred": "0",
+      "staged_correct": false,
+      "fallback_recovered": false
+    }
+  ],
+  "residual_item_forensics_n_total": 384,
+  "determinism_check_passed": true,
+  "deterministic_seeding": true,
+  "crlb_n_a": "cosine-scoring + chain-prediction cell; no argmax/top-k capacity ceiling applies",
+  "final_metrics_atomicity": "tmp_replace"
+}
