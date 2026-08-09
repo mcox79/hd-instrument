@@ -275,49 +275,61 @@ def breadth_cohort_analysis(hyps: dict) -> dict:
 
 
 # ============================================================================ full-bench composition
+def _base3_verdict_from_result(result: dict) -> str:
+    """Reconstruct the PRE-union 3-channel-only (relation/valence/contrast-override) verdict from a
+    goal_achievement_verdict() result dict, using its trace's 'base'/'override' fields -- those are
+    computed BEFORE the union fallback ever runs (see hdlab.goal_achievement.goal_achievement_
+    verdict's own docstring: the union is tried ONLY inside the `channel=='majority'` branch, and
+    never touches `trace['base']`/`trace['override']`), so this reconstruction is EXACT regardless of
+    whether the union itself fired on this item.
+
+    THIS IS LOAD-BEARING, not cosmetic: this cell's own WIRE edit (below, applied because
+    WIRE_DECISION=True) modifies hdlab.goal_achievement.goal_achievement_verdict ITSELF to include
+    the union fallback. Once that edit lands, calling goal_achievement_verdict directly and trusting
+    its `verdict` field to represent 'the base pipeline' would silently return the ALREADY-WIRED
+    answer -- collapsing this cell's own base-vs-union comparison into a wired-vs-wired no-op on any
+    future re-run (self-test caught this: composed_verdict_base's naive `goal_achievement_verdict(
+    ...)["verdict"]` broke immediately after the wire edit landed). Reconstructing from the trace
+    keeps 'base' meaning the true pre-union pipeline forever, independent of whether the live
+    goal_achievement_verdict has been wired."""
+    return "Unfulfilled" if result["trace"]["override"] else result["trace"]["base"]
+
+
 def composed_verdict_base(desire: str, outcome: str) -> str:
-    """The CURRENT PRODUCTION pipeline -- goal_achievement_verdict alone, NO 4th-channel augmentation.
-    This IS the 'base' the WIRE gate compares against (verbatim what's currently shipped)."""
-    return goal_achievement_verdict(desire, outcome)["verdict"]
+    """The PRE-union PRODUCTION pipeline verdict (relation/valence/contrast-override only, NO
+    4th-channel augmentation) -- see `_base3_verdict_from_result` for why this is reconstructed from
+    the trace rather than trusted directly off `goal_achievement_verdict`'s own `verdict` field."""
+    return _base3_verdict_from_result(goal_achievement_verdict(desire, outcome))
 
 
 def composed_verdict_union(desire: str, outcome: str, hyps: dict) -> str:
-    """The CANDIDATE-WIRED pipeline: base verdict, EXCEPT when base abstains to majority
-    (channel=='majority'), in which case try the union channel as an abstain-only strict-ADD
-    fallback -- exactly the wiring this cell will apply to goal_achievement_verdict if the WIRE gate
-    passes."""
-    base = goal_achievement_verdict(desire, outcome)
-    if base["channel"] == "majority":
-        rt_name, rt_hyp = hyps["resulttype_chosen_name"], hyps["resulttype_hypothesis"]
-        rel_name, rel_hyp = hyps["relation_chosen_name"], hyps["relation_hypothesis"]
-        u = utility_channel_union_grounded(desire, outcome, rt_name, rt_hyp, rel_name, rel_hyp)
-        if u is not None:
-            return u
-    return base["verdict"]
+    """The CANDIDATE/CURRENT-WIRED pipeline verdict. Post-wire, `goal_achievement_verdict` itself
+    already implements exactly this composition (base verdict, except union's answer when it fired
+    on a majority-abstain item), so this is now a thin pass-through; `hyps` is accepted for interface
+    stability with pre-wire call sites but unused (the live function fits its own hypotheses)."""
+    del hyps
+    return goal_achievement_verdict(desire, outcome)["verdict"]
 
 
 def full_bench_comparison(n_per_class: int, hyps: dict) -> dict:
     """Base-alone vs union-wired composed macro-F1/acc on a FRESH balanced sample of the given size
     (n=80 matches the documented-baseline harness scale; n=160 is the task's explicit WIRE-gate
-    comparison scale). Computes `goal_achievement_verdict` ONCE per item (not twice, as calling
-    `composed_verdict_base` then `composed_verdict_union` separately would) -- a runtime optimization
-    only, semantics identical to those two functions (kept standalone above for the self-test's
-    single-item wiring-sanity check)."""
-    rt_name, rt_hyp = hyps["resulttype_chosen_name"], hyps["resulttype_hypothesis"]
-    rel_name, rel_hyp = hyps["relation_chosen_name"], hyps["relation_hypothesis"]
+    comparison scale). Computes `goal_achievement_verdict` ONCE per item and derives BOTH the base
+    verdict (via `_base3_verdict_from_result`) and the union/wired verdict (its own `verdict` field,
+    post-wire) from that single call/trace -- correct both BEFORE this cell's wire edit lands (when
+    `goal_achievement_verdict` has no union fields, `verdict` == base3 always, so pred_union ==
+    pred_base pre-wire is the correct 'not yet wired' state) and AFTER (when `verdict` reflects the
+    union's own answer on recovered items). `hyps` is accepted for interface stability but unused."""
+    del hyps
     rows = _s2.load_desiredb_rows()
     sample = _s2.balanced_subsample(rows, n_per_class, SEED)
     gold = [r["Fulfillment-Label"] for r in sample]
     pred_base, pred_union = [], []
     for r in sample:
         desire, outcome = r["Desire-Expression-Sentence"], r["Evidence"]
-        base = goal_achievement_verdict(desire, outcome)
-        pred_base.append(base["verdict"])
-        if base["channel"] == "majority":
-            u = utility_channel_union_grounded(desire, outcome, rt_name, rt_hyp, rel_name, rel_hyp)
-            pred_union.append(u if u is not None else base["verdict"])
-        else:
-            pred_union.append(base["verdict"])
+        result = goal_achievement_verdict(desire, outcome)
+        pred_base.append(_base3_verdict_from_result(result))
+        pred_union.append(result["verdict"])
     return {
         "n": len(sample),
         "base": {"acc": round(_s2.accuracy(gold, pred_base), 4), "macro_f1": round(_s2.macro_f1(gold, pred_base), 4)},
