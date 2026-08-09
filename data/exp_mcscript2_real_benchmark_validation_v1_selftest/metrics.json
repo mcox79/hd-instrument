@@ -1,0 +1,56 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: real code path exercised (see self_test dict).",
+  "summary": "self_test",
+  "elapsed_s": 0.263,
+  "run_mode": "self_test",
+  "self_test_result": {
+    "extraction_self_test": {
+      "extraction_fires_on_clean_narrative": true,
+      "extracted_tuple": [
+        "want",
+        "serv",
+        "i",
+        "eggs"
+      ],
+      "diag": {
+        "n_sents": 7,
+        "n_root_found": 7,
+        "root_fire_rate": 1.0,
+        "agent_votes": {
+          "i": 7
+        },
+        "patient_votes": {
+          "eggs": 2,
+          "salt": 1,
+          "mixture": 1
+        },
+        "agent_is_pronoun": true
+      },
+      "xml_parse_ok": true,
+      "real_code_path_exercised": [
+        "CandidateGenerator",
+        "parse_mcscript_xml",
+        "extract_instance_tuple"
+      ]
+    },
+    "bow_register_lossless_embedding": true,
+    "cos_wrapped": 0.085938,
+    "cos_plain": 0.085938,
+    "scramble_register_deterministic_and_uncorrelated": true,
+    "scramble_vs_real_cos": -0.0391,
+    "match_or_spawn_and_query_ok": true,
+    "query_best_match_id": "SITEM_0000",
+    "end_to_end_pipeline_ok": true,
+    "real_code_path_exercised": [
+      "CandidateGenerator",
+      "parse_mcscript_xml",
+      "ScriptLibrary",
+      "script_consolidation_pass",
+      "iterative_attractor",
+      "grow_and_track",
+      "eval_dev_accuracy",
+      "baseline_accuracies"
+    ]
+  }
+}

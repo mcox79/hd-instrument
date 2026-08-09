@@ -1,0 +1,1725 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SYSTEM commonsense-subset accuracy (0.5538) does not beat TEXT_OVERLAP baseline (0.5859). Prechecks passed (precheck_a gap=0.1448 auc=0.8818), scramble control computed (scramble_final=0.5114). This is a genuine mechanism negative on real narrative text.",
+  "summary": "run_mode=full n_train=2500 n_dev=355 verdict=HARD_FAIL",
+  "elapsed_s": 62.516,
+  "run_mode": "full",
+  "config": {
+    "N_PASSES": 5,
+    "MIN_CONFIRM": 4,
+    "PATIENCE_MAX": 3,
+    "NEUTRAL_BAND": 0.34,
+    "REPLAY_BUDGET_FRAC": 0.6,
+    "SCHEMA_THRESH": 0.1,
+    "novelty_thresh_calibrated": 0.1061,
+    "mdl_gate": "N/A (Amendment 2, mdl_gate_fn=None)"
+  },
+  "precheck_a": {
+    "n_sample_instances": 390,
+    "n_matched_pairs": 195,
+    "n_wrong_pairs": 75660,
+    "matched_mean": 0.1821,
+    "wrong_mean": 0.0373,
+    "gap": 0.1448,
+    "auc": 0.8818,
+    "strict_full_separation_discriminates": false,
+    "realistic_discriminates_gap_and_auc": true,
+    "novelty_thresh_calibrated": 0.1061,
+    "gate_criteria": {
+      "min_gap": 0.05,
+      "min_auc": 0.6
+    }
+  },
+  "baselines": {
+    "commonsense": {
+      "text_overlap_acc": 0.5859213250517599,
+      "majority_acc": 0.45652173913043476,
+      "n_questions": 966
+    },
+    "text": {
+      "text_overlap_acc": 0.7582938388625592,
+      "majority_acc": 0.5071090047393365,
+      "n_questions": 844
+    },
+    "positive-merged": {
+      "text_overlap_acc": 0.6714285714285714,
+      "majority_acc": 0.5047619047619047,
+      "n_questions": 210
+    },
+    "ALL": {
+      "text_overlap_acc": 0.6668316831683169,
+      "majority_acc": 0.48267326732673266,
+      "n_questions": 2020
+    }
+  },
+  "majority_answer_id": "0",
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "n_train_instances": 2500,
+  "n_dev_instances": 355,
+  "n_train_scenarios": 195,
+  "n_dev_scenarios": 162,
+  "real_arm": {
+    "seed": "real",
+    "run_mode": "full",
+    "n_items_spawned_total": 35,
+    "grounded_count_curve": [
+      0,
+      20,
+      28,
+      31,
+      33
+    ],
+    "dev_accuracy_curve": [
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5859213250517599,
+            "n_questions": 966,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "text": {
+            "system_acc": 0.7582938388625592,
+            "n_questions": 844,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "positive-merged": {
+            "system_acc": 0.6714285714285714,
+            "n_questions": 210,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "ALL": {
+            "system_acc": 0.6668316831683169,
+            "n_questions": 2020,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          }
+        },
+        "coverage": 0.0,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5755693581780539,
+            "n_questions": 966,
+            "covered_system_acc": 0.5637982195845698,
+            "covered_text_baseline_acc": 0.5786350148367952,
+            "n_covered": 674
+          },
+          "text": {
+            "system_acc": 0.6279620853080569,
+            "n_questions": 844,
+            "covered_system_acc": 0.5617391304347826,
+            "covered_text_baseline_acc": 0.7530434782608696,
+            "n_covered": 575
+          },
+          "positive-merged": {
+            "system_acc": 0.5761904761904761,
+            "n_questions": 210,
+            "covered_system_acc": 0.5539568345323741,
+            "covered_text_baseline_acc": 0.697841726618705,
+            "n_covered": 139
+          },
+          "ALL": {
+            "system_acc": 0.5975247524752475,
+            "n_questions": 2020,
+            "covered_system_acc": 0.5619596541786743,
+            "covered_text_baseline_acc": 0.6628242074927954,
+            "n_covered": 1388
+          }
+        },
+        "coverage": 0.6871287128712872,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5559006211180124,
+            "n_questions": 966,
+            "covered_system_acc": 0.5576036866359447,
+            "covered_text_baseline_acc": 0.5910138248847926,
+            "n_covered": 868
+          },
+          "text": {
+            "system_acc": 0.5853080568720379,
+            "n_questions": 844,
+            "covered_system_acc": 0.5622435020519836,
+            "covered_text_baseline_acc": 0.761969904240766,
+            "n_covered": 731
+          },
+          "positive-merged": {
+            "system_acc": 0.5666666666666667,
+            "n_questions": 210,
+            "covered_system_acc": 0.5698324022346368,
+            "covered_text_baseline_acc": 0.6927374301675978,
+            "n_covered": 179
+          },
+          "ALL": {
+            "system_acc": 0.5693069306930693,
+            "n_questions": 2020,
+            "covered_system_acc": 0.5607424071991001,
+            "covered_text_baseline_acc": 0.671541057367829,
+            "n_covered": 1778
+          }
+        },
+        "coverage": 0.8801980198019802,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5538302277432712,
+            "n_questions": 966,
+            "covered_system_acc": 0.5523504273504274,
+            "covered_text_baseline_acc": 0.5854700854700855,
+            "n_covered": 936
+          },
+          "text": {
+            "system_acc": 0.5781990521327014,
+            "n_questions": 844,
+            "covered_system_acc": 0.5614702154626109,
+            "covered_text_baseline_acc": 0.7541191381495564,
+            "n_covered": 789
+          },
+          "positive-merged": {
+            "system_acc": 0.5619047619047619,
+            "n_questions": 210,
+            "covered_system_acc": 0.5625,
+            "covered_text_baseline_acc": 0.6822916666666666,
+            "n_covered": 192
+          },
+          "ALL": {
+            "system_acc": 0.5648514851485148,
+            "n_questions": 2020,
+            "covered_system_acc": 0.5571205007824727,
+            "covered_text_baseline_acc": 0.6645800730307773,
+            "n_covered": 1917
+          }
+        },
+        "coverage": 0.949009900990099,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5538302277432712,
+            "n_questions": 966,
+            "covered_system_acc": 0.5539267015706806,
+            "covered_text_baseline_acc": 0.5863874345549738,
+            "n_covered": 955
+          },
+          "text": {
+            "system_acc": 0.5687203791469194,
+            "n_questions": 844,
+            "covered_system_acc": 0.5602923264311814,
+            "covered_text_baseline_acc": 0.7551766138855055,
+            "n_covered": 821
+          },
+          "positive-merged": {
+            "system_acc": 0.5666666666666667,
+            "n_questions": 210,
+            "covered_system_acc": 0.5686274509803921,
+            "covered_text_baseline_acc": 0.6764705882352942,
+            "n_covered": 204
+          },
+          "ALL": {
+            "system_acc": 0.5613861386138614,
+            "n_questions": 2020,
+            "covered_system_acc": 0.5580808080808081,
+            "covered_text_baseline_acc": 0.6656565656565656,
+            "n_covered": 1980
+          }
+        },
+        "coverage": 0.9801980198019802,
+        "n_total_questions": 2020
+      }
+    ],
+    "item_purity": {
+      "SITEM_0000": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 116,
+        "majority_scenario": "sewing a button",
+        "majority_frac": 0.086
+      },
+      "SITEM_0001": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 117,
+        "majority_scenario": "going for a walk",
+        "majority_frac": 0.034
+      },
+      "SITEM_0002": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 281,
+        "majority_scenario": "growing vegetables",
+        "majority_frac": 0.028
+      },
+      "SITEM_0003": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 240,
+        "majority_scenario": "buying a DVD player",
+        "majority_frac": 0.05
+      },
+      "SITEM_0004": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 50,
+        "majority_scenario": "cooking rice",
+        "majority_frac": 0.26
+      },
+      "SITEM_0005": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 89,
+        "majority_scenario": "making scrambled eggs",
+        "majority_frac": 0.146
+      },
+      "SITEM_0006": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 96,
+        "majority_scenario": "changing a light bulb",
+        "majority_frac": 0.094
+      },
+      "SITEM_0007": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 103,
+        "majority_scenario": "throwing a party",
+        "majority_frac": 0.078
+      },
+      "SITEM_0008": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 181,
+        "majority_scenario": "chopping vegetables",
+        "majority_frac": 0.028
+      },
+      "SITEM_0009": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 122,
+        "majority_scenario": "doing online banking",
+        "majority_frac": 0.066
+      },
+      "SITEM_0010": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 65,
+        "majority_scenario": "brushing teeth",
+        "majority_frac": 0.138
+      },
+      "SITEM_0011": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 74,
+        "majority_scenario": "taking a shower",
+        "majority_frac": 0.081
+      },
+      "SITEM_0012": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 97,
+        "majority_scenario": "planning a holiday trip",
+        "majority_frac": 0.062
+      },
+      "SITEM_0013": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 88,
+        "majority_scenario": "cleaning the shower",
+        "majority_frac": 0.136
+      },
+      "SITEM_0014": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 36,
+        "majority_scenario": "taking children to school",
+        "majority_frac": 0.111
+      },
+      "SITEM_0015": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 179,
+        "majority_scenario": "making tea",
+        "majority_frac": 0.056
+      },
+      "SITEM_0016": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 85,
+        "majority_scenario": "locking up the house",
+        "majority_frac": 0.082
+      },
+      "SITEM_0017": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 77,
+        "majority_scenario": "setting up presentation equipment",
+        "majority_frac": 0.091
+      },
+      "SITEM_0018": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 19,
+        "majority_scenario": "riding on a bus",
+        "majority_frac": 0.526
+      },
+      "SITEM_0019": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 51,
+        "majority_scenario": "deciding on a movie",
+        "majority_frac": 0.196
+      },
+      "SITEM_0020": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 60,
+        "majority_scenario": "feeding the fish",
+        "majority_frac": 0.133
+      },
+      "SITEM_0021": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 34,
+        "majority_scenario": "attending a court hearing",
+        "majority_frac": 0.176
+      },
+      "SITEM_0022": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 7,
+        "majority_scenario": "playing music in church",
+        "majority_frac": 0.286
+      },
+      "SITEM_0023": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 29,
+        "majority_scenario": "making soup",
+        "majority_frac": 0.241
+      },
+      "SITEM_0024": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 9,
+        "majority_scenario": "taking medicine",
+        "majority_frac": 0.222
+      },
+      "SITEM_0025": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 40,
+        "majority_scenario": "listening to music",
+        "majority_frac": 0.2
+      },
+      "SITEM_0026": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 47,
+        "majority_scenario": "borrowing a book from the library",
+        "majority_frac": 0.213
+      },
+      "SITEM_0027": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 25,
+        "majority_scenario": "buying a tree",
+        "majority_frac": 0.4
+      },
+      "SITEM_0028": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 24,
+        "majority_scenario": "washing dishes",
+        "majority_frac": 0.25
+      },
+      "SITEM_0029": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 30,
+        "majority_scenario": "going on a train",
+        "majority_frac": 0.3
+      },
+      "SITEM_0030": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 9,
+        "majority_scenario": "painting a wall",
+        "majority_frac": 0.556
+      },
+      "SITEM_0031": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 10,
+        "majority_scenario": "making fresh orange juice",
+        "majority_frac": 0.7
+      },
+      "SITEM_0032": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 7,
+        "majority_scenario": "sending a fax",
+        "majority_frac": 0.571
+      }
+    },
+    "per_pass_reports": [
+      {
+        "pass": 1,
+        "n_eligible": 0,
+        "n_attempted": 0,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 0,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 35
+      },
+      {
+        "pass": 2,
+        "n_eligible": 33,
+        "n_attempted": 20,
+        "n_deferred_replay_budget": 13,
+        "deferred_item_ids": [
+          "SITEM_0016",
+          "SITEM_0009",
+          "SITEM_0020",
+          "SITEM_0032",
+          "SITEM_0026",
+          "SITEM_0028",
+          "SITEM_0001",
+          "SITEM_0006",
+          "SITEM_0021",
+          "SITEM_0030",
+          "SITEM_0010",
+          "SITEM_0031",
+          "SITEM_0019"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0022",
+          "SITEM_0029",
+          "SITEM_0018",
+          "SITEM_0000",
+          "SITEM_0002",
+          "SITEM_0005",
+          "SITEM_0017",
+          "SITEM_0023",
+          "SITEM_0025",
+          "SITEM_0004",
+          "SITEM_0011",
+          "SITEM_0013",
+          "SITEM_0024",
+          "SITEM_0027",
+          "SITEM_0003",
+          "SITEM_0007",
+          "SITEM_0008",
+          "SITEM_0012",
+          "SITEM_0014",
+          "SITEM_0015"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 20,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 15
+      },
+      {
+        "pass": 3,
+        "n_eligible": 13,
+        "n_attempted": 8,
+        "n_deferred_replay_budget": 5,
+        "deferred_item_ids": [
+          "SITEM_0021",
+          "SITEM_0030",
+          "SITEM_0010",
+          "SITEM_0031",
+          "SITEM_0019"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0016",
+          "SITEM_0009",
+          "SITEM_0020",
+          "SITEM_0032",
+          "SITEM_0026",
+          "SITEM_0028",
+          "SITEM_0001",
+          "SITEM_0006"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 28,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 7
+      },
+      {
+        "pass": 4,
+        "n_eligible": 5,
+        "n_attempted": 3,
+        "n_deferred_replay_budget": 2,
+        "deferred_item_ids": [
+          "SITEM_0031",
+          "SITEM_0019"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0021",
+          "SITEM_0030",
+          "SITEM_0010"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 31,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 4
+      },
+      {
+        "pass": 5,
+        "n_eligible": 2,
+        "n_attempted": 2,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0031",
+          "SITEM_0019"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 33,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 2
+      }
+    ],
+    "_ckpt_key": "real",
+    "_partial_written_at": 1786310382.1532977
+  },
+  "scramble_arm": {
+    "seed": "scramble",
+    "run_mode": "full",
+    "n_items_spawned_total": 99,
+    "grounded_count_curve": [
+      0,
+      59,
+      83,
+      92,
+      96
+    ],
+    "dev_accuracy_curve": [
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5859213250517599,
+            "n_questions": 966,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "text": {
+            "system_acc": 0.7582938388625592,
+            "n_questions": 844,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "positive-merged": {
+            "system_acc": 0.6714285714285714,
+            "n_questions": 210,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "ALL": {
+            "system_acc": 0.6668316831683169,
+            "n_questions": 2020,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          }
+        },
+        "coverage": 0.0,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5351966873706004,
+            "n_questions": 966,
+            "covered_system_acc": 0.49458483754512633,
+            "covered_text_baseline_acc": 0.5830324909747292,
+            "n_covered": 554
+          },
+          "text": {
+            "system_acc": 0.5781990521327014,
+            "n_questions": 844,
+            "covered_system_acc": 0.46613545816733065,
+            "covered_text_baseline_acc": 0.7689243027888446,
+            "n_covered": 502
+          },
+          "positive-merged": {
+            "system_acc": 0.5571428571428572,
+            "n_questions": 210,
+            "covered_system_acc": 0.5073529411764706,
+            "covered_text_baseline_acc": 0.6838235294117647,
+            "n_covered": 136
+          },
+          "ALL": {
+            "system_acc": 0.5554455445544555,
+            "n_questions": 2020,
+            "covered_system_acc": 0.48406040268456374,
+            "covered_text_baseline_acc": 0.6728187919463087,
+            "n_covered": 1192
+          }
+        },
+        "coverage": 0.5900990099009901,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.520703933747412,
+            "n_questions": 966,
+            "covered_system_acc": 0.499383477188656,
+            "covered_text_baseline_acc": 0.5770653514180024,
+            "n_covered": 811
+          },
+          "text": {
+            "system_acc": 0.523696682464455,
+            "n_questions": 844,
+            "covered_system_acc": 0.4755043227665706,
+            "covered_text_baseline_acc": 0.760806916426513,
+            "n_covered": 694
+          },
+          "positive-merged": {
+            "system_acc": 0.5333333333333333,
+            "n_questions": 210,
+            "covered_system_acc": 0.5251396648044693,
+            "covered_text_baseline_acc": 0.6871508379888268,
+            "n_covered": 179
+          },
+          "ALL": {
+            "system_acc": 0.5232673267326733,
+            "n_questions": 2020,
+            "covered_system_acc": 0.49228028503562943,
+            "covered_text_baseline_acc": 0.6644893111638955,
+            "n_covered": 1684
+          }
+        },
+        "coverage": 0.8336633663366336,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5124223602484472,
+            "n_questions": 966,
+            "covered_system_acc": 0.5022123893805309,
+            "covered_text_baseline_acc": 0.5807522123893806,
+            "n_covered": 904
+          },
+          "text": {
+            "system_acc": 0.48933649289099523,
+            "n_questions": 844,
+            "covered_system_acc": 0.47903430749682335,
+            "covered_text_baseline_acc": 0.7674714104193139,
+            "n_covered": 787
+          },
+          "positive-merged": {
+            "system_acc": 0.5,
+            "n_questions": 210,
+            "covered_system_acc": 0.504950495049505,
+            "covered_text_baseline_acc": 0.6831683168316832,
+            "n_covered": 202
+          },
+          "ALL": {
+            "system_acc": 0.5014851485148515,
+            "n_questions": 2020,
+            "covered_system_acc": 0.4928684627575277,
+            "covered_text_baseline_acc": 0.6693079767564712,
+            "n_covered": 1893
+          }
+        },
+        "coverage": 0.9371287128712872,
+        "n_total_questions": 2020
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5113871635610766,
+            "n_questions": 966,
+            "covered_system_acc": 0.5094339622641509,
+            "covered_text_baseline_acc": 0.5849056603773585,
+            "n_covered": 954
+          },
+          "text": {
+            "system_acc": 0.4774881516587678,
+            "n_questions": 844,
+            "covered_system_acc": 0.4784688995215311,
+            "covered_text_baseline_acc": 0.7619617224880383,
+            "n_covered": 836
+          },
+          "positive-merged": {
+            "system_acc": 0.5095238095238095,
+            "n_questions": 210,
+            "covered_system_acc": 0.5097087378640777,
+            "covered_text_baseline_acc": 0.6747572815533981,
+            "n_covered": 206
+          },
+          "ALL": {
+            "system_acc": 0.497029702970297,
+            "n_questions": 2020,
+            "covered_system_acc": 0.4964929859719439,
+            "covered_text_baseline_acc": 0.6683366733466933,
+            "n_covered": 1996
+          }
+        },
+        "coverage": 0.9881188118811881,
+        "n_total_questions": 2020
+      }
+    ],
+    "item_purity": {
+      "SITEM_0000": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "making a shopping list",
+        "majority_frac": 0.065
+      },
+      "SITEM_0001": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 38,
+        "majority_scenario": "making a hot dog",
+        "majority_frac": 0.053
+      },
+      "SITEM_0002": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 26,
+        "majority_scenario": "washing clothes",
+        "majority_frac": 0.077
+      },
+      "SITEM_0003": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 36,
+        "majority_scenario": "going bowling",
+        "majority_frac": 0.056
+      },
+      "SITEM_0004": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 37,
+        "majority_scenario": "attending a wedding ceremony",
+        "majority_frac": 0.054
+      },
+      "SITEM_0005": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 27,
+        "majority_scenario": "writing a letter",
+        "majority_frac": 0.074
+      },
+      "SITEM_0006": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 37,
+        "majority_scenario": "chopping vegetables",
+        "majority_frac": 0.054
+      },
+      "SITEM_0007": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 30,
+        "majority_scenario": "going to the playground",
+        "majority_frac": 0.1
+      },
+      "SITEM_0008": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "growing vegetables",
+        "majority_frac": 0.129
+      },
+      "SITEM_0009": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 32,
+        "majority_scenario": "making a hot dog",
+        "majority_frac": 0.062
+      },
+      "SITEM_0010": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 35,
+        "majority_scenario": "going to a pub",
+        "majority_frac": 0.057
+      },
+      "SITEM_0011": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "making a bonfire",
+        "majority_frac": 0.065
+      },
+      "SITEM_0012": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 34,
+        "majority_scenario": "buying a DVD player",
+        "majority_frac": 0.059
+      },
+      "SITEM_0013": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 40,
+        "majority_scenario": "shopping online",
+        "majority_frac": 0.075
+      },
+      "SITEM_0014": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 25,
+        "majority_scenario": "buying from a vending machine",
+        "majority_frac": 0.04
+      },
+      "SITEM_0015": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 33,
+        "majority_scenario": "organizing a board game evening",
+        "majority_frac": 0.061
+      },
+      "SITEM_0016": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 30,
+        "majority_scenario": "writing an exam",
+        "majority_frac": 0.1
+      },
+      "SITEM_0017": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 36,
+        "majority_scenario": "giving a medicine to someone",
+        "majority_frac": 0.056
+      },
+      "SITEM_0018": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 34,
+        "majority_scenario": "answering the phone",
+        "majority_frac": 0.059
+      },
+      "SITEM_0019": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 19,
+        "majority_scenario": "visiting a doctor",
+        "majority_frac": 0.053
+      },
+      "SITEM_0020": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 36,
+        "majority_scenario": "reading a story to a child",
+        "majority_frac": 0.056
+      },
+      "SITEM_0021": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 38,
+        "majority_scenario": "applying band aid",
+        "majority_frac": 0.053
+      },
+      "SITEM_0022": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 43,
+        "majority_scenario": "making a flight reservation",
+        "majority_frac": 0.047
+      },
+      "SITEM_0023": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 30,
+        "majority_scenario": "taking a child to bed",
+        "majority_frac": 0.067
+      },
+      "SITEM_0024": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 39,
+        "majority_scenario": "cleaning up a flat",
+        "majority_frac": 0.051
+      },
+      "SITEM_0025": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "attending a job interview",
+        "majority_frac": 0.097
+      },
+      "SITEM_0026": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 26,
+        "majority_scenario": "setting the dining table",
+        "majority_frac": 0.077
+      },
+      "SITEM_0027": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 21,
+        "majority_scenario": "making a flight reservation",
+        "majority_frac": 0.143
+      },
+      "SITEM_0028": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 17,
+        "majority_scenario": "buying a tree",
+        "majority_frac": 0.059
+      },
+      "SITEM_0029": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 28,
+        "majority_scenario": "cleaning the shower",
+        "majority_frac": 0.071
+      },
+      "SITEM_0030": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 26,
+        "majority_scenario": "changing a light bulb",
+        "majority_frac": 0.077
+      },
+      "SITEM_0031": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 42,
+        "majority_scenario": "visiting sights",
+        "majority_frac": 0.048
+      },
+      "SITEM_0032": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 27,
+        "majority_scenario": "adopting a pet",
+        "majority_frac": 0.074
+      },
+      "SITEM_0033": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 33,
+        "majority_scenario": "attending a football match",
+        "majority_frac": 0.061
+      },
+      "SITEM_0034": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 29,
+        "majority_scenario": "looking for a flat",
+        "majority_frac": 0.069
+      },
+      "SITEM_0035": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 33,
+        "majority_scenario": "changing a light bulb",
+        "majority_frac": 0.03
+      },
+      "SITEM_0036": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 35,
+        "majority_scenario": "feeding the fish",
+        "majority_frac": 0.057
+      },
+      "SITEM_0037": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "boiling milk",
+        "majority_frac": 0.065
+      },
+      "SITEM_0038": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 25,
+        "majority_scenario": "going on vacation/going on a holiday trip",
+        "majority_frac": 0.08
+      },
+      "SITEM_0039": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 34,
+        "majority_scenario": "going to a pub",
+        "majority_frac": 0.059
+      },
+      "SITEM_0040": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 26,
+        "majority_scenario": "taking children to school",
+        "majority_frac": 0.077
+      },
+      "SITEM_0041": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 32,
+        "majority_scenario": "going to the theater",
+        "majority_frac": 0.094
+      },
+      "SITEM_0042": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 25,
+        "majority_scenario": "reading a story to a child",
+        "majority_frac": 0.08
+      },
+      "SITEM_0043": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "boiling milk",
+        "majority_frac": 0.065
+      },
+      "SITEM_0044": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 29,
+        "majority_scenario": "playing a board game",
+        "majority_frac": 0.069
+      },
+      "SITEM_0045": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "buying a tree",
+        "majority_frac": 0.097
+      },
+      "SITEM_0046": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 28,
+        "majority_scenario": "playing piano",
+        "majority_frac": 0.071
+      },
+      "SITEM_0048": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "taking a photograph",
+        "majority_frac": 0.065
+      },
+      "SITEM_0049": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 25,
+        "majority_scenario": "attending a church service",
+        "majority_frac": 0.08
+      },
+      "SITEM_0050": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "going to the playground",
+        "majority_frac": 0.065
+      },
+      "SITEM_0051": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 31,
+        "majority_scenario": "sewing clothes",
+        "majority_frac": 0.065
+      },
+      "SITEM_0052": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 28,
+        "majority_scenario": "moving into a new flat",
+        "majority_frac": 0.107
+      },
+      "SITEM_0053": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 27,
+        "majority_scenario": "getting ready for bed",
+        "majority_frac": 0.074
+      },
+      "SITEM_0054": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 28,
+        "majority_scenario": "brushing teeth",
+        "majority_frac": 0.071
+      },
+      "SITEM_0055": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 20,
+        "majority_scenario": "setting the dining table",
+        "majority_frac": 0.05
+      },
+      "SITEM_0056": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 28,
+        "majority_scenario": "looking for a job",
+        "majority_frac": 0.071
+      },
+      "SITEM_0057": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 21,
+        "majority_scenario": "watering indoor plants",
+        "majority_frac": 0.095
+      },
+      "SITEM_0058": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 20,
+        "majority_scenario": "playing tennis",
+        "majority_frac": 0.05
+      },
+      "SITEM_0059": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 27,
+        "majority_scenario": "baking a cake",
+        "majority_frac": 0.074
+      },
+      "SITEM_0060": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 23,
+        "majority_scenario": "driving a car",
+        "majority_frac": 0.087
+      },
+      "SITEM_0061": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 24,
+        "majority_scenario": "going jogging",
+        "majority_frac": 0.083
+      },
+      "SITEM_0062": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 32,
+        "majority_scenario": "cleaning the shower",
+        "majority_frac": 0.062
+      },
+      "SITEM_0063": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 29,
+        "majority_scenario": "eating in a restaurant",
+        "majority_frac": 0.069
+      },
+      "SITEM_0064": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 25,
+        "majority_scenario": "shopping online",
+        "majority_frac": 0.04
+      },
+      "SITEM_0065": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 25,
+        "majority_scenario": "putting up a painting",
+        "majority_frac": 0.08
+      },
+      "SITEM_0067": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 12,
+        "majority_scenario": "taking copies",
+        "majority_frac": 0.083
+      },
+      "SITEM_0068": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 29,
+        "majority_scenario": "going fishing",
+        "majority_frac": 0.103
+      },
+      "SITEM_0069": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 26,
+        "majority_scenario": "buying a DVD player",
+        "majority_frac": 0.038
+      },
+      "SITEM_0070": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 24,
+        "majority_scenario": "making soup",
+        "majority_frac": 0.083
+      },
+      "SITEM_0071": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 27,
+        "majority_scenario": "setting an alarm",
+        "majority_frac": 0.074
+      },
+      "SITEM_0072": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 36,
+        "majority_scenario": "going to the gym",
+        "majority_frac": 0.056
+      },
+      "SITEM_0073": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 18,
+        "majority_scenario": "fueling a car",
+        "majority_frac": 0.056
+      },
+      "SITEM_0074": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 20,
+        "majority_scenario": "attending a job interview",
+        "majority_frac": 0.1
+      },
+      "SITEM_0075": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 18,
+        "majority_scenario": "answering the phone",
+        "majority_frac": 0.056
+      },
+      "SITEM_0076": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 26,
+        "majority_scenario": "attending a job interview",
+        "majority_frac": 0.077
+      },
+      "SITEM_0077": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 21,
+        "majority_scenario": "visiting a doctor",
+        "majority_frac": 0.048
+      },
+      "SITEM_0078": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 15,
+        "majority_scenario": "making a bonfire",
+        "majority_frac": 0.133
+      },
+      "SITEM_0079": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 26,
+        "majority_scenario": "getting a haircut",
+        "majority_frac": 0.038
+      },
+      "SITEM_0080": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 19,
+        "majority_scenario": "changing batteries in an alarm clock",
+        "majority_frac": 0.053
+      },
+      "SITEM_0081": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 17,
+        "majority_scenario": "going bowling",
+        "majority_frac": 0.059
+      },
+      "SITEM_0082": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 21,
+        "majority_scenario": "planning a holiday trip",
+        "majority_frac": 0.095
+      },
+      "SITEM_0083": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 22,
+        "majority_scenario": "attending a church service",
+        "majority_frac": 0.091
+      },
+      "SITEM_0084": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 20,
+        "majority_scenario": "wrapping a gift",
+        "majority_frac": 0.1
+      },
+      "SITEM_0085": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 17,
+        "majority_scenario": "cleaning up a flat",
+        "majority_frac": 0.059
+      },
+      "SITEM_0086": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "throwing a party",
+        "majority_frac": 0.167
+      },
+      "SITEM_0087": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 5,
+        "majority_scenario": "making tea",
+        "majority_frac": 0.2
+      },
+      "SITEM_0088": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 12,
+        "majority_scenario": "setting an alarm",
+        "majority_frac": 0.083
+      },
+      "SITEM_0089": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 8,
+        "majority_scenario": "visiting relatives",
+        "majority_frac": 0.125
+      },
+      "SITEM_0090": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 9,
+        "majority_scenario": "listening to music",
+        "majority_frac": 0.111
+      },
+      "SITEM_0091": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 9,
+        "majority_scenario": "going to the sauna",
+        "majority_frac": 0.111
+      },
+      "SITEM_0092": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 7,
+        "majority_scenario": "ordering something on the phone",
+        "majority_frac": 0.143
+      },
+      "SITEM_0093": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "playing piano",
+        "majority_frac": 0.167
+      },
+      "SITEM_0094": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "feeding a cat",
+        "majority_frac": 0.167
+      },
+      "SITEM_0095": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "drying clothes",
+        "majority_frac": 0.167
+      },
+      "SITEM_0096": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 7,
+        "majority_scenario": "throwing a party",
+        "majority_frac": 0.143
+      },
+      "SITEM_0097": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 4,
+        "majority_scenario": "going to a shopping centre",
+        "majority_frac": 0.25
+      }
+    },
+    "per_pass_reports": [
+      {
+        "pass": 1,
+        "n_eligible": 0,
+        "n_attempted": 0,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 0,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 99
+      },
+      {
+        "pass": 2,
+        "n_eligible": 98,
+        "n_attempted": 59,
+        "n_deferred_replay_budget": 39,
+        "deferred_item_ids": [
+          "SITEM_0022",
+          "SITEM_0025",
+          "SITEM_0034",
+          "SITEM_0041",
+          "SITEM_0050",
+          "SITEM_0051",
+          "SITEM_0061",
+          "SITEM_0064",
+          "SITEM_0080",
+          "SITEM_0006",
+          "SITEM_0017",
+          "SITEM_0019",
+          "SITEM_0024",
+          "SITEM_0030",
+          "SITEM_0057",
+          "SITEM_0070",
+          "SITEM_0077",
+          "SITEM_0082",
+          "SITEM_0009",
+          "SITEM_0014",
+          "SITEM_0015",
+          "SITEM_0054",
+          "SITEM_0065",
+          "SITEM_0095",
+          "SITEM_0000",
+          "SITEM_0010",
+          "SITEM_0011",
+          "SITEM_0033",
+          "SITEM_0042",
+          "SITEM_0045",
+          "SITEM_0052",
+          "SITEM_0067",
+          "SITEM_0091",
+          "SITEM_0020",
+          "SITEM_0026",
+          "SITEM_0048",
+          "SITEM_0012",
+          "SITEM_0047",
+          "SITEM_0066"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0097",
+          "SITEM_0086",
+          "SITEM_0090",
+          "SITEM_0008",
+          "SITEM_0092",
+          "SITEM_0093",
+          "SITEM_0053",
+          "SITEM_0027",
+          "SITEM_0039",
+          "SITEM_0058",
+          "SITEM_0068",
+          "SITEM_0069",
+          "SITEM_0071",
+          "SITEM_0076",
+          "SITEM_0081",
+          "SITEM_0084",
+          "SITEM_0087",
+          "SITEM_0094",
+          "SITEM_0003",
+          "SITEM_0018",
+          "SITEM_0028",
+          "SITEM_0046",
+          "SITEM_0073",
+          "SITEM_0083",
+          "SITEM_0089",
+          "SITEM_0004",
+          "SITEM_0016",
+          "SITEM_0023",
+          "SITEM_0029",
+          "SITEM_0031",
+          "SITEM_0037",
+          "SITEM_0044",
+          "SITEM_0049",
+          "SITEM_0085",
+          "SITEM_0088",
+          "SITEM_0096",
+          "SITEM_0021",
+          "SITEM_0032",
+          "SITEM_0035",
+          "SITEM_0036",
+          "SITEM_0038",
+          "SITEM_0040",
+          "SITEM_0043",
+          "SITEM_0055",
+          "SITEM_0056",
+          "SITEM_0059",
+          "SITEM_0060",
+          "SITEM_0062",
+          "SITEM_0063",
+          "SITEM_0072",
+          "SITEM_0074",
+          "SITEM_0075",
+          "SITEM_0078",
+          "SITEM_0079",
+          "SITEM_0001",
+          "SITEM_0002",
+          "SITEM_0005",
+          "SITEM_0007",
+          "SITEM_0013"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 59,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 40
+      },
+      {
+        "pass": 3,
+        "n_eligible": 39,
+        "n_attempted": 24,
+        "n_deferred_replay_budget": 15,
+        "deferred_item_ids": [
+          "SITEM_0000",
+          "SITEM_0010",
+          "SITEM_0011",
+          "SITEM_0033",
+          "SITEM_0042",
+          "SITEM_0045",
+          "SITEM_0052",
+          "SITEM_0067",
+          "SITEM_0091",
+          "SITEM_0020",
+          "SITEM_0026",
+          "SITEM_0048",
+          "SITEM_0012",
+          "SITEM_0047",
+          "SITEM_0066"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0022",
+          "SITEM_0025",
+          "SITEM_0034",
+          "SITEM_0041",
+          "SITEM_0050",
+          "SITEM_0051",
+          "SITEM_0061",
+          "SITEM_0064",
+          "SITEM_0080",
+          "SITEM_0006",
+          "SITEM_0017",
+          "SITEM_0019",
+          "SITEM_0024",
+          "SITEM_0030",
+          "SITEM_0057",
+          "SITEM_0070",
+          "SITEM_0077",
+          "SITEM_0082",
+          "SITEM_0009",
+          "SITEM_0014",
+          "SITEM_0015",
+          "SITEM_0054",
+          "SITEM_0065",
+          "SITEM_0095"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 83,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 16
+      },
+      {
+        "pass": 4,
+        "n_eligible": 15,
+        "n_attempted": 9,
+        "n_deferred_replay_budget": 6,
+        "deferred_item_ids": [
+          "SITEM_0020",
+          "SITEM_0026",
+          "SITEM_0048",
+          "SITEM_0012",
+          "SITEM_0047",
+          "SITEM_0066"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0000",
+          "SITEM_0010",
+          "SITEM_0011",
+          "SITEM_0033",
+          "SITEM_0042",
+          "SITEM_0045",
+          "SITEM_0052",
+          "SITEM_0067",
+          "SITEM_0091"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 92,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 7
+      },
+      {
+        "pass": 5,
+        "n_eligible": 6,
+        "n_attempted": 4,
+        "n_deferred_replay_budget": 2,
+        "deferred_item_ids": [
+          "SITEM_0047",
+          "SITEM_0066"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0020",
+          "SITEM_0026",
+          "SITEM_0048",
+          "SITEM_0012"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 96,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 3
+      }
+    ],
+    "_ckpt_key": "scramble",
+    "_partial_written_at": 1786310411.0211775
+  },
+  "example_fhrr_extractions_glass_box": [
+    {
+      "id": "0",
+      "scenario": "looking for a flat",
+      "trigger": "decid",
+      "consequent": "give",
+      "agent": "we",
+      "patient": "office"
+    },
+    {
+      "id": "1",
+      "scenario": "moving into a new flat",
+      "trigger": "mak",
+      "consequent": "mov",
+      "agent": "i",
+      "patient": "flat"
+    },
+    {
+      "id": "10",
+      "scenario": "walking a dog",
+      "trigger": "going",
+      "consequent": "decid",
+      "agent": "i",
+      "patient": "leash"
+    },
+    {
+      "id": "100",
+      "scenario": "washing clothes",
+      "trigger": "do",
+      "consequent": "put",
+      "agent": "i",
+      "patient": "days"
+    },
+    {
+      "id": "1000",
+      "scenario": "going bowling",
+      "trigger": "want",
+      "consequent": "got",
+      "agent": "we",
+      "patient": "shoes"
+    },
+    {
+      "id": "1001",
+      "scenario": "attending a football match",
+      "trigger": "feel",
+      "consequent": "feel",
+      "agent": "i",
+      "patient": "house"
+    },
+    {
+      "id": "1002",
+      "scenario": "reviewing movies",
+      "trigger": "tak",
+      "consequent": "hop",
+      "agent": "i",
+      "patient": "class"
+    },
+    {
+      "id": "1003",
+      "scenario": "making scrambled eggs",
+      "trigger": "set",
+      "consequent": "grab",
+      "agent": "i",
+      "patient": "pan"
+    },
+    {
+      "id": "1004",
+      "scenario": "sewing a button",
+      "trigger": "play",
+      "consequent": "smil",
+      "agent": "she",
+      "patient": "it"
+    },
+    {
+      "id": "1005",
+      "scenario": "writing a letter",
+      "trigger": "use",
+      "consequent": "fold",
+      "agent": "i",
+      "patient": "things"
+    },
+    {
+      "id": "1006",
+      "scenario": "going to a concert",
+      "trigger": "take",
+      "consequent": "have",
+      "agent": "i",
+      "patient": "me"
+    },
+    {
+      "id": "1007",
+      "scenario": "playing a movie",
+      "trigger": "be",
+      "consequent": "begin",
+      "agent": "there",
+      "patient": "work"
+    }
+  ],
+  "verdict_stats": {
+    "real_commonsense_curve": [
+      0.5859,
+      0.5756,
+      0.5559,
+      0.5538,
+      0.5538
+    ],
+    "scramble_commonsense_curve": [
+      0.5859,
+      0.5352,
+      0.5207,
+      0.5124,
+      0.5114
+    ],
+    "baseline_text_overlap_commonsense_acc": 0.5859,
+    "baseline_majority_commonsense_acc": 0.4565,
+    "real_final": 0.5538,
+    "scramble_final": 0.5114,
+    "real_edge_over_baseline": -0.0321,
+    "scramble_edge_over_baseline": -0.0745,
+    "beats_baseline": false,
+    "non_decreasing": false,
+    "real_edge_exceeds_scramble_edge": true,
+    "precheck_a": {
+      "n_sample_instances": 390,
+      "n_matched_pairs": 195,
+      "n_wrong_pairs": 75660,
+      "matched_mean": 0.1821,
+      "wrong_mean": 0.0373,
+      "gap": 0.1448,
+      "auc": 0.8818,
+      "strict_full_separation_discriminates": false,
+      "realistic_discriminates_gap_and_auc": true,
+      "novelty_thresh_calibrated": 0.1061,
+      "gate_criteria": {
+        "min_gap": 0.05,
+        "min_auc": 0.6
+      }
+    }
+  },
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "keying/consolidation + MC-scoring cell; no argmax/top-k capacity ceiling applies"
+}

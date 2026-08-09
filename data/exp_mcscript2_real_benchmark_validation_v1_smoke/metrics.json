@@ -1,0 +1,959 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SYSTEM beats TEXT_OVERLAP baseline on commonsense DEV subset (0.6346 vs 0.5000, edge=0.1346), compounding curve non-decreasing ([0.5, 0.5769, 0.6346, 0.6346, 0.6346]), and the REAL arm's edge over baseline (0.1346) exceeds the SCRAMBLE arm's (0.0385) -- the beat depends on genuine grounding.",
+  "summary": "run_mode=smoke n_train=203 n_dev=18 verdict=HARD_PASS",
+  "elapsed_s": 5.084,
+  "run_mode": "smoke",
+  "config": {
+    "N_PASSES": 5,
+    "MIN_CONFIRM": 4,
+    "PATIENCE_MAX": 3,
+    "NEUTRAL_BAND": 0.34,
+    "REPLAY_BUDGET_FRAC": 0.6,
+    "SCHEMA_THRESH": 0.1,
+    "novelty_thresh_calibrated": 0.1195,
+    "mdl_gate": "N/A (Amendment 2, mdl_gate_fn=None)"
+  },
+  "precheck_a": {
+    "n_sample_instances": 30,
+    "n_matched_pairs": 15,
+    "n_wrong_pairs": 420,
+    "matched_mean": 0.2125,
+    "wrong_mean": 0.0354,
+    "gap": 0.1771,
+    "auc": 0.9505,
+    "strict_full_separation_discriminates": false,
+    "realistic_discriminates_gap_and_auc": true,
+    "novelty_thresh_calibrated": 0.1195,
+    "gate_criteria": {
+      "min_gap": 0.05,
+      "min_auc": 0.6
+    }
+  },
+  "baselines": {
+    "commonsense": {
+      "text_overlap_acc": 0.5,
+      "majority_acc": 0.6538461538461539,
+      "n_questions": 52
+    },
+    "text": {
+      "text_overlap_acc": 0.8,
+      "majority_acc": 0.48,
+      "n_questions": 25
+    },
+    "positive-merged": {
+      "text_overlap_acc": 0.7857142857142857,
+      "majority_acc": 0.5714285714285714,
+      "n_questions": 14
+    },
+    "ALL": {
+      "text_overlap_acc": 0.6263736263736264,
+      "majority_acc": 0.5934065934065934,
+      "n_questions": 91
+    }
+  },
+  "majority_answer_id": "1",
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "n_train_instances": 203,
+  "n_dev_instances": 18,
+  "n_train_scenarios": 15,
+  "n_dev_scenarios": 11,
+  "real_arm": {
+    "seed": "real",
+    "run_mode": "smoke",
+    "n_items_spawned_total": 14,
+    "grounded_count_curve": [
+      0,
+      7,
+      10,
+      11,
+      11
+    ],
+    "dev_accuracy_curve": [
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5,
+            "n_questions": 52,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "text": {
+            "system_acc": 0.8,
+            "n_questions": 25,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "positive-merged": {
+            "system_acc": 0.7857142857142857,
+            "n_questions": 14,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "ALL": {
+            "system_acc": 0.6263736263736264,
+            "n_questions": 91,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          }
+        },
+        "coverage": 0.0,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5769230769230769,
+            "n_questions": 52,
+            "covered_system_acc": 0.7222222222222222,
+            "covered_text_baseline_acc": 0.5,
+            "n_covered": 18
+          },
+          "text": {
+            "system_acc": 0.72,
+            "n_questions": 25,
+            "covered_system_acc": 0.625,
+            "covered_text_baseline_acc": 0.875,
+            "n_covered": 8
+          },
+          "positive-merged": {
+            "system_acc": 0.8571428571428571,
+            "n_questions": 14,
+            "covered_system_acc": 0.8571428571428571,
+            "covered_text_baseline_acc": 0.7142857142857143,
+            "n_covered": 7
+          },
+          "ALL": {
+            "system_acc": 0.6593406593406593,
+            "n_questions": 91,
+            "covered_system_acc": 0.7272727272727273,
+            "covered_text_baseline_acc": 0.6363636363636364,
+            "n_covered": 33
+          }
+        },
+        "coverage": 0.3626373626373626,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.6346153846153846,
+            "n_questions": 52,
+            "covered_system_acc": 0.6530612244897959,
+            "covered_text_baseline_acc": 0.5102040816326531,
+            "n_covered": 49
+          },
+          "text": {
+            "system_acc": 0.56,
+            "n_questions": 25,
+            "covered_system_acc": 0.56,
+            "covered_text_baseline_acc": 0.8,
+            "n_covered": 25
+          },
+          "positive-merged": {
+            "system_acc": 0.7142857142857143,
+            "n_questions": 14,
+            "covered_system_acc": 0.7142857142857143,
+            "covered_text_baseline_acc": 0.7857142857142857,
+            "n_covered": 14
+          },
+          "ALL": {
+            "system_acc": 0.6263736263736264,
+            "n_questions": 91,
+            "covered_system_acc": 0.6363636363636364,
+            "covered_text_baseline_acc": 0.6363636363636364,
+            "n_covered": 88
+          }
+        },
+        "coverage": 0.967032967032967,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.6346153846153846,
+            "n_questions": 52,
+            "covered_system_acc": 0.6530612244897959,
+            "covered_text_baseline_acc": 0.5102040816326531,
+            "n_covered": 49
+          },
+          "text": {
+            "system_acc": 0.56,
+            "n_questions": 25,
+            "covered_system_acc": 0.56,
+            "covered_text_baseline_acc": 0.8,
+            "n_covered": 25
+          },
+          "positive-merged": {
+            "system_acc": 0.7142857142857143,
+            "n_questions": 14,
+            "covered_system_acc": 0.7142857142857143,
+            "covered_text_baseline_acc": 0.7857142857142857,
+            "n_covered": 14
+          },
+          "ALL": {
+            "system_acc": 0.6263736263736264,
+            "n_questions": 91,
+            "covered_system_acc": 0.6363636363636364,
+            "covered_text_baseline_acc": 0.6363636363636364,
+            "n_covered": 88
+          }
+        },
+        "coverage": 0.967032967032967,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.6346153846153846,
+            "n_questions": 52,
+            "covered_system_acc": 0.6530612244897959,
+            "covered_text_baseline_acc": 0.5102040816326531,
+            "n_covered": 49
+          },
+          "text": {
+            "system_acc": 0.56,
+            "n_questions": 25,
+            "covered_system_acc": 0.56,
+            "covered_text_baseline_acc": 0.8,
+            "n_covered": 25
+          },
+          "positive-merged": {
+            "system_acc": 0.7142857142857143,
+            "n_questions": 14,
+            "covered_system_acc": 0.7142857142857143,
+            "covered_text_baseline_acc": 0.7857142857142857,
+            "n_covered": 14
+          },
+          "ALL": {
+            "system_acc": 0.6263736263736264,
+            "n_questions": 91,
+            "covered_system_acc": 0.6363636363636364,
+            "covered_text_baseline_acc": 0.6363636363636364,
+            "n_covered": 88
+          }
+        },
+        "coverage": 0.967032967032967,
+        "n_total_questions": 91
+      }
+    ],
+    "item_purity": {
+      "SITEM_0000": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 19,
+        "majority_scenario": "attending a football match",
+        "majority_frac": 0.158
+      },
+      "SITEM_0001": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 20,
+        "majority_scenario": "buying a DVD player",
+        "majority_frac": 0.65
+      },
+      "SITEM_0002": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 23,
+        "majority_scenario": "answering the phone",
+        "majority_frac": 0.565
+      },
+      "SITEM_0003": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 9,
+        "majority_scenario": "adopting a pet",
+        "majority_frac": 0.778
+      },
+      "SITEM_0004": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 32,
+        "majority_scenario": "baking a cake",
+        "majority_frac": 0.438
+      },
+      "SITEM_0005": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 21,
+        "majority_scenario": "applying band aid",
+        "majority_frac": 0.571
+      },
+      "SITEM_0006": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 27,
+        "majority_scenario": "boiling milk",
+        "majority_frac": 0.519
+      },
+      "SITEM_0007": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 14,
+        "majority_scenario": "attending a court hearing",
+        "majority_frac": 0.857
+      },
+      "SITEM_0008": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 15,
+        "majority_scenario": "brushing teeth",
+        "majority_frac": 0.667
+      },
+      "SITEM_0009": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "attending a football match",
+        "majority_frac": 0.833
+      },
+      "SITEM_0010": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 12,
+        "majority_scenario": "attending a job interview",
+        "majority_frac": 0.667
+      }
+    },
+    "per_pass_reports": [
+      {
+        "pass": 1,
+        "n_eligible": 0,
+        "n_attempted": 0,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 0,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 14
+      },
+      {
+        "pass": 2,
+        "n_eligible": 11,
+        "n_attempted": 7,
+        "n_deferred_replay_budget": 4,
+        "deferred_item_ids": [
+          "SITEM_0006",
+          "SITEM_0004",
+          "SITEM_0008",
+          "SITEM_0005"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0009",
+          "SITEM_0010",
+          "SITEM_0003",
+          "SITEM_0007",
+          "SITEM_0001",
+          "SITEM_0002",
+          "SITEM_0000"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 7,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 7
+      },
+      {
+        "pass": 3,
+        "n_eligible": 4,
+        "n_attempted": 3,
+        "n_deferred_replay_budget": 1,
+        "deferred_item_ids": [
+          "SITEM_0005"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0006",
+          "SITEM_0004",
+          "SITEM_0008"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 10,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 4
+      },
+      {
+        "pass": 4,
+        "n_eligible": 1,
+        "n_attempted": 1,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0005"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 11,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 3
+      },
+      {
+        "pass": 5,
+        "n_eligible": 0,
+        "n_attempted": 0,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 11,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 3
+      }
+    ],
+    "_ckpt_key": "real",
+    "_partial_written_at": 1786309673.3438418
+  },
+  "scramble_arm": {
+    "seed": "scramble",
+    "run_mode": "smoke",
+    "n_items_spawned_total": 70,
+    "grounded_count_curve": [
+      0,
+      12,
+      17,
+      19,
+      19
+    ],
+    "dev_accuracy_curve": [
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5,
+            "n_questions": 52,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "text": {
+            "system_acc": 0.8,
+            "n_questions": 25,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "positive-merged": {
+            "system_acc": 0.7857142857142857,
+            "n_questions": 14,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          },
+          "ALL": {
+            "system_acc": 0.6263736263736264,
+            "n_questions": 91,
+            "covered_system_acc": 0.0,
+            "covered_text_baseline_acc": 0.0,
+            "n_covered": 0
+          }
+        },
+        "coverage": 0.0,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5384615384615384,
+            "n_questions": 52,
+            "covered_system_acc": 0.6923076923076923,
+            "covered_text_baseline_acc": 0.5384615384615384,
+            "n_covered": 13
+          },
+          "text": {
+            "system_acc": 0.76,
+            "n_questions": 25,
+            "covered_system_acc": 0.5,
+            "covered_text_baseline_acc": 1.0,
+            "n_covered": 2
+          },
+          "positive-merged": {
+            "system_acc": 0.6428571428571429,
+            "n_questions": 14,
+            "covered_system_acc": 0.4,
+            "covered_text_baseline_acc": 0.8,
+            "n_covered": 5
+          },
+          "ALL": {
+            "system_acc": 0.6153846153846154,
+            "n_questions": 91,
+            "covered_system_acc": 0.6,
+            "covered_text_baseline_acc": 0.65,
+            "n_covered": 20
+          }
+        },
+        "coverage": 0.21978021978021978,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5384615384615384,
+            "n_questions": 52,
+            "covered_system_acc": 0.6923076923076923,
+            "covered_text_baseline_acc": 0.5384615384615384,
+            "n_covered": 13
+          },
+          "text": {
+            "system_acc": 0.76,
+            "n_questions": 25,
+            "covered_system_acc": 0.5,
+            "covered_text_baseline_acc": 1.0,
+            "n_covered": 2
+          },
+          "positive-merged": {
+            "system_acc": 0.6428571428571429,
+            "n_questions": 14,
+            "covered_system_acc": 0.4,
+            "covered_text_baseline_acc": 0.8,
+            "n_covered": 5
+          },
+          "ALL": {
+            "system_acc": 0.6153846153846154,
+            "n_questions": 91,
+            "covered_system_acc": 0.6,
+            "covered_text_baseline_acc": 0.65,
+            "n_covered": 20
+          }
+        },
+        "coverage": 0.21978021978021978,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5384615384615384,
+            "n_questions": 52,
+            "covered_system_acc": 0.6923076923076923,
+            "covered_text_baseline_acc": 0.5384615384615384,
+            "n_covered": 13
+          },
+          "text": {
+            "system_acc": 0.76,
+            "n_questions": 25,
+            "covered_system_acc": 0.5,
+            "covered_text_baseline_acc": 1.0,
+            "n_covered": 2
+          },
+          "positive-merged": {
+            "system_acc": 0.6428571428571429,
+            "n_questions": 14,
+            "covered_system_acc": 0.4,
+            "covered_text_baseline_acc": 0.8,
+            "n_covered": 5
+          },
+          "ALL": {
+            "system_acc": 0.6153846153846154,
+            "n_questions": 91,
+            "covered_system_acc": 0.6,
+            "covered_text_baseline_acc": 0.65,
+            "n_covered": 20
+          }
+        },
+        "coverage": 0.21978021978021978,
+        "n_total_questions": 91
+      },
+      {
+        "by_type": {
+          "commonsense": {
+            "system_acc": 0.5384615384615384,
+            "n_questions": 52,
+            "covered_system_acc": 0.6923076923076923,
+            "covered_text_baseline_acc": 0.5384615384615384,
+            "n_covered": 13
+          },
+          "text": {
+            "system_acc": 0.76,
+            "n_questions": 25,
+            "covered_system_acc": 0.5,
+            "covered_text_baseline_acc": 1.0,
+            "n_covered": 2
+          },
+          "positive-merged": {
+            "system_acc": 0.6428571428571429,
+            "n_questions": 14,
+            "covered_system_acc": 0.4,
+            "covered_text_baseline_acc": 0.8,
+            "n_covered": 5
+          },
+          "ALL": {
+            "system_acc": 0.6153846153846154,
+            "n_questions": 91,
+            "covered_system_acc": 0.6,
+            "covered_text_baseline_acc": 0.65,
+            "n_covered": 20
+          }
+        },
+        "coverage": 0.21978021978021978,
+        "n_total_questions": 91
+      }
+    ],
+    "item_purity": {
+      "SITEM_0000": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 5,
+        "majority_scenario": "attending a wedding ceremony",
+        "majority_frac": 0.4
+      },
+      "SITEM_0001": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 5,
+        "majority_scenario": "attending a job interview",
+        "majority_frac": 0.2
+      },
+      "SITEM_0002": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 5,
+        "majority_scenario": "buying a DVD player",
+        "majority_frac": 0.4
+      },
+      "SITEM_0005": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "answering the phone",
+        "majority_frac": 0.333
+      },
+      "SITEM_0006": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 4,
+        "majority_scenario": "adopting a pet",
+        "majority_frac": 0.5
+      },
+      "SITEM_0010": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 7,
+        "majority_scenario": "attending a court hearing",
+        "majority_frac": 0.286
+      },
+      "SITEM_0011": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 7,
+        "majority_scenario": "attending a wedding ceremony",
+        "majority_frac": 0.286
+      },
+      "SITEM_0013": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 5,
+        "majority_scenario": "borrowing a book from the library",
+        "majority_frac": 0.4
+      },
+      "SITEM_0017": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 4,
+        "majority_scenario": "boiling milk",
+        "majority_frac": 0.25
+      },
+      "SITEM_0018": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 4,
+        "majority_scenario": "applying band aid",
+        "majority_frac": 0.25
+      },
+      "SITEM_0019": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "answering the phone",
+        "majority_frac": 0.167
+      },
+      "SITEM_0020": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "baking a cake",
+        "majority_frac": 0.333
+      },
+      "SITEM_0022": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "answering the doorbell",
+        "majority_frac": 0.167
+      },
+      "SITEM_0028": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 6,
+        "majority_scenario": "buying a DVD player",
+        "majority_frac": 0.333
+      },
+      "SITEM_0029": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 4,
+        "majority_scenario": "baking a cake",
+        "majority_frac": 0.25
+      },
+      "SITEM_0031": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 5,
+        "majority_scenario": "attending a court hearing",
+        "majority_frac": 0.2
+      },
+      "SITEM_0038": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 4,
+        "majority_scenario": "answering the doorbell",
+        "majority_frac": 0.25
+      },
+      "SITEM_0039": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 4,
+        "majority_scenario": "baking a cake",
+        "majority_frac": 0.25
+      },
+      "SITEM_0041": {
+        "status": "GROUNDED_NEG",
+        "n_traces": 5,
+        "majority_scenario": "boiling milk",
+        "majority_frac": 0.2
+      }
+    },
+    "per_pass_reports": [
+      {
+        "pass": 1,
+        "n_eligible": 0,
+        "n_attempted": 0,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 0,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 70
+      },
+      {
+        "pass": 2,
+        "n_eligible": 19,
+        "n_attempted": 12,
+        "n_deferred_replay_budget": 7,
+        "deferred_item_ids": [
+          "SITEM_0011",
+          "SITEM_0019",
+          "SITEM_0002",
+          "SITEM_0031",
+          "SITEM_0010",
+          "SITEM_0013",
+          "SITEM_0041"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0018",
+          "SITEM_0038",
+          "SITEM_0022",
+          "SITEM_0029",
+          "SITEM_0039",
+          "SITEM_0006",
+          "SITEM_0005",
+          "SITEM_0028",
+          "SITEM_0000",
+          "SITEM_0017",
+          "SITEM_0020",
+          "SITEM_0001"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 12,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 58
+      },
+      {
+        "pass": 3,
+        "n_eligible": 7,
+        "n_attempted": 5,
+        "n_deferred_replay_budget": 2,
+        "deferred_item_ids": [
+          "SITEM_0013",
+          "SITEM_0041"
+        ],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0011",
+          "SITEM_0019",
+          "SITEM_0002",
+          "SITEM_0031",
+          "SITEM_0010"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 17,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 53
+      },
+      {
+        "pass": 4,
+        "n_eligible": 2,
+        "n_attempted": 2,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [
+          "SITEM_0013",
+          "SITEM_0041"
+        ],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 19,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 51
+      },
+      {
+        "pass": 5,
+        "n_eligible": 0,
+        "n_attempted": 0,
+        "n_deferred_replay_budget": 0,
+        "deferred_item_ids": [],
+        "newly_grounded_pos": [],
+        "newly_grounded_neg": [],
+        "newly_grounded_neutral": [],
+        "newly_escalated": [],
+        "cumulative_grounded": 19,
+        "cumulative_escalated": 0,
+        "cumulative_pending": 51
+      }
+    ],
+    "_ckpt_key": "scramble",
+    "_partial_written_at": 1786309674.5539005
+  },
+  "example_fhrr_extractions_glass_box": [
+    {
+      "id": "1001",
+      "scenario": "attending a football match",
+      "trigger": "feel",
+      "consequent": "feel",
+      "agent": "i",
+      "patient": "house"
+    },
+    {
+      "id": "101",
+      "scenario": "attending a job interview",
+      "trigger": "have",
+      "consequent": "feel",
+      "agent": "i",
+      "patient": "interview"
+    },
+    {
+      "id": "1010",
+      "scenario": "buying a DVD player",
+      "trigger": "break",
+      "consequent": "got",
+      "agent": "i",
+      "patient": "car"
+    },
+    {
+      "id": "1011",
+      "scenario": "buying a DVD player",
+      "trigger": "want",
+      "consequent": "decid",
+      "agent": "we",
+      "patient": "store"
+    },
+    {
+      "id": "1012",
+      "scenario": "borrowing a book from the library",
+      "trigger": "need",
+      "consequent": "leave",
+      "agent": "i",
+      "patient": "book"
+    },
+    {
+      "id": "1020",
+      "scenario": "buying a DVD player",
+      "trigger": "watch",
+      "consequent": "decid",
+      "agent": "i",
+      "patient": "movies"
+    },
+    {
+      "id": "1030",
+      "scenario": "answering the phone",
+      "trigger": "begin",
+      "consequent": "pres",
+      "agent": "i",
+      "patient": "button"
+    },
+    {
+      "id": "1032",
+      "scenario": "adopting a pet",
+      "trigger": "want",
+      "consequent": "be",
+      "agent": "i",
+      "patient": "dog"
+    },
+    {
+      "id": "1068",
+      "scenario": "baking a cake",
+      "trigger": "ask",
+      "consequent": "need",
+      "agent": "i",
+      "patient": "him"
+    },
+    {
+      "id": "1078",
+      "scenario": "buying a DVD player",
+      "trigger": "need",
+      "consequent": "drive",
+      "agent": "i",
+      "patient": "me"
+    },
+    {
+      "id": "1093",
+      "scenario": "applying band aid",
+      "trigger": "bump",
+      "consequent": "stuck",
+      "agent": "i",
+      "patient": "corner"
+    },
+    {
+      "id": "113",
+      "scenario": "attending a wedding ceremony",
+      "trigger": "last",
+      "consequent": "see",
+      "agent": "i",
+      "patient": "morning"
+    }
+  ],
+  "verdict_stats": {
+    "real_commonsense_curve": [
+      0.5,
+      0.5769,
+      0.6346,
+      0.6346,
+      0.6346
+    ],
+    "scramble_commonsense_curve": [
+      0.5,
+      0.5385,
+      0.5385,
+      0.5385,
+      0.5385
+    ],
+    "baseline_text_overlap_commonsense_acc": 0.5,
+    "baseline_majority_commonsense_acc": 0.6538,
+    "real_final": 0.6346,
+    "scramble_final": 0.5385,
+    "real_edge_over_baseline": 0.1346,
+    "scramble_edge_over_baseline": 0.0385,
+    "beats_baseline": true,
+    "non_decreasing": true,
+    "real_edge_exceeds_scramble_edge": true,
+    "precheck_a": {
+      "n_sample_instances": 30,
+      "n_matched_pairs": 15,
+      "n_wrong_pairs": 420,
+      "matched_mean": 0.2125,
+      "wrong_mean": 0.0354,
+      "gap": 0.1771,
+      "auc": 0.9505,
+      "strict_full_separation_discriminates": false,
+      "realistic_discriminates_gap_and_auc": true,
+      "novelty_thresh_calibrated": 0.1195,
+      "gate_criteria": {
+        "min_gap": 0.05,
+        "min_auc": 0.6
+      }
+    }
+  },
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "keying/consolidation + MC-scoring cell; no argmax/top-k capacity ceiling applies"
+}
