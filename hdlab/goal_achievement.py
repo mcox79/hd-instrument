@@ -297,8 +297,52 @@ def contrast_present(outcome: str) -> bool:
     return any(c in o for c in _CONNECTIVES)
 
 
+_union_hyps_cache = None
+
+
+def _union_hyps():
+    """(rt_name, rt_hyp, rel_name, rel_hyp) for the UNION OOV-recovery channel's two learned/fitted
+    sub-mechanisms (M2 result-type + fork-A relation), fit ONCE (module-wide cache) exactly like each
+    module's own `get_induced_hypothesis()` -- lazy-imported here (function-local, not module-level)
+    to avoid the circular import `hdlab/goal_outcome_relation.py`'s own module docstring documents
+    (it avoids importing FROM `goal_achievement.py` at module scope for the identical reason)."""
+    global _union_hyps_cache
+    if _union_hyps_cache is None:
+        from hdlab import result_type_induction as _rti
+        from hdlab import goal_outcome_relation as _gor
+        rt_name, rt_hyp = _rti.get_induced_hypothesis()
+        rel_name, rel_hyp = _gor.get_induced_hypothesis()
+        _union_hyps_cache = (rt_name, rt_hyp, rel_name, rel_hyp)
+    return _union_hyps_cache
+
+
 def goal_achievement_verdict(desire: str, outcome: str) -> dict:
-    """3-channel verdict. Returns {verdict, channel, reason, trace}. Glass-box, deterministic."""
+    """3-channel verdict, PLUS the UNION OOV-recovery strict-ADD fallback (2026-08-09,
+    exp_direction_b_union_wire_v1, WIRE_DECISION=True -- see data/exp_direction_b_union_wire_v1/
+    metrics.json). Returns {verdict, channel, reason, trace}. Glass-box, deterministic.
+
+    WIRING DESIGN (deliberately surgical, per the task contract's 'zero risk to existing Stage-2/M1/
+    M2/M3-inc1 numbers'): the union channel (hdlab.goal_achievement.utility_channel_union_grounded --
+    M2 resulttype + M1 idiom + fork-A relation, precedence resulttype -> relation -> idiom_fallback)
+    is tried ONLY when the base 3-channel pipeline genuinely abstained to majority (`channel ==
+    'majority'`, i.e. NEITHER relation_channel NOR valence_channel fired, AND no contrast-override
+    applies -- contrast_present(outcome) is guaranteed False whenever `channel` reaches 'majority'
+    here, since MAJORITY_CLASS == 'Fulfilled' and the override check below would already have fired
+    otherwise; same 'no re-application of contrast-override needed' reasoning documented in
+    exp_utility_satisfaction_channel_v1.composed_verdict and fork-A's own module comment). `channel`
+    is DELIBERATELY LEFT AS 'majority' when the union does not fire, or when it fires but the caller
+    should still be able to distinguish 'genuinely no signal at all' -- fires are marked via the NEW
+    trace fields `union_oov_recovery_fired`/`union_verdict` below, which ADD to (never overwrite) the
+    original relation/valence/contrast/base trace fields. This means any existing cohort-definition
+    code that filters on `channel == 'majority'` (e.g. exp_utility_satisfaction_channel_v1.
+    build_cohort, reused verbatim by every Direction-B M1/M2/M3-inc1/fork-A/union cell) keeps
+    selecting the IDENTICAL cohort population it always has -- ONLY `verdict` improves for the
+    ~23%-of-cohort items the union recovers; cohort MEMBERSHIP never shifts. Known, accepted
+    consequence: `harness_validity_check`-style gates in OLDER cells that compare a FRESH
+    goal_achievement_verdict-derived macro-F1 against the documented PRE-wire constant (0.686 @ n=80)
+    will now measure a HIGHER number (MEASURED this session: 0.7248 @ n=80, 0.6875 @ n=160) -- this is
+    the intended, gate-passed improvement, not drift; a cell re-run post-wire should compare against
+    the new baseline, not the frozen pre-wire one."""
     rel, reason = relation_channel(desire, outcome)
     val = valence_channel(outcome)
     if rel is not None:
@@ -311,10 +355,17 @@ def goal_achievement_verdict(desire: str, outcome: str) -> dict:
     override = False
     if base == "Fulfilled" and contrast_present(outcome):
         verdict, override = "Unfulfilled", True
-    return {"verdict": verdict, "channel": ("contrast_override" if override else channel),
-            "reason": reason, "trace": {"relation": rel, "relation_reason": reason,
-                                        "valence": val, "contrast": contrast_present(outcome),
-                                        "base": base, "override": override}}
+    result_channel = "contrast_override" if override else channel
+    trace = {"relation": rel, "relation_reason": reason, "valence": val,
+             "contrast": contrast_present(outcome), "base": base, "override": override}
+    if result_channel == "majority":
+        rt_name, rt_hyp, rel_name, rel_hyp = _union_hyps()
+        u = utility_channel_union_grounded(desire, outcome, rt_name, rt_hyp, rel_name, rel_hyp)
+        trace["union_oov_recovery_fired"] = u is not None
+        trace["union_verdict"] = u
+        if u is not None:
+            verdict = u
+    return {"verdict": verdict, "channel": result_channel, "reason": reason, "trace": trace}
 
 
 def self_test() -> dict:
@@ -1438,6 +1489,264 @@ def self_test_relation_grounded_channel() -> dict:
             "chosen_plugin": chosen_name}
 
 
+# ============================================================================ DIRECTION-B UNION
+# (2026-08-09, exp_direction_b_union_wire_v1) -- the wire-don't-island close-out. M1 (idiom lexicon),
+# M2 (learned result-type classifier), and fork-A (goal<->outcome relation: means-end + dictionary
+# contradiction) each catch a STRUCTURALLY DIFFERENT pattern class in the DesireDB abstain-cohort
+# residual (M2 = refusal/grant/block/achieve/fail speech-act constructions; relation = means-end
+# instantiation + conventionalized-contradiction; idiom = non-compositional colloquialisms neither of
+# the other two has any construction-cue or dictionary entry for -- MEASURED@this session's design
+# probe, e.g. "piece of cake"/"came together" fire idiom_votes while resulttype_votes AND
+# relation_votes both genuinely abstain, see exp_direction_b_union_wire_v1's self-test). This UNION
+# channel combines all three with an explicit, auditable PRECEDENCE (never a blind additive merge --
+# same discipline M3-inc1's combined_grounded already established for M1+M2):
+#
+#   1. RESULTTYPE (M2) first -- the validated COMPOSITIONAL CORE: best measured generalization
+#      (held_out_acc=0.88) and best measured DesireDB breadth (9/37) of the three individually.
+#   2. RELATION (fork-A) second -- means-end instantiation (held_out_acc=1.0) + dictionary
+#      contradiction (coverage=0.83); measured breadth 3/37, a DIFFERENT recovered-item set than M2's
+#      (means-end/contradiction constructions M2's speech-act pools have no cue for).
+#   3. IDIOM (M1) last -- the non-compositional long-tail (measured breadth 0/37 standalone, but
+#      catches colloquialisms neither construction-cue classifier nor either dictionary has an entry
+#      for, e.g. "piece of cake").
+#
+# Within the per-attribute per-token-vote layer (`active` non-empty, the Stage-2/M1/M2/M3-inc1/fork-A
+# shared path), ONLY the first source in this precedence that has ANYTHING to say votes -- exactly
+# M3-inc1's own "never both" discipline, extended from 2-way to 3-way, so `secondary_source` stays a
+# single unambiguous auditability field. When NO attribute activates at all (`active` is empty),
+# there is only ONE available source: fork-A's own RELATION_LINK pseudo-attribute fallback (its own
+# separately-seeded FHRR codebook, `_relation_fallback_vecs` above) -- M1/M2 have no equivalent
+# no-active-attribute path, so the union reuses fork-A's fallback block verbatim (this is the ONE
+# place the union's coverage is a strict superset of M1/M2's reach, not just a 3-way vote-precedence
+# extension of the shared per-attribute layer).
+_UNION_PRECEDENCE = ("resulttype", "relation", "idiom_fallback")  # fixed, pre-declared order --
+                                                                   # NOT tuned per item (calibration-
+                                                                   # honesty, same discipline as
+                                                                   # _IDIOM_VOTE_WEIGHT/
+                                                                   # _RESULTTYPE_VOTE_WEIGHT/
+                                                                   # _RELATION_VOTE_WEIGHT below).
+
+
+def _attribute_outcome_state_union_grounded(attr: str, outcome: str, desire: str,
+                                             chosen_name_rt, hypothesis_rt,
+                                             chosen_name_rel, hypothesis_rel) -> Tuple[str, dict]:
+    """UNION variant of `_attribute_outcome_state`: the same per-token WordNet vote PLUS ONE
+    supplementary vote chosen by the 3-way `_UNION_PRECEDENCE` (resulttype -> relation -> idiom).
+    Returns (state, trace); `trace['secondary_source']` is 'resulttype' | 'relation' |
+    'idiom_fallback' | 'none' (auditability -- per-sub-mechanism attribution is the whole point of
+    this cell). Applies `dedupe_repeated_sentences` first (same data-hygiene fix M1/M2/fork-A all
+    apply)."""
+    from hdlab import idiom_grounding as _ig
+    from hdlab import result_type_induction as _rti
+    from hdlab import goal_outcome_relation as _gor
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    npos, nneg = _token_vote(attr, outcome_dedup)
+    rt = _rti.result_type_votes(outcome_dedup, chosen_name_rt, hypothesis_rt)
+    if rt["POS"] or rt["NEG"]:
+        source = "resulttype"
+        sec_pos_w = _RESULTTYPE_VOTE_WEIGHT * rt["POS"]
+        sec_neg_w = _RESULTTYPE_VOTE_WEIGHT * rt["NEG"]
+        matched = rt["matched"]
+    else:
+        rel = _gor.relation_votes(desire, outcome_dedup, chosen_name_rel, hypothesis_rel)
+        if rel["POS"] or rel["NEG"]:
+            source = "relation"
+            sec_pos_w = _RELATION_VOTE_WEIGHT * rel["POS"]
+            sec_neg_w = _RELATION_VOTE_WEIGHT * rel["NEG"]
+            matched = rel["matched"]
+        else:
+            idiom = _ig.idiom_votes(outcome_dedup)
+            sec_pos_w = _IDIOM_VOTE_WEIGHT * idiom["POS"]
+            sec_neg_w = _IDIOM_VOTE_WEIGHT * idiom["NEG"]
+            matched = idiom["matched"]
+            source = "idiom_fallback" if (idiom["POS"] or idiom["NEG"]) else "none"
+    trace = {"token_npos": npos, "token_nneg": nneg, "secondary_source": source,
+             "secondary_pos_weighted": sec_pos_w, "secondary_neg_weighted": sec_neg_w,
+             "secondary_matched": matched}
+    npos += sec_pos_w
+    nneg += sec_neg_w
+    if npos == nneg:
+        return "ABSENT", trace
+    return ("SATISFIED" if npos > nneg else "VIOLATED"), trace
+
+
+def utility_channel_trace_union_grounded(desire: str, outcome: str, chosen_name_rt, hypothesis_rt,
+                                          chosen_name_rel, hypothesis_rel) -> dict:
+    """UNION (M1+M2+fork-A) variant of `utility_channel_trace`. SAME activation and SAME FHRR
+    bind/bundle/unbind scoring layer as Stage-2/M1/M2/M3-inc1/fork-A WHEN one of the original 6
+    ATTRIBUTES fires (3-way precedence per-attribute, `_attribute_outcome_state_union_grounded`);
+    falls back to fork-A's own RELATION_LINK pseudo-attribute (verbatim, see
+    `utility_channel_trace_relation_grounded`) when none of them do but fork-A's own goal-side
+    classification recognizes a class. NOT wired into `goal_achievement_verdict`'s precedence by
+    default -- see `exp_direction_b_union_wire_v1.py` for the wire-iff-net-positive gate; if that
+    gate passes, the wiring is a strict-ADD abstain-only fallback in `goal_achievement_verdict`
+    itself (never a change to the existing R/V/C precedence)."""
+    from hdlab import goal_outcome_relation as _gor
+    active = activate_attributes(desire)
+    if active:
+        roles, fillers = _utility_vecs()
+        per_attr = {}
+        weighted_terms = []
+        for attr, w in active.items():
+            state, trace = _attribute_outcome_state_union_grounded(
+                attr, outcome, desire, chosen_name_rt, hypothesis_rt, chosen_name_rel, hypothesis_rel)
+            weighted_terms.append(w * bind(roles[attr], fillers[state]))
+            per_attr[attr] = {"activation_weight": round(w, 2), "outcome_state": state,
+                               "grounding_trace": trace, "path": "stage2_attribute"}
+        U = bundle(torch.stack(weighted_terms))
+        score = 0.0
+        for attr, w in active.items():
+            probe = unbind(U, roles[attr])
+            recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+            per_attr[attr]["recovered_state"] = recovered_name
+            per_attr[attr]["recovered_margin"] = round(margin, 4)
+            per_attr[attr]["roundtrip_ok"] = (recovered_name == per_attr[attr]["outcome_state"])
+            score += w * _UTIL_SIGN[recovered_name]
+        if score == 0.0:
+            return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+        verdict = "Fulfilled" if score > 0.0 else "Unfulfilled"
+        return {"verdict": verdict, "reason": "weighted_bundle", "score": round(score, 4), "active": per_attr}
+
+    if not _gor.goal_atoms(desire):
+        return {"verdict": None, "reason": "no_attribute_activated", "active": {}}
+    from hdlab import idiom_grounding as _ig
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    rel = _gor.relation_votes(desire, outcome_dedup, chosen_name_rel, hypothesis_rel)
+    role, fillers = _relation_fallback_vecs()
+    if rel["POS"] == rel["NEG"]:  # both zero (abstain) or a tie -- never guess
+        state = "ABSENT"
+    else:
+        state = "SATISFIED" if rel["POS"] > rel["NEG"] else "VIOLATED"
+    U = bind(role, fillers[state])
+    probe = unbind(U, role)
+    recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+    trace = {"relation_pos_votes": rel["POS"], "relation_neg_votes": rel["NEG"],
+             "relation_matched": rel["matched"], "path": "relation_link_fallback"}
+    per_attr = {"RELATION_LINK": {"activation_weight": 1.0, "outcome_state": state,
+                                   "grounding_trace": trace, "recovered_state": recovered_name,
+                                   "recovered_margin": round(margin, 4),
+                                   "roundtrip_ok": (recovered_name == state), "path": "relation_link_fallback"}}
+    if recovered_name == "ABSENT":
+        return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+    verdict = "Fulfilled" if recovered_name == "SATISFIED" else "Unfulfilled"
+    score = _UTIL_SIGN[recovered_name]
+    return {"verdict": verdict, "reason": "relation_link_fallback", "score": round(score, 4), "active": per_attr}
+
+
+def utility_channel_union_grounded(desire: str, outcome: str, chosen_name_rt, hypothesis_rt,
+                                    chosen_name_rel, hypothesis_rel) -> Optional[str]:
+    """Fulfilled/Unfulfilled/None -- the UNION (M1+M2+fork-A) 4th-channel variant. See
+    `utility_channel_trace_union_grounded` for the mechanism."""
+    return utility_channel_trace_union_grounded(
+        desire, outcome, chosen_name_rt, hypothesis_rt, chosen_name_rel, hypothesis_rel)["verdict"]
+
+
+def self_test_union_grounded_channel() -> dict:
+    """MECHANISM-FIRES check for the UNION channel: FIVE real-DesireDB-flavored cases exercising
+    every precedence branch + the no-active-attribute RELATION_LINK fallback (MEASURED@this
+    session's design probe for cases 1-3; cases 4-5 reuse fork-A's own verified flagships verbatim),
+    mirroring self_test_idiom_grounded_channel/self_test_resulttype_grounded_channel/self_test_
+    relation_grounded_channel/self_test_combined_grounded_channel's discipline (pairscramble, FHRR
+    round-trip, determinism)."""
+    from hdlab import result_type_induction as _rti
+    from hdlab import goal_outcome_relation as _gor
+    rt_name, rt_hyp = _rti.get_induced_hypothesis()
+    rel_name, rel_hyp = _gor.get_induced_hypothesis()
+    assert rt_hyp is not None, "M2 induction abstained on its own TRAIN set -- cannot self-test"
+    assert rel_hyp is not None, "fork-A induction abstained on its own TRAIN set -- cannot self-test"
+
+    def _union(d, o):
+        return utility_channel_trace_union_grounded(d, o, rt_name, rt_hyp, rel_name, rel_hyp)
+
+    # (1) RESULTTYPE precedence: "Uh. No." matches BOTH resulttype's bare-discourse-negation REFUSAL
+    # rule AND idiom_grounding's own 'uh_no' pattern -- proves the union picks resulttype FIRST, not
+    # merely that resulttype can fire in isolation (M2/M3-inc1's own flagship case).
+    desire1 = "My girl [wanted to] act it out in real life, even wanting to move to England! Uh. No."
+    outcome1 = "Uh. No. Uh. No."
+    plain1 = utility_channel_trace(desire1, outcome1)
+    u1 = _union(desire1, outcome1)
+    assert plain1["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain1}"
+    assert u1["verdict"] == "Unfulfilled", f"MECHANISM-FIRES FAILURE (case1 resulttype): {u1}"
+    src1 = {a: info["grounding_trace"]["secondary_source"] for a, info in u1["active"].items()}
+    assert all(s == "resulttype" for s in src1.values()), f"PRECEDENCE FAILURE (case1): {src1}"
+
+    # (2) RELATION precedence (2nd in line): resulttype genuinely abstains (no comm/give/achieve/
+    # fail-class verb, no negator); fork-A's learned classifier fires INSTANTIATES via
+    # goal_activity_engagement('busy') x outcome_errand_activity('shopping'); idiom_votes abstains.
+    desire2 = "I wanted to stay busy and finish the project."
+    outcome2 = "She went shopping instead all afternoon."
+    plain2 = utility_channel_trace(desire2, outcome2)
+    rt2 = _rti.result_type_votes(outcome2, rt_name, rt_hyp)
+    u2 = _union(desire2, outcome2)
+    assert plain2["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain2}"
+    assert rt2["POS"] == 0 and rt2["NEG"] == 0, f"fixture assumption broken: resulttype fired on case2: {rt2}"
+    assert u2["verdict"] == "Fulfilled", f"MECHANISM-FIRES FAILURE (case2 relation): {u2}"
+    src2 = {a: info["grounding_trace"]["secondary_source"] for a, info in u2["active"].items()}
+    assert all(s == "relation" for s in src2.values()), f"PRECEDENCE FAILURE (case2): {src2}"
+
+    # (3) IDIOM fallback (3rd/last in line): resulttype AND relation both genuinely abstain; only
+    # the hand-authored idiom lexicon ("piece of cake" / "came together") has anything to say.
+    desire3 = "I wanted to win the lottery."
+    outcome3 = "It was a piece of cake and things came together nicely."
+    plain3 = utility_channel_trace(desire3, outcome3)
+    rt3 = _rti.result_type_votes(outcome3, rt_name, rt_hyp)
+    rel3 = _gor.relation_votes(desire3, outcome3, rel_name, rel_hyp)
+    u3 = _union(desire3, outcome3)
+    assert plain3["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain3}"
+    assert rt3["POS"] == 0 and rt3["NEG"] == 0, f"fixture assumption broken: resulttype fired on case3: {rt3}"
+    assert rel3["POS"] == 0 and rel3["NEG"] == 0, f"fixture assumption broken: relation fired on case3: {rel3}"
+    assert u3["verdict"] == "Fulfilled", f"MECHANISM-FIRES FAILURE (case3 idiom fallback): {u3}"
+    src3 = {a: info["grounding_trace"]["secondary_source"] for a, info in u3["active"].items()}
+    assert all(s == "idiom_fallback" for s in src3.values()), f"FALLBACK FAILURE (case3): {src3}"
+
+    # (4) RELATION_LINK no-active-attribute fallback, MEANS-END sub-case (fork-A's own flagship;
+    # activate_attributes({}) empty -- none of the 6 hand ATTRIBUTES cover a pure COGNITION goal).
+    desire4 = "I wanted to know why he left."
+    outcome4 = "We discussed it at length last night."
+    assert activate_attributes(desire4) == {}, "fixture assumption broken: an ATTRIBUTE activated on case4"
+    u4 = _union(desire4, outcome4)
+    assert u4["verdict"] == "Fulfilled", f"MECHANISM-FIRES FAILURE (case4 relation_link means-end): {u4}"
+    assert u4["active"]["RELATION_LINK"]["path"] == "relation_link_fallback", u4
+
+    # (5) RELATION_LINK no-active-attribute fallback, CONTRADICTION sub-case (fork-A's own flagship).
+    desire5 = "She wanted to be out and about."
+    outcome5 = "In the end everyone backed off and stayed home instead."
+    assert activate_attributes(desire5) == {}, "fixture assumption broken: an ATTRIBUTE activated on case5"
+    u5 = _union(desire5, outcome5)
+    assert u5["verdict"] == "Unfulfilled", f"MECHANISM-FIRES FAILURE (case5 relation_link contradiction): {u5}"
+    assert u5["active"]["RELATION_LINK"]["grounding_trace"]["relation_matched"] == ["back_off"], u5
+
+    # (6) FHRR round-trip fidelity on all 5 cases.
+    for r in (u1, u2, u3, u4, u5):
+        for attr, info in r["active"].items():
+            assert info["roundtrip_ok"], f"FHRR ROUND-TRIP FAILURE on {attr!r}: {info}"
+
+    # (7) pairscramble control: a WRONG goal cue must not reproduce the correct pick, on cases
+    # spanning both branches (case2 = active-attribute/relation-precedence; case4 = no-active-
+    # attribute/RELATION_LINK). Same weak-but-established convention as M1/M2/fork-A's own scramble
+    # checks (the OR-clause is satisfied trivially when the scrambled cue's OWN activation set
+    # differs from the real goal's -- the load-bearing case is when they happen to COINCIDE).
+    scramble_desire = "I wanted to buy a new bike."
+    scr2 = utility_channel_union_grounded(scramble_desire, outcome2, rt_name, rt_hyp, rel_name, rel_hyp)
+    assert scr2 != "Fulfilled" or activate_attributes(scramble_desire) != activate_attributes(desire2), (
+        f"SCRAMBLE-CONTROL AMBIGUOUS (case2): scrambled-cue verdict={scr2!r} reproduced the union "
+        f"pick with an IDENTICAL activation set to the real goal")
+    scr4 = utility_channel_union_grounded(scramble_desire, outcome4, rt_name, rt_hyp, rel_name, rel_hyp)
+    assert scr4 != "Fulfilled" or activate_attributes(scramble_desire) != activate_attributes(desire4), (
+        f"SCRAMBLE-CONTROL AMBIGUOUS (case4): scrambled-cue verdict={scr4!r} reproduced the union "
+        f"pick with an IDENTICAL activation set to the real goal")
+
+    # (8) determinism.
+    assert _union(desire2, outcome2)["score"] == u2["score"]
+
+    return {"case1_resulttype_precedence": u1, "case2_relation_precedence": u2,
+            "case3_idiom_fallback": u3, "case4_relation_link_means_end": u4,
+            "case5_relation_link_contradiction": u5,
+            "sources": {"case1": src1, "case2": src2, "case3": src3},
+            "scrambled_case2": scr2, "scrambled_case4": scr4,
+            "chosen_plugin_resulttype": rt_name, "chosen_plugin_relation": rel_name}
+
+
 if __name__ == "__main__":
     import json
     print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued(),
@@ -1445,5 +1754,6 @@ if __name__ == "__main__":
                        "self_test_idiom_grounded_channel": self_test_idiom_grounded_channel(),
                        "self_test_resulttype_grounded_channel": self_test_resulttype_grounded_channel(),
                        "self_test_combined_grounded_channel": self_test_combined_grounded_channel(),
-                       "self_test_relation_grounded_channel": self_test_relation_grounded_channel()},
+                       "self_test_relation_grounded_channel": self_test_relation_grounded_channel(),
+                       "self_test_union_grounded_channel": self_test_union_grounded_channel()},
                       indent=2, default=str))

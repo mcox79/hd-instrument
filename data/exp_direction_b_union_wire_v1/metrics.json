@@ -1,0 +1,531 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "PRIMARY cohort n=22: recovery_union=0.625 (5/8) vs recovery_M2_alone=0.375 recovery_M1_alone=0.25 recovery_relation_alone=0.25 genuinely_additive=True || FULL_BENCH n=160: base_macro_f1=0.6623 union_macro_f1=0.6875 delta=+0.0252 no_regression=True || FULL_BENCH n=80: base_macro_f1=0.6992 union_macro_f1=0.7248 no_regression=True || pairscramble PRIMARY: |scr-i|=0.0000 (<=0.05 collapse=True) |scr-mech|=0.1818 (>0.03 not-leak, leaks=False) || pairscramble BREADTH: collapses_at_scale=True || BREADTH(context): recovery_union=0.2703 (10/37) vs M2=0.2432(9/37) M1=0.0(0/37) relation=0.0811(3/37) union_beats_max_single=True || WIRE_DECISION=True",
+  "summary": "HARD_PASS: PRIMARY cohort n=22: recovery_union=0.625 (5/8) vs recovery_M2_alone=0.375 recovery_M1_alone=0.25 recovery_relation_alone=0.25 genuinely_additive=True || FULL_BENCH n=160: base_macro_f1=0.6623 union_macro_f1=0.6875 delta=+0.0252 no_regression=True || FULL_BENCH n=80: base_macro_f1=0.6992 union_macro_f1=0.7248 no_regression=True || pairscramble PRIMARY: |scr-i|=0.0000 (<=0.05 collapse=True) |scr-mech|=0.1818 (>0.03 not-leak, leaks=False) || pairscramble BREADTH: collapses_at_scale=True || BREADTH(context): recovery_union=0.2703 (10/37) vs M2=0.2432(9/37) M1=0.0(0/37) relation=0.0811(3/37) union_beats_max_single=True || WIRE_DECISION=True",
+  "elapsed_s": 526.557,
+  "run_mode": "full",
+  "anchor_name": "direction_b_union_wire_v1",
+  "n_sample": 160,
+  "n_per_class": 80,
+  "seed": 20260808,
+  "wire_decision": true,
+  "cohort_metrics": {
+    "cohort_n": 22,
+    "activation_fires_rate": 0.2727,
+    "verdict_fires_rate_union": 0.4091,
+    "gold_dist": {
+      "Fulfilled": 14,
+      "Unfulfilled": 8
+    },
+    "acc_i": 0.6364,
+    "acc_ii": 0.6364,
+    "acc_iii_m2": 0.7727,
+    "acc_iv_m1": 0.7273,
+    "acc_v_relation": 0.6818,
+    "acc_vi_union": 0.8182,
+    "acc_vii_union_scr": 0.6364,
+    "macro_f1_i": 0.3889,
+    "macro_f1_ii": 0.3889,
+    "macro_f1_iii_m2": 0.697,
+    "macro_f1_iv_m1": 0.6118,
+    "macro_f1_v_relation": 0.5758,
+    "macro_f1_vi_union": 0.7905,
+    "macro_f1_vii_union_scr": 0.581,
+    "recovery_i": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_ii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_iii_m2": {
+      "n_majority_wrong": 8,
+      "n_recovered": 3,
+      "rate": 0.375
+    },
+    "recovery_iv_m1": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_v_relation": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_vi_union": {
+      "n_majority_wrong": 8,
+      "n_recovered": 5,
+      "rate": 0.625
+    },
+    "recovery_vii_union_scr": {
+      "n_majority_wrong": 8,
+      "n_recovered": 3,
+      "rate": 0.375
+    },
+    "per_item_attribution_primary": [
+      {
+        "idx": 91,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": true,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 99,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": true,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 107,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 118,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 135,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 144,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": true,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 150,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": true,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 154,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "iii_m2": "a92cf1386708293ab2e532c246fa8c1a9bb7cdc422d9df2838f454512adf17e1",
+    "iv_m1": "c05c5f392c155b52f57f4a036d5e3fe826062937d3a88ad8d685f7f142001ace",
+    "v_relation": "2664601952af71cd4159b072e04b51c2aed81b14b1673e24f7334544a5ba5e14",
+    "vi_union": "6799880a8126dba9b96cfdd69f0f6c17015a01807735d414d5dfc4d241c9b236",
+    "vii_union_scr": "f14a35050a6efef85c80634eee625553bf8ae7ddd97efb5d20f3802ddfbde8f9"
+  },
+  "harness_validity_check": {
+    "n": 80,
+    "measured_acc": 0.7,
+    "measured_macro_f1": 0.6992,
+    "documented_macro_f1": 0.686,
+    "delta_macro_f1": 0.0132,
+    "valid": true,
+    "tolerance": 0.03
+  },
+  "full_bench_n80": {
+    "n": 80,
+    "base": {
+      "acc": 0.7,
+      "macro_f1": 0.6992
+    },
+    "union": {
+      "acc": 0.725,
+      "macro_f1": 0.7248
+    },
+    "macro_f1_delta_union_minus_base": 0.0256,
+    "no_regression": true
+  },
+  "full_bench_n160": {
+    "n": 160,
+    "base": {
+      "acc": 0.6625,
+      "macro_f1": 0.6623
+    },
+    "union": {
+      "acc": 0.6875,
+      "macro_f1": 0.6875
+    },
+    "macro_f1_delta_union_minus_base": 0.0252,
+    "no_regression": true
+  },
+  "breadth_cohort_context": {
+    "n_subsample_rows": 900,
+    "n_total_rows_available": 3076,
+    "cohort_n": 152,
+    "gold_unfulfilled_n": 37,
+    "recovery_union": {
+      "n_recovered": 10,
+      "n_majority_wrong": 37,
+      "rate": 0.2703
+    },
+    "n_max_single_submechanism_recovered": 9,
+    "union_beats_max_single": true,
+    "pairscramble_at_scale": {
+      "cohort_n": 152,
+      "acc_i": 0.7566,
+      "acc_scrambled_union": 0.7105,
+      "delta": 0.0461,
+      "collapses_at_scale": true
+    },
+    "union_source_frequency": {
+      "resulttype": 19,
+      "none": 8,
+      "relation_link_fallback": 5
+    },
+    "per_item_attribution": [
+      {
+        "idx": 1,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 16,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 60,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 82,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 107,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 109,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 116,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": true,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 210,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 223,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 261,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": true,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 297,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 317,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 333,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 343,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 349,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 353,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 378,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 394,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 435,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 469,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 506,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 510,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 517,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 526,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 538,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 598,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 605,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 646,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 650,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 661,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 730,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 746,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": true,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 856,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 863,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 866,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 868,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 879,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      }
+    ],
+    "m1_breadth_reference": {
+      "recovery_rate": 0.0,
+      "n_recovered": 0,
+      "n_majority_wrong": 37,
+      "source": "data/exp_direction_b_M1_idiom_grounding_recovery_v1/metrics.json"
+    },
+    "m2_breadth_reference": {
+      "recovery_rate": 0.2432,
+      "n_recovered": 9,
+      "n_majority_wrong": 37,
+      "source": "data/exp_direction_b_M2_speechact_result_generalization_v1/metrics.json"
+    },
+    "relation_breadth_reference": {
+      "recovery_rate": 0.0811,
+      "n_recovered": 3,
+      "n_majority_wrong": 37,
+      "source": "data/exp_direction_b_A_goal_outcome_relation_v1/metrics.json"
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 7,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic construction-cue-vote learners (M2 resulttype + fork-A relation, estimation/ruleind over fixed boolean feature spaces) + WordNet-MWE dictionary lookup (fork-A disengagement) + hand-authored idiom-phrase regex (M1) + FHRR bind/bundle/cleanup over a fixed 6-role x 3-filler codebook PLUS the separately-seeded 1-role RELATION_LINK fallback codebook -- identical justification to Stage-2/M1/M2/M3-inc1/fork-A's crlb_n/a, unchanged FHRR mechanism layer",
+  "deterministic_seeding": true
+}

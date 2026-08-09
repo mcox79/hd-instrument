@@ -1,0 +1,153 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_OK: cohort n=22 activation_fires_rate=0.273 verdict_fires_rate_union=0.409 recovery_union=0.625 (5/8) recovery_m2=0.375 recovery_m1=0.25 recovery_relation=0.25 arms_differ=True",
+  "summary": "HARD_PASS: SMOKE_OK: cohort n=22 activation_fires_rate=0.273 verdict_fires_rate_union=0.409 recovery_union=0.625 (5/8) recovery_m2=0.375 recovery_m1=0.25 recovery_relation=0.25 arms_differ=True",
+  "elapsed_s": 56.022,
+  "run_mode": "smoke",
+  "anchor_name": "direction_b_union_wire_v1",
+  "n_sample": 160,
+  "n_per_class": 80,
+  "seed": 20260808,
+  "cohort_metrics": {
+    "cohort_n": 22,
+    "activation_fires_rate": 0.2727,
+    "verdict_fires_rate_union": 0.4091,
+    "gold_dist": {
+      "Fulfilled": 14,
+      "Unfulfilled": 8
+    },
+    "acc_i": 0.6364,
+    "acc_ii": 0.6364,
+    "acc_iii_m2": 0.7727,
+    "acc_iv_m1": 0.7273,
+    "acc_v_relation": 0.6818,
+    "acc_vi_union": 0.8182,
+    "acc_vii_union_scr": 0.6364,
+    "macro_f1_i": 0.3889,
+    "macro_f1_ii": 0.3889,
+    "macro_f1_iii_m2": 0.697,
+    "macro_f1_iv_m1": 0.6118,
+    "macro_f1_v_relation": 0.5758,
+    "macro_f1_vi_union": 0.7905,
+    "macro_f1_vii_union_scr": 0.581,
+    "recovery_i": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_ii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_iii_m2": {
+      "n_majority_wrong": 8,
+      "n_recovered": 3,
+      "rate": 0.375
+    },
+    "recovery_iv_m1": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_v_relation": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_vi_union": {
+      "n_majority_wrong": 8,
+      "n_recovered": 5,
+      "rate": 0.625
+    },
+    "recovery_vii_union_scr": {
+      "n_majority_wrong": 8,
+      "n_recovered": 3,
+      "rate": 0.375
+    },
+    "per_item_attribution_primary": [
+      {
+        "idx": 91,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": true,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 99,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": true,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 107,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 118,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      },
+      {
+        "idx": 135,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 144,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": true,
+        "recovered_by_m1": true,
+        "recovered_by_relation": false,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 150,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": true,
+        "recovered_by_union": true
+      },
+      {
+        "idx": 154,
+        "gold": "Unfulfilled",
+        "recovered_by_m2": false,
+        "recovered_by_m1": false,
+        "recovered_by_relation": false,
+        "recovered_by_union": false
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "iii_m2": "a92cf1386708293ab2e532c246fa8c1a9bb7cdc422d9df2838f454512adf17e1",
+    "iv_m1": "c05c5f392c155b52f57f4a036d5e3fe826062937d3a88ad8d685f7f142001ace",
+    "v_relation": "2664601952af71cd4159b072e04b51c2aed81b14b1673e24f7334544a5ba5e14",
+    "vi_union": "6799880a8126dba9b96cfdd69f0f6c17015a01807735d414d5dfc4d241c9b236",
+    "vii_union_scr": "f14a35050a6efef85c80634eee625553bf8ae7ddd97efb5d20f3802ddfbde8f9"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 7,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true
+}
