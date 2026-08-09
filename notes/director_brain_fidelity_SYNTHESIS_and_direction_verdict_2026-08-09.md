@@ -104,9 +104,30 @@ Two refinements from A:
      >=10pt HARD-PASS on the mixed-polarity subset. My graded-utility probe already supports (ii)>(iii)
      but cautions the absolute lift is the real can-fail (readout may cap ~0.60). Addresses the BINDING
      half of the wall.
-   - STAGE 2 (Direction B, expensive): grounded utility-scoring fit-check for the OOV/vocabulary half +
-     the hard polarity -- Chandra-2024 inverse-planning feasibility drill IN FLIGHT to size it
-     (weeks-minimal vs months) + name the cheapest first experiment.
+   - STAGE 2 (utility-satisfaction-checking): grounded utility-scoring fit-check. **Feasibility drill
+     LANDED (notes/research_glassbox_utility_inverse_planning_leg_2026-08-09.md) = WEEKS not months.**
+     KEY REFRAME (P=0.65): the inverse-planning apparatus (Chandra/Baker/Ullman -- all fully NON-LLM,
+     primary-source+code verified) solves goal-INFERENCE-from-behavior (hard, needs value-iteration/
+     POMDP/SMC per hypothesis); DesireDB hands us the STATED goal, so we need only goal-satisfaction-
+     CHECKING (state |= goal), the EASIER problem in the literature's own terms -- NO planner needed.
+     MECHANISM (owned primitives): goal utility = weighted bundle of role-bind attribute-predicates
+     (5-6 hand-specified domain-generic dims: ACQUIRE/POSSESS, LOCATION-REACHED, SOCIAL-CONNECTION,
+     AVOID-HARM, ACTIVITY-COMPLETION, EMOTIONAL-STATE); score outcome per-attribute via unbind +
+     cleanup_with_margin vs {SATISFIED,VIOLATED,ABSENT}; reuse relation_channel/valence_channel
+     PER-ATTRIBUTE not holistically; weighted-sum + margin-refuse. Novel piece (capped P=0.50): graded
+     partial-satisfaction combination (not literature-precedented). PRE-REG cheap test (~2-4 days):
+     4th channel on the ABSTAIN-TO-MAJORITY cohort only; HARD-PASS >=40% recovery + full-bench >=0.686
+     (no regression) + pairscramble collapse within 0.05 of majority; HARD-FAIL <15% or regression
+     <0.620 or pairscramble non-collapse. My graded-utility probe (crude version) already got 0.278
+     recovery = MIDDLE-band -> the principled FHRR version has a real shot at HARD-PASS. Citation fix:
+     Chandra, Li, Tenenbaum, Ragan-Kelley (4 authors, TopiCS 2024) -- NOT the 8-author list drill C gave.
+     **SERIALIZE behind Stage 1 (both touch hdlab/goal_achievement.py -- dispatching concurrently would
+     collide); dispatch the utility-leg build after the goal-cued valence build lands + is VET'd.**
+
+**UPGRADED STRATEGIC PICTURE: BOTH stages are WEEKS-scale, owned-organ, glass-box builds with
+pre-registered can-fail tests -- NOT a months-scale Direction B commitment. "The brain can do it, so can
+we" holds AND is cheap. The architecture upgrade (graded + per-attribute utility-scoring + goal-cued
+relevance) is the right track and is affordable now.**
 
 So the strategic picture is better than "commit to a months-long build": there is a cheap, high-fidelity,
 owned-organ STAGE-1 win (goal-cued valence) to bank first, gated on its pre-registered can-fail bands,
