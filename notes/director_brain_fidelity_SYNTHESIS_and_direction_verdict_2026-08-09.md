@@ -4,7 +4,7 @@
 foundational fidelity to be sure we're on the right track" + "full auto all night, drill all negatives
 3x and brain foundational 3x, the brain can do it so can we." **Inputs (3 independent brain-foundational
 passes + 2 empirical probes + 1 primary-source VET):**
-- Pass 1 (architecture): `notes/director_brain_fidelity_audit_shape_position_metric_2026-08-09.md` (my SHAPE+POSITION+METRIC audit). [Agent drill A on this angle STALLED at 0 bytes -- my audit stands in.]
+- Pass 1 (architecture): `notes/director_brain_fidelity_audit_shape_position_metric_2026-08-09.md` (my SHAPE+POSITION+METRIC audit) + `notes/research_brain_fidelity_goal_outcome_architecture_2026-08-09.md` (agent drill A -- was slow not dead; LANDED, 4 independent lit-scans + adversarial counter-search, STRONGEST pass).
 - Pass 2 (OOV/schema): `notes/research_brain_fidelity_oov_schema_prediction_2026-08-09.md`.
 - Pass 3 (adversarial): `notes/research_brain_fidelity_adversarial_framing_2026-08-09.md`.
 - Empirical: T2 referent-bound affect (2/39, 2/2); top-down goal-conditioned probe (FAILED cheap version).
@@ -79,6 +79,38 @@ layer supplying the readout (my probe's lesson: not lexicon polarity):
   satisfies-ANY recover verdicts where class-token equality fails? HARD-PASS >= 40% on OOV-failure items.
 - Both with a pairscramble/wrong-goal control (must degrade). HARD-FAIL on either -> that axis is
   coverage-bound not architecture-bound; deprioritize it.
+
+## UPDATE (drill A landed -- strengthens the verdict + adds a STAGED path)
+
+Agent drill A (architecture) completed (slow, not dead) and is the strongest pass: 4 independent
+lit-scans (RPE/OFC-vmPFC; PFC guided-activation/biased-competition/predictive-coding; situation-model;
+ACC/PRO + adversarial counter-search) ALL converge on TOP-DOWN, with a clean existence-proof
+(Babayan/Uchida/Gershman 2018 belief-state dopamine: identical physical outcomes get opposite-signed
+interpretation depending on the pending expectation). The one bottom-up-first mechanism in the lit
+(Corbetta & Shulman ventral salience circuit-breaker) is perceptual-orienting, not semantic -- does NOT
+rescue a bottom-up design. So the direction verdict is now 4-of-4 convergent, not 3.
+
+Two refinements from A:
+1. **WHOLE-PIPELINE lesson:** the SAME bottom-up-vs-top-down divergence was independently found the same
+   day at TWO other stages (event segmentation; thematic-role labeling, per
+   notes/goal_owner_attribution_pipeline_brain_fidelity_audit.md -- the concurrent goal-owner pipeline).
+   Treat top-down goal-cued relevance-weighting as a WHOLE-PIPELINE architectural primitive, not 3 bugs.
+2. **A STAGED path (cheap-first, then expensive):** A scopes the goal-blind valence_channel as ~HALF the
+   DesireDB shortfall (the affect-present-but-unbound ~49% at 0.615 = exactly the T2 bucket), fixable by
+   a goal-CUED valence channel reusing ONLY owned organs (state_of_mind, cleanup_argmax, UD-arcs,
+   lexical_similarity) -- a WEEKS-scale drop-in, NOT the months-scale grounded foundation.
+   - STAGE 1 (cheap, DISPATCHED to hdi_exp_dev now): exp_goal_cued_valence_channel_v1 -- goal-cued
+     relevance-weighted valence vs (i) current uniform + (iii) scrambled-goal control; pre-registered
+     >=10pt HARD-PASS on the mixed-polarity subset. My graded-utility probe already supports (ii)>(iii)
+     but cautions the absolute lift is the real can-fail (readout may cap ~0.60). Addresses the BINDING
+     half of the wall.
+   - STAGE 2 (Direction B, expensive): grounded utility-scoring fit-check for the OOV/vocabulary half +
+     the hard polarity -- Chandra-2024 inverse-planning feasibility drill IN FLIGHT to size it
+     (weeks-minimal vs months) + name the cheapest first experiment.
+
+So the strategic picture is better than "commit to a months-long build": there is a cheap, high-fidelity,
+owned-organ STAGE-1 win (goal-cued valence) to bank first, gated on its pre-registered can-fail bands,
+with Direction B (grounded utility-scoring) staged behind a feasibility drill.
 
 ## Answer to the USER
 
