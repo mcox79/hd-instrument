@@ -231,3 +231,58 @@ class CausalLinkRegister(AccumulateRegister):
     def query_cause_of(self, effect_idx: int) -> Tuple[object, Dict[str, float]]:
         """Decode the cause event linked to effect_idx (or (None, {}) if none recorded)."""
         return self._decode_linked_event(effect_idx, self.EFFECT_ROLE)
+
+
+class RelationRegister(AccumulateRegister):
+    """Two-role (GOAL_ROLE/OUTCOME_ROLE) register binding a role vector to an ARBITRARY supplied
+    content concept-vector (2026-08-09, Direction-B build #2,
+    exp_situation_model_relation_ablation_v1 -- see notes/exp_dev_handoff_research_psych_bridging_
+    inference_situation_models_2026-08-09.md).
+
+    Mirrors CausalLinkRegister's CAUSE/EFFECT role-extension pattern (same base class, same bind/
+    bundle/unbind/cleanup_argmax chain) but generalizes what gets bound: CausalLinkRegister binds a
+    role to another event's idx_vec (closed max_event_slots vocabulary, since it links event-slot
+    indices to each other); this class binds a role to any externally-supplied concept vector (e.g.
+    a word's lexical_similarity.concept_vector, or a quality_relation axis-position vector) via
+    `bind_filler`, since the goal_outcome_relation ablation needs to carry an OPEN-vocabulary
+    concept representation, not a closed idx_vecs symbol.
+
+    Usage note (honest, not hidden): binding+immediately-unbinding a SINGLE filler on a role is
+    mathematically EXACT (bind then unbind by the same unit-magnitude role vector recovers the
+    input bit-for-bit -- unbind(bind(v,r),r) = v*r*conj(r) = v, since |r|=1), so `decode_filler`
+    after exactly one `bind_filler` call on that role is a lossless passthrough, not noise
+    injection. This register is used where GOAL_ROLE/OUTCOME_ROLE are bound on SEPARATE per-call
+    ephemeral instances (see hdlab.goal_outcome_relation_grounded), specifically to preserve the
+    Stage-1-confound-immunity invariant goal_outcome_relation.py's own docstring documents (goal-
+    side and outcome-side features must stay independently computable, never a joint goal-word-vs-
+    outcome-word comparison) -- its role here is ARCHITECTURAL CONSISTENCY with the proven organ
+    (same primitives, auditable bind/unbind trace) and forward-compatibility with genuinely-
+    multi-filler use (where bundling would introduce real interference), not a computational
+    change on the single-filler case.
+    """
+
+    GOAL_ROLE = "GOAL"
+    OUTCOME_ROLE = "OUTCOME"
+
+    def __init__(self, d: int, generator: torch.Generator) -> None:
+        super().__init__(
+            role_vocab=[self.GOAL_ROLE, self.OUTCOME_ROLE],
+            d=d,
+            generator=generator,
+            max_event_slots=1,
+            overwrite=False,
+        )
+
+    def bind_filler(self, entity: str, role: str, content_vec: torch.Tensor) -> None:
+        """Bind role_vecs[role] to an arbitrary content vector (NOT idx_vecs); accumulate
+        (bundle) into entity's register exactly as add_event does internally."""
+        if role not in self.role_vecs:
+            raise KeyError(f"unknown role {role!r}; known={self.role_vocab}")
+        bound = binding.bind(self.role_vecs[role], content_vec)
+        self._events.setdefault(entity, []).append(bound)
+
+    def decode_filler(self, entity: str, role: str) -> torch.Tensor:
+        """Unbind entity's register by role_vecs[role] -> reconstruction of the bound content
+        vector (exact if role was the only filler bound for this entity; see class docstring)."""
+        reg = self.register(entity)
+        return binding.unbind(reg, self.role_vecs[role])

@@ -1,0 +1,315 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_HARD_PASS: TIER0_HARD_PASS: recovery=5/5 fp=0 coverage=1.0 floor=0.8276",
+  "summary": "SMOKE_HARD_PASS: TIER0_HARD_PASS: recovery=5/5 fp=0 coverage=1.0 floor=0.8276",
+  "elapsed_s": 1.921,
+  "run_mode": "smoke",
+  "anchor_name": "situation_model_relation_ablation_v1",
+  "tier0": {
+    "verdict": "HARD_PASS",
+    "msg": "TIER0_HARD_PASS: recovery=5/5 fp=0 coverage=1.0 floor=0.8276",
+    "coverage": {
+      "n": 29,
+      "n_hit": 29,
+      "coverage": 1.0,
+      "hits": [
+        {
+          "text": "She walked away without another word.",
+          "match": {
+            "word": "walk_away",
+            "axis_value": -0.85,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "He walked off in a huff.",
+          "match": {
+            "word": "walk_off",
+            "axis_value": -0.8,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "The other side backed off from the table.",
+          "match": {
+            "word": "back_off",
+            "axis_value": -0.85,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "They backed down from the plan.",
+          "match": {
+            "word": "back_down",
+            "axis_value": -0.8,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "The buyer backed out of the deal.",
+          "match": {
+            "word": "back_out",
+            "axis_value": -0.85,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "The buyer pulled back from the table entirely.",
+          "match": {
+            "word": "pull_back",
+            "axis_value": -0.7,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "He pulled out of the race.",
+          "match": {
+            "word": "pull_out",
+            "axis_value": -0.8,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "She gave up on the project.",
+          "match": {
+            "word": "give_up",
+            "axis_value": -0.9,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "He withdrew his application.",
+          "match": {
+            "word": "withdraw",
+            "axis_value": -0.9,
+            "span_kind": "1_gram"
+          }
+        },
+        {
+          "text": "They retreated from the position.",
+          "match": {
+            "word": "retreat",
+            "axis_value": -0.85,
+            "span_kind": "1_gram"
+          }
+        },
+        {
+          "text": "She abandoned the plan.",
+          "match": {
+            "word": "abandon",
+            "axis_value": -1.0,
+            "span_kind": "1_gram"
+          }
+        },
+        {
+          "text": "He quit the team.",
+          "match": {
+            "word": "quit",
+            "axis_value": -0.85,
+            "span_kind": "1_gram"
+          }
+        },
+        {
+          "text": "They bailed out of the contract.",
+          "match": {
+            "word": "bailed_out",
+            "axis_value": -0.85,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "The board turned away every request.",
+          "match": {
+            "word": "turn_away",
+            "axis_value": -0.75,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "They turned down the offer.",
+          "match": {
+            "word": "turn_down",
+            "axis_value": -0.7,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "The company shut down the project.",
+          "match": {
+            "word": "shut_down",
+            "axis_value": -0.7,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "They called it quits after the fight.",
+          "match": {
+            "word": "call_it_quits",
+            "axis_value": -0.9,
+            "span_kind": "3_gram"
+          }
+        },
+        {
+          "text": "He threw in the towel after the third round.",
+          "match": {
+            "word": "throw_in_the_towel",
+            "axis_value": -0.9,
+            "span_kind": "4_gram"
+          }
+        },
+        {
+          "text": "She simply turned the other cheek and moved on.",
+          "match": {
+            "word": "turn_the_other_cheek",
+            "axis_value": -0.6,
+            "span_kind": "discontinuous_idiom"
+          }
+        },
+        {
+          "text": "The board put the kabash on that idea entirely.",
+          "match": {
+            "word": "put_the_kabash_on",
+            "axis_value": -0.8,
+            "span_kind": "discontinuous_light_verb_frame"
+          }
+        },
+        {
+          "text": "He chickened out at the last second.",
+          "match": {
+            "word": "chickened_out",
+            "axis_value": -0.9,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "She shied away from the confrontation.",
+          "match": {
+            "word": "shied_away",
+            "axis_value": -0.75,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "She washed her hands of the whole affair.",
+          "match": {
+            "word": "wash_hands_of",
+            "axis_value": -0.85,
+            "span_kind": "discontinuous_idiom"
+          }
+        },
+        {
+          "text": "He backed away slowly.",
+          "match": {
+            "word": "back_away",
+            "axis_value": -0.8,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "She ran away from the argument.",
+          "match": {
+            "word": "run_away",
+            "axis_value": -0.75,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "He dropped out of the program.",
+          "match": {
+            "word": "drop_out",
+            "axis_value": -0.8,
+            "span_kind": "2_gram"
+          }
+        },
+        {
+          "text": "He declined to help further.",
+          "match": {
+            "word": "decline",
+            "axis_value": -0.7,
+            "span_kind": "1_gram"
+          }
+        },
+        {
+          "text": "She refused to continue.",
+          "match": {
+            "word": "refuse",
+            "axis_value": -0.7,
+            "span_kind": "1_gram"
+          }
+        },
+        {
+          "text": "They rejected the whole idea.",
+          "match": {
+            "word": "reject",
+            "axis_value": -0.65,
+            "span_kind": "1_gram"
+          }
+        }
+      ],
+      "misses": [],
+      "false_positive_count": 0,
+      "false_positive_probe_n": 5,
+      "disclosed_gap_texts": [
+        "They bailed out of the contract.",
+        "She simply turned the other cheek and moved on.",
+        "He chickened out at the last second.",
+        "She shied away from the confrontation.",
+        "She washed her hands of the whole affair."
+      ],
+      "disclosed_gap_recovered": [
+        "They bailed out of the contract.",
+        "She simply turned the other cheek and moved on.",
+        "He chickened out at the last second.",
+        "She shied away from the confrontation.",
+        "She washed her hands of the whole affair."
+      ],
+      "disclosed_gap_recovery_count": 5,
+      "disclosed_gap_recovery_fraction": 1.0,
+      "wordnet_mwe_floor_measured_this_session": {
+        "coverage": 0.8276,
+        "n_hit": 24,
+        "n": 29
+      }
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "generalization_probe_goal": "He wanted to grasp the concept.",
+    "generalization_probe_outcome": "She crammed for the exam all night.",
+    "baseline_goal_probe_atoms": [],
+    "grounded_goal_probe_atoms": [
+      "goal_cognition"
+    ],
+    "baseline_outcome_probe_atoms": [
+      "no_relation_cue"
+    ],
+    "grounded_outcome_probe_atoms": [
+      "outcome_skill_training"
+    ],
+    "generalization_probe_differs": true,
+    "baseline_gap_hits": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "grounded_gap_hits": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "gap_hits_differ": true,
+    "arms_differ": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true
+}

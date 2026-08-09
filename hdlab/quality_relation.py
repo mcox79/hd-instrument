@@ -171,16 +171,58 @@ SAME_THRESH = 0.60                # pre-registered same threshold (proof STEP 3)
 # Hand-authored 4-axis lexicon (proof STEP 4/6), word -> signed scalar position in [-1, 1].
 # Coverage caveat (honest, not re-tuned here): 23 words across 4 axes -- a hand-supplied scalar
 # seed, not a general open-vocabulary solution. Warriner et al. norms are the natural scale-up.
+#
+# ---------------------------------------------------------------------------------------------
+# ENGAGEMENT axis (2026-08-09, Direction-B build #2, exp_situation_model_relation_ablation_v1) --
+# added per notes/research_preclusion_goal_failure_inference_2026-08-09.md's concrete
+# recommendation (that drill's own citation trail: Cruse 1986/2000/2004 reversive/directional-
+# opposite verb typology for WHICH pairs are candidates; Beavers 2008/2013 + Kennedy & McNally
+# 2005 scalar path-scale event-structure semantics + Pustejovsky 1995 GL transition-opposition for
+# the (scale, direction-sign) REPRESENTATION shape this Channel B mechanism already implements;
+# Mathew et al. 2020 POLAR / Osgood 1957 semantic-differential for the signed-axis-projection
+# INSTANTIATION technique, already this module's own Channel B). Seeded via Cruse's reversive-pair
+# typology (engage<->disengage, approach<->withdraw, pursue<->abandon) PLUS each phrasal-verb
+# lemma needed to reproduce hdlab.goal_outcome_relation.REPRESENTATIVE_DISENGAGEMENT_PHRASES'
+# coverage via this AXIS representation instead of WordNet-gloss dictionary lookup, PLUS the 5
+# disclosed WordNet-MWE dictionary gaps (bail_out/chicken_out/shy_away/wash_hands_of/
+# turn_the_other_cheek) as explicit multi-token axis-lexicon keys -- per that drill's own Tier-0
+# design ("phrase-level members for the disclosed gaps... becomes an axis-lexicon key the same way
+# it currently becomes a WordNet-lemma lookup key"), this is a DISCLOSED representation-adequacy
+# test (does encoding a KNOWN gap as a scalar axis position recover it where an exact WordNet
+# gloss entry structurally cannot, since 3 of the 5 have ZERO WordNet synsets), not a claim of
+# held-out generalization to UNSEEN idioms. A few irregular/rare verb inflections not indexed as
+# WordNet verbs (chicken/shy/bail) get both base and common-inflected literal forms, same
+# discipline as the original module's kibosh/kabash/kabosh/kibash spelling-variant handling.
+# HONEST CALIBRATION (per the preclusion drill, part d): the engagement axis's REPRESENTATION
+# shape is well-precedented (P~0.55, two independently-searched literature lanes converge); its
+# BRAIN-FIDELITY as a model of human online preclusion inference is NOT claimed (P~0.15-0.20,
+# confirmed-absent psych evidence, not merely under-searched) -- report this leg's results
+# SEPARATELY from the ACHIEVE leg, never folded into one blended verdict (see that drill + the
+# exp_dev hand-off's mandatory honest-asymmetry framing).
+_ENGAGE_POS = {"engage": 1.0, "pursue": 0.85, "confront": 0.75, "approach": 0.7}
+_ENGAGE_NEG = {
+    "disengage": -1.0, "withdraw": -0.9, "retreat": -0.85, "abandon": -1.0,
+    "walk_away": -0.85, "walk_off": -0.8, "back_off": -0.85, "back_down": -0.8, "back_out": -0.85,
+    "back_away": -0.8, "pull_back": -0.7, "pull_out": -0.8, "give_up": -0.9, "quit": -0.85,
+    "turn_away": -0.75, "turn_down": -0.7, "shut_down": -0.7, "call_it_quits": -0.9,
+    "throw_in_the_towel": -0.9, "run_away": -0.75, "drop_out": -0.8, "decline": -0.7,
+    "refuse": -0.7, "reject": -0.65, "put_the_kabash_on": -0.8,
+    # 5 disclosed WordNet-MWE dictionary gaps (explicit, disclosed -- see docstring note above).
+    "bail_out": -0.85, "bailed_out": -0.85, "chicken_out": -0.9, "chickened_out": -0.9,
+    "shy_away": -0.75, "shied_away": -0.75, "wash_hands_of": -0.85,
+    "turn_the_other_cheek": -0.6,
+}
 AXIS_WORDS: Dict[str, Dict[str, float]] = {
     "density": {"dense": 1.0, "thick": 0.8, "heavy": 0.7, "light": -0.7, "airy": -1.0, "fluffy": -0.8},
     "sheen": {"glossy": 1.0, "shiny": 0.9, "bright": 0.7, "matte": -0.9, "dull": -0.7, "flat": -0.6},
     "energy": {"energetic": 1.0, "lively": 0.8, "calm": -0.9, "mellow": -0.8, "sluggish": -1.0},
     "tone": {"humorous": 0.9, "funny": 0.9, "playful": 0.7, "solemn": -0.8, "serious": -0.6, "grave": -0.9},
+    "engagement": {**_ENGAGE_POS, **_ENGAGE_NEG},
 }
 # Base per-axis seeds (proof STEP 4); offset by the caller's `seed` param -- default seed=0
 # reproduces the proof's exact hard-coded seeds (101/202/303/404 rate, 11/22/33/44 key) bit for bit.
-_AXIS_RATE_SEED_BASE = {"density": 101, "sheen": 202, "energy": 303, "tone": 404}
-_AXIS_KEY_SEED_BASE = {"density": 11, "sheen": 22, "energy": 33, "tone": 44}
+_AXIS_RATE_SEED_BASE = {"density": 101, "sheen": 202, "energy": 303, "tone": 404, "engagement": 505}
+_AXIS_KEY_SEED_BASE = {"density": 11, "sheen": 22, "energy": 33, "tone": 44, "engagement": 55}
 
 WORD_AXIS: Dict[str, Tuple[str, float]] = {}
 for _axis, _words in AXIS_WORDS.items():
