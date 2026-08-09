@@ -1,0 +1,110 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "subset(b) n=21: delta(ii-i)=+0.0000 delta(ii-iii)=+0.0000 ii_beats_iii=False subset(c) n=69: c_regression(i-ii)=+0.0000",
+  "summary": "HARD_FAIL: subset(b) n=21: delta(ii-i)=+0.0000 delta(ii-iii)=+0.0000 ii_beats_iii=False subset(c) n=69: c_regression(i-ii)=+0.0000",
+  "elapsed_s": 246.716,
+  "run_mode": "full",
+  "anchor_name": "goal_cued_valence_channel_v1",
+  "n_sample": 160,
+  "n_per_class": 80,
+  "seed": 20260808,
+  "subset_sizes": {
+    "a": 160,
+    "b": 21,
+    "c": 69
+  },
+  "subset_metrics": {
+    "a": {
+      "i": {
+        "n": 160,
+        "acc": 0.5188,
+        "macro_f1": 0.4774,
+        "f1": 0.6244
+      },
+      "ii": {
+        "n": 160,
+        "acc": 0.4875,
+        "macro_f1": 0.4456,
+        "f1": 0.598
+      },
+      "iii": {
+        "n": 160,
+        "acc": 0.5062,
+        "macro_f1": 0.4638,
+        "f1": 0.6146
+      }
+    },
+    "b": {
+      "i": {
+        "n": 21,
+        "acc": 0.619,
+        "macro_f1": 0.5333,
+        "f1": 0.7333
+      },
+      "ii": {
+        "n": 21,
+        "acc": 0.619,
+        "macro_f1": 0.5333,
+        "f1": 0.7333
+      },
+      "iii": {
+        "n": 21,
+        "acc": 0.619,
+        "macro_f1": 0.5333,
+        "f1": 0.7333
+      }
+    },
+    "c": {
+      "i": {
+        "n": 69,
+        "acc": 0.4783,
+        "macro_f1": 0.413,
+        "f1": 0.6087
+      },
+      "ii": {
+        "n": 69,
+        "acc": 0.4783,
+        "macro_f1": 0.413,
+        "f1": 0.6087
+      },
+      "iii": {
+        "n": 69,
+        "acc": 0.4783,
+        "macro_f1": 0.413,
+        "f1": 0.6087
+      }
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "beeaf851702b7a87800f79789fc2109c6f1347e93a926a7cf6ad92457680f71a",
+    "ii": "d3e49997781c73f0de850d2e2ee625802a3710dbd97910cc8af570347f1ac109",
+    "iii": "106550af16f35d5d8fd8b75e972718813a701de5938e402cfd344f8f9a3150b0"
+  },
+  "harness_validity_check": {
+    "n": 80,
+    "measured": {
+      "n": 80,
+      "acc": 0.7,
+      "macro_f1": 0.6992,
+      "f1": 0.7143
+    },
+    "documented": {
+      "macro_f1": 0.686,
+      "f1": 0.706,
+      "acc": 0.688
+    },
+    "delta_macro_f1": 0.0132,
+    "valid": true,
+    "tolerance": 0.03
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic lexicon-vote + shallow-parse weighting, no decoded/noisy signal",
+  "deterministic_seeding": true
+}

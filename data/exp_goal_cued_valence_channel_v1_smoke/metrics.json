@@ -1,0 +1,94 @@
+{
+  "verdict": "INVALID",
+  "verdict_msg": "UNDERPOWERED_SUBSET: subset(b) n=11 subset(c) n=41 (need >=15 each)",
+  "summary": "INVALID: UNDERPOWERED_SUBSET: subset(b) n=11 subset(c) n=41 (need >=15 each)",
+  "elapsed_s": 130.98,
+  "run_mode": "smoke",
+  "anchor_name": "goal_cued_valence_channel_v1",
+  "n_sample": 80,
+  "n_per_class": 40,
+  "seed": 20260808,
+  "subset_sizes": {
+    "a": 80,
+    "b": 11,
+    "c": 41
+  },
+  "subset_metrics": {
+    "a": {
+      "i": {
+        "n": 80,
+        "acc": 0.5125,
+        "macro_f1": 0.4597,
+        "f1": 0.6286
+      },
+      "ii": {
+        "n": 80,
+        "acc": 0.4625,
+        "macro_f1": 0.4043,
+        "f1": 0.5905
+      },
+      "iii": {
+        "n": 80,
+        "acc": 0.5375,
+        "macro_f1": 0.4874,
+        "f1": 0.6476
+      }
+    },
+    "b": {
+      "i": {
+        "n": 11,
+        "acc": 0.7273,
+        "macro_f1": 0.7179,
+        "f1": 0.7692
+      },
+      "ii": {
+        "n": 11,
+        "acc": 0.7273,
+        "macro_f1": 0.7179,
+        "f1": 0.7692
+      },
+      "iii": {
+        "n": 11,
+        "acc": 0.8182,
+        "macro_f1": 0.8036,
+        "f1": 0.8571
+      }
+    },
+    "c": {
+      "i": {
+        "n": 41,
+        "acc": 0.4634,
+        "macro_f1": 0.352,
+        "f1": 0.6207
+      },
+      "ii": {
+        "n": 41,
+        "acc": 0.4634,
+        "macro_f1": 0.352,
+        "f1": 0.6207
+      },
+      "iii": {
+        "n": 41,
+        "acc": 0.4634,
+        "macro_f1": 0.352,
+        "f1": 0.6207
+      }
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "207c33384d3d26d2a8866cc1c4754be47746409b97d30edb4e92f9a0c92f2d41",
+    "ii": "b42325f68d03a2d3552d6afe77a8e894ae714b2578600d877713e812cc995097",
+    "iii": "ec4562cde154d799231b44bf0657b87cbdca635f3ed6201f8da9dde8106f2247"
+  },
+  "harness_validity_check": null,
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic lexicon-vote + shallow-parse weighting, no decoded/noisy signal",
+  "deterministic_seeding": true
+}
