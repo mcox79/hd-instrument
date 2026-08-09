@@ -1,0 +1,886 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "OVERALL_HARD_PASS: all 1 seeds HARD_PASS",
+  "summary": "HARD_PASS: OVERALL_HARD_PASS: all 1 seeds HARD_PASS",
+  "elapsed_s": 0.774,
+  "run_mode": "smoke",
+  "anchor_name": "focus_pullin_causal_stage1_micro_world_v1",
+  "gate_thresh": 0.28,
+  "n_dim": 1024,
+  "seeds": [
+    7
+  ],
+  "per_seed_verdicts": {
+    "7": "HARD_PASS"
+  },
+  "per_seed_summary": {
+    "7": {
+      "verdict": "HARD_PASS",
+      "core_recovered": 5,
+      "core_scramble_rate": 0.08,
+      "baseline_recovery": 0,
+      "in_cluster_rate": 1.0,
+      "scramble_incluster_rate": 0.16666666666666666,
+      "false_pull_rate": 0.0,
+      "gap": 0.8333333333333334
+    }
+  },
+  "per_seed_full": {
+    "7": {
+      "seed": 7,
+      "N": 1024,
+      "run_mode": "smoke",
+      "anchor_name": "focus_pullin_causal_stage1_micro_world_v1",
+      "config_version": "ANCHOR=focus_pullin_causal_stage1_micro_world_v1,N=1024,gate=0.28",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: seed=7 core_recovered=5/5 core_scramble_rate=0.080 real_incluster=1.000 scr_incluster=0.167 gap=0.833 false_pull=0.000 baseline_recovery=0/5(must be 0)",
+      "result": {
+        "seed": 7,
+        "n_dim": 1024,
+        "n_clusters": 5,
+        "steps_per_cluster": 6,
+        "gate_thresh": 0.28,
+        "elapsed_s": 0.651,
+        "causal_facts_count": 30,
+        "register_audit": {
+          "singleton_checks_passed": 40,
+          "ambiguous_entities_logged": [
+            {
+              "entity": 0,
+              "role": "CAUSE",
+              "n_facts": 2,
+              "decoded": 1
+            },
+            {
+              "entity": 6,
+              "role": "CAUSE",
+              "n_facts": 2,
+              "decoded": 11
+            },
+            {
+              "entity": 12,
+              "role": "CAUSE",
+              "n_facts": 2,
+              "decoded": 13
+            },
+            {
+              "entity": 18,
+              "role": "CAUSE",
+              "n_facts": 2,
+              "decoded": 19
+            },
+            {
+              "entity": 24,
+              "role": "CAUSE",
+              "n_facts": 2,
+              "decoded": 29
+            },
+            {
+              "entity": 5,
+              "role": "EFFECT",
+              "n_facts": 2,
+              "decoded": 4
+            },
+            {
+              "entity": 11,
+              "role": "EFFECT",
+              "n_facts": 2,
+              "decoded": 6
+            },
+            {
+              "entity": 17,
+              "role": "EFFECT",
+              "n_facts": 2,
+              "decoded": 12
+            },
+            {
+              "entity": 23,
+              "role": "EFFECT",
+              "n_facts": 2,
+              "decoded": 18
+            },
+            {
+              "entity": 29,
+              "role": "EFFECT",
+              "n_facts": 2,
+              "decoded": 24
+            }
+          ]
+        },
+        "n_scramble_draws": 5,
+        "core": {
+          "planted_relations": 5,
+          "baseline_no_pullin_recovery_count": 0,
+          "baseline_trace": {
+            "0": {
+              "direct_ids": [
+                3,
+                4,
+                5
+              ],
+              "antecedent_is_direct": false,
+              "antecedent_depth": 2
+            },
+            "1": {
+              "direct_ids": [
+                9,
+                10,
+                11
+              ],
+              "antecedent_is_direct": false,
+              "antecedent_depth": 3
+            },
+            "2": {
+              "direct_ids": [
+                15,
+                16,
+                17
+              ],
+              "antecedent_is_direct": false,
+              "antecedent_depth": 3
+            },
+            "3": {
+              "direct_ids": [
+                21,
+                22,
+                23
+              ],
+              "antecedent_is_direct": false,
+              "antecedent_depth": 3
+            },
+            "4": {
+              "direct_ids": [
+                27,
+                28,
+                29
+              ],
+              "antecedent_is_direct": false,
+              "antecedent_depth": 3
+            }
+          },
+          "real_recovery_count": 5,
+          "real_recovery_rate": 1.0,
+          "scramble_recovery_count_draw0": 0,
+          "scramble_recovery_rate_draw0": 0.0,
+          "scramble_recovery_count_total": 2,
+          "scramble_recovery_rate": 0.08,
+          "per_cluster_real": {
+            "0": {
+              "recovered": true,
+              "score": 0.626953125,
+              "candidate_idx": 0,
+              "register_confirms_causal_type": false
+            },
+            "1": {
+              "recovered": true,
+              "score": 0.5703125,
+              "candidate_idx": 6,
+              "register_confirms_causal_type": true
+            },
+            "2": {
+              "recovered": true,
+              "score": 0.61328125,
+              "candidate_idx": 12,
+              "register_confirms_causal_type": true
+            },
+            "3": {
+              "recovered": true,
+              "score": 0.60546875,
+              "candidate_idx": 18,
+              "register_confirms_causal_type": true
+            },
+            "4": {
+              "recovered": true,
+              "score": 0.662109375,
+              "candidate_idx": 24,
+              "register_confirms_causal_type": true
+            }
+          },
+          "per_cluster_scramble_draw0": {
+            "0": {
+              "recovered": false,
+              "score": 0.4296875,
+              "candidate_idx": 28
+            },
+            "1": {
+              "recovered": false,
+              "score": 0.49609375,
+              "candidate_idx": 0
+            },
+            "2": {
+              "recovered": false,
+              "score": 0.61328125,
+              "candidate_idx": 7
+            },
+            "3": {
+              "recovered": false,
+              "score": 0.439453125,
+              "candidate_idx": 6
+            },
+            "4": {
+              "recovered": false,
+              "score": 0.451171875,
+              "candidate_idx": 26
+            }
+          },
+          "per_draw_scramble_recovery_count": [
+            0,
+            1,
+            0,
+            1,
+            0
+          ]
+        },
+        "controls": {
+          "real": {
+            "false_pull_in_rate": 0.0,
+            "in_cluster_correct_retrieval_rate": 1.0
+          },
+          "scramble": {
+            "false_pull_in_rate": 0.8333333333333333,
+            "in_cluster_correct_retrieval_rate": 0.16666666666666666,
+            "false_pull_in_rate_draw0": 0.8666666666666667,
+            "in_cluster_correct_retrieval_rate_draw0": 0.13333333333333333
+          },
+          "real_vs_scramble_gap": 0.8333333333333334,
+          "per_draw_sweep_incluster_rate": [
+            0.13333333333333333,
+            0.23333333333333334,
+            0.06666666666666667,
+            0.13333333333333333,
+            0.26666666666666666
+          ],
+          "per_draw_sweep_false_pull_rate": [
+            0.8666666666666667,
+            0.7666666666666667,
+            0.9333333333333333,
+            0.8666666666666667,
+            0.7333333333333333
+          ]
+        },
+        "real_sweep_per_probe": [
+          {
+            "gidx": 0,
+            "cluster": 0,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 5,
+            "score": 0.626953125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 1,
+            "cluster": 0,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 2,
+            "score": 0.49609375,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 2,
+            "cluster": 0,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 1,
+            "score": 0.49609375,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 3,
+            "cluster": 0,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 5,
+            "score": 0.478515625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 4,
+            "cluster": 0,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 3,
+            "score": 0.466796875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 5,
+            "cluster": 0,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 0,
+            "score": 0.626953125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 6,
+            "cluster": 1,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 11,
+            "score": 0.5703125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 7,
+            "cluster": 1,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 8,
+            "score": 0.421875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 8,
+            "cluster": 1,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 9,
+            "score": 0.439453125,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 9,
+            "cluster": 1,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 8,
+            "score": 0.439453125,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 10,
+            "cluster": 1,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 6,
+            "score": 0.431640625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 11,
+            "cluster": 1,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 6,
+            "score": 0.5703125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 12,
+            "cluster": 2,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 17,
+            "score": 0.61328125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 13,
+            "cluster": 2,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 12,
+            "score": 0.447265625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 14,
+            "cluster": 2,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 12,
+            "score": 0.447265625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 15,
+            "cluster": 2,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 16,
+            "score": 0.451171875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 16,
+            "cluster": 2,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 15,
+            "score": 0.451171875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 17,
+            "cluster": 2,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 12,
+            "score": 0.61328125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 18,
+            "cluster": 3,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 23,
+            "score": 0.60546875,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 19,
+            "cluster": 3,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 21,
+            "score": 0.427734375,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 20,
+            "cluster": 3,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 21,
+            "score": 0.4296875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 21,
+            "cluster": 3,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 23,
+            "score": 0.478515625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 22,
+            "cluster": 3,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 21,
+            "score": 0.443359375,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 23,
+            "cluster": 3,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 18,
+            "score": 0.60546875,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 24,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 29,
+            "score": 0.662109375,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 25,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 24,
+            "score": 0.5078125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 26,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 24,
+            "score": 0.45703125,
+            "n_iterations": 5,
+            "converged": true
+          },
+          {
+            "gidx": 27,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 25,
+            "score": 0.48046875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 28,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 27,
+            "score": 0.462890625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 29,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 24,
+            "score": 0.662109375,
+            "n_iterations": 2,
+            "converged": true
+          }
+        ],
+        "scramble_sweep_per_probe_draw0": [
+          {
+            "gidx": 0,
+            "cluster": 0,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 11,
+            "score": 0.49609375,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 1,
+            "cluster": 0,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 9,
+            "score": 0.466796875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 2,
+            "cluster": 0,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 15,
+            "score": 0.45703125,
+            "n_iterations": 5,
+            "converged": true
+          },
+          {
+            "gidx": 3,
+            "cluster": 0,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 27,
+            "score": 0.60546875,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 4,
+            "cluster": 0,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 18,
+            "score": 0.626953125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 5,
+            "cluster": 0,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 28,
+            "score": 0.4296875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 6,
+            "cluster": 1,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 23,
+            "score": 0.439453125,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 7,
+            "cluster": 1,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 17,
+            "score": 0.61328125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 8,
+            "cluster": 1,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 7,
+            "score": 0.447265625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 9,
+            "cluster": 1,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 4,
+            "score": 0.478515625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 10,
+            "cluster": 1,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 19,
+            "score": 0.5703125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 11,
+            "cluster": 1,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 0,
+            "score": 0.49609375,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 12,
+            "cluster": 2,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 24,
+            "score": 0.48046875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 13,
+            "cluster": 2,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 7,
+            "score": 0.447265625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 14,
+            "cluster": 2,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 28,
+            "score": 0.443359375,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 15,
+            "cluster": 2,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 20,
+            "score": 0.662109375,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 16,
+            "cluster": 2,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 28,
+            "score": 0.427734375,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 17,
+            "cluster": 2,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 7,
+            "score": 0.61328125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 18,
+            "cluster": 3,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 4,
+            "score": 0.626953125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 19,
+            "cluster": 3,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 10,
+            "score": 0.5703125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 20,
+            "cluster": 3,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 15,
+            "score": 0.662109375,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 21,
+            "cluster": 3,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 10,
+            "score": 0.431640625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 22,
+            "cluster": 3,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 6,
+            "score": 0.421875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 23,
+            "cluster": 3,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 6,
+            "score": 0.439453125,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 24,
+            "cluster": 4,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 15,
+            "score": 0.5078125,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 25,
+            "cluster": 4,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 12,
+            "score": 0.462890625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 26,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 29,
+            "score": 0.451171875,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 27,
+            "cluster": 4,
+            "outcome": "false_offtopic",
+            "admitted": true,
+            "candidate_idx": 3,
+            "score": 0.60546875,
+            "n_iterations": 2,
+            "converged": true
+          },
+          {
+            "gidx": 28,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 27,
+            "score": 0.478515625,
+            "n_iterations": 3,
+            "converged": true
+          },
+          {
+            "gidx": 29,
+            "cluster": 4,
+            "outcome": "correct_incluster",
+            "admitted": true,
+            "candidate_idx": 26,
+            "score": 0.451171875,
+            "n_iterations": 3,
+            "converged": true
+          }
+        ]
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1786319307.415385
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "real_digest": "7c0c8e93e4ae989a57490f1842562ad432a43094674ddfd2c22fc34ffaace325",
+    "scramble_digest": "f3101c13a527258b9237eff8a8bd35ccc22e0e12339d79c212bdcddec664e2f7",
+    "arms_differ": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "accuracy-comparison retrieval ablation over a fixed 30-event micro-world; no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: GATE_THRESH=0.28 fixed before this run, validated unchanged across seeds 7/17/29/41/53 at calibration time (see prereg)"
+}
