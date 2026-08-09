@@ -1,0 +1,201 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "PRIMARY cohort n=22 activation_fires_rate=0.273 GATE_ARM=iii_ablation recovery=0.250 (2/8) recovery_ii_stage2ref=0.0 recovery_iii_plus_conceptnet_context=0.25 pairscramble(iv_ablation): |scr-i|=0.0454 (<=0.05 collapse=True) |scr-mech|=0.0455 (>0.03 not-leak, leaks=False)",
+  "summary": "MIDDLE_BAND: PRIMARY cohort n=22 activation_fires_rate=0.273 GATE_ARM=iii_ablation recovery=0.250 (2/8) recovery_ii_stage2ref=0.0 recovery_iii_plus_conceptnet_context=0.25 pairscramble(iv_ablation): |scr-i|=0.0454 (<=0.05 collapse=True) |scr-mech|=0.0455 (>0.03 not-leak, leaks=False)",
+  "elapsed_s": 432.312,
+  "run_mode": "full",
+  "anchor_name": "direction_b_M1_idiom_grounding_recovery_v1",
+  "n_sample": 160,
+  "n_per_class": 80,
+  "seed": 20260808,
+  "cohort_metrics": {
+    "cohort_n": 22,
+    "activation_fires_rate": 0.2727,
+    "verdict_fires_rate_iii": 0.1364,
+    "gold_dist": {
+      "Fulfilled": 14,
+      "Unfulfilled": 8
+    },
+    "acc_i": 0.6364,
+    "acc_ii": 0.6364,
+    "acc_iii": 0.7273,
+    "acc_iii_ablation": 0.7273,
+    "acc_iv": 0.5455,
+    "acc_iv_ablation": 0.6818,
+    "macro_f1_i": 0.3889,
+    "macro_f1_ii": 0.3889,
+    "macro_f1_iii": 0.6118,
+    "macro_f1_iii_ablation": 0.6118,
+    "macro_f1_iv": 0.4762,
+    "macro_f1_iv_ablation": 0.5758,
+    "recovery_i": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_ii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_iii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_iii_ablation": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_iv": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "recovery_iv_ablation": {
+      "n_majority_wrong": 8,
+      "n_recovered": 2,
+      "rate": 0.25
+    },
+    "idiom_traces_gold_unfulfilled": [
+      {
+        "idx": 91,
+        "gold": "Unfulfilled",
+        "idiom_matches": [
+          "uh_no"
+        ]
+      },
+      {
+        "idx": 99,
+        "gold": "Unfulfilled",
+        "idiom_matches": []
+      },
+      {
+        "idx": 107,
+        "gold": "Unfulfilled",
+        "idiom_matches": []
+      },
+      {
+        "idx": 118,
+        "gold": "Unfulfilled",
+        "idiom_matches": [
+          "put_the_kibosh_on"
+        ]
+      },
+      {
+        "idx": 135,
+        "gold": "Unfulfilled",
+        "idiom_matches": []
+      },
+      {
+        "idx": 144,
+        "gold": "Unfulfilled",
+        "idiom_matches": [
+          "told_X_no"
+        ]
+      },
+      {
+        "idx": 150,
+        "gold": "Unfulfilled",
+        "idiom_matches": []
+      },
+      {
+        "idx": 154,
+        "gold": "Unfulfilled",
+        "idiom_matches": []
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "iii": "c05c5f392c155b52f57f4a036d5e3fe826062937d3a88ad8d685f7f142001ace",
+    "iii_ablation": "c05c5f392c155b52f57f4a036d5e3fe826062937d3a88ad8d685f7f142001ace",
+    "iv": "cfea2f01c3121e829da4fbe749846928db19cfbe8ebcb30f852268bf15cd8fba",
+    "iv_ablation": "46cb48361be58ccc1b21701124e0175dcac39955eb083b3eb24d12c35395217e"
+  },
+  "harness_validity_check": {
+    "n": 80,
+    "measured_acc": 0.7,
+    "measured_macro_f1": 0.6992,
+    "documented_macro_f1": 0.686,
+    "delta_macro_f1": 0.0132,
+    "valid": true,
+    "tolerance": 0.03
+  },
+  "full_bench_n80_composed_idiom_context": {
+    "n": 80,
+    "acc": 0.7125,
+    "macro_f1": 0.7121
+  },
+  "enlarged_cohort_context": {
+    "n_subsample_rows": 900,
+    "n_total_rows_available": 3076,
+    "cohort_n": 152,
+    "gold_unfulfilled_n": 37,
+    "recovery_primary_mech_arm": {
+      "n_recovered": 0,
+      "n_majority_wrong": 37,
+      "rate": 0.0
+    },
+    "recovery_plus_conceptnet_context": {
+      "n_recovered": 3,
+      "n_majority_wrong": 37,
+      "rate": 0.0811
+    },
+    "conceptnet_marginal_delta": 3,
+    "pairscramble_at_scale": {
+      "cohort_n": 152,
+      "acc_i": 0.7566,
+      "acc_scrambled_primary_arm": 0.75,
+      "delta": 0.0066,
+      "collapses_at_scale": true
+    },
+    "idiom_match_frequency": {},
+    "idiom_head_patterns": {},
+    "idiom_tail_patterns": {},
+    "idiom_never_fired_patterns": [
+      "backed_out",
+      "bailed_on",
+      "blew_X_off",
+      "called_it_off",
+      "came_through",
+      "came_together",
+      "cold_shoulder",
+      "didnt_pan_out",
+      "fell_through",
+      "gave_up_on",
+      "green_light",
+      "hit_the_jackpot",
+      "left_X_hanging",
+      "no_dice",
+      "no_problem",
+      "no_way",
+      "no_worries",
+      "nope",
+      "not_a_chance",
+      "piece_of_cake",
+      "pulled_it_off",
+      "put_the_kibosh_on",
+      "said_no",
+      "shot_down",
+      "stood_X_up",
+      "told_X_no",
+      "turned_down",
+      "uh_no",
+      "worked_out"
+    ],
+    "n_idiom_patterns_total": 29
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic lexicon-vote (WordNet + idiom-regex + ConceptNet-Antonym dict) + FHRR bind/bundle/cleanup over a fixed 6-role x 3-filler codebook, no decoded/noisy continuous signal from a swept capacity regime -- identical justification to Stage-2's crlb_n/a, unchanged mechanism layer",
+  "deterministic_seeding": true
+}

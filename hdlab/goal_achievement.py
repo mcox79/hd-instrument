@@ -601,10 +601,16 @@ def _outcome_token_forms(tok: str) -> list:
     return forms
 
 
-def _attribute_outcome_state(attr: str, outcome: str) -> str:
-    """SATISFIED / VIOLATED / ABSENT for `attr` against `outcome`: per-token grounded polarity vote
-    (negation-aware via the same _verb_negated_before scan valence_channel/relation_channel use),
-    count-voted like valence_channel (not weighted) for the same tie->ABSENT convention."""
+def _token_vote(attr: str, outcome: str, extra_lookup=None) -> Tuple[int, int]:
+    """(npos, nneg) per-outcome-token grounded polarity vote against `attr`'s FIXED cue pools
+    (negation-aware via the same _verb_negated_before scan valence_channel/relation_channel use).
+    `extra_lookup(form, attr) -> POS|NEG|None`, if given, is tried ONLY when the WordNet-grounded
+    `_token_cue_polarity` returns None (a SUPPLEMENTARY lookup, e.g. Direction-B M1's ConceptNet-
+    antonym bridge -- kept as a parameter so this module carries no hard import of
+    hdlab.idiom_grounding when unused). Factored out of `_attribute_outcome_state` so the M1
+    idiom-grounded variant below can reuse the identical token-vote loop; behavior of
+    `_attribute_outcome_state` is UNCHANGED by this factor (extra_lookup=None reproduces it
+    exactly)."""
     toks = _gt._tokens(outcome)
     npos = nneg = 0
     for idx, tok in enumerate(toks):
@@ -613,6 +619,8 @@ def _attribute_outcome_state(attr: str, outcome: str) -> str:
         val = None
         for form in _outcome_token_forms(tok):
             val = _token_cue_polarity(form, attr)
+            if val is None and extra_lookup is not None:
+                val = extra_lookup(form, attr)
             if val is not None:
                 break
         if val is None:
@@ -623,9 +631,67 @@ def _attribute_outcome_state(attr: str, outcome: str) -> str:
             npos += 1
         else:
             nneg += 1
+    return npos, nneg
+
+
+def _attribute_outcome_state(attr: str, outcome: str) -> str:
+    """SATISFIED / VIOLATED / ABSENT for `attr` against `outcome`: per-token grounded polarity vote
+    (negation-aware via the same _verb_negated_before scan valence_channel/relation_channel use),
+    count-voted like valence_channel (not weighted) for the same tie->ABSENT convention."""
+    npos, nneg = _token_vote(attr, outcome)
     if npos == nneg:
         return "ABSENT"
     return "SATISFIED" if npos > nneg else "VIOLATED"
+
+
+# ============================================================================ DIRECTION-B M1:
+# IDIOM/COLLOQUIALISM-GROUNDED evidence-scoring (2026-08-09). Per notes/direction_b_grounded_
+# knowledge_build_plan_2026-08-09.md milestone M1: Stage-2's utility_channel ARCHITECTURE is
+# validated (activation fires, pairscramble collapses, no regression) but its per-token WordNet
+# evidence-scoring cannot READ short/idiomatic/colloquial real DesireDB outcome text ("put the
+# kabash on that idea", "she told her no", "Uh. No."). This SUPPLEMENTS (never replaces) the same
+# per-token WordNet vote with (a) hdlab.idiom_grounding.IDIOM_LEXICON phrase votes and (b) a
+# ConceptNet-Antonym-bridge per-token fallback (see hdlab/idiom_grounding.py module comment for
+# full source documentation + calibration-honesty note). SAME activation (`activate_attributes`,
+# goal-side only, never touches outcome text) -- confound-immunity argument identical to Stage-2's.
+_IDIOM_VOTE_WEIGHT = 2  # a multi-word idiom-phrase match is a more decisive/less-ambiguous signal
+                        # than one single ambiguous token (e.g. 'call' phone-call vs 'call' pay-a-
+                        # visit) -- a FIXED design choice declared before any scoring/eval run, not
+                        # tuned per item.
+
+
+def _attribute_outcome_state_idiom_grounded(attr: str, outcome: str,
+                                             use_conceptnet_bridge: bool = True) -> Tuple[str, dict]:
+    """Direction-B M1 variant of `_attribute_outcome_state`: same WordNet per-token vote PLUS
+    idiom-phrase + (optionally) ConceptNet-antonym-bridge supplementary votes. Returns (state,
+    trace) where trace separates the WordNet-only sub-total from the idiom/ConceptNet contribution
+    (auditability -- the product differentiator per the arc's own repeated finding).
+    `use_conceptnet_bridge=False` isolates the hand-authored-idiom-lexicon-only contribution for
+    the M1 cell's ablation arm (a spot-check surfaced that the bridge's "tell"/ConceptNet-Antonym-
+    of-"show" hit on a flagship case is a word-sense collision -- 'show' meaning show-up/arrive in
+    LOCATION_REACHED's cue pool vs ConceptNet's communication-mode "show, don't tell" sense -- the
+    ablation lets the cell report whether ConceptNet materially changes any verdict beyond what the
+    hand-vetted idiom lexicon alone achieves, same discipline as the WordNet-oversense-expansion
+    risk this module's own calibration note already flags). Also applies `hdlab.idiom_grounding.
+    dedupe_repeated_sentences` before the per-token vote (general data-hygiene fix for DesireDB's
+    own verbatim-repeated-sentence scraping artifact -- see that function's docstring; Stage-2's
+    original `_attribute_outcome_state` / arm ii is UNTOUCHED by this)."""
+    from hdlab import idiom_grounding as _ig
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    extra = (lambda f, a: _ig.conceptnet_bridge_vote(f, a, ATTRIBUTES[a])) if use_conceptnet_bridge else None
+    npos, nneg = _token_vote(attr, outcome_dedup, extra_lookup=extra)
+    idiom = _ig.idiom_votes(outcome_dedup)
+    idiom_pos_w = _IDIOM_VOTE_WEIGHT * idiom["POS"]
+    idiom_neg_w = _IDIOM_VOTE_WEIGHT * idiom["NEG"]
+    trace = {"token_npos": npos, "token_nneg": nneg,
+              "idiom_pos_votes": idiom["POS"], "idiom_neg_votes": idiom["NEG"],
+              "idiom_pos_weighted": idiom_pos_w, "idiom_neg_weighted": idiom_neg_w,
+              "idiom_matches": idiom["matched"]}
+    npos += idiom_pos_w
+    nneg += idiom_neg_w
+    if npos == nneg:
+        return "ABSENT", trace
+    return ("SATISFIED" if npos > nneg else "VIOLATED"), trace
 
 
 # ---- FHRR weighted-bundle-of-role-bound-attribute-predicates representation ------------------
@@ -708,6 +774,48 @@ def utility_channel(desire: str, outcome: str) -> Optional[str]:
     return utility_channel_trace(desire, outcome)["verdict"]
 
 
+def utility_channel_trace_idiom_grounded(desire: str, outcome: str,
+                                          use_conceptnet_bridge: bool = True) -> dict:
+    """Direction-B M1 (2026-08-09) idiom/colloquialism-grounded variant of `utility_channel_trace`.
+    SAME activation (`activate_attributes`, unchanged) and SAME FHRR bind/bundle/unbind scoring
+    layer as the Stage-2 channel; only the per-attribute outcome-evidence function differs
+    (`_attribute_outcome_state_idiom_grounded` instead of `_attribute_outcome_state`).
+    `use_conceptnet_bridge=False` = idiom-lexicon-only ablation arm (see that function's docstring).
+    NOT wired into goal_achievement_verdict's precedence -- pure ADD, evaluated standalone by
+    experiments/exp_direction_b_M1_idiom_grounding_recovery_v1.py."""
+    active = activate_attributes(desire)
+    if not active:
+        return {"verdict": None, "reason": "no_attribute_activated", "active": {}}
+    roles, fillers = _utility_vecs()
+    per_attr = {}
+    weighted_terms = []
+    for attr, w in active.items():
+        state, trace = _attribute_outcome_state_idiom_grounded(attr, outcome, use_conceptnet_bridge)
+        weighted_terms.append(w * bind(roles[attr], fillers[state]))
+        per_attr[attr] = {"activation_weight": round(w, 2), "outcome_state": state,
+                           "grounding_trace": trace}
+    U = bundle(torch.stack(weighted_terms))
+    score = 0.0
+    for attr, w in active.items():
+        probe = unbind(U, roles[attr])
+        recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+        per_attr[attr]["recovered_state"] = recovered_name
+        per_attr[attr]["recovered_margin"] = round(margin, 4)
+        per_attr[attr]["roundtrip_ok"] = (recovered_name == per_attr[attr]["outcome_state"])
+        score += w * _UTIL_SIGN[recovered_name]
+    if score == 0.0:
+        return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+    verdict = "Fulfilled" if score > 0.0 else "Unfulfilled"
+    return {"verdict": verdict, "reason": "weighted_bundle", "score": round(score, 4), "active": per_attr}
+
+
+def utility_channel_idiom_grounded(desire: str, outcome: str,
+                                    use_conceptnet_bridge: bool = True) -> Optional[str]:
+    """Fulfilled/Unfulfilled/None -- Direction-B M1's idiom-grounded 4th-channel variant. See
+    `utility_channel_trace_idiom_grounded` for the mechanism."""
+    return utility_channel_trace_idiom_grounded(desire, outcome, use_conceptnet_bridge)["verdict"]
+
+
 def self_test_utility_channel() -> dict:
     """MECHANISM-FIRES + FHRR-round-trip-fidelity + STAGE-1-CONFOUND-IMMUNITY checks."""
     # (1) clear Fulfilled case, single attribute.
@@ -756,8 +864,71 @@ def self_test_utility_channel() -> dict:
             "case5_no_goal": r5}
 
 
+def self_test_idiom_grounded_channel() -> dict:
+    """MECHANISM-FIRES check for Direction-B M1: on the two flagship real-DesireDB cohort cases
+    the plain WordNet-only `utility_channel` ABSTAINS or MIS-fires on (verified below), the
+    idiom-grounded variant must reach the semantically-correct verdict. Also verifies the
+    pairscramble control (a scrambled goal cue must not reproduce the correct idiom-grounded pick
+    through genuine goal-conditioning) and FHRR round-trip fidelity, mirroring self_test_utility_
+    channel's own discipline."""
+    from hdlab import idiom_grounding as _ig  # noqa: F401 (import-path smoke; real object exercised below)
+
+    # (1) "Uh. No." case (real DesireDB cohort item): plain WordNet-only channel ABSTAINS
+    # (margin_refuse_zero_sum, no outcome-side cue token); idiom-grounded must reach Unfulfilled.
+    desire1 = "My girl [wanted to] act it out in real life, even wanting to move to England! Uh. No."
+    outcome1 = "Uh. No. Uh. No."
+    plain1 = utility_channel_trace(desire1, outcome1)
+    grounded1 = utility_channel_trace_idiom_grounded(desire1, outcome1)
+    assert plain1["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain1}"
+    assert grounded1["verdict"] == "Unfulfilled", (
+        f"MECHANISM-FIRES FAILURE: idiom-grounded channel did not recover 'Uh. No.' case: {grounded1}")
+
+    # (2) "she told her no" case (real DesireDB cohort item): plain WordNet-only channel MIS-fires
+    # Fulfilled (a spurious literal-token hit: 'calls' matches SOCIAL_CONNECTION's satisfied_cues
+    # phone-call/pay-a-visit sense); idiom-grounded must flip to the semantically-correct Unfulfilled
+    # once the decisive 'told her no' idiom outweighs the single ambiguous token.
+    desire2 = "She [wanted to] see us."
+    # verbatim as it appears in real DesireDB (3x-repeated scraping artifact -- this exact
+    # duplication is what motivated `hdlab.idiom_grounding.dedupe_repeated_sentences`: without it
+    # the per-token 'calls' hit (a SOCIAL_CONNECTION satisfied_cue, phone-call sense) is counted
+    # 3x by the raw WordNet token vote and outvotes the (correctly deduplicated) idiom hit).
+    outcome2 = ("So Jarrad calls and bec tells him she asked Robyn and she told her no. "
+                "So Jarrad calls and bec tells him she asked Robyn and she told her no "
+                "So Jarrad calls and bec tells him she asked Robyn and she told her no ")
+    plain2 = utility_channel_trace(desire2, outcome2)
+    grounded2 = utility_channel_trace_idiom_grounded(desire2, outcome2)
+    assert plain2["verdict"] == "Fulfilled", f"fixture assumption broken: plain channel = {plain2}"
+    assert grounded2["verdict"] == "Unfulfilled", (
+        f"MECHANISM-FIRES FAILURE: idiom-grounded channel did not flip 'told her no' case: {grounded2}")
+
+    # (3) FHRR round-trip fidelity on both grounded cases.
+    for r in (grounded1, grounded2):
+        for attr, info in r["active"].items():
+            assert info["roundtrip_ok"], f"FHRR ROUND-TRIP FAILURE on {attr!r}: {info}"
+
+    # (4) pairscramble control: a WRONG goal cue (unrelated desire) on outcome2 must not reproduce
+    # the correct Unfulfilled pick via genuine goal-conditioning (activation itself changes with a
+    # scrambled desire, so this checks the mechanism is not just reading outcome-idiom polarity
+    # blind to the goal -- mirrors self_test_goal_cued's own scramble-control discipline).
+    scramble_desire = "I wanted to buy a new bike."
+    scrambled = utility_channel_idiom_grounded(scramble_desire, outcome2)
+    assert scrambled != "Unfulfilled" or activate_attributes(scramble_desire) != activate_attributes(desire2), (
+        f"SCRAMBLE-CONTROL AMBIGUOUS: scrambled-cue verdict={scrambled!r} reproduced the grounded "
+        f"pick with an IDENTICAL activation set to the real goal -- would indicate the mechanism "
+        f"ignores the goal cue entirely")
+
+    # (5) determinism.
+    assert utility_channel_trace_idiom_grounded(desire2, outcome2)["score"] == grounded2["score"]
+
+    return {"case1_uh_no": grounded1, "case2_told_her_no": grounded2,
+            "plain_channel_case1_abstained": plain1["verdict"] is None,
+            "plain_channel_case2_misfired_fulfilled": plain2["verdict"] == "Fulfilled",
+            "scrambled_case2": scrambled}
+
+
 if __name__ == "__main__":
     import json
     print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued(),
-                       "self_test_utility_channel": self_test_utility_channel()},
+                       "self_test_utility_channel": self_test_utility_channel(),
+                       "self_test_idiom_grounded_channel": self_test_idiom_grounded_channel()},
                       indent=2, default=str))
