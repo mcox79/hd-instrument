@@ -1,0 +1,327 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "GATE1[HARD_PASS]: held_out_acc=0.8846 delta_vs_mem=0.6538 scr_acc=0.0769 || GATE2[MIDDLE_BAND]: GATE2 cohort n=22 activation_fires_rate=0.273 recovery_iii=0.375 (3/8) recovery_ii_stage2ref=0.0 pairscramble(iv): |scr-i|=0.0455 (<=0.05 collapse=True) |scr-mech|=0.1818 (>0.03 not-leak, leaks=False) || ENLARGED(context): recovery_arm_iii=0.2432 (9/37) vs M1_enlarged=0.0 (0/37)",
+  "summary": "MIDDLE_BAND: GATE1[HARD_PASS]: held_out_acc=0.8846 delta_vs_mem=0.6538 scr_acc=0.0769 || GATE2[MIDDLE_BAND]: GATE2 cohort n=22 activation_fires_rate=0.273 recovery_iii=0.375 (3/8) recovery_ii_stage2ref=0.0 pairscramble(iv): |scr-i|=0.0455 (<=0.05 collapse=True) |scr-mech|=0.1818 (>0.03 not-leak, leaks=False) || ENLARGED(context): recovery_arm_iii=0.2432 (9/37) vs M1_enlarged=0.0 (0/37)",
+  "elapsed_s": 417.208,
+  "run_mode": "full",
+  "anchor_name": "direction_b_M2_speechact_result_generalization_v1",
+  "n_sample": 160,
+  "n_per_class": 80,
+  "seed": 20260808,
+  "gate1": {
+    "verdict_component": "HARD_PASS",
+    "chosen_name": "ruleind",
+    "chosen_plugin_description_bits": {
+      "estimation": 45.378,
+      "ruleind": 16.873,
+      "proginduction": 60.635
+    },
+    "n_train": 34,
+    "n_heldout": 26,
+    "held_out_acc": 0.8846,
+    "memorization_baseline_acc": 0.2308,
+    "scramble_control_acc": 0.0769,
+    "delta_vs_memorization": 0.6538,
+    "scramble_collapses": true,
+    "majority_train_class": "REFUSAL",
+    "per_item_predictions": [
+      {
+        "tag": "told",
+        "gold": "REFUSAL",
+        "pred": "REFUSAL",
+        "ok": true
+      },
+      {
+        "tag": "answered",
+        "gold": "REFUSAL",
+        "pred": "REFUSAL",
+        "ok": true
+      },
+      {
+        "tag": "objected",
+        "gold": "REFUSAL",
+        "pred": "REFUSAL",
+        "ok": true
+      },
+      {
+        "tag": "refused",
+        "gold": "REFUSAL",
+        "pred": "REFUSAL",
+        "ok": true
+      },
+      {
+        "tag": "responded",
+        "gold": "REFUSAL",
+        "pred": "REFUSAL",
+        "ok": true
+      },
+      {
+        "tag": "never",
+        "gold": "REFUSAL",
+        "pred": "REFUSAL",
+        "ok": true
+      },
+      {
+        "tag": "handed",
+        "gold": "GRANT",
+        "pred": "GRANT",
+        "ok": true
+      },
+      {
+        "tag": "permitted",
+        "gold": "GRANT",
+        "pred": "GRANT",
+        "ok": true
+      },
+      {
+        "tag": "allowed",
+        "gold": "GRANT",
+        "pred": "GRANT",
+        "ok": true
+      },
+      {
+        "tag": "awarded",
+        "gold": "GRANT",
+        "pred": "REFUSAL",
+        "ok": false
+      },
+      {
+        "tag": "provided",
+        "gold": "GRANT",
+        "pred": "REFUSAL",
+        "ok": false
+      },
+      {
+        "tag": "handed_neg",
+        "gold": "BLOCK",
+        "pred": "BLOCK",
+        "ok": true
+      },
+      {
+        "tag": "permitted_neg",
+        "gold": "BLOCK",
+        "pred": "BLOCK",
+        "ok": true
+      },
+      {
+        "tag": "allowed_neg",
+        "gold": "BLOCK",
+        "pred": "BLOCK",
+        "ok": true
+      },
+      {
+        "tag": "awarded_neg",
+        "gold": "BLOCK",
+        "pred": "BLOCK",
+        "ok": true
+      },
+      {
+        "tag": "provided_neg",
+        "gold": "BLOCK",
+        "pred": "BLOCK",
+        "ok": true
+      },
+      {
+        "tag": "completed",
+        "gold": "ACHIEVE",
+        "pred": "ACHIEVE",
+        "ok": true
+      },
+      {
+        "tag": "accomplished",
+        "gold": "ACHIEVE",
+        "pred": "ACHIEVE",
+        "ok": true
+      },
+      {
+        "tag": "won",
+        "gold": "ACHIEVE",
+        "pred": "ACHIEVE",
+        "ok": true
+      },
+      {
+        "tag": "reached",
+        "gold": "ACHIEVE",
+        "pred": "ACHIEVE",
+        "ok": true
+      },
+      {
+        "tag": "completed_neg",
+        "gold": "FAIL",
+        "pred": "FAIL",
+        "ok": true
+      },
+      {
+        "tag": "won_neg",
+        "gold": "FAIL",
+        "pred": "FAIL",
+        "ok": true
+      },
+      {
+        "tag": "reached_neg",
+        "gold": "FAIL",
+        "pred": "FAIL",
+        "ok": true
+      },
+      {
+        "tag": "missed",
+        "gold": "FAIL",
+        "pred": "FAIL",
+        "ok": true
+      },
+      {
+        "tag": "flunked",
+        "gold": "FAIL",
+        "pred": "FAIL",
+        "ok": true
+      },
+      {
+        "tag": "quit",
+        "gold": "FAIL",
+        "pred": "REFUSAL",
+        "ok": false
+      }
+    ]
+  },
+  "gate1_component": "HARD_PASS",
+  "gate2_component": "MIDDLE_BAND",
+  "cohort_metrics": {
+    "cohort_n": 22,
+    "activation_fires_rate": 0.2727,
+    "verdict_fires_rate_iii": 0.1818,
+    "gold_dist": {
+      "Fulfilled": 14,
+      "Unfulfilled": 8
+    },
+    "acc_i": 0.6364,
+    "acc_ii": 0.6364,
+    "acc_iii": 0.7727,
+    "acc_iv": 0.5909,
+    "macro_f1_i": 0.3889,
+    "macro_f1_ii": 0.3889,
+    "macro_f1_iii": 0.697,
+    "macro_f1_iv": 0.4545,
+    "recovery_i": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_ii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    },
+    "recovery_iii": {
+      "n_majority_wrong": 8,
+      "n_recovered": 3,
+      "rate": 0.375
+    },
+    "recovery_iv": {
+      "n_majority_wrong": 8,
+      "n_recovered": 1,
+      "rate": 0.125
+    },
+    "resulttype_traces_gold_unfulfilled": [
+      {
+        "idx": 91,
+        "gold": "Unfulfilled",
+        "resulttype_matched": [
+          "REFUSAL"
+        ]
+      },
+      {
+        "idx": 99,
+        "gold": "Unfulfilled",
+        "resulttype_matched": []
+      },
+      {
+        "idx": 107,
+        "gold": "Unfulfilled",
+        "resulttype_matched": []
+      },
+      {
+        "idx": 118,
+        "gold": "Unfulfilled",
+        "resulttype_matched": []
+      },
+      {
+        "idx": 135,
+        "gold": "Unfulfilled",
+        "resulttype_matched": [
+          "BLOCK"
+        ]
+      },
+      {
+        "idx": 144,
+        "gold": "Unfulfilled",
+        "resulttype_matched": [
+          "REFUSAL"
+        ]
+      },
+      {
+        "idx": 150,
+        "gold": "Unfulfilled",
+        "resulttype_matched": []
+      },
+      {
+        "idx": 154,
+        "gold": "Unfulfilled",
+        "resulttype_matched": []
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "iii": "a92cf1386708293ab2e532c246fa8c1a9bb7cdc422d9df2838f454512adf17e1",
+    "iv": "61aad75543880b7eeb781f379b6d6fff4e849be8369bb9f4052032621c363f5e"
+  },
+  "harness_validity_check": {
+    "n": 80,
+    "measured_acc": 0.7,
+    "measured_macro_f1": 0.6992,
+    "documented_macro_f1": 0.686,
+    "delta_macro_f1": 0.0132,
+    "valid": true,
+    "tolerance": 0.03
+  },
+  "enlarged_cohort_context": {
+    "n_subsample_rows": 900,
+    "n_total_rows_available": 3076,
+    "cohort_n": 152,
+    "gold_unfulfilled_n": 37,
+    "recovery_arm_iii": {
+      "n_recovered": 9,
+      "n_majority_wrong": 37,
+      "rate": 0.2432
+    },
+    "pairscramble_at_scale": {
+      "cohort_n": 152,
+      "acc_i": 0.7566,
+      "acc_scrambled_arm_iii": 0.7303,
+      "delta": 0.0263,
+      "collapses_at_scale": true
+    },
+    "resulttype_match_frequency": {
+      "REFUSAL": 18,
+      "ACHIEVE": 4,
+      "FAIL": 1
+    },
+    "m1_enlarged_cohort_reference": {
+      "recovery_rate": 0.0,
+      "n_recovered": 0,
+      "n_majority_wrong": 37,
+      "source": "data/exp_direction_b_M1_idiom_grounding_recovery_v1/metrics.json:enlarged_cohort_context.recovery_primary_mech_arm"
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic construction-cue-vote learner (ruleind/estimation/proginduction over a fixed 7-atom boolean feature space, MEASURED@this session's design probe: n_atoms=7,max_nodes=5 -> 0.26s enumeration) + FHRR bind/bundle/cleanup over a fixed 6-role x 3-filler codebook, no decoded/noisy continuous signal from a swept capacity regime -- identical justification to Stage-2/M1's crlb_n/a, unchanged FHRR mechanism layer",
+  "deterministic_seeding": true
+}

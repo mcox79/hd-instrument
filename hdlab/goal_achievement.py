@@ -926,6 +926,145 @@ def self_test_idiom_grounded_channel() -> dict:
             "scrambled_case2": scrambled}
 
 
+# ============================================================================ DIRECTION-B M2:
+# LEARNED speech-act/RESULT-TYPE-grounded evidence-scoring (2026-08-09). Per notes/direction_b_
+# grounded_knowledge_build_plan_2026-08-09.md milestone M2: M1's idiom lexicon supplements the
+# WordNet token vote with a 29-entry HAND-AUTHORED phrase lexicon (recovery 0.25 primary-cohort,
+# 0/37 enlarged-cohort breadth -- idioms are a non-compositional long-tail). M2 tests a DIFFERENT,
+# complementary hypothesis: a LEARNED classifier (hdlab.result_type_induction, construction-cue
+# features, hdlab.learner.registry.learn, held-out-surface-form generalization measured by
+# experiments/exp_direction_b_M2_speechact_result_generalization_v1.py's GATE-1) over the COMMON
+# COMPOSITIONAL CORE of refusal/grant/block/achieve/fail expressions. SAME activation
+# (`activate_attributes`, goal-side only, never touches outcome text) -- confound-immunity argument
+# identical to Stage-2/M1. `chosen_name`/`hypothesis` are the induced hypothesis from
+# hdlab.result_type_induction.get_induced_hypothesis() (trained ONLY on TRAIN_EXAMPLES, never on
+# DesireDB -- the caller passes it explicitly, rather than this module importing the getter itself,
+# so it is visually obvious at every call site that DesireDB gold never touches the fit).
+_RESULTTYPE_VOTE_WEIGHT = 2  # a whole-span result-type classification is a more decisive/less-
+                             # ambiguous signal than one single ambiguous WordNet token vote --
+                             # the SAME fixed, pre-declared design choice as M1's _IDIOM_VOTE_WEIGHT.
+
+
+def _attribute_outcome_state_resulttype_grounded(attr: str, outcome: str, chosen_name, hypothesis
+                                                   ) -> Tuple[str, dict]:
+    """Direction-B M2 variant of `_attribute_outcome_state`: the same per-token WordNet vote PLUS a
+    supplementary result-type vote from `hdlab.result_type_induction.result_type_votes` (weighted).
+    Returns (state, trace) -- trace separates the WordNet-only sub-total from the result-type
+    contribution (auditability, same discipline as M1's idiom-grounded trace). Applies
+    `hdlab.idiom_grounding.dedupe_repeated_sentences` first (same general data-hygiene fix M1
+    applied -- DesireDB's own verbatim-repeated-sentence scraping artifact otherwise inflates the
+    per-token WordNet vote 2-3x; reused verbatim, not idiom-lexicon-specific per that function's own
+    docstring)."""
+    from hdlab import idiom_grounding as _ig
+    from hdlab import result_type_induction as _rti
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    npos, nneg = _token_vote(attr, outcome_dedup)
+    rt = _rti.result_type_votes(outcome_dedup, chosen_name, hypothesis)
+    rt_pos_w = _RESULTTYPE_VOTE_WEIGHT * rt["POS"]
+    rt_neg_w = _RESULTTYPE_VOTE_WEIGHT * rt["NEG"]
+    trace = {"token_npos": npos, "token_nneg": nneg,
+             "resulttype_pos_votes": rt["POS"], "resulttype_neg_votes": rt["NEG"],
+             "resulttype_pos_weighted": rt_pos_w, "resulttype_neg_weighted": rt_neg_w,
+             "resulttype_matched": rt["matched"]}
+    npos += rt_pos_w
+    nneg += rt_neg_w
+    if npos == nneg:
+        return "ABSENT", trace
+    return ("SATISFIED" if npos > nneg else "VIOLATED"), trace
+
+
+def utility_channel_trace_resulttype_grounded(desire: str, outcome: str, chosen_name, hypothesis
+                                               ) -> dict:
+    """Direction-B M2 (2026-08-09) result-type-grounded variant of `utility_channel_trace`. SAME
+    activation and SAME FHRR bind/bundle/unbind scoring layer as Stage-2/M1; only the per-attribute
+    outcome-evidence function differs (`_attribute_outcome_state_resulttype_grounded`). NOT wired
+    into goal_achievement_verdict's precedence -- pure ADD, evaluated standalone by
+    experiments/exp_direction_b_M2_speechact_result_generalization_v1.py."""
+    active = activate_attributes(desire)
+    if not active:
+        return {"verdict": None, "reason": "no_attribute_activated", "active": {}}
+    roles, fillers = _utility_vecs()
+    per_attr = {}
+    weighted_terms = []
+    for attr, w in active.items():
+        state, trace = _attribute_outcome_state_resulttype_grounded(attr, outcome, chosen_name, hypothesis)
+        weighted_terms.append(w * bind(roles[attr], fillers[state]))
+        per_attr[attr] = {"activation_weight": round(w, 2), "outcome_state": state,
+                           "grounding_trace": trace}
+    U = bundle(torch.stack(weighted_terms))
+    score = 0.0
+    for attr, w in active.items():
+        probe = unbind(U, roles[attr])
+        recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+        per_attr[attr]["recovered_state"] = recovered_name
+        per_attr[attr]["recovered_margin"] = round(margin, 4)
+        per_attr[attr]["roundtrip_ok"] = (recovered_name == per_attr[attr]["outcome_state"])
+        score += w * _UTIL_SIGN[recovered_name]
+    if score == 0.0:
+        return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+    verdict = "Fulfilled" if score > 0.0 else "Unfulfilled"
+    return {"verdict": verdict, "reason": "weighted_bundle", "score": round(score, 4), "active": per_attr}
+
+
+def utility_channel_resulttype_grounded(desire: str, outcome: str, chosen_name, hypothesis
+                                         ) -> Optional[str]:
+    """Fulfilled/Unfulfilled/None -- Direction-B M2's result-type-grounded 4th-channel variant. See
+    `utility_channel_trace_resulttype_grounded` for the mechanism."""
+    return utility_channel_trace_resulttype_grounded(desire, outcome, chosen_name, hypothesis)["verdict"]
+
+
+def self_test_resulttype_grounded_channel() -> dict:
+    """MECHANISM-FIRES check for Direction-B M2, mirroring self_test_idiom_grounded_channel's
+    discipline exactly (same two real-DesireDB-cohort flagship cases, same pairscramble control)."""
+    from hdlab import result_type_induction as _rti
+    chosen_name, hypothesis = _rti.get_induced_hypothesis()
+    assert hypothesis is not None, "M2 induction abstained on its own TRAIN set -- cannot self-test"
+
+    # (1) "Uh. No." case: plain WordNet-only channel ABSTAINS; result-type-grounded must recover
+    # Unfulfilled via the bare-discourse-negation construction rule.
+    desire1 = "My girl [wanted to] act it out in real life, even wanting to move to England! Uh. No."
+    outcome1 = "Uh. No. Uh. No."
+    plain1 = utility_channel_trace(desire1, outcome1)
+    grounded1 = utility_channel_trace_resulttype_grounded(desire1, outcome1, chosen_name, hypothesis)
+    assert plain1["verdict"] is None, f"fixture assumption broken: plain channel did not abstain: {plain1}"
+    assert grounded1["verdict"] == "Unfulfilled", (
+        f"MECHANISM-FIRES FAILURE: resulttype-grounded channel did not recover 'Uh. No.' case: {grounded1}")
+
+    # (2) "she told her no" case: plain WordNet-only channel MIS-fires Fulfilled (spurious 'calls'
+    # token hit); resulttype-grounded must flip to Unfulfilled via the comm_verb('told')+neg_present
+    # REFUSAL rule (a HELD-OUT surface form -- 'told' is never in COMM_POOL/TRAIN_EXAMPLES).
+    desire2 = "She [wanted to] see us."
+    outcome2 = ("So Jarrad calls and bec tells him she asked Robyn and she told her no. "
+                "So Jarrad calls and bec tells him she asked Robyn and she told her no "
+                "So Jarrad calls and bec tells him she asked Robyn and she told her no ")
+    plain2 = utility_channel_trace(desire2, outcome2)
+    grounded2 = utility_channel_trace_resulttype_grounded(desire2, outcome2, chosen_name, hypothesis)
+    assert plain2["verdict"] == "Fulfilled", f"fixture assumption broken: plain channel = {plain2}"
+    assert grounded2["verdict"] == "Unfulfilled", (
+        f"MECHANISM-FIRES FAILURE: resulttype-grounded channel did not flip 'told her no' case: {grounded2}")
+
+    # (3) FHRR round-trip fidelity on both grounded cases.
+    for r in (grounded1, grounded2):
+        for attr, info in r["active"].items():
+            assert info["roundtrip_ok"], f"FHRR ROUND-TRIP FAILURE on {attr!r}: {info}"
+
+    # (4) pairscramble control: a WRONG goal cue must not reproduce the correct Unfulfilled pick.
+    scramble_desire = "I wanted to buy a new bike."
+    scrambled = utility_channel_resulttype_grounded(scramble_desire, outcome2, chosen_name, hypothesis)
+    assert scrambled != "Unfulfilled" or activate_attributes(scramble_desire) != activate_attributes(desire2), (
+        f"SCRAMBLE-CONTROL AMBIGUOUS: scrambled-cue verdict={scrambled!r} reproduced the grounded "
+        f"pick with an IDENTICAL activation set to the real goal")
+
+    # (5) determinism.
+    assert utility_channel_trace_resulttype_grounded(
+        desire2, outcome2, chosen_name, hypothesis)["score"] == grounded2["score"]
+
+    return {"case1_uh_no": grounded1, "case2_told_her_no": grounded2,
+            "plain_channel_case1_abstained": plain1["verdict"] is None,
+            "plain_channel_case2_misfired_fulfilled": plain2["verdict"] == "Fulfilled",
+            "scrambled_case2": scrambled, "chosen_plugin": chosen_name}
+
+
 if __name__ == "__main__":
     import json
     print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued(),
