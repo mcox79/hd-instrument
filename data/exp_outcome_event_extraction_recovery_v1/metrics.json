@@ -1,0 +1,163 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: enlarged(unf_n=37) fire_rate=0.054(>= 0.4) recovery(real/abl/scr)=(0/37=0.0 / 0/37=0.0 / 1/37=0.027) gap_vs_ablation=0.0000(>=0.15) gap_vs_scramble=-0.0270(>=0.15) full_cohort_acc(real/abl/majority)=(0.75/0.7434/0.7566) n160_full_bench(macro_f1/base/rule_floor)=(0.6623/0.6623/0.62) n80_full_bench_macro_f1=0.6992 | diagnosis={'EXTRACTION_NEVER_FIRED': 35, 'ORGANS_ABSTAINED_NO_LEXICAL_ANCHOR': 2} | reasons=['HF2_EXTRACTION_NOT_THE_LEVER(gap=0.0000<0.05)', 'HF3_PAIRSCRAMBLE_FAILS_TO_COLLAPSE(scr=0.027,real=0.0)']",
+  "summary": "HARD_FAIL: enlarged(unf_n=37) fire_rate=0.054(>= 0.4) recovery(real/abl/scr)=(0/37=0.0 / 0/37=0.0 / 1/37=0.027) gap_vs_ablation=0.0000(>=0.15) gap_vs_scramble=-0.0270(>=0.15) full_cohort_acc(real/abl/majority)=(0.75/0.7434/0.7566) n160_full_bench(macro_f1/base/rule_floor)=(0.6623/0.6623/0.62) n80_fu",
+  "elapsed_s": 592.207,
+  "run_mode": "full",
+  "anchor_name": "outcome_event_extraction_recovery_v1",
+  "config": {
+    "ENLARGED_N_ROWS": 900,
+    "ENLARGED_SEED": 20260809,
+    "FULL_N_PER_CLASS": 80,
+    "VALIDITY_N_PER_CLASS": 40,
+    "SEED": 20260808
+  },
+  "enlarged_cohort_n": 152,
+  "enlarged_gold_unfulfilled_n": 37,
+  "extraction_fire_rate_real": 0.0541,
+  "recovery_real": {
+    "rate": 0.0,
+    "n_recovered": 0,
+    "n": 37
+  },
+  "recovery_ablation": {
+    "rate": 0.0,
+    "n_recovered": 0,
+    "n": 37
+  },
+  "recovery_pairscramble": {
+    "rate": 0.027,
+    "n_recovered": 1,
+    "n": 37
+  },
+  "gap_real_vs_ablation": 0.0,
+  "gap_real_vs_pairscramble": -0.027,
+  "full_cohort_accuracy_real": 0.75,
+  "full_cohort_accuracy_ablation": 0.7434,
+  "full_cohort_accuracy_majority_baseline": 0.7566,
+  "arms_differ_real_vs_ablation": true,
+  "diagnosis_table": {
+    "1": "EXTRACTION_NEVER_FIRED",
+    "16": "EXTRACTION_NEVER_FIRED",
+    "60": "ORGANS_ABSTAINED_NO_LEXICAL_ANCHOR",
+    "82": "EXTRACTION_NEVER_FIRED",
+    "107": "EXTRACTION_NEVER_FIRED",
+    "109": "EXTRACTION_NEVER_FIRED",
+    "116": "EXTRACTION_NEVER_FIRED",
+    "210": "EXTRACTION_NEVER_FIRED",
+    "223": "EXTRACTION_NEVER_FIRED",
+    "261": "EXTRACTION_NEVER_FIRED",
+    "297": "EXTRACTION_NEVER_FIRED",
+    "317": "EXTRACTION_NEVER_FIRED",
+    "333": "EXTRACTION_NEVER_FIRED",
+    "343": "ORGANS_ABSTAINED_NO_LEXICAL_ANCHOR",
+    "349": "EXTRACTION_NEVER_FIRED",
+    "353": "EXTRACTION_NEVER_FIRED",
+    "378": "EXTRACTION_NEVER_FIRED",
+    "394": "EXTRACTION_NEVER_FIRED",
+    "435": "EXTRACTION_NEVER_FIRED",
+    "469": "EXTRACTION_NEVER_FIRED",
+    "506": "EXTRACTION_NEVER_FIRED",
+    "510": "EXTRACTION_NEVER_FIRED",
+    "517": "EXTRACTION_NEVER_FIRED",
+    "526": "EXTRACTION_NEVER_FIRED",
+    "538": "EXTRACTION_NEVER_FIRED",
+    "598": "EXTRACTION_NEVER_FIRED",
+    "605": "EXTRACTION_NEVER_FIRED",
+    "646": "EXTRACTION_NEVER_FIRED",
+    "650": "EXTRACTION_NEVER_FIRED",
+    "661": "EXTRACTION_NEVER_FIRED",
+    "730": "EXTRACTION_NEVER_FIRED",
+    "746": "EXTRACTION_NEVER_FIRED",
+    "856": "EXTRACTION_NEVER_FIRED",
+    "863": "EXTRACTION_NEVER_FIRED",
+    "866": "EXTRACTION_NEVER_FIRED",
+    "868": "EXTRACTION_NEVER_FIRED",
+    "879": "EXTRACTION_NEVER_FIRED"
+  },
+  "diagnosis_counts": {
+    "EXTRACTION_NEVER_FIRED": 35,
+    "ORGANS_ABSTAINED_NO_LEXICAL_ANCHOR": 2
+  },
+  "extraction_precision_spot_check": {
+    "recovered_correct_sample": [],
+    "recovered_wrong_sample": [
+      {
+        "desire": "I got to our friends house after work on Friday around 1am, everyone was drunk already and after an hour Julien [wanted to] go home, I was wide awake and had just drunk a load of rum and red bull and said to him to stay so we could walk back together.",
+        "outcome": "said to him to stay so we could walk back together I was wide awake and had just drunk a load of rum and red bull and said to him to stay so we could walk back together. I was wide awake and had just drunk a load of rum and red bull and said to him to stay so we could walk back together. ",
+        "event_span": "we could walk back together I was wide awake",
+        "referent_link_tier": "literal",
+        "verb_matches_goal": false,
+        "pred": "Fulfilled",
+        "gold": "Unfulfilled",
+        "fired_channels": []
+      },
+      {
+        "desire": "So here are few of the songs that I always [wanted to] sing \"one day\"...",
+        "outcome": "\"\"\"one day\"\"\" \"\"\"one day\"\"\" ",
+        "event_span": "\" \" \" one day \" \" \" \" \" \" one day \" \" \"",
+        "referent_link_tier": "literal",
+        "verb_matches_goal": false,
+        "pred": "Fulfilled",
+        "gold": "Unfulfilled",
+        "fired_channels": []
+      }
+    ],
+    "n_recovered_correct_total": 0,
+    "n_recovered_wrong_total": 2
+  },
+  "m1_m2_enlarged_reference": {
+    "M1_recovery": "0/37",
+    "M2_recovery": "9/37=0.243",
+    "source": "exp_direction_b_M1/M2_..._v1 metrics.json, CITED (backup L61/L63)"
+  },
+  "n160_robustness": {
+    "cohort_n": 22,
+    "gold_unfulfilled_n": 8,
+    "full_bench_composed": {
+      "n": 160,
+      "acc": 0.6625,
+      "macro_f1": 0.6623,
+      "base_acc": 0.6625,
+      "base_macro_f1": 0.6623
+    }
+  },
+  "n80_full_bench_composed": {
+    "n": 80,
+    "acc": 0.7,
+    "macro_f1": 0.6992,
+    "base_acc": 0.7,
+    "base_macro_f1": 0.6992
+  },
+  "harness_validity_check": {
+    "n": 80,
+    "measured_acc": 0.7,
+    "measured_macro_f1": 0.6992,
+    "documented_macro_f1": 0.686,
+    "delta_macro_f1": 0.0132,
+    "valid": true
+  },
+  "gates": {
+    "HP1_extraction_fires": false,
+    "HP2_gap_vs_ablation": false,
+    "HP3_pairscramble_collapses": false,
+    "HP4_recovery_floor": false,
+    "HP5_beats_fresh_base": true,
+    "HP6_beats_rule_floor": true
+  },
+  "hard_fail_reasons": [
+    "HF2_EXTRACTION_NOT_THE_LEVER(gap=0.0000<0.05)",
+    "HF3_PAIRSCRAMBLE_FAILS_TO_COLLAPSE(scr=0.027,real=0.0)"
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 341,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "glass-box lexical/parse-structural pipeline (referent-linkage tiering + fired-majority-vote composition), no swept capacity regime, no decoded/noisy continuous signal",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true
+}

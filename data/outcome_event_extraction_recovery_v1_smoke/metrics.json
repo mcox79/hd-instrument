@@ -1,0 +1,33 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE: cohort_n=16 unf_n=6 extraction_fire_rate=0.062 recovery(real/abl/scr)=(0.0/0.0/0.0) arms_differ=False",
+  "summary": "HARD_PASS: SMOKE: cohort_n=16 unf_n=6 extraction_fire_rate=0.062 recovery(real/abl/scr)=(0.0/0.0/0.0) arms_differ=False",
+  "elapsed_s": 32.293,
+  "run_mode": "smoke",
+  "anchor_name": "outcome_event_extraction_recovery_v1",
+  "n_sample": 80,
+  "cohort_n": 16,
+  "gold_unfulfilled_n": 6,
+  "extraction_fire_rate": 0.0625,
+  "recovery_real": {
+    "rate": 0.0,
+    "n_recovered": 0,
+    "n": 6
+  },
+  "recovery_ablation": {
+    "rate": 0.0,
+    "n_recovered": 0,
+    "n": 6
+  },
+  "recovery_pairscramble": {
+    "rate": 0.0,
+    "n_recovered": 0,
+    "n": 6
+  },
+  "arms_differ_real_vs_ablation": false,
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "final_metrics_atomicity": "tmp_replace",
+  "deterministic_seeding": true,
+  "crlb_n/a": "glass-box lexical/parse-structural pipeline, no swept capacity regime"
+}
