@@ -104,11 +104,12 @@ def check_precedence_mechanism_fires():
 
 
 def check_wiring_engages_and_strict_add():
-    # (a) a majority-abstain case the pre-wire pipeline would default to MAJORITY_CLASS ('Fulfilled')
-    # on: the wired goal_achievement_verdict must recover the union's answer, WHILE `channel` stays
-    # 'majority' (cohort-membership-stability guarantee).
+    # (a) a majority-abstain case the pre-union pipeline would default to MAJORITY_CLASS ('Fulfilled')
+    # on: with the union ON (either the WIRED module default or an explicit use_union_oov=True) the
+    # verdict must recover the union's answer, WHILE `channel` stays 'majority' (cohort-membership-
+    # stability guarantee -- the wiring NEVER overwrites `channel`).
     desire, outcome = CASES[0][0], CASES[0][1]
-    r = goal_achievement_verdict(desire, outcome)
+    r = goal_achievement_verdict(desire, outcome, use_union_oov=True)
     assert r["channel"] == "majority", (
         f"COHORT-STABILITY FAILURE: channel {r['channel']!r} != 'majority' -- wiring must never "
         f"overwrite `channel` (any code filtering on channel=='majority' would silently see a "
@@ -119,22 +120,38 @@ def check_wiring_engages_and_strict_add():
     assert r["trace"]["base"] == "Fulfilled", (  # the PRE-union base was still MAJORITY_CLASS
         f"fixture assumption broken: base trace should still record the pre-union majority default: {r}")
 
-    # (b) a case where relation_channel already decided (channel != 'majority') must be COMPLETELY
-    # UNTOUCHED by the union -- strict-ADD, zero risk to the existing 3-channel precedence.
-    r2 = goal_achievement_verdict("I wanted to save him.", "But I couldn't.")
-    assert r2["channel"].startswith("relation"), f"fixture assumption broken: {r2}"
-    assert "union_oov_recovery_fired" not in r2["trace"], (
-        f"STRICT-ADD VIOLATION: union fields present on a non-majority-channel result: {r2}")
+    # (a') STRICT-ADD / OPT-IN INVARIANT (the load-bearing property the whole flag design exists for):
+    # use_union_oov=False on the SAME case must be BYTE-IDENTICAL to the pre-union certified pipeline --
+    # NO union trace fields, verdict == the base3 majority default. This is what guarantees any
+    # 0.686-reproducing harness_validity gate that passes flag=False stays VALID regardless of the
+    # module default (whether the union has been flipped on or not).
+    r_off = goal_achievement_verdict(desire, outcome, use_union_oov=False)
+    assert "union_oov_recovery_fired" not in r_off["trace"], (
+        f"STRICT-ADD VIOLATION: use_union_oov=False leaked union trace fields: {r_off}")
+    assert r_off["verdict"] == r_off["trace"]["base"] == "Fulfilled", (
+        f"STRICT-ADD VIOLATION: use_union_oov=False did not return the byte-identical base3 verdict: {r_off}")
+    assert r_off["channel"] == "majority", r_off
 
-    # (c) a case where valence_channel already decided must ALSO be untouched.
-    r3 = goal_achievement_verdict("I wanted a good day.", "It was wonderful and I felt so happy.")
+    # (b) a case where relation_channel already decided (channel != 'majority') must be COMPLETELY
+    # UNTOUCHED by the union under BOTH flag settings -- strict-ADD, zero risk to the 3-channel base.
+    for flag in (True, False, None):
+        r2 = goal_achievement_verdict("I wanted to save him.", "But I couldn't.", use_union_oov=flag)
+        assert r2["channel"].startswith("relation"), f"fixture assumption broken (flag={flag}): {r2}"
+        assert "union_oov_recovery_fired" not in r2["trace"], (
+            f"STRICT-ADD VIOLATION (flag={flag}): union fields on a non-majority-channel result: {r2}")
+
+    # (c) a case where valence_channel already decided must ALSO be untouched (flag ON).
+    r3 = goal_achievement_verdict("I wanted a good day.", "It was wonderful and I felt so happy.",
+                                   use_union_oov=True)
     assert r3["channel"] == "valence", f"fixture assumption broken: {r3}"
     assert "union_oov_recovery_fired" not in r3["trace"], (
-        f"STRICT-ADD VIOLATION: union fields present on a non-majority-channel result: {r3}")
+        f"STRICT-ADD VIOLATION: union fields present on a valence-decided result: {r3}")
 
-    print("[CHECK wiring_engages_and_strict_add] wiring recovers a majority-abstain case while "
-          "channel stays 'majority' (cohort-stable); relation/valence-decided cases untouched")
-    return {"wired_case_verdict": r["verdict"], "wired_case_channel": r["channel"]}
+    print("[CHECK wiring_engages_and_strict_add] union ON recovers a majority-abstain case while "
+          "channel stays 'majority' (cohort-stable); union OFF is byte-identical to the base3 "
+          "pipeline (no union trace fields); relation/valence-decided cases untouched under all flags")
+    return {"wired_case_verdict": r["verdict"], "wired_case_channel": r["channel"],
+            "off_is_byte_identical_base3": True}
 
 
 def check_pairscramble():

@@ -316,33 +316,57 @@ def _union_hyps():
     return _union_hyps_cache
 
 
-def goal_achievement_verdict(desire: str, outcome: str) -> dict:
-    """3-channel verdict, PLUS the UNION OOV-recovery strict-ADD fallback (2026-08-09,
-    exp_direction_b_union_wire_v1, WIRE_DECISION=True -- see data/exp_direction_b_union_wire_v1/
-    metrics.json). Returns {verdict, channel, reason, trace}. Glass-box, deterministic.
+# UNION OOV-recovery WIRING FLAG (2026-08-09, exp_direction_b_union_wire_v1). The union channel
+# (M2 resulttype + M1 idiom + fork-A relation) is an OPT-IN, strict-ADD, abstain-only fallback --
+# NEVER a silent default-path override. `_UNION_OOV_DEFAULT` is the MODULE DEFAULT applied when a
+# caller does not pass `use_union_oov=` explicitly. It is set True (WIRED) IFF the CAN-FAIL WIRE GATE
+# in exp_direction_b_union_wire_v1 passed on a VALID harness (base reproduces the documented 0.686
+# macro-F1 AND union delta net-positive no-regression AND union abstain-recovery > M2-alone AND
+# pairscramble collapses). CRITICAL INVARIANT: whatever this default is, `goal_achievement_verdict(
+# ..., use_union_oov=False)` is ALWAYS BYTE-IDENTICAL to the pre-union 3-channel certified pipeline
+# (no union trace fields, verdict/channel unchanged) -- so `harness_validity_check`-style gates that
+# pass `use_union_oov=False` reproduce 0.686 regardless of the default, and the union's effect is
+# always measurable as a clean two-arm (OFF vs ON) comparison on the same split. This is what makes
+# the wire a genuine strict-ADD rather than a certified-path modification.
+#
+# GATE-PASSED, FLIPPED ON 2026-08-09 (exp_direction_b_union_wire_v1, VALID harness -- base@OFF
+# reproduced macro-F1 0.6992 within 0.03 of the documented 0.686; union@ON net-positive no-regression
+# n=80 0.6992->0.7248 / n=160 0.6623->0.6875; abstain-recovery 5/8=0.625 > M2-alone 3/8; pairscramble
+# collapses). Held False through the confirmation run; flipped True only after the gate passed.
+_UNION_OOV_DEFAULT = True
 
-    WIRING DESIGN (deliberately surgical, per the task contract's 'zero risk to existing Stage-2/M1/
-    M2/M3-inc1 numbers'): the union channel (hdlab.goal_achievement.utility_channel_union_grounded --
-    M2 resulttype + M1 idiom + fork-A relation, precedence resulttype -> relation -> idiom_fallback)
-    is tried ONLY when the base 3-channel pipeline genuinely abstained to majority (`channel ==
-    'majority'`, i.e. NEITHER relation_channel NOR valence_channel fired, AND no contrast-override
-    applies -- contrast_present(outcome) is guaranteed False whenever `channel` reaches 'majority'
-    here, since MAJORITY_CLASS == 'Fulfilled' and the override check below would already have fired
-    otherwise; same 'no re-application of contrast-override needed' reasoning documented in
-    exp_utility_satisfaction_channel_v1.composed_verdict and fork-A's own module comment). `channel`
-    is DELIBERATELY LEFT AS 'majority' when the union does not fire, or when it fires but the caller
-    should still be able to distinguish 'genuinely no signal at all' -- fires are marked via the NEW
-    trace fields `union_oov_recovery_fired`/`union_verdict` below, which ADD to (never overwrite) the
-    original relation/valence/contrast/base trace fields. This means any existing cohort-definition
-    code that filters on `channel == 'majority'` (e.g. exp_utility_satisfaction_channel_v1.
-    build_cohort, reused verbatim by every Direction-B M1/M2/M3-inc1/fork-A/union cell) keeps
-    selecting the IDENTICAL cohort population it always has -- ONLY `verdict` improves for the
-    ~23%-of-cohort items the union recovers; cohort MEMBERSHIP never shifts. Known, accepted
-    consequence: `harness_validity_check`-style gates in OLDER cells that compare a FRESH
-    goal_achievement_verdict-derived macro-F1 against the documented PRE-wire constant (0.686 @ n=80)
-    will now measure a HIGHER number (MEASURED this session: 0.7248 @ n=80, 0.6875 @ n=160) -- this is
-    the intended, gate-passed improvement, not drift; a cell re-run post-wire should compare against
-    the new baseline, not the frozen pre-wire one."""
+
+def goal_achievement_verdict(desire: str, outcome: str, use_union_oov: Optional[bool] = None) -> dict:
+    """3-channel verdict (relation -> valence -> majority, then one-directional contrast-override),
+    PLUS the OPT-IN UNION OOV-recovery strict-ADD fallback. Returns {verdict, channel, reason, trace}.
+    Glass-box, deterministic.
+
+    `use_union_oov`: None (default) -> use the module `_UNION_OOV_DEFAULT` (True == WIRED, see that
+    constant's comment for the gate it passed); True -> always try the union fallback; False -> NEVER
+    try it (output BYTE-IDENTICAL to the pre-union certified 3-channel pipeline: no `union_*` trace
+    fields, verdict/channel exactly as the base pipeline produced them).
+
+    WIRING DESIGN (surgical, strict-ADD, per the task contract's 'zero risk to existing Stage-2/M1/
+    M2/M3-inc1 numbers'): the union channel (utility_channel_union_grounded -- M2 resulttype + M1
+    idiom + fork-A relation, precedence resulttype -> relation -> idiom_fallback) is tried ONLY when
+    (a) `use_union_oov` resolves True AND (b) the base 3-channel pipeline genuinely abstained to
+    majority (`channel == 'majority'`: NEITHER relation_channel NOR valence_channel fired; contrast-
+    override is guaranteed inapplicable at this point since MAJORITY_CLASS == 'Fulfilled' and the
+    override check below already ran against exactly that default -- same 'no re-application needed'
+    reasoning fork-A's own module comment documents). `channel` is DELIBERATELY LEFT AS 'majority'
+    even when the union fires (never overwritten) so cohort-definition code filtering on `channel ==
+    'majority'` (exp_utility_satisfaction_channel_v1.build_cohort, reused by every Direction-B cell)
+    keeps selecting the IDENTICAL cohort population -- only `verdict` improves for the subset the
+    union recovers; cohort MEMBERSHIP never shifts. The union's contribution is recorded in the NEW,
+    additive trace fields `union_oov_recovery_fired`/`union_verdict` (present ONLY when the union path
+    ran), which ADD to (never overwrite) the original relation/valence/contrast/base fields.
+
+    MEASURED (exp_direction_b_union_wire_v1, VALID harness: base@use_union_oov=False reproduces
+    macro-F1 0.6992/0.686 within tolerance): the union arm is net-positive with NO full-bench
+    regression (n=80 0.6992->0.7248, n=160 0.6623->0.6875), abstain-cohort recovery 5/8=0.625 >
+    M2-alone 3/8=0.375, pairscramble collapses -- WIRE_DECISION=True, hence `_UNION_OOV_DEFAULT=True`."""
+    if use_union_oov is None:
+        use_union_oov = _UNION_OOV_DEFAULT
     rel, reason = relation_channel(desire, outcome)
     val = valence_channel(outcome)
     if rel is not None:
@@ -358,7 +382,7 @@ def goal_achievement_verdict(desire: str, outcome: str) -> dict:
     result_channel = "contrast_override" if override else channel
     trace = {"relation": rel, "relation_reason": reason, "valence": val,
              "contrast": contrast_present(outcome), "base": base, "override": override}
-    if result_channel == "majority":
+    if use_union_oov and result_channel == "majority":
         rt_name, rt_hyp, rel_name, rel_hyp = _union_hyps()
         u = utility_channel_union_grounded(desire, outcome, rt_name, rt_hyp, rel_name, rel_hyp)
         trace["union_oov_recovery_fired"] = u is not None

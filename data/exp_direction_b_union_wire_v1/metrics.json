@@ -2,7 +2,7 @@
   "verdict": "HARD_PASS",
   "verdict_msg": "PRIMARY cohort n=22: recovery_union=0.625 (5/8) vs recovery_M2_alone=0.375 recovery_M1_alone=0.25 recovery_relation_alone=0.25 genuinely_additive=True || FULL_BENCH n=160: base_macro_f1=0.6623 union_macro_f1=0.6875 delta=+0.0252 no_regression=True || FULL_BENCH n=80: base_macro_f1=0.6992 union_macro_f1=0.7248 no_regression=True || pairscramble PRIMARY: |scr-i|=0.0000 (<=0.05 collapse=True) |scr-mech|=0.1818 (>0.03 not-leak, leaks=False) || pairscramble BREADTH: collapses_at_scale=True || BREADTH(context): recovery_union=0.2703 (10/37) vs M2=0.2432(9/37) M1=0.0(0/37) relation=0.0811(3/37) union_beats_max_single=True || WIRE_DECISION=True",
   "summary": "HARD_PASS: PRIMARY cohort n=22: recovery_union=0.625 (5/8) vs recovery_M2_alone=0.375 recovery_M1_alone=0.25 recovery_relation_alone=0.25 genuinely_additive=True || FULL_BENCH n=160: base_macro_f1=0.6623 union_macro_f1=0.6875 delta=+0.0252 no_regression=True || FULL_BENCH n=80: base_macro_f1=0.6992 union_macro_f1=0.7248 no_regression=True || pairscramble PRIMARY: |scr-i|=0.0000 (<=0.05 collapse=True) |scr-mech|=0.1818 (>0.03 not-leak, leaks=False) || pairscramble BREADTH: collapses_at_scale=True || BREADTH(context): recovery_union=0.2703 (10/37) vs M2=0.2432(9/37) M1=0.0(0/37) relation=0.0811(3/37) union_beats_max_single=True || WIRE_DECISION=True",
-  "elapsed_s": 526.557,
+  "elapsed_s": 548.251,
   "run_mode": "full",
   "anchor_name": "direction_b_union_wire_v1",
   "n_sample": 160,

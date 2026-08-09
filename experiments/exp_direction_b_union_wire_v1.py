@@ -213,7 +213,10 @@ def breadth_cohort_analysis(hyps: dict) -> dict:
 
     cohort_local_idxs = []
     for i, r in enumerate(sub_rows):
-        v = goal_achievement_verdict(r["Desire-Expression-Sentence"], r["Evidence"])
+        # use_union_oov=False: cohort membership is defined by the BASE pipeline's chann==majority,
+        # which the union never changes (it leaves `channel` untouched); flag=False avoids ~900
+        # wasteful union computations on a pass that only needs the channel.
+        v = goal_achievement_verdict(r["Desire-Expression-Sentence"], r["Evidence"], use_union_oov=False)
         if v["channel"] == "majority":
             cohort_local_idxs.append(i)
     gold_unfulfilled_local = [i for i in cohort_local_idxs if sub_rows[i]["Fulfillment-Label"] == "Unfulfilled"]
@@ -275,51 +278,37 @@ def breadth_cohort_analysis(hyps: dict) -> dict:
 
 
 # ============================================================================ full-bench composition
-def _base3_verdict_from_result(result: dict) -> str:
-    """Reconstruct the PRE-union 3-channel-only (relation/valence/contrast-override) verdict from a
-    goal_achievement_verdict() result dict, using its trace's 'base'/'override' fields -- those are
-    computed BEFORE the union fallback ever runs (see hdlab.goal_achievement.goal_achievement_
-    verdict's own docstring: the union is tried ONLY inside the `channel=='majority'` branch, and
-    never touches `trace['base']`/`trace['override']`), so this reconstruction is EXACT regardless of
-    whether the union itself fired on this item.
-
-    THIS IS LOAD-BEARING, not cosmetic: this cell's own WIRE edit (below, applied because
-    WIRE_DECISION=True) modifies hdlab.goal_achievement.goal_achievement_verdict ITSELF to include
-    the union fallback. Once that edit lands, calling goal_achievement_verdict directly and trusting
-    its `verdict` field to represent 'the base pipeline' would silently return the ALREADY-WIRED
-    answer -- collapsing this cell's own base-vs-union comparison into a wired-vs-wired no-op on any
-    future re-run (self-test caught this: composed_verdict_base's naive `goal_achievement_verdict(
-    ...)["verdict"]` broke immediately after the wire edit landed). Reconstructing from the trace
-    keeps 'base' meaning the true pre-union pipeline forever, independent of whether the live
-    goal_achievement_verdict has been wired."""
-    return "Unfulfilled" if result["trace"]["override"] else result["trace"]["base"]
-
-
+# The base-vs-union comparison uses the OPT-IN FLAG on goal_achievement_verdict (added this session):
+# base arm = use_union_oov=False (BYTE-IDENTICAL to the pre-union certified 3-channel pipeline, so it
+# reproduces the documented 0.686 macro-F1 regardless of the module default); union arm =
+# use_union_oov=True. This is the clean two-arm design the coordinator mandated -- NOT a
+# trace-reconstruction of "base" from a wired call (which conflated the loader-fidelity question with
+# the has-the-pipeline-been-improved question) and NOT a naive direct read of a wired verdict (which
+# would silently make base==union post-wire). Because the flag makes the base path independent of the
+# module default, this cell measures the gate correctly whether _UNION_OOV_DEFAULT is currently
+# True or False.
 def composed_verdict_base(desire: str, outcome: str) -> str:
-    """The PRE-union PRODUCTION pipeline verdict (relation/valence/contrast-override only, NO
-    4th-channel augmentation) -- see `_base3_verdict_from_result` for why this is reconstructed from
-    the trace rather than trusted directly off `goal_achievement_verdict`'s own `verdict` field."""
-    return _base3_verdict_from_result(goal_achievement_verdict(desire, outcome))
+    """The PRE-union certified 3-channel pipeline verdict (relation/valence/contrast-override only) --
+    goal_achievement_verdict with the union fallback explicitly OFF (byte-identical to the pre-wire
+    pipeline)."""
+    return goal_achievement_verdict(desire, outcome, use_union_oov=False)["verdict"]
 
 
 def composed_verdict_union(desire: str, outcome: str, hyps: dict) -> str:
-    """The CANDIDATE/CURRENT-WIRED pipeline verdict. Post-wire, `goal_achievement_verdict` itself
-    already implements exactly this composition (base verdict, except union's answer when it fired
-    on a majority-abstain item), so this is now a thin pass-through; `hyps` is accepted for interface
-    stability with pre-wire call sites but unused (the live function fits its own hypotheses)."""
+    """The union-wired pipeline verdict -- goal_achievement_verdict with the union fallback explicitly
+    ON. `hyps` accepted for interface stability but unused (goal_achievement_verdict fits/caches its
+    own union hypotheses via _union_hyps)."""
     del hyps
-    return goal_achievement_verdict(desire, outcome)["verdict"]
+    return goal_achievement_verdict(desire, outcome, use_union_oov=True)["verdict"]
 
 
 def full_bench_comparison(n_per_class: int, hyps: dict) -> dict:
-    """Base-alone vs union-wired composed macro-F1/acc on a FRESH balanced sample of the given size
-    (n=80 matches the documented-baseline harness scale; n=160 is the task's explicit WIRE-gate
-    comparison scale). Computes `goal_achievement_verdict` ONCE per item and derives BOTH the base
-    verdict (via `_base3_verdict_from_result`) and the union/wired verdict (its own `verdict` field,
-    post-wire) from that single call/trace -- correct both BEFORE this cell's wire edit lands (when
-    `goal_achievement_verdict` has no union fields, `verdict` == base3 always, so pred_union ==
-    pred_base pre-wire is the correct 'not yet wired' state) and AFTER (when `verdict` reflects the
-    union's own answer on recovered items). `hyps` is accepted for interface stability but unused."""
+    """Base(union OFF) vs union(union ON) composed macro-F1/acc on a FRESH balanced sample of the
+    given size (n=80 matches the documented-baseline harness scale, so the base arm MUST reproduce
+    ~0.686; n=160 is the task's explicit WIRE-gate comparison scale). Two explicit arms via the
+    use_union_oov flag -- the base arm is guaranteed byte-identical to the pre-wire pipeline, so
+    `no_regression` is a true base-vs-union delta on the SAME split, not a wired-vs-wired no-op.
+    `hyps` accepted for interface stability but unused."""
     del hyps
     rows = _s2.load_desiredb_rows()
     sample = _s2.balanced_subsample(rows, n_per_class, SEED)
@@ -327,9 +316,13 @@ def full_bench_comparison(n_per_class: int, hyps: dict) -> dict:
     pred_base, pred_union = [], []
     for r in sample:
         desire, outcome = r["Desire-Expression-Sentence"], r["Evidence"]
-        result = goal_achievement_verdict(desire, outcome)
-        pred_base.append(_base3_verdict_from_result(result))
-        pred_union.append(result["verdict"])
+        base = goal_achievement_verdict(desire, outcome, use_union_oov=False)
+        pred_base.append(base["verdict"])
+        if base["channel"] == "majority":
+            u = goal_achievement_verdict(desire, outcome, use_union_oov=True)["verdict"]
+            pred_union.append(u)
+        else:
+            pred_union.append(base["verdict"])  # union never touches non-majority channels
     return {
         "n": len(sample),
         "base": {"acc": round(_s2.accuracy(gold, pred_base), 4), "macro_f1": round(_s2.macro_f1(gold, pred_base), 4)},
@@ -343,11 +336,20 @@ def harness_validity_check() -> dict:
     """Re-verify (at every --full run) the loader+field-mapping+seed reproduces the documented
     3-channel macro-F1 0.686 (n=80, seed 20260808) -- identical to Stage-2/M1/M2/M3-inc1/fork-A's own
     gate. Stage-2's own landed run MEASURED macro_f1=0.6992 at this exact draw (delta=+0.0132,
-    within tolerance) -- the '0.686/0.699' pair the task's contract refers to."""
+    within tolerance) -- the '0.686/0.699' pair the task's contract refers to.
+
+    Uses `use_union_oov=False` (NOT the module default, NOT a wired call) -- load-bearing: this
+    check's job is to catch LOADER/HARNESS drift (wrong CSV parsing, wrong field mapping, wrong
+    seed), a DIFFERENT question from 'has the pipeline been deliberately improved since 0.686 was
+    recorded'. Passing use_union_oov=False exercises the byte-identical pre-union certified pipeline,
+    so it reproduces 0.686 regardless of whether the module's _UNION_OOV_DEFAULT is currently True
+    (WIRED). A naive direct read of a wired `verdict` would instead measure the higher wired macro-F1
+    and spuriously report `valid: False` -- caught empirically this session (a wired-default --full
+    run measured delta=0.0388 > 0.03 -> INVALID even though the loader had not drifted at all)."""
     rows = _s2.load_desiredb_rows()
     sample = _s2.balanced_subsample(rows, VALIDITY_N_PER_CLASS, SEED)
     gold = [r["Fulfillment-Label"] for r in sample]
-    pred = [goal_achievement_verdict(r["Desire-Expression-Sentence"], r["Evidence"])["verdict"]
+    pred = [goal_achievement_verdict(r["Desire-Expression-Sentence"], r["Evidence"], use_union_oov=False)["verdict"]
             for r in sample]
     acc = _s2.accuracy(gold, pred)
     mf1 = _s2.macro_f1(gold, pred)
@@ -492,19 +494,38 @@ def self_test() -> dict:
     assert hyps["relation_fit_ok"], "fork-A induction abstained on TRAIN"
 
     # composed_verdict_base / composed_verdict_union sanity on a hand-authored abstain-to-majority
-    # pair (the union's own case1 flagship -- goal_achievement_verdict's channel=='majority' here, so
-    # composed_verdict_base defaults to MAJORITY_CLASS=='Fulfilled'; the union channel recovers
-    # 'Unfulfilled' via resulttype precedence -- a genuine flip, proving the wiring actually engages).
+    # pair (the union's own case1 flagship -- the base pipeline abstains to MAJORITY_CLASS=='Fulfilled'
+    # here; the union channel recovers 'Unfulfilled' via resulttype precedence -- a genuine flip,
+    # proving the wiring actually engages).
     desire = "My girl [wanted to] act it out in real life, even wanting to move to England! Uh. No."
     outcome = "Uh. No. Uh. No."
-    assert goal_achievement_verdict(desire, outcome)["channel"] == "majority", "fixture assumption broken"
+    base_result = goal_achievement_verdict(desire, outcome, use_union_oov=False)
+    union_result = goal_achievement_verdict(desire, outcome, use_union_oov=True)
+    assert base_result["channel"] == "majority", "fixture assumption broken"
     assert composed_verdict_base(desire, outcome) == MAJORITY_CLASS
     assert composed_verdict_union(desire, outcome, hyps) == "Unfulfilled", "UNION WIRING FAILURE in self-test"
+
+    # STRICT-ADD INVARIANT (load-bearing -- the coordinator's mandate): use_union_oov=False must be
+    # BYTE-IDENTICAL to the pre-union certified pipeline (no union_* trace fields at all), so any
+    # 0.686-reproducing gate that passes flag=False stays VALID regardless of the module default.
+    assert "union_oov_recovery_fired" not in base_result["trace"], (
+        f"STRICT-ADD VIOLATION: use_union_oov=False leaked union trace fields: {base_result['trace']}")
+    assert base_result["verdict"] == base_result["trace"]["base"], (
+        f"STRICT-ADD VIOLATION: use_union_oov=False verdict != base3 verdict: {base_result}")
+    assert union_result["channel"] == "majority", (
+        f"COHORT-STABILITY VIOLATION: union run overwrote channel: {union_result}")
+    assert union_result["trace"]["union_oov_recovery_fired"] is True and union_result["verdict"] == "Unfulfilled", (
+        f"UNION WIRING FAILURE: {union_result}")
+    # a NON-majority-channel case must be byte-identical under both flag settings (union never runs).
+    d_rel, o_rel = "I wanted to save him.", "But I couldn't."
+    assert goal_achievement_verdict(d_rel, o_rel, use_union_oov=False) == \
+        goal_achievement_verdict(d_rel, o_rel, use_union_oov=True), (
+        "STRICT-ADD VIOLATION: union flag changed a non-majority (relation-decided) result")
 
     return {"goal_achievement_self_test": r_ga, "utility_channel_self_test": r_util,
             "union_grounded_channel_self_test": r_union_channel,
             "hyps_fit_ok": {"resulttype": hyps["resulttype_fit_ok"], "relation": hyps["relation_fit_ok"]},
-            "composed_wiring_sanity": True, "helpers_ok": True}
+            "composed_wiring_sanity": True, "strict_add_invariant_verified": True, "helpers_ok": True}
 
 
 # ============================================================================ main

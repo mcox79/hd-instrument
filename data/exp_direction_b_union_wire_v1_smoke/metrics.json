@@ -2,7 +2,7 @@
   "verdict": "HARD_PASS",
   "verdict_msg": "SMOKE_OK: cohort n=22 activation_fires_rate=0.273 verdict_fires_rate_union=0.409 recovery_union=0.625 (5/8) recovery_m2=0.375 recovery_m1=0.25 recovery_relation=0.25 arms_differ=True",
   "summary": "HARD_PASS: SMOKE_OK: cohort n=22 activation_fires_rate=0.273 verdict_fires_rate_union=0.409 recovery_union=0.625 (5/8) recovery_m2=0.375 recovery_m1=0.25 recovery_relation=0.25 arms_differ=True",
-  "elapsed_s": 56.022,
+  "elapsed_s": 51.203,
   "run_mode": "smoke",
   "anchor_name": "direction_b_union_wire_v1",
   "n_sample": 160,

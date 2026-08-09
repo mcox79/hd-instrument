@@ -119,29 +119,37 @@ exact draw -- the "0.686/0.699" pair the task's contract cites.
   new WIRED union entry + retroactively register fork-A's own previously-unregistered module).
 - If NOT net-positive: do NOT wire; report the honest negative; keep SHELVE.
 
-## Wiring design (goal_achievement_verdict, applied because WIRE_DECISION=True -- see Results)
-Deliberately SURGICAL, per "zero risk to existing Stage-2/M1/M2/M3-inc1 numbers": the union is tried
-ONLY when the base 3-channel pipeline's `channel == 'majority'` (relation AND valence both abstained,
-AND -- by construction, since `MAJORITY_CLASS=='Fulfilled'` and the contrast-override check already
-ran against exactly that default -- `contrast_present(outcome)` is guaranteed False at this point, so
-no re-application of the override is needed; same reasoning `exp_utility_satisfaction_channel_v1.
-composed_verdict` and fork-A's own module comment already document for their own non-wired
-compositions). **`channel` is DELIBERATELY LEFT AS `'majority'`** when the union fires (NOT
-overwritten to a new channel name) -- this is the load-bearing cohort-membership-stability guarantee:
-`exp_utility_satisfaction_channel_v1.build_cohort` (reused verbatim by every Direction-B cell,
-including this one) filters on exactly `channel=='majority'`, so ANY future re-run of M1/M2/M3-inc1/
-fork-A/this cell against the now-wired pipeline still selects the IDENTICAL cohort population --
-`channel` never shifts, ONLY `verdict` improves for the subset the union recovers. The union's own
-contribution is recorded in two NEW, additive trace fields (`union_oov_recovery_fired`,
-`union_verdict`) that never overwrite the original `relation`/`valence`/`contrast`/`base` fields.
+## Wiring design (goal_achievement_verdict, OPT-IN FLAG, default flipped ON because WIRE_DECISION=True)
+**Design corrected mid-task on explicit coordinator instruction (flagged per the task's "flag any
+change" mandate).** The FIRST wiring attempt (commit 0946a741b) modified `goal_achievement_verdict`'s
+default path directly (union fires whenever `channel=='majority'`). The coordinator correctly flagged
+this as NOT strict-ADD: it changed the certified module's DEFAULT output, which is exactly why a fresh
+`harness_validity_check` reading the default `verdict` could no longer reproduce the documented 0.686
+(it was measuring the already-wired pipeline). A trace-reconstruction patch (commit 44310928d) papered
+over this for the cell's own comparisons but left the default certified path modified on an
+insufficiently-clean basis.
 
-**Disclosed, accepted consequence** (not a risk to the ALREADY-LANDED numbers, which are frozen file
-artifacts): any OLDER cell's `harness_validity_check`-style gate that re-derives a fresh macro-F1 from
-`goal_achievement_verdict` and compares it against the frozen documented constant 0.686 will, if
-re-run post-wire, measure a HIGHER number (this session: 0.7248 @ n=80) and may report
-`delta_macro_f1` outside the 0.03 tolerance -> `INVALID`. This is the CORRECT, intended signal that
-the live pipeline has been deliberately, gate-passed improved since that constant was recorded -- a
-cell re-run post-wire should compare against the new baseline, not the frozen pre-wire one.
+**Corrected design (the shipped one):** the union is an OPT-IN behind a flag.
+`goal_achievement_verdict(desire, outcome, use_union_oov=None)`:
+- `use_union_oov=False` -> BYTE-IDENTICAL to the pre-union 3-channel certified pipeline (no `union_*`
+  trace fields, verdict/channel unchanged). `harness_validity_check` calls with `False`, so it
+  reproduces 0.686 (measured 0.6992, delta +0.0132, VALID) REGARDLESS of the module default.
+- `use_union_oov=True` -> tries the union fallback ONLY when the base pipeline's `channel=='majority'`
+  (relation AND valence both abstained; contrast-override guaranteed inapplicable there). `channel`
+  is DELIBERATELY LEFT AS `'majority'` even when the union fires, so cohort-definition code filtering
+  on `channel=='majority'` (`exp_utility_satisfaction_channel_v1.build_cohort`, reused by every
+  Direction-B cell) keeps selecting the IDENTICAL cohort -- only `verdict` improves. The union's
+  contribution is in NEW additive trace fields (`union_oov_recovery_fired`, `union_verdict`), present
+  ONLY when the union path ran.
+- `use_union_oov=None` -> uses the module `_UNION_OOV_DEFAULT`. This was held **False** through the
+  entire confirmation `--full` run (so the base arm demonstrably reproduced 0.686 on a VALID harness
+  with the union measured as a clean opt-in arm), and flipped to **True** (WIRED) ONLY AFTER that run
+  reported `wire_decision=True`.
+
+This makes the wire a genuine strict-ADD: the certified base output is always recoverable byte-for-byte
+via `use_union_oov=False`, the union's effect is always a clean two-arm (OFF vs ON) comparison on the
+same split, and `harness_validity` stays VALID no matter the default. Consumers that want the
+pre-union behavior pass `use_union_oov=False`; the production default (`None`) now uses the union.
 
 ## Compute architecture
 (b) sequential-CPU with justification: two `registry.learn` fits (M2's + fork-A's, both already
@@ -188,7 +196,8 @@ at this scale. Storage: no_storage/no_composition.
   grounded` (RELATION_LINK fallback superset); "measure genuine additivity vs the best single
   mechanism, non-circularly, on the identical cohort" -> per-sub-mechanism re-measurement (arms
   iii/iv/v) + per-item attribution; "wire IFF net-positive, with zero risk to existing cohort
-  definitions" -> the surgical `channel`-preserving wiring design above.
+  definitions" -> the opt-in-flag, `channel`-preserving wiring design above (base recoverable
+  byte-identically via `use_union_oov=False`).
 - `real_code_path_exercised`: `[activate_attributes, result_type_votes, relation_votes, idiom_votes,
   dedupe_repeated_sentences, goal_atoms, bind, unbind, bundle, utility_channel_trace_union_grounded,
   goal_achievement_verdict]` -- `--self-test` constructs the REAL construction-cue extraction + REAL
@@ -202,12 +211,15 @@ at this scale. Storage: no_storage/no_composition.
 
 ## Autonomy notes (exp_dev-owned, per the task's contract)
 The sub-mechanism precedence/combination logic (RESULTTYPE -> RELATION -> IDIOM_FALLBACK, plus the
-RELATION_LINK no-active-attribute superset), cell/file naming, seeds, the exact wire-in edit
-(the `channel`-preserving surgical design), and the verification-witness design are all exp_dev's own
-choices, documented above. The strict-ADD (abstain-only, no-regression) requirement, the mandatory
-pairscramble control, the anti-circular measurement (reusing the fitted hypotheses unchanged, never
-re-fitting against DesireDB), and the WIRE-only-if-net-positive gate were NOT exp_dev's to loosen and
-were not altered.
+RELATION_LINK no-active-attribute superset), cell/file naming, seeds, and the verification-witness
+design are all exp_dev's own choices, documented above. The strict-ADD (abstain-only, no-regression)
+requirement, the mandatory pairscramble control, the anti-circular measurement (reusing the fitted
+hypotheses unchanged, never re-fitting against DesireDB), and the WIRE-only-if-net-positive gate were
+NOT exp_dev's to loosen and were not altered. **The exact wire-in mechanism was corrected mid-task on
+explicit coordinator instruction** (from a default-path modification to an opt-in flag whose default
+was flipped ON only after the gate was confirmed on a VALID harness) -- flagged per the task's "flag
+any change" mandate; this STRENGTHENED the strict-ADD guarantee (the earlier default-path edit was not
+truly strict-ADD), it did not loosen any gate.
 
 ## Results (MEASURED, `--full` landed)
 See `data/exp_direction_b_union_wire_v1/metrics.json` for the complete record. Summary:
@@ -224,16 +236,23 @@ See `data/exp_direction_b_union_wire_v1/metrics.json` for the complete record. S
   recovered by union alone that no single mechanism also recovers).
 - **Full-bench composed macro-F1 (base-alone vs union-wired), NO REGRESSION at BOTH scales:**
   n=160: 0.6623 -> 0.6875 (**+0.0252**). n=80: 0.6992 -> 0.7248 (**+0.0256**).
-- **`harness_validity_check`** (pre-wire pipeline, n=80): measured_macro_f1=0.6992, documented=0.686,
-  delta=+0.0132, **valid=True** (within 0.03 tolerance) -- the "0.686/0.699" pair reproduced exactly.
+- **`harness_validity_check`** (base arm, `use_union_oov=False`, n=80): measured_macro_f1=0.6992,
+  documented=0.686, delta=+0.0132, **valid=True** (within 0.03 tolerance) -- the "0.686/0.699" pair
+  reproduced exactly ON A VALID HARNESS, confirming the base arm is byte-identical to the pre-union
+  pipeline and the +0.025 union gain is a true base-vs-union delta, not a wired-vs-wired artifact.
 - **Pairscramble:** PRIMARY `|scr-i|=0.0000` (collapses cleanly), `|scr-mech|=0.1818` (>0.03,
   not-leak). BREADTH-at-scale: delta=0.0461 (<=0.05, collapses).
-- **`wire_decision`: TRUE. `verdict`: HARD_PASS.** All CAN-FAIL WIRE GATE conditions cleared.
+- **`wire_decision`: TRUE. `verdict`: HARD_PASS.** All CAN-FAIL WIRE GATE conditions cleared, on a
+  VALID harness, with the confirmation run's module default held at `_UNION_OOV_DEFAULT=False`.
 
 **Action taken:** wired `utility_channel_union_grounded` into `hdlab.goal_achievement.
-goal_achievement_verdict` as the strict-ADD, abstain-only fallback (commit hash in the exp_dev
-completion report). Added `verification/test_direction_b_union_wire.py` (scaffold-free, tracing=False,
-9/9 pytest checks green including the pre-existing `test_goal_achievement.py`). Updated
+goal_achievement_verdict` as an OPT-IN, strict-ADD, abstain-only fallback behind `use_union_oov`
+(module default `_UNION_OOV_DEFAULT` flipped False->True ONLY after the confirmation run above passed
+the gate; `use_union_oov=False` remains byte-identical to the pre-union certified pipeline forever).
+Added `verification/test_direction_b_union_wire.py` (scaffold-free, tracing=False, 9/9 pytest checks
+green including the pre-existing `test_goal_achievement.py`; asserts the flag's byte-identity/strict-ADD
+invariant both ways). Full verification suite: 220 passed, 3 skipped (no regression; the 4 excluded
+modules are pre-existing missing-dependency skips: hypothesis, duckdb). Updated
 `data/capability_registry.jsonl`: flipped `result_type_induction_learned_speechact_classifier`,
 `idiom_grounding_lexicon`, and `utility_channel_grounded_architecture` from SHELVE to WIRE (via the
 union), added `direction_b_union_oov_recovery_channel` (the new WIRED entry, gate_decision=WIRE,
