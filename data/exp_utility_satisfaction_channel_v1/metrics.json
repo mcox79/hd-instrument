@@ -1,0 +1,67 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "cohort n=22 activation_fires_rate=0.273 verdict_fires_rate=0.091 recovery=0.000 (0/8) full_bench_n80_macro_f1=0.6992 (doc=0.686 floor=0.620) pairscramble: |iii-i|=0.0455 (<=0.05 HP) |iii-ii|=0.0455 (<=0.03 HF-leak)",
+  "summary": "HARD_FAIL: cohort n=22 activation_fires_rate=0.273 verdict_fires_rate=0.091 recovery=0.000 (0/8) full_bench_n80_macro_f1=0.6992 (doc=0.686 floor=0.620) pairscramble: |iii-i|=0.0455 (<=0.05 HP) |iii-ii|=0.0455 (<=0.03 HF-leak)",
+  "elapsed_s": 210.631,
+  "run_mode": "full",
+  "anchor_name": "utility_satisfaction_channel_v1",
+  "n_sample": 160,
+  "n_per_class": 80,
+  "seed": 20260808,
+  "cohort_metrics": {
+    "cohort_n": 22,
+    "activation_fires_rate": 0.2727,
+    "n_activation_fired": 6,
+    "verdict_fires_rate": 0.0909,
+    "n_verdict_fired": 2,
+    "gold_dist": {
+      "Fulfilled": 14,
+      "Unfulfilled": 8
+    },
+    "acc_i": 0.6364,
+    "acc_ii": 0.6364,
+    "acc_iii": 0.5909,
+    "macro_f1_i": 0.3889,
+    "macro_f1_ii": 0.3889,
+    "macro_f1_iii": 0.3714,
+    "recovery": {
+      "n_majority_wrong": 8,
+      "n_recovered": 0,
+      "rate": 0.0
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_digests": {
+    "i": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "ii": "9369a14fdfdfa427fbbafe7fa54fa15ccf34685063994706aaf5e004afbf4335",
+    "iii": "9f70cf51ace9b2c76a2b9bd9e05ed854ee7e87ed1903783317228b5b7519b320"
+  },
+  "harness_validity_check": {
+    "n": 80,
+    "measured_acc": 0.7,
+    "measured_macro_f1": 0.6992,
+    "documented_macro_f1": 0.686,
+    "delta_macro_f1": 0.0132,
+    "valid": true,
+    "tolerance": 0.03
+  },
+  "full_bench_n80_composed": {
+    "n": 80,
+    "acc": 0.7,
+    "macro_f1": 0.6992
+  },
+  "full_bench_n160_composed_context": {
+    "n": 160,
+    "acc": 0.6625,
+    "macro_f1": 0.6623
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic lexicon-vote + FHRR bind/bundle/cleanup over a fixed 6-role x 3-filler codebook, no decoded/noisy continuous signal from a swept capacity regime",
+  "deterministic_seeding": true
+}

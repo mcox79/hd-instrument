@@ -387,7 +387,377 @@ def self_test_goal_cued() -> dict:
             "fallback_matches_uniform": True}
 
 
+# ============================================================================ UTILITY-SATISFACTION
+# CHANNEL (2026-08-09). Per notes/research_glassbox_utility_inverse_planning_leg_2026-08-09.md
+# (Naive Utility Calculus / Baker-Saxe-Tenenbaum U=R-C reframed as a stated-goal SATISFACTION check,
+# not behavior-inference -- see that drill's Section 3 "the reframe"). Represents the stated goal as
+# a small WEIGHTED BUNDLE of grounded ATTRIBUTE-PREDICATES (`bundle_i(w_i * bind(ATTR_ROLE_i,
+# FILLER[state_i]))`, hdlab.binding.bind/hdlab.bundling.bundle, unmodified) and scores the outcome
+# against each ACTIVE attribute independently, then reads the composite verdict back out via an
+# unbind + argmax-with-margin cleanup (the hdlab.glass_box_loop.cleanup_with_margin DISCIPLINE --
+# argmax + top1-top2 margin as the audit "why-signal" -- reimplemented here for FHRR complex64
+# vectors specifically, since glass_box_loop's own cleanup_with_margin is written for the numpy
+# bipolar-BSC convention; hdlab/binding.py dispatches FHRR for complex64, so this stays torch/complex64
+# per CLAUDE.md's dtype convention rather than mixing BSC numpy in).
+#
+# CRITICAL LESSON FROM STAGE-1 (goal_cued_valence_channel, HARD_FAIL commit 215ae7a38): that
+# channel's goal-cue anchor was `_verb_synonyms(goal_verb)` searched for LITERALLY IN THE OUTCOME
+# TEXT -- on the cohort defined by relation_channel finding NO such recurrence, the anchor was
+# therefore tautologically absent, so the channel degenerated to uniform weighting (delta=0.0
+# structurally). This channel avoids that confound BY CONSTRUCTION: activation compares the GOAL's
+# verb/referent only against a FIXED, goal-independent attribute-exemplar vocabulary (never touches
+# the outcome text), and evidence-scoring compares OUTCOME tokens only against a FIXED,
+# goal-independent attribute cue vocabulary (never touches the goal's specific words). The bridge
+# between goal and outcome runs ONLY through the shared attribute-category label, never through
+# direct goal-word-vs-outcome-word comparison, so it is structurally unable to inherit Stage-1's
+# tautological-absence failure -- it can fire freely on the relation_channel-abstain population.
+#
+# GROUNDING (per the CRITICAL LESSON's mandate: grounded-semantic relevance, NOT lexical
+# recurrence): PRIMARY-SENSE (k=1, WordNet's own frequency-ordered synset[0]) WordNet synonym-set
+# overlap, POS-aware (VERB/ADJ/NOUN). Calibration probe (this session, scratchpad, not committed):
+# raw path/wup taxonomic similarity with best-of-all-synset-pairs was measured UNRELIABLE for this
+# task -- e.g. ("know","meaning") vs the ACQUIRE_POSSESS pool scored 0.94 wup-similarity via an
+# obscure secondary sense of "get" ("get.v", "move into a desired direction of discourse"), a clear
+# false positive; restricting to primary-sense-only synonym-SET overlap (no hypernym/hyponym
+# expansion) eliminated that class of false positive in a 15-pair spot-check while still correctly
+# linking ("purchase","get"), ("reach","arrive"), ("meet","see"), ("happy","glad") etc. -- precision-
+# favoring by design (a channel that rarely-but-correctly fires is safer against the full-bench
+# no-regression gate than a noisy high-recall one).
+from functools import lru_cache
+
+import torch
+
+from hdlab.binding import bind, unbind
+from hdlab.bundling import bundle
+
+# 6 domain-generic attribute-predicates (hand-specified, tier-2 bootstrap per the research drill's
+# Section 2 finding that a small hand-specified candidate set is literature-standard practice, not a
+# shortcut). Each: goal_verbs/goal_nouns = GOAL-side exemplars (activation, never touches outcome);
+# satisfied_cues/violated_cues = OUTCOME-side exemplars (evidence, never touches the goal's words).
+#
+# VOCABULARY-BREADTH ITERATION (2026-08-09, ONE pass, pre-full-dispatch): the initial cue lists
+# above (kept minimal deliberately) MEASURED verdict_fires_rate=0.0 in --smoke (n=80; 3/16 cohort
+# items activated an attribute, but 0/3 outcome texts contained an in-vocabulary evidence token --
+# real DesireDB "Evidence" text for this residual cohort is frequently very short/garbled scraped
+# prose, e.g. "Uh. No. Uh. No.", "none -hypothetical"). Per the prereg's MIDDLE_BAND remedy
+# ("iterate attribute vocab/weights"), this is a single GENERIC broadening pass -- common
+# near-synonyms any English outcome description would plausibly use for each attribute category,
+# chosen BEFORE re-inspecting any additional specific DesireDB items (not fit to particular cohort
+# outcomes) -- not a change to the mechanism (activation tiers, evidence tiers, FHRR layer, scoring
+# formula all unchanged).
+ATTRIBUTES: dict = {
+    "ACQUIRE_POSSESS": {
+        "goal_verbs": ["get", "obtain", "acquire", "receive", "gain", "earn", "win", "buy", "find",
+                       "collect", "keep"],
+        "goal_nouns": ["money", "prize", "gift", "reward"],
+        "satisfied_cues": ["get", "receive", "obtain", "gain", "win", "earn", "acquire", "find",
+                            "collect", "keep", "afford", "buy", "purchase", "land", "secure",
+                            "score", "grab", "snag", "claim", "capture"],
+        "violated_cues": ["lose", "miss", "lack", "spend", "waste", "deny", "refuse", "withhold"],
+    },
+    "LOCATION_REACHED": {
+        "goal_verbs": ["go", "arrive", "reach", "return", "travel", "visit", "come", "escape"],
+        "goal_nouns": ["home", "school", "town", "place"],
+        "satisfied_cues": ["arrive", "reach", "return", "come", "escape", "land", "enter",
+                            "approach", "show"],
+        "violated_cues": ["stranded", "stuck", "trapped", "wander", "lost", "miss", "delay"],
+    },
+    "SOCIAL_CONNECTION": {
+        "goal_verbs": ["meet", "see", "visit", "join", "help", "reunite", "befriend", "marry"],
+        "goal_nouns": ["friend", "family", "mother", "father"],
+        "satisfied_cues": ["meet", "greet", "welcome", "join", "help", "reunite", "hug", "embrace",
+                            "thank", "invite", "accept", "call", "visit", "talk", "chat", "kiss"],
+        "violated_cues": ["reject", "abandon", "betray", "leave", "refuse", "ignore", "scold",
+                           "punish", "avoid", "snub", "fight", "argue"],
+    },
+    "AVOID_HARM_SAFETY": {
+        "goal_verbs": ["save", "rescue", "protect", "survive", "escape", "heal", "recover", "avoid"],
+        "goal_nouns": ["danger", "safety", "harm", "illness"],
+        "satisfied_cues": ["save", "rescue", "protect", "survive", "heal", "recover", "shelter",
+                            "cure", "dodge"],
+        "violated_cues": ["die", "hurt", "injure", "wound", "perish", "drown", "sink", "crash",
+                           "starve", "suffer", "kill", "attack", "threaten", "harm"],
+    },
+    "ACTIVITY_COMPLETION": {
+        "goal_verbs": ["finish", "complete", "accomplish", "achieve", "succeed", "win", "build",
+                       "fix", "repair", "make"],
+        "goal_nouns": [],
+        "satisfied_cues": ["finish", "complete", "accomplish", "achieve", "succeed", "win", "build",
+                            "fix", "repair", "manage", "solve", "resolve", "handle"],
+        "violated_cues": ["fail", "quit", "abandon", "lose", "stop", "struggle", "botch"],
+    },
+    "EMOTIONAL_STATE_ACHIEVED": {
+        "goal_verbs": ["feel", "enjoy", "relax", "celebrate", "rest", "sleep"],
+        "goal_nouns": ["happiness", "joy", "peace", "fun"],
+        "satisfied_cues": ["enjoy", "smile", "laugh", "celebrate", "happy", "glad", "joyful",
+                            "pleased", "delighted", "love", "thrilled", "excite", "content",
+                            "relieve", "comfortable"],
+        "violated_cues": ["cry", "sad", "miserable", "upset", "disappointed", "angry", "frustrated",
+                           "worry", "hate", "depressed", "anxious", "stressed", "lonely",
+                           "devastated", "heartbroken"],
+    },
+}
+
+_WN_POS = (None,)  # set below once _wn is confirmed imported (module already imports _wn at top)
+try:
+    _WN_POS = (_wn.VERB, _wn.ADJ, _wn.NOUN)
+except Exception:
+    _WN_POS = ()
+
+
+@lru_cache(maxsize=None)
+def _primary_synonyms(word: str, pos) -> frozenset:
+    """Primary-sense (k=1, WordNet's own frequency-ordered synsets()[0]) synonym set for `word` at
+    a given POS, plus `word` itself. Deliberately NOT hypernym/hyponym-expanded and NOT all-senses
+    (see module-comment calibration note: both were measured noisier -- pull in unrelated senses of
+    common polysemous words like 'get'/'fix'/'meet')."""
+    syn = {word}
+    syns = _wn.synsets(word, pos=pos)
+    if syns:
+        for l in syns[0].lemmas():
+            syn.add(l.name().replace("_", " ").lower())
+    return frozenset(syn)
+
+
+def _related_any_pos(word: str, cand: str) -> bool:
+    """True iff `word` and `cand` are identical, or share a primary-sense synonym in ANY of
+    VERB/ADJ/NOUN (cue lists mix verbs like 'enjoy' with adjectives like 'happy', so the POS of a
+    cue word is not assumed in advance)."""
+    if word == cand:
+        return True
+    for pos in _WN_POS:
+        if _primary_synonyms(word, pos) & _primary_synonyms(cand, pos):
+            return True
+    return False
+
+
+def _pool_related(word: str, pool) -> bool:
+    return any(_related_any_pos(word, cand) for cand in pool)
+
+
+def activate_attributes(desire: str) -> dict:
+    """Which attributes does THIS goal invoke? GOAL-side only (find_desired_state's verb_lemma /
+    referent vs each attribute's FIXED goal_verbs/goal_nouns exemplar pool) -- never inspects the
+    outcome text, so this cannot inherit Stage-1's tautological-absence confound. Returns
+    {attribute: weight}, weight=1.0 for a literal exact-lemma hit (Tier-1), 0.7 for a WordNet
+    primary-sense-synonym-only hit (Tier-2, grounded but indirect). Empty dict if no goal recognized
+    or no attribute clears either tier."""
+    g = _gt.find_desired_state(_extend_goal(desire))
+    if g is None:
+        return {}
+    verb = g.get("verb_lemma")
+    referent = g.get("referent")
+    active = {}
+    for attr, spec in ATTRIBUTES.items():
+        w = 0.0
+        if verb:
+            if verb in spec["goal_verbs"]:
+                w = max(w, 1.0)
+            elif _pool_related(verb, spec["goal_verbs"]):
+                w = max(w, 0.7)
+        if referent and spec["goal_nouns"]:
+            if referent in spec["goal_nouns"]:
+                w = max(w, 1.0)
+            elif _pool_related(referent, spec["goal_nouns"]):
+                w = max(w, 0.7)
+        if w > 0:
+            active[attr] = w
+    return active
+
+
+def _token_cue_polarity(token_form: str, attr: str) -> Optional[str]:
+    """POS/NEG/None for one outcome token-form against attribute `attr`'s FIXED satisfied_cues/
+    violated_cues pools -- never inspects the goal's words. Tier-1 exact membership; Tier-2 WordNet
+    primary-sense-synonym overlap (same _pool_related organ activate_attributes uses). None if OOV
+    of both pools, or (rare) an ambiguous hit on both -- abstain, never guess."""
+    spec = ATTRIBUTES[attr]
+    if token_form in spec["satisfied_cues"]:
+        return "POS"
+    if token_form in spec["violated_cues"]:
+        return "NEG"
+    pos_hit = _pool_related(token_form, spec["satisfied_cues"])
+    neg_hit = _pool_related(token_form, spec["violated_cues"])
+    if pos_hit and not neg_hit:
+        return "POS"
+    if neg_hit and not pos_hit:
+        return "NEG"
+    return None
+
+
+def _outcome_token_forms(tok: str) -> list:
+    """Candidate lemma forms for one outcome token, tried in order until one hits a cue pool:
+    surface form, hdlab.thematic_role_labeler.lemma_verb (suffix-stripping heuristic, matches the
+    rest of this module's convention), and WordNet's own morphy analyzer (catches cases lemma_verb's
+    heuristic mangles into a non-word, e.g. "purchased" -> "purchas" via naive -ed stripping, where
+    morphy correctly recovers "purchase"). Deduplicated, order-preserving."""
+    forms = [tok]
+    lem = _gt.lemma_verb(tok)
+    if lem not in forms:
+        forms.append(lem)
+    for pos in (_wn.VERB, _wn.ADJ, None):
+        m = _wn.morphy(tok, pos) if pos else _wn.morphy(tok)
+        if m and m not in forms:
+            forms.append(m)
+    return forms
+
+
+def _attribute_outcome_state(attr: str, outcome: str) -> str:
+    """SATISFIED / VIOLATED / ABSENT for `attr` against `outcome`: per-token grounded polarity vote
+    (negation-aware via the same _verb_negated_before scan valence_channel/relation_channel use),
+    count-voted like valence_channel (not weighted) for the same tie->ABSENT convention."""
+    toks = _gt._tokens(outcome)
+    npos = nneg = 0
+    for idx, tok in enumerate(toks):
+        if not tok.isalpha() or len(tok) < 2 or tok in _AUX_STOP:
+            continue
+        val = None
+        for form in _outcome_token_forms(tok):
+            val = _token_cue_polarity(form, attr)
+            if val is not None:
+                break
+        if val is None:
+            continue
+        if _gt._verb_negated_before(toks, idx):
+            val = "NEG" if val == "POS" else "POS"
+        if val == "POS":
+            npos += 1
+        else:
+            nneg += 1
+    if npos == nneg:
+        return "ABSENT"
+    return "SATISFIED" if npos > nneg else "VIOLATED"
+
+
+# ---- FHRR weighted-bundle-of-role-bound-attribute-predicates representation ------------------
+_UTIL_N_DIM = 2048
+_UTIL_SEED = 20260809
+_UTIL_STATES = ("SATISFIED", "VIOLATED", "ABSENT")
+_UTIL_SIGN = {"SATISFIED": 1.0, "VIOLATED": -1.0, "ABSENT": 0.0}
+_util_vecs_cache = None
+
+
+def _unit_phase(gen: torch.Generator) -> torch.Tensor:
+    theta = torch.rand(_UTIL_N_DIM, generator=gen) * (2.0 * 3.14159265358979)
+    return torch.polar(torch.ones(_UTIL_N_DIM), theta).to(torch.complex64)
+
+
+def _utility_vecs():
+    """Deterministic (fixed-seed) FHRR role atoms (one per attribute) + filler atoms (SATISFIED/
+    VIOLATED/ABSENT), cached module-wide. Same random-unit-phase-vector convention as
+    hdlab.situation_model_accumulate.unit_phase_vec."""
+    global _util_vecs_cache
+    if _util_vecs_cache is None:
+        gen = torch.Generator().manual_seed(_UTIL_SEED)
+        roles = {a: _unit_phase(gen) for a in ATTRIBUTES}
+        fillers = {s: _unit_phase(gen) for s in _UTIL_STATES}
+        _util_vecs_cache = (roles, fillers)
+    return _util_vecs_cache
+
+
+def _fhrr_cos(a: torch.Tensor, b: torch.Tensor) -> float:
+    """FHRR cosine, same convention as hdlab.lexical_similarity._cos_complex."""
+    return float(torch.real(torch.sum(torch.conj(a) * b))) / a.shape[0]
+
+
+def _cleanup_margin_fhrr(probe: torch.Tensor, codebook: dict) -> Tuple[str, float]:
+    """FHRR analog of hdlab.glass_box_loop.cleanup_with_margin (argmax + top1-top2 margin
+    "why-signal"), for complex64 vectors -- glass_box_loop's own implementation is numpy
+    bipolar-BSC-specific (a different substrate flavor), so this is a minimal same-discipline
+    reimplementation, not a call-through."""
+    scores = {name: _fhrr_cos(probe, vec) for name, vec in codebook.items()}
+    ranked = sorted(scores.items(), key=lambda kv: -kv[1])
+    top_name, top_score = ranked[0]
+    _, second_score = ranked[1]
+    return top_name, top_score - second_score
+
+
+def utility_channel_trace(desire: str, outcome: str) -> dict:
+    """Full glass-box trace of the utility-satisfaction channel. `verdict` is Fulfilled/Unfulfilled/
+    None (abstain: no attribute activated, or the weighted sum of recovered per-attribute states is
+    exactly zero -- mixed/no evidence, same tie->abstain convention as valence_channel)."""
+    active = activate_attributes(desire)
+    if not active:
+        return {"verdict": None, "reason": "no_attribute_activated", "active": {}}
+    roles, fillers = _utility_vecs()
+    per_attr = {}
+    weighted_terms = []
+    for attr, w in active.items():
+        state = _attribute_outcome_state(attr, outcome)
+        weighted_terms.append(w * bind(roles[attr], fillers[state]))
+        per_attr[attr] = {"activation_weight": round(w, 2), "outcome_state": state}
+    U = bundle(torch.stack(weighted_terms))
+    score = 0.0
+    for attr, w in active.items():
+        probe = unbind(U, roles[attr])
+        recovered_name, margin = _cleanup_margin_fhrr(probe, fillers)
+        per_attr[attr]["recovered_state"] = recovered_name
+        per_attr[attr]["recovered_margin"] = round(margin, 4)
+        per_attr[attr]["roundtrip_ok"] = (recovered_name == per_attr[attr]["outcome_state"])
+        score += w * _UTIL_SIGN[recovered_name]
+    if score == 0.0:
+        return {"verdict": None, "reason": "margin_refuse_zero_sum", "score": 0.0, "active": per_attr}
+    verdict = "Fulfilled" if score > 0.0 else "Unfulfilled"
+    return {"verdict": verdict, "reason": "weighted_bundle", "score": round(score, 4), "active": per_attr}
+
+
+def utility_channel(desire: str, outcome: str) -> Optional[str]:
+    """Fulfilled/Unfulfilled/None -- the utility-satisfaction 4th channel (see module comment above
+    for the full mechanism + the Stage-1 confound this is built to avoid). NOT wired into
+    goal_achievement_verdict's precedence -- pure ADD, evaluated standalone by
+    experiments/exp_utility_satisfaction_channel_v1.py."""
+    return utility_channel_trace(desire, outcome)["verdict"]
+
+
+def self_test_utility_channel() -> dict:
+    """MECHANISM-FIRES + FHRR-round-trip-fidelity + STAGE-1-CONFOUND-IMMUNITY checks."""
+    # (1) clear Fulfilled case, single attribute.
+    r1 = utility_channel_trace("I wanted to buy a new bike.", "She purchased the bicycle yesterday.")
+    assert r1["verdict"] == "Fulfilled", f"case1 verdict={r1['verdict']!r} (expected Fulfilled): {r1}"
+
+    # (2) clear Unfulfilled case.
+    r2 = utility_channel_trace("I wanted to save the puppy.", "The puppy drowned before help arrived.")
+    assert r2["verdict"] == "Unfulfilled", f"case2 verdict={r2['verdict']!r} (expected Unfulfilled): {r2}"
+
+    # (3) FHRR round-trip fidelity: every active attribute's recovered_state must match what was
+    # bound in (bundle capacity check at up to 6 items, N_DIM=2048 -- should hold with large margin).
+    for r in (r1, r2):
+        for attr, info in r["active"].items():
+            assert info["roundtrip_ok"], f"FHRR ROUND-TRIP FAILURE on {attr!r}: {info}"
+            assert info["recovered_margin"] > 0.05, f"low-margin roundtrip on {attr!r}: {info}"
+
+    # (4) STAGE-1-CONFOUND-IMMUNITY: fire correctly on a case where the goal's verb/synonyms are
+    # ABSENT from the outcome text (relation_channel abstains) AND valence_channel also abstains
+    # (no net opinion_lexicon/wpp polarity) -- exactly the abstain-to-majority cohort definition.
+    # If this channel inherited Stage-1's confound it would be UNABLE to fire here by construction.
+    desire3 = "I wanted to reach the summit."
+    outcome3 = "She arrived at the top of the mountain by dawn."  # no literal 'reach'/'summit'
+                                                                   # recurrence; 'arrived' is a FIXED
+                                                                   # LOCATION_REACHED cue, reached via
+                                                                   # the attribute bridge, not via
+                                                                   # goal-word recurrence in the outcome
+    rel3, _ = relation_channel(desire3, outcome3)
+    val3 = valence_channel(outcome3)
+    assert rel3 is None, f"fixture assumption broken: relation_channel fired ({rel3!r}) on case3"
+    r3 = utility_channel_trace(desire3, outcome3)
+    assert r3["verdict"] is not None, (
+        f"STAGE-1-CONFOUND-IMMUNITY FAILURE: utility_channel abstained on a relation_channel-abstain "
+        f"case exactly like Stage-1's structurally-tautological-absence failure mode: {r3}")
+
+    # (5) no-goal-recognized -> abstain gracefully (never crashes).
+    r5 = utility_channel_trace("The weather was nice.", "It rained all day.")
+    assert r5["verdict"] is None and r5["reason"] == "no_attribute_activated", r5
+
+    # (6) determinism.
+    assert utility_channel_trace("I wanted to buy a new bike.",
+                                  "She purchased the bicycle yesterday.")["score"] == r1["score"]
+
+    return {"case1": r1, "case2": r2, "case3_stage1_immunity": r3,
+            "relation_channel_abstained_case3": rel3 is None, "valence_channel_case3": val3,
+            "case5_no_goal": r5}
+
+
 if __name__ == "__main__":
     import json
-    print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued()},
+    print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued(),
+                       "self_test_utility_channel": self_test_utility_channel()},
                       indent=2, default=str))

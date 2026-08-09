@@ -1,0 +1,51 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_OK: cohort n=16 activation_fires_rate=0.188 verdict_fires_rate=0.000 acc(i/ii/iii)=(0.625/0.625/0.625) recovery=0.0 arms_differ=False",
+  "summary": "HARD_PASS: SMOKE_OK: cohort n=16 activation_fires_rate=0.188 verdict_fires_rate=0.000 acc(i/ii/iii)=(0.625/0.625/0.625) recovery=0.0 arms_differ=False",
+  "elapsed_s": 32.574,
+  "run_mode": "smoke",
+  "anchor_name": "utility_satisfaction_channel_v1",
+  "n_sample": 80,
+  "n_per_class": 40,
+  "seed": 20260808,
+  "cohort_metrics": {
+    "cohort_n": 16,
+    "activation_fires_rate": 0.1875,
+    "n_activation_fired": 3,
+    "verdict_fires_rate": 0.0,
+    "n_verdict_fired": 0,
+    "gold_dist": {
+      "Fulfilled": 10,
+      "Unfulfilled": 6
+    },
+    "acc_i": 0.625,
+    "acc_ii": 0.625,
+    "acc_iii": 0.625,
+    "macro_f1_i": 0.3846,
+    "macro_f1_ii": 0.3846,
+    "macro_f1_iii": 0.3846,
+    "recovery": {
+      "n_majority_wrong": 6,
+      "n_recovered": 0,
+      "rate": 0.0
+    }
+  },
+  "arms_differ_verified": false,
+  "arms_digests": {
+    "i": "587f7284453c9ffc010510fc3b5a72abdb154a4f8cd7c8f6add497ffd567d38c",
+    "ii": "587f7284453c9ffc010510fc3b5a72abdb154a4f8cd7c8f6add497ffd567d38c",
+    "iii": "587f7284453c9ffc010510fc3b5a72abdb154a4f8cd7c8f6add497ffd567d38c"
+  },
+  "harness_validity_check": null,
+  "full_bench_n80_composed": null,
+  "full_bench_n160_composed_context": null,
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic lexicon-vote + FHRR bind/bundle/cleanup over a fixed 6-role x 3-filler codebook, no decoded/noisy continuous signal from a swept capacity regime",
+  "deterministic_seeding": true
+}
