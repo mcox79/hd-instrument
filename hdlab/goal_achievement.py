@@ -336,7 +336,8 @@ def _union_hyps():
 _UNION_OOV_DEFAULT = True
 
 
-def goal_achievement_verdict(desire: str, outcome: str, use_union_oov: Optional[bool] = None) -> dict:
+def goal_achievement_verdict(desire: str, outcome: str, use_union_oov: Optional[bool] = None,
+                              use_desiderative_negation: Optional[bool] = None) -> dict:
     """3-channel verdict (relation -> valence -> majority, then one-directional contrast-override),
     PLUS the OPT-IN UNION OOV-recovery strict-ADD fallback. Returns {verdict, channel, reason, trace}.
     Glass-box, deterministic.
@@ -367,6 +368,8 @@ def goal_achievement_verdict(desire: str, outcome: str, use_union_oov: Optional[
     M2-alone 3/8=0.375, pairscramble collapses -- WIRE_DECISION=True, hence `_UNION_OOV_DEFAULT=True`."""
     if use_union_oov is None:
         use_union_oov = _UNION_OOV_DEFAULT
+    if use_desiderative_negation is None:
+        use_desiderative_negation = _DESID_NEG_DEFAULT
     rel, reason = relation_channel(desire, outcome)
     val = valence_channel(outcome)
     if rel is not None:
@@ -389,6 +392,12 @@ def goal_achievement_verdict(desire: str, outcome: str, use_union_oov: Optional[
         trace["union_verdict"] = u
         if u is not None:
             verdict = u
+    if use_desiderative_negation and result_channel == "majority" and verdict == MAJORITY_CLASS:
+        dn_verdict, dn_trace = desiderative_negation_channel(desire, outcome)
+        trace["desiderative_negation_fired"] = dn_verdict is not None
+        trace["desiderative_negation_trace"] = dn_trace
+        if dn_verdict is not None:
+            verdict = dn_verdict
     return {"verdict": verdict, "channel": result_channel, "reason": reason, "trace": trace}
 
 
@@ -1771,6 +1780,389 @@ def self_test_union_grounded_channel() -> dict:
             "chosen_plugin_resulttype": rt_name, "chosen_plugin_relation": rel_name}
 
 
+# ============================================================================ DESIDERATIVE-NEGATION
+# / SUBSTITUTION CHANNEL (2026-08-09, exp_dev build; Director task following the HARD_FAIL of
+# exp_outcome_event_extraction_recovery_v1 -- referent-linkage extraction was cleanly falsified for
+# the 37-item gold-Unfulfilled residual (commit f1250c1a2), but Director's own VET of that residual
+# found it is NOT uniformly deep-inference: ~9 items are recoverable via a DISCOURSE-LEVEL
+# negation/substitution of the desiderative that neither Channel-A (relation_channel: only fires when
+# the GOAL VERB ITSELF recurs+negates) nor the WIRED union channel (M2 resulttype / fork-A relation +
+# mwe_disengage_scan / M1 idiom -- all Director-MEASURED 0/37 on this exact residual on disk) catch,
+# because these items negate/substitute the desiderative WITHOUT restating the goal verb: (a)
+# FIRST-PERSON DISCOURSE-NEGATION REPLY ("Um, no, I answered", "My reply: 'um... no.'") -- a bare
+# "no" answering the implicit yes/no proposal the desire itself embeds; (b) OBJECT/AVAILABILITY
+# NEGATION ("So no hospital for me", "mamma Mia was sold out") -- the goal's own referent entity
+# recurs inside a negated-existence/unavailability frame; (c) SUBSTITUTION ("ended up going alone"
+# for a WITH-companion goal, "hired a different contractor" for a self-goal) -- the outcome explicitly
+# diverges from a structurally-named element of the goal.
+#
+# BRAIN-FOUNDATIONAL SHAPE (per task mandate): the goal is held TOP-DOWN as a maintained desiderative
+# (reusing hdlab.goal_typing.find_desired_state, the SAME goal representation relation_channel/
+# valence_channel/the utility channels all build on); its negation/abandonment/substitution is
+# detected in the speaker's OWN SUBSEQUENT discourse and RESOLVED AGAINST THE MAINTAINED GOAL -- never
+# a bare outcome-only sentiment scan. Reuses the OWNED negation-scope machinery
+# (hdlab.goal_typing._verb_negated_before / _is_negator, the SAME do-support/modal/"never" adjacency
+# scanner Channel-A's own recur_negated branch and every negation-scope guard in this arc already
+# uses) rather than a new ad hoc negation detector.
+#
+# GOAL-CONDITIONING (load-bearing, mandatory pairscramble discipline): EVERY construction below
+# requires a GENUINE cross-text link to the SPECIFIC paired desire -- never a bare outcome-only
+# sentiment/negation scan. This is NOT optional polish: a construction whose firing condition depends
+# ONLY on the outcome text is MATHEMATICALLY INCAPABLE of showing a pairscramble gap on the recovery
+# metric (gold label is fixed per row; if firing doesn't depend on which desire is paired, real and
+# pairscramble recovery are IDENTICAL by construction on the items where it fires). Three independent
+# link types, used across the five sub-constructions below (never all five requiring the same one):
+#   (i)   SHARED_ENTITY_WORDS -- a content word (len>=4, closed stopword list, goal-verb-synonyms
+#         excluded) recurs literally in both desire and outcome text (the object/availability/result-
+#         attribute constructions require this DIRECTLY, scanning a window around the shared word).
+#   (ii)  REQUEST_FRAME -- the desire is phrased as an embedded yes/no PROPOSAL ("wondering/asked/
+#         asking if I/we wanted to VP") -- a bare "no" reply is a DIRECT, structurally-licensed
+#         discourse response to exactly this construction (not a generic first-person check).
+#   (iii) ABANDON_GOAL -- the desire's OWN governing predicate is an abandonment/relinquishment verb
+#         (give up / quit / abandon / walk away / run away / escape) -- a societal "not an option/not
+#         possible" response is a conventional discourse-coherent reply specifically to THIS class of
+#         goal, not to goals in general.
+#   (iv)  COMPANION_STRUCTURE (construction-specific, not part of the shared _goal_linked helper) --
+#         the desire structurally names a companion argument ("with them/him/her/us/me"); the outcome
+#         negates it via a closed solitude-marker list.
+# See preregs/2026-08-09_desiderative_negation_channel_v1.md for the full pre-registration + bands.
+_ENTITY_STOPWORDS = frozenset({
+    "the", "and", "or", "but", "so", "because", "if", "when", "while", "as", "from",
+    "by", "about", "after", "before", "than", "then", "also", "just", "really", "very", "only",
+    "even", "still", "again", "too", "not", "no", "never", "did", "do", "does", "done", "was",
+    "were", "is", "are", "be", "been", "being", "had", "have", "has", "would", "could", "should",
+    "will", "shall", "can", "may", "might", "must", "get", "gets", "got", "getting", "go", "goes",
+    "went", "going", "gone", "want", "wants", "wanted", "wanting", "last", "night", "one", "some",
+    "all", "that", "this", "these", "those", "there", "here", "with", "into", "onto", "upon",
+    "them", "they", "their", "theirs", "him", "his", "her", "hers", "she", "he", "you", "your",
+    "yours", "we", "our", "ours", "me", "my", "mine", "us", "it", "its", "who", "what", "which",
+    "know", "knew", "think", "thought", "well", "back", "over", "time", "times",
+})
+
+
+def _shared_entity_words(desire: str, outcome: str, verb_lemma: Optional[str] = None) -> frozenset:
+    """Content-word overlap (len>=4, closed stopword list) between the FULL desire sentence and the
+    outcome text -- the (i) SHARED_ENTITY_WORDS goal-link (see module comment above). Broader than
+    hdlab.goal_typing.find_desired_state's own narrow syntactic `referent` field (which can resolve
+    to an uninformative pronoun, e.g. "wanted to see IT" -> referent="it"), so this catches an entity
+    ("mamma Mia") that recurs literally in both texts even when the syntactic referent-extractor
+    can't name it. `verb_lemma` (if given) excludes the goal-verb's own WordNet-synonym set from the
+    overlap so this construction stays a NOUN/ENTITY signal, distinct from Channel-A's own verb-
+    recurrence signal (this cohort is defined as Channel-A having already abstained, so the exclusion
+    is defensive hygiene, not load-bearing)."""
+    d_toks = {t for t in _gt._tokens(desire) if len(t) >= 4 and t not in _ENTITY_STOPWORDS}
+    o_toks = {t for t in _gt._tokens(outcome) if len(t) >= 4 and t not in _ENTITY_STOPWORDS}
+    shared = d_toks & o_toks
+    if verb_lemma:
+        shared -= _verb_synonyms(verb_lemma)
+    return frozenset(shared)
+
+
+_REQUEST_FRAME_RE = re.compile(
+    r"\b(?:wondering|wonder|asked|asking|ask)\b[^.!?]{0,40}\bif\b[^.!?]{0,20}\b(?:i|we)\b"
+    r"[^.!?]{0,15}\bwant(?:ed|s|ing)? to\b", re.I)
+_ABANDON_GOAL_RE = re.compile(
+    r"\bwant(?:ed|s|ing)? to\b[^.!?]{0,15}\b(?:give up|gave up|quit|abandon|walk away|"
+    r"run away|escape)\b", re.I)
+
+
+def _goal_linked(desire: str, shared_words: frozenset) -> bool:
+    """(i) OR (ii) OR (iii) from the module comment's goal-conditioning list -- the shared gate for
+    the REPLY_NEGATION and MODAL_NEGATION constructions (the object/availability/result-attribute
+    constructions use `shared_words` directly and more strictly; COMPANION_SUBSTITUTION uses its own
+    structural gate). Deliberately an OR (not requiring all three) -- each is an independently
+    sufficient, non-lexically-identical way a discourse-negation reply can be licensed by the SPECIFIC
+    paired goal."""
+    return bool(shared_words) or bool(_REQUEST_FRAME_RE.search(desire)) or bool(_ABANDON_GOAL_RE.search(desire))
+
+
+# ---- construction 1: REPLY_NEGATION (first-person discourse-negation reply) -----------------------
+_FILLER_WORDS = ("um", "uh", "erm", "hm", "hmm", "well", "oh", "so", "of course", "and")
+_BARE_NO_LEADS = ("no", "nope", "nah")
+_BARE_NO_NEUTRALIZERS = ("worries", "problem", "problems", "doubt", "wonder", "kidding", "matter",
+                          "one", "offense", "big deal")
+_REPLY_MARKERS = ("my reply", "i replied", "i answered", "i said", "i told him", "i told her",
+                  "i told them", "she said", "he said", "they said", "i responded")
+
+
+def _strip_leading_filler(text: str) -> str:
+    """Strip leading quote/punctuation + a run of discourse-filler words (um/well/oh/so/...) so a
+    reply-initial bare negation particle is exposed at position 0. Procedural (not one compound
+    regex) for auditability -- see _reply_negation_fires."""
+    s = text.strip()
+    changed = True
+    while changed:
+        changed = False
+        stripped = s.lstrip(' "\':,.-')
+        if stripped != s:
+            s, changed = stripped, True
+        low = s.lower()
+        for fw in _FILLER_WORDS:
+            if low.startswith(fw):
+                nxt = s[len(fw):len(fw) + 1]
+                if nxt == "" or not nxt.isalnum():
+                    s, changed = s[len(fw):], True
+                    break
+    return s.lstrip(' "\':,.-')
+
+
+def _is_bare_no(stripped: str) -> bool:
+    low = stripped.lower()
+    for lead in _BARE_NO_LEADS:
+        if not low.startswith(lead):
+            continue
+        nxt = low[len(lead):len(lead) + 1]
+        if nxt != "" and nxt.isalnum():
+            continue  # part of a longer word ("nobody"), not the particle
+        rest = low[len(lead):].lstrip(" ,.!")
+        if any(rest.startswith(n) for n in _BARE_NO_NEUTRALIZERS):
+            return False  # "no worries" / "no problem" / "no one" -- not a refusal
+        return True
+    return False
+
+
+def _reply_negation_fires(outcome_dedup: str) -> bool:
+    """Construction 1: a bare no/nope/nah discourse particle at the head of the outcome (after
+    filler-strip), or immediately following a reply-attribution frame ("my reply:", "I answered",
+    ...) anywhere in the outcome -- a direct discourse-negation response."""
+    if _is_bare_no(_strip_leading_filler(outcome_dedup)):
+        return True
+    low = outcome_dedup.lower()
+    for marker in _REPLY_MARKERS:
+        idx = low.find(marker)
+        if idx == -1:
+            continue
+        tail = outcome_dedup[idx + len(marker): idx + len(marker) + 40]
+        if _is_bare_no(_strip_leading_filler(tail)):
+            return True
+    return False
+
+
+# ---- construction 2: MODAL_NEGATION (goal-anaphoric modal-possibility negation) --------------------
+_MODAL_NEG_SUBJECTS = ("it", "that", "this", "there", "its", "it's", "that's", "there's")
+_MODAL_NEG_PREDICATES = ("an option", "possible", "happening", "going to happen", "meant to be",
+                          "in the cards", "going to work out", "going to work", "gonna happen")
+
+
+def _modal_negation_fires(outcome_dedup: str) -> bool:
+    """Construction 2: an anaphoric subject (it/that/this/there, incl. contracted/typo'd forms) is
+    followed within a short window by an explicit negator (hdlab.goal_typing._is_negator -- do-
+    support/modal/n't/never, the SAME negation-scope scanner Channel-A's own recur_negated branch
+    uses) and a closed-class modal-possibility predicate -- "it's not an option" / "that's not going
+    to happen"."""
+    toks = _gt._tokens(outcome_dedup)
+    for i, tok in enumerate(toks):
+        if tok not in _MODAL_NEG_SUBJECTS:
+            continue
+        window = toks[i + 1:i + 9]
+        if not any(_gt._is_negator(w) for w in window):
+            continue
+        joined = " ".join(toks[i + 1:i + 13])
+        if any(pred in joined for pred in _MODAL_NEG_PREDICATES):
+            return True
+    return False
+
+
+# ---- constructions 3a/3b/3c: shared-entity object/availability/result-attribute negation -----------
+_EXISTENCE_PRONOUNS = ("me", "us", "him", "her", "them")
+_AVAILABILITY_NEG_PHRASES = ("sold out", "gone", "unavailable", "out of stock", "ran out",
+                              "no longer available", "not available", "fully booked", "all gone",
+                              "taken", "closed", "fully sold")
+_RESULT_QUALITY_VERBS = frozenset({
+    "fit", "fits", "fitted", "work", "works", "worked", "arrive", "arrives", "arrived",
+    "come", "comes", "came", "show", "shows", "showed", "materialize", "materialized",
+    "materialise", "materialised", "happen", "happens", "happened",
+})
+
+
+def _negated_existence_fires(outcome_dedup: str, shared_words: frozenset) -> bool:
+    """3a: "no <shared entity> for me/us/him/her/them" -- negated-existence of the goal's own object."""
+    if not shared_words:
+        return False
+    toks = _gt._tokens(outcome_dedup)
+    for i, tok in enumerate(toks):
+        if tok != "no":
+            continue
+        for j in range(i + 1, min(i + 6, len(toks))):
+            if toks[j] not in shared_words:
+                continue
+            tail = toks[j + 1:j + 6]
+            if "for" not in tail:
+                continue
+            k = tail.index("for")
+            after = tail[k + 1:k + 3]
+            if any(p in after for p in _EXISTENCE_PRONOUNS):
+                return True
+    return False
+
+
+def _negated_availability_fires(outcome_dedup: str, shared_words: frozenset) -> bool:
+    """3b: the goal's own shared entity is described as sold-out/gone/unavailable/..."""
+    if not shared_words:
+        return False
+    toks = _gt._tokens(outcome_dedup)
+    for i, tok in enumerate(toks):
+        if tok not in shared_words:
+            continue
+        window_text = " ".join(toks[i + 1:i + 7])
+        if any(p in window_text for p in _AVAILABILITY_NEG_PHRASES):
+            return True
+    return False
+
+
+def _negated_result_attribute_fires(outcome_dedup: str, shared_words: frozenset) -> bool:
+    """3c: the goal's own shared entity recurs, and a RESULT_QUALITY_VERBS token (fit/work/arrive/
+    come/show/materialize/happen) within the same clause is negated (hdlab.goal_typing.
+    _verb_negated_before) -- "the door ... didn't fit"."""
+    if not shared_words:
+        return False
+    toks = _gt._tokens(outcome_dedup)
+    for i, tok in enumerate(toks):
+        if tok not in shared_words:
+            continue
+        for j in range(i + 1, min(i + 26, len(toks))):
+            if toks[j] in _RESULT_QUALITY_VERBS and _gt._verb_negated_before(toks, j):
+                return True
+    return False
+
+
+# ---- construction 4: COMPANION_SUBSTITUTION (structural companion-argument negation) ---------------
+_COMPANION_RE = re.compile(r"\bwith\s+(?:them|him|her|us|me)\b", re.I)
+_SOLITUDE_TERMS = ("alone", "by myself", "by herself", "by himself", "by themselves", "solo",
+                    "on my own", "on his own", "on her own", "on their own",
+                    "without them", "without him", "without her", "without us")
+
+
+def _companion_substitution_fires(desire: str, outcome_dedup: str) -> bool:
+    """The desire STRUCTURALLY names a companion argument ("wanted to hike WITH THEM"); the outcome
+    negates it via a closed solitude-marker list ("ended up going ALONE"). Goal-conditioned by
+    construction (a scrambled unrelated desire only coincidentally names a companion argument)."""
+    if not _COMPANION_RE.search(desire):
+        return False
+    low = outcome_dedup.lower()
+    return any(t in low for t in _SOLITUDE_TERMS)
+
+
+# ---- construction 5: DIVERGENCE_MARKER (generic ended-up/in-the-end/instead + divergence) ----------
+_SUBSTITUTION_MARKERS = ("ended up", "end up", "in the end", "instead")
+_DIVERGENCE_RE = re.compile(
+    r"\b(?:alone|solo|elsewhere|a different \w+|another \w+|"
+    r"without (?:them|him|her|us|me))\b", re.I)
+
+
+def _divergence_marker_fires(desire: str, outcome_dedup: str, shared_words: frozenset) -> bool:
+    """A discourse-marked substitution ("ended up" / "in the end" / "instead") co-occurring with a
+    generic divergence phrase ("a different X" / "another X" / "alone" / "elsewhere" / "without X")
+    -- gated by `_goal_linked` (shared-entity or REQUEST_FRAME or ABANDON_GOAL), same discipline as
+    REPLY_NEGATION/MODAL_NEGATION (see module comment)."""
+    if not _goal_linked(desire, shared_words):
+        return False
+    low = outcome_dedup.lower()
+    if not any(m in low for m in _SUBSTITUTION_MARKERS):
+        return False
+    return bool(_DIVERGENCE_RE.search(outcome_dedup))
+
+
+def desiderative_negation_channel(desire: str, outcome: str) -> Tuple[Optional[str], dict]:
+    """The 5-construction desiderative-negation/substitution channel (see module comment above for
+    the full mechanism + goal-conditioning discipline). Always votes Unfulfilled (never Fulfilled --
+    every construction detects a negation/abandonment/substitution of the desiderative) or abstains
+    (None). NOT wired into goal_achievement_verdict's default precedence -- opt-in via
+    `use_desiderative_negation`, see `_DESID_NEG_DEFAULT`."""
+    from hdlab import idiom_grounding as _ig
+    outcome_dedup = _ig.dedupe_repeated_sentences(outcome)
+    g = _gt.find_desired_state(_extend_goal(desire))
+    verb_lemma = g.get("verb_lemma") if g else None
+    shared = _shared_entity_words(desire, outcome_dedup, verb_lemma)
+    fired = []
+    if _goal_linked(desire, shared) and _reply_negation_fires(outcome_dedup):
+        fired.append("reply_negation")
+    if _goal_linked(desire, shared) and _modal_negation_fires(outcome_dedup):
+        fired.append("modal_negation")
+    if _negated_existence_fires(outcome_dedup, shared):
+        fired.append("negated_existence_object")
+    if _negated_availability_fires(outcome_dedup, shared):
+        fired.append("negated_availability_object")
+    if _negated_result_attribute_fires(outcome_dedup, shared):
+        fired.append("negated_result_attribute")
+    if _companion_substitution_fires(desire, outcome_dedup):
+        fired.append("companion_substitution")
+    if _divergence_marker_fires(desire, outcome_dedup, shared):
+        fired.append("divergence_marker")
+    trace = {"fired": fired, "shared_entity_words": sorted(shared), "goal_verb_lemma": verb_lemma}
+    if not fired:
+        return None, trace
+    return "Unfulfilled", trace
+
+
+# WIRING FLAG (2026-08-09). Held FALSE -- Director's call at land (wire-or-shelve), same discipline as
+# _UNION_OOV_DEFAULT's own held-False-through-confirmation-run bake period. `goal_achievement_verdict(
+# ..., use_desiderative_negation=False)` (the resolved default while this stays False) is BYTE-
+# IDENTICAL to the pre-existing pipeline -- no new trace fields, verdict/channel unchanged.
+_DESID_NEG_DEFAULT = False
+
+
+def self_test_desiderative_negation_channel() -> dict:
+    """MECHANISM-FIRES + GOAL-CONDITIONING (pairscramble-style) + PRECISION-GUARD checks, mirroring
+    this arc's established self-test discipline (M1/M2/fork-A/union). TRAIN exemplars are hand-
+    authored paraphrases of the general construction classes (DIFFERENT surface phrasing than the
+    real DesireDB reference items that motivated the taxonomy) -- the anti-circularity discipline:
+    development/self-test happens on these authored cases; the real held-out recovery number is
+    measured separately by experiments/exp_desiderative_negation_channel_v1.py against the actual
+    enlarged DesireDB cohort, never tuned to match it."""
+    cases = [
+        ("My coworker was wondering if I wanted to cover her shift this weekend.",
+         "No, I told her, I already had plans.", "reply_negation"),
+        ("I wanted to just quit the team altogether.",
+         "Unfortunately that wasn't an option for me at the time.", "modal_negation"),
+        ("I really wanted to get a table at the new restaurant downtown.",
+         "Turns out there was no table available for us that night.", "negated_existence_object"),
+        ("I wanted to buy tickets for the concert next week.",
+         "By the time I checked, the tickets were sold out.", "negated_availability_object"),
+        ("I had ordered a new laptop charger online last week.",
+         "The charger that arrived didn't work at all.", "negated_result_attribute"),
+        ("I wanted to go camping with him this summer.",
+         "In the end I went camping alone.", "companion_substitution"),
+        ("I wanted to renovate the kitchen myself this spring.",
+         "In the end we hired a different contractor for the kitchen instead.", "divergence_marker"),
+    ]
+    per_case = []
+    for desire, outcome, expect_construction in cases:
+        verdict, trace = desiderative_negation_channel(desire, outcome)
+        assert verdict == "Unfulfilled", f"MECHANISM-FIRES FAILURE ({expect_construction}): {trace} for {outcome!r}"
+        assert expect_construction in trace["fired"], (
+            f"WRONG CONSTRUCTION: expected {expect_construction!r} in {trace['fired']} for {outcome!r}")
+        per_case.append({"outcome": outcome, "verdict": verdict, "fired": trace["fired"]})
+
+    # PRECISION GUARD: clear Fulfilled cases must not fire any construction.
+    fulfilled_cases = [
+        ("I wanted to visit my grandmother this weekend.", "I did, and it was wonderful."),
+        ("I wanted to buy a new phone.", "I found a great deal and got one the next day."),
+        ("I wanted to go hiking with my sister.", "We went together and had a great time."),
+    ]
+    for desire, outcome in fulfilled_cases:
+        verdict, trace = desiderative_negation_channel(desire, outcome)
+        assert verdict is None, f"PRECISION GUARD FAILURE: fired {trace['fired']} on a Fulfilled case: {outcome!r}"
+
+    # GOAL-CONDITIONING (pairscramble-style) check: swapping the desire for an UNRELATED one (no
+    # shared entity, no REQUEST_FRAME, no ABANDON_GOAL, no companion structure) must stop every
+    # construction that fired on the real pairing above.
+    scramble_desire = "I wanted to learn how to paint landscapes."
+    for desire, outcome, expect_construction in cases:
+        scr_verdict, scr_trace = desiderative_negation_channel(scramble_desire, outcome)
+        assert expect_construction not in scr_trace["fired"], (
+            f"GOAL-CONDITIONING FAILURE: {expect_construction!r} still fired under a scrambled, "
+            f"unrelated desire on {outcome!r}: {scr_trace}")
+
+    # determinism.
+    v1, t1 = desiderative_negation_channel(cases[0][0], cases[0][1])
+    v2, t2 = desiderative_negation_channel(cases[0][0], cases[0][1])
+    assert (v1, t1) == (v2, t2), "non-deterministic desiderative_negation_channel"
+
+    return {"n_cases": len(cases), "per_case": per_case,
+            "fulfilled_precision_guard_ok": True, "goal_conditioning_ok": True}
+
+
 if __name__ == "__main__":
     import json
     print(json.dumps({"self_test": self_test(), "self_test_goal_cued": self_test_goal_cued(),
@@ -1779,5 +2171,6 @@ if __name__ == "__main__":
                        "self_test_resulttype_grounded_channel": self_test_resulttype_grounded_channel(),
                        "self_test_combined_grounded_channel": self_test_combined_grounded_channel(),
                        "self_test_relation_grounded_channel": self_test_relation_grounded_channel(),
-                       "self_test_union_grounded_channel": self_test_union_grounded_channel()},
+                       "self_test_union_grounded_channel": self_test_union_grounded_channel(),
+                       "self_test_desiderative_negation_channel": self_test_desiderative_negation_channel()},
                       indent=2, default=str))

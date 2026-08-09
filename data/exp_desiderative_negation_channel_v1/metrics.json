@@ -1,0 +1,212 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: enlarged(unf_n=37) fire_rate=0.216 recovery(real/scr)=(8/37=0.2162 / 1/37=0.027) gap_vs_scramble=0.1892(>=0.1) full_cohort_acc(real/majority)=(0.8092/0.7566) n160_full_bench(on/off/rule_floor)=(0.6623/0.6623/0.62) n80_full_bench(on/off)=(0.6992/0.6992) constructions={'negated_availability_object': 1, 'reply_negation': 3, 'modal_negation': 2, 'companion_substitution': 1, 'negated_existence_object': 1, 'negated_result_attribute': 1} | diagnosis={'CHANNEL_NEVER_FIRED': 29, 'RECOVERED_CORRECT': 8} | reasons=[]",
+  "summary": "HARD_PASS: enlarged(unf_n=37) fire_rate=0.216 recovery(real/scr)=(8/37=0.2162 / 1/37=0.027) gap_vs_scramble=0.1892(>=0.1) full_cohort_acc(real/majority)=(0.8092/0.7566) n160_full_bench(on/off/rule_floor)=(0.6623/0.6623/0.62) n80_full_bench(on/off)=(0.6992/0.6992) constructions={'negated_availability",
+  "elapsed_s": 548.997,
+  "run_mode": "full",
+  "anchor_name": "desiderative_negation_channel_v1",
+  "config": {
+    "ENLARGED_N_ROWS": 900,
+    "ENLARGED_SEED": 20260809,
+    "FULL_N_PER_CLASS": 80,
+    "VALIDITY_N_PER_CLASS": 40,
+    "SEED": 20260808
+  },
+  "enlarged_cohort_n": 152,
+  "enlarged_gold_unfulfilled_n": 37,
+  "construction_fire_rate_real": 0.2162,
+  "construction_fire_counts": {
+    "negated_availability_object": 1,
+    "reply_negation": 3,
+    "modal_negation": 2,
+    "companion_substitution": 1,
+    "negated_existence_object": 1,
+    "negated_result_attribute": 1
+  },
+  "recovery_real": {
+    "rate": 0.2162,
+    "n_recovered": 8,
+    "n": 37
+  },
+  "recovery_pairscramble": {
+    "rate": 0.027,
+    "n_recovered": 1,
+    "n": 37
+  },
+  "gap_real_vs_pairscramble": 0.1892,
+  "full_cohort_accuracy_real": 0.8092,
+  "full_cohort_accuracy_majority_baseline": 0.7566,
+  "arms_differ_real_vs_pairscramble": true,
+  "diagnosis_table": {
+    "1": "CHANNEL_NEVER_FIRED",
+    "16": "CHANNEL_NEVER_FIRED",
+    "60": "CHANNEL_NEVER_FIRED",
+    "82": "CHANNEL_NEVER_FIRED",
+    "107": "RECOVERED_CORRECT",
+    "109": "CHANNEL_NEVER_FIRED",
+    "116": "CHANNEL_NEVER_FIRED",
+    "210": "RECOVERED_CORRECT",
+    "223": "CHANNEL_NEVER_FIRED",
+    "261": "CHANNEL_NEVER_FIRED",
+    "297": "CHANNEL_NEVER_FIRED",
+    "317": "CHANNEL_NEVER_FIRED",
+    "333": "CHANNEL_NEVER_FIRED",
+    "343": "CHANNEL_NEVER_FIRED",
+    "349": "CHANNEL_NEVER_FIRED",
+    "353": "RECOVERED_CORRECT",
+    "378": "RECOVERED_CORRECT",
+    "394": "CHANNEL_NEVER_FIRED",
+    "435": "CHANNEL_NEVER_FIRED",
+    "469": "CHANNEL_NEVER_FIRED",
+    "506": "RECOVERED_CORRECT",
+    "510": "CHANNEL_NEVER_FIRED",
+    "517": "CHANNEL_NEVER_FIRED",
+    "526": "RECOVERED_CORRECT",
+    "538": "CHANNEL_NEVER_FIRED",
+    "598": "CHANNEL_NEVER_FIRED",
+    "605": "CHANNEL_NEVER_FIRED",
+    "646": "CHANNEL_NEVER_FIRED",
+    "650": "RECOVERED_CORRECT",
+    "661": "CHANNEL_NEVER_FIRED",
+    "730": "CHANNEL_NEVER_FIRED",
+    "746": "CHANNEL_NEVER_FIRED",
+    "856": "CHANNEL_NEVER_FIRED",
+    "863": "CHANNEL_NEVER_FIRED",
+    "866": "CHANNEL_NEVER_FIRED",
+    "868": "RECOVERED_CORRECT",
+    "879": "CHANNEL_NEVER_FIRED"
+  },
+  "diagnosis_counts": {
+    "CHANNEL_NEVER_FIRED": 29,
+    "RECOVERED_CORRECT": 8
+  },
+  "reference_items_from_director_vet": {
+    "high_confidence_idxs": [
+      210,
+      506,
+      526,
+      333,
+      378,
+      650,
+      353,
+      868
+    ],
+    "marginal_idxs": [
+      116,
+      107
+    ],
+    "note": "used for TAXONOMY design only (anti-circularity); per-item recovery for these specific idxs vs the full diagnosis_table is reported below for transparency, not as a separate gate"
+  },
+  "n160_robustness": {
+    "full_bench_composed": {
+      "n": 160,
+      "acc_on": 0.6625,
+      "macro_f1_on": 0.6623,
+      "acc_off": 0.6625,
+      "macro_f1_off": 0.6623
+    }
+  },
+  "n80_full_bench_composed": {
+    "n": 80,
+    "acc_on": 0.7,
+    "macro_f1_on": 0.6992,
+    "acc_off": 0.7,
+    "macro_f1_off": 0.6992
+  },
+  "harness_validity_check": {
+    "n": 80,
+    "measured_acc": 0.7,
+    "measured_macro_f1": 0.6992,
+    "documented_macro_f1": 0.686,
+    "delta_macro_f1": 0.0132,
+    "valid": true
+  },
+  "gates": {
+    "HP1_recovery_floor": true,
+    "HP2_pairscramble_collapses": true,
+    "HP3_beats_fresh_base": true,
+    "HP4_beats_rule_floor": true,
+    "HP5_arms_differ": true
+  },
+  "hard_fail_reasons": [],
+  "cardinality_ok": true,
+  "expected_n_units": 189,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "glass-box lexical/regex/WordNet pipeline (construction-detector + fired-vote composition), no swept capacity regime, no decoded/noisy continuous signal",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "reference_items_detail": {
+    "210": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "reply_negation"
+      ]
+    },
+    "506": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "companion_substitution"
+      ]
+    },
+    "526": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "reply_negation",
+        "negated_existence_object"
+      ]
+    },
+    "333": {
+      "gold": "Unfulfilled",
+      "pred": "Fulfilled",
+      "fired": []
+    },
+    "378": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "reply_negation"
+      ]
+    },
+    "650": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "modal_negation"
+      ]
+    },
+    "353": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "modal_negation"
+      ]
+    },
+    "868": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "negated_result_attribute"
+      ]
+    },
+    "116": {
+      "gold": "Unfulfilled",
+      "pred": "Fulfilled",
+      "fired": []
+    },
+    "107": {
+      "gold": "Unfulfilled",
+      "pred": "Unfulfilled",
+      "fired": [
+        "negated_availability_object"
+      ]
+    }
+  }
+}

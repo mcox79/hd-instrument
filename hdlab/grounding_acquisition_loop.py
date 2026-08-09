@@ -45,7 +45,7 @@ from __future__ import annotations
 import hashlib
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 
@@ -210,7 +210,8 @@ def consolidation_pass(library: Library, pass_idx: int, *,
                         schema_thresh: float = 0.10,
                         neutral_band: float = NEUTRAL_BAND,
                         patience_max: int = PATIENCE_MAX,
-                        register: bool = True) -> dict:
+                        register: bool = True,
+                        mdl_gate_fn: Optional[Callable[["LibraryItem"], bool]] = None) -> dict:
     """One offline 'sleep' pass over the WHOLE library (Diekelmann & Born: offline, separate from
     the reading/FLAG pass). For each PENDING item with >= min_confirm traces:
       1. mark first_min_confirm_pass on the FIRST pass this threshold is reached (if not yet set).
@@ -223,6 +224,20 @@ def consolidation_pass(library: Library, pass_idx: int, *,
          non-None AND schema_score >= schema_thresh (the mandatory guard -- vote agreement ALONE
          never banks anything, per Warren et al. 2014's same-circuit false-memory finding). Else
          increment patience; at patience_max -> ESCALATED (terminal, NEVER force-committed).
+
+    mdl_gate_fn (optional, CONJUNCTIVE -- AND, never OR, with the schema-consistency check; see
+    preregs/2026-08-09_learner_mdl_gate_on_acquisition_traces_v1.md): when provided, called as
+    mdl_gate_fn(item) -> bool ONLY on passes where schema_score >= schema_thresh already holds (the
+    schema check remains a NECESSARY condition regardless of what mdl_gate_fn returns -- this is
+    the structural guarantee that the existing false-consolidation guard invariants can never be
+    WEAKENED by adding this gate, only made stricter). A False mdl_gate_fn verdict is treated
+    identically to a schema-check failure: patience increments, no forced commit. Default None
+    preserves the exact prior behavior byte-for-byte (the ternary below reduces to `if schema_ok`).
+    Operationalizes Ghosh & Gilboa (2014)'s 'non-specific/abstracted structure' schema criterion via
+    hdlab.learner's MDL two-part-code compression gate (Perfors & Tenenbaum 2009), as a SECOND,
+    independent test of whether the item's own accumulated evidence is genuinely compressible, not
+    merely internally coherent by the cosine-based split-half metric alone.
+
     Returns a per-pass report dict; mutates `library` in place."""
     newly_grounded = {"POS": [], "NEG": [], "NEUTRAL": []}
     newly_escalated: List[str] = []
@@ -242,7 +257,13 @@ def consolidation_pass(library: Library, pass_idx: int, *,
             continue  # insufficient evidence for a split yet (should not occur once n>=MIN_CONFIRM=4,
                        # but defensive: defer, no patience cost -- not-enough-evidence is not a guard
                        # FAILURE, it's an open question more exposure may still answer)
-        if schema_score >= schema_thresh:
+        schema_ok = schema_score >= schema_thresh
+        # mdl_gate_fn only ever CONSULTED when schema already passes (AND semantics); when
+        # mdl_gate_fn is None (default) or schema_ok is False, mdl_ok is vacuously True/irrelevant
+        # -- the `schema_ok and mdl_ok` check below is then identical to the original `schema_ok`
+        # check, byte-for-byte, so this is a strictly additive, backward-compatible change.
+        mdl_ok = mdl_gate_fn(it) if (schema_ok and mdl_gate_fn is not None) else True
+        if schema_ok and mdl_ok:
             margin, pos, neg = _vote_margin(it.traces)
             vote = decide_keep_or_revert({"POS": margin, "NEG": -margin},
                                          abstain_band=neutral_band - 1e-9)
