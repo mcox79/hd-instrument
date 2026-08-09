@@ -112,6 +112,8 @@ So the strategic picture is better than "commit to a months-long build": there i
 owned-organ STAGE-1 win (goal-cued valence) to bank first, gated on its pre-registered can-fail bands,
 with Direction B (grounded utility-scoring) staged behind a feasibility drill.
 
+**WHOLE-PIPELINE CONFIRMATION (read notes/goal_owner_attribution_pipeline_brain_fidelity_audit.md, the concurrent-thread Component audit):** the same top-down/multi-cue divergence recurs across the pipeline -- cue-word-lookup segmentation (Component 1, masked), and THEMATIC-ROLE LABELING (Component 3) is the LOAD-BEARING bottleneck (positional heuristic situation_reader._assign_roles = 0.231 vs 1.0 oracle; can't do passive/experiencer-subject; brain = verb-frame + multi-cue competition-model integration). Coref (Component 2) is faithful (Centering-Cb). **CROSS-THREAD TRIAGE HYPOTHESIS for the in-flight exp_goal_cued_valence_channel_v1: its referent/goal-cue quality is bounded by role-labeling -- the SAME 0.231 ceiling could cap the goal-cued weight's accuracy on non-canonical clauses. If the build HARD-FAILs the absolute-lift band while (ii)>(iii) holds, suspect the role-labeling-dependent cue, not the top-down principle. The shared fix (top-down multi-cue relevance-weighting reusing biased-competition) is a WHOLE-PIPELINE primitive, needed at Component 1 + Component 3 + the valence channel alike -- coordinate with the concurrent Component-3 thread rather than duplicating.** [Aug-4 audit; Component-3 may have advanced since -- verify current numbers before relying on 0.231.]
+
 ## Answer to the USER
 
 Right track on the goal and the glass-box invariant; a real, named, brain-foundational architecture
