@@ -1,0 +1,266 @@
+{
+  "anchor_name": "script_grain_acquisition_loop_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 2/3 recurring scripts GROUNDED by pass 5 (curve=[0, 1, 2, 2, 2], non_decreasing=True) with correct novel-filler generalization on 2 items, 0 false consolidations, scramble_collapses=True (scramble_final=0 vs real_final=2). FLAG margin (ABS over SIGNAL_A) = 0.663.",
+  "summary": "run_mode=smoke n_arms=2 n_passes=5 min_confirm=4 replay_budget_frac=0.6",
+  "elapsed_s": 0.45085716247558594,
+  "run_mode": "smoke",
+  "N_PASSES": 5,
+  "MIN_CONFIRM": 4,
+  "PATIENCE_MAX": 3,
+  "REPLAY_BUDGET_FRAC": 0.6,
+  "FHRR_D": 512,
+  "D_CTX": 256,
+  "precheck_result": {
+    "engine_self_test": {
+      "build_instance_register_deterministic": true,
+      "matched_vs_wrong_separation": {
+        "matched": 0.3614,
+        "wrong": -0.0134
+      },
+      "scramble_collapses": {
+        "scrambled": 0.0032,
+        "matched": 0.3614
+      },
+      "match_or_spawn_ok": true,
+      "calibration_ok": true,
+      "consolidation_intervening_pass_ok": true,
+      "consolidation_grounds_coherent_ok": true,
+      "singleton_noise_never_merges_ok": true
+    },
+    "corpus_shape_ok": true,
+    "precheck_a": {
+      "matched_mean": 0.40728306306733025,
+      "wrong_mean": 0.10518418583605024,
+      "matched_min": 0.3598976731300354,
+      "wrong_max": 0.2314358651638031,
+      "novelty_thresh": 0.24868115252090822,
+      "discriminates": true,
+      "n_matched_pairs": 45,
+      "n_wrong_pairs": 27
+    },
+    "precheck_b": {
+      "chosen": "ruleind",
+      "compression_ratio": 2.5932
+    },
+    "precheck_c": {
+      "precheck_passed": true,
+      "base_instrument": {
+        "precheck_passed": true,
+        "coherent_late_mean_residual": 1.1102230246251565e-16,
+        "scrambled_late_mean_residual": 0.47734375,
+        "gap": 0.4773437499999999
+      },
+      "best_f1_on_corpus": 0.6626506024096385,
+      "base_rate": 0.4954954954954955
+    },
+    "real_pipeline_slice_ok": true
+  },
+  "verdict_stats": {
+    "n_recurring_types_grounded_by_pass5": 2,
+    "compounding_curve_real": [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    "compounding_curve_scramble": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "non_decreasing": true,
+    "false_consolidation_ever": false,
+    "n_items_with_correct_generalization": 2,
+    "scramble_collapses": true,
+    "flag_margin_abs_over_signal_a": 0.6626506024096385,
+    "arms_differ_verified": true,
+    "measurement_3_detail": {
+      "SITEM_0003": {
+        "true_type": "REPAIR",
+        "status": "GROUNDED_NEUTRAL",
+        "held_out_checked": 2,
+        "held_out_correct": 2,
+        "per_instance": [
+          {
+            "episode_id": "hoREPAIR_0",
+            "true_pole": "POS",
+            "predicted": "POS",
+            "correct": true
+          },
+          {
+            "episode_id": "hoREPAIR_1",
+            "true_pole": "NEG",
+            "predicted": "NEG",
+            "correct": true
+          }
+        ]
+      },
+      "SITEM_0006": {
+        "true_type": "ERRAND",
+        "status": "GROUNDED_NEUTRAL",
+        "held_out_checked": 2,
+        "held_out_correct": 2,
+        "per_instance": [
+          {
+            "episode_id": "hoERRAND_0",
+            "true_pole": "POS",
+            "predicted": "POS",
+            "correct": true
+          },
+          {
+            "episode_id": "hoERRAND_1",
+            "true_pole": "NEG",
+            "predicted": "NEG",
+            "correct": true
+          }
+        ]
+      }
+    },
+    "measurement_1_detail": {
+      "abs_gate": {
+        "best_f1": 0.6626506024096385,
+        "best_threshold": 0.02,
+        "precision": 0.4954954954954955,
+        "recall": 1.0
+      },
+      "signal_a": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "n_fires": 0
+      },
+      "base_rate": 0.4954954954954955,
+      "n_windows_evaluated": 111,
+      "margin_abs_over_signal_a": 0.6626506024096385
+    },
+    "real_result_summary": {
+      "compounding_curve": [
+        0,
+        1,
+        2,
+        2,
+        2
+      ],
+      "grounded_type_first_pass": {
+        "REPAIR": 3,
+        "ERRAND": 2,
+        "INFO_EXCHANGE": null
+      },
+      "n_items_spawned_total": 15,
+      "false_consolidation_details": [],
+      "final_item_type_map": {
+        "SITEM_0000": {
+          "maj_type": "ADVERSARIAL_1",
+          "maj_frac": 1.0,
+          "status": "ESCALATED",
+          "n_traces": 4
+        },
+        "SITEM_0001": {
+          "maj_type": "INFO_EXCHANGE",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 12
+        },
+        "SITEM_0002": {
+          "maj_type": "ADVERSARIAL_0",
+          "maj_frac": 1.0,
+          "status": "ESCALATED",
+          "n_traces": 4
+        },
+        "SITEM_0003": {
+          "maj_type": "REPAIR",
+          "maj_frac": 1.0,
+          "status": "GROUNDED_NEUTRAL",
+          "n_traces": 12
+        },
+        "SITEM_0004": {
+          "maj_type": "ONEOFF_006",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0005": {
+          "maj_type": "ONEOFF_009",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0006": {
+          "maj_type": "ERRAND",
+          "maj_frac": 1.0,
+          "status": "GROUNDED_NEUTRAL",
+          "n_traces": 12
+        },
+        "SITEM_0007": {
+          "maj_type": "ONEOFF_002",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0008": {
+          "maj_type": "ONEOFF_001",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0009": {
+          "maj_type": "ONEOFF_004",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0010": {
+          "maj_type": "ONEOFF_007",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0011": {
+          "maj_type": "ONEOFF_005",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0012": {
+          "maj_type": "ONEOFF_000",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0013": {
+          "maj_type": "ONEOFF_003",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        },
+        "SITEM_0014": {
+          "maj_type": "ONEOFF_008",
+          "maj_frac": 1.0,
+          "status": "PENDING",
+          "n_traces": 1
+        }
+      }
+    },
+    "scramble_result_summary": {
+      "compounding_curve": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "n_items_spawned_total": 54
+    }
+  },
+  "cell_chunked": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "keying/consolidation cell; discriminator is F1/grounding-count, not argmax/top-k associative-recall capacity",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 2
+}
