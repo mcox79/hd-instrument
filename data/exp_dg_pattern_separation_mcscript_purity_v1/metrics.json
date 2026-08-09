@@ -1,0 +1,610 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: DG-separation (sparsity=0.05) mean_purity_multi=0.1013 does not clear meaningfully above the ~0.1999 baseline. This is the honest capacity-ceiling finding: the substrate cannot discriminate 195-way online with this keying signal even with DG-style separation.",
+  "summary": "run_mode=full n_train=2500 n_scenarios=195 verdict=HARD_FAIL",
+  "elapsed_s": 192.104,
+  "run_mode": "full",
+  "config": {
+    "EXPAND_DIM": 2048,
+    "SPARSITY_PRIMARY": 0.05,
+    "SPARSITY_ROBUST": 0.1,
+    "MIN_CONFIRM": 4,
+    "ATTRACTOR_TEMP": 4.0,
+    "ATTRACTOR_MAX_STEPS": 8,
+    "PRECHECK_MIN_GAP": 0.05,
+    "PRECHECK_MIN_AUC": 0.6,
+    "PURE_THRESH": 0.5
+  },
+  "arms_differ_verified": true,
+  "arm_hashes": {
+    "off": "c71166d25ab030b23020932bf754094caf7170f4337cc09f976649fbccfb2199",
+    "on_sparsity05": "554af5cc00f8be11aa58a66bc06810b6aa0293d5d63bb2fbd77fc53ecf9a26b1",
+    "on_sparsity10": "787d38acf590af0389870a12ddf7d7fc66dea61e3f786e43738c0c0ccf740713"
+  },
+  "cardinality_ok": true,
+  "n_train_instances": 2500,
+  "n_train_scenarios": 195,
+  "per_arm": {
+    "off": {
+      "seed": "off",
+      "run_mode": "full",
+      "calibration": {
+        "novelty_thresh": 0.1061,
+        "matched_mean": 0.1821,
+        "wrong_mean": 0.0373,
+        "gap": 0.1448,
+        "auc": 0.8818,
+        "realistic_discriminates": true,
+        "n_matched_pairs": 195,
+        "n_wrong_pairs": 75660,
+        "n_sample_instances": 390
+      },
+      "arm": "off",
+      "n_items_total": 35,
+      "n_singletons": 1,
+      "singleton_frac": 0.0286,
+      "n_items_multi": 34,
+      "mean_purity_multi": 0.2088,
+      "trace_weighted_purity_multi": 0.1025,
+      "n_pure_items": 5,
+      "pure_frac": 0.1471,
+      "n_items_grounded_would_be": 33,
+      "mean_purity_grounded_would_be": 0.2,
+      "item_size_stats": {
+        "min": 1,
+        "median": 51.0,
+        "max": 281
+      },
+      "item_purity_sample": {
+        "SITEM_0000": {
+          "n_traces": 116,
+          "majority_scenario": "sewing a button",
+          "majority_frac": 0.0862
+        },
+        "SITEM_0001": {
+          "n_traces": 117,
+          "majority_scenario": "going for a walk",
+          "majority_frac": 0.0342
+        },
+        "SITEM_0002": {
+          "n_traces": 281,
+          "majority_scenario": "growing vegetables",
+          "majority_frac": 0.0285
+        },
+        "SITEM_0003": {
+          "n_traces": 240,
+          "majority_scenario": "buying a DVD player",
+          "majority_frac": 0.05
+        },
+        "SITEM_0004": {
+          "n_traces": 50,
+          "majority_scenario": "cooking rice",
+          "majority_frac": 0.26
+        },
+        "SITEM_0005": {
+          "n_traces": 89,
+          "majority_scenario": "making scrambled eggs",
+          "majority_frac": 0.1461
+        },
+        "SITEM_0006": {
+          "n_traces": 96,
+          "majority_scenario": "changing a light bulb",
+          "majority_frac": 0.0938
+        },
+        "SITEM_0007": {
+          "n_traces": 103,
+          "majority_scenario": "throwing a party",
+          "majority_frac": 0.0777
+        },
+        "SITEM_0008": {
+          "n_traces": 181,
+          "majority_scenario": "chopping vegetables",
+          "majority_frac": 0.0276
+        },
+        "SITEM_0009": {
+          "n_traces": 122,
+          "majority_scenario": "doing online banking",
+          "majority_frac": 0.0656
+        },
+        "SITEM_0010": {
+          "n_traces": 65,
+          "majority_scenario": "brushing teeth",
+          "majority_frac": 0.1385
+        },
+        "SITEM_0011": {
+          "n_traces": 74,
+          "majority_scenario": "taking a shower",
+          "majority_frac": 0.0811
+        },
+        "SITEM_0012": {
+          "n_traces": 97,
+          "majority_scenario": "planning a holiday trip",
+          "majority_frac": 0.0619
+        },
+        "SITEM_0013": {
+          "n_traces": 88,
+          "majority_scenario": "cleaning the shower",
+          "majority_frac": 0.1364
+        },
+        "SITEM_0014": {
+          "n_traces": 36,
+          "majority_scenario": "taking children to school",
+          "majority_frac": 0.1111
+        },
+        "SITEM_0015": {
+          "n_traces": 179,
+          "majority_scenario": "making tea",
+          "majority_frac": 0.0559
+        },
+        "SITEM_0016": {
+          "n_traces": 85,
+          "majority_scenario": "locking up the house",
+          "majority_frac": 0.0824
+        },
+        "SITEM_0017": {
+          "n_traces": 77,
+          "majority_scenario": "setting up presentation equipment",
+          "majority_frac": 0.0909
+        },
+        "SITEM_0018": {
+          "n_traces": 19,
+          "majority_scenario": "riding on a bus",
+          "majority_frac": 0.5263
+        },
+        "SITEM_0019": {
+          "n_traces": 51,
+          "majority_scenario": "deciding on a movie",
+          "majority_frac": 0.1961
+        },
+        "SITEM_0020": {
+          "n_traces": 60,
+          "majority_scenario": "feeding the fish",
+          "majority_frac": 0.1333
+        },
+        "SITEM_0021": {
+          "n_traces": 34,
+          "majority_scenario": "attending a court hearing",
+          "majority_frac": 0.1765
+        },
+        "SITEM_0022": {
+          "n_traces": 7,
+          "majority_scenario": "playing music in church",
+          "majority_frac": 0.2857
+        },
+        "SITEM_0023": {
+          "n_traces": 29,
+          "majority_scenario": "making soup",
+          "majority_frac": 0.2414
+        },
+        "SITEM_0024": {
+          "n_traces": 9,
+          "majority_scenario": "taking medicine",
+          "majority_frac": 0.2222
+        },
+        "SITEM_0025": {
+          "n_traces": 40,
+          "majority_scenario": "listening to music",
+          "majority_frac": 0.2
+        },
+        "SITEM_0026": {
+          "n_traces": 47,
+          "majority_scenario": "borrowing a book from the library",
+          "majority_frac": 0.2128
+        },
+        "SITEM_0027": {
+          "n_traces": 25,
+          "majority_scenario": "buying a tree",
+          "majority_frac": 0.4
+        },
+        "SITEM_0028": {
+          "n_traces": 24,
+          "majority_scenario": "washing dishes",
+          "majority_frac": 0.25
+        },
+        "SITEM_0029": {
+          "n_traces": 30,
+          "majority_scenario": "going on a train",
+          "majority_frac": 0.3
+        },
+        "SITEM_0030": {
+          "n_traces": 9,
+          "majority_scenario": "painting a wall",
+          "majority_frac": 0.5556
+        },
+        "SITEM_0031": {
+          "n_traces": 10,
+          "majority_scenario": "making fresh orange juice",
+          "majority_frac": 0.7
+        },
+        "SITEM_0032": {
+          "n_traces": 7,
+          "majority_scenario": "sending a fax",
+          "majority_frac": 0.5714
+        },
+        "SITEM_0033": {
+          "n_traces": 2,
+          "majority_scenario": "planting flowers",
+          "majority_frac": 0.5
+        },
+        "SITEM_0034": {
+          "n_traces": 1,
+          "majority_scenario": "preparing a picnic",
+          "majority_frac": 1.0
+        }
+      },
+      "elapsed_s": 42.67,
+      "novelty_thresh_used": 0.1061,
+      "_ckpt_key": "off",
+      "_partial_written_at": 1786311842.4129622
+    },
+    "on_sparsity05": {
+      "seed": "on_sparsity05",
+      "run_mode": "full",
+      "calibration": {
+        "novelty_thresh": 0.0315,
+        "matched_mean": 0.0548,
+        "wrong_mean": 0.0105,
+        "gap": 0.0443,
+        "auc": 0.7962,
+        "realistic_discriminates": false,
+        "n_matched_pairs": 195,
+        "n_wrong_pairs": 75660,
+        "n_sample_instances": 390
+      },
+      "arm": "on_sparsity05",
+      "n_items_total": 19,
+      "n_singletons": 1,
+      "singleton_frac": 0.0526,
+      "n_items_multi": 18,
+      "mean_purity_multi": 0.1013,
+      "trace_weighted_purity_multi": 0.0492,
+      "n_pure_items": 0,
+      "pure_frac": 0.0,
+      "n_items_grounded_would_be": 18,
+      "mean_purity_grounded_would_be": 0.1013,
+      "item_size_stats": {
+        "min": 1,
+        "median": 85.0,
+        "max": 741
+      },
+      "item_purity_sample": {
+        "SITEM_0000": {
+          "n_traces": 741,
+          "majority_scenario": "washing one\u2019s hair",
+          "majority_frac": 0.0162
+        },
+        "SITEM_0001": {
+          "n_traces": 290,
+          "majority_scenario": "going to the theater",
+          "majority_frac": 0.0276
+        },
+        "SITEM_0002": {
+          "n_traces": 198,
+          "majority_scenario": "mowing the lawn",
+          "majority_frac": 0.0253
+        },
+        "SITEM_0003": {
+          "n_traces": 85,
+          "majority_scenario": "cleaning the bathroom",
+          "majority_frac": 0.0706
+        },
+        "SITEM_0004": {
+          "n_traces": 110,
+          "majority_scenario": "answering the doorbell",
+          "majority_frac": 0.0545
+        },
+        "SITEM_0005": {
+          "n_traces": 136,
+          "majority_scenario": "setting up presentation equipment",
+          "majority_frac": 0.0515
+        },
+        "SITEM_0006": {
+          "n_traces": 303,
+          "majority_scenario": "making scrambled eggs",
+          "majority_frac": 0.0231
+        },
+        "SITEM_0007": {
+          "n_traces": 94,
+          "majority_scenario": "doing online banking",
+          "majority_frac": 0.1277
+        },
+        "SITEM_0008": {
+          "n_traces": 71,
+          "majority_scenario": "changing a light bulb",
+          "majority_frac": 0.1972
+        },
+        "SITEM_0009": {
+          "n_traces": 141,
+          "majority_scenario": "sending a fax",
+          "majority_frac": 0.0638
+        },
+        "SITEM_0010": {
+          "n_traces": 43,
+          "majority_scenario": "changing batteries in a camera",
+          "majority_frac": 0.2326
+        },
+        "SITEM_0011": {
+          "n_traces": 108,
+          "majority_scenario": "playing a movie",
+          "majority_frac": 0.0648
+        },
+        "SITEM_0012": {
+          "n_traces": 67,
+          "majority_scenario": "buying a tree",
+          "majority_frac": 0.0597
+        },
+        "SITEM_0013": {
+          "n_traces": 17,
+          "majority_scenario": "boiling milk",
+          "majority_frac": 0.1765
+        },
+        "SITEM_0014": {
+          "n_traces": 55,
+          "majority_scenario": "playing football",
+          "majority_frac": 0.1091
+        },
+        "SITEM_0015": {
+          "n_traces": 23,
+          "majority_scenario": "making a hot dog",
+          "majority_frac": 0.1739
+        },
+        "SITEM_0016": {
+          "n_traces": 11,
+          "majority_scenario": "reviewing movies",
+          "majority_frac": 0.1818
+        },
+        "SITEM_0017": {
+          "n_traces": 6,
+          "majority_scenario": "paying bills",
+          "majority_frac": 0.1667
+        },
+        "SITEM_0018": {
+          "n_traces": 1,
+          "majority_scenario": "going fishing",
+          "majority_frac": 1.0
+        }
+      },
+      "elapsed_s": 60.29,
+      "novelty_thresh_used": 0.0315,
+      "_ckpt_key": "on_sparsity05",
+      "_partial_written_at": 1786311911.0478907
+    },
+    "on_sparsity10": {
+      "seed": "on_sparsity10",
+      "run_mode": "full",
+      "calibration": {
+        "novelty_thresh": 0.0504,
+        "matched_mean": 0.0879,
+        "wrong_mean": 0.0165,
+        "gap": 0.0714,
+        "auc": 0.858,
+        "realistic_discriminates": true,
+        "n_matched_pairs": 195,
+        "n_wrong_pairs": 75660,
+        "n_sample_instances": 390
+      },
+      "arm": "on_sparsity10",
+      "n_items_total": 26,
+      "n_singletons": 0,
+      "singleton_frac": 0.0,
+      "n_items_multi": 26,
+      "mean_purity_multi": 0.1903,
+      "trace_weighted_purity_multi": 0.086,
+      "n_pure_items": 2,
+      "pure_frac": 0.0769,
+      "n_items_grounded_would_be": 25,
+      "mean_purity_grounded_would_be": 0.1712,
+      "item_size_stats": {
+        "min": 3,
+        "median": 67.0,
+        "max": 509
+      },
+      "item_purity_sample": {
+        "SITEM_0000": {
+          "n_traces": 197,
+          "majority_scenario": "making a bed",
+          "majority_frac": 0.0406
+        },
+        "SITEM_0001": {
+          "n_traces": 172,
+          "majority_scenario": "walking a dog",
+          "majority_frac": 0.064
+        },
+        "SITEM_0002": {
+          "n_traces": 509,
+          "majority_scenario": "buying a DVD player",
+          "majority_frac": 0.0236
+        },
+        "SITEM_0003": {
+          "n_traces": 71,
+          "majority_scenario": "borrowing a book from the library",
+          "majority_frac": 0.1268
+        },
+        "SITEM_0004": {
+          "n_traces": 107,
+          "majority_scenario": "going to the theater",
+          "majority_frac": 0.1028
+        },
+        "SITEM_0005": {
+          "n_traces": 59,
+          "majority_scenario": "changing a light bulb",
+          "majority_frac": 0.2034
+        },
+        "SITEM_0006": {
+          "n_traces": 139,
+          "majority_scenario": "planning a holiday trip",
+          "majority_frac": 0.0432
+        },
+        "SITEM_0007": {
+          "n_traces": 77,
+          "majority_scenario": "receiving a letter",
+          "majority_frac": 0.1039
+        },
+        "SITEM_0008": {
+          "n_traces": 348,
+          "majority_scenario": "washing one\u2019s hair",
+          "majority_frac": 0.0374
+        },
+        "SITEM_0009": {
+          "n_traces": 90,
+          "majority_scenario": "changing batteries in a camera",
+          "majority_frac": 0.1556
+        },
+        "SITEM_0010": {
+          "n_traces": 97,
+          "majority_scenario": "answering the phone",
+          "majority_frac": 0.1237
+        },
+        "SITEM_0011": {
+          "n_traces": 42,
+          "majority_scenario": "taking a taxi",
+          "majority_frac": 0.0952
+        },
+        "SITEM_0012": {
+          "n_traces": 161,
+          "majority_scenario": "ironing laundry",
+          "majority_frac": 0.0435
+        },
+        "SITEM_0013": {
+          "n_traces": 16,
+          "majority_scenario": "riding on a bus",
+          "majority_frac": 0.625
+        },
+        "SITEM_0014": {
+          "n_traces": 74,
+          "majority_scenario": "canceling a party",
+          "majority_frac": 0.0946
+        },
+        "SITEM_0015": {
+          "n_traces": 66,
+          "majority_scenario": "cooking pasta",
+          "majority_frac": 0.1818
+        },
+        "SITEM_0016": {
+          "n_traces": 35,
+          "majority_scenario": "cooking meat",
+          "majority_frac": 0.1714
+        },
+        "SITEM_0017": {
+          "n_traces": 59,
+          "majority_scenario": "paying for gas",
+          "majority_frac": 0.2203
+        },
+        "SITEM_0018": {
+          "n_traces": 21,
+          "majority_scenario": "heating food on kitchen gas",
+          "majority_frac": 0.1905
+        },
+        "SITEM_0019": {
+          "n_traces": 68,
+          "majority_scenario": "playing football",
+          "majority_frac": 0.0882
+        },
+        "SITEM_0020": {
+          "n_traces": 36,
+          "majority_scenario": "wrapping a gift",
+          "majority_frac": 0.3056
+        },
+        "SITEM_0021": {
+          "n_traces": 19,
+          "majority_scenario": "painting a wall",
+          "majority_frac": 0.2105
+        },
+        "SITEM_0022": {
+          "n_traces": 9,
+          "majority_scenario": "settling bank transactions",
+          "majority_frac": 0.2222
+        },
+        "SITEM_0023": {
+          "n_traces": 19,
+          "majority_scenario": "sending a fax",
+          "majority_frac": 0.4737
+        },
+        "SITEM_0024": {
+          "n_traces": 3,
+          "majority_scenario": "setting up presentation equipment",
+          "majority_frac": 0.6667
+        },
+        "SITEM_0025": {
+          "n_traces": 6,
+          "majority_scenario": "attending a job interview",
+          "majority_frac": 0.3333
+        }
+      },
+      "elapsed_s": 64.238,
+      "novelty_thresh_used": 0.0504,
+      "_ckpt_key": "on_sparsity10",
+      "_partial_written_at": 1786311984.3467767
+    }
+  },
+  "verdict_stats": {
+    "off_mean_purity_grounded_would_be": 0.2,
+    "landed_reference_purity": 0.1999,
+    "off_reproduction_deviation": 0.0001,
+    "off_reproduction_ok": true,
+    "on_sparsity05_mean_purity_multi": 0.1013,
+    "on_sparsity05_trace_weighted_purity_multi": 0.0492,
+    "on_sparsity05_singleton_frac": 0.0526,
+    "on_sparsity05_n_items_total": 19,
+    "on_sparsity10_mean_purity_multi": 0.1903,
+    "on_sparsity10_singleton_frac": 0.0,
+    "on_sparsity10_n_items_total": 26,
+    "gate_claims": [
+      {
+        "gate_name": "on_sparsity05_mean_purity_multi",
+        "measured": 0.1013,
+        "threshold": 0.5,
+        "op": ">=",
+        "gate_verdict": false,
+        "note": "primary purity gate"
+      },
+      {
+        "gate_name": "on_sparsity05_singleton_frac",
+        "measured": 0.0526,
+        "threshold": 0.8,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "memorization/singleton-explosion guard"
+      },
+      {
+        "gate_name": "off_reproduction_deviation",
+        "measured": 0.00010000000000001674,
+        "threshold": 0.1,
+        "op": "<=",
+        "gate_verdict": true,
+        "note": "OFF arm must reproduce the landed ~0.1999 purity (Gate D)"
+      }
+    ]
+  },
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "keying/clustering purity-gate cell; this cell's own purity gate IS the capacity-feasibility question being measured, not assumed",
+  "progress_logging": "print_flush_true",
+  "structured_gate_claims": [
+    {
+      "gate_name": "on_sparsity05_mean_purity_multi",
+      "measured": 0.1013,
+      "threshold": 0.5,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "primary purity gate"
+    },
+    {
+      "gate_name": "on_sparsity05_singleton_frac",
+      "measured": 0.0526,
+      "threshold": 0.8,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "memorization/singleton-explosion guard"
+    },
+    {
+      "gate_name": "off_reproduction_deviation",
+      "measured": 0.00010000000000001674,
+      "threshold": 0.1,
+      "op": "<=",
+      "gate_verdict": true,
+      "note": "OFF arm must reproduce the landed ~0.1999 purity (Gate D)"
+    }
+  ]
+}
