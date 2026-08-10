@@ -1,0 +1,10 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "all planted cases + D2 GD checks passed",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.058895900030620396,
+  "run_mode": "self_test",
+  "anchor_name": "crutch_discriminative_selection_coherence_tom_v2",
+  "ts_iso": "2026-08-10T16:53:25.540258+00:00",
+  "pid": 22456
+}
