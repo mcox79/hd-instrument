@@ -1,54 +1,76 @@
 # CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
-# - arms_differ_verified at smoke gate (META_RULE_AF; 5-arm per-checkpoint prediction hash-differ)
+# - arms_differ_verified at smoke gate (META_RULE_AF; 9-arm per-checkpoint prediction hash-differ;
+#   arms_differ_exempted=[["bow","never_crutch"]] declared)
 # - final_metrics_atomicity declared (META_RULE_AH; tmp_replace)
 # - except SystemExit: raise BEFORE except Exception (no BaseException, no bare except:)
 # - crlb_n/a declared (symbolic KB-lookup + vote-count pipeline; no capacity/noise-floor
 #   discriminator threshold applies -- 3-way discrete classification accuracy on a real benchmark)
-# - HP_SCOPE: {dev_checkpoint_eval: [fire_rate_drop, comprehension_lift, scramble_control,
-#   consolidation_fidelity]} -- ALWAYS/NEVER arms are diagnostic references, not HP-gated
-# - cardinality_ok: EXPECTED_N_CHECKPOINTS=5, EXPECTED_N_ARMS=5
+# - HP_SCOPE: {dev_checkpoint_eval: [tier_fire_drop, tier_comprehension_lift, tier_scramble_control,
+#   tier_consolidation_fidelity, combined_evidence_promotion, ablation_underperformance]} --
+#   ALWAYS/NEVER arms + binary_baseline_verdict are diagnostic/informational, not HP-gated
+# - cardinality_ok: EXPECTED_N_CHECKPOINTS=5, EXPECTED_N_ARMS=9
 # - per-unit failure-class instrumentation (no bare except; degraded_scoring budget 2%)
-# - calibration_check: adaptive_with_discriminator_gate (GATE_THRESH = median BoW-margin, computed
-#   fresh at run start, logged, not hand-tuned)
+# - calibration_check: adaptive_with_discriminator_gate (GATE_THRESH = median BoW-margin; PLUS
+#   novelty_thresh calibrated via calibrate_novelty_threshold on this run's own relation-family
+#   vocabulary -- both computed fresh at run start, logged, not hand-tuned)
 # - all numbers in comments tagged MEASURED@ / HYPOTHESIZED@ / THEORETICAL@ / CITED@
-# - self-test constructs the REAL Library / consolidation_pass / HDFactStore objects
-#   (real_code_path_exercised); no synthetic-only branch
+# - self-test constructs the REAL Library / consolidation_pass / HDFactStore / ScriptLibrary /
+#   build_instance_register / match_or_spawn objects (real_code_path_exercised); no synthetic-only
+#   branch
 # - progress_logging: print_flush_true
-# See preregs/2026-08-10_crutch_fade_social_iqa_v1.md for the full pre-reg + deviations disclosed.
-"""exp_crutch_fade_social_iqa_v1 -- THE DECISIVE Social IQa crutch-fade test (2026-08-10).
+# See preregs/2026-08-10_crutch_fade_prelim_tier_staged_consolidation_v1.md for the 3-tier pre-reg
+# (extends preregs/2026-08-10_crutch_fade_social_iqa_v1.md, the base binary cell's pre-reg).
+"""exp_crutch_fade_social_iqa_v1 -- THE DECISIVE Social IQa crutch-fade test (2026-08-10), extended
+2026-08-10 with a 3-tier PRELIM middle tier + generalization-fed staged consolidation.
 
 Composes: CRUTCH = data/cskg_foundation_v1 (1,238,686 typed spine edges, ATOMIC-dominant,
 HARD_PASS-certified exp_cskg_foundation_v1), queried as a plain symbolic concept-pair index (NOT
 kg_traversal.KGStore's Hebbian single-W substrate -- see prereg "Deviation" section: that store is
 the SAME one Stage-2 sub-test B HARD_FAILED at CSKG cardinality, an unrelated open wall this cell
-must not get confounded with). LIBRARY = hdlab.grounding_acquisition_loop.Library +
+must not get confounded with). LIBRARY (native, strict) = hdlab.grounding_acquisition_loop.Library +
 consolidation_pass(native_store=...) + hdlab.hd_fact_store.HDFactStore -- the validated
 BANK->native-promotion connector (Test-A cleared: promote 5/5, guard 0/12 leaks, commit 07339e9c6).
-FLAG = a predictive_coding-style relative-margin gate over BoW-candidate scores.
+FLAG = a predictive_coding-style relative-margin gate over BoW-candidate scores. PRELIM (new,
+2026-08-10) = a SEPARATE, permanently-PENDING Library + a TRUST_LOW hd_fact_store.HDFactStore --
+sub-threshold crutch-fills are RETAINED (not discarded) and PULLED at re-encounter (the fade lever).
+GENERALIZATION (new, 2026-08-10) = hdlab.script_grain_acquisition_loop.ScriptLibrary.match_or_spawn
+(CA3/DG clustering by CSKG relation-family) lets COMBINED evidence across related PRELIM pairs cross
+the STILL-STRICT native promote gate even when no single pair does.
 
 Question: as the substrate reads more of SIQa's train stream (context text only, no labels), does
 the live CRUTCH fire LESS on repeat need for the SAME knowledge (fade) while held-out dev
 comprehension RISES above a freshly-measured BoW baseline, and does a SCRAMBLED-content crutch fail
-to reproduce any gain (proving real knowledge, not retrieval machinery, does the work)?
+to reproduce any gain (proving real knowledge, not retrieval machinery, does the work)? EXTENDED
+question (2026-08-10): does the 3-tier PRELIM/generalization architecture buy MORE fade than the
+binary promote-or-discard baseline AT THE SAME STRICT GATE, without native fidelity collapsing --
+the tradeoff the binary cliff (commit 74d310e11) could not resolve (fade required loosening the
+gate, which broke fidelity)?
 
-5 arms x 5 checkpoints (0/10/25/50/100% of exposure), full frozen dev (1,954 items) evaluated at
-every checkpoint. Per-item routing tag (BOW_RESOLVED/LIBRARY_RESOLVED/CRUTCH_RESOLVED/ABSTAINED).
-Two headline curves (crutch_fire_rate, comprehension) PLUS a re-encounter fade rate (coordinator
-refinement, mid-build): among dev items that genuinely needed the crutch at checkpoint 0%, what
-fraction of those whose driving concept-pair later gets promoted are served NATIVELY (not
-re-consulting the crutch) at later checkpoints -- this isolates a genuine storage/consolidation
-fault from the SIQa long-tail (many dev items' driving pairs simply never recur >=8x in train and
-so never promote, which would otherwise mask a working fade mechanism inside a flat aggregate rate).
+9 arms x 5 checkpoints (0/10/25/50/100% of exposure), full frozen dev (1,954 items) evaluated at
+every checkpoint: bow, never_crutch, always_crutch, gap_driven (BINARY BASELINE, unchanged),
+scramble_crutch (unchanged) + gap_driven_3tier (FULL mechanism), gap_driven_3tier_no_generalization
+(ablation A: retain+pull, no clustering), gap_driven_3tier_no_pull (ablation B: retain, no pull),
+scramble_crutch_3tier (the 3-tier's OWN scramble control). Per-item routing tag (BOW_RESOLVED/
+LIBRARY_RESOLVED/PRELIM_RESOLVED/CRUTCH_RESOLVED/ABSTAINED). A re-encounter fade rate (coordinator
+refinement) and a crutch-RETRIEVAL-COVERAGE-controlled comprehension read (second coordinator
+refinement, mid-3-tier-build, per sibling diagnosis e9ee736ec: overall comprehension is capped by
+CSKG's ~45-54% retrieval-coverage ceiling independent of consolidation quality) are both reported
+alongside the two headline curves.
 
 Modes:
-  --self-test  Real-code-path check: tiny synthetic CSKG index (16 hand-built pairs), real
-               Library/consolidation_pass/HDFactStore at N~12 synthetic exposures, tiny synthetic
-               SIQA-shaped dev items, verifies routing/promotion/re-encounter machinery. No network.
+  --self-test  Real-code-path check: tiny synthetic CSKG index, real Library/consolidation_pass/
+               HDFactStore/ScriptLibrary/match_or_spawn objects, verifies routing/promotion/
+               re-encounter/PRELIM-retain/combined-evidence-promotion/fidelity-guard machinery. No
+               network.
   --smoke      Capped exposure (SMOKE_TRAIN_CAP contexts) + capped dev (SMOKE_DEV_CAP items),
                FULL CSKG index (real scale) -- discriminator-preview per DISCRIMINATOR-MUST-
                SURVIVE-SCALE (the crutch/gate machinery is exercised against the REAL 1.24M-edge
-               store, only the exposure/eval VOLUME is reduced).
+               store, only the exposure/eval VOLUME is reduced). Bumped 3000/250 -> 15000/400
+               2026-08-10 (old scale measured zero native promotions; too small to fire the new
+               combined-evidence discriminator).
   --full       Full 33,410-context exposure stream, full 1,954-item frozen dev, full CSKG index.
+  --seed N / --out-tag TAG  thread a run seed + a distinct output-path suffix (multi-seed FULL
+               dispatch without clobbering the committed binary-baseline history).
 """
 from __future__ import annotations
 
@@ -69,11 +91,17 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
+import numpy as np  # noqa: E402
+
 from hdlab.grounding_acquisition_loop import (  # noqa: E402
     Library, context_vector, consolidation_pass,
-    PROMOTE_MIN_EXPOSURE, PROMOTE_MIN_CONSISTENCY,
+    PROMOTE_MIN_EXPOSURE, PROMOTE_MIN_CONSISTENCY, MIN_CONFIRM, PROMOTE_RELATION,
+    schema_consistency_split_half, _vote_margin,
 )
 from hdlab.hd_fact_store import HDFactStore  # noqa: E402
+from hdlab.script_grain_acquisition_loop import (  # noqa: E402
+    ScriptLibrary, build_instance_register, calibrate_novelty_threshold,
+)
 
 ANCHOR_NAME = "crutch_fade_social_iqa_v1"
 OUTPUT_DIR_FULL = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}")
@@ -82,10 +110,54 @@ SIQA_DIR = os.path.join(REPO_ROOT, "data", "corpora", "social_iqa", "hf_dataset"
 
 CHECKPOINTS = [0.0, 0.10, 0.25, 0.50, 1.00]  # MEASURED@drill4 Section 2b
 N_PASSES_PER_CHECKPOINT = 3
-SMOKE_TRAIN_CAP = 3000
-SMOKE_DEV_CAP = 250
+# SMOKE scale bumped 2026-08-10 (3-tier PRELIM build, see prereg "Smoke-scale change (disclosed)"):
+# the old 3000/250 smoke MEASURED zero native promotions in prior history (base cell) -- too small
+# to fire the NEW combined-evidence discriminator. 15000/400 matches the --diag scale that MEASURED
+# real promotions (data/exp_crutch_fade_social_iqa_v1_diag_*), still << FULL (33410/1954).
+SMOKE_TRAIN_CAP = 15000
+SMOKE_DEV_CAP = 400
 DEGRADED_BUDGET = 0.02
 TRUST_WEIGHT = {"TRUST_HIGH": 1.0, "TRUST_MID": 0.6}
+
+# ---- 3-tier PRELIM constants (2026-08-10, see preregs/2026-08-10_crutch_fade_prelim_tier_staged_
+# consolidation_v1.md) ----
+PRELIM_TRUST = "TRUST_LOW"                 # hd_fact_store.TRUST_LEVEL ladder, reused unmodified
+PRELIM_SCHEMA_THRESH = 0.10                # SAME bar as consolidation_pass's own BANK gate default
+CLUSTER_MIN_MEMBERS = 3                    # min distinct pairs before a cluster's combined evidence
+                                            # is even considered (avoids single-pair "clusters")
+NOVELTY_THRESH_FALLBACK = 0.15             # used only if calibrate_novelty_threshold can't discriminate
+                                            # on this run's own synthetic pairs (defensive; logged)
+RELATION_PREFIXES = ("/r/", "at:", "mw:")  # CSKG namespace prefixes stripped for relation_family()
+# HUB_DEGREE_THRESH (2026-08-10, smoke-diagnosed fix, TWO iterations): the FIRST 3-tier smoke run
+# (SMOKE_TRAIN_CAP=15000/hub_penalized/pme8) MEASURED tier_fidelity_ok=False -- combined_evidence_
+# cluster promotions (n=38, acc=0.368) scored WORSE than raw CRUTCH_RESOLVED (acc=0.448). Root cause
+# (same class as Fault-2, hub_penalized's own diagnosed pathology): relation-family clustering alone
+# produced only n_clusters=2 by ck100 -- the two most common relation types swallow almost every
+# prelim-eligible pair into one undifferentiated mega-schema, DOMINATED by SIQa-template hub concepts
+# (MEASURED@compute_node_degree: 'happy' degree=8057, 'person' degree=7646, vs MEDIAN degree=1.0,
+# 95th-pctile=24, 97th-pctile=31, 99th-pctile=50, 99.9th-pctile=356 -- an extremely skewed
+# distribution). Draft 1 (threshold=30, ~97th pctile) MEASURED an OVER-correction: excludes so many
+# pairs at the PAIR level (either of 2 concepts over threshold) that combined_evidence_promoted_n
+# dropped to 0 by ck100 -- the crux mechanism went fully inert (HARD_FAIL COMBINED_EVIDENCE_NEVER_
+# FIRES). MEASURED@node-degree histogram: >100=2047 nodes, >300=587, >500=301, >1000=81, >2000=16 --
+# a genuine power-law tail, not a clean percentile cliff. Draft 2 (this value, 500) targets
+# specifically the small super-hub tail (301 nodes, matching Fault-2's own "a handful of ... generic
+# concepts" language) while leaving the vast majority of the vocabulary (including moderately-common
+# words up to degree ~500) eligible -- re-MEASURED at smoke before FULL dispatch (see completion
+# report for the confirming numbers).
+HUB_DEGREE_THRESH = 500
+# CLUSTER_EXPOSURE_MULTIPLIER (2026-08-10, THIRD iteration): threshold=500 MEASURED n_clusters STILL
+# stuck at 2 -- hub-degree filtering alone doesn't fix fidelity because the mega-clusters are not
+# primarily hub-node-driven; a broad CSKG relation TYPE (e.g. "xAttr"/"xEffect") is INTRINSICALLY
+# semantically heterogeneous (spans huge, unrelated swaths of common sense), so relation-family alone
+# is too coarse a "same schema" key regardless of node degree (MEASURED@smoke threshold=500:
+# combined_evidence_cluster acc=0.261 n=23, still well below cru_acc=0.449). Principled compensating
+# fix (not a clustering-key redesign, out of scope this cycle -- see completion report "next step"):
+# require STRICTLY MORE combined evidence for the coarser cluster-grain gate than the single-item
+# gate demands, reflecting that coarser grouping needs a larger, more convincing sample before its
+# majority is trustworthy. The per-item promote_min_exposure/consistency gate is NEVER loosened --
+# this makes the CLUSTER path's OWN gate stricter, never weaker, than the single-item path's.
+CLUSTER_EXPOSURE_MULTIPLIER = 4
 
 _STOPWORDS = frozenset({
     "the", "a", "an", "and", "or", "but", "if", "of", "to", "in", "on", "at", "by", "for", "with",
@@ -263,6 +335,25 @@ def compute_node_degree(idx: Dict[str, List]) -> Dict[str, int]:
         deg[a] = deg.get(a, 0) + 1
         deg[b] = deg.get(b, 0) + 1
     return deg
+
+
+# =====================================================================================
+# 3-tier PRELIM: relation-family bucketing (the CA3/DG cluster's TRIGGER_ROLE category tag).
+# MEASURED@shard sample (2026-08-10, edges_shard_00.jsonl, 300k-edge sample): 33 distinct relation
+# types (/r/LocatedNear, at:xAttr, at:xWant, at:xEffect, at:xNeed, mw:MayHaveProperty, at:xReact,
+# at:xIntent, /r/CapableOf, at:oWant, /r/UsedFor, at:oEffect, /r/AtLocation, at:oReact, /r/PartOf,
+# /r/HasSubevent, /r/HasPrerequisite, /r/HasA, /r/Causes, /r/MannerOf, /r/HasProperty,
+# /r/MotivatedByGoal, ... ) -- a well-bounded, semantically-meaningful clustering key already
+# present in the loaded CSKG index (no invented taxonomy).
+def relation_family(idx: Dict[str, List[Tuple[str, float]]], pk: str) -> str:
+    edges = idx.get(pk)
+    if not edges:
+        return "UNKNOWN"
+    r0 = sorted(set(r for r, _ in edges))[0]  # deterministic pick (sorted, not list(set()))
+    for pre in RELATION_PREFIXES:
+        if r0.startswith(pre):
+            return canon(r0[len(pre):])
+    return canon(r0)
 
 
 def _stem_variants(c: str) -> List[str]:
@@ -449,6 +540,163 @@ def library_candidate_scores(ctx_concepts: List[str], ans_concepts_list: List[Li
     return scores, driving
 
 
+def tier_candidate_scores(ctx_concepts: List[str], ans_concepts_list: List[List[str]],
+                          store: HDFactStore) -> Tuple[List[float], List[Optional[str]], List[Optional[str]]]:
+    """Like library_candidate_scores but ALSO returns the winning hit's glass-box-recovered SOURCE
+    (e.g. 'cskg_crutch_real_single' vs 'combined_evidence_cluster' vs 'prelim_retain') -- lets a
+    caller split fidelity BY PROMOTION PATH, not just by tier. Used by every 3-tier arm for both its
+    LIBRARY (native) and PRELIM lookups (same store interface, different store instance)."""
+    scores, driving, sources = [], [], []
+    for ans_concepts in ans_concepts_list:
+        best_score = 0.0
+        best_pair = None
+        best_source = None
+        for cc in ctx_concepts:
+            for ac in ans_concepts:
+                if cc == ac:
+                    continue
+                pk = pair_key(cc, ac)
+                hits = store.query(pk, "OUTCOME_POLARITY")
+                if hits and hits[0]["status"] in ("ACTIVE", "COMBINED", "FLAGGED"):
+                    if 1.0 > best_score:
+                        best_score = 1.0
+                        best_pair = pk
+                        best_source = hits[0]["source"]
+        scores.append(best_score)
+        driving.append(best_pair)
+        sources.append(best_source)
+    return scores, driving, sources
+
+
+class TierState:
+    """Bundles the 3-tier PRELIM/generalization state for ONE side (real or scramble) of the run.
+    `prelim_lib` is a Library() instance that is NEVER passed through consolidation_pass -- its
+    items' .status is never mutated away from PENDING, so Library.flag()'s existing "reject once
+    non-PENDING" guard never fires against it (no modification to grounding_acquisition_loop.py);
+    this is exactly the "retain forever, never discard" behavior the binary cliff lacked.
+    `native_store_gen` receives BOTH single-item promotions (mirrored from the real/scramble Library
+    + HDFactStore's OWN consolidation_pass, unchanged) AND combined-evidence cluster promotions --
+    the "no_generalization" ablation arm instead reads the UNMIRRORED single-item store directly, so
+    it structurally never sees a cluster promotion (see run())."""
+
+    def __init__(self, seed_base: int) -> None:
+        self.prelim_lib = Library()
+        self.prelim_store = HDFactStore(n_dim=2048, seed=seed_base + 100, use_index=True)
+        self.script_lib = ScriptLibrary()
+        self.native_store_gen = HDFactStore(n_dim=2048, seed=seed_base + 200, use_index=True)
+        self.pk_cluster: Dict[str, str] = {}          # pair_key -> ScriptLibraryItem.item_id (sticky)
+        self.cluster_members: Dict[str, set] = {}      # item_id -> set(pair_key)
+        self.promoted_single: set = set()               # pair_keys mirrored into native_store_gen
+        self.promoted_cluster: set = set()               # pair_keys promoted via combined evidence
+
+
+def update_prelim_and_generalize(state: TierState, idx: Dict[str, List[Tuple[str, float]]],
+                                 novelty_thresh: float, min_confirm: int = MIN_CONFIRM,
+                                 schema_thresh: float = PRELIM_SCHEMA_THRESH,
+                                 promote_min_exposure: int = PROMOTE_MIN_EXPOSURE,
+                                 promote_min_consistency: float = PROMOTE_MIN_CONSISTENCY,
+                                 cluster_min_members: int = CLUSTER_MIN_MEMBERS,
+                                 node_degree: Optional[Dict[str, int]] = None,
+                                 hub_degree_thresh: int = HUB_DEGREE_THRESH) -> dict:
+    """One checkpoint's PRELIM-retain + CA3/DG cluster-registration + combined-evidence-promotion
+    pass. Reuses schema_consistency_split_half / _vote_margin (grounding_acquisition_loop, byte-
+    identical to the single-item BANK gate) and ScriptLibrary.match_or_spawn / build_instance_register
+    (script_grain_acquisition_loop, byte-identical to that module's own CA3/DG keying) -- no new
+    gate math, only new WIRING between owned organs (design note's "the crux"). node_degree
+    (optional; see HUB_DEGREE_THRESH comment) EXCLUDES a hub-template-word-driven pair from RETAIN +
+    cluster registration entirely -- smoke-diagnosed fidelity fix, 2026-08-10."""
+    newly_retained = 0
+    n_hub_excluded = 0
+    for pk in sorted(state.prelim_lib.items):
+        it = state.prelim_lib.items[pk]
+        n = len(it.traces)
+        if n < min_confirm:
+            continue
+        if node_degree is not None:
+            a_deg, b_deg = pk.split("::", 1)
+            if max(node_degree.get(a_deg, 0), node_degree.get(b_deg, 0)) > hub_degree_thresh:
+                n_hub_excluded += 1
+                continue
+        score = schema_consistency_split_half(it.traces)
+        if score is None or score < schema_thresh:
+            continue
+        margin, pos, neg = _vote_margin(it.traces)
+        if margin == 0.0:
+            continue
+        label = "POS" if margin > 0 else "NEG"
+        # RETAIN (idempotent -- CONSISTENT_DUP if already live with the same object)
+        existing = state.prelim_store.query(pk, "OUTCOME_POLARITY")
+        if not existing:
+            state.prelim_store.store(pk, "OUTCOME_POLARITY", label, "prelim_retain", PRELIM_TRUST)
+            newly_retained += 1
+        # register into the CA3/DG cluster ONCE (sticky membership; avoid churn on re-evaluation)
+        if pk not in state.pk_cluster:
+            fam = relation_family(idx, pk)
+            a, b = pk.split("::", 1)
+            reg = build_instance_register(a, b, fam, f"OUTCOME_{label}")
+            item_id, spawned, m_score = state.script_lib.match_or_spawn(
+                reg, pk, label, it.traces[0].context_vec, 0, true_type=fam,
+                novelty_thresh=novelty_thresh)
+            state.pk_cluster[pk] = item_id
+            state.cluster_members.setdefault(item_id, set()).add(pk)
+
+    # combined-evidence promotion: pull each member's OWN current traces fresh (no separate
+    # bookkeeping to go stale) and evaluate the IDENTICAL single-item gate at cluster grain, over
+    # the AGREEING subset of members only (fidelity guard, HARD-PASS 5) -- a member whose OWN vote
+    # opposes the cluster's provisional majority is EXCLUDED from the evidence pool (so one
+    # dissenter cannot block the whole cluster's genuinely-agreeing majority from promoting) AND
+    # never force-promoted under the majority's label (bounded leakage, not just an aggregate
+    # dilution that happens to fail the gate).
+    n_combined_promoted_this_pass = 0
+    for item_id, members in state.cluster_members.items():
+        if len(members) < cluster_min_members:
+            continue
+        provisional_traces = []
+        for pk in members:
+            provisional_traces.extend(state.prelim_lib.items[pk].traces)
+        if not provisional_traces:
+            continue
+        prov_margin, _, _ = _vote_margin(provisional_traces)
+        if prov_margin == 0.0:
+            continue
+        majority_positive = prov_margin > 0
+        agreeing_members, agreeing_traces = [], []
+        for pk in members:
+            own_margin, _, _ = _vote_margin(state.prelim_lib.items[pk].traces)
+            if own_margin != 0.0 and (own_margin > 0) != majority_positive:
+                continue  # dissenter: excluded from the evidence pool AND never promoted
+            agreeing_members.append(pk)
+            agreeing_traces.extend(state.prelim_lib.items[pk].traces)
+        margin, pos, neg = _vote_margin(agreeing_traces)
+        exposure = len(agreeing_traces)
+        consistency = abs(margin)
+        # cluster-grain gate is STRICTER than the single-item gate (never weaker) -- see
+        # CLUSTER_EXPOSURE_MULTIPLIER comment (coarser relation-family evidence needs a bigger,
+        # more convincing sample before its majority is trustworthy).
+        cluster_exposure_floor = promote_min_exposure * CLUSTER_EXPOSURE_MULTIPLIER
+        if exposure < cluster_exposure_floor or consistency < promote_min_consistency or margin == 0.0:
+            continue
+        cluster_label = "POS" if margin > 0 else "NEG"
+        trust_sym = "TRUST_HIGH" if consistency >= 0.9 else "TRUST_MID"
+        for pk in agreeing_members:
+            if pk in state.promoted_cluster:
+                continue
+            state.native_store_gen.store(pk, "OUTCOME_POLARITY", cluster_label,
+                                         "combined_evidence_cluster", trust_sym)
+            state.promoted_cluster.add(pk)
+            n_combined_promoted_this_pass += 1
+    return {
+        "newly_retained": newly_retained,
+        "n_hub_excluded": n_hub_excluded,
+        "n_prelim_pending_items": len(state.prelim_lib.items),
+        "n_clusters": len(state.cluster_members),
+        "n_clusters_eligible_size": sum(1 for m in state.cluster_members.values()
+                                        if len(m) >= cluster_min_members),
+        "n_combined_promoted_total": len(state.promoted_cluster),
+        "n_combined_promoted_this_pass": n_combined_promoted_this_pass,
+    }
+
+
 # =====================================================================================
 # FAULT-2 diagnosis: RETRIEVAL-vs-USE decomposition for gap_driven's CRUTCH_RESOLVED items.
 # RETRIEVAL quality = did the gap->CSKG query reach ANY edge connecting a context concept to the
@@ -498,7 +746,8 @@ def resolve_item(item: dict, node_set: frozenset, idx: Dict[str, List[Tuple[str,
                  store: Optional[HDFactStore] = None,
                  node_list: Optional[List[str]] = None,
                  score_mode: str = "count_weighted",
-                 node_degree: Optional[Dict[str, int]] = None) -> dict:
+                 node_degree: Optional[Dict[str, int]] = None,
+                 tier_state: Optional[TierState] = None) -> dict:
     b_scores = bow_scores(item)
     ctx_concepts = extract_concepts(item["context"] + " " + item["question"], node_set)
     ans_concepts_list = [extract_concepts(item[k], node_set) for k in ("answerA", "answerB", "answerC")]
@@ -549,6 +798,42 @@ def resolve_item(item: dict, node_set: frozenset, idx: Dict[str, List[Tuple[str,
         pred = argmax_tiebreak(b_scores)
         return {"tag": "ABSTAINED", "pred_idx": pred, "driving_pair": None}
 
+    # ---- 3-tier PRELIM arms (2026-08-10). LIBRARY tier store varies per arm:
+    #   gap_driven_3tier / gap_driven_3tier_no_pull   -> tier_state.native_store_gen (single+cluster)
+    #   gap_driven_3tier_no_generalization             -> `store` (real_store, single-item ONLY --
+    #                                                      literally the SAME store gap_driven uses)
+    #   scramble_crutch_3tier                          -> tier_state.native_store_gen (scramble side)
+    # PRELIM tier is always tier_state.prelim_store, consulted UNLESS arm == ..._no_pull.
+    if arm in ("gap_driven_3tier", "gap_driven_3tier_no_generalization",
+              "gap_driven_3tier_no_pull", "scramble_crutch_3tier"):
+        lib_store = store if arm == "gap_driven_3tier_no_generalization" else tier_state.native_store_gen
+        l_scores, l_driving, l_sources = tier_candidate_scores(ctx_concepts, ans_concepts_list, lib_store)
+        if max(l_scores) > 0:
+            pred = argmax_tiebreak(l_scores)
+            return {"tag": "LIBRARY_RESOLVED", "pred_idx": pred, "driving_pair": l_driving[pred],
+                   "promo_source": l_sources[pred]}
+
+        if arm != "gap_driven_3tier_no_pull":
+            p_scores, p_driving, p_sources = tier_candidate_scores(ctx_concepts, ans_concepts_list,
+                                                                    tier_state.prelim_store)
+            if max(p_scores) > 0:
+                pred = argmax_tiebreak(p_scores)
+                return {"tag": "PRELIM_RESOLVED", "pred_idx": pred, "driving_pair": p_driving[pred],
+                       "promo_source": p_sources[pred]}
+
+        if arm == "scramble_crutch_3tier":
+            c_scores, c_driving = scramble_crutch_candidate_scores(item_id, ctx_concepts,
+                                                                    ans_concepts_list, idx, node_list,
+                                                                    score_mode, node_degree)
+        else:
+            c_scores, c_driving = crutch_candidate_scores(ctx_concepts, ans_concepts_list, idx,
+                                                           score_mode, node_degree)
+        if max(c_scores) > 0:
+            pred = argmax_tiebreak(c_scores)
+            return {"tag": "CRUTCH_RESOLVED", "pred_idx": pred, "driving_pair": c_driving[pred]}
+        pred = argmax_tiebreak(b_scores)
+        return {"tag": "ABSTAINED", "pred_idx": pred, "driving_pair": None}
+
     raise ValueError(f"unknown arm {arm!r}")
 
 
@@ -561,7 +846,13 @@ def label_idx(item: dict) -> int:
 def process_exposure_slice(train_slice: List[dict], node_set: frozenset,
                            idx: Dict[str, List[Tuple[str, float]]], node_list: List[str],
                            real_lib: Library, scr_lib: Library,
-                           pair_example_context: Dict[str, str]) -> None:
+                           pair_example_context: Dict[str, str],
+                           real_prelim_lib: Optional[Library] = None,
+                           scr_prelim_lib: Optional[Library] = None) -> None:
+    """real_prelim_lib / scr_prelim_lib (2026-08-10, optional -- default None preserves prior
+    behavior byte-for-byte): fed the IDENTICAL (pair_key, episode_id, pole, context_vec) calls as
+    real_lib/scr_lib, into a SEPARATE, permanently-PENDING Library so exposure keeps accumulating
+    past the point real_lib/scr_lib's own item would terminalize (see TierState docstring)."""
     for i, ex in enumerate(train_slice):
         ctx_text = ex["context"]
         concepts = extract_concepts(ctx_text, node_set)
@@ -573,11 +864,15 @@ def process_exposure_slice(train_slice: List[dict], node_set: frozenset,
                 pk = pair_key(a, b)
                 if pk in idx:
                     real_lib.flag(pk, f"exp{i}_{pk}", "POS", cvec, 0)
+                    if real_prelim_lib is not None:
+                        real_prelim_lib.flag(pk, f"pexp{i}_{pk}", "POS", cvec, 0)
                     if pk not in pair_example_context:
                         pair_example_context[pk] = ctx_text
                     wrong_b = _scramble_partner(f"scr|{a}|{b}", node_list, b)
                     scr_pk = pair_key(a, wrong_b)
                     scr_lib.flag(scr_pk, f"exps{i}_{scr_pk}", "POS", cvec, 0)
+                    if scr_prelim_lib is not None:
+                        scr_prelim_lib.flag(scr_pk, f"pexps{i}_{scr_pk}", "POS", cvec, 0)
 
 
 # =====================================================================================
@@ -642,6 +937,51 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
     leakage_rate = n_leak / len(leak_sample) if leak_sample else 0.0
     print(f"[leakage] {n_leak}/{len(leak_sample)} = {leakage_rate:.4f}", flush=True)
 
+    # ---- coordinator refinement (mid-build, e9ee736ec sibling diagnosis): crutch RETRIEVAL
+    # COVERAGE is a hard ceiling on comprehension independent of consolidation quality (~45-54%
+    # MEASURED@e9ee736ec's pme=4 run). dev_crutch_covered = gap-flagged dev items where the crutch
+    # has ANY nonzero path to the GOLD answer's concepts -- checkpoint-independent (a property of
+    # the static idx + item content, computed once here, same score_mode as the run). Every arm's
+    # accuracy is ALSO reported restricted to this subset (accuracy_covered) so consolidation
+    # quality can be read apart from the coverage bottleneck (prereg criterion 3).
+    dev_crutch_covered: List[bool] = []
+    n_gap_flagged = 0
+    for it in dev:
+        b_scores_i = bow_scores(it)
+        margin_i = bow_margin(b_scores_i)
+        gap_i = (margin_i == 0.0) or (margin_i < gate_thresh)
+        if not gap_i:
+            dev_crutch_covered.append(False)
+            continue
+        n_gap_flagged += 1
+        ctx_concepts_i = extract_concepts(it["context"] + " " + it["question"], node_set)
+        ans_concepts_list_i = [extract_concepts(it[k], node_set) for k in ("answerA", "answerB", "answerC")]
+        c_scores_i, _ = crutch_candidate_scores(ctx_concepts_i, ans_concepts_list_i, idx, score_mode,
+                                                node_degree)
+        dev_crutch_covered.append(c_scores_i[label_idx(it)] > 0)
+    n_covered = sum(dev_crutch_covered)
+    coverage_rate = (n_covered / n_gap_flagged) if n_gap_flagged else None
+    print(f"[coverage] n_gap_flagged={n_gap_flagged} n_covered={n_covered} "
+          f"coverage_rate={coverage_rate}", flush=True)
+
+    # ---- 3-tier PRELIM: calibrate novelty_thresh on THIS run's own relation-family vocabulary
+    # (defensive tripwire per prereg "DG pattern-separation not wired" -- calibrate_novelty_thresh
+    # is the OWNED script_grain_acquisition_loop function, called against synthetic same-family vs
+    # different-family register pairs built from real relation labels seen in idx, not invented).
+    fam_sample = sorted({relation_family(idx, k) for k in list(idx)[:20000]} - {"UNKNOWN"})
+    if len(fam_sample) >= 2:
+        matched_pairs = [(build_instance_register("a1", "b1", fam_sample[0], "OUTCOME_POS"),
+                          build_instance_register("a2", "b2", fam_sample[0], "OUTCOME_POS"))]
+        wrong_pairs = [(build_instance_register("a1", "b1", fam_sample[0], "OUTCOME_POS"),
+                       build_instance_register("a3", "b3", fam_sample[1], "OUTCOME_POS"))]
+        calib = calibrate_novelty_threshold(matched_pairs, wrong_pairs)
+        novelty_thresh = calib["novelty_thresh"] if calib["discriminates"] else NOVELTY_THRESH_FALLBACK
+    else:
+        calib = {"discriminates": False, "note": "fewer than 2 relation families in sample"}
+        novelty_thresh = NOVELTY_THRESH_FALLBACK
+    print(f"[calib] novelty_thresh={novelty_thresh:.4f} discriminates={calib.get('discriminates')} "
+          f"n_families_sampled={len(fam_sample)}", flush=True)
+
     # ---- exposure checkpoints ----
     n_total = len(train)
     cum_counts = [int(round(f * n_total)) for f in CHECKPOINTS]
@@ -649,46 +989,93 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
     scr_lib = Library()
     real_store = HDFactStore(n_dim=2048, seed=seed, use_index=True)
     scr_store = HDFactStore(n_dim=2048, seed=seed + 1, use_index=True)
+    real_state = TierState(seed_base=seed + 100)
+    scr_state = TierState(seed_base=seed + 600)
     pair_example_context: Dict[str, str] = {}
+
+    def _mirror_single_promotions(rpt: dict, state: "TierState", source_tag: str) -> None:
+        """Forward every genuinely-promoted single-item fact from consolidation_pass's own
+        promotion_log into the 3-tier's native_store_gen (mirrors, does not re-derive -- so the
+        'no_generalization' ablation's real_store and the full 3-tier's native_store_gen agree
+        EXACTLY on single-item promotions, differing ONLY by whether cluster promotions are added)."""
+        for e in rpt["promotion_log"]:
+            if e["promoted"] and e["lemma"] not in state.promoted_single:
+                trust_sym = "TRUST_HIGH" if e["consistency"] >= 0.9 else "TRUST_MID"
+                state.native_store_gen.store(e["lemma"], PROMOTE_RELATION, e["label"],
+                                             source_tag, trust_sym)
+                state.promoted_single.add(e["lemma"])
 
     always_cache: Optional[dict] = None
     checkpoint_rows = []
     pass_counter = 0
     prev_cum = 0
+    tier_diag_log = []
 
     for ck_i, (frac, cum) in enumerate(zip(CHECKPOINTS, cum_counts)):
         if cum > prev_cum:
             slice_ = train[prev_cum:cum]
             process_exposure_slice(slice_, node_set, idx, node_list, real_lib, scr_lib,
-                                   pair_example_context)
+                                   pair_example_context,
+                                   real_prelim_lib=real_state.prelim_lib,
+                                   scr_prelim_lib=scr_state.prelim_lib)
             for _ in range(N_PASSES_PER_CHECKPOINT):
                 pass_counter += 1
-                consolidation_pass(real_lib, pass_counter, register=False, native_store=real_store,
-                                   promote_source="cskg_crutch_real",
-                                   promote_min_exposure=promote_min_exposure)
+                rpt_real = consolidation_pass(real_lib, pass_counter, register=False,
+                                              native_store=real_store,
+                                              promote_source="cskg_crutch_real",
+                                              promote_min_exposure=promote_min_exposure)
+                _mirror_single_promotions(rpt_real, real_state, "cskg_crutch_real_single")
                 # scramble arm gets the SAME loosened gate (fair control per drill 4 -- if lowering
                 # the exposure floor let scrambled/false pairs promote too, that would falsify the
                 # fix; the false-memory guard is schema_thresh + PROMOTE_MIN_CONSISTENCY, untouched)
-                consolidation_pass(scr_lib, pass_counter, register=False, native_store=scr_store,
-                                   promote_source="cskg_crutch_scramble",
-                                   promote_min_exposure=promote_min_exposure)
+                rpt_scr = consolidation_pass(scr_lib, pass_counter, register=False,
+                                             native_store=scr_store,
+                                             promote_source="cskg_crutch_scramble",
+                                             promote_min_exposure=promote_min_exposure)
+                _mirror_single_promotions(rpt_scr, scr_state, "cskg_crutch_scramble_single")
+            # 3-tier PRELIM retain + CA3/DG cluster registration + combined-evidence promotion --
+            # once per checkpoint (matches dev-eval cadence, coarser than per-pass, a disclosed
+            # simplification of the intervening-pass rule at this grain -- see prereg).
+            tier_diag_real = update_prelim_and_generalize(real_state, idx, novelty_thresh,
+                                                           promote_min_exposure=promote_min_exposure,
+                                                           node_degree=node_degree)
+            tier_diag_scr = update_prelim_and_generalize(scr_state, idx, novelty_thresh,
+                                                          promote_min_exposure=promote_min_exposure,
+                                                          node_degree=node_degree)
+            tier_diag_log.append({"checkpoint_frac": frac, "real": tier_diag_real, "scr": tier_diag_scr})
         prev_cum = cum
         _hb(output_dir, f"checkpoint_{ck_i}_exposure_done", t0,
             {"frac": frac, "n_exposed": cum, "real_lib_items": len(real_lib.items),
-             "real_promoted": len(real_store.live_facts())})
+             "real_promoted": len(real_store.live_facts()),
+             "prelim_pending": len(real_state.prelim_lib.items),
+             "combined_promoted": len(real_state.promoted_cluster)})
 
+        ARM_LIST = ("bow", "never_crutch", "always_crutch", "gap_driven", "scramble_crutch",
+                   "gap_driven_3tier", "gap_driven_3tier_no_generalization",
+                   "gap_driven_3tier_no_pull", "scramble_crutch_3tier")
         per_arm_rows: Dict[str, List[dict]] = {}
-        for arm in ("bow", "never_crutch", "always_crutch", "gap_driven", "scramble_crutch"):
+        for arm in ARM_LIST:
             if arm == "always_crutch" and always_cache is not None:
                 per_arm_rows[arm] = always_cache
                 continue
-            store = real_store if arm == "gap_driven" else (scr_store if arm == "scramble_crutch" else None)
+            if arm == "gap_driven":
+                store, t_state = real_store, None
+            elif arm == "scramble_crutch":
+                store, t_state = scr_store, None
+            elif arm == "gap_driven_3tier_no_generalization":
+                store, t_state = real_store, real_state
+            elif arm in ("gap_driven_3tier", "gap_driven_3tier_no_pull"):
+                store, t_state = None, real_state
+            elif arm == "scramble_crutch_3tier":
+                store, t_state = None, scr_state
+            else:
+                store, t_state = None, None
             rows = []
             for j, it in enumerate(dev):
                 item_id = f"dev{j}"
                 res = resolve_item(it, node_set, idx, gate_thresh, arm, item_id,
                                    store=store, node_list=node_list, score_mode=score_mode,
-                                   node_degree=node_degree)
+                                   node_degree=node_degree, tier_state=t_state)
                 res["correct"] = (res["pred_idx"] == label_idx(it))
                 res["item_idx"] = j
                 rows.append(res)
@@ -701,33 +1088,66 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         ru_diag = retrieval_use_diagnostic(dev, node_set, idx, per_arm_rows["gap_driven"], score_mode,
                                            node_degree)
 
+        TAGS = ("BOW_RESOLVED", "LIBRARY_RESOLVED", "PRELIM_RESOLVED", "CRUTCH_RESOLVED", "ABSTAINED")
         acc = {arm: sum(1 for r in rows if r["correct"]) / len(rows) for arm, rows in per_arm_rows.items()}
-        tag_counts = {arm: {t: sum(1 for r in rows if r["tag"] == t)
-                            for t in ("BOW_RESOLVED", "LIBRARY_RESOLVED", "CRUTCH_RESOLVED", "ABSTAINED")}
+        acc_covered = {}
+        for arm, rows in per_arm_rows.items():
+            covered_rows = [r for r in rows if dev_crutch_covered[r["item_idx"]]]
+            acc_covered[arm] = ((sum(1 for r in covered_rows if r["correct"]) / len(covered_rows))
+                                if covered_rows else None)
+        tag_counts = {arm: {t: sum(1 for r in rows if r["tag"] == t) for t in TAGS}
                      for arm, rows in per_arm_rows.items()}
         tag_acc = {}
         for arm, rows in per_arm_rows.items():
             tag_acc[arm] = {}
-            for t in ("BOW_RESOLVED", "LIBRARY_RESOLVED", "CRUTCH_RESOLVED", "ABSTAINED"):
+            for t in TAGS:
                 sub = [r for r in rows if r["tag"] == t]
                 tag_acc[arm][t] = (sum(1 for r in sub if r["correct"]) / len(sub)) if sub else None
+        # per-promo_source fidelity split (combined_evidence_cluster vs single-item), gap_driven_3tier
+        # only -- HARD-PASS 4 needs this specifically, other arms don't carry promo_source.
+        promo_source_acc = {}
+        for src in ("combined_evidence_cluster", "cskg_crutch_real_single", "prelim_retain"):
+            sub = [r for r in per_arm_rows["gap_driven_3tier"]
+                  if r.get("promo_source") == src and r["tag"] in ("LIBRARY_RESOLVED", "PRELIM_RESOLVED")]
+            promo_source_acc[src] = {"n": len(sub),
+                                     "acc": (sum(1 for r in sub if r["correct"]) / len(sub)) if sub else None}
 
         crutch_fire_rate = tag_counts["gap_driven"]["CRUTCH_RESOLVED"] / len(dev)
         library_resolved_rate = tag_counts["gap_driven"]["LIBRARY_RESOLVED"] / len(dev)
         scramble_fire_rate = tag_counts["scramble_crutch"]["CRUTCH_RESOLVED"] / len(dev)
+        tier_fire_rate = tag_counts["gap_driven_3tier"]["CRUTCH_RESOLVED"] / len(dev)
+        tier_library_rate = tag_counts["gap_driven_3tier"]["LIBRARY_RESOLVED"] / len(dev)
+        tier_prelim_rate = tag_counts["gap_driven_3tier"]["PRELIM_RESOLVED"] / len(dev)
+        no_pull_fire_rate = tag_counts["gap_driven_3tier_no_pull"]["CRUTCH_RESOLVED"] / len(dev)
+        no_gen_fire_rate = tag_counts["gap_driven_3tier_no_generalization"]["CRUTCH_RESOLVED"] / len(dev)
+        scramble_tier_fire_rate = tag_counts["scramble_crutch_3tier"]["CRUTCH_RESOLVED"] / len(dev)
 
         checkpoint_rows.append({
             "checkpoint_frac": frac, "n_exposed": cum,
-            "accuracy": acc, "tag_counts": tag_counts, "tag_accuracy": tag_acc,
+            "accuracy": acc, "accuracy_covered": acc_covered,
+            "tag_counts": tag_counts, "tag_accuracy": tag_acc, "promo_source_acc": promo_source_acc,
             "crutch_fire_rate": crutch_fire_rate, "library_resolved_rate": library_resolved_rate,
             "scramble_fire_rate": scramble_fire_rate,
+            "tier_fire_rate": tier_fire_rate, "tier_library_rate": tier_library_rate,
+            "tier_prelim_rate": tier_prelim_rate, "no_pull_fire_rate": no_pull_fire_rate,
+            "no_gen_fire_rate": no_gen_fire_rate, "scramble_tier_fire_rate": scramble_tier_fire_rate,
             "real_lib_pending": len(real_lib.items),
             "real_promoted_n": len(real_store.live_facts()),
             "scr_promoted_n": len(scr_store.live_facts()),
+            "prelim_pending_n": len(real_state.prelim_lib.items),
+            "prelim_retained_n": len(real_state.prelim_store.live_facts()),
+            "n_clusters": len(real_state.cluster_members),
+            "n_clusters_eligible_size": sum(1 for m in real_state.cluster_members.values()
+                                            if len(m) >= CLUSTER_MIN_MEMBERS),
+            "combined_evidence_promoted_n": len(real_state.promoted_cluster),
+            "native_gen_promoted_n": len(real_state.native_store_gen.live_facts()),
             "retrieval_use_diagnostic": ru_diag,
             "per_arm_rows": {arm: rows for arm, rows in per_arm_rows.items()},
         })
         print(f"[checkpoint {ck_i} frac={frac}] acc={acc} crutch_fire={crutch_fire_rate:.4f} "
+              f"tier_fire={tier_fire_rate:.4f} tier_prelim={tier_prelim_rate:.4f} "
+              f"combined_promoted={len(real_state.promoted_cluster)} "
+              f"n_clusters={len(real_state.cluster_members)} "
               f"lib_resolved={library_resolved_rate:.4f} promoted={len(real_store.live_facts())} "
               f"retrieval_use={ru_diag}", flush=True)
 
@@ -809,7 +1229,8 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         c = {k: v for k, v in ck.items() if k != "per_arm_rows"}
         checkpoint_summary.append(c)
 
-    # ---- verdict logic (drill 4 Section 3, verbatim bands + this cell's re-encounter addition) ----
+    # ---- BINARY BASELINE verdict (drill 4 Section 3, UNCHANGED bands/logic -- gap_driven arm only;
+    # informational, reported as `binary_baseline_verdict`, NOT the top-level verdict this run) ----
     ck0, ck100 = checkpoint_rows[0], checkpoint_rows[-1]
     fire0, fire100 = ck0["crutch_fire_rate"], ck100["crutch_fire_rate"]
     fire_drop_rel = (fire0 - fire100) / fire0 if fire0 > 0 else 0.0
@@ -821,7 +1242,8 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
 
     gap_acc0, gap_acc100 = ck0["accuracy"]["gap_driven"], ck100["accuracy"]["gap_driven"]
     bow_acc_final = ck100["accuracy"]["bow"]
-    comprehension_lift = gap_acc100 - bow_acc_final >= 0.05
+    comprehension_lift_binary = gap_acc100 - bow_acc_final
+    comprehension_lift = comprehension_lift_binary >= 0.05
     no_regression = all(ck["accuracy"]["gap_driven"] >= ck["accuracy"]["bow"] - 0.02 for ck in checkpoint_rows)
 
     scramble_controlled = all(abs(ck["accuracy"]["scramble_crutch"] - ck["accuracy"]["bow"]) <= 0.02
@@ -849,56 +1271,157 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
     re_encounter_rises = (re_encounter_final is not None and re_encounter_first_measurable is not None
                           and (re_encounter_final - re_encounter_first_measurable) >= 0.30)
 
-    hard_fail_reasons = []
+    binary_hard_fail_reasons = []
     if not fire_drops and not re_encounter_rises:
-        hard_fail_reasons.append("CRUTCH_FIRE_RATE_FLAT_AND_RE_ENCOUNTER_FLAT: aggregate fire-rate "
-                                 f"did not drop (rel={fire_drop_rel:.4f} abs={fire_drop_abs:.4f}) AND "
-                                 f"re_encounter_fade_rate did not rise (first={re_encounter_first_measurable} "
-                                 f"final={re_encounter_final}) -- genuine flat result, not long-tail masking")
+        binary_hard_fail_reasons.append("CRUTCH_FIRE_RATE_FLAT_AND_RE_ENCOUNTER_FLAT")
     if not comprehension_lift:
-        hard_fail_reasons.append(f"COMPREHENSION_FLAT_OR_NO_RISE: gap_driven@100%={gap_acc100:.4f} "
-                                 f"vs bow@100%={bow_acc_final:.4f} (need >=+0.05)")
+        binary_hard_fail_reasons.append(f"COMPREHENSION_FLAT_OR_NO_RISE: lift={comprehension_lift_binary:.4f}")
     if not scramble_controlled:
-        hard_fail_reasons.append("SCRAMBLE_BEATS_OR_TIES_BOW: scramble arm exceeded BoW+-0.02 at "
-                                 "some checkpoint")
+        binary_hard_fail_reasons.append("SCRAMBLE_BEATS_OR_TIES_BOW")
     if not scramble_never_beats_real:
-        hard_fail_reasons.append("SCRAMBLE_TIES_OR_BEATS_REAL_ARM")
+        binary_hard_fail_reasons.append("SCRAMBLE_TIES_OR_BEATS_REAL_ARM")
     if not consolidation_fidelity_ok:
-        hard_fail_reasons.append(f"CONSOLIDATION_FIDELITY_COLLAPSE: {consolidation_fidelity_checks}")
+        binary_hard_fail_reasons.append(f"CONSOLIDATION_FIDELITY_COLLAPSE: {consolidation_fidelity_checks}")
+    binary_hard_pass_all = (fire_drops and steep_then_tail and comprehension_lift and no_regression
+                            and scramble_controlled and consolidation_fidelity_ok)
+    if binary_hard_fail_reasons:
+        binary_verdict = "HARD_FAIL"
+    elif binary_hard_pass_all:
+        binary_verdict = "HARD_PASS"
+    else:
+        binary_verdict = "MIDDLE_BAND"
+    binary_verdict_msg = (
+        f"{binary_verdict}: fire_rate[0%->100%]={fire0:.4f}->{fire100:.4f} (rel_drop={fire_drop_rel:.4f} "
+        f"abs_drop={fire_drop_abs:.4f} steep_then_tail={steep_then_tail}) | comprehension_lift="
+        f"{comprehension_lift_binary:.4f} no_regression={no_regression} | scramble_controlled="
+        f"{scramble_controlled} scramble_never_beats_real={scramble_never_beats_real} | "
+        f"consolidation_fidelity_ok={consolidation_fidelity_ok} | reasons={binary_hard_fail_reasons}"
+    )
 
-    hard_pass_all = (fire_drops and steep_then_tail and comprehension_lift and no_regression
-                     and scramble_controlled and consolidation_fidelity_ok)
+    # ---- 3-TIER PRELIM verdict (THIS run's headline question; see prereg HARD-PASS 1-7 /
+    # HARD-FAIL, coordinator-refined comprehension framing) ----
+    tier_fire0, tier_fire100 = ck0["tier_fire_rate"], ck100["tier_fire_rate"]
+    tier_fire_drop_rel = (tier_fire0 - tier_fire100) / tier_fire0 if tier_fire0 > 0 else 0.0
+    no_pull_fire0, no_pull_fire100 = ck0["no_pull_fire_rate"], ck100["no_pull_fire_rate"]
+    no_pull_fire_drop_rel = (no_pull_fire0 - no_pull_fire100) / no_pull_fire0 if no_pull_fire0 > 0 else 0.0
 
-    if hard_fail_reasons:
+    # HP1: fade grows at the SAME strict pme, by a real (not floor-hugging) margin
+    hp1_fade_grows = tier_fire_drop_rel >= fire_drop_rel + 0.05
+
+    # HP2: fidelity preserved at BOTH new tiers
+    tier_fidelity_ok = True
+    tier_fidelity_checks = []
+    for ck in checkpoint_rows:
+        cru_a = ck["tag_accuracy"]["gap_driven_3tier"]["CRUTCH_RESOLVED"]
+        cru_n = ck["tag_counts"]["gap_driven_3tier"]["CRUTCH_RESOLVED"]
+        for tag in ("LIBRARY_RESOLVED", "PRELIM_RESOLVED"):
+            a = ck["tag_accuracy"]["gap_driven_3tier"][tag]
+            n = ck["tag_counts"]["gap_driven_3tier"][tag]
+            if n >= 20 and cru_n >= 20:
+                ok = a >= (cru_a - 0.03)
+                tier_fidelity_checks.append({"frac": ck["checkpoint_frac"], "tag": tag, "acc": a,
+                                             "cru_acc": cru_a, "ok": ok})
+                if not ok:
+                    tier_fidelity_ok = False
+
+    # HP3 (coverage-controlled, coordinator refinement): comprehension on dev_crutch_covered
+    tier_acc_cov0 = ck0["accuracy_covered"]["gap_driven_3tier"]
+    tier_acc_cov100 = ck100["accuracy_covered"]["gap_driven_3tier"]
+    binary_acc_cov100 = ck100["accuracy_covered"]["gap_driven"]
+    bow_acc_cov100 = ck100["accuracy_covered"]["bow"]
+    always_acc_cov100 = ck100["accuracy_covered"]["always_crutch"]
+    comp_lift_tier_covered = ((tier_acc_cov100 - bow_acc_cov100)
+                              if (tier_acc_cov100 is not None and bow_acc_cov100 is not None) else None)
+    comp_lift_binary_covered = ((binary_acc_cov100 - bow_acc_cov100)
+                                if (binary_acc_cov100 is not None and bow_acc_cov100 is not None) else None)
+    hp3_covered_no_regression = (comp_lift_tier_covered is not None and comp_lift_binary_covered is not None
+                                 and comp_lift_tier_covered >= comp_lift_binary_covered - 0.01)
+    hf_covered_regression = (comp_lift_tier_covered is not None and comp_lift_binary_covered is not None
+                             and comp_lift_tier_covered < comp_lift_binary_covered - 0.03)
+    # overall (uncontrolled) comprehension -- reported prominently, NOT gating (coverage-capped)
+    comp_lift_tier_overall = ck100["accuracy"]["gap_driven_3tier"] - bow_acc_final
+    tier_acc_over_checkpoints = [ck["accuracy"]["gap_driven_3tier"] - ck["accuracy"]["bow"]
+                                 for ck in checkpoint_rows]
+    tier_deltas = [tier_acc_over_checkpoints[i] - tier_acc_over_checkpoints[i - 1]
+                  for i in range(1, len(tier_acc_over_checkpoints))]
+    rises_across_checkpoints = sum(1 for d in tier_deltas if d >= -0.01) >= 3
+
+    # HP4: combined-evidence promotion works + high-fidelity
+    combined_evidence_promotion_count = ck100["combined_evidence_promoted_n"]
+    hp4_promotion_fires = combined_evidence_promotion_count > 0
+    combined_acc = ck100["promo_source_acc"]["combined_evidence_cluster"]
+    cru_acc_100 = ck100["tag_accuracy"]["gap_driven_3tier"]["CRUTCH_RESOLVED"]
+    hp4_promotion_fidelity = (combined_acc["n"] < 5 or cru_acc_100 is None
+                              or combined_acc["acc"] >= cru_acc_100 - 0.05)
+
+    # HP5: controls hold (3-tier's OWN scramble arm)
+    hp5_scramble_controlled = all(abs(ck["accuracy"]["scramble_crutch_3tier"] - ck["accuracy"]["bow"]) <= 0.02
+                                  for ck in checkpoint_rows)
+    hp5_scramble_never_beats = all(ck["accuracy"]["scramble_crutch_3tier"] <= ck["accuracy"]["gap_driven_3tier"]
+                                   for ck in checkpoint_rows)
+    hp5_no_regression = all(ck["accuracy"]["gap_driven_3tier"] >= ck["accuracy"]["bow"] - 0.02
+                            for ck in checkpoint_rows)
+
+    # HP6: ablation A (no_generalization must not beat full; structurally zero combined promotions
+    # -- the no_generalization arm reads real_store DIRECTLY, which never receives a
+    # combined_evidence_cluster store() call (only real_state.native_store_gen does); verify this
+    # holds on THIS run's actual live facts, not just by code-reading, in case of an implementation
+    # slip).
+    no_gen_acc100 = ck100["accuracy"]["gap_driven_3tier_no_generalization"]
+    tier_acc100 = ck100["accuracy"]["gap_driven_3tier"]
+    hp6_ablation_a = tier_acc100 >= no_gen_acc100 - 0.005
+    no_gen_combined_leak = sum(1 for f in real_store.live_facts() if f.source == "combined_evidence_cluster")
+    hp6_structural = (no_gen_combined_leak == 0)
+
+    # HP7: ablation B (no_pull must show LESS fade than full)
+    hp7_ablation_b = tier_fire_drop_rel - no_pull_fire_drop_rel >= 0.02
+
+    tier_hard_fail_reasons = []
+    if tier_fire_drop_rel < fire_drop_rel:
+        tier_hard_fail_reasons.append(f"TIER_FADE_REGRESSION: tier_rel_drop={tier_fire_drop_rel:.4f} < "
+                                      f"binary_rel_drop={fire_drop_rel:.4f}")
+    if not tier_fidelity_ok:
+        tier_hard_fail_reasons.append(f"TIER_FIDELITY_COLLAPSE: {tier_fidelity_checks}")
+    if hf_covered_regression:
+        tier_hard_fail_reasons.append(f"COVERED_COMPREHENSION_REGRESSION: tier={comp_lift_tier_covered:.4f} "
+                                      f"binary={comp_lift_binary_covered:.4f}")
+    if not (hp5_scramble_controlled and hp5_scramble_never_beats):
+        tier_hard_fail_reasons.append("TIER_SCRAMBLE_CONTROL_BROKEN")
+    if not hp4_promotion_fires:
+        tier_hard_fail_reasons.append("COMBINED_EVIDENCE_NEVER_FIRES: crux mechanism inert")
+    if not hp6_structural:
+        tier_hard_fail_reasons.append(f"ABLATION_ISOLATION_BUG: no_generalization arm's store leaked "
+                                      f"{no_gen_combined_leak} combined_evidence_cluster fact(s)")
+
+    tier_hard_pass_all = (hp1_fade_grows and tier_fidelity_ok and hp3_covered_no_regression
+                          and hp4_promotion_fires and hp4_promotion_fidelity and hp5_scramble_controlled
+                          and hp5_scramble_never_beats and hp5_no_regression and hp6_ablation_a
+                          and hp6_structural and hp7_ablation_b)
+
+    if tier_hard_fail_reasons:
         verdict = "HARD_FAIL"
-    elif hard_pass_all:
+    elif tier_hard_pass_all:
         verdict = "HARD_PASS"
-    elif fire_drops and not steep_then_tail and comprehension_lift and scramble_controlled:
-        verdict = "MIDDLE_BAND"  # shape-only partial (linear not steep-then-tail)
-    elif (not fire_drops) and re_encounter_rises:
-        verdict = "MIDDLE_BAND"  # storage/promotion works; aggregate flatness is long-tail
-    elif comprehension_lift and not fire_drops:
-        verdict = "MIDDLE_BAND"  # accuracy-only
-    elif fire_drops and not comprehension_lift:
-        verdict = "MIDDLE_BAND"  # efficiency-only
     else:
         verdict = "MIDDLE_BAND"
 
     verdict_msg = (
-        f"{verdict}: fire_rate[0%->100%]={fire0:.4f}->{fire100:.4f} (rel_drop={fire_drop_rel:.4f} "
-        f"abs_drop={fire_drop_abs:.4f} steep_then_tail={steep_then_tail}) | "
-        f"comprehension gap_driven[0%,100%]=({gap_acc0:.4f},{gap_acc100:.4f}) bow_final={bow_acc_final:.4f} "
-        f"lift={gap_acc100 - bow_acc_final:.4f} no_regression={no_regression} | "
-        f"scramble_controlled={scramble_controlled} scramble_never_beats_real={scramble_never_beats_real} | "
-        f"consolidation_fidelity_ok={consolidation_fidelity_ok} | "
-        f"re_encounter_fade_rate[first->final]=({re_encounter_first_measurable},{re_encounter_final}) "
-        f"eligible_n_final={re_encounter_curve[-1]['n_eligible']} | "
-        f"leakage_rate={leakage_rate:.4f} | reasons={hard_fail_reasons}"
+        f"{verdict}: [3-TIER] tier_fire_rate[0%->100%]={tier_fire0:.4f}->{tier_fire100:.4f} "
+        f"(rel_drop={tier_fire_drop_rel:.4f} vs binary={fire_drop_rel:.4f}, HP1={hp1_fade_grows}) | "
+        f"tier_fidelity_ok={tier_fidelity_ok} (HP2) | comp_lift_covered tier={comp_lift_tier_covered} "
+        f"binary={comp_lift_binary_covered} (HP3={hp3_covered_no_regression}) | comp_lift_overall="
+        f"{comp_lift_tier_overall:.4f} rises_across_checkpoints={rises_across_checkpoints} | "
+        f"combined_evidence_promoted_n={combined_evidence_promotion_count} combined_acc={combined_acc} "
+        f"cru_acc={cru_acc_100} (HP4={hp4_promotion_fires and hp4_promotion_fidelity}) | "
+        f"scramble_controlled={hp5_scramble_controlled} scramble_never_beats={hp5_scramble_never_beats} "
+        f"no_regression={hp5_no_regression} (HP5) | ablationA(no_gen) acc100={no_gen_acc100:.4f} vs "
+        f"tier={tier_acc100:.4f} (HP6={hp6_ablation_a}) | ablationB(no_pull) fire_drop={no_pull_fire_drop_rel:.4f} "
+        f"vs tier={tier_fire_drop_rel:.4f} (HP7={hp7_ablation_b}) | reasons={tier_hard_fail_reasons}"
     )
 
     elapsed = time.perf_counter() - t0
     metrics = {
-        "verdict": verdict, "verdict_msg": verdict_msg, "summary": f"{verdict}: {verdict_msg[:250]}",
+        "verdict": verdict, "verdict_msg": verdict_msg, "summary": f"{verdict}: {verdict_msg[:400]}",
         "elapsed_s": elapsed, "anchor_name": ANCHOR_NAME, "run_mode": run_mode,
         "ts_iso": datetime.now(timezone.utc).isoformat(), "pid": os.getpid(),
         "config": {"checkpoints": CHECKPOINTS, "n_passes_per_checkpoint": N_PASSES_PER_CHECKPOINT,
@@ -907,40 +1430,62 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
                   "promote_min_exposure": promote_min_exposure,
                   "promote_min_exposure_default": PROMOTE_MIN_EXPOSURE,
                   "promote_min_consistency": PROMOTE_MIN_CONSISTENCY,
-                  "score_mode": score_mode, "node_degree_computed": node_degree is not None},
+                  "score_mode": score_mode, "node_degree_computed": node_degree is not None,
+                  "cluster_min_members": CLUSTER_MIN_MEMBERS, "novelty_thresh": novelty_thresh,
+                  "novelty_calibration": calib},
         "stage0_bow_baseline_accuracy": bow_acc,
         "leakage_audit": {"n_sample": len(leak_sample), "n_leaked": n_leak, "leakage_rate": leakage_rate},
+        "coverage_audit": {"n_gap_flagged": n_gap_flagged, "n_covered": n_covered,
+                          "coverage_rate": coverage_rate},
         "checkpoints": checkpoint_summary,
         "re_encounter_fade_curve": re_encounter_curve,
         "re_encounter_fallback_probe": fallback_probe,
         "cohort0_size": len(cohort0),
-        "hard_fail_reasons": hard_fail_reasons,
-        "bands": {"fire_drops": fire_drops, "steep_then_tail": steep_then_tail,
-                 "comprehension_lift": comprehension_lift, "no_regression": no_regression,
-                 "scramble_controlled": scramble_controlled,
-                 "scramble_never_beats_real": scramble_never_beats_real,
-                 "consolidation_fidelity_ok": consolidation_fidelity_ok,
-                 "re_encounter_rises": re_encounter_rises},
+        "tier_diag_log": tier_diag_log,
+        "hard_fail_reasons": tier_hard_fail_reasons,
+        "bands": {"hp1_fade_grows": hp1_fade_grows, "hp2_tier_fidelity_ok": tier_fidelity_ok,
+                 "hp3_covered_no_regression": hp3_covered_no_regression,
+                 "hp4_promotion_fires": hp4_promotion_fires,
+                 "hp4_promotion_fidelity": hp4_promotion_fidelity,
+                 "hp5_scramble_controlled": hp5_scramble_controlled,
+                 "hp5_scramble_never_beats": hp5_scramble_never_beats,
+                 "hp5_no_regression": hp5_no_regression,
+                 "hp6_ablation_a": hp6_ablation_a, "hp6_structural": hp6_structural,
+                 "hp7_ablation_b": hp7_ablation_b, "rises_across_checkpoints": rises_across_checkpoints},
+        "comprehension": {"overall_tier_lift_100": comp_lift_tier_overall,
+                         "overall_binary_lift_100": comprehension_lift_binary,
+                         "covered_tier_lift_100": comp_lift_tier_covered,
+                         "covered_binary_lift_100": comp_lift_binary_covered,
+                         "always_crutch_ceiling_acc_covered_100": always_acc_cov100,
+                         "bow_acc_covered_100": bow_acc_cov100},
+        "binary_baseline_verdict": binary_verdict, "binary_baseline_verdict_msg": binary_verdict_msg,
+        "binary_baseline_bands": {"fire_drops": fire_drops, "steep_then_tail": steep_then_tail,
+                                 "comprehension_lift": comprehension_lift, "no_regression": no_regression,
+                                 "scramble_controlled": scramble_controlled,
+                                 "scramble_never_beats_real": scramble_never_beats_real,
+                                 "consolidation_fidelity_ok": consolidation_fidelity_ok,
+                                 "re_encounter_rises": re_encounter_rises},
         "arms_differ_verified": differ_pairs_ok,
         "arms_differ_exempted": [list(p) for p in ARMS_DIFFER_EXEMPTED],
         "arms_differ_non_exempt_collisions": non_exempt_collisions,
         "arm_digests": digests,
-        "cardinality_ok": len(CHECKPOINTS) == 5 and len(final_ck) == 5,
-        "expected_n_units": len(CHECKPOINTS),
+        "cardinality_ok": len(CHECKPOINTS) == 5 and len(final_ck) == 9,
+        "expected_n_units": len(CHECKPOINTS), "expected_n_arms": 9,
         "final_metrics_atomicity": "tmp_replace",
         "crlb_n/a": "symbolic KB-lookup + vote-count pipeline; no argmax/capacity noise-floor "
                    "discriminator applies",
         "deterministic_seeding": True,
         "progress_logging": "print_flush_true",
         "calibration_check": "adaptive_with_discriminator_gate",
-        "hp_scope": {"dev_checkpoint_eval": ["fire_rate_drop", "comprehension_lift",
-                                             "scramble_control", "consolidation_fidelity"]},
+        "hp_scope": {"dev_checkpoint_eval": ["tier_fire_drop", "tier_comprehension_lift",
+                                             "tier_scramble_control", "tier_consolidation_fidelity",
+                                             "combined_evidence_promotion", "ablation_underperformance"]},
         "n_cskg_pairs": len(idx), "n_cskg_nodes": len(node_list),
         "n_train_exposed": n_total, "n_dev": len(dev),
     }
     _atomic_write_metrics(output_dir, metrics)
-    print(f"\n[VERDICT] {verdict}\n{verdict_msg}\nelapsed={elapsed:.2f}s -> {output_dir}/metrics.json",
-          flush=True)
+    print(f"\n[VERDICT] {verdict}\n{verdict_msg}\n[binary_baseline_verdict] {binary_verdict}\n"
+          f"elapsed={elapsed:.2f}s -> {output_dir}/metrics.json", flush=True)
     return metrics
 
 
@@ -1080,12 +1625,152 @@ def self_test() -> dict:
     hits_hi = store_hi.query(pk2, "OUTCOME_POLARITY")
     assert not hits_hi, "default promote_min_exposure=8 must NOT promote a 4-trace item"
 
+    # =====================================================================================
+    # (8) 3-tier PRELIM (2026-08-10): relation_family bucketing + retain-without-promote.
+    idx_fam = dict(idx2)
+    idx_fam[pair_key("boat", "fix")] = [("at:xIntent", 1.0)]
+    idx_fam[pair_key("wagon", "fix")] = [("at:xIntent", 1.0)]
+    idx_fam[pair_key("gate", "fix")] = [("at:xIntent", 1.0)]
+    idx_fam[pair_key("rain", "wet")] = [("/r/Causes", 0.6)]
+    assert relation_family(idx_fam, pair_key("boat", "fix")) == "xintent", relation_family(idx_fam, pair_key("boat", "fix"))
+    assert relation_family(idx_fam, pair_key("rain", "wet")) == "causes"
+    assert relation_family(idx_fam, "nope::nope") == "UNKNOWN"
+    node_set_fam = cskg_node_set_from_index(idx_fam)
+
+    state = TierState(seed_base=500)
+    pk_sub = pair_key("boat", "fix")  # sub-threshold: n=5 traces, < promote_min_exposure=8
+    for i in range(5):
+        cvec = context_vector(f"Owen wanted to fix the boat before the trip departed, day {i}.")
+        state.prelim_lib.flag(pk_sub, f"pr{i}", "POS", cvec, 0)
+    diag8 = update_prelim_and_generalize(state, idx_fam, novelty_thresh=0.15)
+    assert diag8["newly_retained"] == 1, diag8
+    prelim_hit = state.prelim_store.query(pk_sub, "OUTCOME_POLARITY")
+    assert prelim_hit and prelim_hit[0]["object"] == "POS", (
+        f"sub-threshold (n=5 < promote_min_exposure=8) item must RETAIN into prelim_store, got {prelim_hit}")
+    assert state.native_store_gen.query(pk_sub, "OUTCOME_POLARITY") == [], (
+        "a lone sub-threshold item (cluster size 1 < CLUSTER_MIN_MEMBERS) must NOT promote to native")
+
+    # re-encounter PULL: resolve_item with arm=gap_driven_3tier must answer via PRELIM_RESOLVED
+    # (not CRUTCH_RESOLVED) once the pair is retained -- the fade lever. Answer words deliberately
+    # absent from the context (BoW overlap=0 for all 3 -> tied margin -> gap always flags, matching
+    # the base cell's own synthetic-item pattern above).
+    item_pull = {"context": "Owen went on a trip with a boat.",
+                "question": "What did Owen need to do?", "answerA": "fix", "answerB": "paint",
+                "answerC": "unrelated", "label": "1"}
+    res_pull = resolve_item(item_pull, node_set_fam, idx_fam, gate_thresh=0.9, arm="gap_driven_3tier",
+                            item_id="pull0", node_list=sorted(node_set_fam),
+                            tier_state=state)
+    assert res_pull["tag"] == "PRELIM_RESOLVED", (
+        f"a retained-but-not-promoted pair must resolve via PRELIM at re-encounter, got {res_pull}")
+
+    # (9) combined-evidence promotion: 3 DISTINCT pairs sharing the SAME relation family. The
+    # CLUSTER gate is 4x stricter than the single-item gate (cluster_exposure_floor = 8*4 = 32;
+    # see CLUSTER_EXPOSURE_MULTIPLIER) -- 12 traces/pair alone would NOT cross 32, but COMBINED
+    # (12x3=36 >= 32, consistency=1.0 >= 0.75) all 3 cross via the SHARED cluster-grain decision.
+    state2 = TierState(seed_base=600)
+    cluster_pairs = [pair_key("boat", "fix"), pair_key("wagon", "fix"), pair_key("gate", "fix")]
+    for pk_c in cluster_pairs:
+        for i in range(12):
+            cvec = context_vector(f"{pk_c} needed repair on trip day {i}, weather was fine today.")
+            state2.prelim_lib.flag(pk_c, f"{pk_c}_{i}", "POS", cvec, 0)
+    diag9 = update_prelim_and_generalize(state2, idx_fam, novelty_thresh=0.15)
+    assert diag9["n_clusters_eligible_size"] >= 1, diag9
+    assert diag9["n_combined_promoted_total"] == 3, (
+        f"3 sub-threshold same-family pairs whose COMBINED evidence clears the gate must all "
+        f"promote, got {diag9}")
+    for pk_c in cluster_pairs:
+        hit = state2.native_store_gen.query(pk_c, "OUTCOME_POLARITY")
+        assert hit and hit[0]["status"] in ("ACTIVE", "COMBINED", "FLAGGED"), (
+            f"{pk_c} must be live in native_store_gen after combined-evidence promotion, got {hit}")
+
+    # (10) fidelity guard: a 4th cluster member whose OWN evidence DISAGREES with the cluster's
+    # combined majority must NOT be force-promoted under the cluster's label, AND must not block
+    # the 3 genuinely-agreeing members from promoting. White-box construction: register + promote
+    # the 3 clean members first (real code path, real match_or_spawn clustering), THEN splice the
+    # dissenting member directly into that same cluster's membership set -- isolates the FIDELITY
+    # GUARD from clustering-correctness (which test (11) below covers on its own).
+    state3 = TierState(seed_base=700)
+    for pk_c in cluster_pairs:
+        for i in range(12):
+            cvec = context_vector(f"{pk_c} needed repair on trip day {i}, weather was fine today.")
+            state3.prelim_lib.flag(pk_c, f"{pk_c}_{i}", "POS", cvec, 0)
+    idx_fam2 = dict(idx_fam)
+    pk_dissent = pair_key("gate", "lock")
+    idx_fam2[pk_dissent] = [("at:xIntent", 1.0)]
+    diag_reg = update_prelim_and_generalize(state3, idx_fam2, novelty_thresh=0.15)
+    assert all(pk_c in state3.promoted_cluster for pk_c in cluster_pairs), (
+        f"the 3 clean members must promote on their own combined evidence first, got {diag_reg}")
+    for i in range(6):
+        cvec = context_vector(f"{pk_dissent} early day {i}.")
+        state3.prelim_lib.flag(pk_dissent, f"d{i}", "POS", cvec, 0)
+    for i in range(6, 16):
+        cvec = context_vector(f"{pk_dissent} later day {i}.")
+        state3.prelim_lib.flag(pk_dissent, f"d{i}", "NEG", cvec, 0)
+    own_m, _, _ = _vote_margin(state3.prelim_lib.items[pk_dissent].traces)
+    assert own_m < 0, f"test construction failed: pk_dissent's own margin must be negative, got {own_m}"
+    shared_cluster_id = state3.pk_cluster[cluster_pairs[0]]
+    state3.pk_cluster[pk_dissent] = shared_cluster_id
+    state3.cluster_members[shared_cluster_id].add(pk_dissent)
+    diag10 = update_prelim_and_generalize(state3, idx_fam2, novelty_thresh=0.15)
+    assert pk_dissent not in state3.promoted_cluster, (
+        "a member whose OWN evidence opposes the cluster majority must NOT be force-promoted "
+        f"(guard failed): diag={diag10}")
+    assert all(pk_c in state3.promoted_cluster for pk_c in cluster_pairs), (
+        "the 3 AGREEING members must still be (remain) promoted despite the dissenting member")
+
+    # (11) DG over-merge tripwire: two DIFFERENT relation families must NOT cluster together at the
+    # calibrated novelty_thresh (mirrors script_grain_acquisition_loop's own self-test shape).
+    reg_causes = build_instance_register("rain", "wet", "causes", "OUTCOME_POS")
+    reg_xintent = build_instance_register("boat", "fix", "xintent", "OUTCOME_POS")
+    calib_test = calibrate_novelty_threshold(
+        matched_pairs=[(build_instance_register("a", "b", "causes", "OUTCOME_POS"),
+                       build_instance_register("c", "d", "causes", "OUTCOME_POS"))],
+        wrong_pairs=[(build_instance_register("a", "b", "causes", "OUTCOME_POS"),
+                     build_instance_register("c", "d", "xintent", "OUTCOME_POS"))])
+    assert calib_test["discriminates"], f"same-vocab family registers must discriminate: {calib_test}"
+    state4 = TierState(seed_base=800)
+    id_a, spawned_a, _ = state4.script_lib.match_or_spawn(reg_causes, "fam_a", "POS", np.ones(8), 0,
+                                                           true_type="causes",
+                                                           novelty_thresh=calib_test["novelty_thresh"])
+    id_b, spawned_b, _ = state4.script_lib.match_or_spawn(reg_xintent, "fam_b", "POS", np.ones(8), 0,
+                                                           true_type="xintent",
+                                                           novelty_thresh=calib_test["novelty_thresh"])
+    assert spawned_b is True and id_a != id_b, (
+        f"different relation families must SPAWN separate clusters, not over-merge: "
+        f"id_a={id_a} id_b={id_b} spawned_b={spawned_b}")
+
+    # (12) smoke-diagnosed hub-degree exclusion fix (2026-08-10): a pair driven by a high-degree
+    # hub-template concept must NOT retain/cluster-register even with sufficient exposure+coherence.
+    state5 = TierState(seed_base=900)
+    pk_hub = pair_key("happy", "party")  # 'happy' is the hub concept in this synthetic degree map
+    for i in range(6):
+        cvec = context_vector(f"happy party day {i}, everyone felt happy about it.")
+        state5.prelim_lib.flag(pk_hub, f"h{i}", "POS", cvec, 0)
+    deg_map_hub = {"happy": 8000, "party": 5}
+    diag_nohub = update_prelim_and_generalize(state5, idx_fam, novelty_thresh=0.15,
+                                              node_degree=deg_map_hub, hub_degree_thresh=30)
+    assert diag_nohub["n_hub_excluded"] == 1, diag_nohub
+    assert state5.prelim_store.query(pk_hub, "OUTCOME_POLARITY") == [], (
+        "a hub-concept-driven pair must NOT retain into prelim_store regardless of exposure")
+    # without node_degree (default None), the SAME pair retains normally (backward-compatible)
+    state6 = TierState(seed_base=901)
+    for i in range(6):
+        cvec = context_vector(f"happy party day {i}, everyone felt happy about it.")
+        state6.prelim_lib.flag(pk_hub, f"h{i}", "POS", cvec, 0)
+    diag_withhub = update_prelim_and_generalize(state6, idx_fam, novelty_thresh=0.15)
+    assert diag_withhub["n_hub_excluded"] == 0
+    assert state6.prelim_store.query(pk_hub, "OUTCOME_POLARITY") != [], (
+        "without node_degree, retain behavior must be unchanged (backward-compatible default)")
+
     print("[self-test] PASS: real Library/consolidation_pass/HDFactStore promotion + routing + "
           "scramble-partner determinism + score_mode max_trust fix + retrieval_use_diagnostic + "
-          "promote_min_exposure threading all exercised", flush=True)
+          "promote_min_exposure threading + 3-tier PRELIM retain/pull/combined-evidence-promotion/"
+          "fidelity-guard/DG-over-merge-tripwire/hub-degree-exclusion all exercised", flush=True)
     return {"promote_ok": True, "routing_ok": True, "scramble_deterministic": True,
            "score_mode_fix_ok": True, "retrieval_use_diagnostic_ok": True,
-           "promote_min_exposure_threading_ok": True}
+           "promote_min_exposure_threading_ok": True,
+           "prelim_retain_ok": True, "prelim_pull_ok": True, "combined_evidence_promotion_ok": True,
+           "fidelity_guard_ok": True, "dg_overmerge_tripwire_ok": True, "hub_exclusion_ok": True}
 
 
 # =====================================================================================
@@ -1105,6 +1790,11 @@ def main():
     ap.add_argument("--score-mode", default="count_weighted",
                     choices=["count_weighted", "max_trust", "hub_penalized"])
     ap.add_argument("--out-tag", default="diag")
+    # 2026-08-10 3-tier PRELIM build: --seed (never threaded before -- run()'s seed=7 default was
+    # silently unreachable from the CLI) + --out-tag support for --smoke/--full (not just --diag) so
+    # a multi-seed 3-tier FULL sweep can write distinct paths without clobbering the committed
+    # binary-baseline history at the canonical exp_crutch_fade_social_iqa_v1[_smoke] paths.
+    ap.add_argument("--seed", type=int, default=7)
     args, _ = ap.parse_known_args()
 
     if args.self_test:
@@ -1112,33 +1802,38 @@ def main():
         sys.exit(0)
 
     if args.smoke:
-        out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_smoke")
-        run(out, run_mode="smoke", train_cap=SMOKE_TRAIN_CAP, dev_cap=SMOKE_DEV_CAP)
+        tag = f"_{args.out_tag}" if args.out_tag != "diag" else ""
+        out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_smoke{tag}")
+        run(out, run_mode="smoke", train_cap=SMOKE_TRAIN_CAP, dev_cap=SMOKE_DEV_CAP,
+            seed=args.seed, promote_min_exposure=args.promote_min_exposure, score_mode=args.score_mode)
         sys.exit(0)
 
     if args.diag:
         out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_{args.out_tag}")
         run(out, run_mode="diag", train_cap=args.train_cap, dev_cap=args.dev_cap,
-            promote_min_exposure=args.promote_min_exposure, score_mode=args.score_mode)
+            seed=args.seed, promote_min_exposure=args.promote_min_exposure, score_mode=args.score_mode)
         sys.exit(0)
 
-    run(OUTPUT_DIR_FULL, run_mode="full", train_cap=None, dev_cap=None,
-        promote_min_exposure=args.promote_min_exposure, score_mode=args.score_mode)
+    tag = f"_{args.out_tag}" if args.out_tag != "diag" else ""
+    out = OUTPUT_DIR_FULL + tag
+    run(out, run_mode="full", train_cap=None, dev_cap=None,
+        seed=args.seed, promote_min_exposure=args.promote_min_exposure, score_mode=args.score_mode)
     sys.exit(0)
 
 
 if __name__ == "__main__":
+    _tag = None
+    if "--out-tag" in sys.argv:
+        _cli_tag = sys.argv[sys.argv.index("--out-tag") + 1]
+        _tag = _cli_tag if _cli_tag != "diag" else None
     if "--self-test" in sys.argv:
         _out = os.path.join(REPO_ROOT, "data", ANCHOR_NAME + "_selftest")
     elif "--smoke" in sys.argv:
-        _out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_smoke")
+        _out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_smoke" + (f"_{_tag}" if _tag else ""))
     elif "--diag" in sys.argv:
-        _tag = "diag"
-        if "--out-tag" in sys.argv:
-            _tag = sys.argv[sys.argv.index("--out-tag") + 1]
-        _out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_{_tag}")
+        _out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_{_tag or 'diag'}")
     else:
-        _out = OUTPUT_DIR_FULL
+        _out = OUTPUT_DIR_FULL + (f"_{_tag}" if _tag else "")
     try:
         main()
     except SystemExit:
