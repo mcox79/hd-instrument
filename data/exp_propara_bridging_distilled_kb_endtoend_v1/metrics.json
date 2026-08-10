@@ -1,0 +1,245 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_DISTILLED_KB_SURVIVAL_LOW_residual: split=test DISTILLED_SURVIVAL=0.18226561332964253 (distilled_lift=0.0194 / oracle_lift=0.1062) with_distilled_f1=0.3758 oracle_f1=0.4626 without_f1=0.3564 distilled_pair_recall=0.2469 pair_precision=0.0905 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_DISTILLED_KB_SURVIVAL_LOW_residual: split=test DISTILLED_SURVIVAL=0.18226561332964253 (distilled_lift=0.0194 / oracle_lift=0.1062) with_distilled_f1=0.3758 oracle_f1=0.4626 without_f1=0.3564 distilled_pair_recall=0.2469 pair_precision=0.0905 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "elapsed_s": 2.268,
+  "run_mode": "full",
+  "anchor_name": "propara_bridging_distilled_kb_endtoend_v1",
+  "split": "test",
+  "result": {
+    "split": "test",
+    "elapsed_s": 2.268,
+    "n_paragraphs": 54,
+    "arms_differ": {
+      "sigs": {
+        "prior_lesion": "8baf73e0908c012016c6041887b8427d2a2260f1a92c99f9a0592b6ad9b3b927",
+        "without_knowledge": "4292e6956ef5dbd83efc131aa4cc442e850ef6f3b4852f7a831b6e73cf120f36",
+        "with_oracle": "638a8080cc3c228801b7c839249389f4b04808d03a42a8e8d6c5725e776b2399",
+        "with_distilled": "d95740013f969ebe0622fdddc94f66b2039508351029c05eaf65a2b6d44d3d60"
+      },
+      "pairs_differ": {
+        "prior_lesion_vs_without_knowledge": true,
+        "prior_lesion_vs_with_oracle": true,
+        "prior_lesion_vs_with_distilled": true,
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_distilled": true,
+        "with_oracle_vs_with_distilled": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "oracle": 1.0,
+      "distilled": 1.0
+    },
+    "unmentioned_subset": {
+      "prior_lesion": {
+        "macro_f1": 0.3175656617528998,
+        "accuracy": 0.7470956210902592,
+        "n": 1119
+      },
+      "without_knowledge": {
+        "macro_f1": 0.35640236439802003,
+        "accuracy": 0.7908847184986595,
+        "n": 1119
+      },
+      "with_oracle": {
+        "macro_f1": 0.4626310177020828,
+        "accuracy": 0.8302055406613047,
+        "n": 1119
+      },
+      "with_distilled": {
+        "macro_f1": 0.375764195045667,
+        "accuracy": 0.7962466487935657,
+        "n": 1119
+      }
+    },
+    "without_f1": 0.35640236439802003,
+    "with_oracle_f1": 0.4626310177020828,
+    "with_distilled_f1": 0.375764195045667,
+    "prior_lesion_f1": 0.3175656617528998,
+    "oracle_lift": 0.10622865330406278,
+    "distilled_lift": 0.01936183064764696,
+    "survival_fraction": 0.18226561332964253,
+    "distilled_minus_prior_lesion": 0.058198533292767196,
+    "fact_coverage_distilled_vs_oracle": {
+      "pair_precision": 0.0905,
+      "pair_recall": 0.2469,
+      "pair_f1": 0.1325,
+      "participant_binding_coverage": 0.4746,
+      "n_oracle_participants_with_fact": 59,
+      "n_oracle_participants_covered_by_real": 28
+    },
+    "distilled_sourcing_stats": {
+      "n_paragraphs_matched": 52,
+      "n_role_hits": 193,
+      "process_match_sample": {
+        "37": [
+          "fossilization",
+          "sedimentation"
+        ],
+        "38": [
+          "fossilization"
+        ],
+        "67": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "68": [
+          "hydrocarbon_formation",
+          "fossilization"
+        ],
+        "69": [
+          "hydrocarbon_formation",
+          "sedimentation"
+        ],
+        "70": [
+          "water_cycle"
+        ],
+        "99": [
+          "water_cycle",
+          "erosion_weathering"
+        ],
+        "152": [
+          "water_cycle",
+          "igneous_rock_cycle"
+        ]
+      }
+    },
+    "kb_hand_vet": [
+      "combustion CONSUMES fuel + oxygen -> PRODUCES CO2 + ash + heat (general chemistry).",
+      "photosynthesis CONSUMES CO2 + water -> PRODUCES glucose + oxygen (general biology).",
+      "respiration CONSUMES oxygen + glucose -> PRODUCES CO2 + energy + water (general biology).",
+      "water cycle MOVES water; evaporation/condensation PRODUCES vapor/cloud/rain (general earth science).",
+      "erosion/weathering CONSUMES rock -> PRODUCES + MOVES sediment/soil/silt (general geology).",
+      "fossilization CONSUMES buried organisms (plants/plankton) -> PRODUCES fossils/oil/minerals (general geology).",
+      "igneous rock cycle: magma/rock melts + cools -> PRODUCES rock/crystal; MOVES magma/lava (general geology).",
+      "digestion CONSUMES food -> PRODUCES nutrients + waste; MOVES food/nutrients (general biology).",
+      "electricity generation MOVES electrons/magnet -> PRODUCES current/electricity (general physics).",
+      "sound propagation MOVES waves -> PRODUCES echoes (general physics)."
+    ],
+    "kb_n_processes": 18,
+    "official": {
+      "prior_lesion": {
+        "precision": 0.82575,
+        "recall": 0.642,
+        "f1": 0.722
+      },
+      "without_knowledge": {
+        "precision": 0.792,
+        "recall": 0.582,
+        "f1": 0.671
+      },
+      "with_oracle": {
+        "precision": 0.77275,
+        "recall": 0.60175,
+        "f1": 0.677
+      },
+      "with_distilled": {
+        "precision": 0.7825,
+        "recall": 0.58975,
+        "f1": 0.673
+      }
+    }
+  },
+  "headline": {
+    "DISTILLED_SURVIVAL_FRACTION": 0.18226561332964253,
+    "with_distilled_f1": 0.375764195045667,
+    "with_oracle_f1": 0.4626310177020828,
+    "without_f1": 0.35640236439802003,
+    "prior_lesion_f1": 0.3175656617528998,
+    "distilled_lift": 0.01936183064764696,
+    "oracle_lift": 0.10622865330406278,
+    "distilled_minus_prior_lesion": 0.058198533292767196,
+    "distilled_pair_recall": 0.2469,
+    "distilled_pair_precision": 0.0905,
+    "distilled_sourcing_stats": {
+      "n_paragraphs_matched": 52,
+      "n_role_hits": 193,
+      "process_match_sample": {
+        "37": [
+          "fossilization",
+          "sedimentation"
+        ],
+        "38": [
+          "fossilization"
+        ],
+        "67": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "68": [
+          "hydrocarbon_formation",
+          "fossilization"
+        ],
+        "69": [
+          "hydrocarbon_formation",
+          "sedimentation"
+        ],
+        "70": [
+          "water_cycle"
+        ],
+        "99": [
+          "water_cycle",
+          "erosion_weathering"
+        ],
+        "152": [
+          "water_cycle",
+          "igneous_rock_cycle"
+        ]
+      }
+    },
+    "kb_hand_vet_general_science": [
+      "combustion CONSUMES fuel + oxygen -> PRODUCES CO2 + ash + heat (general chemistry).",
+      "photosynthesis CONSUMES CO2 + water -> PRODUCES glucose + oxygen (general biology).",
+      "respiration CONSUMES oxygen + glucose -> PRODUCES CO2 + energy + water (general biology).",
+      "water cycle MOVES water; evaporation/condensation PRODUCES vapor/cloud/rain (general earth science).",
+      "erosion/weathering CONSUMES rock -> PRODUCES + MOVES sediment/soil/silt (general geology).",
+      "fossilization CONSUMES buried organisms (plants/plankton) -> PRODUCES fossils/oil/minerals (general geology).",
+      "igneous rock cycle: magma/rock melts + cools -> PRODUCES rock/crystal; MOVES magma/lava (general geology).",
+      "digestion CONSUMES food -> PRODUCES nutrients + waste; MOVES food/nutrients (general biology).",
+      "electricity generation MOVES electrons/magnet -> PRODUCES current/electricity (general physics).",
+      "sound propagation MOVES waves -> PRODUCES echoes (general physics)."
+    ],
+    "official_overall": {
+      "prior_lesion": {
+        "precision": 0.82575,
+        "recall": 0.642,
+        "f1": 0.722
+      },
+      "without_knowledge": {
+        "precision": 0.792,
+        "recall": 0.582,
+        "f1": 0.671
+      },
+      "with_oracle": {
+        "precision": 0.77275,
+        "recall": 0.60175,
+        "f1": 0.677
+      },
+      "with_distilled": {
+        "precision": 0.7825,
+        "recall": 0.58975,
+        "f1": 0.673
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: survival bar pre-registered before TEST",
+  "thresholds": {
+    "SURVIVAL_HARD_PASS": 0.5,
+    "SURVIVAL_HARD_FAIL": 0.25,
+    "LEAK_CEILING": 0.95,
+    "LEAK_ORACLE_MARGIN": 0.02,
+    "WITHOUT_COLLAPSE_CEILING": 0.6
+  }
+}
