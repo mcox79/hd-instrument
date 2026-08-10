@@ -1,5 +1,12 @@
 """SYMBOLIC working-memory discourse overlay (state-of-mind) for the base-first reader.
 
+NOT THEORY-OF-MIND (name disambiguation, hdi_skunkworks 2026-08-10): despite the module name
+"state_of_mind", this is a COREFERENCE entity-tracker / WorkingOverlay (salience-weighted entity
+tracking, gender/number agreement, speaker/addressee deixis, KnownBase surprise probe, EntityState)
+with ZERO belief logic. It does NOT model an agent's beliefs. The real Theory-of-Mind (false-belief
+per-agent partition) result lives in experiments/exp_theory_of_mind_sally_anne_nested_hrr_v1.py.
+Not renamed on purpose: consumers import hdlab.state_of_mind and a rename would break them.
+
 CANONICAL packaging of the VALIDATED two-layer state-of-mind arc (2026-07-17, SETTLED).
 This is the WORKING OVERLAY layer only: a symbolic, exact, salience-weighted tracker of
 the few active discourse threads (the reader's real operating point). It is the layer that
