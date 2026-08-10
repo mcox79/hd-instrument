@@ -1,0 +1,29 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: {'selftest_ok': True, 'bfs_classify_ok': True, 'hub_bridge_control_ok': True, 'spreading_activation_ok': True, 'naive_vs_gated_contrast_ok': True, 'max_visited_safety_net_ok': True, 'ca3_readout_ok': True, 'diagnose_item_ok': True, 'recurrence_ok': True, 'real_code_path_exercised': ['iterative_attractor', 'bfs_classify', 'spreading_activation_scores', 'diagnose_item', 'compute_train_exposure_pairs', 'compute_recurrence']}",
+  "summary": "self-test PASS",
+  "elapsed_s": 0.0,
+  "anchor_name": "crutch_retrieval_coverage_diag_v1",
+  "run_mode": "self_test",
+  "ts_iso": "2026-08-10T15:31:18.041762+00:00",
+  "pid": 23544,
+  "self_test_result": {
+    "selftest_ok": true,
+    "bfs_classify_ok": true,
+    "hub_bridge_control_ok": true,
+    "spreading_activation_ok": true,
+    "naive_vs_gated_contrast_ok": true,
+    "max_visited_safety_net_ok": true,
+    "ca3_readout_ok": true,
+    "diagnose_item_ok": true,
+    "recurrence_ok": true,
+    "real_code_path_exercised": [
+      "iterative_attractor",
+      "bfs_classify",
+      "spreading_activation_scores",
+      "diagnose_item",
+      "compute_train_exposure_pairs",
+      "compute_recurrence"
+    ]
+  }
+}
