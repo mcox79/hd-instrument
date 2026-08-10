@@ -1,0 +1,464 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SIGNAL_VANISHED_UNDER_EXTRACTION: split=dev EXTRACTED content_delta_loc=0.0355(>= 0.02) content_delta_moves=0.0730 median_retained_frac_loc=0.9507042253521119(< 0.3 clean, > 0.55 fragile) budget_exact=0.1714 move_recall=0.3567 arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_SIGNAL_VANISHED_UNDER_EXTRACTION: split=dev EXTRACTED content_delta_loc=0.0355(>= 0.02) content_delta_moves=0.0730 median_retained_frac_loc=0.9507042253521119(< 0.3 clean, > 0.55 fragile) budget_exact=0.1714 move_recall=0.3567 arms_ok=True decode_ok=True",
+  "elapsed_s": 2.987,
+  "run_mode": "smoke",
+  "anchor_name": "propara_arm2_extracted_structure_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 2.955,
+    "n_paragraphs": 43,
+    "n_scramble_seeds": 2,
+    "scramble_seeds": [
+      7,
+      17
+    ],
+    "extraction_cost": {
+      "budget_fidelity": {
+        "budget_exact_match_rate": 0.1714,
+        "n_pairs": 175,
+        "per_class": {
+          "CREATE": {
+            "precision": 0.6222,
+            "recall": 0.6588,
+            "f1": 0.64,
+            "tp": 56,
+            "fp": 34,
+            "fn": 29
+          },
+          "MOVE": {
+            "precision": 0.487,
+            "recall": 0.3567,
+            "f1": 0.4118,
+            "tp": 56,
+            "fp": 59,
+            "fn": 101
+          },
+          "DESTROY": {
+            "precision": 0.6757,
+            "recall": 0.3676,
+            "f1": 0.4762,
+            "tp": 25,
+            "fp": 12,
+            "fn": 43
+          }
+        },
+        "n_mention_sentences_total": 471,
+        "n_attributed_verbs_total": 303
+      },
+      "n_coref_clusters_total": 127
+    },
+    "lesion_decode_diag": {
+      "decode_fidelity": 1.0,
+      "n_decoded": 1204
+    },
+    "reasoning_decode_diag": {
+      "decode_fidelity": 1.0,
+      "n_decoded": 1204
+    },
+    "arms_differ": {
+      "sigs": {
+        "majority": "2877e45ad405aa8686ba1e06bc4fe631c5b9e20b823597b54fef66876facc81e",
+        "bow_singlestep": "bfa64994ce2076e4bdc9b835ec2e9408875d524e9b23fa00c9169ed13e7905c3",
+        "bagstates": "17af502827f6ecb5870dd46f4d6e2649b38779f6e0e941c02fdec1729f0f9b9c",
+        "prior_lesion": "8b2497cd9045ff87d45371af2626b361d29cd366eca3a4901f060216b9d11f17",
+        "reasoning": "2fb17fd7239a8a31c9e2cc4aff35ae46164f2990859310c059dc77bd6267b2cc"
+      },
+      "pairs_differ": {
+        "majority_vs_bow_singlestep": true,
+        "majority_vs_bagstates": true,
+        "majority_vs_prior_lesion": true,
+        "majority_vs_reasoning": true,
+        "bow_singlestep_vs_bagstates": true,
+        "bow_singlestep_vs_prior_lesion": true,
+        "bow_singlestep_vs_reasoning": true,
+        "bagstates_vs_prior_lesion": true,
+        "bagstates_vs_reasoning": true,
+        "prior_lesion_vs_reasoning": true
+      },
+      "all_differ": true
+    },
+    "official": {
+      "majority": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.488,
+          "f1": 0.656
+        },
+        "outputs": {
+          "precision": 1.0,
+          "recall": 0.233,
+          "f1": 0.378
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.372,
+          "f1": 0.542
+        },
+        "moves": {
+          "precision": 1.0,
+          "recall": 0.093,
+          "f1": 0.17
+        },
+        "overall": {
+          "precision": 1.0,
+          "recall": 0.2965,
+          "f1": 0.457
+        },
+        "n_processes": 43
+      },
+      "bow_singlestep": {
+        "inputs": {
+          "precision": 0.965,
+          "recall": 0.585,
+          "f1": 0.728
+        },
+        "outputs": {
+          "precision": 0.773,
+          "recall": 0.531,
+          "f1": 0.63
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.372,
+          "f1": 0.542
+        },
+        "moves": {
+          "precision": 0.51,
+          "recall": 0.19,
+          "f1": 0.277
+        },
+        "overall": {
+          "precision": 0.812,
+          "recall": 0.4195,
+          "f1": 0.553
+        },
+        "n_processes": 43
+      },
+      "bagstates": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.488,
+          "f1": 0.656
+        },
+        "outputs": {
+          "precision": 0.716,
+          "recall": 0.535,
+          "f1": 0.612
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.372,
+          "f1": 0.542
+        },
+        "moves": {
+          "precision": 0.631,
+          "recall": 0.11,
+          "f1": 0.187
+        },
+        "overall": {
+          "precision": 0.8367500000000001,
+          "recall": 0.37625000000000003,
+          "f1": 0.519
+        },
+        "n_processes": 43
+      },
+      "prior_lesion": {
+        "inputs": {
+          "precision": 0.955,
+          "recall": 0.589,
+          "f1": 0.729
+        },
+        "outputs": {
+          "precision": 0.698,
+          "recall": 0.651,
+          "f1": 0.674
+        },
+        "conversions": {
+          "precision": 0.977,
+          "recall": 0.372,
+          "f1": 0.539
+        },
+        "moves": {
+          "precision": 0.361,
+          "recall": 0.182,
+          "f1": 0.242
+        },
+        "overall": {
+          "precision": 0.7477499999999999,
+          "recall": 0.4485,
+          "f1": 0.561
+        },
+        "n_processes": 43
+      },
+      "reasoning": {
+        "inputs": {
+          "precision": 0.967,
+          "recall": 0.558,
+          "f1": 0.708
+        },
+        "outputs": {
+          "precision": 0.75,
+          "recall": 0.605,
+          "f1": 0.67
+        },
+        "conversions": {
+          "precision": 0.957,
+          "recall": 0.373,
+          "f1": 0.537
+        },
+        "moves": {
+          "precision": 0.457,
+          "recall": 0.24,
+          "f1": 0.315
+        },
+        "overall": {
+          "precision": 0.78275,
+          "recall": 0.444,
+          "f1": 0.567
+        },
+        "n_processes": 43
+      }
+    },
+    "proxy": {
+      "majority": {
+        "overall": {
+          "n": 1204,
+          "accuracy": 0.7425249169435216,
+          "macro_f1": 0.2130600571973308
+        },
+        "mentioned": {
+          "n": 434,
+          "accuracy": 0.46543778801843316,
+          "macro_f1": 0.15880503144654087
+        },
+        "unmentioned": {
+          "n": 770,
+          "accuracy": 0.8987012987012987,
+          "macro_f1": 0.23666210670314639
+        }
+      },
+      "bow_singlestep": {
+        "overall": {
+          "n": 1204,
+          "accuracy": 0.7558139534883721,
+          "macro_f1": 0.4163029846699447
+        },
+        "mentioned": {
+          "n": 434,
+          "accuracy": 0.5023041474654378,
+          "macro_f1": 0.3927210003647591
+        },
+        "unmentioned": {
+          "n": 770,
+          "accuracy": 0.8987012987012987,
+          "macro_f1": 0.23666210670314639
+        }
+      },
+      "bagstates": {
+        "overall": {
+          "n": 1204,
+          "accuracy": 0.6710963455149501,
+          "macro_f1": 0.24065007614867165
+        },
+        "mentioned": {
+          "n": 434,
+          "accuracy": 0.43548387096774194,
+          "macro_f1": 0.2035575012588952
+        },
+        "unmentioned": {
+          "n": 770,
+          "accuracy": 0.8038961038961039,
+          "macro_f1": 0.2419094984589521
+        }
+      },
+      "prior_lesion": {
+        "overall": {
+          "n": 1204,
+          "accuracy": 0.6137873754152824,
+          "macro_f1": 0.2634074060658746
+        },
+        "mentioned": {
+          "n": 434,
+          "accuracy": 0.391705069124424,
+          "macro_f1": 0.24004037121415173
+        },
+        "unmentioned": {
+          "n": 770,
+          "accuracy": 0.7389610389610389,
+          "macro_f1": 0.23406557067271355
+        }
+      },
+      "reasoning": {
+        "overall": {
+          "n": 1204,
+          "accuracy": 0.7159468438538206,
+          "macro_f1": 0.43599213392253455
+        },
+        "mentioned": {
+          "n": 434,
+          "accuracy": 0.4608294930875576,
+          "macro_f1": 0.3934063515958762
+        },
+        "unmentioned": {
+          "n": 770,
+          "accuracy": 0.8597402597402597,
+          "macro_f1": 0.2950851268872471
+        }
+      }
+    },
+    "loc_official_f1": {
+      "majority": 0.35600000000000004,
+      "bow_singlestep": 0.40950000000000003,
+      "bagstates": 0.36450000000000005,
+      "prior_lesion": 0.3905,
+      "reasoning": 0.42600000000000005
+    },
+    "existence_official_f1": {
+      "majority": 0.517,
+      "bow_singlestep": 0.679,
+      "bagstates": 0.634,
+      "prior_lesion": 0.7015,
+      "reasoning": 0.6890000000000001
+    },
+    "focus_macro_f1": {
+      "majority": 0.23666210670314639,
+      "bow_singlestep": 0.23666210670314639,
+      "bagstates": 0.2419094984589521,
+      "prior_lesion": 0.23406557067271355,
+      "reasoning": 0.2950851268872471
+    },
+    "moves_f1": {
+      "majority": 0.17,
+      "bow_singlestep": 0.277,
+      "bagstates": 0.187,
+      "prior_lesion": 0.242,
+      "reasoning": 0.315
+    },
+    "conversions_f1": {
+      "majority": 0.542,
+      "bow_singlestep": 0.542,
+      "bagstates": 0.542,
+      "prior_lesion": 0.539,
+      "reasoning": 0.537
+    },
+    "content_delta_loc": 0.03550000000000003,
+    "content_delta_moves": 0.07300000000000001,
+    "content_delta_focus": 0.06101955621453353,
+    "per_seed_scramble": {
+      "7": {
+        "scramble_loc_f1": 0.42200000000000004,
+        "scramble_moves_f1": 0.313,
+        "content_delta_loc_scramble": 0.03150000000000003,
+        "retained_frac_loc": 0.8873239436619719,
+        "decode_fidelity": 1.0
+      },
+      "17": {
+        "scramble_loc_f1": 0.4265,
+        "scramble_moves_f1": 0.319,
+        "content_delta_loc_scramble": 0.035999999999999976,
+        "retained_frac_loc": 1.014084507042252,
+        "decode_fidelity": 1.0
+      }
+    },
+    "retained_frac_loc_stats": {
+      "list": [
+        0.8873239436619719,
+        1.014084507042252
+      ],
+      "median": 0.9507042253521119,
+      "mean": 0.9507042253521119,
+      "min": 0.8873239436619719,
+      "max": 1.014084507042252,
+      "frac_below_0.30": 0.0
+    }
+  },
+  "headline": {
+    "content_delta_loc_EXTRACTED": 0.03550000000000003,
+    "content_delta_moves_EXTRACTED": 0.07300000000000001,
+    "retained_frac_loc_median": 0.9507042253521119,
+    "retained_frac_loc_list": [
+      0.8873239436619719,
+      1.014084507042252
+    ],
+    "retained_frac_loc_frac_below_0.30": 0.0,
+    "moves_f1": {
+      "majority": 0.17,
+      "bow_singlestep": 0.277,
+      "bagstates": 0.187,
+      "prior_lesion": 0.242,
+      "reasoning": 0.315
+    },
+    "loc_official_f1": {
+      "majority": 0.35600000000000004,
+      "bow_singlestep": 0.40950000000000003,
+      "bagstates": 0.36450000000000005,
+      "prior_lesion": 0.3905,
+      "reasoning": 0.42600000000000005
+    },
+    "existence_official_f1_SEPARATE_not_in_claim": {
+      "majority": 0.517,
+      "bow_singlestep": 0.679,
+      "bagstates": 0.634,
+      "prior_lesion": 0.7015,
+      "reasoning": 0.6890000000000001
+    },
+    "focus_macro_f1_SECONDARY": {
+      "majority": 0.23666210670314639,
+      "bow_singlestep": 0.23666210670314639,
+      "bagstates": 0.2419094984589521,
+      "prior_lesion": 0.23406557067271355,
+      "reasoning": 0.2950851268872471
+    },
+    "EXTRACTION_COST_budget_exact_match": 0.1714,
+    "EXTRACTION_COST_per_class": {
+      "CREATE": {
+        "precision": 0.6222,
+        "recall": 0.6588,
+        "f1": 0.64,
+        "tp": 56,
+        "fp": 34,
+        "fn": 29
+      },
+      "MOVE": {
+        "precision": 0.487,
+        "recall": 0.3567,
+        "f1": 0.4118,
+        "tp": 56,
+        "fp": 59,
+        "fn": 101
+      },
+      "DESTROY": {
+        "precision": 0.6757,
+        "recall": 0.3676,
+        "f1": 0.4762,
+        "tp": 25,
+        "fp": 12,
+        "fn": 43
+      }
+    },
+    "v3_oracle_reference": {
+      "content_delta_loc": 0.027,
+      "content_delta_moves": 0.082,
+      "median_retained": 0.185,
+      "note": "MEASURED@data/exp_propara_decisive_inference_arm1_v3_stateful_verb_v1/metrics.json"
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: bands = v3 oracle bands, applied unchanged (ARM2 is the extraction-cost test against v3's oracle result, not re-tuned)",
+  "thresholds": {
+    "CONTENT_DELTA_LOC_MIN_POSITIVE": 0.02,
+    "SCRAMBLE_CLEAN_MEDIAN_HARD_PASS": 0.3,
+    "SCRAMBLE_FRAGILE_MEDIAN_HARD_FAIL": 0.55
+  }
+}

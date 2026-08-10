@@ -1,0 +1,4866 @@
+{
+  "_meta": {
+    "model": "biu-nlp/f-coref",
+    "lib": "fastcoref",
+    "env": "system_python_transformers_4.57.3",
+    "text_join": "single_space"
+  },
+  "dev": {
+    "4": {
+      "text": "Plants die. They are buried in sediment. Bacteria is buried in the sediment. Large amounts of sediment gradually pile on top of the original sediment. Pressure builds up. Heat increases. The chemical structure of the buried sediment and plants changes. The sediment and plants are at least one mile underground. The buried area is extremely hot. More chemical changes happen and the buried material becomes oil.",
+      "sentence_offsets": [
+        0,
+        12,
+        41,
+        77,
+        151,
+        171,
+        187,
+        253,
+        312,
+        346
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            0,
+            6
+          ],
+          [
+            12,
+            16
+          ]
+        ],
+        [
+          [
+            31,
+            39
+          ],
+          [
+            63,
+            75
+          ],
+          [
+            63,
+            149
+          ],
+          [
+            128,
+            149
+          ]
+        ],
+        [
+          [
+            213,
+            243
+          ],
+          [
+            253,
+            276
+          ]
+        ],
+        [
+          [
+            312,
+            327
+          ],
+          [
+            379,
+            398
+          ]
+        ]
+      ]
+    },
+    "5": {
+      "text": "Algae and plankton die. The dead algae and plankton end up part of sediment on a seafloor. The sediment breaks down. The bottom layers of sediment become compacted by pressure. Higher pressure causes the sediment to heat up. The heat causes chemical processes. The material becomes a liquid. Is known as oil. Oil moves up through rock.",
+      "sentence_offsets": [
+        0,
+        24,
+        91,
+        117,
+        177,
+        225,
+        261,
+        292,
+        309
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            67,
+            89
+          ],
+          [
+            91,
+            103
+          ],
+          [
+            200,
+            212
+          ],
+          [
+            261,
+            273
+          ]
+        ],
+        [
+          [
+            216,
+            220
+          ],
+          [
+            225,
+            233
+          ]
+        ]
+      ]
+    },
+    "272": {
+      "text": "A fuel goes into the generator. The generator converts mechanical energy into electrical energy. A magnet moves near a wire. A steady flow of electrons is C. Electricity flows through a wire. Electricity comes out of the generator.",
+      "sentence_offsets": [
+        0,
+        32,
+        97,
+        125,
+        158,
+        192
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            17,
+            30
+          ],
+          [
+            32,
+            45
+          ],
+          [
+            217,
+            230
+          ]
+        ]
+      ]
+    },
+    "349": {
+      "text": "Something happens to produce a sound. The sound travels in waves. The sound waves hit an object. The object absorbs some of the sound waves. Some of the sound waves bounce off of the object. The reflected sound waves can be heard, though they have slightly different properties than the original sound. The sound continues to bounce off of things and produce echoes until it is totally absorbed or dissipated.",
+      "sentence_offsets": [
+        0,
+        38,
+        66,
+        97,
+        141,
+        191,
+        303
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            29,
+            36
+          ],
+          [
+            38,
+            47
+          ],
+          [
+            303,
+            312
+          ],
+          [
+            372,
+            374
+          ]
+        ],
+        [
+          [
+            59,
+            64
+          ],
+          [
+            66,
+            81
+          ],
+          [
+            124,
+            139
+          ],
+          [
+            149,
+            164
+          ]
+        ],
+        [
+          [
+            86,
+            95
+          ],
+          [
+            97,
+            107
+          ],
+          [
+            179,
+            189
+          ]
+        ],
+        [
+          [
+            191,
+            216
+          ],
+          [
+            238,
+            242
+          ]
+        ]
+      ]
+    },
+    "375": {
+      "text": "Electricity enters the computer. Some electricity becomes light. Some light becomes heat when it hits something. Some electricity becomes motion in a hard drive, dvd drive or fan. Motion energy also becomes heat.",
+      "sentence_offsets": [
+        0,
+        33,
+        65,
+        113,
+        180
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            65,
+            75
+          ],
+          [
+            94,
+            96
+          ]
+        ]
+      ]
+    },
+    "388": {
+      "text": "Waters flows downwards thanks to gravity. Enters the dam at high pressure. The moving water spins the turbines in the power plant. The turbines turn the generators. The generators spin, and produce electricity. The water leaves the dam at the bottom.",
+      "sentence_offsets": [
+        0,
+        42,
+        75,
+        131,
+        165,
+        211
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            6
+          ],
+          [
+            75,
+            91
+          ],
+          [
+            211,
+            220
+          ]
+        ],
+        [
+          [
+            98,
+            129
+          ],
+          [
+            131,
+            143
+          ],
+          [
+            149,
+            163
+          ],
+          [
+            165,
+            179
+          ]
+        ]
+      ]
+    },
+    "390": {
+      "text": "A reservoir is formed. The collects water converting the water's from kinectic to potential. The water is forced through a turbine under the reservoir. The turbine spins and so does the generator connected to it. The water's energy is turned into electrical energy. The transformer converts electrical energy from the generator to a high voltage. The national grid uses high voltages to transmit electricity through the power lines.",
+      "sentence_offsets": [
+        0,
+        23,
+        93,
+        152,
+        213,
+        266,
+        347
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            36,
+            41
+          ],
+          [
+            53,
+            64
+          ],
+          [
+            93,
+            102
+          ],
+          [
+            213,
+            224
+          ]
+        ],
+        [
+          [
+            0,
+            11
+          ],
+          [
+            137,
+            150
+          ]
+        ],
+        [
+          [
+            121,
+            150
+          ],
+          [
+            152,
+            163
+          ],
+          [
+            209,
+            211
+          ]
+        ],
+        [
+          [
+            182,
+            211
+          ],
+          [
+            314,
+            327
+          ]
+        ]
+      ]
+    },
+    "394": {
+      "text": "Fuel produces heat. Water is boiled to make steam. Steam spins turbine. Generator is turned. Makes electricity. Electricity transfers to transformers. Produces the correct voltage.",
+      "sentence_offsets": [
+        0,
+        20,
+        51,
+        72,
+        93,
+        112,
+        151
+      ],
+      "n_sentences": 7,
+      "clusters": []
+    },
+    "396": {
+      "text": "Uranium fuel is placed in the nuclear reactor. The uranium atoms are split (fission) to produce heat. The heat is used to turn water into steam. The steam drives a turbine. The turbine spins a genator. The spinning generator creates electricity.",
+      "sentence_offsets": [
+        0,
+        47,
+        102,
+        145,
+        173,
+        202
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            96,
+            100
+          ],
+          [
+            102,
+            110
+          ]
+        ],
+        [
+          [
+            138,
+            143
+          ],
+          [
+            145,
+            154
+          ]
+        ],
+        [
+          [
+            162,
+            171
+          ],
+          [
+            173,
+            184
+          ]
+        ],
+        [
+          [
+            191,
+            200
+          ],
+          [
+            202,
+            224
+          ]
+        ]
+      ]
+    },
+    "430": {
+      "text": "Trash is made during household activities. Trash is collected within the house. Sometimes trash is sorted into recycling. Trash is put out at the curbside. The city collects the trash. The trash is placed into a truck. The truck drives to a landfill. The trash is unloaded. Sometimes the trash might be sorted more. The trash is put into the landfill.",
+      "sentence_offsets": [
+        0,
+        43,
+        80,
+        122,
+        156,
+        185,
+        219,
+        251,
+        274,
+        316
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            122,
+            127
+          ],
+          [
+            174,
+            183
+          ],
+          [
+            185,
+            194
+          ],
+          [
+            251,
+            260
+          ],
+          [
+            284,
+            293
+          ],
+          [
+            316,
+            325
+          ]
+        ],
+        [
+          [
+            210,
+            217
+          ],
+          [
+            219,
+            228
+          ]
+        ],
+        [
+          [
+            239,
+            249
+          ],
+          [
+            338,
+            350
+          ]
+        ]
+      ]
+    },
+    "431": {
+      "text": "Trash is put into a household trashbag. The trashbags are thrown into a large outdoor trashcan. The trashcan is emptied by a large trash truck. The trash truck travels to the landfill. Unloads all the trash the truck has collected.",
+      "sentence_offsets": [
+        0,
+        40,
+        96,
+        144,
+        185
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            18,
+            38
+          ],
+          [
+            40,
+            53
+          ]
+        ],
+        [
+          [
+            70,
+            94
+          ],
+          [
+            96,
+            108
+          ]
+        ],
+        [
+          [
+            123,
+            142
+          ],
+          [
+            144,
+            159
+          ],
+          [
+            207,
+            216
+          ]
+        ]
+      ]
+    },
+    "432": {
+      "text": "Trash is deposited in a large can or in bags outside of the house. The trash is picked up by workers who put it on a garbage truck. The garbage truck is driven to a sorting center. The garbage is sorted. Some of the garbage is saved for recycling. The rest of the garbage is driven to the landfill.",
+      "sentence_offsets": [
+        0,
+        67,
+        132,
+        181,
+        204,
+        248
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            67,
+            76
+          ],
+          [
+            109,
+            111
+          ],
+          [
+            181,
+            192
+          ],
+          [
+            212,
+            223
+          ],
+          [
+            260,
+            271
+          ]
+        ],
+        [
+          [
+            115,
+            130
+          ],
+          [
+            132,
+            149
+          ]
+        ]
+      ]
+    },
+    "445": {
+      "text": "The magma comes out from a volcano. The magma cools and becomes a rock. Over time the rock picks up sediment which changes the type of rock. This creates a sedimentary rock. The heat from inside and outside can cook a rock. This heat forms a third kind of rock. The cycle continues around the three types of rocks.",
+      "sentence_offsets": [
+        0,
+        36,
+        72,
+        141,
+        174,
+        224,
+        262
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            36,
+            45
+          ]
+        ],
+        [
+          [
+            64,
+            70
+          ],
+          [
+            82,
+            90
+          ]
+        ],
+        [
+          [
+            91,
+            96
+          ],
+          [
+            141,
+            145
+          ]
+        ],
+        [
+          [
+            174,
+            206
+          ],
+          [
+            224,
+            233
+          ]
+        ]
+      ]
+    },
+    "446": {
+      "text": "Rock begins as magma from a volcano. The magma cools. Crystals form and the magma become igneous rocks. The igneous rocks break down into sediment become sedimentary rocks. If subjected to heat and/or pressure from plate-tectonic activity the sedimentary rocks become metamorphic rock. The metaphoric rocks melt becoming magma again.",
+      "sentence_offsets": [
+        0,
+        37,
+        54,
+        104,
+        173,
+        286
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            15,
+            35
+          ],
+          [
+            37,
+            46
+          ],
+          [
+            72,
+            81
+          ]
+        ],
+        [
+          [
+            89,
+            102
+          ],
+          [
+            104,
+            121
+          ]
+        ],
+        [
+          [
+            138,
+            146
+          ],
+          [
+            239,
+            260
+          ]
+        ]
+      ]
+    },
+    "509": {
+      "text": "Fuel is injected into the chamber. The piston moves upwards. Compresses the fuel. The fuel explodes. Chemical energy becomes thermal energy. The explosion pushes the piston downward. The piston moves upwards again. The spent fuel is ejected. New fuel is injected. The cycle repeats.",
+      "sentence_offsets": [
+        0,
+        35,
+        61,
+        82,
+        101,
+        141,
+        183,
+        215,
+        242,
+        264
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            72,
+            80
+          ],
+          [
+            82,
+            90
+          ]
+        ],
+        [
+          [
+            91,
+            99
+          ],
+          [
+            141,
+            154
+          ]
+        ],
+        [
+          [
+            35,
+            45
+          ],
+          [
+            162,
+            172
+          ],
+          [
+            183,
+            193
+          ]
+        ]
+      ]
+    },
+    "514": {
+      "text": "Snow falls in an area for a very long time. The snow builds up for a very long time. The snow starts to become packed very firmly. The snow becomes something that's more like ice. Air pockets in the mass continue to grow smaller. The mass becomes solid and heavy enough to be called a glacier. The glacier moves because of gravity.",
+      "sentence_offsets": [
+        0,
+        44,
+        85,
+        131,
+        180,
+        230,
+        294
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            44,
+            52
+          ],
+          [
+            85,
+            93
+          ],
+          [
+            131,
+            139
+          ]
+        ],
+        [
+          [
+            195,
+            203
+          ],
+          [
+            230,
+            238
+          ]
+        ],
+        [
+          [
+            283,
+            292
+          ],
+          [
+            294,
+            305
+          ]
+        ]
+      ]
+    },
+    "542": {
+      "text": "Waste builds up in the blood. Blood enters the kidney. Blood passes through nephrons in the kidney. Different kinds of waste are momentarily trapped in the kidney. Cleaned blood flows out of the kidney. Filtered waste accumulates in liquid form (urine). Urine flows out of the kidney into the bladder.",
+      "sentence_offsets": [
+        0,
+        30,
+        55,
+        100,
+        164,
+        203,
+        254
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            43,
+            53
+          ],
+          [
+            88,
+            98
+          ],
+          [
+            152,
+            162
+          ],
+          [
+            191,
+            201
+          ]
+        ]
+      ]
+    },
+    "543": {
+      "text": "Blood is carried into the kidneys by the renal artery. Kidneys filter that blood tiny filters inside the kidneys called nephrons. Remove the waste from the blood. The waste that is collected combines with water to become urine. As each kidney makes urine, the urine slides down a long tube called the ureter. Collects in the bladder. The filtered blood is sent back into the body.",
+      "sentence_offsets": [
+        0,
+        55,
+        130,
+        163,
+        228,
+        309,
+        334
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            70,
+            80
+          ]
+        ],
+        [
+          [
+            22,
+            33
+          ],
+          [
+            101,
+            112
+          ]
+        ],
+        [
+          [
+            137,
+            146
+          ],
+          [
+            163,
+            190
+          ]
+        ],
+        [
+          [
+            249,
+            254
+          ],
+          [
+            256,
+            265
+          ]
+        ]
+      ]
+    },
+    "544": {
+      "text": "They take in fluids and liquids. They process the fluid. They take out the toxins. Produce urine. Urine is released. The nutrients are returned to the body.",
+      "sentence_offsets": [
+        0,
+        33,
+        57,
+        83,
+        98,
+        117
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            33,
+            37
+          ],
+          [
+            57,
+            61
+          ]
+        ],
+        [
+          [
+            13,
+            31
+          ],
+          [
+            46,
+            55
+          ]
+        ]
+      ]
+    },
+    "608": {
+      "text": "Fuel enters the engine through a carburetor or fuel injectors. Air is let into the engine at the same time as the fuel. The piston in the engine moves downwards compressing the air and fuel mixture. A spark plug causes a spark at the bottom stroke of the piston. An explosion occurs in the engine forcing the piston back upwards. As the piston goes up the valves for fuel and air open again. Fuel and air go in, and the process repeats. The moving pistons are attached via connecting rods to a shaft. The shaft rotates out of the motor to turn the piston energy into rotational energy.",
+      "sentence_offsets": [
+        0,
+        63,
+        120,
+        199,
+        263,
+        330,
+        392,
+        437,
+        501
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            12,
+            22
+          ],
+          [
+            79,
+            89
+          ],
+          [
+            134,
+            144
+          ],
+          [
+            286,
+            296
+          ]
+        ],
+        [
+          [
+            0,
+            4
+          ],
+          [
+            110,
+            118
+          ]
+        ],
+        [
+          [
+            120,
+            144
+          ],
+          [
+            251,
+            261
+          ],
+          [
+            305,
+            315
+          ],
+          [
+            333,
+            343
+          ]
+        ],
+        [
+          [
+            492,
+            499
+          ],
+          [
+            501,
+            510
+          ]
+        ]
+      ]
+    },
+    "609": {
+      "text": "The piston starts at the top, the intake valve opens, and the piston moves down to let the engine take in a cylinder-full of air and gasoline. Then the piston moves back up to compress this fuel/air mixture. Compression makes the explosion more powerful. When the piston reaches the top of its stroke, the spark plug emits a spark to ignite the gasoline. The gasoline charge in the cylinder explodes, driving the piston down. Once the piston hits the bottom of its stroke, the exhaust valve opens and the exhaust leaves the cylinder to go out the tailpipe.",
+      "sentence_offsets": [
+        0,
+        143,
+        208,
+        255,
+        355,
+        426
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            58,
+            68
+          ],
+          [
+            148,
+            158
+          ],
+          [
+            260,
+            270
+          ],
+          [
+            290,
+            293
+          ],
+          [
+            409,
+            419
+          ],
+          [
+            431,
+            441
+          ],
+          [
+            461,
+            464
+          ]
+        ],
+        [
+          [
+            133,
+            141
+          ],
+          [
+            341,
+            353
+          ]
+        ],
+        [
+          [
+            290,
+            300
+          ],
+          [
+            461,
+            471
+          ]
+        ],
+        [
+          [
+            378,
+            390
+          ],
+          [
+            520,
+            532
+          ]
+        ]
+      ]
+    },
+    "610": {
+      "text": "Fuels burns in the combustion chamber. The burning fuel creates energy. The upward motion cause air to be released into the cylinder. The piston compresses the air. A spark ignites the fuel and air inside the cylinder. The pressure pushes the piston down. The exhaust valve opens. The piston pushes the air out of the cylinder.",
+      "sentence_offsets": [
+        0,
+        39,
+        72,
+        134,
+        165,
+        219,
+        256,
+        281
+      ],
+      "n_sentences": 8,
+      "clusters": [
+        [
+          [
+            96,
+            99
+          ],
+          [
+            156,
+            163
+          ]
+        ],
+        [
+          [
+            120,
+            132
+          ],
+          [
+            205,
+            217
+          ],
+          [
+            314,
+            326
+          ]
+        ],
+        [
+          [
+            134,
+            144
+          ],
+          [
+            239,
+            249
+          ],
+          [
+            281,
+            291
+          ]
+        ]
+      ]
+    },
+    "629": {
+      "text": "People put trash in a plastic bag. The plastic bag is put into a garbage can. The garbage can is rolled outside. The garbage truck comes to the house. Workers take the plastic bag out of the garbage can and place it in the truck. The truck drives to the landfill. The truck dumps the trash into the landfill.",
+      "sentence_offsets": [
+        0,
+        35,
+        78,
+        113,
+        151,
+        230,
+        264
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            20,
+            33
+          ],
+          [
+            35,
+            50
+          ],
+          [
+            164,
+            179
+          ],
+          [
+            213,
+            215
+          ]
+        ],
+        [
+          [
+            63,
+            76
+          ],
+          [
+            78,
+            93
+          ],
+          [
+            187,
+            202
+          ]
+        ],
+        [
+          [
+            113,
+            130
+          ],
+          [
+            219,
+            228
+          ],
+          [
+            230,
+            239
+          ],
+          [
+            264,
+            273
+          ]
+        ],
+        [
+          [
+            250,
+            262
+          ],
+          [
+            295,
+            307
+          ]
+        ]
+      ]
+    },
+    "630": {
+      "text": "Trash is placed into a garbage container in the house. The trash is moved to a centralized container for the house. Trash is picked up by a sanitation company. The trash is combined in a large truck with trash from all around the city. The truck goes to the landfill. The truck dumps the trash into the landfill.",
+      "sentence_offsets": [
+        0,
+        55,
+        116,
+        160,
+        236,
+        268
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            55,
+            64
+          ],
+          [
+            160,
+            169
+          ],
+          [
+            284,
+            293
+          ]
+        ],
+        [
+          [
+            44,
+            53
+          ],
+          [
+            105,
+            114
+          ]
+        ],
+        [
+          [
+            185,
+            198
+          ],
+          [
+            236,
+            245
+          ],
+          [
+            268,
+            277
+          ]
+        ],
+        [
+          [
+            254,
+            266
+          ],
+          [
+            299,
+            311
+          ]
+        ]
+      ]
+    },
+    "631": {
+      "text": "Trash is bagged up. Bags get carried out to the trashcan. Trashcan is put at the curb once a week. Can gets emptied into trash truck. As the truck fills it will compact the trash. When the truck is full it heads to the landfill. The truck dumps its load into the landfill.",
+      "sentence_offsets": [
+        0,
+        20,
+        58,
+        99,
+        134,
+        180,
+        229
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            44,
+            56
+          ],
+          [
+            58,
+            66
+          ]
+        ],
+        [
+          [
+            121,
+            132
+          ],
+          [
+            137,
+            146
+          ],
+          [
+            153,
+            155
+          ],
+          [
+            185,
+            194
+          ],
+          [
+            203,
+            205
+          ],
+          [
+            229,
+            238
+          ],
+          [
+            245,
+            248
+          ]
+        ],
+        [
+          [
+            215,
+            227
+          ],
+          [
+            259,
+            271
+          ]
+        ]
+      ]
+    },
+    "632": {
+      "text": "Electricity comes into the computer from the plug. The electricity runs the components in the computer. Electricity turns the fan to keep the components cool. Heat is released from the computer. Electricity runs the computer's display. Light is formed from the electricity.",
+      "sentence_offsets": [
+        0,
+        51,
+        104,
+        159,
+        195,
+        236
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            51,
+            66
+          ]
+        ],
+        [
+          [
+            23,
+            35
+          ],
+          [
+            90,
+            102
+          ],
+          [
+            181,
+            193
+          ],
+          [
+            212,
+            226
+          ]
+        ],
+        [
+          [
+            72,
+            102
+          ],
+          [
+            138,
+            152
+          ]
+        ],
+        [
+          [
+            195,
+            206
+          ],
+          [
+            257,
+            272
+          ]
+        ]
+      ]
+    },
+    "634": {
+      "text": "Electricity enters the power supply unit. The power supply gives electricity to transistors. The power supply gives electricity to the CPU. The systems use electricity to complete tasks. The signals they complete are sent out as visual signals. The energy is used to complete computations.",
+      "sentence_offsets": [
+        0,
+        42,
+        93,
+        140,
+        187,
+        245
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            19,
+            40
+          ],
+          [
+            42,
+            58
+          ],
+          [
+            93,
+            109
+          ]
+        ],
+        [
+          [
+            140,
+            151
+          ],
+          [
+            199,
+            203
+          ]
+        ],
+        [
+          [
+            156,
+            167
+          ],
+          [
+            245,
+            255
+          ]
+        ]
+      ]
+    },
+    "1002": {
+      "text": "Add dirty laundry to the washing machine. Add laundry detergent to the washing machine. Select the setting for the load of laundry. Close the door of the washing machine. Turn on the washing machine.",
+      "sentence_offsets": [
+        0,
+        42,
+        88,
+        132,
+        171
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            21,
+            40
+          ],
+          [
+            67,
+            86
+          ],
+          [
+            150,
+            169
+          ],
+          [
+            179,
+            198
+          ]
+        ]
+      ]
+    },
+    "1007": {
+      "text": "A plant dies and withers. The dead plant starts to draw microbes. The microbes break down the material. Forms decay. The resulting material disappears. The plant becomes one with the soil.",
+      "sentence_offsets": [
+        0,
+        26,
+        66,
+        104,
+        117,
+        152
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            7
+          ],
+          [
+            26,
+            40
+          ],
+          [
+            152,
+            161
+          ]
+        ],
+        [
+          [
+            56,
+            64
+          ],
+          [
+            66,
+            78
+          ]
+        ],
+        [
+          [
+            90,
+            102
+          ],
+          [
+            117,
+            139
+          ]
+        ]
+      ]
+    },
+    "1008": {
+      "text": "A plant dies. Bacteria from the ground migrate to the plant material. Bacteria release enzymes onto the plant material. The enzymes break down the plant cells to simpler components. The bacteria absorb the resulting components.",
+      "sentence_offsets": [
+        0,
+        14,
+        70,
+        120,
+        182
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            7
+          ],
+          [
+            50,
+            68
+          ],
+          [
+            100,
+            118
+          ]
+        ],
+        [
+          [
+            87,
+            94
+          ],
+          [
+            120,
+            131
+          ]
+        ],
+        [
+          [
+            70,
+            78
+          ],
+          [
+            182,
+            194
+          ]
+        ],
+        [
+          [
+            162,
+            180
+          ],
+          [
+            202,
+            226
+          ]
+        ]
+      ]
+    },
+    "1112": {
+      "text": "Dissolution of limestone forms caves. Rain gets carbon dioxide from the air. When rain goes into soil it creates an acid. The acid dissolves the limestone along cracks. Some will dissolve enough to form caves.",
+      "sentence_offsets": [
+        0,
+        38,
+        77,
+        122,
+        169
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            82,
+            86
+          ],
+          [
+            102,
+            104
+          ]
+        ],
+        [
+          [
+            113,
+            120
+          ],
+          [
+            122,
+            130
+          ]
+        ]
+      ]
+    },
+    "1113": {
+      "text": "Rainwater picks up carbon dioxide from the air. Rainwater goes into soil. Water with carbon dioxide percolates through soil. The water becomes a weak acid. The water dissolves limestone. Caves form where the limestone was dissolved.",
+      "sentence_offsets": [
+        0,
+        48,
+        74,
+        125,
+        156,
+        187
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            74,
+            99
+          ],
+          [
+            125,
+            134
+          ],
+          [
+            156,
+            165
+          ]
+        ],
+        [
+          [
+            176,
+            185
+          ],
+          [
+            204,
+            217
+          ]
+        ]
+      ]
+    },
+    "1114": {
+      "text": "Rainwater falls onto the soil. The rainwater seeps into the soil. The water starts going into the bedrock below. The bedrock erodes after much time passes. The bedrock forms funnels. The funnels grow larger and wider. The funnels finally become caves.",
+      "sentence_offsets": [
+        0,
+        31,
+        66,
+        113,
+        156,
+        183,
+        218
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            31,
+            44
+          ],
+          [
+            66,
+            75
+          ]
+        ],
+        [
+          [
+            21,
+            29
+          ],
+          [
+            56,
+            64
+          ]
+        ],
+        [
+          [
+            94,
+            111
+          ],
+          [
+            113,
+            124
+          ],
+          [
+            113,
+            167
+          ],
+          [
+            156,
+            167
+          ]
+        ],
+        [
+          [
+            174,
+            181
+          ],
+          [
+            183,
+            194
+          ],
+          [
+            218,
+            229
+          ]
+        ]
+      ]
+    },
+    "1197": {
+      "text": "Food enters the mouth. Food mixes with saliva. Food is swallowed. Enzymes in the stomach break down the food. The food moves to the small intestine. Hormones from the pancreas move to the small intestine. The hormones create the amount of sugar in the blood from the food. The sugar in the blood travels to the body. The sugar provides energy for the muscles.",
+      "sentence_offsets": [
+        0,
+        23,
+        47,
+        66,
+        110,
+        149,
+        205,
+        273,
+        317
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            23,
+            27
+          ],
+          [
+            47,
+            51
+          ],
+          [
+            100,
+            108
+          ],
+          [
+            110,
+            118
+          ],
+          [
+            263,
+            271
+          ]
+        ],
+        [
+          [
+            128,
+            147
+          ],
+          [
+            184,
+            203
+          ]
+        ],
+        [
+          [
+            149,
+            175
+          ],
+          [
+            205,
+            217
+          ]
+        ],
+        [
+          [
+            248,
+            257
+          ],
+          [
+            286,
+            295
+          ]
+        ],
+        [
+          [
+            273,
+            295
+          ],
+          [
+            317,
+            326
+          ]
+        ]
+      ]
+    },
+    "1226": {
+      "text": "Food is entered into the gut. The pancreas secretes enyzmes. Some of the enzymes break down fat. It breaks down carbohydrates. The broken down food can be passed. Absorbed by the body.",
+      "sentence_offsets": [
+        0,
+        30,
+        61,
+        97,
+        127,
+        163
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            61,
+            80
+          ],
+          [
+            97,
+            99
+          ]
+        ]
+      ]
+    },
+    "1259": {
+      "text": "A spider must find a suitable place for its web. The spider produces a thread from one its glands from one point to another. The spider does this in several points. The spider threads through each of the other threads forming a web. The spider reinforces the web.",
+      "sentence_offsets": [
+        0,
+        49,
+        125,
+        165,
+        233
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            8
+          ],
+          [
+            40,
+            43
+          ],
+          [
+            49,
+            59
+          ],
+          [
+            87,
+            90
+          ],
+          [
+            125,
+            135
+          ],
+          [
+            165,
+            175
+          ],
+          [
+            233,
+            243
+          ]
+        ],
+        [
+          [
+            60,
+            68
+          ],
+          [
+            141,
+            145
+          ]
+        ],
+        [
+          [
+            226,
+            231
+          ],
+          [
+            255,
+            262
+          ]
+        ]
+      ]
+    },
+    "1303": {
+      "text": "Food or milk that could spoil easily is brought in. Through methods of heating the food is treated. The microbes that may proliferate in the food are destroyed. Depending on the treatment this happens a few more times. The food is considered pasteurized.",
+      "sentence_offsets": [
+        0,
+        52,
+        100,
+        161,
+        219
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            36
+          ],
+          [
+            79,
+            87
+          ],
+          [
+            137,
+            145
+          ],
+          [
+            219,
+            227
+          ]
+        ],
+        [
+          [
+            91,
+            98
+          ],
+          [
+            174,
+            187
+          ]
+        ],
+        [
+          [
+            150,
+            159
+          ],
+          [
+            188,
+            192
+          ]
+        ]
+      ]
+    },
+    "708": {
+      "text": "Rocks are constantly worn down and broken by erosion. Erosion can be wind or water. Erosion breaks them down to sediment. Sediment gets compressed and heated or gets buried. When sediment is buried it then gets melted. When sediment is compressed it becomes metamorphic rock. Metamorphic rock gets buried. Buried metamorphic rock gets melted. Melted rock eventually cools. Rock pushed back to the surface.",
+      "sentence_offsets": [
+        0,
+        54,
+        84,
+        122,
+        174,
+        219,
+        276,
+        306,
+        343,
+        373
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            54,
+            61
+          ],
+          [
+            84,
+            91
+          ]
+        ],
+        [
+          [
+            0,
+            5
+          ],
+          [
+            99,
+            103
+          ]
+        ],
+        [
+          [
+            179,
+            187
+          ],
+          [
+            198,
+            200
+          ],
+          [
+            224,
+            232
+          ],
+          [
+            247,
+            249
+          ]
+        ]
+      ]
+    },
+    "716": {
+      "text": "Blood filled with waste flows into the kidneys. The kidneys are made up of filtering units called nephrons. The nephrons in the kidneys filter the blood. Produce urine. The urine leaves the kidneys. The cleaned blood goes back into the body.",
+      "sentence_offsets": [
+        0,
+        48,
+        108,
+        154,
+        169,
+        199
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            35,
+            46
+          ],
+          [
+            48,
+            59
+          ],
+          [
+            124,
+            135
+          ],
+          [
+            186,
+            197
+          ]
+        ],
+        [
+          [
+            75,
+            106
+          ],
+          [
+            108,
+            135
+          ]
+        ],
+        [
+          [
+            0,
+            23
+          ],
+          [
+            143,
+            152
+          ]
+        ],
+        [
+          [
+            162,
+            167
+          ],
+          [
+            169,
+            178
+          ]
+        ]
+      ]
+    },
+    "758": {
+      "text": "An engine must be powered by gas or some fuel source. The fuel source will power an alternator. An alternator will convert mechanical energy in to measurable electrical energy. Electrical energy will be channeled and moved. The electrons will run through to the outlets of the generator. When you plug something in to the outlets of the generator, a flow of current will conduct electrons.",
+      "sentence_offsets": [
+        0,
+        54,
+        96,
+        177,
+        224,
+        288
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            36,
+            52
+          ],
+          [
+            54,
+            69
+          ]
+        ],
+        [
+          [
+            81,
+            94
+          ],
+          [
+            96,
+            109
+          ]
+        ],
+        [
+          [
+            258,
+            286
+          ],
+          [
+            318,
+            346
+          ]
+        ],
+        [
+          [
+            273,
+            286
+          ],
+          [
+            333,
+            346
+          ]
+        ]
+      ]
+    },
+    "825": {
+      "text": "Uranium is underground. Uranium is dug up. Uranium is brought to nuclear power plants. Uranium atoms are split into two smaller atoms. Heat energy is released from the uranium. The heat energy turns water into steam in a nuclear reactor. The steam turns big turbines. The turbines drive generators. The generators make electricity. The steam turns back into water.",
+      "sentence_offsets": [
+        0,
+        24,
+        43,
+        87,
+        135,
+        177,
+        238,
+        268,
+        299,
+        332
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            135,
+            146
+          ],
+          [
+            177,
+            192
+          ]
+        ],
+        [
+          [
+            210,
+            215
+          ],
+          [
+            238,
+            247
+          ],
+          [
+            332,
+            341
+          ]
+        ],
+        [
+          [
+            254,
+            266
+          ],
+          [
+            268,
+            280
+          ]
+        ],
+        [
+          [
+            287,
+            297
+          ],
+          [
+            299,
+            313
+          ]
+        ]
+      ]
+    },
+    "826": {
+      "text": "A nuclear reactor generates heat by nuclear fission. The heat created raises steam. The steam runs through turbines. The turbines generate electricity. The electricity leaves the station.",
+      "sentence_offsets": [
+        0,
+        53,
+        84,
+        117,
+        152
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            77,
+            82
+          ],
+          [
+            84,
+            93
+          ]
+        ],
+        [
+          [
+            107,
+            115
+          ],
+          [
+            117,
+            129
+          ]
+        ],
+        [
+          [
+            139,
+            150
+          ],
+          [
+            152,
+            167
+          ]
+        ]
+      ]
+    },
+    "1260": {
+      "text": "The spider picks a suitable place. The spider produces sticky silk from its abdomen. The spider attaches it to objects where it wants to build the web. The spider strings this silk back and forth between objects. A web is created.",
+      "sentence_offsets": [
+        0,
+        35,
+        85,
+        152,
+        213
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            35,
+            45
+          ],
+          [
+            72,
+            75
+          ],
+          [
+            85,
+            95
+          ],
+          [
+            125,
+            127
+          ],
+          [
+            152,
+            162
+          ]
+        ],
+        [
+          [
+            55,
+            66
+          ],
+          [
+            105,
+            107
+          ],
+          [
+            171,
+            180
+          ]
+        ]
+      ]
+    }
+  },
+  "test": {
+    "37": {
+      "text": "A plant of animal dies in a watery environment. Is buried in mud and silt. Soft tissues quickly decompose leaving behind hard bones or shells. Over time sediment builds over the top and hardens into rock. As the bone decays mineral seeps in replacing it. Fossils are formed.",
+      "sentence_offsets": [
+        0,
+        48,
+        75,
+        143,
+        205,
+        255
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            208,
+            216
+          ],
+          [
+            251,
+            253
+          ]
+        ]
+      ]
+    },
+    "38": {
+      "text": "The animal dies and the body falls down. It is not eaten by anything. The body falls in a sandy or wet place. The soil forms around the body. Time passes on and the rock forms. Millions years later the fossil forms. A person now finds the fossil.",
+      "sentence_offsets": [
+        0,
+        41,
+        70,
+        110,
+        142,
+        177,
+        216
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            20,
+            28
+          ],
+          [
+            41,
+            43
+          ],
+          [
+            70,
+            78
+          ],
+          [
+            132,
+            140
+          ]
+        ],
+        [
+          [
+            198,
+            208
+          ],
+          [
+            235,
+            245
+          ]
+        ]
+      ]
+    },
+    "67": {
+      "text": "Plants die. The dead plants end up in swamps. The dead plants sink to the bottom of the swamps. Many more dead plants sink in the same area. The dead plants join together forming peat. Sediment covers the peat. The peat continues to decompose. The peat keeps carbon while eliminating other elements. The peat turns into coal after a long time.",
+      "sentence_offsets": [
+        0,
+        12,
+        46,
+        96,
+        141,
+        185,
+        211,
+        244,
+        300
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            12,
+            27
+          ],
+          [
+            46,
+            61
+          ],
+          [
+            141,
+            156
+          ]
+        ],
+        [
+          [
+            38,
+            44
+          ],
+          [
+            84,
+            94
+          ]
+        ],
+        [
+          [
+            179,
+            183
+          ],
+          [
+            201,
+            209
+          ],
+          [
+            211,
+            219
+          ],
+          [
+            211,
+            252
+          ],
+          [
+            244,
+            252
+          ],
+          [
+            300,
+            308
+          ]
+        ]
+      ]
+    },
+    "68": {
+      "text": "300 millions years ago plants and trees died. The plant and tree remains sank to the bottom of steamy, swampy areas. Layer upon layer of remains accumulated. Eventually forming a soggy, dense material called peat. The peat was buried over millions of years by sand, clay, and other mineral material. Pressure caused by the wait of the materials squeezed water from the peat. With the heat caused by increased burial peat slowly became coal.",
+      "sentence_offsets": [
+        0,
+        46,
+        117,
+        158,
+        214,
+        300,
+        375
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            177,
+            212
+          ],
+          [
+            214,
+            222
+          ],
+          [
+            365,
+            373
+          ]
+        ],
+        [
+          [
+            260,
+            298
+          ],
+          [
+            331,
+            344
+          ]
+        ]
+      ]
+    },
+    "69": {
+      "text": "Plants and trees die. Dead plants and trees pile up at the bottom of swamps. Dead plants and trees form layers called peat. Sand and clay cover the peat. The sand and clay form sedimentary rocks. Pressure caused by sedimentary rocks squeezes water out of the peat. Heat changes the material into coal.",
+      "sentence_offsets": [
+        0,
+        22,
+        77,
+        124,
+        154,
+        196,
+        265
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            104,
+            122
+          ],
+          [
+            144,
+            152
+          ],
+          [
+            255,
+            263
+          ]
+        ],
+        [
+          [
+            124,
+            137
+          ],
+          [
+            154,
+            171
+          ]
+        ],
+        [
+          [
+            215,
+            232
+          ],
+          [
+            278,
+            290
+          ]
+        ]
+      ]
+    },
+    "70": {
+      "text": "There is a lot of rain. Water levels of a river or lake get higher. Water builds up on the ground. Water covers streets. Water goes into houses. The rain or other source of water stops. Water flows into streams. The rest of the water evaporates.",
+      "sentence_offsets": [
+        0,
+        24,
+        68,
+        99,
+        121,
+        145,
+        186,
+        212
+      ],
+      "n_sentences": 8,
+      "clusters": []
+    },
+    "99": {
+      "text": "Rain clouds travel across the sky. Rain clouds are stopped or slowed by mountains or wind. The rain clouds drop the rain. The clouds are no longer raining when or if they reach the other side of the obstacle. On the other side of the mountains or rain, there isn't much rain. The area that receives little rain develops a very different ecosystem. The area that receives little rain becomes a desert.",
+      "sentence_offsets": [
+        0,
+        35,
+        91,
+        122,
+        209,
+        276,
+        348
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            35,
+            46
+          ],
+          [
+            91,
+            106
+          ],
+          [
+            122,
+            132
+          ],
+          [
+            166,
+            170
+          ]
+        ],
+        [
+          [
+            276,
+            310
+          ],
+          [
+            348,
+            382
+          ]
+        ]
+      ]
+    },
+    "152": {
+      "text": "Water vapor is in the atmosphere. Water vapor is lifted up. Lifted vapor cools below dew point. Vapor turns into a solid. Cloud droplets aggregate into larger sizes. Cloud droplets drop from the sky.",
+      "sentence_offsets": [
+        0,
+        34,
+        60,
+        96,
+        122,
+        166
+      ],
+      "n_sentences": 6,
+      "clusters": []
+    },
+    "249": {
+      "text": "Chemical reactions break down the bonds holding the rocks together. The rocks fall apart. They form smaller and smaller pieces. Oxidation takes place when oxygen combines with other elements in rocks. They form new types of rocks. The new substance is softer. Carbonation takes place when carbon dioxide reactions with certain types of rocks. A solution is formed that can easily be carried away by water.",
+      "sentence_offsets": [
+        0,
+        68,
+        90,
+        128,
+        201,
+        231,
+        260,
+        343
+      ],
+      "n_sentences": 8,
+      "clusters": [
+        [
+          [
+            48,
+            57
+          ],
+          [
+            68,
+            77
+          ],
+          [
+            90,
+            94
+          ]
+        ],
+        [
+          [
+            194,
+            199
+          ],
+          [
+            201,
+            205
+          ]
+        ]
+      ]
+    },
+    "310": {
+      "text": "Blood enters the right side of your heart. Blood travels to the lungs. Carbon dioxide is removed from the blood. Oxygen is added to your blood. Blood returns to left side of your heart. The blood travels through the body.",
+      "sentence_offsets": [
+        0,
+        43,
+        71,
+        113,
+        144,
+        186
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            102,
+            111
+          ]
+        ],
+        [
+          [
+            31,
+            41
+          ],
+          [
+            174,
+            184
+          ]
+        ],
+        [
+          [
+            144,
+            149
+          ],
+          [
+            186,
+            195
+          ]
+        ]
+      ]
+    },
+    "400": {
+      "text": "The are set up and produced with conductors. They are set up to take the sun rays. The sun heats up the elements. The elements create energy. The energy is turned into electricity.",
+      "sentence_offsets": [
+        0,
+        45,
+        83,
+        114,
+        142
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            73,
+            76
+          ],
+          [
+            83,
+            90
+          ]
+        ],
+        [
+          [
+            100,
+            112
+          ],
+          [
+            114,
+            126
+          ]
+        ],
+        [
+          [
+            134,
+            140
+          ],
+          [
+            142,
+            152
+          ]
+        ]
+      ]
+    },
+    "401": {
+      "text": "Solar panels are made up of two types of silicon. Sun shines on solar panels. Sunlight goes into the top half of the solar panel. Sunlight travels into the bottom half of the solar panel. The \"jump\" between the two halves can be used to make direct current. A solar \"inverter\" changes the direct current to alternating current. Alternating current can be used to power things in your house.",
+      "sentence_offsets": [
+        0,
+        50,
+        78,
+        130,
+        188,
+        258,
+        328
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            64,
+            76
+          ],
+          [
+            113,
+            128
+          ],
+          [
+            171,
+            186
+          ]
+        ]
+      ]
+    },
+    "409": {
+      "text": "Light enters the eyes. The lens focuses light through the vitreous humor. The cornea focuses through the eye's internal lens. The retina receives the image. The retina transforms this image into electrical impulses. The impulses travel along the optic nerve to the brain. The brain decodes the impuses.",
+      "sentence_offsets": [
+        0,
+        23,
+        74,
+        126,
+        157,
+        216,
+        272
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            126,
+            136
+          ],
+          [
+            157,
+            167
+          ]
+        ],
+        [
+          [
+            146,
+            155
+          ],
+          [
+            179,
+            189
+          ]
+        ],
+        [
+          [
+            195,
+            214
+          ],
+          [
+            216,
+            228
+          ]
+        ],
+        [
+          [
+            261,
+            270
+          ],
+          [
+            272,
+            281
+          ]
+        ]
+      ]
+    },
+    "410": {
+      "text": "The cornea helps to focus light. Light passes to the iris. The pupil within the iris expands or contracts to control the amount of light entering the eye. The retina converts the light that reaches the retina into an electric signal. Sends the signal to the brain. The brain translates the electrical signals into the images a person sees.",
+      "sentence_offsets": [
+        0,
+        33,
+        59,
+        155,
+        234,
+        265
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            49,
+            57
+          ],
+          [
+            76,
+            84
+          ]
+        ],
+        [
+          [
+            155,
+            165
+          ],
+          [
+            198,
+            208
+          ]
+        ],
+        [
+          [
+            214,
+            232
+          ],
+          [
+            240,
+            250
+          ]
+        ],
+        [
+          [
+            254,
+            263
+          ],
+          [
+            265,
+            274
+          ]
+        ]
+      ]
+    },
+    "411": {
+      "text": "Visual perception begins as soon as the eye focuses light onto the retina, where it is absorbed by a layer of photoreceptor cells. These cells convert light into electrochemical signals, and are divided into two types, rods. Cones. Signals from the photoreceptor cells pass through a network of interneurons in the second layer of the retina to ganglion cells in the third layer. The neurons in these two retinal layers exhibit complex receptive fields that enable them to detect contrast changes within an image; these changes might indicate edges or shadows. The optic nerve primarily routes information via the thalamus to the cerebral cortex. Information concerning moving targets and information governing scanning of the eyes travels to a second site in the brainstem, a nucleus called the superior colliculus. Most projections from the retina travel via the optic nerve to a part of the thalamus called the lateral geniculate nucleus (LGN), deep in the center of the brain.",
+      "sentence_offsets": [
+        0,
+        131,
+        225,
+        232,
+        380,
+        561,
+        647,
+        817
+      ],
+      "n_sentences": 8,
+      "clusters": [
+        [
+          [
+            52,
+            57
+          ],
+          [
+            81,
+            83
+          ]
+        ],
+        [
+          [
+            110,
+            129
+          ],
+          [
+            131,
+            142
+          ],
+          [
+            245,
+            268
+          ]
+        ],
+        [
+          [
+            380,
+            419
+          ],
+          [
+            465,
+            469
+          ]
+        ],
+        [
+          [
+            480,
+            512
+          ],
+          [
+            514,
+            527
+          ]
+        ],
+        [
+          [
+            331,
+            341
+          ],
+          [
+            839,
+            849
+          ]
+        ],
+        [
+          [
+            561,
+            576
+          ],
+          [
+            861,
+            876
+          ]
+        ]
+      ]
+    },
+    "429": {
+      "text": "Nitrogen exists naturally in the atmosphere. Bacteria in soil \"fix\" the nitrogen. Nitrogen is now usable by living things. Plants absorb this usable nitrogen through their roots. Animals eat the plants. Animals make waste. Uneaten plants die. Nitrogen re-enters the soil. Different bacteria turn nitrogen back into a gas-based form. Gas-based nitrogen re-enters the atmosphere.",
+      "sentence_offsets": [
+        0,
+        45,
+        82,
+        123,
+        179,
+        203,
+        223,
+        243,
+        272,
+        333
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            82,
+            90
+          ],
+          [
+            137,
+            157
+          ]
+        ],
+        [
+          [
+            123,
+            129
+          ],
+          [
+            166,
+            171
+          ],
+          [
+            191,
+            201
+          ]
+        ],
+        [
+          [
+            29,
+            43
+          ],
+          [
+            362,
+            376
+          ]
+        ]
+      ]
+    },
+    "460": {
+      "text": "Living things have carbon in them. Living things die. The remains of living things eventually become buried underground. More physical pressure is put on the remains of living things as they become further underground. This carbon-based mixture stays underground for a long time. Humans discover this carbon-based mixture. This carbon-based mixture is brought up to the earth's surface. The recently discovered fossil fuel is burned. Burning releases the energy that has been stored in the fossil fuel. The energy can be used to generate power.",
+      "sentence_offsets": [
+        0,
+        35,
+        54,
+        121,
+        219,
+        280,
+        323,
+        387,
+        434,
+        503
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            0,
+            13
+          ],
+          [
+            29,
+            33
+          ],
+          [
+            35,
+            48
+          ]
+        ],
+        [
+          [
+            54,
+            82
+          ],
+          [
+            154,
+            182
+          ],
+          [
+            186,
+            190
+          ]
+        ],
+        [
+          [
+            219,
+            244
+          ],
+          [
+            296,
+            321
+          ],
+          [
+            323,
+            348
+          ]
+        ],
+        [
+          [
+            426,
+            432
+          ],
+          [
+            434,
+            441
+          ]
+        ],
+        [
+          [
+            387,
+            422
+          ],
+          [
+            486,
+            501
+          ]
+        ],
+        [
+          [
+            451,
+            501
+          ],
+          [
+            503,
+            513
+          ]
+        ]
+      ]
+    },
+    "463": {
+      "text": "Updrafts in a thunderstorm carry raindrops upwards. The raindrops condense onto dust or other small parti. The supercooled water molecules condense onto the condensation nucleus and freeze. The tiny ice particle keeps moving up and down, gathering more ice on the surface. Eventually the hailstone falls to earth either because it's too heavy to remain aloft or because a drowndraft pushes it down.",
+      "sentence_offsets": [
+        0,
+        52,
+        107,
+        190,
+        273
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            33,
+            42
+          ],
+          [
+            52,
+            65
+          ]
+        ],
+        [
+          [
+            284,
+            297
+          ],
+          [
+            328,
+            330
+          ],
+          [
+            390,
+            392
+          ]
+        ]
+      ]
+    },
+    "465": {
+      "text": "Water gets caught in winds that are moving upward. The water freezes. The water starts to fall. The winds are strong enough from keeping it from falling back to earth. This pattern of rising and falling continues. The hail becomes too large to be pushed up by the wind. The hail finally falls to the ground.",
+      "sentence_offsets": [
+        0,
+        51,
+        70,
+        96,
+        168,
+        214,
+        270
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            51,
+            60
+          ],
+          [
+            70,
+            79
+          ],
+          [
+            137,
+            139
+          ]
+        ],
+        [
+          [
+            21,
+            49
+          ],
+          [
+            96,
+            105
+          ],
+          [
+            260,
+            268
+          ]
+        ],
+        [
+          [
+            214,
+            222
+          ],
+          [
+            270,
+            278
+          ]
+        ]
+      ]
+    },
+    "502": {
+      "text": "Energy is created by burning either diesel or petrol in a combustion chamber. The energy is transferred from the pistons moving up and down at high speeds. This piston motion is converted to a rotary motion through the crankshaft and axle. The axle turns the wheels. The car moves forward.",
+      "sentence_offsets": [
+        0,
+        78,
+        156,
+        240,
+        267
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            6
+          ],
+          [
+            78,
+            88
+          ]
+        ],
+        [
+          [
+            121,
+            127
+          ],
+          [
+            156,
+            174
+          ]
+        ],
+        [
+          [
+            234,
+            238
+          ],
+          [
+            240,
+            248
+          ]
+        ]
+      ]
+    },
+    "503": {
+      "text": "A car is filled with gasoline (gas). Someone turns the car on with a key. The car's battery produces a spark (electricity). The spark ignites the gas. The burning gas expands when it encounters air. The expanding air and gas pushes a piston out. The motion of several pistons move the crankshaft. Different parts of the car cause the motion in the crankshaft to cause the wheels to move. The wheels and the car's body can move.",
+      "sentence_offsets": [
+        0,
+        37,
+        74,
+        124,
+        151,
+        199,
+        246,
+        297,
+        388
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            51,
+            58
+          ],
+          [
+            74,
+            83
+          ],
+          [
+            316,
+            323
+          ],
+          [
+            403,
+            412
+          ]
+        ],
+        [
+          [
+            101,
+            122
+          ],
+          [
+            124,
+            133
+          ]
+        ],
+        [
+          [
+            21,
+            35
+          ],
+          [
+            142,
+            149
+          ],
+          [
+            151,
+            166
+          ],
+          [
+            180,
+            182
+          ]
+        ],
+        [
+          [
+            281,
+            295
+          ],
+          [
+            344,
+            358
+          ]
+        ],
+        [
+          [
+            368,
+            378
+          ],
+          [
+            388,
+            398
+          ]
+        ]
+      ]
+    },
+    "533": {
+      "text": "A seed comes from an adult tree. It sprouts from the soil. It grows into a small seedling, a tree's infancy. It grows bigger and becomes a sapling, a juvenile tree. It reaches maturity, this make take many years depending on the type of tree. The tree will begin to age and decline. Eventually rot and decay after it dies.",
+      "sentence_offsets": [
+        0,
+        33,
+        59,
+        109,
+        165,
+        243,
+        283
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            6
+          ],
+          [
+            33,
+            35
+          ],
+          [
+            59,
+            61
+          ],
+          [
+            109,
+            111
+          ],
+          [
+            165,
+            167
+          ],
+          [
+            243,
+            251
+          ],
+          [
+            314,
+            316
+          ]
+        ]
+      ]
+    },
+    "534": {
+      "text": "A seed is planted. The seed becomes a small tree. The small tree becomes larger and grows. Some trees bear fruit. Flowers. After awhile the tree will stop growing. Eventually die.",
+      "sentence_offsets": [
+        0,
+        19,
+        50,
+        91,
+        114,
+        123,
+        164
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            0,
+            6
+          ],
+          [
+            19,
+            27
+          ]
+        ],
+        [
+          [
+            36,
+            48
+          ],
+          [
+            50,
+            64
+          ],
+          [
+            136,
+            144
+          ]
+        ]
+      ]
+    },
+    "582": {
+      "text": "Warm, moist air moves from south to north. Cool, dry air moves from north to south. The air masses meet. The conditions that form are not stable because the air masses are so different. Winds are directed in a certain way because of how the masses interact. An updraft results. Winds start to form circular patterns in the updraft. A tornado can result.",
+      "sentence_offsets": [
+        0,
+        43,
+        84,
+        105,
+        186,
+        258,
+        278,
+        332
+      ],
+      "n_sentences": 8,
+      "clusters": [
+        [
+          [
+            84,
+            98
+          ],
+          [
+            153,
+            167
+          ],
+          [
+            237,
+            247
+          ]
+        ],
+        [
+          [
+            258,
+            268
+          ],
+          [
+            319,
+            330
+          ]
+        ]
+      ]
+    },
+    "583": {
+      "text": "Warm, humid low-pressure air rises. Creates a strong updraft. Dry, cold high-pressure air is punched through. The opposing winds create rotation. When the rotation is violent enough a funnel forms. Drops to the ground.",
+      "sentence_offsets": [
+        0,
+        36,
+        62,
+        110,
+        146,
+        198
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            136,
+            144
+          ],
+          [
+            151,
+            163
+          ]
+        ]
+      ]
+    },
+    "600": {
+      "text": "Fuel is converted to energy when air and petrol mix. The car engine burns the mix of air and petrol. Hot gas from the burning pushes the pistons. The resulting energy powers the crankshaft. Crankshaft powers the gears. The gears make the wheels roll.",
+      "sentence_offsets": [
+        0,
+        53,
+        101,
+        146,
+        190,
+        219
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            68,
+            73
+          ],
+          [
+            114,
+            125
+          ]
+        ],
+        [
+          [
+            174,
+            188
+          ],
+          [
+            190,
+            200
+          ]
+        ],
+        [
+          [
+            208,
+            217
+          ],
+          [
+            219,
+            228
+          ]
+        ]
+      ]
+    },
+    "653": {
+      "text": "A seed is planted. It becomes a seedling. It grows into a tree. The tree grows flowers. The flowers become fruit. The fruits contain seeds for new trees.",
+      "sentence_offsets": [
+        0,
+        19,
+        42,
+        64,
+        88,
+        114
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            6
+          ],
+          [
+            19,
+            21
+          ],
+          [
+            42,
+            44
+          ]
+        ],
+        [
+          [
+            56,
+            62
+          ],
+          [
+            64,
+            72
+          ]
+        ],
+        [
+          [
+            79,
+            86
+          ],
+          [
+            88,
+            99
+          ]
+        ],
+        [
+          [
+            107,
+            112
+          ],
+          [
+            114,
+            124
+          ]
+        ]
+      ]
+    },
+    "654": {
+      "text": "A seedling is grown in the ground. The seedling grows bigger, and forms its root system. The roots start to gain more nourishment as the tree grows. The tree starts to attract animals and plants that will grant it more nourishment. The tree matures. After a number of years the tree will grow old and die, becoming material for new growth.",
+      "sentence_offsets": [
+        0,
+        35,
+        89,
+        149,
+        232,
+        250
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            35,
+            47
+          ],
+          [
+            72,
+            75
+          ]
+        ],
+        [
+          [
+            72,
+            87
+          ],
+          [
+            89,
+            98
+          ]
+        ],
+        [
+          [
+            133,
+            141
+          ],
+          [
+            149,
+            157
+          ],
+          [
+            211,
+            213
+          ],
+          [
+            232,
+            240
+          ],
+          [
+            274,
+            282
+          ]
+        ]
+      ]
+    },
+    "659": {
+      "text": "Bacteria changes nitrogen into ammonium through fixation. The nitrification process is where ammonium gets changed into nitrates by bacteria. Plants absorb the nitrates from soil into their roots through assimilation. When plants die, fungi and bacteria turn nitrogen back into ammonium through ammonification. The denitrification process pushes extra nitrogen from soil into the air. The cycle repeats from step 1.",
+      "sentence_offsets": [
+        0,
+        58,
+        142,
+        218,
+        311,
+        385
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            48,
+            56
+          ],
+          [
+            58,
+            83
+          ],
+          [
+            311,
+            338
+          ]
+        ]
+      ]
+    },
+    "660": {
+      "text": "Nitrogen-fixing bacteria convert atmospheric nitrogen to organic nitrogen. Plants absorb organic nitrogen from the soil through their roots. Animals eat the plants. Plants and animals die. Animals expel wastes. Fungi convert organic nitrogen to ammonium. Nitrifying bacteria convert ammonium to nitrate. Bacteria convert nitrate to nitrogen gas. Nitrogen gas escapes from soil into the atmosphere.",
+      "sentence_offsets": [
+        0,
+        75,
+        141,
+        165,
+        189,
+        211,
+        255,
+        304,
+        346
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            75,
+            81
+          ],
+          [
+            128,
+            133
+          ],
+          [
+            153,
+            163
+          ]
+        ]
+      ]
+    },
+    "661": {
+      "text": "Fixation is the first step in the process of making nitrogen usable by plants. Here bacteria change nitrogen into ammonium. Nitrification is the process by which ammonium gets changed into nitrates by bacteria. Nitrates are what the plants can then absorb. Assimilation is how plants get nitrogen. They absorb nitrates from the soil into their roots. Then the nitrogen gets used in amino acids, nucleic acids, and chlorophyll. Ammonification is part of the decaying process. When a plant or animal dies, decomposers like fungi and bacteria turn the nitrogen back into ammonium so it can reenter the nitrogen cycle. Denitrification is when extra nitrogen in the soil gets put back out into the air. There are special bacteria that perform this task as well.",
+      "sentence_offsets": [
+        0,
+        124,
+        211,
+        257,
+        298,
+        427,
+        475,
+        615,
+        698
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            277,
+            283
+          ],
+          [
+            298,
+            302
+          ],
+          [
+            338,
+            343
+          ]
+        ],
+        [
+          [
+            288,
+            296
+          ],
+          [
+            356,
+            368
+          ],
+          [
+            545,
+            557
+          ]
+        ],
+        [
+          [
+            568,
+            576
+          ],
+          [
+            580,
+            582
+          ]
+        ],
+        [
+          [
+            615,
+            630
+          ],
+          [
+            738,
+            747
+          ]
+        ]
+      ]
+    },
+    "695": {
+      "text": "During evaporation the sun heats up water in rivers or lakes or the ocean and turns it into vapor or steam. The water vapor or steam leaves the river, lake or ocean and goes into the air. Water vapor in the air gets cold and changes back into liquid, forming clouds, which is called condensation. Precipitation occurs when so much water has condensed that the air cannot hold it anymore. Water falls back to the earth in the form of rain, hail, sleet or snow. When water ends up on land, it will either soak into the earth and become part of the \"ground water\" for animals or plants to drink. It may also run into the oceans, lakes, or rivers where the cycle starts again.",
+      "sentence_offsets": [
+        0,
+        108,
+        188,
+        297,
+        388,
+        460,
+        593
+      ],
+      "n_sentences": 7,
+      "clusters": [
+        [
+          [
+            36,
+            41
+          ],
+          [
+            84,
+            86
+          ]
+        ],
+        [
+          [
+            92,
+            106
+          ],
+          [
+            108,
+            132
+          ]
+        ],
+        [
+          [
+            179,
+            186
+          ],
+          [
+            203,
+            210
+          ],
+          [
+            356,
+            363
+          ]
+        ],
+        [
+          [
+            323,
+            336
+          ],
+          [
+            376,
+            378
+          ]
+        ],
+        [
+          [
+            465,
+            470
+          ],
+          [
+            488,
+            490
+          ],
+          [
+            593,
+            595
+          ]
+        ],
+        [
+          [
+            408,
+            417
+          ],
+          [
+            513,
+            522
+          ]
+        ]
+      ]
+    },
+    "696": {
+      "text": "Air contains invisible moisture called water vapor. Excess water vapor is condensed out as water in the form of water droplets. Water droplets are carried up into the clouds. The clouds become heavy with water droplets. When the cloud is saturated. Rain will fall.",
+      "sentence_offsets": [
+        0,
+        52,
+        128,
+        175,
+        220,
+        249
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            163,
+            173
+          ],
+          [
+            175,
+            185
+          ]
+        ]
+      ]
+    },
+    "697": {
+      "text": "Water beings to evaporate from bodies of water. The water condenses into clouds. The clouds travel and accumulate more water. The clouds reach a point where they cannot hold any more water. It begins to rain on areas below the clouds.",
+      "sentence_offsets": [
+        0,
+        48,
+        81,
+        126,
+        190
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            48,
+            57
+          ]
+        ],
+        [
+          [
+            73,
+            79
+          ],
+          [
+            81,
+            91
+          ],
+          [
+            126,
+            136
+          ],
+          [
+            157,
+            161
+          ],
+          [
+            223,
+            233
+          ]
+        ]
+      ]
+    },
+    "1031": {
+      "text": "A plant or animal dies in mud or soil. The bones are all that remains. Over time the bones are covered in sediment. The sediment becomes rock. The rock becomes a fossil.",
+      "sentence_offsets": [
+        0,
+        39,
+        71,
+        116,
+        143
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            39,
+            48
+          ],
+          [
+            81,
+            90
+          ]
+        ],
+        [
+          [
+            106,
+            114
+          ],
+          [
+            116,
+            128
+          ]
+        ],
+        [
+          [
+            137,
+            141
+          ],
+          [
+            143,
+            151
+          ]
+        ]
+      ]
+    },
+    "1032": {
+      "text": "Most fossils formed when animals or plants die in wet environment. The animals and plants are then buried in mud. Soft tissues decompose. Bones and hard tissues remain. Sediment builds up over the remains over a period of time. The sediment hardens into rock.",
+      "sentence_offsets": [
+        0,
+        67,
+        114,
+        138,
+        169,
+        228
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            25,
+            42
+          ],
+          [
+            67,
+            89
+          ]
+        ],
+        [
+          [
+            169,
+            177
+          ],
+          [
+            228,
+            240
+          ]
+        ]
+      ]
+    },
+    "1033": {
+      "text": "An animal dies. The animal is buried fast under mud. The soft parts of the animal's body rot away. The mud around the skeleton turns into rock. The skeleton dissolves. A mold is left in the mud where the skeleton was.",
+      "sentence_offsets": [
+        0,
+        16,
+        53,
+        99,
+        144,
+        168
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            26
+          ],
+          [
+            71,
+            83
+          ]
+        ],
+        [
+          [
+            114,
+            126
+          ],
+          [
+            144,
+            156
+          ],
+          [
+            200,
+            212
+          ]
+        ],
+        [
+          [
+            48,
+            51
+          ],
+          [
+            186,
+            216
+          ]
+        ]
+      ]
+    },
+    "1145": {
+      "text": "A red giant star forms from an existing star. Formation occurs when the star runs out of hydrogen fuel. Hydrogen atoms are combined together to form helium atoms. Energy produced by helium fusion causes the star to expand. A red giant star is the last stage of stellar evolution.",
+      "sentence_offsets": [
+        0,
+        46,
+        104,
+        163,
+        223
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            17,
+            22
+          ],
+          [
+            46,
+            55
+          ]
+        ],
+        [
+          [
+            28,
+            44
+          ],
+          [
+            68,
+            76
+          ],
+          [
+            203,
+            211
+          ]
+        ]
+      ]
+    },
+    "1146": {
+      "text": "A star burns in space. The star runs out of hydrogen fuel. All the hydrogen is turned into helium. There is no longer energy to keep the star from collapsing. Gravity takes over. The star is pulled into itself. The helium atoms begin to combine into carbon atoms. The outermost layers of the star are pushed out. The star is much larger than it was. The star is a red giant.",
+      "sentence_offsets": [
+        0,
+        23,
+        59,
+        99,
+        159,
+        179,
+        211,
+        264,
+        313,
+        350
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            0,
+            6
+          ],
+          [
+            23,
+            31
+          ],
+          [
+            133,
+            141
+          ],
+          [
+            179,
+            187
+          ],
+          [
+            203,
+            209
+          ],
+          [
+            288,
+            296
+          ],
+          [
+            313,
+            321
+          ],
+          [
+            342,
+            344
+          ],
+          [
+            350,
+            358
+          ]
+        ],
+        [
+          [
+            44,
+            57
+          ],
+          [
+            59,
+            75
+          ]
+        ],
+        [
+          [
+            91,
+            97
+          ],
+          [
+            211,
+            227
+          ]
+        ]
+      ]
+    },
+    "1147": {
+      "text": "Hydrogen atoms in a star combine together to form helium atoms. All of the hydrogen in a star turns into helium. The star begins to collapse. Helium atoms combine together to form carbon atoms. The star gets much bigger than it was before. The star is now a red giant.",
+      "sentence_offsets": [
+        0,
+        64,
+        113,
+        142,
+        194,
+        240
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            18,
+            24
+          ],
+          [
+            87,
+            93
+          ],
+          [
+            113,
+            121
+          ],
+          [
+            194,
+            202
+          ],
+          [
+            225,
+            227
+          ],
+          [
+            240,
+            248
+          ]
+        ]
+      ]
+    },
+    "1188": {
+      "text": "Comets fly around in outer space. A comet flies close to a planet. The comet enters the planet's atmosphere. The comet crashes into the planet. The energy of the impact creates a hole on the planet.",
+      "sentence_offsets": [
+        0,
+        34,
+        67,
+        109,
+        144
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            34,
+            41
+          ],
+          [
+            67,
+            76
+          ],
+          [
+            109,
+            118
+          ]
+        ],
+        [
+          [
+            57,
+            65
+          ],
+          [
+            84,
+            96
+          ],
+          [
+            132,
+            142
+          ],
+          [
+            187,
+            197
+          ]
+        ],
+        [
+          [
+            119,
+            126
+          ],
+          [
+            158,
+            168
+          ]
+        ]
+      ]
+    },
+    "1189": {
+      "text": "Chunks of rocks break off of meteorites. The rock passes through the atmosphere. The rock is too big to be slowed down. The chunks smash into the earth at a high velocity. The angle the meteorite hits can impact how large the crater is. The material it hits also helps determine the size of the crater.",
+      "sentence_offsets": [
+        0,
+        41,
+        81,
+        120,
+        172,
+        237
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            29,
+            39
+          ],
+          [
+            41,
+            49
+          ],
+          [
+            81,
+            89
+          ]
+        ],
+        [
+          [
+            0,
+            15
+          ],
+          [
+            120,
+            130
+          ]
+        ],
+        [
+          [
+            182,
+            195
+          ],
+          [
+            250,
+            252
+          ]
+        ],
+        [
+          [
+            222,
+            232
+          ],
+          [
+            291,
+            301
+          ]
+        ]
+      ]
+    },
+    "1190": {
+      "text": "Two large veins bring blood to the heart. The blood enters the right atrium. The blood flows through the tricuspid valve. The blood travels into the right ventricle. The blood goes through the pulmonary arteries to the lungs. Blood picks up oxygen in the lungs. Oxygenated blood enters the left atrium. Blood goes to the left ventricle. Blood leaves the heart via the aorta to the rest of the body. The deoxygenated blood returns to the heart.",
+      "sentence_offsets": [
+        0,
+        42,
+        77,
+        122,
+        166,
+        226,
+        262,
+        303,
+        337,
+        399
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            22,
+            27
+          ],
+          [
+            42,
+            51
+          ],
+          [
+            77,
+            86
+          ],
+          [
+            122,
+            131
+          ],
+          [
+            166,
+            175
+          ]
+        ],
+        [
+          [
+            215,
+            224
+          ],
+          [
+            251,
+            260
+          ]
+        ],
+        [
+          [
+            31,
+            40
+          ],
+          [
+            350,
+            359
+          ],
+          [
+            433,
+            442
+          ]
+        ]
+      ]
+    },
+    "1240": {
+      "text": "Fans blow air onto the evaporator's coils. The refrigerant within the coils absorbs the heat. The refrigerant changes from a liquid to a gas. The compressor compresses the gas, increasing the pressure. The hot, pressurized gas moves to the condenser. The gas condenses in the condenser and becomes a liquid again. Heat is radiated away from the condenser. The cooled liquid is returned to the evaporator.",
+      "sentence_offsets": [
+        0,
+        43,
+        94,
+        142,
+        202,
+        251,
+        314,
+        356
+      ],
+      "n_sentences": 8,
+      "clusters": [
+        [
+          [
+            19,
+            41
+          ],
+          [
+            66,
+            75
+          ]
+        ],
+        [
+          [
+            43,
+            75
+          ],
+          [
+            94,
+            109
+          ]
+        ],
+        [
+          [
+            135,
+            140
+          ],
+          [
+            168,
+            175
+          ],
+          [
+            202,
+            226
+          ],
+          [
+            251,
+            258
+          ]
+        ],
+        [
+          [
+            236,
+            249
+          ],
+          [
+            272,
+            285
+          ],
+          [
+            341,
+            354
+          ]
+        ],
+        [
+          [
+            19,
+            35
+          ],
+          [
+            389,
+            403
+          ]
+        ]
+      ]
+    },
+    "725": {
+      "text": "Most fossils are formed when a plant or animal dies in a watery environment and is buried in mud and silt. Soft tissues quickly decompose leaving the hard bones or shells behind. Over time sediment builds over the top and hardens into rock. As the encased bones decay, minerals seep in replacing the organic material cell by cell in a process called \"petrification.\". Alternatively the bones may completely decay leaving a cast of the organism. He void left behind may then fill with minerals making a stone replica of the organism.",
+      "sentence_offsets": [
+        0,
+        107,
+        179,
+        241,
+        368,
+        445
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            244,
+            261
+          ],
+          [
+            382,
+            391
+          ]
+        ],
+        [
+          [
+            431,
+            443
+          ],
+          [
+            519,
+            531
+          ]
+        ]
+      ]
+    },
+    "726": {
+      "text": "An animal lives a happy life. The animal gets very old. The animal dies. The animal's skeleton sinks to the bottom of an ocean. The skeleton is buried by mud. More sand and mud fall on the skeleton. Pressure increases on the skeleton from the weight of more mud. The sand and mud turn into rock. The skeleton dissolves in the water. A hole is preserved in rock that is the shape of the skeleton.",
+      "sentence_offsets": [
+        0,
+        30,
+        56,
+        73,
+        128,
+        159,
+        199,
+        263,
+        296,
+        333
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            30,
+            40
+          ],
+          [
+            56,
+            66
+          ],
+          [
+            73,
+            85
+          ]
+        ],
+        [
+          [
+            73,
+            94
+          ],
+          [
+            128,
+            140
+          ],
+          [
+            185,
+            197
+          ],
+          [
+            221,
+            233
+          ],
+          [
+            296,
+            308
+          ],
+          [
+            382,
+            394
+          ]
+        ],
+        [
+          [
+            159,
+            176
+          ],
+          [
+            263,
+            279
+          ]
+        ]
+      ]
+    },
+    "727": {
+      "text": "An animal dies. Is is buried in a watery environment. The soft tissues quickly decompose. The bones are left behind. Over time, mud and silt accumulate over the bones. Mud and silt harden into rock. The bones slowly decay. Minerals seep in. Replace the organic materials. You have a fossil.",
+      "sentence_offsets": [
+        0,
+        16,
+        54,
+        90,
+        117,
+        168,
+        199,
+        223,
+        241,
+        272
+      ],
+      "n_sentences": 10,
+      "clusters": [
+        [
+          [
+            128,
+            140
+          ],
+          [
+            128,
+            180
+          ],
+          [
+            168,
+            180
+          ]
+        ],
+        [
+          [
+            90,
+            99
+          ],
+          [
+            157,
+            166
+          ],
+          [
+            199,
+            208
+          ]
+        ],
+        [
+          [
+            128,
+            131
+          ],
+          [
+            168,
+            171
+          ]
+        ]
+      ]
+    },
+    "791": {
+      "text": "Photovoltaic cells are solar cells. Photovoltaic cell is made from silicon. Sun shines on the solar cells which generates DC electricity. Electricity is fed into an inverter to change it to AC electricity. Electricity is then sent into the home to be used. Extra electricity can be sent to the main power grid for others.",
+      "sentence_offsets": [
+        0,
+        36,
+        76,
+        138,
+        206,
+        257
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            18
+          ],
+          [
+            90,
+            105
+          ]
+        ],
+        [
+          [
+            138,
+            149
+          ],
+          [
+            184,
+            186
+          ]
+        ]
+      ]
+    },
+    "896": {
+      "text": "Oxygen-depleted blood enters the heart on the right atrium. The atrium contracts. Blood flows from your right atrium into your right ventricle through the open tricuspid valve. When the ventricle is full, the tricuspid valve shuts. The ventricle contracts. Blood leaves the heart through the pulmonic valve, into the pulmonary artery and to the lungs. The lungs oxygenate the blood. The oxygenated blood goes into the left atrium. The left atrium sends the blood throughout the body.",
+      "sentence_offsets": [
+        0,
+        60,
+        82,
+        177,
+        232,
+        257,
+        352,
+        383,
+        431
+      ],
+      "n_sentences": 9,
+      "clusters": [
+        [
+          [
+            42,
+            58
+          ],
+          [
+            60,
+            70
+          ],
+          [
+            99,
+            116
+          ]
+        ],
+        [
+          [
+            122,
+            142
+          ],
+          [
+            182,
+            195
+          ],
+          [
+            232,
+            245
+          ]
+        ],
+        [
+          [
+            151,
+            175
+          ],
+          [
+            205,
+            224
+          ]
+        ],
+        [
+          [
+            341,
+            350
+          ],
+          [
+            352,
+            361
+          ]
+        ],
+        [
+          [
+            257,
+            262
+          ],
+          [
+            372,
+            381
+          ]
+        ],
+        [
+          [
+            414,
+            429
+          ],
+          [
+            431,
+            446
+          ]
+        ]
+      ]
+    },
+    "903": {
+      "text": "Visible light enters through the lens. The light enters into the retina. The light is absorbed by photoreceptor cells. Which is turned into chemical energy. The resulting information is interpreted by the brain as an image.",
+      "sentence_offsets": [
+        0,
+        39,
+        73,
+        119,
+        157
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            13
+          ],
+          [
+            39,
+            48
+          ],
+          [
+            73,
+            82
+          ]
+        ]
+      ]
+    },
+    "904": {
+      "text": "The cornea and lens refract light into a small image. Shine it on the retina. The retina's rods and cones convert it to electrical pulses. The optic nerve carries electrical pulses through the optic canal. Nerve fibers end in the lateral geniculate nucleus and the visual cortex.",
+      "sentence_offsets": [
+        0,
+        54,
+        78,
+        139,
+        206
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            39,
+            52
+          ],
+          [
+            60,
+            62
+          ]
+        ],
+        [
+          [
+            66,
+            76
+          ],
+          [
+            78,
+            90
+          ]
+        ],
+        [
+          [
+            28,
+            33
+          ],
+          [
+            114,
+            116
+          ]
+        ]
+      ]
+    },
+    "927": {
+      "text": "There is a lot of rain within a short period of time. The ground tries to absorb as much rain water as it can. The ground becomes saturated with rain water and cannot absorb anymore. Water begins flowing above the ground instead of dropping into the soil. The water carves away land, plants, and trees. It causes destruction as it travels.",
+      "sentence_offsets": [
+        0,
+        54,
+        111,
+        183,
+        256,
+        303
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            54,
+            64
+          ],
+          [
+            103,
+            105
+          ],
+          [
+            111,
+            121
+          ],
+          [
+            210,
+            220
+          ]
+        ],
+        [
+          [
+            183,
+            188
+          ],
+          [
+            256,
+            265
+          ],
+          [
+            303,
+            305
+          ],
+          [
+            328,
+            330
+          ]
+        ]
+      ]
+    },
+    "932": {
+      "text": "Water flows by rocks. Chemicals are in the waters. Chemicals react with rocks. Rocks change to a different kind of rock. Oxygen in the air reacts with rocks. Rocks change to a different kind of rock.",
+      "sentence_offsets": [
+        0,
+        22,
+        51,
+        79,
+        121,
+        158
+      ],
+      "n_sentences": 6,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            49
+          ]
+        ]
+      ]
+    },
+    "933": {
+      "text": "Water is introduced to carbon dioxide. The water becomes acidic. The water seeps down to a mineral based material. The acidity of the water carves and shapes the rock. And may form geological phenomenon.",
+      "sentence_offsets": [
+        0,
+        39,
+        65,
+        115,
+        168
+      ],
+      "n_sentences": 5,
+      "clusters": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            39,
+            48
+          ],
+          [
+            65,
+            74
+          ],
+          [
+            130,
+            139
+          ]
+        ]
+      ]
+    }
+  }
+}

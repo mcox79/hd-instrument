@@ -1,0 +1,524 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SIGNAL_VANISHED_UNDER_EXTRACTION: split=test EXTRACTED content_delta_loc=0.0205(>= 0.02) content_delta_moves=0.0430 median_retained_frac_loc=1.0853658536585353(< 0.3 clean, > 0.55 fragile) budget_exact=0.2119 move_recall=0.4934 arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_SIGNAL_VANISHED_UNDER_EXTRACTION: split=test EXTRACTED content_delta_loc=0.0205(>= 0.02) content_delta_moves=0.0430 median_retained_frac_loc=1.0853658536585353(< 0.3 clean, > 0.55 fragile) budget_exact=0.2119 move_recall=0.4934 arms_ok=True decode_ok=True",
+  "elapsed_s": 4.388,
+  "run_mode": "full",
+  "anchor_name": "propara_arm2_extracted_structure_v1",
+  "split": "test",
+  "result": {
+    "split": "test",
+    "elapsed_s": 4.388,
+    "n_paragraphs": 54,
+    "n_scramble_seeds": 8,
+    "scramble_seeds": [
+      7,
+      17,
+      29,
+      41,
+      53,
+      71,
+      83,
+      97
+    ],
+    "extraction_cost": {
+      "budget_fidelity": {
+        "budget_exact_match_rate": 0.2119,
+        "n_pairs": 236,
+        "per_class": {
+          "CREATE": {
+            "precision": 0.63,
+            "recall": 0.5,
+            "f1": 0.5575,
+            "tp": 63,
+            "fp": 37,
+            "fn": 63
+          },
+          "MOVE": {
+            "precision": 0.5435,
+            "recall": 0.4934,
+            "f1": 0.5172,
+            "tp": 75,
+            "fp": 63,
+            "fn": 77
+          },
+          "DESTROY": {
+            "precision": 0.803,
+            "recall": 0.4454,
+            "f1": 0.573,
+            "tp": 53,
+            "fp": 13,
+            "fn": 66
+          }
+        },
+        "n_mention_sentences_total": 611,
+        "n_attributed_verbs_total": 387
+      },
+      "n_coref_clusters_total": 142
+    },
+    "lesion_decode_diag": {
+      "decode_fidelity": 1.0,
+      "n_decoded": 1674
+    },
+    "reasoning_decode_diag": {
+      "decode_fidelity": 1.0,
+      "n_decoded": 1674
+    },
+    "arms_differ": {
+      "sigs": {
+        "majority": "8745b341ab79a665538f3ffa37c846597dab3336444883bd9fed8f92c4aff0d1",
+        "bow_singlestep": "c4c69a9cdbb380fd8112428c8e3f3b5b640970b31154161872106ebcf3da85e1",
+        "bagstates": "86783ea5142183acefbd50192dfc71c562f09ddbb31546c7a3ebbc9b44a3faac",
+        "prior_lesion": "4f637429ed5cbe7732fd69ce5aee2c7b3ee36aca411e1f608cda468982c9d214",
+        "reasoning": "0d1045e24a3fd5805cf1b05a6a31d5b816a7d7db1cf530b8897b98a2baa68899"
+      },
+      "pairs_differ": {
+        "majority_vs_bow_singlestep": true,
+        "majority_vs_bagstates": true,
+        "majority_vs_prior_lesion": true,
+        "majority_vs_reasoning": true,
+        "bow_singlestep_vs_bagstates": true,
+        "bow_singlestep_vs_prior_lesion": true,
+        "bow_singlestep_vs_reasoning": true,
+        "bagstates_vs_prior_lesion": true,
+        "bagstates_vs_reasoning": true,
+        "prior_lesion_vs_reasoning": true
+      },
+      "all_differ": true
+    },
+    "official": {
+      "majority": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.241,
+          "f1": 0.388
+        },
+        "outputs": {
+          "precision": 1.0,
+          "recall": 0.13,
+          "f1": 0.23
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.185,
+          "f1": 0.312
+        },
+        "moves": {
+          "precision": 1.0,
+          "recall": 0.222,
+          "f1": 0.363
+        },
+        "overall": {
+          "precision": 1.0,
+          "recall": 0.1945,
+          "f1": 0.326
+        },
+        "n_processes": 54
+      },
+      "bow_singlestep": {
+        "inputs": {
+          "precision": 0.957,
+          "recall": 0.313,
+          "f1": 0.472
+        },
+        "outputs": {
+          "precision": 0.836,
+          "recall": 0.373,
+          "f1": 0.516
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.185,
+          "f1": 0.312
+        },
+        "moves": {
+          "precision": 0.553,
+          "recall": 0.29,
+          "f1": 0.38
+        },
+        "overall": {
+          "precision": 0.8365,
+          "recall": 0.29025,
+          "f1": 0.431
+        },
+        "n_processes": 54
+      },
+      "bagstates": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.241,
+          "f1": 0.388
+        },
+        "outputs": {
+          "precision": 0.803,
+          "recall": 0.407,
+          "f1": 0.54
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.185,
+          "f1": 0.312
+        },
+        "moves": {
+          "precision": 0.737,
+          "recall": 0.237,
+          "f1": 0.359
+        },
+        "overall": {
+          "precision": 0.885,
+          "recall": 0.26749999999999996,
+          "f1": 0.411
+        },
+        "n_processes": 54
+      },
+      "prior_lesion": {
+        "inputs": {
+          "precision": 0.891,
+          "recall": 0.503,
+          "f1": 0.643
+        },
+        "outputs": {
+          "precision": 0.656,
+          "recall": 0.485,
+          "f1": 0.558
+        },
+        "conversions": {
+          "precision": 0.985,
+          "recall": 0.186,
+          "f1": 0.313
+        },
+        "moves": {
+          "precision": 0.349,
+          "recall": 0.301,
+          "f1": 0.323
+        },
+        "overall": {
+          "precision": 0.7202500000000001,
+          "recall": 0.36874999999999997,
+          "f1": 0.488
+        },
+        "n_processes": 54
+      },
+      "reasoning": {
+        "inputs": {
+          "precision": 0.94,
+          "recall": 0.457,
+          "f1": 0.615
+        },
+        "outputs": {
+          "precision": 0.645,
+          "recall": 0.433,
+          "f1": 0.518
+        },
+        "conversions": {
+          "precision": 0.897,
+          "recall": 0.188,
+          "f1": 0.311
+        },
+        "moves": {
+          "precision": 0.385,
+          "recall": 0.349,
+          "f1": 0.366
+        },
+        "overall": {
+          "precision": 0.71675,
+          "recall": 0.35675,
+          "f1": 0.476
+        },
+        "n_processes": 54
+      }
+    },
+    "proxy": {
+      "majority": {
+        "overall": {
+          "n": 1674,
+          "accuracy": 0.7604540023894862,
+          "macro_f1": 0.21598235493722429
+        },
+        "mentioned": {
+          "n": 555,
+          "accuracy": 0.4648648648648649,
+          "macro_f1": 0.15867158671586715
+        },
+        "unmentioned": {
+          "n": 1119,
+          "accuracy": 0.9070598748882931,
+          "macro_f1": 0.23781630740393628
+        }
+      },
+      "bow_singlestep": {
+        "overall": {
+          "n": 1674,
+          "accuracy": 0.7658303464755077,
+          "macro_f1": 0.37650204896844913
+        },
+        "mentioned": {
+          "n": 555,
+          "accuracy": 0.4810810810810811,
+          "macro_f1": 0.3465253740552578
+        },
+        "unmentioned": {
+          "n": 1119,
+          "accuracy": 0.9070598748882931,
+          "macro_f1": 0.23781630740393628
+        }
+      },
+      "bagstates": {
+        "overall": {
+          "n": 1674,
+          "accuracy": 0.6977299880525687,
+          "macro_f1": 0.22862069238279764
+        },
+        "mentioned": {
+          "n": 555,
+          "accuracy": 0.4252252252252252,
+          "macro_f1": 0.17587526736462908
+        },
+        "unmentioned": {
+          "n": 1119,
+          "accuracy": 0.8328865058087578,
+          "macro_f1": 0.24559193105339583
+        }
+      },
+      "prior_lesion": {
+        "overall": {
+          "n": 1674,
+          "accuracy": 0.6648745519713262,
+          "macro_f1": 0.2910818525563282
+        },
+        "mentioned": {
+          "n": 555,
+          "accuracy": 0.409009009009009,
+          "macro_f1": 0.2544952462423929
+        },
+        "unmentioned": {
+          "n": 1119,
+          "accuracy": 0.7917783735478106,
+          "macro_f1": 0.273529252045471
+        }
+      },
+      "reasoning": {
+        "overall": {
+          "n": 1674,
+          "accuracy": 0.7401433691756273,
+          "macro_f1": 0.4360159445348144
+        },
+        "mentioned": {
+          "n": 555,
+          "accuracy": 0.4720720720720721,
+          "macro_f1": 0.40611797031560337
+        },
+        "unmentioned": {
+          "n": 1119,
+          "accuracy": 0.8731009830205541,
+          "macro_f1": 0.3000142920663152
+        }
+      }
+    },
+    "loc_official_f1": {
+      "majority": 0.3375,
+      "bow_singlestep": 0.346,
+      "bagstates": 0.3355,
+      "prior_lesion": 0.318,
+      "reasoning": 0.3385
+    },
+    "existence_official_f1": {
+      "majority": 0.309,
+      "bow_singlestep": 0.494,
+      "bagstates": 0.464,
+      "prior_lesion": 0.6005,
+      "reasoning": 0.5665
+    },
+    "focus_macro_f1": {
+      "majority": 0.23781630740393628,
+      "bow_singlestep": 0.23781630740393628,
+      "bagstates": 0.24559193105339583,
+      "prior_lesion": 0.273529252045471,
+      "reasoning": 0.3000142920663152
+    },
+    "moves_f1": {
+      "majority": 0.363,
+      "bow_singlestep": 0.38,
+      "bagstates": 0.359,
+      "prior_lesion": 0.323,
+      "reasoning": 0.366
+    },
+    "conversions_f1": {
+      "majority": 0.312,
+      "bow_singlestep": 0.312,
+      "bagstates": 0.312,
+      "prior_lesion": 0.313,
+      "reasoning": 0.311
+    },
+    "content_delta_loc": 0.020500000000000018,
+    "content_delta_moves": 0.04299999999999998,
+    "content_delta_focus": 0.026485040020844175,
+    "per_seed_scramble": {
+      "7": {
+        "scramble_loc_f1": 0.3395,
+        "scramble_moves_f1": 0.368,
+        "content_delta_loc_scramble": 0.02150000000000002,
+        "retained_frac_loc": 1.048780487804878,
+        "decode_fidelity": 1.0
+      },
+      "17": {
+        "scramble_loc_f1": 0.34199999999999997,
+        "scramble_moves_f1": 0.379,
+        "content_delta_loc_scramble": 0.023999999999999966,
+        "retained_frac_loc": 1.1707317073170704,
+        "decode_fidelity": 1.0
+      },
+      "29": {
+        "scramble_loc_f1": 0.3385,
+        "scramble_moves_f1": 0.37,
+        "content_delta_loc_scramble": 0.020500000000000018,
+        "retained_frac_loc": 1.0,
+        "decode_fidelity": 1.0
+      },
+      "41": {
+        "scramble_loc_f1": 0.344,
+        "scramble_moves_f1": 0.379,
+        "content_delta_loc_scramble": 0.025999999999999968,
+        "retained_frac_loc": 1.2682926829268266,
+        "decode_fidelity": 1.0
+      },
+      "53": {
+        "scramble_loc_f1": 0.34099999999999997,
+        "scramble_moves_f1": 0.377,
+        "content_delta_loc_scramble": 0.022999999999999965,
+        "retained_frac_loc": 1.1219512195121923,
+        "decode_fidelity": 1.0
+      },
+      "71": {
+        "scramble_loc_f1": 0.3375,
+        "scramble_moves_f1": 0.367,
+        "content_delta_loc_scramble": 0.019500000000000017,
+        "retained_frac_loc": 0.9512195121951219,
+        "decode_fidelity": 1.0
+      },
+      "83": {
+        "scramble_loc_f1": 0.3365,
+        "scramble_moves_f1": 0.366,
+        "content_delta_loc_scramble": 0.018500000000000016,
+        "retained_frac_loc": 0.9024390243902439,
+        "decode_fidelity": 1.0
+      },
+      "97": {
+        "scramble_loc_f1": 0.35550000000000004,
+        "scramble_moves_f1": 0.38,
+        "content_delta_loc_scramble": 0.03750000000000003,
+        "retained_frac_loc": 1.829268292682927,
+        "decode_fidelity": 1.0
+      }
+    },
+    "retained_frac_loc_stats": {
+      "list": [
+        1.048780487804878,
+        1.1707317073170704,
+        1.0,
+        1.2682926829268266,
+        1.1219512195121923,
+        0.9512195121951219,
+        0.9024390243902439,
+        1.829268292682927
+      ],
+      "median": 1.0853658536585353,
+      "mean": 1.1615853658536577,
+      "min": 0.9024390243902439,
+      "max": 1.829268292682927,
+      "frac_below_0.30": 0.0
+    }
+  },
+  "headline": {
+    "content_delta_loc_EXTRACTED": 0.020500000000000018,
+    "content_delta_moves_EXTRACTED": 0.04299999999999998,
+    "retained_frac_loc_median": 1.0853658536585353,
+    "retained_frac_loc_list": [
+      1.048780487804878,
+      1.1707317073170704,
+      1.0,
+      1.2682926829268266,
+      1.1219512195121923,
+      0.9512195121951219,
+      0.9024390243902439,
+      1.829268292682927
+    ],
+    "retained_frac_loc_frac_below_0.30": 0.0,
+    "moves_f1": {
+      "majority": 0.363,
+      "bow_singlestep": 0.38,
+      "bagstates": 0.359,
+      "prior_lesion": 0.323,
+      "reasoning": 0.366
+    },
+    "loc_official_f1": {
+      "majority": 0.3375,
+      "bow_singlestep": 0.346,
+      "bagstates": 0.3355,
+      "prior_lesion": 0.318,
+      "reasoning": 0.3385
+    },
+    "existence_official_f1_SEPARATE_not_in_claim": {
+      "majority": 0.309,
+      "bow_singlestep": 0.494,
+      "bagstates": 0.464,
+      "prior_lesion": 0.6005,
+      "reasoning": 0.5665
+    },
+    "focus_macro_f1_SECONDARY": {
+      "majority": 0.23781630740393628,
+      "bow_singlestep": 0.23781630740393628,
+      "bagstates": 0.24559193105339583,
+      "prior_lesion": 0.273529252045471,
+      "reasoning": 0.3000142920663152
+    },
+    "EXTRACTION_COST_budget_exact_match": 0.2119,
+    "EXTRACTION_COST_per_class": {
+      "CREATE": {
+        "precision": 0.63,
+        "recall": 0.5,
+        "f1": 0.5575,
+        "tp": 63,
+        "fp": 37,
+        "fn": 63
+      },
+      "MOVE": {
+        "precision": 0.5435,
+        "recall": 0.4934,
+        "f1": 0.5172,
+        "tp": 75,
+        "fp": 63,
+        "fn": 77
+      },
+      "DESTROY": {
+        "precision": 0.803,
+        "recall": 0.4454,
+        "f1": 0.573,
+        "tp": 53,
+        "fp": 13,
+        "fn": 66
+      }
+    },
+    "v3_oracle_reference": {
+      "content_delta_loc": 0.027,
+      "content_delta_moves": 0.082,
+      "median_retained": 0.185,
+      "note": "MEASURED@data/exp_propara_decisive_inference_arm1_v3_stateful_verb_v1/metrics.json"
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 8,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: bands = v3 oracle bands, applied unchanged (ARM2 is the extraction-cost test against v3's oracle result, not re-tuned)",
+  "thresholds": {
+    "CONTENT_DELTA_LOC_MIN_POSITIVE": 0.02,
+    "SCRAMBLE_CLEAN_MEDIAN_HARD_PASS": 0.3,
+    "SCRAMBLE_FRAGILE_MEDIAN_HARD_FAIL": 0.55
+  }
+}
