@@ -1,0 +1,108 @@
+{
+  "verdict": "SMOKE_PREVIEW",
+  "verdict_msg": "SMOKE_PREVIEW (not the full rescue verdict; scales=['1000', '10000']) baseline_repro_ok=True",
+  "summary": "SMOKE_PREVIEW (not the full rescue verdict; scales=['1000', '10000']) baseline_repro_ok=True",
+  "elapsed_s": 92.567,
+  "run_mode": "smoke",
+  "anchor_name": "focus_pullin_causal_stage2c_resonator_capacity_rescue_v1",
+  "gate_thresh": 0.28,
+  "m_sub": 1024,
+  "k_ent": 2,
+  "resonator_max_it": 30,
+  "n_dim": 1024,
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_spine_edges_total": 1213912,
+  "scales": [
+    1000,
+    10000
+  ],
+  "per_scale_baseline": {
+    "1000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.9666666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1000,
+      "arm": "baseline",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.967 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "10000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.7,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 10000,
+      "arm": "baseline",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.700 false_pull_in=0.000 shortlist_rate=1.000"
+    }
+  },
+  "per_scale_resonator": {
+    "1000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.02666666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1000,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.027 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "10000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.96,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 10000,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.960"
+    }
+  },
+  "scramble_objects_control": {
+    "baseline": null,
+    "resonator": null
+  },
+  "baseline_repro_check": {
+    "ok": true,
+    "mismatches": {}
+  },
+  "baseline_reference_source": "D:\\AI\\hd-instrument\\data\\exp_focus_pullin_causal_stage2b_cskg_scale_gate_v1\\metrics.json",
+  "rescue_bands": {
+    "hard_pass_recall_min": 0.5,
+    "hard_fail_recall_max": 0.1,
+    "false_pull_in_max": 0.2,
+    "scramble_collapse_max": 0.1,
+    "scramble_gap_min": 0.2
+  },
+  "arms_differ_check": {
+    "1000": {
+      "baseline_digest": "00420773ecd8903907391cc4528bb01da9c8a6c317dde52f29227675c258b00d",
+      "resonator_digest": "895b41a21ce6b5cc69138028a8422f678e73169ee9bce225ce7d05e76d0b074e",
+      "differ": true
+    },
+    "10000": {
+      "baseline_digest": "4c67e8d5275799dbb349746aa26939da55ec87064993358e658b1abf5c781d6f",
+      "resonator_digest": "c528fffdc3efe9f3072174d13e231beb0d2f25ca733489d801cfc7cc1665e018",
+      "differ": true
+    }
+  },
+  "arms_differ_verified": true,
+  "scramble_arms_differ_check": null,
+  "cardinality_ok": true,
+  "expected_n_units": 4,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical capacity-rescue diagnostic; sqrt(2*ln M) THEORETICAL ratio in pre-reg is the closest analytical anchor, not a closed-form floor",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: GATE_THRESH=0.28 reused unretuned from Stage-1/Stage-2-B; M_SUB/K_ENT chosen from capacity math + prior-work K2-viable/K3-risky finding, not tuned against this cell's own results"
+}

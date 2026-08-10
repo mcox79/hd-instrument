@@ -1,0 +1,242 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: resonator ALSO collapses to ~0 by 100k. resonator relevant_recall@100k=0.000 @full=0.000 false_pull_in@100k=0.000 @full=0.000 scramble_recall=0.0 real_full=0.000",
+  "summary": "HARD_FAIL: resonator ALSO collapses to ~0 by 100k. resonator relevant_recall@100k=0.000 @full=0.000 false_pull_in@100k=0.000 @full=0.000 scramble_recall=0.0 real_full=0.000",
+  "elapsed_s": 360.921,
+  "run_mode": "full",
+  "anchor_name": "focus_pullin_causal_stage2c_resonator_capacity_rescue_v1",
+  "gate_thresh": 0.28,
+  "m_sub": 1024,
+  "k_ent": 2,
+  "resonator_max_it": 30,
+  "n_dim": 1024,
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_spine_edges_total": 1213912,
+  "scales": [
+    1000,
+    5000,
+    10000,
+    30000,
+    100000,
+    1213912
+  ],
+  "per_scale_baseline": {
+    "1000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.9666666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1000,
+      "arm": "baseline",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.967 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "5000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.9466666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 5000,
+      "arm": "baseline",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.947 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "10000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.7,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 10000,
+      "arm": "baseline",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.700 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "30000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.9733333333333334,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 30000,
+      "arm": "baseline",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.973"
+    },
+    "100000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.3333333333333333,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 100000,
+      "arm": "baseline",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.333"
+    },
+    "1213912": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.006666666666666667,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1213912,
+      "arm": "baseline",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.007"
+    }
+  },
+  "per_scale_resonator": {
+    "1000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.02666666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1000,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.027 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "5000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.9933333333333333,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 5000,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.993"
+    },
+    "10000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.96,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 10000,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.960"
+    },
+    "30000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.94,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 30000,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.940"
+    },
+    "100000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.41333333333333333,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 100000,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.413"
+    },
+    "1213912": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.013333333333333334,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1213912,
+      "arm": "resonator",
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.013"
+    }
+  },
+  "scramble_objects_control": {
+    "baseline": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.02,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1213912,
+      "arm": "baseline",
+      "control": "scramble_objects"
+    },
+    "resonator": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.02666666666666667,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1213912,
+      "arm": "resonator",
+      "control": "scramble_objects"
+    }
+  },
+  "baseline_repro_check": {
+    "ok": true,
+    "mismatches": {}
+  },
+  "baseline_reference_source": "D:\\AI\\hd-instrument\\data\\exp_focus_pullin_causal_stage2b_cskg_scale_gate_v1\\metrics.json",
+  "rescue_bands": {
+    "hard_pass_recall_min": 0.5,
+    "hard_fail_recall_max": 0.1,
+    "false_pull_in_max": 0.2,
+    "scramble_collapse_max": 0.1,
+    "scramble_gap_min": 0.2
+  },
+  "arms_differ_check": {
+    "1000": {
+      "baseline_digest": "00420773ecd8903907391cc4528bb01da9c8a6c317dde52f29227675c258b00d",
+      "resonator_digest": "895b41a21ce6b5cc69138028a8422f678e73169ee9bce225ce7d05e76d0b074e",
+      "differ": true
+    },
+    "10000": {
+      "baseline_digest": "4c67e8d5275799dbb349746aa26939da55ec87064993358e658b1abf5c781d6f",
+      "resonator_digest": "c528fffdc3efe9f3072174d13e231beb0d2f25ca733489d801cfc7cc1665e018",
+      "differ": true
+    },
+    "100000": {
+      "baseline_digest": "ac1d591fd7048f3a51d18b5e9a62af48f6335e5f322a4b830a7ca9b0a806699c",
+      "resonator_digest": "58db122286232898b35b133975978f05055b7c79b064b842e4a9c64763252f91",
+      "differ": true
+    },
+    "1213912": {
+      "baseline_digest": "12c0e230cede2be24d6ce6cf9037e21aa1f77db473c2dde51902a6cb9d93adf5",
+      "resonator_digest": "1a5cb70974abd4e0f1b8b811aafb8f4fc76bc06cf64bf767e7d4cba2ec37a1ed",
+      "differ": true
+    },
+    "30000": {
+      "baseline_digest": "49aeb00e52bcb07e8a3af6f2840ba536a2f3a67c5199b96d79f93306efad2c0e",
+      "resonator_digest": "799cb631e03f158ff8892817dd88959501b25e7dbdcc2d531fb6a47e0fd80f18",
+      "differ": true
+    },
+    "5000": {
+      "baseline_digest": "e7931d3624eeb82137af5eae9c876d469ad450d61013fbe5d248c11c513fc723",
+      "resonator_digest": "e132b31c40043edb5987b4b08e0e9bc53ae5ae1da1699114a183b6bf985b5037",
+      "differ": true
+    }
+  },
+  "arms_differ_verified": true,
+  "scramble_arms_differ_check": {
+    "baseline_digest": "38612023c07513f78bcc1a84b91ed3937d1efa4d00474ceada9c698c756ff37f",
+    "resonator_digest": "80a296e12f52eccc508dffa6628aa133aa50b2b6a7af82a5116f049f9fe9ed9d",
+    "differ": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 14,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical capacity-rescue diagnostic; sqrt(2*ln M) THEORETICAL ratio in pre-reg is the closest analytical anchor, not a closed-form floor",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: GATE_THRESH=0.28 reused unretuned from Stage-1/Stage-2-B; M_SUB/K_ENT chosen from capacity math + prior-work K2-viable/K3-risky finding, not tuned against this cell's own results"
+}
