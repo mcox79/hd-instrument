@@ -1,0 +1,236 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: checks={'hard_fail_skew_wins_1213912': False, 'margin_1213912': 0.13333333333333336, 'hard_fail_tie_1213912': False} arms_differ=True cardinality_ok=True stage2d_repro_ok=None",
+  "summary": "MIDDLE_BAND: checks={'hard_fail_skew_wins_1213912': False, 'margin_1213912': 0.13333333333333336, 'hard_fail_tie_1213912': False} arms_differ=True cardinality_ok=True stage2d_repro_ok=None",
+  "elapsed_s": 304.513,
+  "run_mode": "smoke",
+  "anchor_name": "focus_pullin_causal_stage2e_hierarchical_subject_tier_v1",
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_families": 7,
+  "source_to_idx": {
+    "AT": 0,
+    "CN": 1,
+    "CN|WN": 2,
+    "FN": 3,
+    "VG": 4,
+    "WD": 5,
+    "WN": 6
+  },
+  "k_family": {
+    "AT": 14,
+    "VG": 6,
+    "CN": 5,
+    "WD": 1,
+    "FN": 1,
+    "WN": 1,
+    "CN|WN": 1
+  },
+  "base_offset": {
+    "AT": 0,
+    "CN": 14,
+    "CN|WN": 19,
+    "FN": 20,
+    "VG": 21,
+    "WD": 27,
+    "WN": 28
+  },
+  "total_shards": 29,
+  "safe_leaf_size_sparse": 57000,
+  "scales": [
+    1213912
+  ],
+  "dg_dim": 2048,
+  "dg_sparsity": 0.02,
+  "per_scale": {
+    "1213912": {
+      "scale": 1213912,
+      "hierarchical_sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.21333333333333335,
+        "relevant_in_shortlist_rate": 0.8533333333333334,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.12,
+        "tau": 0.149121955037117,
+        "calibration": {
+          "tau": 0.149121955037117,
+          "in_set_accept": 0.8933333333333333,
+          "out_set_refuse": 0.88,
+          "in_set_mean": 0.20480905329187712,
+          "out_set_mean": 0.12277153139313061,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "per_family": {
+          "AT": {
+            "n": 40,
+            "relevant_recall": 0.225
+          },
+          "CN": {
+            "n": 16,
+            "relevant_recall": 0.4375
+          },
+          "FN": {
+            "n": 2,
+            "relevant_recall": 0.0
+          },
+          "VG": {
+            "n": 15,
+            "relevant_recall": 0.0
+          },
+          "WD": {
+            "n": 2,
+            "relevant_recall": 0.0
+          }
+        },
+        "ingest_s": 113.933,
+        "eval_s": 14.922,
+        "shard_diag": {
+          "n_shards_touched": 29,
+          "occupancy": [
+            48616,
+            49936,
+            49678,
+            48569,
+            49296,
+            49130,
+            51505,
+            51048,
+            47834,
+            49372,
+            51404,
+            49588,
+            49316,
+            50860,
+            41941,
+            51873,
+            40588,
+            40298,
+            40190,
+            7897,
+            12128,
+            49378,
+            44249,
+            44208,
+            39999,
+            45294,
+            34002,
+            13812,
+            11903
+          ],
+          "max_occupancy": 51873,
+          "n_chunks": 13,
+          "mean_nonzero_occupancy": 41859.03448275862
+        }
+      },
+      "scrambled_tier2": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.08,
+        "relevant_in_shortlist_rate": 0.12,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.28,
+        "tau": 0.12175825238227844,
+        "calibration": {
+          "tau": 0.12175825238227844,
+          "in_set_accept": 0.7866666666666666,
+          "out_set_refuse": 0.72,
+          "in_set_mean": 0.18084723770618438,
+          "out_set_mean": 0.12433825661738714,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "per_family": {
+          "AT": {
+            "n": 40,
+            "relevant_recall": 0.075
+          },
+          "CN": {
+            "n": 16,
+            "relevant_recall": 0.1875
+          },
+          "FN": {
+            "n": 2,
+            "relevant_recall": 0.0
+          },
+          "VG": {
+            "n": 15,
+            "relevant_recall": 0.0
+          },
+          "WD": {
+            "n": 2,
+            "relevant_recall": 0.0
+          }
+        },
+        "ingest_s": 113.825,
+        "eval_s": 14.081,
+        "shard_diag": {
+          "n_shards_touched": 29,
+          "occupancy": [
+            48616,
+            49936,
+            49678,
+            48569,
+            49296,
+            49130,
+            51505,
+            51048,
+            47834,
+            49372,
+            51404,
+            49588,
+            49316,
+            50860,
+            41941,
+            51873,
+            40588,
+            40298,
+            40190,
+            7897,
+            12128,
+            49378,
+            44249,
+            44208,
+            39999,
+            45294,
+            34002,
+            13812,
+            11903
+          ],
+          "max_occupancy": 51873,
+          "n_chunks": 13,
+          "mean_nonzero_occupancy": 41859.03448275862
+        }
+      }
+    }
+  },
+  "stage2d_repro_check": {},
+  "checks": {
+    "hard_fail_skew_wins_1213912": false,
+    "margin_1213912": 0.13333333333333336,
+    "hard_fail_tie_1213912": false
+  },
+  "arms_differ_check": {
+    "composed_full": "78c155ee98c4d241739657dd54a28de524b1ed2df80162be49d7917210cb509e",
+    "scrambled_full": "ea49377c825a87be7f9ef1f107d85033a2985cc6ffb77c7fea18b2a41b396a48",
+    "composed_100k": null,
+    "scrambled_100k": null
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical hierarchical shard-capacity diagnostic; per-leaf safe size MEASURED via the leaf_capacity_sweep_v1 diagnostic (isolated single-leaf SparseHeteroShardStore, AT-family real edges), not a closed-form floor",
+  "deterministic_seeding": true,
+  "calibration_check_hierarchical": "adaptive_with_discriminator_gate: DG-space tau via refuse_gate_calibrate_from_scores, per-scale, 50/50 internal split (identical mechanism Stage-2D's SPARSE/SCRAMBLED arms use)",
+  "hp_scope": {
+    "hierarchical_sparse": [
+      "relevant_recall",
+      "false_pull_in_rate",
+      "scramble_margin"
+    ]
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: checks={'hard_fail_skew_wins_1213912': False, 'margin_1213912': 0.13333333333333336, 'hard_fail_tie_1213912': False, 'margin_100000': 0.5066666666666666, 'hard_fail_tie_100000': False, 'recall_ok_both': False, 'fp_ok_both': True, 'margin_ok_both': False} arms_differ=True cardinality_ok=True stage2d_repro_ok=True",
+  "summary": "MIDDLE_BAND: checks={'hard_fail_skew_wins_1213912': False, 'margin_1213912': 0.13333333333333336, 'hard_fail_tie_1213912': False, 'margin_100000': 0.5066666666666666, 'hard_fail_tie_100000': False, 'recall_ok_both': False, 'fp_ok_both': True, 'margin_ok_both': False} arms_differ=True cardinality_ok=True stage2d_repro_ok=True",
+  "elapsed_s": 413.98,
+  "run_mode": "full",
+  "anchor_name": "focus_pullin_causal_stage2e_hierarchical_subject_tier_v1",
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_families": 7,
+  "source_to_idx": {
+    "AT": 0,
+    "CN": 1,
+    "CN|WN": 2,
+    "FN": 3,
+    "VG": 4,
+    "WD": 5,
+    "WN": 6
+  },
+  "k_family": {
+    "AT": 14,
+    "VG": 6,
+    "CN": 5,
+    "WD": 1,
+    "FN": 1,
+    "WN": 1,
+    "CN|WN": 1
+  },
+  "base_offset": {
+    "AT": 0,
+    "CN": 14,
+    "CN|WN": 19,
+    "FN": 20,
+    "VG": 21,
+    "WD": 27,
+    "WN": 28
+  },
+  "total_shards": 29,
+  "safe_leaf_size_sparse": 57000,
+  "scales": [
+    100000,
+    1213912
+  ],
+  "dg_dim": 2048,
+  "dg_sparsity": 0.02,
+  "per_scale": {
+    "100000": {
+      "scale": 100000,
+      "hierarchical_sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.6133333333333333,
+        "relevant_in_shortlist_rate": 0.9466666666666667,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.04,
+        "tau": 0.19788093864917755,
+        "calibration": {
+          "tau": 0.19788093864917755,
+          "in_set_accept": 0.9333333333333333,
+          "out_set_refuse": 0.96,
+          "in_set_mean": 0.47570384403069815,
+          "out_set_mean": 0.12544120023647945,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "per_family": {
+          "AT": {
+            "n": 41,
+            "relevant_recall": 0.8536585365853658
+          },
+          "CN": {
+            "n": 12,
+            "relevant_recall": 0.5
+          },
+          "VG": {
+            "n": 22,
+            "relevant_recall": 0.22727272727272727
+          }
+        },
+        "ingest_s": 12.377,
+        "eval_s": 15.303,
+        "shard_diag": {
+          "n_shards_touched": 29,
+          "occupancy": [
+            4068,
+            3980,
+            4217,
+            4063,
+            3984,
+            4053,
+            4272,
+            4218,
+            4042,
+            4058,
+            4223,
+            4098,
+            4095,
+            4125,
+            3442,
+            4274,
+            3446,
+            3359,
+            3217,
+            636,
+            975,
+            3982,
+            3595,
+            3671,
+            3263,
+            3687,
+            2858,
+            1129,
+            970
+          ],
+          "max_occupancy": 4274,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 3448.2758620689656
+        }
+      },
+      "scrambled_tier2": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.10666666666666667,
+        "relevant_in_shortlist_rate": 0.12,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.13333333333333333,
+        "tau": 0.16179746389389038,
+        "calibration": {
+          "tau": 0.16179746389389038,
+          "in_set_accept": 0.44,
+          "out_set_refuse": 0.8666666666666667,
+          "in_set_mean": 0.26962487295269966,
+          "out_set_mean": 0.1357842224339644,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "per_family": {
+          "AT": {
+            "n": 41,
+            "relevant_recall": 0.07317073170731707
+          },
+          "CN": {
+            "n": 12,
+            "relevant_recall": 0.3333333333333333
+          },
+          "VG": {
+            "n": 22,
+            "relevant_recall": 0.045454545454545456
+          }
+        },
+        "ingest_s": 9.853,
+        "eval_s": 14.32,
+        "shard_diag": {
+          "n_shards_touched": 29,
+          "occupancy": [
+            4068,
+            3980,
+            4217,
+            4063,
+            3984,
+            4053,
+            4272,
+            4218,
+            4042,
+            4058,
+            4223,
+            4098,
+            4095,
+            4125,
+            3442,
+            4274,
+            3446,
+            3359,
+            3217,
+            636,
+            975,
+            3982,
+            3595,
+            3671,
+            3263,
+            3687,
+            2858,
+            1129,
+            970
+          ],
+          "max_occupancy": 4274,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 3448.2758620689656
+        }
+      }
+    },
+    "1213912": {
+      "scale": 1213912,
+      "hierarchical_sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.21333333333333335,
+        "relevant_in_shortlist_rate": 0.8533333333333334,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.12,
+        "tau": 0.149121955037117,
+        "calibration": {
+          "tau": 0.149121955037117,
+          "in_set_accept": 0.8933333333333333,
+          "out_set_refuse": 0.88,
+          "in_set_mean": 0.20480905329187712,
+          "out_set_mean": 0.12277153139313061,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "per_family": {
+          "AT": {
+            "n": 40,
+            "relevant_recall": 0.225
+          },
+          "CN": {
+            "n": 16,
+            "relevant_recall": 0.4375
+          },
+          "FN": {
+            "n": 2,
+            "relevant_recall": 0.0
+          },
+          "VG": {
+            "n": 15,
+            "relevant_recall": 0.0
+          },
+          "WD": {
+            "n": 2,
+            "relevant_recall": 0.0
+          }
+        },
+        "ingest_s": 112.61,
+        "eval_s": 14.527,
+        "shard_diag": {
+          "n_shards_touched": 29,
+          "occupancy": [
+            48616,
+            49936,
+            49678,
+            48569,
+            49296,
+            49130,
+            51505,
+            51048,
+            47834,
+            49372,
+            51404,
+            49588,
+            49316,
+            50860,
+            41941,
+            51873,
+            40588,
+            40298,
+            40190,
+            7897,
+            12128,
+            49378,
+            44249,
+            44208,
+            39999,
+            45294,
+            34002,
+            13812,
+            11903
+          ],
+          "max_occupancy": 51873,
+          "n_chunks": 13,
+          "mean_nonzero_occupancy": 41859.03448275862
+        }
+      },
+      "scrambled_tier2": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.08,
+        "relevant_in_shortlist_rate": 0.12,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.28,
+        "tau": 0.12175825238227844,
+        "calibration": {
+          "tau": 0.12175825238227844,
+          "in_set_accept": 0.7866666666666666,
+          "out_set_refuse": 0.72,
+          "in_set_mean": 0.18084723770618438,
+          "out_set_mean": 0.12433825661738714,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "per_family": {
+          "AT": {
+            "n": 40,
+            "relevant_recall": 0.075
+          },
+          "CN": {
+            "n": 16,
+            "relevant_recall": 0.1875
+          },
+          "FN": {
+            "n": 2,
+            "relevant_recall": 0.0
+          },
+          "VG": {
+            "n": 15,
+            "relevant_recall": 0.0
+          },
+          "WD": {
+            "n": 2,
+            "relevant_recall": 0.0
+          }
+        },
+        "ingest_s": 120.636,
+        "eval_s": 14.321,
+        "shard_diag": {
+          "n_shards_touched": 29,
+          "occupancy": [
+            48616,
+            49936,
+            49678,
+            48569,
+            49296,
+            49130,
+            51505,
+            51048,
+            47834,
+            49372,
+            51404,
+            49588,
+            49316,
+            50860,
+            41941,
+            51873,
+            40588,
+            40298,
+            40190,
+            7897,
+            12128,
+            49378,
+            44249,
+            44208,
+            39999,
+            45294,
+            34002,
+            13812,
+            11903
+          ],
+          "max_occupancy": 51873,
+          "n_chunks": 13,
+          "mean_nonzero_occupancy": 41859.03448275862
+        }
+      }
+    }
+  },
+  "stage2d_repro_check": {
+    "ok": true,
+    "scale": 10000,
+    "detail": {
+      "sparse": {
+        "ok": true,
+        "fresh_rr": 0.8933333333333333,
+        "ref_rr": 0.8933333333333333,
+        "d_rr": 0.0,
+        "d_fp": 0.0
+      },
+      "scrambled": {
+        "ok": true,
+        "fresh_rr": 0.5866666666666667,
+        "ref_rr": 0.5866666666666667,
+        "d_rr": 0.0,
+        "d_fp": 0.0
+      }
+    }
+  },
+  "checks": {
+    "hard_fail_skew_wins_1213912": false,
+    "margin_1213912": 0.13333333333333336,
+    "hard_fail_tie_1213912": false,
+    "margin_100000": 0.5066666666666666,
+    "hard_fail_tie_100000": false,
+    "recall_ok_both": false,
+    "fp_ok_both": true,
+    "margin_ok_both": false
+  },
+  "arms_differ_check": {
+    "composed_full": "78c155ee98c4d241739657dd54a28de524b1ed2df80162be49d7917210cb509e",
+    "scrambled_full": "ea49377c825a87be7f9ef1f107d85033a2985cc6ffb77c7fea18b2a41b396a48",
+    "composed_100k": "74af2601674385847a360db2d3c169bc9f0d3ff212796d83833362a51c14e799",
+    "scrambled_100k": "8df8f940d5d866cae56095e6c3bfcef236e2b141759d2849ebc5502d6d393e36"
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical hierarchical shard-capacity diagnostic; per-leaf safe size MEASURED via the leaf_capacity_sweep_v1 diagnostic (isolated single-leaf SparseHeteroShardStore, AT-family real edges), not a closed-form floor",
+  "deterministic_seeding": true,
+  "calibration_check_hierarchical": "adaptive_with_discriminator_gate: DG-space tau via refuse_gate_calibrate_from_scores, per-scale, 50/50 internal split (identical mechanism Stage-2D's SPARSE/SCRAMBLED arms use)",
+  "hp_scope": {
+    "hierarchical_sparse": [
+      "relevant_recall",
+      "false_pull_in_rate",
+      "scramble_margin"
+    ]
+  }
+}

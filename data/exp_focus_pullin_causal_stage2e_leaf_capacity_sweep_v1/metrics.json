@@ -1,0 +1,331 @@
+{
+  "verdict": "DIAGNOSTIC_COMPLETE",
+  "verdict_msg": "leaf-capacity sweep: safe_leaf_size_sparse=57000 safe_leaf_size_dense=None k_family={'AT': 13, 'VG': 5, 'CN': 4} n_fail_units=0",
+  "summary": "AT sweep points=[57000, 150000, 300000, 500000, 696152]; safe_leaf_size_sparse=57000",
+  "elapsed_s": 566.444,
+  "anchor_name": "focus_pullin_causal_stage2e_leaf_capacity_sweep_v1",
+  "ts_iso": "2026-08-10T03:24:10.650408+00:00",
+  "n_ent": 482588,
+  "n_rel": 33,
+  "rec_thresh_sparse": 0.5,
+  "at_sweep_targets": [
+    57000,
+    150000,
+    300000,
+    500000,
+    696152
+  ],
+  "full_family_occ": {
+    "AT": 696152,
+    "CN": 214890,
+    "VG": 257130,
+    "WD": 13812,
+    "FN": 12128,
+    "WN": 11903,
+    "CN|WN": 7897
+  },
+  "results": {
+    "AT": {
+      "57000": {
+        "dense": {
+          "n_relevant_queried": 150,
+          "relevant_recall": 0.0,
+          "relevant_in_shortlist_rate": 0.7266666666666667,
+          "n_negative_queried": 150,
+          "false_pull_in_rate": 0.0,
+          "n_ingested": 57000,
+          "ingest_s": 1.325,
+          "eval_s": 35.124
+        },
+        "sparse": {
+          "n_relevant_queried": 75,
+          "relevant_recall": 0.6933333333333334,
+          "relevant_in_shortlist_rate": 1.0,
+          "n_negative_queried": 75,
+          "false_pull_in_rate": 0.32,
+          "tau": 0.15690821409225464,
+          "calibration": {
+            "tau": 0.15690821409225464,
+            "in_set_accept": 0.9333333333333333,
+            "out_set_refuse": 0.68,
+            "in_set_mean": 0.1898543479045232,
+            "out_set_mean": 0.14225548297166823,
+            "n_in": 150,
+            "n_out": 150
+          },
+          "n_ingested": 57000,
+          "ingest_s": 5.384,
+          "eval_s": 3.264,
+          "shard_diag": {
+            "n_shards_touched": 1,
+            "occupancy": [
+              57000
+            ],
+            "max_occupancy": 57000,
+            "n_chunks": 1,
+            "mean_nonzero_occupancy": 57000.0
+          }
+        }
+      },
+      "150000": {
+        "dense": {
+          "n_relevant_queried": 150,
+          "relevant_recall": 0.0,
+          "relevant_in_shortlist_rate": 0.1,
+          "n_negative_queried": 150,
+          "false_pull_in_rate": 0.013333333333333334,
+          "n_ingested": 150000,
+          "ingest_s": 1.739,
+          "eval_s": 30.931
+        },
+        "sparse": {
+          "n_relevant_queried": 75,
+          "relevant_recall": 0.22666666666666666,
+          "relevant_in_shortlist_rate": 0.8533333333333334,
+          "n_negative_queried": 75,
+          "false_pull_in_rate": 0.5333333333333333,
+          "tau": 0.12768754363059998,
+          "calibration": {
+            "tau": 0.12768754363059998,
+            "in_set_accept": 0.7333333333333333,
+            "out_set_refuse": 0.4666666666666667,
+            "in_set_mean": 0.1491496635476748,
+            "out_set_mean": 0.1410087345043818,
+            "n_in": 150,
+            "n_out": 150
+          },
+          "n_ingested": 150000,
+          "ingest_s": 14.252,
+          "eval_s": 2.953,
+          "shard_diag": {
+            "n_shards_touched": 1,
+            "occupancy": [
+              150000
+            ],
+            "max_occupancy": 150000,
+            "n_chunks": 2,
+            "mean_nonzero_occupancy": 150000.0
+          }
+        }
+      },
+      "300000": {
+        "dense": {
+          "n_relevant_queried": 150,
+          "relevant_recall": 0.0,
+          "relevant_in_shortlist_rate": 0.04666666666666667,
+          "n_negative_queried": 150,
+          "false_pull_in_rate": 0.013333333333333334,
+          "n_ingested": 300000,
+          "ingest_s": 3.531,
+          "eval_s": 31.404
+        },
+        "sparse": {
+          "n_relevant_queried": 75,
+          "relevant_recall": 0.05333333333333334,
+          "relevant_in_shortlist_rate": 0.4266666666666667,
+          "n_negative_queried": 75,
+          "false_pull_in_rate": 0.56,
+          "tau": 0.12007103860378265,
+          "calibration": {
+            "tau": 0.12007103860378265,
+            "in_set_accept": 0.6666666666666666,
+            "out_set_refuse": 0.44,
+            "in_set_mean": 0.13589273512363434,
+            "out_set_mean": 0.13648824006319046,
+            "n_in": 150,
+            "n_out": 150
+          },
+          "n_ingested": 300000,
+          "ingest_s": 32.99,
+          "eval_s": 3.392,
+          "shard_diag": {
+            "n_shards_touched": 1,
+            "occupancy": [
+              300000
+            ],
+            "max_occupancy": 300000,
+            "n_chunks": 3,
+            "mean_nonzero_occupancy": 300000.0
+          }
+        }
+      },
+      "500000": {
+        "dense": {
+          "n_relevant_queried": 150,
+          "relevant_recall": 0.0,
+          "relevant_in_shortlist_rate": 0.013333333333333334,
+          "n_negative_queried": 150,
+          "false_pull_in_rate": 0.006666666666666667,
+          "n_ingested": 500000,
+          "ingest_s": 6.173,
+          "eval_s": 32.374
+        },
+        "sparse": {
+          "n_relevant_queried": 75,
+          "relevant_recall": 0.013333333333333334,
+          "relevant_in_shortlist_rate": 0.28,
+          "n_negative_queried": 75,
+          "false_pull_in_rate": 0.6933333333333334,
+          "tau": 0.1143265888094902,
+          "calibration": {
+            "tau": 0.1143265888094902,
+            "in_set_accept": 0.7866666666666666,
+            "out_set_refuse": 0.30666666666666664,
+            "in_set_mean": 0.1411501222848892,
+            "out_set_mean": 0.13634251832962035,
+            "n_in": 150,
+            "n_out": 150
+          },
+          "n_ingested": 500000,
+          "ingest_s": 50.829,
+          "eval_s": 3.538,
+          "shard_diag": {
+            "n_shards_touched": 1,
+            "occupancy": [
+              500000
+            ],
+            "max_occupancy": 500000,
+            "n_chunks": 5,
+            "mean_nonzero_occupancy": 500000.0
+          }
+        }
+      },
+      "696152": {
+        "dense": {
+          "n_relevant_queried": 150,
+          "relevant_recall": 0.0,
+          "relevant_in_shortlist_rate": 0.013333333333333334,
+          "n_negative_queried": 150,
+          "false_pull_in_rate": 0.02,
+          "n_ingested": 696152,
+          "ingest_s": 8.398,
+          "eval_s": 32.056
+        },
+        "sparse": {
+          "n_relevant_queried": 75,
+          "relevant_recall": 0.013333333333333334,
+          "relevant_in_shortlist_rate": 0.14666666666666667,
+          "n_negative_queried": 75,
+          "false_pull_in_rate": 0.5866666666666667,
+          "tau": 0.11622733622789383,
+          "calibration": {
+            "tau": 0.11622733622789383,
+            "in_set_accept": 0.6533333333333333,
+            "out_set_refuse": 0.41333333333333333,
+            "in_set_mean": 0.13737039824326833,
+            "out_set_mean": 0.13308562209208807,
+            "n_in": 150,
+            "n_out": 150
+          },
+          "n_ingested": 696152,
+          "ingest_s": 67.319,
+          "eval_s": 3.433,
+          "shard_diag": {
+            "n_shards_touched": 1,
+            "occupancy": [
+              696152
+            ],
+            "max_occupancy": 696152,
+            "n_chunks": 7,
+            "mean_nonzero_occupancy": 696152.0
+          }
+        }
+      }
+    },
+    "VG": {
+      "257130": {
+        "dense": {
+          "n_relevant_queried": 150,
+          "relevant_recall": 0.0,
+          "relevant_in_shortlist_rate": 0.03333333333333333,
+          "n_negative_queried": 150,
+          "false_pull_in_rate": 0.0,
+          "n_ingested": 257130,
+          "ingest_s": 3.186,
+          "eval_s": 31.669
+        },
+        "sparse": {
+          "n_relevant_queried": 75,
+          "relevant_recall": 0.013333333333333334,
+          "relevant_in_shortlist_rate": 0.16,
+          "n_negative_queried": 75,
+          "false_pull_in_rate": 0.7866666666666666,
+          "tau": 0.1125561073422432,
+          "calibration": {
+            "tau": 0.1125561073422432,
+            "in_set_accept": 0.9333333333333333,
+            "out_set_refuse": 0.21333333333333335,
+            "in_set_mean": 0.15038861811161042,
+            "out_set_mean": 0.1409786257147789,
+            "n_in": 150,
+            "n_out": 150
+          },
+          "n_ingested": 257130,
+          "ingest_s": 25.825,
+          "eval_s": 3.496,
+          "shard_diag": {
+            "n_shards_touched": 1,
+            "occupancy": [
+              257130
+            ],
+            "max_occupancy": 257130,
+            "n_chunks": 3,
+            "mean_nonzero_occupancy": 257130.0
+          }
+        }
+      }
+    },
+    "CN": {
+      "214890": {
+        "dense": {
+          "n_relevant_queried": 150,
+          "relevant_recall": 0.0,
+          "relevant_in_shortlist_rate": 0.08666666666666667,
+          "n_negative_queried": 150,
+          "false_pull_in_rate": 0.0,
+          "n_ingested": 214890,
+          "ingest_s": 2.646,
+          "eval_s": 33.759
+        },
+        "sparse": {
+          "n_relevant_queried": 75,
+          "relevant_recall": 0.09333333333333334,
+          "relevant_in_shortlist_rate": 0.5066666666666667,
+          "n_negative_queried": 75,
+          "false_pull_in_rate": 0.05333333333333334,
+          "tau": 0.11458832025527954,
+          "calibration": {
+            "tau": 0.11458832025527954,
+            "in_set_accept": 0.8133333333333334,
+            "out_set_refuse": 0.9466666666666667,
+            "in_set_mean": 0.12509373247623443,
+            "out_set_mean": 0.10583160748084386,
+            "n_in": 150,
+            "n_out": 150
+          },
+          "n_ingested": 214890,
+          "ingest_s": 25.089,
+          "eval_s": 3.396,
+          "shard_diag": {
+            "n_shards_touched": 1,
+            "occupancy": [
+              214890
+            ],
+            "max_occupancy": 214890,
+            "n_chunks": 3,
+            "mean_nonzero_occupancy": 214890.0
+          }
+        }
+      }
+    }
+  },
+  "fail_units": [],
+  "safe_leaf_size_sparse": 57000,
+  "safe_leaf_size_dense": null,
+  "k_family_derived": {
+    "AT": 13,
+    "VG": 5,
+    "CN": 4
+  },
+  "deterministic_seeding": true
+}
