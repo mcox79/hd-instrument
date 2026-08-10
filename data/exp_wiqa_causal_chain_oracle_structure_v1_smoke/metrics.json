@@ -1,0 +1,231 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "INFERENCE_APPROACH_FLAWED_EVEN_WITH_GOLD_ANCHORS: on oracle_covered (n=135), loop_oracle=0.4741 does NOT beat all 3 baselines by >=0.05 (vs majority=-0.1111, vs polecho=0.0148, vs bow=-0.0593) -- even fed WIQA's own gold perturbation/effect anchors, the causal-chain-composition mechanism does not outperform baselines; the wall is deeper than anchor-retrieval extraction.",
+  "summary": "HARD_FAIL: INFERENCE_APPROACH_FLAWED_EVEN_WITH_GOLD_ANCHORS: on oracle_covered (n=135), loop_oracle=0.4741 does NOT beat all 3 baselines by >=0.05 (vs majority=-0.1111, vs polecho=0.0148, vs bow=-0.0593) -- even fed WIQA's own gold perturbation/effect anchors, the causal-chain-composition mechanism does not outperform baselines; the wall is deeper than anchor-retrieval extraction.",
+  "elapsed_s": 2.49,
+  "run_mode": "smoke",
+  "anchor_name": "wiqa_causal_chain_oracle_structure_v1",
+  "n_items": 300,
+  "n_degraded": 0,
+  "degraded_frac": 0.0,
+  "gate_thresh": 0.05,
+  "n_dim": 1024,
+  "seeds": [
+    7
+  ],
+  "decisive_margin": 0.05,
+  "decisive_collapse_fraction_threshold": 0.5,
+  "n_gold_records_in_official_release": 5005,
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "n_items": 300,
+      "elapsed_s": 0.0479,
+      "per_subset": {
+        "all": {
+          "n": 300,
+          "majority": 0.4,
+          "polecho": 0.37666666666666665,
+          "bow": 0.37666666666666665,
+          "loop_internal": 0.37666666666666665,
+          "loop_oracle": 0.38333333333333336,
+          "oracle_scramble": 0.38333333333333336
+        },
+        "oracle_covered": {
+          "n": 135,
+          "majority": 0.5851851851851851,
+          "polecho": 0.45925925925925926,
+          "bow": 0.5333333333333333,
+          "loop_internal": 0.4444444444444444,
+          "loop_oracle": 0.4740740740740741,
+          "oracle_scramble": 0.4740740740740741
+        },
+        "oracle_covered_multihop": {
+          "n": 51,
+          "majority": 0.6078431372549019,
+          "polecho": 0.47058823529411764,
+          "bow": 0.5490196078431373,
+          "loop_internal": 0.47058823529411764,
+          "loop_oracle": 0.49019607843137253,
+          "oracle_scramble": 0.5098039215686274
+        }
+      },
+      "n_oracle_covered": 135,
+      "oracle_fired_rate_within_covered": 0.5407407407407407
+    }
+  },
+  "band_detail": {
+    "subset_table": {
+      "all": {
+        "n": 300,
+        "majority": 0.4,
+        "polecho": 0.37666666666666665,
+        "bow": 0.37666666666666665,
+        "loop_internal": 0.37666666666666665,
+        "loop_oracle": 0.38333333333333336,
+        "oracle_scramble_vals": [
+          0.38333333333333336
+        ],
+        "oracle_scramble_median": 0.38333333333333336,
+        "loop_oracle_minus_polecho": 0.00666666666666671,
+        "loop_oracle_minus_scramble": 0.0,
+        "collapse_frac": 0.0,
+        "loop_oracle_minus_majority": -0.016666666666666663,
+        "loop_oracle_minus_bow": 0.00666666666666671,
+        "loop_oracle_minus_loop_internal": 0.00666666666666671
+      },
+      "oracle_covered": {
+        "n": 135,
+        "majority": 0.5851851851851851,
+        "polecho": 0.45925925925925926,
+        "bow": 0.5333333333333333,
+        "loop_internal": 0.4444444444444444,
+        "loop_oracle": 0.4740740740740741,
+        "oracle_scramble_vals": [
+          0.4740740740740741
+        ],
+        "oracle_scramble_median": 0.4740740740740741,
+        "loop_oracle_minus_polecho": 0.014814814814814836,
+        "loop_oracle_minus_scramble": 0.0,
+        "collapse_frac": 0.0,
+        "loop_oracle_minus_majority": -0.11111111111111105,
+        "loop_oracle_minus_bow": -0.059259259259259234,
+        "loop_oracle_minus_loop_internal": 0.029629629629629672
+      },
+      "oracle_covered_multihop": {
+        "n": 51,
+        "majority": 0.6078431372549019,
+        "polecho": 0.47058823529411764,
+        "bow": 0.5490196078431373,
+        "loop_internal": 0.47058823529411764,
+        "loop_oracle": 0.49019607843137253,
+        "oracle_scramble_vals": [
+          0.5098039215686274
+        ],
+        "oracle_scramble_median": 0.5098039215686274,
+        "loop_oracle_minus_polecho": 0.019607843137254888,
+        "loop_oracle_minus_scramble": -0.019607843137254888,
+        "collapse_frac": -1.0,
+        "loop_oracle_minus_majority": -0.11764705882352938,
+        "loop_oracle_minus_bow": -0.058823529411764774,
+        "loop_oracle_minus_loop_internal": 0.019607843137254888
+      }
+    },
+    "beats_all_3_baselines_oracle_covered": false,
+    "beats_all_3_baselines_oracle_covered_multihop": false,
+    "n_oracle_covered": 135,
+    "oracle_fired_rate_within_covered": 0.5407407407407407,
+    "coverage_frac_of_full_dev": 0.45
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "sigs": {
+      "majority": "82702934d7f0a6da629f116ef5e142b5007d15fe4366654eb76294ad33f75b2c",
+      "polecho": "e1c1ad953c0e53bbc3d74953ef2743541687d50030df80d62e2cbe4768bf72d1",
+      "bow": "a1a33f69cdcad3c98e7064184ec840713cb799d42e7343a0f15fb7cb01578b65",
+      "loop_internal": "417018aa70930e4cacea0610cb214e03d0b651f38a2867d881ddd5c9749974f7",
+      "loop_oracle": "05c5fa653972eb1cee38f699d816e462b372d45df623f79461c862400e5c359c",
+      "oracle_scramble": "f29fc3d17b56bf6d714006a20eca2d1aac35c2a1bbfec648a9876fb61e0c4506"
+    },
+    "pairs_differ": {
+      "majority_vs_polecho": true,
+      "majority_vs_bow": true,
+      "majority_vs_loop_internal": true,
+      "majority_vs_loop_oracle": true,
+      "majority_vs_oracle_scramble": true,
+      "polecho_vs_bow": true,
+      "polecho_vs_loop_internal": true,
+      "polecho_vs_loop_oracle": true,
+      "polecho_vs_oracle_scramble": true,
+      "bow_vs_loop_internal": true,
+      "bow_vs_loop_oracle": true,
+      "bow_vs_oracle_scramble": true,
+      "loop_internal_vs_loop_oracle": true,
+      "loop_internal_vs_oracle_scramble": true,
+      "loop_oracle_vs_oracle_scramble": true
+    },
+    "all_differ": true
+  },
+  "examples": {
+    "oracle_wins_vs_internal": [
+      {
+        "question_id": "influence_graph:1204:1636:34#1",
+        "gold": "less",
+        "pred_loop_oracle": "less",
+        "pred_loop_internal": "more",
+        "pred_polecho": "more",
+        "internal_p_idx": 3,
+        "internal_o_idx": 3
+      },
+      {
+        "question_id": "influence_graph:1224:714:77#0",
+        "gold": "more",
+        "pred_loop_oracle": "more",
+        "pred_loop_internal": "less",
+        "pred_polecho": "more",
+        "internal_p_idx": 1,
+        "internal_o_idx": 9
+      },
+      {
+        "question_id": "influence_graph:1224:716:117#3",
+        "gold": "less",
+        "pred_loop_oracle": "less",
+        "pred_loop_internal": "more",
+        "pred_polecho": "less",
+        "internal_p_idx": 5,
+        "internal_o_idx": 2
+      },
+      {
+        "question_id": "influence_graph:48:233:9#2",
+        "gold": "less",
+        "pred_loop_oracle": "less",
+        "pred_loop_internal": "more",
+        "pred_polecho": "less",
+        "internal_p_idx": 5,
+        "internal_o_idx": 1
+      }
+    ],
+    "n_oracle_wins_vs_internal_total": 4,
+    "oracle_wins_vs_polecho": [
+      {
+        "question_id": "influence_graph:1204:1636:34#1",
+        "gold": "less",
+        "pred_loop_oracle": "less",
+        "pred_loop_internal": "more",
+        "pred_polecho": "more",
+        "internal_p_idx": 3,
+        "internal_o_idx": 3
+      },
+      {
+        "question_id": "influence_graph:531:1400:137#0",
+        "gold": "more",
+        "pred_loop_oracle": "more",
+        "pred_loop_internal": "more",
+        "pred_polecho": "no_effect",
+        "internal_p_idx": 4,
+        "internal_o_idx": 4
+      }
+    ],
+    "n_oracle_wins_vs_polecho_total": 2,
+    "n_internal_anchor_diverges_from_gold_anchor": 119,
+    "n_checked_for_anchor_divergence": 135
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "3-way discrete classification accuracy comparison on a real benchmark (WIQA); no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: reuses v2's GATE_THRESH/lexicon unchanged; this cell adds a new gold ANCHOR SOURCE, not a new calibration knob",
+  "hp_scope": {
+    "oracle_covered": [
+      "decisive_gate_beats_all_3_baselines",
+      "decisive_gate_scramble_collapse"
+    ]
+  },
+  "progress_logging": "print_flush_true",
+  "oracle_scope_note": "PARTIAL oracle: gold (i,j) anchor indices from WIQA's official with_explanation release REPLACE the internal HD-BoW pull-in; edge-polarity extraction (has_negating_word regex) is UNCHANGED/internal. di/dj EXCLUDED (see dj_leak_check in self-test: match_rate vs answer_label)."
+}
