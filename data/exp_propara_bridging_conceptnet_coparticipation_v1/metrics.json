@@ -1,0 +1,285 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_CONCEPTNET_INSUFFICIENT_BUILD_NOT_REUSE: split=test SURVIVAL_CN=0.22277774772974213 (generic=0.22054806734958407) cn_add=0.0022296803801580556 cn_f1=0.3801 without_f1=0.3564 cn_pair_recall=0.321 (generic was 0.2346) cn_domain_coverage=0.4808 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_CONCEPTNET_INSUFFICIENT_BUILD_NOT_REUSE: split=test SURVIVAL_CN=0.22277774772974213 (generic=0.22054806734958407) cn_add=0.0022296803801580556 cn_f1=0.3801 without_f1=0.3564 cn_pair_recall=0.321 (generic was 0.2346) cn_domain_coverage=0.4808 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "elapsed_s": 3.555,
+  "run_mode": "full",
+  "anchor_name": "propara_bridging_conceptnet_coparticipation_v1",
+  "split": "test",
+  "result": {
+    "split": "test",
+    "elapsed_s": 3.545,
+    "n_paragraphs": 54,
+    "arms_differ": {
+      "sigs": {
+        "without_knowledge": "4292e6956ef5dbd83efc131aa4cc442e850ef6f3b4852f7a831b6e73cf120f36",
+        "with_oracle": "638a8080cc3c228801b7c839249389f4b04808d03a42a8e8d6c5725e776b2399",
+        "with_real_generic": "b8ed813d4bad6876f6d13f034ccca7c60be647b19ffe224fe371042a0168c46c",
+        "with_real_cn": "81e34a21edaee906068d8389cf7f41e88eb8837967dae7f7b36b96f55fc6b23e"
+      },
+      "pairs_differ": {
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_real_generic": true,
+        "without_knowledge_vs_with_real_cn": true,
+        "with_oracle_vs_with_real_generic": true,
+        "with_oracle_vs_with_real_cn": true,
+        "with_real_generic_vs_with_real_cn": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "oracle": 1.0,
+      "generic": 1.0,
+      "cn": 1.0
+    },
+    "unmentioned_subset": {
+      "prior_lesion": {
+        "macro_f1": 0.3175656617528998,
+        "accuracy": 0.7470956210902592,
+        "n": 1119
+      },
+      "without_knowledge": {
+        "macro_f1": 0.35640236439802003,
+        "accuracy": 0.7908847184986595,
+        "n": 1119
+      },
+      "with_oracle": {
+        "macro_f1": 0.4626310177020828,
+        "accuracy": 0.8302055406613047,
+        "n": 1119
+      },
+      "with_real_generic": {
+        "macro_f1": 0.3798308885813801,
+        "accuracy": 0.7971403038427167,
+        "n": 1119
+      },
+      "with_real_cn": {
+        "macro_f1": 0.38006774452546277,
+        "accuracy": 0.7935656836461126,
+        "n": 1119
+      }
+    },
+    "without_f1": 0.35640236439802003,
+    "with_oracle_f1": 0.4626310177020828,
+    "with_real_generic_f1": 0.3798308885813801,
+    "with_real_cn_f1": 0.38006774452546277,
+    "prior_lesion_f1": 0.3175656617528998,
+    "oracle_lift": 0.10622865330406278,
+    "generic_lift": 0.023428524183360055,
+    "cn_lift": 0.023665380127442737,
+    "survival_generic": 0.22054806734958407,
+    "survival_cn": 0.22277774772974213,
+    "cn_minus_generic_survival": 0.0022296803801580556,
+    "cn_minus_prior_lesion": 0.06250208277256297,
+    "fact_coverage_generic": {
+      "pair_precision": 0.096,
+      "pair_recall": 0.2346,
+      "pair_f1": 0.1362,
+      "participant_binding_coverage": 0.661,
+      "n_oracle_participants_with_fact": 59,
+      "n_oracle_participants_covered_by_real": 39
+    },
+    "fact_coverage_cn": {
+      "pair_precision": 0.0852,
+      "pair_recall": 0.321,
+      "pair_f1": 0.1347,
+      "participant_binding_coverage": 0.8644,
+      "n_oracle_participants_with_fact": 59,
+      "n_oracle_participants_covered_by_real": 51
+    },
+    "conceptnet_binding_stats": {
+      "n_cn_only_bindings": 174,
+      "n_srl_bindings": 263,
+      "n_participants_with_cn_only_binding": 99
+    },
+    "conceptnet_domain_coverage": {
+      "unmentioned_changes": 104,
+      "conceptnet_linked": 50,
+      "coverage_fraction": 0.4808,
+      "missed_examples": [
+        {
+          "participant": "plant; animal",
+          "step_surface": [
+            "mud",
+            "silt"
+          ]
+        },
+        {
+          "participant": "bones",
+          "step_surface": [
+            "hardens",
+            "rock",
+            "sediment",
+            "time",
+            "top"
+          ]
+        },
+        {
+          "participant": "animal; body",
+          "step_surface": []
+        },
+        {
+          "participant": "soil",
+          "step_surface": [
+            "forms",
+            "rock",
+            "time"
+          ]
+        },
+        {
+          "participant": "water",
+          "step_surface": [
+            "material",
+            "peat"
+          ]
+        },
+        {
+          "participant": "sunlight",
+          "step_surface": [
+            "current",
+            "halves",
+            "jump"
+          ]
+        },
+        {
+          "participant": "electrochemical signals",
+          "step_surface": [
+            "brainstem",
+            "colliculus",
+            "eyes",
+            "information",
+            "nucleus",
+            "scanning"
+          ]
+        },
+        {
+          "participant": "fixed nitrogen; usable nitrogen",
+          "step_surface": [
+            "animals",
+            "plants"
+          ]
+        },
+        {
+          "participant": "fixed nitrogen; usable nitrogen",
+          "step_surface": [
+            "animals",
+            "waste"
+          ]
+        },
+        {
+          "participant": "plants",
+          "step_surface": [
+            "animals",
+            "waste"
+          ]
+        },
+        {
+          "participant": "waste",
+          "step_surface": [
+            "bacteria",
+            "form",
+            "gas",
+            "nitrogen"
+          ]
+        },
+        {
+          "participant": "carbon",
+          "step_surface": [
+            "remains",
+            "things"
+          ]
+        }
+      ]
+    },
+    "official": {
+      "prior_lesion": {
+        "precision": 0.82575,
+        "recall": 0.642,
+        "f1": 0.722
+      },
+      "without_knowledge": {
+        "precision": 0.792,
+        "recall": 0.582,
+        "f1": 0.671
+      },
+      "with_oracle": {
+        "precision": 0.77275,
+        "recall": 0.60175,
+        "f1": 0.677
+      },
+      "with_real_generic": {
+        "precision": 0.771,
+        "recall": 0.5910000000000001,
+        "f1": 0.669
+      },
+      "with_real_cn": {
+        "precision": 0.77475,
+        "recall": 0.5882499999999999,
+        "f1": 0.669
+      }
+    }
+  },
+  "headline": {
+    "SURVIVAL_CN": 0.22277774772974213,
+    "SURVIVAL_GENERIC": 0.22054806734958407,
+    "cn_minus_generic_survival": 0.0022296803801580556,
+    "with_real_cn_f1": 0.38006774452546277,
+    "with_real_generic_f1": 0.3798308885813801,
+    "with_oracle_f1": 0.4626310177020828,
+    "without_f1": 0.35640236439802003,
+    "cn_pair_recall": 0.321,
+    "generic_pair_recall": 0.2346,
+    "conceptnet_domain_coverage_fraction": 0.4808,
+    "conceptnet_binding_stats": {
+      "n_cn_only_bindings": 174,
+      "n_srl_bindings": 263,
+      "n_participants_with_cn_only_binding": 99
+    },
+    "official_overall": {
+      "prior_lesion": {
+        "precision": 0.82575,
+        "recall": 0.642,
+        "f1": 0.722
+      },
+      "without_knowledge": {
+        "precision": 0.792,
+        "recall": 0.582,
+        "f1": 0.671
+      },
+      "with_oracle": {
+        "precision": 0.77275,
+        "recall": 0.60175,
+        "f1": 0.677
+      },
+      "with_real_generic": {
+        "precision": 0.771,
+        "recall": 0.5910000000000001,
+        "f1": 0.669
+      },
+      "with_real_cn": {
+        "precision": 0.77475,
+        "recall": 0.5882499999999999,
+        "f1": 0.669
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: survival bar pre-registered before TEST",
+  "thresholds": {
+    "SURVIVAL_HARD_PASS": 0.5,
+    "SURVIVAL_HARD_FAIL": 0.3,
+    "CN_MUST_ADD_OVER_GENERIC": 0.05,
+    "LEAK_CEILING": 0.95,
+    "WITHOUT_COLLAPSE_CEILING": 0.6
+  }
+}

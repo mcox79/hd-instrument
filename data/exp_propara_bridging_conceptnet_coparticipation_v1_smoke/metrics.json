@@ -1,0 +1,278 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_CONCEPTNET_INSUFFICIENT_BUILD_NOT_REUSE: split=dev SURVIVAL_CN=0.036985010932253384 (generic=0.13352131548523782) cn_add=-0.09653630455298444 cn_f1=0.3269 without_f1=0.3242 cn_pair_recall=0.3333 (generic was 0.1429) cn_domain_coverage=0.5513 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_CONCEPTNET_INSUFFICIENT_BUILD_NOT_REUSE: split=dev SURVIVAL_CN=0.036985010932253384 (generic=0.13352131548523782) cn_add=-0.09653630455298444 cn_f1=0.3269 without_f1=0.3242 cn_pair_recall=0.3333 (generic was 0.1429) cn_domain_coverage=0.5513 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "elapsed_s": 3.005,
+  "run_mode": "smoke",
+  "anchor_name": "propara_bridging_conceptnet_coparticipation_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 3.004,
+    "n_paragraphs": 43,
+    "arms_differ": {
+      "sigs": {
+        "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
+        "with_oracle": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e",
+        "with_real_generic": "5f24e8c52de62ac1a590b16f67fea60af99293443825b77b6cf4d83e786a332f",
+        "with_real_cn": "e3865cedd9fd726645100539164109570ed3c229c184c0da44046b7520b1e322"
+      },
+      "pairs_differ": {
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_real_generic": true,
+        "without_knowledge_vs_with_real_cn": true,
+        "with_oracle_vs_with_real_generic": true,
+        "with_oracle_vs_with_real_cn": true,
+        "with_real_generic_vs_with_real_cn": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "oracle": 1.0,
+      "generic": 1.0,
+      "cn": 1.0
+    },
+    "unmentioned_subset": {
+      "prior_lesion": {
+        "macro_f1": 0.3374745422756599,
+        "accuracy": 0.7350649350649351,
+        "n": 770
+      },
+      "without_knowledge": {
+        "macro_f1": 0.3241578243142567,
+        "accuracy": 0.7974025974025974,
+        "n": 770
+      },
+      "with_oracle": {
+        "macro_f1": 0.39930050396383376,
+        "accuracy": 0.8,
+        "n": 770
+      },
+      "with_real_generic": {
+        "macro_f1": 0.33419097375015405,
+        "accuracy": 0.7727272727272727,
+        "n": 770
+      },
+      "with_real_cn": {
+        "macro_f1": 0.32693697714257514,
+        "accuracy": 0.7623376623376623,
+        "n": 770
+      }
+    },
+    "without_f1": 0.3241578243142567,
+    "with_oracle_f1": 0.39930050396383376,
+    "with_real_generic_f1": 0.33419097375015405,
+    "with_real_cn_f1": 0.32693697714257514,
+    "prior_lesion_f1": 0.3374745422756599,
+    "oracle_lift": 0.07514267964957705,
+    "generic_lift": 0.010033149435897337,
+    "cn_lift": 0.002779152828318421,
+    "survival_generic": 0.13352131548523782,
+    "survival_cn": 0.036985010932253384,
+    "cn_minus_generic_survival": -0.09653630455298444,
+    "cn_minus_prior_lesion": -0.010537565133084736,
+    "fact_coverage_generic": {
+      "pair_precision": 0.0385,
+      "pair_recall": 0.1429,
+      "pair_f1": 0.0606,
+      "participant_binding_coverage": 0.6765,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 23
+    },
+    "fact_coverage_cn": {
+      "pair_precision": 0.0625,
+      "pair_recall": 0.3333,
+      "pair_f1": 0.1053,
+      "participant_binding_coverage": 0.8235,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 28
+    },
+    "conceptnet_binding_stats": {
+      "n_cn_only_bindings": 128,
+      "n_srl_bindings": 211,
+      "n_participants_with_cn_only_binding": 78
+    },
+    "conceptnet_domain_coverage": {
+      "unmentioned_changes": 78,
+      "conceptnet_linked": 43,
+      "coverage_fraction": 0.5513,
+      "missed_examples": [
+        {
+          "participant": "plants",
+          "step_surface": [
+            "sediment"
+          ]
+        },
+        {
+          "participant": "bacteria",
+          "step_surface": [
+            "changes",
+            "material",
+            "oil"
+          ]
+        },
+        {
+          "participant": "sediment",
+          "step_surface": [
+            "chemical",
+            "heat",
+            "processes"
+          ]
+        },
+        {
+          "participant": "fuel",
+          "step_surface": [
+            "energy",
+            "generator"
+          ]
+        },
+        {
+          "participant": "magnet",
+          "step_surface": [
+            "c.",
+            "electrons",
+            "flow"
+          ]
+        },
+        {
+          "participant": "truck",
+          "step_surface": [
+            "trash"
+          ]
+        },
+        {
+          "participant": "Recycling",
+          "step_surface": [
+            "landfill",
+            "truck"
+          ]
+        },
+        {
+          "participant": "trashbags",
+          "step_surface": [
+            "trash",
+            "trashcan",
+            "truck"
+          ]
+        },
+        {
+          "participant": "trashbags",
+          "step_surface": [
+            "landfill",
+            "trash",
+            "truck"
+          ]
+        },
+        {
+          "participant": "crystals",
+          "step_surface": [
+            "rocks",
+            "sediment"
+          ]
+        },
+        {
+          "participant": "explosion",
+          "step_surface": [
+            "fuel"
+          ]
+        },
+        {
+          "participant": "piston",
+          "step_surface": [
+            "fuel"
+          ]
+        }
+      ]
+    },
+    "official": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_real_generic": {
+        "precision": 0.8055,
+        "recall": 0.6090000000000001,
+        "f1": 0.694
+      },
+      "with_real_cn": {
+        "precision": 0.80175,
+        "recall": 0.61575,
+        "f1": 0.697
+      }
+    }
+  },
+  "headline": {
+    "SURVIVAL_CN": 0.036985010932253384,
+    "SURVIVAL_GENERIC": 0.13352131548523782,
+    "cn_minus_generic_survival": -0.09653630455298444,
+    "with_real_cn_f1": 0.32693697714257514,
+    "with_real_generic_f1": 0.33419097375015405,
+    "with_oracle_f1": 0.39930050396383376,
+    "without_f1": 0.3241578243142567,
+    "cn_pair_recall": 0.3333,
+    "generic_pair_recall": 0.1429,
+    "conceptnet_domain_coverage_fraction": 0.5513,
+    "conceptnet_binding_stats": {
+      "n_cn_only_bindings": 128,
+      "n_srl_bindings": 211,
+      "n_participants_with_cn_only_binding": 78
+    },
+    "official_overall": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_real_generic": {
+        "precision": 0.8055,
+        "recall": 0.6090000000000001,
+        "f1": 0.694
+      },
+      "with_real_cn": {
+        "precision": 0.80175,
+        "recall": 0.61575,
+        "f1": 0.697
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: survival bar pre-registered before TEST",
+  "thresholds": {
+    "SURVIVAL_HARD_PASS": 0.5,
+    "SURVIVAL_HARD_FAIL": 0.3,
+    "CN_MUST_ADD_OVER_GENERIC": 0.05,
+    "LEAK_CEILING": 0.95,
+    "WITHOUT_COLLAPSE_CEILING": 0.6
+  }
+}
