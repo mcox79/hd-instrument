@@ -1,0 +1,344 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_KNOWLEDGE_IS_LOAD_BEARING_wall_is_SOURCING: split=dev UNMENTIONED with_f1=0.3993 without_f1=0.3242 with_minus_without=0.0751(>= 0.05 used, < 0.02 wall) with_minus_prior_lesion=0.0618 bridgeable_frac=0.5625 ablation_collapsed=True(WITHOUT<0.6) leak=False(WITH>0.95) arms_ok=True decode_ok=True",
+  "summary": "HARD_PASS: HARD_PASS_KNOWLEDGE_IS_LOAD_BEARING_wall_is_SOURCING: split=dev UNMENTIONED with_f1=0.3993 without_f1=0.3242 with_minus_without=0.0751(>= 0.05 used, < 0.02 wall) with_minus_prior_lesion=0.0618 bridgeable_frac=0.5625 ablation_collapsed=True(WITHOUT<0.6) leak=False(WITH>0.95) arms_ok=True decode_ok=True",
+  "elapsed_s": 3.504,
+  "run_mode": "smoke",
+  "anchor_name": "propara_bridging_knowledge_vs_mechanism_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 3.486,
+    "n_paragraphs": 43,
+    "arms_differ": {
+      "sigs": {
+        "prior_lesion": "87ad031f31c1a66ebd34388a6b48eed8927534ee59fd36b003d3cfea0a2d4ab2",
+        "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
+        "with_knowledge": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e"
+      },
+      "pairs_differ": {
+        "prior_lesion_vs_without_knowledge": true,
+        "prior_lesion_vs_with_knowledge": true,
+        "without_knowledge_vs_with_knowledge": true
+      },
+      "all_differ": true
+    },
+    "lesion_decode": 1.0,
+    "without_decode": 1.0,
+    "with_decode": 1.0,
+    "unmentioned_subset": {
+      "majority": {
+        "macro_f1": 0.23666210670314639,
+        "accuracy": 0.8987012987012987,
+        "n": 770
+      },
+      "bow_singlestep": {
+        "macro_f1": 0.23666210670314639,
+        "accuracy": 0.8987012987012987,
+        "n": 770
+      },
+      "bagstates": {
+        "macro_f1": 0.2419094984589521,
+        "accuracy": 0.8038961038961039,
+        "n": 770
+      },
+      "prior_lesion": {
+        "macro_f1": 0.3374745422756599,
+        "accuracy": 0.7350649350649351,
+        "n": 770
+      },
+      "without_knowledge": {
+        "macro_f1": 0.3241578243142567,
+        "accuracy": 0.7974025974025974,
+        "n": 770
+      },
+      "with_knowledge": {
+        "macro_f1": 0.39930050396383376,
+        "accuracy": 0.8,
+        "n": 770
+      }
+    },
+    "with_minus_without": 0.07514267964957705,
+    "with_minus_prior_lesion": 0.06182596168817389,
+    "with_minus_best_baseline": 0.15739100550488166,
+    "best_baseline_unm_macro_f1": 0.2419094984589521,
+    "official": {
+      "majority": {
+        "precision": 1.0,
+        "recall": 0.2965,
+        "f1": 0.457
+      },
+      "bow_singlestep": {
+        "precision": 0.812,
+        "recall": 0.4195,
+        "f1": 0.553
+      },
+      "bagstates": {
+        "precision": 0.8367500000000001,
+        "recall": 0.37625000000000003,
+        "f1": 0.519
+      },
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_knowledge": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      }
+    },
+    "official_full": {
+      "majority": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.488,
+          "f1": 0.656
+        },
+        "outputs": {
+          "precision": 1.0,
+          "recall": 0.233,
+          "f1": 0.378
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.372,
+          "f1": 0.542
+        },
+        "moves": {
+          "precision": 1.0,
+          "recall": 0.093,
+          "f1": 0.17
+        },
+        "overall": {
+          "precision": 1.0,
+          "recall": 0.2965,
+          "f1": 0.457
+        },
+        "n_processes": 43
+      },
+      "bow_singlestep": {
+        "inputs": {
+          "precision": 0.965,
+          "recall": 0.585,
+          "f1": 0.728
+        },
+        "outputs": {
+          "precision": 0.773,
+          "recall": 0.531,
+          "f1": 0.63
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.372,
+          "f1": 0.542
+        },
+        "moves": {
+          "precision": 0.51,
+          "recall": 0.19,
+          "f1": 0.277
+        },
+        "overall": {
+          "precision": 0.812,
+          "recall": 0.4195,
+          "f1": 0.553
+        },
+        "n_processes": 43
+      },
+      "bagstates": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.488,
+          "f1": 0.656
+        },
+        "outputs": {
+          "precision": 0.716,
+          "recall": 0.535,
+          "f1": 0.612
+        },
+        "conversions": {
+          "precision": 1.0,
+          "recall": 0.372,
+          "f1": 0.542
+        },
+        "moves": {
+          "precision": 0.631,
+          "recall": 0.11,
+          "f1": 0.187
+        },
+        "overall": {
+          "precision": 0.8367500000000001,
+          "recall": 0.37625000000000003,
+          "f1": 0.519
+        },
+        "n_processes": 43
+      },
+      "prior_lesion": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "outputs": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "conversions": {
+          "precision": 0.977,
+          "recall": 0.372,
+          "f1": 0.539
+        },
+        "moves": {
+          "precision": 0.254,
+          "recall": 0.254,
+          "f1": 0.254
+        },
+        "overall": {
+          "precision": 0.80775,
+          "recall": 0.6565,
+          "f1": 0.724
+        },
+        "n_processes": 43
+      },
+      "without_knowledge": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.868,
+          "f1": 0.929
+        },
+        "outputs": {
+          "precision": 1.0,
+          "recall": 0.888,
+          "f1": 0.941
+        },
+        "conversions": {
+          "precision": 0.907,
+          "recall": 0.391,
+          "f1": 0.546
+        },
+        "moves": {
+          "precision": 0.347,
+          "recall": 0.347,
+          "f1": 0.347
+        },
+        "overall": {
+          "precision": 0.8135,
+          "recall": 0.6235,
+          "f1": 0.706
+        },
+        "n_processes": 43
+      },
+      "with_knowledge": {
+        "inputs": {
+          "precision": 1.0,
+          "recall": 0.884,
+          "f1": 0.938
+        },
+        "outputs": {
+          "precision": 1.0,
+          "recall": 0.841,
+          "f1": 0.914
+        },
+        "conversions": {
+          "precision": 0.849,
+          "recall": 0.397,
+          "f1": 0.541
+        },
+        "moves": {
+          "precision": 0.358,
+          "recall": 0.358,
+          "f1": 0.358
+        },
+        "overall": {
+          "precision": 0.8017500000000001,
+          "recall": 0.62,
+          "f1": 0.699
+        },
+        "n_processes": 43
+      }
+    },
+    "focus_macro_f1": {
+      "majority": 0.23666210670314639,
+      "bow_singlestep": 0.23666210670314639,
+      "bagstates": 0.2419094984589521,
+      "prior_lesion": 0.3374745422756599,
+      "without_knowledge": 0.3241578243142567,
+      "with_knowledge": 0.39930050396383376
+    },
+    "n_unm_changes": 64,
+    "n_unm_changes_with_trigger": 36,
+    "bridgeable_fraction": 0.5625,
+    "scramble_report": {
+      "with_knowledge_unm_f1_scrambled": [
+        0.3910233127369197,
+        0.40710397351849703
+      ],
+      "natural_with_unm_f1": 0.39930050396383376
+    }
+  },
+  "headline": {
+    "UNMENTIONED_with_knowledge_macro_f1": 0.39930050396383376,
+    "UNMENTIONED_without_knowledge_macro_f1": 0.3241578243142567,
+    "UNMENTIONED_prior_lesion_macro_f1": 0.3374745422756599,
+    "with_minus_without": 0.07514267964957705,
+    "with_minus_prior_lesion": 0.06182596168817389,
+    "with_minus_best_baseline": 0.15739100550488166,
+    "bridgeable_fraction": 0.5625,
+    "n_unm_changes": 64,
+    "official_overall": {
+      "majority": {
+        "precision": 1.0,
+        "recall": 0.2965,
+        "f1": 0.457
+      },
+      "bow_singlestep": {
+        "precision": 0.812,
+        "recall": 0.4195,
+        "f1": 0.553
+      },
+      "bagstates": {
+        "precision": 0.8367500000000001,
+        "recall": 0.37625000000000003,
+        "f1": 0.519
+      },
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_knowledge": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: bands DEV-calibrated (see prereg), pinned before TEST",
+  "thresholds": {
+    "WITH_MINUS_WITHOUT_HARD_PASS": 0.05,
+    "WITH_MINUS_WITHOUT_HARD_FAIL": 0.02,
+    "LEAK_CEILING": 0.95,
+    "WITHOUT_COLLAPSE_CEILING": 0.6
+  }
+}
