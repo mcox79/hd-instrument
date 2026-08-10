@@ -1,0 +1,198 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: gate1_gap=-0.0400(best_baseline=0.4000) scramble_drop=-0.0067 gate4_gap=-0.0096",
+  "summary": "HARD_FAIL: HARD_FAIL: gate1_gap=-0.0400(best_baseline=0.4000) scramble_drop=-0.0067 gate4_gap=-0.0096",
+  "elapsed_s": 1.97,
+  "run_mode": "smoke",
+  "anchor_name": "wiqa_causal_chain_loop_v1",
+  "n_items": 300,
+  "n_degraded": 0,
+  "degraded_frac": 0.0,
+  "gate_thresh": 0.05,
+  "n_dim": 1024,
+  "seeds": [
+    7
+  ],
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "n_items": 300,
+      "elapsed_s": 0.0479,
+      "acc": {
+        "majority": {
+          "overall": 0.4,
+          "multihop": 0.5741626794258373
+        },
+        "polecho": {
+          "overall": 0.37666666666666665,
+          "multihop": 0.44976076555023925
+        },
+        "bow": {
+          "overall": 0.36,
+          "multihop": 0.4354066985645933
+        },
+        "loop": {
+          "overall": 0.36,
+          "multihop": 0.44019138755980863
+        },
+        "ablation1_scramble": {
+          "overall": 0.36666666666666664,
+          "multihop": 0.44976076555023925
+        },
+        "ablation2_novalidate": {
+          "overall": 0.3566666666666667,
+          "multihop": 0.4449760765550239
+        }
+      },
+      "abstain": {
+        "loop": 0.75,
+        "ablation2_novalidate": 0.6
+      }
+    }
+  },
+  "band_detail": {
+    "loop_overall": 0.36,
+    "loop_multihop": 0.44019138755980863,
+    "majority_overall": 0.4,
+    "polecho_overall": 0.37666666666666665,
+    "polecho_multihop": 0.44976076555023925,
+    "bow_overall": 0.36,
+    "best_baseline": 0.4,
+    "gate1_gap": -0.040000000000000036,
+    "gate1_pass": false,
+    "scramble_median": 0.36666666666666664,
+    "scramble_vals": [
+      0.36666666666666664
+    ],
+    "scramble_drop": -0.006666666666666654,
+    "scramble_ceil_ok": true,
+    "gate2_pass": false,
+    "ablation2_overall": 0.3566666666666667,
+    "gate3_pass": true,
+    "gate4_gap": -0.009569377990430616,
+    "gate4_pass": false
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "sigs": {
+      "majority": "82702934d7f0a6da629f116ef5e142b5007d15fe4366654eb76294ad33f75b2c",
+      "polecho": "e1c1ad953c0e53bbc3d74953ef2743541687d50030df80d62e2cbe4768bf72d1",
+      "bow": "90c324286e0eb5b37ef63eb35d348f1c82ccaae979de808e76ae44c2ddab0286",
+      "loop": "c0d28189c9240a6f7eaa0fc30cbba7dc81b00866717c8b73d7a66b9ee152cc2e",
+      "ablation1_scramble": "b8e14c99d31fddb915c93b62f41a401fbb097f5019c9897b8a1053227060c159",
+      "ablation2_novalidate": "303cfdd6dc92cbf2fef2fc203101510afb5064ef7daeea555b245957e022be5b"
+    },
+    "pairs_differ": {
+      "majority_vs_polecho": true,
+      "majority_vs_bow": true,
+      "majority_vs_loop": true,
+      "majority_vs_ablation1_scramble": true,
+      "majority_vs_ablation2_novalidate": true,
+      "polecho_vs_bow": true,
+      "polecho_vs_loop": true,
+      "polecho_vs_ablation1_scramble": true,
+      "polecho_vs_ablation2_novalidate": true,
+      "bow_vs_loop": true,
+      "bow_vs_ablation1_scramble": true,
+      "bow_vs_ablation2_novalidate": true,
+      "loop_vs_ablation1_scramble": true,
+      "loop_vs_ablation2_novalidate": true,
+      "ablation1_scramble_vs_ablation2_novalidate": true
+    },
+    "all_differ": true
+  },
+  "examples": {
+    "loop_wins_vs_polecho": [
+      {
+        "question_id": "influence_graph:425:1088:116#1",
+        "gold": "more",
+        "pred_loop": "more",
+        "pred_polecho": "no_effect",
+        "pp": 1,
+        "op": 0,
+        "p_idx": 2,
+        "o_idx": 1,
+        "qtype": "EXOGENOUS_EFFECT"
+      }
+    ],
+    "loop_loses_vs_polecho": [
+      {
+        "question_id": "influence_graph:1224:714:77#0",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "more",
+        "pp": -1,
+        "op": -1,
+        "p_idx": 4,
+        "o_idx": 9,
+        "qtype": "INPARA_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1224:716:117#3",
+        "gold": "less",
+        "pred_loop": "more",
+        "pred_polecho": "less",
+        "pp": -1,
+        "op": 1,
+        "p_idx": 5,
+        "o_idx": 2,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:48:233:9#2",
+        "gold": "less",
+        "pred_loop": "more",
+        "pred_polecho": "less",
+        "pp": -1,
+        "op": 1,
+        "p_idx": 5,
+        "o_idx": 1,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "out_of_para:1025:93:31",
+        "gold": "no_effect",
+        "pred_loop": "more",
+        "pred_polecho": "no_effect",
+        "pp": 1,
+        "op": 0,
+        "p_idx": 5,
+        "o_idx": 3,
+        "qtype": "OUTOFPARA_DISTRACTOR"
+      },
+      {
+        "question_id": "out_of_para:391:363:177",
+        "gold": "no_effect",
+        "pred_loop": "less",
+        "pred_polecho": "no_effect",
+        "pp": -1,
+        "op": 0,
+        "p_idx": 1,
+        "o_idx": 0,
+        "qtype": "OUTOFPARA_DISTRACTOR"
+      }
+    ],
+    "n_loop_wins_total": 1,
+    "n_loop_loses_total": 6
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "3-way discrete classification accuracy comparison on a real benchmark (WIQA); no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate: GATE_THRESH=0.05 set from the cosine-distribution shape (label-blind); discriminator-fires verified at smoke via arms_differ + loop abstain_rate < 1.0",
+  "hp_scope": {
+    "dev_full": [
+      "gate1_lift",
+      "gate2_scramble",
+      "gate3_novalidate",
+      "gate4_multihop"
+    ]
+  },
+  "progress_logging": "print_flush_true",
+  "data_pull_status": "SUCCEEDED via revision=refs/convert/parquet fallback (datasets>=3 dropped legacy script-dataset loading); train=29808 validation=6894 test=3003, matches literature figures"
+}

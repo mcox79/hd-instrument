@@ -200,13 +200,38 @@ class CausalLinkRegister(AccumulateRegister):
         # with ONLY an EFFECT fact and no CAUSE fact, or vice versa -- decode must not guess
         # against an unbound role; base class has no per-role bookkeeping, so track it here).
         self._roles_present: Dict[str, set] = {}
+        # cause_idx,effect_idx -> +1/-1 (2026-08-10 WIQA causal-chain-loop extension, see
+        # add_causal_link docstring). Plain Python side-dict, NOT bound into the FHRR algebra --
+        # a +-1 scalar has nothing to cleanup; existence + index recovery is still done by the
+        # unchanged bind/bundle/cleanup_argmax chain below.
+        self._link_polarity: Dict[Tuple[int, int], int] = {}
 
-    def add_causal_link(self, cause_idx: int, effect_idx: int) -> None:
-        """Bind event cause_idx -> has-effect -> effect_idx, and the reverse, in one write."""
+    def add_causal_link(self, cause_idx: int, effect_idx: int, polarity: int = 1) -> None:
+        """Bind event cause_idx -> has-effect -> effect_idx, and the reverse, in one write.
+
+        polarity (2026-08-10 extension, exp_wiqa_causal_chain_loop_v1): +1 (default) or -1 --
+        signed CAUSE/EFFECT bit for propagating a perturbation's direction along a multi-hop
+        chain (does cause_idx increasing make effect_idx increase [+1] or decrease [-1]?).
+        Stored as a plain scalar side-dict, not encoded via bind/bundle (there is nothing to
+        "clean up" about a +-1 sign; the existing FHRR CAUSE/EFFECT existence+index-recovery
+        chain is UNCHANGED). Additive-only: default polarity=1 reproduces prior unsigned
+        call sites exactly (query_effect_of/query_cause_of behavior is bit-for-bit unchanged).
+        """
+        if polarity not in (1, -1):
+            raise ValueError(f"polarity must be +1 or -1; got {polarity!r}")
         self.add_event(str(cause_idx), self.CAUSE_ROLE, effect_idx)
         self._roles_present.setdefault(str(cause_idx), set()).add(self.CAUSE_ROLE)
         self.add_event(str(effect_idx), self.EFFECT_ROLE, cause_idx)
         self._roles_present.setdefault(str(effect_idx), set()).add(self.EFFECT_ROLE)
+        self._link_polarity[(int(cause_idx), int(effect_idx))] = int(polarity)
+
+    def query_link_polarity(self, cause_idx: int, effect_idx: int) -> int:
+        """Return the signed polarity of the cause_idx->effect_idx link (+1 or -1).
+
+        Raises KeyError if this exact (cause_idx, effect_idx) link was never added via
+        add_causal_link -- an honest "no signed fact known" rather than a spurious default.
+        """
+        return self._link_polarity[(int(cause_idx), int(effect_idx))]
 
     def _decode_linked_event(self, event_idx: int, role: str) -> Tuple[object, Dict[str, float]]:
         """Unbind event_idx's register by role_vecs[role]; cleanup-argmax over idx_vecs vocab.
