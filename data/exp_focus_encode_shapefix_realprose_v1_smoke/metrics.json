@@ -1,0 +1,293 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best_arm=GROUNDED_DROP_TENSE gap=0.1554 bow_ref=0.1432 reaches_bow=True scramble=0.1590 collapses=False | all_arms={'GROUNDED_DROP_TENSE': {'tier': 'MIDDLE_BAND', 'reaches_bow_parity': True, 'scramble_collapses': False, 'gap_arm': 0.1553602483733103, 'gap_scramble_arm': 0.15904405926329065, 'bow_ref': 0.14316949274770518}, 'GROUNDED_CHUNKEDFOCUS': {'tier': 'HARD_FAIL', 'reaches_bow_parity': False, 'scramble_collapses': False, 'gap_arm': 0.005490451576819044, 'gap_scramble_arm': 0.008024088816319552, 'bow_ref': 0.14316949274770518}}",
+  "summary": "MIDDLE_BAND: MIDDLE_BAND: best_arm=GROUNDED_DROP_TENSE gap=0.1554 bow_ref=0.1432 reaches_bow=True scramble=0.1590 collapses=False | all_arms={'GROUNDED_DROP_TENSE': {'tier': 'MIDDLE_BAND', 'reaches_bow_parity': True, 'scramble_collapses': False, 'gap_arm': 0.1553602483733103, 'gap_scramble_arm': 0.15904405926329065, 'bow_ref': 0.14316949274770518}, 'GROUNDED_CHUNKEDFOCUS': {'tier': 'HARD_FAIL', 'reaches_bow_parity': False, 'scramble_collapses': False, 'gap_arm': 0.005490451576819044, 'gap_scramble_arm': 0.008024088816319552, 'bow_ref': 0.14316949274770518}}",
+  "elapsed_s": 3.368,
+  "run_mode": "smoke",
+  "anchor_name": "focus_encode_shapefix_realprose_v1",
+  "n_dim": 8192,
+  "seed": 7,
+  "hypernym_depth": 3,
+  "decay": 0.7,
+  "capacity": 4,
+  "fanout": 2,
+  "n_scenarios_actual": 5,
+  "expected_n_units": 15,
+  "cardinality_ok": true,
+  "n_extracted": 15,
+  "n_extraction_miss": 0,
+  "coverage": {
+    "n_pred_words": 125,
+    "n_arg_words": 125,
+    "n_grounded_total": 236,
+    "tier_counts": {
+      "lexical_similarity": 4,
+      "wordnet_hypernym": 232,
+      "wordnet_hypernym_surface": 0,
+      "oov_random_fallback": 12,
+      "none_filler": 0
+    }
+  },
+  "gaps": {
+    "BOW": {
+      "matched_mean": 0.39459636767312495,
+      "wrong_mean": 0.25142687492541976,
+      "gap": 0.14316949274770518,
+      "n_matched_pairs": 15,
+      "n_wrong_pairs": 90,
+      "n_instances_scored": 15
+    },
+    "FLAT_GROUNDED": {
+      "matched_mean": 0.6056966353154459,
+      "wrong_mean": 0.5547037950283686,
+      "gap": 0.05099284028707729,
+      "n_matched_pairs": 15,
+      "n_wrong_pairs": 90,
+      "n_instances_scored": 15
+    },
+    "GROUNDED_DROP_TENSE": {
+      "matched_mean": 0.4044922013451782,
+      "wrong_mean": 0.2491319529718679,
+      "gap": 0.1553602483733103,
+      "n_matched_pairs": 15,
+      "n_wrong_pairs": 90,
+      "n_instances_scored": 15
+    },
+    "GROUNDED_DROP_TENSE_SCRAMBLE": {
+      "matched_mean": 0.4073893368610096,
+      "wrong_mean": 0.24834527759771893,
+      "gap": 0.15904405926329065,
+      "n_matched_pairs": 15,
+      "n_wrong_pairs": 90,
+      "n_instances_scored": 15
+    },
+    "GROUNDED_CHUNKEDFOCUS": {
+      "matched_mean": 0.32275391729739594,
+      "wrong_mean": 0.3172634657205769,
+      "gap": 0.005490451576819044,
+      "n_matched_pairs": 15,
+      "n_wrong_pairs": 90,
+      "n_instances_scored": 15
+    },
+    "GROUNDED_CHUNKEDFOCUS_SCRAMBLE": {
+      "matched_mean": 0.3511393349356541,
+      "wrong_mean": 0.3431152461193345,
+      "gap": 0.008024088816319552,
+      "n_matched_pairs": 15,
+      "n_wrong_pairs": 90,
+      "n_instances_scored": 15
+    }
+  },
+  "positive_control": null,
+  "verdict_detail": {
+    "per_arm_eval": {
+      "GROUNDED_DROP_TENSE": {
+        "tier": "MIDDLE_BAND",
+        "reaches_bow_parity": true,
+        "scramble_collapses": false,
+        "gap_arm": 0.1553602483733103,
+        "gap_scramble_arm": 0.15904405926329065,
+        "bow_ref": 0.14316949274770518
+      },
+      "GROUNDED_CHUNKEDFOCUS": {
+        "tier": "HARD_FAIL",
+        "reaches_bow_parity": false,
+        "scramble_collapses": false,
+        "gap_arm": 0.005490451576819044,
+        "gap_scramble_arm": 0.008024088816319552,
+        "bow_ref": 0.14316949274770518
+      }
+    },
+    "best_arm": "GROUNDED_DROP_TENSE"
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "all_differ": true,
+    "digests": {
+      "BOW": "53e1468b1def44062a660f406dc13389386079d9afd2000cf228fd791cb52b26",
+      "FLAT_GROUNDED": "03bc59c47864ad0d9ebe0da29493f1862bc0e405f753c3d4d3abc971ae6cf799",
+      "GROUNDED_DROP_TENSE": "3bb448a90881871af8d41f2cfb00ab3c247ccb8a3017f8eeffc0a4f954469576",
+      "GROUNDED_DROP_TENSE_SCRAMBLE": "491ca0ae81b845d842056d1ca77ae4f3d1d783ba7c0e0703c4d68a7e2facb8c5",
+      "GROUNDED_CHUNKEDFOCUS": "6c62e9de2d682833341ef20178395fcc94eb7b56472d4ca287da2db9d71a84e2",
+      "GROUNDED_CHUNKEDFOCUS_SCRAMBLE": "cecbd359a45d4de80e32a47eade659693c4760db8fb04b95072a99be93af8428"
+    },
+    "pairs": {
+      "BOW__vs__FLAT_GROUNDED": "DIFFERS",
+      "BOW__vs__GROUNDED_CHUNKEDFOCUS": "DIFFERS",
+      "BOW__vs__GROUNDED_CHUNKEDFOCUS_SCRAMBLE": "DIFFERS",
+      "BOW__vs__GROUNDED_DROP_TENSE": "DIFFERS",
+      "BOW__vs__GROUNDED_DROP_TENSE_SCRAMBLE": "DIFFERS",
+      "FLAT_GROUNDED__vs__GROUNDED_CHUNKEDFOCUS": "DIFFERS",
+      "FLAT_GROUNDED__vs__GROUNDED_CHUNKEDFOCUS_SCRAMBLE": "DIFFERS",
+      "FLAT_GROUNDED__vs__GROUNDED_DROP_TENSE": "DIFFERS",
+      "FLAT_GROUNDED__vs__GROUNDED_DROP_TENSE_SCRAMBLE": "DIFFERS",
+      "GROUNDED_CHUNKEDFOCUS__vs__GROUNDED_CHUNKEDFOCUS_SCRAMBLE": "DIFFERS",
+      "GROUNDED_CHUNKEDFOCUS__vs__GROUNDED_DROP_TENSE": "DIFFERS",
+      "GROUNDED_CHUNKEDFOCUS__vs__GROUNDED_DROP_TENSE_SCRAMBLE": "DIFFERS",
+      "GROUNDED_CHUNKEDFOCUS_SCRAMBLE__vs__GROUNDED_DROP_TENSE": "DIFFERS",
+      "GROUNDED_CHUNKEDFOCUS_SCRAMBLE__vs__GROUNDED_DROP_TENSE_SCRAMBLE": "DIFFERS",
+      "GROUNDED_DROP_TENSE__vs__GROUNDED_DROP_TENSE_SCRAMBLE": "DIFFERS"
+    }
+  },
+  "examples": [
+    {
+      "scenario": "buying a house",
+      "instance_a": "181",
+      "instance_b": "197",
+      "text_a_snippet": "My wife had just got a new job , but it was in a different city . We sold the house we were living in and moved to the new city staying with friends while we searched for a new house to buy . We wante",
+      "text_b_snippet": "My wife and myself were getting tired of our small apartment and wanted something bigger to live in . Plus , we wanted to start having babies and needed the space . We contacted a realtor and he showe",
+      "role_events_a": [
+        {
+          "PRED": "got",
+          "AGENT": "wife",
+          "PATIENT": "job",
+          "TENSE": "PAST_PERFECT"
+        },
+        {
+          "PRED": "sold",
+          "AGENT": "we",
+          "PATIENT": "house",
+          "TENSE": "SIMPLE_PAST"
+        },
+        {
+          "PRED": "moved",
+          "AGENT": "we",
+          "PATIENT": "city",
+          "TENSE": "SIMPLE_PAST"
+        }
+      ],
+      "role_events_b": [
+        {
+          "PRED": "tired",
+          "AGENT": "myself",
+          "PATIENT": "apartment",
+          "TENSE": "PASSIVE"
+        },
+        {
+          "PRED": "wanted",
+          "AGENT": "apartment",
+          "PATIENT": "something",
+          "TENSE": "SIMPLE_PAST"
+        },
+        {
+          "PRED": "wanted",
+          "AGENT": "we",
+          "PATIENT": "babies",
+          "TENSE": "SIMPLE_PAST"
+        }
+      ],
+      "cos_bow": 0.5791015823218028,
+      "cos_flat_grounded": 0.670898460463876,
+      "cos_drop_tense": 0.4645996252775677,
+      "cos_chunkedfocus": 0.28759766609404874
+    },
+    {
+      "scenario": "buying from a vending machine",
+      "instance_a": "13",
+      "instance_b": "164",
+      "text_a_snippet": "I approached the vending machine while pulling my wallet out of my back pocket . I stood in front of the machine and looked through the glass at all the choices in front of me . Did I want a bag of po",
+      "text_b_snippet": "I first found a dollar bill in my pocket . I walked over to the vending machine and looked through the window to make sure I knew what I wanted . There were many rows of candy , snacks , and drinks to",
+      "role_events_a": [
+        {
+          "PRED": "approached",
+          "AGENT": "i",
+          "PATIENT": "vending",
+          "TENSE": "SIMPLE_PAST"
+        },
+        {
+          "PRED": "pulling",
+          "AGENT": "machine",
+          "PATIENT": "wallet",
+          "TENSE": "PARTICIPIAL"
+        },
+        {
+          "PRED": "stood",
+          "AGENT": "i",
+          "PATIENT": "front",
+          "TENSE": "SIMPLE_PAST"
+        }
+      ],
+      "role_events_b": [
+        {
+          "PRED": "found",
+          "AGENT": "i",
+          "PATIENT": "dollar",
+          "TENSE": "SIMPLE_PAST"
+        },
+        {
+          "PRED": "walked",
+          "AGENT": "i",
+          "PATIENT": "vending",
+          "TENSE": "SIMPLE_PAST"
+        },
+        {
+          "PRED": "looked",
+          "AGENT": "machine",
+          "PATIENT": "window",
+          "TENSE": "SIMPLE_PAST"
+        }
+      ],
+      "cos_bow": 0.6135254116250802,
+      "cos_flat_grounded": 0.8059082307100636,
+      "cos_drop_tense": 0.6560058818291248,
+      "cos_chunkedfocus": 0.3576660278673866
+    },
+    {
+      "scenario": "cleaning up a flat",
+      "instance_a": "182",
+      "instance_b": "186",
+      "text_a_snippet": "My wife and I invited some friends over to our flat to watch a television show we all like . We needed to make the flat clean so that our friends would be comfortable when they came over . My wife dec",
+      "text_b_snippet": "Last night , we had the most epic party with all of my friends . This morning , my house is a complete and total mess . I am going to have to clean it up . I need to throw away every can , cup , paper",
+      "role_events_a": [
+        {
+          "PRED": "invited",
+          "AGENT": "i",
+          "PATIENT": "friends",
+          "TENSE": "SIMPLE_PAST"
+        },
+        {
+          "PRED": "needed",
+          "AGENT": "we",
+          "PATIENT": "clean",
+          "TENSE": "SIMPLE_PAST"
+        },
+        {
+          "PRED": "came",
+          "AGENT": "they",
+          "PATIENT": "_NONE_",
+          "TENSE": "SIMPLE_PAST"
+        }
+      ],
+      "role_events_b": [
+        {
+          "PRED": "going",
+          "AGENT": "i",
+          "PATIENT": "it",
+          "TENSE": "PARTICIPIAL"
+        },
+        {
+          "PRED": "need",
+          "AGENT": "i",
+          "PATIENT": "paper",
+          "TENSE": "SIMPLE_PRESENT"
+        },
+        {
+          "PRED": "cup",
+          "AGENT": "i",
+          "PATIENT": "paper",
+          "TENSE": "MODAL_SUBORDINATE"
+        }
+      ],
+      "cos_bow": 0.31958008906376045,
+      "cos_flat_grounded": 0.42993165534093364,
+      "cos_drop_tense": 0.4506836091762427,
+      "cos_chunkedfocus": 0.28735352546069215
+    }
+  ],
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "cosine-gap discrimination measurement on real narrative text; band threshold is this run's own re-measured BoW gap (self-referential per task contract), not a synthetic capacity envelope",
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate: HYPERNYM_DEPTH=3/DECAY=0.7 inherited unchanged from E3; CAPACITY=4/FANOUT=2 are ChunkedFocus module defaults, fixed before running",
+  "progress_logging": "print_flush_true"
+}
