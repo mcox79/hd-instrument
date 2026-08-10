@@ -1,0 +1,903 @@
+{
+  "anchor_name": "extraction_quality_gate_neural_foundation_v1",
+  "verdict": "NO_GO",
+  "verdict_msg": "NO_GO (CAVEAT: coref arm is rule-based fallback, NOT modern-neural -- both modern neural coref candidates tried this session failed to install+run; see module docstring). gate_values={\"shape_conformance\": 0.9667, \"srl_role_f1\": 0.9831, \"coref_b3_f1\": 0.6159, \"coverage_all_tenses\": 0.9, \"grounding_coverage\": 0.95, \"oracle_parity_fraction\": 0.4615} | weakest_gate=oracle_parity_fraction (value=0.4615 < band=0.8)",
+  "summary": "NO_GO: extraction-quality gate, coref=rule_based_fallback (modern-neural install failed)",
+  "elapsed_s": 8.554287500097416,
+  "ts_iso": "2026-08-10T18:59:23.393965+00:00",
+  "pid": 29808,
+  "run_mode": "full",
+  "timeout_s": 240.0,
+  "extractor_stack": {
+    "srl_tense": "spacy_3x_dep_parse_heuristic (sanctioned fallback per design note)",
+    "coref": "rule_based_fallback (gender/number-agreement + recency + exact-match); modern-neural candidates tried and FAILED: fastcoref (transformers 5.10.1 version-skew AttributeError at model-load), stanza (download hang, no progress 5+ min); spacy-experimental-coref not attempted (documented legacy-pin incompatibility, not re-verified)",
+    "grounding": "nltk wordnet synset-coverage (thin grounder built for this gate; could not locate the design note's named 'WordNet-Tier2 ~94%-coverage' module within session search budget -- disclosed, not claimed as direct reuse)",
+    "causal_links": "discourse-connective keyword heuristic (descriptive only, not gated)"
+  },
+  "bands": {
+    "shape_conformance": 0.8,
+    "srl_role_f1": 0.8,
+    "coref_b3_f1": 0.7,
+    "coverage_all_tenses": 0.85,
+    "grounding_coverage": 0.9,
+    "oracle_parity_fraction": 0.8
+  },
+  "gate_values": {
+    "shape_conformance": 0.9666666666666667,
+    "srl_role_f1": 0.983050847457627,
+    "coref_b3_f1": 0.6159470850248082,
+    "coverage_all_tenses": 0.9,
+    "grounding_coverage": 0.95,
+    "oracle_parity_fraction": 0.4615384615384616
+  },
+  "gate_pass": {
+    "shape_conformance": true,
+    "srl_role_f1": true,
+    "coref_b3_f1": false,
+    "coverage_all_tenses": true,
+    "grounding_coverage": true,
+    "oracle_parity_fraction": false
+  },
+  "srl_gold": {
+    "aggregate": {
+      "shape_conformance": 0.9666666666666667,
+      "srl_role_precision": 1.0,
+      "srl_role_recall": 0.9666666666666667,
+      "srl_role_f1": 0.983050847457627,
+      "tense_accuracy": 0.9666666666666667,
+      "coverage_by_tense": {
+        "past": {
+          "n": 10,
+          "n_covered": 10,
+          "coverage": 1.0
+        },
+        "pres": {
+          "n": 10,
+          "n_covered": 9,
+          "coverage": 0.9
+        },
+        "fut": {
+          "n": 10,
+          "n_covered": 10,
+          "coverage": 1.0
+        }
+      },
+      "coverage_all_sentences": 0.9666666666666667,
+      "grounding_coverage": 0.95,
+      "n": 30
+    }
+  },
+  "coref_gold": {
+    "b3_precision_pooled": 0.6602564102564101,
+    "b3_recall_pooled": 0.5772108843537416,
+    "b3_f1_pooled": 0.6159470850248082,
+    "n_passages": 10,
+    "n_mentions_total": 42,
+    "causal_connective_frac": 0.3
+  },
+  "coref_gold_per_passage": [
+    {
+      "passage_id": "modern_coref_001",
+      "n_mentions": 5,
+      "b3_precision": 0.6,
+      "b3_recall": 0.7333333333333333,
+      "b3_f1": 0.6599999999999999,
+      "connective_present": false
+    },
+    {
+      "passage_id": "modern_coref_002",
+      "n_mentions": 4,
+      "b3_precision": 0.6666666666666666,
+      "b3_recall": 0.75,
+      "b3_f1": 0.7058823529411765,
+      "connective_present": false
+    },
+    {
+      "passage_id": "modern_coref_003",
+      "n_mentions": 5,
+      "b3_precision": 0.6,
+      "b3_recall": 0.39999999999999997,
+      "b3_f1": 0.4799999999999999,
+      "connective_present": false
+    },
+    {
+      "passage_id": "modern_coref_004",
+      "n_mentions": 3,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0,
+      "connective_present": true
+    },
+    {
+      "passage_id": "modern_coref_005",
+      "n_mentions": 5,
+      "b3_precision": 0.8,
+      "b3_recall": 0.6,
+      "b3_f1": 0.6857142857142857,
+      "connective_present": false
+    },
+    {
+      "passage_id": "modern_coref_006",
+      "n_mentions": 3,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0,
+      "connective_present": false
+    },
+    {
+      "passage_id": "modern_coref_007",
+      "n_mentions": 5,
+      "b3_precision": 0.7,
+      "b3_recall": 0.8,
+      "b3_f1": 0.7466666666666666,
+      "connective_present": true
+    },
+    {
+      "passage_id": "modern_coref_008",
+      "n_mentions": 5,
+      "b3_precision": 0.8,
+      "b3_recall": 0.39999999999999997,
+      "b3_f1": 0.5333333333333333,
+      "connective_present": false
+    },
+    {
+      "passage_id": "modern_coref_009",
+      "n_mentions": 4,
+      "b3_precision": 0.6666666666666666,
+      "b3_recall": 0.6666666666666666,
+      "b3_f1": 0.6666666666666666,
+      "connective_present": true
+    },
+    {
+      "passage_id": "modern_coref_010",
+      "n_mentions": 3,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0,
+      "connective_present": false
+    }
+  ],
+  "decisive_oracle_parity": {
+    "eval": "powered",
+    "per_arm_query_accuracy_identity_demanding": {
+      "oracle": 0.9298245614035088,
+      "rule_based_fallback": 0.6842105263157895,
+      "recency_floor": 0.543859649122807,
+      "singleton_floor": 0.47368421052631576
+    },
+    "oracle_q": 0.9298245614035088,
+    "singleton_q": 0.47368421052631576,
+    "recency_q": 0.543859649122807,
+    "fallback_q": 0.6842105263157895,
+    "lift_oracle_over_singleton": 0.456140350877193,
+    "lift_fallback_over_singleton": 0.21052631578947373,
+    "oracle_parity_fraction": 0.4615384615384616,
+    "prior_earned_q_cited": 0.6842105263157895,
+    "gap_closure_fraction_vs_prior_earned": 0.0,
+    "note": "rule_based_fallback is NOT modern-neural (see module docstring) -- this measures whether a DIFFERENT rule-based coref closes the gap, not whether modern neural extraction does (that could not be tested this session)."
+  },
+  "unproduced_probe": {
+    "shape_conformance": 0.375,
+    "coverage_all_sentences": 0.8125,
+    "coverage_by_tense": {
+      "pres": {
+        "n": 17,
+        "n_covered": 13,
+        "coverage": 0.7647058823529411
+      },
+      "past": {
+        "n": 15,
+        "n_covered": 13,
+        "coverage": 0.8666666666666667
+      }
+    },
+    "grounding_coverage": 0.53125,
+    "hand_verified_accuracy": 0.8,
+    "hand_verified_n": 15,
+    "coref_shape_per_passage": [
+      {
+        "passage_id": "unproduced_00",
+        "n_mentions": 11,
+        "n_pronouns": 10,
+        "frac_pron_linked": 1.0
+      },
+      {
+        "passage_id": "unproduced_01",
+        "n_mentions": 10,
+        "n_pronouns": 4,
+        "frac_pron_linked": 1.0
+      },
+      {
+        "passage_id": "unproduced_02",
+        "n_mentions": 5,
+        "n_pronouns": 5,
+        "frac_pron_linked": 1.0
+      },
+      {
+        "passage_id": "unproduced_03",
+        "n_mentions": 12,
+        "n_pronouns": 8,
+        "frac_pron_linked": 1.0
+      },
+      {
+        "passage_id": "unproduced_04",
+        "n_mentions": 5,
+        "n_pronouns": 4,
+        "frac_pron_linked": 1.0
+      },
+      {
+        "passage_id": "unproduced_05",
+        "n_mentions": 7,
+        "n_pronouns": 6,
+        "frac_pron_linked": 0.8333333333333334
+      },
+      {
+        "passage_id": "unproduced_06",
+        "n_mentions": 14,
+        "n_pronouns": 13,
+        "frac_pron_linked": 1.0
+      },
+      {
+        "passage_id": "unproduced_07",
+        "n_mentions": 5,
+        "n_pronouns": 4,
+        "frac_pron_linked": 1.0
+      }
+    ],
+    "n_sentences": 32,
+    "deltas_vs_produced": {
+      "shape_conformance_delta_produced_minus_unproduced": 0.5916666666666667,
+      "coverage_delta_produced_minus_unproduced": 0.15416666666666667,
+      "grounding_delta_produced_minus_unproduced": 0.41874999999999996
+    }
+  },
+  "unproduced_probe_per_sentence": [
+    {
+      "passage_id": "unproduced_00",
+      "genre": "weblog",
+      "text": "I'm staying away from the stock.",
+      "pred": {
+        "PRED": "stay",
+        "AGENT": "i",
+        "PATIENT": null,
+        "TENSE": "pres"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        false
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "intransitive PP-complement, no dobj expected"
+      }
+    },
+    {
+      "passage_id": "unproduced_00",
+      "genre": "weblog",
+      "text": "I doubt the very few who actually read my blog have not come across this yet, but I figured I would put it out there anyways.",
+      "pred": {
+        "PRED": "doubt",
+        "AGENT": "i",
+        "PATIENT": null,
+        "TENSE": "pres"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        false
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "doubt takes clausal complement, PATIENT=None is honest"
+      }
+    },
+    {
+      "passage_id": "unproduced_00",
+      "genre": "weblog",
+      "text": "John Donovan from Argghhh! has put out a excellent slide show on what was actually found and fought for in Fallujah.",
+      "pred": {
+        "PRED": "put",
+        "AGENT": "donovan",
+        "PATIENT": "show",
+        "TENSE": "past"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        false,
+        true
+      ],
+      "hand_verified": {
+        "correct": false,
+        "reason": "present-perfect 'has put' Tense-tagged past (participle Tense-feature ambiguity)"
+      }
+    },
+    {
+      "passage_id": "unproduced_00",
+      "genre": "weblog",
+      "text": "He makes some good observations on a few of the pic's.",
+      "pred": {
+        "PRED": "make",
+        "AGENT": "he",
+        "PATIENT": "observation",
+        "TENSE": "pres"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        true
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "correct SVO"
+      }
+    },
+    {
+      "passage_id": "unproduced_01",
+      "genre": "weblog",
+      "text": "On the internet site of Monotheism and Holy War (al-Tawhid wa al-Jihad) , the group allegedly declared, \"We announce that the Tawhid and Jihad Group, its prince and soldiers, have pledged allegiance to the sheikh of the mujahideen Osama bin Laden.\"",
+      "pred": {
+        "PRED": "declare",
+        "AGENT": "group",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "matrix verb + quoted clausal complement, PATIENT=None is honest"
+      }
+    },
+    {
+      "passage_id": "unproduced_01",
+      "genre": "weblog",
+      "text": "Abu Musab al-Zarqawi and his group are said to have been bitter rivals of al-Qaeda during the Afghan resistance days.",
+      "pred": {
+        "PRED": "say",
+        "AGENT": "zarqawi",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        false,
+        false
+      ],
+      "hand_verified": {
+        "correct": false,
+        "reason": "passive-raising: nsubjpass-as-AGENT wrongly assigns Zarqawi as agent of 'say'"
+      }
+    },
+    {
+      "passage_id": "unproduced_01",
+      "genre": "weblog",
+      "text": "One witness at the Moutasaddiq trial in Germany alleged that Zarqawi had not allowed Monotheism and Holy War to share resources with al-Qaeda in the early zeroes of the 21st century.",
+      "pred": {
+        "PRED": "allege",
+        "AGENT": "witness",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "matrix verb + clausal complement, PATIENT=None is honest"
+      }
+    },
+    {
+      "passage_id": "unproduced_01",
+      "genre": "weblog",
+      "text": "If the statement is true, it is a worrying sign that even the divided small radical guerrilla groups are being \"picked up\" by al-Qaeda.",
+      "pred": {
+        "PRED": "be",
+        "AGENT": "it",
+        "PATIENT": "sign",
+        "TENSE": "pres"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        true
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "copular attr-as-PATIENT is a reasonable state-description reading"
+      }
+    },
+    {
+      "passage_id": "unproduced_02",
+      "genre": "email",
+      "text": "By using collateral to pay these bills are we not keeping required levels available?",
+      "pred": {
+        "PRED": "keep",
+        "AGENT": "we",
+        "PATIENT": "level",
+        "TENSE": "pres"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        false,
+        true
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "garbled naturalistic question; extraction is a fair reading given the source"
+      }
+    },
+    {
+      "passage_id": "unproduced_02",
+      "genre": "email",
+      "text": "Attached below is Davis Thames' presentation regarding the proposed Project Bruin.",
+      "pred": {
+        "PRED": "attach",
+        "AGENT": "presentation",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ],
+      "hand_verified": {
+        "correct": false,
+        "reason": "fronted-participle inversion: AGENT/PATIENT roles reversed (presentation is being attached)"
+      }
+    },
+    {
+      "passage_id": "unproduced_02",
+      "genre": "email",
+      "text": "I spoke with Mike Collins [203-719-8385 (phone) and 203-719-7031 (fax)] who conrfirmed to me that the cap included the remaining 2.5+million remaining shares.",
+      "pred": {
+        "PRED": "speak",
+        "AGENT": "i",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "'speak with X' is a PP not a dobj, PATIENT=None is correct"
+      }
+    },
+    {
+      "passage_id": "unproduced_02",
+      "genre": "email",
+      "text": "Please return an executed copy of confirm to me.",
+      "pred": {
+        "PRED": "return",
+        "AGENT": null,
+        "PATIENT": "copy",
+        "TENSE": "unk"
+      },
+      "shape_ok": false,
+      "covered": false,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        false,
+        true
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "imperative: AGENT=None is the honest correct reading (no syntactic subject)"
+      }
+    },
+    {
+      "passage_id": "unproduced_03",
+      "genre": "newsgroup",
+      "text": "n3td3v saw this story on BBC News Online and thought you should see it.",
+      "pred": {
+        "PRED": "see",
+        "AGENT": "n3td3v",
+        "PATIENT": "story",
+        "TENSE": "past"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        false,
+        true
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "first conjunct correctly the root"
+      }
+    },
+    {
+      "passage_id": "unproduced_03",
+      "genre": "newsgroup",
+      "text": "** Google defies US over search data **",
+      "pred": {
+        "PRED": "defy",
+        "AGENT": "google",
+        "PATIENT": "us",
+        "TENSE": "pres"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        true
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "headline style, correct SVO"
+      }
+    },
+    {
+      "passage_id": "unproduced_03",
+      "genre": "newsgroup",
+      "text": "Web giant Google is resisting an attempt by the US to force it to reveal what users are searching for.",
+      "pred": {
+        "PRED": "resist",
+        "AGENT": "google",
+        "PATIENT": "attempt",
+        "TENSE": "pres"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        true
+      ],
+      "hand_verified": {
+        "correct": true,
+        "reason": "correct SVO"
+      }
+    },
+    {
+      "passage_id": "unproduced_03",
+      "genre": "newsgroup",
+      "text": "Choose the news and sport headlines you want - when you want them, all in one daily e-mail",
+      "pred": {
+        "PRED": "choose",
+        "AGENT": null,
+        "PATIENT": "headline",
+        "TENSE": "unk"
+      },
+      "shape_ok": false,
+      "covered": false,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        false,
+        true
+      ]
+    },
+    {
+      "passage_id": "unproduced_04",
+      "genre": "answers",
+      "text": "I like my Monkey Brain on a stick for sure.",
+      "pred": {
+        "PRED": "like",
+        "AGENT": "i",
+        "PATIENT": "brain",
+        "TENSE": "pres"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        true
+      ]
+    },
+    {
+      "passage_id": "unproduced_04",
+      "genre": "answers",
+      "text": "How come no one bothers to ask any questions in this section?",
+      "pred": {
+        "PRED": null,
+        "AGENT": null,
+        "PATIENT": null,
+        "TENSE": null
+      },
+      "shape_ok": false,
+      "covered": false,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_04",
+      "genre": "answers",
+      "text": "I mean besides me of course.",
+      "pred": {
+        "PRED": "mean",
+        "AGENT": "i",
+        "PATIENT": null,
+        "TENSE": "pres"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_04",
+      "genre": "answers",
+      "text": "Because obviously most people have never even heard of this section.",
+      "pred": {
+        "PRED": "hear",
+        "AGENT": "people",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_05",
+      "genre": "answers",
+      "text": "You need to check out the French Indochina War (1946-1954) not the Vietnam War (1957-1975).",
+      "pred": {
+        "PRED": "need",
+        "AGENT": "you",
+        "PATIENT": null,
+        "TENSE": "pres"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_05",
+      "genre": "answers",
+      "text": "I assume you are talking about a pacman frog.",
+      "pred": {
+        "PRED": "assume",
+        "AGENT": "i",
+        "PATIENT": null,
+        "TENSE": "pres"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_05",
+      "genre": "answers",
+      "text": "However, it certainly wouldn't hurt if you wanted to provide one.",
+      "pred": {
+        "PRED": "hurt",
+        "AGENT": "it",
+        "PATIENT": null,
+        "TENSE": "unk"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_05",
+      "genre": "answers",
+      "text": "A pacman frog will need a heat source that creates a basking temp in the upper 80's F for at least 10 - 12 hours a day.",
+      "pred": {
+        "PRED": "need",
+        "AGENT": "frog",
+        "PATIENT": "source",
+        "TENSE": "fut"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        true
+      ]
+    },
+    {
+      "passage_id": "unproduced_06",
+      "genre": "answers",
+      "text": "Well,I'm about to graduate in less then a year,and I'm planning to study medical school.",
+      "pred": {
+        "PRED": null,
+        "AGENT": null,
+        "PATIENT": null,
+        "TENSE": null
+      },
+      "shape_ok": false,
+      "covered": false,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_06",
+      "genre": "answers",
+      "text": "But since in my country it lasts for minimum 6 years,and I want to go aground the world,what do you think,should I do it before or after medical school?",
+      "pred": {
+        "PRED": "do",
+        "AGENT": "i",
+        "PATIENT": "it",
+        "TENSE": "unk"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        true,
+        true
+      ]
+    },
+    {
+      "passage_id": "unproduced_06",
+      "genre": "answers",
+      "text": "If you have to wait, due to financial reasons, then wait.",
+      "pred": {
+        "PRED": "wait",
+        "AGENT": null,
+        "PATIENT": null,
+        "TENSE": "unk"
+      },
+      "shape_ok": false,
+      "covered": false,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_06",
+      "genre": "answers",
+      "text": "I would much rather put it off until I can afford to have the vacation of a lifetime as I'm sure this trip is intended to be.",
+      "pred": {
+        "PRED": "put",
+        "AGENT": "i",
+        "PATIENT": "it",
+        "TENSE": "unk"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        true
+      ]
+    },
+    {
+      "passage_id": "unproduced_07",
+      "genre": "reviews",
+      "text": "Fast and friendly service, they know my order when I walk in the door!",
+      "pred": {
+        "PRED": "know",
+        "AGENT": "they",
+        "PATIENT": "order",
+        "TENSE": "pres"
+      },
+      "shape_ok": true,
+      "covered": true,
+      "tense_bucket_gold": "pres",
+      "grounded_flags": [
+        false,
+        true
+      ]
+    },
+    {
+      "passage_id": "unproduced_07",
+      "genre": "reviews",
+      "text": "I called over the weekend due to clogged kitchen sink.",
+      "pred": {
+        "PRED": "call",
+        "AGENT": "i",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_07",
+      "genre": "reviews",
+      "text": "Scheduled appointment for 8:30 Monday morning.",
+      "pred": {
+        "PRED": null,
+        "AGENT": null,
+        "PATIENT": null,
+        "TENSE": null
+      },
+      "shape_ok": false,
+      "covered": false,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "passage_id": "unproduced_07",
+      "genre": "reviews",
+      "text": "Rich was here before the scheduled time.",
+      "pred": {
+        "PRED": "be",
+        "AGENT": "rich",
+        "PATIENT": null,
+        "TENSE": "past"
+      },
+      "shape_ok": false,
+      "covered": true,
+      "tense_bucket_gold": "past",
+      "grounded_flags": [
+        true,
+        false
+      ]
+    }
+  ],
+  "gold_paths": {
+    "srl": "D:\\AI\\hd-instrument\\data\\eval_gold_extraction_quality_gate_v1\\gold_srl_tense_modern_v1.jsonl",
+    "coref": "D:\\AI\\hd-instrument\\data\\eval_gold_extraction_quality_gate_v1\\gold_coref_modern_v1.jsonl",
+    "unproduced": "D:\\AI\\hd-instrument\\data\\eval_gold_extraction_quality_gate_v1\\sample_unproduced_ud_ewt_v1.jsonl"
+  },
+  "prior_work_check": "substrate_query.sh top hits cosine=0.34-0.35 (keyword-adjacent 'extraction', different topic: LLM-hidden-state retrieval quality, not prose->structure extraction); no rediscovery risk; real prior work = notes/research_islanded_comprehension_organs_audit_2026-08-10.md (already cited by design note)",
+  "final_metrics_atomicity": "tmp_replace",
+  "checkpointed": true,
+  "arms_differ_verified": true,
+  "deterministic_seeding": true,
+  "crlb_n_a": "descriptive extraction-quality GATE, no quantitative noise-floor threshold applies"
+}

@@ -1,0 +1,30 @@
+{"sent_id": "modern_srl_000", "text": "The engineer fixed the server before the outage spread.", "gold_event": {"PRED": "fix", "AGENT": "engineer", "PATIENT": "server", "TENSE": "past"}}
+{"sent_id": "modern_srl_001", "text": "Maria reviewed the contract carefully.", "gold_event": {"PRED": "review", "AGENT": "maria", "PATIENT": "contract", "TENSE": "past"}}
+{"sent_id": "modern_srl_002", "text": "The city council approved the new bike lanes.", "gold_event": {"PRED": "approve", "AGENT": "council", "PATIENT": "lane", "TENSE": "past"}}
+{"sent_id": "modern_srl_003", "text": "Investors funded the startup after the demo.", "gold_event": {"PRED": "fund", "AGENT": "investor", "PATIENT": "startup", "TENSE": "past"}}
+{"sent_id": "modern_srl_004", "text": "The nurse administered the vaccine to the patient.", "gold_event": {"PRED": "administer", "AGENT": "nurse", "PATIENT": "vaccine", "TENSE": "past"}}
+{"sent_id": "modern_srl_005", "text": "The coach benched the star player.", "gold_event": {"PRED": "bench", "AGENT": "coach", "PATIENT": "player", "TENSE": "past"}}
+{"sent_id": "modern_srl_006", "text": "The journalist published the report on Friday.", "gold_event": {"PRED": "publish", "AGENT": "journalist", "PATIENT": "report", "TENSE": "past"}}
+{"sent_id": "modern_srl_007", "text": "Workers repaired the bridge over the weekend.", "gold_event": {"PRED": "repair", "AGENT": "worker", "PATIENT": "bridge", "TENSE": "past"}}
+{"sent_id": "modern_srl_008", "text": "The teacher graded the essays last night.", "gold_event": {"PRED": "grade", "AGENT": "teacher", "PATIENT": "essay", "TENSE": "past"}}
+{"sent_id": "modern_srl_009", "text": "The company recalled the defective batteries.", "gold_event": {"PRED": "recall", "AGENT": "company", "PATIENT": "battery", "TENSE": "past"}}
+{"sent_id": "modern_srl_010", "text": "The engineer reviews the failing build every morning.", "gold_event": {"PRED": "review", "AGENT": "engineer", "PATIENT": "build", "TENSE": "pres"}}
+{"sent_id": "modern_srl_011", "text": "The app collects usage data automatically.", "gold_event": {"PRED": "collect", "AGENT": "app", "PATIENT": "datum", "TENSE": "pres"}}
+{"sent_id": "modern_srl_012", "text": "The manager approves expense reports weekly.", "gold_event": {"PRED": "approve", "AGENT": "manager", "PATIENT": "report", "TENSE": "pres"}}
+{"sent_id": "modern_srl_013", "text": "The committee reviews grant applications each spring.", "gold_event": {"PRED": "review", "AGENT": "committee", "PATIENT": "application", "TENSE": "pres"}}
+{"sent_id": "modern_srl_014", "text": "The chef prepares the sauce fresh daily.", "gold_event": {"PRED": "prepare", "AGENT": "chef", "PATIENT": "sauce", "TENSE": "pres"}}
+{"sent_id": "modern_srl_015", "text": "The sensor monitors the water level continuously.", "gold_event": {"PRED": "monitor", "AGENT": "sensor", "PATIENT": "level", "TENSE": "pres"}}
+{"sent_id": "modern_srl_016", "text": "The editor rejects most unsolicited submissions.", "gold_event": {"PRED": "reject", "AGENT": "editor", "PATIENT": "submission", "TENSE": "pres"}}
+{"sent_id": "modern_srl_017", "text": "The pharmacy dispenses the medication after verification.", "gold_event": {"PRED": "dispense", "AGENT": "pharmacy", "PATIENT": "medication", "TENSE": "pres"}}
+{"sent_id": "modern_srl_018", "text": "The algorithm ranks the search results by relevance.", "gold_event": {"PRED": "rank", "AGENT": "algorithm", "PATIENT": "result", "TENSE": "pres"}}
+{"sent_id": "modern_srl_019", "text": "The landlord inspects the apartment every quarter.", "gold_event": {"PRED": "inspect", "AGENT": "landlord", "PATIENT": "apartment", "TENSE": "pres"}}
+{"sent_id": "modern_srl_020", "text": "The committee will announce its decision next week.", "gold_event": {"PRED": "announce", "AGENT": "committee", "PATIENT": "decision", "TENSE": "fut"}}
+{"sent_id": "modern_srl_021", "text": "The airline will cancel the delayed flight.", "gold_event": {"PRED": "cancel", "AGENT": "airline", "PATIENT": "flight", "TENSE": "fut"}}
+{"sent_id": "modern_srl_022", "text": "The city will replace the aging pipes next year.", "gold_event": {"PRED": "replace", "AGENT": "city", "PATIENT": "pipe", "TENSE": "fut"}}
+{"sent_id": "modern_srl_023", "text": "The board will review the proposal on Monday.", "gold_event": {"PRED": "review", "AGENT": "board", "PATIENT": "proposal", "TENSE": "fut"}}
+{"sent_id": "modern_srl_024", "text": "The technician will install the new router tomorrow.", "gold_event": {"PRED": "install", "AGENT": "technician", "PATIENT": "router", "TENSE": "fut"}}
+{"sent_id": "modern_srl_025", "text": "The union will negotiate the new contract in June.", "gold_event": {"PRED": "negotiate", "AGENT": "union", "PATIENT": "contract", "TENSE": "fut"}}
+{"sent_id": "modern_srl_026", "text": "The store will restock the shelves overnight.", "gold_event": {"PRED": "restock", "AGENT": "store", "PATIENT": "shelf", "TENSE": "fut"}}
+{"sent_id": "modern_srl_027", "text": "The agency will investigate the complaint thoroughly.", "gold_event": {"PRED": "investigate", "AGENT": "agency", "PATIENT": "complaint", "TENSE": "fut"}}
+{"sent_id": "modern_srl_028", "text": "The professor will publish the findings this fall.", "gold_event": {"PRED": "publish", "AGENT": "professor", "PATIENT": "finding", "TENSE": "fut"}}
+{"sent_id": "modern_srl_029", "text": "The team will launch the product in March.", "gold_event": {"PRED": "launch", "AGENT": "team", "PATIENT": "product", "TENSE": "fut"}}
