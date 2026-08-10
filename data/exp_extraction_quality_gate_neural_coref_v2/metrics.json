@@ -1,0 +1,164 @@
+{
+  "anchor_name": "extraction_quality_gate_neural_coref_v2",
+  "verdict": "NO_GO",
+  "verdict_msg": "NO_GO (MODERN NEURAL coref = fastcoref/f-coref, ran in isolated system-python transformers 4.57.3). coref_b3_f1: rule(v1)=0.6159 -> neural(v2)=0.5669. oracle_parity_fraction: rule(v1)=0.4615 -> neural(v2)=0.7308. gate_values={\"shape_conformance\": 0.9667, \"srl_role_f1\": 0.9831, \"coref_b3_f1\": 0.5669, \"coverage_all_tenses\": 0.9, \"grounding_coverage\": 0.95, \"oracle_parity_fraction\": 0.7308} | weakest_gate=coref_b3_f1 (value=0.5669 < band=0.7)",
+  "summary": "NO_GO: coref-unblock re-run, neural coref = fastcoref (isolated system-python)",
+  "elapsed_s": 3.6232790000503883,
+  "ts_iso": "2026-08-10T19:13:58.050870+00:00",
+  "pid": 31776,
+  "run_mode": "full",
+  "timeout_s": 240.0,
+  "one_variable_vs_v1": "coref extractor only (rule_based_fallback -> fastcoref neural); SRL/grounding/coverage/unproduced NOT re-run (pulled from v1 metrics)",
+  "extractor_stack": {
+    "coref": "fastcoref biu-nlp/f-coref (modern neural, 2022-23), run in ISOLATED system python transformers==4.57.3/torch==2.8.0 (project .venv transformers 5.10.1 crashes fastcoref at model-load on the 5.x all_tied_weights_keys refactor); predictions dumped as char-span clusters, aligned to gold mention stream by span overlap in this cell",
+    "srl_tense": "unchanged from v1 (spacy dep-parse heuristic)",
+    "grounding": "unchanged from v1 (wordnet synset coverage)"
+  },
+  "bands": {
+    "shape_conformance": 0.8,
+    "srl_role_f1": 0.8,
+    "coref_b3_f1": 0.7,
+    "coverage_all_tenses": 0.85,
+    "grounding_coverage": 0.9,
+    "oracle_parity_fraction": 0.8
+  },
+  "gate_values": {
+    "shape_conformance": 0.9666666666666667,
+    "srl_role_f1": 0.983050847457627,
+    "coref_b3_f1": 0.5668826899596129,
+    "coverage_all_tenses": 0.9,
+    "grounding_coverage": 0.95,
+    "oracle_parity_fraction": 0.7307692307692307
+  },
+  "gate_pass": {
+    "shape_conformance": true,
+    "srl_role_f1": true,
+    "coref_b3_f1": false,
+    "coverage_all_tenses": true,
+    "grounding_coverage": true,
+    "oracle_parity_fraction": false
+  },
+  "coref_gold_neural": {
+    "b3_precision_pooled": 0.7523809523809524,
+    "b3_recall_pooled": 0.45476190476190465,
+    "b3_f1_pooled": 0.5668826899596129,
+    "n_passages": 10,
+    "n_mentions_total": 42,
+    "neural_mention_detect_recall_pooled": 0.7142857142857143
+  },
+  "coref_gold_neural_per_passage": [
+    {
+      "passage_id": "modern_coref_001",
+      "n_mentions": 5,
+      "neural_mention_detect_recall": 1.0,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0
+    },
+    {
+      "passage_id": "modern_coref_002",
+      "n_mentions": 4,
+      "neural_mention_detect_recall": 0.5,
+      "b3_precision": 1.0,
+      "b3_recall": 0.75,
+      "b3_f1": 0.8571428571428571
+    },
+    {
+      "passage_id": "modern_coref_003",
+      "n_mentions": 5,
+      "neural_mention_detect_recall": 0.6,
+      "b3_precision": 1.0,
+      "b3_recall": 0.8,
+      "b3_f1": 0.888888888888889
+    },
+    {
+      "passage_id": "modern_coref_004",
+      "n_mentions": 3,
+      "neural_mention_detect_recall": 0.6666666666666666,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0
+    },
+    {
+      "passage_id": "modern_coref_005",
+      "n_mentions": 5,
+      "neural_mention_detect_recall": 0.6,
+      "b3_precision": 1.0,
+      "b3_recall": 0.8,
+      "b3_f1": 0.888888888888889
+    },
+    {
+      "passage_id": "modern_coref_006",
+      "n_mentions": 3,
+      "neural_mention_detect_recall": 0.6666666666666666,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0
+    },
+    {
+      "passage_id": "modern_coref_007",
+      "n_mentions": 5,
+      "neural_mention_detect_recall": 1.0,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0
+    },
+    {
+      "passage_id": "modern_coref_008",
+      "n_mentions": 5,
+      "neural_mention_detect_recall": 1.0,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0
+    },
+    {
+      "passage_id": "modern_coref_009",
+      "n_mentions": 4,
+      "neural_mention_detect_recall": 0.75,
+      "b3_precision": 1.0,
+      "b3_recall": 1.0,
+      "b3_f1": 1.0
+    },
+    {
+      "passage_id": "modern_coref_010",
+      "n_mentions": 3,
+      "neural_mention_detect_recall": 0.0,
+      "b3_precision": 1.0,
+      "b3_recall": 0.6666666666666666,
+      "b3_f1": 0.8
+    }
+  ],
+  "decisive_oracle_parity_neural": {
+    "eval": "powered",
+    "per_arm_query_accuracy_identity_demanding": {
+      "oracle": 0.9298245614035088,
+      "neural_coref": 0.8070175438596491,
+      "rule_based_fallback": 0.6842105263157895,
+      "recency_floor": 0.543859649122807,
+      "singleton_floor": 0.47368421052631576
+    },
+    "oracle_q": 0.9298245614035088,
+    "singleton_q": 0.47368421052631576,
+    "recency_q": 0.543859649122807,
+    "neural_coref_q": 0.8070175438596491,
+    "rule_based_fallback_q": 0.6842105263157895,
+    "lift_oracle_over_singleton": 0.456140350877193,
+    "lift_neural_over_singleton": 0.3333333333333333,
+    "oracle_parity_fraction": 0.7307692307692307,
+    "neural_mention_detect_recall_pooled": 0.9369627507163324,
+    "delta_neural_minus_rule_q": 0.12280701754385959
+  },
+  "v1_comparison": {
+    "coref_b3_f1_rule_v1": 0.6159470850248082,
+    "coref_b3_f1_neural_v2": 0.5668826899596129,
+    "oracle_parity_fraction_rule_v1": 0.4615384615384616,
+    "oracle_parity_fraction_neural_v2": 0.7307692307692307,
+    "v1_metrics_path": "D:\\AI\\hd-instrument\\data\\exp_extraction_quality_gate_neural_foundation_v1\\metrics.json"
+  },
+  "fastcoref_predictions_path": "D:\\AI\\hd-instrument\\data\\eval_gold_extraction_quality_gate_v1\\fastcoref_predictions_v1.json",
+  "final_metrics_atomicity": "tmp_replace",
+  "checkpointed": true,
+  "arms_differ_verified": true,
+  "deterministic_seeding": true,
+  "crlb_n_a": "descriptive extraction-quality GATE, no quantitative noise-floor threshold applies"
+}
