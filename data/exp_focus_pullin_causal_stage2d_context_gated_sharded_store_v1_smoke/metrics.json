@@ -1,0 +1,292 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: checks={'sparse_recall_ok': True, 'sparse_fp_ok': True, 'sparse_collapse_both': False, 'scramble_margin_ok': False, 'scramble_ties_both': False, 'scramble_margin_100k': 0.19999999999999996, 'scramble_margin_full': 0.19999999999999996, 'dense_lift_ok': False, 'dense_lift_100k': 0.04, 'dense_lift_full': 0.04} baseline_repro_ok=True arms_differ=True cardinality_ok=True",
+  "summary": "MIDDLE_BAND: checks={'sparse_recall_ok': True, 'sparse_fp_ok': True, 'sparse_collapse_both': False, 'scramble_margin_ok': False, 'scramble_ties_both': False, 'scramble_margin_100k': 0.19999999999999996, 'scramble_margin_full': 0.19999999999999996, 'dense_lift_ok': False, 'dense_lift_100k': 0.04, 'dense_lift_full': 0.04} baseline_repro_ok=True arms_differ=True cardinality_ok=True",
+  "elapsed_s": 261.418,
+  "run_mode": "smoke",
+  "anchor_name": "focus_pullin_causal_stage2d_context_gated_sharded_store_v1",
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_shards": 7,
+  "source_to_idx": {
+    "AT": 0,
+    "CN": 1,
+    "CN|WN": 2,
+    "FN": 3,
+    "VG": 4,
+    "WD": 5,
+    "WN": 6
+  },
+  "scales": [
+    10000,
+    100000
+  ],
+  "sparse_scales": [
+    10000,
+    100000
+  ],
+  "dg_dim": 2048,
+  "dg_sparsity": 0.02,
+  "gate_thresh": 0.28,
+  "per_scale": {
+    "10000": {
+      "scale": 10000,
+      "flat_spotcheck": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.7,
+        "relevant_in_shortlist_rate": 1.0,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.0,
+        "ingest_s": 0.548,
+        "eval_s": 37.222
+      },
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.8866666666666667,
+        "relevant_in_shortlist_rate": 0.9866666666666667,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.03333333333333333,
+        "ingest_s": 0.165,
+        "eval_s": 36.88,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            5781,
+            1725,
+            61,
+            103,
+            2122,
+            111,
+            97
+          ],
+          "max_occupancy": 5781,
+          "mean_nonzero_occupancy": 1428.5714285714287
+        }
+      },
+      "sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.8933333333333333,
+        "relevant_in_shortlist_rate": 0.9866666666666667,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.02666666666666667,
+        "tau": 0.31312161684036255,
+        "calibration": {
+          "tau": 0.31312161684036255,
+          "in_set_accept": 0.9866666666666667,
+          "out_set_refuse": 0.9733333333333334,
+          "in_set_mean": 0.5593007209897042,
+          "out_set_mean": 0.14507873505353927,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 1.185,
+        "eval_s": 7.358,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            5781,
+            1725,
+            61,
+            103,
+            2122,
+            111,
+            97
+          ],
+          "max_occupancy": 5781,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 1428.5714285714287
+        }
+      },
+      "scrambled": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.5866666666666667,
+        "relevant_in_shortlist_rate": 0.6133333333333333,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.0,
+        "tau": 0.3269539773464203,
+        "calibration": {
+          "tau": 0.3269539773464203,
+          "in_set_accept": 0.6533333333333333,
+          "out_set_refuse": 1.0,
+          "in_set_mean": 0.35810412545998893,
+          "out_set_mean": 0.12421511610349019,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 1.134,
+        "eval_s": 4.06,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            5781,
+            1725,
+            61,
+            103,
+            2122,
+            111,
+            97
+          ],
+          "max_occupancy": 5781,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 1428.5714285714287
+        }
+      }
+    },
+    "100000": {
+      "scale": 100000,
+      "flat_spotcheck": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.0,
+        "relevant_in_shortlist_rate": 0.3333333333333333,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.0,
+        "ingest_s": 1.347,
+        "eval_s": 37.099
+      },
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.04,
+        "relevant_in_shortlist_rate": 0.74,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.013333333333333334,
+        "ingest_s": 1.212,
+        "eval_s": 38.363,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            57496,
+            17738,
+            636,
+            975,
+            21056,
+            1129,
+            970
+          ],
+          "max_occupancy": 57496,
+          "mean_nonzero_occupancy": 14285.714285714286
+        }
+      },
+      "sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.5466666666666666,
+        "relevant_in_shortlist_rate": 0.96,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.17333333333333334,
+        "tau": 0.13929450511932373,
+        "calibration": {
+          "tau": 0.13929450511932373,
+          "in_set_accept": 0.9333333333333333,
+          "out_set_refuse": 0.8266666666666667,
+          "in_set_mean": 0.23454676965872448,
+          "out_set_mean": 0.12498227472106616,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 9.478,
+        "eval_s": 6.572,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            57496,
+            17738,
+            636,
+            975,
+            21056,
+            1129,
+            970
+          ],
+          "max_occupancy": 57496,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 14285.714285714286
+        }
+      },
+      "scrambled": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.3466666666666667,
+        "relevant_in_shortlist_rate": 0.56,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.2,
+        "tau": 0.130711629986763,
+        "calibration": {
+          "tau": 0.130711629986763,
+          "in_set_accept": 0.7733333333333333,
+          "out_set_refuse": 0.8,
+          "in_set_mean": 0.17215618977944055,
+          "out_set_mean": 0.12231105084220568,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 9.872,
+        "eval_s": 3.031,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            57496,
+            17738,
+            636,
+            975,
+            21056,
+            1129,
+            970
+          ],
+          "max_occupancy": 57496,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 14285.714285714286
+        }
+      }
+    }
+  },
+  "baseline_repro_check": {
+    "ok": true,
+    "detail": {
+      "10000": {
+        "ok": true,
+        "fresh_rr": 0.7,
+        "stage2b_rr": 0.7,
+        "fresh_fp": 0.0,
+        "stage2b_fp": 0.0,
+        "d_rr": 0.0,
+        "d_fp": 0.0
+      },
+      "100000": {
+        "ok": true,
+        "fresh_rr": 0.0,
+        "stage2b_rr": 0.0,
+        "fresh_fp": 0.0,
+        "stage2b_fp": 0.0,
+        "d_rr": 0.0,
+        "d_fp": 0.0
+      }
+    }
+  },
+  "checks": {
+    "sparse_recall_ok": true,
+    "sparse_fp_ok": true,
+    "sparse_collapse_both": false,
+    "scramble_margin_ok": false,
+    "scramble_ties_both": false,
+    "scramble_margin_100k": 0.19999999999999996,
+    "scramble_margin_full": 0.19999999999999996,
+    "dense_lift_ok": false,
+    "dense_lift_100k": 0.04,
+    "dense_lift_full": 0.04
+  },
+  "arms_differ_check": {
+    "dense": "64855483fae567990a1e19b824ba4306ef6b75a994139722d3a015de07330f14",
+    "sparse": "b6de3ee80022c8d6d21fd0daa8f8f1c3c10f6c5ea20041b260f01b8ef94ea552",
+    "scrambled": "00558aec702c31b9a6f7f022836e46dc5ee225e406704c33c9e53b87ec07571d",
+    "flat_spotcheck": "39761b89ee7fab25ad99db2a78dc7b52cb2ab9905293172546520525fd14d511"
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical dual-regime shard-capacity diagnostic (dense-Hopfield DENSE arm vs Willshaw-class SPARSE arm); measuring where the real per-shard-family capacity sits IS the test",
+  "deterministic_seeding": true,
+  "calibration_check_flat_dense": "default_ok_for_this_regime: GATE_THRESH=0.28 fixed/unmodified across FLAT and DENSE arms",
+  "calibration_check_sparse": "adaptive_with_discriminator_gate: DG-space tau via refuse_gate_calibrate_from_scores, per-scale, 50/50 internal split"
+}

@@ -1,0 +1,469 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: checks={'sparse_recall_ok': False, 'sparse_fp_ok': False, 'sparse_collapse_both': False, 'scramble_margin_ok': False, 'scramble_ties_both': False, 'scramble_margin_100k': 0.19999999999999996, 'scramble_margin_full': 0.05333333333333334, 'dense_lift_ok': False, 'dense_lift_100k': 0.04, 'dense_lift_full': 0.006666666666666667} baseline_repro_ok=True arms_differ=True cardinality_ok=True",
+  "summary": "MIDDLE_BAND: checks={'sparse_recall_ok': False, 'sparse_fp_ok': False, 'sparse_collapse_both': False, 'scramble_margin_ok': False, 'scramble_ties_both': False, 'scramble_margin_100k': 0.19999999999999996, 'scramble_margin_full': 0.05333333333333334, 'dense_lift_ok': False, 'dense_lift_100k': 0.04, 'dense_lift_full': 0.006666666666666667} baseline_repro_ok=True arms_differ=True cardinality_ok=True",
+  "elapsed_s": 693.295,
+  "run_mode": "full",
+  "anchor_name": "focus_pullin_causal_stage2d_context_gated_sharded_store_v1",
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_shards": 7,
+  "source_to_idx": {
+    "AT": 0,
+    "CN": 1,
+    "CN|WN": 2,
+    "FN": 3,
+    "VG": 4,
+    "WD": 5,
+    "WN": 6
+  },
+  "scales": [
+    1000,
+    5000,
+    10000,
+    30000,
+    100000,
+    1213912
+  ],
+  "sparse_scales": [
+    10000,
+    100000,
+    1213912
+  ],
+  "dg_dim": 2048,
+  "dg_sparsity": 0.02,
+  "gate_thresh": 0.28,
+  "per_scale": {
+    "1000": {
+      "scale": 1000,
+      "flat_spotcheck": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.9666666666666667,
+        "relevant_in_shortlist_rate": 1.0,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.0,
+        "ingest_s": 0.163,
+        "eval_s": 36.172
+      },
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.9266666666666666,
+        "relevant_in_shortlist_rate": 0.96,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.08,
+        "ingest_s": 0.036,
+        "eval_s": 34.347,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            550,
+            204,
+            6,
+            10,
+            213,
+            13,
+            4
+          ],
+          "max_occupancy": 550,
+          "mean_nonzero_occupancy": 142.85714285714286
+        }
+      }
+    },
+    "5000": {
+      "scale": 5000,
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.92,
+        "relevant_in_shortlist_rate": 0.9733333333333334,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.03333333333333333,
+        "ingest_s": 0.071,
+        "eval_s": 34.222,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            2883,
+            887,
+            24,
+            45,
+            1080,
+            49,
+            32
+          ],
+          "max_occupancy": 2883,
+          "mean_nonzero_occupancy": 714.2857142857143
+        }
+      }
+    },
+    "10000": {
+      "scale": 10000,
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.8866666666666667,
+        "relevant_in_shortlist_rate": 0.9866666666666667,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.03333333333333333,
+        "ingest_s": 0.138,
+        "eval_s": 34.759,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            5781,
+            1725,
+            61,
+            103,
+            2122,
+            111,
+            97
+          ],
+          "max_occupancy": 5781,
+          "mean_nonzero_occupancy": 1428.5714285714287
+        }
+      },
+      "sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.8933333333333333,
+        "relevant_in_shortlist_rate": 0.9866666666666667,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.02666666666666667,
+        "tau": 0.31312161684036255,
+        "calibration": {
+          "tau": 0.31312161684036255,
+          "in_set_accept": 0.9866666666666667,
+          "out_set_refuse": 0.9733333333333334,
+          "in_set_mean": 0.5593007209897042,
+          "out_set_mean": 0.14507873505353927,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 1.209,
+        "eval_s": 7.405,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            5781,
+            1725,
+            61,
+            103,
+            2122,
+            111,
+            97
+          ],
+          "max_occupancy": 5781,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 1428.5714285714287
+        }
+      },
+      "scrambled": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.5866666666666667,
+        "relevant_in_shortlist_rate": 0.6133333333333333,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.0,
+        "tau": 0.3269539773464203,
+        "calibration": {
+          "tau": 0.3269539773464203,
+          "in_set_accept": 0.6533333333333333,
+          "out_set_refuse": 1.0,
+          "in_set_mean": 0.35810412545998893,
+          "out_set_mean": 0.12421511610349019,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 1.149,
+        "eval_s": 3.478,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            5781,
+            1725,
+            61,
+            103,
+            2122,
+            111,
+            97
+          ],
+          "max_occupancy": 5781,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 1428.5714285714287
+        }
+      }
+    },
+    "30000": {
+      "scale": 30000,
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.38,
+        "relevant_in_shortlist_rate": 0.94,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.03333333333333333,
+        "ingest_s": 0.416,
+        "eval_s": 33.883,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            17225,
+            5325,
+            168,
+            307,
+            6340,
+            350,
+            285
+          ],
+          "max_occupancy": 17225,
+          "mean_nonzero_occupancy": 4285.714285714285
+        }
+      }
+    },
+    "100000": {
+      "scale": 100000,
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.04,
+        "relevant_in_shortlist_rate": 0.74,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.013333333333333334,
+        "ingest_s": 1.123,
+        "eval_s": 34.711,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            57496,
+            17738,
+            636,
+            975,
+            21056,
+            1129,
+            970
+          ],
+          "max_occupancy": 57496,
+          "mean_nonzero_occupancy": 14285.714285714286
+        }
+      },
+      "sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.5466666666666666,
+        "relevant_in_shortlist_rate": 0.96,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.17333333333333334,
+        "tau": 0.13929450511932373,
+        "calibration": {
+          "tau": 0.13929450511932373,
+          "in_set_accept": 0.9333333333333333,
+          "out_set_refuse": 0.8266666666666667,
+          "in_set_mean": 0.23454676965872448,
+          "out_set_mean": 0.12498227472106616,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 11.421,
+        "eval_s": 5.998,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            57496,
+            17738,
+            636,
+            975,
+            21056,
+            1129,
+            970
+          ],
+          "max_occupancy": 57496,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 14285.714285714286
+        }
+      },
+      "scrambled": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.3466666666666667,
+        "relevant_in_shortlist_rate": 0.56,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.2,
+        "tau": 0.130711629986763,
+        "calibration": {
+          "tau": 0.130711629986763,
+          "in_set_accept": 0.7733333333333333,
+          "out_set_refuse": 0.8,
+          "in_set_mean": 0.17215618977944055,
+          "out_set_mean": 0.12231105084220568,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 10.286,
+        "eval_s": 3.334,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            57496,
+            17738,
+            636,
+            975,
+            21056,
+            1129,
+            970
+          ],
+          "max_occupancy": 57496,
+          "n_chunks": 1,
+          "mean_nonzero_occupancy": 14285.714285714286
+        }
+      }
+    },
+    "1213912": {
+      "scale": 1213912,
+      "flat_spotcheck": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.0,
+        "relevant_in_shortlist_rate": 0.006666666666666667,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.0,
+        "ingest_s": 16.886,
+        "eval_s": 33.803
+      },
+      "dense": {
+        "n_relevant_queried": 150,
+        "relevant_recall": 0.006666666666666667,
+        "relevant_in_shortlist_rate": 0.06,
+        "n_negative_queried": 150,
+        "false_pull_in_rate": 0.006666666666666667,
+        "ingest_s": 14.367,
+        "eval_s": 33.281,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            696152,
+            214890,
+            7897,
+            12128,
+            257130,
+            13812,
+            11903
+          ],
+          "max_occupancy": 696152,
+          "mean_nonzero_occupancy": 173416.0
+        }
+      },
+      "sparse": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.05333333333333334,
+        "relevant_in_shortlist_rate": 0.26666666666666666,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.4,
+        "tau": 0.1109568327665329,
+        "calibration": {
+          "tau": 0.1109568327665329,
+          "in_set_accept": 0.76,
+          "out_set_refuse": 0.6,
+          "in_set_mean": 0.14613078425327936,
+          "out_set_mean": 0.12104095473885536,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 155.788,
+        "eval_s": 7.081,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            696152,
+            214890,
+            7897,
+            12128,
+            257130,
+            13812,
+            11903
+          ],
+          "max_occupancy": 696152,
+          "n_chunks": 13,
+          "mean_nonzero_occupancy": 173416.0
+        }
+      },
+      "scrambled": {
+        "n_relevant_queried": 75,
+        "relevant_recall": 0.0,
+        "relevant_in_shortlist_rate": 0.05333333333333334,
+        "n_negative_queried": 75,
+        "false_pull_in_rate": 0.8,
+        "tau": 0.10402778536081314,
+        "calibration": {
+          "tau": 0.10402778536081314,
+          "in_set_accept": 0.8,
+          "out_set_refuse": 0.2,
+          "in_set_mean": 0.11897110680739086,
+          "out_set_mean": 0.11770195518930752,
+          "n_in": 150,
+          "n_out": 150
+        },
+        "ingest_s": 119.344,
+        "eval_s": 4.132,
+        "shard_diag": {
+          "n_shards_touched": 7,
+          "occupancy": [
+            696152,
+            214890,
+            7897,
+            12128,
+            257130,
+            13812,
+            11903
+          ],
+          "max_occupancy": 696152,
+          "n_chunks": 13,
+          "mean_nonzero_occupancy": 173416.0
+        }
+      }
+    }
+  },
+  "baseline_repro_check": {
+    "ok": true,
+    "detail": {
+      "1000": {
+        "ok": true,
+        "fresh_rr": 0.9666666666666667,
+        "stage2b_rr": 0.9666666666666667,
+        "fresh_fp": 0.0,
+        "stage2b_fp": 0.0,
+        "d_rr": 0.0,
+        "d_fp": 0.0
+      },
+      "1213912": {
+        "ok": true,
+        "fresh_rr": 0.0,
+        "stage2b_rr": 0.0,
+        "fresh_fp": 0.0,
+        "stage2b_fp": 0.0,
+        "d_rr": 0.0,
+        "d_fp": 0.0
+      }
+    }
+  },
+  "checks": {
+    "sparse_recall_ok": false,
+    "sparse_fp_ok": false,
+    "sparse_collapse_both": false,
+    "scramble_margin_ok": false,
+    "scramble_ties_both": false,
+    "scramble_margin_100k": 0.19999999999999996,
+    "scramble_margin_full": 0.05333333333333334,
+    "dense_lift_ok": false,
+    "dense_lift_100k": 0.04,
+    "dense_lift_full": 0.006666666666666667
+  },
+  "arms_differ_check": {
+    "dense": "dfe82909c62ca37c5497c87206751ca69d48b733b69a89f14eb40116e8b09815",
+    "sparse": "a45376e46000d035382a2f60be2aa9ef53e99e22023357b8a25fa788cb21c07b",
+    "scrambled": "a789a508716a44a9567e8dd970c142f46f50aa10557c3fa1dfa5bfa502c7c6cd",
+    "flat_spotcheck": "028eeec30a5bc4bdaf1fc5b451cf4b41e23b2f0ddd9fab3663eab39d3c9c5c21"
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical dual-regime shard-capacity diagnostic (dense-Hopfield DENSE arm vs Willshaw-class SPARSE arm); measuring where the real per-shard-family capacity sits IS the test",
+  "deterministic_seeding": true,
+  "calibration_check_flat_dense": "default_ok_for_this_regime: GATE_THRESH=0.28 fixed/unmodified across FLAT and DENSE arms",
+  "calibration_check_sparse": "adaptive_with_discriminator_gate: DG-space tau via refuse_gate_calibrate_from_scores, per-scale, 50/50 internal split"
+}
