@@ -781,6 +781,11 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         print(f"[re-encounter] fallback probe: {fallback_probe}", flush=True)
 
     # ---- arms-must-differ (META_RULE_AF) ----
+    # EXEMPTED pair (disclosed, not a bug): "bow" and "never_crutch" share the identical
+    # resolve_item code branch BY DESIGN -- never_crutch is defined (prereg "NEVER-CRUTCH arm")
+    # as "BoW-only, permanently"; its own Library/HDFactStore exists only to confirm it stays
+    # empty (leak check), never to change its predictions. All other 9 pairs must differ.
+    ARMS_DIFFER_EXEMPTED = [("bow", "never_crutch")]
     def _digest(rows):
         s = json.dumps([(r["pred_idx"], r["tag"]) for r in rows]).encode("utf-8")
         return hashlib.sha256(s).hexdigest()
@@ -788,10 +793,15 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
     digests = {arm: _digest(rows) for arm, rows in final_ck.items()}
     arm_names = list(digests)
     differ_pairs_ok = True
+    non_exempt_collisions = []
     for i in range(len(arm_names)):
         for j in range(i + 1, len(arm_names)):
-            if digests[arm_names[i]] == digests[arm_names[j]]:
+            a, b = arm_names[i], arm_names[j]
+            if digests[a] == digests[b]:
+                if (a, b) in ARMS_DIFFER_EXEMPTED or (b, a) in ARMS_DIFFER_EXEMPTED:
+                    continue  # declared, disclosed, by-design (see comment above)
                 differ_pairs_ok = False
+                non_exempt_collisions.append((a, b))
 
     # ---- strip per-arm-rows from checkpoint summary (large; keep aggregate only in metrics) ----
     checkpoint_summary = []
@@ -912,6 +922,8 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
                  "consolidation_fidelity_ok": consolidation_fidelity_ok,
                  "re_encounter_rises": re_encounter_rises},
         "arms_differ_verified": differ_pairs_ok,
+        "arms_differ_exempted": [list(p) for p in ARMS_DIFFER_EXEMPTED],
+        "arms_differ_non_exempt_collisions": non_exempt_collisions,
         "arm_digests": digests,
         "cardinality_ok": len(CHECKPOINTS) == 5 and len(final_ck) == 5,
         "expected_n_units": len(CHECKPOINTS),

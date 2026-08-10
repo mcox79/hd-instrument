@@ -264,3 +264,64 @@ foreground-to-completion (not queued to local/remote_cpu_queue) per the "light c
 in foreground" guidance -- avoids occupying queue infra for a workload with no GPU/remote benefit.
 Smoke gates first (capped exposure/dev subsets) to verify correctness + measure real wall-time
 before commit to FULL.
+
+## ADDENDUM (2026-08-10, post-crash diagnosis + fix -- filed BEFORE the diagnostic/FULL runs below)
+
+Context: the prior exp_dev cycle's default `--smoke` (SMOKE_TRAIN_CAP=3000/DEV_CAP=250)
+HARD_FAILED with a fully FLAT result (0 promotions the entire run -- `promote_min_exposure=8` never
+reached at that exposure scale). An ad hoc larger diagnostic (`train_cap=15000/dev_cap=400`,
+undisclosed at the time, output `data/exp_crutch_fade_social_iqa_v1_promocheck/metrics.json`) then
+showed a REAL-BUT-SMALL scramble-clean signal (25 promotions by 100%, gap_driven 0.3975 vs bow
+0.3775) before the session auth-crashed pre-commit. This addendum pre-registers the diagnosis +
+fix design and the bands used to interpret it -- filed before the sweep/diagnostic/FULL runs it
+governs.
+
+**Bands: UNCHANGED from the body of this pre-reg above** (verbatim HARD-PASS/HARD-FAIL/MIDDLE_BAND
+criteria, same +0.05 comprehension-lift target, same fire-rate-drop / scramble-control /
+consolidation-fidelity gates). This addendum does not loosen or re-tune any threshold to chase a
+pass; it changes two INPUT parameters (`promote_min_exposure`, `score_mode`) and adds one
+diagnostic (`retrieval_use_diagnostic`), all applied uniformly to both the real (gap_driven) and
+scramble-control arms, then reads the SAME verdict logic against the result.
+
+**FAULT 1 (promotion gated too tight) -- design:** sweep `promote_min_exposure` in {2, 3, 4, 8} via
+a new `consolidation_pass(..., promote_min_exposure=N)` passthrough (both the real AND the scramble
+store use the SAME N each run -- a fair control: if loosening the gate let false/scrambled pairs
+promote too, that would falsify the fix). `PROMOTE_MIN_CONSISTENCY=0.75` and `schema_thresh=0.10`
+(the false-memory guard) are left at module defaults, untouched, at every sweep point. Predicted
+(HYPOTHESIZED, pre-sweep): because `consolidation_pass`'s promotion check only ever executes inside
+the already-banked branch (`n >= MIN_CONFIRM = 4` is a hard precondition for banking to occur at
+all), any `promote_min_exposure <= 4` should be mechanically EQUIVALENT to `promote_min_exposure =
+4` -- MEASURED below to confirm or refute this before committing compute to a wider sweep.
+
+**FAULT 2 (thin per-fact help) -- design:** decompose CRUTCH_RESOLVED failures into RETRIEVAL
+(does ANY CSKG edge reach the GOLD answer's concepts at all, `crutch_score[gold] > 0`) vs USE
+(GIVEN a gold-reaching edge exists, does argmax correctly rank it top). `retrieval_hit_rate` /
+`use_quality_given_hit` computed per checkpoint for the gap_driven arm's CRUTCH_RESOLVED items
+only (cheap: bounded per-item dict lookups). ONE targeted improvement is tried and MEASURED (not
+assumed): initial hypothesis was an edge-COUNT-inflation bug in the legacy scoring formula
+(`max(trust) * len(edges)` lets several low-trust edges outrank one high-trust edge) --
+`score_mode="max_trust"` fixes this specific bug but MEASURED zero delta on real data (97% of CSKG
+pairs carry exactly 1 edge; the multi-edge scenario the fix targets barely occurs). Sampling actual
+retrieval-hit-but-wrong-argmax items surfaced the REAL cause instead: a handful of high-DEGREE,
+SIQa-template-generic concepts (`person`, `mouth`, `want`, `next`, `need`, `baby` -- recurring
+because SIQa's question templates ["How would X feel/be described?", "What will X want to do
+next?"] reuse these words across unrelated items) connect to almost anything in a 1.15M-edge KB,
+producing spurious or wrong-candidate-favoring scores with no real item-specific content.
+`score_mode="hub_penalized"` (max_trust base / (1 + log1p(max node-degree of the driving pair)))
+is the SHIPPED fix -- MEASURED delta below.
+
+**Diagnostic scale (not the certified --smoke/--full contract):** `--diag --train-cap 15000
+--dev-cap 400` (~45-110s/run incl. ~15-40s fixed CSKG-load cost) used to cheaply screen the sweep
++ score_mode A/B BEFORE committing to uncapped FULL runs. Output dirs `data/exp_crutch_fade_
+social_iqa_v1_diag_*` (not committed -- superseded scratch; the FULL-scale runs below are the
+evidence of record). `real_code_path_exercised` unchanged (same Library/consolidation_pass/
+HDFactStore objects, only their kwargs vary); `substrate_signature_checked` extended to the new
+`promote_min_exposure` kwarg on `consolidation_pass` (already part of its live signature, not a
+version-drift risk). Self-test extended (not replaced) to cover: promote_min_exposure threading
+(a 4-trace item promotes at threshold=4, does not at threshold=8, both against the SAME real
+Library/HDFactStore/consolidation_pass), the max_trust fix's crafted count-inflation case, and the
+hub_penalized fix's crafted hub-vs-specific-concept case -- all PASS (see cell self-test output).
+
+FULL-scale decisive runs (uncapped, real `--full`/`--diag`-uncapped, no train/dev subsampling):
+results + verdict reported in the exp_dev completion report, not duplicated here (per META_RULE_AC,
+numbers belong tagged at their MEASURED@ source, not restated as pre-reg text after the fact).
