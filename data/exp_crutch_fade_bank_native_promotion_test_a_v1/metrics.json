@@ -1,0 +1,455 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: gate1_promote_rate=1.0(5/5) guard_holds=True(leaked=0/12: []) old_guard_ok=True(scrambled={'s1_scrambled8': 'ESCALATED', 's2_scrambled10': 'ESCALATED'}) rare_ok=True(statuses={'r1_rare2a': 'PENDING', 'r2_rare2b': 'PENDING', 'r3_rare3': 'PENDING'}) corr(12-item bank-branch)=r_true:0.7346 perm_p:0.01 null_mean_abs_r:0.2665 gap:0.4681 | reasons=[]",
+  "summary": "MIDDLE_BAND: MIDDLE_BAND: gate1_promote_rate=1.0(5/5) guard_holds=True(leaked=0/12: []) old_guard_ok=True(scrambled={'s1_scrambled8': 'ESCALATED', 's2_scrambled10': 'ESCALATED'}) rare_ok=True(statuses={'r1_rare2a'",
+  "elapsed_s": 0.19796050002332777,
+  "anchor_name": "crutch_fade_bank_native_promotion_test_a_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-10T12:25:41.291004+00:00",
+  "config": {
+    "n_passes": 6,
+    "min_confirm": 4,
+    "schema_thresh": 0.1,
+    "neutral_band": 0.34,
+    "patience_max": 3,
+    "promote_min_exposure": 8,
+    "promote_min_consistency": 0.75,
+    "seed": 0,
+    "native_store_n_dim": 4096
+  },
+  "synthetic_regime": {
+    "PROMOTE_EXPECTED": [
+      {
+        "lemma": "c1_allpos8",
+        "n_pos": 8,
+        "n_neg": 0,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "c2_allpos10",
+        "n_pos": 10,
+        "n_neg": 0,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "c3_high_pos12",
+        "n_pos": 11,
+        "n_neg": 1,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "c4_allneg9",
+        "n_pos": 0,
+        "n_neg": 9,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "c5_boundary_neg8",
+        "n_pos": 1,
+        "n_neg": 7,
+        "context_mode": "coherent"
+      }
+    ],
+    "BANKED_BUT_BLOCKED": [
+      {
+        "lemma": "b1_weak_pos8",
+        "n_pos": 6,
+        "n_neg": 2,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "b2_weak_neg12",
+        "n_pos": 3,
+        "n_neg": 9,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "b3_short_pos6",
+        "n_pos": 6,
+        "n_neg": 0,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "b4_short_pos7",
+        "n_pos": 7,
+        "n_neg": 0,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "b5_both_weak4",
+        "n_pos": 3,
+        "n_neg": 1,
+        "context_mode": "coherent"
+      }
+    ],
+    "NEUTRAL_INCONSISTENT": [
+      {
+        "lemma": "n1_tie8",
+        "n_pos": 4,
+        "n_neg": 4,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "n2_tie10",
+        "n_pos": 5,
+        "n_neg": 5,
+        "context_mode": "coherent"
+      }
+    ],
+    "RARE_UNDER_MIN_CONFIRM": [
+      {
+        "lemma": "r1_rare2a",
+        "n_pos": 2,
+        "n_neg": 0,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "r2_rare2b",
+        "n_pos": 1,
+        "n_neg": 1,
+        "context_mode": "coherent"
+      },
+      {
+        "lemma": "r3_rare3",
+        "n_pos": 3,
+        "n_neg": 0,
+        "context_mode": "coherent"
+      }
+    ],
+    "SCRAMBLED_CONTEXT_ADVERSARIAL": [
+      {
+        "lemma": "s1_scrambled8",
+        "n_pos": 8,
+        "n_neg": 0,
+        "context_mode": "scrambled"
+      },
+      {
+        "lemma": "s2_scrambled10",
+        "n_pos": 10,
+        "n_neg": 0,
+        "context_mode": "scrambled"
+      }
+    ]
+  },
+  "final_status": {
+    "c1_allpos8": "GROUNDED_POS",
+    "c2_allpos10": "GROUNDED_POS",
+    "c3_high_pos12": "GROUNDED_POS",
+    "c4_allneg9": "GROUNDED_NEG",
+    "c5_boundary_neg8": "GROUNDED_NEG",
+    "b1_weak_pos8": "GROUNDED_POS",
+    "b2_weak_neg12": "GROUNDED_NEG",
+    "b3_short_pos6": "GROUNDED_POS",
+    "b4_short_pos7": "GROUNDED_POS",
+    "b5_both_weak4": "GROUNDED_POS",
+    "n1_tie8": "GROUNDED_NEUTRAL",
+    "n2_tie10": "GROUNDED_NEUTRAL",
+    "r1_rare2a": "PENDING",
+    "r2_rare2b": "PENDING",
+    "r3_rare3": "PENDING",
+    "s1_scrambled8": "ESCALATED",
+    "s2_scrambled10": "ESCALATED"
+  },
+  "promoted_now": {
+    "c1_allpos8": true,
+    "c2_allpos10": true,
+    "c3_high_pos12": true,
+    "c4_allneg9": true,
+    "c5_boundary_neg8": true,
+    "b1_weak_pos8": false,
+    "b2_weak_neg12": false,
+    "b3_short_pos6": false,
+    "b4_short_pos7": false,
+    "b5_both_weak4": false,
+    "n1_tie8": false,
+    "n2_tie10": false,
+    "r1_rare2a": false,
+    "r2_rare2b": false,
+    "r3_rare3": false,
+    "s1_scrambled8": false,
+    "s2_scrambled10": false
+  },
+  "gate1_promote_expected": {
+    "rate": 1.0,
+    "hits": [
+      "c1_allpos8",
+      "c2_allpos10",
+      "c3_high_pos12",
+      "c4_allneg9",
+      "c5_boundary_neg8"
+    ],
+    "n_expected": 5
+  },
+  "gate2_guard": {
+    "holds": true,
+    "leaked_lemmas": [],
+    "n_must_not_promote": 12
+  },
+  "gate2b_old_guard_regression_check": {
+    "ok": true,
+    "scrambled_statuses": {
+      "s1_scrambled8": "ESCALATED",
+      "s2_scrambled10": "ESCALATED"
+    }
+  },
+  "rare_sanity": {
+    "ok": true,
+    "statuses": {
+      "r1_rare2a": "PENDING",
+      "r2_rare2b": "PENDING",
+      "r3_rare3": "PENDING"
+    }
+  },
+  "correlation_bank_branch_12item": {
+    "r_true": 0.7346,
+    "n_points": 12,
+    "null_mean_abs_r": 0.2665,
+    "null_p95_abs_r": 0.6177,
+    "perm_p": 0.01,
+    "n_perm": 200
+  },
+  "correlation_all_17item_secondary_nongating": {
+    "r_true": 0.5937,
+    "n_points": 17,
+    "null_mean_abs_r": 0.1934,
+    "null_p95_abs_r": 0.4484,
+    "perm_p": 0.025,
+    "n_perm": 200
+  },
+  "exposure_of": {
+    "b1_weak_pos8": 8,
+    "b2_weak_neg12": 12,
+    "b3_short_pos6": 6,
+    "b4_short_pos7": 7,
+    "b5_both_weak4": 4,
+    "c1_allpos8": 8,
+    "c2_allpos10": 10,
+    "c3_high_pos12": 12,
+    "c4_allneg9": 9,
+    "c5_boundary_neg8": 8,
+    "n1_tie8": 8,
+    "n2_tie10": 10
+  },
+  "consistency_of": {
+    "b1_weak_pos8": 0.5,
+    "b2_weak_neg12": 0.5,
+    "b3_short_pos6": 1.0,
+    "b4_short_pos7": 1.0,
+    "b5_both_weak4": 0.5,
+    "c1_allpos8": 1.0,
+    "c2_allpos10": 1.0,
+    "c3_high_pos12": 0.8333333333333334,
+    "c4_allneg9": 1.0,
+    "c5_boundary_neg8": 0.75,
+    "n1_tie8": 0.0,
+    "n2_tie10": 0.0
+  },
+  "label_of": {
+    "b1_weak_pos8": "GROUNDED_POS",
+    "b2_weak_neg12": "GROUNDED_NEG",
+    "b3_short_pos6": "GROUNDED_POS",
+    "b4_short_pos7": "GROUNDED_POS",
+    "b5_both_weak4": "GROUNDED_POS",
+    "c1_allpos8": "GROUNDED_POS",
+    "c2_allpos10": "GROUNDED_POS",
+    "c3_high_pos12": "GROUNDED_POS",
+    "c4_allneg9": "GROUNDED_NEG",
+    "c5_boundary_neg8": "GROUNDED_NEG",
+    "n1_tie8": "GROUNDED_NEUTRAL",
+    "n2_tie10": "GROUNDED_NEUTRAL"
+  },
+  "pass_reports": [
+    {
+      "pass": 1,
+      "newly_grounded_pos": [],
+      "newly_grounded_neg": [],
+      "newly_grounded_neutral": [],
+      "newly_escalated": [],
+      "cumulative_grounded": 0,
+      "cumulative_grounded_polar": 0,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 17,
+      "promotion_log": []
+    },
+    {
+      "pass": 2,
+      "newly_grounded_pos": [
+        "b1_weak_pos8",
+        "b3_short_pos6",
+        "b4_short_pos7",
+        "b5_both_weak4",
+        "c1_allpos8",
+        "c2_allpos10",
+        "c3_high_pos12"
+      ],
+      "newly_grounded_neg": [
+        "b2_weak_neg12",
+        "c4_allneg9",
+        "c5_boundary_neg8"
+      ],
+      "newly_grounded_neutral": [
+        "n1_tie8",
+        "n2_tie10"
+      ],
+      "newly_escalated": [],
+      "cumulative_grounded": 12,
+      "cumulative_grounded_polar": 10,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 5,
+      "promotion_log": [
+        {
+          "lemma": "b1_weak_pos8",
+          "exposure": 8,
+          "consistency": 0.5,
+          "label": "POS",
+          "promoted": false
+        },
+        {
+          "lemma": "b2_weak_neg12",
+          "exposure": 12,
+          "consistency": 0.5,
+          "label": "NEG",
+          "promoted": false
+        },
+        {
+          "lemma": "b3_short_pos6",
+          "exposure": 6,
+          "consistency": 1.0,
+          "label": "POS",
+          "promoted": false
+        },
+        {
+          "lemma": "b4_short_pos7",
+          "exposure": 7,
+          "consistency": 1.0,
+          "label": "POS",
+          "promoted": false
+        },
+        {
+          "lemma": "b5_both_weak4",
+          "exposure": 4,
+          "consistency": 0.5,
+          "label": "POS",
+          "promoted": false
+        },
+        {
+          "lemma": "c1_allpos8",
+          "exposure": 8,
+          "consistency": 1.0,
+          "label": "POS",
+          "promoted": true
+        },
+        {
+          "lemma": "c2_allpos10",
+          "exposure": 10,
+          "consistency": 1.0,
+          "label": "POS",
+          "promoted": true
+        },
+        {
+          "lemma": "c3_high_pos12",
+          "exposure": 12,
+          "consistency": 0.833333,
+          "label": "POS",
+          "promoted": true
+        },
+        {
+          "lemma": "c4_allneg9",
+          "exposure": 9,
+          "consistency": 1.0,
+          "label": "NEG",
+          "promoted": true
+        },
+        {
+          "lemma": "c5_boundary_neg8",
+          "exposure": 8,
+          "consistency": 0.75,
+          "label": "NEG",
+          "promoted": true
+        },
+        {
+          "lemma": "n1_tie8",
+          "exposure": 8,
+          "consistency": 0.0,
+          "label": "NEUTRAL",
+          "promoted": false
+        },
+        {
+          "lemma": "n2_tie10",
+          "exposure": 10,
+          "consistency": 0.0,
+          "label": "NEUTRAL",
+          "promoted": false
+        }
+      ]
+    },
+    {
+      "pass": 3,
+      "newly_grounded_pos": [],
+      "newly_grounded_neg": [],
+      "newly_grounded_neutral": [],
+      "newly_escalated": [],
+      "cumulative_grounded": 12,
+      "cumulative_grounded_polar": 10,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 5,
+      "promotion_log": []
+    },
+    {
+      "pass": 4,
+      "newly_grounded_pos": [],
+      "newly_grounded_neg": [],
+      "newly_grounded_neutral": [],
+      "newly_escalated": [
+        "s1_scrambled8",
+        "s2_scrambled10"
+      ],
+      "cumulative_grounded": 12,
+      "cumulative_grounded_polar": 10,
+      "cumulative_escalated": 2,
+      "cumulative_pending": 3,
+      "promotion_log": []
+    },
+    {
+      "pass": 5,
+      "newly_grounded_pos": [],
+      "newly_grounded_neg": [],
+      "newly_grounded_neutral": [],
+      "newly_escalated": [],
+      "cumulative_grounded": 12,
+      "cumulative_grounded_polar": 10,
+      "cumulative_escalated": 2,
+      "cumulative_pending": 3,
+      "promotion_log": []
+    },
+    {
+      "pass": 6,
+      "newly_grounded_pos": [],
+      "newly_grounded_neg": [],
+      "newly_grounded_neutral": [],
+      "newly_escalated": [],
+      "cumulative_grounded": 12,
+      "cumulative_grounded_polar": 10,
+      "cumulative_escalated": 2,
+      "cumulative_pending": 3,
+      "promotion_log": []
+    }
+  ],
+  "hard_fail_reasons": [],
+  "category_digests": {
+    "PROMOTE_EXPECTED": "f580af1b625cbe878932d75c47b0bc86004d8a08389fe08f75ceacee17f23479",
+    "BANKED_BUT_BLOCKED": "c3881dff41ea27d66506b86ada0ec30baa30ea5aef81987ff541eb67f0a30494",
+    "NEUTRAL_INCONSISTENT": "a0fb538cda7a946755e8680ef332709f20ddb7e9d89cf2f8fdcee1041270435e",
+    "RARE_UNDER_MIN_CONFIRM": "a3ee19b93ae91005269ea05c879c9d7f04ca978466ec2996fd495e3bee44a37f",
+    "SCRAMBLED_CONTEXT_ADVERSARIAL": "4c569f671826da028b5044ab81738f0ac064ffb114610ac118fd065ac5b65a24"
+  },
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "expected_n_units": 17,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "deterministic threshold-gate + permutation-test mechanism cell; no argmax/capacity noise floor applies",
+  "deterministic_seeding": true,
+  "progress_logging": "n_a_sub_5s_wall_time",
+  "guard_vetted_hardest": true,
+  "is_synthetic_mechanism_test_not_capability_claim": true
+}

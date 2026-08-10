@@ -26,7 +26,26 @@ REUSE (wire-don't-island; every organ below is imported read-only, called verbat
   hdlab.self_improving_loop.decide_keep_or_revert                   (abstain-band vote-margin gate,
                                                                       byte-identical idiom to
                                                                       consequence_learning_loop.consolidate)
-  hdlab.verb_lexical_similarity.register_acquired_outcome / in_lexicon   (BANK write-back)
+  hdlab.verb_lexical_similarity.register_acquired_outcome / in_lexicon   (BANK write-back, overlay)
+  hdlab.hd_fact_store.HDFactStore                                   (BANK write-back, NATIVE -- see
+                                                                      PROMOTE below, 2026-08-10)
+
+PROMOTE (2026-08-10, notes/research_brain_scaffolding_that_fades_2026-08-10.md +
+notes/research_crutch_fade_loop_owned_organ_wiring_2026-08-10.md): consolidation_pass's BANK step
+previously wrote ONLY into verb_lexical_similarity's flat overlay dict -- a permanent side-table,
+never merged into any natively-read structure, which those two drills independently found makes the
+"crutch fades" claim structurally impossible (an annotation, not a migration). This module now
+OPTIONALLY (native_store=None preserves prior behavior byte-for-byte) also PROMOTES a banked item
+into hdlab.hd_fact_store.HDFactStore's trust-bound representation, gated by a THIRD, independent
+condition on top of the existing two (vote-margin abstain-band + schema-consistency split-half):
+EXPOSURE (len(traces)) >= promote_min_exposure AND MAPPING-CONSISTENCY (abs(vote_margin)) >=
+promote_min_consistency. This operationalizes Logan 1988 (Instance Theory: exposure count predicts
+automaticity) and Schneider & Shiffrin 1977 (automaticity requires CONSISTENT mapping, not just
+enough repetitions) as the promotion gate -- schema-coherence licenses BANKING (an "associative"
+stage, Fitts & Posner 1967), but promotion to native/autonomous requires the stricter, independent
+consistency bar this drill's Test A exists to validate. The existing false-memory guard
+(schema_consistency_split_half) is NEVER loosened by this addition -- an item that fails it still
+never reaches the BANK branch at all, so it structurally cannot promote either.
 
 GENUINELY-NEW code here: context_vector (deterministic bag-of-content-words bipolar bundle, glass-
 box, hashlib-seeded per PROT-023/F.5 -- never Python hash()), Library/LibraryItem/Trace (the
@@ -54,6 +73,7 @@ from hdlab.consequence_learning_loop import (  # noqa: F401 (credit_window re-ex
 )
 from hdlab.self_improving_loop import decide_keep_or_revert
 from hdlab.verb_lexical_similarity import register_acquired_outcome, in_lexicon
+from hdlab.hd_fact_store import HDFactStore  # noqa: F401 (PROMOTE target; real code path, not a stub)
 
 # ---- config (mine to set per exp_dev Autonomy grant; documented + justified in the pre-reg) ----
 D = 256                      # context bipolar vector dimensionality
@@ -64,6 +84,13 @@ MIN_CONFIRM = 4                # schema_consistency_split_half needs >=2 traces 
                                 # consolidation_pass: schema_score is None -> defer, no patience cost).
 NEUTRAL_BAND = 0.34           # matches hdlab.consequence_learning_loop.NEUTRAL_BAND
 PATIENCE_MAX = 3              # consolidation passes an item may fail the guard before ESCALATED
+PROMOTE_MIN_EXPOSURE = 8       # native-promotion exposure floor (Logan 1988 instance count); strictly
+                                # above MIN_CONFIRM=4 -- "eligible to bank" != "eligible to promote"
+PROMOTE_MIN_CONSISTENCY = 0.75  # native-promotion |vote_margin| floor (Schneider & Shiffrin 1977
+                                # consistent-mapping); strictly above NEUTRAL_BAND=0.34's banking bar
+                                # -- a coherent-context item can bank (associative) on a much weaker
+                                # vote margin than it needs to promote (autonomous).
+PROMOTE_RELATION = "OUTCOME_POLARITY"  # hd_fact_store relation name for a promoted grounding
 
 _STOPWORDS = frozenset({
     "the", "a", "an", "and", "or", "but", "if", "of", "to", "in", "on", "at", "by", "for", "with",
@@ -211,7 +238,12 @@ def consolidation_pass(library: Library, pass_idx: int, *,
                         neutral_band: float = NEUTRAL_BAND,
                         patience_max: int = PATIENCE_MAX,
                         register: bool = True,
-                        mdl_gate_fn: Optional[Callable[["LibraryItem"], bool]] = None) -> dict:
+                        mdl_gate_fn: Optional[Callable[["LibraryItem"], bool]] = None,
+                        native_store: Optional["HDFactStore"] = None,
+                        promote_min_exposure: int = PROMOTE_MIN_EXPOSURE,
+                        promote_min_consistency: float = PROMOTE_MIN_CONSISTENCY,
+                        promote_relation: str = PROMOTE_RELATION,
+                        promote_source: str = "grounding_acquisition_loop") -> dict:
     """One offline 'sleep' pass over the WHOLE library (Diekelmann & Born: offline, separate from
     the reading/FLAG pass). For each PENDING item with >= min_confirm traces:
       1. mark first_min_confirm_pass on the FIRST pass this threshold is reached (if not yet set).
@@ -238,9 +270,23 @@ def consolidation_pass(library: Library, pass_idx: int, *,
     independent test of whether the item's own accumulated evidence is genuinely compressible, not
     merely internally coherent by the cosine-based split-half metric alone.
 
+    native_store (2026-08-10, optional -- default None preserves prior behavior byte-for-byte): when
+    provided, every item that BANKS as GROUNDED_POS/GROUNDED_NEG is ALSO evaluated for PROMOTION into
+    native_store's trust-bound (s,r,o) representation, gated on exposure (len(traces)) >=
+    promote_min_exposure AND consistency (abs(vote_margin)) >= promote_min_consistency -- a strictly
+    STRONGER, independent bar than banking's own (schema_thresh, neutral_band) gates (see module
+    docstring PROMOTE section). GROUNDED_NEUTRAL items never promote (no directional fact to assert).
+    promote_min_exposure/promote_min_consistency default to the module constants but are NOT
+    hard-coded into the gate logic -- a caller (e.g. a research cell) may vary them, which is exactly
+    what lets Test A probe the threshold's shape. Every BANK-branch item (grounded, any label) gets a
+    `promotion_log` entry recording exposure/consistency/label/promoted, whether or not native_store
+    was supplied (promoted is always False when native_store is None) -- this is what lets a caller
+    later correlate native coverage against the two fade predictors without re-deriving them.
+
     Returns a per-pass report dict; mutates `library` in place."""
     newly_grounded = {"POS": [], "NEG": [], "NEUTRAL": []}
     newly_escalated: List[str] = []
+    promotion_log: List[dict] = []
     for lemma in sorted(library.items):
         it = library.items[lemma]
         if it.status != "PENDING":
@@ -272,6 +318,24 @@ def consolidation_pass(library: Library, pass_idx: int, *,
             if register and label in ("POS", "NEG"):
                 register_acquired_outcome(lemma, label)
             newly_grounded[label].append(lemma)
+            # ---- PROMOTE: overlay-bank (above) is NOT native-promotion. A THIRD, independent gate
+            # (exposure AND consistency, both strictly stronger than banking's own thresholds) decides
+            # whether this item ALSO migrates into native_store. schema_ok being True here is a
+            # NECESSARY-for-bank precondition, never a sufficient-for-promote one -- a coherent-context
+            # item with a merely-adequate (not highly consistent) vote history banks but must not
+            # promote (this is the guard Test A vets hardest; see module PROMOTE docstring).
+            exposure = n
+            consistency = abs(margin)
+            promoted = False
+            if (native_store is not None and label in ("POS", "NEG")
+                    and exposure >= promote_min_exposure
+                    and consistency >= promote_min_consistency):
+                trust_sym = "TRUST_HIGH" if consistency >= 0.9 else "TRUST_MID"
+                native_store.store(lemma, promote_relation, label, promote_source, trust_sym)
+                promoted = True
+            promotion_log.append({"lemma": lemma, "exposure": exposure,
+                                  "consistency": round(consistency, 6), "label": label,
+                                  "promoted": promoted})
         else:
             it.patience += 1
             if it.patience >= patience_max:
@@ -288,6 +352,7 @@ def consolidation_pass(library: Library, pass_idx: int, *,
                                          if i.status in ("GROUNDED_POS", "GROUNDED_NEG")),
         "cumulative_escalated": sum(1 for i in library.items.values() if i.status == "ESCALATED"),
         "cumulative_pending": sum(1 for i in library.items.values() if i.status == "PENDING"),
+        "promotion_log": promotion_log,
     }
 
 
@@ -371,6 +436,48 @@ def self_test() -> dict:
     assert credit_window(g_save, win_unmet, "boat", signal_mode="signal_a_only") is None, (
         "credit_window must return None when teacher fires but no OOV target is referent-linked")
 
+    # (7) PROMOTE connector: real HDFactStore, real code path (not a synthetic-only branch).
+    # 7a. high-exposure, highly-consistent, coherent-context item MUST bank AND promote.
+    store = HDFactStore(n_dim=1024, seed=7)
+    lib4 = Library()
+    ctx_ok = context_vector("Nell repaired the engine before the harvest.")
+    for i in range(8):
+        lib4.flag("repairtest", f"r{i}", "POS", ctx_ok, 1)
+    consolidation_pass(lib4, 1, min_confirm=4, schema_thresh=0.10, register=False, native_store=store,
+                       promote_min_exposure=8, promote_min_consistency=0.75)
+    r_promote = consolidation_pass(lib4, 2, min_confirm=4, schema_thresh=0.10, register=False,
+                                   native_store=store, promote_min_exposure=8,
+                                   promote_min_consistency=0.75)
+    assert lib4.items["repairtest"].status == "GROUNDED_POS"
+    assert any(e["lemma"] == "repairtest" and e["promoted"] for e in r_promote["promotion_log"]), (
+        f"high-exposure consistent item must promote, log={r_promote['promotion_log']}")
+    native_hit = store.query("repairtest", "OUTCOME_POLARITY")
+    assert native_hit and native_hit[0]["object"] == "POS", (
+        f"promoted fact must be readable lookup-free from hd_fact_store, got {native_hit}")
+
+    # 7b. GUARD: same coherent context, same exposure count, but a merely-adequate (not highly
+    # consistent) vote history -- must BANK (clears the low banking bar) but must NOT promote (fails
+    # the strictly-stronger consistency bar). This is the sharp case DRILL 2 named: banking's own
+    # vote-margin gate is much weaker than genuine automaticity requires.
+    lib5 = Library()
+    for i in range(6):
+        lib5.flag("weaktest", f"w{i}", "POS", ctx_ok, 1)
+    for i in range(2):
+        lib5.flag("weaktest", f"wn{i}", "NEG", ctx_ok, 1)
+    consolidation_pass(lib5, 1, min_confirm=4, schema_thresh=0.10, register=False, native_store=store,
+                       promote_min_exposure=8, promote_min_consistency=0.75)
+    r_guard = consolidation_pass(lib5, 2, min_confirm=4, schema_thresh=0.10, register=False,
+                                 native_store=store, promote_min_exposure=8,
+                                 promote_min_consistency=0.75)
+    assert lib5.items["weaktest"].status == "GROUNDED_POS", (
+        f"margin=0.5 (6 POS/2 NEG) must clear the banking bar (>0.34), got "
+        f"{lib5.items['weaktest'].status}")
+    assert not any(e["lemma"] == "weaktest" and e["promoted"] for e in r_guard["promotion_log"]), (
+        f"consistency=0.5 (<0.75 promote floor) item must NOT promote despite banking, "
+        f"log={r_guard['promotion_log']}")
+    assert store.query("weaktest", "OUTCOME_POLARITY") == [], (
+        "guard leak: an inconsistent-but-banked item is readable from native_store")
+
     return {
         "context_vector_deterministic": True,
         "schema_metric_discriminant_valid": True,
@@ -379,6 +486,8 @@ def self_test() -> dict:
         "intervening_pass_rule_ok": True,
         "guard_rejects_scrambled_context_ok": True,
         "real_credit_window_exercised": True,
+        "native_promotion_connector_ok": True,
+        "native_promotion_guard_holds_ok": True,
     }
 
 
