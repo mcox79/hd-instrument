@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: ['party', 'food']",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_crutch_fade_social_iqa_v1.py\", line 857, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_crutch_fade_social_iqa_v1.py\", line 837, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_crutch_fade_social_iqa_v1.py\", line 778, in self_test\n    assert \"party\" in got and \"friend\" in got and \"food\" in got, got\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ['party', 'food']\n",
+  "ts_iso": "2026-08-10T12:56:48.353462+00:00",
+  "pid": 21032,
+  "anchor_name": "crutch_fade_social_iqa_v1"
+}
