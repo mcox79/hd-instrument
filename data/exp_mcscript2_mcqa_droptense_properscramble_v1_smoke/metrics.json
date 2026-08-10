@@ -1,0 +1,690 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: margin_over_bow=-0.1802 collapses=False (acc_struct=0.4955 acc_bow=0.6757 acc_scramble=0.5045 gap_struct=-0.0045 gap_scramble=0.0045)",
+  "summary": "HARD_FAIL: HARD_FAIL: margin_over_bow=-0.1802 collapses=False (acc_struct=0.4955 acc_bow=0.6757 acc_scramble=0.5045 gap_struct=-0.0045 gap_scramble=0.0045)",
+  "elapsed_s": 8.211,
+  "run_mode": "smoke",
+  "anchor_name": "mcscript2_mcqa_droptense_properscramble_v1",
+  "n_dim": 8192,
+  "seed": 7,
+  "hypernym_depth": 3,
+  "decay": 0.7,
+  "n_instances": 40,
+  "n_questions_total": 209,
+  "n_scorable": 111,
+  "cardinality_ok": true,
+  "extract_diag": {
+    "n_instances": 40,
+    "n_passage_extracted": 40,
+    "n_passage_zero": 0,
+    "n_cand_total": 418,
+    "n_cand_extracted": 418,
+    "n_cand_zero": 166
+  },
+  "coverage": {
+    "n_pred_words": 342,
+    "n_arg_words": 365,
+    "n_grounded_total": 643,
+    "tier_counts": {
+      "lexical_similarity": 15,
+      "wordnet_hypernym": 628,
+      "wordnet_hypernym_surface": 0,
+      "oov_random_fallback": 48,
+      "none_filler": 0
+    }
+  },
+  "n_ties": 37,
+  "accuracy": {
+    "overall": {
+      "BOW": {
+        "correct": 75,
+        "scored": 111,
+        "accuracy": 0.6756756756756757
+      },
+      "GROUNDED_DROP_TENSE": {
+        "correct": 55,
+        "scored": 111,
+        "accuracy": 0.4954954954954955
+      },
+      "PROPER_SCRAMBLE": {
+        "correct": 56,
+        "scored": 111,
+        "accuracy": 0.5045045045045045
+      }
+    },
+    "by_type": {
+      "text": {
+        "BOW": {
+          "correct": 21,
+          "scored": 30,
+          "accuracy": 0.7
+        },
+        "GROUNDED_DROP_TENSE": {
+          "correct": 15,
+          "scored": 30,
+          "accuracy": 0.5
+        },
+        "PROPER_SCRAMBLE": {
+          "correct": 15,
+          "scored": 30,
+          "accuracy": 0.5
+        }
+      },
+      "commonsense": {
+        "BOW": {
+          "correct": 45,
+          "scored": 63,
+          "accuracy": 0.7142857142857143
+        },
+        "GROUNDED_DROP_TENSE": {
+          "correct": 29,
+          "scored": 63,
+          "accuracy": 0.4603174603174603
+        },
+        "PROPER_SCRAMBLE": {
+          "correct": 32,
+          "scored": 63,
+          "accuracy": 0.5079365079365079
+        }
+      },
+      "positive-merged": {
+        "BOW": {
+          "correct": 9,
+          "scored": 18,
+          "accuracy": 0.5
+        },
+        "GROUNDED_DROP_TENSE": {
+          "correct": 11,
+          "scored": 18,
+          "accuracy": 0.6111111111111112
+        },
+        "PROPER_SCRAMBLE": {
+          "correct": 9,
+          "scored": 18,
+          "accuracy": 0.5
+        }
+      }
+    }
+  },
+  "bow_full": {
+    "correct": 138,
+    "scored": 203,
+    "accuracy": 0.6798029556650246
+  },
+  "band_detail": {
+    "acc_bow_matched": 0.6756756756756757,
+    "acc_struct": 0.4954954954954955,
+    "acc_scramble": 0.5045045045045045,
+    "gap_struct": -0.004504504504504514,
+    "gap_scramble": 0.0045045045045044585,
+    "margin_over_bow": -0.18018018018018017,
+    "reaches_margin": false,
+    "collapses": false
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "all_differ": true,
+    "digests": {
+      "BOW": "4c68ee3a0e32b92a4ab8752a3e220008a3a835ca6cac8e3f733f8980b0a35638",
+      "GROUNDED_DROP_TENSE": "7d3ded31648b8c05f5865f9a10df8dc331ecc58f940031f96b10ce4b0f181afa",
+      "PROPER_SCRAMBLE": "35b2b72efaab08eca0233a842fa6c45988bfa992e48e3ec0d54cbd0a671c76a9"
+    },
+    "pairs": {
+      "BOW__vs__GROUNDED_DROP_TENSE": "DIFFERS",
+      "BOW__vs__PROPER_SCRAMBLE": "DIFFERS",
+      "GROUNDED_DROP_TENSE__vs__PROPER_SCRAMBLE": "DIFFERS"
+    }
+  },
+  "examples": {
+    "structure_helps": [
+      {
+        "instance_id": "104",
+        "scenario": "writing a letter",
+        "question_id": "0",
+        "question_type": "commonsense",
+        "question_text": "When did they put the letter into the envelope to send?",
+        "answers": [
+          "right before they addressed the envelope and put a stamp on it",
+          "After it was mailed."
+        ],
+        "correct_idx": 0,
+        "preds": {
+          "BOW": 1,
+          "GROUNDED_DROP_TENSE": 0,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.09570312827577852,
+            0.11157226944395608
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.05224609553830766,
+            -0.010986328501046003
+          ],
+          "PROPER_SCRAMBLE": [
+            -0.001953125066852623,
+            -0.011962891034472315
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "addressed",
+              "AGENT": "they",
+              "PATIENT": "envelope",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ],
+          [
+            {
+              "PRED": "mailed",
+              "AGENT": "it",
+              "PATIENT": "_NONE_",
+              "TENSE": "PASSIVE"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "105",
+        "scenario": "taking a taxi",
+        "question_id": "3",
+        "question_type": "positive-merged",
+        "question_text": "When did they get in the taxi?",
+        "answers": [
+          "When they got to the restaurant.",
+          "After they walked to the street and hailed one."
+        ],
+        "correct_idx": 1,
+        "preds": {
+          "BOW": 0,
+          "GROUNDED_DROP_TENSE": 1,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.09692383144256142,
+            0.06713867417305891
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.0297851572695025,
+            0.06127929897250105
+          ],
+          "PROPER_SCRAMBLE": [
+            -0.0007324219000697336,
+            -0.005859375200557869
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "got",
+              "AGENT": "they",
+              "PATIENT": "restaurant",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ],
+          [
+            {
+              "PRED": "walked",
+              "AGENT": "they",
+              "PATIENT": "street",
+              "TENSE": "SIMPLE_PAST"
+            },
+            {
+              "PRED": "hailed",
+              "AGENT": "street",
+              "PATIENT": "_NONE_",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "106",
+        "scenario": "putting away groceries",
+        "question_id": "0",
+        "question_type": "positive-merged",
+        "question_text": "Where was room being made?",
+        "answers": [
+          "The trunk of the car.",
+          "The fridge and cabinets."
+        ],
+        "correct_idx": 1,
+        "preds": {
+          "BOW": 0,
+          "GROUNDED_DROP_TENSE": 1,
+          "PROPER_SCRAMBLE": 1
+        },
+        "scores": {
+          "BOW": [
+            0.06860351797319839,
+            0.02734375093593672
+          ],
+          "GROUNDED_DROP_TENSE": [
+            -0.032958985503138014,
+            0.00341796886699209
+          ],
+          "PROPER_SCRAMBLE": [
+            -0.009277344067549959,
+            0.002197265700209201
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "made",
+              "AGENT": "room",
+              "PATIENT": "trunk",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ],
+          [
+            {
+              "PRED": "made",
+              "AGENT": "room",
+              "PATIENT": "fridge",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "107",
+        "scenario": "loading the dishwasher",
+        "question_id": "0",
+        "question_type": "commonsense",
+        "question_text": "When did they rinse the rest of the dishes one by one?",
+        "answers": [
+          "After dishwasher finished",
+          "after rubbing soap on each one"
+        ],
+        "correct_idx": 1,
+        "preds": {
+          "BOW": 0,
+          "GROUNDED_DROP_TENSE": 1,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.3020019634620868,
+            0.1718750058830308
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.023193360168874896,
+            0.1689453182827519
+          ],
+          "PROPER_SCRAMBLE": [
+            -0.009765625334263115,
+            -0.016845703701603872
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "finished",
+              "AGENT": "dishwasher",
+              "PATIENT": "_NONE_",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ],
+          [
+            {
+              "PRED": "rubbing",
+              "AGENT": "dishes",
+              "PATIENT": "soap",
+              "TENSE": "PARTICIPIAL"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "108",
+        "scenario": "paying with a credit card",
+        "question_id": "3",
+        "question_type": "commonsense",
+        "question_text": "When did the cashier hand back the debit card?",
+        "answers": [
+          "after items were paid for",
+          "After cutting it."
+        ],
+        "correct_idx": 0,
+        "preds": {
+          "BOW": 1,
+          "GROUNDED_DROP_TENSE": 0,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.027099610302580145,
+            0.06958008050662469
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.06689453353970233,
+            0.002197265700209201
+          ],
+          "PROPER_SCRAMBLE": [
+            0.005615234567201291,
+            -0.007324219000697336
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "paid",
+              "AGENT": "items",
+              "PATIENT": "_NONE_",
+              "TENSE": "PASSIVE"
+            }
+          ],
+          [
+            {
+              "PRED": "cutting",
+              "AGENT": "card",
+              "PATIENT": "it",
+              "TENSE": "PARTICIPIAL"
+            }
+          ]
+        ]
+      }
+    ],
+    "structure_hurts": [
+      {
+        "instance_id": "0",
+        "scenario": "renovating a room",
+        "question_id": "1",
+        "question_type": "text",
+        "question_text": "What was bought at the store?",
+        "answers": [
+          "a new laptop",
+          "paint, couch, TV, carpets, pictures"
+        ],
+        "correct_idx": 1,
+        "preds": {
+          "BOW": 1,
+          "GROUNDED_DROP_TENSE": null,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.06860351797319839,
+            0.10180664410969296
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.032714844869781434,
+            0.032714844869781434
+          ],
+          "PROPER_SCRAMBLE": [
+            0.001708984433496045,
+            -0.009277344067549959
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "bought",
+              "AGENT": "_NONE_",
+              "PATIENT": "store",
+              "TENSE": "PASSIVE"
+            }
+          ],
+          [
+            {
+              "PRED": "bought",
+              "AGENT": "_NONE_",
+              "PATIENT": "store",
+              "TENSE": "PASSIVE"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "0",
+        "scenario": "renovating a room",
+        "question_id": "2",
+        "question_type": "commonsense",
+        "question_text": "Why did they wait until the paint was dried?",
+        "answers": [
+          "So they could hang the pictures up",
+          "So they could put down the carpets"
+        ],
+        "correct_idx": 0,
+        "preds": {
+          "BOW": 0,
+          "GROUNDED_DROP_TENSE": 1,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.017578125601673607,
+            0.0007324219000697336
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.01708984433496045,
+            0.030273438536215655
+          ],
+          "PROPER_SCRAMBLE": [
+            0.014648438001394672,
+            -0.001708984433496045
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "wait",
+              "AGENT": "they",
+              "PATIENT": "paint",
+              "TENSE": "SIMPLE_PRESENT"
+            },
+            {
+              "PRED": "dried",
+              "AGENT": "paint",
+              "PATIENT": "they",
+              "TENSE": "PASSIVE"
+            },
+            {
+              "PRED": "hang",
+              "AGENT": "they",
+              "PATIENT": "pictures",
+              "TENSE": "MODAL_SUBORDINATE"
+            }
+          ],
+          [
+            {
+              "PRED": "wait",
+              "AGENT": "they",
+              "PATIENT": "paint",
+              "TENSE": "SIMPLE_PRESENT"
+            },
+            {
+              "PRED": "dried",
+              "AGENT": "paint",
+              "PATIENT": "they",
+              "TENSE": "PASSIVE"
+            },
+            {
+              "PRED": "put",
+              "AGENT": "they",
+              "PATIENT": "carpets",
+              "TENSE": "MODAL_SUBORDINATE"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "101",
+        "scenario": "making a dinner reservation",
+        "question_id": "3",
+        "question_type": "commonsense",
+        "question_text": "When did the people in front ask them what they wanted?",
+        "answers": [
+          "when the author came to make a reservation",
+          "at the end"
+        ],
+        "correct_idx": 0,
+        "preds": {
+          "BOW": 0,
+          "GROUNDED_DROP_TENSE": 1,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.23632813308916736,
+            0.1872558657844952
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.0683593773398418,
+            0.12622070744535077
+          ],
+          "PROPER_SCRAMBLE": [
+            0.030273438536215655,
+            -0.010986328501046003
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "wanted",
+              "AGENT": "they",
+              "PATIENT": "author",
+              "TENSE": "SIMPLE_PAST"
+            },
+            {
+              "PRED": "came",
+              "AGENT": "author",
+              "PATIENT": "reservation",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ],
+          [
+            {
+              "PRED": "wanted",
+              "AGENT": "they",
+              "PATIENT": "end",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "102",
+        "scenario": "going to the playground",
+        "question_id": "1",
+        "question_type": "commonsense",
+        "question_text": "Who came over and got something to drink and eat?",
+        "answers": [
+          "The teacher.",
+          "the children"
+        ],
+        "correct_idx": 1,
+        "preds": {
+          "BOW": 1,
+          "GROUNDED_DROP_TENSE": null,
+          "PROPER_SCRAMBLE": 1
+        },
+        "scores": {
+          "BOW": [
+            0.022216797635448586,
+            0.0805664090076707
+          ],
+          "GROUNDED_DROP_TENSE": [
+            0.033935548036564324,
+            0.033935548036564324
+          ],
+          "PROPER_SCRAMBLE": [
+            -0.01367187546796836,
+            0.026855469669223565
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "came",
+              "AGENT": "_NONE_",
+              "PATIENT": "something",
+              "TENSE": "SIMPLE_PAST"
+            },
+            {
+              "PRED": "got",
+              "AGENT": "_NONE_",
+              "PATIENT": "something",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ],
+          [
+            {
+              "PRED": "came",
+              "AGENT": "_NONE_",
+              "PATIENT": "something",
+              "TENSE": "SIMPLE_PAST"
+            },
+            {
+              "PRED": "got",
+              "AGENT": "_NONE_",
+              "PATIENT": "something",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ]
+        ]
+      },
+      {
+        "instance_id": "102",
+        "scenario": "going to the playground",
+        "question_id": "3",
+        "question_type": "positive-merged",
+        "question_text": "Where did they put the food?",
+        "answers": [
+          "In the lunch bag.",
+          "on counter"
+        ],
+        "correct_idx": 0,
+        "preds": {
+          "BOW": 0,
+          "GROUNDED_DROP_TENSE": null,
+          "PROPER_SCRAMBLE": 0
+        },
+        "scores": {
+          "BOW": [
+            0.05834961137222211,
+            0.02612304776915383
+          ],
+          "GROUNDED_DROP_TENSE": [
+            -0.0029296876002789345,
+            -0.0029296876002789345
+          ],
+          "PROPER_SCRAMBLE": [
+            0.006347656467271025,
+            0.005371093933844713
+          ]
+        },
+        "cand_role_events": [
+          [
+            {
+              "PRED": "put",
+              "AGENT": "they",
+              "PATIENT": "food",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ],
+          [
+            {
+              "PRED": "put",
+              "AGENT": "they",
+              "PATIENT": "food",
+              "TENSE": "SIMPLE_PAST"
+            }
+          ]
+        ]
+      }
+    ],
+    "n_structure_helps_total": 15,
+    "n_structure_hurts_total": 35
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "MCQA pick-accuracy measurement on real dev-set questions; HARD_PASS_MARGIN/SCRAMBLE_COLLAPSE_FRAC are this cell's own declared thresholds, not a synthetic capacity envelope",
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate: HYPERNYM_DEPTH=3/DECAY=0.7 inherited unchanged from E3/E3b (grounding quality not the variable under test)",
+  "progress_logging": "print_flush_true"
+}
