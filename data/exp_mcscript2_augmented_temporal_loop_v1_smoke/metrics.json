@@ -1,0 +1,398 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: scramble does not collapse subset_lift=0.0166 scramble_gain=0.0015 (gain survives scrambling -> content not order)",
+  "summary": "HARD_FAIL: HARD_FAIL: scramble does not collapse subset_lift=0.0166 scramble_gain=0.0015 (gain survives scrambling -> content not order)",
+  "elapsed_s": 142.938,
+  "run_mode": "smoke",
+  "anchor_name": "mcscript2_augmented_temporal_loop_v1",
+  "n_dim": 8192,
+  "seeds": [
+    7
+  ],
+  "n_instances": 355,
+  "n_questions_total": 2020,
+  "n_full_scored": 1954,
+  "n_temporal_scored": 662,
+  "cardinality_ok": true,
+  "extract_diag": {
+    "n_instances": 355,
+    "n_passage_extracted": 355,
+    "n_passage_zero": 0,
+    "n_cand_total": 4040,
+    "n_cand_extracted": 4040,
+    "n_cand_zero": 2989,
+    "n_quest_total": 2020,
+    "n_quest_extracted": 2020,
+    "n_quest_zero": 403
+  },
+  "accuracy_by_seed": [
+    {
+      "full": {
+        "BOW": {
+          "correct": 1267,
+          "scored": 1954,
+          "accuracy": 0.6484135107471852
+        },
+        "AUGMENTED": {
+          "correct": 1278,
+          "scored": 1954,
+          "accuracy": 0.654042988741044
+        },
+        "ORDER_SCRAMBLE": {
+          "correct": 1268,
+          "scored": 1954,
+          "accuracy": 0.6489252814738997
+        },
+        "CONTENT_ONLY": {
+          "correct": 1275,
+          "scored": 1954,
+          "accuracy": 0.6525076765609007
+        }
+      },
+      "temporal": {
+        "BOW": {
+          "correct": 357,
+          "scored": 662,
+          "accuracy": 0.5392749244712991
+        },
+        "AUGMENTED": {
+          "correct": 368,
+          "scored": 662,
+          "accuracy": 0.5558912386706949
+        },
+        "ORDER_SCRAMBLE": {
+          "correct": 358,
+          "scored": 662,
+          "accuracy": 0.540785498489426
+        },
+        "CONTENT_ONLY": {
+          "correct": 365,
+          "scored": 662,
+          "accuracy": 0.5513595166163142
+        }
+      },
+      "n_full": 1954,
+      "n_temporal": 662
+    }
+  ],
+  "gate_diag_by_seed": [
+    {
+      "seed": 7,
+      "tau_conf": 0.041748048303974813,
+      "n_gate_eligible": 285,
+      "n_gate_fired": 153,
+      "n_override_aug": 71,
+      "n_override_scr": 72,
+      "n_override_content": 70
+    }
+  ],
+  "override_rate_temporal_by_seed": [
+    0.10725075528700906
+  ],
+  "abstain_rate_temporal_by_seed": [
+    0.892749244712991
+  ],
+  "band_detail": {
+    "bow_full": 0.6484135107471852,
+    "aug_full": 0.654042988741044,
+    "full_delta": 0.005629477993858822,
+    "no_regression": true,
+    "bow_subset": 0.5392749244712991,
+    "aug_subset": 0.5558912386706949,
+    "subset_lift": 0.0166163141993958,
+    "scramble_subset": 0.540785498489426,
+    "scramble_gain": 0.0015105740181269312,
+    "scramble_collapses": false,
+    "content_only_subset": 0.5513595166163142,
+    "content_shortfall": 0.004531722054380682,
+    "content_fails_to_reach": false,
+    "per_seed": {
+      "bow_full": [
+        0.6484135107471852
+      ],
+      "aug_full": [
+        0.654042988741044
+      ],
+      "bow_subset": [
+        0.5392749244712991
+      ],
+      "aug_subset": [
+        0.5558912386706949
+      ],
+      "scramble_subset": [
+        0.540785498489426
+      ],
+      "content_only_subset": [
+        0.5513595166163142
+      ]
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_differ_verified_by_seed": [
+    true
+  ],
+  "examples": {
+    "augmented_helps": [
+      {
+        "instance_id": "101",
+        "scenario": "making a dinner reservation",
+        "question_id": "2",
+        "question_text": "When did the people in front tell them \"Hi\"?",
+        "answers": [
+          "when the writer entered the restaurant",
+          "after the family finished eating"
+        ],
+        "correct_idx": 0,
+        "pred_bow": 1,
+        "pred_aug": 0,
+        "margin": 0.024414063335657786,
+        "route2_diag": {
+          "anchor_idx": 4,
+          "anchor_score": 1.0,
+          "gate_fire": true,
+          "dist0": 1,
+          "dist1": 10,
+          "content": {
+            "score0": 0.5,
+            "score1": 1.0
+          }
+        }
+      },
+      {
+        "instance_id": "131",
+        "scenario": "changing bed sheets",
+        "question_id": "6",
+        "question_text": "When did they take the bedding off the bed?",
+        "answers": [
+          "before going to bed",
+          "after waking up covered in sweat"
+        ],
+        "correct_idx": 1,
+        "pred_bow": 0,
+        "pred_aug": 1,
+        "margin": 0.028076172836006455,
+        "route2_diag": {
+          "anchor_idx": 3,
+          "anchor_score": 1.0,
+          "gate_fire": true,
+          "dist0": null,
+          "dist1": 1,
+          "content": {
+            "score0": 0.0,
+            "score1": 1.0
+          }
+        }
+      },
+      {
+        "instance_id": "140",
+        "scenario": "renting a movie",
+        "question_id": "0",
+        "question_text": "When did they realize they didn't find anything they wanted to watch on the channels?",
+        "answers": [
+          "After flipping through them",
+          "when they ate snacks"
+        ],
+        "correct_idx": 0,
+        "pred_bow": 1,
+        "pred_aug": 0,
+        "margin": 0.010253906600976269,
+        "route2_diag": {
+          "anchor_idx": 1,
+          "anchor_score": 1.0,
+          "gate_fire": true,
+          "dist0": 4,
+          "dist1": null,
+          "content": {
+            "score0": 1.0,
+            "score1": 0.0
+          }
+        }
+      },
+      {
+        "instance_id": "167",
+        "scenario": "feeding the fish",
+        "question_id": "3",
+        "question_text": "When did they see the fish tank?",
+        "answers": [
+          "when they went in the apartment",
+          "after entering the building"
+        ],
+        "correct_idx": 0,
+        "pred_bow": 1,
+        "pred_aug": 0,
+        "margin": 0.015380859901464407,
+        "route2_diag": {
+          "anchor_idx": 6,
+          "anchor_score": 0.5,
+          "gate_fire": true,
+          "dist0": 0,
+          "dist1": 3,
+          "content": {
+            "score0": 0.5,
+            "score1": 0.5
+          }
+        }
+      },
+      {
+        "instance_id": "177",
+        "scenario": "doing online banking",
+        "question_id": "0",
+        "question_text": "When did they try to see what was posted?",
+        "answers": [
+          "after opening excel",
+          "When balancing the checkbook"
+        ],
+        "correct_idx": 1,
+        "pred_bow": 0,
+        "pred_aug": 1,
+        "margin": 0.010986328501046003,
+        "route2_diag": {
+          "anchor_idx": 0,
+          "anchor_score": 1.0,
+          "gate_fire": true,
+          "dist0": 2,
+          "dist1": 0,
+          "content": {
+            "score0": 1.0,
+            "score1": 0.5
+          }
+        }
+      }
+    ],
+    "gate_fired_but_abstained_or_matched_bow": [
+      {
+        "instance_id": "101",
+        "scenario": "making a dinner reservation",
+        "question_id": "1",
+        "question_text": "When did the front staff come over and greet them?",
+        "answers": [
+          "after the family finished eating",
+          "when the writer entered the restaurant"
+        ],
+        "correct_idx": 1,
+        "pred_bow": 0,
+        "pred_aug": 0,
+        "margin": 0.024414063335657786,
+        "route2_diag": {
+          "anchor_idx": null,
+          "anchor_score": 0.0,
+          "gate_fire": true,
+          "dist0": null,
+          "dist1": null,
+          "content": {
+            "score0": 1.0,
+            "score1": 0.5
+          }
+        }
+      },
+      {
+        "instance_id": "104",
+        "scenario": "writing a letter",
+        "question_id": "0",
+        "question_text": "When did they put the letter into the envelope to send?",
+        "answers": [
+          "right before they addressed the envelope and put a stamp on it",
+          "After it was mailed."
+        ],
+        "correct_idx": 0,
+        "pred_bow": 0,
+        "pred_aug": 0,
+        "margin": 0.004638672033774979,
+        "route2_diag": {
+          "anchor_idx": 0,
+          "anchor_score": 0.5,
+          "gate_fire": true,
+          "dist0": 13,
+          "dist1": null,
+          "content": {
+            "score0": 1.0,
+            "score1": 0.0
+          }
+        }
+      },
+      {
+        "instance_id": "104",
+        "scenario": "writing a letter",
+        "question_id": "4",
+        "question_text": "When did they fold their letter?",
+        "answers": [
+          "shortly after writing it",
+          "After putting it in the mailbox"
+        ],
+        "correct_idx": 0,
+        "pred_bow": 0,
+        "pred_aug": 0,
+        "margin": 0.007568359634053903,
+        "route2_diag": {
+          "anchor_idx": 0,
+          "anchor_score": 0.5,
+          "gate_fire": true,
+          "dist0": 5,
+          "dist1": 9,
+          "content": {
+            "score0": 1.0,
+            "score1": 0.5
+          }
+        }
+      },
+      {
+        "instance_id": "104",
+        "scenario": "writing a letter",
+        "question_id": "7",
+        "question_text": "When did they fold up the finished letter?",
+        "answers": [
+          "after putting it in the mailbox",
+          "before putting it in the mailbox"
+        ],
+        "correct_idx": 1,
+        "pred_bow": null,
+        "pred_aug": null,
+        "margin": 0.0,
+        "route2_diag": {
+          "anchor_idx": 0,
+          "anchor_score": 0.5,
+          "gate_fire": true,
+          "dist0": 9,
+          "dist1": 9,
+          "content": {
+            "score0": 0.5,
+            "score1": 0.5
+          }
+        }
+      },
+      {
+        "instance_id": "105",
+        "scenario": "taking a taxi",
+        "question_id": "3",
+        "question_text": "When did they get in the taxi?",
+        "answers": [
+          "When they got to the restaurant.",
+          "After they walked to the street and hailed one."
+        ],
+        "correct_idx": 1,
+        "pred_bow": 0,
+        "pred_aug": 0,
+        "margin": 0.036132813736773524,
+        "route2_diag": {
+          "anchor_idx": 15,
+          "anchor_score": 1.0,
+          "gate_fire": true,
+          "dist0": 0,
+          "dist1": 13,
+          "content": {
+            "score0": 1.0,
+            "score1": 1.0
+          }
+        }
+      }
+    ],
+    "n_helps_total": 22,
+    "n_abstains_total": 120
+  },
+  "cell_chunked": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "MCQA pick-accuracy measurement on real dev-set questions; band thresholds are Director's task contract values, not a synthetic capacity envelope",
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate: tau_conf = median BoW margin on the temporal subset, computed from scores only (never from correctness labels), logged per seed in gate_diag_by_seed",
+  "progress_logging": "print_flush_true"
+}
