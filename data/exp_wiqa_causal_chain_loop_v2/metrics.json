@@ -1,0 +1,451 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "NOT_CAUSAL_STRUCTURAL: on active_multihop (primary decisive subset), scramble does NOT collapse loop's edge over polecho (collapse_frac=-0.105 < 0.5) -- the active-subset gain looks structural (topology/coverage), not causal-edge-sign reasoning; abstain_rate=0.6295",
+  "summary": "HARD_FAIL: NOT_CAUSAL_STRUCTURAL: on active_multihop (primary decisive subset), scramble does NOT collapse loop's edge over polecho (collapse_frac=-0.105 < 0.5) -- the active-subset gain looks structural (topology/coverage), not causal-edge-sign reasoning; abstain_rate=0.6295",
+  "elapsed_s": 17.555,
+  "run_mode": "full",
+  "anchor_name": "wiqa_causal_chain_loop_v2",
+  "n_items": 6894,
+  "n_degraded": 0,
+  "degraded_frac": 0.0,
+  "gate_thresh": 0.05,
+  "n_dim": 1024,
+  "seeds": [
+    7,
+    17,
+    29
+  ],
+  "n_fired_total": 2554,
+  "n_negation_crossing_total": 95,
+  "n_multihop_fired_total": 2029,
+  "v1_abstain_rate": 0.7209167391935016,
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "n_items": 6894,
+      "elapsed_s": 1.7855,
+      "per_subset": {
+        "all": {
+          "n": 6894,
+          "majority": 0.3333333333333333,
+          "polecho": 0.34203655352480417,
+          "bow": 0.32811140121845084,
+          "loop": 0.348854076008123,
+          "ablation2_novalidate": 0.33492892370176963,
+          "scramble": 0.35088482738613286
+        },
+        "active": {
+          "n": 2554,
+          "majority": 0.39545810493343775,
+          "polecho": 0.4205168363351605,
+          "bow": 0.3923257635082224,
+          "loop": 0.4389193422083007,
+          "ablation2_novalidate": 0.4389193422083007,
+          "scramble": 0.44440093970242756
+        },
+        "active_multihop": {
+          "n": 2029,
+          "majority": 0.49778215869886644,
+          "polecho": 0.49630359783144407,
+          "bow": 0.49088220798422866,
+          "loop": 0.5524889107934944,
+          "ablation2_novalidate": 0.5524889107934944,
+          "scramble": 0.559388861508132
+        },
+        "negation_crossing": {
+          "n": 95,
+          "majority": 0.3684210526315789,
+          "polecho": 0.30526315789473685,
+          "bow": 0.3684210526315789,
+          "loop": 0.35789473684210527,
+          "ablation2_novalidate": 0.35789473684210527,
+          "scramble": 0.4105263157894737
+        }
+      },
+      "abstain_rate_all": 0.6295329271830578
+    },
+    "17": {
+      "seed": 17,
+      "n_items": 6894,
+      "elapsed_s": 1.8688,
+      "per_subset": {
+        "all": {
+          "n": 6894,
+          "majority": 0.3333333333333333,
+          "polecho": 0.34203655352480417,
+          "bow": 0.32811140121845084,
+          "loop": 0.348854076008123,
+          "ablation2_novalidate": 0.33492892370176963,
+          "scramble": 0.3505947200464172
+        },
+        "active": {
+          "n": 2554,
+          "majority": 0.39545810493343775,
+          "polecho": 0.4205168363351605,
+          "bow": 0.3923257635082224,
+          "loop": 0.4389193422083007,
+          "ablation2_novalidate": 0.4389193422083007,
+          "scramble": 0.4436178543461237
+        },
+        "active_multihop": {
+          "n": 2029,
+          "majority": 0.49778215869886644,
+          "polecho": 0.49630359783144407,
+          "bow": 0.49088220798422866,
+          "loop": 0.5524889107934944,
+          "ablation2_novalidate": 0.5524889107934944,
+          "scramble": 0.5584031542631839
+        },
+        "negation_crossing": {
+          "n": 95,
+          "majority": 0.3684210526315789,
+          "polecho": 0.30526315789473685,
+          "bow": 0.3684210526315789,
+          "loop": 0.35789473684210527,
+          "ablation2_novalidate": 0.35789473684210527,
+          "scramble": 0.3894736842105263
+        }
+      },
+      "abstain_rate_all": 0.6295329271830578
+    },
+    "29": {
+      "seed": 29,
+      "n_items": 6894,
+      "elapsed_s": 1.7363,
+      "per_subset": {
+        "all": {
+          "n": 6894,
+          "majority": 0.3333333333333333,
+          "polecho": 0.34203655352480417,
+          "bow": 0.32811140121845084,
+          "loop": 0.348854076008123,
+          "ablation2_novalidate": 0.33492892370176963,
+          "scramble": 0.3505947200464172
+        },
+        "active": {
+          "n": 2554,
+          "majority": 0.39545810493343775,
+          "polecho": 0.4205168363351605,
+          "bow": 0.3923257635082224,
+          "loop": 0.4389193422083007,
+          "ablation2_novalidate": 0.4389193422083007,
+          "scramble": 0.4436178543461237
+        },
+        "active_multihop": {
+          "n": 2029,
+          "majority": 0.49778215869886644,
+          "polecho": 0.49630359783144407,
+          "bow": 0.49088220798422866,
+          "loop": 0.5524889107934944,
+          "ablation2_novalidate": 0.5524889107934944,
+          "scramble": 0.5584031542631839
+        },
+        "negation_crossing": {
+          "n": 95,
+          "majority": 0.3684210526315789,
+          "polecho": 0.30526315789473685,
+          "bow": 0.3684210526315789,
+          "loop": 0.35789473684210527,
+          "ablation2_novalidate": 0.35789473684210527,
+          "scramble": 0.37894736842105264
+        }
+      },
+      "abstain_rate_all": 0.6295329271830578
+    }
+  },
+  "band_detail": {
+    "subset_table": {
+      "all": {
+        "n": 6894,
+        "loop": 0.348854076008123,
+        "polecho": 0.34203655352480417,
+        "bow": 0.32811140121845084,
+        "majority": 0.3333333333333333,
+        "scramble_vals": [
+          0.35088482738613286,
+          0.3505947200464172,
+          0.3505947200464172
+        ],
+        "scramble_median": 0.3505947200464172,
+        "loop_minus_polecho": 0.00681752248331885,
+        "loop_minus_scramble": -0.001740644038294159,
+        "collapse_frac": -0.25531914893616797
+      },
+      "active": {
+        "n": 2554,
+        "loop": 0.4389193422083007,
+        "polecho": 0.4205168363351605,
+        "bow": 0.3923257635082224,
+        "majority": 0.39545810493343775,
+        "scramble_vals": [
+          0.44440093970242756,
+          0.4436178543461237,
+          0.4436178543461237
+        ],
+        "scramble_median": 0.4436178543461237,
+        "loop_minus_polecho": 0.018402505873140185,
+        "loop_minus_scramble": -0.004698512137823019,
+        "collapse_frac": -0.2553191489361698
+      },
+      "active_multihop": {
+        "n": 2029,
+        "loop": 0.5524889107934944,
+        "polecho": 0.49630359783144407,
+        "bow": 0.49088220798422866,
+        "majority": 0.49778215869886644,
+        "scramble_vals": [
+          0.559388861508132,
+          0.5584031542631839,
+          0.5584031542631839
+        ],
+        "scramble_median": 0.5584031542631839,
+        "loop_minus_polecho": 0.056185312962050316,
+        "loop_minus_scramble": -0.005914243469689495,
+        "collapse_frac": -0.10526315789473663
+      },
+      "negation_crossing": {
+        "n": 95,
+        "loop": 0.35789473684210527,
+        "polecho": 0.30526315789473685,
+        "bow": 0.3684210526315789,
+        "majority": 0.3684210526315789,
+        "scramble_vals": [
+          0.4105263157894737,
+          0.3894736842105263,
+          0.37894736842105264
+        ],
+        "scramble_median": 0.3894736842105263,
+        "loop_minus_polecho": 0.05263157894736842,
+        "loop_minus_scramble": -0.03157894736842104,
+        "collapse_frac": -0.5999999999999998
+      }
+    },
+    "active_decisive": false,
+    "active_multihop_decisive": false,
+    "abstain_rate_all": 0.6295329271830578,
+    "new_aggregate_loop_vs_polecho": 0.00681752248331885
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "sigs": {
+      "majority": "b442863dbeee2721482294a87358db962200f076df815d5a8227d182b03b508a",
+      "polecho": "0757308a8714a2fb8b0f14c7eae199276405e3ba3a177a4c4b42b5bcf2107513",
+      "bow": "42501d31304c187a9138ca190622ab2e8a1ada26de0c99c258910d5d8e542abd",
+      "loop": "b4e820844a8178f9f02e6f2077da5990445fbfbf412638ef5340be4ec8aa9e1d",
+      "ablation1_scramble": "8298beb16f104923286e8766e2defb3b807888287ff4ad86adb2249533a74f9f",
+      "ablation2_novalidate": "fc227498badd16aab0046ef471752df27498aa63eb028d9a21ec3599b1d4f054"
+    },
+    "pairs_differ": {
+      "majority_vs_polecho": true,
+      "majority_vs_bow": true,
+      "majority_vs_loop": true,
+      "majority_vs_ablation1_scramble": true,
+      "majority_vs_ablation2_novalidate": true,
+      "polecho_vs_bow": true,
+      "polecho_vs_loop": true,
+      "polecho_vs_ablation1_scramble": true,
+      "polecho_vs_ablation2_novalidate": true,
+      "bow_vs_loop": true,
+      "bow_vs_ablation1_scramble": true,
+      "bow_vs_ablation2_novalidate": true,
+      "loop_vs_ablation1_scramble": true,
+      "loop_vs_ablation2_novalidate": true,
+      "ablation1_scramble_vs_ablation2_novalidate": true
+    },
+    "all_differ": true
+  },
+  "examples": {
+    "loop_wins_vs_polecho": [
+      {
+        "question_id": "influence_graph:1025:94:31#0",
+        "gold": "more",
+        "pred_loop": "more",
+        "pred_polecho": "no_effect",
+        "pp": 1,
+        "op": 0,
+        "p_idx": 0,
+        "o_idx": 3,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1025:94:34#1",
+        "gold": "less",
+        "pred_loop": "less",
+        "pred_polecho": "no_effect",
+        "pp": -1,
+        "op": 0,
+        "p_idx": 5,
+        "o_idx": 3,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1025:94:40#0",
+        "gold": "more",
+        "pred_loop": "more",
+        "pred_polecho": "no_effect",
+        "pp": 1,
+        "op": 0,
+        "p_idx": 0,
+        "o_idx": 3,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1025:94:40#1",
+        "gold": "more",
+        "pred_loop": "more",
+        "pred_polecho": "no_effect",
+        "pp": 1,
+        "op": 0,
+        "p_idx": 5,
+        "o_idx": 3,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1025:94:47#0",
+        "gold": "more",
+        "pred_loop": "more",
+        "pred_polecho": "no_effect",
+        "pp": 1,
+        "op": 0,
+        "p_idx": 5,
+        "o_idx": 3,
+        "qtype": "INPARA_EFFECT"
+      }
+    ],
+    "loop_loses_vs_polecho": [
+      {
+        "question_id": "influence_graph:1202:129:23#0",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "more",
+        "pp": -1,
+        "op": -1,
+        "p_idx": 4,
+        "o_idx": 5,
+        "qtype": "INPARA_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1202:130:51#0",
+        "gold": "less",
+        "pred_loop": "more",
+        "pred_polecho": "less",
+        "pp": -1,
+        "op": 1,
+        "p_idx": 1,
+        "o_idx": 5,
+        "qtype": "INPARA_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:2#0",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "more",
+        "pp": -1,
+        "op": -1,
+        "p_idx": 2,
+        "o_idx": 8,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:2#2",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "more",
+        "pp": -1,
+        "op": -1,
+        "p_idx": 3,
+        "o_idx": 8,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:9#0",
+        "gold": "less",
+        "pred_loop": "more",
+        "pred_polecho": "less",
+        "pp": 1,
+        "op": -1,
+        "p_idx": 2,
+        "o_idx": 8,
+        "qtype": "EXOGENOUS_EFFECT"
+      }
+    ],
+    "n_loop_wins_total": 142,
+    "n_loop_loses_total": 95,
+    "negation_crossing_sample": [
+      {
+        "question_id": "influence_graph:1202:129:23#0",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "more",
+        "pp": -1,
+        "op": -1,
+        "p_idx": 4,
+        "o_idx": 5,
+        "qtype": "INPARA_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1202:130:51#0",
+        "gold": "less",
+        "pred_loop": "more",
+        "pred_polecho": "less",
+        "pp": -1,
+        "op": 1,
+        "p_idx": 1,
+        "o_idx": 5,
+        "qtype": "INPARA_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:2#0",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "more",
+        "pp": -1,
+        "op": -1,
+        "p_idx": 2,
+        "o_idx": 8,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:2#1",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "less",
+        "pp": -1,
+        "op": 1,
+        "p_idx": 2,
+        "o_idx": 9,
+        "qtype": "EXOGENOUS_EFFECT"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:2#2",
+        "gold": "more",
+        "pred_loop": "less",
+        "pred_polecho": "more",
+        "pp": -1,
+        "op": -1,
+        "p_idx": 3,
+        "o_idx": 8,
+        "qtype": "EXOGENOUS_EFFECT"
+      }
+    ],
+    "n_negation_crossing_total": 95
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "3-way discrete classification accuracy comparison on a real benchmark (WIQA); no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: GATE_THRESH=0.05 held from v1's label-blind calibration; re-verified this session (wiqa_stem_test.py) that stemming reduces gate-fail abstain without flooding the gate with noise-level admissions -- discriminator-fires still checked at smoke via arms_differ + active-subset non-empty",
+  "hp_scope": {
+    "dev_full": [
+      "decisive_gate_active",
+      "decisive_gate_active_multihop"
+    ]
+  },
+  "progress_logging": "print_flush_true",
+  "decisive_collapse_fraction_threshold": 0.5
+}
