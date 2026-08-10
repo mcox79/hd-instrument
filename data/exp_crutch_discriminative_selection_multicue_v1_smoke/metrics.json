@@ -1,0 +1,308 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "A=HARD_FAIL(regression: overall=0.3120 < bow_only=0.3400-0.005) | B=HARD_FAIL(regression: overall=0.3160 < bow_only=0.3400-0.005) | C=HARD_FAIL(regression: overall=0.3240 < bow_only=0.3400-0.005) | best_arm=A | bow_only_overall=0.34",
+  "summary": "crutch_discriminative_selection_multicue_v1 smoke: best_arm=A tier=HARD_FAIL",
+  "elapsed_s": 13.962723699980415,
+  "anchor_name": "crutch_discriminative_selection_multicue_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-08-10T16:32:22.357636+00:00",
+  "pid": 27392,
+  "config": {
+    "CUES_PER_ITEM": 5,
+    "HOPS_DISCRIMINATOR": 2,
+    "DECAY": 0.4,
+    "SCORE_MODE": "hub_penalized",
+    "gate_thresh": 0.999999995,
+    "n_dev": 250,
+    "train_fit_cap": 300,
+    "n_train_fit_collected": 300,
+    "j_scanned_for_train_fit": 592
+  },
+  "bow_only_overall_accuracy": 0.34,
+  "positive_control_1hop_coverage": 0.24864864864864866,
+  "positive_control_reference": 0.2465,
+  "positive_control_tolerance": 0.02,
+  "positive_control_ok": true,
+  "arm_A": {
+    "real": {
+      "n_fired": 99,
+      "fire_fraction": 0.396,
+      "covered_subset_accuracy": 0.2828282828282828,
+      "bow_accuracy_on_covered_subset": 0.35353535353535354,
+      "margin": -0.07070707070707072,
+      "overall_accuracy_with_abstain": 0.312
+    },
+    "scramble": {
+      "n_fired": 3,
+      "fire_fraction": 0.012,
+      "covered_subset_accuracy": 0.3333333333333333,
+      "bow_accuracy_on_covered_subset": 0.3333333333333333,
+      "margin": 0.0,
+      "overall_accuracy_with_abstain": 0.34
+    },
+    "tier": "HARD_FAIL",
+    "tier_msg": "regression: overall=0.3120 < bow_only=0.3400-0.005"
+  },
+  "arm_B": {
+    "real": {
+      "n_fired": 97,
+      "fire_fraction": 0.388,
+      "covered_subset_accuracy": 0.27835051546391754,
+      "bow_accuracy_on_covered_subset": 0.3402061855670103,
+      "margin": -0.061855670103092786,
+      "overall_accuracy_with_abstain": 0.316
+    },
+    "scramble": {
+      "n_fired": 3,
+      "fire_fraction": 0.012,
+      "covered_subset_accuracy": 0.6666666666666666,
+      "bow_accuracy_on_covered_subset": 0.3333333333333333,
+      "margin": 0.3333333333333333,
+      "overall_accuracy_with_abstain": 0.344
+    },
+    "tier": "HARD_FAIL",
+    "tier_msg": "regression: overall=0.3160 < bow_only=0.3400-0.005"
+  },
+  "arm_C": {
+    "headline_seed": 7,
+    "real": {
+      "n_fired": 101,
+      "fire_fraction": 0.404,
+      "covered_subset_accuracy": 0.3069306930693069,
+      "bow_accuracy_on_covered_subset": 0.3465346534653465,
+      "margin": -0.039603960396039584,
+      "overall_accuracy_with_abstain": 0.324
+    },
+    "scramble": {
+      "n_fired": 3,
+      "fire_fraction": 0.012,
+      "covered_subset_accuracy": 0.3333333333333333,
+      "bow_accuracy_on_covered_subset": 0.3333333333333333,
+      "margin": 0.0,
+      "overall_accuracy_with_abstain": 0.34
+    },
+    "tier": "HARD_FAIL",
+    "tier_msg": "regression: overall=0.3240 < bow_only=0.3400-0.005",
+    "per_seed": {
+      "7": {
+        "real": {
+          "n_fired": 101,
+          "fire_fraction": 0.404,
+          "covered_subset_accuracy": 0.3069306930693069,
+          "bow_accuracy_on_covered_subset": 0.3465346534653465,
+          "margin": -0.039603960396039584,
+          "overall_accuracy_with_abstain": 0.324
+        },
+        "scramble": {
+          "n_fired": 3,
+          "fire_fraction": 0.012,
+          "covered_subset_accuracy": 0.3333333333333333,
+          "bow_accuracy_on_covered_subset": 0.3333333333333333,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        }
+      },
+      "13": {
+        "real": {
+          "n_fired": 101,
+          "fire_fraction": 0.404,
+          "covered_subset_accuracy": 0.3069306930693069,
+          "bow_accuracy_on_covered_subset": 0.3465346534653465,
+          "margin": -0.039603960396039584,
+          "overall_accuracy_with_abstain": 0.324
+        },
+        "scramble": {
+          "n_fired": 3,
+          "fire_fraction": 0.012,
+          "covered_subset_accuracy": 0.3333333333333333,
+          "bow_accuracy_on_covered_subset": 0.3333333333333333,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        }
+      },
+      "19": {
+        "real": {
+          "n_fired": 101,
+          "fire_fraction": 0.404,
+          "covered_subset_accuracy": 0.3069306930693069,
+          "bow_accuracy_on_covered_subset": 0.3465346534653465,
+          "margin": -0.039603960396039584,
+          "overall_accuracy_with_abstain": 0.324
+        },
+        "scramble": {
+          "n_fired": 3,
+          "fire_fraction": 0.012,
+          "covered_subset_accuracy": 0.3333333333333333,
+          "bow_accuracy_on_covered_subset": 0.3333333333333333,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        }
+      }
+    },
+    "per_seed_train_acc": {
+      "7": 0.42,
+      "13": 0.42,
+      "19": 0.42
+    },
+    "weight_vectors": {
+      "7": [
+        0.10041515566830544,
+        0.07557922798870119,
+        -0.044282364336083284,
+        0.022125271399856046,
+        -0.004546707851716705
+      ],
+      "13": [
+        0.10041515566833052,
+        0.07557922798858799,
+        -0.04428236433608962,
+        0.022125271399956084,
+        0.013182500241811113
+      ],
+      "19": [
+        0.10041515566830225,
+        0.07557922798871555,
+        -0.044282364336082486,
+        0.0221252713998434,
+        0.006721408015697129
+      ]
+    }
+  },
+  "arm_C_ablation": {
+    "F_conv": {
+      "eval": {
+        "real": {
+          "n_fired": 99,
+          "fire_fraction": 0.396,
+          "covered_subset_accuracy": 0.3434343434343434,
+          "bow_accuracy_on_covered_subset": 0.3434343434343434,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        },
+        "scramble": {
+          "n_fired": 3,
+          "fire_fraction": 0.012,
+          "covered_subset_accuracy": 0.3333333333333333,
+          "bow_accuracy_on_covered_subset": 0.3333333333333333,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        }
+      },
+      "train_acc": 0.4033333333333333,
+      "weight_vector": [
+        2.208193337996665e-07,
+        0.12430047968258173,
+        -0.05542295107361744,
+        0.02651149406935799,
+        -0.004546707851716622
+      ]
+    },
+    "F_path": {
+      "eval": {
+        "real": {
+          "n_fired": 88,
+          "fire_fraction": 0.352,
+          "covered_subset_accuracy": 0.29545454545454547,
+          "bow_accuracy_on_covered_subset": 0.3522727272727273,
+          "margin": -0.05681818181818182,
+          "overall_accuracy_with_abstain": 0.32
+        },
+        "scramble": {
+          "n_fired": 2,
+          "fire_fraction": 0.008,
+          "covered_subset_accuracy": 0.5,
+          "bow_accuracy_on_covered_subset": 0.5,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        }
+      },
+      "train_acc": 0.4,
+      "weight_vector": [
+        0.11952089438475433,
+        5.3626476867278085e-05,
+        -0.049766190129218256,
+        0.06525984014620759,
+        -0.004546707851715884
+      ]
+    },
+    "gate_delta": {
+      "eval": {
+        "real": {
+          "n_fired": 100,
+          "fire_fraction": 0.4,
+          "covered_subset_accuracy": 0.29,
+          "bow_accuracy_on_covered_subset": 0.35,
+          "margin": -0.06,
+          "overall_accuracy_with_abstain": 0.316
+        },
+        "scramble": {
+          "n_fired": 3,
+          "fire_fraction": 0.012,
+          "covered_subset_accuracy": 0.3333333333333333,
+          "bow_accuracy_on_covered_subset": 0.3333333333333333,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        }
+      },
+      "train_acc": 0.4,
+      "weight_vector": [
+        0.10724989353822109,
+        0.08457672927676077,
+        -4.9209261773861244e-05,
+        0.02120318187843695,
+        -0.004546707851716672
+      ]
+    },
+    "F_coh": {
+      "eval": {
+        "real": {
+          "n_fired": 99,
+          "fire_fraction": 0.396,
+          "covered_subset_accuracy": 0.29292929292929293,
+          "bow_accuracy_on_covered_subset": 0.35353535353535354,
+          "margin": -0.06060606060606061,
+          "overall_accuracy_with_abstain": 0.316
+        },
+        "scramble": {
+          "n_fired": 3,
+          "fire_fraction": 0.012,
+          "covered_subset_accuracy": 0.3333333333333333,
+          "bow_accuracy_on_covered_subset": 0.3333333333333333,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.34
+        }
+      },
+      "train_acc": 0.4266666666666667,
+      "weight_vector": [
+        0.10090472533386376,
+        0.08927919415318257,
+        -0.04408222414195527,
+        -0.00015986616247932908,
+        -0.004546707851717705
+      ]
+    }
+  },
+  "feature_names": [
+    "F_conv",
+    "F_path",
+    "gate_delta",
+    "F_coh"
+  ],
+  "best_arm": "A",
+  "routing_recommendation": "DISCRIMINATOR_STILL_NON_DECISIVE",
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A": "0debae003ffc41e4e7961dd1d08e08f664cccc68769378ba2318c1c6497f40e7",
+    "B": "3cfe54e0c52c94592a8abb61356f0504a207c43fc4bc85b9867fc278cf1878b0",
+    "C": "4fedad536c53a9a330b3aec7db3d9ef9edd84b5ef14ce05918bef91ae0d21af4"
+  },
+  "arms_differ_exempted": [],
+  "cardinality_ok": true,
+  "expected_n_dev_units": 500,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "discrete 3-way classification accuracy on a real benchmark; no capacity/noise-floor discriminator applies",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "storage_strategy": "no_storage"
+}

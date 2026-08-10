@@ -1,0 +1,308 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "A=HARD_FAIL(negative real margin -0.0037) | B=HARD_FAIL(negative real margin -0.0101) | C=HARD_FAIL(negative real margin -0.0046) | best_arm=A | bow_only_overall=0.3500511770726714",
+  "summary": "crutch_discriminative_selection_multicue_v1 full: best_arm=A tier=HARD_FAIL",
+  "elapsed_s": 122.61832740006503,
+  "anchor_name": "crutch_discriminative_selection_multicue_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-10T16:34:33.775624+00:00",
+  "pid": 32420,
+  "config": {
+    "CUES_PER_ITEM": 5,
+    "HOPS_DISCRIMINATOR": 2,
+    "DECAY": 0.4,
+    "SCORE_MODE": "hub_penalized",
+    "gate_thresh": 0.999999995,
+    "n_dev": 1954,
+    "train_fit_cap": 4000,
+    "n_train_fit_collected": 4000,
+    "j_scanned_for_train_fit": 8076
+  },
+  "bow_only_overall_accuracy": 0.3500511770726714,
+  "positive_control_1hop_coverage": 0.2465277777777778,
+  "positive_control_reference": 0.2465,
+  "positive_control_tolerance": 0.02,
+  "positive_control_ok": true,
+  "arm_A": {
+    "real": {
+      "n_fired": 801,
+      "fire_fraction": 0.40992835209826,
+      "covered_subset_accuracy": 0.3470661672908864,
+      "bow_accuracy_on_covered_subset": 0.35081148564294634,
+      "margin": -0.0037453183520599342,
+      "overall_accuracy_with_abstain": 0.34851586489252817
+    },
+    "scramble": {
+      "n_fired": 26,
+      "fire_fraction": 0.01330603889457523,
+      "covered_subset_accuracy": 0.3076923076923077,
+      "bow_accuracy_on_covered_subset": 0.46153846153846156,
+      "margin": -0.15384615384615385,
+      "overall_accuracy_with_abstain": 0.34800409416581374
+    },
+    "tier": "HARD_FAIL",
+    "tier_msg": "negative real margin -0.0037"
+  },
+  "arm_B": {
+    "real": {
+      "n_fired": 791,
+      "fire_fraction": 0.4048106448311157,
+      "covered_subset_accuracy": 0.33375474083438683,
+      "bow_accuracy_on_covered_subset": 0.3438685208596713,
+      "margin": -0.010113780025284458,
+      "overall_accuracy_with_abstain": 0.345957011258956
+    },
+    "scramble": {
+      "n_fired": 26,
+      "fire_fraction": 0.01330603889457523,
+      "covered_subset_accuracy": 0.34615384615384615,
+      "bow_accuracy_on_covered_subset": 0.46153846153846156,
+      "margin": -0.11538461538461542,
+      "overall_accuracy_with_abstain": 0.34851586489252817
+    },
+    "tier": "HARD_FAIL",
+    "tier_msg": "negative real margin -0.0101"
+  },
+  "arm_C": {
+    "headline_seed": 7,
+    "real": {
+      "n_fired": 864,
+      "fire_fraction": 0.4421699078812692,
+      "covered_subset_accuracy": 0.33564814814814814,
+      "bow_accuracy_on_covered_subset": 0.3402777777777778,
+      "margin": -0.00462962962962965,
+      "overall_accuracy_with_abstain": 0.34800409416581374
+    },
+    "scramble": {
+      "n_fired": 31,
+      "fire_fraction": 0.01586489252814739,
+      "covered_subset_accuracy": 0.3225806451612903,
+      "bow_accuracy_on_covered_subset": 0.41935483870967744,
+      "margin": -0.09677419354838712,
+      "overall_accuracy_with_abstain": 0.34851586489252817
+    },
+    "tier": "HARD_FAIL",
+    "tier_msg": "negative real margin -0.0046",
+    "per_seed": {
+      "7": {
+        "real": {
+          "n_fired": 864,
+          "fire_fraction": 0.4421699078812692,
+          "covered_subset_accuracy": 0.33564814814814814,
+          "bow_accuracy_on_covered_subset": 0.3402777777777778,
+          "margin": -0.00462962962962965,
+          "overall_accuracy_with_abstain": 0.34800409416581374
+        },
+        "scramble": {
+          "n_fired": 31,
+          "fire_fraction": 0.01586489252814739,
+          "covered_subset_accuracy": 0.3225806451612903,
+          "bow_accuracy_on_covered_subset": 0.41935483870967744,
+          "margin": -0.09677419354838712,
+          "overall_accuracy_with_abstain": 0.34851586489252817
+        }
+      },
+      "13": {
+        "real": {
+          "n_fired": 864,
+          "fire_fraction": 0.4421699078812692,
+          "covered_subset_accuracy": 0.33564814814814814,
+          "bow_accuracy_on_covered_subset": 0.3402777777777778,
+          "margin": -0.00462962962962965,
+          "overall_accuracy_with_abstain": 0.34800409416581374
+        },
+        "scramble": {
+          "n_fired": 31,
+          "fire_fraction": 0.01586489252814739,
+          "covered_subset_accuracy": 0.3225806451612903,
+          "bow_accuracy_on_covered_subset": 0.41935483870967744,
+          "margin": -0.09677419354838712,
+          "overall_accuracy_with_abstain": 0.34851586489252817
+        }
+      },
+      "19": {
+        "real": {
+          "n_fired": 864,
+          "fire_fraction": 0.4421699078812692,
+          "covered_subset_accuracy": 0.33564814814814814,
+          "bow_accuracy_on_covered_subset": 0.3402777777777778,
+          "margin": -0.00462962962962965,
+          "overall_accuracy_with_abstain": 0.34800409416581374
+        },
+        "scramble": {
+          "n_fired": 31,
+          "fire_fraction": 0.01586489252814739,
+          "covered_subset_accuracy": 0.3225806451612903,
+          "bow_accuracy_on_covered_subset": 0.41935483870967744,
+          "margin": -0.09677419354838712,
+          "overall_accuracy_with_abstain": 0.34851586489252817
+        }
+      }
+    },
+    "per_seed_train_acc": {
+      "7": 0.36675,
+      "13": 0.36675,
+      "19": 0.36675
+    },
+    "weight_vectors": {
+      "7": [
+        0.12329332703560231,
+        -0.02189736021920605,
+        -0.005041560931182582,
+        -0.01622467799864984,
+        -0.004546707851716745
+      ],
+      "13": [
+        0.1232933270356074,
+        -0.02189736021922689,
+        -0.005041560931183889,
+        -0.016224677998631674,
+        0.013182500241811147
+      ],
+      "19": [
+        0.12329332703560161,
+        -0.02189736021920334,
+        -0.005041560931182408,
+        -0.016224677998652168,
+        0.006721408015697153
+      ]
+    }
+  },
+  "arm_C_ablation": {
+    "F_conv": {
+      "eval": {
+        "real": {
+          "n_fired": 840,
+          "fire_fraction": 0.42988741044012285,
+          "covered_subset_accuracy": 0.35595238095238096,
+          "bow_accuracy_on_covered_subset": 0.34285714285714286,
+          "margin": 0.013095238095238104,
+          "overall_accuracy_with_abstain": 0.3556806550665302
+        },
+        "scramble": {
+          "n_fired": 30,
+          "fire_fraction": 0.015353121801432957,
+          "covered_subset_accuracy": 0.26666666666666666,
+          "bow_accuracy_on_covered_subset": 0.43333333333333335,
+          "margin": -0.16666666666666669,
+          "overall_accuracy_with_abstain": 0.3474923234390993
+        }
+      },
+      "train_acc": 0.354,
+      "weight_vector": [
+        2.208193337996665e-07,
+        0.0387442967542117,
+        -0.021408372596293575,
+        -0.008440963226072394,
+        -0.004546707851716752
+      ]
+    },
+    "F_path": {
+      "eval": {
+        "real": {
+          "n_fired": 779,
+          "fire_fraction": 0.3986693961105425,
+          "covered_subset_accuracy": 0.3427471116816431,
+          "bow_accuracy_on_covered_subset": 0.3427471116816431,
+          "margin": 0.0,
+          "overall_accuracy_with_abstain": 0.3500511770726714
+        },
+        "scramble": {
+          "n_fired": 17,
+          "fire_fraction": 0.008700102354145343,
+          "covered_subset_accuracy": 0.47058823529411764,
+          "bow_accuracy_on_covered_subset": 0.29411764705882354,
+          "margin": 0.1764705882352941,
+          "overall_accuracy_with_abstain": 0.3515864892528147
+        }
+      },
+      "train_acc": 0.36525,
+      "weight_vector": [
+        0.1171423810927259,
+        5.3626476867278085e-05,
+        -0.0031553979827930773,
+        -0.028550118997363573,
+        -0.004546707851716595
+      ]
+    },
+    "gate_delta": {
+      "eval": {
+        "real": {
+          "n_fired": 860,
+          "fire_fraction": 0.44012282497441146,
+          "covered_subset_accuracy": 0.3302325581395349,
+          "bow_accuracy_on_covered_subset": 0.3395348837209302,
+          "margin": -0.009302325581395321,
+          "overall_accuracy_with_abstain": 0.345957011258956
+        },
+        "scramble": {
+          "n_fired": 31,
+          "fire_fraction": 0.01586489252814739,
+          "covered_subset_accuracy": 0.3548387096774194,
+          "bow_accuracy_on_covered_subset": 0.41935483870967744,
+          "margin": -0.06451612903225806,
+          "overall_accuracy_with_abstain": 0.3490276356192426
+        }
+      },
+      "train_acc": 0.3675,
+      "weight_vector": [
+        0.12409530295288534,
+        -0.020973051396386923,
+        -4.9209261773861244e-05,
+        -0.016278568379124392,
+        -0.004546707851716698
+      ]
+    },
+    "F_coh": {
+      "eval": {
+        "real": {
+          "n_fired": 820,
+          "fire_fraction": 0.4196519959058342,
+          "covered_subset_accuracy": 0.3304878048780488,
+          "bow_accuracy_on_covered_subset": 0.34512195121951217,
+          "margin": -0.014634146341463372,
+          "overall_accuracy_with_abstain": 0.34390992835209827
+        },
+        "scramble": {
+          "n_fired": 27,
+          "fire_fraction": 0.013817809621289662,
+          "covered_subset_accuracy": 0.3333333333333333,
+          "bow_accuracy_on_covered_subset": 0.4444444444444444,
+          "margin": -0.1111111111111111,
+          "overall_accuracy_with_abstain": 0.34851586489252817
+        }
+      },
+      "train_acc": 0.37025,
+      "weight_vector": [
+        0.12269685298608796,
+        -0.03175434075899452,
+        -0.0051307849498320336,
+        -0.00015986616247932908,
+        -0.004546707851716349
+      ]
+    }
+  },
+  "feature_names": [
+    "F_conv",
+    "F_path",
+    "gate_delta",
+    "F_coh"
+  ],
+  "best_arm": "A",
+  "routing_recommendation": "DISCRIMINATOR_STILL_NON_DECISIVE",
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A": "a6969b4a895030668f4b2d9cb1ac8d1120a8842906795f59f56187d9e732d7ef",
+    "B": "3b62eeb5e38b4cd95f4e95e64808fc1a5029427c92fcdaefbf7805d2342b56db",
+    "C": "12eb58abd2a0fee4e5e272fbfea80afd2be8f1ae5a956036e7ac1e47b98a9b0f"
+  },
+  "arms_differ_exempted": [],
+  "cardinality_ok": true,
+  "expected_n_dev_units": 3908,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "discrete 3-way classification accuracy on a real benchmark; no capacity/noise-floor discriminator applies",
+  "deterministic_seeding": true,
+  "progress_logging": "print_flush_true",
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "storage_strategy": "no_storage"
+}
