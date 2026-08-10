@@ -1,0 +1,199 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_REAL_KB_DOES_NOT_SOURCE_NO_GO: split=dev SURVIVAL=0.13352131548523782 (real_lift=0.0100 / oracle_lift=0.0751) with_real_f1=0.3342 without_f1=0.3242 real_pair_recall=0.1429 binding_cov=0.6765 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_REAL_KB_DOES_NOT_SOURCE_NO_GO: split=dev SURVIVAL=0.13352131548523782 (real_lift=0.0100 / oracle_lift=0.0751) with_real_f1=0.3342 without_f1=0.3242 real_pair_recall=0.1429 binding_cov=0.6765 ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "elapsed_s": 2.414,
+  "run_mode": "smoke",
+  "anchor_name": "propara_bridging_real_kb_sourcing_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 2.4,
+    "n_paragraphs": 43,
+    "arms_differ": {
+      "sigs": {
+        "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
+        "with_oracle": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e",
+        "with_real_kb": "5f24e8c52de62ac1a590b16f67fea60af99293443825b77b6cf4d83e786a332f",
+        "prior_lesion": "87ad031f31c1a66ebd34388a6b48eed8927534ee59fd36b003d3cfea0a2d4ab2"
+      },
+      "pairs_differ": {
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_real_kb": true,
+        "without_knowledge_vs_prior_lesion": true,
+        "with_oracle_vs_with_real_kb": true,
+        "with_oracle_vs_prior_lesion": true,
+        "with_real_kb_vs_prior_lesion": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "with_oracle": 1.0,
+      "with_real_kb": 1.0
+    },
+    "unmentioned_subset": {
+      "majority": {
+        "macro_f1": 0.23666210670314639,
+        "accuracy": 0.8987012987012987,
+        "n": 770
+      },
+      "bow_singlestep": {
+        "macro_f1": 0.23666210670314639,
+        "accuracy": 0.8987012987012987,
+        "n": 770
+      },
+      "bagstates": {
+        "macro_f1": 0.2419094984589521,
+        "accuracy": 0.8038961038961039,
+        "n": 770
+      },
+      "prior_lesion": {
+        "macro_f1": 0.3374745422756599,
+        "accuracy": 0.7350649350649351,
+        "n": 770
+      },
+      "without_knowledge": {
+        "macro_f1": 0.3241578243142567,
+        "accuracy": 0.7974025974025974,
+        "n": 770
+      },
+      "with_oracle": {
+        "macro_f1": 0.39930050396383376,
+        "accuracy": 0.8,
+        "n": 770
+      },
+      "with_real_kb": {
+        "macro_f1": 0.33419097375015405,
+        "accuracy": 0.7727272727272727,
+        "n": 770
+      }
+    },
+    "without_f1": 0.3241578243142567,
+    "with_oracle_f1": 0.39930050396383376,
+    "with_real_kb_f1": 0.33419097375015405,
+    "prior_lesion_f1": 0.3374745422756599,
+    "oracle_lift": 0.07514267964957705,
+    "real_lift": 0.010033149435897337,
+    "survival_fraction": 0.13352131548523782,
+    "real_minus_without": 0.010033149435897337,
+    "real_minus_prior_lesion": -0.00328356852550582,
+    "fact_coverage_real_vs_oracle": {
+      "pair_precision": 0.0385,
+      "pair_recall": 0.1429,
+      "pair_f1": 0.0606,
+      "participant_binding_coverage": 0.6765,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 23
+    },
+    "official": {
+      "majority": {
+        "precision": 1.0,
+        "recall": 0.2965,
+        "f1": 0.457
+      },
+      "bow_singlestep": {
+        "precision": 0.812,
+        "recall": 0.4195,
+        "f1": 0.553
+      },
+      "bagstates": {
+        "precision": 0.8367500000000001,
+        "recall": 0.37625000000000003,
+        "f1": 0.519
+      },
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_real_kb": {
+        "precision": 0.8055,
+        "recall": 0.6090000000000001,
+        "f1": 0.694
+      }
+    }
+  },
+  "headline": {
+    "SURVIVAL_FRACTION": 0.13352131548523782,
+    "with_real_kb_f1": 0.33419097375015405,
+    "with_oracle_f1": 0.39930050396383376,
+    "without_f1": 0.3241578243142567,
+    "prior_lesion_f1": 0.3374745422756599,
+    "real_lift": 0.010033149435897337,
+    "oracle_lift": 0.07514267964957705,
+    "real_minus_prior_lesion": -0.00328356852550582,
+    "fact_coverage_real_vs_oracle": {
+      "pair_precision": 0.0385,
+      "pair_recall": 0.1429,
+      "pair_f1": 0.0606,
+      "participant_binding_coverage": 0.6765,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 23
+    },
+    "official_overall": {
+      "majority": {
+        "precision": 1.0,
+        "recall": 0.2965,
+        "f1": 0.457
+      },
+      "bow_singlestep": {
+        "precision": 0.812,
+        "recall": 0.4195,
+        "f1": 0.553
+      },
+      "bagstates": {
+        "precision": 0.8367500000000001,
+        "recall": 0.37625000000000003,
+        "f1": 0.519
+      },
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_real_kb": {
+        "precision": 0.8055,
+        "recall": 0.6090000000000001,
+        "f1": 0.694
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: survival bar pre-registered before TEST",
+  "thresholds": {
+    "SURVIVAL_HARD_PASS": 0.5,
+    "SURVIVAL_HARD_FAIL": 0.25,
+    "LEAK_CEILING": 0.95,
+    "WITHOUT_COLLAPSE_CEILING": 0.6
+  }
+}
