@@ -1,0 +1,365 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "OVERALL_HARD_PASS: all 1 seeds HARD_PASS",
+  "summary": "HARD_PASS: OVERALL_HARD_PASS: all 1 seeds HARD_PASS",
+  "elapsed_s": 1.856,
+  "run_mode": "smoke",
+  "anchor_name": "propara_decisive_inference_arm1_oracle_v1",
+  "split": "dev",
+  "seeds": [
+    7
+  ],
+  "per_seed_verdicts": {
+    "7": "HARD_PASS"
+  },
+  "per_seed_summary": {
+    "7": {
+      "verdict": "HARD_PASS",
+      "natural_focus_margin": 0.17519833538410728,
+      "scramble_retained_frac": 0.506883416115775,
+      "official_overall_gap": 0.21799999999999997,
+      "baseline_focus_macro_f1": 0.2419094984589521,
+      "reasoning_focus_macro_f1": 0.4171078338430594,
+      "scramble_focus_macro_f1": 0.33071462919624567,
+      "official": {
+        "majority": {
+          "precision": 1.0,
+          "recall": 0.2965,
+          "f1": 0.457
+        },
+        "bow_singlestep": {
+          "precision": 0.812,
+          "recall": 0.4195,
+          "f1": 0.553
+        },
+        "bagstates": {
+          "precision": 0.8367500000000001,
+          "recall": 0.37625000000000003,
+          "f1": 0.519
+        },
+        "reasoning": {
+          "precision": 0.85625,
+          "recall": 0.7015,
+          "f1": 0.771
+        },
+        "reasoning_scramble_seed7": {
+          "precision": 0.821,
+          "recall": 0.66075,
+          "f1": 0.732
+        }
+      }
+    }
+  },
+  "per_seed_full": {
+    "7": {
+      "seed": 7,
+      "run_mode": "smoke",
+      "anchor_name": "propara_decisive_inference_arm1_oracle_v1",
+      "config_version": "ANCHOR=propara_decisive_inference_arm1_oracle_v1,split=dev",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: split=dev seed=7 focus_margin=0.1752(>= 0.03 for HP, < 0.0 for HF) scramble_retained_frac=0.506883416115775 (<= 0.65 for HP collapse, > 0.9 for HF-no-collapse) scramble_self_drop_frac=0.20712438759738075 (>= 0.1 for HP collapse) official_overall_gap=0.2180(>=0 for HP, >= -0.02 else HF) decode_ok=True arms_ok=True",
+      "result": {
+        "split": "dev",
+        "scramble_seed": 7,
+        "elapsed_s": 1.814,
+        "n_paragraphs": 43,
+        "n_step_rows": 1204,
+        "grids_digest": {
+          "majority": "2877e45ad405aa8686ba1e06bc4fe631c5b9e20b823597b54fef66876facc81e",
+          "bow_singlestep": "bfa64994ce2076e4bdc9b835ec2e9408875d524e9b23fa00c9169ed13e7905c3",
+          "bagstates": "17af502827f6ecb5870dd46f4d6e2649b38779f6e0e941c02fdec1729f0f9b9c",
+          "reasoning": "f0423143c9a67548be52a1da6c5977472f3e00a65085b891c3aa2a2a5d795d12",
+          "reasoning_scramble": "4620b01b6d67b8306f5ed75ae5a968b5b0b9dad346490e344cc1754bbc918554"
+        },
+        "arms_differ": {
+          "sigs": {
+            "majority": "2877e45ad405aa8686ba1e06bc4fe631c5b9e20b823597b54fef66876facc81e",
+            "bow_singlestep": "bfa64994ce2076e4bdc9b835ec2e9408875d524e9b23fa00c9169ed13e7905c3",
+            "bagstates": "17af502827f6ecb5870dd46f4d6e2649b38779f6e0e941c02fdec1729f0f9b9c",
+            "reasoning": "f0423143c9a67548be52a1da6c5977472f3e00a65085b891c3aa2a2a5d795d12",
+            "reasoning_scramble": "4620b01b6d67b8306f5ed75ae5a968b5b0b9dad346490e344cc1754bbc918554"
+          },
+          "pairs_differ": {
+            "majority_vs_bow_singlestep": true,
+            "majority_vs_bagstates": true,
+            "majority_vs_reasoning": true,
+            "majority_vs_reasoning_scramble": true,
+            "bow_singlestep_vs_bagstates": true,
+            "bow_singlestep_vs_reasoning": true,
+            "bow_singlestep_vs_reasoning_scramble": true,
+            "bagstates_vs_reasoning": true,
+            "bagstates_vs_reasoning_scramble": true,
+            "reasoning_vs_reasoning_scramble": true
+          },
+          "all_differ": true
+        },
+        "reasoning_decode_diag": {
+          "decode_fidelity": 1.0,
+          "n_decoded": 1204
+        },
+        "scramble_decode_diag": {
+          "decode_fidelity": 1.0,
+          "n_decoded": 1204
+        },
+        "official": {
+          "majority": {
+            "inputs": {
+              "precision": 1.0,
+              "recall": 0.488,
+              "f1": 0.656
+            },
+            "outputs": {
+              "precision": 1.0,
+              "recall": 0.233,
+              "f1": 0.378
+            },
+            "conversions": {
+              "precision": 1.0,
+              "recall": 0.372,
+              "f1": 0.542
+            },
+            "moves": {
+              "precision": 1.0,
+              "recall": 0.093,
+              "f1": 0.17
+            },
+            "overall": {
+              "precision": 1.0,
+              "recall": 0.2965,
+              "f1": 0.457
+            },
+            "n_processes": 43
+          },
+          "bow_singlestep": {
+            "inputs": {
+              "precision": 0.965,
+              "recall": 0.585,
+              "f1": 0.728
+            },
+            "outputs": {
+              "precision": 0.773,
+              "recall": 0.531,
+              "f1": 0.63
+            },
+            "conversions": {
+              "precision": 1.0,
+              "recall": 0.372,
+              "f1": 0.542
+            },
+            "moves": {
+              "precision": 0.51,
+              "recall": 0.19,
+              "f1": 0.277
+            },
+            "overall": {
+              "precision": 0.812,
+              "recall": 0.4195,
+              "f1": 0.553
+            },
+            "n_processes": 43
+          },
+          "bagstates": {
+            "inputs": {
+              "precision": 1.0,
+              "recall": 0.488,
+              "f1": 0.656
+            },
+            "outputs": {
+              "precision": 0.716,
+              "recall": 0.535,
+              "f1": 0.612
+            },
+            "conversions": {
+              "precision": 1.0,
+              "recall": 0.372,
+              "f1": 0.542
+            },
+            "moves": {
+              "precision": 0.631,
+              "recall": 0.11,
+              "f1": 0.187
+            },
+            "overall": {
+              "precision": 0.8367500000000001,
+              "recall": 0.37625000000000003,
+              "f1": 0.519
+            },
+            "n_processes": 43
+          },
+          "reasoning": {
+            "inputs": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "outputs": {
+              "precision": 0.983,
+              "recall": 1.0,
+              "f1": 0.991
+            },
+            "conversions": {
+              "precision": 0.977,
+              "recall": 0.384,
+              "f1": 0.551
+            },
+            "moves": {
+              "precision": 0.465,
+              "recall": 0.422,
+              "f1": 0.442
+            },
+            "overall": {
+              "precision": 0.85625,
+              "recall": 0.7015,
+              "f1": 0.771
+            },
+            "n_processes": 43
+          },
+          "reasoning_scramble_seed7": {
+            "inputs": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "outputs": {
+              "precision": 0.971,
+              "recall": 1.0,
+              "f1": 0.985
+            },
+            "conversions": {
+              "precision": 0.977,
+              "recall": 0.384,
+              "f1": 0.551
+            },
+            "moves": {
+              "precision": 0.336,
+              "recall": 0.259,
+              "f1": 0.293
+            },
+            "overall": {
+              "precision": 0.821,
+              "recall": 0.66075,
+              "f1": 0.732
+            },
+            "n_processes": 43
+          }
+        },
+        "proxy": {
+          "majority": {
+            "overall": {
+              "n": 1204,
+              "accuracy": 0.7425249169435216,
+              "macro_f1": 0.2130600571973308
+            },
+            "mentioned": {
+              "n": 434,
+              "accuracy": 0.46543778801843316,
+              "macro_f1": 0.15880503144654087
+            },
+            "unmentioned": {
+              "n": 770,
+              "accuracy": 0.8987012987012987,
+              "macro_f1": 0.23666210670314639
+            }
+          },
+          "bow_singlestep": {
+            "overall": {
+              "n": 1204,
+              "accuracy": 0.7558139534883721,
+              "macro_f1": 0.4163029846699447
+            },
+            "mentioned": {
+              "n": 434,
+              "accuracy": 0.5023041474654378,
+              "macro_f1": 0.3927210003647591
+            },
+            "unmentioned": {
+              "n": 770,
+              "accuracy": 0.8987012987012987,
+              "macro_f1": 0.23666210670314639
+            }
+          },
+          "bagstates": {
+            "overall": {
+              "n": 1204,
+              "accuracy": 0.6710963455149501,
+              "macro_f1": 0.24065007614867165
+            },
+            "mentioned": {
+              "n": 434,
+              "accuracy": 0.43548387096774194,
+              "macro_f1": 0.2035575012588952
+            },
+            "unmentioned": {
+              "n": 770,
+              "accuracy": 0.8038961038961039,
+              "macro_f1": 0.2419094984589521
+            }
+          },
+          "reasoning": {
+            "overall": {
+              "n": 1204,
+              "accuracy": 0.8222591362126246,
+              "macro_f1": 0.652882055382977
+            },
+            "mentioned": {
+              "n": 434,
+              "accuracy": 0.6866359447004609,
+              "macro_f1": 0.6521146183695807
+            },
+            "unmentioned": {
+              "n": 770,
+              "accuracy": 0.8987012987012987,
+              "macro_f1": 0.4171078338430594
+            }
+          },
+          "reasoning_scramble_seed7": {
+            "overall": {
+              "n": 1204,
+              "accuracy": 0.6602990033222591,
+              "macro_f1": 0.3818490234954971
+            },
+            "mentioned": {
+              "n": 434,
+              "accuracy": 0.4930875576036866,
+              "macro_f1": 0.3821263518134425
+            },
+            "unmentioned": {
+              "n": 770,
+              "accuracy": 0.7545454545454545,
+              "macro_f1": 0.33071462919624567
+            }
+          }
+        },
+        "baseline_focus_macro_f1": 0.2419094984589521,
+        "reasoning_focus_macro_f1": 0.4171078338430594,
+        "scramble_focus_macro_f1": 0.33071462919624567,
+        "natural_focus_margin": 0.17519833538410728,
+        "scramble_focus_margin": 0.08880513073729357,
+        "scramble_retained_frac": 0.506883416115775,
+        "scramble_self_drop_frac": 0.20712438759738075,
+        "baseline_official_overall_f1": 0.553,
+        "reasoning_official_overall_f1": 0.771,
+        "official_overall_gap": 0.21799999999999997
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1786393499.2824483
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "accuracy/F1-comparison ablation over a fixed real corpus (ProPara EMNLP18); no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: HARD_PASS/HARD_FAIL bands calibrated from --smoke DEV-set numbers (see prereg), applied unchanged to --full TEST; no test-set peeking",
+  "bands": {
+    "FOCUS_WIN_MARGIN_HARD_PASS": 0.03,
+    "FOCUS_WIN_MARGIN_HARD_FAIL": 0.0,
+    "SCRAMBLE_COLLAPSE_HARD_PASS": 0.65,
+    "SCRAMBLE_COLLAPSE_HARD_FAIL": 0.9,
+    "OFFICIAL_NO_REGRESSION_HARD_FAIL": -0.02
+  }
+}
