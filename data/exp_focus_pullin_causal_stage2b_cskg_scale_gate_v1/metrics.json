@@ -1,0 +1,132 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "FULL_CARDINALITY_POINT: HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.007",
+  "summary": "HARD_FAIL at scale=1213912: HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.007",
+  "elapsed_s": 243.646,
+  "run_mode": "full",
+  "anchor_name": "focus_pullin_causal_stage2b_cskg_scale_gate_v1",
+  "gate_thresh": 0.28,
+  "n_dim": 1024,
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_spine_edges_total": 1213912,
+  "scales": [
+    1000,
+    5000,
+    10000,
+    30000,
+    100000,
+    1213912
+  ],
+  "per_scale": {
+    "1000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.9666666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1000,
+      "ingest_s": 0.011,
+      "eval_s": 31.938,
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.967 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "5000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.9466666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 5000,
+      "ingest_s": 0.046,
+      "eval_s": 29.949,
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.947 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "10000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.7,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 10000,
+      "ingest_s": 0.111,
+      "eval_s": 28.888,
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.700 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "30000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.9733333333333334,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 30000,
+      "ingest_s": 0.321,
+      "eval_s": 29.317,
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.973"
+    },
+    "100000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.3333333333333333,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 100000,
+      "ingest_s": 0.998,
+      "eval_s": 31.657,
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.333"
+    },
+    "1213912": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.0,
+      "relevant_in_shortlist_rate": 0.006666666666666667,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1213912,
+      "ingest_s": 12.497,
+      "eval_s": 29.431,
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.007"
+    }
+  },
+  "scramble_objects_control": {
+    "n_relevant_queried": 150,
+    "relevant_recall": 0.0,
+    "relevant_in_shortlist_rate": 0.02,
+    "n_negative_queried": 150,
+    "false_pull_in_rate": 0.0,
+    "scale": 1213912,
+    "control": "scramble_objects"
+  },
+  "arms_differ_check": {
+    "real_digest": "44124a26cb482a93dec48692f3322e9d82636f5387542630858de79da0ed9704",
+    "scramble_digest": "5133457a4ac7ff94cf6e91a20452fdfdadf5e905cb363ac35b270aad87954b51",
+    "arms_differ": true
+  },
+  "arms_differ_verified": true,
+  "full_cardinality_point": {
+    "n_relevant_queried": 150,
+    "relevant_recall": 0.0,
+    "relevant_in_shortlist_rate": 0.006666666666666667,
+    "n_negative_queried": 150,
+    "false_pull_in_rate": 0.0,
+    "scale": 1213912,
+    "ingest_s": 12.497,
+    "eval_s": 29.431,
+    "verdict": "HARD_FAIL",
+    "verdict_msg": "HARD_FAIL: relevant_recall=0.000 false_pull_in=0.000 shortlist_rate=0.007"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 7,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical cardinality-capacity diagnostic sweep over the real CSKG store; no single closed-form noise floor -- measuring where the floor sits IS the test",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: GATE_THRESH=0.28 is Stage-1's ORIGINAL un-retuned number, held fixed by the Stage-2 task CONTRACT"
+}

@@ -1,0 +1,4322 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "OVERALL_HARD_PASS: all 5 seeds HARD_PASS",
+  "summary": "HARD_PASS: OVERALL_HARD_PASS: all 5 seeds HARD_PASS",
+  "elapsed_s": 0.328,
+  "run_mode": "full",
+  "anchor_name": "focus_pullin_causal_stage2a_multihop_loop_v1",
+  "gate_thresh": 0.32,
+  "n_dim": 1024,
+  "seeds": [
+    7,
+    17,
+    29,
+    41,
+    53
+  ],
+  "per_seed_verdicts": {
+    "7": "HARD_PASS",
+    "17": "HARD_PASS",
+    "29": "HARD_PASS",
+    "41": "HARD_PASS",
+    "53": "HARD_PASS"
+  },
+  "per_seed_summary": {
+    "7": {
+      "verdict": "HARD_PASS",
+      "validate_mean_all_depths": 1.0,
+      "baseline_depth_ge2_mean": 0.0,
+      "novalidate_pre_minus_post_gap": 0.2777777777777777,
+      "validate_minus_novalidate_post_gap": 0.2777777777777777,
+      "scramble_validate_depth5_rate": 0.0,
+      "per_depth_summary": {
+        "1": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 1.0
+        },
+        "2": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 0.0
+        },
+        "3": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.8333333333333334,
+          "baseline_rate": 0.0
+        },
+        "4": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.5,
+          "baseline_rate": 0.0
+        },
+        "5": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.8333333333333334,
+          "baseline_rate": 0.0
+        }
+      }
+    },
+    "17": {
+      "verdict": "HARD_PASS",
+      "validate_mean_all_depths": 1.0,
+      "baseline_depth_ge2_mean": 0.0,
+      "novalidate_pre_minus_post_gap": 0.5555555555555556,
+      "validate_minus_novalidate_post_gap": 0.5555555555555556,
+      "scramble_validate_depth5_rate": 0.0,
+      "per_depth_summary": {
+        "1": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 1.0
+        },
+        "2": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 0.0
+        },
+        "3": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.5,
+          "baseline_rate": 0.0
+        },
+        "4": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.3333333333333333,
+          "baseline_rate": 0.0
+        },
+        "5": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.5,
+          "baseline_rate": 0.0
+        }
+      }
+    },
+    "29": {
+      "verdict": "HARD_PASS",
+      "validate_mean_all_depths": 1.0,
+      "baseline_depth_ge2_mean": 0.0,
+      "novalidate_pre_minus_post_gap": 0.38888888888888884,
+      "validate_minus_novalidate_post_gap": 0.38888888888888884,
+      "scramble_validate_depth5_rate": 0.0,
+      "per_depth_summary": {
+        "1": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 1.0
+        },
+        "2": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 0.0
+        },
+        "3": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.8333333333333334,
+          "baseline_rate": 0.0
+        },
+        "4": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.3333333333333333,
+          "baseline_rate": 0.0
+        },
+        "5": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.6666666666666666,
+          "baseline_rate": 0.0
+        }
+      }
+    },
+    "41": {
+      "verdict": "HARD_PASS",
+      "validate_mean_all_depths": 1.0,
+      "baseline_depth_ge2_mean": 0.0,
+      "novalidate_pre_minus_post_gap": 0.44444444444444453,
+      "validate_minus_novalidate_post_gap": 0.44444444444444453,
+      "scramble_validate_depth5_rate": 0.0,
+      "per_depth_summary": {
+        "1": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 1.0
+        },
+        "2": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 0.0
+        },
+        "3": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.6666666666666666,
+          "baseline_rate": 0.0
+        },
+        "4": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.3333333333333333,
+          "baseline_rate": 0.0
+        },
+        "5": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.6666666666666666,
+          "baseline_rate": 0.0
+        }
+      }
+    },
+    "53": {
+      "verdict": "HARD_PASS",
+      "validate_mean_all_depths": 1.0,
+      "baseline_depth_ge2_mean": 0.0,
+      "novalidate_pre_minus_post_gap": 0.5555555555555556,
+      "validate_minus_novalidate_post_gap": 0.5555555555555556,
+      "scramble_validate_depth5_rate": 0.0,
+      "per_depth_summary": {
+        "1": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 1.0
+        },
+        "2": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 1.0,
+          "baseline_rate": 0.0
+        },
+        "3": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.5,
+          "baseline_rate": 0.0
+        },
+        "4": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.3333333333333333,
+          "baseline_rate": 0.0
+        },
+        "5": {
+          "validate_rate": 1.0,
+          "novalidate_rate": 0.5,
+          "baseline_rate": 0.0
+        }
+      }
+    }
+  },
+  "per_seed_full": {
+    "7": {
+      "seed": 7,
+      "N": 1024,
+      "run_mode": "full",
+      "anchor_name": "focus_pullin_causal_stage2a_multihop_loop_v1",
+      "config_version": "ANCHOR=focus_pullin_causal_stage2a_multihop_loop_v1,N=1024,gate=0.32",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: seed=7 validate_all=1.000 baseline_ge2=0.000(must be 0) novalidate_gap=0.278(>= 0.2 for HARD_PASS) validate_vs_novalidate_post_gap=0.278 scramble_depth5=0.000(<=0.10 for HARD_PASS)",
+      "result": {
+        "seed": 7,
+        "n_dim": 1024,
+        "n_chains": 6,
+        "chain_len": 6,
+        "decoy_hop_depth": 3,
+        "gate_thresh": 0.32,
+        "elapsed_s": 0.0438,
+        "per_chain": {
+          "0": {
+            "true_at_depth": {
+              "1": 4,
+              "2": 3,
+              "3": 2,
+              "4": 1,
+              "5": 0
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 1,
+                "score": 0.490234375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 1,
+                "to": 0,
+                "score": 0.419921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 1,
+                "score": 0.490234375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 1,
+                "to": 0,
+                "score": 0.419921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 4,
+            "baseline_score": 0.458984375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "1": {
+            "true_at_depth": {
+              "1": 11,
+              "2": 10,
+              "3": 9,
+              "4": 8,
+              "5": 7
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.4609375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 8,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 8,
+                "to": 7,
+                "score": 0.404296875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.4609375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 13,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 13,
+                "to": 9,
+                "score": 0.43359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 9,
+                "to": 8,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 11,
+            "baseline_score": 0.4609375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "2": {
+            "true_at_depth": {
+              "1": 18,
+              "2": 17,
+              "3": 16,
+              "4": 15,
+              "5": 14
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.408203125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.462890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.48046875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 15,
+                "score": 0.46484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 15,
+                "to": 14,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.408203125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.462890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.48046875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 20,
+                "score": 0.47265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 20,
+                "to": 14,
+                "score": 0.314453125,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 18,
+            "baseline_score": 0.408203125,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "3": {
+            "true_at_depth": {
+              "1": 25,
+              "2": 24,
+              "3": 23,
+              "4": 22,
+              "5": 21
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.505859375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.5,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 23,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 23,
+                "to": 22,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 22,
+                "to": 21,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.505859375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.5,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 23,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 23,
+                "to": 22,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 22,
+                "to": 21,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 25,
+            "baseline_score": 0.505859375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "4": {
+            "true_at_depth": {
+              "1": 32,
+              "2": 31,
+              "3": 30,
+              "4": 29,
+              "5": 28
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.455078125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.4921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.40234375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.455078125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.4921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.40234375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 32,
+            "baseline_score": 0.455078125,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "5": {
+            "true_at_depth": {
+              "1": 39,
+              "2": 38,
+              "3": 37,
+              "4": 36,
+              "5": 35
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.369140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.4453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 36,
+                "score": 0.40234375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 36,
+                "to": 35,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.369140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.4453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 41,
+                "score": 0.41796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 41,
+                "to": 35,
+                "score": 0.322265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 39,
+            "baseline_score": 0.458984375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          }
+        },
+        "per_depth_summary": {
+          "1": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 1.0
+          },
+          "2": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 0.0
+          },
+          "3": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.8333333333333334,
+            "baseline_rate": 0.0
+          },
+          "4": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.5,
+            "baseline_rate": 0.0
+          },
+          "5": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.8333333333333334,
+            "baseline_rate": 0.0
+          }
+        },
+        "novalidate_pre_decoy_mean": 1.0,
+        "novalidate_post_decoy_mean": 0.7222222222222223,
+        "novalidate_pre_minus_post_gap": 0.2777777777777777,
+        "validate_post_decoy_mean": 1.0,
+        "validate_minus_novalidate_post_gap": 0.2777777777777777,
+        "validate_mean_all_depths": 1.0,
+        "baseline_depth_ge2_mean": 0.0,
+        "scramble_validate_depth5_rate": 0.0
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1786321298.0546432
+    },
+    "17": {
+      "seed": 17,
+      "N": 1024,
+      "run_mode": "full",
+      "anchor_name": "focus_pullin_causal_stage2a_multihop_loop_v1",
+      "config_version": "ANCHOR=focus_pullin_causal_stage2a_multihop_loop_v1,N=1024,gate=0.32",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: seed=17 validate_all=1.000 baseline_ge2=0.000(must be 0) novalidate_gap=0.556(>= 0.2 for HARD_PASS) validate_vs_novalidate_post_gap=0.556 scramble_depth5=0.000(<=0.10 for HARD_PASS)",
+      "result": {
+        "seed": 17,
+        "n_dim": 1024,
+        "n_chains": 6,
+        "chain_len": 6,
+        "decoy_hop_depth": 3,
+        "gate_thresh": 0.32,
+        "elapsed_s": 0.0128,
+        "per_chain": {
+          "0": {
+            "true_at_depth": {
+              "1": 4,
+              "2": 3,
+              "3": 2,
+              "4": 1,
+              "5": 0
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.43359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.462890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 1,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 1,
+                "to": 0,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.43359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 6,
+                "score": 0.47265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 6,
+                "to": 2,
+                "score": 0.474609375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 2,
+                "to": 1,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 4,
+            "baseline_score": 0.427734375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "1": {
+            "true_at_depth": {
+              "1": 11,
+              "2": 10,
+              "3": 9,
+              "4": 8,
+              "5": 7
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.466796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 8,
+                "score": 0.423828125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 8,
+                "to": 7,
+                "score": 0.505859375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.466796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 13,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 13,
+                "to": 7,
+                "score": 0.287109375,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 11,
+            "baseline_score": 0.4375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "2": {
+            "true_at_depth": {
+              "1": 18,
+              "2": 17,
+              "3": 16,
+              "4": 15,
+              "5": 14
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.41796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.4453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 15,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 15,
+                "to": 14,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.41796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.4453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 15,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 15,
+                "to": 14,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 18,
+            "baseline_score": 0.41796875,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "3": {
+            "true_at_depth": {
+              "1": 25,
+              "2": 24,
+              "3": 23,
+              "4": 22,
+              "5": 21
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.43359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 23,
+                "score": 0.408203125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 23,
+                "to": 22,
+                "score": 0.41015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 22,
+                "to": 21,
+                "score": 0.462890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.43359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 27,
+                "score": 0.412109375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 27,
+                "to": 23,
+                "score": 0.4453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 23,
+                "to": 22,
+                "score": 0.41015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 25,
+            "baseline_score": 0.43359375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "4": {
+            "true_at_depth": {
+              "1": 32,
+              "2": 31,
+              "3": 30,
+              "4": 29,
+              "5": 28
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.384765625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.455078125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.396484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.384765625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.455078125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.396484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 32,
+            "baseline_score": 0.384765625,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "5": {
+            "true_at_depth": {
+              "1": 39,
+              "2": 38,
+              "3": 37,
+              "4": 36,
+              "5": 35
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.474609375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.423828125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.419921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 36,
+                "score": 0.419921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 36,
+                "to": 35,
+                "score": 0.439453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.474609375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.423828125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 41,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 41,
+                "to": 37,
+                "score": 0.3828125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 37,
+                "to": 36,
+                "score": 0.419921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 39,
+            "baseline_score": 0.474609375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          }
+        },
+        "per_depth_summary": {
+          "1": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 1.0
+          },
+          "2": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 0.0
+          },
+          "3": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.5,
+            "baseline_rate": 0.0
+          },
+          "4": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.3333333333333333,
+            "baseline_rate": 0.0
+          },
+          "5": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.5,
+            "baseline_rate": 0.0
+          }
+        },
+        "novalidate_pre_decoy_mean": 1.0,
+        "novalidate_post_decoy_mean": 0.4444444444444444,
+        "novalidate_pre_minus_post_gap": 0.5555555555555556,
+        "validate_post_decoy_mean": 1.0,
+        "validate_minus_novalidate_post_gap": 0.5555555555555556,
+        "validate_mean_all_depths": 1.0,
+        "baseline_depth_ge2_mean": 0.0,
+        "scramble_validate_depth5_rate": 0.0
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1786321298.0945218
+    },
+    "29": {
+      "seed": 29,
+      "N": 1024,
+      "run_mode": "full",
+      "anchor_name": "focus_pullin_causal_stage2a_multihop_loop_v1",
+      "config_version": "ANCHOR=focus_pullin_causal_stage2a_multihop_loop_v1,N=1024,gate=0.32",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: seed=29 validate_all=1.000 baseline_ge2=0.000(must be 0) novalidate_gap=0.389(>= 0.2 for HARD_PASS) validate_vs_novalidate_post_gap=0.389 scramble_depth5=0.000(<=0.10 for HARD_PASS)",
+      "result": {
+        "seed": 29,
+        "n_dim": 1024,
+        "n_chains": 6,
+        "chain_len": 6,
+        "decoy_hop_depth": 3,
+        "gate_thresh": 0.32,
+        "elapsed_s": 0.0233,
+        "per_chain": {
+          "0": {
+            "true_at_depth": {
+              "1": 4,
+              "2": 3,
+              "3": 2,
+              "4": 1,
+              "5": 0
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.466796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 1,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 1,
+                "to": 0,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.466796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 1,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 1,
+                "to": 0,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 4,
+            "baseline_score": 0.421875,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "1": {
+            "true_at_depth": {
+              "1": 11,
+              "2": 10,
+              "3": 9,
+              "4": 8,
+              "5": 7
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.439453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 8,
+                "score": 0.396484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 8,
+                "to": 7,
+                "score": 0.4140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.439453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 13,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 13,
+                "to": 8,
+                "score": 0.318359375,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 11,
+            "baseline_score": 0.447265625,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "2": {
+            "true_at_depth": {
+              "1": 18,
+              "2": 17,
+              "3": 16,
+              "4": 15,
+              "5": 14
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 15,
+                "score": 0.423828125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 15,
+                "to": 14,
+                "score": 0.4765625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 20,
+                "score": 0.435546875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 20,
+                "to": 14,
+                "score": 0.2890625,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 18,
+            "baseline_score": 0.44921875,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "3": {
+            "true_at_depth": {
+              "1": 25,
+              "2": 24,
+              "3": 23,
+              "4": 22,
+              "5": 21
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.41015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 23,
+                "score": 0.43359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 23,
+                "to": 22,
+                "score": 0.462890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 22,
+                "to": 21,
+                "score": 0.46875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.41015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 27,
+                "score": 0.466796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 27,
+                "to": 23,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 23,
+                "to": 22,
+                "score": 0.462890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 25,
+            "baseline_score": 0.4375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "4": {
+            "true_at_depth": {
+              "1": 32,
+              "2": 31,
+              "3": 30,
+              "4": 29,
+              "5": 28
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.412109375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.412109375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 32,
+            "baseline_score": 0.412109375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "5": {
+            "true_at_depth": {
+              "1": 39,
+              "2": 38,
+              "3": 37,
+              "4": 36,
+              "5": 35
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 36,
+                "score": 0.390625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 36,
+                "to": 35,
+                "score": 0.408203125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 41,
+                "score": 0.462890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 41,
+                "to": 35,
+                "score": 0.31640625,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 39,
+            "baseline_score": 0.451171875,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          }
+        },
+        "per_depth_summary": {
+          "1": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 1.0
+          },
+          "2": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 0.0
+          },
+          "3": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.8333333333333334,
+            "baseline_rate": 0.0
+          },
+          "4": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.3333333333333333,
+            "baseline_rate": 0.0
+          },
+          "5": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.6666666666666666,
+            "baseline_rate": 0.0
+          }
+        },
+        "novalidate_pre_decoy_mean": 1.0,
+        "novalidate_post_decoy_mean": 0.6111111111111112,
+        "novalidate_pre_minus_post_gap": 0.38888888888888884,
+        "validate_post_decoy_mean": 1.0,
+        "validate_minus_novalidate_post_gap": 0.38888888888888884,
+        "validate_mean_all_depths": 1.0,
+        "baseline_depth_ge2_mean": 0.0,
+        "scramble_validate_depth5_rate": 0.0
+      },
+      "_ckpt_key": "29",
+      "_partial_written_at": 1786321298.1305807
+    },
+    "41": {
+      "seed": 41,
+      "N": 1024,
+      "run_mode": "full",
+      "anchor_name": "focus_pullin_causal_stage2a_multihop_loop_v1",
+      "config_version": "ANCHOR=focus_pullin_causal_stage2a_multihop_loop_v1,N=1024,gate=0.32",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: seed=41 validate_all=1.000 baseline_ge2=0.000(must be 0) novalidate_gap=0.444(>= 0.2 for HARD_PASS) validate_vs_novalidate_post_gap=0.444 scramble_depth5=0.000(<=0.10 for HARD_PASS)",
+      "result": {
+        "seed": 41,
+        "n_dim": 1024,
+        "n_chains": 6,
+        "chain_len": 6,
+        "decoy_hop_depth": 3,
+        "gate_thresh": 0.32,
+        "elapsed_s": 0.0238,
+        "per_chain": {
+          "0": {
+            "true_at_depth": {
+              "1": 4,
+              "2": 3,
+              "3": 2,
+              "4": 1,
+              "5": 0
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.376953125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 1,
+                "score": 0.435546875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 1,
+                "to": 0,
+                "score": 0.427734375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.376953125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.45703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 6,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 6,
+                "to": 0,
+                "score": 0.287109375,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 4,
+            "baseline_score": 0.421875,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "1": {
+            "true_at_depth": {
+              "1": 11,
+              "2": 10,
+              "3": 9,
+              "4": 8,
+              "5": 7
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.470703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 8,
+                "score": 0.4140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 8,
+                "to": 7,
+                "score": 0.400390625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.470703125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 13,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 13,
+                "to": 7,
+                "score": 0.29296875,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 11,
+            "baseline_score": 0.443359375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "2": {
+            "true_at_depth": {
+              "1": 18,
+              "2": 17,
+              "3": 16,
+              "4": 15,
+              "5": 14
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.416015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.3984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.439453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 15,
+                "score": 0.4765625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 15,
+                "to": 14,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.416015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.3984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.439453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 15,
+                "score": 0.4765625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 15,
+                "to": 14,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 18,
+            "baseline_score": 0.416015625,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "3": {
+            "true_at_depth": {
+              "1": 25,
+              "2": 24,
+              "3": 23,
+              "4": 22,
+              "5": 21
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.412109375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 23,
+                "score": 0.40234375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 23,
+                "to": 22,
+                "score": 0.435546875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 22,
+                "to": 21,
+                "score": 0.5,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.412109375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 27,
+                "score": 0.40625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 27,
+                "to": 23,
+                "score": 0.37890625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 23,
+                "to": 22,
+                "score": 0.435546875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 25,
+            "baseline_score": 0.453125,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "4": {
+            "true_at_depth": {
+              "1": 32,
+              "2": 31,
+              "3": 30,
+              "4": 29,
+              "5": 28
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.4609375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.419921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.43359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.4609375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 34,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 34,
+                "to": 30,
+                "score": 0.41015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 30,
+                "to": 29,
+                "score": 0.419921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 32,
+            "baseline_score": 0.4609375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "5": {
+            "true_at_depth": {
+              "1": 39,
+              "2": 38,
+              "3": 37,
+              "4": 36,
+              "5": 35
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.431640625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 36,
+                "score": 0.486328125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 36,
+                "to": 35,
+                "score": 0.48828125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.431640625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 36,
+                "score": 0.486328125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 36,
+                "to": 35,
+                "score": 0.48828125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 39,
+            "baseline_score": 0.431640625,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          }
+        },
+        "per_depth_summary": {
+          "1": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 1.0
+          },
+          "2": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 0.0
+          },
+          "3": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.6666666666666666,
+            "baseline_rate": 0.0
+          },
+          "4": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.3333333333333333,
+            "baseline_rate": 0.0
+          },
+          "5": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.6666666666666666,
+            "baseline_rate": 0.0
+          }
+        },
+        "novalidate_pre_decoy_mean": 1.0,
+        "novalidate_post_decoy_mean": 0.5555555555555555,
+        "novalidate_pre_minus_post_gap": 0.44444444444444453,
+        "validate_post_decoy_mean": 1.0,
+        "validate_minus_novalidate_post_gap": 0.44444444444444453,
+        "validate_mean_all_depths": 1.0,
+        "baseline_depth_ge2_mean": 0.0,
+        "scramble_validate_depth5_rate": 0.0
+      },
+      "_ckpt_key": "41",
+      "_partial_written_at": 1786321298.167413
+    },
+    "53": {
+      "seed": 53,
+      "N": 1024,
+      "run_mode": "full",
+      "anchor_name": "focus_pullin_causal_stage2a_multihop_loop_v1",
+      "config_version": "ANCHOR=focus_pullin_causal_stage2a_multihop_loop_v1,N=1024,gate=0.32",
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: seed=53 validate_all=1.000 baseline_ge2=0.000(must be 0) novalidate_gap=0.556(>= 0.2 for HARD_PASS) validate_vs_novalidate_post_gap=0.556 scramble_depth5=0.000(<=0.10 for HARD_PASS)",
+      "result": {
+        "seed": 53,
+        "n_dim": 1024,
+        "n_chains": 6,
+        "chain_len": 6,
+        "decoy_hop_depth": 3,
+        "gate_thresh": 0.32,
+        "elapsed_s": 0.0179,
+        "per_chain": {
+          "0": {
+            "true_at_depth": {
+              "1": 4,
+              "2": 3,
+              "3": 2,
+              "4": 1,
+              "5": 0
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.416015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 1,
+                "score": 0.392578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 1,
+                "to": 0,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 5,
+                "to": 4,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 4,
+                "to": 3,
+                "score": 0.4375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 3,
+                "to": 2,
+                "score": 0.416015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 2,
+                "to": 6,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 6,
+                "to": 0,
+                "score": 0.244140625,
+                "admitted": false,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 4,
+            "baseline_score": 0.421875,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": false,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "1": {
+            "true_at_depth": {
+              "1": 11,
+              "2": 10,
+              "3": 9,
+              "4": 8,
+              "5": 7
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.412109375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 8,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 8,
+                "to": 7,
+                "score": 0.40625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 12,
+                "to": 11,
+                "score": 0.412109375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 11,
+                "to": 10,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 10,
+                "to": 9,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 9,
+                "to": 8,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 8,
+                "to": 7,
+                "score": 0.40625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 11,
+            "baseline_score": 0.412109375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          },
+          "2": {
+            "true_at_depth": {
+              "1": 18,
+              "2": 17,
+              "3": 16,
+              "4": 15,
+              "5": 14
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.408203125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 16,
+                "score": 0.421875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 16,
+                "to": 15,
+                "score": 0.416015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 15,
+                "to": 14,
+                "score": 0.443359375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 19,
+                "to": 18,
+                "score": 0.447265625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 18,
+                "to": 17,
+                "score": 0.408203125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 17,
+                "to": 20,
+                "score": 0.42578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 20,
+                "to": 16,
+                "score": 0.4765625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 16,
+                "to": 15,
+                "score": 0.416015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 18,
+            "baseline_score": 0.447265625,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "3": {
+            "true_at_depth": {
+              "1": 25,
+              "2": 24,
+              "3": 23,
+              "4": 22,
+              "5": 21
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.455078125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.41015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 23,
+                "score": 0.46484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 23,
+                "to": 22,
+                "score": 0.4921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 22,
+                "to": 21,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 26,
+                "to": 25,
+                "score": 0.455078125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 25,
+                "to": 24,
+                "score": 0.41015625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 24,
+                "to": 27,
+                "score": 0.466796875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 27,
+                "to": 23,
+                "score": 0.451171875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 23,
+                "to": 22,
+                "score": 0.4921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 25,
+            "baseline_score": 0.455078125,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "4": {
+            "true_at_depth": {
+              "1": 32,
+              "2": 31,
+              "3": 30,
+              "4": 29,
+              "5": 28
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.46484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 30,
+                "score": 0.44140625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 4,
+                "from": 30,
+                "to": 29,
+                "score": 0.396484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 2
+              },
+              {
+                "hop": 5,
+                "from": 29,
+                "to": 28,
+                "score": 0.3984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 33,
+                "to": 32,
+                "score": 0.46484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 32,
+                "to": 31,
+                "score": 0.44921875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 31,
+                "to": 34,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 34,
+                "to": 30,
+                "score": 0.458984375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 30,
+                "to": 29,
+                "score": 0.396484375,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 32,
+            "baseline_score": 0.46484375,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 2
+          },
+          "5": {
+            "true_at_depth": {
+              "1": 39,
+              "2": 38,
+              "3": 37,
+              "4": 36,
+              "5": 35
+            },
+            "trace_validate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.388671875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.392578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.431640625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 36,
+                "score": 0.431640625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 36,
+                "to": 35,
+                "score": 0.4453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "trace_novalidate": [
+              {
+                "hop": 1,
+                "from": 40,
+                "to": 39,
+                "score": 0.388671875,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 2,
+                "from": 39,
+                "to": 38,
+                "score": 0.392578125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 3,
+                "from": 38,
+                "to": 37,
+                "score": 0.431640625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 4,
+                "from": 37,
+                "to": 36,
+                "score": 0.431640625,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              },
+              {
+                "hop": 5,
+                "from": 36,
+                "to": 35,
+                "score": 0.4453125,
+                "admitted": true,
+                "validated_ok": true,
+                "attempts": 1
+              }
+            ],
+            "baseline_candidate_idx": 39,
+            "baseline_score": 0.388671875,
+            "rec_validate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_novalidate": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true
+            },
+            "rec_baseline": {
+              "1": true,
+              "2": false,
+              "3": false,
+              "4": false,
+              "5": false
+            },
+            "decoy_hop_attempts_validate": 1
+          }
+        },
+        "per_depth_summary": {
+          "1": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 1.0
+          },
+          "2": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 1.0,
+            "baseline_rate": 0.0
+          },
+          "3": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.5,
+            "baseline_rate": 0.0
+          },
+          "4": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.3333333333333333,
+            "baseline_rate": 0.0
+          },
+          "5": {
+            "validate_rate": 1.0,
+            "novalidate_rate": 0.5,
+            "baseline_rate": 0.0
+          }
+        },
+        "novalidate_pre_decoy_mean": 1.0,
+        "novalidate_post_decoy_mean": 0.4444444444444444,
+        "novalidate_pre_minus_post_gap": 0.5555555555555556,
+        "validate_post_decoy_mean": 1.0,
+        "validate_minus_novalidate_post_gap": 0.5555555555555556,
+        "validate_mean_all_depths": 1.0,
+        "baseline_depth_ge2_mean": 0.0,
+        "scramble_validate_depth5_rate": 0.0
+      },
+      "_ckpt_key": "53",
+      "_partial_written_at": 1786321298.1942103
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "sigs": {
+      "validate": "750a5af78e34371e472b3851810cb103d177779cc379f6d2101d0c75679fa468",
+      "novalidate": "fcff99852094ed7de1164d688b1c006461669b0faa086acb888093d612781393",
+      "baseline": "7727467f5c8cb99024a68f4ac2bc78381992ca8070e17e379657683fc426f84d"
+    },
+    "pairs_differ": {
+      "validate_vs_novalidate": true,
+      "validate_vs_baseline": true,
+      "novalidate_vs_baseline": true
+    },
+    "all_differ": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "accuracy-comparison retrieval ablation over a fixed 6-chain micro-world; no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: GATE_THRESH=0.32 fixed before this run, validated unchanged across seeds 7/17/29/41/53 at calibration time (see prereg)"
+}

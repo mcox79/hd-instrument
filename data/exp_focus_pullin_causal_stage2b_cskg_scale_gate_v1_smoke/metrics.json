@@ -1,0 +1,68 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "FULL_CARDINALITY_POINT: HARD_PASS: relevant_recall=0.700 false_pull_in=0.000 shortlist_rate=1.000",
+  "summary": "HARD_PASS at scale=10000: HARD_PASS: relevant_recall=0.700 false_pull_in=0.000 shortlist_rate=1.000",
+  "elapsed_s": 72.074,
+  "run_mode": "smoke",
+  "anchor_name": "focus_pullin_causal_stage2b_cskg_scale_gate_v1",
+  "gate_thresh": 0.28,
+  "n_dim": 1024,
+  "n_ent": 482588,
+  "n_rel": 33,
+  "n_spine_edges_total": 1213912,
+  "scales": [
+    1000,
+    10000
+  ],
+  "per_scale": {
+    "1000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.9666666666666667,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 1000,
+      "ingest_s": 0.016,
+      "eval_s": 32.756,
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.967 false_pull_in=0.000 shortlist_rate=1.000"
+    },
+    "10000": {
+      "n_relevant_queried": 150,
+      "relevant_recall": 0.7,
+      "relevant_in_shortlist_rate": 1.0,
+      "n_negative_queried": 150,
+      "false_pull_in_rate": 0.0,
+      "scale": 10000,
+      "ingest_s": 0.096,
+      "eval_s": 31.155,
+      "verdict": "HARD_PASS",
+      "verdict_msg": "HARD_PASS: relevant_recall=0.700 false_pull_in=0.000 shortlist_rate=1.000"
+    }
+  },
+  "scramble_objects_control": null,
+  "arms_differ_check": null,
+  "arms_differ_verified": null,
+  "full_cardinality_point": {
+    "n_relevant_queried": 150,
+    "relevant_recall": 0.7,
+    "relevant_in_shortlist_rate": 1.0,
+    "n_negative_queried": 150,
+    "false_pull_in_rate": 0.0,
+    "scale": 10000,
+    "ingest_s": 0.096,
+    "eval_s": 31.155,
+    "verdict": "HARD_PASS",
+    "verdict_msg": "HARD_PASS: relevant_recall=0.700 false_pull_in=0.000 shortlist_rate=1.000"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "empirical cardinality-capacity diagnostic sweep over the real CSKG store; no single closed-form noise floor -- measuring where the floor sits IS the test",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: GATE_THRESH=0.28 is Stage-1's ORIGINAL un-retuned number, held fixed by the Stage-2 task CONTRACT"
+}
